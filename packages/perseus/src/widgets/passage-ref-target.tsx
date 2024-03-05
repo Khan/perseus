@@ -1,9 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "@khanacademy/perseus-linter";
-import PropTypes from "prop-types";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
@@ -11,16 +7,22 @@ import * as Changeable from "../mixins/changeable";
 import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
 import Renderer from "../renderer";
 
-import type {WidgetExports} from "../types";
+import type {PerseusPassageRefTargetWidgetOptions} from "../perseus-types";
+import type {APIOptions, WidgetExports} from "../types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-class PassageRefTarget extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        content: PropTypes.string,
-        linterContext: linterContextProps,
-    };
+type Props = Changeable.ChangeableProps & {
+    apiOptions: APIOptions;
+    content: PerseusPassageRefTargetWidgetOptions["content"];
+    linterContext: LinterContextProps;
+};
 
-    static defaultProps: any = {
+type DefaultProps = {
+    content: Props["content"];
+    linterContext: Props["linterContext"];
+};
+class PassageRefTarget extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         content: "",
         linterContext: linterContextDefault,
     };

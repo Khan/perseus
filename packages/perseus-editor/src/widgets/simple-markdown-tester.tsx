@@ -1,21 +1,21 @@
 /* eslint-disable react/sort-comp */
 import {Changeable, PerseusMarkdown} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
+
+import type {PerseusSimpleMarkdownTesterWidgetOptions} from "@khanacademy/perseus";
 
 const mdParse = PerseusMarkdown.parse;
 const mdOutput = PerseusMarkdown.basicOutput;
 
-type Props = any;
-
+type Props = Changeable.ChangeableProps & {
+    value: PerseusSimpleMarkdownTesterWidgetOptions["value"];
+};
+type DefaultProps = {
+    value: Props["value"];
+};
 class SimpleMarkdownTester extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        value: PropTypes.string,
-    };
-
-    static defaultProps: Props = {
+    static defaultProps: DefaultProps = {
         value: "",
     };
 

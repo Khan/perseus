@@ -1,5 +1,9 @@
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import MathQuill from "mathquill";
+
+import {inJest} from "../../utils";
+
+import {mathQuillStrings} from "./strings";
 
 import type {
     MathQuillInterface,
@@ -23,12 +27,17 @@ const createBaseConfig = (): MathFieldConfig => ({
         "arccos",
         "arcsin",
         "arctan",
+        "arctg",
         "arg",
         "cos",
+        "cosec",
+        "cossec",
         "cosh",
         "cot",
+        "cotg",
         "coth",
         "csc",
+        "ctg",
         "deg",
         "det",
         "dim",
@@ -55,6 +64,7 @@ const createBaseConfig = (): MathFieldConfig => ({
         "sup",
         "tan",
         "tanh",
+        "tg",
     ].join(" "),
 
     // Pop the cursor out of super/subscripts on arithmetic operators
@@ -99,8 +109,19 @@ export function createMathField(
 
     const mathField = mathQuillInstance
         .MathField(container, config)
-        // translated in ./math-input.tsx
-        .setAriaLabel(i18n._("Math input box")) as MathFieldInterface;
+        .setAriaLabel(mathQuillStrings.mathInputBox)
+        .setAriaStringsOverrideMap(
+            mathQuillStrings.ariaStaticStringsMap,
+        ) as MathFieldInterface;
+
+    // We should avoid running SpeechRuleEngine.setup() in Jest. It makes an
+    //   HTTP request to fetch non-english speech rules, and cannot be easily
+    //   mocked in consuming packages now that we do not bundle source code.
+    //   When it eventually times out, it will cause arbitrary test failures.
+    !inJest &&
+        SpeechRuleEngine.setup().then((SRE) =>
+            mathField.setMathspeakOverride(SRE.texToSpeech),
+        );
 
     return mathField;
 }

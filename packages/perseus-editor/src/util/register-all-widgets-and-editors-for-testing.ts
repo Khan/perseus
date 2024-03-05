@@ -12,6 +12,6 @@ export const registerAllWidgetsAndEditorsForTesting = () => {
     Widgets.registerWidgets(allWidgets);
     Widgets.registerEditors(allEditors);
 
-    Widgets.replaceEditor("transformer", "deprecated-standin");
-    Widgets.replaceWidget("transformer", "deprecated-standin");
+    Widgets.replaceDeprecatedWidgets();
+    Widgets.replaceDeprecatedEditors();
 };

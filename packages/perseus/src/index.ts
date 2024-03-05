@@ -84,6 +84,10 @@ export {
     injectWidgets,
 } from "./util/extract-perseus-data";
 export {parsePerseusItem} from "./util/parse-perseus-json";
+export {
+    generateTestPerseusItem,
+    genericPerseusItemData,
+} from "./util/test-utils";
 
 /**
  * Mixins
@@ -136,9 +140,14 @@ export type {
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
     PerseusPlotterWidgetOptions,
+    PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
+    PerseusExampleWidgetOptions,
+    PerseusExampleGraphieWidgetOptions,
+    PerseusSimpleMarkdownTesterWidgetOptions,
     PerseusRenderer,
     PerseusWidget,
+    PerseusWidgetsMap,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";

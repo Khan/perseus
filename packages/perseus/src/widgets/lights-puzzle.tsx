@@ -7,7 +7,41 @@ import _ from "underscore";
 import * as Changeable from "../mixins/changeable";
 import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
 
+import type {PerseusLightsPuzzleWidgetOptions} from "../perseus-types";
 import type {WidgetExports} from "../types";
+
+// Types
+type LightsPuzzleProps = Changeable.ChangeableProps & {
+    cells: PerseusLightsPuzzleWidgetOptions["cells"];
+    startCells: PerseusLightsPuzzleWidgetOptions["startCells"];
+    flipPattern: PerseusLightsPuzzleWidgetOptions["flipPattern"];
+    moveCount: PerseusLightsPuzzleWidgetOptions["moveCount"];
+};
+
+type TileGridProps = Changeable.ChangeableProps & {
+    cells: LightsPuzzleProps["cells"];
+    size: number;
+};
+
+type TileProps = Changeable.ChangeableProps & {
+    value: boolean;
+    size: number;
+};
+
+type DefaultProps = {
+    cells: LightsPuzzleProps["cells"];
+    startCells: LightsPuzzleProps["startCells"];
+    flipPattern: LightsPuzzleProps["flipPattern"];
+    moveCount: LightsPuzzleProps["moveCount"];
+};
+
+type FlipCoords = {
+    value: {
+        y: number;
+        x: number;
+    };
+};
+// Constants
 
 const MAX_SIZE = 8;
 
@@ -88,7 +122,7 @@ const clampToInt = function (value: number, min: any, max) {
 };
 
 // A single glowy cell
-class Tile extends React.Component<any> {
+class Tile extends React.Component<TileProps> {
     static propTypes = {
         value: PropTypes.bool.isRequired,
         size: PropTypes.number.isRequired,
@@ -105,41 +139,38 @@ class Tile extends React.Component<any> {
     }
 
     _flip = () => {
-        this.props.onChange(!this.props.value);
+        // On change requires a value, but we don't actually have access
+        // to the coordinates here, so we just pass the inverse value as a workaround.
+        this.props.onChange({value: !this.props.value});
     };
 }
 
 // A grid of glowy cells
-class TileGrid extends React.Component<any> {
-    static propTypes = {
-        cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)).isRequired,
-        size: PropTypes.number.isRequired,
-    };
-
+class TileGrid extends React.Component<TileGridProps> {
     render(): React.ReactNode {
         return (
             <div style={TABLE_STYLE} className="no-select">
-                {_.map(this.props.cells, (row, y) => {
-                    return (
-                        <div key={y} style={ROW_STYLE}>
-                            {_.map(row, (cell, x) => {
-                                return (
-                                    <div key={x} style={CELL_STYLE}>
-                                        <Tile
-                                            value={cell}
-                                            size={this.props.size}
-                                            onChange={_.partial(
-                                                this.props.onChange,
-                                                y,
-                                                x,
-                                            )}
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    );
-                })}
+                {this.props.cells &&
+                    _.map(this.props.cells, (row, y) => {
+                        return (
+                            <div key={y} style={ROW_STYLE}>
+                                {_.map(row, (cell, x) => {
+                                    return (
+                                        <div key={x} style={CELL_STYLE}>
+                                            <Tile
+                                                value={cell}
+                                                size={this.props.size}
+                                                onChange={_.partial(
+                                                    this.props.onChange,
+                                                    {value: {y, x}},
+                                                )}
+                                            />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        );
+                    })}
             </div>
         );
     }
@@ -170,21 +201,13 @@ const flipTilesPattern = (oldCells: any, tileY: any, tileX, pattern: any) => {
 };
 
 // The lights puzzle widget
-class LightsPuzzle extends React.Component<any> {
+class LightsPuzzle extends React.Component<LightsPuzzleProps> {
     _currPattern: any;
     _nextPattern: any;
     // @ts-expect-error - TS2564 - Property '_patternIndex' has no initializer and is not definitely assigned in the constructor.
     _patternIndex: number;
 
-    static propTypes = {
-        ...Changeable.propTypes,
-        cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
-        startCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
-        flipPattern: PropTypes.string.isRequired,
-        moveCount: PropTypes.number.isRequired,
-    };
-
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         cells: [
             [false, false, false],
             [false, false, false],
@@ -242,7 +265,7 @@ class LightsPuzzle extends React.Component<any> {
     };
 
     _width: () => number = () => {
-        if (this.props.cells.length !== 0) {
+        if (this.props.cells && this.props.cells.length !== 0) {
             return this.props.cells[0].length;
         }
         return 0; // default to 0
@@ -259,31 +282,35 @@ class LightsPuzzle extends React.Component<any> {
     }
 
     _initNextPatterns: () => void = () => {
-        this._currPattern = PATTERNS[this.props.flipPattern](0);
-        this._nextPattern = PATTERNS[this.props.flipPattern](1);
+        if (this.props.flipPattern) {
+            this._currPattern = PATTERNS[this.props.flipPattern](0);
+            this._nextPattern = PATTERNS[this.props.flipPattern](1);
+        }
         this._patternIndex = 2;
     };
 
     _shiftPatterns: () => void = () => {
-        this._currPattern = this._nextPattern;
-        this._nextPattern = PATTERNS[this.props.flipPattern](
-            this._patternIndex,
-        );
-        this._patternIndex++;
+        if (this.props.flipPattern) {
+            this._currPattern = this._nextPattern;
+            this._nextPattern = PATTERNS[this.props.flipPattern](
+                this._patternIndex,
+            );
+            this._patternIndex++;
+        }
     };
 
-    _flipTile: (arg1: any, arg2: any) => void = (tileY, tileX) => {
+    _flipTile: (FlipCoords) => void = ({value: {y, x}}) => {
         const newCells = flipTilesPattern(
             this.props.cells,
-            tileY,
-            tileX,
+            y,
+            x,
             this._currPattern,
         );
         this._shiftPatterns();
 
         this.change({
             cells: newCells,
-            moveCount: this.props.moveCount + 1,
+            moveCount: (this.props.moveCount || 0) + 1,
         });
     };
 

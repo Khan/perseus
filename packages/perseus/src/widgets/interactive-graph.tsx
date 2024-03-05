@@ -32,6 +32,8 @@ import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
+import {MafsGraph} from "./interactive-graphs";
+
 import type {Coord} from "../interactive2/types";
 import type {
     PerseusGraphType,
@@ -41,6 +43,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
+import type {Widget} from "../renderer";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 import type {
     QuadraticCoefficient,
@@ -174,6 +177,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         },
     };
 
+    mafsRef = React.createRef<Widget>();
+
     state: State = {
         shouldShowInstructions: _getShouldShowInstructions(this.props),
     };
@@ -184,9 +189,11 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
-        this.setGraphie(this.refs.graph.graphie());
+        if (this.refs.graph) {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
+            this.setGraphie(this.refs.graph.graphie());
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -470,9 +477,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             return Interactive2.addMaybeMobileMovablePoint(this, {
                 coord: coord,
                 constraints: [
-                    // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.bound(),
-                    // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.snap(),
                 ],
                 onMove: () => {
@@ -553,9 +558,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[0],
             constraints: [
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord) => {
                     return (
@@ -577,9 +580,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[1],
             constraints: [
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return (
@@ -601,9 +602,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         pointC = this.pointC = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[2],
             constraints: [
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return (
@@ -685,9 +684,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[0],
             constraints: [
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return !pointA || coord[0] !== pointB.coord()[0];
@@ -701,9 +698,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             {
                 coord: coords[1],
                 constraints: [
-                    // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.bound(),
-                    // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.snap(),
                     (coord: any) => {
                         // @ts-expect-error - TS2339 - Property 'coord' does not exist on type 'never'.
@@ -806,9 +801,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                         Interactive2.addMaybeMobileMovablePoint(this, {
                             coord: coord,
                             constraints: [
-                                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.bound(),
-                                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.snap(),
                                 (coord) => {
                                     const otherSegment = segmentPoints[1 - i];
@@ -905,9 +898,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         point = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coord,
             constraints: [
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 function (coord) {
                     // TODO(jack): There ought to be a
@@ -1278,11 +1269,9 @@ class InteractiveGraph extends React.Component<Props, State> {
         const point = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coord,
             constraints: [
-                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
                 snapToGrid
-                    ? // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                      Interactive2.MovablePoint.constraints.snap()
+                    ? Interactive2.MovablePoint.constraints.snap()
                     : null,
                 graphConstraint,
             ],
@@ -1399,9 +1388,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                         createPoint({
                             coord: coord,
                             constraints: [
-                                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.bound(),
-                                // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.snap(),
                                 (coord: any) => {
                                     const otherPoint = points[1 - i];
@@ -1692,22 +1679,42 @@ class InteractiveGraph extends React.Component<Props, State> {
         this.onChange({graph: graph});
     };
 
-    getUserInput: () => PerseusGraphType = () => {
-        return InteractiveGraph.getUserInputFromProps(this.props);
-    };
+    getUserInput: () => PerseusGraphType = () =>
+        this.mafsRef.current?.getUserInput?.() ??
+        InteractiveGraph.getUserInputFromProps(this.props);
 
-    simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) => {
-        return InteractiveGraph.validate(this.getUserInput(), rubric, this);
-    };
+    simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
+        InteractiveGraph.validate(this.getUserInput(), rubric, this);
 
     focus: () => void = $.noop;
 
+    // const segment: boolean = useFeatureIsOn("mafs-segment-graph");
+    // <Renderer apiOptions={{flags: {mafs: {segment}}}}
     render(): React.ReactNode {
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
         );
+        const gridStep =
+            this.props.gridStep ||
+            Util.getGridStep(this.props.range, this.props.step, box[0]);
+        const snapStep =
+            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+
+        // Mafs shim
+        if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
+            return (
+                <MafsGraph
+                    {...this.props}
+                    ref={this.mafsRef}
+                    gridStep={gridStep}
+                    snapStep={snapStep}
+                    box={box}
+                />
+            );
+        }
 
         let instructions;
+        // isClickToAddPoints() only applies to points and polygons
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
             if (this.props.graph.type === "point") {
                 instructions = i18n._("Click to add points");
@@ -1722,12 +1729,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         if (this.isClickToAddPoints()) {
             onMouseDown = this.handleAddPointsMouseDown;
         }
-
-        const gridStep =
-            this.props.gridStep ||
-            Util.getGridStep(this.props.range, this.props.step, box[0]);
-        const snapStep =
-            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
         const isMobile = this.props.apiOptions.isMobile;
 
@@ -1770,6 +1771,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                         this.props.apiOptions.setDrawingAreaAvailable
                     }
                     isMobile={isMobile}
+                    lockedFigures={this.props.lockedFigures}
                 />
             </div>
         );

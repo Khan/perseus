@@ -1,13 +1,19 @@
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-import "@testing-library/jest-dom";
 
 import Keys from "../../../data/key-configs";
 import {KeypadButton} from "../keypad-button";
 
 describe("<KeypadButton />", () => {
-    it("uses the aria label from the key config", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("uses the aria label from the key config", async () => {
         // Arrange
         render(
             <KeypadButton
@@ -23,7 +29,7 @@ describe("<KeypadButton />", () => {
         ).toBeInTheDocument();
     });
 
-    it("handles onClickKey callback with click", () => {
+    it("handles onClickKey callback with click", async () => {
         // Arrange
         // persist event to prevent React from releasing/nullifying before assertion
         const mockClickKeyCallback = jest.fn((_, _1, event) => event.persist());
@@ -36,7 +42,9 @@ describe("<KeypadButton />", () => {
         );
 
         // Act
-        userEvent.click(screen.getByRole("button", {name: "Left parenthesis"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Left parenthesis"}),
+        );
 
         // Assert
         expect(mockClickKeyCallback).toHaveBeenCalledWith(
@@ -49,7 +57,7 @@ describe("<KeypadButton />", () => {
         );
     });
 
-    it("handles onClickKey callback with keyboard press", () => {
+    it("handles onClickKey callback with keyboard press", async () => {
         // Arrange
         // persist event to prevent React from releasing/nullifying before assertion
         const mockClickKeyCallback = jest.fn((_, _1, event) => event.persist());
@@ -63,7 +71,7 @@ describe("<KeypadButton />", () => {
 
         // Act
         screen.getByRole("button", {name: "Right parenthesis"}).focus();
-        userEvent.keyboard("{enter}");
+        await userEvent.keyboard("{enter}");
 
         // Assert
         expect(mockClickKeyCallback).toHaveBeenCalledWith(

@@ -1,8 +1,7 @@
 import * as wbi18n from "@khanacademy/wonder-blocks-i18n";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-import "@testing-library/jest-dom";
 
 import keyConfigs from "../../../data/key-configs";
 import * as utils from "../../../utils";
@@ -22,6 +21,13 @@ const contextToKeyAria = {
 
 describe("keypad", () => {
     const originalDecimalSeparator = utils.decimalSeparator;
+    let userEvent;
+
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
 
     afterEach(() => {
         // @ts-expect-error TS2540 - Cannot assign to 'decimalSeparator' because it is a read-only property.
@@ -31,14 +37,14 @@ describe("keypad", () => {
 
     describe("shows navigation buttons", () => {
         Object.entries(contextToKeyAria).forEach(([context, ariaLabel]) => {
-            it(`shows button for ${context}`, () => {
+            it(`shows button for ${context}`, async () => {
                 // Arrange
                 // Act
                 render(
                     <Keypad
                         onClickKey={() => {}}
                         cursorContext={
-                            context as typeof CursorContext[keyof typeof CursorContext]
+                            context as (typeof CursorContext)[keyof typeof CursorContext]
                         }
                         onAnalyticsEvent={async () => {
                             /* TODO: verify correct analytics event sent */
@@ -92,7 +98,7 @@ describe("keypad", () => {
         expect(container).toMatchSnapshot("first render");
     });
 
-    it(`shows optional dismiss button`, () => {
+    it(`shows optional dismiss button`, async () => {
         // Arrange
         // Act
         render(
@@ -126,7 +132,7 @@ describe("keypad", () => {
         ).not.toBeInTheDocument();
     });
 
-    it(`shows the dot symbol when convertDotToTimes is false`, () => {
+    it(`shows the dot symbol when convertDotToTimes is false`, async () => {
         // Arrange
         // Act
         render(
@@ -141,7 +147,7 @@ describe("keypad", () => {
         expect(screen.getByTestId("CDOT")).toBeInTheDocument();
     });
 
-    it(`shows the times symbol when convertDotToTimes is true`, () => {
+    it(`shows the times symbol when convertDotToTimes is true`, async () => {
         // Arrange
         // Act
         render(
@@ -156,7 +162,7 @@ describe("keypad", () => {
         expect(screen.getByTestId("TIMES")).toBeInTheDocument();
     });
 
-    it(`forces CDOT in locales that require it`, () => {
+    it(`forces CDOT in locales that require it`, async () => {
         // Arrange
         jest.spyOn(wbi18n, "getLocale").mockReturnValue("az");
 
@@ -174,7 +180,7 @@ describe("keypad", () => {
         expect(screen.queryByTestId("TIMES")).not.toBeInTheDocument();
     });
 
-    it(`forces TIMES in locales that require it`, () => {
+    it(`forces TIMES in locales that require it`, async () => {
         // Arrange
         jest.spyOn(wbi18n, "getLocale").mockReturnValue("fr");
 
@@ -207,7 +213,7 @@ describe("keypad", () => {
         expect(screen.queryByRole("tab")).not.toBeInTheDocument();
     });
 
-    it(`clicking tab triggers callback`, () => {
+    it(`clicking tab triggers callback`, async () => {
         // Arrange
         const onClickKey = jest.fn();
 
@@ -225,10 +231,10 @@ describe("keypad", () => {
         for (const tabData of tabs) {
             const tab = screen.getByLabelText(tabData.name);
             expect(tab).toBeInTheDocument();
-            userEvent.click(tab);
+            await userEvent.click(tab);
             const key = screen.getByLabelText(tabData.label);
             expect(key).toBeInTheDocument();
-            userEvent.click(key);
+            await userEvent.click(key);
         }
 
         // Assert
@@ -264,7 +270,7 @@ describe("keypad", () => {
         ).not.toBeInTheDocument();
     });
 
-    it(`shows navigation pad in expanded view`, () => {
+    it(`shows navigation pad in expanded view`, async () => {
         // Arrange
         // Act
         render(
@@ -293,7 +299,7 @@ describe("keypad", () => {
         ).toBeInTheDocument();
     });
 
-    it(`can show the comma decimal separator`, () => {
+    it(`can show the comma decimal separator`, async () => {
         // @ts-expect-error TS2540 - Cannot assign to 'decimalSeparator' because it is a read-only property.
         // eslint-disable-next-line import/namespace
         utils.decimalSeparator = utils.DecimalSeparator.COMMA;
@@ -308,7 +314,7 @@ describe("keypad", () => {
         expect(screen.getByTestId("comma-decimal")).toBeInTheDocument();
     });
 
-    it(`can show the period decimal separator`, () => {
+    it(`can show the period decimal separator`, async () => {
         // Arrange
         // Act
         render(

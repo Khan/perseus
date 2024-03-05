@@ -1,5 +1,11 @@
 # @khanacademy/perseus-error
 
+## 0.2.11
+
+### Patch Changes
+
+-   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Update formatting for Prettier 2.8.8
+
 ## 0.2.10
 
 ### Patch Changes

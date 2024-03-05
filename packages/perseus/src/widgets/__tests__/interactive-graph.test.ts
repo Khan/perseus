@@ -1,10 +1,16 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {waitFor} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {questionsAndAnswers} from "../__testdata__/interactive-graph.testdata";
+import {
+    questionsAndAnswers,
+    segmentQuestion,
+    segmentQuestionDefaultCorrect,
+} from "../__testdata__/interactive-graph.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
@@ -12,6 +18,7 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -103,4 +110,71 @@ describe("interactive-graph widget", function () {
             });
         },
     );
+});
+
+describe("segment graph", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    const apiOptions = {flags: {mafs: {segment: true}}};
+
+    it("should render", () => {
+        renderQuestion(segmentQuestion, apiOptions);
+    });
+
+    it("should reject when has not been interacteracted with", () => {
+        // Arrange
+        const {renderer} = renderQuestion(segmentQuestion, apiOptions);
+
+        // Act
+        // no action
+
+        // Assert
+        expect(renderer).toHaveInvalidInput();
+    });
+
+    it("rejects incorrect answer", async () => {
+        // Arrange
+        const {renderer, container} = renderQuestion(
+            segmentQuestion,
+            apiOptions,
+        );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "circle.mafs-movable-point-hitbox",
+        );
+
+        // Act
+        await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
+
+        // Assert
+        await waitFor(() => {
+            expect(renderer).toHaveBeenAnsweredIncorrectly();
+        });
+    });
+
+    it("accepts correct answer", async () => {
+        const {renderer, container} = renderQuestion(
+            segmentQuestionDefaultCorrect,
+            apiOptions,
+        );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "circle.mafs-movable-point-hitbox",
+        );
+
+        // Act
+        await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
+
+        // Assert
+        await waitFor(() => {
+            expect(renderer).toHaveBeenAnsweredCorrectly();
+        });
+    });
 });

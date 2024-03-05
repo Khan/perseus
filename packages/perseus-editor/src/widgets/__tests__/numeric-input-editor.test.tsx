@@ -1,15 +1,18 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import NumericInputEditor from "../numeric-input-editor";
 
 describe("numeric-input-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -18,7 +21,7 @@ describe("numeric-input-editor", () => {
     it("should render", async () => {
         render(<NumericInputEditor onChange={() => undefined} />);
 
-        expect(await screen.findByText(/Add new answer/)).toBeInTheDocument();
+        expect(screen.getByText(/Add new answer/)).toBeInTheDocument();
     });
 
     it("should be possible to select normal width", async () => {
@@ -26,7 +29,9 @@ describe("numeric-input-editor", () => {
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("button", {name: "Normal (80px)"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Normal (80px)"}),
+        );
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({size: "normal"}),
@@ -39,7 +44,9 @@ describe("numeric-input-editor", () => {
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("button", {name: "Small (40px)"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Small (40px)"}),
+        );
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({size: "small"}),
@@ -52,7 +59,7 @@ describe("numeric-input-editor", () => {
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {name: "Right alignment"}),
         );
 
@@ -64,7 +71,9 @@ describe("numeric-input-editor", () => {
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("checkbox", {name: "Coefficient"}));
+        await userEvent.click(
+            screen.getByRole("checkbox", {name: "Coefficient"}),
+        );
 
         expect(onChangeMock).toBeCalledWith({coefficient: true});
     });
@@ -78,7 +87,7 @@ describe("numeric-input-editor", () => {
             name: "Label text:",
         });
 
-        userEvent.type(input, "a");
+        await userEvent.type(input, "a");
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({labelText: "a"}),
@@ -89,7 +98,9 @@ describe("numeric-input-editor", () => {
     it("should be possible to toggle options", async () => {
         render(<NumericInputEditor onChange={() => {}} />);
 
-        userEvent.click(screen.getByRole("link", {name: "Toggle options"}));
+        await userEvent.click(
+            screen.getByRole("link", {name: "Toggle options"}),
+        );
 
         expect(
             screen.getByText("Unsimplified answers are"),
@@ -101,8 +112,10 @@ describe("numeric-input-editor", () => {
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("link", {name: "Toggle options"}));
-        userEvent.click(screen.getByRole("button", {name: "ungraded"}));
+        await userEvent.click(
+            screen.getByRole("link", {name: "Toggle options"}),
+        );
+        await userEvent.click(screen.getByRole("button", {name: "ungraded"}));
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
@@ -118,8 +131,10 @@ describe("numeric-input-editor", () => {
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("link", {name: "Toggle options"}));
-        userEvent.click(screen.getByRole("button", {name: "accepted"}));
+        await userEvent.click(
+            screen.getByRole("link", {name: "Toggle options"}),
+        );
+        await userEvent.click(screen.getByRole("button", {name: "accepted"}));
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
@@ -135,8 +150,10 @@ describe("numeric-input-editor", () => {
 
         render(<NumericInputEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("link", {name: "Toggle options"}));
-        userEvent.click(screen.getByRole("button", {name: "wrong"}));
+        await userEvent.click(
+            screen.getByRole("link", {name: "Toggle options"}),
+        );
+        await userEvent.click(screen.getByRole("button", {name: "wrong"}));
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
@@ -162,8 +179,10 @@ describe("numeric-input-editor", () => {
 
             render(<NumericInputEditor onChange={onChangeMock} />);
 
-            userEvent.click(screen.getByRole("link", {name: "Toggle options"}));
-            userEvent.click(screen.getByTitle(name));
+            await userEvent.click(
+                screen.getByRole("link", {name: "Toggle options"}),
+            );
+            await userEvent.click(screen.getByTitle(name));
 
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({

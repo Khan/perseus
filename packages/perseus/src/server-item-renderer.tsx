@@ -278,9 +278,10 @@ export class ServerItemRenderer
             questionHighlightedWidgets: withRemoved,
         });
 
-        if (this.props.apiOptions.interactionCallback) {
-            this.props.apiOptions.interactionCallback();
-        }
+        // Call the interactionCallback, if it exists, with the current user input data
+        this.props.apiOptions?.interactionCallback?.(
+            this.questionRenderer.getUserInputForWidgets(),
+        );
     };
 
     focus(): boolean | null | undefined {

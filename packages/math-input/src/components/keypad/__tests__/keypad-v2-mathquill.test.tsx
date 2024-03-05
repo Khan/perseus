@@ -1,10 +1,8 @@
 import Color from "@khanacademy/wonder-blocks-color";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import "@testing-library/jest-dom";
 
 import {createMathField} from "../../input/mathquill-instance";
 import keyTranslator from "../../key-handlers/key-translator";
@@ -107,7 +105,14 @@ function V2KeypadWithMathquill(props: Props) {
 }
 
 describe("Keypad v2 with MathQuill", () => {
-    it("can write the Pythagorean theorem (simple)", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("can write the Pythagorean theorem (simple)", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -117,27 +122,29 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
 
         // a^2
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "a"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "a"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // +
-        userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        userEvent.click(screen.getByRole("button", {name: "Plus"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
 
         // b^2 =
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "b"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
-        userEvent.click(screen.getByRole("button", {name: "Equals sign"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Equals sign"}),
+        );
 
         // c^2
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "c"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "c"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
@@ -145,7 +152,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it("can write the Pythagorean theorem (complex)", () => {
+    it("can write the Pythagorean theorem (complex)", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -155,27 +162,31 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
 
         // c = /Square root
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "c"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Equals sign"}));
-        userEvent.click(screen.getByRole("button", {name: "Square root"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "c"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Equals sign"}),
+        );
+        await userEvent.click(
+            screen.getByRole("button", {name: "Square root"}),
+        );
 
         // a^2
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "a"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "a"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // +
-        userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        userEvent.click(screen.getByRole("button", {name: "Plus"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
 
         // b^2
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "b"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
@@ -183,7 +194,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it("writes the Pythagorean theorem using typing/clicking together", () => {
+    it("writes the Pythagorean theorem using typing/clicking together", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -193,18 +204,18 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
 
         // Argument is empty because mathquill generates textarea w/o label
-        userEvent.type(screen.getByRole("textbox"), "a");
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.type(screen.getByRole("textbox"), "a");
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
-        userEvent.type(screen.getByRole("textbox"), "+");
+        await userEvent.type(screen.getByRole("textbox"), "+");
 
         // b^2
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "b"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
-        userEvent.type(screen.getByRole("textbox"), "=c^{2}");
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.type(screen.getByRole("textbox"), "=c^{2}");
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
@@ -212,7 +223,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it("deletes from the input using the backspace button", () => {
+    it("deletes from the input using the backspace button", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -222,27 +233,29 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
 
         // a^2
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "a"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "a"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // +
-        userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        userEvent.click(screen.getByRole("button", {name: "Plus"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
 
         // b^2
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "b"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // =c^2
-        userEvent.click(screen.getByRole("button", {name: "Equals sign"}));
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "c"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Equals sign"}),
+        );
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "c"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
         // make sure the formula was typed correctly
@@ -250,17 +263,17 @@ describe("Keypad v2 with MathQuill", () => {
             "a^{2}+b^{2}=c^{2}",
         );
 
-        userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
         // delete: need 14 backspaces in MathQuill to delete `a^2+b^2=c^2`
         for (let i = 0; i < 14; i++) {
-            userEvent.click(screen.getByRole("button", {name: "Delete"}));
+            await userEvent.click(screen.getByRole("button", {name: "Delete"}));
         }
 
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("");
     });
 
     // Keypad event tests
-    it("fires the keypad open event on open", () => {
+    it("fires the keypad open event on open", async () => {
         // Arrange
         const mockAnalyticsEventHandler = jest.fn();
         render(
@@ -272,7 +285,9 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
-        userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Keypad toggle"}),
+        );
 
         // Assert
         expect(mockAnalyticsEventHandler).toHaveBeenLastCalledWith({
@@ -282,7 +297,7 @@ describe("Keypad v2 with MathQuill", () => {
     });
 
     // Keypad event tests
-    it("fires the keypad open event on close", () => {
+    it("fires the keypad open event on close", async () => {
         // Arrange
         const mockAnalyticsEventHandler = jest.fn();
         render(
@@ -293,7 +308,9 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
-        userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Keypad toggle"}),
+        );
 
         // Assert
         expect(mockAnalyticsEventHandler).toHaveBeenLastCalledWith({

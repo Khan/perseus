@@ -4,7 +4,7 @@
  * Copyright (c) 2010 Dmitry Baranovskiy (http://raphaeljs.com)
  * Licensed under the MIT (http://raphaeljs.com/license.html) license.
  */
-(function () {
+export default (function () {
     var setAttr;
     if ("".trim) {
         setAttr = function(node, att, value) {
@@ -3752,5 +3752,5 @@
     R.el = elproto;
     R.st = Set[proto];
 
-    module.exports = R;
+    return R;
 })();

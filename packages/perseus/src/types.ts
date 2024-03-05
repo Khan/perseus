@@ -4,6 +4,7 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
     PerseusWidget,
+    PerseusWidgetsMap,
 } from "./perseus-types";
 import type {SizeClass} from "./util/sizing-utils";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -147,7 +148,7 @@ export type APIOptions = Readonly<{
     readOnly?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
-    interactionCallback?: () => unknown;
+    interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
     // A function that takes in the relative problem number (starts at
     // 0 and is incremented for each group widget), and the ID of the
     // group widget, then returns a react component that will be added
@@ -227,7 +228,9 @@ export type APIOptions = Readonly<{
     // after they have been transformed by the widget's transform function.
     // This is useful for when we need to know how a widget has shuffled its
     // the available choices.
-    onWidgetStartProps?: (widgets: PerseusWidgetMap) => PerseusWidgetMap;
+    // Feature flags that can be passed from consuming application
+    flags?: Record<string, boolean | Record<string, boolean>>;
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => PerseusWidgetsMap;
 }>;
 
 type TeXProps = {
@@ -454,10 +457,6 @@ export type WidgetExports<
         [key: string]: (arg1: any) => any;
     }; // OldProps => NewProps,
 }>;
-
-export type PerseusWidgetMap = {
-    [key: string]: PerseusWidget;
-};
 
 export type FilterCriterion =
     | string

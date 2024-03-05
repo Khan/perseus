@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "17.0.5",
+    "version": "17.2.3",
     "publishConfig": {
         "access": "public"
     },
@@ -24,9 +24,10 @@
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "1.4.2",
-        "mathquill": "git+https://git@github.com/Khan/mathquill.git#b936eba46aa77fe4c6dcb4e6a1f0efeb051d302f"
+        "mathquill": "https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz"
     },
     "devDependencies": {
+        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
@@ -47,6 +48,7 @@
         "react-transition-group": "^4.4.1"
     },
     "peerDependencies": {
+        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",

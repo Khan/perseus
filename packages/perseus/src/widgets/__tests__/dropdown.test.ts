@@ -1,8 +1,5 @@
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
-// TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
-import "@testing-library/jest-dom/extend-expect";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -11,15 +8,18 @@ import {question1} from "../__testdata__/dropdown.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 describe("Dropdown widget", () => {
+    let userEvent;
     beforeEach(() => {
-        jest.useRealTimers();
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
 
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("should snapshot", () => {
+    it("should snapshot", async () => {
         // Arrange and Act
         const {container} = renderQuestion(question1);
 
@@ -33,14 +33,14 @@ describe("Dropdown widget", () => {
 
         // Act
         const dropdown = screen.getByRole("button");
-        userEvent.click(dropdown);
-        await screen.findByText("less than or equal to");
+        await userEvent.click(dropdown);
 
         // Assert
+        expect(screen.getByText("less than or equal to")).toBeInTheDocument();
         expect(container).toMatchSnapshot("dropdown open");
     });
 
-    it("should show placeholder text", () => {
+    it("should show placeholder text", async () => {
         // Arrange
         renderQuestion(question1);
 
@@ -52,35 +52,35 @@ describe("Dropdown widget", () => {
         expect(dropdown).toHaveTextContent("greater/less than or equal to");
     });
 
-    it("should be answerable correctly", () => {
+    it("should be answerable correctly", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
 
         // Act
         const dropdown = screen.getByRole("button");
-        userEvent.click(dropdown);
-        userEvent.click(screen.getByText("less than or equal to"));
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("less than or equal to"));
 
         // Assert
         expect(dropdown).toHaveTextContent("less than or equal to");
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should be answerable incorrectly", () => {
+    it("should be answerable incorrectly", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
 
         // Act
         const dropdown = screen.getByRole("button");
-        userEvent.click(dropdown);
-        userEvent.click(screen.getByText("greater than or equal to"));
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("greater than or equal to"));
 
         // Assert
         expect(dropdown).toHaveTextContent("greater than or equal to");
         expect(renderer).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("should be invalid on first render", () => {
+    it("should be invalid on first render", async () => {
         // Arrange and Act
         const {renderer} = renderQuestion(question1);
 
@@ -88,7 +88,7 @@ describe("Dropdown widget", () => {
         expect(renderer).toHaveInvalidInput();
     });
 
-    it("should be return true when focus() called", () => {
+    it("should be return true when focus() called", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
 

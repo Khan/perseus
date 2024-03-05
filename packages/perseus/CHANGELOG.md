@@ -1,5 +1,192 @@
 # @khanacademy/perseus
 
+## 20.0.0
+
+### Major Changes
+
+-   [#1046](https://github.com/Khan/perseus/pull/1046) [`18a2862a`](https://github.com/Khan/perseus/commit/18a2862ab5eb56bc69b527fcad0edf86ad91ba12) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Deprecation of Lights-Puzzle, Simulator, Reaction Diagram, and Sequence Widgets.
+
+## 19.9.0
+
+### Minor Changes
+
+-   [#1055](https://github.com/Khan/perseus/pull/1055) [`bacbb3a2`](https://github.com/Khan/perseus/commit/bacbb3a2ccc06b54531a5a9537be709c165a8a61) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing the frequency that we're calling interactionCallback
+
+## 19.8.0
+
+### Minor Changes
+
+-   [#1028](https://github.com/Khan/perseus/pull/1028) [`06abf394`](https://github.com/Khan/perseus/commit/06abf3946f044a7ebfdaddaa369f43f781cb091b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Typescript improvements for Perseus Widget Options and Widget types
+
+*   [#1047](https://github.com/Khan/perseus/pull/1047) [`ec31bc74`](https://github.com/Khan/perseus/commit/ec31bc74efe089f312895f4133d20440e19aebe9) Thanks [@benchristel](https://github.com/benchristel)! - Make whole segments draggable in Mafs segment graphs
+
+## 19.7.3
+
+### Patch Changes
+
+-   Updated dependencies [[`54a301e9`](https://github.com/Khan/perseus/commit/54a301e9fa264310927c0909899706a786357c4b)]:
+    -   @khanacademy/math-input@17.2.3
+
+## 19.7.2
+
+### Patch Changes
+
+-   [#1051](https://github.com/Khan/perseus/pull/1051) [`4ef7b067`](https://github.com/Khan/perseus/commit/4ef7b06705bdab89298b8b36b5773cfdf8ce0bec) Thanks [@nedredmond](https://github.com/nedredmond)! - Remove font import from Mafs wrapper
+
+-   Updated dependencies [[`16ca445c`](https://github.com/Khan/perseus/commit/16ca445cf138b82092518498159de2826b169ee8)]:
+    -   @khanacademy/math-input@17.2.2
+
+## 19.7.1
+
+### Patch Changes
+
+-   [#1043](https://github.com/Khan/perseus/pull/1043) [`1b1d0404`](https://github.com/Khan/perseus/commit/1b1d040461dc6c6b9d238a81be4d2d3e96c452d8) Thanks [@nedredmond](https://github.com/nedredmond)! - Bugfixes re: sizing props
+
+## 19.7.0
+
+### Minor Changes
+
+-   [#1023](https://github.com/Khan/perseus/pull/1023) [`3901f863`](https://github.com/Khan/perseus/commit/3901f863f674fec614ec6422af45aa7ad96f0d6d) Thanks [@nedredmond](https://github.com/nedredmond)! - Adds new interactive graph experience behind feature flag
+
+### Patch Changes
+
+-   [#1033](https://github.com/Khan/perseus/pull/1033) [`a78cfc0f`](https://github.com/Khan/perseus/commit/a78cfc0f138fced4b1a465f8774be2c12b2fe789) Thanks [@nishasy](https://github.com/nishasy)! - Update InteractiveGraphSettings to React class. Update `markings` to be "graph" | "grid" | "none" instead of string.
+
+## 19.6.3
+
+### Patch Changes
+
+-   [#1036](https://github.com/Khan/perseus/pull/1036) [`664b037f`](https://github.com/Khan/perseus/commit/664b037fd76e4406f21add1449fc56e90d742148) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add documentation for Widgets type in Renderer
+
+## 19.6.2
+
+### Patch Changes
+
+-   [#1029](https://github.com/Khan/perseus/pull/1029) [`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @testing-library/user-event v14.
+
+-   Updated dependencies [[`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139), [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171)]:
+    -   @khanacademy/math-input@17.2.1
+
+## 19.6.1
+
+### Patch Changes
+
+-   [#1014](https://github.com/Khan/perseus/pull/1014) [`b1552885`](https://github.com/Khan/perseus/commit/b155288568a3f13b3983515391cdbf4dd5092a51) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Fix Spacebar Usage on Explanation Widget
+
+## 19.6.0
+
+### Minor Changes
+
+-   [#1005](https://github.com/Khan/perseus/pull/1005) [`0562929c`](https://github.com/Khan/perseus/commit/0562929c03645028b68da497382489747f0fc2c6) Thanks [@mpolyak](https://github.com/mpolyak)! - In JIPT context rendering split sections into paragraphs in ArticleRenderer
+
+*   [#996](https://github.com/Khan/perseus/pull/996) [`4e2b5100`](https://github.com/Khan/perseus/commit/4e2b51002e41c8f36051775a7ceff4fd1a564526) Thanks [@mpolyak](https://github.com/mpolyak)! - Revert disabling markdown parser list rule in JIPT context
+
+### Patch Changes
+
+-   Updated dependencies [[`0562929c`](https://github.com/Khan/perseus/commit/0562929c03645028b68da497382489747f0fc2c6), [`4e2b5100`](https://github.com/Khan/perseus/commit/4e2b51002e41c8f36051775a7ceff4fd1a564526)]:
+    -   @khanacademy/pure-markdown@0.3.0
+
+## 19.5.1
+
+### Patch Changes
+
+-   [#1020](https://github.com/Khan/perseus/pull/1020) [`30405816`](https://github.com/Khan/perseus/commit/3040581645a67f518920fdf6d94b4f78f2233f0c) Thanks [@nishasy](https://github.com/nishasy)! - Undo update to GraphSettings making it a class function
+
+## 19.5.0
+
+### Minor Changes
+
+-   [#1000](https://github.com/Khan/perseus/pull/1000) [`7038c046`](https://github.com/Khan/perseus/commit/7038c046d3e869e4ad43e3805248f06d61a94af0) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fixes to ensure that users can properly interact with the numberline widget
+
+### Patch Changes
+
+-   Updated dependencies [[`7038c046`](https://github.com/Khan/perseus/commit/7038c046d3e869e4ad43e3805248f06d61a94af0)]:
+    -   @khanacademy/math-input@17.2.0
+
+## 19.4.0
+
+### Minor Changes
+
+-   [#980](https://github.com/Khan/perseus/pull/980) [`7d4d098d`](https://github.com/Khan/perseus/commit/7d4d098dbdbc3f41e89d7e118c8cd83fbcaeb928) Thanks [@Myranae](https://github.com/Myranae)! - Create a helper function for generating correctly typed Perseus test items
+
+### Patch Changes
+
+-   [#1009](https://github.com/Khan/perseus/pull/1009) [`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878) Thanks [@nishasy](https://github.com/nishasy)! - Update GraphSettings to React class. Update `markings` type to be "graph" | "grid" | "none" instead of string.
+
+## 19.3.1
+
+### Patch Changes
+
+-   [#997](https://github.com/Khan/perseus/pull/997) [`6ef53d21`](https://github.com/Khan/perseus/commit/6ef53d213fae13977effbd28c784aa6cd91c6e7f) Thanks [@nishasy](https://github.com/nishasy)! - Add a type for LockedPoint
+
+## 19.3.0
+
+### Minor Changes
+
+-   [#992](https://github.com/Khan/perseus/pull/992) [`955ae480`](https://github.com/Khan/perseus/commit/955ae480a822d875784fb2de65240fe1acd283a5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update of interactionCallback to return current user input data
+
+*   [#1006](https://github.com/Khan/perseus/pull/1006) [`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89) Thanks [@benchristel](https://github.com/benchristel)! - Allow learners to type trig operators in any language in the Expression widget
+
+### Patch Changes
+
+-   Updated dependencies [[`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89)]:
+    -   @khanacademy/math-input@17.1.0
+
+## 19.2.1
+
+### Patch Changes
+
+-   [#1001](https://github.com/Khan/perseus/pull/1001) [`f30c6639`](https://github.com/Khan/perseus/commit/f30c663941a21189f3520b7e38beda0e38320ed3) Thanks [@nishasy](https://github.com/nishasy)! - Expression widget is marked as `accessible` internally. This will stop disabling the "requires screen or mouse" checkbox in the exercise editor for exercises that use expression widget.
+
+## 19.2.0
+
+### Minor Changes
+
+-   [#989](https://github.com/Khan/perseus/pull/989) [`97b5bbfb`](https://github.com/Khan/perseus/commit/97b5bbfbea591d3b6d814ed4717135138fb30dec) Thanks [@aag](https://github.com/aag)! - Add a new python-program widget and its editor
+
+### Patch Changes
+
+-   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor wrapped Raphael SVGs to be ES6 classes
+
+*   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Update formatting for Prettier 2.8.8
+
+*   Updated dependencies [[`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639)]:
+    -   @khanacademy/math-input@17.0.8
+    -   @khanacademy/perseus-linter@0.3.12
+    -   @khanacademy/pure-markdown@0.2.15
+
+## 19.1.9
+
+### Patch Changes
+
+-   [#986](https://github.com/Khan/perseus/pull/986) [`585a3fe9`](https://github.com/Khan/perseus/commit/585a3fe9aaa26ee550d36768c36e626f626a3417) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Wrap some radio widget strings that a learner would see in `i18n._()` calls so they can be localized.
+
+*   [#987](https://github.com/Khan/perseus/pull/987) [`e4ca3c53`](https://github.com/Khan/perseus/commit/e4ca3c5384e9a16e79e4fb2704c0a6dd3c4ebf54) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move Graphie's addMouseLayer function directly onto class (avoid metaprogramming)
+
+-   [#979](https://github.com/Khan/perseus/pull/979) [`9f2eafe4`](https://github.com/Khan/perseus/commit/9f2eafe4c4649fd1ee1a83611b53908eb9cf3468) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve types for Graphie's getMousePx and getMouseCoord functions
+
+*   [#975](https://github.com/Khan/perseus/pull/975) [`36a5ebe1`](https://github.com/Khan/perseus/commit/36a5ebe1ef373058090841fc734778c06e318397) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add tests to cover Graphie's addMouseLayer() function - includes some related type improvements.
+
+## 19.1.8
+
+### Patch Changes
+
+-   [#982](https://github.com/Khan/perseus/pull/982) [`279c3730`](https://github.com/Khan/perseus/commit/279c3730fba6a9854b1434ba7499f5c5cfd2151a) Thanks [@nedredmond](https://github.com/nedredmond)! - Inject localized MathSpeak into MathQuill
+
+-   Updated dependencies [[`279c3730`](https://github.com/Khan/perseus/commit/279c3730fba6a9854b1434ba7499f5c5cfd2151a)]:
+    -   @khanacademy/math-input@17.0.7
+
+## 19.1.7
+
+### Patch Changes
+
+-   [#974](https://github.com/Khan/perseus/pull/974) [`ca0af2eb`](https://github.com/Khan/perseus/commit/ca0af2eb613ece0be8c59798d0e886577c9590c7) Thanks [@nishasy](https://github.com/nishasy)! - Stop keypad from closing when math input field is clicked
+
+*   [#969](https://github.com/Khan/perseus/pull/969) [`3f718367`](https://github.com/Khan/perseus/commit/3f718367f82ecb8819b91220831e34becdbab8c9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor MovablePoint to be an ES6 class
+
+*   Updated dependencies [[`cdf7c0aa`](https://github.com/Khan/perseus/commit/cdf7c0aa0f095b8afba429f2da5328cc11cdb7a3)]:
+    -   @khanacademy/math-input@17.0.6
+
 ## 19.1.6
 
 ### Patch Changes

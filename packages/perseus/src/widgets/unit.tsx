@@ -15,6 +15,7 @@ import * as Changeable from "../mixins/changeable";
 import {ClassNames as ApiClassNames, ApiOptions} from "../perseus-api";
 import {SignificantFigures, displaySigFigs} from "../sigfigs";
 
+import type {PerseusUnitInputWidgetOptions} from "../perseus-types";
 import type {
     APIOptions,
     ChangeHandler,
@@ -61,7 +62,7 @@ type ValidationResult =
 type Props = {
     apiOptions: APIOptions;
     onChange: ChangeHandler;
-    value: string;
+    value: PerseusUnitInputWidgetOptions["value"];
     onBlur: (arg1: FocusPath) => unknown;
     onFocus: (arg1: FocusPath) => unknown;
 };

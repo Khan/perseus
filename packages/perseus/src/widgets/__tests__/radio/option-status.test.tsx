@@ -2,8 +2,6 @@ import {describe, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import "@testing-library/jest-dom"; // Imports custom mathers
-
 import OptionStatus from "../../radio/option-status";
 
 function renderOptionStatus(

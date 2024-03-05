@@ -17,6 +17,7 @@ import {
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
+import {mathQuillStrings} from "./strings";
 
 import type {Cursor, KeypadAPI} from "../../types";
 
@@ -360,6 +361,7 @@ class MathInput extends React.Component<Props, State> {
 
         this.mathField.focus();
         this.props?.onFocus();
+
         this.setState({focused: true}, () => {
             // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
             // occur. Otherwise, the keypad is measured incorrectly. Ideally,
@@ -623,6 +625,13 @@ class MathInput extends React.Component<Props, State> {
         if (!this.state.focused) {
             this.focus();
         }
+
+        // If the user clicked on the input using a mouse or tap gesture,
+        // we want to set the focus to the inputRef so that the keyUp
+        // event will be triggered when the user types on the keyboard.
+        // This is necessary to support Chromebooks as they use mobile user
+        // agents, do not simulate touch events, and have physical keyboards.
+        this.inputRef?.focus();
     };
 
     // We want to allow the user to be able to focus the input via click
@@ -658,6 +667,13 @@ class MathInput extends React.Component<Props, State> {
         if (!this.state.focused) {
             this.focus();
         }
+
+        // If the user clicked on the input using a mouse or tap gesture,
+        // we want to set the focus to the inputRef so that the keyUp
+        // event will be triggered when the user types on the keyboard.
+        // This is necessary to support Chromebooks as they use mobile user
+        // agents, do not simulate touch events, and have physical keyboards.
+        this.inputRef?.focus();
     };
 
     handleTouchMove: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
@@ -857,7 +873,7 @@ class MathInput extends React.Component<Props, State> {
             const value = this.mathField.getContent();
             if (this.props.value !== value) {
                 this.mathField.setContent(this.props.value);
-                this.props.onChange(value, false);
+                this.props.onChange(value, () => {});
                 this._hideCursorHandle();
             }
         }
@@ -924,7 +940,7 @@ class MathInput extends React.Component<Props, State> {
         // TODO(diedra): Fix the bug that is causing Android to require a two finger tap
         // to the open the keyboard, and then remove the second half of this label.
         const ariaLabel =
-            i18n._("Math input box") +
+            mathQuillStrings.mathInputBox +
             " " +
             i18n._("Tap with one or two fingers to open keyboard");
 

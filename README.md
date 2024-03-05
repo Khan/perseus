@@ -1,14 +1,16 @@
 # Perseus
 
 [![codecov](https://codecov.io/gh/Khan/perseus/branch/main/graph/badge.svg)](https://codecov.io/gh/Khan/perseus)
+![npm Version](https://img.shields.io/npm/v/@khanacademy/perseus)
+![License](https://img.shields.io/github/license/Khan/perseus)
 
 <p align="center"><img src="logo.png" alt="perseus logo" width="150px"/></p>
 
 <p align="center"><strong>Perseus Exercise Renderer</strong></p>
 
-Perseus is Khan Academy's exercise system. This repo contains the code needed to take a problem in the perseus format and present it, allow interaction, and grade the result of a learner's work.
+Perseus is Khan Academy's exercise system. This repo contains the code needed to take a problem in the Perseus format and present it, allow interaction, and grade the result of a learner's work.
 
-<p align="center"><img src="sample.png" alt="sample of perseus in use" height="150px"/></p>
+<p align="center"><img src="sample.png" alt="sample of Perseus in use" height="150px"/></p>
 
 This repo is a constellation of sub-repos for showing exercise content. Please see individual projects in in the `packages/` folder for more information about each sub-project.
 
@@ -16,20 +18,20 @@ This repo is a constellation of sub-repos for showing exercise content. Please s
 
 ### Prerequisites
 
-- [Node.JS v12](https://nodejs.org/download/release/v10.18.1/)
+- [Node.js v20](https://nodejs.org/en/blog/announcements/v20-release-announce)
 - [Yarn](https://yarnpkg.com/lang/en/docs/install/)
 
 ### Installation
 
-To install perseus, you need to run the following commands:
+To install Perseus, you need to run the following commands:
 
 #### `yarn install`
 
-Installs project dependencies
+Installs project dependencies and tooling
 
 ### Using Storybook
 
-The components and widgets of perseus are devleoped using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook by running `yarn storybook`. This will start a server and give you a playground to use each component.
+The components and widgets of Perseus are developed using [Storybook](https://github.com/storybookjs/storybook). After you clone the project and get dependencies installed, the next step is to start storybook by running `yarn storybook`. This will start a server and give you a playground to use each component.
 
 ### Using Changesets
 
@@ -50,7 +52,13 @@ Perseus is a monorepo - a single repository that ships multiple npm packages. Ge
 1. `git checkout main; git pull`
 2. `git checkout -b [FEATURE_BRANCH_NAME]`
 3. ☢️ We don’t use deploy branches in Perseus
-4. `yarn start` will start [Storybook](https://storybook.js.org/) on localhost:6006
+4. Start a dev server
+
+    a. `yarn start` will start [Storybook](https://storybook.js.org/) on [localhost:6006](http://localhost:6006)
+
+    b. `yarn dev` will start the custom Dev UI on
+    [localhost:5173](http://localhost:5173/)
+
 5. Do stuff
 6. `yarn test` will run [Jest](https://jestjs.io/)/[RTL](https://testing-library.com/docs/react-testing-library/intro/) tests; `yarn cypress` will run [Cypress](https://www.cypress.io/) tests
 7. `yarn changeset` will walk you through creating a [changeset](https://github.com/changesets/changesets) (we generally stick to [semver](https://semver.org/))
@@ -65,14 +73,15 @@ Perseus is a monorepo - a single repository that ships multiple npm packages. Ge
     - Linting/Types/Tests; checks to make sure code is properly covered
     - Check for a changeset
 2. 🍀 A [snapshot release](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md) is made and can be used to check changes before merging/releasing
-3. Once checks pass and code is approved, land your changes into main
-4. 🚨 main should remain releasable! Don’t land code to main that you’re not ready to ship!
+3. Once checks pass and code is approved, land your changes into `main` using `git land`
+4. 🚨 `main` should always be releasable! Don’t land code to main that you’re not ready to ship!
 5. 🍀 Use stacked feature branches if you’re working on a big change that depends on multiple PRs
 
 ### Releasing Perseus to npm
 
-1. Landing changes to main creates/updates a “Version Packages” PR
+1. Landing changes to `main` creates/updates a “Version Packages” PR
 2. To cut a Perseus release, approve and land the “Version Packages” PR
+   (typically with `git land`)
 3. ☢️ If the CI/CD checks aren’t running, you might need to close and reopen the PR
 4. After the release script runs, you should see the new releases on the [release page](https://github.com/Khan/perseus/releases)
 

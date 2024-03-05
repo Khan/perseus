@@ -40,13 +40,13 @@ type Props = {
     onLoad?: (event: Event) => void;
     // When the DOM updates to replace the preloader with the image, or
     // vice-versa, we trigger this callback.
-    onUpdate: (status: typeof Status[keyof typeof Status]) => void;
+    onUpdate: (status: (typeof Status)[keyof typeof Status]) => void;
     preloader: () => React.ReactElement | null | undefined;
     src: string;
 };
 
 type State = {
-    status: typeof Status[keyof typeof Status];
+    status: (typeof Status)[keyof typeof Status];
 };
 
 class ImageLoader extends React.Component<Props, State> {

@@ -6,8 +6,87 @@ import type {Coord} from "./interactive2/types";
 export type Range = [number, number];
 export type Size = [number, number];
 
+type StyleParams = {
+    fill?: string;
+    stroke?: string;
+};
+
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
+
+export type PerseusWidgetsMap = {
+    [key in `categorizer ${number}`]: CategorizerWidget;
+} & {
+    [key in `cs-program ${number}`]: CSProgramWidget;
+} & {
+    [key in `definition ${number}`]: DefinitionWidget;
+} & {
+    [key in `dropdown ${number}`]: DropdownWidget;
+} & {
+    [key in `example-widget ${number}`]: ExampleWidget;
+} & {
+    [key in `example-graphie-widget ${number}`]: ExampleGraphieWidget;
+} & {
+    [key in `explanation ${number}`]: ExplanationWidget;
+} & {
+    [key in `expression ${number}`]: ExpressionWidget;
+} & {
+    [key in `grapher ${number}`]: GrapherWidget;
+} & {
+    [key in `group ${number}`]: GroupWidget;
+} & {
+    [key in `graded-group ${number}`]: GradedGroupWidget;
+} & {
+    [key in `graded-group-set ${number}`]: GradedGroupSetWidget;
+} & {
+    [key in `iframe ${number}`]: IFrameWidget;
+} & {
+    [key in `image ${number}`]: ImageWidget;
+} & {
+    [key in `input-number ${number}`]: InputNumberWidget;
+} & {
+    [key in `interaction ${number}`]: InteractionWidget;
+} & {
+    [key in `interactive-graph ${number}`]: InteractiveGraphWidget;
+} & {
+    [key in `label-image ${number}`]: LabelImageWidget;
+} & {
+    [key in `matcher ${number}`]: MatcherWidget;
+} & {
+    [key in `matrix ${number}`]: MatrixWidget;
+} & {
+    [key in `measurer ${number}`]: MeasurerWidget;
+} & {
+    [key in `molecule-renderer ${number}`]: MoleculeRendererWidget;
+} & {
+    [key in `number-line ${number}`]: NumberLineWidget;
+} & {
+    [key in `numeric-input ${number}`]: NumericInputWidget;
+} & {
+    [key in `orderer ${number}`]: OrdererWidget;
+} & {
+    [key in `passage ${number}`]: PassageWidget;
+} & {
+    [key in `passage-ref ${number}`]: PassageRefWidget;
+} & {
+    [key in `passage-ref-target ${number}`]: PassageRefWidget;
+} & {
+    [key in `plotter ${number}`]: PlotterWidget;
+} & {
+    [key in `python-program ${number}`]: PythonProgramWidget;
+} & {
+    [key in `radio ${number}`]: RadioWidget;
+} & {
+    [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
+} & {
+    [key in `sorter ${number}`]: SorterWidget;
+} & {
+    [key in `table ${number}`]: TableWidget;
+} & {
+    [key in `unit-input ${number}`]: UnitInputWidget;
+} & {
+    [key in `video ${number}`]: VideoWidget;
+};
 
 export type PerseusItem = {
     // The details of the question being asked to the user.
@@ -41,9 +120,7 @@ export type PerseusRenderer = {
     // additional attributes for the image.
     content: string;
     // A dictionary of {[widgetName]: Widget} to be referenced from the content field
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: PerseusWidgetsMap;
     // Used only for PerseusItem.hints.  If true, it replaces the previous hint in the list with the current one. This allows for hints that build upon each other.
     replace?: boolean;
     // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
@@ -82,7 +159,7 @@ export const ItemExtras = [
     // The user might benefit from using a statistics Z Table like https://www.ztable.net/
     "zTable",
 ] as const;
-export type PerseusAnswerArea = Record<typeof ItemExtras[number], boolean>;
+export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
 type Widget<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
@@ -155,11 +232,9 @@ export type PassageWidget = Widget<'passage', PerseusPassageWidgetOptions>;
 // prettier-ignore
 export type PlotterWidget = Widget<'plotter', PerseusPlotterWidgetOptions>;
 // prettier-ignore
+export type PythonProgramWidget = Widget<'python-program', PerseusPythonProgramWidgetOptions>;
+// prettier-ignore
 export type RadioWidget = Widget<'radio', PerseusRadioWidgetOptions>;
-// prettier-ignore
-export type SequenceWidget = Widget<'sequence', PerseusSequenceWidgetOptions>;
-// prettier-ignore
-export type SimulatorWidget = Widget<'simulator', PerseusSimulatorWidgetOptions>;
 // prettier-ignore
 export type SorterWidget = Widget<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
@@ -171,13 +246,9 @@ export type ExampleWidget = Widget<'example-widget', PerseusExampleWidgetOptions
 // prettier-ignore
 export type InputNumberWidget = Widget<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
-export type LightsPuzzleWidget = Widget<'lights-puzzle', PerseusLightsPuzzleWidgetOptions>;
-// prettier-ignore
 export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
-// prettier-ignore
-export type ReactionDiagramWidget = Widget<'reaction-diagtram', PerseusReactionDiagramWidgetOptions>;
 // prettier-ignore
 export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
@@ -206,7 +277,6 @@ export type PerseusWidget =
     | InteractionWidget
     | InteractiveGraphWidget
     | LabelImageWidget
-    | LightsPuzzleWidget
     | MatcherWidget
     | MatrixWidget
     | MeasurerWidget
@@ -217,12 +287,10 @@ export type PerseusWidget =
     | PassageRefWidget
     | PassageWidget
     | PlotterWidget
+    | PythonProgramWidget
     | RadioWidget
-    | ReactionDiagramWidget
     | RefTargetWidget
-    | SequenceWidget
     | SimpleMarkdownTesterWidget
-    | SimulatorWidget
     | SorterWidget
     | TableWidget
     | UnitInputWidget
@@ -304,6 +372,28 @@ export type PerseusDropdownChoice = {
     correct: boolean;
 };
 
+export type PerseusExampleWidgetOptions = {
+    value: string;
+};
+
+export type PerseusExampleGraphieGraph = {
+    box: Size;
+    range: [Coord, Coord];
+    labels: ReadonlyArray<string>;
+    markings: "graph" | "grid" | "none";
+    gridStep: [number, number];
+    step: [number, number];
+    showProtractor?: boolean;
+    showRuler?: boolean;
+    valid?: boolean;
+    backgroundImage?: PerseusImageBackground | null;
+};
+
+export type PerseusExampleGraphieWidgetOptions = {
+    graph: PerseusExampleGraphieGraph;
+    coord: [Coord, Coord] | null;
+};
+
 export type PerseusExplanationWidgetOptions = {
     // Translatable Text; The clickable text to expand an explanation.  e.g. "What is an apple?"
     showPrompt: string;
@@ -312,9 +402,7 @@ export type PerseusExplanationWidgetOptions = {
     // Translatable Markdown; The explanation that is shown when showPrompt is clicked.  e.g. "An apple is a tasty fruit."
     explanation: string;
     // explanation fields can embed widgets. When they do, the details of the widgets are here.
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: PerseusWidgetsMap;
     // Always false.  Not used for this widget
     static: boolean;
 };
@@ -359,7 +447,7 @@ export type PerseusExpressionAnswerForm = {
     // The answer expression must be fully expanded and simplified
     simplify: boolean;
     // Whether the form is considered "correct", "wrong", or "ungraded"
-    considered: typeof PerseusExpressionAnswerFormConsidered[number];
+    considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
     // A key to identify the answer form in a list
     // NOTE: perseus-format.js says this is required even though it isn't necessary.
     key?: string;
@@ -375,9 +463,7 @@ export type PerseusGradedGroupWidgetOptions = {
     // Translatable Markdown. May include widgets and images embedded.
     content: string;
     // See PerseusRenderer.widgets
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: PerseusWidgetsMap;
     // Not used in Perseus
     widgetEnabled?: boolean | null | undefined;
     // Not used in Perseus
@@ -529,8 +615,13 @@ export type PerseusInteractiveGraphWidgetOptions = {
     snapStep: [number, number];
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
-    // What to show on the graph.  "graph", "grid", or "none"
-    markings: string;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
+    markings: "graph" | "grid" | "none";
     // How to label the X and Y axis.  default: ["x", "y"]
     labels: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
@@ -552,6 +643,17 @@ export type PerseusInteractiveGraphWidgetOptions = {
     graph: PerseusGraphType;
     // The correct kind of graph, if being used to select function type
     correct: PerseusGraphType;
+    // Shapes (points, chords, etc) displayed on the graph that cannot
+    // be moved by the user.
+    lockedFigures?: ReadonlyArray<LockedFigure>;
+};
+
+export type LockedFigure = LockedPoint;
+
+export type LockedPoint = {
+    type: "point";
+    coord: Coord;
+    style?: StyleParams;
 };
 
 export type PerseusGraphType =
@@ -684,6 +786,13 @@ export type PerseusLabelImageMarker = {
     x: number;
     // Y Coordinate location of the marker on the image
     y: number;
+};
+
+export type PerseusLightsPuzzleWidgetOptions = {
+    cells?: ReadonlyArray<ReadonlyArray<boolean>>;
+    startCells?: ReadonlyArray<ReadonlyArray<boolean>>;
+    flipPattern?: string;
+    moveCount?: number;
 };
 
 export type PerseusMatcherWidgetOptions = {
@@ -868,7 +977,7 @@ export const plotterPlotTypes = [
     "histogram",
     "dotplot",
 ] as const;
-export type PlotType = typeof plotterPlotTypes[number];
+export type PlotType = (typeof plotterPlotTypes)[number];
 
 export type PerseusPlotterWidgetOptions = {
     // Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"]
@@ -942,9 +1051,7 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    widgets?: {
-        [key: string]: PerseusWidget;
-    };
+    widgets?: PerseusWidgetsMap;
 };
 
 export type PerseusSequenceWidgetOptions = {
@@ -1037,8 +1144,13 @@ export type PerseusInteractionGraph = {
     range: [Range, Range];
     // The steps in the grid. default [1, 1]
     gridStep: [number, number];
-    // What to show on the graph.  "graph", "grid", or "none"
-    markings: string;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
+    markings: "graph" | "grid" | "none";
     // The snap steps. default [0.5, 0.5]
     snapStep?: [number, number];
     // Whether the grid is valid or not.  Do the numbers all make sense?
@@ -1275,6 +1387,13 @@ export type PerseusCSProgramSetting = {
     value: string;
 };
 
+export type PerseusPythonProgramWidgetOptions = {
+    // The ID of the Python program to embed
+    programID: string;
+    // The height of the widget in pixels
+    height: number;
+};
+
 export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
@@ -1316,15 +1435,40 @@ export type PerseusInputNumberWidgetOptions = {
     customKeypad?: boolean;
 };
 
-// TODO(FEI-3983): Create proper types for these.
-export type PerseusExampleGraphieWidgetOptions = any;
-export type PerseusExampleWidgetOptions = any;
-export type PerseusLightsPuzzleWidgetOptions = any;
-export type PerseusMoleculeRendererWidgetOptions = any;
-export type PerseusPassageRefTargetWidgetOptions = any;
-export type PerseusReactionDiagramWidgetOptions = any;
-export type PerseusSimpleMarkdownTesterWidgetOptions = any;
-export type PerseusUnitInputWidgetOptions = any;
+export type PerseusMoleculeRendererWidgetOptions = {
+    widgetId: string;
+    rotationAngle?: number;
+    smiles?: string;
+};
+
+export type PerseusPassageRefTargetWidgetOptions = {
+    content: string;
+};
+
+export type PerseusReactionDiagramWidgetOptions = {
+    rotationAngle: ReadonlyArray<number>;
+    widgetId: string;
+    separators: ReadonlyArray<PerseusReactionDiagramSeparators>;
+    smiles: ReadonlyArray<string>;
+};
+
+export type PerseusReactionDiagramSeparators = {
+    type: string;
+    topText: string;
+    bottomText: string;
+};
+
+export type PerseusReactionDiagramSeparatorsData = {
+    topText: string;
+    bottomText: string;
+};
+
+export type PerseusSimpleMarkdownTesterWidgetOptions = {
+    value: string;
+};
+export type PerseusUnitInputWidgetOptions = {
+    value: string;
+};
 
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions
@@ -1343,7 +1487,6 @@ export type PerseusWidgetOptions =
     | PerseusInteractionWidgetOptions
     | PerseusInteractiveGraphWidgetOptions
     | PerseusLabelImageWidgetOptions
-    | PerseusLightsPuzzleWidgetOptions
     | PerseusMatcherWidgetOptions
     | PerseusMatrixWidgetOptions
     | PerseusMeasurerWidgetOptions
@@ -1356,10 +1499,7 @@ export type PerseusWidgetOptions =
     | PerseusPassageWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
-    | PerseusReactionDiagramWidgetOptions
-    | PerseusSequenceWidgetOptions
     | PerseusSimpleMarkdownTesterWidgetOptions
-    | PerseusSimulatorWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions
     | PerseusUnitInputWidgetOptions

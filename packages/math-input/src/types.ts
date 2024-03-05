@@ -32,7 +32,7 @@ export type KeypadConfiguration = {
 export type KeyHandler = (key: Key) => Cursor;
 
 export type Cursor = {
-    context: typeof CursorContext[keyof typeof CursorContext];
+    context: (typeof CursorContext)[keyof typeof CursorContext];
 };
 
 export type ClickKeyCallback = (

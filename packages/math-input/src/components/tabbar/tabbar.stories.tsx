@@ -1,83 +1,46 @@
-import {action} from "@storybook/addon-actions";
-import {withKnobs, select, array} from "@storybook/addon-knobs";
 import * as React from "react";
 
-import {TabbarItemForTesting as TabbarItem} from "./item";
 import Tabbar from "./tabbar";
 
 import type {KeypadPageType} from "../../types";
+import type {Meta, StoryObj} from "@storybook/react";
 
-export default {
+type Story = StoryObj<typeof Tabbar>;
+
+const meta: Meta<typeof Tabbar> = {
     title: "math-input/components/Tab Bar",
-    decorators: [withKnobs],
+
+    component: Tabbar,
 };
+export default meta;
 
-export const InactiveBarItem = () => (
-    <TabbarItem
-        itemState="inactive"
-        itemType={select(
-            "Item Type",
-            {
-                Numbers: "Numbers",
-                Geometry: "Geometry",
-                Operators: "Operators",
-            },
-            "Numbers",
-        )}
-        onClick={action("onClick")}
-    />
-);
-export const ActiveBarItem = () => (
-    <TabbarItem
-        itemType={select(
-            "Item Type",
-            {
-                Numbers: "Numbers",
-                Geometry: "Geometry",
-                Operators: "Operators",
-            },
-            "Numbers",
-        )}
-        itemState="active"
-        onClick={action("onClick")}
-    />
-);
-export const DisabledBarItem = () => (
-    <TabbarItem
-        itemType={select(
-            "Item Type",
-            {
-                Numbers: "Numbers",
-                Geometry: "Geometry",
-                Operators: "Operators",
-            },
-            "Numbers",
-        )}
-        itemState="disabled"
-        onClick={action("onClick")}
-    />
-);
-
-function StatefulTabbarWrapper() {
+function StatefulTabbarWrapper(args) {
     const [selectedItem, setSelectedItem] =
         React.useState<KeypadPageType>("Numbers");
 
     return (
         <Tabbar
-            items={
-                array("items", [
-                    "Numbers",
-                    "Geometry",
-                    "Operators",
-                ]) as ReadonlyArray<KeypadPageType>
-            }
+            {...args}
             selectedItem={selectedItem}
-            onSelectItem={(selection) => {
-                setSelectedItem(selection);
-                action("selected-item");
+            onSelectItem={(item) => {
+                args.onSelectItem(item);
+                setSelectedItem(item);
             }}
         />
     );
 }
 
-export const FullTabbar = () => <StatefulTabbarWrapper />;
+export const Demo: Story = {
+    argTypes: {
+        selectedItem: {options: ["Numbers", "Geometry", "Operators"]},
+    },
+    args: {
+        items: ["Numbers", "Geometry", "Operators"],
+    },
+    parameters: {
+        controls: {
+            exclude: ["items", "onSelectItem", "selectedItem", "onClickClose"],
+        },
+    },
+    render: (args) => <StatefulTabbarWrapper {...args} />,
+};
