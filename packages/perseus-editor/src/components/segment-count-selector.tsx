@@ -13,6 +13,7 @@ const SegmentCountSelector = ({
     <SingleSelect
         key="segment-select"
         selectedValue={`${numSegments}`}
+        // Never uses placeholder, always has value
         placeholder=""
         onChange={(newValue) => {
             const num = +newValue;

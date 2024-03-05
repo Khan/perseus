@@ -330,6 +330,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 selectedValue={
                                     this.props.correct?.snapTo || "grid"
                                 }
+                                // Never uses placeholder, always has value
                                 placeholder=""
                                 onChange={(newValue) => {
                                     const graph = {
@@ -459,6 +460,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         <SingleSelect
                             selectedValue={this.props.correct.match || "exact"}
                             onChange={this.changeMatchType}
+                            // Never uses placeholder, always has value
                             placeholder=""
                             style={styles.singleSelectShort}
                         >
@@ -521,6 +523,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         <SingleSelect
                             selectedValue={this.props.correct.match || "exact"}
                             onChange={this.changeMatchType}
+                            // Never uses placeholder, always has value
                             placeholder=""
                             style={styles.singleSelectShort}
                         >

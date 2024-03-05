@@ -27,6 +27,7 @@ const GraphPointsCountSelector = ({
             onChange={(newValue) => {
                 onChange(parsePointCount(newValue));
             }}
+            // Never uses placeholder, always has value
             placeholder=""
             style={styles.singleSelectShort}
         >
