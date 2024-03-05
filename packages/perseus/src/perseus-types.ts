@@ -1051,9 +1051,7 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    widgets?: {
-        [key: string]: PerseusWidget;
-    };
+    widgets?: PerseusWidgetsMap;
 };
 
 export type PerseusSequenceWidgetOptions = {
