@@ -1,6 +1,7 @@
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable react/sort-comp */
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
@@ -59,12 +60,16 @@ const PropCheckBox: any = createReactClass({
         const propName = this.propName();
         return (
             <label className={css(styles.labeledCheckbox)}>
-                {this._labelAlignLeft() && this.props.label}
+                {this._labelAlignLeft() && (
+                    <LabelSmall>{this.props.label}</LabelSmall>
+                )}
                 <Checkbox
                     checked={this.props[propName]}
                     onChange={this.toggle}
                 />
-                {!this._labelAlignLeft() && this.props.label}
+                {!this._labelAlignLeft() && (
+                    <LabelSmall>{this.props.label}</LabelSmall>
+                )}
             </label>
         );
     },

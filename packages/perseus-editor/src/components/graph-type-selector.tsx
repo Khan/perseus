@@ -1,4 +1,5 @@
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 type GraphTypeSelectorProps = {
@@ -14,6 +15,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
                 props.onChange(newValue);
             }}
             placeholder="Select a graph type"
+            style={styles.singleSelectShort}
         >
             <OptionItem value="linear" label="Linear function" />
             <OptionItem value="quadratic" label="Quadratic function" />
@@ -28,5 +30,13 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
         </SingleSelect>
     );
 };
+
+const styles = StyleSheet.create({
+    singleSelectShort: {
+        // Non-standard spacing, but it's the smallest we can go
+        // without running into styling issues with the dropdown.
+        height: 26,
+    },
+});
 
 export default GraphTypeSelector;

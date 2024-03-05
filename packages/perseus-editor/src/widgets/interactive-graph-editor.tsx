@@ -10,15 +10,16 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as Typography from "@khanacademy/wonder-blocks-typography";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphTypeSelector from "../components/graph-type-selector";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
+import LabeledRow from "../components/labeled-row";
 import SegmentCountSelector from "../components/segment-count-selector";
 import {parsePointCount} from "../util/points";
 
@@ -27,7 +28,7 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
     APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
-import type {PropsFor, StyleType} from "@khanacademy/wonder-blocks-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
@@ -57,32 +58,6 @@ const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
 });
 
 type Range = [min: number, max: number];
-
-// Renders the given children in a View laid out horizontally.
-const Row = (props: {style?: StyleType; children: React.ReactNode}) => {
-    const {children, style} = props;
-
-    return (
-        <View
-            style={{
-                ...style,
-                flexDirection: "row",
-                marginTop: Spacing.xSmall_8,
-                alignItems: "center",
-            }}
-        >
-            {children}
-        </View>
-    );
-};
-
-const FieldLabel = (props: {children: string}) => {
-    return (
-        <Typography.LabelSmall style={{marginRight: Spacing.xSmall_8}}>
-            {props.children}
-        </Typography.LabelSmall>
-    );
-};
 
 type Props = {
     apiOptions: APIOptionsWithDefaults;
@@ -284,8 +259,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         return (
             <View>
-                <Row>
-                    <FieldLabel>Type of Graph:</FieldLabel>
+                <LabeledRow label="Type of Graph:">
                     <GraphTypeSelector
                         graphType={
                             this.props.graph?.type ??
@@ -300,10 +274,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             });
                         }}
                     />
-                </Row>
+                </LabeledRow>
                 {this.props.correct?.type === "point" && (
-                    <Row>
-                        <FieldLabel>Number of Points:</FieldLabel>
+                    <LabeledRow label="Number of Points:">
                         <GraphPointsCountSelector
                             numPoints={this.props.correct?.numPoints}
                             onChange={(points) => {
@@ -315,12 +288,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 });
                             }}
                         />
-                    </Row>
+                    </LabeledRow>
                 )}
                 {this.props.correct?.type === "polygon" && (
                     <>
-                        <Row>
-                            <FieldLabel>Number of sides:</FieldLabel>
+                        <LabeledRow label="Number of sides:">
                             <SingleSelect
                                 key="polygon-select"
                                 selectedValue={
@@ -342,6 +314,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
                                     this.props.onChange({correct: graph});
                                 }}
+                                style={styles.singleSelectShort}
                             >
                                 {[
                                     ...POLYGON_SIDES,
@@ -351,9 +324,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     />,
                                 ]}
                             </SingleSelect>
-                        </Row>
-                        <Row>
-                            <FieldLabel>Snap to:</FieldLabel>
+                        </LabeledRow>
+                        <LabeledRow label="Snap to:">
                             <SingleSelect
                                 selectedValue={
                                     this.props.correct?.snapTo || "grid"
@@ -368,6 +340,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
                                     this.props.onChange({correct: graph});
                                 }}
+                                style={styles.singleSelectShort}
                             >
                                 <OptionItem value="grid" label="grid" />
                                 {this.props.correct?.numSides !==
@@ -399,17 +372,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 </p>{" "}
                                 measure respectively.
                             </InfoTip>
-                        </Row>
-                        <Row>
-                            <Typography.LabelSmall
-                                tag="label"
-                                htmlFor="show-angles-checkbox"
-                            >
-                                Show angle measures:
-                            </Typography.LabelSmall>
-                            <Strut size={Spacing.xSmall_8} />
+                        </LabeledRow>
+                        <LabeledRow label="Show angle measures:">
                             <Checkbox
-                                id="show-angles-checkbox"
                                 checked={
                                     // Don't show indeterminate checkbox state
                                     !!this.props.correct?.showAngles
@@ -427,17 +392,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             <InfoTip>
                                 <p>Displays the interior angle measures.</p>
                             </InfoTip>
-                        </Row>
-                        <Row>
-                            <Typography.LabelSmall
-                                tag="label"
-                                htmlFor="show-sides-checkbox"
-                            >
-                                Show side measures:
-                            </Typography.LabelSmall>
-                            <Strut size={Spacing.xSmall_8} />
+                        </LabeledRow>
+                        <LabeledRow label="Show side measures:">
                             <Checkbox
-                                id="show-sides-checkbox"
                                 checked={
                                     // Don't show indeterminate checkbox state
                                     !!this.props.correct?.showSides
@@ -455,12 +412,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             <InfoTip>
                                 <p>Displays the side lengths.</p>
                             </InfoTip>
-                        </Row>
+                        </LabeledRow>
                     </>
                 )}
                 {this.props.correct?.type === "segment" && (
-                    <Row>
-                        <FieldLabel>Number of segments: </FieldLabel>
+                    <LabeledRow label="Number of segments:">
                         <SegmentCountSelector
                             numSegments={this.props.correct?.numSegments}
                             onChange={(sides) => {
@@ -473,11 +429,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 });
                             }}
                         />
-                    </Row>
+                    </LabeledRow>
                 )}
 
-                <Row>
-                    <FieldLabel>Correct answer:</FieldLabel>
+                <LabeledRow label="Correct answer:">
                     <Typography.BodyMonospace
                         style={{
                             fontSize: 12,
@@ -497,7 +452,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             represent the correct answer.
                         </p>
                     </InfoTip>
-                </Row>
+                </LabeledRow>
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
@@ -517,18 +472,14 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 />
                 {this.props.correct.type === "polygon" && (
                     <div className="type-settings">
-                        <Row>
-                            <label htmlFor="polygon-answer-match-select">
-                                Student answer must
-                            </label>
-                            <Strut size={Spacing.xSmall_8} />
+                        <LabeledRow label="Student answer must">
                             <SingleSelect
-                                id="polygon-answer-match-select"
                                 selectedValue={
                                     this.props.correct.match || "exact"
                                 }
                                 onChange={this.changeMatchType}
                                 placeholder=""
+                                style={styles.singleSelectShort}
                             >
                                 <OptionItem
                                     value="exact"
@@ -590,23 +541,19 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     </li>
                                 </ul>
                             </InfoTip>
-                        </Row>
+                        </LabeledRow>
                     </div>
                 )}
                 {this.props.correct.type === "angle" && (
                     <div className="type-settings">
-                        <Row>
-                            <label htmlFor="angle-answer-match-select">
-                                Student answer must
-                            </label>
-                            <Strut size={Spacing.xSmall_8} />
+                        <LabeledRow label="Student answer must">
                             <SingleSelect
-                                id="angle-answer-match-select"
                                 selectedValue={
                                     this.props.correct.match || "exact"
                                 }
                                 onChange={this.changeMatchType}
                                 placeholder=""
+                                style={styles.singleSelectShort}
                             >
                                 <OptionItem
                                     value="exact"
@@ -626,7 +573,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     that the vertices are in the same position.
                                 </p>
                             </InfoTip>
-                        </Row>
+                        </LabeledRow>
                     </div>
                 )}
                 {graph}
@@ -693,5 +640,13 @@ class InteractiveGraphEditor extends React.Component<Props> {
         return json;
     }
 }
+
+const styles = StyleSheet.create({
+    singleSelectShort: {
+        // Non-standard spacing, but it's the smallest we can go
+        // without running into styling issues with the dropdown.
+        height: 26,
+    },
+});
 
 export default InteractiveGraphEditor;

@@ -10,11 +10,13 @@ import {
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
+
+import LabeledRow from "./labeled-row";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
 
@@ -460,87 +462,92 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 <div className="graph-settings">
                     <div className="perseus-widget-row">
                         <div className="perseus-widget-left-col">
-                            <label htmlFor="labels-x">x Label</label>
-                            <input
-                                id="labels-x"
-                                type="text"
-                                className="graph-settings-axis-label"
-                                ref={this.labelXRef}
-                                onChange={(e) => this.changeLabel(0, e)}
-                                value={this.state.labelsTextbox[0] || ""}
-                            />
+                            <LabeledRow label="x Label">
+                                <input
+                                    type="text"
+                                    className="graph-settings-axis-label"
+                                    ref={this.labelXRef}
+                                    onChange={(e) => this.changeLabel(0, e)}
+                                    value={this.state.labelsTextbox[0] || ""}
+                                />
+                            </LabeledRow>
                         </div>
                         <div className="perseus-widget-right-col">
-                            <label htmlFor="labels-y">y Label</label>
-                            <input
-                                id="labels-y"
-                                type="text"
-                                className="graph-settings-axis-label"
-                                ref={this.labelYRef}
-                                onChange={(e) => this.changeLabel(1, e)}
-                                value={this.state.labelsTextbox[1] || ""}
-                            />
+                            <LabeledRow label="y Label">
+                                <input
+                                    type="text"
+                                    className="graph-settings-axis-label"
+                                    ref={this.labelYRef}
+                                    onChange={(e) => this.changeLabel(1, e)}
+                                    value={this.state.labelsTextbox[1] || ""}
+                                />
+                            </LabeledRow>
                         </div>
                     </div>
 
                     <div className="perseus-widget-row">
                         <div className="perseus-widget-left-col">
-                            <label htmlFor="range-x">x Range</label>
-                            <RangeInput
-                                id="range-x"
-                                value={this.state.rangeTextbox[0]}
-                                onChange={(vals) => this.changeRange(0, vals)}
-                            />
+                            <LabeledRow label="x Range">
+                                <RangeInput
+                                    value={this.state.rangeTextbox[0]}
+                                    onChange={(vals) =>
+                                        this.changeRange(0, vals)
+                                    }
+                                />
+                            </LabeledRow>
                         </div>
                         <div className="perseus-widget-right-col">
-                            <label htmlFor="range-y">y Range</label>
-                            <RangeInput
-                                id="range-y"
-                                value={this.state.rangeTextbox[1]}
-                                onChange={(vals) => this.changeRange(1, vals)}
-                            />
+                            <LabeledRow label="y Range">
+                                <RangeInput
+                                    value={this.state.rangeTextbox[1]}
+                                    onChange={(vals) =>
+                                        this.changeRange(1, vals)
+                                    }
+                                />
+                            </LabeledRow>
                         </div>
                     </div>
                     <div className="perseus-widget-row">
                         <div className="perseus-widget-left-col">
-                            <label htmlFor="tick-step">Tick Step</label>
-                            <RangeInput
-                                id="tick-step"
-                                value={this.state.stepTextbox}
-                                onChange={this.changeStep}
-                            />
+                            <LabeledRow label="Tick Step">
+                                <RangeInput
+                                    value={this.state.stepTextbox}
+                                    onChange={this.changeStep}
+                                />
+                            </LabeledRow>
                         </div>
                         <div className="perseus-widget-right-col">
-                            <label htmlFor="grid-step">Grid Step</label>
-                            <RangeInput
-                                id="grid-step"
-                                value={this.state.gridStepTextbox}
-                                onChange={this.changeGridStep}
-                            />
+                            <LabeledRow label="Grid Step">
+                                <RangeInput
+                                    value={this.state.gridStepTextbox}
+                                    onChange={this.changeGridStep}
+                                />
+                            </LabeledRow>
                         </div>
                     </div>
                     <div className="perseus-widget-row">
                         <div className="perseus-widget-left-col">
-                            <label htmlFor="snap-step">Snap Step</label>
-                            <RangeInput
-                                id="snap-step"
-                                value={this.state.snapStepTextbox}
-                                onChange={this.changeSnapStep}
-                            />
+                            <LabeledRow label="Snap Step">
+                                <RangeInput
+                                    value={this.state.snapStepTextbox}
+                                    onChange={this.changeSnapStep}
+                                />
+                            </LabeledRow>
                         </div>
                     </div>
                     <div className="perseus-widget-row">
-                        <label>Markings: </label>
-                        <ButtonGroup
-                            value={this.props.markings}
-                            allowEmpty={false}
-                            buttons={[
-                                {value: "graph", content: "Graph"},
-                                {value: "grid", content: "Grid"},
-                                {value: "none", content: "None"},
-                            ]}
-                            onChange={this.change("markings")}
-                        />
+                        <LabeledRow label="Markings:">
+                            <ButtonGroup
+                                value={this.props.markings}
+                                allowEmpty={false}
+                                buttons={[
+                                    {value: "graph", content: "Graph"},
+                                    {value: "grid", content: "Grid"},
+                                    {value: "none", content: "None"},
+                                ]}
+                                onChange={this.change("markings")}
+                            />
+                        </LabeledRow>
                     </div>
                     <div className="perseus-widget-left-col">
                         <PropCheckBox
@@ -552,9 +559,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 </div>
 
                 <div className="image-settings">
-                    <div>Background image:</div>
-                    <View style={styles.row}>
-                        <label htmlFor="bg-url">Url:</label>
+                    <LabelSmall style={styles.spaceTop}>
+                        Background image:
+                    </LabelSmall>
+                    <LabeledRow label="Url:">
                         <input
                             id="bg-url"
                             type="text"
@@ -577,7 +585,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 image" function to create a background.
                             </p>
                         </InfoTip>
-                    </View>
+                    </LabeledRow>
                 </div>
 
                 <div className="misc-settings">
@@ -587,6 +595,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 label="Show ruler"
                                 showRuler={this.props.showRuler}
                                 onChange={this.change}
+                                style={styles.resetSpaceTop}
                             />
                         </div>
                         <div className="perseus-widget-right-col">
@@ -594,16 +603,16 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 label="Show protractor"
                                 showProtractor={this.props.showProtractor}
                                 onChange={this.change}
+                                style={styles.resetSpaceTop}
                             />
                         </div>
                     </div>
                     {this.props.showRuler && (
                         <View>
-                            <View style={styles.row}>
-                                <label htmlFor="ruler-label-select">
-                                    Ruler label:
-                                </label>
-                                <Strut size={spacing.xSmall_8} />
+                            <LabeledRow
+                                label="Ruler label:"
+                                style={styles.resetSpaceTop}
+                            >
                                 <SingleSelect
                                     id="ruler-label-select"
                                     selectedValue={this.props.rulerLabel}
@@ -611,6 +620,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         this.change({rulerLabel: newValue});
                                     }}
                                     placeholder="None"
+                                    style={styles.singleSelectShort}
                                 >
                                     <OptionItem
                                         value=""
@@ -633,12 +643,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     <OptionItem value="yd" label="Yards" />
                                     <OptionItem value="mi" label="Miles" />
                                 </SingleSelect>
-                            </View>
-                            <View style={styles.row}>
-                                <label htmlFor="ruler-ticks-select">
-                                    Ruler ticks:
-                                </label>
-                                <Strut size={spacing.xSmall_8} />
+                            </LabeledRow>
+                            <LabeledRow label="Ruler ticks:">
                                 <SingleSelect
                                     id="ruler-ticks-select"
                                     selectedValue={`${this.props.rulerTicks}`}
@@ -646,6 +652,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         this.change({rulerTicks: newValue});
                                     }}
                                     placeholder="10"
+                                    style={styles.singleSelectShort}
                                 >
                                     {RULER_TICKS.map((value) => (
                                         <OptionItem
@@ -655,7 +662,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         />
                                     ))}
                                 </SingleSelect>
-                            </View>
+                            </LabeledRow>
                         </View>
                     )}
                 </div>
@@ -665,11 +672,16 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: spacing.xSmall_8,
+    spaceTop: {
+        marginTop: spacing.xSmall_8,
+    },
+    resetSpaceTop: {
+        marginTop: 0,
+    },
+    singleSelectShort: {
+        // Non-standard spacing, but it's the smallest we can go
+        // without running into styling issues with the dropdown.
+        height: 26,
     },
 });
 

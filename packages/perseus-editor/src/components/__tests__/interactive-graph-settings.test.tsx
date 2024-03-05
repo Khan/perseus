@@ -231,7 +231,12 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "x Range"});
+        // Note: The textbox's `name` attribute is "x Range 10" because it's
+        // encased in a <label> element, which applies everything surrounding
+        // the first element to the first element's label. This means it
+        // includes the "10" from the second textbox. Same for the other
+        // RangeInput tests below.
+        const input = screen.getByRole("textbox", {name: "x Range 10"});
         await userEvent.clear(input);
         await userEvent.type(input, "0");
 
@@ -258,7 +263,7 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "y Range"});
+        const input = screen.getByRole("textbox", {name: "y Range 10"});
         await userEvent.clear(input);
         await userEvent.type(input, "0");
 
@@ -285,7 +290,7 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "x Range"});
+        const input = screen.getByRole("textbox", {name: "x Range 10"});
         await userEvent.clear(input);
         await userEvent.type(input, "20");
 
@@ -312,7 +317,7 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Tick Step"});
+        const input = screen.getByRole("textbox", {name: "Tick Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "2");
 
@@ -336,7 +341,7 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Tick Step"});
+        const input = screen.getByRole("textbox", {name: "Tick Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "20");
 
@@ -368,7 +373,7 @@ describe("InteractiveGraphSettings", () => {
         );
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Tick Step"});
+        const input = screen.getByRole("textbox", {name: "Tick Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "2");
 
@@ -392,7 +397,7 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Snap Step"});
+        const input = screen.getByRole("textbox", {name: "Snap Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "2");
         await userEvent.tab();
@@ -417,7 +422,7 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Snap Step"});
+        const input = screen.getByRole("textbox", {name: "Snap Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "100");
         await userEvent.tab();
@@ -442,7 +447,7 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Grid Step"});
+        const input = screen.getByRole("textbox", {name: "Grid Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "2");
         await userEvent.tab();
@@ -467,7 +472,7 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Grid Step"});
+        const input = screen.getByRole("textbox", {name: "Grid Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "100");
         await userEvent.tab();
