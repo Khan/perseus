@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 19.9.0
+
+### Minor Changes
+
+-   [#1055](https://github.com/Khan/perseus/pull/1055) [`bacbb3a2`](https://github.com/Khan/perseus/commit/bacbb3a2ccc06b54531a5a9537be709c165a8a61) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing the frequency that we're calling interactionCallback
+
 ## 19.8.0
 
 ### Minor Changes
