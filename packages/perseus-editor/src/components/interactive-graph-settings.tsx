@@ -224,13 +224,11 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     };
 
     renderLabelChoices = (choices) => {
-        return _.map(choices, function (nameAndValue) {
-            return (
-                <option key={nameAndValue[1]} value={nameAndValue[1]}>
-                    {nameAndValue[0]}
-                </option>
-            );
-        });
+        return choices.map((nameAndValue) => (
+            <option key={nameAndValue[1]} value={nameAndValue[1]}>
+                {nameAndValue[0]}
+            </option>
+        ));
     };
 
     validRange = (range) => {
