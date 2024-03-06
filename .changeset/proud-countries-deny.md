@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Use Wonder Blocks for dropdowns and checkboxes in interactive graph editor
+Use Wonder Blocks + minor refactoring in interactive graph editor
