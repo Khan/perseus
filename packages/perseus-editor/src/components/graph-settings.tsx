@@ -121,7 +121,6 @@ const GraphSettings = createReactClass({
     },
 
     change(...args) {
-        args; // ?
         return Changeable.change.apply(this, args);
     },
 
@@ -400,7 +399,6 @@ const GraphSettings = createReactClass({
         ];
 
         const {TeX} = Dependencies.getDependencies();
-        this.props.box; // ?
         return (
             <div>
                 {_.contains(this.props.editableSettings, "canvas") && (
@@ -413,7 +411,6 @@ const GraphSettings = createReactClass({
                                 id="canvas-size"
                                 value={this.props.box}
                                 onChange={(box) => {
-                                    box; // ?
                                     this.change({box: box});
                                 }}
                             />
