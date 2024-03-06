@@ -33,6 +33,16 @@ export default {
         },
     },
 
+    lockedFigures: {
+        control: {
+            type: "object",
+        },
+        type: {
+            name: "Array<LockedFigure>",
+            required: false,
+        },
+    },
+
     onChange: {
         control: {
             type: "function",

@@ -1,4 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -31,7 +32,9 @@ describe("InteractiveGraphEditor", () => {
         // Arrange
 
         // Act
-        render(<InteractiveGraphEditor {...baseProps} />);
+        render(<InteractiveGraphEditor {...baseProps} />, {
+            wrapper: RenderStateRoot,
+        });
 
         // Assert
         expect(await screen.findByText("Correct answer:")).toBeInTheDocument();
@@ -43,6 +46,9 @@ describe("InteractiveGraphEditor", () => {
 
         render(
             <InteractiveGraphEditor {...baseProps} onChange={onChangeMock} />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act
@@ -68,6 +74,9 @@ describe("InteractiveGraphEditor", () => {
                 {...baseProps}
                 valid="This is an error message"
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Assert
@@ -80,7 +89,9 @@ describe("InteractiveGraphEditor", () => {
         // Arrange
 
         // Act
-        render(<InteractiveGraphEditor {...baseProps} />);
+        render(<InteractiveGraphEditor {...baseProps} />, {
+            wrapper: RenderStateRoot,
+        });
 
         const defaultType = screen.getByText("Linear function");
         const otherType = screen.queryByText("Polygon");
@@ -100,6 +111,9 @@ describe("InteractiveGraphEditor", () => {
                 graph={{type: "polygon"}}
                 correct={{type: "polygon"}}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         const defaultType = screen.queryByText("Linear function");
@@ -120,6 +134,9 @@ describe("InteractiveGraphEditor", () => {
                 graph={{type: "point"}}
                 correct={{type: "point"}}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Assert
@@ -136,6 +153,9 @@ describe("InteractiveGraphEditor", () => {
                 graph={{type: "polygon"}}
                 correct={{type: "polygon"}}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Assert
@@ -156,6 +176,9 @@ describe("InteractiveGraphEditor", () => {
                 graph={{type: "segment"}}
                 correct={{type: "segment"}}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Assert
@@ -172,6 +195,9 @@ describe("InteractiveGraphEditor", () => {
                 graph={{type: "angle"}}
                 correct={{type: "angle"}}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Assert
@@ -189,6 +215,9 @@ describe("InteractiveGraphEditor", () => {
                 correct={{type: "point"}}
                 onChange={onChangeMock}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act
@@ -218,6 +247,9 @@ describe("InteractiveGraphEditor", () => {
                 correct={{type: "polygon"}}
                 onChange={onChangeMock}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act
@@ -254,6 +286,9 @@ describe("InteractiveGraphEditor", () => {
                 }}
                 onChange={onChangeMock}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act
@@ -289,6 +324,9 @@ describe("InteractiveGraphEditor", () => {
                 }}
                 onChange={onChangeMock}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act
@@ -321,6 +359,9 @@ describe("InteractiveGraphEditor", () => {
                 }}
                 onChange={onChangeMock}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act
@@ -353,6 +394,9 @@ describe("InteractiveGraphEditor", () => {
                 }}
                 onChange={onChangeMock}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act
@@ -388,6 +432,9 @@ describe("InteractiveGraphEditor", () => {
                 }}
                 onChange={onChangeMock}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act
@@ -422,6 +469,9 @@ describe("InteractiveGraphEditor", () => {
                 }}
                 onChange={onChangeMock}
             />,
+            {
+                wrapper: RenderStateRoot,
+            },
         );
 
         // Act

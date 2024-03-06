@@ -327,7 +327,7 @@ class Graph extends React.Component<Props> {
                             // center
                             lockedFigure.coord,
                             // radius
-                            0.2,
+                            0.25,
                             // style
                             lockedFigure.style,
                         );

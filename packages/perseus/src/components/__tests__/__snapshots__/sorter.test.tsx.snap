@@ -132,6 +132,8 @@ exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
 </div>
 `;
 
+exports[`sorter widget should snapshot on mobile: first render 1`] = `<div />`;
+
 exports[`sorter widget should snapshot: first render 1`] = `
 <div>
   <div

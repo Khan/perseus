@@ -1,0 +1,193 @@
+import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {TextField} from "@khanacademy/wonder-blocks-form";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {Spring} from "@khanacademy/wonder-blocks-layout";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
+
+import type {LockedPoint} from "@khanacademy/perseus";
+
+export type Props = LockedPoint & {
+    onRemove: () => void;
+    onChangeColor: (color: string) => void;
+    onChangeCoord: (coord: [number, number]) => void;
+};
+
+const colorMap = {};
+colorMap[color.blue] = "blue";
+colorMap[color.red] = "red";
+colorMap[color.offBlack64] = "gray";
+
+const validNumber = (value: string) => {
+    const parsed = parseInt(value);
+    // If the value is not a number, return 0.
+    return isNaN(parsed) ? 0 : parsed;
+};
+
+const LockedPointSettings = (props: Props) => {
+    const {coord, style, onRemove, onChangeColor, onChangeCoord} = props;
+    const [coordState, setCoordState] = React.useState([
+        // Using strings to make it easier to work with the text fields.
+        coord[0].toString(),
+        coord[1].toString(),
+    ]);
+
+    // Generate unique IDs so that the programmatic labels can be associated
+    // with their respective text fields.
+    const ids = useUniqueIdWithMock();
+    const xCoordId = ids.get("x-coord");
+    const yCoordId = ids.get("y-coord");
+    const colorSelectId = ids.get("color-select");
+
+    function handleBlur() {
+        const validCoord = [
+            validNumber(coordState[0]),
+            validNumber(coordState[1]),
+        ] as [number, number];
+
+        // Make the text field only show valid numbers after blur.
+        setCoordState([validCoord[0].toString(), validCoord[1].toString()]);
+        // Update the graph with the new coordinates.
+        onChangeCoord(validCoord);
+    }
+
+    function handleChange(newValue, coordIndex) {
+        const newCoord = [...coordState];
+        newCoord[coordIndex] = newValue;
+        setCoordState(newCoord);
+    }
+
+    return (
+        <View style={styles.container}>
+            {/* Title row */}
+            <View style={styles.row}>
+                <LabelLarge>Point</LabelLarge>
+                <Spring />
+                <IconButton icon={trashIcon} onClick={onRemove} />
+            </View>
+
+            {/* Coordinates */}
+            <View>
+                <View style={styles.row}>
+                    <LabelMedium
+                        htmlFor={xCoordId}
+                        style={styles.label}
+                        tag="label"
+                    >
+                        x Coordinate
+                    </LabelMedium>
+                    <TextField
+                        id={xCoordId}
+                        value={coordState[0]}
+                        onChange={(newValue) => handleChange(newValue, 0)}
+                        onBlur={handleBlur}
+                        style={styles.textField}
+                    />
+                </View>
+
+                <View style={styles.row}>
+                    <LabelMedium
+                        htmlFor={yCoordId}
+                        style={styles.label}
+                        tag="label"
+                    >
+                        y Coordinate
+                    </LabelMedium>
+                    <TextField
+                        id={yCoordId}
+                        value={coordState[1]}
+                        onChange={(newValue) => handleChange(newValue, 1)}
+                        onBlur={handleBlur}
+                        style={styles.textField}
+                    />
+                </View>
+            </View>
+
+            {/* Style */}
+            <View style={styles.row}>
+                <LabelMedium
+                    htmlFor={colorSelectId}
+                    style={styles.label}
+                    tag="label"
+                >
+                    Color
+                </LabelMedium>
+                <SingleSelect
+                    id={colorSelectId}
+                    selectedValue={colorMap[style?.fill || "gray"]}
+                    onChange={onChangeColor}
+                    // Never used as there is always a selected value
+                    placeholder=""
+                >
+                    <OptionItem
+                        label="Gray"
+                        value="gray"
+                        leftAccessory={
+                            <View
+                                style={[
+                                    styles.colorCircle,
+                                    {backgroundColor: color.offBlack64},
+                                ]}
+                            />
+                        }
+                    />
+                    <OptionItem
+                        label="Blue"
+                        value="blue"
+                        leftAccessory={
+                            <View
+                                style={[
+                                    styles.colorCircle,
+                                    {backgroundColor: color.blue},
+                                ]}
+                            />
+                        }
+                    />
+                    <OptionItem
+                        label="Red"
+                        value="red"
+                        leftAccessory={
+                            <View
+                                style={[
+                                    styles.colorCircle,
+                                    {backgroundColor: color.red},
+                                ]}
+                            />
+                        }
+                    />
+                </SingleSelect>
+            </View>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: color.fadedBlue8,
+        marginBottom: spacing.xSmall_8,
+        padding: spacing.medium_16,
+        borderRadius: spacing.xSmall_8,
+    },
+    row: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: spacing.xSmall_8,
+    },
+    label: {
+        marginInlineEnd: spacing.xSmall_8,
+    },
+    textField: {
+        width: 64,
+    },
+    colorCircle: {
+        width: spacing.large_24,
+        height: spacing.large_24,
+        borderRadius: "50%",
+    },
+});
+
+export default LockedPointSettings;

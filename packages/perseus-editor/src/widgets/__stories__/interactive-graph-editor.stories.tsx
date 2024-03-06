@@ -1,3 +1,4 @@
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import InteractiveGraphEditor from "../interactive-graph-editor";
@@ -51,6 +52,39 @@ export const Controlled: StoryComponentType = {
         };
 
         const [state, dispatch] = React.useReducer(reducer, {});
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
+
+/**
+ * This InteractiveGraphEditor has locked figures. Locked figures are graph
+ * elements such as points, lines, line segements, etc. that are locked in
+ * place and not interactive.
+ */
+export const WithLockedPoints: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            lockedFigures: [
+                {
+                    type: "point",
+                    coord: [1, 1],
+                    style: {fill: color.offBlack64, stroke: color.offBlack64},
+                },
+                {
+                    type: "point",
+                    coord: [-1, -1],
+                    style: {fill: color.blue, stroke: color.blue},
+                },
+            ],
+        });
 
         return <InteractiveGraphEditor {...state} onChange={dispatch} />;
     },

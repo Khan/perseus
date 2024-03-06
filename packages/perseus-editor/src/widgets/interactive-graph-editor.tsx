@@ -20,6 +20,7 @@ import GraphPointsCountSelector from "../components/graph-points-count-selector"
 import GraphTypeSelector from "../components/graph-type-selector";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import LabeledRow from "../components/labeled-row";
+import LockedFiguresSection from "../components/locked-figures-section";
 import SegmentCountSelector from "../components/segment-count-selector";
 import {parsePointCount} from "../util/points";
 
@@ -27,6 +28,7 @@ import type {
     PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
     APIOptionsWithDefaults,
+    LockedFigure,
 } from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -59,7 +61,7 @@ const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
 
 type Range = [min: number, max: number];
 
-type Props = {
+export type Props = {
     apiOptions: APIOptionsWithDefaults;
 
     /**
@@ -135,6 +137,12 @@ type Props = {
      * editor page.
      */
     correct: any; // TODO(jeremy)
+    /**
+     * The locked figures to display in the graph area.
+     * Locked figures are graph elements such as points, lines, line
+     * segments, etc. that are locked in place and not interactive.
+     */
+    lockedFigures?: Array<LockedFigure>;
 
     /**
      * The graph to display in the graph area.
@@ -222,6 +230,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 showTooltips: this.props.showTooltips,
                 rulerLabel: this.props.rulerLabel,
                 rulerTicks: this.props.rulerTicks,
+                lockedFigures: this.props.lockedFigures,
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
                     let correct = this.props.correct;
@@ -567,6 +576,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 </LabeledRow>
 
                 {graph}
+
+                <LockedFiguresSection
+                    figures={this.props.lockedFigures}
+                    onChange={this.props.onChange}
+                />
             </View>
         );
     }
@@ -594,6 +608,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "range",
             "gridStep",
             "snapStep",
+            "lockedFigures",
         );
 
         // eslint-disable-next-line react/no-string-refs

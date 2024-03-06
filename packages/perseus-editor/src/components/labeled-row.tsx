@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
@@ -17,7 +17,7 @@ const LabeledRow = (props: {
     const {children, label, labelSide = "left", style} = props;
 
     return (
-        <label>
+        <label className={css(styles.label)}>
             <View style={[styles.row, style]}>
                 {labelSide === "start" || (
                     <LabelSmall style={styles.spaceEnd}>{label}</LabelSmall>
@@ -32,10 +32,14 @@ const LabeledRow = (props: {
 };
 
 const styles = StyleSheet.create({
+    label: {
+        width: "fit-content",
+    },
     row: {
         flexDirection: "row",
         marginTop: spacing.xSmall_8,
         alignItems: "center",
+        width: "fit-content",
     },
     spaceStart: {
         marginInlineStart: spacing.xSmall_8,
