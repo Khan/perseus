@@ -20,6 +20,8 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
+import {debounce} from "../util/debounce";
+
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
@@ -397,21 +399,6 @@ const MathInputIcon = ({hovered, focused, active}) => {
             </svg>
         </View>
     );
-};
-
-const debounce = <T extends unknown[]>(
-    func: (...args: T) => void,
-    delay: number,
-): ((...args: T) => void) => {
-    let timer: number | null = null;
-    return (...args: T) => {
-        if (timer) {
-            clearTimeout(timer);
-        }
-        timer = window.setTimeout(() => {
-            func(...args);
-        }, delay);
-    };
 };
 
 const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
