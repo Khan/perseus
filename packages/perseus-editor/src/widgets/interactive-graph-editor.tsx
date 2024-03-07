@@ -125,6 +125,7 @@ type Props = {
     showRuler: boolean;
     /**
      * Whether to show tooltips on the graph.
+     * (Currently not used, but will be in the future.)
      */
     showTooltips: boolean;
     /**
@@ -136,7 +137,13 @@ type Props = {
      */
     rulerTicks: number;
     /**
-     * The data for checking if an answer is correct.
+     * The current correct answer for the graph. Updated by this component
+     * when the graph is changed.
+     *
+     * Note that the "Correct answer:" textbox is not an interactive
+     * element. Instead, it is a representation of the correct answer based
+     * on the state of the interactive graph previewed at the bottom of the
+     * editor page.
      */
     correct: any; // TODO(jeremy)
 
@@ -223,6 +230,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 markings: this.props.markings,
                 showProtractor: this.props.showProtractor,
                 showRuler: this.props.showRuler,
+                showTooltips: this.props.showTooltips,
                 rulerLabel: this.props.rulerLabel,
                 rulerTicks: this.props.rulerTicks,
                 trackInteraction: function () {},

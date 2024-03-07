@@ -1,10 +1,4 @@
 export default {
-    editableSettings: {
-        control: {
-            type: "array",
-            options: ["canvas", "graph", "snap", "image", "measure"],
-        },
-    },
     box: {
         control: {
             type: "array",

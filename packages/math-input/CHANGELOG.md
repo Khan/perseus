@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.3.0
+
+### Minor Changes
+
+-   [#978](https://github.com/Khan/perseus/pull/978) [`881be46f`](https://github.com/Khan/perseus/commit/881be46fc75117d57bab30d1568b417cca5d6976) Thanks [@nishasy](https://github.com/nishasy)! - Update WB Clickable. Stop keypad button clicks from removing focus from the input.
+
 ## 17.2.3
 
 ### Patch Changes
