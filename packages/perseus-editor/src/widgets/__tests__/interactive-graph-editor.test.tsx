@@ -195,9 +195,9 @@ describe("InteractiveGraphEditor", () => {
         const input = screen.getByRole("button", {
             name: "Number of Points:",
         });
-        input.click();
+        await userEvent.click(input);
         const pointsSelection = screen.getByText("5 points");
-        pointsSelection.click();
+        await userEvent.click(pointsSelection);
 
         // Assert
         expect(onChangeMock).toBeCalledWith(
@@ -224,9 +224,9 @@ describe("InteractiveGraphEditor", () => {
         const input = screen.getByRole("button", {
             name: "Number of sides:",
         });
-        input.click();
+        await userEvent.click(input);
         const sidesSelection = screen.getByText("5 sides");
-        sidesSelection.click();
+        await userEvent.click(sidesSelection);
 
         // Assert
         expect(onChangeMock).toBeCalledWith(
@@ -260,9 +260,9 @@ describe("InteractiveGraphEditor", () => {
         const input = screen.getByRole("button", {
             name: "Snap to:",
         });
-        input.click();
+        await userEvent.click(input);
         const snapToSelection = screen.getByText("interior angles");
-        snapToSelection.click();
+        await userEvent.click(snapToSelection);
 
         // Assert
         expect(onChangeMock).toBeCalledWith(
@@ -295,7 +295,7 @@ describe("InteractiveGraphEditor", () => {
         const input = screen.getByRole("checkbox", {
             name: "Show angle measures",
         });
-        input.click();
+        await userEvent.click(input);
 
         // Assert
         expect(onChangeMock).toBeCalledWith(
@@ -327,7 +327,7 @@ describe("InteractiveGraphEditor", () => {
         const input = screen.getByRole("checkbox", {
             name: "Show side measures",
         });
-        input.click();
+        await userEvent.click(input);
 
         // Assert
         expect(onChangeMock).toBeCalledWith(
@@ -359,9 +359,9 @@ describe("InteractiveGraphEditor", () => {
         const input = screen.getByRole("button", {
             name: "Number of segments:",
         });
-        input.click();
+        await userEvent.click(input);
         const segmentsSelection = screen.getByText("5 segments");
-        segmentsSelection.click();
+        await userEvent.click(segmentsSelection);
 
         // Assert
         expect(onChangeMock).toBeCalledWith(
@@ -394,9 +394,9 @@ describe("InteractiveGraphEditor", () => {
         const input = screen.getByRole("button", {
             name: "Student answer must",
         });
-        input.click();
+        await userEvent.click(input);
         const answerMustSelection = screen.getByText("be similar");
-        answerMustSelection.click();
+        await userEvent.click(answerMustSelection);
 
         // Assert
         expect(onChangeMock).toBeCalledWith(
@@ -428,9 +428,9 @@ describe("InteractiveGraphEditor", () => {
         const input = screen.getByRole("button", {
             name: "Student answer must",
         });
-        input.click();
+        await userEvent.click(input);
         const answerMustSelection = screen.getByText("be congruent");
-        answerMustSelection.click();
+        await userEvent.click(answerMustSelection);
 
         // Assert
         expect(onChangeMock).toBeCalledWith(

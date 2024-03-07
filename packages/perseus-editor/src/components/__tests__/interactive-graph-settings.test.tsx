@@ -36,14 +36,14 @@ describe("InteractiveGraphSettings", () => {
         expect(screen.getByText("Show protractor")).toBeInTheDocument();
     });
 
-    test("calls onChange when markings are changed", () => {
+    test("calls onChange when markings are changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
         const button = screen.getByRole("button", {name: "Grid"});
-        button.click();
+        await userEvent.click(button);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -52,7 +52,7 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("calls onChange when ruler label is changed", () => {
+    test("calls onChange when ruler label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
 
@@ -62,9 +62,9 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const select = screen.getByRole("button", {name: "Ruler label:"});
-        select.click();
+        await userEvent.click(select);
         const option = screen.getByRole("option", {name: "Centimeters"});
-        option.click();
+        await userEvent.click(option);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -73,7 +73,7 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("calls onChange when rulerTicks is changed", () => {
+    test("calls onChange when rulerTicks is changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -82,9 +82,9 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const select = screen.getByRole("button", {name: "Ruler ticks:"});
-        select.click();
+        await userEvent.click(select);
         const option = screen.getByRole("option", {name: "4"});
-        option.click();
+        await userEvent.click(option);
 
         // Assert
         expect(onChange).toBeCalledWith(
@@ -208,7 +208,7 @@ describe("InteractiveGraphSettings", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    test("calls onChange when protractor label is changed", () => {
+    test("calls onChange when protractor label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -222,7 +222,7 @@ describe("InteractiveGraphSettings", () => {
         const checkbox = screen.getByRole("checkbox", {
             name: "Show protractor",
         });
-        checkbox.click();
+        await userEvent.click(checkbox);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(

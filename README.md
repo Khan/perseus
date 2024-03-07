@@ -39,7 +39,10 @@ We use [changesets](https://github.com/changesets/changesets) to help manage our
 
 ### Updating Dependencies
 
-If you want to use another library in Perseus (e.g. Wonder Blocks), you will need up update the dependencies.
+If you want to use another library in Perseus, you will need up update the dependencies.
+Use `peerDependencies` for dependencies that webapp is already using, such as
+Wonder Blocks or React.
+
 1. `cd` into to the package in which you would like to update the dependency.
 ```
 cd packages/[package-name]
@@ -50,7 +53,9 @@ cd packages/perseus-editor
 
 2. Run the following command to update the dev dependencies and the peer dependencies.
 ```
+// All dependencies
 yarn add --dev [dependency name]
+// Include this too if webapp is using this dependency
 yarn add --peer [dependency name]
 
 // Example

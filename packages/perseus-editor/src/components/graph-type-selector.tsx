@@ -11,9 +11,7 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
     return (
         <SingleSelect
             selectedValue={props.graphType}
-            onChange={(newValue) => {
-                props.onChange(newValue);
-            }}
+            onChange={props.onChange}
             placeholder="Select a graph type"
             style={styles.singleSelectShort}
         >

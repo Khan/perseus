@@ -6,14 +6,6 @@ import {UNLIMITED, parsePointCount} from "../util/points";
 
 import type {PointValue} from "../util/points";
 
-const NUMERIC_OPTIONS = [...Array(7).keys()].map((n) => (
-    <OptionItem
-        key={n}
-        value={`${n}`}
-        label={`${n} point${n > 1 ? "s" : ""}`}
-    />
-));
-
 const GraphPointsCountSelector = ({
     numPoints = 1,
     onChange,
@@ -32,7 +24,13 @@ const GraphPointsCountSelector = ({
             style={styles.singleSelectShort}
         >
             {[
-                ...NUMERIC_OPTIONS,
+                ...[...Array(7).keys()].map((n) => (
+                    <OptionItem
+                        key={n}
+                        value={`${n}`}
+                        label={`${n} point${n > 1 ? "s" : ""}`}
+                    />
+                )),
                 <OptionItem value={UNLIMITED} label="unlimited" />,
             ]}
         </SingleSelect>

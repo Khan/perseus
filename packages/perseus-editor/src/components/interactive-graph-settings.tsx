@@ -27,8 +27,6 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-const RULER_TICKS = [1, 2, 4, 8, 10, 16];
-
 function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
 }
@@ -567,7 +565,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                         ref={this.bgUrlRef}
                         value={this.state.backgroundImage.url || ""}
                         onChange={(e) => {
-                            const image = _.clone(this.props.backgroundImage);
+                            // Shallow-copied clone
+                            const image = {...this.props.backgroundImage};
                             image.url = e.target.value;
                             this.setState({backgroundImage: image});
                         }}
@@ -644,7 +643,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     placeholder="10"
                                     style={styles.singleSelectShort}
                                 >
-                                    {RULER_TICKS.map((value) => (
+                                    {[1, 2, 4, 8, 10, 16].map((value) => (
                                         <OptionItem
                                             key={value}
                                             value={`${value}`}
