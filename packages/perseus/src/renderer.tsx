@@ -172,7 +172,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     widgets: PerseusRenderer["widgets"];
     // Skip adding paragraph class
     inline?: boolean;
-    widgetGroupInfo?: {id: string; groupType: string};
+    parentGroups?: {id: string; groupType: string}[];
 };
 
 type State = {
@@ -629,8 +629,8 @@ class Renderer extends React.Component<Props, State> {
             },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: id === this.state.lastUsedWidgetId,
-            ...(this.props.widgetGroupInfo
-                ? {widgetGroupInfo: this.props.widgetGroupInfo}
+            ...(this.props.parentGroups
+                ? {parentGroups: this.props.parentGroups}
                 : {}),
         };
     };
