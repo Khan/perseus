@@ -100,10 +100,6 @@ class Explanation extends React.Component<Props, State> {
                     : styles.transitionCollapsed),
         );
 
-        const wrapperStyling = this.state.expanded
-            ? styles.contentWrapperExpanded
-            : styles.contentWrapperCollapsed;
-
         return (
             <UniqueIDProvider
                 mockOnFirstRender={false}
@@ -128,7 +124,7 @@ class Explanation extends React.Component<Props, State> {
                             className={contentStyling}
                             aria-hidden={!this.state.expanded}
                         >
-                            <div className={css(wrapperStyling)}>
+                            <div className={css(styles.contentWrapper)}>
                                 <Renderer
                                     apiOptions={this.props.apiOptions}
                                     content={this.props.explanation}
@@ -189,12 +185,8 @@ const styles = StyleSheet.create({
         marginTop: arrowHeight,
     },
 
-    contentWrapperCollapsed: {
+    contentWrapper: {
         overflow: "hidden",
-    },
-
-    contentWrapperExpanded: {
-        overflow: "visible",
     },
 
     transitionCollapsed: {
