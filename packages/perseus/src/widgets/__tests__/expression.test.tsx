@@ -26,9 +26,10 @@ const renderAndAnswer = async (
     input: string,
     isCorrect: boolean,
 ) => {
+    jest.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
-
     await userEvent.type(screen.getByRole("textbox"), input);
+    jest.runOnlyPendingTimers();
 
     return renderer;
 };
@@ -84,11 +85,12 @@ const assertInvalid = async (
     input: string,
     message?: string,
 ) => {
+    jest.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     if (input.length) {
         await userEvent.type(screen.getByRole("textbox"), input);
     }
-
+    jest.runOnlyPendingTimers();
     expect(renderer).toHaveInvalidInput();
 };
 
@@ -461,14 +463,17 @@ describe("interaction", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.useFakeTimers();
     });
 
     it("sets input value directly", () => {
         // arrange
         const {renderer} = renderQuestion(expressionItem2.question);
+        jest.runOnlyPendingTimers();
 
         // act
         renderer.setInputValue(["expression 1"], "123-x", () => {});
+        jest.runOnlyPendingTimers();
         const score = renderer.guessAndScore()[1];
 
         // Assert
@@ -482,8 +487,10 @@ describe("interaction", () => {
     it("has a developer facility for inserting", () => {
         // arrange
         const {renderer} = renderQuestion(expressionItem2.question);
+        jest.runOnlyPendingTimers();
         const expression = renderer.findWidgets("expression 1")[0];
         expression.insert("x+1");
+        jest.runOnlyPendingTimers();
 
         // act
         const score = renderer.score();
@@ -501,6 +508,7 @@ describe("error tooltip", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.useFakeTimers();
     });
 
     it("shows error text in tooltip", async () => {
@@ -510,6 +518,7 @@ describe("error tooltip", () => {
 
         // Act
         expression.insert("x&&&&&^1");
+        jest.runOnlyPendingTimers();
         screen.getByRole("textbox").blur();
         renderer.guessAndScore();
 
@@ -527,6 +536,7 @@ describe("error tooltip", () => {
 
         // Act
         expression.insert("sen(x)");
+        jest.runOnlyPendingTimers();
         screen.getByRole("textbox").blur();
         renderer.guessAndScore();
 
