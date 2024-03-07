@@ -60,7 +60,7 @@ const SegmentView = (props: {
         onMove: (newPoint: vec.Vector2) => {
             onMoveSegment(vec.sub(newPoint, midpoint));
         },
-        constrain: identity,
+        constrain: (p) => p,
     });
 
     const {viewTransform, userTransform} = useTransformContext();
@@ -125,8 +125,4 @@ function SVGLine(props: {
             style={style}
         />
     );
-}
-
-function identity<T>(x: T): T {
-    return x;
 }
