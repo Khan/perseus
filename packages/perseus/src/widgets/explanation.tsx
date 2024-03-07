@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
         minWidth: "0",
         paddingBottom: 0,
+        visibility: "hidden",
     },
 
     contentExpanded: {
@@ -176,6 +177,7 @@ const styles = StyleSheet.create({
         minWidth: "100%",
         paddingLeft: leftBorderSpacing,
         paddingBottom: verticalContentPadding,
+        visibility: "visible",
 
         // Note: we still use arrow height as the vertical margin, even on
         // desktop when there is no arrow, but it's good enough.
