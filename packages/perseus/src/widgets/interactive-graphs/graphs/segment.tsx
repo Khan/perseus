@@ -59,11 +59,30 @@ const SegmentView = (props: {
         constrain: identity,
     })
 
+    const { viewTransform: pixelMatrix, userTransform } = useTransformContext()
+    const transform = vec.matrixMult(pixelMatrix, userTransform)
+
+    const scaledPoint1 = vec.transform(pt1, transform)
+    const scaledPoint2 = vec.transform(pt2, transform)
+
     return (
         <>
-            <g ref={segment} tabIndex={0}>
-                <Line.Segment point1={pt1} point2={pt2} weight={10} color={"transparent"}/>
-                <Line.Segment point1={pt1} point2={pt2} />
+            <g ref={segment} tabIndex={0} className="movable-segment" style={{cursor: draggingSegment ? "grabbing" : "grab"}}>
+                <line
+                    x1={scaledPoint1[0]}
+                    y1={scaledPoint1[1]}
+                    x2={scaledPoint2[0]}
+                    y2={scaledPoint2[1]}
+                    strokeWidth={10}
+                    style={{stroke: "transparent"}}
+                />
+                <line
+                    x1={scaledPoint1[0]}
+                    y1={scaledPoint1[1]}
+                    x2={scaledPoint2[0]}
+                    y2={scaledPoint2[1]}
+                    style={{ stroke: "var(--mafs-segment-stroke-color)", strokeWidth: "var(--mafs-segment-stroke-weight)" }}
+                />
             </g>
             <MovablePoint
                 point={pt1}
