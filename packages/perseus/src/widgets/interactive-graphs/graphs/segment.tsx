@@ -1,6 +1,7 @@
 import Color from "@khanacademy/wonder-blocks-color";
-import {Line, MovablePoint, vec} from "mafs";
+import {Line, MovablePoint, vec, useMovable, useTransformContext} from "mafs";
 import * as React from "react";
+import {useRef} from "react";
 
 import {moveControlPoint, moveSegment} from "../interactive-graph-action";
 
@@ -46,20 +47,24 @@ const SegmentView = (props: {
     onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
     onMoveSegment: (delta: vec.Vector2) => unknown;
 }) => {
-    const [pt1, pt2] = props.segment;
-
+    const {onMoveSegment, segment: [pt1, pt2]} = props;
     const midpoint = vec.midpoint(pt1, pt2);
+    const segment = useRef<SVGGElement>(null);
+    const {dragging: draggingSegment} = useMovable({
+        gestureTarget: segment,
+        point: midpoint,
+        onMove: (newPoint: vec.Vector2) => {
+            props.onMoveSegment(vec.sub(newPoint, midpoint));
+        },
+        constrain: identity,
+    })
 
     return (
         <>
-            <Line.Segment point1={pt1} point2={pt2} />
-            <MovablePoint
-                point={midpoint}
-                color={Color.blue}
-                onMove={(newPoint) => {
-                    props.onMoveSegment(vec.sub(newPoint, midpoint));
-                }}
-            />
+            <g ref={segment} tabIndex={0}>
+                <Line.Segment point1={pt1} point2={pt2} weight={10} color={"transparent"}/>
+                <Line.Segment point1={pt1} point2={pt2} />
+            </g>
             <MovablePoint
                 point={pt1}
                 color={Color.blue}
@@ -77,3 +82,7 @@ const SegmentView = (props: {
         </>
     );
 };
+
+function identity<T>(x: T): T {
+    return x
+}

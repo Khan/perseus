@@ -11293,10 +11293,9 @@ lz-string@^1.4.4:
   resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.4.4.tgz#c0d8eaf36059f705796e1e344811cf4c498d3a26"
   integrity sha1-wNjq82BZ9wV5bh40SBHPTEmNOiY=
 
-mafs@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/mafs/-/mafs-0.18.0.tgz#47903b63282502798903a9180677b58bfbddadea"
-  integrity sha512-cOYBzS6YuK7yglSE2vLsaSKwb/fTyw/aKkpti+Zy4nD6Ru61JmxBG1NcjWJfxNu36xy/qyO3qM8MiPWRB2IVMw==
+"mafs@https://github.com/Khan/mafs/releases/download/v0.18.1%2Bbuild-cd8b2467893342ba0b02100073fe21f93f8b1125/mafs-0.18.1.tgz":
+  version "0.18.1"
+  resolved "https://github.com/Khan/mafs/releases/download/v0.18.1%2Bbuild-cd8b2467893342ba0b02100073fe21f93f8b1125/mafs-0.18.1.tgz#986a72d339ac62dec18492684cf76d3bacf311bc"
   dependencies:
     "@use-gesture/react" "^10.2.27"
     computer-modern "^0.1.2"
