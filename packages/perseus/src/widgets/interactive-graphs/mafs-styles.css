@@ -14,6 +14,9 @@
     --mafs-green: #00a60e; /* WB color.green */
     --mafs-violet: #9059ff; /* WB color.purple */
     --mafs-yellow: #ffb100; /* WB color.gold */
+
+    /* overridden on a per-point basis */
+    --movable-point-color: var(--mafs-blue);
 }
 
 .MafsView .movable-segment {
@@ -29,4 +32,35 @@
 
 .MafsView .movable-segment:focus {
     outline: none;
+}
+
+.MafsView .movable-point-hitbox {
+    fill: transparent;
+}
+
+.MafsView .movable-point-center {
+    transition: r 0.2s ease;
+}
+
+.MafsView .movable-point-halo {
+    fill: var(--movable-point-color);
+    opacity: 0.25;
+    filter: drop-shadow(0 5px 5px #0008);
+}
+
+.MafsView .movable-point-ring {
+    fill: #fff;
+}
+
+.MafsView .movable-point:hover .movable-point-center {
+    r: 8px;
+}
+
+.MafsView .movable-point:focus .movable-point-halo {
+    outline: 2px solid blue;
+    border-radius: 12px;
+}
+
+.MafsView .movable-point:focus .movable-point-ring {
+    fill: transparent;
 }

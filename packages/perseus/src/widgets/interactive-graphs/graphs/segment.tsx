@@ -1,9 +1,9 @@
-import Color from "@khanacademy/wonder-blocks-color";
-import {MovablePoint, vec, useMovable, useTransformContext} from "mafs";
+import {vec, useMovable, useTransformContext} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
 import {moveControlPoint, moveSegment} from "../interactive-graph-action";
+import {MovablePoint} from "../movable-point";
 
 import type {Segment, SegmentGraphState} from "../interactive-graph-state";
 import type {MafsGraphProps} from "../types";
@@ -64,10 +64,10 @@ const SegmentView = (props: {
     });
 
     const {viewTransform, userTransform} = useTransformContext();
-    const transform = vec.matrixMult(viewTransform, userTransform);
+    const transformToPx = vec.matrixMult(viewTransform, userTransform);
 
-    const scaledPoint1 = vec.transform(pt1, transform);
-    const scaledPoint2 = vec.transform(pt2, transform);
+    const pt1Px = vec.transform(pt1, transformToPx);
+    const pt2Px = vec.transform(pt2, transformToPx);
 
     return (
         <>
@@ -79,13 +79,13 @@ const SegmentView = (props: {
             >
                 {/* This transparent line creates a nice big click target. */}
                 <SVGLine
-                    start={scaledPoint1}
-                    end={scaledPoint2}
+                    start={pt1Px}
+                    end={pt2Px}
                     style={{stroke: "transparent", strokeWidth: 30}}
                 />
                 <SVGLine
-                    start={scaledPoint1}
-                    end={scaledPoint2}
+                    start={pt1Px}
+                    end={pt2Px}
                     style={{
                         stroke: "var(--mafs-segment-stroke-color)",
                         strokeWidth: "var(--mafs-segment-stroke-weight)",
@@ -94,14 +94,12 @@ const SegmentView = (props: {
             </g>
             <MovablePoint
                 point={pt1}
-                color={Color.blue}
                 onMove={(newPoint) => {
                     props.onMovePoint(0, newPoint);
                 }}
             />
             <MovablePoint
                 point={pt2}
-                color={Color.blue}
                 onMove={(newPoint) => {
                     props.onMovePoint(1, newPoint);
                 }}
