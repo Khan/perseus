@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 5.0.2
+
+### Patch Changes
+
+-   [#1042](https://github.com/Khan/perseus/pull/1042) [`9ae993c8`](https://github.com/Khan/perseus/commit/9ae993c8beecb0419b2b461916ee704f8b12fb28) Thanks [@nishasy](https://github.com/nishasy)! - Update props in InteractiveGraphSettings and InteractiveGraphEditor to more accurately reflect how they are used. Minor refactoring.
+
+*   [#1062](https://github.com/Khan/perseus/pull/1062) [`48cf0c07`](https://github.com/Khan/perseus/commit/48cf0c07895f66b3d868ce265befc17f316bb785) Thanks [@nedredmond](https://github.com/nedredmond)! - Renormed tests for Perseus Math Input debounce
+
+*   Updated dependencies [[`9ae993c8`](https://github.com/Khan/perseus/commit/9ae993c8beecb0419b2b461916ee704f8b12fb28), [`48cf0c07`](https://github.com/Khan/perseus/commit/48cf0c07895f66b3d868ce265befc17f316bb785)]:
+    -   @khanacademy/perseus@20.0.2
+
 ## 5.0.1
 
 ### Patch Changes
