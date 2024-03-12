@@ -40,7 +40,7 @@ We use [changesets](https://github.com/changesets/changesets) to help manage our
 ### Updating Dependencies
 
 If you want to use another library in Perseus, you will need up update the dependencies.
-Use `peerDependencies` for dependencies that webapp is already using, such as
+Use `peerDependencies` and `devDependencies` for dependencies that webapp is already using, such as
 Wonder Blocks or React.
 
 1. `cd` into to the package in which you would like to update the dependency.
