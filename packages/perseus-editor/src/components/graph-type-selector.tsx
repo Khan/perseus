@@ -1,3 +1,5 @@
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 type GraphTypeSelectorProps = {
@@ -7,25 +9,32 @@ type GraphTypeSelectorProps = {
 
 const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
     return (
-        <select
-            value={props.graphType}
-            onChange={(e) => {
-                const type = e.target.value;
-                props.onChange(type);
-            }}
+        <SingleSelect
+            selectedValue={props.graphType}
+            onChange={props.onChange}
+            placeholder="Select a graph type"
+            style={styles.singleSelectShort}
         >
-            <option value="linear">Linear function</option>
-            <option value="quadratic">Quadratic function</option>
-            <option value="sinusoid">Sinusoid function</option>
-            <option value="circle">Circle</option>
-            <option value="point">Point(s)</option>
-            <option value="linear-system">Linear System</option>
-            <option value="polygon">Polygon</option>
-            <option value="segment">Line Segment(s)</option>
-            <option value="ray">Ray</option>
-            <option value="angle">Angle</option>
-        </select>
+            <OptionItem value="linear" label="Linear function" />
+            <OptionItem value="quadratic" label="Quadratic function" />
+            <OptionItem value="sinusoid" label="Sinusoid function" />
+            <OptionItem value="circle" label="Circle" />
+            <OptionItem value="point" label="Point(s)" />
+            <OptionItem value="linear-system" label="Linear System" />
+            <OptionItem value="polygon" label="Polygon" />
+            <OptionItem value="segment" label="Line Segment(s)" />
+            <OptionItem value="ray" label="Ray" />
+            <OptionItem value="angle" label="Angle" />
+        </SingleSelect>
     );
 };
+
+const styles = StyleSheet.create({
+    singleSelectShort: {
+        // Non-standard spacing, but it's the smallest we can go
+        // without running into styling issues with the dropdown.
+        height: 26,
+    },
+});
 
 export default GraphTypeSelector;

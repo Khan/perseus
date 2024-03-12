@@ -1,3 +1,5 @@
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {UNLIMITED, parsePointCount} from "../util/points";
@@ -12,20 +14,35 @@ const GraphPointsCountSelector = ({
     onChange: (points: PointValue) => void;
 }) => {
     return (
-        <select
-            value={numPoints}
-            onChange={(e) => {
-                onChange(parsePointCount(e.target.value));
+        <SingleSelect
+            selectedValue={`${numPoints}`}
+            onChange={(newValue) => {
+                onChange(parsePointCount(newValue));
             }}
+            // Never uses placeholder, always has value
+            placeholder=""
+            style={styles.singleSelectShort}
         >
-            {[...Array(7).keys()].map((n) => (
-                <option key={n} value={n}>
-                    {`${n} point${n > 1 ? "s" : ""}`}
-                </option>
-            ))}
-            <option value={UNLIMITED}>unlimited</option>
-        </select>
+            {[
+                ...[...Array(7).keys()].map((n) => (
+                    <OptionItem
+                        key={n}
+                        value={`${n}`}
+                        label={`${n} point${n > 1 ? "s" : ""}`}
+                    />
+                )),
+                <OptionItem value={UNLIMITED} label="unlimited" />,
+            ]}
+        </SingleSelect>
     );
 };
+
+const styles = StyleSheet.create({
+    singleSelectShort: {
+        // Non-standard spacing, but it's the smallest we can go
+        // without running into styling issues with the dropdown.
+        height: 26,
+    },
+});
 
 export default GraphPointsCountSelector;

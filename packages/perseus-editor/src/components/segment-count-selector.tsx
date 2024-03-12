@@ -1,3 +1,5 @@
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
@@ -8,20 +10,33 @@ const SegmentCountSelector = ({
     numSegments?: number;
     onChange: (numSegments: number) => void;
 }) => (
-    <select
+    <SingleSelect
         key="segment-select"
-        value={numSegments}
-        onChange={(e) => {
-            const num = +e.target.value;
+        selectedValue={`${numSegments}`}
+        // Never uses placeholder, always has value
+        placeholder=""
+        onChange={(newValue) => {
+            const num = +newValue;
             onChange(num);
         }}
+        style={styles.singleSelectShort}
     >
         {_.range(1, 7).map((n) => (
-            <option key={n} value={n}>
-                {`${n} segment${n > 1 ? "s" : ""}`}
-            </option>
+            <OptionItem
+                key={n}
+                value={`${n}`}
+                label={`${n} segment${n > 1 ? "s" : ""}`}
+            />
         ))}
-    </select>
+    </SingleSelect>
 );
+
+const styles = StyleSheet.create({
+    singleSelectShort: {
+        // Non-standard spacing, but it's the smallest we can go
+        // without running into styling issues with the dropdown.
+        height: 26,
+    },
+});
 
 export default SegmentCountSelector;
