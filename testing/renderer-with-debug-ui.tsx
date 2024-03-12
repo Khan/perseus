@@ -1,5 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
@@ -45,7 +46,6 @@ export const RendererWithDebugUI = ({
                     Widget
                     <View style={{marginLeft: "auto"}}>
                         <Switch
-                            id={ids.get("mobile")}
                             icon={<PhosphorIcon icon={deviceMobile} />}
                             checked={isMobile}
                             onChange={setIsMobile}
