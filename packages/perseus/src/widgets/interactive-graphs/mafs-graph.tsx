@@ -7,6 +7,7 @@ import {Grid} from "./grid";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 import {initializeGraphState} from "./interactive-graph-state";
 import {getLegacyGrid} from "./legacy-grid";
+import MafsLockedLayer from "./mafs-locked-layer";
 
 import type {InteractiveGraphAction} from "./interactive-graph-action";
 import type {InteractiveGraphState} from "./interactive-graph-state";
@@ -94,7 +95,19 @@ export const MafsGraph = React.forwardRef<
                     width={width}
                     height={height}
                 >
+                    {/* Background layer */}
                     {!legacyGrid && <Grid {...props} />}
+
+                    {/* Locked layer */}
+                    {props.lockedFigures && (
+                        <MafsLockedLayer
+                            // Make a copy of lockedFigures since the prop
+                            // type is readonly.
+                            lockedFigures={[...props.lockedFigures]}
+                        />
+                    )}
+
+                    {/* Interactive layer */}
                     {renderGraph({
                         state,
                         dispatch,
