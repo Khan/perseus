@@ -83,3 +83,42 @@ export const randomExplanationGenerator = (): PerseusRenderer => {
         },
     };
 };
+
+export const ipsumExample: PerseusRenderer = {
+    content: `Unidentified vessel travelling at sub warp speed, bearing 235.7. 
+                Fluctuations in energy readings from it, Captain. 
+                All transporters off. 
+                A strange set-up, but I'd say the graviton generator is depolarized. 
+                The dark colourings of the scrapes are the leavings of natural rubber, 
+                    a type of non-conductive sole used by researchers experimenting with electricity. 
+                The molecules must have been partly de-phased by the anyon beam.
+                \n[[\u2603 explanation 1]]
+            `,
+    images: {},
+    widgets: {
+        "explanation 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "explanation",
+            options: {
+                hidePrompt: "Hide",
+                widgets: {},
+                explanation: `It indicates a [synchronic distortion](#) in the areas emanating triolic waves. 
+                    The cerebellum, the cerebral cortex, the brain stem,
+                        the entire nervous system has been depleted of electrochemical energy. 
+                    Any device like that would produce high levels of triolic waves. 
+                    These walls have undergone some kind of [selective molecular polarization](#). 
+                    I haven't determined if our phaser energy can generate a stable field. 
+                    We could alter the photons with phase discriminators.
+                `,
+                static: false,
+                showPrompt: "Explanation",
+            },
+            alignment: "default",
+        },
+    },
+};

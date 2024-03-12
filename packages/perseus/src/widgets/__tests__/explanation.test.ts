@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -12,6 +12,36 @@ import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 
 describe("Explanation", function () {
     let userEvent;
+
+    const verifyExpandCollapseState = (
+        buttonText: string,
+        isExpanded: boolean,
+    ) => {
+        // Widget Button state
+        const widgetButton = screen.getByRole("button", {name: buttonText});
+        expect(widgetButton).toHaveAttribute(
+            "aria-expanded",
+            String(isExpanded),
+        );
+
+        // Content container state
+        const contentContainer = screen.getByTestId("content-container");
+        expect(contentContainer).toHaveAttribute(
+            "aria-hidden",
+            String(!isExpanded),
+        );
+
+        const expectedClass = isExpanded
+            ? "contentExpanded"
+            : "contentCollapsed";
+        expect(contentContainer.className).toContain(expectedClass);
+
+        const excludedClass = isExpanded
+            ? "contentCollapsed"
+            : "contentExpanded";
+        expect(contentContainer.className).not.toContain(excludedClass);
+    };
+
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -43,77 +73,8 @@ describe("Explanation", function () {
         await userEvent.click(screen.getByRole("button"));
 
         // Assert
-        expect(container).toMatchSnapshot("expanded");
-    });
-
-    it("should snapshot for mobile", async () => {
-        // Arrange and Act
-        const {container} = renderQuestion(question1, {
-            isMobile: true,
-        });
-
-        // Assert
-        expect(container).toMatchSnapshot("initial render");
-    });
-
-    it("should snapshot for mobile when expanded", async () => {
-        // Arrange
-        const {container} = renderQuestion(question1, {
-            isMobile: true,
-        });
-
-        // Act
-        await userEvent.click(screen.getByRole("button"));
-
-        // Assert
-        expect(container).toMatchSnapshot("expanded");
-    });
-
-    it("should snapshot for article", async () => {
-        // Arrange and Act
-        const {container} = renderQuestion(question1, {
-            isArticle: true,
-        });
-
-        // Assert
-        expect(container).toMatchSnapshot("initial render");
-    });
-
-    it("should snapshot for article when expanded", async () => {
-        // Arrange
-        const {container} = renderQuestion(question1, {
-            isArticle: true,
-        });
-
-        // Act
-        await userEvent.click(screen.getByRole("button"));
-
-        // Assert
-        expect(container).toMatchSnapshot("expanded");
-    });
-
-    it("should snapshot for article+mobile", async () => {
-        // Arrange and Act
-        const {container} = renderQuestion(question1, {
-            isMobile: true,
-            isArticle: true,
-        });
-
-        // Assert
-        expect(container).toMatchSnapshot("initial render");
-    });
-
-    it("should snapshot for article+mobile when expanded", async () => {
-        // Arrange
-        const {container} = renderQuestion(question1, {
-            isMobile: true,
-            isArticle: true,
-        });
-
-        // Act
-        await userEvent.click(screen.getByRole("button"));
-
-        // Assert
+        // The only real difference between expanded and not expanded is the
+        //     classes and aria that are applied.
         expect(container).toMatchSnapshot("expanded");
     });
 
@@ -121,89 +82,68 @@ describe("Explanation", function () {
         // Arrange
         renderQuestion(question1);
 
-        // Act - expand with a click
-        const expandButton = screen.getByRole("button", {
-            name: "[Explanation]",
-        });
-        await userEvent.click(expandButton);
+        // Verify initial state
+        verifyExpandCollapseState("Explanation", false);
 
-        // Assert
-        // get asserts if it doesn't find a single matching element
-        expect(screen.getByText("This is an explanation")).toBeVisible();
+        // Act - expand with a click
+        await userEvent.click(
+            screen.getByRole("button", {name: "Explanation"}),
+        );
+
+        // Assert - elements have attributes changed that represent an expanded state
+        verifyExpandCollapseState("Hide explanation!", true);
 
         // Act - collapse with a click
-        const collapseButton = screen.getByRole("button", {
-            name: "[Hide explanation!]",
-        });
-        await userEvent.click(collapseButton); // collapse
+        await userEvent.click(
+            screen.getByRole("button", {name: "Hide explanation!"}),
+        );
 
-        // Assert
-        expect(screen.queryByText("This is an explanation")).toBeNull();
+        // Assert - elements have attributes reset to represent a collapsed state
+        verifyExpandCollapseState("Explanation", false);
     });
 
     it("can be expanded and collapsed with the keyboard - Enter key", async function () {
         // Arrange
         renderQuestion(question1);
 
-        // Act - expand with a click
-        const expandButton = screen.getByRole("button", {
-            name: "[Explanation]",
-        });
-        expandButton.focus();
+        // Verify initial state
+        verifyExpandCollapseState("Explanation", false);
+
+        // Act - expand with the enter key
+        screen.getByRole("button", {name: "Explanation"}).focus();
         await userEvent.keyboard("{Enter}");
 
-        // Assert
-        // get asserts if it doesn't find a single matching element
-        expect(screen.getByText("This is an explanation")).toBeVisible();
+        // Assert - elements have attributes changed that represent an expanded state
+        verifyExpandCollapseState("Hide explanation!", true);
 
-        // Act - collapse with a click
-        const collapseButton = screen.getByRole("button", {
-            name: "[Hide explanation!]",
-        });
-        collapseButton.focus();
+        // Act - collapse with the enter key
+        screen.getByRole("button", {name: "Hide explanation!"}).focus();
         await userEvent.keyboard("{Enter}");
 
-        // Assert
-        expect(screen.queryByText("This is an explanation")).toBeNull();
+        // Assert - elements have attributes reset to represent a collapsed state
+        verifyExpandCollapseState("Explanation", false);
     });
 
     it("can be expanded and collapsed with the keyboard - Space bar", async function () {
         // Arrange
         renderQuestion(question1);
 
-        // Act - expand with a click
-        const expandButton = screen.getByRole("button", {
-            name: "[Explanation]",
-        });
-        expandButton.focus();
+        // Verify initial state
+        verifyExpandCollapseState("Explanation", false);
+
+        // Act - expand with a space bar
+        screen.getByRole("button", {name: "Explanation"}).focus();
         await userEvent.keyboard(" ");
 
-        // Assert
-        // get asserts if it doesn't find a single matching element
-        expect(screen.getByText("This is an explanation")).toBeVisible();
+        // Assert - elements have attributes changed that represent an expanded state
+        verifyExpandCollapseState("Hide explanation!", true);
 
-        // Act - collapse with a click
-        const collapseButton = screen.getByRole("button", {
-            name: "[Hide explanation!]",
-        });
-        collapseButton.focus();
+        // Act - collapse with a space bar
+        screen.getByRole("button", {name: "Hide explanation!"}).focus();
         await userEvent.keyboard(" ");
 
-        // Assert
-        expect(screen.queryByText("This is an explanation")).toBeNull();
-    });
-
-    it("can be collapsed", async function () {
-        // Arrange
-        renderQuestion(question1);
-
-        // Act
-        const expandLink = screen.getByRole("button", {expanded: false});
-        await userEvent.click(expandLink); // expand and then
-        const collapseLink = screen.getByRole("button", {
-            expanded: true,
-        });
-        await userEvent.click(collapseLink); // collapse
+        // Assert - elements have attributes reset to represent a collapsed state
+        verifyExpandCollapseState("Explanation", false);
     });
 
     it("should return an empty object for getUserInput()", async () => {

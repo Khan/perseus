@@ -1,327 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Explanation should snapshot for article when expanded: expanded 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="paragraph"
-      >
-        Here's the explanation
-
-        <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
-        >
-          <div
-            class="container_167wsvl"
-          >
-            <button
-              aria-disabled="false"
-              aria-expanded="true"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
-              type="button"
-            >
-              <div
-                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-articleLink_17wlykh"
-              >
-                [Hide explanation!]
-              </div>
-            </button>
-            <div
-              class="content_z5b02x-o_O-contentExpanded_1c06cap"
-            >
-              <div
-                class="perseus-renderer perseus-renderer-responsive"
-              >
-                <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
-                >
-                  <div
-                    class="paragraph"
-                  >
-                    This is an explanation
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-Did you get that?
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Explanation should snapshot for article+mobile when expanded: expanded 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="paragraph"
-      >
-        Here's the explanation
-
-        <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
-        >
-          <div
-            class="container_167wsvl"
-          >
-            <div
-              class="linkContainer_36rlri"
-            >
-              <a
-                aria-expanded="true"
-                class="mobileExplanationLink_his27d"
-                href="javascript:void(0)"
-                role="button"
-              >
-                Hide explanation!
-              </a>
-              <svg
-                class="disclosureArrow_12nx0hv"
-              >
-                <polygon
-                  points="0,14 30,14 15,0"
-                  style="fill: #F0F1F2;"
-                />
-              </svg>
-            </div>
-            <div
-              class="content_z5b02x-o_O-contentMobile_1wvx5oh-o_O-contentExpandedMobile_knze7z"
-            >
-              <div
-                class="perseus-renderer perseus-renderer-responsive"
-              >
-                <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
-                >
-                  <div
-                    class="paragraph"
-                  >
-                    This is an explanation
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-Did you get that?
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Explanation should snapshot for article+mobile: initial render 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="paragraph"
-      >
-        Here's the explanation
-
-        <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
-        >
-          <div
-            class="container_167wsvl"
-          >
-            <div
-              class="linkContainer_36rlri"
-            >
-              <a
-                aria-expanded="false"
-                class="mobileExplanationLink_his27d"
-                href="javascript:void(0)"
-                role="button"
-              >
-                Explanation
-              </a>
-            </div>
-          </div>
-        </div>
-        
-Did you get that?
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Explanation should snapshot for article: initial render 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="paragraph"
-      >
-        Here's the explanation
-
-        <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
-        >
-          <div
-            class="container_167wsvl"
-          >
-            <button
-              aria-disabled="false"
-              aria-expanded="false"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
-              type="button"
-            >
-              <div
-                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-articleLink_17wlykh"
-              >
-                [Explanation]
-              </div>
-            </button>
-          </div>
-        </div>
-        
-Did you get that?
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Explanation should snapshot for mobile when expanded: expanded 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="paragraph"
-      >
-        Here's the explanation
-
-        <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
-        >
-          <div
-            class="container_167wsvl"
-          >
-            <div
-              class="linkContainer_36rlri"
-            >
-              <a
-                aria-expanded="true"
-                class="mobileExplanationLink_his27d"
-                href="javascript:void(0)"
-                role="button"
-              >
-                Hide explanation!
-              </a>
-              <svg
-                class="disclosureArrow_12nx0hv"
-              >
-                <polygon
-                  points="0,14 30,14 15,0"
-                  style="fill: #F0F1F2;"
-                />
-              </svg>
-            </div>
-            <div
-              class="content_z5b02x-o_O-contentMobile_1wvx5oh-o_O-contentExpandedMobile_knze7z"
-            >
-              <div
-                class="perseus-renderer perseus-renderer-responsive"
-              >
-                <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
-                >
-                  <div
-                    class="paragraph"
-                  >
-                    This is an explanation
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-Did you get that?
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Explanation should snapshot for mobile: initial render 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="paragraph"
-      >
-        Here's the explanation
-
-        <div
-          class="perseus-widget-container widget-nohighlight widget-inline"
-        >
-          <div
-            class="container_167wsvl"
-          >
-            <div
-              class="linkContainer_36rlri"
-            >
-              <a
-                aria-expanded="false"
-                class="mobileExplanationLink_his27d"
-                href="javascript:void(0)"
-                role="button"
-              >
-                Explanation
-              </a>
-            </div>
-          </div>
-        </div>
-        
-Did you get that?
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Explanation should snapshot when expanded: expanded 1`] = `
 <div>
   <div
@@ -339,23 +17,36 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
         <div
           class="perseus-widget-container widget-nohighlight widget-inline"
         >
-          <div
-            class="container_167wsvl"
+          <button
+            aria-controls="uid-explanation-widget-1-content"
+            aria-disabled="false"
+            aria-expanded="true"
+            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-large_muhez5-o_O-inlineStyles_j8g9on"
+            role="button"
+            type="button"
           >
-            <button
-              aria-disabled="false"
-              aria-expanded="true"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
-              type="button"
+            <span
+              class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs-o_O-largeText_m8xch7-o_O-textWithFocus_e296pg-o_O-hover_1nzvkun"
             >
-              <div
-                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-exerciseLink_574wt1"
-              >
-                [Hide explanation!]
-              </div>
-            </button>
+              Hide explanation!
+            </span>
             <div
-              class="content_z5b02x-o_O-contentExpanded_1c06cap"
+              class="default_xu2jcg-o_O-iconWrapper_1nxzm3x-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj-o_O-iconWrapperSecondaryHovered_1qh71iy"
+            >
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-icon_1521uiv-o_O-inlineStyles_1troscl"
+              />
+            </div>
+          </button>
+          <div
+            aria-hidden="false"
+            class="content_1pprw9s-o_O-contentExpanded_1ojyq0m"
+            data-test-id="content-container"
+            id="uid-explanation-widget-1-content"
+          >
+            <div
+              class="contentWrapper_y9ev9r"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -399,21 +90,52 @@ exports[`Explanation should snapshot: initial render 1`] = `
         <div
           class="perseus-widget-container widget-nohighlight widget-inline"
         >
-          <div
-            class="container_167wsvl"
+          <button
+            aria-controls="uid-explanation-widget-0-content"
+            aria-disabled="false"
+            aria-expanded="false"
+            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-large_muhez5-o_O-inlineStyles_j8g9on"
+            role="button"
+            type="button"
           >
-            <button
-              aria-disabled="false"
-              aria-expanded="false"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
-              type="button"
+            <span
+              class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs-o_O-largeText_m8xch7-o_O-textWithFocus_e296pg"
+            >
+              Explanation
+            </span>
+            <div
+              class="default_xu2jcg-o_O-iconWrapper_1nxzm3x-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj"
+            >
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-icon_1521uiv-o_O-inlineStyles_urgnaq"
+              />
+            </div>
+          </button>
+          <div
+            aria-hidden="true"
+            class="content_1pprw9s-o_O-contentCollapsed_j2403j"
+            data-test-id="content-container"
+            id="uid-explanation-widget-0-content"
+          >
+            <div
+              class="contentWrapper_y9ev9r"
             >
               <div
-                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-exerciseLink_574wt1"
+                class="perseus-renderer perseus-renderer-responsive"
               >
-                [Explanation]
+                <div
+                  class="paragraph"
+                  data-perseus-paragraph-index="0"
+                >
+                  <div
+                    class="paragraph"
+                  >
+                    This is an explanation
+                  </div>
+                </div>
               </div>
-            </button>
+            </div>
           </div>
         </div>
         
