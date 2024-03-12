@@ -44,22 +44,16 @@ const styles = {
         display: "flex",
         flexWrap: "wrap",
         flexDirection: "row",
+        gap: Spacing.large_24,
+        padding: `0px ${Spacing.large_24}px`,
     },
     leftPanel: {
-        paddingRight: "30px",
-        margin: Spacing.medium_16,
         flexBasis: `${interactiveSizes.defaultBoxSize}px`,
     },
     rightPanel: {
         flexGrow: 1,
         flexBasis: `${interactiveSizes.defaultBoxSize}px`,
         maxWidth: "50%",
-        padding: "5px",
-    },
-    code: {
-        fontSize: "10pt",
-        marginTop: "22px",
-        fontFamily: "monospace",
     },
 } as const;
 
