@@ -39,15 +39,17 @@ const SideBySide = ({
 const styles = {
     sideBySide: {
         display: "flex",
+        flexWrap: "wrap",
         flexDirection: "row",
     },
     leftPanel: {
         paddingRight: "30px",
-        flexGrow: 1,
+        flexBasis: "400px",
     },
     rightPanel: {
         flexGrow: 1,
         maxWidth: "50%",
+        flexBasis: "400px",
         padding: "5px",
     },
     code: {
