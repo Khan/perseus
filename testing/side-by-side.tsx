@@ -4,6 +4,8 @@ import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
+import {interactiveSizes} from "../packages/perseus/src/styles/constants";
+
 type Props = {
     leftTitle: React.ReactNode;
     left: React.ReactNode;
@@ -45,13 +47,13 @@ const styles = {
     },
     leftPanel: {
         paddingRight: "30px",
-        flexBasis: "400px",
         margin: Spacing.medium_16,
+        flexBasis: `${interactiveSizes.defaultBoxSize}px`,
     },
     rightPanel: {
         flexGrow: 1,
+        flexBasis: `${interactiveSizes.defaultBoxSize}px`,
         maxWidth: "50%",
-        flexBasis: "400px",
         padding: "5px",
     },
     code: {
