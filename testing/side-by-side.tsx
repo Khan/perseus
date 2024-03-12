@@ -1,10 +1,11 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
 type Props = {
-    leftTitle: string;
+    leftTitle: React.ReactNode;
     left: React.ReactNode;
     rightTitle?: string;
     jsonObject: any;
@@ -45,6 +46,7 @@ const styles = {
     leftPanel: {
         paddingRight: "30px",
         flexBasis: "400px",
+        margin: Spacing.medium_16,
     },
     rightPanel: {
         flexGrow: 1,
