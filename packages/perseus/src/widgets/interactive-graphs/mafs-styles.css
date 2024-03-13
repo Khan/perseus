@@ -6,7 +6,7 @@
     --mafs-bg: transparent;
     --mafs-fg: rgb(33, 36, 44); /* WB color.offBlack */
 
-    --mafs-line-color: rgba(33, 36, 44, 0.24);
+    --mafs-line-color: rgba(33, 36, 44, 0.16); /* WB color.offBlack16*/
 
     --mafs-blue: #1865f2; /* WB color.blue */
     --mafs-red: #d92916; /* WB color.red */
