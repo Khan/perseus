@@ -1,5 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Explanation does NOT have a test ID when not in a test environment: non-test render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        Here's the explanation
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-inline"
+        >
+          <button
+            aria-controls="uid-explanation-widget-2-content"
+            aria-disabled="false"
+            aria-expanded="false"
+            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-large_muhez5-o_O-inlineStyles_j8g9on"
+            role="button"
+            type="button"
+          >
+            <span
+              class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs-o_O-largeText_m8xch7-o_O-textWithFocus_e296pg"
+            >
+              Explanation
+            </span>
+            <div
+              class="default_xu2jcg-o_O-iconWrapper_1nxzm3x-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj"
+            >
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-icon_1521uiv-o_O-inlineStyles_urgnaq"
+              />
+            </div>
+          </button>
+          <div
+            aria-hidden="true"
+            class="content_1pprw9s-o_O-contentCollapsed_j2403j"
+            id="uid-explanation-widget-2-content"
+          >
+            <div
+              class="contentWrapper_y9ev9r"
+            >
+              <div
+                class="perseus-renderer perseus-renderer-responsive"
+              >
+                <div
+                  class="paragraph"
+                  data-perseus-paragraph-index="0"
+                >
+                  <div
+                    class="paragraph"
+                  >
+                    This is an explanation
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+Did you get that?
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Explanation should snapshot when expanded: expanded 1`] = `
 <div>
   <div

@@ -78,7 +78,7 @@ class Explanation extends React.Component<Props, State> {
         const caretIcon = this.state.expanded ? caretUp : caretDown;
 
         const allowTransition = window.matchMedia(
-            `(prefers-reduced-motion: no-preference)`,
+            "(prefers-reduced-motion: no-preference)",
         ).matches;
 
         // Special styling is needed to fit the button in a block of text without throwing off the line spacing.

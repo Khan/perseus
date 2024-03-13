@@ -1,8 +1,9 @@
-import {screen, waitFor} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import * as Changeable from "../../mixins/changeable";
 import {question1} from "../__testdata__/explanation.testdata";
 import ExplanationWidgetExports from "../explanation";
 
@@ -40,6 +41,19 @@ describe("Explanation", function () {
         expect(contentContainer.className).not.toContain(excludedClass);
     };
 
+    const getMatchMediaMockFn = (doesMatch: boolean, mediaQuery?: string) => {
+        return (query) => ({
+            matches: (mediaQuery ?? query) === query ? doesMatch : !doesMatch,
+            media: query,
+            onchange: null,
+            addEventListener: jest.fn(),
+            addListener: jest.fn(),
+            removeListener: jest.fn(),
+            removeEventListener: jest.fn(),
+            dispatchEvent: jest.fn(),
+        });
+    };
+
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -74,6 +88,19 @@ describe("Explanation", function () {
         // The only real difference between expanded and not expanded is the
         //     classes and aria that are applied.
         expect(container).toMatchSnapshot("expanded");
+    });
+
+    it("does NOT have a test ID when not in a test environment", async () => {
+        // Arrange
+        const originalNodeEnv = process.env.NODE_ENV;
+        process.env.NODE_ENV = "foo";
+        const {container} = renderQuestion(question1);
+
+        // Assert
+        expect(container).toMatchSnapshot("non-test render");
+
+        // Clean-up
+        process.env.NODE_ENV = originalNodeEnv;
     });
 
     it("can be expanded and collapsed with a mouse click", async function () {
@@ -142,6 +169,100 @@ describe("Explanation", function () {
 
         // Assert - elements have attributes reset to represent a collapsed state
         verifyExpandCollapseState("Explanation", false);
+    });
+
+    it("uses transitions when it is expanded/collapsed", async () => {
+        // Arrange
+        const matchMediaMock = jest
+            .spyOn(window, "matchMedia")
+            .mockImplementation(
+                getMatchMediaMockFn(
+                    true,
+                    "(prefers-reduced-motion: no-preference)",
+                ),
+            );
+        renderQuestion(question1);
+
+        // Act - expand
+        await userEvent.click(
+            screen.getByRole("button", {name: "Explanation"}),
+        );
+
+        // Assert - transition when revealing
+        expect(screen.getByTestId("content-container").className).toContain(
+            "transitionExpanded",
+        );
+
+        // Act - collapse
+        await userEvent.click(
+            screen.getByRole("button", {name: "Hide explanation!"}),
+        );
+
+        // Assert - transition when concealing
+        expect(screen.getByTestId("content-container").className).toContain(
+            "transitionCollapsed",
+        );
+
+        // Clean-up
+        matchMediaMock.mockRestore();
+    });
+
+    it("does NOT use transitions when the user prefers reduced motion", async () => {
+        // Arrange
+        const matchMediaMock = jest
+            .spyOn(window, "matchMedia")
+            .mockImplementation(
+                getMatchMediaMockFn(
+                    false,
+                    "(prefers-reduced-motion: no-preference)",
+                ),
+            );
+        renderQuestion(question1);
+
+        // Act - expand
+        await userEvent.click(
+            screen.getByRole("button", {name: "Explanation"}),
+        );
+
+        // Assert - transition when revealing
+        expect(screen.getByTestId("content-container").className).not.toContain(
+            "transitionExpanded",
+        );
+
+        // Act - collapse
+        await userEvent.click(
+            screen.getByRole("button", {name: "Hide explanation!"}),
+        );
+
+        // Assert - transition when concealing
+        expect(screen.getByTestId("content-container").className).not.toContain(
+            "transitionCollapsed",
+        );
+
+        // Clean-up
+        matchMediaMock.mockRestore();
+    });
+
+    it("communicates changes to its parent by using the provided 'onChange' callback", () => {
+        // Arrange
+        // @ts-expect-error // Argument of type {onChange: () => void;} is not assignable to parameter of type Props | Readonly<Props>
+        const widget = new ExplanationWidgetExports.widget({
+            onChange: () => {},
+        });
+        const callbackMock = jest.fn();
+        const changeMock = jest
+            .spyOn(Changeable, "change")
+            .mockImplementation(() => {});
+
+        // Act - call the widget's "change" function
+        widget.change("foo", "bar", callbackMock);
+
+        // Assert
+        expect(changeMock.mock.contexts[0]).toEqual(widget);
+        expect(changeMock).toHaveBeenCalledWith("foo", "bar", callbackMock);
+
+        // Clean-up
+        changeMock.mockRestore();
     });
 
     it("should return an empty object for getUserInput()", async () => {
