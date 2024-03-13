@@ -2,6 +2,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
+import GraphLockedLayer from "./graph-locked-layer";
 import {SegmentGraph} from "./graphs";
 import {Grid} from "./grid";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
@@ -94,7 +95,15 @@ export const MafsGraph = React.forwardRef<
                     width={width}
                     height={height}
                 >
+                    {/* Background layer */}
                     {!legacyGrid && <Grid {...props} />}
+
+                    {/* Locked layer */}
+                    {props.lockedFigures && (
+                        <GraphLockedLayer lockedFigures={props.lockedFigures} />
+                    )}
+
+                    {/* Interactive layer */}
                     {renderGraph({
                         state,
                         dispatch,

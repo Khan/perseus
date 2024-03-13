@@ -11,6 +11,7 @@ import {
     polygonQuestion,
     rayQuestion,
     segmentQuestion,
+    segmentWithLockedPointsQuestion,
     sinusoidQuestion,
 } from "../__testdata__/interactive-graph.testdata";
 
@@ -54,6 +55,21 @@ export const Ray = (args: StoryArgs): React.ReactElement => (
 
 export const Segment = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={segmentQuestion} />
+);
+
+export const SegmentWithMafsAndLockedPoints = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={{
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        }}
+        question={segmentWithLockedPointsQuestion}
+    />
 );
 
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (

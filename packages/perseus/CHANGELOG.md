@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 20.1.0
+
+### Minor Changes
+
+-   [#1063](https://github.com/Khan/perseus/pull/1063) [`631af3a4`](https://github.com/Khan/perseus/commit/631af3a459e7ee54e552d011438bd7daa6dc9197) Thanks [@benchristel](https://github.com/benchristel)! - You can now move the movable line segments on Mafs graphs by dragging anywhere on the line.
+
+### Patch Changes
+
+-   [#1049](https://github.com/Khan/perseus/pull/1049) [`f5d5852c`](https://github.com/Khan/perseus/commit/f5d5852c4e6c4c7e701433f56ec82cd9fdf77684) Thanks [@nishasy](https://github.com/nishasy)! - Use Wonder Blocks + minor refactoring in interactive graph editor
+
 ## 20.0.2
 
 ### Patch Changes

@@ -6,12 +6,81 @@
     --mafs-bg: transparent;
     --mafs-fg: rgb(33, 36, 44); /* WB color.offBlack */
 
-    --mafs-line-color: var(--mafs-fg);
-    --grid-line-subdivision-color: rgba(33, 36, 44, 0.16);
+    --mafs-line-color: rgba(33, 36, 44, 0.16); /* WB color.offBlack16*/
 
     --mafs-blue: #1865f2; /* WB color.blue */
     --mafs-red: #d92916; /* WB color.red */
     --mafs-green: #00a60e; /* WB color.green */
     --mafs-violet: #9059ff; /* WB color.purple */
     --mafs-yellow: #ffb100; /* WB color.gold */
+
+    /* overridden on a per-point basis */
+    --movable-point-color: var(--mafs-blue);
+    --movable-point-center-radius: 6px;
+    --movable-point-ring-radius: calc(2px + var(--movable-point-center-radius));
+    --movable-point-halo-radius: calc(3px + var(--movable-point-ring-radius));
+    --movable-point-hover-expansion: 2px;
+}
+
+.MafsView .movable-segment {
+    --mafs-segment-stroke-color: var(--mafs-line-color);
+    --mafs-segment-stroke-weight: 2px;
+}
+
+.MafsView .movable-segment:is(:focus-visible, :hover) {
+    outline: none;
+    --mafs-segment-stroke-color: var(--mafs-blue);
+    --mafs-segment-stroke-weight: 4px;
+}
+
+.MafsView .movable-segment:focus {
+    outline: none;
+}
+
+.MafsView .movable-point-hitbox {
+    fill: transparent;
+}
+
+.MafsView :is(.movable-point-center, .movable-point-ring, .movable-point-halo) {
+    transition: r 0.15s ease-out;
+}
+
+.MafsView .movable-point-center {
+    r: var(--movable-point-center-radius);
+}
+
+.MafsView .movable-point-halo {
+    r: var(--movable-point-halo-radius);
+    fill: var(--movable-point-color);
+    opacity: 0.25;
+    filter: drop-shadow(0 5px 5px #0008);
+}
+
+.MafsView .movable-point-ring {
+    r: var(--movable-point-ring-radius);
+    fill: #fff;
+}
+
+.MafsView .movable-point:hover .movable-point-center {
+    r: calc(
+        var(--movable-point-hover-expansion) +
+            var(--movable-point-center-radius)
+    );
+}
+
+.MafsView .movable-point:hover .movable-point-ring {
+    r: calc(
+        var(--movable-point-hover-expansion) + var(--movable-point-ring-radius)
+    );
+}
+
+.MafsView .movable-point:hover .movable-point-halo {
+    r: calc(
+        var(--movable-point-hover-expansion) + var(--movable-point-halo-radius)
+    );
+}
+
+.MafsView .movable-point:focus-visible .movable-point-halo {
+    outline: 2px solid blue;
+    border-radius: 99px;
 }
