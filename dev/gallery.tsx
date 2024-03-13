@@ -107,7 +107,10 @@ export function Gallery() {
                 </nav>
             </header>
             <main className={css(styles.main)}>
-                <View style={styles.cards}>
+                <View
+                    style={styles.cards}
+                    className={isMobile ? "perseus-mobile" : ""}
+                >
                     {questions.map((question, i) => (
                         <QuestionRenderer
                             key={i}

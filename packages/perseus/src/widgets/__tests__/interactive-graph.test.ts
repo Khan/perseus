@@ -148,7 +148,7 @@ describe("segment graph", () => {
 
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const movablePoints = container.querySelectorAll(
-            "circle.mafs-movable-point-hitbox",
+            "circle.movable-point-hitbox",
         );
 
         // Act
@@ -168,7 +168,7 @@ describe("segment graph", () => {
 
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const movablePoints = container.querySelectorAll(
-            "circle.mafs-movable-point-hitbox",
+            "circle.movable-point-hitbox",
         );
 
         // Act
