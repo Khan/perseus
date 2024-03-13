@@ -123,7 +123,7 @@ function GradableRenderer(props: QuestionRendererProps) {
             case "invalid":
                 return "You didn't answer the question.";
             case "points":
-                return score.earned > 0 ? "Correct!" : "Incorrect.";
+                return score.earned >= score.total ? "Correct!" : "Incorrect.";
         }
     }
 
