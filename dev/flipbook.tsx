@@ -4,7 +4,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
-import {useReducer} from "react";
+import {useReducer, useRef} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 
@@ -84,6 +84,8 @@ type QuestionRendererProps = {
 };
 
 function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
+    const legacyRendererRef = useRef<Renderer>(null);
+    const mafsRendererRef = useRef<Renderer>(null);
     return (
         <View
             className="framework-perseus"
@@ -93,23 +95,27 @@ function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
                 gap: Spacing.small_12,
             }}
         >
-            <View>
+            <View style={{alignItems: "flex-start"}}>
                 <Renderer
+                    ref={legacyRendererRef}
                     content={question.content}
                     images={question.images}
                     widgets={question.widgets}
                     problemNum={0}
                     apiOptions={{...apiOptions, flags: {mafs: false}}}
                 />
+                <Button onClick={() => console.log(legacyRendererRef.current?.score())}>Check answer</Button>
             </View>
-            <View>
+            <View style={{alignItems: "flex-start"}}>
                 <Renderer
+                    ref={mafsRendererRef}
                     content={question.content}
                     images={question.images}
                     widgets={question.widgets}
                     problemNum={0}
                     apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
                 />
+                <Button onClick={() => console.log(mafsRendererRef.current?.score())}>Check answer</Button>
             </View>
         </View>
     );
