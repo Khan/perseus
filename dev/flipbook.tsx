@@ -85,28 +85,32 @@ type QuestionRendererProps = {
 
 function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
     return (
-        <div
+        <View
+            className="framework-perseus"
             style={{
+                flexDirection: "row",
                 padding: Spacing.xLarge_32,
-                display: "flex",
                 gap: Spacing.small_12,
             }}
-            className="framework-perseus"
         >
-            <Renderer
-                content={question.content}
-                images={question.images}
-                widgets={question.widgets}
-                problemNum={0}
-                apiOptions={{...apiOptions, flags: {mafs: false}}}
-            />
-            <Renderer
-                content={question.content}
-                images={question.images}
-                widgets={question.widgets}
-                problemNum={0}
-                apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
-            />
-        </div>
+            <View>
+                <Renderer
+                    content={question.content}
+                    images={question.images}
+                    widgets={question.widgets}
+                    problemNum={0}
+                    apiOptions={{...apiOptions, flags: {mafs: false}}}
+                />
+            </View>
+            <View>
+                <Renderer
+                    content={question.content}
+                    images={question.images}
+                    widgets={question.widgets}
+                    problemNum={0}
+                    apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
+                />
+            </View>
+        </View>
     );
 }
