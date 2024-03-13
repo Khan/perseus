@@ -50,7 +50,15 @@ export const Controlled: StoryComponentType = {
             };
         };
 
-        const [state, dispatch] = React.useReducer(reducer, {});
+        const [state, dispatch] = React.useReducer(reducer, {
+            apiOptions: {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+        });
 
         return <InteractiveGraphEditor {...state} onChange={dispatch} />;
     },
