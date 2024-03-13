@@ -262,6 +262,10 @@ function combineScores(
     );
 }
 
+export function isCorrect(score: PerseusScore): boolean {
+    return score.type === "points" && score.earned >= score.total;
+}
+
 function keScoreFromPerseusScore(
     score: PerseusScore,
     guess: any,
@@ -270,7 +274,7 @@ function keScoreFromPerseusScore(
     if (score.type === "points") {
         return {
             empty: false,
-            correct: score.earned >= score.total,
+            correct: isCorrect(score),
             message: score.message,
             guess: guess,
             state: state,

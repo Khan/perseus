@@ -23,6 +23,7 @@ import type {
 } from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
+import {isCorrect} from "../packages/perseus/src/util";
 
 const exampleCommands = `
 # copy all questions
@@ -123,7 +124,7 @@ function GradableRenderer(props: QuestionRendererProps) {
             case "invalid":
                 return "You didn't answer the question.";
             case "points":
-                return score.earned >= score.total ? "Correct!" : "Incorrect.";
+                return isCorrect(score) ? "Correct!" : "Incorrect.";
         }
     }
 
