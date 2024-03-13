@@ -12,7 +12,7 @@ export const MovablePoint = (props: Props) => {
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove} = props;
 
-    useMovable({
+    const {dragging} = useMovable({
         gestureTarget: hitboxRef,
         point,
         onMove,
@@ -30,7 +30,7 @@ export const MovablePoint = (props: Props) => {
             tabIndex={0}
             style={
                 {
-                    cursor: "grab",
+                    cursor: dragging ? "grabbing" : "grab",
                     touchAction: "none",
                     outline: "none",
                     "--movable-point-color": Color.blue,
