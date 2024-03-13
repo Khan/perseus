@@ -38,7 +38,7 @@
     fill: transparent;
 }
 
-.MafsView .movable-point-center {
+.MafsView :is(.movable-point-center, .movable-point-ring, .movable-point-halo) {
     transition: r 0.2s ease;
 }
 
@@ -56,11 +56,15 @@
     r: 8px;
 }
 
-.MafsView .movable-point:focus .movable-point-halo {
-    outline: 2px solid blue;
-    border-radius: 12px;
+.MafsView .movable-point:hover .movable-point-ring {
+    r: 10px;
 }
 
-.MafsView .movable-point:focus .movable-point-ring {
-    fill: transparent;
+.MafsView .movable-point:hover .movable-point-halo {
+    r: 13px;
+}
+
+.MafsView .movable-point:focus-visible .movable-point-halo {
+    outline: 2px solid blue;
+    border-radius: 99px;
 }
