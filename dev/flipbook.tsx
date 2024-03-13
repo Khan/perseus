@@ -7,6 +7,7 @@ import * as React from "react";
 import {useReducer, useRef} from "react";
 
 import {Renderer} from "../packages/perseus/src";
+import {isCorrect} from "../packages/perseus/src/util";
 
 import {
     flipbookModelReducer,
@@ -23,7 +24,6 @@ import type {
 } from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
-import {isCorrect} from "../packages/perseus/src/util";
 
 const exampleCommands = `
 # copy all questions
