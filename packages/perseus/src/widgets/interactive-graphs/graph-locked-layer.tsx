@@ -5,24 +5,25 @@ import * as React from "react";
 import type {LockedFigure} from "../../perseus-types";
 
 type Props = {
-    lockedFigures: Array<LockedFigure>;
+    lockedFigures: ReadonlyArray<LockedFigure>;
 };
 
-const MafsLockedLayer = (props: Props) => {
+const GraphLockedLayer = (props: Props) => {
     const {lockedFigures} = props;
     return (
         <>
             {lockedFigures.map((figure, index) => {
-                if (figure.type === "point") {
-                    const [x, y] = figure.coord;
-                    return (
-                        <Point
-                            key={`${figure.type}-${index}`}
-                            x={x}
-                            y={y}
-                            svgCircleProps={{style: figure.style}}
-                        />
-                    );
+                switch (figure.type) {
+                    case "point":
+                        const [x, y] = figure.coord;
+                        return (
+                            <Point
+                                key={`${figure.type}-${index}`}
+                                x={x}
+                                y={y}
+                                svgCircleProps={{style: figure.style}}
+                            />
+                        );
                 }
 
                 /**
@@ -38,4 +39,4 @@ const MafsLockedLayer = (props: Props) => {
     );
 };
 
-export default MafsLockedLayer;
+export default GraphLockedLayer;
