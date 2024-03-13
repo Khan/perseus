@@ -1,3 +1,4 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Point} from "mafs";
 import * as React from "react";
 
@@ -31,8 +32,7 @@ const MafsLockedLayer = (props: Props) => {
                  * switch case here.
                  */
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const exhaustiveCheck: never = figure.type;
-                throw new Error(`Unknown locked shape type: ${figure.type}`);
+                throw new UnreachableCaseError(figure.type);
             })}
         </>
     );

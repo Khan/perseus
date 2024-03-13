@@ -100,11 +100,7 @@ export const MafsGraph = React.forwardRef<
 
                     {/* Locked layer */}
                     {props.lockedFigures && (
-                        <MafsLockedLayer
-                            // Make a copy of lockedFigures since the prop
-                            // type is readonly.
-                            lockedFigures={[...props.lockedFigures]}
-                        />
+                        <MafsLockedLayer lockedFigures={props.lockedFigures} />
                     )}
 
                     {/* Interactive layer */}

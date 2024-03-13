@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`matcher widget can reorder options: first mobile render 1`] = `<div />`;
+
 exports[`matcher widget can reorder options: moved items 1`] = `
 <div>
   <div
@@ -98,7 +100,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Average global temperatures will rise 
+                            Average global temperatures will rise
                           </div>
                         </div>
                       </div>
@@ -117,7 +119,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of fuel and die in around 5 billion years 
+                            Our Sun will run out of fuel and die in around 5 billion years
                           </div>
                         </div>
                       </div>
@@ -136,7 +138,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans
                           </div>
                         </div>
                       </div>
@@ -155,7 +157,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die
                           </div>
                         </div>
                       </div>
@@ -174,7 +176,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda
                           </div>
                         </div>
                       </div>
@@ -392,7 +394,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of fuel and die in around 5 billion years 
+                            Our Sun will run out of fuel and die in around 5 billion years
                           </div>
                         </div>
                       </div>
@@ -411,7 +413,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans
                           </div>
                         </div>
                       </div>
@@ -430,7 +432,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die
                           </div>
                         </div>
                       </div>
@@ -449,7 +451,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Average global temperatures will rise 
+                            Average global temperatures will rise
                           </div>
                         </div>
                       </div>
@@ -468,7 +470,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda
                           </div>
                         </div>
                       </div>
@@ -686,7 +688,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of fuel and die in around 5 billion years 
+                            Our Sun will run out of fuel and die in around 5 billion years
                           </div>
                         </div>
                       </div>
@@ -705,7 +707,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans
                           </div>
                         </div>
                       </div>
@@ -724,7 +726,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die
                           </div>
                         </div>
                       </div>
@@ -743,7 +745,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Average global temperatures will rise 
+                            Average global temperatures will rise
                           </div>
                         </div>
                       </div>
@@ -762,7 +764,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda
                           </div>
                         </div>
                       </div>
