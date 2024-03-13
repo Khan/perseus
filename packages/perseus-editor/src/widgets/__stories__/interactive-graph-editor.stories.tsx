@@ -57,9 +57,8 @@ export const Controlled: StoryComponentType = {
 };
 
 /**
- * Example of what the InteractiveGraphEditor experience with Mafs enabled.
- * To view a Mafs-based graph, select a graph type that supports Mafs
- * (e.g. "Segment").
+ * Example of what the InteractiveGraphEditor experience is when using
+ * a Mafs-based InteractiveGraph.
  */
 export const WithMafs: StoryComponentType = {
     render: function Render() {
@@ -77,6 +76,12 @@ export const WithMafs: StoryComponentType = {
                         segment: true,
                     },
                 },
+            },
+            graph: {
+                type: "segment",
+            },
+            correct: {
+                type: "segment",
             },
         });
 
