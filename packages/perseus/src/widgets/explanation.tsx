@@ -100,6 +100,9 @@ class Explanation extends React.Component<Props, State> {
                     : styles.transitionCollapsed),
         );
 
+        const contentTestId =
+            process.env.NODE_ENV === "test" ? "content-container" : null;
+
         return (
             <UniqueIDProvider
                 mockOnFirstRender={false}
@@ -123,6 +126,7 @@ class Explanation extends React.Component<Props, State> {
                             id={ids.get("content")}
                             className={contentStyling}
                             aria-hidden={!this.state.expanded}
+                            data-test-id={contentTestId}
                         >
                             <div className={css(styles.contentWrapper)}>
                                 <Renderer

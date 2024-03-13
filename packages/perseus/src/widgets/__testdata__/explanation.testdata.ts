@@ -92,7 +92,10 @@ export const ipsumExample: PerseusRenderer = {
                 The dark colourings of the scrapes are the leavings of natural rubber, 
                     a type of non-conductive sole used by researchers experimenting with electricity. 
                 The molecules must have been partly de-phased by the anyon beam.
-                \n[[\u2603 explanation 1]]
+                \n[[\u2603 explanation 1]]\n\nSensors indicate no shuttle or other ships in this sector.
+                According to coordinates, we have travelled 7,000 light years and are located near [the system J-25](#).
+                Tractor beam released, sir. Force field maintaining our hull integrity.
+                Damage report? Sections 27, 28 and 29 on decks four, five and six destroyed.
             `,
     images: {},
     widgets: {
