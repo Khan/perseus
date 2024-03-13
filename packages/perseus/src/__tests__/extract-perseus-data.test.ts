@@ -5,10 +5,12 @@ import {
     injectWidgets,
 } from "../util/extract-perseus-data";
 
+import type {RadioWidget, PerseusWidgetsMap} from "../perseus-types";
+
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {
         it("should get the answer from a radio widget", () => {
-            const widget = {
+            const widget: RadioWidget = {
                 type: "radio",
                 options: {
                     choices: [
@@ -437,11 +439,11 @@ describe("ExtractPerseusData", () => {
 
     describe("injectWidgets", () => {
         it("should inject image widget into the content", () => {
-            const widgets = {
-                "Image 1": {
+            const widgets: PerseusWidgetsMap = {
+                "image 1": {
                     type: "image",
                     options: {
-                        alt: "Image alt text",
+                        alt: "image alt text",
                         backgroundImage: {
                             url: "",
                             width: 100,
@@ -451,17 +453,17 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
             const content = injectWidgets(
-                "Content with an image [[☃ Image 1]]",
+                "Content with an image [[☃ image 1]]",
                 widgets,
             );
             expect(content).toEqual(
-                'Content with an image <img id="Image 1" alt="Image alt text">',
+                'Content with an image <img id="image 1" alt="image alt text">',
             );
         });
 
         it("should inject label-image widget into the content", () => {
-            const widgets = {
-                "Label-Image 1": {
+            const widgets: PerseusWidgetsMap = {
+                "label-image 1": {
                     type: "label-image",
                     options: {
                         choices: ["answer 1", "answer 2"],
@@ -489,7 +491,7 @@ describe("ExtractPerseusData", () => {
                     },
                 },
             } as const;
-            const content = injectWidgets("[[☃ Label-Image 1]]", widgets);
+            const content = injectWidgets("[[☃ label-image 1]]", widgets);
             expect(content).toEqual(
                 "[An image with dots that user needs to label. Label choices: [answer 1, answer 2]. Image alt text: Alt text for the image]",
             );
@@ -497,7 +499,7 @@ describe("ExtractPerseusData", () => {
 
         it("should inject radio widget into the content", () => {
             const widgets = {
-                "Radio 1": {
+                "radio 1": {
                     type: "radio",
                     options: {
                         choices: [
@@ -514,7 +516,7 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
             const content = injectWidgets(
-                "Content with a radio\n[[☃ Radio 1]]",
+                "Content with a radio\n[[☃ radio 1]]",
                 widgets,
             );
             expect(content).toEqual("Content with a radio\nchoice 1\nchoice 2");
