@@ -1,4 +1,4 @@
-import {normalizePoints, normalizeCoords, constrain} from "./utils";
+import {normalizePoints, normalizeCoords} from "./utils";
 
 import type {Coord} from "../../interactive2/types";
 
@@ -62,26 +62,5 @@ describe("normalizeCoords", () => {
         const result = normalizeCoords(coordsList, ranges);
 
         expect(result).toEqual(expected);
-    });
-});
-
-describe("constrain", () => {
-    const snapStep: [number, number] = [1, 1];
-    const range: [[number, number], [number, number]] = [
-        [-10, 10],
-        [-10, 10],
-    ];
-
-    test.each([
-        [11, 12],
-        [9.5, 9.5],
-        [-999, -100],
-        [-9.6, -10.1],
-    ])("should constrain coordinates within snap and range", (x, y) => {
-        const expected: [number, number] = [10, 10];
-
-        const result = constrain([x, y], snapStep, range);
-
-        expect(result.map(Math.abs)).toEqual(expected);
     });
 });

@@ -29,7 +29,7 @@
     "@jest/globals": "^29.7.0",
     "@khanacademy/eslint-config": "^3.0.1",
     "@khanacademy/eslint-plugin": "^2.1.1",
-    "@khanacademy/wonder-blocks-button": "6.2.5",
+    "@khanacademy/wonder-blocks-button": "6.2.8",
     "@khanacademy/wonder-blocks-i18n": "^2.0.2",
     "@khanacademy/wonder-blocks-layout": "^2.0.27",
     "@khanacademy/wonder-stuff-i18n": "^2.1.2",

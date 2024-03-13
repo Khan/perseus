@@ -35,6 +35,7 @@ import type {
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetOptions,
+    PerseusWidgetsMap,
 } from "./perseus-types";
 import type {
     APIOptions,
@@ -42,7 +43,6 @@ import type {
     FilterCriterion,
     FocusPath,
     PerseusScore,
-    PerseusWidgetMap,
     WidgetProps,
 } from "./types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -474,9 +474,9 @@ class Renderer extends React.Component<Props, State> {
     };
 
     // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
-    _getAllWidgetsInfo: (props: Props) => {
-        [key: string]: PerseusWidget;
-    } = (props: Props) => {
+    _getAllWidgetsInfo: (props: Props) => PerseusWidgetsMap = (
+        props: Props,
+    ) => {
         // @ts-expect-error - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
         return mapObject(props.widgets, (widgetInfo, widgetId) => {
             if (!widgetInfo.type || !widgetInfo.alignment) {
@@ -496,11 +496,11 @@ class Renderer extends React.Component<Props, State> {
     };
 
     _getAllWidgetsStartProps: (
-        allWidgetInfo: PerseusWidgetMap,
+        allWidgetInfo: PerseusWidgetsMap,
         props: Props,
-    ) => PerseusWidgetMap = (allWidgetInfo, props) => {
+    ) => PerseusWidgetsMap = (allWidgetInfo, props) => {
         const {apiOptions, problemNum} = props;
-        const widgetsStartProps: PerseusWidgetMap = {};
+        const widgetsStartProps: PerseusWidgetsMap = {};
         entries(allWidgetInfo).forEach(([key, widgetInfo]) => {
             widgetsStartProps[key] = Widgets.getRendererPropsForWidgetInfo(
                 widgetInfo,
@@ -605,11 +605,9 @@ class Renderer extends React.Component<Props, State> {
 
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
-        let reviewModeRubric = null;
         const widgetInfo = this.state.widgetInfo[id];
-        if (this.props.reviewMode && widgetInfo) {
-            reviewModeRubric = widgetInfo.options;
-        }
+        const reviewModeRubric =
+            this.props.reviewMode && widgetInfo ? widgetInfo.options : null;
 
         if (!this._interactionTrackers) {
             this._interactionTrackers = {};

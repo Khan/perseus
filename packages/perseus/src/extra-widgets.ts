@@ -17,7 +17,6 @@ import Image from "./widgets/image";
 import Interactive from "./widgets/interaction";
 import InteractiveGraph from "./widgets/interactive-graph";
 import LabelImage from "./widgets/label-image";
-import LightsPuzzle from "./widgets/lights-puzzle";
 import Matcher from "./widgets/matcher";
 import Matrix from "./widgets/matrix";
 import Measurer from "./widgets/measurer";
@@ -29,9 +28,6 @@ import PassageRef from "./widgets/passage-ref";
 import PassageRefTarget from "./widgets/passage-ref-target";
 import Plotter from "./widgets/plotter";
 import PythonProgram from "./widgets/python-program";
-import ReactionDiagram from "./widgets/reaction-diagram";
-import Sequence from "./widgets/sequence";
-import Simulator from "./widgets/simulator";
 import Sorter from "./widgets/sorter";
 import Table from "./widgets/table";
 import Unit from "./widgets/unit";
@@ -54,7 +50,6 @@ export default [
     Interactive,
     InteractiveGraph,
     LabelImage,
-    LightsPuzzle,
     Matrix,
     Matcher,
     Measurer,
@@ -66,9 +61,6 @@ export default [
     PassageRefTarget,
     Plotter,
     PythonProgram,
-    ReactionDiagram,
-    Sequence,
-    Simulator,
     Sorter,
     Table,
     Unit,

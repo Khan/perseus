@@ -20,144 +20,30 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("displays canvas settings", () => {
+    test("displays graph, snap, image, and measure settings", () => {
         // Arrange
 
         // Act
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["canvas"]}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.getByText("Canvas size (x,y pixels)"),
-        ).toBeInTheDocument();
-    });
-
-    test("displays graph settings", () => {
-        // Arrange
-
-        // Act
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={() => {}}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={() => {}} />);
 
         // Assert
         expect(screen.getByText("x Label")).toBeInTheDocument();
         expect(screen.getByText("y Label")).toBeInTheDocument();
         expect(screen.getByText("Markings:")).toBeInTheDocument();
-    });
-
-    test("displays nothing if snap is by itself", () => {
-        // Arrange
-
-        // Act
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["snap"]}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
-        expect(screen.queryByText("Snap Step")).not.toBeInTheDocument();
-    });
-
-    test("displays snap settings", () => {
-        // Arrange
-
-        // Act
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph", "snap"]}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
         expect(screen.getByText("Snap Step")).toBeInTheDocument();
-    });
-
-    test("displays image settings", () => {
-        // Arrange
-
-        // Act
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["image"]}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
-        expect(screen.getByText("Background image:")).toBeInTheDocument();
-    });
-
-    test("displays measure settings", () => {
-        // Arrange
-
-        // Act
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["measure"]}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
+        expect(screen.getByText("Background image URL:")).toBeInTheDocument();
         expect(screen.getByText("Show ruler")).toBeInTheDocument();
         expect(screen.getByText("Show protractor")).toBeInTheDocument();
     });
 
-    test("displays all settings", () => {
-        // Arrange
-
-        // Act
-        render(
-            <InteractiveGraphSettings
-                editableSettings={[
-                    "canvas",
-                    "graph",
-                    "snap",
-                    "image",
-                    "measure",
-                ]}
-                onChange={() => {}}
-            />,
-        );
-
-        // Assert
-        expect(
-            screen.getByText("Canvas size (x,y pixels)"),
-        ).toBeInTheDocument();
-        expect(screen.getByText("x Label")).toBeInTheDocument();
-        expect(screen.getByText("y Label")).toBeInTheDocument();
-        expect(screen.getByText("Markings:")).toBeInTheDocument();
-        expect(screen.getByText("Snap Step")).toBeInTheDocument();
-        expect(screen.getByText("Background image:")).toBeInTheDocument();
-        expect(screen.getByText("Show ruler")).toBeInTheDocument();
-        expect(screen.getByText("Show protractor")).toBeInTheDocument();
-    });
-
-    test("calls onChange when markings are changed", () => {
+    test("calls onChange when markings are changed", async () => {
         // Arrange
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
         const button = screen.getByRole("button", {name: "Grid"});
-        button.click();
+        await userEvent.click(button);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -171,16 +57,14 @@ describe("InteractiveGraphSettings", () => {
         const onChange = jest.fn();
 
         render(
-            <InteractiveGraphSettings
-                editableSettings={["measure"]}
-                showRuler={true}
-                onChange={onChange}
-            />,
+            <InteractiveGraphSettings showRuler={true} onChange={onChange} />,
         );
 
         // Act
-        const select = screen.getByRole("combobox", {name: "Ruler label:"});
-        await await userEvent.selectOptions(select, ["cm"]);
+        const select = screen.getByRole("button", {name: "Ruler label:"});
+        await userEvent.click(select);
+        const option = screen.getByRole("option", {name: "Centimeters"});
+        await userEvent.click(option);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -193,20 +77,18 @@ describe("InteractiveGraphSettings", () => {
         // Arrange
         const onChange = jest.fn();
         render(
-            <InteractiveGraphSettings
-                editableSettings={["measure"]}
-                showRuler={true}
-                onChange={onChange}
-            />,
+            <InteractiveGraphSettings showRuler={true} onChange={onChange} />,
         );
 
         // Act
-        const select = screen.getByRole("combobox", {name: "Ruler ticks:"});
-        await userEvent.selectOptions(select, ["4"]);
+        const select = screen.getByRole("button", {name: "Ruler ticks:"});
+        await userEvent.click(select);
+        const option = screen.getByRole("option", {name: "4"});
+        await userEvent.click(option);
 
         // Assert
         expect(onChange).toBeCalledWith(
-            expect.objectContaining({rulerTicks: 4}),
+            expect.objectContaining({rulerTicks: "4"}),
             undefined,
         );
     });
@@ -221,15 +103,12 @@ describe("InteractiveGraphSettings", () => {
         };
         jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["image"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox");
+        const input = screen.getByRole("textbox", {
+            name: "Background image URL:",
+        });
         await userEvent.type(input, "https://example.com/image.png");
         await userEvent.tab();
 
@@ -257,15 +136,12 @@ describe("InteractiveGraphSettings", () => {
         };
         jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["image"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox");
+        const input = screen.getByRole("textbox", {
+            name: "Background image URL:",
+        });
         await userEvent.type(input, "https://example.com/image.png");
         await userEvent.tab();
 
@@ -288,15 +164,12 @@ describe("InteractiveGraphSettings", () => {
         const mockGetImageSize = (url, cb: (width, height) => void) => {};
         jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["image"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox");
+        const input = screen.getByRole("textbox", {
+            name: "Background image URL:",
+        });
         await userEvent.clear(input);
         await userEvent.tab();
 
@@ -319,15 +192,12 @@ describe("InteractiveGraphSettings", () => {
         jest.useRealTimers();
         const onChange = jest.fn();
 
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["image"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox");
+        const input = screen.getByRole("textbox", {
+            name: "Background image URL:",
+        });
         input.focus();
         // Disabling this because we need to test keypress events that are
         // unfortunately being used in legacy code.
@@ -338,12 +208,11 @@ describe("InteractiveGraphSettings", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    test("calls onChange when protractor label is changed", () => {
+    test("calls onChange when protractor label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
             <InteractiveGraphSettings
-                editableSettings={["measure"]}
                 showProtractor={true}
                 onChange={onChange}
             />,
@@ -353,7 +222,7 @@ describe("InteractiveGraphSettings", () => {
         const checkbox = screen.getByRole("checkbox", {
             name: "Show protractor",
         });
-        checkbox.click();
+        await userEvent.click(checkbox);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -367,15 +236,15 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "x Range"});
+        // Note: The textbox's `name` attribute is "x Range 10" because it's
+        // encased in a <label> element, which applies everything surrounding
+        // the first element to the first element's label. This means it
+        // includes the "10" from the second textbox. Same for the other
+        // RangeInput tests below.
+        const input = screen.getByRole("textbox", {name: "x Range 10"});
         await userEvent.clear(input);
         await userEvent.type(input, "0");
 
@@ -399,15 +268,10 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "y Range"});
+        const input = screen.getByRole("textbox", {name: "y Range 10"});
         await userEvent.clear(input);
         await userEvent.type(input, "0");
 
@@ -431,15 +295,10 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "x Range"});
+        const input = screen.getByRole("textbox", {name: "x Range 10"});
         await userEvent.clear(input);
         await userEvent.type(input, "20");
 
@@ -463,15 +322,10 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Tick Step"});
+        const input = screen.getByRole("textbox", {name: "Tick Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "2");
 
@@ -492,15 +346,10 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Tick Step"});
+        const input = screen.getByRole("textbox", {name: "Tick Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "20");
 
@@ -523,7 +372,6 @@ describe("InteractiveGraphSettings", () => {
         const onChange = jest.fn();
         render(
             <InteractiveGraphSettings
-                editableSettings={["graph"]}
                 range={[
                     [-100, 100],
                     [-100, 100],
@@ -533,7 +381,7 @@ describe("InteractiveGraphSettings", () => {
         );
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Tick Step"});
+        const input = screen.getByRole("textbox", {name: "Tick Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "2");
 
@@ -554,15 +402,10 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph", "snap"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Snap Step"});
+        const input = screen.getByRole("textbox", {name: "Snap Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "2");
         await userEvent.tab();
@@ -584,15 +427,10 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph", "snap"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Snap Step"});
+        const input = screen.getByRole("textbox", {name: "Snap Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "100");
         await userEvent.tab();
@@ -614,15 +452,10 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Grid Step"});
+        const input = screen.getByRole("textbox", {name: "Grid Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "2");
         await userEvent.tab();
@@ -644,15 +477,10 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Grid Step"});
+        const input = screen.getByRole("textbox", {name: "Grid Step 1"});
         await userEvent.clear(input);
         await userEvent.type(input, "100");
         await userEvent.tab();
@@ -674,12 +502,7 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Label"});
@@ -703,12 +526,7 @@ describe("InteractiveGraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["graph"]}
-                onChange={onChange}
-            />,
-        );
+        render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
         const input = screen.getByRole("textbox", {name: "y Label"});
@@ -721,37 +539,6 @@ describe("InteractiveGraphSettings", () => {
             expect(onChange).toHaveBeenCalledWith(
                 expect.objectContaining({
                     labels: ["x", "count"],
-                }),
-                undefined,
-            ),
-        );
-    });
-
-    test("Calls onChange when the canvas size is changed and valid", async () => {
-        // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
-        jest.useRealTimers();
-        const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings
-                editableSettings={["canvas"]}
-                onChange={onChange}
-            />,
-        );
-
-        // Act
-        const input = screen.getByRole("textbox", {
-            name: "Canvas size (x,y pixels)",
-        });
-        await userEvent.clear(input);
-        await userEvent.paste("300");
-        await userEvent.tab();
-
-        // Assert
-        await waitFor(() =>
-            expect(onChange).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    box: [300, 288],
                 }),
                 undefined,
             ),

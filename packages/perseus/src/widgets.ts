@@ -65,6 +65,14 @@ export const replaceWidget = (name: string, replacementName: string) => {
     registerWidget(name, substituteWidget);
 };
 
+export const replaceDeprecatedWidgets = () => {
+    replaceWidget("transformer", "deprecated-standin");
+    replaceWidget("lights-puzzle", "deprecated-standin");
+    replaceWidget("reaction-diagram", "deprecated-standin");
+    replaceWidget("sequence", "deprecated-standin");
+    replaceWidget("simulator", "deprecated-standin");
+};
+
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
     editorsToRegister.forEach((editor) => {
         if (!editor.widgetName) {
@@ -82,8 +90,8 @@ export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
  * @param name - the widget that you are trying to replace
  * @param replacementName - the name of the widget that takes its place
  *
- * e.g. replaceEditor("transformer", "always-correct") will make it so the
- * transformer widget is replaced by the always correct widget
+ * e.g. replaceEditor("transformer", "deprecated-standin") will make it so the
+ * transformer widget is replaced by the deprecated stand-in widget
  */
 export const replaceEditor = (name: string, replacementName: string) => {
     const substituteEditor = editors[replacementName];
@@ -95,6 +103,14 @@ export const replaceEditor = (name: string, replacementName: string) => {
     }
 
     editors[name] = substituteEditor;
+};
+
+export const replaceDeprecatedEditors = () => {
+    replaceEditor("transformer", "deprecated-standin");
+    replaceEditor("lights-puzzle", "deprecated-standin");
+    replaceEditor("reaction-diagram", "deprecated-standin");
+    replaceEditor("sequence", "deprecated-standin");
+    replaceEditor("simulator", "deprecated-standin");
 };
 
 export const getWidget = (
@@ -302,7 +318,7 @@ export const getRendererPropsForWidgetInfo = (
         // It shouldn't matter what we return here, but for consistency
         // we return the untransformed options, as if the widget did
         // not have a transform defined.
-        return widgetInfo.options;
+        return widgetInfo;
     }
     let transform;
     if (widgetInfo.static) {

@@ -1,19 +1,21 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {Molecule} from "./molecule";
 
+import type {
+    PerseusReactionDiagramSeparators,
+    PerseusReactionDiagramWidgetOptions,
+} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
-class Separator extends React.Component<any> {
-    arrowLength = 100;
+type SeparatorProps = {
+    data: PerseusReactionDiagramSeparators;
+    index: number;
+};
 
-    static propTypes = {
-        // TODO(colin): figure out and add shape.
-        data: PropTypes.any,
-        index: PropTypes.number,
-    };
+class Separator extends React.Component<SeparatorProps> {
+    arrowLength = 100;
 
     componentDidMount() {
         this.drawArrow();
@@ -68,19 +70,20 @@ class Separator extends React.Component<any> {
     }
 }
 
-class ReactionDiagramWidget extends React.Component<any> {
-    static propTypes = {
-        // TODO(colin): at the moment, these must be arrays of two elements;
-        // we're limited to a single reaction step.  At some point, add support
-        // for more steps in the reaction.
-        rotationAngle: PropTypes.arrayOf(PropTypes.number),
-        // eslint-disable-next-line react/forbid-prop-types
-        separators: PropTypes.arrayOf(PropTypes.object),
-        smiles: PropTypes.arrayOf(PropTypes.string),
-        widgetId: PropTypes.string,
-    };
+type ReactionDiagramProps = {
+    rotationAngle: PerseusReactionDiagramWidgetOptions["rotationAngle"];
+    separators: PerseusReactionDiagramWidgetOptions["separators"];
+    smiles: PerseusReactionDiagramWidgetOptions["smiles"];
+    widgetId: PerseusReactionDiagramWidgetOptions["widgetId"];
+};
 
-    static defaultProps: any = {
+type DefaultProps = {
+    rotationAngle: ReactionDiagramProps["rotationAngle"];
+    separators: ReactionDiagramProps["separators"];
+    smiles: ReactionDiagramProps["smiles"];
+};
+class ReactionDiagramWidget extends React.Component<ReactionDiagramProps> {
+    static defaultProps: DefaultProps = {
         smiles: [],
         rotationAngle: [],
         separators: [],
@@ -118,7 +121,7 @@ class ReactionDiagramWidget extends React.Component<any> {
                     return (
                         <div key={id} className="molecule-container">
                             <Molecule
-                                id={id}
+                                widgetId={id}
                                 rotationAngle={this.props.rotationAngle[i]}
                                 smiles={s}
                             />

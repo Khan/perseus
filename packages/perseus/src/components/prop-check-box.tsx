@@ -1,5 +1,8 @@
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable react/sort-comp */
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {css, StyleSheet} from "aphrodite";
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -56,14 +59,17 @@ const PropCheckBox: any = createReactClass({
     render: function () {
         const propName = this.propName();
         return (
-            <label>
-                {this._labelAlignLeft() && this.props.label}
-                <input
-                    type="checkbox"
+            <label className={css(styles.labeledCheckbox)}>
+                {this._labelAlignLeft() && (
+                    <LabelSmall>{this.props.label}</LabelSmall>
+                )}
+                <Checkbox
                     checked={this.props[propName]}
                     onChange={this.toggle}
                 />
-                {!this._labelAlignLeft() && this.props.label}
+                {!this._labelAlignLeft() && (
+                    <LabelSmall>{this.props.label}</LabelSmall>
+                )}
             </label>
         );
     },
@@ -73,6 +79,14 @@ const PropCheckBox: any = createReactClass({
         const changes: Record<string, any> = {};
         changes[propName] = !this.props[propName];
         this.props.onChange(changes);
+    },
+});
+
+export const styles = StyleSheet.create({
+    labeledCheckbox: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
     },
 });
 

@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "4.3.3",
+    "version": "5.0.2",
     "publishConfig": {
         "access": "public"
     },
@@ -27,18 +27,21 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.8",
         "@khanacademy/kmath": "^0.1.12",
-        "@khanacademy/math-input": "^17.2.1",
-        "@khanacademy/perseus": "^19.7.1",
+        "@khanacademy/math-input": "^17.3.0",
+        "@khanacademy/perseus": "^20.0.2",
         "@khanacademy/perseus-core": "1.4.2"
     },
     "devDependencies": {
-        "@khanacademy/wonder-blocks-button": "^6.2.5",
-        "@khanacademy/wonder-blocks-clickable": "^4.0.12",
+        "@khanacademy/wonder-blocks-button": "^6.2.8",
+        "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
+        "@khanacademy/wonder-blocks-dropdown": "^5.1.8",
+        "@khanacademy/wonder-blocks-form": "^4.4.5",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "4.0.1",
         "@khanacademy/wonder-blocks-spacing": "^4.0.1",
+        "@khanacademy/wonder-blocks-tokens": "^1.1.0",
         "@khanacademy/wonder-blocks-typography": "^2.1.10",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
         "@phosphor-icons/core": "^2.0.2",
@@ -54,13 +57,16 @@
         "underscore": "^1.4.4"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-button": "^6.2.5",
-        "@khanacademy/wonder-blocks-clickable": "^4.0.12",
+        "@khanacademy/wonder-blocks-button": "^6.2.8",
+        "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
+        "@khanacademy/wonder-blocks-dropdown": "^5.1.8",
+        "@khanacademy/wonder-blocks-form": "^4.4.5",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "4.0.1",
         "@khanacademy/wonder-blocks-spacing": "^4.0.1",
+        "@khanacademy/wonder-blocks-tokens": "^1.1.0",
         "@khanacademy/wonder-blocks-typography": "^2.1.10",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
         "@phosphor-icons/core": "^2.0.2",

@@ -8,23 +8,35 @@
 import {number as knumber, point as kpoint} from "@khanacademy/kmath";
 import {
     components,
-    ApiOptions,
     Changeable,
     Util,
     WidgetJsonifyDeprecated,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import type {Coord, WidgetExports} from "@khanacademy/perseus";
+import type {
+    Coord,
+    WidgetExports,
+    PerseusExampleGraphieWidgetOptions,
+    APIOptionsWithDefaults,
+} from "@khanacademy/perseus";
 
 const {Graphie} = components;
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
 
-type Props = any;
+type Props = Changeable.ChangeableProps & {
+    apiOptions: APIOptionsWithDefaults;
+    graph: PerseusExampleGraphieWidgetOptions["graph"];
+    coord: PerseusExampleGraphieWidgetOptions["coord"];
+};
+
+type DefaultProps = {
+    graph: Props["graph"];
+    coord: Props["coord"];
+};
 
 /**
  * This is the widget's renderer. It shows up in the right column
@@ -32,15 +44,7 @@ type Props = any;
  * users enter their answers.
  */
 class ExampleGraphieWidget extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-
-        graph: PropTypes.object.isRequired,
-        coord: PropTypes.arrayOf(PropTypes.number),
-    };
-
-    static defaultProps: Props = {
+    static defaultProps: DefaultProps = {
         // We want to allow our coord to be null to test if the
         // user has interacted with this widget yet when grading it
         coord: null,
@@ -100,7 +104,7 @@ class ExampleGraphieWidget extends React.Component<Props> {
                 options={this.props.graph}
                 setup={this.setupGraphie}
                 setDrawingAreaAvailable={
-                    this.props.apiOptions.setDrawingAreaAvailable
+                    this.props.apiOptions?.setDrawingAreaAvailable
                 }
             >
                 <MovablePoint

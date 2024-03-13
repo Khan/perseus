@@ -276,7 +276,7 @@ describe("server item renderer", () => {
         // everything is loaded.
 
         // Arrange
-        registerWidget("mocked-asset-widget", MockAssetLoadingWidgetExport);
+        registerWidget("example-widget", MockAssetLoadingWidgetExport);
 
         const onRendered = jest.fn();
         let renderer: ServerItemRenderer | null | undefined;
@@ -296,9 +296,8 @@ describe("server item renderer", () => {
             throw new Error("Renderer failed to render.");
         }
 
-        const mockedWidget = renderer.questionRenderer.getWidgetInstance(
-            "mocked-asset-widget 1",
-        );
+        const mockedWidget =
+            renderer.questionRenderer.getWidgetInstance("example-widget 1");
         if (mockedWidget == null) {
             throw new Error("Couldn't find mocked widget!");
         }

@@ -24,11 +24,7 @@ import RadioWidgetExport from "../widgets/radio";
 
 import MockWidgetExport from "./mock-widget";
 
-import type {
-    DropdownWidget,
-    PerseusImageWidgetOptions,
-    PerseusInputNumberWidgetOptions,
-} from "../perseus-types";
+import type {DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
@@ -195,12 +191,10 @@ describe("renderer", () => {
                 ...question1,
                 widgets: {
                     ...question1.widgets,
-                    // $FlowIgnore[prop-missing]
-                    // $FlowIgnore[incompatible-cast]
+                    // We have to override the type to `undefined` to test this properly
                     // @ts-expect-error - TS2352 - Conversion of type '{ type: undefined; static?: boolean | undefined; graded?: boolean | undefined; alignment?: string | undefined; options: PerseusCategorizerWidgetOptions | null | undefined; key?: number | undefined; version?: Version | undefined; } | ... 38 more ... | { ...; }' to type 'DropdownWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
                     "dropdown 1": {
                         ...question1.widgets["dropdown 1"],
-                        // $FlowIgnore[incompatible-cast]
                         type: undefined,
                     } as DropdownWidget,
                 },
@@ -876,7 +870,7 @@ describe("renderer", () => {
                                     url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
                                     width: 380,
                                 },
-                            } as PerseusImageWidgetOptions,
+                            },
                             static: false,
                             type: "image",
                             version: {major: 0, minor: 0},
@@ -1803,7 +1797,7 @@ describe("renderer", () => {
                         options: {
                             ...inputNumberWidget.options,
                             answerType: "percent",
-                        } as PerseusInputNumberWidgetOptions,
+                        },
                     },
                     "dropdown 1": dropdownWidget,
                 },

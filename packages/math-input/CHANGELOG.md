@@ -1,5 +1,23 @@
 # @khanacademy/math-input
 
+## 17.3.0
+
+### Minor Changes
+
+-   [#978](https://github.com/Khan/perseus/pull/978) [`881be46f`](https://github.com/Khan/perseus/commit/881be46fc75117d57bab30d1568b417cca5d6976) Thanks [@nishasy](https://github.com/nishasy)! - Update WB Clickable. Stop keypad button clicks from removing focus from the input.
+
+## 17.2.3
+
+### Patch Changes
+
+-   [#1052](https://github.com/Khan/perseus/pull/1052) [`54a301e9`](https://github.com/Khan/perseus/commit/54a301e9fa264310927c0909899706a786357c4b) Thanks [@nedredmond](https://github.com/nedredmond)! - Switch from github URL to tarball for MathQuill dependency
+
+## 17.2.2
+
+### Patch Changes
+
+-   [#1004](https://github.com/Khan/perseus/pull/1004) [`16ca445c`](https://github.com/Khan/perseus/commit/16ca445cf138b82092518498159de2826b169ee8) Thanks [@nedredmond](https://github.com/nedredmond)! - Replace hardcoded MathQuill aria strings with translatable ones
+
 ## 17.2.1
 
 ### Patch Changes

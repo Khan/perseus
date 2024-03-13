@@ -50,7 +50,6 @@ export default {
             type: "select",
         },
         table: {
-            defaultValue: {summary: "graph"},
             type: {
                 summary: '"graph" | "grid" | "none"',
             },

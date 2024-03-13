@@ -1,5 +1,58 @@
 # @khanacademy/perseus
 
+## 20.0.2
+
+### Patch Changes
+
+-   [#1042](https://github.com/Khan/perseus/pull/1042) [`9ae993c8`](https://github.com/Khan/perseus/commit/9ae993c8beecb0419b2b461916ee704f8b12fb28) Thanks [@nishasy](https://github.com/nishasy)! - Update props in InteractiveGraphSettings and InteractiveGraphEditor to more accurately reflect how they are used. Minor refactoring.
+
+*   [#1062](https://github.com/Khan/perseus/pull/1062) [`48cf0c07`](https://github.com/Khan/perseus/commit/48cf0c07895f66b3d868ce265befc17f316bb785) Thanks [@nedredmond](https://github.com/nedredmond)! - Added debounce to math input update
+
+## 20.0.1
+
+### Patch Changes
+
+-   [#978](https://github.com/Khan/perseus/pull/978) [`881be46f`](https://github.com/Khan/perseus/commit/881be46fc75117d57bab30d1568b417cca5d6976) Thanks [@nishasy](https://github.com/nishasy)! - Update WB Clickable. Stop keypad button clicks from removing focus from the input.
+
+-   Updated dependencies [[`881be46f`](https://github.com/Khan/perseus/commit/881be46fc75117d57bab30d1568b417cca5d6976)]:
+    -   @khanacademy/math-input@17.3.0
+
+## 20.0.0
+
+### Major Changes
+
+-   [#1046](https://github.com/Khan/perseus/pull/1046) [`18a2862a`](https://github.com/Khan/perseus/commit/18a2862ab5eb56bc69b527fcad0edf86ad91ba12) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Deprecation of Lights-Puzzle, Simulator, Reaction Diagram, and Sequence Widgets.
+
+## 19.9.0
+
+### Minor Changes
+
+-   [#1055](https://github.com/Khan/perseus/pull/1055) [`bacbb3a2`](https://github.com/Khan/perseus/commit/bacbb3a2ccc06b54531a5a9537be709c165a8a61) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing the frequency that we're calling interactionCallback
+
+## 19.8.0
+
+### Minor Changes
+
+-   [#1028](https://github.com/Khan/perseus/pull/1028) [`06abf394`](https://github.com/Khan/perseus/commit/06abf3946f044a7ebfdaddaa369f43f781cb091b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Typescript improvements for Perseus Widget Options and Widget types
+
+*   [#1047](https://github.com/Khan/perseus/pull/1047) [`ec31bc74`](https://github.com/Khan/perseus/commit/ec31bc74efe089f312895f4133d20440e19aebe9) Thanks [@benchristel](https://github.com/benchristel)! - Make whole segments draggable in Mafs segment graphs
+
+## 19.7.3
+
+### Patch Changes
+
+-   Updated dependencies [[`54a301e9`](https://github.com/Khan/perseus/commit/54a301e9fa264310927c0909899706a786357c4b)]:
+    -   @khanacademy/math-input@17.2.3
+
+## 19.7.2
+
+### Patch Changes
+
+-   [#1051](https://github.com/Khan/perseus/pull/1051) [`4ef7b067`](https://github.com/Khan/perseus/commit/4ef7b06705bdab89298b8b36b5773cfdf8ce0bec) Thanks [@nedredmond](https://github.com/nedredmond)! - Remove font import from Mafs wrapper
+
+-   Updated dependencies [[`16ca445c`](https://github.com/Khan/perseus/commit/16ca445cf138b82092518498159de2826b169ee8)]:
+    -   @khanacademy/math-input@17.2.2
+
 ## 19.7.1
 
 ### Patch Changes
