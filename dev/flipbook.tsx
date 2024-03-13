@@ -6,7 +6,7 @@ import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
 import {useReducer, useRef} from "react";
 
-import {Renderer} from "../packages/perseus/src";
+import {PerseusScore, Renderer} from "../packages/perseus/src";
 
 import {
     flipbookModelReducer,
@@ -73,7 +73,7 @@ export function Flipbook() {
                     Next
                 </Button>
             </View>
-            {question != null && <QuestionRenderer question={question} />}
+            {question != null && <SideBySideQuestionRenderer question={question} />}
         </View>
     );
 }
@@ -83,9 +83,7 @@ type QuestionRendererProps = {
     apiOptions?: APIOptions;
 };
 
-function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
-    const legacyRendererRef = useRef<Renderer>(null);
-    const mafsRendererRef = useRef<Renderer>(null);
+function SideBySideQuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
     return (
         <View
             className="framework-perseus"
@@ -95,28 +93,42 @@ function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
                 gap: Spacing.small_12,
             }}
         >
-            <View style={{alignItems: "flex-start"}}>
-                <Renderer
-                    ref={legacyRendererRef}
-                    content={question.content}
-                    images={question.images}
-                    widgets={question.widgets}
-                    problemNum={0}
-                    apiOptions={{...apiOptions, flags: {mafs: false}}}
-                />
-                <Button onClick={() => console.log(legacyRendererRef.current?.score())}>Check answer</Button>
-            </View>
-            <View style={{alignItems: "flex-start"}}>
-                <Renderer
-                    ref={mafsRendererRef}
-                    content={question.content}
-                    images={question.images}
-                    widgets={question.widgets}
-                    problemNum={0}
-                    apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
-                />
-                <Button onClick={() => console.log(mafsRendererRef.current?.score())}>Check answer</Button>
-            </View>
+            <GradableRenderer
+                question={question}
+                apiOptions={{...apiOptions, flags: {mafs: false}}}
+            />
+            <GradableRenderer
+                question={question}
+                apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
+            />
         </View>
     );
+}
+
+function GradableRenderer(props: QuestionRendererProps) {
+    const {question, apiOptions} = props;
+    const rendererRef = useRef<Renderer>(null);
+
+    function describeScore(score: PerseusScore): string {
+        switch (score.type) {
+            case "invalid":
+                return "You didn't answer the question."
+            case "points":
+                return score.earned > 0 ? "Correct!" : "Incorrect."
+        }
+    }
+
+    return (
+        <View style={{alignItems: "flex-start"}}>
+            <Renderer
+                ref={rendererRef}
+                content={question.content}
+                images={question.images}
+                widgets={question.widgets}
+                problemNum={0}
+                apiOptions={{...apiOptions}}
+            />
+            <Button onClick={() => rendererRef.current && alert(describeScore(rendererRef.current.score()))}>Check answer</Button>
+        </View>
+    )
 }
