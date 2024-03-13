@@ -1,11 +1,13 @@
 import Color from "@khanacademy/wonder-blocks-color";
-import {Line, MovablePoint, vec} from "mafs";
+import {MovablePoint, vec, useMovable, useTransformContext} from "mafs";
 import * as React from "react";
+import {useRef} from "react";
 
 import {moveControlPoint, moveSegment} from "../interactive-graph-action";
 
 import type {Segment, SegmentGraphState} from "../interactive-graph-state";
 import type {MafsGraphProps} from "../types";
+import type {SVGProps} from "react";
 
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
@@ -46,20 +48,50 @@ const SegmentView = (props: {
     onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
     onMoveSegment: (delta: vec.Vector2) => unknown;
 }) => {
-    const [pt1, pt2] = props.segment;
-
+    const {
+        onMoveSegment,
+        segment: [pt1, pt2],
+    } = props;
     const midpoint = vec.midpoint(pt1, pt2);
+    const segment = useRef<SVGGElement>(null);
+    const {dragging: isDraggingSegment} = useMovable({
+        gestureTarget: segment,
+        point: midpoint,
+        onMove: (newPoint: vec.Vector2) => {
+            onMoveSegment(vec.sub(newPoint, midpoint));
+        },
+        constrain: (p) => p,
+    });
+
+    const {viewTransform, userTransform} = useTransformContext();
+    const transform = vec.matrixMult(viewTransform, userTransform);
+
+    const scaledPoint1 = vec.transform(pt1, transform);
+    const scaledPoint2 = vec.transform(pt2, transform);
 
     return (
         <>
-            <Line.Segment point1={pt1} point2={pt2} />
-            <MovablePoint
-                point={midpoint}
-                color={Color.blue}
-                onMove={(newPoint) => {
-                    props.onMoveSegment(vec.sub(newPoint, midpoint));
-                }}
-            />
+            <g
+                ref={segment}
+                tabIndex={0}
+                className="movable-segment"
+                style={{cursor: isDraggingSegment ? "grabbing" : "grab"}}
+            >
+                {/* This transparent line creates a nice big click target. */}
+                <SVGLine
+                    start={scaledPoint1}
+                    end={scaledPoint2}
+                    style={{stroke: "transparent", strokeWidth: 30}}
+                />
+                <SVGLine
+                    start={scaledPoint1}
+                    end={scaledPoint2}
+                    style={{
+                        stroke: "var(--mafs-segment-stroke-color)",
+                        strokeWidth: "var(--mafs-segment-stroke-weight)",
+                    }}
+                />
+            </g>
             <MovablePoint
                 point={pt1}
                 color={Color.blue}
@@ -77,3 +109,20 @@ const SegmentView = (props: {
         </>
     );
 };
+
+function SVGLine(props: {
+    start: vec.Vector2;
+    end: vec.Vector2;
+    style: SVGProps<SVGLineElement>["style"];
+}) {
+    const {start, end, style} = props;
+    return (
+        <line
+            x1={start[0]}
+            y1={start[1]}
+            x2={end[0]}
+            y2={end[1]}
+            style={style}
+        />
+    );
+}
