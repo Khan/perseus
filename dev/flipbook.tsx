@@ -41,26 +41,10 @@ export function Flipbook() {
 
     const question = selectCurrentQuestion(state);
 
+    const noTextEntered = state.questions.trim() === "";
+
     return (
         <View style={{padding: Spacing.medium_16}}>
-            <details open>
-                <summary>Instructions (click to show/hide)</summary>
-                <ol>
-                    <li>
-                        <p>
-                            Run a command like one of the following to copy
-                            question data to your clipboard.
-                        </p>
-                        <code>
-                            <pre>{exampleCommands}</pre>
-                        </code>
-                    </li>
-                    <li>
-                        <p>Paste the data in the box below.</p>
-                    </li>
-                </ol>
-            </details>
-
             <textarea
                 wrap={"off"}
                 rows={10}
@@ -78,6 +62,23 @@ export function Flipbook() {
                     Next
                 </Button>
             </View>
+            <div style={{display: noTextEntered ? "block" : "none"}}>
+                <h2>Instructions</h2>
+                <ol>
+                    <li>
+                        <p>
+                            Run a command like one of the following to copy
+                            question data to your clipboard.
+                        </p>
+                        <code>
+                            <pre>{exampleCommands}</pre>
+                        </code>
+                    </li>
+                    <li>
+                        <p>Paste the data in the box above.</p>
+                    </li>
+                </ol>
+            </div>
             {question != null && (
                 <SideBySideQuestionRenderer question={question} />
             )}
