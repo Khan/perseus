@@ -43,7 +43,7 @@
 }
 
 .MafsView :is(.movable-point-center, .movable-point-ring, .movable-point-halo) {
-    transition: r 0.2s ease;
+    transition: r 0.15s ease-out;
 }
 
 .MafsView .movable-point-center {
