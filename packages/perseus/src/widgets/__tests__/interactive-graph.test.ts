@@ -193,7 +193,7 @@ describe("locked layer", () => {
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const points = container.querySelectorAll(
             // Filter out the interactive points' circles
-            "circle:not([class*='mafs-movable-point'])",
+            "circle:not([class*='movable-point'])",
         );
 
         // Act
@@ -212,7 +212,7 @@ describe("locked layer", () => {
         // Act
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const points = container.querySelectorAll(
-            "circle:not([class*='mafs-movable-point'])",
+            "circle:not([class*='movable-point'])",
         );
 
         // Assert
