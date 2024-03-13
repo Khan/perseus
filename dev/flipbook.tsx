@@ -6,7 +6,7 @@ import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
 import {useReducer, useRef} from "react";
 
-import {PerseusScore, Renderer} from "../packages/perseus/src";
+import {Renderer} from "../packages/perseus/src";
 
 import {
     flipbookModelReducer,
@@ -16,7 +16,11 @@ import {
     setQuestions,
 } from "./flipbook-model";
 
-import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
+import type {
+    APIOptions,
+    PerseusRenderer,
+    PerseusScore,
+} from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
@@ -73,7 +77,9 @@ export function Flipbook() {
                     Next
                 </Button>
             </View>
-            {question != null && <SideBySideQuestionRenderer question={question} />}
+            {question != null && (
+                <SideBySideQuestionRenderer question={question} />
+            )}
         </View>
     );
 }
@@ -83,7 +89,10 @@ type QuestionRendererProps = {
     apiOptions?: APIOptions;
 };
 
-function SideBySideQuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
+function SideBySideQuestionRenderer({
+    question,
+    apiOptions = {},
+}: QuestionRendererProps) {
     return (
         <View
             className="framework-perseus"
@@ -112,9 +121,9 @@ function GradableRenderer(props: QuestionRendererProps) {
     function describeScore(score: PerseusScore): string {
         switch (score.type) {
             case "invalid":
-                return "You didn't answer the question."
+                return "You didn't answer the question.";
             case "points":
-                return score.earned > 0 ? "Correct!" : "Incorrect."
+                return score.earned > 0 ? "Correct!" : "Incorrect.";
         }
     }
 
@@ -128,7 +137,15 @@ function GradableRenderer(props: QuestionRendererProps) {
                 problemNum={0}
                 apiOptions={{...apiOptions}}
             />
-            <Button onClick={() => rendererRef.current && alert(describeScore(rendererRef.current.score()))}>Check answer</Button>
+            <Button
+                onClick={() =>
+                    rendererRef.current &&
+                    // eslint-disable-next-line no-alert
+                    alert(describeScore(rendererRef.current.score()))
+                }
+            >
+                Check answer
+            </Button>
         </View>
-    )
+    );
 }
