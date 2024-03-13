@@ -17,6 +17,10 @@
 
     /* overridden on a per-point basis */
     --movable-point-color: var(--mafs-blue);
+    --movable-point-center-radius: 6px;
+    --movable-point-ring-radius: calc(2px + var(--movable-point-center-radius));
+    --movable-point-halo-radius: calc(3px + var(--movable-point-ring-radius));
+    --movable-point-hover-expansion: 2px;
 }
 
 .MafsView .movable-segment {
@@ -42,26 +46,32 @@
     transition: r 0.2s ease;
 }
 
+.MafsView .movable-point-center {
+    r: var(--movable-point-center-radius);
+}
+
 .MafsView .movable-point-halo {
+    r: var(--movable-point-halo-radius);
     fill: var(--movable-point-color);
     opacity: 0.25;
     filter: drop-shadow(0 5px 5px #0008);
 }
 
 .MafsView .movable-point-ring {
+    r: var(--movable-point-ring-radius);
     fill: #fff;
 }
 
 .MafsView .movable-point:hover .movable-point-center {
-    r: 8px;
+    r: calc(var(--movable-point-hover-expansion) + var(--movable-point-center-radius));
 }
 
 .MafsView .movable-point:hover .movable-point-ring {
-    r: 10px;
+    r: calc(var(--movable-point-hover-expansion) + var(--movable-point-ring-radius));
 }
 
 .MafsView .movable-point:hover .movable-point-halo {
-    r: 13px;
+    r: calc(var(--movable-point-hover-expansion) + var(--movable-point-halo-radius));
 }
 
 .MafsView .movable-point:focus-visible .movable-point-halo {

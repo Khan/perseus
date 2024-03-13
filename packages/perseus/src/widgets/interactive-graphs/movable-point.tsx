@@ -38,11 +38,10 @@ export const MovablePoint = (props: Props) => {
             }
         >
             <circle className="movable-point-hitbox" r={30} cx={x} cy={y} />
-            <circle className="movable-point-halo" r={11} cx={x} cy={y} />
-            <circle className="movable-point-ring" r={8} cx={x} cy={y} />
+            <circle className="movable-point-halo" cx={x} cy={y} />
+            <circle className="movable-point-ring" cx={x} cy={y} />
             <circle
                 className="movable-point-center"
-                r={6}
                 cx={x}
                 cy={y}
                 style={{fill: Color.blue}}
