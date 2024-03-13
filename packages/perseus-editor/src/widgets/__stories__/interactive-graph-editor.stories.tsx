@@ -55,3 +55,36 @@ export const Controlled: StoryComponentType = {
         return <InteractiveGraphEditor {...state} onChange={dispatch} />;
     },
 };
+
+/**
+ * Example of what the InteractiveGraphEditor experience is when using
+ * a Mafs-based InteractiveGraph.
+ */
+export const WithMafs: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            apiOptions: {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+            graph: {
+                type: "segment",
+            },
+            correct: {
+                type: "segment",
+            },
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};

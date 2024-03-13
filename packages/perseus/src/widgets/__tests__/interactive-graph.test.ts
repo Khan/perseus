@@ -1,4 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -9,6 +10,7 @@ import {ApiOptions} from "../../perseus-api";
 import {
     questionsAndAnswers,
     segmentQuestion,
+    segmentWithLockedPointsQuestion,
     segmentQuestionDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 
@@ -176,5 +178,45 @@ describe("segment graph", () => {
         await waitFor(() => {
             expect(renderer).toHaveBeenAnsweredCorrectly();
         });
+    });
+});
+
+describe("locked layer", () => {
+    const apiOptions = {flags: {mafs: {segment: true}}};
+    it("should render locked points", async () => {
+        // Arrange
+        const {container} = renderQuestion(
+            segmentWithLockedPointsQuestion,
+            apiOptions,
+        );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const points = container.querySelectorAll(
+            // Filter out the interactive points' circles
+            "circle:not([class*='movable-point'])",
+        );
+
+        // Act
+
+        // Assert
+        expect(points).toHaveLength(2);
+    });
+
+    test("should render locked points with styles", async () => {
+        // Arrange
+        const {container} = renderQuestion(
+            segmentWithLockedPointsQuestion,
+            apiOptions,
+        );
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const points = container.querySelectorAll(
+            "circle:not([class*='movable-point'])",
+        );
+
+        // Assert
+        expect(points[0]).toHaveStyle({fill: color.red, stroke: color.red});
+        expect(points[1]).toHaveStyle({fill: color.red, stroke: color.red});
     });
 });
