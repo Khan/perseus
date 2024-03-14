@@ -10,8 +10,7 @@ import {initializeGraphState} from "./interactive-graph-state";
 import {getLegacyGrid} from "./legacy-grid";
 
 import type {InteractiveGraphAction} from "./interactive-graph-action";
-import type {InteractiveGraphState} from "./interactive-graph-state";
-import type {InteractiveGraphProps} from "./types";
+import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
 import type {Widget} from "../../renderer";
 
@@ -44,6 +43,10 @@ function getGradableGraph(
             return {
                 ...initialGraph,
                 coords: state.segments,
+            };
+        case "linear":
+            return {
+                ...initialGraph,
             };
     }
     throw new Error(

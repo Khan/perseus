@@ -1,28 +1,12 @@
 import {normalizeCoords, normalizePoints} from "./utils";
 
+import type {InteractiveGraphState, Segment} from "./types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeSegment,
 } from "../../perseus-types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
-
-export type InteractiveGraphState = SegmentGraphState;
-
-export interface SegmentGraphState extends InteractiveGraphStateCommon {
-    type: "segment";
-    segments: Segment[];
-}
-
-export interface InteractiveGraphStateCommon {
-    hasBeenInteractedWith: boolean;
-    // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
-    range: [Interval, Interval];
-    // snapStep = [xStep, yStep] in Cartesian units
-    snapStep: vec.Vector2;
-}
-
-export type Segment = [vec.Vector2, vec.Vector2];
 
 export function initializeGraphState(params: {
     range: [Interval, Interval];

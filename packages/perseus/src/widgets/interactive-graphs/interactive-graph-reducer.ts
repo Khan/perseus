@@ -3,7 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
 import type {InteractiveGraphAction} from "./interactive-graph-action";
-import type {InteractiveGraphState, Segment} from "./interactive-graph-state";
+import type {InteractiveGraphState, Segment} from "./types";
 
 export function interactiveGraphReducer(
     state: Readonly<InteractiveGraphState>,
@@ -11,16 +11,16 @@ export function interactiveGraphReducer(
 ): InteractiveGraphState {
     switch (action.type) {
         case "move-control-point": {
-            const newSegments = updateAtIndex(
-                state.segments,
-                action.objectIndex,
-                (segment) =>
-                    setAtIndex(
-                        segment,
-                        action.pointIndex,
-                        snap(state, bound(state, action.destination)),
-                    ),
-            );
+            const newSegments = updateAtIndex({
+                array: state.segments,
+                index: action.objectIndex,
+                update: (segment) =>
+                    setAtIndex({
+                        array: segment,
+                        index: action.pointIndex,
+                        newValue: snap(state, bound(state, action.destination)),
+                    }),
+            });
             if (!validSegments(newSegments)) {
                 return state;
             }
@@ -31,7 +31,7 @@ export function interactiveGraphReducer(
             };
         }
         case "move-segment": {
-            const oldSegment = state.segments[action.segmentIndex];
+            const oldSegment = state.segments?.[action.segmentIndex] ?? [];
             const maxMoves = oldSegment.map((point) => maxMove(state, point));
             const minMoves = oldSegment.map((point) => minMove(state, point));
             const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
@@ -44,11 +44,11 @@ export function interactiveGraphReducer(
                 snap(state, kvector.add(point, [dx, dy])),
             ) as Segment;
 
-            const newSegments = setAtIndex(
-                state.segments,
-                action.segmentIndex,
-                newSegment,
-            );
+            const newSegments = setAtIndex({
+                array: state.segments,
+                index: action.segmentIndex,
+                newValue: newSegment,
+            });
 
             return {
                 ...state,
@@ -117,24 +117,27 @@ function clamp(value: number, min: number, max: number) {
     return value;
 }
 
-function validSegments(segments: Segment[]): boolean {
+function validSegments(segments: readonly Segment[]): boolean {
     return segments.every(([start, end]) => !kvector.equal(start, end));
 }
 
-function updateAtIndex<A extends readonly any[]>(
-    array: A,
-    index: number,
-    update: (elem: A[number]) => A[number],
-): A {
-    return setAtIndex(array, index, update(array[index]));
+function updateAtIndex<T>(args: {
+    array?: readonly T[];
+    index: number;
+    update: (elem: T) => T;
+}): readonly T[] {
+    const {array = [], index, update} = args;
+    const newValue = update(array[index]);
+    return setAtIndex({array, index, newValue});
 }
 
-function setAtIndex<A extends readonly any[]>(
-    array: A,
-    index: number,
-    newValue: A[number],
-): A {
-    const copy = [...array] as any;
+function setAtIndex<T, A extends readonly T[]>(args: {
+    array?: A;
+    index: number;
+    newValue: A[number];
+}): A {
+    const {array, index, newValue} = args;
+    const copy: T[] = [...(array || [])];
     copy[index] = newValue;
-    return copy;
+    return copy as unknown as A;
 }
