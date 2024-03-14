@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus": patch
+"@khanacademy/perseus": minor
 ---
 
-Fix Spacebar Usage on Explanation Widget
+Accessibility and Usability Enhancements for Explanation Widget
