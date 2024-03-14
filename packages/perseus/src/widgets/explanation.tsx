@@ -1,10 +1,10 @@
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import {UniqueIDProvider} from "@khanacademy/wonder-blocks-core";
+import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
 import caretDown from "@phosphor-icons/core/assets/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/assets/regular/caret-up.svg";
-import {StyleSheet, css} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
@@ -89,7 +89,7 @@ class Explanation extends React.Component<Props, State> {
             padding: "0 2px",
         };
 
-        const contentStyling = css(
+        const contentStyling = [
             styles.content,
             this.state.expanded
                 ? styles.contentExpanded
@@ -98,10 +98,7 @@ class Explanation extends React.Component<Props, State> {
                 (this.state.expanded
                     ? styles.transitionExpanded
                     : styles.transitionCollapsed),
-        );
-
-        const contentTestId =
-            process.env.NODE_ENV === "test" ? "content-container" : null;
+        ];
 
         return (
             <UniqueIDProvider
@@ -122,21 +119,21 @@ class Explanation extends React.Component<Props, State> {
                             {promptText}
                         </Button>
 
-                        <div
+                        <View
                             id={ids.get("content")}
-                            className={contentStyling}
+                            style={contentStyling}
                             aria-hidden={!this.state.expanded}
-                            data-test-id={contentTestId}
+                            testId="content-container"
                         >
-                            <div className={css(styles.contentWrapper)}>
+                            <View style={styles.contentWrapper}>
                                 <Renderer
                                     apiOptions={this.props.apiOptions}
                                     content={this.props.explanation}
                                     widgets={this.props.widgets}
                                     linterContext={this.props.linterContext}
                                 />
-                            </div>
-                        </div>
+                            </View>
+                        </View>
                     </>
                 )}
             </UniqueIDProvider>

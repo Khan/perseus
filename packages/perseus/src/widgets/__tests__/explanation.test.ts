@@ -12,6 +12,13 @@ import {renderQuestion} from "./renderQuestion";
 describe("Explanation", function () {
     let userEvent;
 
+    // NOTE: Since the visibility of an element is controlled by CSS,
+    //          the only way that we can verify in RTL that an element is visible or not (expanded/collapsed)
+    //          is by checking the classes that are applied to the wrapper of that element.
+    //       Therefore, we are checking the wrapper element by its data-test-id instead of the normal
+    //          getByRole or getByText functions.
+    //       The same is true for the animation tests found in this file.
+
     const verifyExpandCollapseState = (
         buttonText: string,
         isExpanded: boolean,
@@ -59,11 +66,6 @@ describe("Explanation", function () {
             advanceTimers: jest.advanceTimersByTime,
         });
 
-        // We mock out `console.error` because the explanation widget adds
-        // `javascript:void(0);` to the `onClick` handler which triggers an
-        // error in our test env.
-        jest.spyOn(console, "error").mockImplementation(() => {});
-
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -88,19 +90,6 @@ describe("Explanation", function () {
         // The only real difference between expanded and not expanded is the
         //     classes and aria that are applied.
         expect(container).toMatchSnapshot("expanded");
-    });
-
-    it("does NOT have a test ID when not in a test environment", async () => {
-        // Arrange
-        const originalNodeEnv = process.env.NODE_ENV;
-        process.env.NODE_ENV = "foo";
-        const {container} = renderQuestion(question1);
-
-        // Assert
-        expect(container).toMatchSnapshot("non-test render");
-
-        // Clean-up
-        process.env.NODE_ENV = originalNodeEnv;
     });
 
     it("can be expanded and collapsed with a mouse click", async function () {
@@ -173,14 +162,12 @@ describe("Explanation", function () {
 
     it("uses transitions when it is expanded/collapsed", async () => {
         // Arrange
-        const matchMediaMock = jest
-            .spyOn(window, "matchMedia")
-            .mockImplementation(
-                getMatchMediaMockFn(
-                    true,
-                    "(prefers-reduced-motion: no-preference)",
-                ),
-            );
+        jest.spyOn(window, "matchMedia").mockImplementation(
+            getMatchMediaMockFn(
+                true,
+                "(prefers-reduced-motion: no-preference)",
+            ),
+        );
         renderQuestion(question1);
 
         // Act - expand
@@ -202,21 +189,16 @@ describe("Explanation", function () {
         expect(screen.getByTestId("content-container").className).toContain(
             "transitionCollapsed",
         );
-
-        // Clean-up
-        matchMediaMock.mockRestore();
     });
 
     it("does NOT use transitions when the user prefers reduced motion", async () => {
         // Arrange
-        const matchMediaMock = jest
-            .spyOn(window, "matchMedia")
-            .mockImplementation(
-                getMatchMediaMockFn(
-                    false,
-                    "(prefers-reduced-motion: no-preference)",
-                ),
-            );
+        jest.spyOn(window, "matchMedia").mockImplementation(
+            getMatchMediaMockFn(
+                false,
+                "(prefers-reduced-motion: no-preference)",
+            ),
+        );
         renderQuestion(question1);
 
         // Act - expand
@@ -238,9 +220,6 @@ describe("Explanation", function () {
         expect(screen.getByTestId("content-container").className).not.toContain(
             "transitionCollapsed",
         );
-
-        // Clean-up
-        matchMediaMock.mockRestore();
     });
 
     it("communicates changes to its parent by using the provided 'onChange' callback", () => {
@@ -260,9 +239,6 @@ describe("Explanation", function () {
         // Assert
         expect(changeMock.mock.contexts[0]).toEqual(widget);
         expect(changeMock).toHaveBeenCalledWith("foo", "bar", callbackMock);
-
-        // Clean-up
-        changeMock.mockRestore();
     });
 
     it("should return an empty object for getUserInput()", async () => {
