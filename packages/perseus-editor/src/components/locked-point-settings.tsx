@@ -118,33 +118,35 @@ const LockedPointSettings = (props: Props) => {
             </View>
 
             {/* Color */}
-            <View style={styles.row}>
-                <LabelMedium style={styles.label}>Color</LabelMedium>
-                <SingleSelect
-                    selectedValue={style?.fill || "blue"}
-                    onChange={onChangeColor}
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
-                >
-                    {possibleColors.map((colorName) => (
-                        <OptionItem
-                            key={colorName}
-                            value={colorName}
-                            label={colorName}
-                            leftAccessory={
-                                <View
-                                    style={[
-                                        styles.colorCircle,
-                                        {backgroundColor: color[colorName]},
-                                    ]}
-                                />
-                            }
-                        >
-                            {colorName}
-                        </OptionItem>
-                    ))}
-                </SingleSelect>
-            </View>
+            <label>
+                <View style={styles.row}>
+                    <LabelMedium style={styles.label}>Color</LabelMedium>
+                    <SingleSelect
+                        selectedValue={style?.fill || "blue"}
+                        onChange={onChangeColor}
+                        // Placeholder is required, but never gets used.
+                        placeholder=""
+                    >
+                        {possibleColors.map((colorName) => (
+                            <OptionItem
+                                key={colorName}
+                                value={colorName}
+                                label={colorName}
+                                leftAccessory={
+                                    <View
+                                        style={[
+                                            styles.colorCircle,
+                                            {backgroundColor: color[colorName]},
+                                        ]}
+                                    />
+                                }
+                            >
+                                {colorName}
+                            </OptionItem>
+                        ))}
+                    </SingleSelect>
+                </View>
+            </label>
         </View>
     );
 };

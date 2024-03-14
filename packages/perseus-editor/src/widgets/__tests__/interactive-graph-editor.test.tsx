@@ -647,7 +647,7 @@ describe("InteractiveGraphEditor", () => {
 
         // Act
         const colorInput = screen.getByRole("button", {
-            name: "blue",
+            name: "Color",
         });
         await userEvent.click(colorInput);
         const colorSelection = screen.getByText("purple");
