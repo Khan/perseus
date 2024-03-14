@@ -540,6 +540,69 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
+    test("Calls onChange when a locked figure is removed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                onChange={onChangeMock}
+                lockedFigures={[{type: "point", coord: [0, 0]}]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const deleteButton = screen.getByRole("button", {
+            name: "Delete locked point at 0, 0",
+        });
+        await userEvent.click(deleteButton);
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith(
+            expect.objectContaining({
+                lockedFigures: [],
+            }),
+        );
+    });
+
+    test("Calls onChange when a locked figure's coordinates are changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                onChange={onChangeMock}
+                lockedFigures={[{type: "point", coord: [0, 0]}]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const xCoordInput = screen.getByLabelText("x Coordinate");
+        await userEvent.clear(xCoordInput);
+        await userEvent.type(xCoordInput, "1");
+        await userEvent.tab();
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith(
+            expect.objectContaining({
+                lockedFigures: [
+                    expect.objectContaining({
+                        type: "point",
+                        coord: [1, 0],
+                    }),
+                ],
+            }),
+        );
+    });
+
     test("Shows the locked figure settings when a locked figure is passed in", async () => {
         // Arrange
 

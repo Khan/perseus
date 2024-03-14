@@ -139,8 +139,8 @@ export type Props = {
     correct: any; // TODO(jeremy)
     /**
      * The locked figures to display in the graph area.
-     * Locked figures are graph elements such as points, lines, line
-     * segments, etc. that are locked in place and not interactive.
+     * Locked figures are graph elements (points, lines, line segmeents,
+     * etc.) that are locked in place and not interactive.
      */
     lockedFigures?: Array<LockedFigure>;
 
