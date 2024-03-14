@@ -1,9 +1,14 @@
 import {normalizeCoords, normalizePoints} from "./utils";
 
-import type {InteractiveGraphState, Segment} from "./types";
+import type {InteractiveGraphState} from "./types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeSegment,
+    CollinearTuple,
+    PerseusGraphTypeRay,
+    PerseusGraphTypeLinear,
+    PerseusInteractiveGraphWidgetOptions,
+    PerseusGraphTypeLinearSystem,
 } from "../../perseus-types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
@@ -22,7 +27,19 @@ export function initializeGraphState(params: {
                 hasBeenInteractedWith: false,
                 range,
                 snapStep,
-                segments: getDefaultSegments({graph, step, range}),
+                coords: getDefaultSegments({graph, step, range}),
+            };
+        // Ray can also fall through into this case-- same type, same default coords
+        case "linear":
+        case "linear-system":
+            return {
+                type: graph.type,
+                hasBeenInteractedWith: false,
+                range,
+                snapStep,
+                // A linear graph has a single tuple of points, while a linear
+                // system has two tuples of points.
+                coords: getLineCoords(graph, range, step),
             };
     }
     throw new Error("Mafs not yet implemented for graph type: " + graph.type);
@@ -32,7 +49,7 @@ const getDefaultSegments = (props: {
     graph: PerseusGraphTypeSegment;
     step: vec.Vector2;
     range: [Interval, Interval];
-}): Segment[] => {
+}): CollinearTuple[] => {
     const ys = (n?: number) => {
         switch (n) {
             case 2:
@@ -60,3 +77,58 @@ const getDefaultSegments = (props: {
         return endpoints;
     });
 };
+
+export function getGradableGraph(
+    state: InteractiveGraphState,
+    initialGraph: PerseusGraphType,
+): PerseusGraphType {
+    if (!state.hasBeenInteractedWith) {
+        return initialGraph;
+    }
+    switch (true) {
+        // coords: CollinearTuple[]
+        case state.type === "linear-system" &&
+            initialGraph.type === "linear-system":
+        case state.type === "segment" && initialGraph.type === "segment":
+            return {
+                ...initialGraph,
+                coords: state.coords,
+            };
+        // RAY has the same type as below; can fall through
+        // coords: CollinearTuple
+        case state.type === "linear" && initialGraph.type === "linear":
+            return {
+                ...initialGraph,
+                coords: state.coords?.[0],
+            };
+    }
+    throw new Error(
+        "Mafs is not yet implemented for graph type: " + initialGraph.type,
+    );
+}
+
+const defaultLineCoords: readonly CollinearTuple[] = [
+    [
+        [0.25, 0.75],
+        [0.75, 0.75],
+    ],
+    [
+        [0.25, 0.25],
+        [0.75, 0.25],
+    ],
+];
+
+const getLineCoords = (
+    graph:
+        | PerseusGraphTypeRay
+        | PerseusGraphTypeLinear
+        | PerseusGraphTypeLinearSystem,
+    range: PerseusInteractiveGraphWidgetOptions["range"],
+    step: PerseusInteractiveGraphWidgetOptions["step"],
+): CollinearTuple[] =>
+    // Return two lines for a linear system, one for a ray or linear
+    graph.coords ?? graph.type === "linear-system"
+        ? defaultLineCoords.map((collinear) =>
+              normalizePoints(range, step, collinear),
+          )
+        : [normalizePoints(range, step, defaultLineCoords[0])];

@@ -28,7 +28,7 @@ describe("initializeGraphState", () => {
             snapStep: [1, 1],
             graph: {type: "segment"},
         });
-        expect(state.segments).toEqual([
+        expect(state.coords).toEqual([
             [
                 [-5, 5],
                 [5, 5],

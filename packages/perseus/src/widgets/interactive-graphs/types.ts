@@ -1,5 +1,6 @@
 import type {InteractiveGraphAction} from "./interactive-graph-action";
 import type {
+    PerseusGraphTypeLinearSystem,
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../../perseus-types";
@@ -16,9 +17,7 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
     dispatch: (action: InteractiveGraphAction) => unknown;
 };
 
-export type Segment = [vec.Vector2, vec.Vector2];
-
-export type InteractiveGraphState = SegmentGraphState;
+export type InteractiveGraphState = SegmentGraphState | LinearGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -29,6 +28,9 @@ export interface InteractiveGraphStateCommon {
 }
 
 export type SegmentGraphState = InteractiveGraphStateCommon &
-    Pick<PerseusGraphTypeSegment, "type"> & {
-        segments: PerseusGraphTypeSegment["coords"];
+    Pick<PerseusGraphTypeSegment, "type" | "coords">;
+
+export type LinearGraphState = InteractiveGraphStateCommon &
+    Pick<PerseusGraphTypeLinearSystem, "coords"> & {
+        type: "linear" | "linear-system";
     };

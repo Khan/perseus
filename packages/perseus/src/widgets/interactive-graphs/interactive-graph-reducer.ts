@@ -3,7 +3,8 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
 import type {InteractiveGraphAction} from "./interactive-graph-action";
-import type {InteractiveGraphState, Segment} from "./types";
+import type {InteractiveGraphState} from "./types";
+import type {CollinearTuple} from "../../perseus-types";
 
 export function interactiveGraphReducer(
     state: Readonly<InteractiveGraphState>,
@@ -11,41 +12,45 @@ export function interactiveGraphReducer(
 ): InteractiveGraphState {
     switch (action.type) {
         case "move-control-point": {
-            const newSegments = updateAtIndex({
-                array: state.segments,
+            const newCoords = updateAtIndex({
+                array: state.coords,
                 index: action.objectIndex,
-                update: (segment) =>
+                update: (tuple) =>
                     setAtIndex({
-                        array: segment,
+                        array: tuple,
                         index: action.pointIndex,
                         newValue: snap(state, bound(state, action.destination)),
                     }),
             });
-            if (!validSegments(newSegments)) {
+            if (!validSegments(newCoords)) {
                 return state;
             }
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                segments: newSegments,
+                coords: newCoords,
             };
         }
         case "move-segment": {
-            const oldSegment = state.segments?.[action.segmentIndex] ?? [];
-            const maxMoves = oldSegment.map((point) => maxMove(state, point));
-            const minMoves = oldSegment.map((point) => minMove(state, point));
+            const oldSegment = state.coords?.[action.segmentIndex] ?? [];
+            const maxMoves = oldSegment.map((point: vec.Vector2) =>
+                maxMove(state, point),
+            );
+            const minMoves = oldSegment.map((point: vec.Vector2) =>
+                minMove(state, point),
+            );
             const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
             const maxYMove = Math.min(...maxMoves.map((move) => move[1]));
             const minXMove = Math.max(...minMoves.map((move) => move[0]));
             const minYMove = Math.max(...minMoves.map((move) => move[1]));
             const dx = clamp(action.delta[0], minXMove, maxXMove);
             const dy = clamp(action.delta[1], minYMove, maxYMove);
-            const newSegment = oldSegment.map((point) =>
+            const newSegment = oldSegment.map((point: vec.Vector2) =>
                 snap(state, kvector.add(point, [dx, dy])),
-            ) as Segment;
+            ) as unknown as CollinearTuple;
 
             const newSegments = setAtIndex({
-                array: state.segments,
+                array: state.coords,
                 index: action.segmentIndex,
                 newValue: newSegment,
             });
@@ -53,7 +58,7 @@ export function interactiveGraphReducer(
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                segments: newSegments,
+                coords: newSegments,
             };
         }
         default:
@@ -117,7 +122,7 @@ function clamp(value: number, min: number, max: number) {
     return value;
 }
 
-function validSegments(segments: readonly Segment[]): boolean {
+function validSegments(segments: readonly CollinearTuple[]): boolean {
     return segments.every(([start, end]) => !kvector.equal(start, end));
 }
 

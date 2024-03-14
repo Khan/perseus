@@ -5,14 +5,15 @@ import {useRef} from "react";
 import {moveControlPoint, moveSegment} from "../interactive-graph-action";
 import {MovablePoint} from "../movable-point";
 
-import type {MafsGraphProps, Segment, SegmentGraphState} from "../types";
+import type {CollinearTuple} from "../../../perseus-types";
+import type {MafsGraphProps, SegmentGraphState} from "../types";
 import type {SVGProps} from "react";
 
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
 export const SegmentGraph = (props: SegmentProps) => {
     const {dispatch} = props;
-    const {segments, snapStep, range} = props.graphState;
+    const {coords: segments, snapStep, range} = props.graphState;
 
     return (
         <>
@@ -41,7 +42,7 @@ export const SegmentGraph = (props: SegmentProps) => {
 };
 
 const SegmentView = (props: {
-    segment: Readonly<Segment>;
+    segment: Readonly<CollinearTuple>;
     snaps: [number, number];
     range: [[number, number], [number, number]];
     onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
