@@ -5,6 +5,10 @@ describe("getValidNumberFromString", () => {
         expect(getValidNumberFromString("123")).toBe(123);
     });
 
+    test("should return a negative number from a string", () => {
+        expect(getValidNumberFromString("-123")).toBe(-123);
+    });
+
     test("should return 0 from an invalid string", () => {
         expect(getValidNumberFromString("abc")).toBe(0);
     });
