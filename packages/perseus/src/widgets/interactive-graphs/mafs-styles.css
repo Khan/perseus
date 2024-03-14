@@ -6,6 +6,8 @@
     --mafs-bg: transparent;
     --mafs-fg: rgb(33, 36, 44); /* WB color.offBlack */
 
+    --mafs-line-color: rgba(33, 36, 44, 0.16); /* WB color.offBlack16*/
+
     --mafs-blue: #1865f2; /* WB color.blue */
     --mafs-red: #d92916; /* WB color.red */
     --mafs-green: #00a60e; /* WB color.green */
@@ -21,7 +23,7 @@
 }
 
 .MafsView .movable-segment {
-    --mafs-segment-stroke-color: rgba(33, 36, 44, 0.64);
+    --mafs-segment-stroke-color: var(--mafs-line-color);
     --mafs-segment-stroke-weight: 2px;
 }
 
