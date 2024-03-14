@@ -57,6 +57,51 @@ export const Controlled: StoryComponentType = {
 };
 
 /**
+ * This InteractiveGraphEditor has locked figures. Locked figures are graph
+ * elements such as points, lines, line segements, etc. that are locked in
+ * place and not interactive.
+ */
+export const WithLockedPoints: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            // Use locked figures with mafs only.
+            apiOptions: {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+            graph: {
+                type: "segment",
+            },
+            correct: {
+                type: "segment",
+            },
+            lockedFigures: [
+                {
+                    type: "point",
+                    coord: [1, 1],
+                },
+                {
+                    type: "point",
+                    coord: [-1, -1],
+                },
+            ],
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
+
+/**
  * Example of what the InteractiveGraphEditor experience is when using
  * a Mafs-based InteractiveGraph.
  */
