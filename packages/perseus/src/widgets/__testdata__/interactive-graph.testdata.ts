@@ -1,5 +1,3 @@
-import {color} from "@khanacademy/wonder-blocks-tokens";
-
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 
@@ -519,12 +517,65 @@ export const segmentWithLockedPointsQuestion: PerseusRenderer = {
                     {
                         type: "point",
                         coord: [-7, -7],
-                        style: {stroke: color.red, fill: color.red},
                     },
                     {
                         type: "point",
                         coord: [2, -5],
-                        style: {stroke: color.red, fill: color.red},
+                    },
+                ],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const segmentWithLockedPointsWithColorQuestion: PerseusRenderer = {
+    content:
+        "Line segment $\\overline{OG}$ is rotated $180^\\circ$ about the point $(-2,4)$.  \n\n**Draw the image of this rotation using the interactive graph.**\n\n*The direction of a rotation by a positive angle is counter-clockwise.* \n\n[[☃ interactive-graph 1]]\n\n",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [
+                            [-7, -7],
+                            [2, -5],
+                        ],
+                    ],
+                    type: "segment",
+                },
+                graph: {
+                    type: "segment",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+                lockedFigures: [
+                    {
+                        type: "point",
+                        coord: [-7, -7],
+                        style: {fill: "green", stroke: "green"},
+                    },
+                    {
+                        type: "point",
+                        coord: [2, -5],
+                        style: {fill: "green", stroke: "green"},
                     },
                 ],
             },

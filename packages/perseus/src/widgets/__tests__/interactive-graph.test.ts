@@ -11,6 +11,7 @@ import {
     questionsAndAnswers,
     segmentQuestion,
     segmentWithLockedPointsQuestion,
+    segmentWithLockedPointsWithColorQuestion,
     segmentQuestionDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 
@@ -202,7 +203,7 @@ describe("locked layer", () => {
         expect(points).toHaveLength(2);
     });
 
-    test("should render locked points with styles", async () => {
+    test("should render locked points with styles when not color is specified", async () => {
         // Arrange
         const {container} = renderQuestion(
             segmentWithLockedPointsQuestion,
@@ -216,7 +217,31 @@ describe("locked layer", () => {
         );
 
         // Assert
-        expect(points[0]).toHaveStyle({fill: color.red, stroke: color.red});
-        expect(points[1]).toHaveStyle({fill: color.red, stroke: color.red});
+        expect(points[0]).toHaveStyle({fill: color.blue, stroke: color.blue});
+        expect(points[1]).toHaveStyle({fill: color.blue, stroke: color.blue});
+    });
+
+    test("should render locked points with styles when color is specified", async () => {
+        // Arrange
+        const {container} = renderQuestion(
+            segmentWithLockedPointsWithColorQuestion,
+            {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+        );
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const points = container.querySelectorAll(
+            "circle:not([class*='movable-point'])",
+        );
+
+        // Assert
+        expect(points[0]).toHaveStyle({fill: color.green, stroke: color.green});
+        expect(points[1]).toHaveStyle({fill: color.green, stroke: color.green});
     });
 });

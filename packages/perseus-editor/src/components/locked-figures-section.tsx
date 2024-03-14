@@ -60,14 +60,34 @@ const LockedFiguresSection = (props: Props) => {
         onChange(newProps);
     }
 
+    function changeColor(index: number, colorName: string) {
+        const lockedFigures = figures || [];
+        const newProps = {
+            lockedFigures: [
+                ...lockedFigures.slice(0, index),
+                {
+                    ...lockedFigures[index],
+                    style: {
+                        ...lockedFigures[index].style,
+                        fill: colorName,
+                        stroke: colorName,
+                    },
+                },
+                ...lockedFigures.slice(index + 1),
+            ],
+        };
+        onChange(newProps);
+    }
+
     return (
         <View style={styles.container}>
             {figures?.map((figure, index) => (
                 <LockedFigureSettings
                     key={`${uniqueId}-locked-${figure}-${index}`}
                     {...figure}
-                    onRemove={() => removeLockedFigure(index)}
+                    onChangeColor={(color) => changeColor(index, color)}
                     onChangeCoord={(coord) => changeCoord(index, coord)}
+                    onRemove={() => removeLockedFigure(index)}
                 />
             ))}
             <LockedFigureSelect

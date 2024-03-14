@@ -5,6 +5,7 @@
  * Used in the interactive graph editor's locked figures section.
  */
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
@@ -18,13 +19,24 @@ import {getValidNumberFromString} from "./util";
 
 import type {LockedPoint} from "@khanacademy/perseus";
 
+const possibleColors = [
+    "purple",
+    "blue",
+    "teal",
+    "green",
+    "gold",
+    "red",
+    "pink",
+];
+
 export type Props = LockedPoint & {
     onRemove: () => void;
     onChangeCoord: (coord: [number, number]) => void;
+    onChangeColor: (color: string) => void;
 };
 
 const LockedPointSettings = (props: Props) => {
-    const {coord, onRemove, onChangeCoord} = props;
+    const {coord, style, onChangeColor, onChangeCoord, onRemove} = props;
     const [coordState, setCoordState] = React.useState([
         // Using strings to make it easier to work with the text fields.
         coord[0].toString(),
@@ -49,7 +61,7 @@ const LockedPointSettings = (props: Props) => {
         onChangeCoord(validCoord);
     }
 
-    function handleChange(newValue, coordIndex) {
+    function handleCoordChange(newValue, coordIndex) {
         const newCoord = [...coordState];
         newCoord[coordIndex] = newValue;
         setCoordState(newCoord);
@@ -81,7 +93,7 @@ const LockedPointSettings = (props: Props) => {
                     <TextField
                         id={xCoordId}
                         value={coordState[0]}
-                        onChange={(newValue) => handleChange(newValue, 0)}
+                        onChange={(newValue) => handleCoordChange(newValue, 0)}
                         onBlur={handleBlur}
                         style={styles.textField}
                     />
@@ -98,11 +110,40 @@ const LockedPointSettings = (props: Props) => {
                     <TextField
                         id={yCoordId}
                         value={coordState[1]}
-                        onChange={(newValue) => handleChange(newValue, 1)}
+                        onChange={(newValue) => handleCoordChange(newValue, 1)}
                         onBlur={handleBlur}
                         style={styles.textField}
                     />
                 </View>
+            </View>
+
+            {/* Color */}
+            <View style={styles.row}>
+                <LabelMedium style={styles.label}>Color</LabelMedium>
+                <SingleSelect
+                    selectedValue={style?.fill || "blue"}
+                    onChange={onChangeColor}
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    {possibleColors.map((colorName) => (
+                        <OptionItem
+                            key={colorName}
+                            value={colorName}
+                            label={colorName}
+                            leftAccessory={
+                                <View
+                                    style={[
+                                        styles.colorCircle,
+                                        {backgroundColor: color[colorName]},
+                                    ]}
+                                />
+                            }
+                        >
+                            {colorName}
+                        </OptionItem>
+                    ))}
+                </SingleSelect>
             </View>
         </View>
     );
@@ -125,6 +166,14 @@ const styles = StyleSheet.create({
     },
     textField: {
         width: spacing.xxxLarge_64,
+    },
+    colorCircle: {
+        // Add a white border so that the color circle is visible when
+        // the dropdown option is highlighted with its blue background.
+        border: `2px solid ${color.offWhite}`,
+        borderRadius: "50%",
+        width: spacing.large_24,
+        height: spacing.large_24,
     },
 });
 

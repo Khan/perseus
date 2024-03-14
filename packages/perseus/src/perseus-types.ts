@@ -6,7 +6,7 @@ import type {Coord} from "./interactive2/types";
 export type Range = [number, number];
 export type Size = [number, number];
 
-type StyleParams = {
+export type StyleParams = {
     fill?: string;
     stroke?: string;
 };
