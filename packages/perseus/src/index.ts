@@ -130,6 +130,7 @@ export type {
     LockedFigure,
     LockedFigureType,
     LockedPoint,
+    PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,
     // Utility types

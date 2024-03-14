@@ -55,7 +55,11 @@ const LockedPointSettings = (props: Props) => {
             <View style={styles.row}>
                 <LabelLarge>Point</LabelLarge>
                 <Spring />
-                <IconButton icon={trashIcon} onClick={onRemove} />
+                <IconButton
+                    icon={trashIcon}
+                    aria-label={`Delete locked point at ${coordState[0]}, ${coordState[1]}`}
+                    onClick={onRemove}
+                />
             </View>
 
             {/* Coordinates */}
