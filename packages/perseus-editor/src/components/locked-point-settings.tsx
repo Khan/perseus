@@ -48,6 +48,7 @@ const LockedPointSettings = (props: Props) => {
     const ids = useUniqueIdWithMock();
     const xCoordId = ids.get("x-coord");
     const yCoordId = ids.get("y-coord");
+    const colorSelectId = ids.get("color-select");
 
     function handleBlur() {
         const validCoord = [
@@ -118,35 +119,40 @@ const LockedPointSettings = (props: Props) => {
             </View>
 
             {/* Color */}
-            <label>
-                <View style={styles.row}>
-                    <LabelMedium style={styles.label}>Color</LabelMedium>
-                    <SingleSelect
-                        selectedValue={style?.fill || "blue"}
-                        onChange={onChangeColor}
-                        // Placeholder is required, but never gets used.
-                        placeholder=""
-                    >
-                        {possibleColors.map((colorName) => (
-                            <OptionItem
-                                key={colorName}
-                                value={colorName}
-                                label={colorName}
-                                leftAccessory={
-                                    <View
-                                        style={[
-                                            styles.colorCircle,
-                                            {backgroundColor: color[colorName]},
-                                        ]}
-                                    />
-                                }
-                            >
-                                {colorName}
-                            </OptionItem>
-                        ))}
-                    </SingleSelect>
-                </View>
-            </label>
+            <View style={styles.row}>
+                <LabelMedium
+                    htmlFor={colorSelectId}
+                    style={styles.label}
+                    tag="label"
+                >
+                    Color
+                </LabelMedium>
+                <SingleSelect
+                    id={colorSelectId}
+                    selectedValue={style?.fill || "blue"}
+                    onChange={onChangeColor}
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    {possibleColors.map((colorName) => (
+                        <OptionItem
+                            key={colorName}
+                            value={colorName}
+                            label={colorName}
+                            leftAccessory={
+                                <View
+                                    style={[
+                                        styles.colorCircle,
+                                        {backgroundColor: color[colorName]},
+                                    ]}
+                                />
+                            }
+                        >
+                            {colorName}
+                        </OptionItem>
+                    ))}
+                </SingleSelect>
+            </View>
         </View>
     );
 };
