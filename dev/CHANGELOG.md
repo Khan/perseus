@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.0
+
+### Minor Changes
+
+-   [#1071](https://github.com/Khan/perseus/pull/1071) [`eb637b35`](https://github.com/Khan/perseus/commit/eb637b3528b6ecaf1df83e53d429b6bdc89613d4) Thanks [@benchristel](https://github.com/benchristel)! - Add a "check answer" button to interactive graphs displayed in the dev flipbook UI
+
 ## 1.2.3
 
 ### Patch Changes

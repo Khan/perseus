@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 20.2.0
+
+### Minor Changes
+
+-   [#1067](https://github.com/Khan/perseus/pull/1067) [`6196375a`](https://github.com/Khan/perseus/commit/6196375add76025fb1f30473912dd38cc001cca4) Thanks [@nishasy](https://github.com/nishasy)! - Can pass a point into `lockedFigures` into MafsGraph and a point will be displayed.
+
+*   [#1074](https://github.com/Khan/perseus/pull/1074) [`a263e940`](https://github.com/Khan/perseus/commit/a263e940de35cc51a5be81ca507a4e9b6827b422) Thanks [@nishasy](https://github.com/nishasy)! - Add "add a locked figure" UI to interactive graph editor + adding points (mafs graphs only)
+
+### Patch Changes
+
+-   [#1068](https://github.com/Khan/perseus/pull/1068) [`881da724`](https://github.com/Khan/perseus/commit/881da724d36561b2a200af0258ab81523d4d236a) Thanks [@benchristel](https://github.com/benchristel)! - Adjust styling of the movable points and line segments on the Mafs segment graph
+
+*   [#1071](https://github.com/Khan/perseus/pull/1071) [`eb637b35`](https://github.com/Khan/perseus/commit/eb637b3528b6ecaf1df83e53d429b6bdc89613d4) Thanks [@benchristel](https://github.com/benchristel)! - Add a "check answer" button to interactive graphs displayed in the dev flipbook UI
+
+-   [#1073](https://github.com/Khan/perseus/pull/1073) [`ea0db7d9`](https://github.com/Khan/perseus/commit/ea0db7d9b2013637a27f1ea9fc36b46b0a7488a2) Thanks [@benchristel](https://github.com/benchristel)! - Fix color of Mafs line segments
+
 ## 20.1.0
 
 ### Minor Changes
