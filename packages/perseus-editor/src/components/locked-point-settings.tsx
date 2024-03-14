@@ -1,3 +1,9 @@
+/**
+ * LockedPointSettings is a component that allows the user to edit the
+ * settings of specifically a locked point on the graph.
+ *
+ * Used in the interactive graph editor's locked figures section.
+ */
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";

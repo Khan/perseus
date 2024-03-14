@@ -1,3 +1,10 @@
+/**
+ * Dropdown for selecting a locked figure to add to an interactive graph.
+ * Locked figures are elements (points, segmeents, etc.) that are not
+ * interactive, just present in the graph's background.
+ *
+ * Used in the interactive graph editor's locked figures section.
+ */
 import {View} from "@khanacademy/wonder-blocks-core";
 import {ActionItem, ActionMenu} from "@khanacademy/wonder-blocks-dropdown";
 import {spacing, color} from "@khanacademy/wonder-blocks-tokens";

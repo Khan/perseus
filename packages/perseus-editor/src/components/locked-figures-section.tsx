@@ -1,3 +1,8 @@
+/**
+ * LockedFiguresSection is a section of the InteractiveGraphEditor that allows
+ * the user to add and remove locked figures from the graph. It includes
+ * the dropdown for adding figures as well as the settings for each figure.
+ */
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";

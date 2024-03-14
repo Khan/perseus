@@ -1,3 +1,10 @@
+/**
+ * LockedFigureSettings takes in a figure and renders the
+ * respective settings for that figure type.
+ *
+ * Used in the interactive graph editor's locked figures section.
+ */
+
 import * as React from "react";
 
 import LockedPointSettings from "./locked-point-settings";
