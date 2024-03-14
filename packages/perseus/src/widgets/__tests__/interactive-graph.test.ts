@@ -203,7 +203,7 @@ describe("locked layer", () => {
         expect(points).toHaveLength(2);
     });
 
-    test("should render locked points with styles when not color is specified", async () => {
+    test("should render locked points with styles when color is not specified", async () => {
         // Arrange
         const {container} = renderQuestion(
             segmentWithLockedPointsQuestion,
