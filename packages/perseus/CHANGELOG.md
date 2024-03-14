@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 20.3.0
+
+### Minor Changes
+
+-   [#1060](https://github.com/Khan/perseus/pull/1060) [`857ea95b`](https://github.com/Khan/perseus/commit/857ea95bba32b230bca6d43467995cbdc1b9dca9) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Accessibility and Usability Enhancements for Explanation Widget
+
 ## 20.2.0
 
 ### Minor Changes
