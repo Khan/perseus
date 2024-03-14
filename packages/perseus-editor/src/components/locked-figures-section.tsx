@@ -5,7 +5,7 @@ import * as React from "react";
 
 import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
-import {getDefaultValuesForFigure} from "./util";
+import {getDefaultFigureForFigureType} from "./util";
 
 import type {Props as InteractiveGraphEditorProps} from "../widgets/interactive-graph-editor";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
@@ -24,7 +24,7 @@ const LockedFiguresSection = (props: Props) => {
         const newProps = {
             lockedFigures: [
                 ...lockedFigures,
-                getDefaultValuesForFigure(newFigure),
+                getDefaultFigureForFigureType(newFigure),
             ],
         };
         onChange(newProps);

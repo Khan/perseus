@@ -577,10 +577,19 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
                 {graph}
 
-                <LockedFiguresSection
-                    figures={this.props.lockedFigures}
-                    onChange={this.props.onChange}
-                />
+                {
+                    // Only show the "Add element" dropdown if the graph is
+                    // using Mafs.
+                    this.props.graph &&
+                        this.props.apiOptions?.flags?.["mafs"]?.[
+                            this.props.graph.type
+                        ] && (
+                            <LockedFiguresSection
+                                figures={this.props.lockedFigures}
+                                onChange={this.props.onChange}
+                            />
+                        )
+                }
             </View>
         );
     }

@@ -8,22 +8,13 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import {getValidNumberFromString} from "./util";
+
 import type {LockedPoint} from "@khanacademy/perseus";
 
 export type Props = LockedPoint & {
     onRemove: () => void;
     onChangeCoord: (coord: [number, number]) => void;
-};
-
-const colorMap = {};
-colorMap[color.blue] = "blue";
-colorMap[color.red] = "red";
-colorMap[color.offBlack64] = "gray";
-
-const validNumber = (value: string) => {
-    const parsed = parseInt(value);
-    // If the value is not a number, return 0.
-    return isNaN(parsed) ? 0 : parsed;
 };
 
 const LockedPointSettings = (props: Props) => {
@@ -42,8 +33,8 @@ const LockedPointSettings = (props: Props) => {
 
     function handleBlur() {
         const validCoord = [
-            validNumber(coordState[0]),
-            validNumber(coordState[1]),
+            getValidNumberFromString(coordState[0]),
+            getValidNumberFromString(coordState[1]),
         ] as [number, number];
 
         // Make the text field only show valid numbers after blur.
@@ -123,7 +114,7 @@ const styles = StyleSheet.create({
         marginInlineEnd: spacing.xSmall_8,
     },
     textField: {
-        width: 64,
+        width: spacing.xxxLarge_64,
     },
 });
 

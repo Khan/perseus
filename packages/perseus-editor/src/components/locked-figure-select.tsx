@@ -12,10 +12,6 @@ type Props = {
 const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
-    function handleChange(value: string) {
-        onChange(value);
-    }
-
     return (
         <View style={styles.container}>
             <ActionMenu menuText="Add element" style={styles.addElementSelect}>
@@ -23,7 +19,7 @@ const LockedFigureSelect = (props: Props) => {
                     <ActionItem
                         key={`${id}-point`}
                         label="Point"
-                        onClick={() => handleChange("point")}
+                        onClick={() => onChange("point")}
                     >
                         Point
                     </ActionItem>,

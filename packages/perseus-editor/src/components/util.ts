@@ -43,7 +43,13 @@ export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
     element.focus({preventScroll: true});
 }
 
-export function getDefaultValuesForFigure(
+export function getValidNumberFromString(value: string) {
+    const parsed = parseInt(value);
+    // If the value is not a number, return 0.
+    return isNaN(parsed) ? 0 : parsed;
+}
+
+export function getDefaultFigureForFigureType(
     type: LockedFigureType,
 ): LockedFigure {
     switch (type) {
