@@ -23,7 +23,7 @@
 }
 
 .MafsView .movable-segment {
-    --mafs-segment-stroke-color: var(--mafs-line-color);
+    --mafs-segment-stroke-color: rgba(33, 36, 44, 0.64); /* offBlack64 */;
     --mafs-segment-stroke-weight: 2px;
 }
 
