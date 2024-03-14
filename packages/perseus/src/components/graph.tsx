@@ -14,7 +14,7 @@ import GraphUtils from "../util/graph-utils";
 import SvgImage from "./svg-image";
 
 import type {Coord} from "../interactive2/types";
-import type {PerseusImageBackground, LockedFigure} from "../perseus-types";
+import type {PerseusImageBackground} from "../perseus-types";
 import type {GridDimensions} from "../util";
 
 const defaultBackgroundImage = {
@@ -59,7 +59,6 @@ type Props = {
     rulerTicks: number;
     instructions?: string;
     isMobile: boolean;
-    lockedFigures?: ReadonlyArray<LockedFigure>;
 
     onGraphieUpdated?: (graphie: any) => void;
     onClick?: (Coord) => void;
@@ -317,36 +316,6 @@ class Graph extends React.Component<Props> {
             allowScratchpad: true,
             setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,
         });
-
-        // Maybe move this out later
-        if (this.props.lockedFigures) {
-            for (const lockedFigure of this.props.lockedFigures) {
-                switch (lockedFigure.type) {
-                    case "point":
-                        graphie.circle(
-                            // center
-                            lockedFigure.coord,
-                            // radius
-                            0.25,
-                            // style
-                            lockedFigure.style,
-                        );
-                        break;
-                    default:
-                        /**
-                         * Devlopment-time future-proofing: This `never` should
-                         * fail during type-checking if we add a new locked
-                         * shape type and forget to handle it in any other
-                         * switch case here.
-                         */
-                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                        const exhaustiveCheck: never = lockedFigure.type;
-                        throw new Error(
-                            `Unknown locked shape type: ${lockedFigure.type}`,
-                        );
-                }
-            }
-        }
 
         this._updateProtractor();
         this._updateRuler();

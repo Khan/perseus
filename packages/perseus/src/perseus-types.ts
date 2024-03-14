@@ -649,6 +649,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
 };
 
 export type LockedFigure = LockedPoint;
+export type LockedFigureType = "point";
 
 export type LockedPoint = {
     type: "point";

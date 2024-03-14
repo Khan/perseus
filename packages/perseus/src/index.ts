@@ -128,6 +128,7 @@ export type {
 export type {ParsedValue} from "./util";
 export type {
     LockedFigure,
+    LockedFigureType,
     LockedPoint,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,

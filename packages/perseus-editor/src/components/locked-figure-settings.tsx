@@ -8,9 +8,11 @@ import type {Props as LockedPointProps} from "./locked-point-settings";
 type Props = LockedPointProps;
 
 const LockedFigureSettings = (props: Props) => {
-    if (props.type === "point") {
-        return <LockedPointSettings {...props} />;
+    switch (props.type) {
+        case "point":
+            return <LockedPointSettings {...props} />;
     }
+
     return null;
 };
 

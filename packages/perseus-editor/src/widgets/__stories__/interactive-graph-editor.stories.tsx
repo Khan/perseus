@@ -1,4 +1,3 @@
-import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import InteractiveGraphEditor from "../interactive-graph-editor";
@@ -72,16 +71,28 @@ export const WithLockedPoints: StoryComponentType = {
         };
 
         const [state, dispatch] = React.useReducer(reducer, {
+            // Use locked figures with mafs only.
+            apiOptions: {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+            graph: {
+                type: "segment",
+            },
+            correct: {
+                type: "segment",
+            },
             lockedFigures: [
                 {
                     type: "point",
                     coord: [1, 1],
-                    style: {fill: color.offBlack64, stroke: color.offBlack64},
                 },
                 {
                     type: "point",
                     coord: [-1, -1],
-                    style: {fill: color.blue, stroke: color.blue},
                 },
             ],
         });

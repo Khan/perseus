@@ -1,5 +1,4 @@
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
@@ -13,7 +12,6 @@ import type {LockedPoint} from "@khanacademy/perseus";
 
 export type Props = LockedPoint & {
     onRemove: () => void;
-    onChangeColor: (color: string) => void;
     onChangeCoord: (coord: [number, number]) => void;
 };
 
@@ -29,7 +27,7 @@ const validNumber = (value: string) => {
 };
 
 const LockedPointSettings = (props: Props) => {
-    const {coord, style, onRemove, onChangeColor, onChangeCoord} = props;
+    const {coord, onRemove, onChangeCoord} = props;
     const [coordState, setCoordState] = React.useState([
         // Using strings to make it easier to work with the text fields.
         coord[0].toString(),
@@ -41,7 +39,6 @@ const LockedPointSettings = (props: Props) => {
     const ids = useUniqueIdWithMock();
     const xCoordId = ids.get("x-coord");
     const yCoordId = ids.get("y-coord");
-    const colorSelectId = ids.get("color-select");
 
     function handleBlur() {
         const validCoord = [
@@ -106,61 +103,6 @@ const LockedPointSettings = (props: Props) => {
                     />
                 </View>
             </View>
-
-            {/* Style */}
-            <View style={styles.row}>
-                <LabelMedium
-                    htmlFor={colorSelectId}
-                    style={styles.label}
-                    tag="label"
-                >
-                    Color
-                </LabelMedium>
-                <SingleSelect
-                    id={colorSelectId}
-                    selectedValue={colorMap[style?.fill || "gray"]}
-                    onChange={onChangeColor}
-                    // Never used as there is always a selected value
-                    placeholder=""
-                >
-                    <OptionItem
-                        label="Gray"
-                        value="gray"
-                        leftAccessory={
-                            <View
-                                style={[
-                                    styles.colorCircle,
-                                    {backgroundColor: color.offBlack64},
-                                ]}
-                            />
-                        }
-                    />
-                    <OptionItem
-                        label="Blue"
-                        value="blue"
-                        leftAccessory={
-                            <View
-                                style={[
-                                    styles.colorCircle,
-                                    {backgroundColor: color.blue},
-                                ]}
-                            />
-                        }
-                    />
-                    <OptionItem
-                        label="Red"
-                        value="red"
-                        leftAccessory={
-                            <View
-                                style={[
-                                    styles.colorCircle,
-                                    {backgroundColor: color.red},
-                                ]}
-                            />
-                        }
-                    />
-                </SingleSelect>
-            </View>
         </View>
     );
 };
@@ -182,11 +124,6 @@ const styles = StyleSheet.create({
     },
     textField: {
         width: 64,
-    },
-    colorCircle: {
-        width: spacing.large_24,
-        height: spacing.large_24,
-        borderRadius: "50%",
     },
 });
 
