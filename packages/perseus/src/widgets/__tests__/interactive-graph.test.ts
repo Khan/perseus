@@ -147,6 +147,7 @@ describe("mafs graphs", () => {
         segment: segmentQuestionDefaultCorrect,
         linear: linearQuestionWithDefaultCorrect,
         "linear-system": linearSystemQuestionWithDefaultCorrect,
+        ray: rayQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
