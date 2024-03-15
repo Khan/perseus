@@ -38,7 +38,8 @@ export const StyledMovablePoint = (props: Props) => {
                 } as any
             }
         >
-            <circle className="movable-point-hitbox" r={30} cx={x} cy={y} />
+            {/* Radius of 22 creates 44x44 click/touch target: AAA WCAG compliant */}
+            <circle className="movable-point-hitbox" r={22} cx={x} cy={y} />
             <circle className="movable-point-halo" cx={x} cy={y} />
             <circle className="movable-point-ring" cx={x} cy={y} />
             <circle
