@@ -1,4 +1,8 @@
-import {moveControlPoint, moveLine} from "./interactive-graph-action";
+import {
+    moveControlPoint,
+    movePoint,
+    moveLine,
+} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {InteractiveGraphState} from "../types";
@@ -6,6 +10,17 @@ import type {InteractiveGraphState} from "../types";
 const baseSegmentGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "segment",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [],
+};
+
+const basePointGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "point",
     range: [
         [-10, 10],
         [-10, 10],
@@ -198,5 +213,21 @@ describe("moveSegment", () => {
         const updated = interactiveGraphReducer(state, moveLine(0, [1, 1]));
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+});
+
+describe("movePoint", () => {
+    it("moves the point with the given index", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [
+                [1, 2],
+                [3, 4],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [5, 6]));
+
+        expect(updated.coords[0]).toEqual([5, 6]);
     });
 });

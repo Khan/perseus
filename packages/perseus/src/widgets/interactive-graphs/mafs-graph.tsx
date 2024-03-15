@@ -37,6 +37,8 @@ const renderGraph = (props: {
             return <RayGraph graphState={state} dispatch={dispatch} />;
         case "polygon":
             return <PolygonGraph graphState={state} dispatch={dispatch} />;
+        case "point":
+            throw "Fixme";
         default:
             return new UnreachableCaseError(type);
     }

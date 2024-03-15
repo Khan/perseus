@@ -28,7 +28,8 @@ export type InteractiveGraphState =
     | SegmentGraphState
     | LinearGraphState
     | RayGraphState
-    | PolygonGraphState;
+    | PolygonGraphState
+    | PointGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -46,6 +47,11 @@ export interface SegmentGraphState extends InteractiveGraphStateCommon {
 export interface LinearGraphState extends InteractiveGraphStateCommon {
     type: "linear" | "linear-system";
     coords: ReadonlyArray<CollinearTuple>;
+}
+
+export interface PointGraphState extends InteractiveGraphStateCommon {
+    type: "point";
+    coords: ReadonlyArray<Coord>;
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
