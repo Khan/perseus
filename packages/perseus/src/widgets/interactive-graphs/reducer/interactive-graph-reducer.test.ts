@@ -230,4 +230,41 @@ describe("movePoint", () => {
 
         expect(updated.coords[0]).toEqual([5, 6]);
     });
+
+    it("snaps to the snap grid", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            snapStep: [3, 4],
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            movePoint(0, [-2, -2.5]),
+        );
+
+        expect(updated.coords[0]).toEqual([-3, -4]);
+    });
+
+    it("keeps points within the graph bounds", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [99, 99]));
+
+        expect(updated.coords[0]).toEqual([9, 9]);
+    });
+
+    it("sets hasBeenInteractedWith", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[1, 2]],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
+
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
 });
