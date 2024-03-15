@@ -54,20 +54,7 @@ export function interactiveGraphReducer(
                 snap(state, kvector.add(point, [dx, dy])),
             ) as unknown as CollinearTuple;
 
-            console.log({
-                currentLineCoords: currentCoords,
-                maxMoves,
-                minMoves,
-                maxXMove,
-                maxYMove,
-                minXMove,
-                minYMove,
-                dx,
-                dy,
-                newSegment,
-            });
-
-            const newSegments = setAtIndex({
+            const newLine = setAtIndex({
                 array: state.coords,
                 index: action.lineIndex,
                 newValue: newSegment,
@@ -76,7 +63,7 @@ export function interactiveGraphReducer(
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                coords: newSegments,
+                coords: newLine,
             };
         }
         default:

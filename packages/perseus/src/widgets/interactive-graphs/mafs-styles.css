@@ -22,18 +22,19 @@
     --movable-point-hover-expansion: 2px;
 }
 
-.MafsView .movable-segment {
+.MafsView .movable-line {
     --mafs-segment-stroke-color: rgba(33, 36, 44, 0.64); /* offBlack64 */
     --mafs-segment-stroke-weight: 2px;
 }
 
-.MafsView .movable-segment:is(:focus-visible, :hover) {
+/* Overrides for focus and hover states; ":active" is for touch */
+.MafsView .movable-line:is(:focus-visible, :hover, :active) {
     outline: none;
     --mafs-segment-stroke-color: var(--mafs-blue);
     --mafs-segment-stroke-weight: 4px;
 }
 
-.MafsView .movable-segment:focus {
+.MafsView .movable-line:focus {
     outline: none;
 }
 
@@ -61,20 +62,20 @@
     fill: #fff;
 }
 
-.MafsView .movable-point:hover .movable-point-center {
+.MafsView .movable-point:is(:hover, :active) .movable-point-center {
     r: calc(
         var(--movable-point-hover-expansion) +
             var(--movable-point-center-radius)
     );
 }
 
-.MafsView .movable-point:hover .movable-point-ring {
+.MafsView .movable-point:is(:hover, :active) .movable-point-ring {
     r: calc(
         var(--movable-point-hover-expansion) + var(--movable-point-ring-radius)
     );
 }
 
-.MafsView .movable-point:hover .movable-point-halo {
+.MafsView .movable-point:is(:hover, :active) .movable-point-halo {
     r: calc(
         var(--movable-point-hover-expansion) + var(--movable-point-halo-radius)
     );

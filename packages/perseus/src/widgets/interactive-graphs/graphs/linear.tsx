@@ -1,4 +1,4 @@
-import {MovablePoint, useTransformContext, vec} from "mafs";
+import {MovablePoint} from "mafs";
 import * as React from "react";
 
 import {moveControlPoint, moveSegment} from "../interactive-graph-action";
@@ -7,6 +7,7 @@ import {MovableLine} from "./components/movable-line";
 
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, LinearGraphState} from "../types";
+import type {vec} from "mafs";
 
 type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
@@ -43,25 +44,20 @@ export const LinearGraph = (props: LinearGraphProps) => {
 const LineView = (props: InteractiveLineProps) => {
     const {
         onMoveLine: onMoveSegment,
-        collinearPair: [pt1, pt2],
+        collinearPair: [start, end],
     } = props;
-    const {viewTransform, userTransform} = useTransformContext();
-    const transformToPx = vec.matrixMult(viewTransform, userTransform);
-
-    const pt1Px = vec.transform(pt1, transformToPx);
-    const pt2Px = vec.transform(pt2, transformToPx);
 
     return (
         <>
-            <MovableLine start={pt1Px} end={pt2Px} onMove={onMoveSegment} />
+            <MovableLine start={start} end={end} onMove={onMoveSegment} />
             <MovablePoint
-                point={pt1}
+                point={start}
                 onMove={(newPoint) => {
                     props.onMovePoint(0, newPoint);
                 }}
             />
             <MovablePoint
-                point={pt2}
+                point={end}
                 onMove={(newPoint) => {
                     props.onMovePoint(1, newPoint);
                 }}

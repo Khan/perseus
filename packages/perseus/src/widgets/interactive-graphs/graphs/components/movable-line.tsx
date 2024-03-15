@@ -1,10 +1,13 @@
-import {vec, useMovable} from "mafs";
+import {vec, useMovable, useTransformContext} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
 import type {Interval} from "mafs";
 import type {SVGProps} from "react";
 
+/**
+ * All vector props should be pre-transformed
+ */
 export const MovableLine = (props: {
     start: vec.Vector2;
     end: vec.Vector2;
@@ -17,6 +20,12 @@ export const MovableLine = (props: {
 }) => {
     const {start, end, onMove} = props;
     const midpoint = vec.midpoint(start, end);
+
+    const {viewTransform, userTransform} = useTransformContext();
+    const transformToPx = vec.matrixMult(viewTransform, userTransform);
+
+    const startPx = vec.transform(start, transformToPx);
+    const endPx = vec.transform(end, transformToPx);
 
     const segment = useRef<SVGGElement>(null);
     const {dragging} = useMovable({
@@ -32,18 +41,22 @@ export const MovableLine = (props: {
         <g
             ref={segment}
             tabIndex={0}
-            className="movable-segment"
+            className="movable-line"
             style={{cursor: dragging ? "grabbing" : "grab"}}
         >
-            {/* This transparent line creates a nice big click target. */}
+            {/**
+             * This transparent line creates a nice big click/touch target.
+             * 44 is touch best practice and AAA compliant for WCAG
+             * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
+             */}
             <SVGLine
-                start={start}
-                end={end}
-                style={{stroke: "transparent", strokeWidth: 30}}
+                start={startPx}
+                end={endPx}
+                style={{stroke: "transparent", strokeWidth: 44}}
             />
             <SVGLine
-                start={start}
-                end={end}
+                start={startPx}
+                end={endPx}
                 style={{
                     stroke: "var(--mafs-segment-stroke-color)",
                     strokeWidth: "var(--mafs-segment-stroke-weight)",
