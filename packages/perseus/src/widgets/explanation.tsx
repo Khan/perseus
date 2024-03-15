@@ -37,6 +37,13 @@ type State = {
     expanded: boolean;
 };
 
+function mediaQueryIsMatched(mediaQuery: string): boolean {
+    if (typeof window.matchMedia !== "function") {
+        return false;
+    }
+    return window.matchMedia(mediaQuery).matches;
+}
+
 class Explanation extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         showPrompt: "Explain",
@@ -77,9 +84,7 @@ class Explanation extends React.Component<Props, State> {
 
         const caretIcon = this.state.expanded ? caretUp : caretDown;
 
-        const allowTransition = window.matchMedia(
-            "(prefers-reduced-motion: no-preference)",
-        ).matches;
+        const allowTransition = mediaQueryIsMatched("(prefers-reduced-motion: no-preference)");
 
         // Special styling is needed to fit the button in a block of text without throwing off the line spacing.
         // While the button is not normally included in a block of text, it needs to be able to accommodate such a case.
