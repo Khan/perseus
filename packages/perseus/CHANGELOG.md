@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 20.3.1
+
+### Patch Changes
+
+-   [#1078](https://github.com/Khan/perseus/pull/1078) [`e1706bba`](https://github.com/Khan/perseus/commit/e1706bba2e5f38493301ff401d784e8777f4e48f) Thanks [@Myranae](https://github.com/Myranae)! - Move mathjax-renderer dependency from perseus package to root
+
 ## 20.3.0
 
 ### Minor Changes
