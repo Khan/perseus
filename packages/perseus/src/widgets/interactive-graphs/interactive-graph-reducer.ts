@@ -2,7 +2,12 @@ import {vector as kvector} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
-import type {InteractiveGraphAction} from "./interactive-graph-action";
+import {
+    MOVE_CONTROL_POINT,
+    type InteractiveGraphAction,
+    MOVE_LINE,
+} from "./interactive-graph-action";
+
 import type {InteractiveGraphState} from "./types";
 import type {CollinearTuple} from "../../perseus-types";
 
@@ -11,7 +16,7 @@ export function interactiveGraphReducer(
     action: InteractiveGraphAction,
 ): InteractiveGraphState {
     switch (action.type) {
-        case "move-control-point": {
+        case MOVE_CONTROL_POINT: {
             const newCoords = updateAtIndex({
                 array: state.coords,
                 index: action.objectIndex,
@@ -31,12 +36,12 @@ export function interactiveGraphReducer(
                 coords: newCoords,
             };
         }
-        case "move-segment": {
-            const oldSegment = state.coords?.[action.segmentIndex] ?? [];
-            const maxMoves = oldSegment.map((point: vec.Vector2) =>
+        case MOVE_LINE: {
+            const currentCoords = state.coords?.[action.lineIndex] ?? [];
+            const maxMoves = currentCoords.map((point: vec.Vector2) =>
                 maxMove(state, point),
             );
-            const minMoves = oldSegment.map((point: vec.Vector2) =>
+            const minMoves = currentCoords.map((point: vec.Vector2) =>
                 minMove(state, point),
             );
             const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
@@ -45,13 +50,26 @@ export function interactiveGraphReducer(
             const minYMove = Math.max(...minMoves.map((move) => move[1]));
             const dx = clamp(action.delta[0], minXMove, maxXMove);
             const dy = clamp(action.delta[1], minYMove, maxYMove);
-            const newSegment = oldSegment.map((point: vec.Vector2) =>
+            const newSegment = currentCoords.map((point: vec.Vector2) =>
                 snap(state, kvector.add(point, [dx, dy])),
             ) as unknown as CollinearTuple;
 
+            console.log({
+                currentLineCoords: currentCoords,
+                maxMoves,
+                minMoves,
+                maxXMove,
+                maxYMove,
+                minXMove,
+                minYMove,
+                dx,
+                dy,
+                newSegment,
+            });
+
             const newSegments = setAtIndex({
                 array: state.coords,
-                index: action.segmentIndex,
+                index: action.lineIndex,
                 newValue: newSegment,
             });
 

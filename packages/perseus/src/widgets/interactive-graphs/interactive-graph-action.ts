@@ -22,19 +22,19 @@ export function moveControlPoint(
     };
 }
 
-export const MOVE_SEGMENT = "move-segment";
+export const MOVE_LINE = "move-line";
 export interface MoveSegment {
-    type: typeof MOVE_SEGMENT;
-    segmentIndex: number;
+    type: typeof MOVE_LINE;
+    lineIndex: number;
     delta: vec.Vector2;
 }
 export function moveSegment(
-    segmentIndex: number,
+    lineIndex: number,
     delta: vec.Vector2,
 ): MoveSegment {
     return {
-        type: MOVE_SEGMENT,
-        segmentIndex,
+        type: MOVE_LINE,
+        lineIndex,
         delta,
     };
 }
