@@ -1,23 +1,3 @@
-// Might need to add more tests for these
-// Need to go through and replace usages in the 3 files in webapp and see if the
-// functions I wrote up work
-// Also need to address how some of the functions expect or throw errors; needed?
-
-// Vocab: widget type corresponds to the enum below (type of widget without number)
-// Name corresponds to the type plus the problem number
-// Widget placeholder ("widgets"?) corresponds to the full placeholder (ex. [[☃ radio 1]])
-
-//add docs here saying what the widgetType options are; make an enum? Maybe there is one already
-
-export const addWidget = (widgetType: WidgetType, instance: number): string => {
-    return `[[☃ ${widgetType} ${String(instance)}]]`;
-};
-
-const getQuestionWidgetType = (widgetName: string) => {
-    return QUESTION_WIDGETS.includes(widgetName.split(" ")[0]);
-};
-
-// I want to use this to say, the parameter of widgetType is one of these strings
 export enum WidgetType {
     Categorizer = "categorizer",
     CSProgram = "cs-program",
@@ -53,7 +33,6 @@ export enum WidgetType {
     Radio = "radio",
     Sorter = "sorter",
     Table = "table",
-    Transformer = "transformer",
     Unit = "unit",
     Video = "video",
     VideoTranscriptLink = "video-transcript-link",
@@ -69,20 +48,40 @@ const QUESTION_WIDGETS = [
     "plotter",
     "orderer",
     "protractor",
-    "transformer",
     "matcher",
     "sorter",
 ];
 
 // Regex for widget placeholders in a string.
-// Widget names are identified using capture groups.
+// Widget IDs are identified using capture groups. Ex. 'radio 1'
 export const widgetRegex = /\[\[☃ ([^\]]+)\]\]/g;
 
-//\[\[☃ ([a-z]+) +\d+\]\] - captures just the widget type, no number
+// Regex for widget placeholders in a string. Ex. 'radio'
+// Widget types are identified using capture groups. ____________> Potentially not used
+const widgetTypeRegex = /\[\[☃ ([a-z]+) +\d+\]\]/g;
 
-// from conversion.ts
-// Extract all widget names including the problem number
-export function getAllWidgetNames(content: string): Array<string> {
+/**
+ * Add a widget placeholder using the provided widget type and instance number.
+ *
+ * @param {WidgetType} widgetType
+ * @param {number} instance
+ * @returns {string}
+ */
+export const addWidget = (widgetType: WidgetType, instance: number): string => {
+    return `[[☃ ${widgetType} ${String(instance)}]]`;
+};
+
+// from conversion.ts - used twice there.
+/**
+ * Extract all widget IDs, which includes the widget type and instance number.
+ * ex. ['radio 1', 'categorizer 1', 'categorizor 2']
+ * Content may contain Perseus widget placeholders,
+ * which look like: '[[☃ radio 1]]'.
+ *
+ * @param {string} content
+ * @returns {Array<string>} widgets
+ */
+export function getAllWidgetIds(content: string): Array<string> {
     const widgets: Array<string> = [];
 
     let match = widgetRegex.exec(content);
@@ -99,36 +98,49 @@ export function getAllWidgetNames(content: string): Array<string> {
     return widgets;
 }
 
-// Extract all widget types and not their problem number
+/**
+ * Extract all widget types from a Perseus JSON content string.
+ * This does not include the instance number. ex. ['radio', 'categorizer']
+ *
+ * @param {string} content
+ * @returns {Array<string>}
+ */
 export function getAllWidgetTypes(content: string): Array<string> {
     const widgetTypes: Array<string> = [];
 
-    const widgetNameRegex = /\[\[☃ ([a-z]+) +\d+\]\]/g;
-    let match = widgetNameRegex.exec(content);
+    let match = widgetTypeRegex.exec(content);
 
     while (match !== null) {
+        // Might need to take this check out and just list them all
         if (!widgetTypes.includes(match[1])) {
             widgetTypes.push(match[1]);
         }
-        match = widgetNameRegex.exec(content);
+        match = widgetTypeRegex.exec(content);
     }
     return widgetTypes;
 }
 
-// From services/static/javascript/test-prep-package/question-layouts/lib/cheat-utils.ts
-// export function getQuestionWidgetsOrig(content: string): Array<string> {
-//     const widgets = content.match(widgetRegex);
-//     console.log(widgets);
-//     // if (!widgets) {
-//     //     throw new KAError("No widgets found!", Errors.Internal);
-//     // }
-//     const questionWidgets = widgets
-//         .map((widget) => widget.slice(4, widget.length - 2))
-//         .filter((widget) => QUESTION_WIDGETS.includes(widget.split(" ")[0]));
-//
-//     return questionWidgets;
-// }
+/**
+ * Check if a specific widget is a question widget type using its ID.
+ * The widget ID includes the widget type and the instance number.
+ *
+ * @param {string} widgetId
+ * @returns {boolean}
+ */
+const isQuestionWidgetType = (widgetId: string): boolean => {
+    return QUESTION_WIDGETS.includes(widgetId.split(" ")[0]);
+};
 
-export function getQuestionWidgetNames(content: string): Array<string> {
-    return getAllWidgetNames(content).filter(getQuestionWidgetType);
+/**
+ * Extract the widget IDs of all widgets considered question widgets. Widget IDs
+ * include widget type and instance number.
+ *
+ * Content should contain Perseus widget placeholders,
+ * which look like: '[[☃ radio 1]]'.
+ *
+ * @param {string} content
+ * @returns Array<string>
+ */
+export function getQuestionWidgetIds(content: string): Array<string> {
+    return getAllWidgetIds(content).filter(isQuestionWidgetType);
 }
