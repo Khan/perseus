@@ -78,15 +78,17 @@ const getDefaultSegments = (props: {
     });
 };
 
-export function getGradableGraph(
+// TS v4 doesn't narrow return types, while v5 does.
+// Instead of updating to v5, using generic type to relate input and output types.
+export function getGradableGraph<GraphType extends PerseusGraphType>(
     state: InteractiveGraphState,
-    initialGraph: PerseusGraphType,
-): PerseusGraphType {
+    initialGraph: GraphType,
+): GraphType {
     if (!state.hasBeenInteractedWith) {
         return initialGraph;
     }
     switch (true) {
-        // coords: CollinearTuple[]
+        // coords: Array of CollinearTuple
         case state.type === "linear-system" &&
             initialGraph.type === "linear-system":
         case state.type === "segment" && initialGraph.type === "segment":
