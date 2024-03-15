@@ -1,11 +1,12 @@
 /**
- * Overrides of mafs styles-- we will want to move this into JS land
- * to take advantage of WB tokens, but I cannot get that to work at the moment
+ * Overrides of mafs theme-- we will want to move this into JS land
+ * to take advantage of WB tokens
  */
 .MafsView {
     --mafs-bg: transparent;
     --mafs-fg: rgb(33, 36, 44); /* WB color.offBlack */
 
+    /* Grid lines */
     --mafs-line-color: rgba(33, 36, 44, 0.16); /* WB color.offBlack16*/
 
     --mafs-blue: #1865f2; /* WB color.blue */
@@ -21,13 +22,13 @@
     --movable-point-halo-radius: calc(3px + var(--movable-point-ring-radius));
     --movable-point-hover-expansion: 2px;
 
-    --mafs-line-stroke-color: var(--mafs-blue); /* offBlack64 */
-    --mafs-line-stroke-weight: 2px;
+    --movable-line-stroke-color: var(--mafs-blue);
+    --movable-line-stroke-weight: 2px;
 }
 
-.MafsView .movable-line:is(:focus-visible, :hover) .movable-line-dragging {
+.MafsView .movable-line:is(:focus-visible, :hover), .movable-line-dragging {
     outline: none;
-    --mafs-line-stroke-weight: 4px;
+    --movable-line-stroke-weight: 4px;
 }
 
 .MafsView .movable-line:focus {

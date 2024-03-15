@@ -24,27 +24,16 @@ export const MovableLine = (props: {
     const startPtPx = vec.transform(start, transformToPx);
     const endPtPx = vec.transform(end, transformToPx);
 
-    // for SVGLine props
-    let startExtendPx = startPtPx;
-    let endExtendPx = endPtPx;
-
-    // for Mafs Vector props
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
 
     if (extend) {
-        if (extend.start) {
-            startExtend = getExtensionCoords(end, start, extend.range);
-            startExtendPx = extend.start
-                ? vec.transform(startExtend, transformToPx)
-                : startPtPx;
-        }
-        if (extend.end) {
-            endExtend = getExtensionCoords(start, end, extend.range);
-            endExtendPx = extend.end
-                ? vec.transform(endExtend, transformToPx)
-                : endPtPx;
-        }
+        startExtend = extend.start
+            ? getExtensionCoords(end, start, extend.range)
+            : undefined;
+        endExtend = extend.end
+            ? getExtensionCoords(start, end, extend.range)
+            : undefined;
     }
 
     const line = useRef<SVGGElement>(null);
@@ -58,42 +47,36 @@ export const MovableLine = (props: {
     });
 
     return (
-        <g
-            ref={line}
-            tabIndex={0}
-            className="movable-line"
-            style={{cursor: dragging ? "grabbing" : "grab"}}
-        >
-            {/**
-             * This transparent line creates a nice big click/touch target.
-             * 44 is touch best practice and AAA compliant for WCAG
-             * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
-             */}
-            <SVGLine
-                start={startExtendPx}
-                end={endExtendPx}
-                style={{stroke: "transparent", strokeWidth: 44}}
-            />
-            <SVGLine
-                start={startPtPx}
-                end={endPtPx}
-                style={{
-                    stroke: "var(--mafs-line-stroke-color)",
-                    strokeWidth: "var(--mafs-line-stroke-weight)",
-                }}
-                dragging={dragging}
-            />
-            {startExtend && (
-                <StyledVector
-                    tail={start}
-                    tip={startExtend}
+        <>
+            <g
+                ref={line}
+                tabIndex={0}
+                className="movable-line"
+                style={{cursor: dragging ? "grabbing" : "grab"}}
+            >
+                {/**
+                 * This transparent line creates a nice big click/touch target.
+                 * 44 is touch best practice and AAA compliant for WCAG
+                 * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
+                 */}
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    style={{stroke: "transparent", strokeWidth: 44}}
+                />
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    style={{
+                        stroke: "var(--movable-line-stroke-color)",
+                        strokeWidth: "var(--movable-line-stroke-weight)",
+                    }}
                     dragging={dragging}
                 />
-            )}
-            {endExtend && (
-                <StyledVector tail={end} tip={endExtend} dragging={dragging} />
-            )}
-        </g>
+            </g>
+            {startExtend && <StyledVector tail={start} tip={startExtend} />}
+            {endExtend && <StyledVector tail={end} tip={endExtend} />}
+        </>
     );
 };
 
@@ -116,12 +99,8 @@ function SVGLine(props: {
     );
 }
 
-const StyledVector = (props: VectorProps & {dragging?: boolean}) => (
-    <Vector
-        {...props}
-        weight={props.dragging ? 4 : props.weight}
-        color="var(--mafs-line-stroke-color)"
-    />
+const StyledVector = (props: VectorProps) => (
+    <Vector {...props} color="var(--movable-line-stroke-color)" />
 );
 
 /**
