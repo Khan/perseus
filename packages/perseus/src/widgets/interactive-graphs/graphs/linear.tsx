@@ -15,6 +15,8 @@ export const LinearGraph = (props: LinearGraphProps) => {
     const {dispatch} = props;
     const {coords: lines, snapStep, range, type} = props.graphState;
 
+    const colors = ["var(--movable-line-stroke-color)", "var(--mafs-violet)"];
+
     return (
         <>
             {lines?.map((line, i) => (
@@ -36,17 +38,19 @@ export const LinearGraph = (props: LinearGraphProps) => {
                     }
                     // "linear" or "linear-system" + index
                     data-testid={type + i}
+                    stroke={colors[i]}
                 />
             ))}
         </>
     );
 };
 
-const LineView = (props: InteractiveLineProps) => {
+const LineView = (props: InteractiveLineProps & {stroke: string}) => {
     const {
         onMoveLine: onMoveSegment,
         collinearPair: [start, end],
         range,
+        stroke,
     } = props;
 
     return (
@@ -60,18 +64,21 @@ const LineView = (props: InteractiveLineProps) => {
                     end: true,
                     range,
                 }}
+                stroke={stroke}
             />
             <StyledMovablePoint
                 point={start}
                 onMove={(newPoint) => {
                     props.onMovePoint(0, newPoint);
                 }}
+                color={stroke}
             />
             <StyledMovablePoint
                 point={end}
                 onMove={(newPoint) => {
                     props.onMovePoint(1, newPoint);
                 }}
+                color={stroke}
             />
         </>
     );

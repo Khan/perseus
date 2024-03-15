@@ -2,22 +2,23 @@ import {vec, useMovable, useTransformContext, Vector} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
-import type {Interval, VectorProps} from "mafs";
+import type {Interval} from "mafs";
 import type {SVGProps} from "react";
 
-const stroke = "var(--movable-line-stroke-color)";
+const defaultStroke = "var(--movable-line-stroke-color)";
 
 export const MovableLine = (props: {
     start: vec.Vector2;
     end: vec.Vector2;
     onMove: (delta: vec.Vector2) => unknown;
+    stroke?: string;
     extend?: {
         start: boolean;
         end: boolean;
         range: [Interval, Interval];
     };
 }) => {
-    const {start, end, onMove, extend} = props;
+    const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
     const {viewTransform, userTransform} = useTransformContext();
@@ -70,7 +71,7 @@ export const MovableLine = (props: {
                     start={startPtPx}
                     end={endPtPx}
                     style={{
-                        stroke: stroke,
+                        stroke,
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
                     dragging={dragging}
@@ -78,8 +79,10 @@ export const MovableLine = (props: {
             </g>
 
             {/* Draw extension vectors outside of movable area */}
-            {startExtend && <StyledVector tail={start} tip={startExtend} />}
-            {endExtend && <StyledVector tail={end} tip={endExtend} />}
+            {startExtend && (
+                <Vector tail={start} tip={startExtend} color={stroke} />
+            )}
+            {endExtend && <Vector tail={end} tip={endExtend} color={stroke} />}
         </>
     );
 };
@@ -102,10 +105,6 @@ function SVGLine(props: {
         />
     );
 }
-
-const StyledVector = (props: VectorProps) => (
-    <Vector {...props} color={stroke} />
-);
 
 /**
  * Given two points, find the tips that extends through the points to the edge of the range.

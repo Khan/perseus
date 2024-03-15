@@ -6,11 +6,12 @@ import {useRef} from "react";
 type Props = {
     point: vec.Vector2;
     onMove: (newPoint: vec.Vector2) => unknown;
+    color?: string;
 };
 
 export const StyledMovablePoint = (props: Props) => {
     const hitboxRef = useRef<SVGCircleElement>(null);
-    const {point, onMove} = props;
+    const {point, onMove, color = Color.blue} = props;
 
     const {dragging} = useMovable({
         gestureTarget: hitboxRef,
@@ -33,7 +34,7 @@ export const StyledMovablePoint = (props: Props) => {
                     cursor: dragging ? "grabbing" : "grab",
                     touchAction: "none",
                     outline: "none",
-                    "--movable-point-color": Color.blue,
+                    "--movable-point-color": color,
                 } as any
             }
         >
@@ -44,7 +45,7 @@ export const StyledMovablePoint = (props: Props) => {
                 className="movable-point-center"
                 cx={x}
                 cy={y}
-                style={{fill: Color.blue}}
+                style={{fill: color}}
             />
         </g>
     );
