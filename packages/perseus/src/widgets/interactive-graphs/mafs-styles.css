@@ -1,11 +1,12 @@
 /**
- * Overrides of mafs styles-- we will want to move this into JS land
- * to take advantage of WB tokens, but I cannot get that to work at the moment
+ * Overrides of mafs theme-- we will want to move this into JS land
+ * to take advantage of WB tokens
  */
 .MafsView {
     --mafs-bg: transparent;
     --mafs-fg: rgb(33, 36, 44); /* WB color.offBlack */
 
+    /* Grid lines */
     --mafs-line-color: rgba(33, 36, 44, 0.16); /* WB color.offBlack16*/
 
     --mafs-blue: #1865f2; /* WB color.blue */
@@ -20,20 +21,18 @@
     --movable-point-ring-radius: calc(2px + var(--movable-point-center-radius));
     --movable-point-halo-radius: calc(3px + var(--movable-point-ring-radius));
     --movable-point-hover-expansion: 2px;
+
+    --movable-line-stroke-color: var(--mafs-blue);
+    --movable-line-stroke-weight: 2px;
 }
 
-.MafsView .movable-segment {
-    --mafs-segment-stroke-color: rgba(33, 36, 44, 0.64); /* offBlack64 */
-    --mafs-segment-stroke-weight: 2px;
-}
-
-.MafsView .movable-segment:is(:focus-visible, :hover) {
+.MafsView .movable-line:is(:focus-visible, :hover),
+.movable-line-dragging {
     outline: none;
-    --mafs-segment-stroke-color: var(--mafs-blue);
-    --mafs-segment-stroke-weight: 4px;
+    --movable-line-stroke-weight: 4px;
 }
 
-.MafsView .movable-segment:focus {
+.MafsView .movable-line:focus {
     outline: none;
 }
 

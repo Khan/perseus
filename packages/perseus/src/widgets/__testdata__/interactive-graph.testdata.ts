@@ -153,6 +153,55 @@ export const linearQuestion: PerseusRenderer = {
     },
 };
 
+export const linearQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Draw the line of reflection that will map $\\triangle{SIM}$ onto the other triangle below.**\n\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                backgroundImage: {
+                    bottom: 0,
+                    height: 425,
+                    left: 0,
+                    scale: 1,
+                    url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/9b7c68fb9350531c023460f4abdc395522536b5a",
+                    width: 425,
+                },
+                correct: {
+                    coords: [
+                        [-5, 5],
+                        [5, 5],
+                    ],
+                    type: "linear",
+                },
+                graph: {
+                    type: "linear",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "none",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
 const bluePointStyle = {stroke: "#6494ed", fill: "#6494ed"};
 export const linearQuestionWithLockedPoints: PerseusRenderer = {
     content:
@@ -258,6 +307,63 @@ export const linearSystemQuestion: PerseusRenderer = {
                         [
                             [-3, -7],
                             [7, -3],
+                        ],
+                    ],
+                },
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const linearSystemQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Drag the lines so one line goes through points $\\text{A}$ and $\\text{B}$, and the other line goes through points $\\text{C}$  and $\\text{D}$.**  \n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            type: "interactive-graph",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                step: [1, 1],
+                backgroundImage: {
+                    url: "https://ka-perseus-graphie.s3.amazonaws.com/6a5f70a361f0f1baeef61eee6726eef944176663.png",
+                    scale: "1",
+                    bottom: 0,
+                    left: 0,
+                    width: 400,
+                    height: 400,
+                },
+                markings: "none",
+                labels: ["x", "y"],
+                showProtractor: false,
+                showRuler: false,
+                rulerLabel: "",
+                rulerTicks: 10,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                gridStep: [1, 1],
+                snapStep: [0.5, 0.5],
+                graph: {
+                    type: "linear-system",
+                },
+                correct: {
+                    type: "linear-system",
+                    coords: [
+                        [
+                            [-5, 5],
+                            [5, 5],
+                        ],
+                        [
+                            [-5, -5],
+                            [5, -5],
                         ],
                     ],
                 },
