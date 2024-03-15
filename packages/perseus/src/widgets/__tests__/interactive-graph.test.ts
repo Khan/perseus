@@ -14,6 +14,8 @@ import {
     segmentQuestionDefaultCorrect,
     linearQuestion,
     linearQuestionWithDefaultCorrect,
+    linearSystemQuestionWithDefaultCorrect,
+    linearSystemQuestion,
 } from "../__testdata__/interactive-graph.testdata";
 
 import {renderQuestion} from "./renderQuestion";
@@ -124,6 +126,7 @@ describe("mafs graphs", () => {
         });
     });
 
+    // Add types to this array as you test them
     const graphsTypesToEnable: readonly PerseusGraphType["type"][] = [
         "segment",
         "linear",
@@ -299,44 +302,65 @@ describe("mafs graphs", () => {
             });
         });
     });
-});
 
-describe("locked layer", () => {
-    const apiOptions = {flags: {mafs: {segment: true}}};
-    it("should render locked points", async () => {
-        // Arrange
-        const {container} = renderQuestion(
-            segmentWithLockedPointsQuestion,
-            apiOptions,
-        );
+    describe("linear-system", () => {
+        it("should render", () => {
+            renderQuestion(linearQuestion, apiOptions);
+        });
 
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const points = container.querySelectorAll(
-            // Filter out the interactive points' circles
-            "circle:not([class*='movable-point'])",
-        );
+        it("should reject when has not been interacteracted with", () => {
+            // Arrange
+            const {renderer} = renderQuestion(
+                linearSystemQuestionWithDefaultCorrect,
+                apiOptions,
+            );
 
-        // Act
+            // Act
+            // no action
 
-        // Assert
-        expect(points).toHaveLength(2);
-    });
+            // Assert
+            expect(renderer).toHaveInvalidInput();
+        });
 
-    test("should render locked points with styles", async () => {
-        // Arrange
-        const {container} = renderQuestion(
-            segmentWithLockedPointsQuestion,
-            apiOptions,
-        );
+        it("rejects incorrect answer", async () => {
+            // Arrange
+            const {renderer, container} = renderQuestion(
+                linearSystemQuestion,
+                apiOptions,
+            );
 
-        // Act
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const points = container.querySelectorAll(
-            "circle:not([class*='movable-point'])",
-        );
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const movablePoints = container.querySelectorAll(
+                "circle.movable-point-hitbox",
+            );
 
-        // Assert
-        expect(points[0]).toHaveStyle({fill: color.red, stroke: color.red});
-        expect(points[1]).toHaveStyle({fill: color.red, stroke: color.red});
+            // Act
+            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
+
+            // Assert
+            await waitFor(() => {
+                expect(renderer).toHaveBeenAnsweredIncorrectly();
+            });
+        });
+
+        it("accepts correct answer", async () => {
+            const {renderer, container} = renderQuestion(
+                linearSystemQuestionWithDefaultCorrect,
+                apiOptions,
+            );
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const movablePoints = container.querySelectorAll(
+                "circle.movable-point-hitbox",
+            );
+
+            // Act
+            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
+
+            // Assert
+            await waitFor(() => {
+                expect(renderer).toHaveBeenAnsweredCorrectly();
+            });
+        });
     });
 });

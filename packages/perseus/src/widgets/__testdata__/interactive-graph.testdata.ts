@@ -319,6 +319,63 @@ export const linearSystemQuestion: PerseusRenderer = {
     },
 };
 
+export const linearSystemQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Drag the lines so one line goes through points $\\text{A}$ and $\\text{B}$, and the other line goes through points $\\text{C}$  and $\\text{D}$.**  \n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            type: "interactive-graph",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                step: [1, 1],
+                backgroundImage: {
+                    url: "https://ka-perseus-graphie.s3.amazonaws.com/6a5f70a361f0f1baeef61eee6726eef944176663.png",
+                    scale: "1",
+                    bottom: 0,
+                    left: 0,
+                    width: 400,
+                    height: 400,
+                },
+                markings: "none",
+                labels: ["x", "y"],
+                showProtractor: false,
+                showRuler: false,
+                rulerLabel: "",
+                rulerTicks: 10,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                gridStep: [1, 1],
+                snapStep: [0.5, 0.5],
+                graph: {
+                    type: "linear-system",
+                },
+                correct: {
+                    type: "linear-system",
+                    coords: [
+                        [
+                            [-5, 5],
+                            [5, 5],
+                        ],
+                        [
+                            [-5, -5],
+                            [5, -5],
+                        ],
+                    ],
+                },
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
 export const pointQuestion: PerseusRenderer = {
     content:
         "We want to find the zeros of this polynomial:\n\n$p(x)=x(2x+5)(x+1)$\n\n**Plot all the zeros ($x$-intercepts) of the polynomial in the interactive graph.**\n\n[[\u2603 interactive-graph 1]]",

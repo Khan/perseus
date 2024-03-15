@@ -107,7 +107,7 @@ export function getGradableGraph(
     );
 }
 
-const defaultLineCoords: readonly CollinearTuple[] = [
+const defaultLinearCoords: readonly CollinearTuple[] = [
     [
         [0.25, 0.75],
         [0.75, 0.75],
@@ -128,7 +128,7 @@ const getLineCoords = (
 ): CollinearTuple[] =>
     // Return two lines for a linear system, one for a ray or linear
     graph.coords ?? graph.type === "linear-system"
-        ? defaultLineCoords.map((collinear) =>
+        ? defaultLinearCoords.map((collinear) =>
               normalizePoints(range, step, collinear),
           )
-        : [normalizePoints(range, step, defaultLineCoords[0])];
+        : [normalizePoints(range, step, defaultLinearCoords[0])];
