@@ -46,11 +46,21 @@ const LineView = (props: InteractiveLineProps) => {
     const {
         onMoveLine: onMoveSegment,
         collinearPair: [start, end],
+        range,
     } = props;
 
     return (
         <>
-            <MovableLine start={start} end={end} onMove={onMoveSegment} />
+            <MovableLine
+                start={start}
+                end={end}
+                onMove={onMoveSegment}
+                extend={{
+                    start: true,
+                    end: true,
+                    range,
+                }}
+            />
             <StyledMovablePoint
                 point={start}
                 onMove={(newPoint) => {
