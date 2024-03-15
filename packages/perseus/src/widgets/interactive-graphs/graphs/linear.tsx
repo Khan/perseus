@@ -1,26 +1,25 @@
-import {vec, useTransformContext} from "mafs";
+import {MovablePoint, useTransformContext, vec} from "mafs";
 import * as React from "react";
 
 import {moveControlPoint, moveSegment} from "../interactive-graph-action";
-import {MovablePoint} from "../movable-point";
 
 import {MovableLine} from "./components/movable-line";
 
 import type {InteractiveLineProps} from "./types";
-import type {MafsGraphProps, SegmentGraphState} from "../types";
+import type {MafsGraphProps, LinearGraphState} from "../types";
 
-type SegmentProps = MafsGraphProps<SegmentGraphState>;
+type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
-export const SegmentGraph = (props: SegmentProps) => {
+export const LinearGraph = (props: LinearGraphProps) => {
     const {dispatch} = props;
-    const {coords: segments, snapStep, range} = props.graphState;
+    const {coords: lines, snapStep, range} = props.graphState;
 
     return (
         <>
-            {segments?.map((segment, i) => (
-                <SegmentView
+            {lines?.map((line, i) => (
+                <LineView
                     key={i}
-                    collinearPair={segment}
+                    collinearPair={line}
                     snaps={snapStep}
                     range={range}
                     onMoveLine={(delta: vec.Vector2) => {
@@ -34,14 +33,14 @@ export const SegmentGraph = (props: SegmentProps) => {
                             moveControlPoint(i, endpointIndex, destination),
                         )
                     }
-                    data-testid={"segment" + i}
+                    data-testid={"line" + i}
                 />
             ))}
         </>
     );
 };
 
-const SegmentView = (props: InteractiveLineProps) => {
+const LineView = (props: InteractiveLineProps) => {
     const {
         onMoveLine: onMoveSegment,
         collinearPair: [pt1, pt2],

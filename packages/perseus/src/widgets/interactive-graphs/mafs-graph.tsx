@@ -1,9 +1,10 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
 import GraphLockedLayer from "./graph-locked-layer";
-import {SegmentGraph} from "./graphs";
+import {LinearGraph, SegmentGraph} from "./graphs";
 import {Grid} from "./grid";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 import {
@@ -24,13 +25,16 @@ const renderGraph = (props: {
     dispatch: (action: InteractiveGraphAction) => unknown;
 }) => {
     const {state, dispatch} = props;
-    switch (state.type) {
+    const {type} = state;
+    switch (type) {
         case "segment":
             return <SegmentGraph graphState={state} dispatch={dispatch} />;
+        case "linear":
+        case "linear-system":
+            return <LinearGraph graphState={state} dispatch={dispatch} />;
+        default:
+            return new UnreachableCaseError(type);
     }
-    throw new Error(
-        "Mafs is not yet implemented for graph type: " + state.type,
-    );
 };
 
 export const MafsGraph = React.forwardRef<
