@@ -5,18 +5,15 @@ import * as React from "react";
 import type {Interval} from "mafs";
 import type {SVGProps} from "react";
 
-/**
- * All vector props should be pre-transformed
- */
 export const MovableLine = (props: {
     start: vec.Vector2;
     end: vec.Vector2;
     onMove: (delta: vec.Vector2) => unknown;
-    extendFrom?: {
+    extend?: {
         start: boolean;
         end: boolean;
+        range: [Interval, Interval];
     };
-    range?: [Interval, Interval];
 }) => {
     const {start, end, onMove} = props;
     const midpoint = vec.midpoint(start, end);
@@ -58,9 +55,10 @@ export const MovableLine = (props: {
                 start={startPx}
                 end={endPx}
                 style={{
-                    stroke: "var(--mafs-segment-stroke-color)",
-                    strokeWidth: "var(--mafs-segment-stroke-weight)",
+                    stroke: "var(--mafs-line-stroke-color)",
+                    strokeWidth: "var(--mafs-line-stroke-weight)",
                 }}
+                dragging={dragging}
             />
         </g>
     );
@@ -70,8 +68,9 @@ function SVGLine(props: {
     start: vec.Vector2;
     end: vec.Vector2;
     style: SVGProps<SVGLineElement>["style"];
+    dragging?: boolean;
 }) {
-    const {start, end, style} = props;
+    const {start, end, style, dragging} = props;
     return (
         <line
             x1={start[0]}
@@ -79,6 +78,7 @@ function SVGLine(props: {
             x2={end[0]}
             y2={end[1]}
             style={style}
+            className={dragging ? "movable-line-dragging" : undefined}
         />
     );
 }

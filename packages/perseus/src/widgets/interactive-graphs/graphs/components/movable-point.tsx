@@ -8,7 +8,7 @@ type Props = {
     onMove: (newPoint: vec.Vector2) => unknown;
 };
 
-export const MovablePoint = (props: Props) => {
+export const StyledMovablePoint = (props: Props) => {
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove} = props;
 

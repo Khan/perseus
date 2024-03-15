@@ -1,9 +1,9 @@
-import {MovablePoint} from "mafs";
 import * as React from "react";
 
 import {moveControlPoint, moveSegment} from "../interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
+import {StyledMovablePoint} from "./components/movable-point";
 
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, LinearGraphState} from "../types";
@@ -13,7 +13,7 @@ type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
 export const LinearGraph = (props: LinearGraphProps) => {
     const {dispatch} = props;
-    const {coords: lines, snapStep, range} = props.graphState;
+    const {coords: lines, snapStep, range, type} = props.graphState;
 
     return (
         <>
@@ -34,7 +34,8 @@ export const LinearGraph = (props: LinearGraphProps) => {
                             moveControlPoint(i, endpointIndex, destination),
                         )
                     }
-                    data-testid={"line" + i}
+                    // "linear" or "linear-system" + index
+                    data-testid={type + i}
                 />
             ))}
         </>
@@ -50,13 +51,13 @@ const LineView = (props: InteractiveLineProps) => {
     return (
         <>
             <MovableLine start={start} end={end} onMove={onMoveSegment} />
-            <MovablePoint
+            <StyledMovablePoint
                 point={start}
                 onMove={(newPoint) => {
                     props.onMovePoint(0, newPoint);
                 }}
             />
-            <MovablePoint
+            <StyledMovablePoint
                 point={end}
                 onMove={(newPoint) => {
                     props.onMovePoint(1, newPoint);
