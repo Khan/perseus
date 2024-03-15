@@ -9,13 +9,11 @@ import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {
     questionsAndAnswers,
-    segmentQuestion,
     segmentWithLockedPointsQuestion,
     segmentQuestionDefaultCorrect,
-    linearQuestion,
     linearQuestionWithDefaultCorrect,
     linearSystemQuestionWithDefaultCorrect,
-    linearSystemQuestion,
+    rayQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 
 import {renderQuestion} from "./renderQuestion";
@@ -131,6 +129,7 @@ describe("mafs graphs", () => {
         "segment",
         "linear",
         "linear-system",
+        "ray",
     ];
 
     const graphTypeFlags = graphsTypesToEnable.reduce((acc, type) => {
@@ -141,6 +140,63 @@ describe("mafs graphs", () => {
     const apiOptions = {
         flags: {mafs: graphTypeFlags},
     };
+
+    describe.each([
+        segmentQuestionDefaultCorrect,
+        linearQuestionWithDefaultCorrect,
+        linearSystemQuestionWithDefaultCorrect,
+        rayQuestionWithDefaultCorrect,
+    ])("segment", (question) => {
+        it("should render", () => {
+            renderQuestion(question, apiOptions);
+        });
+
+        it("should reject when has not been interacteracted with", () => {
+            // Arrange
+            const {renderer} = renderQuestion(question, apiOptions);
+
+            // Act
+            // no action
+
+            // Assert
+            expect(renderer).toHaveInvalidInput();
+        });
+
+        it("rejects incorrect answer", async () => {
+            // Arrange
+            const {renderer, container} = renderQuestion(question, apiOptions);
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const movablePoints = container.querySelectorAll(
+                "circle.movable-point-hitbox",
+            );
+
+            // Act
+            await userEvent.type(movablePoints[1], "{arrowup}");
+
+            // Assert
+            await waitFor(() => {
+                expect(renderer).toHaveBeenAnsweredIncorrectly();
+            });
+        });
+
+        it("accepts correct answer", async () => {
+            const {renderer, container} = renderQuestion(question, apiOptions);
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const movablePoints = container.querySelectorAll(
+                "circle.movable-point-hitbox",
+            );
+
+            // Act
+            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
+
+            // Assert
+            await waitFor(() => {
+                expect(renderer).toHaveBeenAnsweredCorrectly();
+            });
+        });
+    });
 
     describe("locked layer", () => {
         it("should render locked points", async () => {
@@ -178,189 +234,6 @@ describe("mafs graphs", () => {
             // Assert
             expect(points[0]).toHaveStyle({fill: color.red, stroke: color.red});
             expect(points[1]).toHaveStyle({fill: color.red, stroke: color.red});
-        });
-    });
-
-    describe("segment", () => {
-        it("should render", () => {
-            renderQuestion(segmentQuestion, apiOptions);
-        });
-
-        it("should reject when has not been interacteracted with", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                segmentQuestionDefaultCorrect,
-                apiOptions,
-            );
-
-            // Act
-            // no action
-
-            // Assert
-            expect(renderer).toHaveInvalidInput();
-        });
-
-        it("rejects incorrect answer", async () => {
-            // Arrange
-            const {renderer, container} = renderQuestion(
-                segmentQuestion,
-                apiOptions,
-            );
-
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const movablePoints = container.querySelectorAll(
-                "circle.movable-point-hitbox",
-            );
-
-            // Act
-            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
-
-            // Assert
-            await waitFor(() => {
-                expect(renderer).toHaveBeenAnsweredIncorrectly();
-            });
-        });
-
-        it("accepts correct answer", async () => {
-            const {renderer, container} = renderQuestion(
-                segmentQuestionDefaultCorrect,
-                apiOptions,
-            );
-
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const movablePoints = container.querySelectorAll(
-                "circle.movable-point-hitbox",
-            );
-
-            // Act
-            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
-
-            // Assert
-            await waitFor(() => {
-                expect(renderer).toHaveBeenAnsweredCorrectly();
-            });
-        });
-    });
-
-    describe("linear", () => {
-        it("should render", () => {
-            renderQuestion(linearQuestion, apiOptions);
-        });
-
-        it("should reject when has not been interacteracted with", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                linearQuestionWithDefaultCorrect,
-                apiOptions,
-            );
-
-            // Act
-            // no action
-
-            // Assert
-            expect(renderer).toHaveInvalidInput();
-        });
-
-        it("rejects incorrect answer", async () => {
-            // Arrange
-            const {renderer, container} = renderQuestion(
-                linearQuestion,
-                apiOptions,
-            );
-
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const movablePoints = container.querySelectorAll(
-                "circle.movable-point-hitbox",
-            );
-
-            // Act
-            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
-
-            // Assert
-            await waitFor(() => {
-                expect(renderer).toHaveBeenAnsweredIncorrectly();
-            });
-        });
-
-        it("accepts correct answer", async () => {
-            const {renderer, container} = renderQuestion(
-                linearQuestionWithDefaultCorrect,
-                apiOptions,
-            );
-
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const movablePoints = container.querySelectorAll(
-                "circle.movable-point-hitbox",
-            );
-
-            // Act
-            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
-
-            // Assert
-            await waitFor(() => {
-                expect(renderer).toHaveBeenAnsweredCorrectly();
-            });
-        });
-    });
-
-    describe("linear-system", () => {
-        it("should render", () => {
-            renderQuestion(linearQuestion, apiOptions);
-        });
-
-        it("should reject when has not been interacteracted with", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                linearSystemQuestionWithDefaultCorrect,
-                apiOptions,
-            );
-
-            // Act
-            // no action
-
-            // Assert
-            expect(renderer).toHaveInvalidInput();
-        });
-
-        it("rejects incorrect answer", async () => {
-            // Arrange
-            const {renderer, container} = renderQuestion(
-                linearSystemQuestion,
-                apiOptions,
-            );
-
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const movablePoints = container.querySelectorAll(
-                "circle.movable-point-hitbox",
-            );
-
-            // Act
-            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
-
-            // Assert
-            await waitFor(() => {
-                expect(renderer).toHaveBeenAnsweredIncorrectly();
-            });
-        });
-
-        it("accepts correct answer", async () => {
-            const {renderer, container} = renderQuestion(
-                linearSystemQuestionWithDefaultCorrect,
-                apiOptions,
-            );
-
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const movablePoints = container.querySelectorAll(
-                "circle.movable-point-hitbox",
-            );
-
-            // Act
-            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
-
-            // Assert
-            await waitFor(() => {
-                expect(renderer).toHaveBeenAnsweredCorrectly();
-            });
         });
     });
 });

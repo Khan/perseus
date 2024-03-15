@@ -47,7 +47,8 @@ export const LinearGraph = (props: LinearGraphProps) => {
 
 const LineView = (props: InteractiveLineProps & {stroke: string}) => {
     const {
-        onMoveLine: onMoveSegment,
+        onMoveLine,
+        onMovePoint,
         collinearPair: [start, end],
         range,
         stroke,
@@ -58,7 +59,7 @@ const LineView = (props: InteractiveLineProps & {stroke: string}) => {
             <MovableLine
                 start={start}
                 end={end}
-                onMove={onMoveSegment}
+                onMove={onMoveLine}
                 extend={{
                     start: true,
                     end: true,
@@ -69,14 +70,14 @@ const LineView = (props: InteractiveLineProps & {stroke: string}) => {
             <StyledMovablePoint
                 point={start}
                 onMove={(newPoint) => {
-                    props.onMovePoint(0, newPoint);
+                    onMovePoint(0, newPoint);
                 }}
                 color={stroke}
             />
             <StyledMovablePoint
                 point={end}
                 onMove={(newPoint) => {
-                    props.onMovePoint(1, newPoint);
+                    onMovePoint(1, newPoint);
                 }}
                 color={stroke}
             />
