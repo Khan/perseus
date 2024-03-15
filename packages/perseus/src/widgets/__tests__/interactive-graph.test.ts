@@ -261,7 +261,7 @@ describe("mafs graphs", () => {
         it("rejects incorrect answer", async () => {
             // Arrange
             const {renderer, container} = renderQuestion(
-                linearQuestionWithDefaultCorrect,
+                linearQuestion,
                 apiOptions,
             );
 
