@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 20.4.0
+
+### Minor Changes
+
+-   [#1080](https://github.com/Khan/perseus/pull/1080) [`512265cc`](https://github.com/Khan/perseus/commit/512265cc5ae75e2ea658255291ef75539b1c1702) Thanks [@nedredmond](https://github.com/nedredmond)! - Migrate Linear and Linear System interactive graphs behind feature flag
+
+### Patch Changes
+
+-   [#1081](https://github.com/Khan/perseus/pull/1081) [`e03e2b03`](https://github.com/Khan/perseus/commit/e03e2b03c9b799f2f900c1f74f1a7b74bd5efe1f) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in the Explanation widget that was causing SSR to error out.
+
 ## 20.3.1
 
 ### Patch Changes
