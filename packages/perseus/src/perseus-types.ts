@@ -4,6 +4,8 @@
 import type {Coord} from "./interactive2/types";
 import type {Interval, vec} from "mafs";
 
+// Range is replaced within this file with Interval, but it is used elsewhere
+// and exported from the package, so we need to keep it around.
 export type Range = Interval;
 export type Size = [number, number];
 export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];

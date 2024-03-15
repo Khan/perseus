@@ -12,6 +12,7 @@ export const MovableLine = (props: {
     end: vec.Vector2;
     onMove: (delta: vec.Vector2) => unknown;
     stroke?: string;
+    /* Extends the line to the edge of the graph with an arrow */
     extend?: {
         start: boolean;
         end: boolean;

@@ -37,11 +37,14 @@ export function interactiveGraphReducer(
             };
         }
         case MOVE_LINE: {
-            const currentCoords = state.coords?.[action.lineIndex] ?? [];
-            const maxMoves = currentCoords.map((point: vec.Vector2) =>
+            const currentLine = state.coords?.[action.lineIndex];
+            if (!currentLine) {
+                throw new Error("No line to move");
+            }
+            const maxMoves = currentLine.map((point: vec.Vector2) =>
                 maxMove(state, point),
             );
-            const minMoves = currentCoords.map((point: vec.Vector2) =>
+            const minMoves = currentLine.map((point: vec.Vector2) =>
                 minMove(state, point),
             );
             const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
@@ -50,14 +53,16 @@ export function interactiveGraphReducer(
             const minYMove = Math.max(...minMoves.map((move) => move[1]));
             const dx = clamp(action.delta[0], minXMove, maxXMove);
             const dy = clamp(action.delta[1], minYMove, maxYMove);
-            const newSegment = currentCoords.map((point: vec.Vector2) =>
-                snap(state, kvector.add(point, [dx, dy])),
-            ) as unknown as CollinearTuple;
+
+            const newValue: CollinearTuple = [
+                snap(state, vec.add(currentLine[0], [dx, dy])),
+                snap(state, vec.add(currentLine[1], [dx, dy])),
+            ];
 
             const newLine = setAtIndex({
                 array: state.coords,
                 index: action.lineIndex,
-                newValue: newSegment,
+                newValue,
             });
 
             return {
@@ -149,5 +154,6 @@ function setAtIndex<T, A extends readonly T[]>(args: {
     const {array, index, newValue} = args;
     const copy: T[] = [...(array || [])];
     copy[index] = newValue;
+    // restoring readonly to array
     return copy as unknown as A;
 }
