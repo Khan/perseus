@@ -20,6 +20,7 @@ import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {PointGraph} from "./graphs/point";
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
@@ -38,7 +39,7 @@ const renderGraph = (props: {
         case "polygon":
             return <PolygonGraph graphState={state} dispatch={dispatch} />;
         case "point":
-            throw "Fixme";
+            return <PointGraph graphState={state} dispatch={dispatch} />;
         default:
             return new UnreachableCaseError(type);
     }
