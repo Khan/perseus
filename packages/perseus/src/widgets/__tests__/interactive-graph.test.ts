@@ -146,7 +146,7 @@ describe("mafs graphs", () => {
         linearQuestionWithDefaultCorrect,
         linearSystemQuestionWithDefaultCorrect,
         rayQuestionWithDefaultCorrect,
-    ])("segment", (question) => {
+    ])("graph type", (question) => {
         it("should render", () => {
             renderQuestion(question, apiOptions);
         });
