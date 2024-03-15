@@ -52,14 +52,17 @@ const randomGraphTypeCircle = (): PerseusGraphTypeCircle => {
 const randomGraphTypeLinear = (): PerseusGraphTypeLinear => {
     return {
         type: "linear",
-        coords: arrayOfLength(2).map(randomCoord),
+        coords: [randomCoord(), randomCoord()],
     };
 };
 
 const randomGraphTypeLinearSystem = (): PerseusGraphTypeLinearSystem => {
     return {
         type: "linear-system",
-        coords: arrayOfLength(2).map(() => arrayOfLength(2).map(randomCoord)),
+        coords: [
+            [randomCoord(), randomCoord()],
+            [randomCoord(), randomCoord()],
+        ],
     };
 };
 
@@ -104,7 +107,7 @@ const randomGraphTypeQuadratic = (): PerseusGraphTypeQuadratic => {
 const randomGraphTypeRay = (): PerseusGraphTypeRay => {
     return {
         type: "ray",
-        coords: arrayOfLength(2).map(randomCoord),
+        coords: [randomCoord(), randomCoord()],
     };
 };
 

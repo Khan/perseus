@@ -2,58 +2,73 @@ import {vector as kvector} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
-import type {InteractiveGraphAction} from "./interactive-graph-action";
-import type {InteractiveGraphState, Segment} from "./interactive-graph-state";
+import {
+    MOVE_CONTROL_POINT,
+    type InteractiveGraphAction,
+    MOVE_LINE,
+} from "./interactive-graph-action";
+
+import type {InteractiveGraphState} from "./types";
+import type {CollinearTuple} from "../../perseus-types";
 
 export function interactiveGraphReducer(
     state: Readonly<InteractiveGraphState>,
     action: InteractiveGraphAction,
 ): InteractiveGraphState {
     switch (action.type) {
-        case "move-control-point": {
-            const newSegments = updateAtIndex(
-                state.segments,
-                action.objectIndex,
-                (segment) =>
-                    setAtIndex(
-                        segment,
-                        action.pointIndex,
-                        snap(state, bound(state, action.destination)),
-                    ),
-            );
-            if (!validSegments(newSegments)) {
+        case MOVE_CONTROL_POINT: {
+            const newCoords = updateAtIndex({
+                array: state.coords,
+                index: action.objectIndex,
+                update: (tuple) =>
+                    setAtIndex({
+                        array: tuple,
+                        index: action.pointIndex,
+                        newValue: snap(state, bound(state, action.destination)),
+                    }),
+            });
+            if (!validSegments(newCoords)) {
                 return state;
             }
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                segments: newSegments,
+                coords: newCoords,
             };
         }
-        case "move-segment": {
-            const oldSegment = state.segments[action.segmentIndex];
-            const maxMoves = oldSegment.map((point) => maxMove(state, point));
-            const minMoves = oldSegment.map((point) => minMove(state, point));
+        case MOVE_LINE: {
+            const currentLine = state.coords?.[action.lineIndex];
+            if (!currentLine) {
+                throw new Error("No line to move");
+            }
+            const maxMoves = currentLine.map((point: vec.Vector2) =>
+                maxMove(state, point),
+            );
+            const minMoves = currentLine.map((point: vec.Vector2) =>
+                minMove(state, point),
+            );
             const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
             const maxYMove = Math.min(...maxMoves.map((move) => move[1]));
             const minXMove = Math.max(...minMoves.map((move) => move[0]));
             const minYMove = Math.max(...minMoves.map((move) => move[1]));
             const dx = clamp(action.delta[0], minXMove, maxXMove);
             const dy = clamp(action.delta[1], minYMove, maxYMove);
-            const newSegment = oldSegment.map((point) =>
-                snap(state, kvector.add(point, [dx, dy])),
-            ) as Segment;
 
-            const newSegments = setAtIndex(
-                state.segments,
-                action.segmentIndex,
-                newSegment,
-            );
+            const newValue: CollinearTuple = [
+                snap(state, vec.add(currentLine[0], [dx, dy])),
+                snap(state, vec.add(currentLine[1], [dx, dy])),
+            ];
+
+            const newLine = setAtIndex({
+                array: state.coords,
+                index: action.lineIndex,
+                newValue,
+            });
 
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                segments: newSegments,
+                coords: newLine,
             };
         }
         default:
@@ -117,24 +132,28 @@ function clamp(value: number, min: number, max: number) {
     return value;
 }
 
-function validSegments(segments: Segment[]): boolean {
+function validSegments(segments: readonly CollinearTuple[]): boolean {
     return segments.every(([start, end]) => !kvector.equal(start, end));
 }
 
-function updateAtIndex<A extends readonly any[]>(
-    array: A,
-    index: number,
-    update: (elem: A[number]) => A[number],
-): A {
-    return setAtIndex(array, index, update(array[index]));
+function updateAtIndex<T>(args: {
+    array?: readonly T[];
+    index: number;
+    update: (elem: T) => T;
+}): readonly T[] {
+    const {array = [], index, update} = args;
+    const newValue = update(array[index]);
+    return setAtIndex({array, index, newValue});
 }
 
-function setAtIndex<A extends readonly any[]>(
-    array: A,
-    index: number,
-    newValue: A[number],
-): A {
-    const copy = [...array] as any;
+function setAtIndex<T, A extends readonly T[]>(args: {
+    array?: A;
+    index: number;
+    newValue: A[number];
+}): A {
+    const {array, index, newValue} = args;
+    const copy: T[] = [...(array || [])];
     copy[index] = newValue;
-    return copy;
+    // restoring readonly to array
+    return copy as unknown as A;
 }

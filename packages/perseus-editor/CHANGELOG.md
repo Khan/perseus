@@ -1,5 +1,37 @@
 # @khanacademy/perseus-editor
 
+## 5.1.3
+
+### Patch Changes
+
+-   Updated dependencies [[`512265cc`](https://github.com/Khan/perseus/commit/512265cc5ae75e2ea658255291ef75539b1c1702), [`e03e2b03`](https://github.com/Khan/perseus/commit/e03e2b03c9b799f2f900c1f74f1a7b74bd5efe1f)]:
+    -   @khanacademy/perseus@20.4.0
+
+## 5.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`e1706bba`](https://github.com/Khan/perseus/commit/e1706bba2e5f38493301ff401d784e8777f4e48f)]:
+    -   @khanacademy/perseus@20.3.1
+
+## 5.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`857ea95b`](https://github.com/Khan/perseus/commit/857ea95bba32b230bca6d43467995cbdc1b9dca9)]:
+    -   @khanacademy/perseus@20.3.0
+
+## 5.1.0
+
+### Minor Changes
+
+-   [#1074](https://github.com/Khan/perseus/pull/1074) [`a263e940`](https://github.com/Khan/perseus/commit/a263e940de35cc51a5be81ca507a4e9b6827b422) Thanks [@nishasy](https://github.com/nishasy)! - Add "add a locked figure" UI to interactive graph editor + adding points (mafs graphs only)
+
+### Patch Changes
+
+-   Updated dependencies [[`881da724`](https://github.com/Khan/perseus/commit/881da724d36561b2a200af0258ab81523d4d236a), [`eb637b35`](https://github.com/Khan/perseus/commit/eb637b3528b6ecaf1df83e53d429b6bdc89613d4), [`6196375a`](https://github.com/Khan/perseus/commit/6196375add76025fb1f30473912dd38cc001cca4), [`a263e940`](https://github.com/Khan/perseus/commit/a263e940de35cc51a5be81ca507a4e9b6827b422), [`ea0db7d9`](https://github.com/Khan/perseus/commit/ea0db7d9b2013637a27f1ea9fc36b46b0a7488a2)]:
+    -   @khanacademy/perseus@20.2.0
+
 ## 5.0.3
 
 ### Patch Changes
