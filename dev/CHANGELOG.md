@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.1
+
+### Patch Changes
+
+-   [#1080](https://github.com/Khan/perseus/pull/1080) [`512265cc`](https://github.com/Khan/perseus/commit/512265cc5ae75e2ea658255291ef75539b1c1702) Thanks [@nedredmond](https://github.com/nedredmond)! - Migrate Linear and Linear System interactive graphs behind feature flag
+
 ## 1.3.0
 
 ### Minor Changes
