@@ -1,8 +1,11 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Switch from "@khanacademy/wonder-blocks-switch";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
+import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
@@ -28,22 +31,42 @@ export const RendererWithDebugUI = ({
     registerAllWidgetsForTesting();
     const ref = React.useRef<Renderer | null | undefined>(null);
     const [state, setState] = React.useState<any>(null);
+    const [isMobile, setIsMobile] = React.useState(false);
 
     return (
         <SideBySide
-            leftTitle="Widget"
+            leftTitle={
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        width: "100%",
+                    }}
+                >
+                    Widget
+                    <View style={{marginLeft: "auto"}}>
+                        <Switch
+                            icon={<PhosphorIcon icon={deviceMobile} />}
+                            checked={isMobile}
+                            onChange={setIsMobile}
+                        />
+                    </View>
+                </View>
+            }
             left={
-                <>
-                    <Renderer
-                        // @ts-expect-error - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
-                        ref={ref}
-                        content={question.content}
-                        images={question.images}
-                        widgets={question.widgets}
-                        problemNum={0}
-                        apiOptions={apiOptions}
-                        reviewMode={reviewMode}
-                    />
+                <View>
+                    <View className={isMobile ? "perseus-mobile" : ""}>
+                        <Renderer
+                            // @ts-expect-error - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
+                            ref={ref}
+                            content={question.content}
+                            images={question.images}
+                            widgets={question.widgets}
+                            problemNum={0}
+                            apiOptions={{...apiOptions, isMobile}}
+                            reviewMode={reviewMode}
+                        />
+                    </View>
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button
                             onClick={() => {
@@ -84,7 +107,7 @@ export const RendererWithDebugUI = ({
                             />
                         </>
                     )}
-                </>
+                </View>
             }
             jsonObject={question}
         />

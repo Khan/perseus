@@ -8,14 +8,19 @@ import {
     Util,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
-import * as Typography from "@khanacademy/wonder-blocks-typography";
+import {BodyMonospace, LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphTypeSelector from "../components/graph-type-selector";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
+import LabeledRow from "../components/labeled-row";
+import LockedFiguresSection from "../components/locked-figures-section";
 import SegmentCountSelector from "../components/segment-count-selector";
 import {parsePointCount} from "../util/points";
 
@@ -23,8 +28,9 @@ import type {
     PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
     APIOptionsWithDefaults,
+    LockedFigure,
 } from "@khanacademy/perseus";
-import type {PropsFor, StyleType} from "@khanacademy/wonder-blocks-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
@@ -43,34 +49,19 @@ const deprecatedProps = {
     },
 } as const;
 
+const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
+    return (
+        <OptionItem
+            key={`polygon-sides-${value}`}
+            value={`${value}`}
+            label={`${value} sides`}
+        />
+    );
+});
+
 type Range = [min: number, max: number];
 
-// Renders the given children in a View laid out horizontally.
-const Row = (props: {style?: StyleType; children: React.ReactNode}) => {
-    const {children, style} = props;
-
-    return (
-        <View
-            style={{
-                ...style,
-                flexDirection: "row",
-                marginTop: Spacing.xSmall_8,
-            }}
-        >
-            {children}
-        </View>
-    );
-};
-
-const FieldLabel = (props: {children: string}) => {
-    return (
-        <Typography.LabelSmall style={{marginRight: Spacing.xSmall_8}}>
-            {props.children}
-        </Typography.LabelSmall>
-    );
-};
-
-type Props = {
+export type Props = {
     apiOptions: APIOptionsWithDefaults;
 
     /**
@@ -125,6 +116,7 @@ type Props = {
     showRuler: boolean;
     /**
      * Whether to show tooltips on the graph.
+     * (Currently not used, but will be in the future.)
      */
     showTooltips: boolean;
     /**
@@ -136,9 +128,21 @@ type Props = {
      */
     rulerTicks: number;
     /**
-     * The data for checking if an answer is correct.
+     * The current correct answer for the graph. Updated by this component
+     * when the graph is changed.
+     *
+     * Note that the "Correct answer:" textbox is not an interactive
+     * element. Instead, it is a representation of the correct answer based
+     * on the state of the interactive graph previewed at the bottom of the
+     * editor page.
      */
     correct: any; // TODO(jeremy)
+    /**
+     * The locked figures to display in the graph area.
+     * Locked figures are graph elements (points, lines, line segmeents,
+     * etc.) that are locked in place and not interactive.
+     */
+    lockedFigures?: Array<LockedFigure>;
 
     /**
      * The graph to display in the graph area.
@@ -223,8 +227,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 markings: this.props.markings,
                 showProtractor: this.props.showProtractor,
                 showRuler: this.props.showRuler,
+                showTooltips: this.props.showTooltips,
                 rulerLabel: this.props.rulerLabel,
                 rulerTicks: this.props.rulerTicks,
+                lockedFigures: this.props.lockedFigures,
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
                     let correct = this.props.correct;
@@ -262,8 +268,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         return (
             <View>
-                <Row>
-                    <FieldLabel>Type of Graph:</FieldLabel>
+                <LabeledRow label="Type of Graph:">
                     <GraphTypeSelector
                         graphType={
                             this.props.graph?.type ??
@@ -278,10 +283,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             });
                         }}
                     />
-                </Row>
+                </LabeledRow>
                 {this.props.correct?.type === "point" && (
-                    <Row>
-                        <FieldLabel>Number of Points:</FieldLabel>
+                    <LabeledRow label="Number of Points:">
                         <GraphPointsCountSelector
                             numPoints={this.props.correct?.numPoints}
                             onChange={(points) => {
@@ -293,21 +297,23 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 });
                             }}
                         />
-                    </Row>
+                    </LabeledRow>
                 )}
                 {this.props.correct?.type === "polygon" && (
                     <>
-                        <Row>
-                            <FieldLabel>Number of sides:</FieldLabel>
-                            <select
+                        <LabeledRow label="Number of sides:">
+                            <SingleSelect
                                 key="polygon-select"
-                                value={this.props.correct?.numSides || 3}
-                                onChange={(e) => {
+                                selectedValue={
+                                    this.props.correct?.numSides
+                                        ? `${this.props.correct.numSides}`
+                                        : "3"
+                                }
+                                placeholder=""
+                                onChange={(newValue) => {
                                     const graph = {
                                         ...this.props.correct,
-                                        numSides: parsePointCount(
-                                            e.target.value,
-                                        ),
+                                        numSides: parsePointCount(newValue),
                                         coords: null,
                                         // reset the snap for UNLIMITED, which
                                         // only supports "grid"
@@ -317,47 +323,51 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
                                     this.props.onChange({correct: graph});
                                 }}
+                                style={styles.singleSelectShort}
                             >
-                                {_.map(_.range(3, 13), function (n) {
-                                    return (
-                                        <option key={n} value={n}>
-                                            {`${n} sides`}
-                                        </option>
-                                    );
-                                })}
-                                <option value={"unlimited"}>
-                                    unlimited sides
-                                </option>
-                            </select>
-                        </Row>
-                        <Row>
-                            <FieldLabel>Snap to:</FieldLabel>
-                            <select
-                                key="polygon-snap"
-                                value={this.props.correct?.snapTo}
-                                onChange={(e) => {
+                                {[
+                                    ...POLYGON_SIDES,
+                                    <OptionItem
+                                        value="unlimited"
+                                        label="unlimited sides"
+                                    />,
+                                ]}
+                            </SingleSelect>
+                        </LabeledRow>
+                        <LabeledRow label="Snap to:">
+                            <SingleSelect
+                                selectedValue={
+                                    this.props.correct?.snapTo || "grid"
+                                }
+                                // Never uses placeholder, always has value
+                                placeholder=""
+                                onChange={(newValue) => {
                                     const graph = {
                                         ...this.props.correct,
-                                        snapTo: e.target.value,
+                                        snapTo: newValue,
                                         coords: null,
                                     };
 
                                     this.props.onChange({correct: graph});
                                 }}
+                                style={styles.singleSelectShort}
                             >
-                                <option value="grid">grid</option>
+                                <OptionItem value="grid" label="grid" />
                                 {this.props.correct?.numSides !==
                                     "unlimited" && (
-                                    <React.Fragment>
-                                        <option value="angles">
-                                            interior angles
-                                        </option>
-                                        <option value="sides">
-                                            side measures
-                                        </option>
-                                    </React.Fragment>
+                                    <OptionItem
+                                        value="angles"
+                                        label="interior angles"
+                                    />
                                 )}
-                            </select>
+                                {this.props.correct?.numSides !==
+                                    "unlimited" && (
+                                    <OptionItem
+                                        value="sides"
+                                        label="side measures"
+                                    />
+                                )}
+                            </SingleSelect>
                             <InfoTip>
                                 <p>
                                     These options affect the movement of the
@@ -372,56 +382,57 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 </p>{" "}
                                 measure respectively.
                             </InfoTip>
-                        </Row>
-                        <Row>
-                            <Typography.LabelSmall tag="label">
-                                Show angle measures:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.props.correct?.showAngles}
-                                    onChange={() => {
-                                        this.props.onChange({
-                                            correct: {
-                                                ...this.props.correct,
-                                                showAngles:
-                                                    !this.props.correct
-                                                        .showAngles,
-                                            },
-                                        });
-                                    }}
-                                />
-                            </Typography.LabelSmall>
+                        </LabeledRow>
+                        <View style={styles.row}>
+                            <Checkbox
+                                label={
+                                    <LabelSmall>Show angle measures</LabelSmall>
+                                }
+                                checked={
+                                    // Don't show indeterminate checkbox state
+                                    !!this.props.correct?.showAngles
+                                }
+                                onChange={() => {
+                                    this.props.onChange({
+                                        correct: {
+                                            ...this.props.correct,
+                                            showAngles:
+                                                !this.props.correct.showAngles,
+                                        },
+                                    });
+                                }}
+                            />
                             <InfoTip>
                                 <p>Displays the interior angle measures.</p>
                             </InfoTip>
-                        </Row>
-                        <Row>
-                            <Typography.LabelSmall tag="label">
-                                Show side measures:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.props.correct?.showSides}
-                                    onChange={() => {
-                                        this.props.onChange({
-                                            correct: {
-                                                ...this.props.correct,
-                                                showSides:
-                                                    !this.props.correct
-                                                        .showSides,
-                                            },
-                                        });
-                                    }}
-                                />
-                            </Typography.LabelSmall>
+                        </View>
+                        <View style={styles.row}>
+                            <Checkbox
+                                label={
+                                    <LabelSmall>Show side measures</LabelSmall>
+                                }
+                                checked={
+                                    // Don't show indeterminate checkbox state
+                                    !!this.props.correct?.showSides
+                                }
+                                onChange={() => {
+                                    this.props.onChange({
+                                        correct: {
+                                            ...this.props.correct,
+                                            showSides:
+                                                !this.props.correct.showSides,
+                                        },
+                                    });
+                                }}
+                            />
                             <InfoTip>
                                 <p>Displays the side lengths.</p>
                             </InfoTip>
-                        </Row>
+                        </View>
                     </>
                 )}
                 {this.props.correct?.type === "segment" && (
-                    <Row>
-                        <FieldLabel>Number of segments: </FieldLabel>
+                    <LabeledRow label="Number of segments:">
                         <SegmentCountSelector
                             numSegments={this.props.correct?.numSegments}
                             onChange={(sides) => {
@@ -434,31 +445,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 });
                             }}
                         />
-                    </Row>
+                    </LabeledRow>
                 )}
-
-                <Row>
-                    <FieldLabel>Correct answer:</FieldLabel>
-                    <Typography.BodyMonospace
-                        style={{
-                            fontSize: 12,
-                            backgroundColor: "#eee",
-                            paddingInline: Spacing.xxSmall_6,
-                            borderColor: "#ccc",
-                            borderStyle: "solid",
-                            borderWidth: 1,
-                        }}
-                    >
-                        {equationString}
-                    </Typography.BodyMonospace>
-                    <InfoTip>
-                        <p>
-                            Graph the correct answer in the graph below and
-                            ensure the equation or point coordinates displayed
-                            represent the correct answer.
-                        </p>
-                    </InfoTip>
-                </Row>
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
@@ -477,22 +465,26 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     onChange={this.props.onChange}
                 />
                 {this.props.correct.type === "polygon" && (
-                    <div className="type-settings">
-                        <label>
-                            {" "}
-                            Student answer must{" "}
-                            <select
-                                value={this.props.correct.match}
-                                onChange={this.changeMatchType}
-                            >
-                                <option value="exact">match exactly</option>
-                                <option value="congruent">be congruent</option>
-                                <option value="approx">
-                                    be approximately congruent
-                                </option>
-                                <option value="similar">be similar</option>
-                            </select>
-                        </label>
+                    <LabeledRow label="Student answer must">
+                        <SingleSelect
+                            selectedValue={this.props.correct.match || "exact"}
+                            onChange={this.changeMatchType}
+                            // Never uses placeholder, always has value
+                            placeholder=""
+                            style={styles.singleSelectShort}
+                        >
+                            <OptionItem value="exact" label="match exactly" />
+                            <OptionItem
+                                value="congruent"
+                                label="be congruent"
+                            />
+                            <OptionItem
+                                value="approx"
+                                label="be approximately congruent"
+                            />
+                            <OptionItem value="similar" label="be similar" />
+                        </SingleSelect>
+
                         <InfoTip>
                             <ul>
                                 <li>
@@ -533,47 +525,82 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 </li>
                             </ul>
                         </InfoTip>
-                    </div>
+                    </LabeledRow>
                 )}
                 {this.props.correct.type === "angle" && (
-                    <div className="type-settings">
-                        <div>
-                            <label>
-                                {" "}
-                                Student answer must{" "}
-                                <select
-                                    value={this.props.correct.match}
-                                    onChange={this.changeMatchType}
-                                >
-                                    <option value="exact">match exactly</option>
-                                    <option value="congruent">
-                                        be congruent
-                                    </option>
-                                </select>
-                            </label>
-                            <InfoTip>
-                                <p>
-                                    Congruency requires only that the angle
-                                    measures are the same. An exact match
-                                    implies congruency, but also requires that
-                                    the angles have the same orientation and
-                                    that the vertices are in the same position.
-                                </p>
-                            </InfoTip>
-                        </div>
-                    </div>
+                    <LabeledRow label="Student answer must">
+                        <SingleSelect
+                            selectedValue={this.props.correct.match || "exact"}
+                            onChange={this.changeMatchType}
+                            // Never uses placeholder, always has value
+                            placeholder=""
+                            style={styles.singleSelectShort}
+                        >
+                            <OptionItem value="exact" label="match exactly" />
+                            <OptionItem
+                                value="congruent"
+                                label="be congruent"
+                            />
+                        </SingleSelect>
+                        <InfoTip>
+                            <p>
+                                Congruency requires only that the angle measures
+                                are the same. An exact match implies congruency,
+                                but also requires that the angles have the same
+                                orientation and that the vertices are in the
+                                same position.
+                            </p>
+                        </InfoTip>
+                    </LabeledRow>
                 )}
+                <LabeledRow label="Correct answer:">
+                    <BodyMonospace
+                        style={{
+                            fontSize: 12,
+                            backgroundColor: "#eee",
+                            paddingInline: Spacing.xxSmall_6,
+                            borderColor: "#ccc",
+                            borderStyle: "solid",
+                            borderWidth: 1,
+                        }}
+                    >
+                        {equationString}
+                    </BodyMonospace>
+                    <InfoTip>
+                        <p>
+                            Graph the correct answer in the graph below and
+                            ensure the equation or point coordinates displayed
+                            represent the correct answer.
+                        </p>
+                    </InfoTip>
+                </LabeledRow>
+
                 {graph}
+
+                {
+                    // Only show the "Add element" dropdown if the graph is
+                    // using Mafs.
+                    this.props.graph &&
+                        this.props.apiOptions?.flags?.["mafs"]?.[
+                            this.props.graph.type
+                        ] && (
+                            <LockedFiguresSection
+                                figures={this.props.lockedFigures}
+                                onChange={this.props.onChange}
+                            />
+                        )
+                }
             </View>
         );
     }
 
-    changeMatchType(e) {
-        const correct = _.extend({}, this.props.correct, {
-            match: e.target.value,
-        });
+    changeMatchType = (newValue) => {
+        const correct = {
+            ...this.props.correct,
+            match: newValue,
+        };
         this.props.onChange({correct: correct});
-    }
+    };
 
     serialize(): PerseusInteractiveGraphWidgetOptions {
         const json = _.pick(
@@ -590,6 +617,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "range",
             "gridStep",
             "snapStep",
+            "lockedFigures",
         );
 
         // eslint-disable-next-line react/no-string-refs
@@ -626,5 +654,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
         return json;
     }
 }
+
+const styles = StyleSheet.create({
+    singleSelectShort: {
+        // Non-standard spacing, but it's the smallest we can go
+        // without running into styling issues with the dropdown.
+        height: 26,
+    },
+    row: {
+        flexDirection: "row",
+        marginTop: Spacing.xSmall_8,
+        alignItems: "center",
+    },
+});
 
 export default InteractiveGraphEditor;

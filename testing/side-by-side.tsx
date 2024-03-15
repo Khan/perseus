@@ -1,10 +1,13 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
+import {interactiveSizes} from "../packages/perseus/src/styles/constants";
+
 type Props = {
-    leftTitle: string;
+    leftTitle: React.ReactNode;
     left: React.ReactNode;
     rightTitle?: string;
     jsonObject: any;
@@ -39,21 +42,18 @@ const SideBySide = ({
 const styles = {
     sideBySide: {
         display: "flex",
+        flexWrap: "wrap",
         flexDirection: "row",
+        gap: Spacing.large_24,
+        padding: `0px ${Spacing.large_24}px`,
     },
     leftPanel: {
-        paddingRight: "30px",
-        flexGrow: 1,
+        flexBasis: `${interactiveSizes.defaultBoxSize}px`,
     },
     rightPanel: {
         flexGrow: 1,
+        flexBasis: `${interactiveSizes.defaultBoxSize}px`,
         maxWidth: "50%",
-        padding: "5px",
-    },
-    code: {
-        fontSize: "10pt",
-        marginTop: "22px",
-        fontFamily: "monospace",
     },
 } as const;
 

@@ -324,7 +324,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         this.sinusoid = null;
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'reset' does not exist on type 'ReactInstance'.
-        this.refs.graph.reset();
+        this.refs.graph?.reset();
     };
 
     setupGraphie: () => void = () => {
@@ -1771,7 +1771,6 @@ class InteractiveGraph extends React.Component<Props, State> {
                         this.props.apiOptions.setDrawingAreaAvailable
                     }
                     isMobile={isMobile}
-                    lockedFigures={this.props.lockedFigures}
                 />
             </div>
         );

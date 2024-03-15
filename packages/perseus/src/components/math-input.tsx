@@ -20,6 +20,8 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
+import {debounce} from "../util/debounce";
+
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
@@ -157,7 +159,7 @@ class MathInput extends React.Component<Props, State> {
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
-                        edit: (mathField: MathFieldInterface) => {
+                        edit: debounce((mathField: MathFieldInterface) => {
                             // This handler is guaranteed to be called on change, but
                             // unlike React it sometimes generates false positives.
                             // One of these is on initialization (with an empty string
@@ -199,7 +201,7 @@ class MathInput extends React.Component<Props, State> {
                             this.setState({
                                 cursorContext: getCursorContext(mathField),
                             });
-                        },
+                        }, 100),
                         enter: () => {
                             // NOTE(kevinb): This isn't how answers to exercises are
                             // submitted.  The actual mechanism for this can be found

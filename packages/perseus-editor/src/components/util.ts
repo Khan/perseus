@@ -1,3 +1,9 @@
+import type {
+    LockedFigure,
+    LockedFigureType,
+    LockedPoint,
+} from "@khanacademy/perseus";
+
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
     // NOTE(marksandstrom) Chrome sticky focus bug.
     //
@@ -35,4 +41,22 @@ export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
 
     // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element'.
     element.focus({preventScroll: true});
+}
+
+export function getValidNumberFromString(value: string) {
+    const parsed = parseInt(value);
+    // If the value is not a number, return 0.
+    return isNaN(parsed) ? 0 : parsed;
+}
+
+export function getDefaultFigureForFigureType(
+    type: LockedFigureType,
+): LockedFigure {
+    switch (type) {
+        case "point":
+            return {
+                type: "point",
+                coord: [0, 0],
+            } as LockedPoint;
+    }
 }

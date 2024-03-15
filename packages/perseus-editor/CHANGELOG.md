@@ -1,5 +1,53 @@
 # @khanacademy/perseus-editor
 
+## 5.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`857ea95b`](https://github.com/Khan/perseus/commit/857ea95bba32b230bca6d43467995cbdc1b9dca9)]:
+    -   @khanacademy/perseus@20.3.0
+
+## 5.1.0
+
+### Minor Changes
+
+-   [#1074](https://github.com/Khan/perseus/pull/1074) [`a263e940`](https://github.com/Khan/perseus/commit/a263e940de35cc51a5be81ca507a4e9b6827b422) Thanks [@nishasy](https://github.com/nishasy)! - Add "add a locked figure" UI to interactive graph editor + adding points (mafs graphs only)
+
+### Patch Changes
+
+-   Updated dependencies [[`881da724`](https://github.com/Khan/perseus/commit/881da724d36561b2a200af0258ab81523d4d236a), [`eb637b35`](https://github.com/Khan/perseus/commit/eb637b3528b6ecaf1df83e53d429b6bdc89613d4), [`6196375a`](https://github.com/Khan/perseus/commit/6196375add76025fb1f30473912dd38cc001cca4), [`a263e940`](https://github.com/Khan/perseus/commit/a263e940de35cc51a5be81ca507a4e9b6827b422), [`ea0db7d9`](https://github.com/Khan/perseus/commit/ea0db7d9b2013637a27f1ea9fc36b46b0a7488a2)]:
+    -   @khanacademy/perseus@20.2.0
+
+## 5.0.3
+
+### Patch Changes
+
+-   [#1049](https://github.com/Khan/perseus/pull/1049) [`f5d5852c`](https://github.com/Khan/perseus/commit/f5d5852c4e6c4c7e701433f56ec82cd9fdf77684) Thanks [@nishasy](https://github.com/nishasy)! - Use Wonder Blocks + minor refactoring in interactive graph editor
+
+-   Updated dependencies [[`631af3a4`](https://github.com/Khan/perseus/commit/631af3a459e7ee54e552d011438bd7daa6dc9197), [`f5d5852c`](https://github.com/Khan/perseus/commit/f5d5852c4e6c4c7e701433f56ec82cd9fdf77684)]:
+    -   @khanacademy/perseus@20.1.0
+
+## 5.0.2
+
+### Patch Changes
+
+-   [#1042](https://github.com/Khan/perseus/pull/1042) [`9ae993c8`](https://github.com/Khan/perseus/commit/9ae993c8beecb0419b2b461916ee704f8b12fb28) Thanks [@nishasy](https://github.com/nishasy)! - Update props in InteractiveGraphSettings and InteractiveGraphEditor to more accurately reflect how they are used. Minor refactoring.
+
+*   [#1062](https://github.com/Khan/perseus/pull/1062) [`48cf0c07`](https://github.com/Khan/perseus/commit/48cf0c07895f66b3d868ce265befc17f316bb785) Thanks [@nedredmond](https://github.com/nedredmond)! - Renormed tests for Perseus Math Input debounce
+
+*   Updated dependencies [[`9ae993c8`](https://github.com/Khan/perseus/commit/9ae993c8beecb0419b2b461916ee704f8b12fb28), [`48cf0c07`](https://github.com/Khan/perseus/commit/48cf0c07895f66b3d868ce265befc17f316bb785)]:
+    -   @khanacademy/perseus@20.0.2
+
+## 5.0.1
+
+### Patch Changes
+
+-   [#978](https://github.com/Khan/perseus/pull/978) [`881be46f`](https://github.com/Khan/perseus/commit/881be46fc75117d57bab30d1568b417cca5d6976) Thanks [@nishasy](https://github.com/nishasy)! - Update WB Clickable. Stop keypad button clicks from removing focus from the input.
+
+-   Updated dependencies [[`881be46f`](https://github.com/Khan/perseus/commit/881be46fc75117d57bab30d1568b417cca5d6976)]:
+    -   @khanacademy/math-input@17.3.0
+    -   @khanacademy/perseus@20.0.1
+
 ## 5.0.0
 
 ### Major Changes

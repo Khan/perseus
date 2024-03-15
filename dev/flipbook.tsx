@@ -4,9 +4,10 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
-import {useReducer} from "react";
+import {useReducer, useRef} from "react";
 
 import {Renderer} from "../packages/perseus/src";
+import {isCorrect} from "../packages/perseus/src/util";
 
 import {
     flipbookModelReducer,
@@ -16,7 +17,11 @@ import {
     setQuestions,
 } from "./flipbook-model";
 
-import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
+import type {
+    APIOptions,
+    PerseusRenderer,
+    PerseusScore,
+} from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
@@ -36,26 +41,10 @@ export function Flipbook() {
 
     const question = selectCurrentQuestion(state);
 
+    const noTextEntered = state.questions.trim() === "";
+
     return (
         <View style={{padding: Spacing.medium_16}}>
-            <details open>
-                <summary>Instructions (click to show/hide)</summary>
-                <ol>
-                    <li>
-                        <p>
-                            Run a command like one of the following to copy
-                            question data to your clipboard.
-                        </p>
-                        <code>
-                            <pre>{exampleCommands}</pre>
-                        </code>
-                    </li>
-                    <li>
-                        <p>Paste the data in the box below.</p>
-                    </li>
-                </ol>
-            </details>
-
             <textarea
                 wrap={"off"}
                 rows={10}
@@ -73,7 +62,26 @@ export function Flipbook() {
                     Next
                 </Button>
             </View>
-            {question != null && <QuestionRenderer question={question} />}
+            <div style={{display: noTextEntered ? "block" : "none"}}>
+                <h2>Instructions</h2>
+                <ol>
+                    <li>
+                        <p>
+                            Run a command like one of the following to copy
+                            question data to your clipboard.
+                        </p>
+                        <code>
+                            <pre>{exampleCommands}</pre>
+                        </code>
+                    </li>
+                    <li>
+                        <p>Paste the data in the box above.</p>
+                    </li>
+                </ol>
+            </div>
+            {question != null && (
+                <SideBySideQuestionRenderer question={question} />
+            )}
         </View>
     );
 }
@@ -83,30 +91,63 @@ type QuestionRendererProps = {
     apiOptions?: APIOptions;
 };
 
-function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
+function SideBySideQuestionRenderer({
+    question,
+    apiOptions = {},
+}: QuestionRendererProps) {
     return (
-        <div
+        <View
+            className="framework-perseus"
             style={{
+                flexDirection: "row",
                 padding: Spacing.xLarge_32,
-                display: "flex",
                 gap: Spacing.small_12,
             }}
-            className="framework-perseus"
         >
-            <Renderer
-                content={question.content}
-                images={question.images}
-                widgets={question.widgets}
-                problemNum={0}
+            <GradableRenderer
+                question={question}
                 apiOptions={{...apiOptions, flags: {mafs: false}}}
             />
+            <GradableRenderer
+                question={question}
+                apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
+            />
+        </View>
+    );
+}
+
+function GradableRenderer(props: QuestionRendererProps) {
+    const {question, apiOptions} = props;
+    const rendererRef = useRef<Renderer>(null);
+
+    function describeScore(score: PerseusScore): string {
+        switch (score.type) {
+            case "invalid":
+                return "You didn't answer the question.";
+            case "points":
+                return isCorrect(score) ? "Correct!" : "Incorrect.";
+        }
+    }
+
+    return (
+        <View style={{alignItems: "flex-start"}}>
             <Renderer
+                ref={rendererRef}
                 content={question.content}
                 images={question.images}
                 widgets={question.widgets}
                 problemNum={0}
-                apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
+                apiOptions={{...apiOptions}}
             />
-        </div>
+            <Button
+                onClick={() =>
+                    rendererRef.current &&
+                    // eslint-disable-next-line no-alert
+                    alert(describeScore(rendererRef.current.score()))
+                }
+            >
+                Check answer
+            </Button>
+        </View>
     );
 }

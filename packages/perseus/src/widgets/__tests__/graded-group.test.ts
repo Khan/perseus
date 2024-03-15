@@ -133,7 +133,9 @@ describe("graded-group", () => {
             renderQuestion(question1);
 
             // Act
-            await userEvent.click(screen.getByRole("button", {name: "[Hint]"}));
+            await userEvent.click(
+                screen.getByRole("button", {name: "Explain"}),
+            );
             jest.runOnlyPendingTimers();
 
             // Assert
@@ -145,12 +147,14 @@ describe("graded-group", () => {
         it("should be able to hide the hint", async () => {
             // Arrange
             renderQuestion(question1);
-            await userEvent.click(screen.getByRole("button", {name: "[Hint]"}));
+            await userEvent.click(
+                screen.getByRole("button", {name: "Explain"}),
+            );
             jest.runOnlyPendingTimers();
 
             // Act
             await userEvent.click(
-                screen.getByRole("button", {name: "[Hide hint]"}),
+                screen.getByRole("button", {name: "Hide explanation"}),
             );
 
             // Assert
@@ -255,7 +259,9 @@ describe("graded-group", () => {
             renderQuestion(question1, apiOptions);
 
             // Act
-            await userEvent.click(screen.getByRole("button", {name: "Hint"}));
+            await userEvent.click(
+                screen.getByRole("button", {name: "Explain"}),
+            );
 
             // Assert
             expect(
@@ -266,11 +272,13 @@ describe("graded-group", () => {
         it("should be able to hide the hint", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
-            await userEvent.click(screen.getByRole("button", {name: "Hint"}));
+            await userEvent.click(
+                screen.getByRole("button", {name: "Explain"}),
+            );
 
             // Act
             await userEvent.click(
-                screen.getByRole("button", {name: "Hide hint"}),
+                screen.getByRole("button", {name: "Hide explanation"}),
             );
 
             // Assert
