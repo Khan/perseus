@@ -151,8 +151,8 @@ function setAtIndex<T, A extends readonly T[]>(args: {
     index: number;
     newValue: A[number];
 }): A {
-    const {array, index, newValue} = args;
-    const copy: T[] = [...(array || [])];
+    const {array = [], index, newValue} = args;
+    const copy: T[] = [...array];
     copy[index] = newValue;
     // restoring readonly to array
     return copy as unknown as A;
