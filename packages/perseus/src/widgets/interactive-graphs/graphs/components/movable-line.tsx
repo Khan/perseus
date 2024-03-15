@@ -5,6 +5,8 @@ import * as React from "react";
 import type {Interval, VectorProps} from "mafs";
 import type {SVGProps} from "react";
 
+const stroke = "var(--movable-line-stroke-color)";
+
 export const MovableLine = (props: {
     start: vec.Vector2;
     end: vec.Vector2;
@@ -68,12 +70,14 @@ export const MovableLine = (props: {
                     start={startPtPx}
                     end={endPtPx}
                     style={{
-                        stroke: "var(--movable-line-stroke-color)",
+                        stroke: stroke,
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
                     dragging={dragging}
                 />
             </g>
+
+            {/* Draw extension vectors outside of movable area */}
             {startExtend && <StyledVector tail={start} tip={startExtend} />}
             {endExtend && <StyledVector tail={end} tip={endExtend} />}
         </>
@@ -100,7 +104,7 @@ function SVGLine(props: {
 }
 
 const StyledVector = (props: VectorProps) => (
-    <Vector {...props} color="var(--movable-line-stroke-color)" />
+    <Vector {...props} color={stroke} />
 );
 
 /**
