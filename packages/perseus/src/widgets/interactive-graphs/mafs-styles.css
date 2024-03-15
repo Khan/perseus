@@ -26,7 +26,8 @@
     --movable-line-stroke-weight: 2px;
 }
 
-.MafsView .movable-line:is(:focus-visible, :hover), .movable-line-dragging {
+.MafsView .movable-line:is(:focus-visible, :hover),
+.movable-line-dragging {
     outline: none;
     --movable-line-stroke-weight: 4px;
 }
