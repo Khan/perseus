@@ -36,7 +36,6 @@
         "mafs": "https://github.com/Khan/mafs/releases/download/v0.18.1%2Bbuild-cd8b2467893342ba0b02100073fe21f93f8b1125/mafs-0.18.1.tgz"
     },
     "devDependencies": {
-        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-button": "^6.2.8",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
