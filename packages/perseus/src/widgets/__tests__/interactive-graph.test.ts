@@ -125,12 +125,12 @@ describe("mafs graphs", () => {
     });
 
     // Add types to this array as you test them
-    const graphsTypesToEnable: readonly PerseusGraphType["type"][] = [
+    const graphsTypesToEnable = [
         "segment",
         "linear",
         "linear-system",
         "ray",
-    ];
+    ] as const;
 
     const graphTypeFlags = graphsTypesToEnable.reduce((acc, type) => {
         acc[type] = true;
@@ -141,62 +141,74 @@ describe("mafs graphs", () => {
         flags: {mafs: graphTypeFlags},
     };
 
-    describe.each([
-        segmentQuestionDefaultCorrect,
-        linearQuestionWithDefaultCorrect,
-        linearSystemQuestionWithDefaultCorrect,
-        rayQuestionWithDefaultCorrect,
-    ])("graph type", (question) => {
-        it("should render", () => {
-            renderQuestion(question, apiOptions);
-        });
+    const graphQuestionRenderers: {
+        [K in (typeof graphsTypesToEnable)[number]]: PerseusRenderer;
+    } = {
+        segment: segmentQuestionDefaultCorrect,
+        linear: linearQuestionWithDefaultCorrect,
+        "linear-system": linearSystemQuestionWithDefaultCorrect,
+    };
 
-        it("should reject when has not been interacteracted with", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question, apiOptions);
-
-            // Act
-            // no action
-
-            // Assert
-            expect(renderer).toHaveInvalidInput();
-        });
-
-        it("rejects incorrect answer", async () => {
-            // Arrange
-            const {renderer, container} = renderQuestion(question, apiOptions);
-
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const movablePoints = container.querySelectorAll(
-                "circle.movable-point-hitbox",
-            );
-
-            // Act
-            await userEvent.type(movablePoints[1], "{arrowup}");
-
-            // Assert
-            await waitFor(() => {
-                expect(renderer).toHaveBeenAnsweredIncorrectly();
+    describe.each(Object.entries(graphQuestionRenderers))(
+        "graph type %s",
+        (_type, question) => {
+            it("should render", () => {
+                renderQuestion(question, apiOptions);
             });
-        });
 
-        it("accepts correct answer", async () => {
-            const {renderer, container} = renderQuestion(question, apiOptions);
+            it("should reject when has not been interacteracted with", () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, apiOptions);
 
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            const movablePoints = container.querySelectorAll(
-                "circle.movable-point-hitbox",
-            );
+                // Act
+                // no action
 
-            // Act
-            await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
-
-            // Assert
-            await waitFor(() => {
-                expect(renderer).toHaveBeenAnsweredCorrectly();
+                // Assert
+                expect(renderer).toHaveInvalidInput();
             });
-        });
-    });
+
+            it("rejects incorrect answer", async () => {
+                // Arrange
+                const {renderer, container} = renderQuestion(
+                    question,
+                    apiOptions,
+                );
+
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const movablePoints = container.querySelectorAll(
+                    "circle.movable-point-hitbox",
+                );
+
+                // Act
+                await userEvent.type(movablePoints[1], "{arrowup}");
+
+                // Assert
+                await waitFor(() => {
+                    expect(renderer).toHaveBeenAnsweredIncorrectly();
+                });
+            });
+
+            it("accepts correct answer", async () => {
+                const {renderer, container} = renderQuestion(
+                    question,
+                    apiOptions,
+                );
+
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const movablePoints = container.querySelectorAll(
+                    "circle.movable-point-hitbox",
+                );
+
+                // Act
+                await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
+
+                // Assert
+                await waitFor(() => {
+                    expect(renderer).toHaveBeenAnsweredCorrectly();
+                });
+            });
+        },
+    );
 
     describe("locked layer", () => {
         it("should render locked points", async () => {
