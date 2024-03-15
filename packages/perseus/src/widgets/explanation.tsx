@@ -109,7 +109,7 @@ class Explanation extends React.Component<Props, State> {
 
         return (
             <UniqueIDProvider
-                mockOnFirstRender={false}
+                mockOnFirstRender={true}
                 scope="explanation-widget"
             >
                 {(ids) => (
