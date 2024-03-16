@@ -1,6 +1,8 @@
 import type {InteractiveGraphAction} from "./interactive-graph-action";
 import type {
+    CollinearTuple,
     PerseusGraphTypeLinearSystem,
+    PerseusGraphTypeRay,
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../../perseus-types";
@@ -17,7 +19,10 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
     dispatch: (action: InteractiveGraphAction) => unknown;
 };
 
-export type InteractiveGraphState = SegmentGraphState | LinearGraphState;
+export type InteractiveGraphState =
+    | SegmentGraphState
+    | LinearGraphState
+    | RayGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -33,4 +38,9 @@ export type SegmentGraphState = InteractiveGraphStateCommon &
 export type LinearGraphState = InteractiveGraphStateCommon &
     Pick<PerseusGraphTypeLinearSystem, "coords"> & {
         type: "linear" | "linear-system";
+    };
+
+export type RayGraphState = InteractiveGraphStateCommon &
+    Pick<PerseusGraphTypeRay, "type"> & {
+        coords: readonly CollinearTuple[];
     };

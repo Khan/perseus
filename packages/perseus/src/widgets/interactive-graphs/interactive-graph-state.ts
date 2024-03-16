@@ -29,16 +29,16 @@ export function initializeGraphState(params: {
                 snapStep,
                 coords: getDefaultSegments({graph, step, range}),
             };
-        // Ray can also fall through into this case-- same type, same default coords
         case "linear":
         case "linear-system":
+        case "ray":
             return {
                 type: graph.type,
                 hasBeenInteractedWith: false,
                 range,
                 snapStep,
-                // A linear graph has a single tuple of points, while a linear
-                // system has two tuples of points.
+                // Linear and ray graphs have a single tuple of points, while a
+                // linear system has two tuples of points.
                 coords: getLineCoords(graph, range, step),
             };
     }
@@ -96,9 +96,9 @@ export function getGradableGraph<GraphType extends PerseusGraphType>(
                 ...initialGraph,
                 coords: state.coords,
             };
-        // RAY has the same type as below; can fall through
         // coords: CollinearTuple
         case state.type === "linear" && initialGraph.type === "linear":
+        case state.type === "ray" && initialGraph.type === "ray":
             return {
                 ...initialGraph,
                 coords: state.coords?.[0],
