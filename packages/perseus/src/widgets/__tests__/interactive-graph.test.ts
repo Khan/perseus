@@ -19,7 +19,7 @@ import {
 import {renderQuestion} from "./renderQuestion";
 
 import type {Coord} from "../../interactive2/types";
-import type {PerseusGraphType, PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
