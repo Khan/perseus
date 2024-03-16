@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.2
+
+### Patch Changes
+
+-   [#1084](https://github.com/Khan/perseus/pull/1084) [`d1294120`](https://github.com/Khan/perseus/commit/d1294120fd62d8753aa5c85b3d789a2449739481) Thanks [@nedredmond](https://github.com/nedredmond)! - Migrate `ray` interactive graph type to mafs behind feature flag
+
 ## 1.3.1
 
 ### Patch Changes
