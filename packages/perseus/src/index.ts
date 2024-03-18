@@ -94,6 +94,7 @@ export {
     getAllWidgetIds,
     getAllWidgetTypes,
     getQuestionWidgetIds,
+    QUESTION_WIDGETS,
 } from "./util/snowman-utils";
 
 /**
