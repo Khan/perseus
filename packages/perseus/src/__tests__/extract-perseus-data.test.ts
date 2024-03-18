@@ -1,11 +1,6 @@
 import {describe, it, expect} from "@jest/globals";
 
-import {
-    InputNumber,
-    Radio,
-    type PerseusItem,
-    generateTestPerseusItem,
-} from "..";
+import {InputNumber, Radio, generateTestPerseusItem} from "..";
 import {
     getAnswersFromWidgets,
     getCorrectAnswerForWidgetKey,
@@ -17,7 +12,7 @@ import {
     shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
 
-const PerseusItemWithRadioWidget: PerseusItem = {
+const PerseusItemWithRadioWidget = generateTestPerseusItem({
     question: {
         content: "Here's a radio widget: [[\u2603 radio 1]] \n\n",
         images: {},
@@ -100,7 +95,7 @@ const PerseusItemWithRadioWidget: PerseusItem = {
     _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
-};
+});
 
 const PerseusItemWithInputNumber = generateTestPerseusItem({
     question: {
