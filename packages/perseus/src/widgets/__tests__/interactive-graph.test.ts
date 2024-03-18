@@ -10,6 +10,7 @@ import {ApiOptions} from "../../perseus-api";
 import {
     questionsAndAnswers,
     segmentWithLockedPointsQuestion,
+    segmentWithLockedPointsWithColorQuestion,
     segmentQuestionDefaultCorrect,
     linearQuestionWithDefaultCorrect,
     linearSystemQuestionWithDefaultCorrect,
@@ -245,8 +246,78 @@ describe("mafs graphs", () => {
             );
 
             // Assert
-            expect(points[0]).toHaveStyle({fill: color.red, stroke: color.red});
-            expect(points[1]).toHaveStyle({fill: color.red, stroke: color.red});
+            expect(points[0]).toHaveStyle({
+                fill: color.blue,
+                stroke: color.blue,
+            });
+            expect(points[1]).toHaveStyle({
+                fill: color.blue,
+                stroke: color.blue,
+            });
         });
+    });
+});
+
+describe("locked layer", () => {
+    const apiOptions = {flags: {mafs: {segment: true}}};
+    it("should render locked points", async () => {
+        // Arrange
+        const {container} = renderQuestion(
+            segmentWithLockedPointsQuestion,
+            apiOptions,
+        );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const points = container.querySelectorAll(
+            // Filter out the interactive points' circles
+            "circle:not([class*='movable-point'])",
+        );
+
+        // Act
+
+        // Assert
+        expect(points).toHaveLength(2);
+    });
+
+    test("should render locked points with styles when color is not specified", async () => {
+        // Arrange
+        const {container} = renderQuestion(
+            segmentWithLockedPointsQuestion,
+            apiOptions,
+        );
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const points = container.querySelectorAll(
+            "circle:not([class*='movable-point'])",
+        );
+
+        // Assert
+        expect(points[0]).toHaveStyle({fill: color.blue, stroke: color.blue});
+        expect(points[1]).toHaveStyle({fill: color.blue, stroke: color.blue});
+    });
+
+    test("should render locked points with styles when color is specified", async () => {
+        // Arrange
+        const {container} = renderQuestion(
+            segmentWithLockedPointsWithColorQuestion,
+            {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+        );
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const points = container.querySelectorAll(
+            "circle:not([class*='movable-point'])",
+        );
+
+        // Assert
+        expect(points[0]).toHaveStyle({fill: color.green, stroke: color.green});
+        expect(points[1]).toHaveStyle({fill: color.green, stroke: color.green});
     });
 });

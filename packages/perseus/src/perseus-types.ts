@@ -10,7 +10,7 @@ export type Range = Interval;
 export type Size = [number, number];
 export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
 
-type StyleParams = {
+export type StyleParams = {
     fill?: string;
     stroke?: string;
 };
