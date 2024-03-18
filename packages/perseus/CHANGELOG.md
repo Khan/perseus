@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 20.4.1
+
+### Patch Changes
+
+-   [#1084](https://github.com/Khan/perseus/pull/1084) [`d1294120`](https://github.com/Khan/perseus/commit/d1294120fd62d8753aa5c85b3d789a2449739481) Thanks [@nedredmond](https://github.com/nedredmond)! - Migrate `ray` interactive graph type to mafs behind feature flag
+
+## 20.4.0
+
+### Minor Changes
+
+-   [#1080](https://github.com/Khan/perseus/pull/1080) [`512265cc`](https://github.com/Khan/perseus/commit/512265cc5ae75e2ea658255291ef75539b1c1702) Thanks [@nedredmond](https://github.com/nedredmond)! - Migrate Linear and Linear System interactive graphs behind feature flag
+
+### Patch Changes
+
+-   [#1081](https://github.com/Khan/perseus/pull/1081) [`e03e2b03`](https://github.com/Khan/perseus/commit/e03e2b03c9b799f2f900c1f74f1a7b74bd5efe1f) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in the Explanation widget that was causing SSR to error out.
+
+## 20.3.1
+
+### Patch Changes
+
+-   [#1078](https://github.com/Khan/perseus/pull/1078) [`e1706bba`](https://github.com/Khan/perseus/commit/e1706bba2e5f38493301ff401d784e8777f4e48f) Thanks [@Myranae](https://github.com/Myranae)! - Move mathjax-renderer dependency from perseus package to root
+
 ## 20.3.0
 
 ### Minor Changes

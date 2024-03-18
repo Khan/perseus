@@ -1,28 +1,17 @@
 import {normalizeCoords, normalizePoints} from "./utils";
 
+import type {InteractiveGraphState} from "./types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeSegment,
+    CollinearTuple,
+    PerseusGraphTypeRay,
+    PerseusGraphTypeLinear,
+    PerseusInteractiveGraphWidgetOptions,
+    PerseusGraphTypeLinearSystem,
 } from "../../perseus-types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
-
-export type InteractiveGraphState = SegmentGraphState;
-
-export interface SegmentGraphState extends InteractiveGraphStateCommon {
-    type: "segment";
-    segments: Segment[];
-}
-
-export interface InteractiveGraphStateCommon {
-    hasBeenInteractedWith: boolean;
-    // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
-    range: [Interval, Interval];
-    // snapStep = [xStep, yStep] in Cartesian units
-    snapStep: vec.Vector2;
-}
-
-export type Segment = [vec.Vector2, vec.Vector2];
 
 export function initializeGraphState(params: {
     range: [Interval, Interval];
@@ -38,7 +27,19 @@ export function initializeGraphState(params: {
                 hasBeenInteractedWith: false,
                 range,
                 snapStep,
-                segments: getDefaultSegments({graph, step, range}),
+                coords: getDefaultSegments({graph, step, range}),
+            };
+        case "linear":
+        case "linear-system":
+        case "ray":
+            return {
+                type: graph.type,
+                hasBeenInteractedWith: false,
+                range,
+                snapStep,
+                // Linear and ray graphs have a single tuple of points, while a
+                // linear system has two tuples of points.
+                coords: getLineCoords(graph, range, step),
             };
     }
     throw new Error("Mafs not yet implemented for graph type: " + graph.type);
@@ -48,7 +49,7 @@ const getDefaultSegments = (props: {
     graph: PerseusGraphTypeSegment;
     step: vec.Vector2;
     range: [Interval, Interval];
-}): Segment[] => {
+}): CollinearTuple[] => {
     const ys = (n?: number) => {
         switch (n) {
             case 2:
@@ -76,3 +77,60 @@ const getDefaultSegments = (props: {
         return endpoints;
     });
 };
+
+// TS v4 doesn't narrow return types, while v5 does.
+// Instead of updating to v5, using generic type to relate input and output types.
+export function getGradableGraph<GraphType extends PerseusGraphType>(
+    state: InteractiveGraphState,
+    initialGraph: GraphType,
+): GraphType {
+    if (!state.hasBeenInteractedWith) {
+        return initialGraph;
+    }
+    switch (true) {
+        // coords: Array of CollinearTuple
+        case state.type === "linear-system" &&
+            initialGraph.type === "linear-system":
+        case state.type === "segment" && initialGraph.type === "segment":
+            return {
+                ...initialGraph,
+                coords: state.coords,
+            };
+        // coords: CollinearTuple
+        case state.type === "linear" && initialGraph.type === "linear":
+        case state.type === "ray" && initialGraph.type === "ray":
+            return {
+                ...initialGraph,
+                coords: state.coords?.[0],
+            };
+    }
+    throw new Error(
+        "Mafs is not yet implemented for graph type: " + initialGraph.type,
+    );
+}
+
+const defaultLinearCoords: readonly CollinearTuple[] = [
+    [
+        [0.25, 0.75],
+        [0.75, 0.75],
+    ],
+    [
+        [0.25, 0.25],
+        [0.75, 0.25],
+    ],
+];
+
+const getLineCoords = (
+    graph:
+        | PerseusGraphTypeRay
+        | PerseusGraphTypeLinear
+        | PerseusGraphTypeLinearSystem,
+    range: PerseusInteractiveGraphWidgetOptions["range"],
+    step: PerseusInteractiveGraphWidgetOptions["step"],
+): CollinearTuple[] =>
+    // Return two lines for a linear system, one for a ray or linear
+    graph.coords ?? graph.type === "linear-system"
+        ? defaultLinearCoords.map((collinear) =>
+              normalizePoints(range, step, collinear),
+          )
+        : [normalizePoints(range, step, defaultLinearCoords[0])];

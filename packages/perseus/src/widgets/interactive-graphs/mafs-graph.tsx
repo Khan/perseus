@@ -1,18 +1,20 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
 import GraphLockedLayer from "./graph-locked-layer";
-import {SegmentGraph} from "./graphs";
+import {LinearGraph, RayGraph, SegmentGraph} from "./graphs";
 import {Grid} from "./grid";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
-import {initializeGraphState} from "./interactive-graph-state";
+import {
+    getGradableGraph,
+    initializeGraphState,
+} from "./interactive-graph-state";
 import {getLegacyGrid} from "./legacy-grid";
 
 import type {InteractiveGraphAction} from "./interactive-graph-action";
-import type {InteractiveGraphState} from "./interactive-graph-state";
-import type {InteractiveGraphProps} from "./types";
-import type {PerseusGraphType} from "../../perseus-types";
+import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
@@ -23,33 +25,19 @@ const renderGraph = (props: {
     dispatch: (action: InteractiveGraphAction) => unknown;
 }) => {
     const {state, dispatch} = props;
-    switch (state.type) {
+    const {type} = state;
+    switch (type) {
         case "segment":
             return <SegmentGraph graphState={state} dispatch={dispatch} />;
+        case "linear":
+        case "linear-system":
+            return <LinearGraph graphState={state} dispatch={dispatch} />;
+        case "ray":
+            return <RayGraph graphState={state} dispatch={dispatch} />;
+        default:
+            return new UnreachableCaseError(type);
     }
-    throw new Error(
-        "Mafs is not yet implemented for graph type: " + state.type,
-    );
 };
-
-function getGradableGraph(
-    state: InteractiveGraphState,
-    initialGraph: PerseusGraphType,
-): PerseusGraphType {
-    if (!state.hasBeenInteractedWith) {
-        return initialGraph;
-    }
-    switch (initialGraph.type) {
-        case "segment":
-            return {
-                ...initialGraph,
-                coords: state.segments,
-            };
-    }
-    throw new Error(
-        "Mafs is not yet implemented for graph type: " + initialGraph.type,
-    );
-}
 
 export const MafsGraph = React.forwardRef<
     Partial<Widget>,

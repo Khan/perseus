@@ -1,5 +1,26 @@
 # @khanacademy/perseus-editor
 
+## 5.1.4
+
+### Patch Changes
+
+-   Updated dependencies [[`d1294120`](https://github.com/Khan/perseus/commit/d1294120fd62d8753aa5c85b3d789a2449739481)]:
+    -   @khanacademy/perseus@20.4.1
+
+## 5.1.3
+
+### Patch Changes
+
+-   Updated dependencies [[`512265cc`](https://github.com/Khan/perseus/commit/512265cc5ae75e2ea658255291ef75539b1c1702), [`e03e2b03`](https://github.com/Khan/perseus/commit/e03e2b03c9b799f2f900c1f74f1a7b74bd5efe1f)]:
+    -   @khanacademy/perseus@20.4.0
+
+## 5.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`e1706bba`](https://github.com/Khan/perseus/commit/e1706bba2e5f38493301ff401d784e8777f4e48f)]:
+    -   @khanacademy/perseus@20.3.1
+
 ## 5.1.1
 
 ### Patch Changes

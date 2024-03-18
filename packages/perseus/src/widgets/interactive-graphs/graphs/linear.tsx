@@ -6,21 +6,23 @@ import {MovableLine} from "./components/movable-line";
 import {StyledMovablePoint} from "./components/movable-point";
 
 import type {InteractiveLineProps} from "./types";
-import type {MafsGraphProps, SegmentGraphState} from "../types";
+import type {MafsGraphProps, LinearGraphState} from "../types";
 import type {vec} from "mafs";
 
-type SegmentProps = MafsGraphProps<SegmentGraphState>;
+type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
-export const SegmentGraph = (props: SegmentProps) => {
+export const LinearGraph = (props: LinearGraphProps) => {
     const {dispatch} = props;
-    const {coords: segments, snapStep, range} = props.graphState;
+    const {coords: lines, snapStep, range, type} = props.graphState;
+
+    const colors = ["var(--movable-line-stroke-color)", "var(--mafs-violet)"];
 
     return (
         <>
-            {segments?.map((segment, i) => (
-                <SegmentView
+            {lines?.map((line, i) => (
+                <LineView
                     key={i}
-                    collinearPair={segment}
+                    collinearPair={line}
                     snaps={snapStep}
                     range={range}
                     onMoveLine={(delta: vec.Vector2) => {
@@ -34,33 +36,50 @@ export const SegmentGraph = (props: SegmentProps) => {
                             moveControlPoint(i, endpointIndex, destination),
                         )
                     }
-                    data-testid={"segment" + i}
+                    // "linear" or "linear-system" + index
+                    data-testid={type + i}
+                    stroke={colors[i]}
                 />
             ))}
         </>
     );
 };
 
-const SegmentView = (props: InteractiveLineProps) => {
+const LineView = (props: InteractiveLineProps & {stroke: string}) => {
     const {
-        onMoveLine: onMoveSegment,
+        onMoveLine,
+        onMovePoint,
         collinearPair: [start, end],
+        range,
+        stroke,
     } = props;
 
     return (
         <>
-            <MovableLine start={start} end={end} onMove={onMoveSegment} />
+            <MovableLine
+                start={start}
+                end={end}
+                onMove={onMoveLine}
+                extend={{
+                    start: true,
+                    end: true,
+                    range,
+                }}
+                stroke={stroke}
+            />
             <StyledMovablePoint
                 point={start}
                 onMove={(newPoint) => {
-                    props.onMovePoint(0, newPoint);
+                    onMovePoint(0, newPoint);
                 }}
+                color={stroke}
             />
             <StyledMovablePoint
                 point={end}
                 onMove={(newPoint) => {
-                    props.onMovePoint(1, newPoint);
+                    onMovePoint(1, newPoint);
                 }}
+                color={stroke}
             />
         </>
     );

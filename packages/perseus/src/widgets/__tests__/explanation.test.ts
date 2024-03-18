@@ -191,6 +191,24 @@ describe("Explanation", function () {
         );
     });
 
+    it("does NOT use transitions when matchMedia is not available", async () => {
+        // e.g. during SSR in webapp
+        const fakeWindow = Object.create(window);
+        fakeWindow.matchMedia = undefined;
+        jest.spyOn(window, "window", "get").mockReturnValue(fakeWindow as any);
+        renderQuestion(question1);
+
+        // Act - expand
+        await userEvent.click(
+            screen.getByRole("button", {name: "Explanation"}),
+        );
+
+        // Assert - don't transition when revealing
+        expect(screen.getByTestId("content-container").className).not.toContain(
+            "transitionExpanded",
+        );
+    });
+
     it("does NOT use transitions when the user prefers reduced motion", async () => {
         // Arrange
         jest.spyOn(window, "matchMedia").mockImplementation(
@@ -206,7 +224,7 @@ describe("Explanation", function () {
             screen.getByRole("button", {name: "Explanation"}),
         );
 
-        // Assert - transition when revealing
+        // Assert - don't transition when revealing
         expect(screen.getByTestId("content-container").className).not.toContain(
             "transitionExpanded",
         );
@@ -216,7 +234,7 @@ describe("Explanation", function () {
             screen.getByRole("button", {name: "Hide explanation!"}),
         );
 
-        // Assert - transition when concealing
+        // Assert - don't transition when concealing
         expect(screen.getByTestId("content-container").className).not.toContain(
             "transitionCollapsed",
         );

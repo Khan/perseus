@@ -99,7 +99,9 @@ export function Gallery() {
                 <MultiSelect onChange={setMafsFlags} selectedValues={mafsFlags}>
                     <OptionItem value="segment" label="Segment" />
                     <OptionItem value="linear" label="Linear" />
+                    <OptionItem value="linear-system" label="Linear System" />
                     <OptionItem value="point" label="Point" />
+                    <OptionItem value="ray" label="Ray" />
                 </MultiSelect>
                 <Strut size={Spacing.medium_16} />
                 <nav>
