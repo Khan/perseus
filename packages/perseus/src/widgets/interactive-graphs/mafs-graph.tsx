@@ -19,6 +19,7 @@ import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {PerseusGraphType} from "@khanacademy/perseus";
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
@@ -37,8 +38,12 @@ const renderGraph = (props: {
     }
 };
 
+export interface HasUserInput {
+    getUserInput(): PerseusGraphType
+}
+
 export const MafsGraph = React.forwardRef<
-    Partial<Widget>,
+    HasUserInput,
     React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
 >((props, ref) => {
     const [width, height] = props.box;

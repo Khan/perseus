@@ -50,6 +50,7 @@ import type {
     SineCoefficient,
     Range,
 } from "../util/geometry";
+import {HasUserInput} from "./interactive-graphs/mafs-graph";
 
 const {DeprecationMixin} = Util;
 
@@ -244,7 +245,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     }
 
-    _getShouldShowInstructions: (arg1?: Props | null | undefined) => boolean = (
+    private _getShouldShowInstructions: (arg1?: Props | null | undefined) => boolean = (
         props,
     ) => {
         props = props || this.props;
@@ -257,12 +258,12 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
     deprecatedProps: any = deprecatedProps;
 
-    setGraphie: (arg1: any) => void = (newGraphie) => {
+    private setGraphie: (arg1: any) => void = (newGraphie) => {
         this.graphie = newGraphie;
         this.setupGraphie();
     };
 
-    handleAddPointsMouseDown: (arg1: Coord) => void = (coord) => {
+    private handleAddPointsMouseDown: (arg1: Coord) => void = (coord) => {
         // This function should only be called when this.isClickToAddPoints()
         // is true
         if (!this.isClickToAddPoints()) {
@@ -316,7 +317,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     };
 
-    resetGraphie: () => void = () => {
+    private resetGraphie: () => void = () => {
         this.shouldResetGraphie = false;
         this.parabola = null;
         this.sinusoid = null;
@@ -325,7 +326,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.refs.graph?.reset();
     };
 
-    setupGraphie: () => void = () => {
+    private setupGraphie: () => void = () => {
         this.setTrashCanVisibility(0);
         if (this.isClickToAddPoints()) {
             this.setTrashCanVisibility(0.5);
@@ -385,7 +386,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     };
 
-    setTrashCanVisibility: (arg1: number) => void = (opacity) => {
+    private setTrashCanVisibility: (arg1: number) => void = (opacity) => {
         const graphie = this.graphie;
 
         if (knumber.equal(opacity, 0)) {
@@ -411,14 +412,14 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     };
 
-    isClickToAddPoints: (arg1?: Props | null | undefined) => boolean = (
+    private isClickToAddPoints: (arg1?: Props | null | undefined) => boolean = (
         props,
     ) => {
         props = props || this.props;
         return _isClickToAddPoints(props);
     };
 
-    areAngleGraphsEqual(
+    private areAngleGraphsEqual(
         prevGraph: PerseusGraphTypeAngle,
         currentGraph: PerseusGraphTypeAngle,
     ): boolean {
@@ -429,14 +430,14 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         );
     }
 
-    arePointGraphsEqual(
+    private arePointGraphsEqual(
         prevGraph: PerseusGraphTypePoint,
         currentGraph: PerseusGraphTypePoint,
     ): boolean {
         return prevGraph.numPoints !== currentGraph.numPoints;
     }
 
-    arePolygonGraphsEqual(
+    private arePolygonGraphsEqual(
         prevGraph: PerseusGraphTypePolygon,
         currentGraph: PerseusGraphTypePolygon,
     ): boolean {
@@ -448,14 +449,14 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         );
     }
 
-    areSegmentGraphsEqual(
+    private areSegmentGraphsEqual(
         prevGraph: PerseusGraphTypeSegment,
         currentGraph: PerseusGraphTypeSegment,
     ): boolean {
         return prevGraph.numSegments !== currentGraph.numSegments;
     }
 
-    _lineStroke: () => {
+    private _lineStroke: () => {
         ["stroke-width"]?: number;
     } = () => {
         // This should probably use: this.props.apiOptions.isMobile
@@ -463,7 +464,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return this.props.isMobile ? {"stroke-width": 3} : {};
     };
 
-    addLine: (arg1: string) => void = (type) => {
+    private addLine: (arg1: string) => void = (type) => {
         const self = this;
         const graphie = self.graphie;
         const coords = InteractiveGraph.getLineCoords(
@@ -517,20 +518,20 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         });
     };
 
-    removeLine: () => void = () => {
+    private removeLine: () => void = () => {
         _.invoke(this.points, "remove");
         this.line?.remove();
     };
 
-    addLinearControls: () => void = () => {
+    private addLinearControls: () => void = () => {
         this.addLine("line");
     };
 
-    removeLinearControls: () => void = () => {
+    private removeLinearControls: () => void = () => {
         this.removeLine();
     };
 
-    addQuadraticControls: () => void = () => {
+    private addQuadraticControls: () => void = () => {
         if (this.props.graph.type !== "quadratic") {
             throw makeInvalidTypeError("addQuadraticControls", "quadratic");
         }
@@ -618,7 +619,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.updateQuadratic();
     };
 
-    updateQuadratic: () => void = () => {
+    private updateQuadratic: () => void = () => {
         const coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(
             this.props,
         );
@@ -647,7 +648,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     };
 
-    removeQuadraticControls: () => void = () => {
+    private removeQuadraticControls: () => void = () => {
         this.pointA?.remove();
         this.pointB?.remove();
         this.pointC?.remove();
@@ -657,7 +658,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     };
 
-    addSinusoidControls: () => void = () => {
+    private addSinusoidControls: () => void = () => {
         if (this.props.graph.type !== "sinusoid") {
             throw makeInvalidTypeError("addSinusoidControls", "sinusoid");
         }
@@ -710,7 +711,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.updateSinusoid();
     };
 
-    updateSinusoid: () => void = () => {
+    private updateSinusoid: () => void = () => {
         const coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
             this.props,
         );
@@ -739,7 +740,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     };
 
-    removeSinusoidControls: () => void = () => {
+    private removeSinusoidControls: () => void = () => {
         this.pointA?.remove();
         this.pointB?.remove();
         if (this.sinusoid) {
@@ -748,7 +749,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     };
 
-    addCircleControls: () => void = () => {
+    private addCircleControls: () => void = () => {
         const graphie = this.graphie;
         const minSnap = _.min(graphie.snap);
 
@@ -772,11 +773,11 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         });
     };
 
-    removeCircleControls: () => void = () => {
+    private removeCircleControls: () => void = () => {
         this.circle?.remove();
     };
 
-    addLinearSystemControls: () => void = () => {
+    private addLinearSystemControls: () => void = () => {
         const graphie = this.graphie;
         const coords = InteractiveGraph.getLinearSystemCoords(
             this.props.graph,
@@ -848,13 +849,13 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         });
     };
 
-    removeLinearSystemControls: () => void = () => {
+    private removeLinearSystemControls: () => void = () => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly (readonly Coord[])[] | null | undefined' is not assignable to parameter of type 'Collection<any>'.
         _.invoke(this.lines, "remove");
         _.map(this.points, (segment) => _.invoke(segment, "remove"));
     };
 
-    isCoordInTrash: (arg1: Coord) => boolean = (coord) => {
+    private isCoordInTrash: (arg1: Coord) => boolean = (coord) => {
         if (this.props.apiOptions.isMobile) {
             return false;
         }
@@ -867,7 +868,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         );
     };
 
-    createPointForPointsType: (arg1: Coord, arg2: number) => any = (
+    private createPointForPointsType: (arg1: Coord, arg2: number) => any = (
         coord,
         i,
     ) => {
@@ -932,7 +933,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return point;
     };
 
-    removePoint: (arg1: Coord) => number | null | undefined = (point) => {
+    private removePoint: (arg1: Coord) => number | null | undefined = (point) => {
         let index = null;
         this.points = _.filter(this.points, function (pt, i) {
             if (pt === point) {
@@ -945,7 +946,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return index;
     };
 
-    createPointForPolygonType: (arg1: Coord, arg2: number) => any = (
+    private createPointForPolygonType: (arg1: Coord, arg2: number) => any = (
         coord,
         i,
     ) => {
@@ -1294,7 +1295,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return point;
     };
 
-    updateCoordsFromPoints: () => void = () => {
+    private updateCoordsFromPoints: () => void = () => {
         const graph = _.extend({}, this.props.graph, {
             // Handle old movable points with .coord, or
             // Interactive2.MovablePoint's with .coord()
@@ -1305,7 +1306,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.onChange({graph: graph});
     };
 
-    clearCoords: () => void = () => {
+    private clearCoords: () => void = () => {
         const graph = _.extend({}, this.props.graph, {
             coords: null,
         });
@@ -1317,7 +1318,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    addPointControls: () => void = () => {
+    private addPointControls: () => void = () => {
         if (this.props.graph.type !== "point") {
             throw makeInvalidTypeError("addPointControls", "point");
         }
@@ -1339,11 +1340,11 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.points = _.map(coords, this.createPointForPointsType, this);
     };
 
-    removePointControls: () => void = () => {
+    private removePointControls: () => void = () => {
         _.invoke(this.points, "remove");
     };
 
-    addSegmentControls: () => void = () => {
+    private addSegmentControls: () => void = () => {
         if (this.props.graph.type !== "segment") {
             throw makeInvalidTypeError("addSegmentControls", "segment");
         }
@@ -1449,21 +1450,21 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         );
     };
 
-    removeSegmentControls: () => void = () => {
+    private removeSegmentControls: () => void = () => {
         _.invoke(this.points, "remove");
         // @ts-expect-error - TS2345 - Argument of type 'readonly (readonly Coord[])[] | null | undefined' is not assignable to parameter of type 'Collection<any>'.
         _.invoke(this.lines, "remove");
     };
 
-    addRayControls: () => void = () => {
+    private addRayControls: () => void = () => {
         this.addLine("ray");
     };
 
-    removeRayControls: () => void = () => {
+    private removeRayControls: () => void = () => {
         this.removeLine();
     };
 
-    addPolygonControls: () => void = () => {
+    private addPolygonControls: () => void = () => {
         this.polygon = null;
         const coords = InteractiveGraph.getPolygonCoords(
             this.props.graph,
@@ -1476,7 +1477,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.updatePolygon();
     };
 
-    updatePolygon: () => void = () => {
+    private updatePolygon: () => void = () => {
         if (this.props.graph.type !== "polygon") {
             throw makeInvalidTypeError("updatePolygon", "polygon");
         }
@@ -1606,12 +1607,12 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     };
 
-    removePolygonControls: () => void = () => {
+    private removePolygonControls: () => void = () => {
         _.invoke(this.points, "remove");
         this.polygon?.remove();
     };
 
-    addAngleControls: () => void = () => {
+    private addAngleControls: () => void = () => {
         if (this.props.graph.type !== "angle") {
             throw makeInvalidTypeError("addAngleControls", "angle");
         }
@@ -1662,12 +1663,12 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         });
     };
 
-    removeAngleControls: () => void = () => {
+    private removeAngleControls: () => void = () => {
         _.invoke(this.points, "remove");
         this.angle?.remove();
     };
 
-    toggleShowSides: () => void = () => {
+    private toggleShowSides: () => void = () => {
         if (this.props.graph.type !== "polygon") {
             throw makeInvalidTypeError("toggleShowSides", "polygon");
         }
@@ -1685,8 +1686,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
     focus: () => void = $.noop;
 
-    // const segment: boolean = useFeatureIsOn("mafs-segment-graph");
-    // <Renderer apiOptions={{flags: {mafs: {segment}}}}
     render(): React.ReactNode {
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
@@ -1763,7 +1762,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
 class InteractiveGraph extends React.Component<Props, State> {
     legacyGraphRef = React.createRef<LegacyInteractiveGraph>();
-    mafsRef = React.createRef<Widget>();
+    mafsRef = React.createRef<HasUserInput>();
 
     static defaultProps: DefaultProps = {
         labels: ["x", "y"],
@@ -1784,9 +1783,18 @@ class InteractiveGraph extends React.Component<Props, State> {
         },
     };
 
-    getUserInput(): PerseusGraphType {
-        return (this.mafsRef.current || this.legacyGraphRef.current)?.getUserInput?.();
+    getUserInput: () => PerseusGraphType = () => {
+        if (this.mafsRef.current) {
+            return this.mafsRef.current.getUserInput()
+        }
+        if (this.legacyGraphRef.current) {
+            return this.legacyGraphRef.current.getUserInput()
+        }
+        throw new PerseusError("Cannot getUserInput from a graph that has never rendered", Errors.NotAllowed)
     }
+
+    simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
+        InteractiveGraph.validate(this.getUserInput(), rubric, this);
 
     render() {
         // Mafs shim
