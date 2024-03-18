@@ -1,12 +1,26 @@
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Point} from "mafs";
 import * as React from "react";
 
-import type {LockedFigure} from "../../perseus-types";
+import type {LockedFigure, StyleParams} from "../../perseus-types";
 
 type Props = {
     lockedFigures: ReadonlyArray<LockedFigure>;
 };
+
+/**
+ * Takes a style object with color names and converts them to actual
+ * Wonder Blocks color values. This way, we can use colors and their
+ * names in the editor UI without having to convert them back and forth.
+ */
+function convertStyle(style?: StyleParams): StyleParams {
+    return {
+        ...style,
+        stroke: color[style?.stroke || "blue"],
+        fill: color[style?.fill || "blue"],
+    };
+}
 
 const GraphLockedLayer = (props: Props) => {
     const {lockedFigures} = props;
@@ -21,7 +35,9 @@ const GraphLockedLayer = (props: Props) => {
                                 key={`${figure.type}-${index}`}
                                 x={x}
                                 y={y}
-                                svgCircleProps={{style: figure.style}}
+                                svgCircleProps={{
+                                    style: convertStyle(figure.style),
+                                }}
                             />
                         );
                 }

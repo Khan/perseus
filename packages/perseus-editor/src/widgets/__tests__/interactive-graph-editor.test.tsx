@@ -627,5 +627,46 @@ describe("InteractiveGraphEditor", () => {
                 name: "Delete locked point at 0, 0",
             }),
         ).toBeInTheDocument();
+        expect(screen.getByText("Color")).toBeInTheDocument();
+    });
+
+    test("Calls onChange when a locked figure's color is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                onChange={onChangeMock}
+                lockedFigures={[{type: "point", coord: [0, 0]}]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const colorInput = screen.getByRole("button", {
+            name: "Color",
+        });
+        await userEvent.click(colorInput);
+        const colorSelection = screen.getByText("purple");
+        await userEvent.click(colorSelection);
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith(
+            expect.objectContaining({
+                lockedFigures: [
+                    expect.objectContaining({
+                        type: "point",
+                        coord: [0, 0],
+                        style: {
+                            stroke: "purple",
+                            fill: "purple",
+                        },
+                    }),
+                ],
+            }),
+        );
     });
 });

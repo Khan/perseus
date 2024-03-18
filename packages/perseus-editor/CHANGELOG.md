@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 5.2.0
+
+### Minor Changes
+
+-   [#1077](https://github.com/Khan/perseus/pull/1077) [`ab00539f`](https://github.com/Khan/perseus/commit/ab00539f8d9514dff92ba1abe179100038fd79d4) Thanks [@nishasy](https://github.com/nishasy)! - Add UI for adjusting the color of a locked point
+
+### Patch Changes
+
+-   Updated dependencies [[`ab00539f`](https://github.com/Khan/perseus/commit/ab00539f8d9514dff92ba1abe179100038fd79d4)]:
+    -   @khanacademy/perseus@20.5.0
+
 ## 5.1.4
 
 ### Patch Changes
