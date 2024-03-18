@@ -57,11 +57,12 @@ const QUESTION_WIDGETS = [
 export const widgetRegex = /\[\[☃ ([^\]]+)\]\]/g;
 
 // Regex for widget placeholders in a string. Ex. 'radio'
-// Widget types are identified using capture groups. ____________> Potentially not used
+// Widget types are identified using capture groups.
 const widgetTypeRegex = /\[\[☃ ([a-z]+) +\d+\]\]/g;
 
 /**
  * Add a widget placeholder using the provided widget type and instance number.
+ * ex. addWidget(WidgetType.Radio, 1) => "[[☃ radio 1]]"
  *
  * @param {WidgetType} widgetType
  * @param {number} instance
@@ -71,11 +72,11 @@ export const addWidget = (widgetType: WidgetType, instance: number): string => {
     return `[[☃ ${widgetType} ${String(instance)}]]`;
 };
 
-// from conversion.ts - used twice there.
 /**
  * Extract all widget IDs, which includes the widget type and instance number.
- * ex. ['radio 1', 'categorizer 1', 'categorizor 2']
- * Content may contain Perseus widget placeholders,
+ * example output: ['radio 1', 'categorizer 1', 'categorizor 2']
+ *
+ * Content should contain Perseus widget placeholders,
  * which look like: '[[☃ radio 1]]'.
  *
  * @param {string} content
@@ -100,7 +101,8 @@ export function getAllWidgetIds(content: string): Array<string> {
 
 /**
  * Extract all widget types from a Perseus JSON content string.
- * This does not include the instance number. ex. ['radio', 'categorizer']
+ * This does not include the instance number and prevents duplicates.
+ * example output: ['radio', 'categorizer']
  *
  * @param {string} content
  * @returns {Array<string>}
@@ -134,6 +136,7 @@ const isQuestionWidgetType = (widgetId: string): boolean => {
 /**
  * Extract the widget IDs of all widgets considered question widgets. Widget IDs
  * include widget type and instance number.
+ * example output: ['radio 1', 'categorizer 1']
  *
  * Content should contain Perseus widget placeholders,
  * which look like: '[[☃ radio 1]]'.
