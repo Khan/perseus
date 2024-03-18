@@ -27,7 +27,7 @@ describe("getWidgetNamesFromContent", () => {
 });
 
 describe("getAllWidgetIds", () => {
-    it("returns all widget names present in a string", () => {
+    it("returns all widget Ids present in a string", () => {
         const content =
             "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
         const actual = getAllWidgetIds(content);
