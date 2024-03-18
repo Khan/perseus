@@ -33,7 +33,7 @@ export const LinearGraph = (props: LinearGraphProps) => {
                         destination: vec.Vector2,
                     ) =>
                         dispatch(
-                            moveControlPoint(i, endpointIndex, destination),
+                            moveControlPoint(endpointIndex, destination, i),
                         )
                     }
                     // "linear" or "linear-system" + index

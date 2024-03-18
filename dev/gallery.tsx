@@ -102,6 +102,7 @@ export function Gallery() {
                     <OptionItem value="linear-system" label="Linear System" />
                     <OptionItem value="point" label="Point" />
                     <OptionItem value="ray" label="Ray" />
+                    <OptionItem value="polygon" label="Polygon" />
                 </MultiSelect>
                 <Strut size={Spacing.medium_16} />
                 <nav>

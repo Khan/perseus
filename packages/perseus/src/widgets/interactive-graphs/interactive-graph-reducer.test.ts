@@ -28,7 +28,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [5, 6]),
+            moveControlPoint(0, [5, 6], 0),
         );
 
         expect(updated.coords?.[0]).toEqual([
@@ -50,7 +50,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [5, 6]),
+            moveControlPoint(0, [5, 6], 0),
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
@@ -69,7 +69,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [2, 2]),
+            moveControlPoint(0, [2, 2], 0),
         );
 
         // Assert: the move was canceled
@@ -93,7 +93,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [1.5, 6.6]),
+            moveControlPoint(0, [1.5, 6.6], 0),
         );
 
         // Assert: x snaps to the nearest whole number; y snaps to the nearest
@@ -119,7 +119,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [99, 99]),
+            moveControlPoint(0, [99, 99], 0),
         );
 
         expect(updated.coords?.[0][0]).toEqual([4.5, 7.5]);

@@ -11,23 +11,49 @@ import {
 import type {InteractiveGraphState} from "./types";
 import type {CollinearTuple} from "../../perseus-types";
 
-export function interactiveGraphReducer(
-    state: Readonly<InteractiveGraphState>,
-    action: InteractiveGraphAction,
-): InteractiveGraphState {
+/** Determine if coords is type CollinearTuple[] */
+const isCollinearTuples = (
+    coords: readonly CollinearTuple[] | readonly vec.Vector2[],
+): coords is readonly CollinearTuple[] => Array.isArray(coords[0][0]);
+
+// Generic type makes returned state match input state
+export function interactiveGraphReducer<
+    GraphState extends InteractiveGraphState,
+>(state: Readonly<GraphState>, action: InteractiveGraphAction): GraphState {
+    if (!state.coords) {
+        throw new Error("Graph state must have been initialized with coords");
+    }
     switch (action.type) {
         case MOVE_CONTROL_POINT: {
-            const newCoords = updateAtIndex({
-                array: state.coords,
-                index: action.objectIndex,
-                update: (tuple) =>
-                    setAtIndex({
-                        array: tuple,
-                        index: action.pointIndex,
-                        newValue: snap(state, bound(state, action.destination)),
-                    }),
-            });
-            if (!validSegments(newCoords)) {
+            const newCoords =
+                action.objectIndex &&
+                state.coords &&
+                isCollinearTuples(state.coords)
+                    ? updateAtIndex({
+                          array: state.coords,
+                          index: action.objectIndex,
+                          update: (tuple) =>
+                              setAtIndex({
+                                  array: tuple,
+                                  index: action.pointIndex,
+                                  newValue: snap(
+                                      state,
+                                      bound(state, action.destination),
+                                  ),
+                              }),
+                      })
+                    : setAtIndex({
+                          array: state.coords,
+                          index: action.pointIndex,
+                          newValue: snap(
+                              state,
+                              bound(state, action.destination),
+                          ),
+                      });
+            if (
+                isCollinearTuples(newCoords) &&
+                !validCollinearTuples(newCoords)
+            ) {
                 return state;
             }
             return {
@@ -37,6 +63,11 @@ export function interactiveGraphReducer(
             };
         }
         case MOVE_LINE: {
+            if (!isCollinearTuples(state.coords)) {
+                throw new Error(
+                    "Cannot call this action unless coords is array of CollinearTuple.",
+                );
+            }
             const currentLine = state.coords?.[action.lineIndex];
             if (!currentLine) {
                 throw new Error("No line to move");
@@ -59,7 +90,10 @@ export function interactiveGraphReducer(
                 snap(state, vec.add(currentLine[1], [dx, dy])),
             ];
 
-            const newLine = setAtIndex({
+            const newLine = setAtIndex<
+                CollinearTuple,
+                readonly CollinearTuple[]
+            >({
                 array: state.coords,
                 index: action.lineIndex,
                 newValue,
@@ -132,8 +166,8 @@ function clamp(value: number, min: number, max: number) {
     return value;
 }
 
-function validSegments(segments: readonly CollinearTuple[]): boolean {
-    return segments.every(([start, end]) => !kvector.equal(start, end));
+function validCollinearTuples(tuples: readonly CollinearTuple[]): boolean {
+    return tuples.every(([start, end]) => !kvector.equal(start, end));
 }
 
 function updateAtIndex<T>(args: {

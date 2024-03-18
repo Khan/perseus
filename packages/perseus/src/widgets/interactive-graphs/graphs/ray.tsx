@@ -20,7 +20,7 @@ export const RayGraph = (props: Props) => {
     const handleMoveLine = (delta: vec.Vector2) =>
         dispatch(moveSegment(0, delta));
     const handleMovePoint = (newPoint: vec.Vector2, pointIndex: number) =>
-        dispatch(moveControlPoint(0, pointIndex, newPoint));
+        dispatch(moveControlPoint(pointIndex, newPoint, 0));
 
     return (
         <>
