@@ -6,7 +6,7 @@ import {
     getAllWidgetTypes,
 } from "./snowman-utils";
 
-describe("getWidgetTypes", () => {
+describe("getAllWidgetTypes", () => {
     it("returns all widget types present in a string with no duplicates", () => {
         const content =
             "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
@@ -16,26 +16,8 @@ describe("getWidgetTypes", () => {
     });
 });
 
-describe("getWidgetNamesFromContent", () => {
-    it("returns all widget names present in a string", () => {
-        const content =
-            "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
-        const actual = getAllWidgetIds(content);
-        const expected = ["passage 3", "group 1", "group 12"];
-        expect(actual).toEqual(expected);
-    });
-});
-
 describe("getAllWidgetIds", () => {
     it("returns all widget Ids present in a string", () => {
-        const content =
-            "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
-        const actual = getAllWidgetIds(content);
-        const expected = ["passage 3", "group 1", "group 12"];
-        expect(actual).toEqual(expected);
-    });
-
-    it("returns all widget types present in a string without duplicates", () => {
         const content =
             "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
         const actual = getAllWidgetIds(content);
