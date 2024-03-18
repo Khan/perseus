@@ -1789,16 +1789,17 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     render() {
-        const box = getInteractiveBoxFromSizeClass(
-            this.props.containerSizeClass,
-        );
-        const gridStep =
-            this.props.gridStep ||
-            Util.getGridStep(this.props.range, this.props.step, box[0]);
-        const snapStep =
-            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
         // Mafs shim
         if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
+            const box = getInteractiveBoxFromSizeClass(
+                this.props.containerSizeClass,
+            );
+            const gridStep =
+                this.props.gridStep ||
+                Util.getGridStep(this.props.range, this.props.step, box[0]);
+            const snapStep =
+                this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+
             return (
                 <MafsGraph
                     {...this.props}
