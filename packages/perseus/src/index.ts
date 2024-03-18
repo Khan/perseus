@@ -88,6 +88,10 @@ export {
     generateTestPerseusItem,
     genericPerseusItemData,
 } from "./util/test-utils";
+export {
+    convertWidgetNameToEnum,
+    getWidgetTypeFromWidgetId,
+} from "./util/widget-enum-utils";
 
 /**
  * Mixins
