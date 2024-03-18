@@ -16,10 +16,10 @@ import {getLegacyGrid} from "./legacy-grid";
 import type {InteractiveGraphAction} from "./interactive-graph-action";
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {Widget} from "../../renderer";
+import type {PerseusGraphType} from "@khanacademy/perseus";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {PerseusGraphType} from "@khanacademy/perseus";
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
@@ -39,7 +39,7 @@ const renderGraph = (props: {
 };
 
 export interface HasUserInput {
-    getUserInput(): PerseusGraphType
+    getUserInput(): PerseusGraphType;
 }
 
 export const MafsGraph = React.forwardRef<

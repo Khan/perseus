@@ -34,6 +34,7 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {MafsGraph} from "./interactive-graphs";
 
+import type {HasUserInput} from "./interactive-graphs/mafs-graph";
 import type {Coord} from "../interactive2/types";
 import type {
     PerseusGraphType,
@@ -50,7 +51,6 @@ import type {
     SineCoefficient,
     Range,
 } from "../util/geometry";
-import {HasUserInput} from "./interactive-graphs/mafs-graph";
 
 const {DeprecationMixin} = Util;
 
@@ -1787,13 +1787,16 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     getUserInput: () => PerseusGraphType = () => {
         if (this.mafsRef.current) {
-            return this.mafsRef.current.getUserInput()
+            return this.mafsRef.current.getUserInput();
         }
         if (this.legacyGraphRef.current) {
-            return this.legacyGraphRef.current.getUserInput()
+            return this.legacyGraphRef.current.getUserInput();
         }
-        throw new PerseusError("Cannot getUserInput from a graph that has never rendered", Errors.NotAllowed)
-    }
+        throw new PerseusError(
+            "Cannot getUserInput from a graph that has never rendered",
+            Errors.NotAllowed,
+        );
+    };
 
     simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
         InteractiveGraph.validate(this.getUserInput(), rubric, this);
