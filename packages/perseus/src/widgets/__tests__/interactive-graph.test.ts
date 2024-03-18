@@ -246,8 +246,14 @@ describe("mafs graphs", () => {
             );
 
             // Assert
-            expect(points[0]).toHaveStyle({fill: color.red, stroke: color.red});
-            expect(points[1]).toHaveStyle({fill: color.red, stroke: color.red});
+            expect(points[0]).toHaveStyle({
+                fill: color.blue,
+                stroke: color.blue,
+            });
+            expect(points[1]).toHaveStyle({
+                fill: color.blue,
+                stroke: color.blue,
+            });
         });
     });
 });
