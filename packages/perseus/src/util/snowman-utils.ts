@@ -83,7 +83,7 @@ export const addWidget = (widgetType: WidgetType, instance: number): string => {
  * which look like: '[[☃ radio 1]]'.
  *
  * @param {string} content
- * @returns {Array<string>} widgets
+ * @returns {Array<widgetId>} widgets
  */
 export function getAllWidgetIds(content: string): Array<widgetId> {
     const widgets: Array<widgetId> = [];
@@ -108,7 +108,7 @@ export function getAllWidgetIds(content: string): Array<widgetId> {
  * example output: ['radio', 'categorizer']
  *
  * @param {string} content
- * @returns {Array<string>}
+ * @returns {Array<widgetId>}
  */
 export function getAllWidgetTypes(content: string): Array<widgetId> {
     const widgetTypes: Array<widgetId> = [];
@@ -129,7 +129,7 @@ export function getAllWidgetTypes(content: string): Array<widgetId> {
  * Check if a specific widget is a question widget type using its ID.
  * The widget ID includes the widget type and the instance number.
  *
- * @param {string} widgetId
+ * @param {widgetId} widgetId
  * @returns {boolean}
  */
 const isQuestionWidgetType = (widgetId: widgetId): boolean => {
@@ -148,7 +148,7 @@ const isQuestionWidgetType = (widgetId: widgetId): boolean => {
  * which look like: '[[☃ radio 1]]'.
  *
  * @param {string} content
- * @returns Array<string>
+ * @returns Array<widgetId>
  */
 export function getQuestionWidgetIds(content: string): Array<widgetId> {
     return getAllWidgetIds(content).filter(isQuestionWidgetType);
