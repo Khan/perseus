@@ -34,7 +34,6 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {MafsGraph} from "./interactive-graphs";
 
-import type {HasUserInput} from "./interactive-graphs/mafs-graph";
 import type {Coord} from "../interactive2/types";
 import type {
     PerseusGraphType,
@@ -1762,7 +1761,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
 class InteractiveGraph extends React.Component<Props, State> {
     legacyGraphRef = React.createRef<LegacyInteractiveGraph>();
-    mafsRef = React.createRef<HasUserInput>();
+    mafsRef = React.createRef<Widget>();
 
     static defaultProps: DefaultProps = {
         labels: ["x", "y"],
@@ -1783,9 +1782,9 @@ class InteractiveGraph extends React.Component<Props, State> {
         },
     };
 
-    getUserInput: () => PerseusGraphType = () => {
+    getUserInput: Widget["getUserInput"] = () => {
         if (this.mafsRef.current) {
-            return this.mafsRef.current.getUserInput();
+            return this.mafsRef.current.getUserInput?.();
         }
         if (this.legacyGraphRef.current) {
             return this.legacyGraphRef.current.getUserInput();
@@ -1797,7 +1796,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     };
 
     simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
-        InteractiveGraph.validate(this.getUserInput(), rubric, this);
+        InteractiveGraph.validate(this.getUserInput?.(), rubric, this);
 
     render() {
         // Mafs shim
