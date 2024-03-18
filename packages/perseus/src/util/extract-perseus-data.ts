@@ -621,7 +621,11 @@ export const isWidgetKeyInContent = (
 
 /* This function allows us to return all widget keys that exist in the content of the perseus item */
 export const getValidWidgetKeys = (perseusItem: PerseusItem): Array<string> => {
-    return Object.keys(perseusItem.question.widgets);
+    const {widgets, content} = perseusItem.question;
+    return keys(widgets).filter(
+        // keys for the widget object are strings
+        (key) => content.indexOf(key as string) !== -1,
+    );
 };
 
 export {getAnswersFromWidgets, injectWidgets};
