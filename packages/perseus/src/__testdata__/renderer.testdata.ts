@@ -4,7 +4,7 @@ import type {
     InputNumberWidget,
     PerseusRenderer,
 } from "../perseus-types";
-import type {RenderProps} from "../widgets/radio/widget";
+import type {RenderProps} from "../widgets/radio/radio";
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",
