@@ -38,6 +38,8 @@ export enum WidgetType {
     VideoTranscriptLink = "video-transcript-link",
 }
 
+export type widgetId = `${WidgetType} ${number}`;
+
 const QUESTION_WIDGETS = [
     "numeric-input",
     "input-number",
@@ -82,13 +84,13 @@ export const addWidget = (widgetType: WidgetType, instance: number): string => {
  * @param {string} content
  * @returns {Array<string>} widgets
  */
-export function getAllWidgetIds(content: string): Array<string> {
-    const widgets: Array<string> = [];
+export function getAllWidgetIds(content: string): Array<widgetId> {
+    const widgets: Array<widgetId> = [];
 
     let match = widgetRegex.exec(content);
 
     while (match !== null) {
-        widgets.push(match[1]);
+        widgets.push(match[1] as widgetId);
         match = widgetRegex.exec(content);
     }
 
@@ -107,15 +109,15 @@ export function getAllWidgetIds(content: string): Array<string> {
  * @param {string} content
  * @returns {Array<string>}
  */
-export function getAllWidgetTypes(content: string): Array<string> {
-    const widgetTypes: Array<string> = [];
+export function getAllWidgetTypes(content: string): Array<widgetId> {
+    const widgetTypes: Array<widgetId> = [];
 
     let match = widgetTypeRegex.exec(content);
 
     while (match !== null) {
         // Might need to take this check out and just list them all
-        if (!widgetTypes.includes(match[1])) {
-            widgetTypes.push(match[1]);
+        if (!widgetTypes.includes(match[1] as widgetId)) {
+            widgetTypes.push(match[1] as widgetId);
         }
         match = widgetTypeRegex.exec(content);
     }
@@ -129,7 +131,7 @@ export function getAllWidgetTypes(content: string): Array<string> {
  * @param {string} widgetId
  * @returns {boolean}
  */
-const isQuestionWidgetType = (widgetId: string): boolean => {
+const isQuestionWidgetType = (widgetId: widgetId): boolean => {
     return QUESTION_WIDGETS.includes(widgetId.split(" ")[0]);
 };
 
@@ -144,6 +146,6 @@ const isQuestionWidgetType = (widgetId: string): boolean => {
  * @param {string} content
  * @returns Array<string>
  */
-export function getQuestionWidgetIds(content: string): Array<string> {
+export function getQuestionWidgetIds(content: string): Array<widgetId> {
     return getAllWidgetIds(content).filter(isQuestionWidgetType);
 }
