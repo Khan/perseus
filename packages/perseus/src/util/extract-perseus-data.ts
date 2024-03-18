@@ -538,8 +538,6 @@ function injectWidgets(
     return context;
 }
 
-// THIRDS WORK START HERE STOPSHIP REMOVE THIS COMMENT LATER GIRL
-
 /* This array contains the widget types that have individual answers */
 const INDIVIDUAL_ANSWER_WIDGETS = [
     "interactive-graph",
