@@ -1,6 +1,5 @@
-/* eslint-disable no-console, react/no-deprecated */
-import * as React from "react";
-import {renderToStaticMarkup} from "react-dom/server";
+/* eslint-disable no-console */
+import {render} from "@testing-library/react";
 import _ from "underscore";
 
 import PassageMarkdown from "../passage-markdown";
@@ -30,9 +29,8 @@ const validateParse = (parsed: Array<SingleASTNode>, expected) => {
 
 const htmlThroughReact = function (parsed: Array<SingleASTNode>) {
     const output = PassageMarkdown.output(parsed);
-    // @ts-expect-error - TS2339 - Property 'DOM' does not exist on type 'typeof React'.
-    // eslint-disable-next-line import/namespace
-    const rawHtml = renderToStaticMarkup(React.DOM.div(null, output));
+    const {container} = render(output);
+    const rawHtml = container.outerHTML;
     const innerHtml = rawHtml.replace(/^<div>/, "").replace(/<\/div>$/, "");
     const simplifiedHtml = innerHtml
         .replace(/>\n*/g, ">")
@@ -54,9 +52,7 @@ const assertParsesToReact = function (source: string, html: string) {
     expect(actualHtml).toBe(html);
 };
 
-// TODO(emily): PERSEUS_MERGE make these tests work once react-dom/server is
-// imported.
-describe.skip("passage markdown", () => {
+describe("passage markdown", () => {
     describe("ref parsing", () => {
         it("should handle a single ref in plain text", () => {
             const parsed = parse("this is a {{ref}}");

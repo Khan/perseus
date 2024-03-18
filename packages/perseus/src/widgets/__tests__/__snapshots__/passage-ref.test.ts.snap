@@ -132,7 +132,6 @@ exports[`passage-ref widget should render with invalid reference 1`] = `
           <span>
             lines 
             ?–?
-            
           </span>
         </div>
       </div>
@@ -273,7 +272,6 @@ exports[`passage-ref widget should render with multi-line reference 1`] = `
           <span>
             lines 
             4–6
-            
             <div
               class="perseus-sr-only"
             >
@@ -419,7 +417,6 @@ exports[`passage-ref widget should render with single-line reference 1`] = `
           <span>
             line 
             4
-            
             <div
               class="perseus-sr-only"
             >
