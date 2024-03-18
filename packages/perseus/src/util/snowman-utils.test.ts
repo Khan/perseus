@@ -21,7 +21,6 @@ describe("getWidgetNamesFromContent", () => {
         const content =
             "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
         const actual = getAllWidgetIds(content);
-        // console.log(getAllWidgetNames(content));
         const expected = ["passage 3", "group 1", "group 12"];
         expect(actual).toEqual(expected);
     });
@@ -40,7 +39,6 @@ describe("getAllWidgetIds", () => {
         const content =
             "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
         const actual = getAllWidgetIds(content);
-        // console.log(getAllWidgetNames(content));
         const expected = ["passage 3", "group 1", "group 12"];
         expect(actual).toEqual(expected);
     });
