@@ -245,9 +245,9 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         }
     }
 
-    _getShouldShowInstructions: (
-        arg1?: Props | null | undefined,
-    ) => boolean = (props) => {
+    _getShouldShowInstructions: (arg1?: Props | null | undefined) => boolean = (
+        props,
+    ) => {
         props = props || this.props;
         return (
             this.isClickToAddPoints(props) &&
@@ -933,9 +933,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return point;
     };
 
-    removePoint: (arg1: Coord) => number | null | undefined = (
-        point,
-    ) => {
+    removePoint: (arg1: Coord) => number | null | undefined = (point) => {
         let index = null;
         this.points = _.filter(this.points, function (pt, i) {
             if (pt === point) {
