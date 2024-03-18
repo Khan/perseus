@@ -88,6 +88,13 @@ export {
     generateTestPerseusItem,
     genericPerseusItemData,
 } from "./util/test-utils";
+export {
+    WidgetType,
+    addWidget,
+    getAllWidgetIds,
+    getAllWidgetTypes,
+    getQuestionWidgetIds,
+} from "./util/snowman-utils";
 
 /**
  * Mixins

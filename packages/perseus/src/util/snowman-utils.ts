@@ -54,7 +54,7 @@ const QUESTION_WIDGETS = [
 
 // Regex for widget placeholders in a string.
 // Widget IDs are identified using capture groups. Ex. 'radio 1'
-export const widgetRegex = /\[\[☃ ([^\]]+)\]\]/g;
+const widgetRegex = /\[\[☃ ([^\]]+)\]\]/g;
 
 // Regex for widget placeholders in a string. Ex. 'radio'
 // Widget types are identified using capture groups.
