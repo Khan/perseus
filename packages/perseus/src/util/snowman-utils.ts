@@ -38,7 +38,7 @@ export enum WidgetType {
     VideoTranscriptLink = "video-transcript-link",
 }
 
-export type widgetId = `${WidgetType} ${number}`;
+export type WidgetId = `${WidgetType} ${number}`;
 
 // These are all the current widgets that require user-input and are supported for automatic scoring
 export const QUESTION_WIDGETS = [
@@ -55,13 +55,14 @@ export const QUESTION_WIDGETS = [
     WidgetType.Sorter,
 ];
 
-// Regex for widget placeholders in a string.
-// Widget IDs are identified using capture groups. Ex. 'radio 1'
-const widgetRegex = /\[\[☃ ([^\]]+)\]\]/g;
-
-// Regex for widget placeholders in a string. Ex. 'radio'
-// Widget types are identified using capture groups.
-const widgetTypeRegex = /\[\[☃ ([a-z]+) +\d+\]\]/g;
+/**
+ * Regex for widget placeholders in a string.
+ *
+ * First capture group is the widget ID (ex. 'radio 1')
+ * Second capture group is the widget type (ex. "radio)
+ * exec return will look like: ['[[☃ radio 1]]', 'radio 1', 'radio']
+ */
+export const widgetRegex = /\[\[☃ (([a-z-]+) \d+)\]\]/g;
 
 /**
  * Add a widget placeholder using the provided widget type and instance number.
@@ -83,15 +84,15 @@ export const addWidget = (widgetType: WidgetType, instance: number): string => {
  * which look like: '[[☃ radio 1]]'.
  *
  * @param {string} content
- * @returns {Array<widgetId>} widgets
+ * @returns {Array<WidgetId>} widgets
  */
-export function getAllWidgetIds(content: string): Array<widgetId> {
-    const widgets: Array<widgetId> = [];
+export function getAllWidgetIds(content: string): Array<WidgetId> {
+    const widgets: Array<WidgetId> = [];
 
     let match = widgetRegex.exec(content);
 
     while (match !== null) {
-        widgets.push(match[1] as widgetId);
+        widgets.push(match[1] as WidgetId);
         match = widgetRegex.exec(content);
     }
 
@@ -108,31 +109,34 @@ export function getAllWidgetIds(content: string): Array<widgetId> {
  * example output: ['radio', 'categorizer']
  *
  * @param {string} content
- * @returns {Array<widgetId>}
+ * @returns {Array<WidgetId>}
  */
-export function getAllWidgetTypes(content: string): Array<widgetId> {
-    const widgetTypes: Array<widgetId> = [];
+export function getAllWidgetTypes(content: string): Array<WidgetId> {
+    const widgetTypes: Array<string> = [];
 
-    let match = widgetTypeRegex.exec(content);
+    let match = widgetRegex.exec(content);
 
     while (match !== null) {
         // Might need to take this check out and just list them all
-        if (!widgetTypes.includes(match[1] as widgetId)) {
-            widgetTypes.push(match[1] as widgetId);
+        // Make sure object getting is in the enum widget type object
+        // only matches if it finds an actual widget name
+        // make sure string getting out of regex matches one of the known widget types
+        if (!widgetTypes.includes(match[2])) {
+            widgetTypes.push(match[2]);
         }
-        match = widgetTypeRegex.exec(content);
+        match = widgetRegex.exec(content);
     }
-    return widgetTypes;
+    return widgetTypes as Array<WidgetId>;
 }
 
 /**
  * Check if a specific widget is a question widget type using its ID.
  * The widget ID includes the widget type and the instance number.
  *
- * @param {widgetId} widgetId
+ * @param {WidgetId} widgetId
  * @returns {boolean}
  */
-const isQuestionWidgetType = (widgetId: widgetId): boolean => {
+const isQuestionWidgetType = (widgetId: WidgetId): boolean => {
     const widgetIdString = widgetId as string;
     return QUESTION_WIDGETS.includes(
         widgetIdString.split(" ")[0] as WidgetType,
@@ -148,8 +152,8 @@ const isQuestionWidgetType = (widgetId: widgetId): boolean => {
  * which look like: '[[☃ radio 1]]'.
  *
  * @param {string} content
- * @returns Array<widgetId>
+ * @returns Array<WidgetId>
  */
-export function getQuestionWidgetIds(content: string): Array<widgetId> {
+export function getQuestionWidgetIds(content: string): Array<WidgetId> {
     return getAllWidgetIds(content).filter(isQuestionWidgetType);
 }
