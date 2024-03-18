@@ -535,6 +535,57 @@ export const rayQuestion: PerseusRenderer = {
     },
 };
 
+export const rayQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Move the ray so it has an endpoint at point $\\text{B}$ and goes through point $\\text{A}$. Then complete the statement below.**\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            alignment: "default",
+            graded: true,
+            options: {
+                backgroundImage: {
+                    bottom: 0,
+                    height: 400,
+                    left: 0,
+                    scale: "1",
+                    url: "https://ka-perseus-graphie.s3.amazonaws.com/140993e12589b317f7bdbd667555ef1c48b26911.png",
+                    width: 400,
+                },
+                correct: {
+                    coords: [
+                        [-5, 5],
+                        [5, 5],
+                    ],
+                    type: "ray",
+                },
+                graph: {
+                    type: "ray",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "none",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+            },
+            static: false,
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
 export const segmentQuestion: PerseusRenderer = {
     content:
         "Line segment $\\overline{OG}$ is rotated $180^\\circ$ about the point $(-2,4)$.  \n\n**Draw the image of this rotation using the interactive graph.**\n\n*The direction of a rotation by a positive angle is counter-clockwise.* \n\n[[☃ interactive-graph 1]]\n\n",
