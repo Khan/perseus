@@ -103,6 +103,10 @@ export function getAllWidgetIds(content: string): Array<WidgetId> {
     return widgets;
 }
 
+function isWidgetType(value: string): value is WidgetType {
+    return Object.values(WidgetType).some((widgetType) => value === widgetType);
+}
+
 /**
  * Extract all widget types from a Perseus JSON content string.
  * This does not include the instance number and prevents duplicates.
@@ -117,12 +121,9 @@ export function getAllWidgetTypes(content: string): Array<WidgetId> {
     let match = widgetRegex.exec(content);
 
     while (match !== null) {
-        // Might need to take this check out and just list them all
-        // Make sure object getting is in the enum widget type object
-        // only matches if it finds an actual widget name
-        // make sure string getting out of regex matches one of the known widget types
-        if (!widgetTypes.includes(match[2])) {
-            widgetTypes.push(match[2]);
+        const matchType = match[2];
+        if (!widgetTypes.includes(matchType) && isWidgetType(matchType)) {
+            widgetTypes.push(matchType);
         }
         match = widgetRegex.exec(content);
     }
