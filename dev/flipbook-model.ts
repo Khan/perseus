@@ -50,33 +50,12 @@ export function flipbookModelReducer(
     action: Action,
 ): FlipbookModel {
     switch (action.type) {
-        case "next": {
-            return {
-                ...state,
-                requestedIndex: clampIndex(
-                    state.requestedIndex + 1,
-                    selectQuestions(state),
-                ),
-            };
-        }
-        case "previous": {
-            return {
-                ...state,
-                requestedIndex: clampIndex(
-                    state.requestedIndex - 1,
-                    selectQuestions(state),
-                ),
-            };
-        }
-        case "jump-to-index": {
-            return {
-                ...state,
-                requestedIndex: clampIndex(
-                    action.index,
-                    selectQuestions(state),
-                ),
-            };
-        }
+        case "next":
+            return updateIndex(state, (index) => index + 1);
+        case "previous":
+            return updateIndex(state, (index) => index - 1);
+        case "jump-to-index":
+            return updateIndex(state, () => action.index);
         case "set-questions": {
             return {
                 ...state,
@@ -95,6 +74,15 @@ export function flipbookModelReducer(
         }
     }
     return state;
+}
+
+function updateIndex(state: FlipbookModel, update: (index: number) => number) {
+    const currIndex = selectCurrentQuestionIndex(state);
+    const questions = selectQuestions(state);
+    return {
+        ...state,
+        requestedIndex: clampIndex(update(currIndex), questions),
+    }
 }
 
 function clampIndex(index: number, array: unknown[]): number {
