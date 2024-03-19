@@ -13,14 +13,14 @@ describe("widgetRegex", () => {
         const exampleContent = "Here is some content [[☃ group 1]]";
 
         // Act
-        const firstPlaceholder = match ? match[0] : null;
         const match = getWidgetRegex().exec(exampleContent);
 
+        const widgetPlaceholder = match ? match[0] : null;
         const firstCaptureGroup = match ? match[1] : null;
         const secondCaptureGroup = match ? match[2] : null;
 
         //Assert
-        expect(firstPlaceholder).toEqual("[[☃ group 1]]");
+        expect(widgetPlaceholder).toEqual("[[☃ group 1]]");
         expect(firstCaptureGroup).toEqual("group 1");
         expect(secondCaptureGroup).toEqual("group");
     });
@@ -30,13 +30,14 @@ describe("widgetRegex", () => {
         const exampleContent = "Here is some content [[☃ numeric-input 1]]";
 
         // Act
-        const firstPlaceholder = match ? match[0] : null;
         const match = getWidgetRegex().exec(exampleContent);
+
+        const widgetPlaceholder = match ? match[0] : null;
         const firstCaptureGroup = match ? match[1] : null;
         const secondCaptureGroup = match ? match[2] : null;
 
         //Assert
-        expect(firstPlaceholder).toEqual("[[☃ numeric-input 1]]");
+        expect(widgetPlaceholder).toEqual("[[☃ numeric-input 1]]");
         expect(firstCaptureGroup).toEqual("numeric-input 1");
         expect(secondCaptureGroup).toEqual("numeric-input");
     });
