@@ -135,8 +135,9 @@ export function getAllWidgetTypes(content: string): Array<WidgetId> {
  */
 function isQuestionWidgetType(widgetId: WidgetId): boolean {
     const widgetIdString = widgetId as string;
-    return QUESTION_WIDGETS.includes(
-        widgetIdString.split(" ")[0] as WidgetType,
+    return (
+        QUESTION_WIDGETS.includes(widgetIdString.split(" ")[0] as WidgetType) ||
+        QUESTION_WIDGETS.includes(widgetId as WidgetType)
     );
 }
 
