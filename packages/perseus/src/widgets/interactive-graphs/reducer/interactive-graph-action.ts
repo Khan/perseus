@@ -1,6 +1,6 @@
 import type {vec} from "mafs";
 
-export type InteractiveGraphAction = MoveControlPoint | MoveSegment;
+export type InteractiveGraphAction = MoveControlPoint | MoveLine | MoveAll;
 
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPointForLine {
@@ -30,19 +30,28 @@ export function moveControlPoint(
     };
 }
 
+export const MOVE_ALL = "move-all";
 export const MOVE_LINE = "move-line";
-export interface MoveSegment {
-    type: typeof MOVE_LINE;
-    lineIndex: number;
+interface MoveItem {
     delta: vec.Vector2;
+    itemIndex?: number;
 }
-export function moveSegment(
-    lineIndex: number,
-    delta: vec.Vector2,
-): MoveSegment {
+export interface MoveLine extends MoveItem {
+    type: typeof MOVE_LINE;
+}
+export interface MoveAll extends MoveItem {
+    type: typeof MOVE_ALL;
+}
+/** This action assumes the state.coords holds an array of collinear tuples that define lines */
+export function moveLine(itemIndex: number, delta: vec.Vector2): MoveLine {
     return {
         type: MOVE_LINE,
-        lineIndex,
+        itemIndex,
         delta,
     };
 }
+/** This action assumes a flat array of vectors */
+export const moveAll = (delta: vec.Vector2): MoveAll => ({
+    type: MOVE_ALL,
+    delta,
+});

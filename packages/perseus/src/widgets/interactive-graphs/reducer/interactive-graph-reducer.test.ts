@@ -1,4 +1,4 @@
-import {moveControlPoint, moveSegment} from "./interactive-graph-action";
+import {moveControlPoint, moveLine} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {InteractiveGraphState} from "../types";
@@ -138,7 +138,7 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, moveSegment(0, [5, -3]));
+        const updated = interactiveGraphReducer(state, moveLine(0, [5, -3]));
 
         expect(updated.coords?.[0]).toEqual([
             [6, -1],
@@ -157,10 +157,7 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(
-            state,
-            moveSegment(0, [0.5, 0.5]),
-        );
+        const updated = interactiveGraphReducer(state, moveLine(0, [0.5, 0.5]));
 
         expect(updated.coords?.[0]).toEqual([
             [2, 3],
@@ -179,10 +176,7 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(
-            state,
-            moveSegment(0, [99, 99]),
-        );
+        const updated = interactiveGraphReducer(state, moveLine(0, [99, 99]));
 
         expect(updated.coords?.[0]).toEqual([
             [7, 7],
@@ -201,7 +195,7 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, moveSegment(0, [1, 1]));
+        const updated = interactiveGraphReducer(state, moveLine(0, [1, 1]));
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });

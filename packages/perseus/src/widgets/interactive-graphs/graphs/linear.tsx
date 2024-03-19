@@ -1,9 +1,6 @@
 import * as React from "react";
 
-import {
-    moveControlPoint,
-    moveSegment,
-} from "../reducer/interactive-graph-action";
+import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
 import {StyledMovablePoint} from "./components/movable-point";
@@ -29,7 +26,7 @@ export const LinearGraph = (props: LinearGraphProps) => {
                     snaps={snapStep}
                     range={range}
                     onMoveLine={(delta: vec.Vector2) => {
-                        dispatch(moveSegment(i, delta));
+                        dispatch(moveLine(i, delta));
                     }}
                     onMovePoint={(
                         endpointIndex: number,
