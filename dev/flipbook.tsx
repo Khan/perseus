@@ -96,23 +96,30 @@ function SideBySideQuestionRenderer({
     apiOptions = {},
 }: QuestionRendererProps) {
     return (
-        <View
-            className="framework-perseus"
-            style={{
-                flexDirection: "row",
-                padding: Spacing.xLarge_32,
-                gap: Spacing.small_12,
-            }}
-        >
-            <GradableRenderer
-                question={question}
-                apiOptions={{...apiOptions, flags: {mafs: false}}}
-            />
-            <GradableRenderer
-                question={question}
-                apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
-            />
-        </View>
+        <>
+            <View
+                className="framework-perseus"
+                style={{
+                    flexDirection: "row",
+                    padding: Spacing.xLarge_32,
+                    gap: Spacing.small_12,
+                }}
+            >
+                <GradableRenderer
+                    question={question}
+                    apiOptions={{...apiOptions, flags: {mafs: false}}}
+                />
+                <GradableRenderer
+                    question={question}
+                    apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
+                />
+            </View>
+            <p>
+                <pre style={{whiteSpace: "pre-wrap"}}>
+                    <code>{JSON.stringify(question)}</code>
+                </pre>
+            </p>
+        </>
     );
 }
 
