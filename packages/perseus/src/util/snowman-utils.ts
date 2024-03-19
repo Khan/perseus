@@ -102,8 +102,16 @@ export function getAllWidgetIds(content: string): Array<WidgetId> {
     return widgets;
 }
 
-function isWidgetType(value: string): value is WidgetType {
-    return Object.values(WidgetType).some((widgetType) => value === widgetType);
+/**
+ * Check if a specific widget is an actual widget type using its name.
+ * The widget name should include a widget type, without an instance number,
+ * as a string. ex. 'radio'
+ *
+ * @param {string} widgetName
+ * @returns {boolean}
+ */
+function isWidgetType(widgetName: string): widgetName is WidgetType {
+    return Object.values(WidgetType).includes(widgetName as any);
 }
 
 /**
