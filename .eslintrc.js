@@ -320,15 +320,13 @@ module.exports = {
         /**
          * testing-library
          */
+        "testing-library/await-async-queries": "error",
         "testing-library/prefer-user-event": "error",
-        "testing-library/no-wait-for-multiple-assertions": "error",
-        "testing-library/no-wait-for-side-effects": "error",
-        "testing-library/no-wait-for-snapshot": "error",
+        // TODO(jeremy): It might be nice to enable
+        // "testing-library/prefer-explicit-assert": "error",
 
         // These rules results in a lot of false positives
         "testing-library/render-result-naming-convention": "off",
-        "testing-library/await-async-utils": "off",
-        "testing-library/await-async-query": "off",
 
         /**
          * typescript
