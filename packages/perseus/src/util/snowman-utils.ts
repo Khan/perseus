@@ -96,10 +96,6 @@ export function getAllWidgetIds(content: string): Array<WidgetId> {
         match = widgetRegex.exec(content);
     }
 
-    if (widgets.length === 0) {
-        throw new Error("Exercises should contain widgets");
-    }
-
     return widgets;
 }
 
