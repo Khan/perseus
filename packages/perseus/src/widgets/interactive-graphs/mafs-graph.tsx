@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import {Mafs} from "mafs";
+import {Mafs, useTransformContext, vec} from "mafs";
 import * as React from "react";
 
 import GraphLockedLayer from "./graph-locked-layer";
@@ -19,6 +19,8 @@ import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {getDependencies} from "../../dependencies";
+import {useEffect, useState} from "react";
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
@@ -45,6 +47,10 @@ export const MafsGraph = React.forwardRef<
 >((props, ref) => {
     const [width, height] = props.box;
     const legacyGrid = getLegacyGrid([width, height], props.backgroundImage);
+    const [graphToPxTransform, setGraphToPxTransform] = useState(vec.identity)
+
+    //const {viewTransform, userTransform} = useTransformContext();
+    //const transformToPx = vec.matrixMult(viewTransform, userTransform);
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
@@ -55,6 +61,8 @@ export const MafsGraph = React.forwardRef<
     React.useImperativeHandle(ref, () => ({
         getUserInput: () => getGradableGraph(state, props.graph),
     }));
+
+    const TeX = getDependencies().TeX
 
     return (
         <View
@@ -83,6 +91,7 @@ export const MafsGraph = React.forwardRef<
                     width={width}
                     height={height}
                 >
+                    <TransformExfiltrator onChange={setGraphToPxTransform}/>
                     {/* Background layer */}
                     {!legacyGrid && <Grid {...props} />}
 
@@ -98,6 +107,39 @@ export const MafsGraph = React.forwardRef<
                     })}
                 </Mafs>
             </View>
+            <View
+                // TeX layer
+                style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: props.backgroundImage?.width ?? width,
+                    height: props.backgroundImage?.height ?? height,
+                    backgroundColor: "rgba(0,0,0,0.2)",
+                    pointerEvents: "none",
+                }}
+            >
+                {props.lockedFigures?.map(figure => {
+                    //debugger
+                    const originPx = vec.transform([0, 0], graphToPxTransform);
+                    debugger
+                    const [xPx, yPx] = vec.add(/*[props.range[0][0], props.range[1][0]]*/originPx, vec.transform(figure.coord, graphToPxTransform));
+                    return <div style={{position: "absolute", top: yPx, left: xPx}}><TeX>Hello</TeX></div>
+                })}
+
+            </View>
         </View>
     );
 });
+
+function TransformExfiltrator(props: {onChange: (transform: vec.Matrix) => unknown}) {
+    const {viewTransform, userTransform} = useTransformContext();
+    const transformToPx = vec.matrixMult(viewTransform, userTransform);
+
+    // TODO: useLayoutEffect?
+    useEffect(() => {
+        props.onChange(transformToPx)
+    }, transformToPx)
+
+    return null;
+}
