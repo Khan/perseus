@@ -538,14 +538,14 @@ function injectWidgets(
     return context;
 }
 
-/* This array contains the widget types that have individual answers */
+/* Widgets that have individual answers for the coach report view */
 const INDIVIDUAL_ANSWER_WIDGETS = [
     "interactive-graph",
     "categorizer",
     "grapher",
 ];
 
-/* This array contains the widget types that are supported for scoring on the coach report responses view */
+/* Widgets that are supported for scoring on the coach report view */
 const SUPPORTED_WIDGETS = [
     "radio",
     "numeric-input",
@@ -554,12 +554,11 @@ const SUPPORTED_WIDGETS = [
     ...INDIVIDUAL_ANSWER_WIDGETS,
 ];
 
-/* This function allows us to get the widget type from the widget key */
 export const getWidgetTypeFromWidgetKey = (widgetKey: string): string => {
     return widgetKey.split(" ")[0];
 };
 
-/* This function allows us to verify if the perseus item has a supported widget for scoring on the coach report repsonses view. */
+/* Verify if the perseus item has supported widgets for scoring on the coach report view. */
 export const isWrongAnswerSupported = (widgetKeys: Array<string>): boolean => {
     return (
         widgetKeys.length !== 0 &&
@@ -569,15 +568,15 @@ export const isWrongAnswerSupported = (widgetKeys: Array<string>): boolean => {
     );
 };
 
-/* This function allows us to verify if the widget key has an individual answer */
+/* Verify if the widget key has an individual answer for the coach report view  */
 export const shouldHaveIndividualAnswer = (widgetKey: string): boolean => {
     return INDIVIDUAL_ANSWER_WIDGETS.includes(
         getWidgetTypeFromWidgetKey(widgetKey),
     );
 };
 
-/* This function allows us to get the answer from the user input */
-// TODO (Third): Fix user input any types to be specific (LEMS-1834)
+/* Returns the answer userInput submission for various supported widgets on the coach report view */
+// TODO (Third): Fix userInput any types to be specific (LEMS-1834)
 export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
     switch (widgetType) {
         case "categorizer":
@@ -592,7 +591,7 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
     return userInput;
 };
 
-/* This function allows us to get the correct answer for a widget key */
+/* Returns the correct answer for a given widget key and Perseus Item */
 // TODO (Third): We should fix the resonse type from getWidget to be specific. (LEMS-1835)
 // TODO (Third): We should also consider adding the getOneCorrectAnswerFromRubric method to all widgets. (LEMS-1836)
 export const getCorrectAnswerForWidgetKey = (
@@ -611,7 +610,7 @@ export const getCorrectAnswerForWidgetKey = (
     return widget.getOneCorrectAnswerFromRubric(rubric);
 };
 
-/* This function allows us to verify if the widget key is in the content of the perseus item */
+/* Verify if the widget key exists in the content string of the Perseus Item */
 export const isWidgetKeyInContent = (
     perseusItem: PerseusItem,
     widgetKey: string,
@@ -619,13 +618,10 @@ export const isWidgetKeyInContent = (
     return perseusItem.question.content.indexOf(widgetKey as string) !== -1;
 };
 
-/* This function allows us to return all widget keys that exist in the content of the perseus item */
+/* Return an array of all the widget keys that exist in the content string of a Perseus Item */
 export const getValidWidgetKeys = (perseusItem: PerseusItem): Array<string> => {
     const {widgets, content} = perseusItem.question;
-    return keys(widgets).filter(
-        // keys for the widget object are strings
-        (key) => content.indexOf(key as string) !== -1,
-    );
+    return keys(widgets).filter((key) => content.indexOf(key as string) !== -1);
 };
 
 export {getAnswersFromWidgets, injectWidgets};
