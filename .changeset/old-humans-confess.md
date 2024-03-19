@@ -3,4 +3,4 @@
 "@khanacademy/perseus": minor
 ---
 
-Bug fixes to ensure that users can properly interact with the numberline widget
+Bug fixes to ensure that users can properly focus a math input on mobile devices
