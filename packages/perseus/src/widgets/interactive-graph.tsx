@@ -138,7 +138,7 @@ type DefaultProps = {
     graph: Props["graph"];
 };
 
-class InteractiveGraph extends React.Component<Props, State> {
+class LegacyInteractiveGraph extends React.Component<Props, State> {
     angle: any | null | undefined;
     circle: any | null | undefined;
     graphie: any | null | undefined;
@@ -176,8 +176,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             type: "linear",
         },
     };
-
-    mafsRef = React.createRef<Widget>();
 
     state: State = {
         shouldShowInstructions: _getShouldShowInstructions(this.props),
@@ -1680,7 +1678,6 @@ class InteractiveGraph extends React.Component<Props, State> {
     };
 
     getUserInput: () => PerseusGraphType = () =>
-        this.mafsRef.current?.getUserInput?.() ??
         InteractiveGraph.getUserInputFromProps(this.props);
 
     simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
@@ -1688,8 +1685,6 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     focus: () => void = $.noop;
 
-    // const segment: boolean = useFeatureIsOn("mafs-segment-graph");
-    // <Renderer apiOptions={{flags: {mafs: {segment}}}}
     render(): React.ReactNode {
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
@@ -1699,19 +1694,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             Util.getGridStep(this.props.range, this.props.step, box[0]);
         const snapStep =
             this.props.snapStep || Util.snapStepFromGridStep(gridStep);
-
-        // Mafs shim
-        if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
-            return (
-                <MafsGraph
-                    {...this.props}
-                    ref={this.mafsRef}
-                    gridStep={gridStep}
-                    snapStep={snapStep}
-                    box={box}
-                />
-            );
-        }
 
         let instructions;
         // isClickToAddPoints() only applies to points and polygons
@@ -1773,6 +1755,73 @@ class InteractiveGraph extends React.Component<Props, State> {
                     isMobile={isMobile}
                 />
             </div>
+        );
+    }
+}
+
+class InteractiveGraph extends React.Component<Props, State> {
+    legacyGraphRef = React.createRef<LegacyInteractiveGraph>();
+    mafsRef = React.createRef<Widget>();
+
+    static defaultProps: DefaultProps = {
+        labels: ["x", "y"],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        step: [1, 1],
+        backgroundImage: defaultBackgroundImage,
+        markings: "graph",
+        showTooltips: false,
+        showProtractor: false,
+        showRuler: false,
+        rulerLabel: "",
+        rulerTicks: 10,
+        graph: {
+            type: "linear",
+        },
+    };
+
+    getUserInput: Widget["getUserInput"] = () => {
+        if (this.mafsRef.current) {
+            return this.mafsRef.current.getUserInput?.();
+        }
+        if (this.legacyGraphRef.current) {
+            return this.legacyGraphRef.current.getUserInput();
+        }
+        throw new PerseusError(
+            "Cannot getUserInput from a graph that has never rendered",
+            Errors.NotAllowed,
+        );
+    };
+
+    simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
+        InteractiveGraph.validate(this.getUserInput?.(), rubric, this);
+
+    render() {
+        // Mafs shim
+        if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
+            const box = getInteractiveBoxFromSizeClass(
+                this.props.containerSizeClass,
+            );
+            const gridStep =
+                this.props.gridStep ||
+                Util.getGridStep(this.props.range, this.props.step, box[0]);
+            const snapStep =
+                this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+
+            return (
+                <MafsGraph
+                    {...this.props}
+                    ref={this.mafsRef}
+                    gridStep={gridStep}
+                    snapStep={snapStep}
+                    box={box}
+                />
+            );
+        }
+        return (
+            <LegacyInteractiveGraph ref={this.legacyGraphRef} {...this.props} />
         );
     }
 
