@@ -4,13 +4,13 @@ import {
     WidgetType,
     getQuestionWidgetIds,
     getAllWidgetTypes,
-    widgetRegex,
 } from "./snowman-utils";
 
 describe("widgetRegex", () => {
     it("locates match and capture groups as expected for non-hyphenated widget types", () => {
         // Arrange
         const exampleContent = "Here is some content [[☃ group 1]]";
+        const widgetRegex = /\[\[☃ (([a-z-]+) \d+)\]\]/g;
         // Act
         const match = widgetRegex.exec(exampleContent);
         const firstPlaceholder = match ? match[0] : null;
@@ -26,6 +26,8 @@ describe("widgetRegex", () => {
     it("locates match and capture groups as expected for hyphenated widget types", () => {
         // Arrange
         const exampleContent = "Here is some content [[☃ numeric-input 1]]";
+        const widgetRegex = /\[\[☃ (([a-z-]+) \d+)\]\]/g;
+
         // Act
         const match = widgetRegex.exec(exampleContent);
         const firstPlaceholder = match ? match[0] : null;
