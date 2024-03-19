@@ -62,7 +62,9 @@ export const QUESTION_WIDGETS: ReadonlyArray<WidgetType> = [
  * Second capture group is the widget type (ex. "radio)
  * exec return will look like: ['[[☃ radio 1]]', 'radio 1', 'radio']
  */
-export const widgetRegex = /\[\[☃ (([a-z-]+) \d+)\]\]/g;
+export function getWidgetRegex() {
+    return /\[\[☃ (([a-z-]+) \d+)\]\]/g;
+}
 
 /**
  * Add a widget placeholder using the provided widget type and instance number.
@@ -88,12 +90,13 @@ export function addWidget(widgetType: WidgetType, instance: number): string {
  */
 export function getAllWidgetIds(content: string): Array<WidgetId> {
     const widgets: Array<WidgetId> = [];
+    const localWidgetRegex = getWidgetRegex();
 
-    let match = widgetRegex.exec(content);
+    let match = localWidgetRegex.exec(content);
 
     while (match !== null) {
         widgets.push(match[1] as WidgetId);
-        match = widgetRegex.exec(content);
+        match = localWidgetRegex.exec(content);
     }
 
     return widgets;
@@ -113,15 +116,16 @@ function isWidgetType(value: string): value is WidgetType {
  */
 export function getAllWidgetTypes(content: string): Array<WidgetId> {
     const widgetTypes: Array<string> = [];
+    const localWidgetRegex = getWidgetRegex();
 
-    let match = widgetRegex.exec(content);
+    let match = localWidgetRegex.exec(content);
 
     while (match !== null) {
         const matchType = match[2];
         if (!widgetTypes.includes(matchType) && isWidgetType(matchType)) {
             widgetTypes.push(matchType);
         }
-        match = widgetRegex.exec(content);
+        match = localWidgetRegex.exec(content);
     }
     return widgetTypes as Array<WidgetId>;
 }
