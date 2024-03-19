@@ -102,7 +102,7 @@ function SVGLine(props: {
             x2={end[0]}
             y2={end[1]}
             style={style}
-            className={dragging ? "movable-line-dragging" : undefined}
+            className={dragging ? "movable-dragging" : undefined}
         />
     );
 }

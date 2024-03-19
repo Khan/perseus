@@ -1,4 +1,4 @@
-import {Polygon} from "mafs";
+import {Polygon, useMovable, vec} from "mafs";
 import * as React from "react";
 
 import {moveControlPoint} from "../reducer/interactive-graph-action";
@@ -6,21 +6,77 @@ import {moveControlPoint} from "../reducer/interactive-graph-action";
 import {StyledMovablePoint} from "./components/movable-point";
 
 import type {MafsGraphProps, PolygonGraphState} from "../types";
-import type {vec} from "mafs";
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
 export const PolygonGraph = (props: Props) => {
+    const [focused, setFocused] = React.useState(false);
+    const [hovered, setHovered] = React.useState(false);
+
     const {dispatch} = props;
-    const {coords: points, type} = props.graphState;
+    const {coords, type} = props.graphState;
+
+    const points = coords ?? [[0, 0]];
+
+    const pointsSum = points.reduce(
+        (acc, point) => vec.add(acc, point),
+        [0, 0],
+    );
+    const midpoint =
+        pointsSum && vec.scale(pointsSum, 1 / (points.length ?? 1));
+
+    const ref = React.useRef<SVGPolygonElement>(null);
+    const {dragging} = useMovable({
+        gestureTarget: ref,
+        point: midpoint,
+        onMove: (newPoint) => {
+            const delta = vec.sub(newPoint, midpoint);
+            dispatch({
+                type: "move-all",
+                delta,
+            });
+        },
+        constrain: (p) => p,
+    });
 
     if (!points) {
         return null;
     }
 
+    const active = hovered || focused || dragging;
+
     return (
         <>
-            <Polygon points={[...points]} />
+            <Polygon
+                points={[...points]}
+                color="var(--movable-line-stroke-color)"
+                svgPolygonProps={{
+                    strokeWidth: active ? 4 : 2,
+                }}
+            />
+            {/**
+             * This transparent svg creates a nice big click/touch target,
+             * since the polygon itself can be made smaller than the spec.
+             * 44 is touch best practice and AAA compliant for WCAG
+             * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
+             */}
+            <Polygon
+                points={[...points]}
+                color="transparent"
+                svgPolygonProps={{
+                    ref,
+                    tabIndex: 0,
+                    strokeWidth: 44,
+                    style: {
+                        cursor: dragging ? "grabbing" : "grab",
+                    },
+                    onFocus: () => setFocused(true),
+                    onBlur: () => setFocused(false),
+                    onMouseEnter: () => setHovered(true),
+                    onMouseLeave: () => setHovered(false),
+                    className: "movable-polygon",
+                }}
+            />
             {points.map((point, i) => (
                 <StyledMovablePoint
                     key={i}

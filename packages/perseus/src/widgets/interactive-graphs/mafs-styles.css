@@ -27,12 +27,12 @@
 }
 
 .MafsView .movable-line:is(:focus-visible, :hover),
-.movable-line-dragging {
+.movable-dragging {
     outline: none;
     --movable-line-stroke-weight: 4px;
 }
 
-.MafsView .movable-line:focus {
+.MafsView .movable-line:focus, .movable-polygon:focus {
     outline: none;
 }
 
