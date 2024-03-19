@@ -41,19 +41,19 @@ export enum WidgetType {
 export type WidgetId = `${WidgetType} ${number}`;
 
 // These are all the current widgets that require user-input and are supported for automatic scoring
-export const QUESTION_WIDGETS: ReadonlyArray<WidgetType> = [
-    WidgetType.NumericInput,
-    WidgetType.InputNumber,
-    WidgetType.Radio,
-    WidgetType.InteractiveGraph,
-    WidgetType.InteractiveNumberLine,
-    WidgetType.Categorizer,
-    WidgetType.Plotter,
-    WidgetType.Orderer,
-    WidgetType.Protractor,
-    WidgetType.Matcher,
-    WidgetType.Sorter,
-];
+export const QUESTION_WIDGETS: ReadonlyArray<string> = [
+    "numeric-input",
+    "input-number",
+    "radio",
+    "interactive-graph",
+    "interactive-number-line",
+    "categorizer",
+    "plotter",
+    "orderer",
+    "protractor",
+    "matcher",
+    "sorter",
+] as const;
 
 /**
  * Regex for widget placeholders in a string.
@@ -146,11 +146,7 @@ export function getAllWidgetTypes(content: string): Array<WidgetId> {
  * @returns {boolean}
  */
 function isQuestionWidgetType(widgetId: WidgetId): boolean {
-    const widgetIdString = widgetId as string;
-    return (
-        QUESTION_WIDGETS.includes(widgetIdString.split(" ")[0] as WidgetType) ||
-        QUESTION_WIDGETS.includes(widgetId as WidgetType)
-    );
+    return QUESTION_WIDGETS.includes(widgetId.split(" ")[0]);
 }
 
 /**
