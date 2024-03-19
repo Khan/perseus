@@ -346,7 +346,6 @@ export class ServerItemRenderer
         const qScore = this.questionRenderer.scoreWidgets();
         const qGuess = this.questionRenderer.getUserInputForWidgets();
         const state = this.questionRenderer.getSerializedState();
-        // @ts-expect-error - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [key: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
         return mapObject(qScore, (score, id) => {
             return Util.keScoreFromPerseusScore(score, qGuess[id], state);
         });
