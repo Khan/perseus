@@ -41,7 +41,7 @@ export enum WidgetType {
 export type WidgetId = `${WidgetType} ${number}`;
 
 // These are all the current widgets that require user-input and are supported for automatic scoring
-export const QUESTION_WIDGETS = [
+export const QUESTION_WIDGETS: ReadonlyArray<WidgetType> = [
     WidgetType.NumericInput,
     WidgetType.InputNumber,
     WidgetType.Radio,
@@ -72,9 +72,9 @@ export const widgetRegex = /\[\[☃ (([a-z-]+) \d+)\]\]/g;
  * @param {number} instance
  * @returns {string}
  */
-export const addWidget = (widgetType: WidgetType, instance: number): string => {
+export function addWidget(widgetType: WidgetType, instance: number): string {
     return `[[☃ ${widgetType} ${String(instance)}]]`;
-};
+}
 
 /**
  * Extract all widget IDs, which includes the widget type and instance number.
@@ -137,12 +137,12 @@ export function getAllWidgetTypes(content: string): Array<WidgetId> {
  * @param {WidgetId} widgetId
  * @returns {boolean}
  */
-const isQuestionWidgetType = (widgetId: WidgetId): boolean => {
+function isQuestionWidgetType(widgetId: WidgetId): boolean {
     const widgetIdString = widgetId as string;
     return QUESTION_WIDGETS.includes(
         widgetIdString.split(" ")[0] as WidgetType,
     );
-};
+}
 
 /**
  * Extract the widget IDs of all widgets considered question widgets. Widget IDs
