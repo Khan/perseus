@@ -42,9 +42,9 @@ const pluck = function (table: any, subKey: string): any {
  * {a: 2, b: 3}
  */
 const mapObject = function <K extends string, V, U>(
-    obj: Partial<Record<K, V>>,
+    obj: Record<K, V>,
     lambda: (arg1: V, arg2: K) => U,
-): Partial<Record<K, U>> {
+): Record<K, U> {
     const result: Record<string, any> = {};
     _.each(_.keys(obj), function (key) {
         // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'K'.
@@ -64,7 +64,7 @@ const mapObject = function <K extends string, V, U>(
 const mapObjectFromArray = function <K extends string, V>(
     arr: ReadonlyArray<K>,
     lambda: (arg1: K) => V,
-): Partial<Record<K, V>> {
+): Record<K, V> {
     const result: Record<string, any> = {};
     _.each(arr, function (elem) {
         result[elem] = lambda(elem);
