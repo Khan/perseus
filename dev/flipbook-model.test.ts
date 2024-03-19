@@ -6,6 +6,7 @@ import {
     setQuestions,
     selectQuestions,
     removeCurrentQuestion,
+    jumpToQuestion,
 } from "./flipbook-model";
 
 import type {FlipbookModel} from "./flipbook-model";
@@ -77,6 +78,42 @@ describe("next/previous", () => {
             questions: "",
             requestedIndex: 0,
         });
+    });
+});
+
+describe("jumpToQuestion", () => {
+    it("does nothing given a non-numeric value", () => {
+        const state: FlipbookModel = {questions: "foo", requestedIndex: 0};
+        const action = jumpToQuestion("blah");
+
+        expect(flipbookModelReducer(state, action)).toEqual({
+            questions: "foo",
+            requestedIndex: 0,
+        });
+    });
+
+    it("does nothing given a negative value", () => {});
+
+    it("does nothing given zero", () => {
+        // jumpToQuestion accepts raw user input, which uses 1-based indexing,
+        // not 0-based. So 0 is not a valid input.
+        const state: FlipbookModel = {
+            questions: "foo\nbar\nbaz",
+            requestedIndex: 2,
+        };
+        const action = jumpToQuestion("0");
+
+        expect(flipbookModelReducer(state, action).requestedIndex).toBe(2);
+    });
+
+    it("jumps to the given question by 1-based index", () => {
+        const state: FlipbookModel = {
+            questions: "foo\nbar\nbaz",
+            requestedIndex: 0,
+        };
+        const action = jumpToQuestion("3");
+
+        expect(flipbookModelReducer(state, action).requestedIndex).toBe(2);
     });
 });
 

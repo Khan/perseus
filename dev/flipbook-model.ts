@@ -14,14 +14,27 @@ export type FlipbookModel = {
 // ---------------------------------------------------------------------------
 
 export type Action =
+    | {type: "noop"}
     | {type: "next"}
     | {type: "previous"}
     | {type: "set-questions"; questions: string}
-    | {type: "remove-current-question"};
+    | {type: "remove-current-question"}
+    | {type: "jump-to-index"; index: number};
 
 export const next: Action = {type: "next"};
 
 export const previous: Action = {type: "previous"};
+
+export const jumpToQuestion = (rawUserInput: string): Action => {
+    if (!isPositiveInteger(rawUserInput)) {
+        return {type: "noop"};
+    }
+
+    return {
+        type: "jump-to-index",
+        index: parseInt(rawUserInput, 10),
+    };
+};
 
 export function setQuestions(questions: string): Action {
     return {type: "set-questions", questions};
@@ -51,6 +64,15 @@ export function flipbookModelReducer(
                 ...state,
                 requestedIndex: clampIndex(
                     state.requestedIndex - 1,
+                    selectQuestions(state),
+                ),
+            };
+        }
+        case "jump-to-index": {
+            return {
+                ...state,
+                requestedIndex: clampIndex(
+                    action.index,
                     selectQuestions(state),
                 ),
             };
@@ -129,4 +151,8 @@ function parseQuestion(json): PerseusRenderer {
             images: {},
         };
     }
+}
+
+function isPositiveInteger(s: string): boolean {
+    return /^\d+$/.test(s) && +s > 0;
 }
