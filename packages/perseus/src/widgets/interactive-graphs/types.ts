@@ -1,4 +1,4 @@
-import type {InteractiveGraphAction} from "./interactive-graph-action";
+import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
     CollinearTuple,
     PerseusGraphType,

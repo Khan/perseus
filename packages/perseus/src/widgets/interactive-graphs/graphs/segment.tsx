@@ -1,6 +1,9 @@
 import * as React from "react";
 
-import {moveControlPoint, moveSegment} from "../interactive-graph-action";
+import {
+    moveControlPoint,
+    moveSegment,
+} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
 import {StyledMovablePoint} from "./components/movable-point";

@@ -8,8 +8,8 @@ import {
     MOVE_LINE,
 } from "./interactive-graph-action";
 
-import type {InteractiveGraphState} from "./types";
-import type {CollinearTuple} from "../../perseus-types";
+import type {CollinearTuple} from "../../../perseus-types";
+import type {InteractiveGraphState} from "../types";
 
 /** Determine if coords is type CollinearTuple[] */
 const isCollinearTuples = (

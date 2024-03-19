@@ -6,14 +6,14 @@ import * as React from "react";
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
 import {Grid} from "./grid";
-import {interactiveGraphReducer} from "./interactive-graph-reducer";
+import {getLegacyGrid} from "./legacy-grid";
+import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {
     getGradableGraph,
     initializeGraphState,
-} from "./interactive-graph-state";
-import {getLegacyGrid} from "./legacy-grid";
+} from "./reducer/interactive-graph-state";
 
-import type {InteractiveGraphAction} from "./interactive-graph-action";
+import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {Widget} from "../../renderer";
 

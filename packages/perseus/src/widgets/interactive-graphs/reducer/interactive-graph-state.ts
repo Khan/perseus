@@ -1,8 +1,7 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
-import {normalizeCoords, normalizePoints} from "./utils";
+import {normalizeCoords, normalizePoints} from "../utils";
 
-import type {InitializeGraphStateParams, InteractiveGraphState} from "./types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeSegment,
@@ -11,7 +10,8 @@ import type {
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
     PerseusGraphTypePolygon,
-} from "../../perseus-types";
+} from "../../../perseus-types";
+import type {InitializeGraphStateParams, InteractiveGraphState} from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 

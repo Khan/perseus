@@ -1,7 +1,7 @@
 import {Polygon} from "mafs";
 import * as React from "react";
 
-import {moveControlPoint} from "../interactive-graph-action";
+import {moveControlPoint} from "../reducer/interactive-graph-action";
 
 import {StyledMovablePoint} from "./components/movable-point";
 

@@ -1,7 +1,7 @@
 import {moveControlPoint, moveSegment} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
-import type {InteractiveGraphState} from "./types";
+import type {InteractiveGraphState} from "../types";
 
 const baseSegmentGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
