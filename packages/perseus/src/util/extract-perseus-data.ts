@@ -538,14 +538,14 @@ function injectWidgets(
     return context;
 }
 
-/* Widgets that have individual answers for the coach report view */
+/* Widgets that have individual answers */
 const INDIVIDUAL_ANSWER_WIDGETS = [
     "interactive-graph",
     "categorizer",
     "grapher",
 ];
 
-/* Widgets that are supported for scoring on the coach report view */
+/* Widgets that are supported for automatic scoring */
 const SUPPORTED_WIDGETS = [
     "radio",
     "numeric-input",
@@ -558,7 +558,7 @@ export const getWidgetTypeFromWidgetKey = (widgetKey: string): string => {
     return widgetKey.split(" ")[0];
 };
 
-/* Verify if the perseus item has supported widgets for scoring on the coach report view. */
+/* Verify if the perseus item has supported widgets for automatic scoring */
 export const isWrongAnswerSupported = (widgetKeys: Array<string>): boolean => {
     return (
         widgetKeys.length !== 0 &&
@@ -575,8 +575,8 @@ export const shouldHaveIndividualAnswer = (widgetKey: string): boolean => {
     );
 };
 
-/* Returns the answer userInput submission for various supported widgets on the coach report view */
-// TODO (Third): Fix userInput any types to be specific (LEMS-1834)
+/* Returns the answer userInput submission for currently supported widgets */
+// TODO (LEMS-1834): Fix userInput any types to be specific
 export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
     switch (widgetType) {
         case "categorizer":
@@ -592,8 +592,8 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
 };
 
 /* Returns the correct answer for a given widget key and Perseus Item */
-// TODO (Third): We should fix the resonse type from getWidget to be specific. (LEMS-1835)
-// TODO (Third): We should also consider adding the getOneCorrectAnswerFromRubric method to all widgets. (LEMS-1836)
+// TODO (LEMS-1835): We should fix the resonse type from getWidget to be specific.
+// TODO (LEMS-1836): We should also consider adding the getOneCorrectAnswerFromRubric method to all widgets.
 export const getCorrectAnswerForWidgetKey = (
     widgetKey: string,
     itemData: PerseusItem,
@@ -602,12 +602,9 @@ export const getCorrectAnswerForWidgetKey = (
     const widgetType = getWidgetTypeFromWidgetKey(widgetKey);
 
     const widget = Widgets.getWidget(widgetType);
+
     // @ts-expect-error - TS2339 - Property 'getOneCorrectAnswerFromRubric' does not exist on type 'ComponentType<any>'.
-    if (!widget?.getOneCorrectAnswerFromRubric) {
-        return;
-    }
-    // @ts-expect-error - TS2339 - Property 'getOneCorrectAnswerFromRubric' does not exist on type 'ComponentType<any>'.
-    return widget.getOneCorrectAnswerFromRubric(rubric);
+    return widget?.getOneCorrectAnswerFromRubric?.(rubric);
 };
 
 /* Verify if the widget key exists in the content string of the Perseus Item */
@@ -620,8 +617,10 @@ export const isWidgetKeyInContent = (
 
 /* Return an array of all the widget keys that exist in the content string of a Perseus Item */
 export const getValidWidgetKeys = (perseusItem: PerseusItem): Array<string> => {
-    const {widgets, content} = perseusItem.question;
-    return keys(widgets).filter((key) => content.indexOf(key as string) !== -1);
+    const {widgets} = perseusItem.question;
+    return keys(widgets).filter((key) =>
+        isWidgetKeyInContent(perseusItem, key),
+    );
 };
 
 export {getAnswersFromWidgets, injectWidgets};
