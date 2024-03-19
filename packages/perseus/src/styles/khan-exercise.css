@@ -150,7 +150,10 @@ div.definition {
     margin: 10px 0;
 }
 #debug var {
-    font: 14px Menlo, Courier, monospace;
+    font:
+        14px Menlo,
+        Courier,
+        monospace;
     word-wrap: break-word;
 }
 
@@ -329,7 +332,11 @@ body.debug .graphie {
 }
 
 #answer_area .calculator .history {
-    font: 14px/1.5 Menlo, Monaco, Courier, monospace;
+    font:
+        14px/1.5 Menlo,
+        Monaco,
+        Courier,
+        monospace;
     margin: 0 0 10px;
     width: 183px;
 
@@ -383,7 +390,11 @@ body.debug .graphie {
 
 #answer_area .calculator .history .status a {
     position: absolute;
-    font: 10px/1.5 Menlo, Monaco, Courier, monospace;
+    font:
+        10px/1.5 Menlo,
+        Monaco,
+        Courier,
+        monospace;
     color: #999;
     text-decoration: none;
     line-height: 9px;
