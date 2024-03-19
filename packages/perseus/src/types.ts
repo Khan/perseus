@@ -124,14 +124,13 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
-// APIOptions provides different ways to customize the behaviour of Perseus.
+/**
+ * APIOptions provides different ways to customize the behaviour of Perseus.
+ *
+ * @see APIOptionsWithDefaults
+ */
 export type APIOptions = Readonly<{
     isArticle?: boolean;
-    // This should actually be required since renderer.jsx sets defaults for
-    // any missing properties in this object using this.getApiOptions() before
-    // passing the prop on to other components.
-    // TODO(FEI-3867): Create an APIOptionsInternal with all properties that
-    // have a default value being non-optional.
     onInputError?: (
         widgetId: any,
         value: string,
@@ -149,87 +148,117 @@ export type APIOptions = Readonly<{
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
     interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
-    // A function that takes in the relative problem number (starts at
-    // 0 and is incremented for each group widget), and the ID of the
-    // group widget, then returns a react component that will be added
-    // immediately above the renderer in the group widget. If the
-    // function returns null, no annotation will be added.
+    /**
+     * A function that takes in the relative problem number (starts at
+     * 0 and is incremented for each group widget), and the ID of the
+     * group widget, then returns a react component that will be added
+     * immediately above the renderer in the group widget. If the
+     * function returns null, no annotation will be added.
+     */
     groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
-    // If imagePlaceholder or widgetPlaceholder are set, perseus will
-    // render the placeholder instead of the image or widget node.
+    /**
+     * If imagePlaceholder is set, Perseus will render the placeholder instead
+     * of the image node.
+     */
     imagePlaceholder?: React.ReactNode;
+    /**
+     * If widgetPlaceholder is set, Perseus will render the placeholder instead
+     * of the widget node.
+     */
     widgetPlaceholder?: React.ReactNode;
-    // Base React elements that can be used in place of the standard DOM
-    // DOM elements. For example, when provided, <Link /> will be used
-    // in place of <a />. This allows clients to provide pre-styled
-    // components or components with custom behavior.
+    /**
+     * Base React elements that can be used in place of the standard DOM
+     * DOM elements. For example, when provided, <Link /> will be used
+     * in place of <a />. This allows clients to provide pre-styled
+     * components or components with custom behavior.
+     */
     baseElements?: {
-        // The <Link /> component provided here must adhere to the same
-        // interface as React's base <a /> component.
+        /**
+         * The <Link /> component provided here must adhere to the same
+         * interface as React's base <a /> component.
+         */
         Link: React.ComponentType<any>;
     };
-    // Function that takes dimensions and returns a React component
-    // to display while an image is loading
+    /**
+     * Function that takes dimensions and returns a React component
+     * to display while an image is loading.
+     */
     imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
-    // A function that is called when the user has interacted with a widget. It
-    // also includes any extra parameters that the originating widget provided.
-    // This is used for keeping track of widget interactions.
+    /**
+     * A function that is called when the user has interacted with a widget. It
+     * also includes any extra parameters that the originating widget provided.
+     * This is used for keeping track of widget interactions.
+     */
     trackInteraction?: (args: TrackInteractionArgs) => void;
-    // A boolean that indicates whether or not a custom keypad is
-    // being used.  For mobile web this will be the ProvidedKeypad
-    // component.  In this situation we use the MathInput component
-    // from the math-input repo instead of the existing perseus math
-    // input components.
+    /**
+     * A boolean that indicates whether or not a custom keypad is
+     * being used.  For mobile web this will be the ProvidedKeypad
+     * component.  In this situation we use the MathInput component
+     * from the math-input repo instead of the existing perseus math
+     * input components.
+     */
     customKeypad?: boolean;
-    // If this is provided, it is called instead of appending an instance
-    // of `math-input`'s keypad to the body. This is used by the native
-    // apps so they can have the keypad be defined on the native side.
-    // It is called with an function that, when called, blurs the input,
-    // and is expected to return an object of the shape
-    // keypadElementPropType from math-input/src/prop-types.js.
+    /**
+     * If this is provided, it is called instead of appending an instance
+     * of `math-input`'s keypad to the body. This is used by the native
+     * apps so they can have the keypad be defined on the native side.
+     * It is called with an function that, when called, blurs the input,
+     * and is expected to return an object of the shape
+     * keypadElementPropType from math-input/src/prop-types.js.
+     */
     nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
-    // Indicates whether or not to use mobile styling.
+    /** Indicates whether or not to use mobile styling. */
     isMobile?: boolean;
-    // A function, called with a bool indicating whether use of the
-    // drawing area (scratchpad) should be allowed/disallowed.
-    // Previously handled by `Khan.scratchpad.enable/disable`
+    /** A function, called with a bool indicating whether use of the
+     * drawing area (scratchpad) should be allowed/disallowed.
+     *
+     * Previously handled by `Khan.scratchpad.enable/disable`
+     */
     setDrawingAreaAvailable?: (arg1: boolean) => unknown;
-    // Whether to use the Draft.js editor or the legacy textarea
+    /** Whether to use the Draft.js editor or the legacy textarea */
     useDraftEditor?: boolean;
-    // The color used for the hint progress indicator (eg. 1 / 3)
+    /** The color used for the hint progress indicator (eg. 1 / 3) */
     hintProgressColor?: string;
-    // Whether this Renderer is allowed to auto-scroll the rest of the
-    // page. For example, if this is enabled, the most recently used
-    // radio widget will attempt to keep the "selected" answer in view
-    // after entering review mode.
-    //
-    // Defaults to `false`.
+    /**
+     * Whether this Renderer is allowed to auto-scroll the rest of the
+     * page. For example, if this is enabled, the most recently used
+     * radio widget will attempt to keep the "selected" answer in view
+     * after entering review mode.
+     *
+     * Defaults to `false`.
+     */
     canScrollPage?: boolean;
-    // Whether or not we are rendering content inside of a modal.
+    /** Whether or not we are rendering content inside of a modal. */
     inModal?: boolean;
-    // Whether to enable the cross-out feature on multiple-choice radio
-    // widgets. This allows users to note which answers they believe to
-    // be incorrect, to find the answer by process of elimination.
-    //
-    // We plan to roll this out to all call sites eventually, but for
-    // now we have this flag, to add it to Generalized Test Prep first.
+    /**
+     * Whether to enable the cross-out feature on multiple-choice radio
+     * widgets. This allows users to note which answers they believe to
+     * be incorrect, to find the answer by process of elimination.
+     *
+     * We plan to roll this out to all call sites eventually, but for
+     * now we have this flag, to add it to Generalized Test Prep first.
+     */
     crossOutEnabled?: boolean;
-    // The value in milliseconds by which the local state of content
-    // in a editor is delayed before propagated to a prop. For example,
-    // when text is typed in the text area of an Editor component,
-    // there will be a delay equal to the value of `editorChangeDelay`
-    // before the change is propagated. This is added for better
-    // responsiveness of the editor when used in certain contexts such
-    // as StructuredItem exercises where constant re-rendering for each
-    // keystroke caused text typed in the text area to appear in it
-    // only after a good few seconds.
+    /**
+     * The value in milliseconds by which the local state of content
+     * in a editor is delayed before propagated to a prop. For example,
+     * when text is typed in the text area of an Editor component,
+     * there will be a delay equal to the value of `editorChangeDelay`
+     * before the change is propagated. This is added for better
+     * responsiveness of the editor when used in certain contexts such
+     * as StructuredItem exercises where constant re-rendering for each
+     * keystroke caused text typed in the text area to appear in it
+     * only after a good few seconds.
+     */
     editorChangeDelay?: number;
-    // This is a callback function that returns all of the Widget props
-    // after they have been transformed by the widget's transform function.
-    // This is useful for when we need to know how a widget has shuffled its
-    // the available choices.
-    // Feature flags that can be passed from consuming application
+    /** Feature flags that can be passed from consuming application. */
     flags?: Record<string, boolean | Record<string, boolean>>;
+    /**
+     * This is a callback function that returns all of the Widget props
+     * after they have been transformed by the widget's transform function.
+     * This is useful for when we need to know how a widget has shuffled its
+     * the available choices.
+     */
     onWidgetStartProps?: (widgets: PerseusWidgetsMap) => PerseusWidgetsMap;
 }>;
 
@@ -350,6 +379,11 @@ export type PerseusDependenciesV2 = {
     analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
 };
 
+/**
+ * APIOptionsWithDefaults represents the type that is provided to all widgets.
+ * The Renderer fills in these defaults when providing APIOptions to any
+ * widget.
+ */
 export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
         GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
