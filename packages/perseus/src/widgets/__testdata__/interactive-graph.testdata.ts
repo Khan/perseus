@@ -486,6 +486,64 @@ export const polygonQuestion: PerseusRenderer = {
     },
 };
 
+export const polygonQuestionDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$.** \n[[\u2603 interactive-graph 1]] \n",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "interactive-graph",
+            options: {
+                rulerTicks: 10,
+                showProtractor: false,
+                graph: {
+                    showSides: true,
+                    snapTo: "grid",
+                    type: "polygon",
+                },
+                snapStep: [0.25, 0.25],
+                labels: ["x", "y"],
+                step: [0.5, 0.5],
+                gridStep: [0.5, 0.5],
+                backgroundImage: {
+                    scale: 1,
+                    bottom: 0,
+                    url: "",
+                    height: 0,
+                    width: 0,
+                    left: 0,
+                },
+                range: [
+                    [-1, 6],
+                    [-1, 6],
+                ],
+                showRuler: false,
+                markings: "none",
+                showTooltips: false,
+                rulerLabel: "",
+                correct: {
+                    showSides: true,
+                    type: "polygon",
+                    coords: [
+                        [3.5, 2],
+                        [2.5, 4],
+                        [1.5, 2],
+                    ],
+                    match: "congruent",
+                    snapTo: "grid",
+                },
+            },
+            alignment: "default",
+        },
+    },
+};
+
 export const rayQuestion: PerseusRenderer = {
     content:
         "**Move the ray so it has an endpoint at point $\\text{B}$ and goes through point $\\text{A}$. Then complete the statement below.**\n\n[[☃ interactive-graph 1]]",
