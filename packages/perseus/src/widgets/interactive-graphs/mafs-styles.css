@@ -32,7 +32,8 @@
     --movable-line-stroke-weight: 4px;
 }
 
-.MafsView .movable-line:focus, .movable-polygon:focus {
+.MafsView .movable-line:focus,
+.movable-polygon:focus {
     outline: none;
 }
 
