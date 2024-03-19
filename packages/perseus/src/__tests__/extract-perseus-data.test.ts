@@ -891,7 +891,10 @@ describe("ExtractPerseusData", () => {
             } as const;
 
             // @ts-expect-error - TS2345 - Argument of type '{ readonly "interactive-graph 1": { readonly type: "interactive-graph"; readonly options: { readonly correct: { readonly coords: readonly [readonly [7, -7], readonly [5, 4], readonly [-3, 4], readonly [-3, -4]]; readonly numSides: "unlimited"; readonly snapTo: "grid"; readonly type: "polygon"; }; ... 11 more ...; re...' is not assignable to parameter of type '{ [key: string]: PerseusWidget; }'.
-            const content = injectWidgets("[[☃ interactive-graph 1]]", widgets);
+            const content = injectWidgets(
+                "[[☃ interactive-graph 1]]",
+                widgets,
+            );
             expect(content).toMatchInlineSnapshot(
                 `"[Graph with an x range of -10 to 10 and y range of -10 to 10]"`,
             );
