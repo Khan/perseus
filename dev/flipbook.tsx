@@ -13,8 +13,11 @@ import {
     flipbookModelReducer,
     next,
     previous,
+    removeCurrentQuestion,
+    selectCurrentQuestionIndex,
     selectCurrentQuestion,
     setQuestions,
+    selectNumQuestions,
 } from "./flipbook-model";
 
 import type {
@@ -40,6 +43,8 @@ export function Flipbook() {
     });
 
     const question = selectCurrentQuestion(state);
+    const numQuestions = selectNumQuestions(state);
+    const index = selectCurrentQuestionIndex(state);
 
     const noTextEntered = state.questions.trim() === "";
 
@@ -53,13 +58,22 @@ export function Flipbook() {
                 onChange={(e) => dispatch(setQuestions(e.target.value))}
             />
             <Strut size={Spacing.small_12} />
-            <View style={{flexDirection: "row"}}>
+            <View style={{flexDirection: "row", alignItems: "baseline"}}>
                 <Button kind="secondary" onClick={() => dispatch(previous)}>
                     Previous
                 </Button>
                 <Strut size={Spacing.xxSmall_6} />
                 <Button kind="secondary" onClick={() => dispatch(next)}>
                     Next
+                </Button>
+                <Strut size={Spacing.medium_16} />
+                <Progress zeroBasedIndex={index} total={numQuestions} />
+                <Strut size={Spacing.medium_16} />
+                <Button
+                    kind="tertiary"
+                    onClick={() => dispatch(removeCurrentQuestion)}
+                >
+                    Discard question
                 </Button>
             </View>
             <div style={{display: noTextEntered ? "block" : "none"}}>
@@ -156,5 +170,20 @@ function GradableRenderer(props: QuestionRendererProps) {
                 Check answer
             </Button>
         </View>
+    );
+}
+
+type ProgressProps = {
+    zeroBasedIndex: number;
+    total: number;
+};
+
+function Progress(props: ProgressProps) {
+    const {zeroBasedIndex, total} = props;
+    const indexToDisplay = Math.min(total, zeroBasedIndex + 1);
+    return (
+        <div>
+            {indexToDisplay} of {total}
+        </div>
     );
 }

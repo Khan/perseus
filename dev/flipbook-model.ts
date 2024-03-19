@@ -16,7 +16,8 @@ export type FlipbookModel = {
 export type Action =
     | {type: "next"}
     | {type: "previous"}
-    | {type: "set-questions"; questions: string};
+    | {type: "set-questions"; questions: string}
+    | {type: "remove-current-question"};
 
 export const next: Action = {type: "next"};
 
@@ -25,6 +26,8 @@ export const previous: Action = {type: "previous"};
 export function setQuestions(questions: string): Action {
     return {type: "set-questions", questions};
 }
+
+export const removeCurrentQuestion: Action = {type: "remove-current-question"};
 
 // Reducer
 // ---------------------------------------------------------------------------
@@ -56,6 +59,16 @@ export function flipbookModelReducer(
             return {
                 ...state,
                 questions: action.questions,
+            };
+        }
+        case "remove-current-question": {
+            const indexToRemove = selectCurrentQuestionIndex(state);
+            return {
+                ...state,
+                questions: state.questions
+                    .split("\n")
+                    .filter((_, i) => i !== indexToRemove)
+                    .join("\n"),
             };
         }
     }
@@ -91,9 +104,17 @@ export const selectQuestions = cache(
 export const selectCurrentQuestion = cache(
     (state: FlipbookModel): PerseusRenderer | null => {
         const questions = selectQuestions(state);
-        return questions[clampIndex(state.requestedIndex, questions)] ?? null;
+        return questions[selectCurrentQuestionIndex(state)] ?? null;
     },
 );
+
+export const selectNumQuestions = cache(
+    (state: FlipbookModel): number => selectQuestions(state).length,
+);
+
+export const selectCurrentQuestionIndex = (state: FlipbookModel): number => {
+    return clampIndex(state.requestedIndex, selectQuestions(state));
+};
 
 function parseQuestion(json): PerseusRenderer {
     try {
