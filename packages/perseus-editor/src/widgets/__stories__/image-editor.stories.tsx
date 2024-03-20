@@ -1,6 +1,6 @@
 import {ApiOptions} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {action} from "@storybook/addon-actions";
 import {StyleSheet} from "aphrodite";
@@ -43,7 +43,7 @@ const WithState = () => {
     return (
         <View style={styles.wrapper}>
             <LabelSmall
-                style={{fontStyle: "italic", marginBottom: Spacing.small_12}}
+                style={{fontStyle: "italic", marginBottom: spacing.small_12}}
             >
                 <b>Note</b> that this editor has a known-issue where it does not
                 calculate the image dimensions initially if they aren't

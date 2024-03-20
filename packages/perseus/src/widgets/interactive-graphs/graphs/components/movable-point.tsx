@@ -1,4 +1,4 @@
-import Color from "@khanacademy/wonder-blocks-color";
+import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {vec, useMovable, useTransformContext} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
@@ -13,7 +13,7 @@ type Props = {
 
 export const StyledMovablePoint = (props: Props) => {
     const hitboxRef = useRef<SVGCircleElement>(null);
-    const {point, onMove, color = Color.blue} = props;
+    const {point, onMove, color = WBColor.blue} = props;
 
     const {dragging} = useMovable({
         gestureTarget: hitboxRef,

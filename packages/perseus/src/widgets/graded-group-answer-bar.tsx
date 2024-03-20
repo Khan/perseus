@@ -2,8 +2,8 @@
  * Renders answer bar for mobile graded groups. [STATELESS]
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import InlineIcon from "../components/inline-icon";
@@ -44,7 +44,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
         const answerBarStyle = {
             ...styles.answerBar,
             backgroundColor:
-                answerBarState === "CORRECT" ? Color.offWhite : "white",
+                answerBarState === "CORRECT" ? color.offWhite : "white",
             // Center the "Correct!" message only when there's no next question
             justifyContent:
                 answerBarState === "CORRECT" && !onNextQuestion
@@ -87,7 +87,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
         return (
             <div style={answerBarStyle}>
                 <span style={styles.text}>
-                    <span style={{fontSize: 28, color: Color.green}}>
+                    <span style={{fontSize: 28, color: color.green}}>
                         <InlineIcon {...iconStar} style={{marginBottom: 5}} />
                     </span>
                     <span
@@ -121,7 +121,7 @@ const styles = {
         marginTop: phoneMargin,
         paddingLeft: phoneMargin,
         paddingRight: 10,
-        borderTop: `1px solid ${Color.offBlack50}`,
+        borderTop: `1px solid ${color.offBlack50}`,
     },
 
     tryAgainIcon: {

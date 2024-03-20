@@ -1,5 +1,5 @@
 import * as React from "react";
-import Color from "@khanacademy/wonder-blocks-color";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {Dependencies} from "@khanacademy/perseus";
 
@@ -46,7 +46,7 @@ export const parameters = {
     },
     backgrounds: {
         // Add WB colors as background options. :)
-        values: Object.entries(Color).map(([name, value]) => ({name, value})),
+        values: Object.entries(color).map(([name, value]) => ({name, value})),
     },
     // Disables Chromatic's snapshotting on a global level
     chromatic: {disableSnapshot: true},

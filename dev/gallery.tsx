@@ -3,9 +3,8 @@ import {useUniqueIdWithMock, View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, MultiSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import SearchField from "@khanacademy/wonder-blocks-search-field";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
 import Switch from "@khanacademy/wonder-blocks-switch";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect, useMemo, useState} from "react";
@@ -51,13 +50,13 @@ const styles = StyleSheet.create({
         boxShadow: "0 0 10px #0002",
         borderBlockEnd: `1px solid ${color.offBlack32}`,
         background: color.offBlack8,
-        padding: Spacing.small_12,
+        padding: spacing.small_12,
     },
 
     main: {
         flexGrow: 1,
         overflowY: "scroll",
-        paddingBlock: Spacing.xLarge_32,
+        paddingBlock: spacing.xLarge_32,
     },
 
     cards: {
@@ -125,9 +124,9 @@ export function Gallery() {
                     checked={isMobile}
                     onChange={setIsMobile}
                 />
-                <Strut size={Spacing.xSmall_8} />
+                <Strut size={spacing.xSmall_8} />
                 <label htmlFor={mobileId}>Mobile</label>
-                <Strut size={Spacing.medium_16} />
+                <Strut size={spacing.medium_16} />
                 <MultiSelect
                     id={flagsId}
                     onChange={setMafsFlags}
@@ -140,17 +139,17 @@ export function Gallery() {
                     <OptionItem value="ray" label="Ray" />
                     <OptionItem value="polygon" label="Polygon" />
                 </MultiSelect>
-                <Strut size={Spacing.xSmall_8} />
+                <Strut size={spacing.xSmall_8} />
                 <label htmlFor={flagsId}>Mafs Flags</label>
-                <Strut size={Spacing.medium_16} />
+                <Strut size={spacing.medium_16} />
                 <SearchField
                     id={searchId}
                     value={search}
                     onChange={setSearch}
                 />
-                <Strut size={Spacing.xSmall_8} />
+                <Strut size={spacing.xSmall_8} />
                 <label htmlFor={searchId}>Search Types</label>
-                <Strut size={Spacing.medium_16} />
+                <Strut size={spacing.medium_16} />
                 <nav>
                     <a href="#flipbook">Flipbook</a>
                 </nav>

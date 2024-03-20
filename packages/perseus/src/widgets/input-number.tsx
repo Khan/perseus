@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -368,13 +368,13 @@ const styles = StyleSheet.create({
         width: 40,
     },
     leftAlign: {
-        paddingLeft: Spacing.xxxSmall_4,
+        paddingLeft: spacing.xxxSmall_4,
         paddingRight: 0,
     },
     rightAlign: {
         textAlign: "right",
         paddingLeft: 0,
-        paddingRight: Spacing.xxxSmall_4,
+        paddingRight: spacing.xxxSmall_4,
     },
     answerStateUnanswered: {
         backgroundColor: "#eee",

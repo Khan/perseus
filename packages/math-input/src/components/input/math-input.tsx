@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -943,7 +943,7 @@ class MathInput extends React.Component<Props, State> {
             borderWidth: this.getBorderWidthPx(),
             ...(showInputFocusStyle
                 ? {
-                      borderColor: Color.blue,
+                      borderColor: color.blue,
                   }
                 : {}),
             ...style,
@@ -1064,9 +1064,9 @@ const inlineStyles = {
         boxSizing: "border-box",
         position: "relative",
         borderStyle: "solid",
-        borderColor: Color.offBlack50,
+        borderColor: color.offBlack50,
         borderRadius: 4,
-        color: Color.offBlack,
+        color: color.offBlack,
     },
 } as const;
 

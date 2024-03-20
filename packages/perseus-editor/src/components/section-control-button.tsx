@@ -1,6 +1,6 @@
 import {components} from "@khanacademy/perseus";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import Color from "@khanacademy/wonder-blocks-color";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -44,7 +44,7 @@ export default class SectionControlButton extends React.Component<SectionControl
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: Color.gold,
+        backgroundColor: color.gold,
         margin: 2,
         paddingRight: 10,
         paddingLeft: 10,
