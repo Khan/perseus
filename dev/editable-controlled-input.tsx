@@ -1,12 +1,8 @@
 import * as React from "react";
 import {useState} from "react";
+import {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type InputElementProps = JSX.LibraryManagedAttributes<
-    "input",
-    React.ComponentProps<"input">
->;
-
-type Props = Omit<InputElementProps, "value" | "onInput"> & {
+type Props = Omit<PropsFor<"input">, "value" | "onInput"> & {
     value: string;
     onInput: (newValue: string) => unknown;
 };
