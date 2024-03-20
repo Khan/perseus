@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "20.5.0",
+    "version": "20.6.0",
     "publishConfig": {
         "access": "public"
     },
@@ -30,8 +30,8 @@
         "@khanacademy/math-input": "^17.3.0",
         "@khanacademy/perseus-core": "1.4.2",
         "@khanacademy/perseus-linter": "^0.3.12",
-        "@khanacademy/pure-markdown": "^0.3.0",
-        "@khanacademy/simple-markdown": "^0.11.3",
+        "@khanacademy/pure-markdown": "^0.3.1",
+        "@khanacademy/simple-markdown": "^0.11.4",
         "@khanacademy/wonder-blocks-banner": "^3.0.33",
         "mafs": "https://github.com/Khan/mafs/releases/download/v0.18.1%2Bbuild-cd8b2467893342ba0b02100073fe21f93f8b1125/mafs-0.18.1.tgz"
     },
