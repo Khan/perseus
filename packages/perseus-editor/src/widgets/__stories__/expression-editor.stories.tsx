@@ -17,7 +17,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Editor/Widgets/Expression Editor",
+    title: "Perseus Editor/Widgets/Expression Editor",
 } as Story;
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos

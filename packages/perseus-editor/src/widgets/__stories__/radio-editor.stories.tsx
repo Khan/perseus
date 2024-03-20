@@ -20,7 +20,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Editor/Widgets/Radio Editor",
+    title: "Perseus Editor/Widgets/Radio Editor",
 } as Story;
 
 const styles = StyleSheet.create({

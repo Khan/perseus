@@ -5,7 +5,7 @@ import GraphSettings from "../graph-settings";
 import GraphSettingsArgTypes from "./graph-settings.argtypes";
 
 export default {
-    title: "Perseus/Editor/Components/Graph Settings",
+    title: "Perseus Editor/Components/Graph Settings",
     component: GraphSettings,
     argTypes: GraphSettingsArgTypes,
 };

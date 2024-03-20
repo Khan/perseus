@@ -7,7 +7,7 @@ import InteractiveGraphEditorArgTypes from "./interactive-graph-editor.argtypes"
 import type {Meta, StoryObj} from "@storybook/react";
 
 export default {
-    title: "Perseus/Editor/Widgets/Interactive Graph Editor",
+    title: "Perseus Editor/Widgets/Interactive Graph Editor",
     component: InteractiveGraphEditor,
     argTypes: InteractiveGraphEditorArgTypes,
 } as Meta<typeof InteractiveGraphEditor>;
