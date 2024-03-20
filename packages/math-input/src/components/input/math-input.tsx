@@ -45,9 +45,12 @@ type HandleState = {
 };
 
 type State = {
+    // Whether the input is currently the focused element.
     focused: boolean;
     handle: HandleState;
-    showFocusStyle: boolean;
+    // Whether to show the focus style for the input. We are handling this separately, as
+    // we want the input to appear focused even when the focus is actually on the keypad.
+    showInputFocusStyle: boolean;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -78,7 +81,7 @@ class MathInput extends React.Component<Props, State> {
 
     state: State = {
         focused: false,
-        showFocusStyle: false,
+        showInputFocusStyle: false,
         handle: {
             animateIntoPosition: false,
             visible: false,
@@ -336,7 +339,7 @@ class MathInput extends React.Component<Props, State> {
 
         this.setState((prevState) => {
             return {
-                showFocusStyle: false,
+                showInputFocusStyle: false,
                 handle: {
                     visible: false,
                 },
@@ -379,7 +382,7 @@ class MathInput extends React.Component<Props, State> {
         this.props?.onFocus();
         setKeypadActive(true);
 
-        this.setState({focused: true, showFocusStyle: true}, () => {
+        this.setState({focused: true, showInputFocusStyle: true}, () => {
             // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
             // occur. Otherwise, the keypad is measured incorrectly. Ideally,
             // we'd use requestAnimationFrame here, but it's unsupported on
@@ -935,13 +938,13 @@ class MathInput extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const {showFocusStyle, handle} = this.state;
+        const {showInputFocusStyle, handle} = this.state;
         const {style} = this.props;
 
         const innerStyle = {
             ...inlineStyles.innerContainer,
             borderWidth: this.getBorderWidthPx(),
-            ...(showFocusStyle
+            ...(showInputFocusStyle
                 ? {
                       borderColor: Color.blue,
                   }
@@ -1007,7 +1010,7 @@ class MathInput extends React.Component<Props, State> {
                                 style={innerStyle}
                             />
                         </div>
-                        {showFocusStyle && handle.visible && (
+                        {showInputFocusStyle && handle.visible && (
                             <CursorHandle
                                 {...handle}
                                 onTouchStart={this.onCursorHandleTouchStart}
