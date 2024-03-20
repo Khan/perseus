@@ -32,7 +32,7 @@ export const jumpToQuestion = (rawUserInput: string): Action => {
 
     return {
         type: "jump-to-index",
-        index: parseInt(rawUserInput, 10),
+        index: parseInt(rawUserInput, 10) - 1,
     };
 };
 
@@ -88,7 +88,7 @@ function updateIndex(state: FlipbookModel, update: (index: number) => number) {
     return {
         ...state,
         requestedIndex: clampIndex(update(currIndex), questions),
-    }
+    };
 }
 
 function clampIndex(index: number, array: unknown[]): number {

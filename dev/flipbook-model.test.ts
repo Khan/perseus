@@ -111,9 +111,9 @@ describe("jumpToQuestion", () => {
             questions: "foo\nbar\nbaz",
             requestedIndex: 0,
         };
-        const action = jumpToQuestion("3");
+        const action = jumpToQuestion("2");
 
-        expect(flipbookModelReducer(state, action).requestedIndex).toBe(2);
+        expect(flipbookModelReducer(state, action).requestedIndex).toBe(1);
     });
 });
 

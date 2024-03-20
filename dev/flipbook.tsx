@@ -9,6 +9,7 @@ import {useReducer, useRef} from "react";
 import {Renderer} from "../packages/perseus/src";
 import {isCorrect} from "../packages/perseus/src/util";
 
+import {EditableControlledInput} from "./editable-controlled-input";
 import {
     flipbookModelReducer,
     next,
@@ -18,6 +19,7 @@ import {
     selectCurrentQuestion,
     setQuestions,
     selectNumQuestions,
+    jumpToQuestion,
 } from "./flipbook-model";
 
 import type {
@@ -67,7 +69,11 @@ export function Flipbook() {
                     Next
                 </Button>
                 <Strut size={Spacing.medium_16} />
-                <Progress zeroBasedIndex={index} total={numQuestions} />
+                <Progress
+                    zeroBasedIndex={index}
+                    total={numQuestions}
+                    onIndexChanged={(input) => dispatch(jumpToQuestion(input))}
+                />
                 <Strut size={Spacing.medium_16} />
                 <Button
                     kind="tertiary"
@@ -176,14 +182,20 @@ function GradableRenderer(props: QuestionRendererProps) {
 type ProgressProps = {
     zeroBasedIndex: number;
     total: number;
+    onIndexChanged: (rawUserInput: string) => unknown;
 };
 
 function Progress(props: ProgressProps) {
-    const {zeroBasedIndex, total} = props;
+    const {zeroBasedIndex, total, onIndexChanged} = props;
     const indexToDisplay = Math.min(total, zeroBasedIndex + 1);
     return (
         <div>
-            {indexToDisplay} of {total}
+            <EditableControlledInput
+                value={String(indexToDisplay)}
+                onInput={onIndexChanged}
+                style={{width: "4em", textAlign: "right"}}
+            />
+            &nbsp;of {total}
         </div>
     );
 }
