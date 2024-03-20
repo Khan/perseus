@@ -753,7 +753,7 @@ describe("renderer", () => {
 
         beforeEach(async () => {
             // Arrange
-            // eslint-disable-next-line testing-library/no-render-in-setup
+            // eslint-disable-next-line testing-library/no-render-in-lifecycle
             const result = renderQuestion(question1);
             rerender = result.rerender;
             renderer = result.renderer;

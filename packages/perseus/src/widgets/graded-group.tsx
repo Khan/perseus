@@ -170,8 +170,8 @@ export class GradedGroup extends React.Component<Props, State> {
             score.type === "points"
                 ? score.message || ""
                 : score.message
-                ? `${INVALID_MESSAGE_PREFIX} ${score.message}`
-                : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
+                  ? `${INVALID_MESSAGE_PREFIX} ${score.message}`
+                  : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
 
         this.setState({
             status: status,

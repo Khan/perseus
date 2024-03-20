@@ -62,8 +62,6 @@
         "aphrodite": "^1.2.5",
         "classnames": "^1.1.4",
         "create-react-class": "^15.6.3",
-        "eslint-import-resolver-alias": "^1.1.2",
-        "eslint-plugin-import": "^2.26.0",
         "intersection-observer": "^0.12.0",
         "jquery": "^2.1.1",
         "katex": "^0.11.1",

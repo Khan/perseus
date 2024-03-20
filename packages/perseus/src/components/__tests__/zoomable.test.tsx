@@ -339,7 +339,7 @@ describe("Zoomable", () => {
             ];
             computeChildBounds = jest.fn(() => sizes.shift());
 
-            // eslint-disable-next-line testing-library/no-render-in-setup
+            // eslint-disable-next-line testing-library/no-render-in-lifecycle
             const {container} = render(
                 <Zoomable computeChildBounds={computeChildBounds}>
                     <span>Some zoomable text</span>
