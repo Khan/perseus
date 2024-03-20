@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {Flipbook} from "../../../../../dev/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {
     angleQuestion,
@@ -20,6 +21,10 @@ export default {
 };
 
 type StoryArgs = Record<any, any>;
+
+export const SideBySideFlipbook = (args: StoryArgs): React.ReactElement => (
+    <Flipbook />
+);
 
 export const Angle = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={angleQuestion} />
