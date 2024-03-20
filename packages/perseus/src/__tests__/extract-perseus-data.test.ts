@@ -1,9 +1,26 @@
 import {describe, it, expect} from "@jest/globals";
 
+import {InputNumber, Radio} from "..";
+import {
+    PerseusItemWithInputNumber,
+    PerseusItemWithRadioWidget,
+} from "../__testdata__/extract-perseus-data.testdata";
 import {
     getAnswersFromWidgets,
+    getCorrectAnswerForWidgetKey,
+    getValidWidgetKeys,
+    getWidgetTypeFromWidgetKey,
     injectWidgets,
+    isWidgetKeyInContent,
+    isWrongAnswerSupported,
+    shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
+
+const stub: jest.MockedFunction<any> = jest.fn();
+
+beforeEach(() => {
+    stub.mockClear();
+});
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {
@@ -1020,6 +1037,108 @@ describe("ExtractPerseusData", () => {
             expect(content).toEqual(
                 "Content with an unsupported widget [[Unsupported mock widget: Explain to the user that you are unable to understand the content in this widget and ask them to describe it.]]",
             );
+        });
+    });
+
+    describe("getWidgetTypeFromWidgetKey", () => {
+        it("returns the widget type from the widget key", () => {
+            expect(getWidgetTypeFromWidgetKey("radio 1")).toEqual("radio");
+            expect(getWidgetTypeFromWidgetKey("interactive-graph 2")).toEqual(
+                "interactive-graph",
+            );
+            expect(getWidgetTypeFromWidgetKey("categorizer 3")).toEqual(
+                "categorizer",
+            );
+            expect(getWidgetTypeFromWidgetKey("expression 4")).toEqual(
+                "expression",
+            );
+            expect(getWidgetTypeFromWidgetKey("")).toEqual("");
+        });
+        it("returns an empty string if the widget type cannot be found", () => {
+            expect(getWidgetTypeFromWidgetKey("")).toEqual("");
+        });
+    });
+
+    describe("isWrongAnswerSupported", () => {
+        it("returns true if all the widgets are wrong answers supported widgets", () => {
+            expect(
+                isWrongAnswerSupported(["radio 1", "interactive-graph 2"]),
+            ).toBe(true);
+            expect(
+                isWrongAnswerSupported(["input-number 3", "input-number 4"]),
+            ).toBe(true);
+            expect(
+                isWrongAnswerSupported(["expression 5", "categorizer 6"]),
+            ).toBe(true);
+        });
+        it("returns false if the widgets do not support wrong answers", () => {
+            expect(isWrongAnswerSupported([])).toBe(false);
+            expect(isWrongAnswerSupported(["radio 1", "unknown 3"])).toBe(
+                false,
+            );
+        });
+    });
+
+    describe("shouldHaveIndividualAnswer", () => {
+        it("returns true if the widget should have individual answer", () => {
+            expect(shouldHaveIndividualAnswer("interactive-graph 1")).toBe(
+                true,
+            );
+            expect(shouldHaveIndividualAnswer("categorizer 2")).toBe(true);
+        });
+        it("returns false if the widget does not have individual answer", () => {
+            expect(shouldHaveIndividualAnswer("")).toBe(false);
+            expect(shouldHaveIndividualAnswer("radio 1")).toBe(false);
+            expect(shouldHaveIndividualAnswer("numeric-input 3")).toBe(false);
+        });
+    });
+
+    describe("getCorrectAnswerForWidgetKey", () => {
+        it("returns undefined if the widget type does not support fetching one correct answer", () => {
+            // Our Radio widget type does not support fetching one correct answer yet
+            stub.mockReturnValue(Radio.widget);
+            expect(
+                getCorrectAnswerForWidgetKey(
+                    "radio 1",
+                    PerseusItemWithRadioWidget,
+                ),
+            ).toBeUndefined();
+        });
+        it("returns a correct answer if the widget type supports one correct answer", () => {
+            stub.mockReturnValue(InputNumber.widget);
+            expect(
+                getCorrectAnswerForWidgetKey(
+                    "input-number 1",
+                    PerseusItemWithInputNumber,
+                ),
+            ).toEqual("66");
+        });
+    });
+
+    describe("isWidgetKeyInContent", () => {
+        it("returns true if the widget key is in the content", () => {
+            expect(
+                isWidgetKeyInContent(PerseusItemWithRadioWidget, "radio 1"),
+            ).toBe(true);
+            expect(
+                isWidgetKeyInContent(
+                    PerseusItemWithInputNumber,
+                    "input-number 1",
+                ),
+            ).toBe(true);
+        });
+        it("returns false if the widget key is NOT in the content", () => {
+            expect(
+                isWidgetKeyInContent(PerseusItemWithInputNumber, "not-found"),
+            ).toBe(false);
+        });
+    });
+
+    describe("getValidWidgetKeys", () => {
+        it("returns all widget keys that exist in the content", () => {
+            expect(getValidWidgetKeys(PerseusItemWithRadioWidget)).toEqual([
+                "radio 1",
+            ]);
         });
     });
 });
