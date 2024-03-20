@@ -12,7 +12,7 @@
  * still have to notify the tooltip to remeasure itself when the highlight
  * focus _changes_.
  */
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         // and the "Add highlight" action fails.
         userSelect: "none",
         fontFamily: `"Lato", sans-serif`,
-        padding: `10px ${Spacing.medium_16}px`,
+        padding: `10px ${spacing.medium_16}px`,
         cursor: "pointer",
     },
 });

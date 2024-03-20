@@ -3,7 +3,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {useReducer, useRef} from "react";
 
@@ -52,7 +52,7 @@ export function Flipbook() {
     const noTextEntered = state.questions.trim() === "";
 
     return (
-        <View style={{padding: Spacing.medium_16}}>
+        <View style={{padding: spacing.medium_16}}>
             <textarea
                 wrap={"off"}
                 rows={10}
@@ -60,22 +60,21 @@ export function Flipbook() {
                 value={state.questions}
                 onChange={(e) => dispatch(setQuestions(e.target.value))}
             />
-            <Strut size={Spacing.small_12} />
             <View style={{flexDirection: "row", alignItems: "baseline"}}>
                 <Button kind="secondary" onClick={() => dispatch(previous)}>
                     Previous
                 </Button>
-                <Strut size={Spacing.xxSmall_6} />
+                <Strut size={spacing.xxSmall_6} />
                 <Button kind="secondary" onClick={() => dispatch(next)}>
                     Next
                 </Button>
-                <Strut size={Spacing.medium_16} />
+                <Strut size={spacing.medium_16} />
                 <Progress
                     zeroBasedIndex={index}
                     total={numQuestions}
                     onIndexChanged={(input) => dispatch(jumpToQuestion(input))}
                 />
-                <Strut size={Spacing.medium_16} />
+                <Strut size={spacing.medium_16} />
                 <Button
                     kind="tertiary"
                     onClick={() => dispatch(removeCurrentQuestion)}
@@ -83,7 +82,7 @@ export function Flipbook() {
                     Discard question
                 </Button>
             </View>
-            <Strut size={Spacing.small_12} />
+            <Strut size={spacing.small_12} />
             <div style={{display: noTextEntered ? "block" : "none"}}>
                 <h2>Instructions</h2>
                 <ol>
@@ -123,8 +122,8 @@ function SideBySideQuestionRenderer({
                 className="framework-perseus"
                 style={{
                     flexDirection: "row",
-                    padding: Spacing.medium_16,
-                    gap: Spacing.medium_16,
+                    padding: spacing.medium_16,
+                    gap: spacing.medium_16,
                     background: "#f8f8f8",
                 }}
             >
@@ -165,7 +164,7 @@ function GradableRenderer(props: QuestionRendererProps) {
                 alignItems: "flex-start",
                 overflow: "hidden",
                 background: Color.white,
-                padding: Spacing.medium_16,
+                padding: spacing.medium_16,
             }}
         >
             <Renderer

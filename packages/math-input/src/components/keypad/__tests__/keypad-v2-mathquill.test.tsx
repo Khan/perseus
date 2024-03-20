@@ -1,4 +1,4 @@
-import Color from "@khanacademy/wonder-blocks-color";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -89,7 +89,7 @@ function V2KeypadWithMathquill(props: Props) {
                     style={{
                         width: "100%",
                         marginBottom: "1em",
-                        border: `1px solid ${Color.offBlack16}`,
+                        border: `1px solid ${color.offBlack16}`,
                     }}
                     ref={mathFieldWrapperRef}
                 />

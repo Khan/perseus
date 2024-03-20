@@ -1,4 +1,4 @@
-import Color from "@khanacademy/wonder-blocks-color";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -206,11 +206,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     wrapper: {
-        background: Color.white,
+        background: color.white,
     },
     expandedWrapper: {
         borderWidth: "1px 1px 0 1px",
-        borderColor: Color.offBlack32,
+        borderColor: color.offBlack32,
         maxWidth: expandedViewThreshold,
         borderRadius: "3px 3px 0 0",
     },

@@ -38,7 +38,6 @@
     "devDependencies": {
         "@khanacademy/wonder-blocks-button": "^6.2.8",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
-        "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-data": "^13.0.6",
         "@khanacademy/wonder-blocks-dropdown": "^5.1.6",
@@ -76,7 +75,6 @@
     "peerDependencies": {
         "@khanacademy/wonder-blocks-button": "^6.2.8",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
-        "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-data": "^13.0.6",
         "@khanacademy/wonder-blocks-dropdown": "^5.1.6",
