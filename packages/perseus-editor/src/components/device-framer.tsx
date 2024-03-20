@@ -2,8 +2,7 @@
  * A component that displays its contents inside a device frame.
  */
 
-import {constants} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
+import {DeviceType, constants} from "@khanacademy/perseus";
 import * as React from "react";
 
 const SCREEN_SIZES = {
@@ -24,52 +23,47 @@ const SCREEN_SIZES = {
     },
 } as const;
 
-type Props = any;
+type Props = React.PropsWithChildren<{
+    deviceType?: DeviceType;
+    nochrome: boolean;
+}>;
 
-class DeviceFramer extends React.Component<Props> {
-    static propTypes = {
-        children: PropTypes.element.isRequired,
-        deviceType: PropTypes.oneOf([
-            constants.devices.PHONE,
-            constants.devices.TABLET,
-            constants.devices.DESKTOP,
-        ]).isRequired,
-        // TODO(kevinb) rename to variableHeight
-        nochrome: PropTypes.bool,
-    };
-
-    render(): React.ReactNode {
-        const deviceType = this.props.deviceType;
-
-        if (this.props.nochrome) {
-            // Render content inside a variable height iframe.  Used on the
-            // "edit" table of the content editor. In this mode, PerseusFrame
-            // will draw the border and reserve space on the right for
-            // lint indicators.
-            return (
-                <div>
-                    <div
-                        key="screen"
-                        style={{
-                            width:
-                                SCREEN_SIZES[deviceType].framedWidth +
-                                2 * constants.perseusFrameBorderWidth +
-                                constants.lintGutterWidth,
-                        }}
-                    >
-                        <div>{this.props.children}</div>
-                    </div>
+const DeviceFramer = ({
+    children,
+    deviceType = "phone",
+    nochrome,
+}: Props): React.ReactElement => {
+    if (nochrome) {
+        // Render content inside a variable height iframe.  Used on the
+        // "edit" table of the content editor. In this mode, PerseusFrame
+        // will draw the border and reserve space on the right for
+        // lint indicators.
+        return (
+            <div>
+                <div
+                    key="screen"
+                    style={{
+                        overflow: "scroll",
+                        width:
+                            SCREEN_SIZES[deviceType].framedWidth +
+                            2 * constants.perseusFrameBorderWidth +
+                            constants.lintGutterWidth,
+                    }}
+                >
+                    <div>{children}</div>
                 </div>
-            );
-        }
-        const scale =
-            SCREEN_SIZES[deviceType].framedWidth /
-            SCREEN_SIZES[deviceType].width;
+            </div>
+        );
+    }
+    const scale =
+        SCREEN_SIZES[deviceType].framedWidth / SCREEN_SIZES[deviceType].width;
 
-        // In this mode we draw our own border and don't reserve
-        // space for a lint gutter.
-        const screenStyle = {
+    // In this mode we draw our own border and don't reserve
+    // space for a lint gutter.
+    const screenStyle = React.useMemo(
+        () => ({
             backgroundColor: "white",
+            overflow: "scroll",
             color: "black",
             textAlign: "left",
             width: SCREEN_SIZES[deviceType].width,
@@ -77,14 +71,19 @@ class DeviceFramer extends React.Component<Props> {
             border: "solid 1px #CCC",
             margin: 8,
             zoom: scale,
-        } as const;
+        }),
+        [deviceType],
+    );
 
-        return (
-            <div key="screen" className="screen" style={screenStyle}>
-                {this.props.children}
-            </div>
-        );
-    }
-}
+    return (
+        <div
+            key="screen"
+            className="screen"
+            style={{...screenStyle, textAlign: "start"}}
+        >
+            {children}
+        </div>
+    );
+};
 
 export default DeviceFramer;
