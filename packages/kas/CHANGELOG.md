@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 0.3.9
+
+### Patch Changes
+
+-   [#1096](https://github.com/Khan/perseus/pull/1096) [`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling: Upgrade ESLint to latest and apply fixes
+
 ## 0.3.8
 
 ### Patch Changes

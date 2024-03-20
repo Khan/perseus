@@ -1,5 +1,16 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.4
+
+### Patch Changes
+
+-   [#1094](https://github.com/Khan/perseus/pull/1094) [`ed9a9432`](https://github.com/Khan/perseus/commit/ed9a9432935183e3c7b9ec8f55e758e5820f156a) Thanks [@nedredmond](https://github.com/nedredmond)! - Polygon mafs graph behind feature flag
+
+*   [#1096](https://github.com/Khan/perseus/pull/1096) [`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling: Upgrade ESLint to latest and apply fixes
+
+*   Updated dependencies [[`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64)]:
+    -   @khanacademy/kas@0.3.9
+
 ## 1.3.3
 
 ### Patch Changes
