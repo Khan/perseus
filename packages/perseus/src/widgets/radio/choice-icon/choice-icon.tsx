@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* Component for rendering a letter icon in a library radio choice */
 
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -75,17 +75,17 @@ function getDynamicStyles(
     let borderColor;
     let color;
     if (!showCorrectness && pressed) {
-        borderColor = color.blue;
-        color = color.blue;
+        borderColor = WBColor.blue;
+        color = WBColor.blue;
         backgroundColor = "transparent";
     } else if (checked) {
-        const bg = showCorrectness && correct ? color.green : color.blue;
+        const bg = showCorrectness && correct ? WBColor.green : WBColor.blue;
         color = styleConstants.white;
         backgroundColor = bg;
         borderColor = bg;
     } else {
-        borderColor = color.offBlack64;
-        color = color.offBlack64;
+        borderColor = WBColor.offBlack64;
+        color = WBColor.offBlack64;
     }
 
     // define shape
@@ -124,7 +124,7 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     return (
         <div className={css(sharedStyles.iconWrapper)}>
             <FocusRing
-                color={color.blue}
+                color={WBColor.blue}
                 visible={focused || hovered}
                 multipleSelect={multipleSelect}
             >
@@ -209,9 +209,9 @@ const styles = StyleSheet.create({
     },
 
     circleIncorrectAnswered: {
-        backgroundColor: color.red,
-        borderColor: color.red,
-        color: color.white,
+        backgroundColor: WBColor.red,
+        borderColor: WBColor.red,
+        color: WBColor.white,
     },
 });
 
