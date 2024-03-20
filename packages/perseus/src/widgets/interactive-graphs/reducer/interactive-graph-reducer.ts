@@ -29,12 +29,12 @@ export function interactiveGraphReducer<
     switch (action.type) {
         case MOVE_CONTROL_POINT: {
             const newCoords =
-                action.objectIndex !== undefined &&
+                action.itemIndex !== undefined &&
                 state.coords &&
                 isCollinearTuples(state.coords)
                     ? updateAtIndex({
                           array: state.coords,
-                          index: action.objectIndex,
+                          index: action.itemIndex,
                           update: (tuple) =>
                               setAtIndex({
                                   array: tuple,
@@ -61,10 +61,16 @@ export function interactiveGraphReducer<
                               }),
                           }),
                       });
+
+            // Cannot type narrow both conditions within function parameters,
+            // so this may seem redundant, but it's necessary for type safety.
+            const coordsToCheck =
+                isCollinearTuples(newCoords) && action.itemIndex !== undefined
+                    ? newCoords[action.itemIndex]
+                    : newCoords;
             if (
-                coordsOverlap(
-                    isCollinearTuples(newCoords) ? newCoords.flat() : newCoords,
-                )
+                !isCollinearTuples(coordsToCheck) &&
+                coordsOverlap(coordsToCheck)
             ) {
                 return state;
             }
