@@ -23,8 +23,8 @@ export default {
 type StoryArgs = Record<any, any>;
 
 export const SideBySideFlipbook = (args: StoryArgs): React.ReactElement => (
-    <Flipbook/>
-)
+    <Flipbook />
+);
 
 export const Angle = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={angleQuestion} />
