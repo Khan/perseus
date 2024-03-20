@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 20.6.0
+
+### Minor Changes
+
+-   [#1090](https://github.com/Khan/perseus/pull/1090) [`20a23a39`](https://github.com/Khan/perseus/commit/20a23a3976a70378e86c8871e47d5497ddc9d51e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Added new API methods to support our Coach Report Response view.
+
+*   [#1058](https://github.com/Khan/perseus/pull/1058) [`a431883d`](https://github.com/Khan/perseus/commit/a431883d7d157160f07daa27c3d3d08eb07563f5) Thanks [@handeyeco](https://github.com/handeyeco)! - Move widget enum helpers from Webapp to Perseus
+
+### Patch Changes
+
+-   [#1095](https://github.com/Khan/perseus/pull/1095) [`11e04962`](https://github.com/Khan/perseus/commit/11e04962fee178c997ca50d96eaebc446d43e66c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling: Upgrade projects to use TypeScript v5.4.2
+
+*   [#1093](https://github.com/Khan/perseus/pull/1093) [`0cd66f88`](https://github.com/Khan/perseus/commit/0cd66f882e549d2bc3c9e6911a50656e07c549f2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change APIOptions and APIOptionsWithDefaults comments to JSDoc comments for better tooling support
+
+-   [#1088](https://github.com/Khan/perseus/pull/1088) [`47eade13`](https://github.com/Khan/perseus/commit/47eade137687d829b0ac46ac11218afe1c9308f4) Thanks [@benchristel](https://github.com/benchristel)! - Refactor the InteractiveGraph component to avoid mounting the legacy interactive graph when Mafs is enabled. This ensures that state from the legacy graph doesn't interfere with the Mafs graph
+
+-   Updated dependencies [[`11e04962`](https://github.com/Khan/perseus/commit/11e04962fee178c997ca50d96eaebc446d43e66c)]:
+    -   @khanacademy/simple-markdown@0.11.4
+    -   @khanacademy/pure-markdown@0.3.1
+
 ## 20.5.0
 
 ### Minor Changes
