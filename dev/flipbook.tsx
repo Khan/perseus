@@ -1,5 +1,6 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
 import Button from "@khanacademy/wonder-blocks-button";
+import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
@@ -82,6 +83,7 @@ export function Flipbook() {
                     Discard question
                 </Button>
             </View>
+            <Strut size={Spacing.small_12} />
             <div style={{display: noTextEntered ? "block" : "none"}}>
                 <h2>Instructions</h2>
                 <ol>
@@ -121,8 +123,9 @@ function SideBySideQuestionRenderer({
                 className="framework-perseus"
                 style={{
                     flexDirection: "row",
-                    padding: Spacing.xLarge_32,
-                    gap: Spacing.small_12,
+                    padding: Spacing.medium_16,
+                    gap: Spacing.medium_16,
+                    background: "#f8f8f8",
                 }}
             >
                 <GradableRenderer
@@ -157,7 +160,14 @@ function GradableRenderer(props: QuestionRendererProps) {
     }
 
     return (
-        <View style={{alignItems: "flex-start"}}>
+        <View
+            style={{
+                alignItems: "flex-start",
+                overflow: "hidden",
+                background: Color.white,
+                padding: Spacing.medium_16,
+            }}
+        >
             <Renderer
                 ref={rendererRef}
                 content={question.content}
