@@ -10,7 +10,7 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyMonospace, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -558,7 +558,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         style={{
                             fontSize: 12,
                             backgroundColor: "#eee",
-                            paddingInline: Spacing.xxSmall_6,
+                            paddingInline: spacing.xxSmall_6,
                             borderColor: "#ccc",
                             borderStyle: "solid",
                             borderWidth: 1,
@@ -574,9 +574,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>
                 </LabeledRow>
-
                 {graph}
-
                 {
                     // Only show the "Add element" dropdown if the graph is
                     // using Mafs.
@@ -663,7 +661,7 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: "row",
-        marginTop: Spacing.xSmall_8,
+        marginTop: spacing.xSmall_8,
         alignItems: "center",
     },
 });

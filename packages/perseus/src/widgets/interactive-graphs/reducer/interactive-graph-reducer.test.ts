@@ -1,7 +1,7 @@
-import {moveControlPoint, moveSegment} from "./interactive-graph-action";
+import {moveControlPoint, moveLine} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
-import type {InteractiveGraphState} from "./types";
+import type {InteractiveGraphState} from "../types";
 
 const baseSegmentGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
@@ -28,7 +28,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [5, 6]),
+            moveControlPoint(0, [5, 6], 0),
         );
 
         expect(updated.coords?.[0]).toEqual([
@@ -50,7 +50,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [5, 6]),
+            moveControlPoint(0, [5, 6], 0),
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
@@ -69,7 +69,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [2, 2]),
+            moveControlPoint(0, [2, 2], 0),
         );
 
         // Assert: the move was canceled
@@ -93,7 +93,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [1.5, 6.6]),
+            moveControlPoint(0, [1.5, 6.6], 0),
         );
 
         // Assert: x snaps to the nearest whole number; y snaps to the nearest
@@ -119,7 +119,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, 0, [99, 99]),
+            moveControlPoint(0, [99, 99], 0),
         );
 
         expect(updated.coords?.[0][0]).toEqual([4.5, 7.5]);
@@ -138,7 +138,7 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, moveSegment(0, [5, -3]));
+        const updated = interactiveGraphReducer(state, moveLine(0, [5, -3]));
 
         expect(updated.coords?.[0]).toEqual([
             [6, -1],
@@ -157,10 +157,7 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(
-            state,
-            moveSegment(0, [0.5, 0.5]),
-        );
+        const updated = interactiveGraphReducer(state, moveLine(0, [0.5, 0.5]));
 
         expect(updated.coords?.[0]).toEqual([
             [2, 3],
@@ -179,10 +176,7 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(
-            state,
-            moveSegment(0, [99, 99]),
-        );
+        const updated = interactiveGraphReducer(state, moveLine(0, [99, 99]));
 
         expect(updated.coords?.[0]).toEqual([
             [7, 7],
@@ -201,7 +195,7 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, moveSegment(0, [1, 1]));
+        const updated = interactiveGraphReducer(state, moveLine(0, [1, 1]));
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });

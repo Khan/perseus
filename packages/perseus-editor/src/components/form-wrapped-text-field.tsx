@@ -9,7 +9,7 @@
  * own <form> that wraps all text fields in the form.
  **/
 import {globalStyles} from "@khanacademy/perseus";
-import Color from "@khanacademy/wonder-blocks-color";
+import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -149,8 +149,8 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         }
 
         const borderColorStyle = focused
-            ? focusBorderColor || Color.blue
-            : borderColor || Color.offBlack16;
+            ? focusBorderColor || WBColor.blue
+            : borderColor || WBColor.offBlack16;
         extraStyles.border = `1px solid ${borderColorStyle}`;
 
         const wrappedIcon = icon && (

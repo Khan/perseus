@@ -1,5 +1,30 @@
 # @khanacademy/perseus-editor
 
+## 5.2.3
+
+### Patch Changes
+
+-   Updated dependencies [[`5ce75a23`](https://github.com/Khan/perseus/commit/5ce75a2357a7ab972028fd1fbf6d7378c65f48ec), [`e70d1701`](https://github.com/Khan/perseus/commit/e70d17010eb3943f114ea382025016e5ed68cde5)]:
+    -   @khanacademy/perseus@20.8.0
+    -   @khanacademy/math-input@17.4.0
+
+## 5.2.2
+
+### Patch Changes
+
+-   [#1096](https://github.com/Khan/perseus/pull/1096) [`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling: Upgrade ESLint to latest and apply fixes
+
+-   Updated dependencies [[`08e4a422`](https://github.com/Khan/perseus/commit/08e4a4229f57bf5c1c029591fcf5dfa9ef9b4ee2), [`ed9a9432`](https://github.com/Khan/perseus/commit/ed9a9432935183e3c7b9ec8f55e758e5820f156a), [`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64)]:
+    -   @khanacademy/perseus@20.7.0
+    -   @khanacademy/kas@0.3.9
+
+## 5.2.1
+
+### Patch Changes
+
+-   Updated dependencies [[`20a23a39`](https://github.com/Khan/perseus/commit/20a23a3976a70378e86c8871e47d5497ddc9d51e), [`11e04962`](https://github.com/Khan/perseus/commit/11e04962fee178c997ca50d96eaebc446d43e66c), [`a431883d`](https://github.com/Khan/perseus/commit/a431883d7d157160f07daa27c3d3d08eb07563f5), [`0cd66f88`](https://github.com/Khan/perseus/commit/0cd66f882e549d2bc3c9e6911a50656e07c549f2), [`47eade13`](https://github.com/Khan/perseus/commit/47eade137687d829b0ac46ac11218afe1c9308f4)]:
+    -   @khanacademy/perseus@20.6.0
+
 ## 5.2.0
 
 ### Minor Changes

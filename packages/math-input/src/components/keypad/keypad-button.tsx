@@ -1,6 +1,6 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        boxShadow: `0px 1px 0px ${Color.offBlack32}`,
+        boxShadow: `0px 1px 0px ${color.offBlack32}`,
         boxSizing: "border-box",
-        background: Color.white,
+        background: color.white,
         borderRadius: 4,
         borderWidth: 2,
         borderStyle: "solid",
@@ -97,19 +97,19 @@ const styles = StyleSheet.create({
         padding: 1,
     },
     hovered: {
-        borderColor: Color.blue,
+        borderColor: color.blue,
         padding: 1,
         boxShadow: "none",
     },
     focused: {
-        borderColor: Color.blue,
+        borderColor: color.blue,
         padding: 0,
         boxShadow: "none",
     },
     pressed: {
         border: "2px solid #1B50B3",
         padding: 0,
-        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${Color.white}`,
+        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${color.white}`,
         boxShadow: "none",
     },
     outerBoxBase: {

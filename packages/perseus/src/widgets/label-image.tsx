@@ -644,10 +644,10 @@ export class LabelImage extends React.Component<
                   )
                 : i18n._("Tap each dot on the image to select an answer.")
             : multipleAnswers
-            ? i18n._(
-                  "Click each dot on the image to select all answers that apply.",
-              )
-            : i18n._("Click each dot on the image to select an answer.");
+              ? i18n._(
+                    "Click each dot on the image to select all answers that apply.",
+                )
+              : i18n._("Click each dot on the image to select an answer.");
 
         const choicesString = i18n._("Choices:");
 

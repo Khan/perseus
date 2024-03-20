@@ -1,4 +1,5 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+// eslint-disable-next-line testing-library/no-manual-cleanup
 import {cleanup, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";

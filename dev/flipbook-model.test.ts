@@ -5,6 +5,8 @@ import {
     previous,
     setQuestions,
     selectQuestions,
+    removeCurrentQuestion,
+    jumpToQuestion,
 } from "./flipbook-model";
 
 import type {FlipbookModel} from "./flipbook-model";
@@ -20,7 +22,9 @@ describe("flipbookModelReducer", () => {
             requestedIndex: 42,
         });
     });
+});
 
+describe("next/previous", () => {
     it("goes to the next question", () => {
         const model: FlipbookModel = {
             questions: `{}\n{}`,
@@ -75,7 +79,45 @@ describe("flipbookModelReducer", () => {
             requestedIndex: 0,
         });
     });
+});
 
+describe("jumpToQuestion", () => {
+    it("does nothing given a non-numeric value", () => {
+        const state: FlipbookModel = {questions: "foo", requestedIndex: 0};
+        const action = jumpToQuestion("blah");
+
+        expect(flipbookModelReducer(state, action)).toEqual({
+            questions: "foo",
+            requestedIndex: 0,
+        });
+    });
+
+    it("does nothing given a negative value", () => {});
+
+    it("does nothing given zero", () => {
+        // jumpToQuestion accepts raw user input, which uses 1-based indexing,
+        // not 0-based. So 0 is not a valid input.
+        const state: FlipbookModel = {
+            questions: "foo\nbar\nbaz",
+            requestedIndex: 2,
+        };
+        const action = jumpToQuestion("0");
+
+        expect(flipbookModelReducer(state, action).requestedIndex).toBe(2);
+    });
+
+    it("jumps to the given question by 1-based index", () => {
+        const state: FlipbookModel = {
+            questions: "foo\nbar\nbaz",
+            requestedIndex: 0,
+        };
+        const action = jumpToQuestion("2");
+
+        expect(flipbookModelReducer(state, action).requestedIndex).toBe(1);
+    });
+});
+
+describe("setQuestions", () => {
     it("replaces the questions string", () => {
         const model: FlipbookModel = {
             questions: "",
@@ -84,6 +126,40 @@ describe("flipbookModelReducer", () => {
         expect(flipbookModelReducer(model, setQuestions("{}"))).toEqual({
             questions: "{}",
             requestedIndex: 0,
+        });
+    });
+});
+
+describe("removeCurrentQuestion", () => {
+    it("does nothing when there are no questions", () => {
+        const model: FlipbookModel = {questions: "", requestedIndex: 0};
+        expect(flipbookModelReducer(model, removeCurrentQuestion)).toEqual({
+            questions: "",
+            requestedIndex: 0,
+        });
+    });
+
+    it("removes the first question when the requestedIndex is 0", () => {
+        const model: FlipbookModel = {questions: "one\ntwo", requestedIndex: 0};
+        expect(flipbookModelReducer(model, removeCurrentQuestion)).toEqual({
+            questions: "two",
+            requestedIndex: 0,
+        });
+    });
+
+    it("removes the second question when the requestedIndex is 1", () => {
+        const model: FlipbookModel = {questions: "one\ntwo", requestedIndex: 1};
+        expect(flipbookModelReducer(model, removeCurrentQuestion)).toEqual({
+            questions: "one",
+            requestedIndex: 1,
+        });
+    });
+
+    it("removes the last question when the index is high out of bounds", () => {
+        const model: FlipbookModel = {questions: "one\ntwo", requestedIndex: 9};
+        expect(flipbookModelReducer(model, removeCurrentQuestion)).toEqual({
+            questions: "one",
+            requestedIndex: 9,
         });
     });
 });

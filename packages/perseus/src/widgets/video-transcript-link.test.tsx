@@ -52,7 +52,7 @@ describe("VideoTranscriptLink", () => {
 
         // Assert
         // Find by Text test will fail if the indicated text is missing
-        await screen.findByText("Youtube Video Title");
+        expect(screen.getByText("Youtube Video Title")).toBeInTheDocument();
     });
 
     it("renders the title with slug video name when provided a slug-id", async () => {
@@ -60,7 +60,7 @@ describe("VideoTranscriptLink", () => {
         render(<VideoTranscriptLink location="slug-video-id" />);
 
         // Assert
-        await screen.findByText("Slug Video Title");
+        expect(screen.getByText("Slug Video Title")).toBeInTheDocument();
     });
 
     it("renders the button with the correct link", async () => {
@@ -68,7 +68,7 @@ describe("VideoTranscriptLink", () => {
         render(<VideoTranscriptLink location="slug-video-id" />);
 
         // Assert
-        await screen.findByText("Slug Video Title");
+        expect(screen.getByText("Slug Video Title")).toBeInTheDocument();
         await expect(screen.getByRole("link")).toHaveAttribute(
             "href",
             "/transcript/contentId",
@@ -82,7 +82,7 @@ describe("VideoTranscriptLink", () => {
         );
 
         // Assert
-        await screen.findByText("Youtube Video Title");
+        expect(screen.getByText("Youtube Video Title")).toBeInTheDocument();
     });
 
     it("can parse a youtube URL with userID text", async () => {
@@ -92,7 +92,7 @@ describe("VideoTranscriptLink", () => {
         );
 
         // Assert
-        await screen.findByText("Youtube Video Title");
+        expect(screen.getByText("Youtube Video Title")).toBeInTheDocument();
     });
 
     it("can parse a youtube URL with location/language text", async () => {
@@ -102,7 +102,7 @@ describe("VideoTranscriptLink", () => {
         );
 
         // Assert
-        await screen.findByText("Youtube Video Title");
+        expect(screen.getByText("Youtube Video Title")).toBeInTheDocument();
     });
 
     it("can parse a youtube URL with a time stamp", async () => {
@@ -112,7 +112,7 @@ describe("VideoTranscriptLink", () => {
         );
 
         // Assert
-        await screen.findByText("Youtube Video Title");
+        expect(screen.getByText("Youtube Video Title")).toBeInTheDocument();
     });
 
     it("can parse an embed youtube URL", async () => {
@@ -122,7 +122,7 @@ describe("VideoTranscriptLink", () => {
         );
 
         // Assert
-        await screen.findByText("Youtube Video Title");
+        expect(screen.getByText("Youtube Video Title")).toBeInTheDocument();
     });
 
     it("can parse a shorthand youtube URL", async () => {
@@ -130,7 +130,7 @@ describe("VideoTranscriptLink", () => {
         render(<VideoTranscriptLink location="http://youtu.be/5qap5aO4i9A" />);
 
         // Assert
-        await screen.findByText("Youtube Video Title");
+        expect(screen.getByText("Youtube Video Title")).toBeInTheDocument();
     });
 
     it("should link to /transcript/videoNotFound if the URL is not a youtube URL", () => {

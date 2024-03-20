@@ -1,5 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
@@ -44,8 +44,8 @@ const styles = {
         display: "flex",
         flexWrap: "wrap",
         flexDirection: "row",
-        gap: Spacing.large_24,
-        padding: `0px ${Spacing.large_24}px`,
+        gap: spacing.large_24,
+        padding: `0px ${spacing.large_24}px`,
     },
     leftPanel: {
         flexBasis: `${interactiveSizes.defaultBoxSize}px`,

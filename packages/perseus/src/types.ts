@@ -310,10 +310,9 @@ export type VideoData = {
 
 interface StaticUrlFn {
     (maybeRelativeUrl: string): string;
-    (maybeRelativeUrl?: undefined | null | undefined):
-        | undefined
-        | null
-        | undefined;
+    (
+        maybeRelativeUrl?: undefined | null | undefined,
+    ): undefined | null | undefined;
 }
 
 // A dependency for getting URLs

@@ -189,9 +189,14 @@ describe("article renderer", () => {
 
         fireEvent.touchStart(input);
 
+        // Assert
         await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
-        expect(answerableCallback).toHaveBeenCalled();
+
+        // We also need to wait for the onFocusChange callback to be called
+        await waitFor(() => {
+            expect(answerableCallback).toHaveBeenCalled();
+        });
     });
 });

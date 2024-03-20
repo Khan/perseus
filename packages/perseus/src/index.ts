@@ -82,6 +82,13 @@ export * as SizingUtils from "./util/sizing-utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
+    getWidgetTypeFromWidgetKey,
+    isWrongAnswerSupported,
+    shouldHaveIndividualAnswer,
+    isWidgetKeyInContent,
+    getValidWidgetKeys,
+    getCorrectAnswerForWidgetKey,
+    getAnswerFromUserInput,
 } from "./util/extract-perseus-data";
 export {parsePerseusItem} from "./util/parse-perseus-json";
 export {
@@ -92,6 +99,14 @@ export {
     convertWidgetNameToEnum,
     getWidgetTypeFromWidgetId,
 } from "./util/widget-enum-utils";
+export {
+    WidgetType,
+    addWidget,
+    getAllWidgetIds,
+    getAllWidgetTypes,
+    getQuestionWidgetIds,
+    QUESTION_WIDGETS,
+} from "./util/snowman-utils";
 
 /**
  * Mixins

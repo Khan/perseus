@@ -311,7 +311,9 @@ describe("Traversal", () => {
                 content: `${options.content}\n\nnew content!`,
             });
         });
-        expect(newOptions.content).toBe("[[☃ input-number 1]]\n\nnew content!");
+        expect(newOptions.content).toBe(
+            "[[☃ input-number 1]]\n\nnew content!",
+        );
         expect(newOptions.widgets).toEqual(sampleOptions.widgets);
         assertNonMutative();
     });

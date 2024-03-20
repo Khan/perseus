@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.4.0
+
+### Minor Changes
+
+-   [#1092](https://github.com/Khan/perseus/pull/1092) [`e70d1701`](https://github.com/Khan/perseus/commit/e70d17010eb3943f114ea382025016e5ed68cde5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fixes to ensure that users can properly focus a math input on mobile devices
+
 ## 17.3.0
 
 ### Minor Changes

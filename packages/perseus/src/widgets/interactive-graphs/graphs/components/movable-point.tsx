@@ -1,7 +1,9 @@
-import Color from "@khanacademy/wonder-blocks-color";
+import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {vec, useMovable, useTransformContext} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
+
+import {TARGET_SIZE} from "../../utils";
 
 type Props = {
     point: vec.Vector2;
@@ -11,7 +13,7 @@ type Props = {
 
 export const StyledMovablePoint = (props: Props) => {
     const hitboxRef = useRef<SVGCircleElement>(null);
-    const {point, onMove, color = Color.blue} = props;
+    const {point, onMove, color = WBColor.blue} = props;
 
     const {dragging} = useMovable({
         gestureTarget: hitboxRef,
@@ -39,7 +41,12 @@ export const StyledMovablePoint = (props: Props) => {
             }
         >
             {/* Radius of 22 creates 44x44 click/touch target: AAA WCAG compliant */}
-            <circle className="movable-point-hitbox" r={22} cx={x} cy={y} />
+            <circle
+                className="movable-point-hitbox"
+                r={TARGET_SIZE / 2}
+                cx={x}
+                cy={y}
+            />
             <circle className="movable-point-halo" cx={x} cy={y} />
             <circle className="movable-point-ring" cx={x} cy={y} />
             <circle

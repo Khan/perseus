@@ -6,8 +6,8 @@
  * between the states more immediately clear to users.
  */
 
-import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -85,13 +85,13 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
     },
     correct: {
-        color: Color.green,
+        color: color.green,
     },
     incorrectAnswered: {
-        color: Color.red,
+        color: color.red,
     },
     incorrect: {
-        color: Color.offBlack64,
+        color: color.offBlack64,
     },
 });
 

@@ -2,6 +2,8 @@ import {vec, useMovable, useTransformContext, Vector} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
+import {TARGET_SIZE} from "../../utils";
+
 import type {Interval} from "mafs";
 import type {SVGProps} from "react";
 
@@ -60,13 +62,11 @@ export const MovableLine = (props: {
             >
                 {/**
                  * This transparent line creates a nice big click/touch target.
-                 * 44 is touch best practice and AAA compliant for WCAG
-                 * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
                  */}
                 <SVGLine
                     start={startPtPx}
                     end={endPtPx}
-                    style={{stroke: "transparent", strokeWidth: 44}}
+                    style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
                 />
                 <SVGLine
                     start={startPtPx}
@@ -102,7 +102,7 @@ function SVGLine(props: {
             x2={end[0]}
             y2={end[1]}
             style={style}
-            className={dragging ? "movable-line-dragging" : undefined}
+            className={dragging ? "movable-dragging" : undefined}
         />
     );
 }

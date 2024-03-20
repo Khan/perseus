@@ -621,9 +621,8 @@ class Editor extends React.Component<Props, State> {
             const widgetName = widget.join(" ");
             const widgetType = widget[0];
 
-            safeWidgetMapping[
-                widgetName
-            ] = `${widgetType} ${safeWidgetNums[widgetType]}`;
+            safeWidgetMapping[widgetName] =
+                `${widgetType} ${safeWidgetNums[widgetType]}`;
             safeWidgetNums[widgetType]++;
         });
 

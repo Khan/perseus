@@ -1,7 +1,7 @@
-import Color from "@khanacademy/wonder-blocks-color";
 import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import Pill from "@khanacademy/wonder-blocks-pill";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, type CSSProperties} from "aphrodite";
 import * as React from "react";
 import {Popper} from "react-popper";
@@ -9,7 +9,7 @@ import {Popper} from "react-popper";
 import Renderer from "../../renderer";
 
 const BringToFront: CSSProperties = {
-    boxShadow: `0 8px 8px ${Color.offBlack64}`,
+    boxShadow: `0 8px 8px ${color.offBlack64}`,
     zIndex: 1000,
 };
 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#00880b",
     },
     incorrect: {
-        backgroundColor: Color.offBlack64,
+        backgroundColor: color.offBlack64,
     },
     pill: {
         // Reset the Pill's default height in order to account

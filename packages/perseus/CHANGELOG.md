@@ -1,5 +1,53 @@
 # @khanacademy/perseus
 
+## 20.8.0
+
+### Minor Changes
+
+-   [#1092](https://github.com/Khan/perseus/pull/1092) [`e70d1701`](https://github.com/Khan/perseus/commit/e70d17010eb3943f114ea382025016e5ed68cde5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fixes to ensure that users can properly focus a math input on mobile devices
+
+### Patch Changes
+
+-   [#1101](https://github.com/Khan/perseus/pull/1101) [`5ce75a23`](https://github.com/Khan/perseus/commit/5ce75a2357a7ab972028fd1fbf6d7378c65f48ec) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Exporting new extract perseus data functions
+
+-   Updated dependencies [[`e70d1701`](https://github.com/Khan/perseus/commit/e70d17010eb3943f114ea382025016e5ed68cde5)]:
+    -   @khanacademy/math-input@17.4.0
+
+## 20.7.0
+
+### Minor Changes
+
+-   [#1086](https://github.com/Khan/perseus/pull/1086) [`08e4a422`](https://github.com/Khan/perseus/commit/08e4a4229f57bf5c1c029591fcf5dfa9ef9b4ee2) Thanks [@Myranae](https://github.com/Myranae)! - Add helper functions to remove snowman regexes from webapp
+
+### Patch Changes
+
+-   [#1094](https://github.com/Khan/perseus/pull/1094) [`ed9a9432`](https://github.com/Khan/perseus/commit/ed9a9432935183e3c7b9ec8f55e758e5820f156a) Thanks [@nedredmond](https://github.com/nedredmond)! - Polygon mafs graph behind feature flag
+
+*   [#1096](https://github.com/Khan/perseus/pull/1096) [`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling: Upgrade ESLint to latest and apply fixes
+
+*   Updated dependencies [[`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64)]:
+    -   @khanacademy/kas@0.3.9
+
+## 20.6.0
+
+### Minor Changes
+
+-   [#1090](https://github.com/Khan/perseus/pull/1090) [`20a23a39`](https://github.com/Khan/perseus/commit/20a23a3976a70378e86c8871e47d5497ddc9d51e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Added new API methods to support our Coach Report Response view.
+
+*   [#1058](https://github.com/Khan/perseus/pull/1058) [`a431883d`](https://github.com/Khan/perseus/commit/a431883d7d157160f07daa27c3d3d08eb07563f5) Thanks [@handeyeco](https://github.com/handeyeco)! - Move widget enum helpers from Webapp to Perseus
+
+### Patch Changes
+
+-   [#1095](https://github.com/Khan/perseus/pull/1095) [`11e04962`](https://github.com/Khan/perseus/commit/11e04962fee178c997ca50d96eaebc446d43e66c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling: Upgrade projects to use TypeScript v5.4.2
+
+*   [#1093](https://github.com/Khan/perseus/pull/1093) [`0cd66f88`](https://github.com/Khan/perseus/commit/0cd66f882e549d2bc3c9e6911a50656e07c549f2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change APIOptions and APIOptionsWithDefaults comments to JSDoc comments for better tooling support
+
+-   [#1088](https://github.com/Khan/perseus/pull/1088) [`47eade13`](https://github.com/Khan/perseus/commit/47eade137687d829b0ac46ac11218afe1c9308f4) Thanks [@benchristel](https://github.com/benchristel)! - Refactor the InteractiveGraph component to avoid mounting the legacy interactive graph when Mafs is enabled. This ensures that state from the legacy graph doesn't interfere with the Mafs graph
+
+-   Updated dependencies [[`11e04962`](https://github.com/Khan/perseus/commit/11e04962fee178c997ca50d96eaebc446d43e66c)]:
+    -   @khanacademy/simple-markdown@0.11.4
+    -   @khanacademy/pure-markdown@0.3.1
+
 ## 20.5.0
 
 ### Minor Changes

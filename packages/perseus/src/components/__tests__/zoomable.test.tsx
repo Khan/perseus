@@ -339,7 +339,7 @@ describe("Zoomable", () => {
             ];
             computeChildBounds = jest.fn(() => sizes.shift());
 
-            // eslint-disable-next-line testing-library/no-render-in-setup
+            // eslint-disable-next-line testing-library/no-render-in-lifecycle
             const {container} = render(
                 <Zoomable computeChildBounds={computeChildBounds}>
                     <span>Some zoomable text</span>
@@ -359,7 +359,7 @@ describe("Zoomable", () => {
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitFor(() => {
-                screen.getByText("Some more zoomable text");
+                screen.queryByText("Some more zoomable text");
             });
 
             // Assert
@@ -384,7 +384,7 @@ describe("Zoomable", () => {
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitFor(() => {
-                screen.getByText("Some more zoomable text");
+                screen.queryByText("Some more zoomable text");
             });
 
             // Assert
@@ -412,7 +412,7 @@ describe("Zoomable", () => {
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitFor(() => {
-                screen.getByText("Some more zoomable text");
+                screen.queryByText("Some more zoomable text");
             });
 
             // Assert

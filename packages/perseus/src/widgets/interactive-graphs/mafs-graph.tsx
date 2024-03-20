@@ -4,16 +4,16 @@ import {Mafs} from "mafs";
 import * as React from "react";
 
 import GraphLockedLayer from "./graph-locked-layer";
-import {LinearGraph, RayGraph, SegmentGraph} from "./graphs";
+import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
 import {Grid} from "./grid";
-import {interactiveGraphReducer} from "./interactive-graph-reducer";
+import {getLegacyGrid} from "./legacy-grid";
+import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {
     getGradableGraph,
     initializeGraphState,
-} from "./interactive-graph-state";
-import {getLegacyGrid} from "./legacy-grid";
+} from "./reducer/interactive-graph-state";
 
-import type {InteractiveGraphAction} from "./interactive-graph-action";
+import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {Widget} from "../../renderer";
 
@@ -34,6 +34,8 @@ const renderGraph = (props: {
             return <LinearGraph graphState={state} dispatch={dispatch} />;
         case "ray":
             return <RayGraph graphState={state} dispatch={dispatch} />;
+        case "polygon":
+            return <PolygonGraph graphState={state} dispatch={dispatch} />;
         default:
             return new UnreachableCaseError(type);
     }
@@ -59,8 +61,8 @@ export const MafsGraph = React.forwardRef<
     return (
         <View
             style={{
-                width: props.backgroundImage?.width ?? width,
-                height: props.backgroundImage?.height ?? height,
+                width,
+                height,
                 position: "relative",
             }}
         >

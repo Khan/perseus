@@ -1,6 +1,12 @@
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 
+/**
+ * 44 is touch best practice and AAA compliant for WCAG
+ * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
+ */
+export const TARGET_SIZE = 44;
+
 // same as pointsFromNormalized in interactive-graph.tsx
 export const normalizePoints = <A extends ReadonlyArray<Coord>>(
     range: PerseusInteractiveGraphWidgetOptions["range"],

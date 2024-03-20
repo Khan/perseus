@@ -1,8 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -170,8 +170,8 @@ export class GradedGroup extends React.Component<Props, State> {
             score.type === "points"
                 ? score.message || ""
                 : score.message
-                ? `${INVALID_MESSAGE_PREFIX} ${score.message}`
-                : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
+                  ? `${INVALID_MESSAGE_PREFIX} ${score.message}`
+                  : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
 
         this.setState({
             status: status,
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
         padding: 0,
         border: "none",
         marginTop: 20,
-        color: Color.blue,
+        color: color.blue,
         cursor: "pointer",
         display: "block",
         clear: "both",
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
     explanationTitle: {
         backgroundColor: "unset",
         marginTop: 20,
-        color: Color.blue,
+        color: color.blue,
         marginBottom: 10,
         cursor: "pointer",
         fontSize: 14,

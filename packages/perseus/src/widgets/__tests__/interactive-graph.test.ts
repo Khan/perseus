@@ -15,6 +15,7 @@ import {
     linearQuestionWithDefaultCorrect,
     linearSystemQuestionWithDefaultCorrect,
     rayQuestionWithDefaultCorrect,
+    polygonQuestionDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 
 import {renderQuestion} from "./renderQuestion";
@@ -131,6 +132,7 @@ describe("mafs graphs", () => {
         "linear",
         "linear-system",
         "ray",
+        "polygon",
     ] as const;
 
     const graphTypeFlags = graphsTypesToEnable.reduce((acc, type) => {
@@ -149,6 +151,7 @@ describe("mafs graphs", () => {
         linear: linearQuestionWithDefaultCorrect,
         "linear-system": linearSystemQuestionWithDefaultCorrect,
         ray: rayQuestionWithDefaultCorrect,
+        polygon: polygonQuestionDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
@@ -202,7 +205,7 @@ describe("mafs graphs", () => {
                 );
 
                 // Act
-                await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
+                await userEvent.type(movablePoints[0], "{arrowup}{arrowdown}");
 
                 // Assert
                 await waitFor(() => {

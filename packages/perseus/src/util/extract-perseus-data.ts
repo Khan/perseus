@@ -1,6 +1,8 @@
 import {keys} from "@khanacademy/wonder-stuff-core";
 
-import type {PerseusRenderer} from "../perseus-types";
+import * as Widgets from "../widgets";
+
+import type {PerseusItem, PerseusRenderer} from "../perseus-types";
 
 /**
  * This function extracts the answers from the widgets.
@@ -535,5 +537,90 @@ function injectWidgets(
 
     return context;
 }
+
+/* Widgets that have individual answers */
+const INDIVIDUAL_ANSWER_WIDGETS = [
+    "interactive-graph",
+    "categorizer",
+    "grapher",
+];
+
+/* Widgets that are supported for automatic scoring */
+const SUPPORTED_WIDGETS = [
+    "radio",
+    "numeric-input",
+    "input-number",
+    "expression",
+    ...INDIVIDUAL_ANSWER_WIDGETS,
+];
+
+export const getWidgetTypeFromWidgetKey = (widgetKey: string): string => {
+    return widgetKey.split(" ")[0];
+};
+
+/* Verify if the perseus item has supported widgets for automatic scoring */
+export const isWrongAnswerSupported = (widgetKeys: Array<string>): boolean => {
+    return (
+        widgetKeys.length !== 0 &&
+        widgetKeys.every((widgetKey) =>
+            SUPPORTED_WIDGETS.includes(getWidgetTypeFromWidgetKey(widgetKey)),
+        )
+    );
+};
+
+/* Verify if the widget key has an individual answer for the coach report view  */
+export const shouldHaveIndividualAnswer = (widgetKey: string): boolean => {
+    return INDIVIDUAL_ANSWER_WIDGETS.includes(
+        getWidgetTypeFromWidgetKey(widgetKey),
+    );
+};
+
+/* Returns the answer userInput submission for currently supported widgets */
+// TODO (LEMS-1834): Fix userInput any types to be specific
+export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
+    switch (widgetType) {
+        case "categorizer":
+            return userInput.values;
+        case "input-number":
+            return userInput.currentValue;
+        case "numeric-input":
+            return userInput.currentValue;
+        case "radio":
+            return userInput.choicesSelected;
+    }
+    return userInput;
+};
+
+/* Returns the correct answer for a given widget key and Perseus Item */
+// TODO (LEMS-1835): We should fix the resonse type from getWidget to be specific.
+// TODO (LEMS-1836): We should also consider adding the getOneCorrectAnswerFromRubric method to all widgets.
+export const getCorrectAnswerForWidgetKey = (
+    widgetKey: string,
+    itemData: PerseusItem,
+): string | undefined => {
+    const rubric = itemData.question.widgets[widgetKey].options;
+    const widgetType = getWidgetTypeFromWidgetKey(widgetKey);
+
+    const widget = Widgets.getWidget(widgetType);
+
+    // @ts-expect-error - TS2339 - Property 'getOneCorrectAnswerFromRubric' does not exist on type 'ComponentType<any>'.
+    return widget?.getOneCorrectAnswerFromRubric?.(rubric);
+};
+
+/* Verify if the widget key exists in the content string of the Perseus Item */
+export const isWidgetKeyInContent = (
+    perseusItem: PerseusItem,
+    widgetKey: string,
+): boolean => {
+    return perseusItem.question.content.indexOf(widgetKey as string) !== -1;
+};
+
+/* Return an array of all the widget keys that exist in the content string of a Perseus Item */
+export const getValidWidgetKeys = (perseusItem: PerseusItem): Array<string> => {
+    const {widgets} = perseusItem.question;
+    return keys(widgets).filter((key) =>
+        isWidgetKeyInContent(perseusItem, key),
+    );
+};
 
 export {getAnswersFromWidgets, injectWidgets};

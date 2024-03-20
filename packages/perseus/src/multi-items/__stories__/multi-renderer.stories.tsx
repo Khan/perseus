@@ -47,10 +47,8 @@ export const SingleItem = (args: StoryArgs): React.ReactElement => {
                                 {i18n.doNotTranslate("Hints")}
                             </HeadingSmall>
                             <View style={styles.hints}>
-                                {
-                                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'firstN' does not exist on type 'readonly ReactNode[]'.
-                                    hints?.firstN(2)
-                                }
+                                {// @ts-expect-error [FEI-5003] - TS2339 - Property 'firstN' does not exist on type 'readonly ReactNode[]'.
+                                hints?.firstN(2)}
                             </View>
                         </View>
                     </View>

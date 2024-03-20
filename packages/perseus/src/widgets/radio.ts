@@ -3,9 +3,9 @@ import _ from "underscore";
 
 import Util from "../util";
 
-import Radio from "./radio/widget";
+import Radio from "./radio/radio";
 
-import type {RenderProps, RadioChoiceWithMetadata} from "./radio/widget";
+import type {RenderProps, RadioChoiceWithMetadata} from "./radio/radio";
 import type {PerseusRadioWidgetOptions} from "../perseus-types";
 import type {WidgetExports} from "../types";
 

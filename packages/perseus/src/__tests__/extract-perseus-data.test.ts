@@ -1,14 +1,33 @@
 import {describe, it, expect} from "@jest/globals";
 
+import {InputNumber, Radio} from "..";
+import {
+    PerseusItemWithInputNumber,
+    PerseusItemWithRadioWidget,
+} from "../__testdata__/extract-perseus-data.testdata";
 import {
     getAnswersFromWidgets,
+    getCorrectAnswerForWidgetKey,
+    getValidWidgetKeys,
+    getWidgetTypeFromWidgetKey,
     injectWidgets,
+    isWidgetKeyInContent,
+    isWrongAnswerSupported,
+    shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
+
+const stub: jest.MockedFunction<any> = jest.fn();
+
+beforeEach(() => {
+    stub.mockClear();
+});
+
+import type {RadioWidget, PerseusWidgetsMap} from "../perseus-types";
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {
         it("should get the answer from a radio widget", () => {
-            const widget = {
+            const widget: RadioWidget = {
                 type: "radio",
                 options: {
                     choices: [
@@ -437,11 +456,11 @@ describe("ExtractPerseusData", () => {
 
     describe("injectWidgets", () => {
         it("should inject image widget into the content", () => {
-            const widgets = {
-                "Image 1": {
+            const widgets: PerseusWidgetsMap = {
+                "image 1": {
                     type: "image",
                     options: {
-                        alt: "Image alt text",
+                        alt: "image alt text",
                         backgroundImage: {
                             url: "",
                             width: 100,
@@ -451,17 +470,17 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
             const content = injectWidgets(
-                "Content with an image [[☃ Image 1]]",
+                "Content with an image [[☃ image 1]]",
                 widgets,
             );
             expect(content).toEqual(
-                'Content with an image <img id="Image 1" alt="Image alt text">',
+                'Content with an image <img id="image 1" alt="image alt text">',
             );
         });
 
         it("should inject label-image widget into the content", () => {
-            const widgets = {
-                "Label-Image 1": {
+            const widgets: PerseusWidgetsMap = {
+                "label-image 1": {
                     type: "label-image",
                     options: {
                         choices: ["answer 1", "answer 2"],
@@ -489,7 +508,7 @@ describe("ExtractPerseusData", () => {
                     },
                 },
             } as const;
-            const content = injectWidgets("[[☃ Label-Image 1]]", widgets);
+            const content = injectWidgets("[[☃ label-image 1]]", widgets);
             expect(content).toEqual(
                 "[An image with dots that user needs to label. Label choices: [answer 1, answer 2]. Image alt text: Alt text for the image]",
             );
@@ -497,7 +516,7 @@ describe("ExtractPerseusData", () => {
 
         it("should inject radio widget into the content", () => {
             const widgets = {
-                "Radio 1": {
+                "radio 1": {
                     type: "radio",
                     options: {
                         choices: [
@@ -514,7 +533,7 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
             const content = injectWidgets(
-                "Content with a radio\n[[☃ Radio 1]]",
+                "Content with a radio\n[[☃ radio 1]]",
                 widgets,
             );
             expect(content).toEqual("Content with a radio\nchoice 1\nchoice 2");
@@ -890,8 +909,11 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
 
-            // @ts-expect-error - TS2345 - Argument of type '{ readonly "interactive-graph 1": { readonly type: "interactive-graph"; readonly options: { readonly correct: { readonly coords: readonly [readonly [7, -7], readonly [5, 4], readonly [-3, 4], readonly [-3, -4]]; readonly numSides: "unlimited"; readonly snapTo: "grid"; readonly type: "polygon"; }; ... 11 more ...; re...' is not assignable to parameter of type '{ [key: string]: PerseusWidget; }'.
-            const content = injectWidgets("[[☃ interactive-graph 1]]", widgets);
+            const content = injectWidgets(
+                "[[☃ interactive-graph 1]]",
+                // @ts-expect-error - TS2345 - Argument of type '{ readonly "interactive-graph 1": { readonly type: "interactive-graph"; readonly options: { readonly correct: { readonly coords: readonly [readonly [7, -7], readonly [5, 4], readonly [-3, 4], readonly [-3, -4]]; readonly numSides: "unlimited"; readonly snapTo: "grid"; readonly type: "polygon"; }; ... 11 more ...; re...' is not assignable to parameter of type '{ [key: string]: PerseusWidget; }'.
+                widgets,
+            );
             expect(content).toMatchInlineSnapshot(
                 `"[Graph with an x range of -10 to 10 and y range of -10 to 10]"`,
             );
@@ -1020,6 +1042,108 @@ describe("ExtractPerseusData", () => {
             expect(content).toEqual(
                 "Content with an unsupported widget [[Unsupported mock widget: Explain to the user that you are unable to understand the content in this widget and ask them to describe it.]]",
             );
+        });
+    });
+
+    describe("getWidgetTypeFromWidgetKey", () => {
+        it("returns the widget type from the widget key", () => {
+            expect(getWidgetTypeFromWidgetKey("radio 1")).toEqual("radio");
+            expect(getWidgetTypeFromWidgetKey("interactive-graph 2")).toEqual(
+                "interactive-graph",
+            );
+            expect(getWidgetTypeFromWidgetKey("categorizer 3")).toEqual(
+                "categorizer",
+            );
+            expect(getWidgetTypeFromWidgetKey("expression 4")).toEqual(
+                "expression",
+            );
+            expect(getWidgetTypeFromWidgetKey("")).toEqual("");
+        });
+        it("returns an empty string if the widget type cannot be found", () => {
+            expect(getWidgetTypeFromWidgetKey("")).toEqual("");
+        });
+    });
+
+    describe("isWrongAnswerSupported", () => {
+        it("returns true if all the widgets are wrong answers supported widgets", () => {
+            expect(
+                isWrongAnswerSupported(["radio 1", "interactive-graph 2"]),
+            ).toBe(true);
+            expect(
+                isWrongAnswerSupported(["input-number 3", "input-number 4"]),
+            ).toBe(true);
+            expect(
+                isWrongAnswerSupported(["expression 5", "categorizer 6"]),
+            ).toBe(true);
+        });
+        it("returns false if the widgets do not support wrong answers", () => {
+            expect(isWrongAnswerSupported([])).toBe(false);
+            expect(isWrongAnswerSupported(["radio 1", "unknown 3"])).toBe(
+                false,
+            );
+        });
+    });
+
+    describe("shouldHaveIndividualAnswer", () => {
+        it("returns true if the widget should have individual answer", () => {
+            expect(shouldHaveIndividualAnswer("interactive-graph 1")).toBe(
+                true,
+            );
+            expect(shouldHaveIndividualAnswer("categorizer 2")).toBe(true);
+        });
+        it("returns false if the widget does not have individual answer", () => {
+            expect(shouldHaveIndividualAnswer("")).toBe(false);
+            expect(shouldHaveIndividualAnswer("radio 1")).toBe(false);
+            expect(shouldHaveIndividualAnswer("numeric-input 3")).toBe(false);
+        });
+    });
+
+    describe("getCorrectAnswerForWidgetKey", () => {
+        it("returns undefined if the widget type does not support fetching one correct answer", () => {
+            // Our Radio widget type does not support fetching one correct answer yet
+            stub.mockReturnValue(Radio.widget);
+            expect(
+                getCorrectAnswerForWidgetKey(
+                    "radio 1",
+                    PerseusItemWithRadioWidget,
+                ),
+            ).toBeUndefined();
+        });
+        it("returns a correct answer if the widget type supports one correct answer", () => {
+            stub.mockReturnValue(InputNumber.widget);
+            expect(
+                getCorrectAnswerForWidgetKey(
+                    "input-number 1",
+                    PerseusItemWithInputNumber,
+                ),
+            ).toEqual("66");
+        });
+    });
+
+    describe("isWidgetKeyInContent", () => {
+        it("returns true if the widget key is in the content", () => {
+            expect(
+                isWidgetKeyInContent(PerseusItemWithRadioWidget, "radio 1"),
+            ).toBe(true);
+            expect(
+                isWidgetKeyInContent(
+                    PerseusItemWithInputNumber,
+                    "input-number 1",
+                ),
+            ).toBe(true);
+        });
+        it("returns false if the widget key is NOT in the content", () => {
+            expect(
+                isWidgetKeyInContent(PerseusItemWithInputNumber, "not-found"),
+            ).toBe(false);
+        });
+    });
+
+    describe("getValidWidgetKeys", () => {
+        it("returns all widget keys that exist in the content", () => {
+            expect(getValidWidgetKeys(PerseusItemWithRadioWidget)).toEqual([
+                "radio 1",
+            ]);
         });
     });
 });

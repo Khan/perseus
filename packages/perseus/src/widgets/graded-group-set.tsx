@@ -1,9 +1,9 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 12,
-        color: Color.offBlack64,
+        color: color.offBlack64,
         textTransform: "uppercase",
         marginBottom: 11,
         letterSpacing: 0.8,
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
         height: 10,
         borderRadius: "100%",
         borderWidth: 2,
-        borderColor: Color.blue,
+        borderColor: color.blue,
         borderStyle: "solid",
     },
 
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotActive: {
-        backgroundColor: Color.blue,
+        backgroundColor: color.blue,
         width: "100%",
         height: "100%",
     },

@@ -132,20 +132,20 @@ class InteractionEditor extends React.Component<Props, State> {
                 elementType === "point"
                     ? _.clone(PointEditor.defaultProps)
                     : elementType === "line"
-                    ? _.clone(LineEditor.defaultProps)
-                    : elementType === "movable-point"
-                    ? _.clone(MovablePointEditor.defaultProps)
-                    : elementType === "movable-line"
-                    ? _.clone(MovableLineEditor.defaultProps)
-                    : elementType === "function"
-                    ? _.clone(FunctionEditor.defaultProps)
-                    : elementType === "parametric"
-                    ? _.clone(ParametricEditor.defaultProps)
-                    : elementType === "label"
-                    ? _.clone(LabelEditor.defaultProps)
-                    : elementType === "rectangle"
-                    ? _.clone(RectangleEditor.defaultProps)
-                    : {},
+                      ? _.clone(LineEditor.defaultProps)
+                      : elementType === "movable-point"
+                        ? _.clone(MovablePointEditor.defaultProps)
+                        : elementType === "movable-line"
+                          ? _.clone(MovableLineEditor.defaultProps)
+                          : elementType === "function"
+                            ? _.clone(FunctionEditor.defaultProps)
+                            : elementType === "parametric"
+                              ? _.clone(ParametricEditor.defaultProps)
+                              : elementType === "label"
+                                ? _.clone(LabelEditor.defaultProps)
+                                : elementType === "rectangle"
+                                  ? _.clone(RectangleEditor.defaultProps)
+                                  : {},
         } as const;
 
         let nextSubscript;

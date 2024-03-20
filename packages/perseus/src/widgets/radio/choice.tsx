@@ -1,12 +1,11 @@
 /* eslint-disable react/no-unsafe */
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -152,7 +151,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                 // @ts-expect-error - TS2322 - Type '{ dispay: string; flexDirection: "column"; color: string; }' is not assignable to type 'Properties<string | number, string & {}>'.
                 dispay: "flex",
                 flexDirection: "column",
-                color: Color.offBlack,
+                color: color.offBlack,
             }}
             className={descriptionClassName}
         >
@@ -197,7 +196,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                         });
                     }}
                     disabled={disabled || apiOptions.readOnly}
-                    style={{flex: 1, color: Color.offBlack, userSelect: "text"}}
+                    style={{flex: 1, color: color.offBlack, userSelect: "text"}}
                     ref={forwardedRef as any}
                     aria-hidden="true"
                 >
@@ -208,9 +207,9 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                                 flexDirection: "row",
                                 justifyContent: "center",
                                 alignContent: "center",
-                                paddingTop: Spacing.xSmall_8,
-                                paddingBottom: Spacing.xSmall_8,
-                                paddingLeft: Spacing.xSmall_8,
+                                paddingTop: spacing.xSmall_8,
+                                paddingBottom: spacing.xSmall_8,
+                                paddingLeft: spacing.xSmall_8,
                             }}
                         >
                             <ChoiceIcon
@@ -228,7 +227,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                             />
                             <span
                                 style={{
-                                    paddingLeft: Spacing.small_12,
+                                    paddingLeft: spacing.small_12,
                                     textAlign: "left",
                                     flex: 1,
                                     paddingTop: 4,
@@ -259,7 +258,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                                 closeButtonVisible
                                 actions={
                                     <View>
-                                        <Strut size={Spacing.medium_16} />
+                                        <Strut size={spacing.medium_16} />
                                         <Button
                                             kind="primary"
                                             aria-label={i18n._(
@@ -321,7 +320,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                                     <Icon
                                         icon={ellipsisHorizontalIcon}
                                         size={3}
-                                        color={Color.offBlack64}
+                                        color={color.offBlack64}
                                     />
                                 )}
                             </Clickable>
@@ -329,7 +328,6 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                     </Popover>
                 )}
             </div>
-
             {showRationale && (
                 <div
                     className={rationaleClassName}
@@ -353,7 +351,7 @@ const styles = StyleSheet.create({
         padding: intermediateCheckboxPadding,
         paddingTop: 0,
         marginLeft: 54,
-        color: Color.offBlack64,
+        color: color.offBlack64,
         [mediaQueries.smOrSmaller]: {
             padding: intermediateCheckboxPaddingPhone,
             paddingTop: 0,

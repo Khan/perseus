@@ -1,5 +1,5 @@
-import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
     spacer: {
         gridColumn: 2,
         gridRow: 2,
-        background: Color.white,
+        background: color.white,
     },
 });
