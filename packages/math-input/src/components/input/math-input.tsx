@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";

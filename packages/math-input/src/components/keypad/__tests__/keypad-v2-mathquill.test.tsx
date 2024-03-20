@@ -1,5 +1,5 @@
-import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
