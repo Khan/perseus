@@ -21,6 +21,7 @@ import "mafs/core.css";
 import "./mafs-styles.css";
 import {getDependencies} from "../../dependencies";
 import {useEffect, useState} from "react";
+import matrixBuilder = vec.matrixBuilder;
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
@@ -46,11 +47,10 @@ export const MafsGraph = React.forwardRef<
     React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
 >((props, ref) => {
     const [width, height] = props.box;
+    const [[xMin, xMax], [yMin, yMax]] = props.range;
     const legacyGrid = getLegacyGrid([width, height], props.backgroundImage);
-    const [graphToPxTransform, setGraphToPxTransform] = useState(vec.identity)
 
-    //const {viewTransform, userTransform} = useTransformContext();
-    //const transformToPx = vec.matrixMult(viewTransform, userTransform);
+    const transformToPx = matrixBuilder().translate(-xMin, -yMax).scale(width / (xMax - xMin), -height / (yMax - yMin)).get()
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
@@ -91,7 +91,6 @@ export const MafsGraph = React.forwardRef<
                     width={width}
                     height={height}
                 >
-                    <TransformExfiltrator onChange={setGraphToPxTransform}/>
                     {/* Background layer */}
                     {!legacyGrid && <Grid {...props} />}
 
@@ -115,15 +114,11 @@ export const MafsGraph = React.forwardRef<
                     left: 0,
                     width: props.backgroundImage?.width ?? width,
                     height: props.backgroundImage?.height ?? height,
-                    backgroundColor: "rgba(0,0,0,0.2)",
                     pointerEvents: "none",
                 }}
             >
                 {props.lockedFigures?.map(figure => {
-                    //debugger
-                    const originPx = vec.transform([0, 0], graphToPxTransform);
-                    debugger
-                    const [xPx, yPx] = vec.add(/*[props.range[0][0], props.range[1][0]]*/originPx, vec.transform(figure.coord, graphToPxTransform));
+                    const [xPx, yPx] = vec.transform(figure.coord, transformToPx);
                     return <div style={{position: "absolute", top: yPx, left: xPx}}><TeX>Hello</TeX></div>
                 })}
 
@@ -131,15 +126,3 @@ export const MafsGraph = React.forwardRef<
         </View>
     );
 });
-
-function TransformExfiltrator(props: {onChange: (transform: vec.Matrix) => unknown}) {
-    const {viewTransform, userTransform} = useTransformContext();
-    const transformToPx = vec.matrixMult(viewTransform, userTransform);
-
-    // TODO: useLayoutEffect?
-    useEffect(() => {
-        props.onChange(transformToPx)
-    }, transformToPx)
-
-    return null;
-}
