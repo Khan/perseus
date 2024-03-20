@@ -24,6 +24,7 @@
         "@khanacademy/pure-markdown": "^0.3.1",
         "@khanacademy/simple-markdown": "^0.11.4",
         "@khanacademy/wonder-blocks-banner": "^3.0.33",
+        "@khanacademy/wonder-blocks-search-field": "^2.2.5",
         "@khanacademy/wonder-blocks-tokens": "^1.0.0"
     },
     "devDependencies": {
