@@ -322,8 +322,7 @@ module.exports = {
          */
         "testing-library/await-async-queries": "error",
         "testing-library/prefer-user-event": "error",
-        // TODO(jeremy): It might be nice to enable
-        // "testing-library/prefer-explicit-assert": "error",
+        "testing-library/prefer-explicit-assert": "error",
 
         // These rules results in a lot of false positives
         "testing-library/render-result-naming-convention": "off",
