@@ -130,7 +130,7 @@ describe("math input integration", () => {
         );
 
         // Act
-        userEvent.tab();
+        await userEvent.tab();
 
         // Assert
         await waitFor(() => {
