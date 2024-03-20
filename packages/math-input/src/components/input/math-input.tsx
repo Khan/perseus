@@ -19,7 +19,7 @@ import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
 import {mathQuillStrings} from "./strings";
 
-import type {Cursor, KeypadAPI} from "../../types";
+import type {Cursor, KeypadAPI, KeypadContextType} from "../../types";
 
 const constrainingFrictionFactor = 0.8;
 
@@ -45,8 +45,12 @@ type HandleState = {
 };
 
 type State = {
+    // Whether the input is currently the focused element.
     focused: boolean;
     handle: HandleState;
+    // Whether to show the focus style for the input. We are handling this separately, as
+    // we want the input to appear focused even when the focus is actually on the keypad.
+    showInputFocusStyle: boolean;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -77,6 +81,7 @@ class MathInput extends React.Component<Props, State> {
 
     state: State = {
         focused: false,
+        showInputFocusStyle: false,
         handle: {
             animateIntoPosition: false,
             visible: false,
@@ -183,6 +188,8 @@ class MathInput extends React.Component<Props, State> {
             // multi-touch.
             if (this.state.focused && this.didTouchOutside && !this.didScroll) {
                 this.blur();
+                this.mathField.blur();
+                this.props.onBlur?.();
             }
 
             this.didTouchOutside = false;
@@ -212,6 +219,7 @@ class MathInput extends React.Component<Props, State> {
                         // in which case we don't want to dismiss the keypad on check.
                         if (!isWithinKeypadBounds(x, y)) {
                             this.blur();
+                            this.props.onBlur && this.props.onBlur();
                         }
                     }
                 }
@@ -328,11 +336,18 @@ class MathInput extends React.Component<Props, State> {
 
     blur: () => void = () => {
         this.mathField.blur();
-        this.props.onBlur && this.props.onBlur();
-        this.setState({focused: false, handle: {visible: false}});
+
+        this.setState({
+            showInputFocusStyle: false,
+            handle: {
+                visible: false,
+            },
+        });
     };
 
-    focus: () => void = () => {
+    focus: (setKeypadActive: KeypadContextType["setKeypadActive"]) => void = (
+        setKeypadActive,
+    ) => {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
         this.props.keypadElement?.setKeyHandler((key) => {
@@ -360,9 +375,11 @@ class MathInput extends React.Component<Props, State> {
         });
 
         this.mathField.focus();
-        this.props?.onFocus();
 
-        this.setState({focused: true}, () => {
+        this.props?.onFocus();
+        setKeypadActive(true);
+
+        this.setState({focused: true, showInputFocusStyle: true}, () => {
             // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
             // occur. Otherwise, the keypad is measured incorrectly. Ideally,
             // we'd use requestAnimationFrame here, but it's unsupported on
@@ -595,8 +612,8 @@ class MathInput extends React.Component<Props, State> {
 
     handleTouchStart = (
         e: React.TouchEvent<HTMLDivElement>,
-        keypadActive: boolean,
-        setKeypadActive: (keypadActive: boolean) => void,
+        keypadActive: KeypadContextType["keypadActive"],
+        setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
         e.stopPropagation();
 
@@ -623,7 +640,7 @@ class MathInput extends React.Component<Props, State> {
 
         // Trigger a focus event, if we're not already focused.
         if (!this.state.focused) {
-            this.focus();
+            this.focus(setKeypadActive);
         }
 
         // If the user clicked on the input using a mouse or tap gesture,
@@ -639,8 +656,8 @@ class MathInput extends React.Component<Props, State> {
     // but don't actually simulate touch events.
     handleClick = (
         e: React.MouseEvent<HTMLDivElement>,
-        keypadActive: boolean,
-        setKeypadActive: (keypadActive: boolean) => void,
+        keypadActive: KeypadContextType["keypadActive"],
+        setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
         e.stopPropagation();
 
@@ -665,7 +682,7 @@ class MathInput extends React.Component<Props, State> {
 
         // Trigger a focus event, if we're not already focused.
         if (!this.state.focused) {
-            this.focus();
+            this.focus(setKeypadActive);
         }
 
         // If the user clicked on the input using a mouse or tap gesture,
@@ -918,13 +935,13 @@ class MathInput extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const {focused, handle} = this.state;
+        const {showInputFocusStyle, handle} = this.state;
         const {style} = this.props;
 
         const innerStyle = {
             ...inlineStyles.innerContainer,
             borderWidth: this.getBorderWidthPx(),
-            ...(focused
+            ...(showInputFocusStyle
                 ? {
                       borderColor: Color.blue,
                   }
@@ -973,6 +990,10 @@ class MathInput extends React.Component<Props, State> {
                             ref={(node) => {
                                 this.inputRef = node;
                             }}
+                            onFocus={() => {
+                                this.focus(setKeypadActive);
+                            }}
+                            onBlur={this.blur}
                             onKeyUp={this.handleKeyUp}
                         >
                             {/* NOTE(charlie): This element must be styled with inline
@@ -986,7 +1007,7 @@ class MathInput extends React.Component<Props, State> {
                                 style={innerStyle}
                             />
                         </div>
-                        {focused && handle.visible && (
+                        {showInputFocusStyle && handle.visible && (
                             <CursorHandle
                                 {...handle}
                                 onTouchStart={this.onCursorHandleTouchStart}
