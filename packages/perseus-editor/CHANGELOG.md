@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 5.2.2
+
+### Patch Changes
+
+-   [#1096](https://github.com/Khan/perseus/pull/1096) [`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling: Upgrade ESLint to latest and apply fixes
+
+-   Updated dependencies [[`08e4a422`](https://github.com/Khan/perseus/commit/08e4a4229f57bf5c1c029591fcf5dfa9ef9b4ee2), [`ed9a9432`](https://github.com/Khan/perseus/commit/ed9a9432935183e3c7b9ec8f55e758e5820f156a), [`c614a001`](https://github.com/Khan/perseus/commit/c614a001003b4a4be395ea86c7d785f967262c64)]:
+    -   @khanacademy/perseus@20.7.0
+    -   @khanacademy/kas@0.3.9
+
 ## 5.2.1
 
 ### Patch Changes
