@@ -52,3 +52,32 @@
         margin-top: 5px;
     }
 }
+
+// Image widgets outside of hints are always centred
+.perseus-image-widget:not(.perseus-hint-renderer *) {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Markdown images outside of hints are always centred.
+// Eg `![alt text](image.png)`
+.svg-image:not(.perseus-hint-renderer *) {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+// Image widgets inside of a hint are always left-aligned
+.perseus-hint-renderer {
+    .perseus-image-widget {
+        margin-left: 0 !important;
+    }
+}
+
+// Markdown images inside of a hint are always left-aligned
+// Eg `![alt text](image.png)`
+.perseus-hint-renderer {
+    .svg-image {
+        margin-left: 0 !important;
+    }
+}
