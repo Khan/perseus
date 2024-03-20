@@ -14,12 +14,17 @@ import {
     segmentWithLockedPointsQuestion,
     sinusoidQuestion,
 } from "../__testdata__/interactive-graph.testdata";
+import {Flipbook} from "@khanacademy/perseus-dev-ui/flipbook";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph",
 };
 
 type StoryArgs = Record<any, any>;
+
+export const SideBySideFlipbook = (args: StoryArgs): React.ReactElement => (
+    <Flipbook/>
+)
 
 export const Angle = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={angleQuestion} />
