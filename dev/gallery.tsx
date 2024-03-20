@@ -113,7 +113,7 @@ export function Gallery() {
         return acc;
     }, {});
 
-    const switchId = ids.get("mobile");
+    const mobileId = ids.get("mobile");
     const flagsId = ids.get("flags");
     const searchId = ids.get("search");
 
@@ -121,12 +121,12 @@ export function Gallery() {
         <View className={css(styles.page)}>
             <header className={css(styles.header)}>
                 <Switch
-                    id={switchId}
+                    id={mobileId}
                     checked={isMobile}
                     onChange={setIsMobile}
                 />
                 <Strut size={Spacing.xSmall_8} />
-                <label htmlFor={switchId}>Mobile</label>
+                <label htmlFor={mobileId}>Mobile</label>
                 <Strut size={Spacing.medium_16} />
                 <MultiSelect
                     id={flagsId}
@@ -160,38 +160,11 @@ export function Gallery() {
                     className={isMobile ? "perseus-mobile" : ""}
                 >
                     {questions
-                        .filter((question) => {
-                            if (!search) {
-                                return true;
-                            }
-                            const widgetKey = Object.keys(question.widgets)[0];
-                            const widget = question.widgets[widgetKey];
-                            switch (widget.type) {
-                                case "grapher":
-                                    if (
-                                        widget.options.availableTypes.some(
-                                            (type: string) =>
-                                                type.includes(search),
-                                        )
-                                    ) {
-                                        return true;
-                                    }
-                                    break;
-                                case "interactive-graph":
-                                    if (
-                                        widget.options.graph.type.includes(
-                                            search,
-                                        )
-                                    ) {
-                                        return true;
-                                    }
-                                    break;
-                                case "number-line":
-                                    return widget.type.includes(search);
-                                default:
-                                    return false;
-                            }
-                        })
+                        .filter((question) =>
+                            search
+                                ? graphTypeContainsText(question, search)
+                                : true,
+                        )
                         .map((question, i) => (
                             <QuestionRenderer
                                 key={i}
@@ -228,3 +201,31 @@ function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
         </div>
     );
 }
+
+const graphTypeContainsText = (
+    question: PerseusRenderer,
+    search: string,
+): boolean => {
+    const widgetKey = Object.keys(question.widgets)[0];
+    const widget = question.widgets[widgetKey];
+    switch (widget.type) {
+        case "grapher":
+            if (
+                widget.options.availableTypes.some((type: string) =>
+                    type.includes(search),
+                )
+            ) {
+                return true;
+            }
+            return false;
+        case "interactive-graph":
+            if (widget.options.graph.type.includes(search)) {
+                return true;
+            }
+            return false;
+        case "number-line":
+            return widget.type.includes(search);
+        default:
+            return false;
+    }
+};
