@@ -2,6 +2,7 @@ import {Polygon, useMovable, vec} from "mafs";
 import * as React from "react";
 
 import {moveControlPoint} from "../reducer/interactive-graph-action";
+import {TARGET_SIZE} from "../utils";
 
 import {StyledMovablePoint} from "./components/movable-point";
 
@@ -51,14 +52,14 @@ export const PolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
-                    strokeWidth: active ? 4 : 2,
+                    strokeWidth: active
+                        ? "var(--movable-line-stroke-weight-active)"
+                        : "var(--movable-line-stroke-weight)",
                 }}
             />
             {/**
              * This transparent svg creates a nice big click/touch target,
              * since the polygon itself can be made smaller than the spec.
-             * 44 is touch best practice and AAA compliant for WCAG
-             * https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
              */}
             <Polygon
                 points={[...points]}
@@ -66,7 +67,7 @@ export const PolygonGraph = (props: Props) => {
                 svgPolygonProps={{
                     ref,
                     tabIndex: 0,
-                    strokeWidth: 44,
+                    strokeWidth: TARGET_SIZE,
                     style: {
                         cursor: dragging ? "grabbing" : "grab",
                     },

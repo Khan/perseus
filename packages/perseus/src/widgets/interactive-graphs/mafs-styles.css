@@ -24,12 +24,13 @@
 
     --movable-line-stroke-color: var(--mafs-blue);
     --movable-line-stroke-weight: 2px;
+    --movable-line-stroke-weight-active: 4px;
 }
 
 .MafsView .movable-line:is(:focus-visible, :hover),
 .movable-dragging {
     outline: none;
-    --movable-line-stroke-weight: 4px;
+    --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
 }
 
 .MafsView .movable-line:focus,
