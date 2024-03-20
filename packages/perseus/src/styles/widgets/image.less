@@ -55,32 +55,29 @@
 
 // Image widgets outside of hints are always centred
 .perseus-image-widget:not(.perseus-hint-renderer *) {
-    border: solid 1px red;
     margin-left: auto;
     margin-right: auto;
 }
 
-// Images outside of hints are always centred
+// Markdown images outside of hints are always centred.
+// Eg `![alt text](image.png)`
 .svg-image:not(.perseus-hint-renderer *) {
-    border: solid 1px red;
     margin-left: auto;
     margin-right: auto;
     display: block;
 }
 
-// Images inside of a hint are always left-aligned
+// Image widgets inside of a hint are always left-aligned
 .perseus-hint-renderer {
     .perseus-image-widget {
-        // This overrides the user agent stylesheet for <figure /> elements,
-        // which the `image` widget uses to wrap the image and caption.
         margin-left: 0 !important;
     }
 }
 
+// Markdown images inside of a hint are always left-aligned
+// Eg `![alt text](image.png)`
 .perseus-hint-renderer {
     .svg-image {
-        // This overrides the user agent stylesheet for <figure /> elements,
-        // which the `image` widget uses to wrap the image and caption.
         margin-left: 0 !important;
     }
 }
