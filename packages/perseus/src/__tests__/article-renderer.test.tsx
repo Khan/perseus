@@ -4,7 +4,8 @@ import {
     MobileKeypad,
 } from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {screen, render, fireEvent, waitFor} from "@testing-library/react";
+import {screen, render, waitFor} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {
@@ -187,7 +188,7 @@ describe("article renderer", () => {
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
-        fireEvent.touchStart(input);
+        userEventLib.click(input);
 
         await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
