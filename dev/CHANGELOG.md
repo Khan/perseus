@@ -1,5 +1,13 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.3
+
+### Patch Changes
+
+-   Updated dependencies [[`11e04962`](https://github.com/Khan/perseus/commit/11e04962fee178c997ca50d96eaebc446d43e66c)]:
+    -   @khanacademy/simple-markdown@0.11.4
+    -   @khanacademy/pure-markdown@0.3.1
+
 ## 1.3.2
 
 ### Patch Changes

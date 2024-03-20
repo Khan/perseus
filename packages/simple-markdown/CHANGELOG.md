@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.11.4
+
+### Patch Changes
+
+-   [#1095](https://github.com/Khan/perseus/pull/1095) [`11e04962`](https://github.com/Khan/perseus/commit/11e04962fee178c997ca50d96eaebc446d43e66c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling: Upgrade projects to use TypeScript v5.4.2
+
 ## 0.11.3
 
 ### Patch Changes
