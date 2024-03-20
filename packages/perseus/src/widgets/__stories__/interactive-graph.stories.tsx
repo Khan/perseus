@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {Flipbook} from "../../../../../dev/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {
     angleQuestion,
@@ -14,7 +15,6 @@ import {
     segmentWithLockedPointsQuestion,
     sinusoidQuestion,
 } from "../__testdata__/interactive-graph.testdata";
-import {Flipbook} from "@khanacademy/perseus-dev-ui/flipbook";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph",
