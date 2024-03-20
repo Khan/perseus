@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 20.8.0
+
+### Minor Changes
+
+-   [#1092](https://github.com/Khan/perseus/pull/1092) [`e70d1701`](https://github.com/Khan/perseus/commit/e70d17010eb3943f114ea382025016e5ed68cde5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fixes to ensure that users can properly focus a math input on mobile devices
+
+### Patch Changes
+
+-   [#1101](https://github.com/Khan/perseus/pull/1101) [`5ce75a23`](https://github.com/Khan/perseus/commit/5ce75a2357a7ab972028fd1fbf6d7378c65f48ec) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Exporting new extract perseus data functions
+
+-   Updated dependencies [[`e70d1701`](https://github.com/Khan/perseus/commit/e70d17010eb3943f114ea382025016e5ed68cde5)]:
+    -   @khanacademy/math-input@17.4.0
+
 ## 20.7.0
 
 ### Minor Changes
