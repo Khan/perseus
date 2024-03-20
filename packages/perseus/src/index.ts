@@ -82,6 +82,13 @@ export * as SizingUtils from "./util/sizing-utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
+    getWidgetTypeFromWidgetKey,
+    isWrongAnswerSupported,
+    shouldHaveIndividualAnswer,
+    isWidgetKeyInContent,
+    getValidWidgetKeys,
+    getCorrectAnswerForWidgetKey,
+    getAnswerFromUserInput,
 } from "./util/extract-perseus-data";
 export {parsePerseusItem} from "./util/parse-perseus-json";
 export {
