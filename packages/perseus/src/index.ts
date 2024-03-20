@@ -92,6 +92,14 @@ export {
     convertWidgetNameToEnum,
     getWidgetTypeFromWidgetId,
 } from "./util/widget-enum-utils";
+export {
+    WidgetType,
+    addWidget,
+    getAllWidgetIds,
+    getAllWidgetTypes,
+    getQuestionWidgetIds,
+    QUESTION_WIDGETS,
+} from "./util/snowman-utils";
 
 /**
  * Mixins
