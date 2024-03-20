@@ -19,7 +19,7 @@ import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
 import {mathQuillStrings} from "./strings";
 
-import type {Cursor, KeypadAPI} from "../../types";
+import type {Cursor, KeypadAPI, KeypadContextType} from "../../types";
 
 const constrainingFrictionFactor = 0.8;
 
@@ -189,7 +189,7 @@ class MathInput extends React.Component<Props, State> {
             if (this.state.focused && this.didTouchOutside && !this.didScroll) {
                 this.blur();
                 this.mathField.blur();
-                this.props.onBlur && this.props.onBlur();
+                this.props.onBlur?.();
             }
 
             this.didTouchOutside = false;
@@ -337,18 +337,15 @@ class MathInput extends React.Component<Props, State> {
     blur: () => void = () => {
         this.mathField.blur();
 
-        this.setState((prevState) => {
-            return {
-                showInputFocusStyle: false,
-                handle: {
-                    visible: false,
-                },
-                focused: prevState.focused,
-            };
+        this.setState({
+            showInputFocusStyle: false,
+            handle: {
+                visible: false,
+            },
         });
     };
 
-    focus: (setKeypadActive: (keypadActive: boolean) => void) => void = (
+    focus: (setKeypadActive: KeypadContextType["setKeypadActive"]) => void = (
         setKeypadActive,
     ) => {
         // Pass this component's handleKey method to the keypad so it can call
@@ -615,8 +612,8 @@ class MathInput extends React.Component<Props, State> {
 
     handleTouchStart = (
         e: React.TouchEvent<HTMLDivElement>,
-        keypadActive: boolean,
-        setKeypadActive: (keypadActive: boolean) => void,
+        keypadActive: KeypadContextType["keypadActive"],
+        setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
         e.stopPropagation();
 
@@ -659,8 +656,8 @@ class MathInput extends React.Component<Props, State> {
     // but don't actually simulate touch events.
     handleClick = (
         e: React.MouseEvent<HTMLDivElement>,
-        keypadActive: boolean,
-        setKeypadActive: (keypadActive: boolean) => void,
+        keypadActive: KeypadContextType["keypadActive"],
+        setKeypadActive: KeypadContextType["setKeypadActive"],
     ): void => {
         e.stopPropagation();
 
