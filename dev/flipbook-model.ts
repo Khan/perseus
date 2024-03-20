@@ -76,6 +76,12 @@ export function flipbookModelReducer(
     return state;
 }
 
+// updateIndex immutably updates the `requestedIndex` of the given `state`,
+// ensuring that the resulting index is valid and in-bounds.
+// The given `update` function is used to determine the new index. The index
+// passed to `update` is the current *effective* index, which may be different
+// from the requested index. Unlike the requested index, the effective index is
+// guaranteed to be in-bounds.
 function updateIndex(state: FlipbookModel, update: (index: number) => number) {
     const currIndex = selectCurrentQuestionIndex(state);
     const questions = selectQuestions(state);
