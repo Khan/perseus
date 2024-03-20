@@ -1,7 +1,7 @@
 import {Polygon, useMovable, vec} from "mafs";
 import * as React from "react";
 
-import {moveControlPoint} from "../reducer/interactive-graph-action";
+import {moveAll, moveControlPoint} from "../reducer/interactive-graph-action";
 import {TARGET_SIZE} from "../utils";
 
 import {StyledMovablePoint} from "./components/movable-point";
@@ -32,17 +32,10 @@ export const PolygonGraph = (props: Props) => {
         point: midpoint,
         onMove: (newPoint) => {
             const delta = vec.sub(newPoint, midpoint);
-            dispatch({
-                type: "move-all",
-                delta,
-            });
+            dispatch(moveAll(delta));
         },
         constrain: (p) => p,
     });
-
-    if (!points) {
-        return null;
-    }
 
     const active = hovered || focused || dragging;
 
