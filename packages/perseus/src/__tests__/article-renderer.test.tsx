@@ -4,8 +4,7 @@ import {
     MobileKeypad,
 } from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {screen, render, waitFor} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event";
+import {screen, render, fireEvent, waitFor} from "@testing-library/react";
 import * as React from "react";
 
 import {
@@ -188,11 +187,16 @@ describe("article renderer", () => {
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
-        userEventLib.click(input);
+        fireEvent.touchStart(input);
 
+        // Assert
         await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
-        expect(answerableCallback).toHaveBeenCalled();
+
+        // We also need to wait for the onFocusChange callback to be called
+        await waitFor(() => {
+            expect(answerableCallback).toHaveBeenCalled();
+        });
     });
 });
