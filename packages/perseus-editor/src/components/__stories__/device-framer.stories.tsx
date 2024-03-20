@@ -1,8 +1,9 @@
-import type {Meta, StoryObj} from "@storybook/react";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 
 import DeviceFramer from "../device-framer";
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+
+import type {Meta, StoryObj} from "@storybook/react";
 
 const meta: Meta<typeof DeviceFramer> = {
     component: DeviceFramer,

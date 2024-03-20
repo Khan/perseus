@@ -2,8 +2,10 @@
  * A component that displays its contents inside a device frame.
  */
 
-import {DeviceType, constants} from "@khanacademy/perseus";
+import {constants} from "@khanacademy/perseus";
 import * as React from "react";
+
+import type {DeviceType} from "@khanacademy/perseus";
 
 const SCREEN_SIZES = {
     phone: {
@@ -33,6 +35,30 @@ const DeviceFramer = ({
     deviceType = "phone",
     nochrome,
 }: Props): React.ReactElement => {
+    const scale = React.useMemo(
+        () =>
+            SCREEN_SIZES[deviceType].framedWidth /
+            SCREEN_SIZES[deviceType].width,
+        [deviceType],
+    );
+
+    // In this mode we draw our own border and don't reserve
+    // space for a lint gutter.
+    const withChromeStyle = React.useMemo(
+        () => ({
+            backgroundColor: "white",
+            overflow: "scroll",
+            color: "black",
+            textAlign: "left",
+            width: SCREEN_SIZES[deviceType].width,
+            height: SCREEN_SIZES[deviceType].height,
+            border: "solid 1px #CCC",
+            margin: 8,
+            zoom: scale,
+        }),
+        [deviceType, scale],
+    );
+
     if (nochrome) {
         // Render content inside a variable height iframe.  Used on the
         // "edit" table of the content editor. In this mode, PerseusFrame
@@ -55,31 +81,12 @@ const DeviceFramer = ({
             </div>
         );
     }
-    const scale =
-        SCREEN_SIZES[deviceType].framedWidth / SCREEN_SIZES[deviceType].width;
-
-    // In this mode we draw our own border and don't reserve
-    // space for a lint gutter.
-    const screenStyle = React.useMemo(
-        () => ({
-            backgroundColor: "white",
-            overflow: "scroll",
-            color: "black",
-            textAlign: "left",
-            width: SCREEN_SIZES[deviceType].width,
-            height: SCREEN_SIZES[deviceType].height,
-            border: "solid 1px #CCC",
-            margin: 8,
-            zoom: scale,
-        }),
-        [deviceType],
-    );
 
     return (
         <div
             key="screen"
             className="screen"
-            style={{...screenStyle, textAlign: "start"}}
+            style={{...withChromeStyle, textAlign: "start"}}
         >
             {children}
         </div>
