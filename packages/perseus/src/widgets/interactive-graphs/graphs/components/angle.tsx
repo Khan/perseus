@@ -50,9 +50,14 @@ export const Angle = ({
 
     const largeArcFlag = isInside ? 1 : 0;
     const sweepFlag = isInside ? 1 : 0;
-    // isClockwise ? 0 : 1;
 
-    const d = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
+    const [x3, y3] = vec.add(
+        centerPoint,
+        vec.add(vec.sub([x1, y1], centerPoint), vec.sub([x2, y2], centerPoint)),
+    );
+
+    const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
+    const square = `M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`;
 
     return (
         <>
@@ -61,10 +66,22 @@ export const Angle = ({
                     transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
                 }}
             >
-                <path d={d} strokeWidth={0.02} fill="none" />
+                <path
+                    d={isRightAngle(startAngle, endAngle) ? square : arc}
+                    strokeWidth={0.02}
+                    fill="none"
+                />
             </g>
         </>
     );
+};
+
+const isRightAngle = (startAngle: number, endAngle: number) => {
+    let angle = Math.abs(endAngle - startAngle);
+    if (angle > Math.PI) {
+        angle = Math.abs(angle - Math.PI);
+    }
+    return Math.abs(angle - Math.PI / 2) < 0.01;
 };
 
 const shouldDrawArcInside = (
@@ -97,6 +114,7 @@ const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
     });
 
 // https://stackoverflow.com/a/24392281/7347484
+// The "intersects" function in geometry doesn't seem to work for this use case
 const linesIntersect = (
     [[a, b], [c, d]]: CollinearTuple,
     [[p, q], [r, s]]: CollinearTuple,
