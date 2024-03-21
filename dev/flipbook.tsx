@@ -133,7 +133,10 @@ function SideBySideQuestionRenderer({
                 />
                 <GradableRenderer
                     question={question}
-                    apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
+                    apiOptions={{
+                        ...apiOptions,
+                        flags: {mafs: {segment: true, linear: true}},
+                    }}
                 />
             </View>
             <p>
