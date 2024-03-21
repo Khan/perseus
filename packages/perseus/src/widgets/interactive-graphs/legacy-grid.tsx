@@ -7,14 +7,16 @@ import {interactiveSizes} from "../../styles/constants";
 
 import type {PerseusImageBackground} from "../../perseus-types";
 
+interface Props {
+    box: [number, number];
+    backgroundImage?: PerseusImageBackground;
+}
+
 /**
  * If a graphie URL is provided in `backgroundImage`, will return the rendered graphie background.
  * Otherwise, returns `null`.
  */
-export const getLegacyGrid = (
-    box: [number, number],
-    backgroundImage?: PerseusImageBackground,
-) => {
+export const LegacyGrid = ({box, backgroundImage}: Props) => {
     const {url, width, height} = backgroundImage ?? {};
     if (url && typeof url === "string") {
         const scale = box[0] / interactiveSizes.defaultBoxSize;
