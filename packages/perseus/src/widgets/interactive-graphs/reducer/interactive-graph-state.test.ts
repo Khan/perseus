@@ -105,7 +105,10 @@ describe("initializeGraphState", () => {
         // tiny. So instead, we position the segment in approximately the same
         // *visual* position as (-5, 5), (5, 5), whatever that maps to in graph
         // coordinates.
-        const scale = [[-1000, 1000], [-1000, 1000]]
+        const scale = [
+            [-1000, 1000],
+            [-1000, 1000],
+        ];
         const state = initializeGraphState({
             range: [
                 [-1000, 1000],
@@ -115,6 +118,11 @@ describe("initializeGraphState", () => {
             snapStep: [1, 1],
             graph: {type: "segment", numSegments: 1},
         });
-        expect(state.coords).toEqual([[[-500, 500], [500, 500]]]);
+        expect(state.coords).toEqual([
+            [
+                [-500, 500],
+                [500, 500],
+            ],
+        ]);
     });
 });
