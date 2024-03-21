@@ -25,6 +25,10 @@ import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
+import {
+    mafsSupportedGraphTypes,
+    trueForAllMafsSupportedGraphTypes
+} from "../interactive-graphs/mafs-supported-graph-types";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -127,25 +131,12 @@ describe("mafs graphs", () => {
     });
 
     // Add types to this array as you test them
-    const graphsTypesToEnable = [
-        "segment",
-        "linear",
-        "linear-system",
-        "ray",
-        "polygon",
-    ] as const;
-
-    const graphTypeFlags = graphsTypesToEnable.reduce((acc, type) => {
-        acc[type] = true;
-        return acc;
-    }, {});
-
     const apiOptions = {
-        flags: {mafs: graphTypeFlags},
+        flags: {mafs: trueForAllMafsSupportedGraphTypes},
     };
 
     const graphQuestionRenderers: {
-        [K in (typeof graphsTypesToEnable)[number]]: PerseusRenderer;
+        [K in (typeof mafsSupportedGraphTypes)[number]]: PerseusRenderer;
     } = {
         segment: segmentQuestionDefaultCorrect,
         linear: linearQuestionWithDefaultCorrect,

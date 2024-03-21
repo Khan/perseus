@@ -30,6 +30,9 @@ import type {
 } from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
+import {
+    trueForAllMafsSupportedGraphTypes
+} from "../packages/perseus/src/widgets/interactive-graphs/mafs-supported-graph-types";
 
 const exampleCommands = `
 # copy all questions
@@ -133,18 +136,7 @@ function SideBySideQuestionRenderer({
                 />
                 <GradableRenderer
                     question={question}
-                    apiOptions={{
-                        ...apiOptions,
-                        flags: {
-                            mafs: {
-                                segment: true,
-                                linear: true,
-                                "linear-system": true,
-                                polygon: true,
-                                ray: true,
-                            },
-                        },
-                    }}
+                    apiOptions={{...apiOptions, flags: {mafs: trueForAllMafsSupportedGraphTypes}}}
                 />
             </View>
             <p>
