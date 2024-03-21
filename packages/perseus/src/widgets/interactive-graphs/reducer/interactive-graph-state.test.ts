@@ -105,10 +105,6 @@ describe("initializeGraphState", () => {
         // tiny. So instead, we position the segment in approximately the same
         // *visual* position as (-5, 5), (5, 5), whatever that maps to in graph
         // coordinates.
-        const scale = [
-            [-1000, 1000],
-            [-1000, 1000],
-        ];
         const state = initializeGraphState({
             range: [
                 [-1000, 1000],
