@@ -27,7 +27,7 @@ import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 import {
     mafsSupportedGraphTypes,
-    trueForAllMafsSupportedGraphTypes
+    trueForAllMafsSupportedGraphTypes,
 } from "../interactive-graphs/mafs-supported-graph-types";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
