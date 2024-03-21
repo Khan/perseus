@@ -6,7 +6,7 @@ import * as React from "react";
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
 import {Grid} from "./grid";
-import {getLegacyGrid} from "./legacy-grid";
+import {LegacyGrid} from "./legacy-grid";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {
     getGradableGraph,
@@ -46,8 +46,6 @@ export const MafsGraph = React.forwardRef<
     React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
 >((props, ref) => {
     const [width, height] = props.box;
-    const legacyGrid = getLegacyGrid([width, height], props.backgroundImage);
-
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
         props,
@@ -66,7 +64,10 @@ export const MafsGraph = React.forwardRef<
                 position: "relative",
             }}
         >
-            {legacyGrid}
+            <LegacyGrid
+                box={props.box}
+                backgroundImage={props.backgroundImage}
+            />
             <View
                 style={{
                     position: "absolute",
@@ -86,7 +87,7 @@ export const MafsGraph = React.forwardRef<
                     height={height}
                 >
                     {/* Background layer */}
-                    {!legacyGrid && <Grid {...props} />}
+                    <Grid {...props} />
 
                     {/* Locked layer */}
                     {props.lockedFigures && (
