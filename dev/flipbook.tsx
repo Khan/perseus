@@ -22,6 +22,7 @@ import {
     selectNumQuestions,
     jumpToQuestion,
 } from "./flipbook-model";
+import {Header} from "./header";
 
 import type {
     APIOptions,
@@ -52,58 +53,75 @@ export function Flipbook() {
     const noTextEntered = state.questions.trim() === "";
 
     return (
-        <View style={{padding: spacing.medium_16}}>
-            <textarea
-                wrap={"off"}
-                rows={10}
-                style={{width: "100%"}}
-                value={state.questions}
-                onChange={(e) => dispatch(setQuestions(e.target.value))}
-            />
-            <View style={{flexDirection: "row", alignItems: "baseline"}}>
-                <Button kind="secondary" onClick={() => dispatch(previous)}>
-                    Previous
-                </Button>
-                <Strut size={spacing.xxSmall_6} />
-                <Button kind="secondary" onClick={() => dispatch(next)}>
-                    Next
-                </Button>
-                <Strut size={spacing.medium_16} />
-                <Progress
-                    zeroBasedIndex={index}
-                    total={numQuestions}
-                    onIndexChanged={(input) => dispatch(jumpToQuestion(input))}
-                />
-                <Strut size={spacing.medium_16} />
-                <Button
-                    kind="tertiary"
-                    onClick={() => dispatch(removeCurrentQuestion)}
+        <>
+            <Header>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        flexBasis: "max-content",
+                    }}
                 >
-                    Discard question
-                </Button>
+                    <nav>
+                        <a href="/">Gallery</a>
+                    </nav>
+                </View>
+            </Header>
+            <View style={{padding: spacing.medium_16}}>
+                <textarea
+                    wrap={"off"}
+                    rows={10}
+                    style={{width: "100%"}}
+                    value={state.questions}
+                    onChange={(e) => dispatch(setQuestions(e.target.value))}
+                />
+                <View style={{flexDirection: "row", alignItems: "baseline"}}>
+                    <Button kind="secondary" onClick={() => dispatch(previous)}>
+                        Previous
+                    </Button>
+                    <Strut size={spacing.xxSmall_6} />
+                    <Button kind="secondary" onClick={() => dispatch(next)}>
+                        Next
+                    </Button>
+                    <Strut size={spacing.medium_16} />
+                    <Progress
+                        zeroBasedIndex={index}
+                        total={numQuestions}
+                        onIndexChanged={(input) =>
+                            dispatch(jumpToQuestion(input))
+                        }
+                    />
+                    <Strut size={spacing.medium_16} />
+                    <Button
+                        kind="tertiary"
+                        onClick={() => dispatch(removeCurrentQuestion)}
+                    >
+                        Discard question
+                    </Button>
+                </View>
+                <Strut size={spacing.small_12} />
+                <div style={{display: noTextEntered ? "block" : "none"}}>
+                    <h2>Instructions</h2>
+                    <ol>
+                        <li>
+                            <p>
+                                Run a command like one of the following to copy
+                                question data to your clipboard.
+                            </p>
+                            <code>
+                                <pre>{exampleCommands}</pre>
+                            </code>
+                        </li>
+                        <li>
+                            <p>Paste the data in the box above.</p>
+                        </li>
+                    </ol>
+                </div>
+                {question != null && (
+                    <SideBySideQuestionRenderer question={question} />
+                )}
             </View>
-            <Strut size={spacing.small_12} />
-            <div style={{display: noTextEntered ? "block" : "none"}}>
-                <h2>Instructions</h2>
-                <ol>
-                    <li>
-                        <p>
-                            Run a command like one of the following to copy
-                            question data to your clipboard.
-                        </p>
-                        <code>
-                            <pre>{exampleCommands}</pre>
-                        </code>
-                    </li>
-                    <li>
-                        <p>Paste the data in the box above.</p>
-                    </li>
-                </ol>
-            </div>
-            {question != null && (
-                <SideBySideQuestionRenderer question={question} />
-            )}
-        </View>
+        </>
     );
 }
 
