@@ -17,6 +17,7 @@ import {
     rayQuestionWithDefaultCorrect,
     polygonQuestionDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
+import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
 import {renderQuestion} from "./renderQuestion";
 
@@ -24,11 +25,8 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
+import type {mafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 import type {UserEvent} from "@testing-library/user-event";
-import {
-    mafsSupportedGraphTypes,
-    trueForAllMafsSupportedGraphTypes,
-} from "../interactive-graphs/mafs-supported-graph-types";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
