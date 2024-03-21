@@ -124,12 +124,17 @@ const getDefaultSegments = ({
         }
     };
 
+    const defaultRange: [Interval, Interval] = [
+        [-10, 10],
+        [-10, 10],
+    ];
+
     return ys(graph.numSegments).map((y) => {
         let endpoints: [Coord, Coord] = [
             [-5, y],
             [5, y],
         ];
-        endpoints = normalizeCoords(endpoints, range);
+        endpoints = normalizeCoords(endpoints, defaultRange);
         endpoints = normalizePoints(range, step, endpoints);
         return endpoints;
     });

@@ -1,5 +1,12 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.5
+
+### Patch Changes
+
+-   Updated dependencies [[`e70d1701`](https://github.com/Khan/perseus/commit/e70d17010eb3943f114ea382025016e5ed68cde5)]:
+    -   @khanacademy/math-input@17.4.0
+
 ## 1.3.4
 
 ### Patch Changes

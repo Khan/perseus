@@ -638,10 +638,6 @@ describe("renderer", () => {
 
             // Act
             const {container} = renderQuestion(question, apiOptions);
-            // KaTeX renders async, so we have to wait until it's done.
-            await waitFor(() => {
-                screen.getByText("1 + 2");
-            });
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -661,10 +657,6 @@ describe("renderer", () => {
 
             // Act
             const {container} = renderQuestion(question, apiOptions);
-            // KaTeX renders async, so we have to wait until it's done.
-            await waitFor(() => {
-                screen.getByText("1 + 2");
-            });
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -684,10 +676,6 @@ describe("renderer", () => {
 
             // Act
             const {container} = renderQuestion(question, apiOptions);
-            // KaTeX renders async, so we have to wait until it's done.
-            await waitFor(() => {
-                screen.getByText("1 + 2");
-            });
 
             // Assert
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -718,7 +706,7 @@ describe("renderer", () => {
 
             // Assert
             await waitFor(() => {
-                screen.getByText("1 + 2");
+                expect(screen.getByText("1 + 2")).toBeInTheDocument();
             });
             expect(container).toMatchSnapshot();
         });
@@ -736,10 +724,9 @@ describe("renderer", () => {
             renderQuestion(question);
 
             // Assert
-            // KaTeX renders async, so we use waitFor() have to wait until it's done.
-            await waitFor(() => {
-                screen.getByText(/\\begin\{aligned\}.*\\end\{aligned\}/);
-            });
+            expect(
+                screen.getByText(/\\begin\{aligned\}.*\\end\{aligned\}/),
+            ).toBeInTheDocument();
         });
     });
 

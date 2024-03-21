@@ -5,9 +5,9 @@
  * The target for labeling question image with answers.
  */
 
-import Color from "@khanacademy/wonder-blocks-color";
 import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -75,7 +75,7 @@ export default class Marker extends React.Component<Props> {
         // default dot
         let args: Icon["props"] = {
             size: MARKER_SIZE,
-            color: Color.white,
+            color: color.white,
             icon: iconNull,
         };
 
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     marker: {
         position: "absolute",
 
-        backgroundColor: Color.white,
+        backgroundColor: color.white,
         borderRadius: MARKER_SIZE,
 
         // Center marker position based on its maximum size.
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         marginTop: MARKER_SIZE / -2,
 
         // Add a shadow to the marker to make it stand out from the image.
-        boxShadow: `0 8px 8px ${Color.offBlack8}`,
+        boxShadow: `0 8px 8px ${color.offBlack8}`,
     },
 
     // The base and unfilled marker style.
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
         width: MARKER_SIZE,
         height: MARKER_SIZE,
 
-        border: `2px solid ${Color.offBlack64}`,
+        border: `2px solid ${color.offBlack64}`,
         borderRadius: MARKER_SIZE,
     },
 
@@ -201,12 +201,12 @@ const styles = StyleSheet.create({
         animationName: {
             "0%": {
                 transform: "scale(1)",
-                backgroundColor: Color.blue,
+                backgroundColor: color.blue,
             },
 
             "100%": {
                 transform: "scale(1.3)",
-                backgroundColor: Color.blue,
+                backgroundColor: color.blue,
             },
         },
 
@@ -229,16 +229,16 @@ const styles = StyleSheet.create({
     },
 
     markerActive: {
-        outline: `2px solid ${Color.blue}`,
+        outline: `2px solid ${color.blue}`,
         outlineOffset: 2,
     },
 
     // The learner is making an initial selection
     markerSelected: {
-        boxShadow: `0 8px 8px ${Color.offBlack8}`,
+        boxShadow: `0 8px 8px ${color.offBlack8}`,
 
-        border: `solid 4px ${Color.white}`,
-        backgroundColor: Color.blue,
+        border: `solid 4px ${color.white}`,
+        backgroundColor: color.blue,
         borderRadius: MARKER_SIZE,
         transform: "rotate(180deg)",
     },
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     // The learner has made a selection
     markerFilled: {
         backgroundColor: "#ECF3FE",
-        border: `4px solid ${Color.blue}`,
+        border: `4px solid ${color.blue}`,
     },
 
     markerGraded: {
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
 
         justifyContent: "center",
         alignItems: "center",
-        border: `2px solid ${Color.white}`,
+        border: `2px solid ${color.white}`,
     },
 
     markerCorrect: {
@@ -263,6 +263,6 @@ const styles = StyleSheet.create({
     },
 
     markerIncorrect: {
-        background: Color.offBlack64,
+        background: color.offBlack64,
     },
 });

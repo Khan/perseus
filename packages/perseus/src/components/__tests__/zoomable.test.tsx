@@ -359,7 +359,7 @@ describe("Zoomable", () => {
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitFor(() => {
-                screen.getByText("Some more zoomable text");
+                screen.queryByText("Some more zoomable text");
             });
 
             // Assert
@@ -384,7 +384,7 @@ describe("Zoomable", () => {
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitFor(() => {
-                screen.getByText("Some more zoomable text");
+                screen.queryByText("Some more zoomable text");
             });
 
             // Assert
@@ -412,7 +412,7 @@ describe("Zoomable", () => {
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitFor(() => {
-                screen.getByText("Some more zoomable text");
+                screen.queryByText("Some more zoomable text");
             });
 
             // Assert

@@ -121,6 +121,29 @@ describe("math input integration", () => {
         expect(screen.getByRole("button", {name: "1"})).toBeVisible();
     });
 
+    it("shows the keypad after input is focused via tab", async () => {
+        // Arrange
+        render(<ConnectedMathInput />);
+
+        // The textbox role and label is on the wrapper; tabIndex=0 is on first child
+        const input = screen.getByLabelText(
+            "Math input box Tap with one or two fingers to open keyboard",
+            // eslint-disable-next-line testing-library/no-node-access
+        ).firstElementChild;
+
+        // Act
+        await userEvent.tab();
+
+        // Assert
+        expect(input).toHaveFocus();
+
+        await waitFor(() => {
+            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        });
+
+        expect(screen.getByRole("button", {name: "1"})).toBeVisible();
+    });
+
     it("shows the keypad after input click-interaction", async () => {
         render(<ConnectedMathInput />);
 

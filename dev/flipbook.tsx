@@ -1,21 +1,28 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
 import Button from "@khanacademy/wonder-blocks-button";
+import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {useReducer, useRef} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 import {isCorrect} from "../packages/perseus/src/util";
 
+import {EditableControlledInput} from "./editable-controlled-input";
 import {
     flipbookModelReducer,
     next,
     previous,
+    removeCurrentQuestion,
+    selectCurrentQuestionIndex,
     selectCurrentQuestion,
     setQuestions,
+    selectNumQuestions,
+    jumpToQuestion,
 } from "./flipbook-model";
+import {Header} from "./header";
 
 import type {
     APIOptions,
@@ -40,49 +47,81 @@ export function Flipbook() {
     });
 
     const question = selectCurrentQuestion(state);
+    const numQuestions = selectNumQuestions(state);
+    const index = selectCurrentQuestionIndex(state);
 
     const noTextEntered = state.questions.trim() === "";
 
     return (
-        <View style={{padding: Spacing.medium_16}}>
-            <textarea
-                wrap={"off"}
-                rows={10}
-                style={{width: "100%"}}
-                value={state.questions}
-                onChange={(e) => dispatch(setQuestions(e.target.value))}
-            />
-            <Strut size={Spacing.small_12} />
-            <View style={{flexDirection: "row"}}>
-                <Button kind="secondary" onClick={() => dispatch(previous)}>
-                    Previous
-                </Button>
-                <Strut size={Spacing.xxSmall_6} />
-                <Button kind="secondary" onClick={() => dispatch(next)}>
-                    Next
-                </Button>
+        <>
+            <Header>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        flexBasis: "max-content",
+                    }}
+                >
+                    <nav>
+                        <a href="/">Gallery</a>
+                    </nav>
+                </View>
+            </Header>
+            <View style={{padding: spacing.medium_16}}>
+                <textarea
+                    wrap={"off"}
+                    rows={10}
+                    style={{width: "100%"}}
+                    value={state.questions}
+                    onChange={(e) => dispatch(setQuestions(e.target.value))}
+                />
+                <View style={{flexDirection: "row", alignItems: "baseline"}}>
+                    <Button kind="secondary" onClick={() => dispatch(previous)}>
+                        Previous
+                    </Button>
+                    <Strut size={spacing.xxSmall_6} />
+                    <Button kind="secondary" onClick={() => dispatch(next)}>
+                        Next
+                    </Button>
+                    <Strut size={spacing.medium_16} />
+                    <Progress
+                        zeroBasedIndex={index}
+                        total={numQuestions}
+                        onIndexChanged={(input) =>
+                            dispatch(jumpToQuestion(input))
+                        }
+                    />
+                    <Strut size={spacing.medium_16} />
+                    <Button
+                        kind="tertiary"
+                        onClick={() => dispatch(removeCurrentQuestion)}
+                    >
+                        Discard question
+                    </Button>
+                </View>
+                <Strut size={spacing.small_12} />
+                <div style={{display: noTextEntered ? "block" : "none"}}>
+                    <h2>Instructions</h2>
+                    <ol>
+                        <li>
+                            <p>
+                                Run a command like one of the following to copy
+                                question data to your clipboard.
+                            </p>
+                            <code>
+                                <pre>{exampleCommands}</pre>
+                            </code>
+                        </li>
+                        <li>
+                            <p>Paste the data in the box above.</p>
+                        </li>
+                    </ol>
+                </div>
+                {question != null && (
+                    <SideBySideQuestionRenderer question={question} />
+                )}
             </View>
-            <div style={{display: noTextEntered ? "block" : "none"}}>
-                <h2>Instructions</h2>
-                <ol>
-                    <li>
-                        <p>
-                            Run a command like one of the following to copy
-                            question data to your clipboard.
-                        </p>
-                        <code>
-                            <pre>{exampleCommands}</pre>
-                        </code>
-                    </li>
-                    <li>
-                        <p>Paste the data in the box above.</p>
-                    </li>
-                </ol>
-            </div>
-            {question != null && (
-                <SideBySideQuestionRenderer question={question} />
-            )}
-        </View>
+        </>
     );
 }
 
@@ -101,8 +140,9 @@ function SideBySideQuestionRenderer({
                 className="framework-perseus"
                 style={{
                     flexDirection: "row",
-                    padding: Spacing.xLarge_32,
-                    gap: Spacing.small_12,
+                    padding: spacing.medium_16,
+                    gap: spacing.medium_16,
+                    background: "#f8f8f8",
                 }}
             >
                 <GradableRenderer
@@ -137,7 +177,14 @@ function GradableRenderer(props: QuestionRendererProps) {
     }
 
     return (
-        <View style={{alignItems: "flex-start"}}>
+        <View
+            style={{
+                alignItems: "flex-start",
+                overflow: "hidden",
+                background: Color.white,
+                padding: spacing.medium_16,
+            }}
+        >
             <Renderer
                 ref={rendererRef}
                 content={question.content}
@@ -156,5 +203,26 @@ function GradableRenderer(props: QuestionRendererProps) {
                 Check answer
             </Button>
         </View>
+    );
+}
+
+type ProgressProps = {
+    zeroBasedIndex: number;
+    total: number;
+    onIndexChanged: (rawUserInput: string) => unknown;
+};
+
+function Progress(props: ProgressProps) {
+    const {zeroBasedIndex, total, onIndexChanged} = props;
+    const indexToDisplay = Math.min(total, zeroBasedIndex + 1);
+    return (
+        <div>
+            <EditableControlledInput
+                value={String(indexToDisplay)}
+                onInput={onIndexChanged}
+                style={{width: "4em", textAlign: "right"}}
+            />
+            &nbsp;of {total}
+        </div>
     );
 }

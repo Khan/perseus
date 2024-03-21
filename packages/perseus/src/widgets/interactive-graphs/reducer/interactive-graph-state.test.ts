@@ -96,4 +96,29 @@ describe("initializeGraphState", () => {
             [-2, -4],
         ]);
     });
+
+    it("puts the segments in the same place regardless of graph scale", () => {
+        // When the graph bounds are the default of x: (-10, 10), y: (-10, 10),
+        // the first segment gets drawn from (-5, 5) to (5, 5). If the graph
+        // scale were (-1000, 1000), (-1000, 1000), though, we wouldn't want to
+        // keep the same segment position; the segment would be unclickably
+        // tiny. So instead, we position the segment in approximately the same
+        // *visual* position as (-5, 5), (5, 5), whatever that maps to in graph
+        // coordinates.
+        const state = initializeGraphState({
+            range: [
+                [-1000, 1000],
+                [-1000, 1000],
+            ],
+            step: [1, 1],
+            snapStep: [1, 1],
+            graph: {type: "segment", numSegments: 1},
+        });
+        expect(state.coords).toEqual([
+            [
+                [-500, 500],
+                [500, 500],
+            ],
+        ]);
+    });
 });

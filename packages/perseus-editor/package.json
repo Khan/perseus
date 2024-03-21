@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.2.2",
+    "version": "5.2.3",
     "publishConfig": {
         "access": "public"
     },
@@ -27,21 +27,19 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.9",
         "@khanacademy/kmath": "^0.1.12",
-        "@khanacademy/math-input": "^17.3.0",
-        "@khanacademy/perseus": "^20.7.0",
+        "@khanacademy/math-input": "^17.4.0",
+        "@khanacademy/perseus": "^20.8.0",
         "@khanacademy/perseus-core": "1.4.2"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-button": "^6.2.8",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
-        "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-dropdown": "^5.1.8",
         "@khanacademy/wonder-blocks-form": "^4.4.5",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "4.0.1",
         "@khanacademy/wonder-blocks-icon-button": "^5.1.13",
-        "@khanacademy/wonder-blocks-spacing": "^4.0.1",
         "@khanacademy/wonder-blocks-tokens": "^1.1.0",
         "@khanacademy/wonder-blocks-typography": "^2.1.10",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
@@ -60,14 +58,12 @@
     "peerDependencies": {
         "@khanacademy/wonder-blocks-button": "^6.2.8",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
-        "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-dropdown": "^5.1.8",
         "@khanacademy/wonder-blocks-form": "^4.4.5",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "4.0.1",
         "@khanacademy/wonder-blocks-icon-button": "^5.1.13",
-        "@khanacademy/wonder-blocks-spacing": "^4.0.1",
         "@khanacademy/wonder-blocks-tokens": "^1.1.0",
         "@khanacademy/wonder-blocks-typography": "^2.1.10",
         "@khanacademy/wonder-stuff-core": "^1.5.1",

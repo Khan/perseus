@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "17.3.0",
+    "version": "17.4.0",
     "publishConfig": {
         "access": "public"
     },
@@ -29,7 +29,7 @@
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
-        "@khanacademy/wonder-blocks-color": "^3.0.0",
+        "@khanacademy/wonder-blocks-tokens": "^1.1.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-popover": "^3.1.3",
@@ -50,7 +50,7 @@
     "peerDependencies": {
         "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
-        "@khanacademy/wonder-blocks-color": "^3.0.0",
+        "@khanacademy/wonder-blocks-tokens": "^1.1.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-popover": "^3.1.3",

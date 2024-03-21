@@ -1,6 +1,6 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import Color from "@khanacademy/wonder-blocks-color";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {DefinitionConsumer} from "../definition-context";
@@ -84,10 +84,10 @@ class Definition extends React.Component<DefinitionProps> {
                             {({hovered, focused, pressed}) => (
                                 <span
                                     style={{
-                                        color: Color.blue,
+                                        color: color.blue,
                                         borderBottom:
                                             hovered || focused || pressed
-                                                ? `2px solid ${Color.blue}`
+                                                ? `2px solid ${color.blue}`
                                                 : "none",
                                     }}
                                 >
@@ -104,7 +104,7 @@ class Definition extends React.Component<DefinitionProps> {
 
 const styles = {
     tooltipBody: {
-        color: Color.offBlack,
+        color: color.offBlack,
         fontSize: 20,
         fontWeight: 500,
         lineHeight: "30px",

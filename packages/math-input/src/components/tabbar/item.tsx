@@ -1,6 +1,6 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         marginLeft: 1,
     },
     hovered: {
-        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${Color.white}`,
+        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${color.white}`,
         border: "1px solid #1865F2",
     },
     pressed: {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     focused: {
         outline: "none",
-        border: `2px solid ${Color.blue}`,
+        border: `2px solid ${color.blue}`,
     },
     innerBox: {
         boxSizing: "border-box",
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     innerBoxPressed: {
-        border: `1px solid ${Color.white}`,
+        border: `1px solid ${color.white}`,
     },
     activeIndicator: {
         position: "absolute",
@@ -64,15 +64,15 @@ function imageTintColor(
     pressed: boolean,
 ): string {
     if (itemState === "disabled") {
-        return Color.offBlack64;
+        return color.offBlack64;
     } else if (pressed) {
-        return Color.white;
+        return color.white;
     } else if (itemState === "active") {
-        return Color.blue;
+        return color.blue;
     } else if (hovered) {
-        return Color.blue;
+        return color.blue;
     }
-    return Color.offBlack64;
+    return color.offBlack64;
 }
 export type ItemState = "active" | "inactive" | "disabled";
 type Props = {
