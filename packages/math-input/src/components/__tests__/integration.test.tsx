@@ -125,19 +125,11 @@ describe("math input integration", () => {
         // Arrange
         render(<ConnectedMathInput />);
 
-<<<<<<< HEAD
-        expect(
-            screen.getByLabelText(
-                "Math input box Tap with one or two fingers to open keyboard",
-            ),
-        ).toBeVisible();
-=======
         // The textbox role and label is on the wrapper; tabIndex=0 is on first child
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
             // eslint-disable-next-line testing-library/no-node-access
         ).firstElementChild;
->>>>>>> main
 
         // Act
         await userEvent.tab();
