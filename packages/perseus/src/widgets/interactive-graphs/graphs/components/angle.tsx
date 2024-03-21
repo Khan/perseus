@@ -37,12 +37,16 @@ export const Angle = ({
     const x2 = centerX + radius * Math.cos(endAngle);
     const y2 = centerY + radius * Math.sin(endAngle);
 
+    // Fourth point that would create a rhomboid
+    // Used to calculate the inside of the angle and to create square
+    const [x3, y3] = vec.add(
+        centerPoint,
+        vec.add(vec.sub([x1, y1], centerPoint), vec.sub([x2, y2], centerPoint)),
+    );
+
     // Midpoint betwen ends of arc
     const isInside = shouldDrawArcInside(
-        [
-            [x1, y1],
-            [x2, y2],
-        ],
+        [x3, y3],
         centerPoint,
         range,
         polygonPoints,
@@ -50,11 +54,6 @@ export const Angle = ({
 
     const largeArcFlag = isInside ? 1 : 0;
     const sweepFlag = isInside ? 1 : 0;
-
-    const [x3, y3] = vec.add(
-        centerPoint,
-        vec.add(vec.sub([x1, y1], centerPoint), vec.sub([x2, y2], centerPoint)),
-    );
 
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
     const square = `M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`;
@@ -85,14 +84,12 @@ const isRightAngle = (startAngle: number, endAngle: number) => {
 };
 
 const shouldDrawArcInside = (
-    [[x1, y1], [x2, y2]]: CollinearTuple,
+    midPoint: vec.Vector2,
     vertex: vec.Vector2,
     range: [Interval, Interval],
     polygonPoints: readonly vec.Vector2[],
 ) => {
-    // Midpoint betwen ends of arc
-    const midpoint = vec.midpoint([x1, y1], [x2, y2]);
-    const throughLine = getRayIntersectionCoords(vertex, midpoint, range);
+    const throughLine = getRayIntersectionCoords(vertex, midPoint, range);
 
     const lines = getLines(polygonPoints);
     let blackLineIntersections = 0;
