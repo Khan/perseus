@@ -17,6 +17,7 @@ import {
     rayQuestionWithDefaultCorrect,
     polygonQuestionDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
+import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
 import {renderQuestion} from "./renderQuestion";
 
@@ -24,6 +25,7 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
+import type {mafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
@@ -127,25 +129,12 @@ describe("mafs graphs", () => {
     });
 
     // Add types to this array as you test them
-    const graphsTypesToEnable = [
-        "segment",
-        "linear",
-        "linear-system",
-        "ray",
-        "polygon",
-    ] as const;
-
-    const graphTypeFlags = graphsTypesToEnable.reduce((acc, type) => {
-        acc[type] = true;
-        return acc;
-    }, {});
-
     const apiOptions = {
-        flags: {mafs: graphTypeFlags},
+        flags: {mafs: trueForAllMafsSupportedGraphTypes},
     };
 
     const graphQuestionRenderers: {
-        [K in (typeof graphsTypesToEnable)[number]]: PerseusRenderer;
+        [K in (typeof mafsSupportedGraphTypes)[number]]: PerseusRenderer;
     } = {
         segment: segmentQuestionDefaultCorrect,
         linear: linearQuestionWithDefaultCorrect,

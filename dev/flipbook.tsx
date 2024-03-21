@@ -9,6 +9,7 @@ import {useReducer, useRef} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 import {isCorrect} from "../packages/perseus/src/util";
+import {trueForAllMafsSupportedGraphTypes} from "../packages/perseus/src/widgets/interactive-graphs/mafs-supported-graph-types";
 
 import {EditableControlledInput} from "./editable-controlled-input";
 import {
@@ -151,7 +152,10 @@ function SideBySideQuestionRenderer({
                 />
                 <GradableRenderer
                     question={question}
-                    apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
+                    apiOptions={{
+                        ...apiOptions,
+                        flags: {mafs: trueForAllMafsSupportedGraphTypes},
+                    }}
                 />
             </View>
             <p>
