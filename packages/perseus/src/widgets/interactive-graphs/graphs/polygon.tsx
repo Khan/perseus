@@ -16,7 +16,7 @@ export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, type, showAngles} = props.graphState;
+    const {coords, type, showAngles, range} = props.graphState;
 
     const points = coords ?? [[0, 0]];
 
@@ -40,8 +40,6 @@ export const PolygonGraph = (props: Props) => {
 
     const active = hovered || focused || dragging;
 
-    console.log({showAngles});
-
     return (
         <>
             <Polygon
@@ -53,6 +51,24 @@ export const PolygonGraph = (props: Props) => {
                         : "var(--movable-line-stroke-weight)",
                 }}
             />
+            {showAngles &&
+                points.map((point, i) => {
+                    const pt1 = points.at(i - 1);
+                    const pt2 = points[(i + 1) % points.length];
+                    if (!pt1 || !pt2) {
+                        return null;
+                    }
+                    return (
+                        <Angle
+                            key={"angle-" + i}
+                            centerPoint={point}
+                            endPoints={[pt1, pt2]}
+                            active={active}
+                            range={range}
+                            polygonPoints={points}
+                        />
+                    );
+                })}
             {/**
              * This transparent svg creates a nice big click/touch target,
              * since the polygon itself can be made smaller than the spec.
@@ -84,22 +100,6 @@ export const PolygonGraph = (props: Props) => {
                     data-testid={type + i}
                 />
             ))}
-            {showAngles &&
-                points.map((point, i) => {
-                    const pt1 = points.at(i - 1);
-                    const pt2 = points.at(i + 1);
-                    if (!pt1 || !pt2) {
-                        return null;
-                    }
-                    return (
-                        <Angle
-                            key={"angle-" + i}
-                            centerPoint={point}
-                            endPoints={[pt1, pt2]}
-                            active={active}
-                        />
-                    );
-                })}
         </>
     );
 };

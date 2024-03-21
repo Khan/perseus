@@ -32,10 +32,10 @@ export const MovableLine = (props: {
 
     if (extend) {
         startExtend = extend.start
-            ? getExtensionCoords(end, start, extend.range)
+            ? getRayIntersectionCoords(end, start, extend.range)
             : undefined;
         endExtend = extend.end
-            ? getExtensionCoords(start, end, extend.range)
+            ? getRayIntersectionCoords(start, end, extend.range)
             : undefined;
     }
 
@@ -109,7 +109,7 @@ function SVGLine(props: {
  * @param collinearPoint - The point that the line passes through. Needed to establish slope.
  * @param extendFrom - The point that the line extends from to the edge of the graph.
  */
-const getExtensionCoords = (
+export const getRayIntersectionCoords = (
     collinearPoint: vec.Vector2,
     extendFrom: vec.Vector2,
     range: [Interval, Interval],
