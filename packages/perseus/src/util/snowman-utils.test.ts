@@ -1,7 +1,6 @@
 import {
     addWidget,
     getAllWidgetIds,
-    WidgetType,
     getQuestionWidgetIds,
     getAllWidgetTypes,
     getWidgetRegex,
@@ -77,9 +76,8 @@ describe("getQuestionWidgetIds", () => {
     it("returns all question widgets in a string", () => {
         // Arrange
         const questionContent = `${addWidget(
-            WidgetType.NumericInput,
-            1,
-        )} foo ${addWidget(WidgetType.Radio, 1)}`;
+            "numeric-input 1",
+        )} foo ${addWidget("radio 1")}`;
 
         // Act
         const questionWidget = getQuestionWidgetIds(questionContent);
@@ -91,9 +89,8 @@ describe("getQuestionWidgetIds", () => {
     it("does not return non-question widgets", () => {
         // Arrange
         const questionContent = `${addWidget(
-            WidgetType.NumericInput,
-            1,
-        )} ${addWidget(WidgetType.Video, 1)} ${addWidget(WidgetType.Radio, 1)}`;
+            "numeric-input 1",
+        )} ${addWidget("video 1")} ${addWidget("radio 1")}`;
 
         // Act
         const questionWidgetNames = getQuestionWidgetIds(questionContent);
@@ -107,13 +104,11 @@ describe("addWidget", () => {
     it("correctly adds a widget placeholder", () => {
         // Arrange
         const content = "Please answer this question [[☃ radio 1]]";
-        const testWidgetType = WidgetType.Radio;
-        const testWidgetInstance = 1;
+        const testWidgetId = "radio 1";
 
         // Act
         const newContent = `Please answer this question ${addWidget(
-            testWidgetType,
-            testWidgetInstance,
+            testWidgetId,
         )}`;
 
         // Assert
