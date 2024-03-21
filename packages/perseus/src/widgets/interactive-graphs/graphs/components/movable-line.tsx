@@ -1,8 +1,9 @@
-import {vec, useMovable, useTransformContext, Vector} from "mafs";
+import {vec, useMovable, Vector} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
 import {TARGET_SIZE} from "../../utils";
+import {useTransform} from "../use-transform";
 
 import type {Interval} from "mafs";
 import type {SVGProps} from "react";
@@ -24,11 +25,7 @@ export const MovableLine = (props: {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
-    const {viewTransform, userTransform} = useTransformContext();
-    const transformToPx = vec.matrixMult(viewTransform, userTransform);
-
-    const startPtPx = vec.transform(start, transformToPx);
-    const endPtPx = vec.transform(end, transformToPx);
+    const [startPtPx, endPtPx] = useTransform(start, end);
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;

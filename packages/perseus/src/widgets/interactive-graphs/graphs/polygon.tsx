@@ -4,6 +4,7 @@ import * as React from "react";
 import {moveAll, moveControlPoint} from "../reducer/interactive-graph-action";
 import {TARGET_SIZE} from "../utils";
 
+import {Angle} from "./components/angle";
 import {StyledMovablePoint} from "./components/movable-point";
 
 import type {MafsGraphProps, PolygonGraphState} from "../types";
@@ -15,7 +16,7 @@ export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, type} = props.graphState;
+    const {coords, type, showAngles} = props.graphState;
 
     const points = coords ?? [[0, 0]];
 
@@ -38,6 +39,8 @@ export const PolygonGraph = (props: Props) => {
     });
 
     const active = hovered || focused || dragging;
+
+    console.log({showAngles});
 
     return (
         <>
@@ -73,7 +76,7 @@ export const PolygonGraph = (props: Props) => {
             />
             {points.map((point, i) => (
                 <StyledMovablePoint
-                    key={i}
+                    key={"point-" + i}
                     point={point}
                     onMove={(destination: vec.Vector2) =>
                         dispatch(moveControlPoint(i, destination))
@@ -81,6 +84,22 @@ export const PolygonGraph = (props: Props) => {
                     data-testid={type + i}
                 />
             ))}
+            {showAngles &&
+                points.map((point, i) => {
+                    const pt1 = points.at(i - 1);
+                    const pt2 = points.at(i + 1);
+                    if (!pt1 || !pt2) {
+                        return null;
+                    }
+                    return (
+                        <Angle
+                            key={"angle-" + i}
+                            centerPoint={point}
+                            endPoints={[pt1, pt2]}
+                            active={active}
+                        />
+                    );
+                })}
         </>
     );
 };
