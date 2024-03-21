@@ -135,7 +135,15 @@ function SideBySideQuestionRenderer({
                     question={question}
                     apiOptions={{
                         ...apiOptions,
-                        flags: {mafs: {segment: true, linear: true}},
+                        flags: {
+                            mafs: {
+                                segment: true,
+                                linear: true,
+                                "linear-system": true,
+                                polygon: true,
+                                ray: true,
+                            },
+                        },
                     }}
                 />
             </View>
