@@ -125,9 +125,11 @@ describe("math input integration", () => {
         // Arrange
         render(<ConnectedMathInput />);
 
-        screen.getByLabelText(
-            "Math input box Tap with one or two fingers to open keyboard",
-        );
+        expect(
+            screen.getByLabelText(
+                "Math input box Tap with one or two fingers to open keyboard",
+            ),
+        ).toBeVisible();
 
         // Act
         await userEvent.tab();
