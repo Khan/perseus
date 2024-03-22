@@ -1,8 +1,10 @@
-import {Text, vec} from "mafs";
+import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
 import {getRayIntersectionCoords as getRangeIntersectionVertex} from "../utils";
+
+import {TextLabel} from "./text-label";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {Interval} from "mafs";
@@ -21,7 +23,6 @@ export const Angle = ({
     endPoints,
     range,
     polygonPoints,
-    color = "var(--movable-line-stroke-color)",
 }: Props) => {
     const [centerX, centerY] = centerPoint;
     const areClockwise = clockwise([centerPoint, ...endPoints]);
@@ -77,18 +78,6 @@ export const Angle = ({
 
     return (
         <>
-            <defs>
-                <filter
-                    id="background"
-                    x="-5%"
-                    width="110%"
-                    y="0%"
-                    height="100%"
-                >
-                    <feFlood floodColor="#FFF" floodOpacity="0.5" />
-                    <feComposite operator="over" in="SourceGraphic" />
-                </filter>
-            </defs>
             <g
                 style={{
                     transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
@@ -100,15 +89,9 @@ export const Angle = ({
                     fill="none"
                 />
             </g>
-            <Text
+            <TextLabel
                 x={x3}
                 y={y3}
-                size={15}
-                svgTextProps={{
-                    filter: "url(#background)",
-                    fontWeight: "bold",
-                }}
-                // Shift position if text is too close to movable point
                 attach={y3 - centerY > 0 ? "s" : "n"}
                 attachDistance={
                     Math.abs(y3 - centerY) < 0.2 ||
@@ -118,7 +101,7 @@ export const Angle = ({
                 }
             >
                 {angleLabel}°
-            </Text>
+            </TextLabel>
         </>
     );
 };

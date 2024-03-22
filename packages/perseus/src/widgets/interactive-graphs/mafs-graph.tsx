@@ -12,6 +12,7 @@ import {
     getGradableGraph,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
+import {SvgDefs} from "./svg-defs";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
@@ -86,6 +87,9 @@ export const MafsGraph = React.forwardRef<
                     width={width}
                     height={height}
                 >
+                    {/* Svg definitions to render only once */}
+                    <SvgDefs />
+
                     {/* Background layer */}
                     <Grid {...props} />
 
