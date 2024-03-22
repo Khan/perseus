@@ -501,7 +501,6 @@ export const polygonWithAnglesQuestion: PerseusRenderer = {
                 rulerTicks: 10,
                 showProtractor: false,
                 graph: {
-                    showSides: true,
                     showAngles: true,
                     snapTo: "grid",
                     type: "polygon",

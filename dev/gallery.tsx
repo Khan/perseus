@@ -27,6 +27,7 @@ const questions = [
     interactiveGraph.linearSystemQuestion,
     interactiveGraph.circleQuestion,
     interactiveGraph.linearQuestion,
+    interactiveGraph.polygonQuestion,
     interactiveGraph.polygonWithAnglesQuestion,
     interactiveGraph.polygonWithAnglesAndManySidesQuestion,
     interactiveGraph.rayQuestion,
