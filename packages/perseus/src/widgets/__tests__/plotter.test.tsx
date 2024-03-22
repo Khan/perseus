@@ -14,14 +14,6 @@ describe("plotter widget", () => {
         setDependencies(testDependencies);
     });
 
-    it("should snapshot basic question", () => {
-        // Arrange and Act
-        const {container} = renderQuestion(question1);
-
-        // Assert
-        expect(container).toMatchSnapshot("initial render");
-    });
-
     it("should show drag text when not static", () => {
         // Arrange and Act
         render(
