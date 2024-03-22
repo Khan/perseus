@@ -94,6 +94,11 @@ export {parsePerseusItem} from "./util/parse-perseus-json";
 export {
     generateTestPerseusItem,
     genericPerseusItemData,
+    generateTestRadioWidget,
+    generateTestInteractiveGraphWidget,
+    generateTestCategorizerWidget,
+    generateTestExpressionWidget,
+    generateTestNumericInputWidget,
 } from "./util/test-utils";
 export {
     convertWidgetNameToEnum,

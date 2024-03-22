@@ -1,4 +1,11 @@
-import type {PerseusItem} from "../perseus-types";
+import type {
+    CategorizerWidget,
+    ExpressionWidget,
+    InteractiveGraphWidget,
+    NumericInputWidget,
+    PerseusItem,
+    RadioWidget,
+} from "../perseus-types";
 
 export const genericPerseusItemData: PerseusItem = {
     question: {
@@ -39,4 +46,78 @@ export function generateTestPerseusItem(
     customFields: Partial<PerseusItem> = {},
 ): PerseusItem {
     return {...genericPerseusItemData, ...customFields};
+}
+
+export function generateTestRadioWidget(): RadioWidget {
+    return {
+        type: "radio",
+        options: {
+            choices: [],
+        },
+    };
+}
+
+export function generateTestInteractiveGraphWidget(): InteractiveGraphWidget {
+    return {
+        type: "interactive-graph",
+        options: {
+            step: [1, 1],
+            gridStep: [1, 1],
+            snapStep: [1, 1],
+            markings: "graph",
+            labels: ["x", "y"],
+            showProtractor: false,
+            showRuler: false,
+            rulerLabel: "mm",
+            rulerTicks: 2,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            graph: {
+                type: "angle",
+            },
+            correct: {
+                type: "angle",
+            },
+        },
+    };
+}
+
+export function generateTestCategorizerWidget(): CategorizerWidget {
+    return {
+        type: "categorizer",
+        options: {
+            items: [],
+            categories: [],
+            randomizeItems: false,
+            static: false,
+            values: [],
+        },
+    };
+}
+
+export function generateTestExpressionWidget(): ExpressionWidget {
+    return {
+        type: "expression",
+        options: {
+            answerForms: [],
+            buttonSets: ["basic"],
+            functions: [],
+            times: false,
+        },
+    };
+}
+
+export function generateTestNumericInputWidget(): NumericInputWidget {
+    return {
+        type: "numeric-input",
+        options: {
+            answers: [],
+            labelText: "",
+            size: "normal",
+            coefficient: false,
+            static: false,
+        },
+    };
 }
