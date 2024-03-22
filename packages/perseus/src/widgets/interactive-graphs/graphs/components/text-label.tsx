@@ -2,10 +2,11 @@ import {Text} from "mafs";
 import React from "react";
 
 import type {TextProps} from "mafs";
+import type {PropsWithChildren} from "react";
 
-type Props = Pick<TextProps, "x" | "y" | "attach" | "attachDistance"> & {
-    children: React.ReactNode;
-};
+type Props = PropsWithChildren<
+    Pick<TextProps, "x" | "y" | "attach" | "attachDistance">
+>;
 
 export const TextLabel = ({children, ...rest}: Props) => (
     <Text
