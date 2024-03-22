@@ -101,6 +101,15 @@ export {
     generateTestNumericInputWidget,
 } from "./util/test-utils";
 export {
+    getWidgetTypeByWidgetKey,
+    contentHasWidgetType,
+    getWidgetIdsFromContent,
+    getWidgetIdsFromContentByType,
+    getWidgetsMapFromItemData,
+    getWidgetFromWidgetMap,
+    getWidgetsFromWidgetMap,
+} from "./widget-type-utils";
+export {
     convertWidgetNameToEnum,
     getWidgetTypeFromWidgetId,
 } from "./util/widget-enum-utils";
