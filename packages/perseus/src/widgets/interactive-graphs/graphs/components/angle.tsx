@@ -35,15 +35,10 @@ export const Angle = ({
     const b = vec.dist(centerPoint, endPoints[1]);
     const c = vec.dist(endPoints[0], endPoints[1]);
 
-    // Law of cosines
-    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
-
-    const startAngle = Math.atan2(startY - centerY, startX - centerX);
-    const endAngle = Math.atan2(endY - centerY, endX - centerX);
-    const x1 = centerX + radius * Math.cos(startAngle);
-    const y1 = centerY + radius * Math.sin(startAngle);
-    const x2 = centerX + radius * Math.cos(endAngle);
-    const y2 = centerY + radius * Math.sin(endAngle);
+    const y1 = centerY + ((startY - centerY) / a) * radius;
+    const x2 = centerX + ((endX - centerX) / b) * radius;
+    const x1 = centerX + ((startX - centerX) / a) * radius;
+    const y2 = centerY + ((endY - centerY) / b) * radius;
 
     // Fourth point that would create a rhomboid
     // Used to calculate the inside of the angle and to create square
@@ -66,7 +61,16 @@ export const Angle = ({
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
     const square = `M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`;
 
-    const angleLabelNumber = parseFloat((angle * (180 / Math.PI)).toFixed(1));
+    // Law of cosines
+    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
+
+    let angleInDegrees = angle * (180 / Math.PI);
+    // If we have triggered "largArcFlag", the angle should be greater than 180
+    if (isInside) {
+        angleInDegrees = 360 - angleInDegrees;
+    }
+
+    const angleLabelNumber = parseFloat(angleInDegrees.toFixed(1));
     const angleLabel = Number.isInteger(angleLabelNumber)
         ? angleLabelNumber
         : "≈ " + angleLabelNumber;
@@ -91,7 +95,7 @@ export const Angle = ({
                 }}
             >
                 <path
-                    d={isRightAngle(angle) ? square : arc}
+                    d={!isInside && isRightAngle(angle) ? square : arc}
                     strokeWidth={0.02}
                     fill="none"
                 />
@@ -119,12 +123,7 @@ export const Angle = ({
     );
 };
 
-const isRightAngle = (angle) => {
-    if (angle > Math.PI) {
-        angle = Math.abs(angle - Math.PI);
-    }
-    return Math.abs(angle - Math.PI / 2) < 0.01;
-};
+const isRightAngle = (angle) => Math.abs(angle - Math.PI / 2) < 0.01;
 
 const shouldDrawArcInside = (
     midPoint: vec.Vector2,
