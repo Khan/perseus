@@ -40,7 +40,6 @@ export const Angle = ({
 
     const startAngle = Math.atan2(startY - centerY, startX - centerX);
     const endAngle = Math.atan2(endY - centerY, endX - centerX);
-    // const normalizedAngle = angle > 2 * Math.PI ? angle - 2 * Math.PI : angle;
     const x1 = centerX + radius * Math.cos(startAngle);
     const y1 = centerY + radius * Math.sin(startAngle);
     const x2 = centerX + radius * Math.cos(endAngle);
