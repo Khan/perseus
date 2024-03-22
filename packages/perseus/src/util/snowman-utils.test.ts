@@ -10,12 +10,10 @@ describe("widgetRegex", () => {
 
         const widgetPlaceholder = match ? match[0] : null;
         const firstCaptureGroup = match ? match[1] : null;
-        const secondCaptureGroup = match ? match[2] : null;
 
         //Assert
         expect(widgetPlaceholder).toEqual("[[☃ group 1]]");
         expect(firstCaptureGroup).toEqual("group 1");
-        expect(secondCaptureGroup).toEqual("group");
     });
 
     it("locates match and capture groups as expected for hyphenated widget types", () => {
@@ -27,12 +25,10 @@ describe("widgetRegex", () => {
 
         const widgetPlaceholder = match ? match[0] : null;
         const firstCaptureGroup = match ? match[1] : null;
-        const secondCaptureGroup = match ? match[2] : null;
 
         //Assert
         expect(widgetPlaceholder).toEqual("[[☃ numeric-input 1]]");
         expect(firstCaptureGroup).toEqual("numeric-input 1");
-        expect(secondCaptureGroup).toEqual("numeric-input");
     });
 });
 

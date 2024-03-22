@@ -21,7 +21,7 @@ export const QUESTION_WIDGETS: ReadonlyArray<string> = [
  * exec return will look like: ['[[☃ radio 1]]', 'radio 1', 'radio']
  */
 export function getWidgetRegex() {
-    return /\[\[☃ (([a-z-]+) \d+)\]\]/g;
+    return /\[\[☃ ([A-Za-z0-9- ]+)\]\]/g;
 }
 
 /**
