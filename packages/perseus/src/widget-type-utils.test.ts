@@ -4,7 +4,7 @@ import {
     generateTestRadioWidget,
 } from "./util/test-utils";
 import {
-    getWidgetTypeByWidgetKey,
+    getWidgetTypeByWidgetId,
     contentHasWidgetType,
     getWidgetIdsFromContent,
     getWidgetIdsFromContentByType,
@@ -23,7 +23,7 @@ describe("widget-type-utils", () => {
             };
 
             // Act
-            const widgetType = getWidgetTypeByWidgetKey(widgetId, widgetMap);
+            const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap);
 
             // Assert
             expect(widgetType).toBe("radio");
@@ -35,7 +35,7 @@ describe("widget-type-utils", () => {
             const widgetMap = {};
 
             // Act
-            const widgetType = getWidgetTypeByWidgetKey(widgetId, widgetMap);
+            const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap);
 
             // Assert
             expect(widgetType).toBeNull();

@@ -1,14 +1,16 @@
+import {getWidgetRegex} from "./util/snowman-utils";
+
 import type {
     PerseusItem,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
 
-export function getWidgetTypeByWidgetKey(
-    widgetKey: string,
+export function getWidgetTypeByWidgetId(
+    WidgetId: string,
     widgetMap: PerseusWidgetsMap,
 ): string | null {
-    const widget = widgetMap[widgetKey];
+    const widget = widgetMap[WidgetId];
     return widget?.type ?? null;
 }
 
@@ -20,19 +22,28 @@ export function contentHasWidgetType(
     return getWidgetIdsFromContentByType(type, content, widgetMap).length > 0;
 }
 
-export function getWidgetIdsFromContent(
-    content: string,
-): ReadonlyArray<string> {
-    const output: Array<string> = [];
-    const regex = /\[\[☃ ([A-Za-z0-9- ]+)\]\]/g;
+/**
+ * Extract all widget IDs, which includes the widget type and instance number.
+ * example output: ['radio 1', 'categorizer 1', 'categorizor 2']
+ *
+ * Content should contain Perseus widget placeholders,
+ * which look like: '[[☃ radio 1]]'.
+ *
+ * @param {string} content
+ * @returns {Array<string>} widgetIds
+ */
+export function getWidgetIdsFromContent(content: string): Array<string> {
+    const widgets: Array<string> = [];
+    const localWidgetRegex = getWidgetRegex();
 
-    let match = regex.exec(content);
-    while (match) {
-        output.push(match[1]);
-        match = regex.exec(content);
+    let match = localWidgetRegex.exec(content);
+
+    while (match !== null) {
+        widgets.push(match[1]);
+        match = localWidgetRegex.exec(content);
     }
 
-    return output;
+    return widgets;
 }
 
 export function getWidgetIdsFromContentByType(

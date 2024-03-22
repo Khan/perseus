@@ -101,7 +101,7 @@ export {
     generateTestNumericInputWidget,
 } from "./util/test-utils";
 export {
-    getWidgetTypeByWidgetKey,
+    getWidgetTypeByWidgetId,
     contentHasWidgetType,
     getWidgetIdsFromContent,
     getWidgetIdsFromContentByType,
@@ -109,18 +109,8 @@ export {
     getWidgetFromWidgetMap,
     getWidgetsFromWidgetMap,
 } from "./widget-type-utils";
-export {
-    convertWidgetNameToEnum,
-    getWidgetTypeFromWidgetId,
-} from "./util/widget-enum-utils";
-export {
-    WidgetType,
-    addWidget,
-    getAllWidgetIds,
-    getAllWidgetTypes,
-    getQuestionWidgetIds,
-    QUESTION_WIDGETS,
-} from "./util/snowman-utils";
+export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
+export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
 
 /**
  * Mixins
