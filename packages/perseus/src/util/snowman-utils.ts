@@ -67,15 +67,14 @@ export function getWidgetRegex() {
 }
 
 /**
- * Add a widget placeholder using the provided widget type and instance number.
- * ex. addWidget(WidgetType.Radio, 1) => "[[☃ radio 1]]"
+ * Add a widget placeholder using the widget ID.
+ * ex. addWidget("radio 1") => "[[☃ radio 1]]"
  *
- * @param {WidgetType} widgetType
- * @param {number} instance
+ * @param {string} id
  * @returns {string}
  */
-export function addWidget(widgetType: WidgetType, instance: number): string {
-    return `[[☃ ${widgetType} ${String(instance)}]]`;
+export function addWidget(id: string): string {
+    return `[[☃ ${id}]]`;
 }
 
 /**
