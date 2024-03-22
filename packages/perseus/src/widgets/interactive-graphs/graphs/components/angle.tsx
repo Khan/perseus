@@ -131,19 +131,54 @@ const shouldDrawArcInside = (
     range: [Interval, Interval],
     polygonPoints: readonly vec.Vector2[],
 ) => {
-    const throughLine = getRangeIntersectionVertex(vertex, midPoint, range);
+    const rangeIntersectionPoint = getRangeIntersectionVertex(
+        vertex,
+        midPoint,
+        range,
+    );
 
     const lines = getLines(polygonPoints);
-    let blackLineIntersections = 0;
+    let lineIntersections = 0;
 
     lines.forEach(
         (line) =>
-            linesIntersect([vertex, throughLine], line) &&
-            blackLineIntersections++,
+            linesIntersect([vertex, rangeIntersectionPoint], line) &&
+            lineIntersections++,
     );
 
+    // The intersection check will sometimes return false if it intersects with
+    // another vertex, so in the case we get 0 intersections, we check for points.
+    if (lineIntersections === 0) {
+        // find point in array
+        const midpointIndex = polygonPoints.findIndex(
+            ([x, y]) => x === midPoint[0] && y === midPoint[1],
+        );
+        // get array sans point and adjacent points
+        const [prev, next] = [
+            (midpointIndex - 1 + polygonPoints.length) % polygonPoints.length,
+            (midpointIndex + 1) % polygonPoints.length,
+        ];
+        const [[lineAx, lineAy], [lineBx, lineBy]] = [
+            midPoint,
+            rangeIntersectionPoint,
+        ];
+        for (let i = 0; i < polygonPoints.length; i++) {
+            if ([prev, midpointIndex, next].includes(i)) {
+                continue;
+            }
+            const [x, y] = polygonPoints[i];
+            const intersectsPoint =
+                (y - lineAy) * (lineBx - lineAx) ===
+                (lineBy - lineAy) * (x - lineAx);
+            if (intersectsPoint) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // If the number of intersections is even, the angle is inside the polygon
-    return isEven(blackLineIntersections);
+    return isEven(lineIntersections);
 };
 
 const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
