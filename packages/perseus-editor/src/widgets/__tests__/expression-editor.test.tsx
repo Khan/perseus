@@ -35,18 +35,21 @@ describe("expression-editor", () => {
                 form: true,
                 simplify: true,
                 considered: "correct",
+                key: "0",
             },
             {
                 value: "x^2=y",
                 form: true,
                 simplify: true,
                 considered: "wrong",
+                key: "1",
             },
             {
                 value: "x=y\\cdotπ",
                 form: true,
                 simplify: true,
                 considered: "wrong",
+                key: "2",
             },
         ];
 
