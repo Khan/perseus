@@ -65,19 +65,17 @@ const DeviceFramer = ({
         // will draw the border and reserve space on the right for
         // lint indicators.
         return (
-            <div>
-                <div
-                    key="screen"
-                    style={{
-                        overflow: "scroll",
-                        width:
-                            SCREEN_SIZES[deviceType].framedWidth +
-                            2 * constants.perseusFrameBorderWidth +
-                            constants.lintGutterWidth,
-                    }}
-                >
-                    <div>{children}</div>
-                </div>
+            <div
+                key="screen"
+                style={{
+                    overflow: "scroll",
+                    width:
+                        SCREEN_SIZES[deviceType].framedWidth +
+                        2 * constants.perseusFrameBorderWidth +
+                        constants.lintGutterWidth,
+                }}
+            >
+                <div>{children}</div>
             </div>
         );
     }
