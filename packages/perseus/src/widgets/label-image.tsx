@@ -566,6 +566,7 @@ export class LabelImage extends React.Component<
 
             return (
                 <View
+                    key={index}
                     style={{
                         position: "absolute",
                         left: `${marker.x}%`,
