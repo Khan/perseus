@@ -2,8 +2,7 @@ import {Text, vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
-
-import {getRayIntersectionCoords} from "./movable-line";
+import {getRayIntersectionCoords as getRangeIntersectionVertex} from "../utils";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {Interval} from "mafs";
@@ -134,7 +133,7 @@ const shouldDrawArcInside = (
     range: [Interval, Interval],
     polygonPoints: readonly vec.Vector2[],
 ) => {
-    const throughLine = getRayIntersectionCoords(vertex, midPoint, range);
+    const throughLine = getRangeIntersectionVertex(vertex, midPoint, range);
 
     const lines = getLines(polygonPoints);
     let blackLineIntersections = 0;
