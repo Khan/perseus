@@ -11,13 +11,14 @@ import type {
     APIOptions,
     ImageUploader,
     ChangeHandler,
+    DeviceType,
 } from "@khanacademy/perseus";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 
 type Props = {
     apiOptions?: APIOptions;
-    deviceType?: string;
+    deviceType?: DeviceType;
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
