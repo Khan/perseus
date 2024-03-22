@@ -1,4 +1,4 @@
-import {vec} from "mafs";
+import {Text, vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
@@ -14,6 +14,7 @@ interface Props {
     polygonPoints: readonly vec.Vector2[];
     active: boolean;
     range: [Interval, Interval];
+    color?: string;
 }
 
 export const Angle = ({
@@ -21,17 +22,27 @@ export const Angle = ({
     endPoints,
     range,
     polygonPoints,
+    color = "var(--movable-line-stroke-color)",
 }: Props) => {
     const [centerX, centerY] = centerPoint;
     const areClockwise = clockwise([centerPoint, ...endPoints]);
     const [[startX, startY], [endX, endY]] = areClockwise
         ? endPoints
         : endPoints.reverse();
+    // const [[startX, startY], [endX, endY]] = endPoints;
 
     const radius = 0.3;
 
+    const a = vec.dist(centerPoint, endPoints[0]);
+    const b = vec.dist(centerPoint, endPoints[1]);
+    const c = vec.dist(endPoints[0], endPoints[1]);
+
+    // Law of cosines
+    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
+
     const startAngle = Math.atan2(startY - centerY, startX - centerX);
     const endAngle = Math.atan2(endY - centerY, endX - centerX);
+    // const normalizedAngle = angle > 2 * Math.PI ? angle - 2 * Math.PI : angle;
     const x1 = centerX + radius * Math.cos(startAngle);
     const y1 = centerY + radius * Math.sin(startAngle);
     const x2 = centerX + radius * Math.cos(endAngle);
@@ -58,25 +69,51 @@ export const Angle = ({
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
     const square = `M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`;
 
+    const angleLabelNumber = parseFloat((angle * (180 / Math.PI)).toFixed(1));
+    const angleLabel = Number.isInteger(angleLabelNumber)
+        ? angleLabelNumber
+        : "≈ " + angleLabelNumber;
+
     return (
         <>
+            <defs>
+                <filter
+                    id="background"
+                    x="-5%"
+                    width="110%"
+                    y="0%"
+                    height="100%"
+                >
+                    <feFlood floodColor="#FFF" floodOpacity="0.7" />
+                    <feComposite operator="over" in="SourceGraphic" />
+                </filter>
+            </defs>
             <g
                 style={{
                     transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
                 }}
             >
                 <path
-                    d={isRightAngle(startAngle, endAngle) ? square : arc}
+                    d={isRightAngle(angle) ? square : arc}
                     strokeWidth={0.02}
                     fill="none"
                 />
             </g>
+            <Text
+                x={x3}
+                y={y3}
+                size={15}
+                svgTextProps={{
+                    filter: "url(#background)",
+                }}
+            >
+                {angleLabel}°
+            </Text>
         </>
     );
 };
 
-const isRightAngle = (startAngle: number, endAngle: number) => {
-    let angle = Math.abs(endAngle - startAngle);
+const isRightAngle = (angle) => {
     if (angle > Math.PI) {
         angle = Math.abs(angle - Math.PI);
     }
