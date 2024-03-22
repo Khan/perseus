@@ -76,6 +76,7 @@ export const MafsGraph = React.forwardRef<
                 }}
             >
                 <Mafs
+                    preserveAspectRatio={false}
                     viewBox={{
                         x: props.range[0],
                         y: props.range[1],
