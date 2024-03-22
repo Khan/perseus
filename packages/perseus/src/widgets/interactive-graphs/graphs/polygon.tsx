@@ -4,6 +4,7 @@ import * as React from "react";
 import {moveAll, moveControlPoint} from "../reducer/interactive-graph-action";
 import {TARGET_SIZE} from "../utils";
 
+import {Angle} from "./components/angle";
 import {StyledMovablePoint} from "./components/movable-point";
 
 import type {MafsGraphProps, PolygonGraphState} from "../types";
@@ -15,7 +16,7 @@ export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, type} = props.graphState;
+    const {coords, type, showAngles, range} = props.graphState;
 
     const points = coords ?? [[0, 0]];
 
@@ -50,6 +51,24 @@ export const PolygonGraph = (props: Props) => {
                         : "var(--movable-line-stroke-weight)",
                 }}
             />
+            {showAngles &&
+                points.map((point, i) => {
+                    const pt1 = points.at(i - 1);
+                    const pt2 = points[(i + 1) % points.length];
+                    if (!pt1 || !pt2) {
+                        return null;
+                    }
+                    return (
+                        <Angle
+                            key={"angle-" + i}
+                            centerPoint={point}
+                            endPoints={[pt1, pt2]}
+                            active={active}
+                            range={range}
+                            polygonPoints={points}
+                        />
+                    );
+                })}
             {/**
              * This transparent svg creates a nice big click/touch target,
              * since the polygon itself can be made smaller than the spec.
@@ -73,7 +92,7 @@ export const PolygonGraph = (props: Props) => {
             />
             {points.map((point, i) => (
                 <StyledMovablePoint
-                    key={i}
+                    key={"point-" + i}
                     point={point}
                     onMove={(destination: vec.Vector2) =>
                         dispatch(moveControlPoint(i, destination))

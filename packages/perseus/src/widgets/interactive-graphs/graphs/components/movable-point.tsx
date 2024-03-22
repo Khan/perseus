@@ -1,9 +1,12 @@
 import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
-import {vec, useMovable, useTransformContext} from "mafs";
+import {useMovable} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
 import {TARGET_SIZE} from "../../utils";
+import {useTransform} from "../use-transform";
+
+import type {vec} from "mafs";
 
 type Props = {
     point: vec.Vector2;
@@ -22,9 +25,7 @@ export const StyledMovablePoint = (props: Props) => {
         constrain: (p) => p,
     });
 
-    const {viewTransform, userTransform} = useTransformContext();
-    const transformToPx = vec.matrixMult(viewTransform, userTransform);
-    const [x, y] = vec.transform(point, transformToPx);
+    const [[x, y]] = useTransform(point);
 
     return (
         <g

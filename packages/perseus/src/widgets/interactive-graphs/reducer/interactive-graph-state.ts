@@ -45,10 +45,10 @@ export function initializeGraphState(params: {
             };
         case "polygon":
             return {
-                type: "polygon",
                 hasBeenInteractedWith: false,
                 range,
                 snapStep,
+                ...graph,
                 coords: getPolygonCoords({graph, range, step}),
             };
         case "angle":

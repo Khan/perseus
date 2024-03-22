@@ -28,6 +28,8 @@ const questions = [
     interactiveGraph.circleQuestion,
     interactiveGraph.linearQuestion,
     interactiveGraph.polygonQuestion,
+    interactiveGraph.polygonWithAnglesQuestion,
+    interactiveGraph.polygonWithAnglesAndManySidesQuestion,
     interactiveGraph.rayQuestion,
     interactiveGraph.sinusoidQuestion,
     grapher.absoluteValueQuestion,
