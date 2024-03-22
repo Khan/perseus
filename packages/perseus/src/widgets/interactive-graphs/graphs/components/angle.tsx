@@ -13,7 +13,7 @@ interface Props {
     polygonPoints: readonly vec.Vector2[];
     active: boolean;
     range: [Interval, Interval];
-    color?: string;
+    showAngles: boolean;
 }
 
 export const Angle = ({
@@ -21,7 +21,7 @@ export const Angle = ({
     endPoints,
     range,
     polygonPoints,
-    color = "var(--movable-line-stroke-color)",
+    showAngles,
 }: Props) => {
     const [centerX, centerY] = centerPoint;
     const areClockwise = clockwise([centerPoint, ...endPoints]);
@@ -35,6 +35,9 @@ export const Angle = ({
     const b = vec.dist(centerPoint, endPoints[1]);
     const c = vec.dist(endPoints[0], endPoints[1]);
 
+    // Law of cosines
+    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
+
     const y1 = centerY + ((startY - centerY) / a) * radius;
     const x2 = centerX + ((endX - centerX) / b) * radius;
     const x1 = centerX + ((startX - centerX) / a) * radius;
@@ -46,6 +49,12 @@ export const Angle = ({
         centerPoint,
         vec.add(vec.sub([x1, y1], centerPoint), vec.sub([x2, y2], centerPoint)),
     );
+
+    if (!showAngles) {
+        return isRightAngle(angle) ? (
+            <RightAngleArc start={[x1, y1]} vertex={[x2, y2]} end={[x3, y3]} />
+        ) : null;
+    }
 
     // Midpoint betwen ends of arc
     const isInside = shouldDrawArcInside(
@@ -59,10 +68,6 @@ export const Angle = ({
     const sweepFlag = isInside ? 1 : 0;
 
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
-    const square = `M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`;
-
-    // Law of cosines
-    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
 
     let angleInDegrees = angle * (180 / Math.PI);
     // If we have triggered "largArcFlag", the angle should be greater than 180
@@ -89,17 +94,23 @@ export const Angle = ({
                     <feComposite operator="over" in="SourceGraphic" />
                 </filter>
             </defs>
-            <g
-                style={{
-                    transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
-                }}
-            >
-                <path
-                    d={!isInside && isRightAngle(angle) ? square : arc}
-                    strokeWidth={0.02}
-                    fill="none"
+
+            {!isInside && isRightAngle(angle) ? (
+                <RightAngleArc
+                    start={[x1, y1]}
+                    vertex={[x2, y2]}
+                    end={[x3, y3]}
                 />
-            </g>
+            ) : (
+                <g
+                    style={{
+                        transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
+                    }}
+                >
+                    <path d={arc} strokeWidth={0.02} fill="none" />
+                </g>
+            )}
+
             <Text
                 x={x3}
                 y={y3}
@@ -122,6 +133,20 @@ export const Angle = ({
         </>
     );
 };
+
+const RightAngleArc = ({start: [x1, y1], vertex: [x2, y2], end: [x3, y3]}) => (
+    <g
+        style={{
+            transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
+        }}
+    >
+        <path
+            d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
+            strokeWidth={0.02}
+            fill="none"
+        />
+    </g>
+);
 
 const isRightAngle = (angle) => Math.abs(angle - Math.PI / 2) < 0.01;
 
