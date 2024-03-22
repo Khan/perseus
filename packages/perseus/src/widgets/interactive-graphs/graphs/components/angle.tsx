@@ -29,7 +29,6 @@ export const Angle = ({
     const [[startX, startY], [endX, endY]] = areClockwise
         ? endPoints
         : endPoints.reverse();
-    // const [[startX, startY], [endX, endY]] = endPoints;
 
     const radius = 0.3;
 
@@ -84,7 +83,7 @@ export const Angle = ({
                     y="0%"
                     height="100%"
                 >
-                    <feFlood floodColor="#FFF" floodOpacity="0.7" />
+                    <feFlood floodColor="#FFF" floodOpacity="0.5" />
                     <feComposite operator="over" in="SourceGraphic" />
                 </filter>
             </defs>
@@ -105,7 +104,16 @@ export const Angle = ({
                 size={15}
                 svgTextProps={{
                     filter: "url(#background)",
+                    fontWeight: "bold",
                 }}
+                // Shift position if text is too close to movable point
+                attach={y3 - centerY > 0 ? "s" : "n"}
+                attachDistance={
+                    Math.abs(y3 - centerY) < 0.2 ||
+                    vec.dist([x3, y3], centerPoint) < 0.3
+                        ? 20
+                        : 10
+                }
             >
                 {angleLabel}°
             </Text>
