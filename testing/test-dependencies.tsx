@@ -113,9 +113,7 @@ export const testDependencies: PerseusDependencies = {
 // renderQuestion.tsx) and then spy on any functions to do assertions.
 export const testDependenciesV2: PerseusDependenciesV2 = {
     analytics: {
-        onAnalyticsEvent: async (event) => {
-            console.log("⚡️ Sending analytics event:", event);
-        },
+        onAnalyticsEvent: async () => {},
     },
 };
 
@@ -127,8 +125,11 @@ export const storybookTestDependencies: PerseusDependencies = {
 };
 
 export const storybookDependenciesV2: PerseusDependenciesV2 = {
-    ...testDependenciesV2,
-    // Override if necessary
+    analytics: {
+        onAnalyticsEvent: async (event) => {
+            console.log("⚡️ Sending analytics event:", event);
+        },
+    }
 };
 
 export const cypressTestDependencies: PerseusDependencies = {

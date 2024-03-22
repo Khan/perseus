@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-renderer-with-debug-ui";
-import {testDependenciesV2} from "../../../../testing/test-dependencies";
+import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
     itemWithLintingError,
@@ -34,7 +34,7 @@ export const WithLintingError = (args: StoryArgs): React.ReactElement => {
         <ServerItemRenderer
             problemNum={0}
             item={itemWithLintingError}
-            dependencies={testDependenciesV2}
+            dependencies={storybookDependenciesV2}
             linterContext={{
                 contentType: "",
                 highlightLint: true,
