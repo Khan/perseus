@@ -12,18 +12,13 @@ import type {Interval} from "mafs";
 interface Props {
     centerPoint: vec.Vector2;
     endPoints: [vec.Vector2, vec.Vector2];
-    polygonPoints: readonly vec.Vector2[];
+    polygonLines: readonly CollinearTuple[];
     active: boolean;
     range: [Interval, Interval];
     color?: string;
 }
 
-export const Angle = ({
-    centerPoint,
-    endPoints,
-    range,
-    polygonPoints,
-}: Props) => {
+export const Angle = ({centerPoint, endPoints, range, polygonLines}: Props) => {
     const [centerX, centerY] = centerPoint;
     const areClockwise = clockwise([centerPoint, ...endPoints]);
     const [[startX, startY], [endX, endY]] = areClockwise
@@ -53,7 +48,7 @@ export const Angle = ({
         [x3, y3],
         centerPoint,
         range,
-        polygonPoints,
+        polygonLines,
     );
 
     const largeArcFlag = isInside ? 1 : 0;
@@ -112,18 +107,16 @@ const shouldDrawArcInside = (
     midPoint: vec.Vector2,
     vertex: vec.Vector2,
     range: [Interval, Interval],
-    polygonPoints: readonly vec.Vector2[],
+    polygonLines: readonly CollinearTuple[],
 ) => {
     const rangeIntersectionPoint = getRangeIntersectionVertex(
         vertex,
         midPoint,
         range,
     );
-
-    const lines = getLines(polygonPoints);
     let lineIntersections = 0;
 
-    lines.forEach(
+    polygonLines.forEach(
         (line) =>
             linesIntersect([vertex, rangeIntersectionPoint], line) &&
             lineIntersections++,
@@ -132,6 +125,7 @@ const shouldDrawArcInside = (
     // The intersection check will sometimes return false if it intersects with
     // another vertex, so in the case we get 0 intersections, we check for points.
     if (lineIntersections === 0) {
+        const polygonPoints = polygonLines.map(([point]) => point);
         // find point in array
         const midpointIndex = polygonPoints.findIndex(
             ([x, y]) => x === midPoint[0] && y === midPoint[1],
@@ -163,12 +157,6 @@ const shouldDrawArcInside = (
     // If the number of intersections is even, the angle is inside the polygon
     return isEven(lineIntersections);
 };
-
-const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
-    points.map((point, i) => {
-        const next = points[(i + 1) % points.length];
-        return [point, next];
-    });
 
 // https://stackoverflow.com/a/24392281/7347484
 // The "intersects" function in geometry doesn't seem to work for this use case

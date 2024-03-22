@@ -6,6 +6,8 @@ import {TARGET_SIZE} from "../utils";
 
 import {Angle} from "./components/angle";
 import {StyledMovablePoint} from "./components/movable-point";
+import {TextLabel} from "./components/text-label";
+import {getLines} from "./utils";
 
 import type {MafsGraphProps, PolygonGraphState} from "../types";
 
@@ -16,7 +18,7 @@ export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, type, showAngles, range} = props.graphState;
+    const {coords, type, showAngles, showSides, range} = props.graphState;
 
     const points = coords ?? [[0, 0]];
 
@@ -39,6 +41,8 @@ export const PolygonGraph = (props: Props) => {
     });
 
     const active = hovered || focused || dragging;
+
+    const lines = getLines(points);
 
     return (
         <>
@@ -65,8 +69,19 @@ export const PolygonGraph = (props: Props) => {
                             endPoints={[pt1, pt2]}
                             active={active}
                             range={range}
-                            polygonPoints={points}
+                            polygonLines={lines}
                         />
+                    );
+                })}
+            {showSides &&
+                lines.map(([start, end], i) => {
+                    const [x, y] = vec.midpoint(start, end);
+                    const length = parseFloat(vec.dist(start, end).toFixed(1));
+                    return (
+                        <TextLabel key={"side-" + i} x={x} y={y}>
+                            {!Number.isInteger(length) && "≈ "}
+                            {length}
+                        </TextLabel>
                     );
                 })}
             {/**
