@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 5.2.4
+
+### Patch Changes
+
+-   [#1104](https://github.com/Khan/perseus/pull/1104) [`bb48417ab`](https://github.com/Khan/perseus/commit/bb48417abe681f2aadf3181e9a316877dff8e5fb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrates ViewportResizer and DeviceFramer components to modern, functional components
+
+*   [#1120](https://github.com/Khan/perseus/pull/1120) [`1ef9c7b67`](https://github.com/Khan/perseus/commit/1ef9c7b679e911880b77b22001a734be76c7f9a5) Thanks [@benchristel](https://github.com/benchristel)! - Internal: reduce console log noise in tests
+
+-   [#1105](https://github.com/Khan/perseus/pull/1105) [`76dc2394d`](https://github.com/Khan/perseus/commit/76dc2394dfd1dcdf389923997d104fa2e42e1b38) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @khanacademy/wonder-blocks-tokens
+
+-   Updated dependencies [[`fc01f490f`](https://github.com/Khan/perseus/commit/fc01f490f6aabcfedca10e5833834488234e0efa), [`0f1f3fdac`](https://github.com/Khan/perseus/commit/0f1f3fdaccd2ad52b660bac5fe691e8a64de728b), [`1ef9c7b67`](https://github.com/Khan/perseus/commit/1ef9c7b679e911880b77b22001a734be76c7f9a5), [`74c6efc6a`](https://github.com/Khan/perseus/commit/74c6efc6a185c62ab204e21a991012fde6eab12c), [`76dc2394d`](https://github.com/Khan/perseus/commit/76dc2394dfd1dcdf389923997d104fa2e42e1b38), [`74c6efc6a`](https://github.com/Khan/perseus/commit/74c6efc6a185c62ab204e21a991012fde6eab12c), [`73bc6da07`](https://github.com/Khan/perseus/commit/73bc6da0789a59905590e15bcf8d0ec45f8853b5), [`900e1cea8`](https://github.com/Khan/perseus/commit/900e1cea86610c8dab5a481f100ef1a89cb1cf7b), [`d2c6e3129`](https://github.com/Khan/perseus/commit/d2c6e3129e1a6488d24bddbc4f4638c9eba9047d), [`9139a9246`](https://github.com/Khan/perseus/commit/9139a92468def2b0804ed30d0356b30c08854daf), [`b53cf2a3a`](https://github.com/Khan/perseus/commit/b53cf2a3a3d2e59d95c9428561417a7789522cb6)]:
+    -   @khanacademy/perseus@20.8.1
+    -   @khanacademy/math-input@17.4.1
+
 ## 5.2.3
 
 ### Patch Changes

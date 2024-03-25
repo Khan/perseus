@@ -11,6 +11,7 @@ const ProblematicComponent = () => {
 
 describe("error boundary", () => {
     beforeEach(() => {
+        jest.spyOn(console, "error").mockImplementation(() => {});
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );

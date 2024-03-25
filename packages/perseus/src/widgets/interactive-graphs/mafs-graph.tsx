@@ -5,6 +5,7 @@ import * as React from "react";
 
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
+import {SvgDefs} from "./graphs/components/text-label";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -87,6 +88,9 @@ export const MafsGraph = React.forwardRef<
                     width={width}
                     height={height}
                 >
+                    {/* Svg definitions to render only once */}
+                    <SvgDefs />
+
                     {/* Background layer */}
                     <Grid {...props} />
 

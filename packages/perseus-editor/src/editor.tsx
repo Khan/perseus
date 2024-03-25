@@ -256,6 +256,7 @@ class Editor extends React.Component<Props, State> {
             <WidgetEditor
                 ref={id}
                 id={id}
+                key={id}
                 // eslint-disable-next-line react/jsx-no-bind
                 onChange={this._handleWidgetEditorChange.bind(this, id)}
                 // eslint-disable-next-line react/jsx-no-bind

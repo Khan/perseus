@@ -26,7 +26,7 @@ type WidgetEditorProps = {
     ) => unknown;
     onRemove: () => unknown;
     apiOptions: any;
-} & PerseusWidget;
+} & Omit<PerseusWidget, "key">;
 
 type WidgetEditorState = {
     showWidget: boolean;

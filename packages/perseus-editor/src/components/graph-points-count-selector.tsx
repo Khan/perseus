@@ -31,7 +31,11 @@ const GraphPointsCountSelector = ({
                         label={`${n} point${n > 1 ? "s" : ""}`}
                     />
                 )),
-                <OptionItem value={UNLIMITED} label="unlimited" />,
+                <OptionItem
+                    key="unlimited"
+                    value={UNLIMITED}
+                    label="unlimited"
+                />,
             ]}
         </SingleSelect>
     );

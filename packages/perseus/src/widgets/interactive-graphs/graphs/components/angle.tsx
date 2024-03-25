@@ -1,10 +1,11 @@
-import {Text, vec} from "mafs";
+import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
 import {getRayIntersectionCoords as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
+import {TextLabel} from "./text-label";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {Interval} from "mafs";
@@ -12,7 +13,7 @@ import type {Interval} from "mafs";
 interface Props {
     centerPoint: vec.Vector2;
     endPoints: [vec.Vector2, vec.Vector2];
-    polygonPoints: readonly vec.Vector2[];
+    polygonLines: readonly CollinearTuple[];
     active: boolean;
     range: [Interval, Interval];
     showAngles: boolean;
@@ -22,7 +23,7 @@ export const Angle = ({
     centerPoint,
     endPoints,
     range,
-    polygonPoints,
+    polygonLines,
     showAngles,
 }: Props) => {
     const [centerX, centerY] = centerPoint;
@@ -67,7 +68,7 @@ export const Angle = ({
         [x3, y3],
         centerPoint,
         range,
-        polygonPoints,
+        polygonLines,
     );
 
     const largeArcFlag = isOutside ? 1 : 0;
@@ -113,15 +114,9 @@ export const Angle = ({
                 </MafsCssTransformWrapper>
             )}
 
-            <Text
+            <TextLabel
                 x={x3}
                 y={y3}
-                size={15}
-                svgTextProps={{
-                    filter: "url(#background)",
-                    fontWeight: "bold",
-                }}
-                // Shift position if text is too close to movable point
                 attach={y3 - centerY > 0 ? "s" : "n"}
                 attachDistance={
                     Math.abs(y3 - centerY) < 0.2 ||
@@ -131,7 +126,7 @@ export const Angle = ({
                 }
             >
                 {angleLabel}°
-            </Text>
+            </TextLabel>
         </>
     );
 };
@@ -159,12 +154,16 @@ const isRightAngle = (angle: number) => Math.abs(angle - Math.PI / 2) < 0.01;
 /**
  * Determines if an angle is an inside (false) or outside (true) angle.
  * They way, we know to flip the `largeArc` and `sweepArc` flags.
+ * Uses the priciple that a ray from a point inside a polygon will intersect
+ * with an odd number of lines, while a ray from a point outside the polygon
+ * will intersect with an even number of lines.
+ * https://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
  */
 export const shouldDrawArcOutside = (
     midpoint: vec.Vector2,
     vertex: vec.Vector2,
     range: [Interval, Interval],
-    polygonPoints: readonly vec.Vector2[],
+    polygonLines: readonly CollinearTuple[],
 ) => {
     // Create a ray from the midpoint (inside angle) to the edge of the range
     const rangeIntersectionPoint = getRangeIntersectionVertex(
@@ -173,10 +172,9 @@ export const shouldDrawArcOutside = (
         range,
     );
 
-    const lines = getLines(polygonPoints);
     let lineIntersectionCount = 0;
 
-    lines.forEach(
+    polygonLines.forEach(
         (line) =>
             linesIntersect([vertex, rangeIntersectionPoint], line) &&
             lineIntersectionCount++,
@@ -185,12 +183,6 @@ export const shouldDrawArcOutside = (
     // If the number of intersections is even, the angle is inside the polygon
     return !isEven(lineIntersectionCount);
 };
-
-const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
-    points.map((point, i) => {
-        const next = points[(i + 1) % points.length];
-        return [point, next];
-    });
 
 // https://stackoverflow.com/a/24392281/7347484
 // The "intersects" function in geometry doesn't seem to work for this use case

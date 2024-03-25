@@ -11,7 +11,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Editor/Widgets/Label Image/Answer Choices",
+    title: "Perseus Editor/Widgets/Label Image/Answer Choices",
 } as Story;
 
 const styles = StyleSheet.create({

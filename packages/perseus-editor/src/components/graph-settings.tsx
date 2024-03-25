@@ -168,8 +168,12 @@ const GraphSettings = createReactClass({
     },
 
     renderLabelChoices: function (choices) {
-        return _.map(choices, function (nameAndValue) {
-            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
+        return _.map(choices, function ([name, value]) {
+            return (
+                <option key={value} value={value}>
+                    {name}
+                </option>
+            );
         });
     },
 
@@ -618,7 +622,10 @@ const GraphSettings = createReactClass({
                                                 [1, 2, 4, 8, 10, 16],
                                                 function (n) {
                                                     return (
-                                                        <option value={n}>
+                                                        <option
+                                                            key={n}
+                                                            value={n}
+                                                        >
                                                             {n}
                                                         </option>
                                                     );

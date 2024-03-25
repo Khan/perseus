@@ -14,7 +14,7 @@ import type {
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
-    title: "Perseus/Editor/EditorPage",
+    title: "Perseus Editor/EditorPage",
 };
 
 const onChangeAction = action("onChange");

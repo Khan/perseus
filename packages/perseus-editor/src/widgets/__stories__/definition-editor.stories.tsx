@@ -10,7 +10,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Editor/Widgets/Definition Editor",
+    title: "Perseus Editor/Widgets/Definition Editor",
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {

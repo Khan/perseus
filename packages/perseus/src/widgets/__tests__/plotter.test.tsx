@@ -4,22 +4,11 @@ import React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {setDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {question1} from "../__testdata__/plotter.testdata";
 import {Plotter} from "../plotter";
-
-import {renderQuestion} from "./renderQuestion";
 
 describe("plotter widget", () => {
     beforeEach(() => {
         setDependencies(testDependencies);
-    });
-
-    it("should snapshot basic question", () => {
-        // Arrange and Act
-        const {container} = renderQuestion(question1);
-
-        // Assert
-        expect(container).toMatchSnapshot("initial render");
     });
 
     it("should show drag text when not static", () => {

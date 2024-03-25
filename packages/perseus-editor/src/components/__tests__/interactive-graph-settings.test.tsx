@@ -8,13 +8,22 @@ import InteractiveGraphSettings from "../interactive-graph-settings";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 
+function userEventForFakeTimers() {
+    return userEventLib.setup({
+        advanceTimers: jest.advanceTimersByTime,
+    });
+}
+
+function userEventForRealTimers() {
+    return userEventLib.setup({
+        advanceTimers: () => {},
+    });
+}
+
 describe("InteractiveGraphSettings", () => {
     let userEvent;
     beforeEach(() => {
-        userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
-
+        userEvent = userEventForFakeTimers();
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -95,8 +104,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("calls onChange when background image is changed", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {
             cb(100, 100);
@@ -127,8 +136,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates background image size", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {
             // Large image should be invalid
@@ -158,8 +167,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("calls onChange with null background image if background image input is empty", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         const mockGetImageSize = (url, cb: (width, height) => void) => {};
         jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
@@ -188,8 +197,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("does not update background image until input is blurred", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
 
         render(<InteractiveGraphSettings onChange={onChange} />);
@@ -233,8 +242,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when x range is changed and valid", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -265,8 +274,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when y range is changed and valid", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -292,8 +301,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates range input when left is bigger than right", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -319,8 +328,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when step value is changed and valid", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -343,8 +352,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates step value when tick step is too large", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -367,8 +376,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates step value when tick step is too small", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(
             <InteractiveGraphSettings
@@ -399,8 +408,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when snap step is changed and valid", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -424,8 +433,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates when the snap step is too large", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -449,8 +458,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when grid step is changed and valid", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -474,8 +483,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("validates when the grid step is too large", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -499,8 +508,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when the x label is changed", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
@@ -523,8 +532,8 @@ describe("InteractiveGraphSettings", () => {
 
     test("Calls onChange when the y label is changed", async () => {
         // Arrange
-        // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
+        userEvent = userEventForRealTimers();
         const onChange = jest.fn();
         render(<InteractiveGraphSettings onChange={onChange} />);
 
