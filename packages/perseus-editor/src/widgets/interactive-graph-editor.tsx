@@ -328,6 +328,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 {[
                                     ...POLYGON_SIDES,
                                     <OptionItem
+                                        key="unlimited"
                                         value="unlimited"
                                         label="unlimited sides"
                                     />,
