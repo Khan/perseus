@@ -116,6 +116,7 @@ class ExpressionEditor extends React.Component<Props> {
 
                 return lens(ans)
                     .merge([], {
+                        key,
                         draggable: true,
                         onChange: (props) =>
                             this.updateForm(

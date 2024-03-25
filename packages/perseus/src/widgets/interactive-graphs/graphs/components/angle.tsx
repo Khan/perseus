@@ -15,10 +15,16 @@ interface Props {
     polygonLines: readonly CollinearTuple[];
     active: boolean;
     range: [Interval, Interval];
-    color?: string;
+    showAngles: boolean;
 }
 
-export const Angle = ({centerPoint, endPoints, range, polygonLines}: Props) => {
+export const Angle = ({
+    centerPoint,
+    endPoints,
+    range,
+    polygonLines,
+    showAngles,
+}: Props) => {
     const [centerX, centerY] = centerPoint;
     const areClockwise = clockwise([centerPoint, ...endPoints]);
     const [[startX, startY], [endX, endY]] = areClockwise
@@ -30,6 +36,9 @@ export const Angle = ({centerPoint, endPoints, range, polygonLines}: Props) => {
     const a = vec.dist(centerPoint, endPoints[0]);
     const b = vec.dist(centerPoint, endPoints[1]);
     const c = vec.dist(endPoints[0], endPoints[1]);
+
+    // Law of cosines
+    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
 
     const y1 = centerY + ((startY - centerY) / a) * radius;
     const x2 = centerX + ((endX - centerX) / b) * radius;
@@ -43,6 +52,12 @@ export const Angle = ({centerPoint, endPoints, range, polygonLines}: Props) => {
         vec.add(vec.sub([x1, y1], centerPoint), vec.sub([x2, y2], centerPoint)),
     );
 
+    if (!showAngles) {
+        return isRightAngle(angle) ? (
+            <RightAngleArc start={[x1, y1]} vertex={[x2, y2]} end={[x3, y3]} />
+        ) : null;
+    }
+
     // Midpoint betwen ends of arc
     const isInside = shouldDrawArcInside(
         [x3, y3],
@@ -55,10 +70,6 @@ export const Angle = ({centerPoint, endPoints, range, polygonLines}: Props) => {
     const sweepFlag = isInside ? 1 : 0;
 
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
-    const square = `M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`;
-
-    // Law of cosines
-    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
 
     let angleInDegrees = angle * (180 / Math.PI);
     // If we have triggered "largArcFlag", the angle should be greater than 180
@@ -73,17 +84,35 @@ export const Angle = ({centerPoint, endPoints, range, polygonLines}: Props) => {
 
     return (
         <>
-            <g
-                style={{
-                    transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
-                }}
-            >
-                <path
-                    d={!isInside && isRightAngle(angle) ? square : arc}
-                    strokeWidth={0.02}
-                    fill="none"
+            <defs>
+                <filter
+                    id="background"
+                    x="-5%"
+                    width="110%"
+                    y="0%"
+                    height="100%"
+                >
+                    <feFlood floodColor="#FFF" floodOpacity="0.5" />
+                    <feComposite operator="over" in="SourceGraphic" />
+                </filter>
+            </defs>
+
+            {!isInside && isRightAngle(angle) ? (
+                <RightAngleArc
+                    start={[x1, y1]}
+                    vertex={[x2, y2]}
+                    end={[x3, y3]}
                 />
-            </g>
+            ) : (
+                <g
+                    style={{
+                        transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
+                    }}
+                >
+                    <path d={arc} strokeWidth={0.02} fill="none" />
+                </g>
+            )}
+
             <TextLabel
                 x={x3}
                 y={y3}
@@ -100,6 +129,20 @@ export const Angle = ({centerPoint, endPoints, range, polygonLines}: Props) => {
         </>
     );
 };
+
+const RightAngleArc = ({start: [x1, y1], vertex: [x2, y2], end: [x3, y3]}) => (
+    <g
+        style={{
+            transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
+        }}
+    >
+        <path
+            d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
+            strokeWidth={0.02}
+            fill="none"
+        />
+    </g>
+);
 
 const isRightAngle = (angle) => Math.abs(angle - Math.PI / 2) < 0.01;
 

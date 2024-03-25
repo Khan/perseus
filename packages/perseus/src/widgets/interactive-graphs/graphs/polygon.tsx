@@ -55,24 +55,24 @@ export const PolygonGraph = (props: Props) => {
                         : "var(--movable-line-stroke-weight)",
                 }}
             />
-            {showAngles &&
-                points.map((point, i) => {
-                    const pt1 = points.at(i - 1);
-                    const pt2 = points[(i + 1) % points.length];
-                    if (!pt1 || !pt2) {
-                        return null;
-                    }
-                    return (
-                        <Angle
-                            key={"angle-" + i}
-                            centerPoint={point}
-                            endPoints={[pt1, pt2]}
-                            active={active}
-                            range={range}
-                            polygonLines={lines}
-                        />
-                    );
-                })}
+            {points.map((point, i) => {
+                const pt1 = points.at(i - 1);
+                const pt2 = points[(i + 1) % points.length];
+                if (!pt1 || !pt2) {
+                    return null;
+                }
+                return (
+                    <Angle
+                        key={"angle-" + i}
+                        centerPoint={point}
+                        endPoints={[pt1, pt2]}
+                        active={active}
+                        range={range}
+                        polygonLines={lines}
+                        showAngles={!!showAngles}
+                    />
+                );
+            })}
             {showSides &&
                 lines.map(([start, end], i) => {
                     const [x, y] = vec.midpoint(start, end);
