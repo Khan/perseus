@@ -4,6 +4,8 @@ import * as React from "react";
 import {clockwise} from "../../../../util/geometry";
 import {getRayIntersectionCoords as getRangeIntersectionVertex} from "../utils";
 
+import {MafsCssTransformWrapper} from "./css-transform-wrapper";
+
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {Interval} from "mafs";
 
@@ -52,7 +54,11 @@ export const Angle = ({
 
     if (!showAngles) {
         return isRightAngle(angle) ? (
-            <RightAngleArc start={[x1, y1]} vertex={[x2, y2]} end={[x3, y3]} />
+            <RightAngleSquare
+                start={[x1, y1]}
+                vertex={[x2, y2]}
+                end={[x3, y3]}
+            />
         ) : null;
     }
 
@@ -96,19 +102,15 @@ export const Angle = ({
             </defs>
 
             {!isOutside && isRightAngle(angle) ? (
-                <RightAngleArc
+                <RightAngleSquare
                     start={[x1, y1]}
                     vertex={[x2, y2]}
                     end={[x3, y3]}
                 />
             ) : (
-                <g
-                    style={{
-                        transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
-                    }}
-                >
+                <MafsCssTransformWrapper>
                     <path d={arc} strokeWidth={0.02} fill="none" />
-                </g>
+                </MafsCssTransformWrapper>
             )}
 
             <Text
@@ -134,18 +136,22 @@ export const Angle = ({
     );
 };
 
-const RightAngleArc = ({start: [x1, y1], vertex: [x2, y2], end: [x3, y3]}) => (
-    <g
-        style={{
-            transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
-        }}
-    >
+/**
+ * This is broken out into its own component so that it can be used for an early return
+ * (see line 55 or https://github.com/Khan/perseus/blob/84bbd882b11d16871e1b813a0b901f3b903d5479/packages/perseus/src/widgets/interactive-graphs/graphs/components/angle.tsx#L53-L57)
+ */
+const RightAngleSquare = ({
+    start: [x1, y1],
+    vertex: [x2, y2],
+    end: [x3, y3],
+}) => (
+    <MafsCssTransformWrapper>
         <path
             d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
             strokeWidth={0.02}
             fill="none"
         />
-    </g>
+    </MafsCssTransformWrapper>
 );
 
 const isRightAngle = (angle: number) => Math.abs(angle - Math.PI / 2) < 0.01;
