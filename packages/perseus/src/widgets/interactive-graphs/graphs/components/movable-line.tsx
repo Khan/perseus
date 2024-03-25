@@ -1,8 +1,10 @@
-import {vec, useMovable, useTransformContext, Vector} from "mafs";
+import {vec, useMovable, Vector} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
 import {TARGET_SIZE} from "../../utils";
+import {useTransform} from "../use-transform";
+import {getRayIntersectionCoords} from "../utils";
 
 import type {Interval} from "mafs";
 import type {SVGProps} from "react";
@@ -24,21 +26,17 @@ export const MovableLine = (props: {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
-    const {viewTransform, userTransform} = useTransformContext();
-    const transformToPx = vec.matrixMult(viewTransform, userTransform);
-
-    const startPtPx = vec.transform(start, transformToPx);
-    const endPtPx = vec.transform(end, transformToPx);
+    const [startPtPx, endPtPx] = useTransform(start, end);
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
 
     if (extend) {
         startExtend = extend.start
-            ? getExtensionCoords(end, start, extend.range)
+            ? getRayIntersectionCoords(end, start, extend.range)
             : undefined;
         endExtend = extend.end
-            ? getExtensionCoords(start, end, extend.range)
+            ? getRayIntersectionCoords(start, end, extend.range)
             : undefined;
     }
 
@@ -106,47 +104,3 @@ function SVGLine(props: {
         />
     );
 }
-
-/**
- * Given two points, find the tips that extends through the points to the edge of the range.
- * @param collinearPoint - The point that the line passes through. Needed to establish slope.
- * @param extendFrom - The point that the line extends from to the edge of the graph.
- */
-const getExtensionCoords = (
-    collinearPoint: vec.Vector2,
-    extendFrom: vec.Vector2,
-    range: [Interval, Interval],
-): [number, number] => {
-    // edges of the graph
-    const [[xMin, xMax], [yMin, yMax]] = range;
-    const [aX, aY] = collinearPoint;
-    const [bX, bY] = extendFrom;
-
-    const yDiff = bY - aY;
-    const xDiff = bX - aX;
-    const slope = yDiff / xDiff;
-
-    const yAtXMin = slope * (xMin - aX) + aY;
-    const yAtXMax = slope * (xMax - aX) + aY;
-    const xAtYMin = (yMin - aY) / slope + aX;
-    const xAtYMax = (yMax - aY) / slope + aX;
-
-    // clock analogy to describe quadrants
-    switch (true) {
-        // 12 o'clock to 2:59
-        case yDiff > 0 && xDiff >= 0:
-            return xAtYMax > xMax ? [xMax, yAtXMax] : [xAtYMax, yMax];
-        // 3 o'clock to 5:59
-        case yDiff <= 0 && xDiff > 0:
-            // xAtYMin evaluates to -Infinity here, so we use absolute value
-            return Math.abs(xAtYMin) > xMax ? [xMax, yAtXMax] : [xAtYMin, yMin];
-        // 9 o'clock to 11:59
-        case yDiff >= 0 && xDiff < 0:
-            return xAtYMax < xMin ? [xMin, yAtXMin] : [xAtYMax, yMax];
-        // 6 o'clock to 8:59
-        case yDiff < 0 && xDiff <= 0:
-            return xAtYMin < xMin ? [xMin, yAtXMin] : [xAtYMin, yMin];
-        default:
-            return [xMax, yAtXMax];
-    }
-};
