@@ -57,21 +57,21 @@ export const Angle = ({
     }
 
     // Midpoint betwen ends of arc
-    const isInside = shouldDrawArcInside(
+    const isOutside = shouldDrawArcOutside(
         [x3, y3],
         centerPoint,
         range,
         polygonPoints,
     );
 
-    const largeArcFlag = isInside ? 1 : 0;
-    const sweepFlag = isInside ? 1 : 0;
+    const largeArcFlag = isOutside ? 1 : 0;
+    const sweepFlag = isOutside ? 1 : 0;
 
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
 
     let angleInDegrees = angle * (180 / Math.PI);
     // If we have triggered "largArcFlag", the angle should be greater than 180
-    if (isInside) {
+    if (isOutside) {
         angleInDegrees = 360 - angleInDegrees;
     }
 
@@ -95,7 +95,7 @@ export const Angle = ({
                 </filter>
             </defs>
 
-            {!isInside && isRightAngle(angle) ? (
+            {!isOutside && isRightAngle(angle) ? (
                 <RightAngleArc
                     start={[x1, y1]}
                     vertex={[x2, y2]}
@@ -148,17 +148,22 @@ const RightAngleArc = ({start: [x1, y1], vertex: [x2, y2], end: [x3, y3]}) => (
     </g>
 );
 
-const isRightAngle = (angle) => Math.abs(angle - Math.PI / 2) < 0.01;
+const isRightAngle = (angle: number) => Math.abs(angle - Math.PI / 2) < 0.01;
 
-const shouldDrawArcInside = (
-    midPoint: vec.Vector2,
+/**
+ * Determines if an angle is an inside (false) or outside (true) angle.
+ * They way, we know to flip the `largeArc` and `sweepArc` flags.
+ */
+export const shouldDrawArcOutside = (
+    midpoint: vec.Vector2,
     vertex: vec.Vector2,
     range: [Interval, Interval],
     polygonPoints: readonly vec.Vector2[],
 ) => {
+    // Create a ray from the midpoint (inside angle) to the edge of the range
     const rangeIntersectionPoint = getRangeIntersectionVertex(
+        midpoint,
         vertex,
-        midPoint,
         range,
     );
 
@@ -171,39 +176,8 @@ const shouldDrawArcInside = (
             lineIntersections++,
     );
 
-    // The intersection check will sometimes return false if it intersects with
-    // another vertex, so in the case we get 0 intersections, we check for points.
-    if (lineIntersections === 0) {
-        // find point in array
-        const midpointIndex = polygonPoints.findIndex(
-            ([x, y]) => x === midPoint[0] && y === midPoint[1],
-        );
-        // get array sans point and adjacent points
-        const [prev, next] = [
-            (midpointIndex - 1 + polygonPoints.length) % polygonPoints.length,
-            (midpointIndex + 1) % polygonPoints.length,
-        ];
-        const [[lineAx, lineAy], [lineBx, lineBy]] = [
-            midPoint,
-            rangeIntersectionPoint,
-        ];
-        for (let i = 0; i < polygonPoints.length; i++) {
-            if ([prev, midpointIndex, next].includes(i)) {
-                continue;
-            }
-            const [x, y] = polygonPoints[i];
-            const intersectsPoint =
-                (y - lineAy) * (lineBx - lineAx) ===
-                (lineBy - lineAy) * (x - lineAx);
-            if (intersectsPoint) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     // If the number of intersections is even, the angle is inside the polygon
-    return isEven(lineIntersections);
+    return !isEven(lineIntersections);
 };
 
 const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
