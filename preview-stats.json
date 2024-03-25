@@ -1105,54 +1105,6 @@
       ]
     },
     {
-      "id": "./packages/math-input/src/components/tabbar/item.tsx",
-      "name": "./packages/math-input/src/components/tabbar/item.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/math-input/src/components/tabbar/tabbaritem.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/math-input/src/components/tabbar/tabbar.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/math-input/src/components/keypad/keypad-pages/geometry-page.tsx",
-      "name": "./packages/math-input/src/components/keypad/keypad-pages/geometry-page.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/math-input/src/components/keypad/keypad-pages/keypad-pages.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/math-input/src/components/keypad/keypad.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/math-input/src/components/keypad/keypad-pages/numbers-page.tsx",
-      "name": "./packages/math-input/src/components/keypad/keypad-pages/numbers-page.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/math-input/src/components/keypad/keypad-pages/keypad-pages.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/math-input/src/components/keypad/keypad.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/math-input/src/components/keypad/keypad-pages/operators-page.tsx",
-      "name": "./packages/math-input/src/components/keypad/keypad-pages/operators-page.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/math-input/src/components/keypad/keypad-pages/keypad-pages.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/math-input/src/components/keypad/keypad.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/math-input/src/data/key-configs.ts",
       "name": "./packages/math-input/src/data/key-configs.ts",
       "reasons": [
@@ -1216,6 +1168,18 @@
       ]
     },
     {
+      "id": "./packages/math-input/src/components/tabbar/item.tsx",
+      "name": "./packages/math-input/src/components/tabbar/item.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/math-input/src/components/tabbar/tabbaritem.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/math-input/src/components/tabbar/tabbar.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/math-input/src/components/keypad/navigation-pad.tsx",
       "name": "./packages/math-input/src/components/keypad/navigation-pad.tsx",
       "reasons": [
@@ -1224,6 +1188,81 @@
         },
         {
           "moduleName": "./packages/math-input/src/components/keypad/keypad.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/math-input/src/components/keypad/keypad-pages/geometry-page.tsx",
+      "name": "./packages/math-input/src/components/keypad/keypad-pages/geometry-page.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/math-input/src/components/keypad/keypad-pages/keypad-pages.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/math-input/src/components/keypad/keypad.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/math-input/src/components/keypad/keypad-pages/numbers-page.tsx",
+      "name": "./packages/math-input/src/components/keypad/keypad-pages/numbers-page.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/math-input/src/components/keypad/keypad-pages/keypad-pages.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/math-input/src/components/keypad/keypad.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/math-input/src/components/keypad/keypad-pages/operators-page.tsx",
+      "name": "./packages/math-input/src/components/keypad/keypad-pages/operators-page.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/math-input/src/components/keypad/keypad-pages/keypad-pages.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/math-input/src/components/keypad/keypad.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/tex-error-view.tsx",
+      "name": "./packages/perseus-editor/src/tex-error-view.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/__stories__/tex-error-view.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/editor.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/diffs/tags-diff.tsx",
+      "name": "./packages/perseus-editor/src/diffs/tags-diff.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/tags-diff.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/diffs/structured-item-diff.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/diffs/__stories__/perseus-diff-wrapper.tsx",
+      "name": "./packages/perseus-editor/src/diffs/__stories__/perseus-diff-wrapper.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/tags-diff.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/structured-item-diff.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/text-diff.stories.tsx"
         }
       ]
     },
@@ -1252,6 +1291,66 @@
       ]
     },
     {
+      "id": "./packages/perseus-editor/src/widgets/dropdown-editor.tsx",
+      "name": "./packages/perseus-editor/src/widgets/dropdown-editor.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/dropdown-editor.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/widgets/input-number-editor.tsx",
+      "name": "./packages/perseus-editor/src/widgets/input-number-editor.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/input-number-editor.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/widgets/explanation-editor.tsx",
+      "name": "./packages/perseus-editor/src/widgets/explanation-editor.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/explanation-editor.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/widgets/definition-editor.tsx",
+      "name": "./packages/perseus-editor/src/widgets/definition-editor.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/definition-editor.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/widgets/sorter-editor.tsx",
+      "name": "./packages/perseus-editor/src/widgets/sorter-editor.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/sorter-editor.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/index.ts",
       "name": "./packages/perseus/src/index.ts",
       "reasons": [
@@ -1268,10 +1367,10 @@
           "moduleName": "./packages/perseus-editor/src/index.ts"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/components/viewport-resizer.tsx"
+          "moduleName": "./packages/perseus-editor/src/util/register-all-widgets-and-editors-for-testing.ts"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/util/register-all-widgets-and-editors-for-testing.ts"
+          "moduleName": "./packages/perseus-editor/src/components/viewport-resizer.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/__stories__/editor.stories.tsx"
@@ -1283,10 +1382,10 @@
           "moduleName": "./packages/perseus-editor/src/item-extras-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/diffs/structured-item-diff.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/python-program-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/python-program-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/diffs/structured-item-diff.tsx"
         },
         {
           "moduleName": "./testing/multi-item-renderer-with-debug-ui.tsx"
@@ -1298,13 +1397,19 @@
           "moduleName": "./packages/perseus-editor/src/all-widgets.ts"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/definition-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/sorter-editor.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/input-number-editor.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/image-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/explanation-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/input-number-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/definition-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/categorizer-editor.tsx"
@@ -1313,22 +1418,16 @@
           "moduleName": "./packages/perseus-editor/src/widgets/matcher-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/sorter-editor.tsx"
-        },
-        {
           "moduleName": "./packages/perseus-editor/src/widgets/number-line-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/image-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/radio/editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/article-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/i18n.ts"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/i18n.ts"
+          "moduleName": "./packages/perseus-editor/src/article-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/editor-page.tsx"
@@ -1346,10 +1445,10 @@
           "moduleName": "./testing/renderer-with-debug-ui.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/expression-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/diffs/renderer-diff.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/diffs/renderer-diff.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/expression-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/interaction-editor.tsx"
@@ -1358,10 +1457,10 @@
           "moduleName": "./packages/perseus-editor/src/diffs/widget-diff.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/numeric-input-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/hint-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/cs-program-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/deprecated-standin-editor.tsx"
@@ -1370,22 +1469,40 @@
           "moduleName": "./packages/perseus-editor/src/widgets/example-graphie-widget-editor.tsx"
         },
         {
+          "moduleName": "./packages/perseus-editor/src/widgets/cs-program-editor.tsx"
+        },
+        {
           "moduleName": "./packages/perseus-editor/src/widgets/example-widget-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/graded-group-set-editor.tsx"
         },
         {
+          "moduleName": "./packages/perseus-editor/src/widgets/group-editor.tsx"
+        },
+        {
           "moduleName": "./packages/perseus-editor/src/widgets/grapher-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/group-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/iframe-editor.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/numeric-input-editor.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/molecule-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/matrix-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/molecule-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/passage-editor.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/measurer-editor.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/orderer-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/passage-ref-editor.tsx"
@@ -1397,31 +1514,13 @@
           "moduleName": "./packages/perseus-editor/src/widgets/simple-markdown-tester-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/iframe-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/orderer-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/passage-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/measurer-editor.tsx"
-        },
-        {
           "moduleName": "./packages/perseus-editor/src/widgets/table-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/video-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/unit-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/hint-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/video-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/components/widget-select.tsx"
@@ -1439,31 +1538,31 @@
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/function-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/movable-point-editor.tsx"
-        },
-        {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/line-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/movable-line-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/movable-point-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/point-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/parametric-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/movable-line-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/rectangle-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/example-graphie-widget.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/parametric-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/example-widget.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/simple-markdown-tester.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/example-graphie-widget.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/constraint-editor.tsx"
@@ -1481,31 +1580,31 @@
           "moduleName": "./packages/perseus-editor/src/widgets/__stories__/image-editor.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/components/section-control-button.tsx"
-        },
-        {
           "moduleName": "./packages/perseus-editor/src/components/interactive-graph-settings.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/interactive-graph-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image/behavior.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image/marker.tsx"
+          "moduleName": "./packages/perseus-editor/src/components/section-control-button.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/label-image/question-markers.tsx"
         },
         {
+          "moduleName": "./packages/perseus-editor/src/widgets/interactive-graph-editor.tsx"
+        },
+        {
           "moduleName": "./packages/perseus-editor/src/widgets/label-image/select-image.tsx"
         },
         {
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image/behavior.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image-editor.tsx"
+        },
+        {
           "moduleName": "./packages/perseus-editor/src/widgets/label-image/answer-choices.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image/marker.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/multirenderer-editor.tsx"
@@ -1540,113 +1639,11 @@
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/tex-error-view.tsx",
-      "name": "./packages/perseus-editor/src/tex-error-view.tsx",
+      "id": "./packages/perseus-editor/src/widgets/python-program-editor.tsx",
+      "name": "./packages/perseus-editor/src/widgets/python-program-editor.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/__stories__/tex-error-view.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/editor.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/diffs/text-diff.tsx",
-      "name": "./packages/perseus-editor/src/diffs/text-diff.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/text-diff.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/tags-diff.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/renderer-diff.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/diffs/__stories__/perseus-diff-wrapper.tsx",
-      "name": "./packages/perseus-editor/src/diffs/__stories__/perseus-diff-wrapper.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/text-diff.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/tags-diff.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/structured-item-diff.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/diffs/tags-diff.tsx",
-      "name": "./packages/perseus-editor/src/diffs/tags-diff.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/tags-diff.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/structured-item-diff.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/widgets/explanation-editor.tsx",
-      "name": "./packages/perseus-editor/src/widgets/explanation-editor.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/explanation-editor.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/widgets/dropdown-editor.tsx",
-      "name": "./packages/perseus-editor/src/widgets/dropdown-editor.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/dropdown-editor.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/widgets/definition-editor.tsx",
-      "name": "./packages/perseus-editor/src/widgets/definition-editor.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/definition-editor.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/widgets/input-number-editor.tsx",
-      "name": "./packages/perseus-editor/src/widgets/input-number-editor.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/input-number-editor.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/widgets/categorizer-editor.tsx",
-      "name": "./packages/perseus-editor/src/widgets/categorizer-editor.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/categorizer-editor.stories.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/python-program-editor.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/all-editors.ts"
@@ -1666,11 +1663,11 @@
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/widgets/matcher-editor.tsx",
-      "name": "./packages/perseus-editor/src/widgets/matcher-editor.tsx",
+      "id": "./packages/perseus-editor/src/widgets/categorizer-editor.tsx",
+      "name": "./packages/perseus-editor/src/widgets/categorizer-editor.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/matcher-editor.stories.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/categorizer-editor.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/all-editors.ts"
@@ -1705,23 +1702,26 @@
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/widgets/sorter-editor.tsx",
-      "name": "./packages/perseus-editor/src/widgets/sorter-editor.tsx",
+      "id": "./packages/perseus-editor/src/diffs/text-diff.tsx",
+      "name": "./packages/perseus-editor/src/diffs/text-diff.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/sorter-editor.stories.tsx"
+          "moduleName": "./packages/perseus-editor/src/diffs/__stories__/text-diff.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
+          "moduleName": "./packages/perseus-editor/src/diffs/tags-diff.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/diffs/renderer-diff.tsx"
         }
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/widgets/python-program-editor.tsx",
-      "name": "./packages/perseus-editor/src/widgets/python-program-editor.tsx",
+      "id": "./packages/perseus-editor/src/widgets/matcher-editor.tsx",
+      "name": "./packages/perseus-editor/src/widgets/matcher-editor.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/python-program-editor.stories.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/matcher-editor.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/all-editors.ts"
@@ -1879,57 +1879,6 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/icon-paths.ts",
-      "name": "./packages/perseus/src/icon-paths.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/icon.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/index.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interaction/element-container.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/graded-group-answer-bar.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/label-image/marker.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/icon.tsx",
-      "name": "./packages/perseus/src/components/icon.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/icon.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/label-image/marker.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/dependencies.ts",
       "name": "./packages/perseus/src/dependencies.ts",
       "reasons": [
@@ -1952,10 +1901,10 @@
           "moduleName": "./packages/perseus/src/logging/log.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/grapher/util.tsx"
+          "moduleName": "./packages/perseus/src/perseus-markdown.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/perseus-markdown.tsx"
+          "moduleName": "./packages/perseus/src/widgets/grapher/util.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/article-renderer.tsx"
@@ -2006,10 +1955,10 @@
           "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/label-image.tsx"
+          "moduleName": "./packages/perseus/src/widgets/matcher.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/matcher.tsx"
+          "moduleName": "./packages/perseus/src/widgets/label-image.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/passage.tsx"
@@ -2028,120 +1977,6 @@
         },
         {
           "moduleName": "./packages/perseus/src/widgets/video.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/hud.tsx",
-      "name": "./packages/perseus/src/components/hud.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/hud.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/input-with-examples.tsx",
-      "name": "./packages/perseus/src/components/input-with-examples.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/input-with-examples.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/numeric-input.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/input-number.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/info-tip.tsx",
-      "name": "./packages/perseus/src/components/info-tip.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/info-tip.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/inline-icon.tsx",
-      "name": "./packages/perseus/src/components/inline-icon.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/inline-icon.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interaction/element-container.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/graded-group-answer-bar.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/lint.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/lint.tsx",
-      "name": "./packages/perseus/src/components/lint.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/lint.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/perseus-markdown.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/math-input.tsx",
-      "name": "./packages/perseus/src/components/math-input.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/math-input.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/input-with-examples.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/expression.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/math-output.tsx",
-      "name": "./packages/perseus/src/components/math-output.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/math-output.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/input-with-examples.tsx"
         }
       ]
     },
@@ -2182,6 +2017,96 @@
       ]
     },
     {
+      "id": "./packages/perseus/src/components/graph.tsx",
+      "name": "./packages/perseus/src/components/graph.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/graph.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/hud.tsx",
+      "name": "./packages/perseus/src/components/hud.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/hud.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/icon-paths.ts",
+      "name": "./packages/perseus/src/icon-paths.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/icon.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/index.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interaction/element-container.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/graded-group-answer-bar.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/label-image/marker.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/icon.tsx",
+      "name": "./packages/perseus/src/components/icon.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/icon.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/label-image/marker.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/info-tip.tsx",
+      "name": "./packages/perseus/src/components/info-tip.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/info-tip.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components.ts"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/components/image-loader.tsx",
       "name": "./packages/perseus/src/components/image-loader.tsx",
       "reasons": [
@@ -2194,17 +2119,116 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/components/graph.tsx",
-      "name": "./packages/perseus/src/components/graph.tsx",
+      "id": "./packages/perseus/src/components/inline-icon.tsx",
+      "name": "./packages/perseus/src/components/inline-icon.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus/src/components/__stories__/graph.stories.tsx"
+          "moduleName": "./packages/perseus/src/components/__stories__/inline-icon.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/components.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
+          "moduleName": "./packages/perseus/src/widgets/interaction/element-container.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/graded-group-answer-bar.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/lint.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/input-with-examples.tsx",
+      "name": "./packages/perseus/src/components/input-with-examples.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/input-with-examples.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/numeric-input.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/input-number.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/math-input.tsx",
+      "name": "./packages/perseus/src/components/math-input.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/math-input.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/input-with-examples.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/expression.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/math-output.tsx",
+      "name": "./packages/perseus/src/components/math-output.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/math-output.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/input-with-examples.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/range-input.tsx",
+      "name": "./packages/perseus/src/components/range-input.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/range-input.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/lint.tsx",
+      "name": "./packages/perseus/src/components/lint.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/lint.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/perseus-markdown.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/prop-check-box.tsx",
+      "name": "./packages/perseus/src/components/prop-check-box.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/prop-check-box.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components.ts"
         }
       ]
     },
@@ -2230,45 +2254,6 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/components/prop-check-box.tsx",
-      "name": "./packages/perseus/src/components/prop-check-box.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/prop-check-box.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/range-input.tsx",
-      "name": "./packages/perseus/src/components/range-input.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/range-input.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/sortable.tsx",
-      "name": "./packages/perseus/src/components/sortable.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/sortable.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/sorter.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/matcher.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/components/simple-keypad-input.tsx",
       "name": "./packages/perseus/src/components/simple-keypad-input.tsx",
       "reasons": [
@@ -2289,6 +2274,21 @@
         },
         {
           "moduleName": "./packages/perseus/src/widgets/matrix.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/sortable.tsx",
+      "name": "./packages/perseus/src/components/sortable.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/sortable.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/sorter.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/matcher.tsx"
         }
       ]
     },
@@ -2383,6 +2383,18 @@
       ]
     },
     {
+      "id": "./packages/perseus/src/components/zoomable-tex.tsx",
+      "name": "./packages/perseus/src/components/zoomable-tex.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/__stories__/zoomable-tex.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/renderer.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/components/zoomable.tsx",
       "name": "./packages/perseus/src/components/zoomable.tsx",
       "reasons": [
@@ -2398,50 +2410,26 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/components/zoomable-tex.tsx",
-      "name": "./packages/perseus/src/components/zoomable-tex.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/__stories__/zoomable-tex.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/renderer.tsx"
-        }
-      ]
-    },
-    {
       "id": "./testing/renderer-with-debug-ui.tsx",
       "name": "./testing/renderer-with-debug-ui.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/cs-program.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/definition.stories.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/widgets/__stories__/categorizer.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/dropdown.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/group.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/grapher.stories.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/cs-program.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/explanation.stories.tsx"
         },
         {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/group.stories.tsx"
+        },
+        {
           "moduleName": "./packages/perseus/src/widgets/__stories__/graded-group-set.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/graded-group.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/input-number.stories.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/definition.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/image.stories.tsx"
@@ -2450,10 +2438,19 @@
           "moduleName": "./packages/perseus/src/widgets/__stories__/iframe.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/interaction.stories.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/grapher.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/matcher.stories.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/dropdown.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/graded-group.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/input-number.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/interaction.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/interactive-graph.stories.tsx"
@@ -2462,19 +2459,25 @@
           "moduleName": "./packages/perseus/src/widgets/__stories__/label-image.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/number-line.stories.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/widgets/__stories__/matrix.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/orderer.stories.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/matcher.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/numeric-input.stories.tsx"
         },
         {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/number-line.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/orderer.stories.tsx"
+        },
+        {
           "moduleName": "./packages/perseus/src/widgets/__stories__/python-program.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/sorter.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/radio.stories.tsx"
@@ -2483,37 +2486,25 @@
           "moduleName": "./packages/perseus/src/widgets/__stories__/reaction-diagram.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/sorter.stories.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/widgets/__stories__/video.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/deprecated-standin/__stories__/deprecated-standin.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/passage-ref.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/passage.stories.tsx"
         },
         {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/passage-ref.stories.tsx"
+        },
+        {
           "moduleName": "./packages/perseus/src/widgets/__stories__/plotter.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/deprecated-standin/__stories__/deprecated-standin.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/random-widgets.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/__stories__/expression-editor.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/cs-program.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/cs-program.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/cs-program.stories.tsx"
         }
       ]
     },
@@ -2530,32 +2521,11 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/widgets/__testdata__/dropdown.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/dropdown.testdata.ts",
+      "id": "./packages/perseus/src/widgets/__testdata__/cs-program.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/cs-program.testdata.ts",
       "reasons": [
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/dropdown.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/random-widgets.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/group.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/group.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/group.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/grapher.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/grapher.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/grapher.stories.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/cs-program.stories.tsx"
         }
       ]
     },
@@ -2568,24 +2538,6 @@
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/random-widgets.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/graded-group-set.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/graded-group-set.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/graded-group-set.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/graded-group.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/graded-group.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/graded-group.stories.tsx"
         }
       ]
     },
@@ -2617,11 +2569,20 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/widgets/__testdata__/input-number.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/input-number.testdata.ts",
+      "id": "./packages/perseus/src/widgets/__testdata__/group.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/group.testdata.ts",
       "reasons": [
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/input-number.stories.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/group.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/__testdata__/graded-group-set.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/graded-group-set.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/graded-group-set.stories.tsx"
         }
       ]
     },
@@ -2644,20 +2605,50 @@
       ]
     },
     {
+      "id": "./packages/perseus/src/widgets/__testdata__/grapher.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/grapher.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/grapher.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/__testdata__/dropdown.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/dropdown.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/dropdown.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/random-widgets.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/__testdata__/graded-group.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/graded-group.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/graded-group.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/__testdata__/input-number.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/input-number.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/input-number.stories.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/widgets/__testdata__/interaction.testdata.ts",
       "name": "./packages/perseus/src/widgets/__testdata__/interaction.testdata.ts",
       "reasons": [
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/interaction.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/matcher.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/matcher.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/matcher.stories.tsx"
         }
       ]
     },
@@ -2689,15 +2680,6 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/widgets/__testdata__/number-line.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/number-line.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/number-line.stories.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/widgets/__testdata__/matrix.testdata.ts",
       "name": "./packages/perseus/src/widgets/__testdata__/matrix.testdata.ts",
       "reasons": [
@@ -2707,11 +2689,11 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/widgets/__testdata__/orderer.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/orderer.testdata.ts",
+      "id": "./packages/perseus/src/widgets/__testdata__/matcher.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/matcher.testdata.ts",
       "reasons": [
         {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/orderer.stories.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/matcher.stories.tsx"
         }
       ]
     },
@@ -2740,11 +2722,38 @@
       ]
     },
     {
+      "id": "./packages/perseus/src/widgets/__testdata__/number-line.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/number-line.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/number-line.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/__testdata__/orderer.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/orderer.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/orderer.stories.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/widgets/__testdata__/python-program.testdata.ts",
       "name": "./packages/perseus/src/widgets/__testdata__/python-program.testdata.ts",
       "reasons": [
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/python-program.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/__testdata__/sorter.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/sorter.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/sorter.stories.tsx"
         }
       ]
     },
@@ -2757,15 +2766,6 @@
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/random-widgets.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/sorter.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/sorter.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/sorter.stories.tsx"
         }
       ]
     },
@@ -2801,10 +2801,10 @@
           "moduleName": "./packages/perseus/src/widgets/unit.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/renderer.tsx"
+          "moduleName": "./packages/perseus/src/widgets/table.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/table.tsx"
+          "moduleName": "./packages/perseus/src/renderer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/plotter.tsx"
@@ -2822,10 +2822,10 @@
           "moduleName": "./packages/perseus/src/widgets/orderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/server-item-renderer.tsx"
+          "moduleName": "./packages/perseus/src/hints-renderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/hints-renderer.tsx"
+          "moduleName": "./packages/perseus/src/server-item-renderer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/components/sortable.tsx"
@@ -2834,7 +2834,7 @@
           "moduleName": "./packages/perseus/src/widgets/numeric-input.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
+          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
@@ -2843,10 +2843,10 @@
           "moduleName": "./packages/perseus/src/widgets/input-number.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
+          "moduleName": "./packages/perseus/src/widgets/matrix.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/matrix.tsx"
+          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
@@ -2869,15 +2869,6 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/widgets/__testdata__/video.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/video.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/video.stories.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/widgets/video-transcript-link.tsx",
       "name": "./packages/perseus/src/widgets/video-transcript-link.tsx",
       "reasons": [
@@ -2890,161 +2881,11 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/widgets/label-image/answer-pill.tsx",
-      "name": "./packages/perseus/src/widgets/label-image/answer-pill.tsx",
+      "id": "./packages/perseus/src/widgets/__testdata__/video.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/video.testdata.ts",
       "reasons": [
         {
-          "moduleName": "./packages/perseus/src/widgets/label-image/__stories__/answer-pill.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/label-image/marker.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/choice-none-above.tsx",
-      "name": "./packages/perseus/src/widgets/radio/choice-none-above.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/choice-none-above.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/option-status.tsx",
-      "name": "./packages/perseus/src/widgets/radio/option-status.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/option-status.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/styles/constants.ts",
-      "name": "./packages/perseus/src/styles/constants.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/focus-ring.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/index.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/styles/media-queries.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/util/sizing-utils.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/grapher.tsx"
-        },
-        {
-          "moduleName": "./testing/side-by-side.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/fixed-to-responsive.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/graded-group-answer-bar.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/graph.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widget-container.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/legacy-grid.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/hud.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/hints-renderer.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/lint.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/focus-ring.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/hint-renderer.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/styles/shared.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/cs-program.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/focus-ring.tsx",
-      "name": "./packages/perseus/src/widgets/radio/focus-ring.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/focus-ring.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/choice.tsx",
-      "name": "./packages/perseus/src/widgets/radio/choice.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/choice.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-none-above.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/base-radio.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/base-radio.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/base-radio.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/base-radio.tsx",
-      "name": "./packages/perseus/src/widgets/radio/base-radio.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/base-radio.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/index.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/radio.tsx"
+          "moduleName": "./packages/perseus/src/widgets/__stories__/video.stories.tsx"
         }
       ]
     },
@@ -3079,20 +2920,20 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/widgets/__testdata__/passage-ref.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/passage-ref.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/passage-ref.stories.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/widgets/__testdata__/passage.testdata.ts",
       "name": "./packages/perseus/src/widgets/__testdata__/passage.testdata.ts",
       "reasons": [
         {
           "moduleName": "./packages/perseus/src/widgets/__stories__/passage.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/__testdata__/passage-ref.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/passage-ref.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/passage-ref.stories.tsx"
         }
       ]
     },
@@ -3170,10 +3011,10 @@
           "moduleName": "./packages/perseus/src/components/input-with-examples.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/label-image/answer-choices.tsx"
+          "moduleName": "./packages/perseus/src/article-renderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/article-renderer.tsx"
+          "moduleName": "./packages/perseus/src/widgets/label-image/answer-choices.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/radio/radio.tsx"
@@ -3203,9 +3044,6 @@
           "moduleName": "./packages/perseus/src/components/sortable.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/label-image/answer-pill.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/hint-renderer.tsx"
         },
         {
@@ -3213,6 +3051,9 @@
         },
         {
           "moduleName": "./packages/perseus/src/widgets/matrix.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/label-image/answer-pill.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/multi-items/multi-renderer.tsx"
@@ -3224,10 +3065,10 @@
           "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/label-image.tsx"
+          "moduleName": "./packages/perseus/src/widgets/matcher.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/matcher.tsx"
+          "moduleName": "./packages/perseus/src/widgets/label-image.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/passage.tsx"
@@ -3306,6 +3147,21 @@
         },
         {
           "moduleName": "./packages/perseus/src/basic-widgets.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/base-radio.tsx",
+      "name": "./packages/perseus/src/widgets/radio/base-radio.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/index.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/base-radio.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/radio.tsx"
         }
       ]
     },
@@ -3506,31 +3362,31 @@
           "moduleName": "./packages/perseus/src/components/svg-image.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/interactive-util.ts"
-        },
-        {
           "moduleName": "./packages/perseus/src/components/graphie-classes.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/answer-types.ts"
+          "moduleName": "./packages/perseus/src/interactive2/interactive-util.ts"
         },
         {
           "moduleName": "./packages/perseus/src/util/graphie.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
+          "moduleName": "./packages/perseus/src/util/answer-types.ts"
         },
         {
           "moduleName": "./packages/perseus/src/error-boundary.tsx"
         },
         {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
+        },
+        {
           "moduleName": "./packages/perseus/src/multi-items/prop-type-builders.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-helper-methods.ts"
+          "moduleName": "./packages/perseus/src/util/interactive.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/interactive.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-helper-methods.ts"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/movable.ts"
@@ -3593,16 +3449,16 @@
           "moduleName": "./packages/perseus/src/components/svg-image.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/interactive-util.ts"
-        },
-        {
           "moduleName": "./packages/perseus/src/components/graphie-classes.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/answer-types.ts"
+          "moduleName": "./packages/perseus/src/interactive2/interactive-util.ts"
         },
         {
           "moduleName": "./packages/perseus/src/util/graphie.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/util/answer-types.ts"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
@@ -3611,10 +3467,10 @@
           "moduleName": "./packages/perseus/src/multi-items/prop-type-builders.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-helper-methods.ts"
+          "moduleName": "./packages/perseus/src/util/interactive.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/interactive.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-helper-methods.ts"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/movable.ts"
@@ -3659,10 +3515,10 @@
           "moduleName": "./packages/perseus/src/index.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/answer-types.ts"
+          "moduleName": "./packages/perseus/src/util/graphie.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/graphie.ts"
+          "moduleName": "./packages/perseus/src/util/answer-types.ts"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/wrapped-line.ts"
@@ -3671,10 +3527,10 @@
           "moduleName": "./packages/perseus/src/util/geometry.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/tex.ts"
+          "moduleName": "./packages/perseus/src/util/interactive.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/interactive.ts"
+          "moduleName": "./packages/perseus/src/util/tex.ts"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/arrowhead.ts"
@@ -3719,16 +3575,16 @@
           "moduleName": "./packages/perseus/src/hints-renderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
+          "moduleName": "./packages/perseus/src/hint-renderer.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/hint-renderer.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
+          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/styles/shared.ts"
@@ -3761,10 +3617,10 @@
           "moduleName": "./packages/perseus/src/index.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/__testdata__/server-item-renderer.testdata.ts"
+          "moduleName": "./packages/perseus/src/__testdata__/graphie.testdata.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/__testdata__/graphie.testdata.ts"
+          "moduleName": "./packages/perseus/src/__testdata__/server-item-renderer.testdata.ts"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__testdata__/expression.testdata.ts"
@@ -3801,6 +3657,78 @@
       "reasons": [
         {
           "moduleName": "./packages/perseus/src/index.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/styles/constants.ts",
+      "name": "./packages/perseus/src/styles/constants.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/index.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/focus-ring.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/styles/media-queries.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/util/sizing-utils.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/grapher.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/fixed-to-responsive.tsx"
+        },
+        {
+          "moduleName": "./testing/side-by-side.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/graph.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widget-container.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/graded-group-answer-bar.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/legacy-grid.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/hints-renderer.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/hud.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/lint.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/hint-renderer.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/focus-ring.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/styles/shared.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/cs-program.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
         }
       ]
     },
@@ -3848,10 +3776,10 @@
           "moduleName": "./packages/perseus/src/components/graphie-classes.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
+          "moduleName": "./packages/perseus/src/widgets/radio/radio.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/radio/radio.tsx"
+          "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/util/geometry.ts"
@@ -3869,16 +3797,16 @@
           "moduleName": "./packages/perseus/src/components/graphie.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/components/number-input.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/components/graph.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/renderer.tsx"
+          "moduleName": "./packages/perseus/src/components/number-input.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/table.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/renderer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/plotter.tsx"
@@ -3887,19 +3815,19 @@
           "moduleName": "./packages/perseus/src/widgets/orderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/server-item-renderer.tsx"
+          "moduleName": "./packages/perseus/src/hints-renderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/hints-renderer.tsx"
+          "moduleName": "./packages/perseus/src/server-item-renderer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/components/sortable.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
+          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
+          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/matrix.tsx"
@@ -3944,13 +3872,13 @@
           "moduleName": "./packages/perseus/src/util/interactive.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/interactive2/movable-line.ts"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/movable-polygon.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/plotter.tsx"
@@ -4076,13 +4004,13 @@
           "moduleName": "./packages/perseus/src/widgets/interaction.tsx"
         },
         {
+          "moduleName": "./packages/perseus/src/widgets/passage-ref-target.tsx"
+        },
+        {
           "moduleName": "./packages/perseus/src/widgets/passage-ref.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/video.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/passage-ref-target.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/unit.tsx"
@@ -4100,10 +4028,10 @@
           "moduleName": "./packages/perseus/src/widgets/explanation.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
+          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
+          "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
         }
       ]
     },
@@ -4240,6 +4168,87 @@
       ]
     },
     {
+      "id": "./testing/test-mathjax.tsx",
+      "name": "./testing/test-mathjax.tsx",
+      "reasons": [
+        {
+          "moduleName": "./testing/test-dependencies.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/label-image/answer-pill.tsx",
+      "name": "./packages/perseus/src/widgets/label-image/answer-pill.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/label-image/__stories__/answer-pill.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/label-image/marker.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/option-status.tsx",
+      "name": "./packages/perseus/src/widgets/radio/option-status.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/option-status.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/choice.tsx",
+      "name": "./packages/perseus/src/widgets/radio/choice.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/choice.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-none-above.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/focus-ring.tsx",
+      "name": "./packages/perseus/src/widgets/radio/focus-ring.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/focus-ring.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/__testdata__/base-radio.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/base-radio.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/base-radio.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/choice-none-above.tsx",
+      "name": "./packages/perseus/src/widgets/radio/choice-none-above.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/__stories__/choice-none-above.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/math-input/less/main.less",
       "name": "./packages/math-input/less/main.less",
       "reasons": [
@@ -4283,10 +4292,10 @@
           "moduleName": "./packages/math-input/src/components/keypad/keypad-mathquill.stories.tsx"
         },
         {
-          "moduleName": "./packages/math-input/src/components/key-handlers/handle-arrow.ts"
+          "moduleName": "./packages/math-input/src/components/key-handlers/handle-exponent.ts"
         },
         {
-          "moduleName": "./packages/math-input/src/components/key-handlers/handle-exponent.ts"
+          "moduleName": "./packages/math-input/src/components/key-handlers/handle-arrow.ts"
         },
         {
           "moduleName": "./packages/math-input/src/components/key-handlers/handle-jump-out.ts"
@@ -4423,15 +4432,6 @@
       ]
     },
     {
-      "id": "./testing/test-mathjax.tsx",
-      "name": "./testing/test-mathjax.tsx",
-      "reasons": [
-        {
-          "moduleName": "./testing/test-dependencies.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus-editor/src/components/device-framer.tsx",
       "name": "./packages/perseus-editor/src/components/device-framer.tsx",
       "reasons": [
@@ -4445,10 +4445,10 @@
           "moduleName": "./packages/perseus-editor/src/article-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/hint-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/hint-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
         }
       ]
     },
@@ -4526,13 +4526,13 @@
           "moduleName": "./packages/perseus-editor/src/index.ts"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/definition-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/image-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/explanation-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/image-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/definition-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/radio/editor.tsx"
@@ -4541,10 +4541,16 @@
           "moduleName": "./packages/perseus-editor/src/article-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/numeric-input-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/hint-editor.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/group-editor.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/numeric-input-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/matrix-editor.tsx"
@@ -4554,12 +4560,6 @@
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/table-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/hint-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/multirenderer-editor.tsx"
@@ -4589,10 +4589,10 @@
           "moduleName": "./packages/perseus-editor/src/article-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/hint-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/hint-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
         }
       ]
     },
@@ -4655,10 +4655,10 @@
           "moduleName": "./packages/math-input/src/components/input/mathquill-helpers.ts"
         },
         {
-          "moduleName": "./packages/math-input/src/components/key-handlers/handle-arrow.ts"
+          "moduleName": "./packages/math-input/src/components/key-handlers/handle-exponent.ts"
         },
         {
-          "moduleName": "./packages/math-input/src/components/key-handlers/handle-exponent.ts"
+          "moduleName": "./packages/math-input/src/components/key-handlers/handle-arrow.ts"
         },
         {
           "moduleName": "./packages/math-input/src/components/key-handlers/handle-jump-out.ts"
@@ -4721,10 +4721,10 @@
       "name": "./packages/perseus/src/widgets/__testdata__/randomizers.ts",
       "reasons": [
         {
-          "moduleName": "./packages/perseus/src/widgets/__testdata__/explanation.testdata.ts"
+          "moduleName": "./packages/perseus/src/widgets/__testdata__/categorizer.testdata.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__testdata__/categorizer.testdata.ts"
+          "moduleName": "./packages/perseus/src/widgets/__testdata__/explanation.testdata.ts"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/__testdata__/expression.testdata.ts"
@@ -4733,10 +4733,10 @@
           "moduleName": "./packages/perseus/src/widgets/__testdata__/dropdown.testdata.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__testdata__/interactive-graph-random.testdata.ts"
+          "moduleName": "./packages/perseus/src/widgets/__testdata__/radio.testdata.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/__testdata__/radio.testdata.ts"
+          "moduleName": "./packages/perseus/src/widgets/__testdata__/interactive-graph-random.testdata.ts"
         }
       ]
     },
@@ -4777,14 +4777,29 @@
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/item-extras-editor.tsx",
-      "name": "./packages/perseus-editor/src/item-extras-editor.tsx",
+      "id": "./testing/side-by-side.tsx",
+      "name": "./testing/side-by-side.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/__stories__/item-editor.stories.tsx"
+          "moduleName": "./packages/perseus-editor/src/__stories__/editor.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
+          "moduleName": "./testing/multi-item-renderer-with-debug-ui.tsx"
+        },
+        {
+          "moduleName": "./testing/server-item-renderer-with-debug-ui.tsx"
+        },
+        {
+          "moduleName": "./testing/renderer-with-debug-ui.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/__testdata__/input-number.testdata.ts",
+      "name": "./packages/perseus-editor/src/__testdata__/input-number.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/__stories__/editor.stories.tsx"
         }
       ]
     },
@@ -4828,41 +4843,14 @@
       ]
     },
     {
-      "id": "./testing/side-by-side.tsx",
-      "name": "./testing/side-by-side.tsx",
+      "id": "./packages/perseus-editor/src/item-extras-editor.tsx",
+      "name": "./packages/perseus-editor/src/item-extras-editor.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/__stories__/editor.stories.tsx"
+          "moduleName": "./packages/perseus-editor/src/__stories__/item-editor.stories.tsx"
         },
         {
-          "moduleName": "./testing/multi-item-renderer-with-debug-ui.tsx"
-        },
-        {
-          "moduleName": "./testing/server-item-renderer-with-debug-ui.tsx"
-        },
-        {
-          "moduleName": "./testing/renderer-with-debug-ui.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/__testdata__/input-number.testdata.ts",
-      "name": "./packages/perseus-editor/src/__testdata__/input-number.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/__stories__/editor.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/widgets/interaction-editor/index.ts",
-      "name": "./packages/perseus-editor/src/widgets/interaction-editor/index.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/interaction-editor.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
+          "moduleName": "./packages/perseus-editor/src/item-editor.tsx"
         }
       ]
     },
@@ -4884,6 +4872,18 @@
       "reasons": [
         {
           "moduleName": "./packages/perseus-editor/src/widgets/__stories__/interactive-graph-editor.stories.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/widgets/interaction-editor/index.ts",
+      "name": "./packages/perseus-editor/src/widgets/interaction-editor/index.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/__stories__/interaction-editor.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/all-editors.ts"
         }
       ]
     },
@@ -4910,10 +4910,10 @@
           "moduleName": "./packages/perseus/src/components.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/interaction/arrow-picker.tsx"
+          "moduleName": "./packages/perseus/src/widgets/interaction/dash-picker.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/interaction/dash-picker.tsx"
+          "moduleName": "./packages/perseus/src/widgets/interaction/arrow-picker.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/grapher.tsx"
@@ -4941,15 +4941,6 @@
       "reasons": [
         {
           "moduleName": "./packages/perseus/src/components/visibility-observer/__stories__/visibility-observer.stories.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/__testdata__/interactive-graph-random.testdata.ts",
-      "name": "./packages/perseus/src/widgets/__testdata__/interactive-graph-random.testdata.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/__stories__/random-widgets.stories.tsx"
         }
       ]
     },
@@ -4985,10 +4976,10 @@
           "moduleName": "./packages/perseus-editor/src/diffs/structured-item-diff.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/diffs/article-diff.tsx"
+          "moduleName": "./packages/perseus-editor/src/diffs/item-diff.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/diffs/item-diff.tsx"
+          "moduleName": "./packages/perseus-editor/src/diffs/article-diff.tsx"
         }
       ]
     },
@@ -5029,6 +5020,15 @@
       ]
     },
     {
+      "id": "./packages/perseus/src/widgets/__testdata__/interactive-graph-random.testdata.ts",
+      "name": "./packages/perseus/src/widgets/__testdata__/interactive-graph-random.testdata.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/__stories__/random-widgets.stories.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/multi-items/__testdata__/multi-renderer.testdata.ts",
       "name": "./packages/perseus/src/multi-items/__testdata__/multi-renderer.testdata.ts",
       "reasons": [
@@ -5053,6 +5053,39 @@
       ]
     },
     {
+      "id": "./packages/perseus-core/src/index.ts",
+      "name": "./packages/perseus-core/src/index.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/version.ts"
+        },
+        {
+          "moduleName": "./packages/math-input/src/version.ts"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/version.ts"
+        },
+        {
+          "moduleName": "./packages/kmath/src/version.ts"
+        },
+        {
+          "moduleName": "./packages/kas/src/version.ts"
+        },
+        {
+          "moduleName": "./packages/perseus-linter/src/version.ts"
+        },
+        {
+          "moduleName": "./packages/pure-markdown/src/version.ts"
+        },
+        {
+          "moduleName": "./packages/simple-markdown/src/version.ts"
+        },
+        {
+          "moduleName": "./packages/perseus-error/src/version.ts"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/basic-widgets.ts",
       "name": "./packages/perseus/src/basic-widgets.ts",
       "reasons": [
@@ -5073,39 +5106,6 @@
         },
         {
           "moduleName": "./packages/perseus/src/all-widgets.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-core/src/index.ts",
-      "name": "./packages/perseus-core/src/index.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/version.ts"
-        },
-        {
-          "moduleName": "./packages/math-input/src/version.ts"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/version.ts"
-        },
-        {
-          "moduleName": "./packages/kas/src/version.ts"
-        },
-        {
-          "moduleName": "./packages/kmath/src/version.ts"
-        },
-        {
-          "moduleName": "./packages/perseus-linter/src/version.ts"
-        },
-        {
-          "moduleName": "./packages/pure-markdown/src/version.ts"
-        },
-        {
-          "moduleName": "./packages/simple-markdown/src/version.ts"
-        },
-        {
-          "moduleName": "./packages/perseus-error/src/version.ts"
         }
       ]
     },
@@ -5151,6 +5151,15 @@
       "reasons": [
         {
           "moduleName": "./packages/math-input/src/components/keypad/mobile-keypad.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/testing-widgets.ts",
+      "name": "./packages/perseus-editor/src/testing-widgets.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/all-widgets.ts"
         }
       ]
     },
@@ -5395,15 +5404,6 @@
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/testing-widgets.ts",
-      "name": "./packages/perseus-editor/src/testing-widgets.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/all-widgets.ts"
-        }
-      ]
-    },
-    {
       "id": "./packages/kmath/src/index.ts",
       "name": "./packages/kmath/src/index.ts",
       "reasons": [
@@ -5432,10 +5432,10 @@
           "moduleName": "./packages/perseus/src/util/geometry.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-helper-methods.ts"
+          "moduleName": "./packages/perseus/src/util/interactive.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/util/interactive.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-helper-methods.ts"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/interaction.tsx"
@@ -5444,31 +5444,31 @@
           "moduleName": "./packages/perseus/src/interactive2/movable.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/interactive2/movable-line.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-polygon.ts"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/wrapped-drawing.ts"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/example-graphie-widget.tsx"
+          "moduleName": "./packages/perseus/src/interactive2/movable-polygon.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/wrapped-ellipse.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/example-graphie-widget.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/arrowhead.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/components/number-input.tsx"
+          "moduleName": "./packages/perseus/src/interactive2/wrapped-ellipse.ts"
         },
         {
           "moduleName": "./packages/perseus/src/components/graph.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/number-input.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/plotter-editor.tsx"
@@ -5477,10 +5477,10 @@
           "moduleName": "./packages/perseus/src/widgets/number-line.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point-options.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-line-options.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-line-options.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-point-options.ts"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/movable-polygon-options.ts"
@@ -5507,10 +5507,10 @@
           "moduleName": "./packages/perseus/src/widgets/expression.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/translation-linter.ts"
+          "moduleName": "./packages/perseus/src/widgets/radio/radio.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/radio/radio.tsx"
+          "moduleName": "./packages/perseus/src/translation-linter.ts"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/group.tsx"
@@ -5519,16 +5519,16 @@
           "moduleName": "./packages/perseus/src/widgets/image.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/sorter.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/widgets/passage-ref-target.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/renderer.tsx"
+          "moduleName": "./packages/perseus/src/widgets/sorter.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/table.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/renderer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widget-container.tsx"
@@ -5537,10 +5537,10 @@
           "moduleName": "./packages/perseus/src/widgets/orderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/server-item-renderer.tsx"
+          "moduleName": "./packages/perseus/src/hints-renderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/hints-renderer.tsx"
+          "moduleName": "./packages/perseus/src/server-item-renderer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/components/sortable.tsx"
@@ -5552,10 +5552,10 @@
           "moduleName": "./packages/perseus/src/hint-renderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/input-number.tsx"
+          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
+          "moduleName": "./packages/perseus/src/widgets/input-number.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/matrix.tsx"
@@ -5564,10 +5564,10 @@
           "moduleName": "./packages/perseus/src/widgets/explanation.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
+          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
+          "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/matcher.tsx"
@@ -5629,23 +5629,11 @@
       ]
     },
     {
-      "id": "./packages/pure-markdown/src/index.ts",
-      "name": "./packages/pure-markdown/src/index.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/perseus-markdown.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/interactive2/objective_.ts",
       "name": "./packages/perseus/src/interactive2/objective_.ts",
       "reasons": [
         {
           "moduleName": "./packages/perseus/src/traversal.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/movable-line.ts"
@@ -5654,10 +5642,22 @@
           "moduleName": "./packages/perseus/src/interactive2/movable-polygon.ts"
         },
         {
+          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
+        },
+        {
           "moduleName": "./packages/perseus/src/renderer.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/server-item-renderer.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/pure-markdown/src/index.ts",
+      "name": "./packages/pure-markdown/src/index.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/perseus-markdown.tsx"
         }
       ]
     },
@@ -5807,10 +5807,10 @@
           "moduleName": "./packages/perseus/src/widgets/video.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
+          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/graded-group.tsx"
+          "moduleName": "./packages/perseus/src/widgets/graded-group-set.tsx"
         }
       ]
     },
@@ -5917,6 +5917,129 @@
       ]
     },
     {
+      "id": "./packages/kmath/src/version.ts",
+      "name": "./packages/kmath/src/version.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/kmath/src/index.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/kmath/src/number.ts",
+      "name": "./packages/kmath/src/number.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/kmath/src/index.ts"
+        },
+        {
+          "moduleName": "./packages/kmath/src/point.ts"
+        },
+        {
+          "moduleName": "./packages/kmath/src/vector.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/kmath/src/vector.ts",
+      "name": "./packages/kmath/src/vector.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/kmath/src/index.ts"
+        },
+        {
+          "moduleName": "./packages/kmath/src/line.ts"
+        },
+        {
+          "moduleName": "./packages/kmath/src/point.ts"
+        },
+        {
+          "moduleName": "./packages/kmath/src/ray.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/kmath/src/point.ts",
+      "name": "./packages/kmath/src/point.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/kmath/src/index.ts"
+        },
+        {
+          "moduleName": "./packages/kmath/src/line.ts"
+        },
+        {
+          "moduleName": "./packages/kmath/src/ray.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/kmath/src/line.ts",
+      "name": "./packages/kmath/src/line.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/kmath/src/index.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/kmath/src/ray.ts",
+      "name": "./packages/kmath/src/ray.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/kmath/src/index.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/zoom.ts",
+      "name": "./packages/perseus/src/zoom.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/svg-image.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/util/graphie.ts",
+      "name": "./packages/perseus/src/util/graphie.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/util/graph-utils.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/util/interactive.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/graphie.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/util/interactive.ts",
+      "name": "./packages/perseus/src/util/interactive.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/util/graph-utils.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/graphie-classes.ts",
+      "name": "./packages/perseus/src/components/graphie-classes.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/graphie-movables.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/components/graphie.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus-editor/src/widgets/interaction-editor/function-editor.tsx",
       "name": "./packages/perseus-editor/src/widgets/interaction-editor/function-editor.tsx",
       "reasons": [
@@ -5989,77 +6112,11 @@
       ]
     },
     {
-      "id": "./packages/kmath/src/version.ts",
-      "name": "./packages/kmath/src/version.ts",
+      "id": "./packages/perseus/src/interactive2/movable-helper-methods.ts",
+      "name": "./packages/perseus/src/interactive2/movable-helper-methods.ts",
       "reasons": [
         {
-          "moduleName": "./packages/kmath/src/index.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/kmath/src/number.ts",
-      "name": "./packages/kmath/src/number.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/kmath/src/index.ts"
-        },
-        {
-          "moduleName": "./packages/kmath/src/vector.ts"
-        },
-        {
-          "moduleName": "./packages/kmath/src/point.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/kmath/src/vector.ts",
-      "name": "./packages/kmath/src/vector.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/kmath/src/index.ts"
-        },
-        {
-          "moduleName": "./packages/kmath/src/line.ts"
-        },
-        {
-          "moduleName": "./packages/kmath/src/point.ts"
-        },
-        {
-          "moduleName": "./packages/kmath/src/ray.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/kmath/src/point.ts",
-      "name": "./packages/kmath/src/point.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/kmath/src/index.ts"
-        },
-        {
-          "moduleName": "./packages/kmath/src/line.ts"
-        },
-        {
-          "moduleName": "./packages/kmath/src/ray.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/kmath/src/line.ts",
-      "name": "./packages/kmath/src/line.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/kmath/src/index.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/kmath/src/ray.ts",
-      "name": "./packages/kmath/src/ray.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/kmath/src/index.ts"
+          "moduleName": "./packages/perseus/src/interactive2/interactive-util.ts"
         }
       ]
     },
@@ -6086,6 +6143,9 @@
           "moduleName": "./packages/perseus-linter/src/rules/extra-content-spacing.ts"
         },
         {
+          "moduleName": "./packages/perseus-linter/src/rules/heading-level-1.ts"
+        },
+        {
           "moduleName": "./packages/perseus-linter/src/rules/heading-level-skip.ts"
         },
         {
@@ -6095,46 +6155,43 @@
           "moduleName": "./packages/perseus-linter/src/rules/image-in-table.ts"
         },
         {
-          "moduleName": "./packages/perseus-linter/src/rules/heading-level-1.ts"
-        },
-        {
           "moduleName": "./packages/perseus-linter/src/rules/image-alt-text.ts"
-        },
-        {
-          "moduleName": "./packages/perseus-linter/src/rules/heading-title-case.ts"
         },
         {
           "moduleName": "./packages/perseus-linter/src/rules/image-spaces-around-urls.ts"
         },
         {
-          "moduleName": "./packages/perseus-linter/src/rules/link-click-here.ts"
-        },
-        {
-          "moduleName": "./packages/perseus-linter/src/rules/long-paragraph.ts"
+          "moduleName": "./packages/perseus-linter/src/rules/heading-title-case.ts"
         },
         {
           "moduleName": "./packages/perseus-linter/src/rules/image-widget.ts"
         },
         {
-          "moduleName": "./packages/perseus-linter/src/rules/math-adjacent.ts"
+          "moduleName": "./packages/perseus-linter/src/rules/link-click-here.ts"
         },
         {
           "moduleName": "./packages/perseus-linter/src/rules/math-align-extra-break.ts"
         },
         {
-          "moduleName": "./packages/perseus-linter/src/rules/math-align-linebreaks.ts"
+          "moduleName": "./packages/perseus-linter/src/rules/math-adjacent.ts"
         },
         {
           "moduleName": "./packages/perseus-linter/src/rules/math-empty.ts"
         },
         {
-          "moduleName": "./packages/perseus-linter/src/rules/math-font-size.ts"
-        },
-        {
           "moduleName": "./packages/perseus-linter/src/rules/math-frac.ts"
         },
         {
+          "moduleName": "./packages/perseus-linter/src/rules/math-align-linebreaks.ts"
+        },
+        {
+          "moduleName": "./packages/perseus-linter/src/rules/long-paragraph.ts"
+        },
+        {
           "moduleName": "./packages/perseus-linter/src/rules/math-nested.ts"
+        },
+        {
+          "moduleName": "./packages/perseus-linter/src/rules/math-font-size.ts"
         },
         {
           "moduleName": "./packages/perseus-linter/src/rules/math-starts-with-space.ts"
@@ -6152,6 +6209,9 @@
           "moduleName": "./packages/perseus-linter/src/rules/profanity.ts"
         },
         {
+          "moduleName": "./packages/perseus-linter/src/rules/table-missing-cells.ts"
+        },
+        {
           "moduleName": "./packages/perseus-linter/src/rules/unbalanced-code-delimiters.ts"
         },
         {
@@ -6159,9 +6219,6 @@
         },
         {
           "moduleName": "./packages/perseus-linter/src/rules/widget-in-table.ts"
-        },
-        {
-          "moduleName": "./packages/perseus-linter/src/rules/table-missing-cells.ts"
         }
       ]
     },
@@ -6198,63 +6255,6 @@
       "reasons": [
         {
           "moduleName": "./packages/perseus-linter/src/index.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/zoom.ts",
-      "name": "./packages/perseus/src/zoom.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/svg-image.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/util/graphie.ts",
-      "name": "./packages/perseus/src/util/graphie.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/util/graph-utils.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graph.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/util/interactive.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/graphie.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/util/interactive.ts",
-      "name": "./packages/perseus/src/util/interactive.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/util/graph-utils.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/interactive2/movable-helper-methods.ts",
-      "name": "./packages/perseus/src/interactive2/movable-helper-methods.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/interactive2/interactive-util.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/graphie-classes.ts",
-      "name": "./packages/perseus/src/components/graphie-classes.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/graphie-movables.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/components/graphie.tsx"
         }
       ]
     },
@@ -6520,6 +6520,27 @@
       ]
     },
     {
+      "id": "./packages/perseus-core/src/utils/add-library-version-to-perseus-debug.ts",
+      "name": "./packages/perseus-core/src/utils/add-library-version-to-perseus-debug.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-core/src/index.ts"
+        },
+        {
+          "moduleName": "./packages/perseus-core/src/version.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-core/src/version.ts",
+      "name": "./packages/perseus-core/src/version.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-core/src/index.ts"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/util/geometry.ts",
       "name": "./packages/perseus/src/util/geometry.ts",
       "reasons": [
@@ -6604,27 +6625,6 @@
       ]
     },
     {
-      "id": "./packages/perseus-core/src/utils/add-library-version-to-perseus-debug.ts",
-      "name": "./packages/perseus-core/src/utils/add-library-version-to-perseus-debug.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-core/src/index.ts"
-        },
-        {
-          "moduleName": "./packages/perseus-core/src/version.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-core/src/version.ts",
-      "name": "./packages/perseus-core/src/version.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-core/src/index.ts"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx",
       "name": "./packages/perseus/src/widgets/interactive-graphs/mafs-graph.tsx",
       "reasons": [
@@ -6644,16 +6644,16 @@
           "moduleName": "./packages/perseus/src/interactive2/movable.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
+          "moduleName": "./packages/perseus/src/interactive2/movable-line.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/movable-line.ts"
+          "moduleName": "./packages/perseus/src/interactive2/wrapped-drawing.ts"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/movable-polygon.ts"
         },
         {
-          "moduleName": "./packages/perseus/src/interactive2/wrapped-drawing.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/interactive2/wrapped-ellipse.ts"
@@ -6715,11 +6715,11 @@
       ]
     },
     {
-      "id": "./packages/math-input/src/components/key-handlers/handle-backspace.ts",
-      "name": "./packages/math-input/src/components/key-handlers/handle-backspace.ts",
+      "id": "./packages/simple-markdown/src/version.ts",
+      "name": "./packages/simple-markdown/src/version.ts",
       "reasons": [
         {
-          "moduleName": "./packages/math-input/src/components/input/math-wrapper.ts"
+          "moduleName": "./packages/simple-markdown/src/index.ts"
         }
       ]
     },
@@ -6736,11 +6736,20 @@
       ]
     },
     {
-      "id": "./packages/simple-markdown/src/version.ts",
-      "name": "./packages/simple-markdown/src/version.ts",
+      "id": "./packages/math-input/src/components/key-handlers/handle-backspace.ts",
+      "name": "./packages/math-input/src/components/key-handlers/handle-backspace.ts",
       "reasons": [
         {
-          "moduleName": "./packages/simple-markdown/src/index.ts"
+          "moduleName": "./packages/math-input/src/components/input/math-wrapper.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/diffs/widget-diff-performer.ts",
+      "name": "./packages/perseus-editor/src/diffs/widget-diff-performer.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/diffs/widget-diff.tsx"
         }
       ]
     },
@@ -6763,23 +6772,14 @@
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/diffs/widget-diff-performer.ts",
-      "name": "./packages/perseus-editor/src/diffs/widget-diff-performer.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/diffs/widget-diff.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus-editor/src/widgets/example-graphie-widget.tsx",
       "name": "./packages/perseus-editor/src/widgets/example-graphie-widget.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/example-graphie-widget-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/testing-widgets.ts"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/testing-widgets.ts"
+          "moduleName": "./packages/perseus-editor/src/widgets/example-graphie-widget-editor.tsx"
         }
       ]
     },
@@ -6884,25 +6884,61 @@
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/function-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/movable-point-editor.tsx"
-        },
-        {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/line-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/movable-line-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/movable-point-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/point-editor.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/parametric-editor.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/movable-line-editor.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/rectangle-editor.tsx"
         },
         {
+          "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/parametric-editor.tsx"
+        },
+        {
           "moduleName": "./packages/perseus-editor/src/widgets/interaction-editor/constraint-editor.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/jquery.mobile.vmouse.js",
+      "name": "./packages/perseus/src/jquery.mobile.vmouse.js",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/util/interactive.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/interactive2/arrowhead.ts",
+      "name": "./packages/perseus/src/interactive2/arrowhead.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/util/interactive.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/interactive2/movable-line-options.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/interactive2/wrapped-ellipse.ts",
+      "name": "./packages/perseus/src/interactive2/wrapped-ellipse.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/util/interactive.ts"
+        },
+        {
+          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/interactive2/movable-point-options.ts"
         }
       ]
     },
@@ -7234,42 +7270,6 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/jquery.mobile.vmouse.js",
-      "name": "./packages/perseus/src/jquery.mobile.vmouse.js",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/util/interactive.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/interactive2/arrowhead.ts",
-      "name": "./packages/perseus/src/interactive2/arrowhead.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/util/interactive.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-line-options.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/interactive2/wrapped-ellipse.ts",
-      "name": "./packages/perseus/src/interactive2/wrapped-ellipse.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/util/interactive.ts"
-        },
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point-options.ts"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/definition-context.tsx",
       "name": "./packages/perseus/src/definition-context.tsx",
       "reasons": [
@@ -7309,29 +7309,11 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/interactive2/movable-point-options.ts",
-      "name": "./packages/perseus/src/interactive2/movable-point-options.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/interactive2/movable-line-options.ts",
       "name": "./packages/perseus/src/interactive2/movable-line-options.ts",
       "reasons": [
         {
           "moduleName": "./packages/perseus/src/interactive2/movable-line.ts"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/interactive2/movable-polygon-options.ts",
-      "name": "./packages/perseus/src/interactive2/movable-polygon-options.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/interactive2/movable-polygon.ts"
         }
       ]
     },
@@ -7399,20 +7381,20 @@
       ]
     },
     {
-      "id": "./packages/perseus-linter/src/rules/lint-utils.ts",
-      "name": "./packages/perseus-linter/src/rules/lint-utils.ts",
+      "id": "./packages/perseus/src/interactive2/movable-polygon-options.ts",
+      "name": "./packages/perseus/src/interactive2/movable-polygon-options.ts",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-linter/src/rules/absolute-url.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-polygon.ts"
         }
       ]
     },
     {
-      "id": "./packages/perseus-error/src/version.ts",
-      "name": "./packages/perseus-error/src/version.ts",
+      "id": "./packages/perseus/src/interactive2/movable-point-options.ts",
+      "name": "./packages/perseus/src/interactive2/movable-point-options.ts",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-error/src/index.ts"
+          "moduleName": "./packages/perseus/src/interactive2/movable-point.tsx"
         }
       ]
     },
@@ -7438,6 +7420,33 @@
       ]
     },
     {
+      "id": "./packages/perseus-linter/src/rules/lint-utils.ts",
+      "name": "./packages/perseus-linter/src/rules/lint-utils.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-linter/src/rules/absolute-url.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-error/src/version.ts",
+      "name": "./packages/perseus-error/src/version.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-error/src/index.ts"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/graphie-movables.ts",
+      "name": "./packages/perseus/src/components/graphie-movables.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/graphie.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/tex-wrangler.ts",
       "name": "./packages/perseus/src/tex-wrangler.ts",
       "reasons": [
@@ -7449,15 +7458,6 @@
         },
         {
           "moduleName": "./packages/perseus/src/widgets/input-number.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/components/graphie-movables.ts",
-      "name": "./packages/perseus/src/components/graphie-movables.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/graphie.tsx"
         }
       ]
     },
@@ -7592,13 +7592,13 @@
           "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/segment.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/ray.tsx"
-        },
-        {
           "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/linear.tsx"
         },
         {
           "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/polygon.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/ray.tsx"
         }
       ]
     },
@@ -7636,6 +7636,39 @@
       ]
     },
     {
+      "id": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-line.tsx",
+      "name": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-line.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/segment.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/linear.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/ray.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-point.tsx",
+      "name": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-point.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/segment.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/linear.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/polygon.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/ray.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus/src/components/highlighting/ui/highlight-set-renderer.tsx",
       "name": "./packages/perseus/src/components/highlighting/ui/highlight-set-renderer.tsx",
       "reasons": [
@@ -7666,39 +7699,6 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-line.tsx",
-      "name": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-line.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/segment.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/ray.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/linear.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-point.tsx",
-      "name": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/movable-point.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/segment.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/ray.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/linear.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/interactive-graphs/graphs/polygon.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/angle.tsx",
       "name": "./packages/perseus/src/widgets/interactive-graphs/graphs/components/angle.tsx",
       "reasons": [
@@ -7708,14 +7708,14 @@
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/widgets/label-image/marker.tsx",
-      "name": "./packages/perseus-editor/src/widgets/label-image/marker.tsx",
+      "id": "./packages/perseus-editor/src/widgets/label-image/question-markers.tsx",
+      "name": "./packages/perseus-editor/src/widgets/label-image/question-markers.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image/__stories__/marker.stories.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image/__stories__/question-markers.stories.tsx"
         },
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image/question-markers.tsx"
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image-editor.tsx"
         }
       ]
     },
@@ -7732,23 +7732,23 @@
       ]
     },
     {
+      "id": "./packages/perseus-editor/src/widgets/label-image/marker.tsx",
+      "name": "./packages/perseus-editor/src/widgets/label-image/marker.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image/__stories__/marker.stories.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image/question-markers.tsx"
+        }
+      ]
+    },
+    {
       "id": "./packages/perseus-editor/src/widgets/label-image/select-image.tsx",
       "name": "./packages/perseus-editor/src/widgets/label-image/select-image.tsx",
       "reasons": [
         {
           "moduleName": "./packages/perseus-editor/src/widgets/label-image/__stories__/select-image.stories.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image-editor.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus-editor/src/widgets/label-image/question-markers.tsx",
-      "name": "./packages/perseus-editor/src/widgets/label-image/question-markers.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image/__stories__/question-markers.stories.tsx"
         },
         {
           "moduleName": "./packages/perseus-editor/src/widgets/label-image-editor.tsx"
@@ -7786,15 +7786,6 @@
       ]
     },
     {
-      "id": "./packages/math-input/src/components/tabbar/icons.tsx",
-      "name": "./packages/math-input/src/components/tabbar/icons.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/math-input/src/components/tabbar/item.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/math-input/src/components/keypad/button-assets.tsx",
       "name": "./packages/math-input/src/components/keypad/button-assets.tsx",
       "reasons": [
@@ -7803,6 +7794,15 @@
         },
         {
           "moduleName": "./packages/math-input/src/components/keypad/navigation-button.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/math-input/src/components/tabbar/icons.tsx",
+      "name": "./packages/math-input/src/components/tabbar/icons.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/math-input/src/components/tabbar/item.tsx"
         }
       ]
     },
@@ -7871,16 +7871,16 @@
       "name": "./packages/perseus-editor/src/components/form-wrapped-text-field.tsx",
       "reasons": [
         {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image-editor.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image/marker.tsx"
-        },
-        {
           "moduleName": "./packages/perseus-editor/src/widgets/label-image/select-image.tsx"
         },
         {
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image-editor.tsx"
+        },
+        {
           "moduleName": "./packages/perseus-editor/src/widgets/label-image/answer-choices.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image/marker.tsx"
         }
       ]
     },
@@ -7894,20 +7894,20 @@
       ]
     },
     {
-      "id": "./packages/perseus-editor/src/components/dropdown-option.tsx",
-      "name": "./packages/perseus-editor/src/components/dropdown-option.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus-editor/src/widgets/label-image/marker.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus-editor/src/components/link.ts",
       "name": "./packages/perseus-editor/src/components/link.ts",
       "reasons": [
         {
           "moduleName": "./packages/perseus-editor/src/widgets/label-image/answer-choices.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus-editor/src/components/dropdown-option.tsx",
+      "name": "./packages/perseus-editor/src/components/dropdown-option.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus-editor/src/widgets/label-image/marker.tsx"
         }
       ]
     },
@@ -7919,10 +7919,10 @@
           "moduleName": "./packages/perseus/src/hints-renderer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
+          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
         },
         {
-          "moduleName": "./packages/perseus/src/widgets/categorizer.tsx"
+          "moduleName": "./packages/perseus/src/widgets/radio/base-radio.tsx"
         }
       ]
     },
@@ -7932,48 +7932,6 @@
       "reasons": [
         {
           "moduleName": "./packages/perseus/src/components/math-input.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/util.ts",
-      "name": "./packages/perseus/src/widgets/radio/util.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/choice-icon/cross-out-line.tsx",
-      "name": "./packages/perseus/src/widgets/radio/choice-icon/cross-out-line.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/choice-icon/shared-styles.ts",
-      "name": "./packages/perseus/src/widgets/radio/choice-icon/shared-styles.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
-        },
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/cross-out-line.tsx"
-        }
-      ]
-    },
-    {
-      "id": "./packages/perseus/src/widgets/radio/choice-a11y-text.ts",
-      "name": "./packages/perseus/src/widgets/radio/choice-a11y-text.ts",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
         }
       ]
     },
@@ -8019,6 +7977,48 @@
       "reasons": [
         {
           "moduleName": "./packages/math-input/src/components/keypad/keypad.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/util.ts",
+      "name": "./packages/perseus/src/widgets/radio/util.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/choice-icon/cross-out-line.tsx",
+      "name": "./packages/perseus/src/widgets/radio/choice-icon/cross-out-line.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/choice-icon/shared-styles.ts",
+      "name": "./packages/perseus/src/widgets/radio/choice-icon/shared-styles.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/choice-icon.tsx"
+        },
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice-icon/cross-out-line.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/widgets/radio/choice-a11y-text.ts",
+      "name": "./packages/perseus/src/widgets/radio/choice-a11y-text.ts",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/widgets/radio/choice.tsx"
         }
       ]
     },
@@ -8236,15 +8236,6 @@
       ]
     },
     {
-      "id": "./packages/perseus/src/components/highlighting/ui/highlight-renderer.tsx",
-      "name": "./packages/perseus/src/components/highlighting/ui/highlight-renderer.tsx",
-      "reasons": [
-        {
-          "moduleName": "./packages/perseus/src/components/highlighting/ui/highlight-set-renderer.tsx"
-        }
-      ]
-    },
-    {
       "id": "./packages/perseus/src/components/highlighting/ui/util.ts",
       "name": "./packages/perseus/src/components/highlighting/ui/util.ts",
       "reasons": [
@@ -8253,6 +8244,15 @@
         },
         {
           "moduleName": "./packages/perseus/src/components/highlighting/ui/highlight-renderer.tsx"
+        }
+      ]
+    },
+    {
+      "id": "./packages/perseus/src/components/highlighting/ui/highlight-renderer.tsx",
+      "name": "./packages/perseus/src/components/highlighting/ui/highlight-renderer.tsx",
+      "reasons": [
+        {
+          "moduleName": "./packages/perseus/src/components/highlighting/ui/highlight-set-renderer.tsx"
         }
       ]
     },
