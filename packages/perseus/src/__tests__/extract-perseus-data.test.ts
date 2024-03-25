@@ -9,12 +9,18 @@ import {
     getAnswersFromWidgets,
     getCorrectAnswerForWidgetKey,
     getValidWidgetKeys,
-    getWidgetTypeFromWidgetKey,
     injectWidgets,
     isWidgetKeyInContent,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
+import {
+    generateTestCategorizerWidget,
+    generateTestExpressionWidget,
+    generateTestInteractiveGraphWidget,
+    generateTestNumericInputWidget,
+    generateTestRadioWidget,
+} from "../util/test-utils";
 
 const stub: jest.MockedFunction<any> = jest.fn();
 
@@ -1045,56 +1051,58 @@ describe("ExtractPerseusData", () => {
         });
     });
 
-    describe("getWidgetTypeFromWidgetKey", () => {
-        it("returns the widget type from the widget key", () => {
-            expect(getWidgetTypeFromWidgetKey("radio 1")).toEqual("radio");
-            expect(getWidgetTypeFromWidgetKey("interactive-graph 2")).toEqual(
-                "interactive-graph",
-            );
-            expect(getWidgetTypeFromWidgetKey("categorizer 3")).toEqual(
-                "categorizer",
-            );
-            expect(getWidgetTypeFromWidgetKey("expression 4")).toEqual(
-                "expression",
-            );
-            expect(getWidgetTypeFromWidgetKey("")).toEqual("");
-        });
-        it("returns an empty string if the widget type cannot be found", () => {
-            expect(getWidgetTypeFromWidgetKey("")).toEqual("");
-        });
-    });
-
     describe("isWrongAnswerSupported", () => {
         it("returns true if all the widgets are wrong answers supported widgets", () => {
             expect(
-                isWrongAnswerSupported(["radio 1", "interactive-graph 2"]),
+                isWrongAnswerSupported(["radio 1", "interactive-graph 2"], {
+                    "radio 1": generateTestRadioWidget(),
+                    "interactive-graph 2": generateTestInteractiveGraphWidget(),
+                }),
             ).toBe(true);
             expect(
-                isWrongAnswerSupported(["input-number 3", "input-number 4"]),
+                isWrongAnswerSupported(["numeric-input 3", "numeric-input 4"], {
+                    "numeric-input 3": generateTestNumericInputWidget(),
+                    "numeric-input 4": generateTestNumericInputWidget(),
+                }),
             ).toBe(true);
             expect(
-                isWrongAnswerSupported(["expression 5", "categorizer 6"]),
+                isWrongAnswerSupported(["expression 5", "categorizer 6"], {
+                    "expression 5": generateTestExpressionWidget(),
+                    "categorizer 6": generateTestCategorizerWidget(),
+                }),
             ).toBe(true);
-        });
-        it("returns false if the widgets do not support wrong answers", () => {
-            expect(isWrongAnswerSupported([])).toBe(false);
-            expect(isWrongAnswerSupported(["radio 1", "unknown 3"])).toBe(
-                false,
-            );
+            expect(isWrongAnswerSupported([], {})).toBe(false);
+            expect(
+                isWrongAnswerSupported(["radio 1", "unknown 3"], {
+                    "radio 1": generateTestRadioWidget(),
+                }),
+            ).toBe(false);
         });
     });
 
     describe("shouldHaveIndividualAnswer", () => {
         it("returns true if the widget should have individual answer", () => {
-            expect(shouldHaveIndividualAnswer("interactive-graph 1")).toBe(
-                true,
-            );
-            expect(shouldHaveIndividualAnswer("categorizer 2")).toBe(true);
-        });
-        it("returns false if the widget does not have individual answer", () => {
-            expect(shouldHaveIndividualAnswer("")).toBe(false);
-            expect(shouldHaveIndividualAnswer("radio 1")).toBe(false);
-            expect(shouldHaveIndividualAnswer("numeric-input 3")).toBe(false);
+            expect(
+                shouldHaveIndividualAnswer("interactive-graph 1", {
+                    "interactive-graph 1": generateTestInteractiveGraphWidget(),
+                }),
+            ).toBe(true);
+            expect(
+                shouldHaveIndividualAnswer("categorizer 2", {
+                    "categorizer 2": generateTestCategorizerWidget(),
+                }),
+            ).toBe(true);
+            expect(shouldHaveIndividualAnswer("", {})).toBe(false);
+            expect(
+                shouldHaveIndividualAnswer("radio 1", {
+                    "radio 1": generateTestRadioWidget(),
+                }),
+            ).toBe(false);
+            expect(
+                shouldHaveIndividualAnswer("numeric-input 3", {
+                    "numeric-input 3": generateTestNumericInputWidget(),
+                }),
+            ).toBe(false);
         });
     });
 

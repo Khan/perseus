@@ -82,7 +82,6 @@ export * as SizingUtils from "./util/sizing-utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
-    getWidgetTypeFromWidgetKey,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
     isWidgetKeyInContent,
