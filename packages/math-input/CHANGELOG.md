@@ -1,5 +1,13 @@
 # @khanacademy/math-input
 
+## 17.4.1
+
+### Patch Changes
+
+-   [#1105](https://github.com/Khan/perseus/pull/1105) [`76dc2394d`](https://github.com/Khan/perseus/commit/76dc2394dfd1dcdf389923997d104fa2e42e1b38) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @khanacademy/wonder-blocks-tokens
+
+*   [#1109](https://github.com/Khan/perseus/pull/1109) [`b53cf2a3a`](https://github.com/Khan/perseus/commit/b53cf2a3a3d2e59d95c9428561417a7789522cb6) Thanks [@nedredmond](https://github.com/nedredmond)! - Test fix following eslint rule change
+
 ## 17.4.0
 
 ### Minor Changes
