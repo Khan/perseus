@@ -60,8 +60,7 @@ export function initializeGraphState(params: {
                 hasBeenInteractedWith: false,
                 range,
                 snapStep,
-                // TODO: getDefaultPoints({graph, step, range}),
-                coords: graph.coords ?? [],
+                coords: getDefaultPoints({graph, step, range}),
             };
         case "angle":
         case "circle":

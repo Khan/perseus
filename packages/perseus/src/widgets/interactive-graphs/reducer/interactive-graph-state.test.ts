@@ -1,5 +1,6 @@
 import {initializeGraphState} from "./interactive-graph-state";
 
+// STOPSHIP: split these tests into a describe for each graph type
 describe("initializeGraphState", () => {
     it("sets the range and snapStep", () => {
         const state = initializeGraphState({
@@ -120,5 +121,61 @@ describe("initializeGraphState", () => {
                 [500, 500],
             ],
         ]);
+    });
+
+    it("uses any coords already present on a point graph", () => {
+        const graph = initializeGraphState({
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            step: [1, 1],
+            snapStep: [1, 1],
+            graph: {type: "point", coords: [[1, 2]]},
+        });
+
+        expect(graph.coords).toEqual([[1, 2]]);
+    });
+
+    it("provides default coords when a point graph requests one point", () => {
+        const graph = initializeGraphState({
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            step: [1, 1],
+            snapStep: [1, 1],
+            graph: {type: "point", numPoints: 1},
+        });
+
+        expect(graph.coords).toEqual([[0, 0]]);
+    })
+
+    it("uses the coordinates in graph.coord if present", () => {
+        const graph = initializeGraphState({
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            step: [1, 1],
+            snapStep: [1, 1],
+            graph: {type: "point", numPoints: 1, coord: [5, 6]},
+        });
+
+        expect(graph.coords).toEqual([[5, 6]]);
+    });
+
+    it.each([2, 3, 4, 5, 6])("provides %d default coords when a point graph requests %d points", (n) => {
+        const graph = initializeGraphState({
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            step: [1, 1],
+            snapStep: [1, 1],
+            graph: {type: "point", numPoints: n},
+        });
+
+        expect(graph.coords).toHaveLength(n);
     });
 });
