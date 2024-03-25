@@ -124,9 +124,8 @@ export const getVersionVector = (): {
     return version;
 };
 
-export const getPublicWidgets = (): ReadonlyArray<WidgetExports> => {
+export const getPublicWidgets = (): Record<string, WidgetExports> => {
     // TODO(alex): Update underscore.js so that _.pick can take a function.
-    // @ts-expect-error - TS2740 - Type 'Pick<{ [key: string]: Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>; }, string>' is missing the following properties from type 'readonly Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>[]': length, concat, join, slice, and 18 more.
     return _.pick(
         widgets,
         // @ts-expect-error - TS2345 - Argument of type '(name: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
