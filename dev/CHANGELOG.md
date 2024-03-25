@@ -1,5 +1,18 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.6
+
+### Patch Changes
+
+-   [#1112](https://github.com/Khan/perseus/pull/1112) [`0f1f3fdac`](https://github.com/Khan/perseus/commit/0f1f3fdaccd2ad52b660bac5fe691e8a64de728b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: consolidate definition of Mafs-supported interactive graph types
+
+*   [#1105](https://github.com/Khan/perseus/pull/1105) [`76dc2394d`](https://github.com/Khan/perseus/commit/76dc2394dfd1dcdf389923997d104fa2e42e1b38) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @khanacademy/wonder-blocks-tokens
+
+-   [#1116](https://github.com/Khan/perseus/pull/1116) [`74c6efc6a`](https://github.com/Khan/perseus/commit/74c6efc6a185c62ab204e21a991012fde6eab12c) Thanks [@nedredmond](https://github.com/nedredmond)! - Add optional angle labels to polygon graph
+
+-   Updated dependencies [[`76dc2394d`](https://github.com/Khan/perseus/commit/76dc2394dfd1dcdf389923997d104fa2e42e1b38), [`b53cf2a3a`](https://github.com/Khan/perseus/commit/b53cf2a3a3d2e59d95c9428561417a7789522cb6)]:
+    -   @khanacademy/math-input@17.4.1
+
 ## 1.3.5
 
 ### Patch Changes

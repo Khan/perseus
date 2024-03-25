@@ -1,5 +1,32 @@
 # @khanacademy/perseus
 
+## 20.8.1
+
+### Patch Changes
+
+-   [#1119](https://github.com/Khan/perseus/pull/1119) [`fc01f490f`](https://github.com/Khan/perseus/commit/fc01f490f6aabcfedca10e5833834488234e0efa) Thanks [@nedredmond](https://github.com/nedredmond)! - Show right angle square whether angles are shown or not in mafs polygon graphs
+
+*   [#1112](https://github.com/Khan/perseus/pull/1112) [`0f1f3fdac`](https://github.com/Khan/perseus/commit/0f1f3fdaccd2ad52b660bac5fe691e8a64de728b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: consolidate definition of Mafs-supported interactive graph types
+
+-   [#1120](https://github.com/Khan/perseus/pull/1120) [`1ef9c7b67`](https://github.com/Khan/perseus/commit/1ef9c7b679e911880b77b22001a734be76c7f9a5) Thanks [@benchristel](https://github.com/benchristel)! - Internal: reduce console log noise in tests
+
+*   [#1116](https://github.com/Khan/perseus/pull/1116) [`74c6efc6a`](https://github.com/Khan/perseus/commit/74c6efc6a185c62ab204e21a991012fde6eab12c) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix grid rendering bug for new Mafs graphs
+
+-   [#1105](https://github.com/Khan/perseus/pull/1105) [`76dc2394d`](https://github.com/Khan/perseus/commit/76dc2394dfd1dcdf389923997d104fa2e42e1b38) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @khanacademy/wonder-blocks-tokens
+
+*   [#1116](https://github.com/Khan/perseus/pull/1116) [`74c6efc6a`](https://github.com/Khan/perseus/commit/74c6efc6a185c62ab204e21a991012fde6eab12c) Thanks [@nedredmond](https://github.com/nedredmond)! - Add optional angle labels to polygon graph
+
+-   [#1114](https://github.com/Khan/perseus/pull/1114) [`73bc6da07`](https://github.com/Khan/perseus/commit/73bc6da0789a59905590e15bcf8d0ec45f8853b5) Thanks [@benchristel](https://github.com/benchristel)! - Fix a rendering bug in Mafs interactive graphs that have unequal x and y ranges
+
+*   [#1115](https://github.com/Khan/perseus/pull/1115) [`900e1cea8`](https://github.com/Khan/perseus/commit/900e1cea86610c8dab5a481f100ef1a89cb1cf7b) Thanks [@Myranae](https://github.com/Myranae)! - Refactor addWidget to use a string instead of WidgetType and number
+
+-   [#1110](https://github.com/Khan/perseus/pull/1110) [`d2c6e3129`](https://github.com/Khan/perseus/commit/d2c6e3129e1a6488d24bddbc4f4638c9eba9047d) Thanks [@nedredmond](https://github.com/nedredmond)! - Bug fix: mafs grid should render when there is a legacy background and markings other than "none"
+
+*   [#1111](https://github.com/Khan/perseus/pull/1111) [`9139a9246`](https://github.com/Khan/perseus/commit/9139a92468def2b0804ed30d0356b30c08854daf) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in Mafs graphs where default segments were sometimes incorrectly positioned
+
+*   Updated dependencies [[`76dc2394d`](https://github.com/Khan/perseus/commit/76dc2394dfd1dcdf389923997d104fa2e42e1b38), [`b53cf2a3a`](https://github.com/Khan/perseus/commit/b53cf2a3a3d2e59d95c9428561417a7789522cb6)]:
+    -   @khanacademy/math-input@17.4.1
+
 ## 20.8.0
 
 ### Minor Changes
