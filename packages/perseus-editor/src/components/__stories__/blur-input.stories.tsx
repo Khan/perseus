@@ -4,7 +4,7 @@ import * as React from "react";
 import BlurInput from "../blur-input";
 
 export default {
-    title: "Perseus/Editor/Components/Blur Input",
+    title: "Perseus Editor/Components/Blur Input",
 };
 
 export const Default = (): React.ReactElement => {
