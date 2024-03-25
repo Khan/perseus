@@ -1,8 +1,10 @@
-import {Text, vec} from "mafs";
+import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
 import {getRayIntersectionCoords as getRangeIntersectionVertex} from "../utils";
+
+import {TextLabel} from "./text-label";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {Interval} from "mafs";
@@ -10,7 +12,7 @@ import type {Interval} from "mafs";
 interface Props {
     centerPoint: vec.Vector2;
     endPoints: [vec.Vector2, vec.Vector2];
-    polygonPoints: readonly vec.Vector2[];
+    polygonLines: readonly CollinearTuple[];
     active: boolean;
     range: [Interval, Interval];
     showAngles: boolean;
@@ -20,7 +22,7 @@ export const Angle = ({
     centerPoint,
     endPoints,
     range,
-    polygonPoints,
+    polygonLines,
     showAngles,
 }: Props) => {
     const [centerX, centerY] = centerPoint;
@@ -61,7 +63,7 @@ export const Angle = ({
         [x3, y3],
         centerPoint,
         range,
-        polygonPoints,
+        polygonLines,
     );
 
     const largeArcFlag = isInside ? 1 : 0;
@@ -111,15 +113,9 @@ export const Angle = ({
                 </g>
             )}
 
-            <Text
+            <TextLabel
                 x={x3}
                 y={y3}
-                size={15}
-                svgTextProps={{
-                    filter: "url(#background)",
-                    fontWeight: "bold",
-                }}
-                // Shift position if text is too close to movable point
                 attach={y3 - centerY > 0 ? "s" : "n"}
                 attachDistance={
                     Math.abs(y3 - centerY) < 0.2 ||
@@ -129,7 +125,7 @@ export const Angle = ({
                 }
             >
                 {angleLabel}°
-            </Text>
+            </TextLabel>
         </>
     );
 };
@@ -154,18 +150,16 @@ const shouldDrawArcInside = (
     midPoint: vec.Vector2,
     vertex: vec.Vector2,
     range: [Interval, Interval],
-    polygonPoints: readonly vec.Vector2[],
+    polygonLines: readonly CollinearTuple[],
 ) => {
     const rangeIntersectionPoint = getRangeIntersectionVertex(
         vertex,
         midPoint,
         range,
     );
-
-    const lines = getLines(polygonPoints);
     let lineIntersections = 0;
 
-    lines.forEach(
+    polygonLines.forEach(
         (line) =>
             linesIntersect([vertex, rangeIntersectionPoint], line) &&
             lineIntersections++,
@@ -174,6 +168,7 @@ const shouldDrawArcInside = (
     // The intersection check will sometimes return false if it intersects with
     // another vertex, so in the case we get 0 intersections, we check for points.
     if (lineIntersections === 0) {
+        const polygonPoints = polygonLines.map(([point]) => point);
         // find point in array
         const midpointIndex = polygonPoints.findIndex(
             ([x, y]) => x === midPoint[0] && y === midPoint[1],
@@ -205,12 +200,6 @@ const shouldDrawArcInside = (
     // If the number of intersections is even, the angle is inside the polygon
     return isEven(lineIntersections);
 };
-
-const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
-    points.map((point, i) => {
-        const next = points[(i + 1) % points.length];
-        return [point, next];
-    });
 
 // https://stackoverflow.com/a/24392281/7347484
 // The "intersects" function in geometry doesn't seem to work for this use case

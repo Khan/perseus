@@ -1,3 +1,4 @@
+import type {CollinearTuple} from "../../../perseus-types";
 import type {Interval, vec} from "mafs";
 
 /**
@@ -43,3 +44,9 @@ export const getRayIntersectionCoords = (
             return [xMax, yAtXMax];
     }
 };
+
+export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
+    points.map((point, i) => {
+        const next = points[(i + 1) % points.length];
+        return [point, next];
+    });
