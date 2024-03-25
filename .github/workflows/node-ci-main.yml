@@ -7,6 +7,14 @@ on:
             - changeset-release/*
             - feature/*
 
+# When a PR is landed to main, we want to ensure that all of these jobs run and
+# that they all complete before the next PR's changes are processed by this
+# workflow.
+# See https://docs.github.com/en/actions/using-jobs/using-concurrency
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: false
+
 # Our jobs run like this to minimize wasting resource cycles:
 #   1. Prime caches for primary configuration.  This way subsequent jobs
 #      can run in parallel but rely on this primed cache.
