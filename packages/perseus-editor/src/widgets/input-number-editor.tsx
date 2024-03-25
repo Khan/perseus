@@ -56,7 +56,7 @@ type Props = {
     answerType: PropsFor<typeof InputNumber.widget>["answerType"];
     rightAlign: PropsFor<typeof InputNumber.widget>["rightAlign"];
     onChange: (arg1: {
-        value?: ParsedValue | 0;
+        value?: ParsedValue | number;
         simplify?: Props["simplify"];
         size?: Props["size"];
         inexact?: Props["inexact"];

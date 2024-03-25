@@ -304,7 +304,9 @@ function keScoreFromPerseusScore(
  * Return the first valid interpretation of 'text' as a number, in the form
  * {value: 2.3, exact: true}.
  */
-function firstNumericalParse(text: string): ParsedValue | null | undefined {
+function firstNumericalParse(
+    text: string,
+): ParsedValue | null | undefined | number {
     // TODO(alpert): This is sort of hacky...
     let first;
     const val = KhanAnswerTypes.predicate.createValidatorFunctional(
