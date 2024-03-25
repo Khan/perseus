@@ -129,7 +129,7 @@ export const storybookDependenciesV2: PerseusDependenciesV2 = {
         onAnalyticsEvent: async (event) => {
             console.log("⚡️ Sending analytics event:", event);
         },
-    }
+    },
 };
 
 export const cypressTestDependencies: PerseusDependencies = {
