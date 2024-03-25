@@ -1,4 +1,14 @@
 import {initializeGraphState} from "./interactive-graph-state";
+import {Interval, vec} from "mafs";
+
+const baseGraphData = {
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ] as [Interval, Interval],
+    step: [1, 1] as vec.Vector2,
+    snapStep: [1, 1] as vec.Vector2,
+}
 
 // STOPSHIP: split these tests into a describe for each graph type
 describe("initializeGraphState", () => {
@@ -21,12 +31,7 @@ describe("initializeGraphState", () => {
 
     it("puts a default segment on a segment graph", () => {
         const state = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "segment"},
         });
         expect(state.coords).toEqual([
@@ -39,12 +44,7 @@ describe("initializeGraphState", () => {
 
     it("puts a default line on a line graph", () => {
         const state = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "linear-system"},
         });
         expect(state.coords).toEqual([
@@ -61,12 +61,7 @@ describe("initializeGraphState", () => {
 
     it("puts a default polygon on a polygon graph", () => {
         const state = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "polygon"},
         });
         expect(state.coords).toEqual([
@@ -78,12 +73,7 @@ describe("initializeGraphState", () => {
 
     it("puts an 8-sided polygon on a polygon graph", () => {
         const state = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "polygon", numSides: 8},
         });
         expect(state.coords).toEqual([
@@ -125,12 +115,7 @@ describe("initializeGraphState", () => {
 
     it("uses any coords already present on a point graph", () => {
         const graph = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "point", coords: [[1, 2]]},
         });
 
@@ -139,12 +124,7 @@ describe("initializeGraphState", () => {
 
     it("provides default coords when a point graph requests one point", () => {
         const graph = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "point", numPoints: 1},
         });
 
@@ -153,12 +133,7 @@ describe("initializeGraphState", () => {
 
     it("uses the coordinates in graph.coord if present", () => {
         const graph = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "point", numPoints: 1, coord: [5, 6]},
         });
 
@@ -167,12 +142,7 @@ describe("initializeGraphState", () => {
 
     it.each([2, 3, 4, 5, 6])("provides %d default coords when a point graph requests %d points", (n) => {
         const graph = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "point", numPoints: n},
         });
 
