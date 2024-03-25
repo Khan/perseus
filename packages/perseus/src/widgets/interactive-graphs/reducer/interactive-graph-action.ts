@@ -1,6 +1,10 @@
 import type {vec} from "mafs";
 
-export type InteractiveGraphAction = MoveControlPoint | MoveLine | MoveAll;
+export type InteractiveGraphAction =
+    | MoveControlPoint
+    | MoveLine
+    | MoveAll
+    | MovePoint;
 
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPoint {
@@ -48,3 +52,18 @@ export const moveAll = (delta: vec.Vector2): MoveAll => ({
     type: MOVE_ALL,
     delta,
 });
+
+// TODO: consolidate with moveAll?
+export const MOVE_POINT = "move-point";
+interface MovePoint {
+    type: typeof MOVE_POINT;
+    index: number;
+    destination: vec.Vector2;
+}
+export function movePoint(index: number, destination: vec.Vector2): MovePoint {
+    return {
+        type: MOVE_POINT,
+        index,
+        destination,
+    };
+}

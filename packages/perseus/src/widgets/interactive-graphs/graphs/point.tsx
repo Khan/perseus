@@ -1,15 +1,26 @@
 import * as React from "react";
-import {PointGraphState, MafsGraphProps} from "../types";
+
+import {movePoint} from "../reducer/interactive-graph-action";
+
 import {StyledMovablePoint} from "./components/movable-point";
-import {movePoint} from "../interactive-graph-action";
+
+import type {PointGraphState, MafsGraphProps} from "../types";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
 export function PointGraph(props: PointGraphProps) {
     const {dispatch} = props;
-    return <>
-        {props.graphState.coords.map((point, i) => (
-            <StyledMovablePoint key={i} point={point} onMove={(destination) => dispatch(movePoint(i, destination))} />
-        ))}
-    </>
+    return (
+        <>
+            {props.graphState.coords.map((point, i) => (
+                <StyledMovablePoint
+                    key={i}
+                    point={point}
+                    onMove={(destination) =>
+                        dispatch(movePoint(i, destination))
+                    }
+                />
+            ))}
+        </>
+    );
 }

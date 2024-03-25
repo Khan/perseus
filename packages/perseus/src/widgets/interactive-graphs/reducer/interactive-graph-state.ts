@@ -3,6 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {
+    PerseusGraphTypePoint,
     PerseusGraphType,
     PerseusGraphTypeSegment,
     CollinearTuple,
@@ -14,7 +15,6 @@ import type {
 import type {InitializeGraphStateParams, InteractiveGraphState} from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
-import {PerseusGraphTypePoint} from "../../perseus-types";
 
 export function initializeGraphState(params: {
     range: [Interval, Interval];
@@ -75,9 +75,15 @@ export function initializeGraphState(params: {
     }
 }
 
-const getDefaultPoints = (
-    {graph, range, step}: {graph:PerseusGraphTypePoint, range: [Interval, Interval], step: Coord},
-): ReadonlyArray<Coord> => {
+const getDefaultPoints = ({
+    graph,
+    range,
+    step,
+}: {
+    graph: PerseusGraphTypePoint;
+    range: [Interval, Interval];
+    step: Coord;
+}): ReadonlyArray<Coord> => {
     const numPoints = graph.numPoints || 1;
     let coords = graph.coords;
 
@@ -85,53 +91,53 @@ const getDefaultPoints = (
         return coords;
     }
     switch (numPoints) {
-    case 1:
-        // Back in the day, one point's coords were in graph.coord
-        coords = [graph.coord || [0, 0]];
-        break;
-    case 2:
-        coords = [
-            [-5, 0],
-            [5, 0],
-        ];
-        break;
-    case 3:
-        coords = [
-            [-5, 0],
-            [0, 0],
-            [5, 0],
-        ];
-        break;
-    case 4:
-        coords = [
-            [-6, 0],
-            [-2, 0],
-            [2, 0],
-            [6, 0],
-        ];
-        break;
-    case 5:
-        coords = [
-            [-6, 0],
-            [-3, 0],
-            [0, 0],
-            [3, 0],
-            [6, 0],
-        ];
-        break;
-    case 6:
-        coords = [
-            [-5, 0],
-            [-3, 0],
-            [-1, 0],
-            [1, 0],
-            [3, 0],
-            [5, 0],
-        ];
-        break;
-    default:
-        coords = [];
-        break;
+        case 1:
+            // Back in the day, one point's coords were in graph.coord
+            coords = [graph.coord || [0, 0]];
+            break;
+        case 2:
+            coords = [
+                [-5, 0],
+                [5, 0],
+            ];
+            break;
+        case 3:
+            coords = [
+                [-5, 0],
+                [0, 0],
+                [5, 0],
+            ];
+            break;
+        case 4:
+            coords = [
+                [-6, 0],
+                [-2, 0],
+                [2, 0],
+                [6, 0],
+            ];
+            break;
+        case 5:
+            coords = [
+                [-6, 0],
+                [-3, 0],
+                [0, 0],
+                [3, 0],
+                [6, 0],
+            ];
+            break;
+        case 6:
+            coords = [
+                [-5, 0],
+                [-3, 0],
+                [-1, 0],
+                [1, 0],
+                [3, 0],
+                [5, 0],
+            ];
+            break;
+        default:
+            coords = [];
+            break;
     }
     // Transform coords from their -10 to 10 space to 0 to 1
     // because of the old graph.coord, and also it's easier.
@@ -141,7 +147,7 @@ const getDefaultPoints = (
     ]);
 
     return normalizePoints(range, step, newCoords);
-}
+};
 
 // TS v4 doesn't narrow return types, while v5 does.
 // Instead of updating to v5, using generic type to relate input and output types.

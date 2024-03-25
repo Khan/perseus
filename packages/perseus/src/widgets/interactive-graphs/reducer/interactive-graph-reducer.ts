@@ -3,10 +3,11 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
 import {
-    MOVE_CONTROL_POINT,
     type InteractiveGraphAction,
     MOVE_ALL,
+    MOVE_CONTROL_POINT,
     MOVE_LINE,
+    MOVE_POINT,
 } from "./interactive-graph-action";
 
 import type {CollinearTuple} from "../../../perseus-types";
@@ -146,6 +147,23 @@ export function interactiveGraphReducer<
                 coords: newCoords,
             };
         }
+        case MOVE_POINT:
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: snap({
+                        snapStep: state.snapStep,
+                        point: bound({
+                            point: action.destination,
+                            range: state.range,
+                            snapStep: state.snapStep,
+                        }),
+                    }),
+                }),
+            };
         default:
             throw new UnreachableCaseError(action);
     }

@@ -6,6 +6,7 @@ import * as React from "react";
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
+import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -20,7 +21,6 @@ import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {PointGraph} from "./graphs/point";
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
