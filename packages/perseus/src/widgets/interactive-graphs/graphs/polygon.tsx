@@ -51,24 +51,24 @@ export const PolygonGraph = (props: Props) => {
                         : "var(--movable-line-stroke-weight)",
                 }}
             />
-            {showAngles &&
-                points.map((point, i) => {
-                    const pt1 = points.at(i - 1);
-                    const pt2 = points[(i + 1) % points.length];
-                    if (!pt1 || !pt2) {
-                        return null;
-                    }
-                    return (
-                        <Angle
-                            key={"angle-" + i}
-                            centerPoint={point}
-                            endPoints={[pt1, pt2]}
-                            active={active}
-                            range={range}
-                            polygonPoints={points}
-                        />
-                    );
-                })}
+            {points.map((point, i) => {
+                const pt1 = points.at(i - 1);
+                const pt2 = points[(i + 1) % points.length];
+                if (!pt1 || !pt2) {
+                    return null;
+                }
+                return (
+                    <Angle
+                        key={"angle-" + i}
+                        centerPoint={point}
+                        endPoints={[pt1, pt2]}
+                        active={active}
+                        range={range}
+                        polygonPoints={points}
+                        showAngles={!!showAngles}
+                    />
+                );
+            })}
             {/**
              * This transparent svg creates a nice big click/touch target,
              * since the polygon itself can be made smaller than the spec.
