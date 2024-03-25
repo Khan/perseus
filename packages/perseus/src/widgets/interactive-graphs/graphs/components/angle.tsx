@@ -4,6 +4,7 @@ import * as React from "react";
 import {clockwise} from "../../../../util/geometry";
 import {getRayIntersectionCoords as getRangeIntersectionVertex} from "../utils";
 
+import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
 
 import type {CollinearTuple} from "../../../../perseus-types";
@@ -54,26 +55,30 @@ export const Angle = ({
 
     if (!showAngles) {
         return isRightAngle(angle) ? (
-            <RightAngleArc start={[x1, y1]} vertex={[x2, y2]} end={[x3, y3]} />
+            <RightAngleSquare
+                start={[x1, y1]}
+                vertex={[x2, y2]}
+                end={[x3, y3]}
+            />
         ) : null;
     }
 
     // Midpoint betwen ends of arc
-    const isInside = shouldDrawArcInside(
+    const isOutside = shouldDrawArcOutside(
         [x3, y3],
         centerPoint,
         range,
         polygonLines,
     );
 
-    const largeArcFlag = isInside ? 1 : 0;
-    const sweepFlag = isInside ? 1 : 0;
+    const largeArcFlag = isOutside ? 1 : 0;
+    const sweepFlag = isOutside ? 1 : 0;
 
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
 
     let angleInDegrees = angle * (180 / Math.PI);
     // If we have triggered "largArcFlag", the angle should be greater than 180
-    if (isInside) {
+    if (isOutside) {
         angleInDegrees = 360 - angleInDegrees;
     }
 
@@ -97,20 +102,16 @@ export const Angle = ({
                 </filter>
             </defs>
 
-            {!isInside && isRightAngle(angle) ? (
-                <RightAngleArc
+            {!isOutside && isRightAngle(angle) ? (
+                <RightAngleSquare
                     start={[x1, y1]}
                     vertex={[x2, y2]}
                     end={[x3, y3]}
                 />
             ) : (
-                <g
-                    style={{
-                        transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
-                    }}
-                >
+                <MafsCssTransformWrapper>
                     <path d={arc} strokeWidth={0.02} fill="none" />
-                </g>
+                </MafsCssTransformWrapper>
             )}
 
             <TextLabel
@@ -130,75 +131,57 @@ export const Angle = ({
     );
 };
 
-const RightAngleArc = ({start: [x1, y1], vertex: [x2, y2], end: [x3, y3]}) => (
-    <g
-        style={{
-            transform: `var(--mafs-view-transform) var(--mafs-user-transform)`,
-        }}
-    >
+/**
+ * This is broken out into its own component so that it can be used for an early return
+ * (see line 55 or https://github.com/Khan/perseus/blob/84bbd882b11d16871e1b813a0b901f3b903d5479/packages/perseus/src/widgets/interactive-graphs/graphs/components/angle.tsx#L53-L57)
+ */
+const RightAngleSquare = ({
+    start: [x1, y1],
+    vertex: [x2, y2],
+    end: [x3, y3],
+}) => (
+    <MafsCssTransformWrapper>
         <path
             d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
             strokeWidth={0.02}
             fill="none"
         />
-    </g>
+    </MafsCssTransformWrapper>
 );
 
-const isRightAngle = (angle) => Math.abs(angle - Math.PI / 2) < 0.01;
+const isRightAngle = (angle: number) => Math.abs(angle - Math.PI / 2) < 0.01;
 
-const shouldDrawArcInside = (
-    midPoint: vec.Vector2,
+/**
+ * Determines if an angle is an inside (false) or outside (true) angle.
+ * They way, we know to flip the `largeArc` and `sweepArc` flags.
+ * Uses the priciple that a ray from a point inside a polygon will intersect
+ * with an odd number of lines, while a ray from a point outside the polygon
+ * will intersect with an even number of lines.
+ * https://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
+ */
+export const shouldDrawArcOutside = (
+    midpoint: vec.Vector2,
     vertex: vec.Vector2,
     range: [Interval, Interval],
     polygonLines: readonly CollinearTuple[],
 ) => {
+    // Create a ray from the midpoint (inside angle) to the edge of the range
     const rangeIntersectionPoint = getRangeIntersectionVertex(
+        midpoint,
         vertex,
-        midPoint,
         range,
     );
-    let lineIntersections = 0;
+
+    let lineIntersectionCount = 0;
 
     polygonLines.forEach(
         (line) =>
             linesIntersect([vertex, rangeIntersectionPoint], line) &&
-            lineIntersections++,
+            lineIntersectionCount++,
     );
 
-    // The intersection check will sometimes return false if it intersects with
-    // another vertex, so in the case we get 0 intersections, we check for points.
-    if (lineIntersections === 0) {
-        const polygonPoints = polygonLines.map(([point]) => point);
-        // find point in array
-        const midpointIndex = polygonPoints.findIndex(
-            ([x, y]) => x === midPoint[0] && y === midPoint[1],
-        );
-        // get array sans point and adjacent points
-        const [prev, next] = [
-            (midpointIndex - 1 + polygonPoints.length) % polygonPoints.length,
-            (midpointIndex + 1) % polygonPoints.length,
-        ];
-        const [[lineAx, lineAy], [lineBx, lineBy]] = [
-            midPoint,
-            rangeIntersectionPoint,
-        ];
-        for (let i = 0; i < polygonPoints.length; i++) {
-            if ([prev, midpointIndex, next].includes(i)) {
-                continue;
-            }
-            const [x, y] = polygonPoints[i];
-            const intersectsPoint =
-                (y - lineAy) * (lineBx - lineAx) ===
-                (lineBy - lineAy) * (x - lineAx);
-            if (intersectsPoint) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     // If the number of intersections is even, the angle is inside the polygon
-    return isEven(lineIntersections);
+    return !isEven(lineIntersectionCount);
 };
 
 // https://stackoverflow.com/a/24392281/7347484

@@ -30,6 +30,7 @@ const questions = [
     interactiveGraph.polygonQuestion,
     interactiveGraph.polygonWithAnglesQuestion,
     interactiveGraph.polygonWithAnglesAndManySidesQuestion,
+    interactiveGraph.polygonWithAnglesAndFourSidesQuestion,
     interactiveGraph.rayQuestion,
     interactiveGraph.sinusoidQuestion,
     grapher.absoluteValueQuestion,
