@@ -40,7 +40,7 @@ export const genericPerseusItemData: PerseusItem = {
  * uses a basic Perseus object and updates it with custom values as needed.
  *
  * @param {Partial<PerseusItem>} customFields
- * @returns PerseusItem
+ * @returns {PerseusItem}
  */
 export function generateTestPerseusItem(
     customFields: Partial<PerseusItem> = {},
@@ -48,6 +48,12 @@ export function generateTestPerseusItem(
     return {...genericPerseusItemData, ...customFields};
 }
 
+/**
+ * Creates an object with the bare amount
+ * of data to be a properly typed RadioWidget
+ *
+ * @returns {RadioWidget} skeleton RadioWidget for testing
+ */
 export function generateTestRadioWidget(): RadioWidget {
     return {
         type: "radio",
@@ -57,6 +63,12 @@ export function generateTestRadioWidget(): RadioWidget {
     };
 }
 
+/**
+ * Creates an object with the bare amount
+ * of data to be a properly typed InteractiveGraphWidget
+ *
+ * @returns {InteractiveGraphWidget} skeleton InteractiveGraphWidget for testing
+ */
 export function generateTestInteractiveGraphWidget(): InteractiveGraphWidget {
     return {
         type: "interactive-graph",
@@ -84,6 +96,12 @@ export function generateTestInteractiveGraphWidget(): InteractiveGraphWidget {
     };
 }
 
+/**
+ * Creates an object with the bare amount
+ * of data to be a properly typed InteractiveGraphWidget
+ *
+ * @returns {InteractiveGraphWidget} skeleton InteractiveGraphWidget for testing
+ */
 export function generateTestCategorizerWidget(): CategorizerWidget {
     return {
         type: "categorizer",
@@ -97,6 +115,12 @@ export function generateTestCategorizerWidget(): CategorizerWidget {
     };
 }
 
+/**
+ * Creates an object with the bare amount
+ * of data to be a properly typed ExpressionWidget
+ *
+ * @returns {ExpressionWidget} skeleton ExpressionWidget for testing
+ */
 export function generateTestExpressionWidget(): ExpressionWidget {
     return {
         type: "expression",
@@ -109,6 +133,12 @@ export function generateTestExpressionWidget(): ExpressionWidget {
     };
 }
 
+/**
+ * Creates an object with the bare amount
+ * of data to be a properly typed NumericInputWidget
+ *
+ * @returns {NumericInputWidget} skeleton NumericInputWidget for testing
+ */
 export function generateTestNumericInputWidget(): NumericInputWidget {
     return {
         type: "numeric-input",

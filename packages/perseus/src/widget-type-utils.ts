@@ -6,6 +6,14 @@ import type {
     PerseusWidgetsMap,
 } from "./perseus-types";
 
+/**
+ * Get a widget type by a widget's ID
+ * (please don't derive type from ID)
+ *
+ * @param {string} widgetId the ID of the widget
+ * @param {PerseusWidgetsMap} widgetMap widget ID to widget map
+ * @returns {string} the widget type (ie "radio")
+ */
 export function getWidgetTypeByWidgetId(
     WidgetId: string,
     widgetMap: PerseusWidgetsMap,
@@ -14,6 +22,14 @@ export function getWidgetTypeByWidgetId(
     return widget?.type ?? null;
 }
 
+/**
+ * Does the content have a specific type of widget?
+ *
+ * @param {string} type the type of the widget in question (ie "radio")
+ * @param {string} content the string to search through
+ * @param {PerseusWidgetsMap} widgetMap widget ID to widget map
+ * @returns {boolean} if the content includes the widget type
+ */
 export function contentHasWidgetType(
     type: string,
     content: string,
@@ -30,9 +46,11 @@ export function contentHasWidgetType(
  * which look like: '[[☃ radio 1]]'.
  *
  * @param {string} content
- * @returns {Array<string>} widgetIds
+ * @returns {ReadonlyArray<string>} widgetIds
  */
-export function getWidgetIdsFromContent(content: string): Array<string> {
+export function getWidgetIdsFromContent(
+    content: string,
+): ReadonlyArray<string> {
     const widgets: Array<string> = [];
     const localWidgetRegex = getWidgetRegex();
 
@@ -46,6 +64,15 @@ export function getWidgetIdsFromContent(content: string): Array<string> {
     return widgets;
 }
 
+/**
+ * Get a list of widget IDs from content,
+ * but only for specific widget types
+ *
+ * @param {string} type the type of widget (ie "radio")
+ * @param {string} content the string to parse
+ * @param {PerseusWidgetsMap} widgetMap widget ID to widget map
+ * @returns {ReadonlyArray<string>} the widget type (ie "radio")
+ */
 export function getWidgetIdsFromContentByType(
     type: string,
     content: string,
@@ -62,12 +89,24 @@ export function getWidgetIdsFromContentByType(
     return rv;
 }
 
+/**
+ * Pull the widget map out of ItemData
+ *
+ * @param {PerseusItem} PerseusItem containing a widgetMap
+ * @returns {WidgetMap} the widget map in the PerseusItem
+ */
 export function getWidgetsMapFromItemData(
     itemData: PerseusItem,
-): PerseusWidgetsMap | null {
-    return itemData?.question?.widgets ?? null;
+): PerseusWidgetsMap {
+    return itemData.question.widgets;
 }
 
+/**
+ * Get the widget information from a WidgetMap
+ *
+ * @param {string} widgetId the ID of the widget
+ * @returns {PerseusWidget | null} the widget data if it exists, otherwise null
+ */
 export function getWidgetFromWidgetMap(
     widgetId: string,
     widgetMap: PerseusWidgetsMap,
@@ -75,6 +114,15 @@ export function getWidgetFromWidgetMap(
     return widgetMap[widgetId] ?? null;
 }
 
+/**
+ * Get select widgets from a widget map.
+ * Useful for multi-items that needs to split
+ * one PerseusItem into several
+ *
+ * @param {ReadonlyArray<string>} widgetIds to extract
+ * @param {PerseusWidgetsMap} widgetMap to extract from
+ * @return {PerseusWidgetsMap} a new widget map with requested widgets
+ */
 export function getWidgetsFromWidgetMap(
     widgetIds: ReadonlyArray<string>,
     widgetMap: PerseusWidgetsMap,
