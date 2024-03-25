@@ -174,16 +174,16 @@ export const shouldDrawArcOutside = (
     );
 
     const lines = getLines(polygonPoints);
-    let lineIntersections = 0;
+    let lineIntersectionCount = 0;
 
     lines.forEach(
         (line) =>
             linesIntersect([vertex, rangeIntersectionPoint], line) &&
-            lineIntersections++,
+            lineIntersectionCount++,
     );
 
     // If the number of intersections is even, the angle is inside the polygon
-    return !isEven(lineIntersections);
+    return !isEven(lineIntersectionCount);
 };
 
 const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
