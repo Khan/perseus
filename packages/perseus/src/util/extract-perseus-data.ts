@@ -1,8 +1,16 @@
 import {keys} from "@khanacademy/wonder-stuff-core";
 
+import {
+    getWidgetTypeByWidgetId,
+    getWidgetsMapFromItemData,
+} from "../widget-type-utils";
 import * as Widgets from "../widgets";
 
-import type {PerseusItem, PerseusRenderer} from "../perseus-types";
+import type {
+    PerseusItem,
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "../perseus-types";
 
 /**
  * This function extracts the answers from the widgets.
@@ -554,24 +562,28 @@ const SUPPORTED_WIDGETS = [
     ...INDIVIDUAL_ANSWER_WIDGETS,
 ];
 
-export const getWidgetTypeFromWidgetKey = (widgetKey: string): string => {
-    return widgetKey.split(" ")[0];
-};
-
 /* Verify if the perseus item has supported widgets for automatic scoring */
-export const isWrongAnswerSupported = (widgetKeys: Array<string>): boolean => {
+export const isWrongAnswerSupported = (
+    widgetKeys: Array<string>,
+    widgetMap: PerseusWidgetsMap,
+): boolean => {
     return (
         widgetKeys.length !== 0 &&
         widgetKeys.every((widgetKey) =>
-            SUPPORTED_WIDGETS.includes(getWidgetTypeFromWidgetKey(widgetKey)),
+            SUPPORTED_WIDGETS.includes(
+                getWidgetTypeByWidgetId(widgetKey, widgetMap) as string,
+            ),
         )
     );
 };
 
 /* Verify if the widget key has an individual answer for the coach report view  */
-export const shouldHaveIndividualAnswer = (widgetKey: string): boolean => {
+export const shouldHaveIndividualAnswer = (
+    widgetKey: string,
+    widgetMap: PerseusWidgetsMap,
+): boolean => {
     return INDIVIDUAL_ANSWER_WIDGETS.includes(
-        getWidgetTypeFromWidgetKey(widgetKey),
+        getWidgetTypeByWidgetId(widgetKey, widgetMap) as string,
     );
 };
 
@@ -599,7 +611,8 @@ export const getCorrectAnswerForWidgetKey = (
     itemData: PerseusItem,
 ): string | undefined => {
     const rubric = itemData.question.widgets[widgetKey].options;
-    const widgetType = getWidgetTypeFromWidgetKey(widgetKey);
+    const widgetMap = getWidgetsMapFromItemData(itemData) as PerseusWidgetsMap;
+    const widgetType = getWidgetTypeByWidgetId(widgetKey, widgetMap) as string;
 
     const widget = Widgets.getWidget(widgetType);
 
