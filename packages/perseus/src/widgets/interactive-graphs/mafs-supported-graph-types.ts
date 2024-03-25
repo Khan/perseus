@@ -4,6 +4,7 @@ export const mafsSupportedGraphTypes = [
     "linear-system",
     "ray",
     "polygon",
+    "point",
 ] as const;
 
 export type MafsSupportedGraphType = (typeof mafsSupportedGraphTypes)[number];
