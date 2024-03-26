@@ -1,6 +1,7 @@
 import {parse, compare} from "./kas/src";
 import {init, Widgets, Renderer, Dependencies} from "./perseus/src";
 import KhanUtils from "./perseus/src/util";
+import KhanAnswerTypesUtils from "./perseus/src/util/answer-types";
 import GraphUtils from "./perseus/src/util/graphie";
 
 export interface TexOptions {
@@ -16,6 +17,7 @@ export interface PerseusCore {
     Renderer: typeof Renderer;
     GraphUtils: typeof GraphUtils;
     KhanUtils: typeof KhanUtils;
+    KhanAnswerTypesUtils: typeof KhanAnswerTypesUtils;
     parseTex: (
         tex: string,
         options?: TexOptions,
@@ -41,6 +43,7 @@ export {
     GraphUtils,
     Dependencies,
     KhanUtils,
+    KhanAnswerTypesUtils,
 };
 
 export type {WidgetExports} from "./perseus/src";
