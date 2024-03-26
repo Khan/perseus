@@ -59,7 +59,7 @@ describe("widget-type-utils", () => {
             expect(result).toBeTrue();
         });
 
-        it("returns false when found", () => {
+        it("returns false when not found", () => {
             // Assemble
             const type = "radio";
             const widgetId = "dont-look-for-type-in-id";
