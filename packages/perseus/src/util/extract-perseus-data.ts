@@ -611,7 +611,7 @@ export const getCorrectAnswerForWidgetId = (
     itemData: PerseusItem,
 ): string | undefined => {
     const rubric = itemData.question.widgets[widgetId].options;
-    const widgetMap = getWidgetsMapFromItemData(itemData) as PerseusWidgetsMap;
+    const widgetMap = getWidgetsMapFromItemData(itemData);
     const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
     const widget = Widgets.getWidget(widgetType);

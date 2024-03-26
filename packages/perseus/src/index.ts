@@ -84,9 +84,9 @@ export {
     injectWidgets,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
-    isWidgetKeyInContent,
-    getValidWidgetKeys,
-    getCorrectAnswerForWidgetKey,
+    isWidgetIdInContent,
+    getValidWidgetIds,
+    getCorrectAnswerForWidgetId,
     getAnswerFromUserInput,
 } from "./util/extract-perseus-data";
 export {parsePerseusItem} from "./util/parse-perseus-json";
