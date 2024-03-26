@@ -2366,13 +2366,11 @@ class InteractiveGraph extends React.Component<Props, State> {
         // When nothing has moved, there will neither be coords nor the
         // circle's center/radius fields. When those fields are absent, skip
         // all these checks; just go mark the answer as empty.
-        const hasValue = !!(
-            (
-                // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
-                userInput.coords ||
+        const hasValue = Boolean(
+            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
+            userInput.coords ||
                 // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
-                (userInput.center && userInput.radius)
-            )
+                (userInput.center && userInput.radius),
         );
 
         if (userInput.type === rubric.correct.type && hasValue) {
