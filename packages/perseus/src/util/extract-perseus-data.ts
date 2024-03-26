@@ -564,26 +564,26 @@ const SUPPORTED_WIDGETS = [
 
 /* Verify if the perseus item has supported widgets for automatic scoring */
 export const isWrongAnswerSupported = (
-    widgetKeys: Array<string>,
+    widgetIds: Array<string>,
     widgetMap: PerseusWidgetsMap,
 ): boolean => {
     return (
-        widgetKeys.length !== 0 &&
-        widgetKeys.every((widgetKey) =>
+        widgetIds.length !== 0 &&
+        widgetIds.every((widgetId) =>
             SUPPORTED_WIDGETS.includes(
-                getWidgetTypeByWidgetId(widgetKey, widgetMap) as string,
+                getWidgetTypeByWidgetId(widgetId, widgetMap) as string,
             ),
         )
     );
 };
 
-/* Verify if the widget key has an individual answer for the coach report view  */
+/* Verify if the widget ID has an individual answer for the coach report view  */
 export const shouldHaveIndividualAnswer = (
-    widgetKey: string,
+    widgetId: string,
     widgetMap: PerseusWidgetsMap,
 ): boolean => {
     return INDIVIDUAL_ANSWER_WIDGETS.includes(
-        getWidgetTypeByWidgetId(widgetKey, widgetMap) as string,
+        getWidgetTypeByWidgetId(widgetId, widgetMap) as string,
     );
 };
 
@@ -603,16 +603,16 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
     return userInput;
 };
 
-/* Returns the correct answer for a given widget key and Perseus Item */
+/* Returns the correct answer for a given widget ID and Perseus Item */
 // TODO (LEMS-1835): We should fix the resonse type from getWidget to be specific.
 // TODO (LEMS-1836): We should also consider adding the getOneCorrectAnswerFromRubric method to all widgets.
-export const getCorrectAnswerForWidgetKey = (
-    widgetKey: string,
+export const getCorrectAnswerForWidgetId = (
+    widgetId: string,
     itemData: PerseusItem,
 ): string | undefined => {
-    const rubric = itemData.question.widgets[widgetKey].options;
+    const rubric = itemData.question.widgets[widgetId].options;
     const widgetMap = getWidgetsMapFromItemData(itemData) as PerseusWidgetsMap;
-    const widgetType = getWidgetTypeByWidgetId(widgetKey, widgetMap) as string;
+    const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
     const widget = Widgets.getWidget(widgetType);
 
@@ -620,20 +620,18 @@ export const getCorrectAnswerForWidgetKey = (
     return widget?.getOneCorrectAnswerFromRubric?.(rubric);
 };
 
-/* Verify if the widget key exists in the content string of the Perseus Item */
-export const isWidgetKeyInContent = (
+/* Verify if the widget ID exists in the content string of the Perseus Item */
+export const isWidgetIdInContent = (
     perseusItem: PerseusItem,
-    widgetKey: string,
+    widgetId: string,
 ): boolean => {
-    return perseusItem.question.content.indexOf(widgetKey as string) !== -1;
+    return perseusItem.question.content.indexOf(widgetId as string) !== -1;
 };
 
-/* Return an array of all the widget keys that exist in the content string of a Perseus Item */
-export const getValidWidgetKeys = (perseusItem: PerseusItem): Array<string> => {
+/* Return an array of all the widget IDs that exist in the content string of a Perseus Item */
+export const getValidWidgetIds = (perseusItem: PerseusItem): Array<string> => {
     const {widgets} = perseusItem.question;
-    return keys(widgets).filter((key) =>
-        isWidgetKeyInContent(perseusItem, key),
-    );
+    return keys(widgets).filter((id) => isWidgetIdInContent(perseusItem, id));
 };
 
 export {getAnswersFromWidgets, injectWidgets};

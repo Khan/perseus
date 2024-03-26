@@ -7,10 +7,10 @@ import {
 } from "../__testdata__/extract-perseus-data.testdata";
 import {
     getAnswersFromWidgets,
-    getCorrectAnswerForWidgetKey,
-    getValidWidgetKeys,
+    getCorrectAnswerForWidgetId,
+    getValidWidgetIds,
     injectWidgets,
-    isWidgetKeyInContent,
+    isWidgetIdInContent,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
@@ -1106,12 +1106,12 @@ describe("ExtractPerseusData", () => {
         });
     });
 
-    describe("getCorrectAnswerForWidgetKey", () => {
+    describe("getCorrectAnswerForWidgetId", () => {
         it("returns undefined if the widget type does not support fetching one correct answer", () => {
             // Our Radio widget type does not support fetching one correct answer yet
             stub.mockReturnValue(Radio.widget);
             expect(
-                getCorrectAnswerForWidgetKey(
+                getCorrectAnswerForWidgetId(
                     "radio 1",
                     PerseusItemWithRadioWidget,
                 ),
@@ -1120,7 +1120,7 @@ describe("ExtractPerseusData", () => {
         it("returns a correct answer if the widget type supports one correct answer", () => {
             stub.mockReturnValue(InputNumber.widget);
             expect(
-                getCorrectAnswerForWidgetKey(
+                getCorrectAnswerForWidgetId(
                     "input-number 1",
                     PerseusItemWithInputNumber,
                 ),
@@ -1128,28 +1128,28 @@ describe("ExtractPerseusData", () => {
         });
     });
 
-    describe("isWidgetKeyInContent", () => {
-        it("returns true if the widget key is in the content", () => {
+    describe("isWidgetIdInContent", () => {
+        it("returns true if the widget ID is in the content", () => {
             expect(
-                isWidgetKeyInContent(PerseusItemWithRadioWidget, "radio 1"),
+                isWidgetIdInContent(PerseusItemWithRadioWidget, "radio 1"),
             ).toBe(true);
             expect(
-                isWidgetKeyInContent(
+                isWidgetIdInContent(
                     PerseusItemWithInputNumber,
                     "input-number 1",
                 ),
             ).toBe(true);
         });
-        it("returns false if the widget key is NOT in the content", () => {
+        it("returns false if the widget ID is NOT in the content", () => {
             expect(
-                isWidgetKeyInContent(PerseusItemWithInputNumber, "not-found"),
+                isWidgetIdInContent(PerseusItemWithInputNumber, "not-found"),
             ).toBe(false);
         });
     });
 
-    describe("getValidWidgetKeys", () => {
-        it("returns all widget keys that exist in the content", () => {
-            expect(getValidWidgetKeys(PerseusItemWithRadioWidget)).toEqual([
+    describe("getValidWidgetIds", () => {
+        it("returns all widget IDs that exist in the content", () => {
+            expect(getValidWidgetIds(PerseusItemWithRadioWidget)).toEqual([
                 "radio 1",
             ]);
         });
