@@ -66,9 +66,9 @@ export function initializeGraphState(params: {
 
 // TS v4 doesn't narrow return types, while v5 does.
 // Instead of updating to v5, using generic type to relate input and output types.
-export function getGradableGraph<GraphType extends PerseusGraphType>(
+export function getGradableGraph(
     state: InteractiveGraphState,
-    initialGraph: GraphType,
+    initialGraph: PerseusGraphType,
 ): PerseusGraphType {
     if (!state.hasBeenInteractedWith) {
         return {type: initialGraph.type};
