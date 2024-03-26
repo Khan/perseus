@@ -66,40 +66,55 @@ export function initializeGraphState(params: {
 
 // TS v4 doesn't narrow return types, while v5 does.
 // Instead of updating to v5, using generic type to relate input and output types.
-export function getGradableGraph<GraphType extends PerseusGraphType>(
+export function getGradableGraph(
     state: InteractiveGraphState,
-    initialGraph: GraphType,
-): GraphType {
+    initialGraph: PerseusGraphType,
+): PerseusGraphType {
     if (!state.hasBeenInteractedWith) {
-        return initialGraph;
+        return {type: initialGraph.type};
     }
-    switch (true) {
-        // coords: Array of CollinearTuple
-        case state.type === "linear-system" &&
-            initialGraph.type === "linear-system":
-        case state.type === "segment" && initialGraph.type === "segment":
-            return {
-                ...initialGraph,
-                coords: state.coords,
-            };
-        // coords: CollinearTuple
-        case state.type === "linear" && initialGraph.type === "linear":
-        case state.type === "ray" && initialGraph.type === "ray":
-            return {
-                ...initialGraph,
-                coords: state.coords?.[0],
-            };
-        case state.type === "polygon" && initialGraph.type === "polygon":
-            return {
-                ...initialGraph,
-                coords: state.coords,
-            };
-        default:
-            throw new Error(
-                "Mafs is not yet implemented for graph type: " +
-                    initialGraph.type,
-            );
+
+    if (
+        initialGraph.type === "linear-system" &&
+        state.type === "linear-system"
+    ) {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
     }
+
+    if (state.type === "segment" && initialGraph.type === "segment") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
+    if (state.type === "linear" && initialGraph.type === "linear") {
+        return {
+            ...initialGraph,
+            coords: state.coords?.[0],
+        };
+    }
+
+    if (state.type === "ray" && initialGraph.type === "ray") {
+        return {
+            ...initialGraph,
+            coords: state.coords?.[0],
+        };
+    }
+
+    if (state.type === "polygon" && initialGraph.type === "polygon") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
+    throw new Error(
+        "Mafs is not yet implemented for graph type: " + initialGraph.type,
+    );
 }
 
 const getDefaultSegments = ({

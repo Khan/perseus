@@ -2359,25 +2359,27 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static validate(
-        // TODO(kevinb): rename state to userInput
-        // state === userInput
-        state: PerseusGraphType,
+        userInput: PerseusGraphType,
         rubric: Rubric,
         component: any,
     ): PerseusScore {
         // When nothing has moved, there will neither be coords nor the
         // circle's center/radius fields. When those fields are absent, skip
         // all these checks; just go mark the answer as empty.
-        // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
-        const hasValue = !!(state.coords || (state.center && state.radius));
+        const hasValue = Boolean(
+            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
+            userInput.coords ||
+                // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
+                (userInput.center && userInput.radius),
+        );
 
-        if (state.type === rubric.correct.type && hasValue) {
+        if (userInput.type === rubric.correct.type && hasValue) {
             if (
-                state.type === "linear" &&
+                userInput.type === "linear" &&
                 rubric.correct.type === "linear" &&
-                state.coords != null
+                userInput.coords != null
             ) {
-                const guess = state.coords;
+                const guess = userInput.coords;
                 const correct = rubric.correct.coords;
 
                 // If both of the guess points are on the correct line, it's
@@ -2396,11 +2398,11 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "linear-system" &&
+                userInput.type === "linear-system" &&
                 rubric.correct.type === "linear-system" &&
-                state.coords != null
+                userInput.coords != null
             ) {
-                const guess = state.coords;
+                const guess = userInput.coords;
                 const correct = rubric.correct.coords as ReadonlyArray<
                     ReadonlyArray<Coord>
                 >;
@@ -2423,12 +2425,14 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "quadratic" &&
+                userInput.type === "quadratic" &&
                 rubric.correct.type === "quadratic" &&
-                state.coords != null
+                userInput.coords != null
             ) {
                 // If the parabola coefficients match, it's correct.
-                const guessCoeffs = this.getQuadraticCoefficients(state.coords);
+                const guessCoeffs = this.getQuadraticCoefficients(
+                    userInput.coords,
+                );
                 const correctCoeffs = this.getQuadraticCoefficients(
                     // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
@@ -2442,11 +2446,13 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "sinusoid" &&
+                userInput.type === "sinusoid" &&
                 rubric.correct.type === "sinusoid" &&
-                state.coords != null
+                userInput.coords != null
             ) {
-                const guessCoeffs = this.getSinusoidCoefficients(state.coords);
+                const guessCoeffs = this.getSinusoidCoefficients(
+                    userInput.coords,
+                );
                 const correctCoeffs = this.getSinusoidCoefficients(
                     // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
@@ -2466,12 +2472,12 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "circle" &&
+                userInput.type === "circle" &&
                 rubric.correct.type === "circle"
             ) {
                 if (
-                    deepEq(state.center, rubric.correct.center) &&
-                    eq(state.radius, rubric.correct.radius)
+                    deepEq(userInput.center, rubric.correct.center) &&
+                    eq(userInput.radius, rubric.correct.radius)
                 ) {
                     return {
                         type: "points",
@@ -2481,15 +2487,15 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "point" &&
+                userInput.type === "point" &&
                 rubric.correct.type === "point" &&
-                state.coords != null
+                userInput.coords != null
             ) {
                 let correct = InteractiveGraph.getPointCoords(
                     rubric.correct,
                     component,
                 );
-                const guess = state.coords?.slice();
+                const guess = userInput.coords?.slice();
                 correct = correct.slice();
                 // Everything's already rounded so we shouldn't need to do an
                 // eq() comparison but _.isEqual(0, -0) is false, so we'll use
@@ -2507,11 +2513,11 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "polygon" &&
+                userInput.type === "polygon" &&
                 rubric.correct.type === "polygon" &&
-                state.coords != null
+                userInput.coords != null
             ) {
-                const guess: Array<Coord> = state.coords?.slice();
+                const guess: Array<Coord> = userInput.coords?.slice();
                 // @ts-expect-error - TS2322 - Type 'Coord[] | undefined' is not assignable to type 'Coord[]'.
                 const correct: Array<Coord> = rubric.correct.coords?.slice();
 
@@ -2538,11 +2544,11 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "segment" &&
+                userInput.type === "segment" &&
                 rubric.correct.type === "segment" &&
-                state.coords != null
+                userInput.coords != null
             ) {
-                let guess = state.coords.slice();
+                let guess = userInput.coords.slice();
                 let correct = rubric.correct.coords?.slice();
                 guess = _.invoke(guess, "sort").sort();
                 // @ts-expect-error - TS2345 - Argument of type '(readonly Coord[])[] | undefined' is not assignable to parameter of type 'Collection<any>'.
@@ -2556,11 +2562,11 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "ray" &&
+                userInput.type === "ray" &&
                 rubric.correct.type === "ray" &&
-                state.coords != null
+                userInput.coords != null
             ) {
-                const guess = state.coords;
+                const guess = userInput.coords;
                 const correct = rubric.correct.coords;
                 if (
                     // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
@@ -2576,10 +2582,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                     };
                 }
             } else if (
-                state.type === "angle" &&
+                userInput.type === "angle" &&
                 rubric.correct.type === "angle"
             ) {
-                const guess = state.coords;
+                const guess = userInput.coords;
                 const correct = rubric.correct.coords;
 
                 let match;
@@ -2620,7 +2626,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
         // The input wasn't correct, so check if it's a blank input or if it's
         // actually just wrong
-        if (!hasValue || _.isEqual(state, rubric.graph)) {
+        if (!hasValue || _.isEqual(userInput, rubric.graph)) {
             // We're where we started.
             return {
                 type: "invalid",
