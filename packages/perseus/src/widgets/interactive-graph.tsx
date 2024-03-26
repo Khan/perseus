@@ -2367,7 +2367,10 @@ class InteractiveGraph extends React.Component<Props, State> {
         // circle's center/radius fields. When those fields are absent, skip
         // all these checks; just go mark the answer as empty.
         // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
-        const hasValue = !!(userInput.coords || (userInput.center && userInput.radius));
+        const hasValue = !!(
+            userInput.coords ||
+            (userInput.center && userInput.radius)
+        );
 
         if (userInput.type === rubric.correct.type && hasValue) {
             if (
@@ -2426,7 +2429,9 @@ class InteractiveGraph extends React.Component<Props, State> {
                 userInput.coords != null
             ) {
                 // If the parabola coefficients match, it's correct.
-                const guessCoeffs = this.getQuadraticCoefficients(userInput.coords);
+                const guessCoeffs = this.getQuadraticCoefficients(
+                    userInput.coords,
+                );
                 const correctCoeffs = this.getQuadraticCoefficients(
                     // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
@@ -2444,7 +2449,9 @@ class InteractiveGraph extends React.Component<Props, State> {
                 rubric.correct.type === "sinusoid" &&
                 userInput.coords != null
             ) {
-                const guessCoeffs = this.getSinusoidCoefficients(userInput.coords);
+                const guessCoeffs = this.getSinusoidCoefficients(
+                    userInput.coords,
+                );
                 const correctCoeffs = this.getSinusoidCoefficients(
                     // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
