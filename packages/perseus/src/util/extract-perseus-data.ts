@@ -8,8 +8,9 @@ import * as Widgets from "../widgets";
 
 import type {
     PerseusItem,
-    PerseusRenderer,
+    PerseusRadioWidgetOptions,
     PerseusWidgetsMap,
+    PerseusRenderer,
 } from "../perseus-types";
 
 /**
@@ -166,9 +167,7 @@ function getAnswersFromWidgets(
                 const orderer = widget;
                 if (orderer.options?.correctOptions) {
                     answers.push(
-                        orderer.options.correctOptions
-                            .map((option) => option.content)
-                            .join("\n"),
+                        joinOptionContents(orderer.options.correctOptions),
                     );
                 }
                 break;
@@ -234,6 +233,28 @@ function getAnswersFromWidgets(
 }
 
 /**
+ * Join the content of the options together.
+ * @param {Array<{content: string}>} options
+ * @returns {string}
+ */
+const joinOptionContents = (options: readonly {content: string}[]): string =>
+    options.map(({content}) => content).join("\n");
+
+/**
+ * Convert an index to an option letter.
+ * @param {number} index
+ * @returns {string}
+ * @example
+ * toOptionLetter(0) // 'A'
+ * toOptionLetter(1) // 'B'
+ * toOptionLetter(25) // 'Z'
+ * // Once the index goes past 25, it will start returning special characters
+ * toOptionLetter(26) // '['
+ */
+const toOptionLetter = (index: number): string =>
+    String.fromCharCode("A".charCodeAt(0) + index);
+
+/**
  * Inject a string equivalent of the widgets into the content.
  *
  * Content may contain Perseus widgets, that looks like this: '[[☃ Radio 1]]'.
@@ -246,6 +267,7 @@ function getAnswersFromWidgets(
 function injectWidgets(
     content: string,
     widgets: PerseusRenderer["widgets"],
+    widgetProps?: PerseusWidgetsMap,
 ): string {
     // The types for taskProgress.itemData are not well defined,
     // so there is a chance that widgets or content could be undefined.
@@ -269,14 +291,25 @@ function injectWidgets(
         switch (widget.type) {
             case "radio":
                 // Replace radio with the radio options
-                // '[[☃ Radio 1]]' -> 'option 1\noption 2\noption 3'
+                // '[[☃ Radio 1]]' -> 'choice 1\nchoice 2\nchoice 3'
+                // or if the current widget state is available with proper order,
+                // '[[☃ Radio 1]]' ->
+                //   'Option A: choice 1\nOption B: choice 2\nOption C: choice 3'
                 const radio = widget;
+                const radioProps = widgetProps?.[widgetID] as
+                    | PerseusRadioWidgetOptions
+                    | null
+                    | undefined;
                 if (radio.options?.choices?.length) {
-                    let radioContext = radio.options.choices
-                        .map((choice) => choice.content)
-                        .join("\n");
+                    let radioContext = joinOptionContents(
+                        radioProps
+                            ? radioProps.choices.map(({content}, i) => ({
+                                  content: `Option ${toOptionLetter(i)}: ${content}`,
+                              }))
+                            : radio.options.choices,
+                    );
 
-                    if (radio.options?.randomize) {
+                    if (!radioProps && radio.options?.randomize) {
                         radioContext +=
                             "\nThose options are displayed in a different order to the user. If the user says the letter, number, or ordinal number, always ask them clarify which option they are referring to.\n";
                     }
@@ -444,9 +477,7 @@ function injectWidgets(
                 if (orderer.options?.options) {
                     context = context.replace(
                         `[[☃ ${widgetID}]]`,
-                        orderer.options.options
-                            .map((option) => option.content)
-                            .join("\n"),
+                        joinOptionContents(orderer.options.options),
                     );
                 }
                 break;
