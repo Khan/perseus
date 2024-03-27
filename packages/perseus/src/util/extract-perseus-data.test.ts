@@ -23,7 +23,7 @@ describe("injectWidgets", () => {
             expect(result).toEqual(expected);
         });
 
-        it("should attach a note if the order is randomized and there is no serialized state", () => {
+        it("should attach a note if the order is randomized and there is no widget props", () => {
             const content = "[[☃ Radio 1]]";
             const widgets = {
                 "Radio 1": {
@@ -44,7 +44,7 @@ describe("injectWidgets", () => {
             expect(result).toEqual(expected);
         });
 
-        it("should use serialized state when available", () => {
+        it("should use widget props when available to get correct order", () => {
             const content = "[[☃ Radio 1]]";
             const widgets = {
                 "Radio 1": {
@@ -59,7 +59,7 @@ describe("injectWidgets", () => {
                     },
                 },
             };
-            const serializedState = {
+            const widgetProps = {
                 question: {
                     "Radio 1": {
                         choices: [
@@ -72,7 +72,7 @@ describe("injectWidgets", () => {
                 hints: {},
             };
             const expected = "Option A: 2\nOption B: 1\nOption C: 3";
-            const result = injectWidgets(content, widgets, serializedState);
+            const result = injectWidgets(content, widgets, widgetProps);
             expect(result).toEqual(expected);
         });
     });

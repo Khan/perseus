@@ -292,7 +292,7 @@ function injectWidgets(
             case "radio":
                 // Replace radio with the radio options
                 // '[[☃ Radio 1]]' -> 'choice 1\nchoice 2\nchoice 3'
-                // or if the serialized state is available,
+                // or if the current widget state is available with proper order,
                 // '[[☃ Radio 1]]' ->
                 //   'Option A: choice 1\nOption B: choice 2\nOption C: choice 3'
                 const radio = widget;
