@@ -593,6 +593,9 @@ class Editor extends React.Component<Props, State> {
         // eg. If there is an "image 2" already present in the editor and we're
         // about to paste in two new images, return
         // { "image 1": "image 3", "image 2": "image 4" }
+        //
+        // TODO switch to UUIDs rather than these fragile IDs
+        // see: LEMS-1845
 
         // List of widgets about to be pasted as [[name, number], ...]
         const widgets = _.keys(widgetData).map((name) => name.split(" "));

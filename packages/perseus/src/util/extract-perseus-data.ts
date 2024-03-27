@@ -1,8 +1,17 @@
 import {keys} from "@khanacademy/wonder-stuff-core";
 
+import {
+    getWidgetTypeByWidgetId,
+    getWidgetsMapFromItemData,
+} from "../widget-type-utils";
 import * as Widgets from "../widgets";
 
-import type {PerseusItem, PerseusRenderer} from "../perseus-types";
+import type {
+    PerseusItem,
+    PerseusRadioWidgetOptions,
+    PerseusWidgetsMap,
+    PerseusRenderer,
+} from "../perseus-types";
 
 /**
  * This function extracts the answers from the widgets.
@@ -158,9 +167,7 @@ function getAnswersFromWidgets(
                 const orderer = widget;
                 if (orderer.options?.correctOptions) {
                     answers.push(
-                        orderer.options.correctOptions
-                            .map((option) => option.content)
-                            .join("\n"),
+                        joinOptionContents(orderer.options.correctOptions),
                     );
                 }
                 break;
@@ -226,6 +233,28 @@ function getAnswersFromWidgets(
 }
 
 /**
+ * Join the content of the options together.
+ * @param {Array<{content: string}>} options
+ * @returns {string}
+ */
+const joinOptionContents = (options: readonly {content: string}[]): string =>
+    options.map(({content}) => content).join("\n");
+
+/**
+ * Convert an index to an option letter.
+ * @param {number} index
+ * @returns {string}
+ * @example
+ * toOptionLetter(0) // 'A'
+ * toOptionLetter(1) // 'B'
+ * toOptionLetter(25) // 'Z'
+ * // Once the index goes past 25, it will start returning special characters
+ * toOptionLetter(26) // '['
+ */
+const toOptionLetter = (index: number): string =>
+    String.fromCharCode("A".charCodeAt(0) + index);
+
+/**
  * Inject a string equivalent of the widgets into the content.
  *
  * Content may contain Perseus widgets, that looks like this: '[[☃ Radio 1]]'.
@@ -238,6 +267,7 @@ function getAnswersFromWidgets(
 function injectWidgets(
     content: string,
     widgets: PerseusRenderer["widgets"],
+    widgetProps?: PerseusWidgetsMap,
 ): string {
     // The types for taskProgress.itemData are not well defined,
     // so there is a chance that widgets or content could be undefined.
@@ -261,14 +291,25 @@ function injectWidgets(
         switch (widget.type) {
             case "radio":
                 // Replace radio with the radio options
-                // '[[☃ Radio 1]]' -> 'option 1\noption 2\noption 3'
+                // '[[☃ Radio 1]]' -> 'choice 1\nchoice 2\nchoice 3'
+                // or if the current widget state is available with proper order,
+                // '[[☃ Radio 1]]' ->
+                //   'Option A: choice 1\nOption B: choice 2\nOption C: choice 3'
                 const radio = widget;
+                const radioProps = widgetProps?.[widgetID] as
+                    | PerseusRadioWidgetOptions
+                    | null
+                    | undefined;
                 if (radio.options?.choices?.length) {
-                    let radioContext = radio.options.choices
-                        .map((choice) => choice.content)
-                        .join("\n");
+                    let radioContext = joinOptionContents(
+                        radioProps
+                            ? radioProps.choices.map(({content}, i) => ({
+                                  content: `Option ${toOptionLetter(i)}: ${content}`,
+                              }))
+                            : radio.options.choices,
+                    );
 
-                    if (radio.options?.randomize) {
+                    if (!radioProps && radio.options?.randomize) {
                         radioContext +=
                             "\nThose options are displayed in a different order to the user. If the user says the letter, number, or ordinal number, always ask them clarify which option they are referring to.\n";
                     }
@@ -436,9 +477,7 @@ function injectWidgets(
                 if (orderer.options?.options) {
                     context = context.replace(
                         `[[☃ ${widgetID}]]`,
-                        orderer.options.options
-                            .map((option) => option.content)
-                            .join("\n"),
+                        joinOptionContents(orderer.options.options),
                     );
                 }
                 break;
@@ -554,24 +593,28 @@ const SUPPORTED_WIDGETS = [
     ...INDIVIDUAL_ANSWER_WIDGETS,
 ];
 
-export const getWidgetTypeFromWidgetKey = (widgetKey: string): string => {
-    return widgetKey.split(" ")[0];
-};
-
 /* Verify if the perseus item has supported widgets for automatic scoring */
-export const isWrongAnswerSupported = (widgetKeys: Array<string>): boolean => {
+export const isWrongAnswerSupported = (
+    widgetIds: Array<string>,
+    widgetMap: PerseusWidgetsMap,
+): boolean => {
     return (
-        widgetKeys.length !== 0 &&
-        widgetKeys.every((widgetKey) =>
-            SUPPORTED_WIDGETS.includes(getWidgetTypeFromWidgetKey(widgetKey)),
+        widgetIds.length !== 0 &&
+        widgetIds.every((widgetId) =>
+            SUPPORTED_WIDGETS.includes(
+                getWidgetTypeByWidgetId(widgetId, widgetMap) as string,
+            ),
         )
     );
 };
 
-/* Verify if the widget key has an individual answer for the coach report view  */
-export const shouldHaveIndividualAnswer = (widgetKey: string): boolean => {
+/* Verify if the widget ID has an individual answer for the coach report view  */
+export const shouldHaveIndividualAnswer = (
+    widgetId: string,
+    widgetMap: PerseusWidgetsMap,
+): boolean => {
     return INDIVIDUAL_ANSWER_WIDGETS.includes(
-        getWidgetTypeFromWidgetKey(widgetKey),
+        getWidgetTypeByWidgetId(widgetId, widgetMap) as string,
     );
 };
 
@@ -591,15 +634,16 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
     return userInput;
 };
 
-/* Returns the correct answer for a given widget key and Perseus Item */
+/* Returns the correct answer for a given widget ID and Perseus Item */
 // TODO (LEMS-1835): We should fix the resonse type from getWidget to be specific.
 // TODO (LEMS-1836): We should also consider adding the getOneCorrectAnswerFromRubric method to all widgets.
-export const getCorrectAnswerForWidgetKey = (
-    widgetKey: string,
+export const getCorrectAnswerForWidgetId = (
+    widgetId: string,
     itemData: PerseusItem,
 ): string | undefined => {
-    const rubric = itemData.question.widgets[widgetKey].options;
-    const widgetType = getWidgetTypeFromWidgetKey(widgetKey);
+    const rubric = itemData.question.widgets[widgetId].options;
+    const widgetMap = getWidgetsMapFromItemData(itemData);
+    const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
     const widget = Widgets.getWidget(widgetType);
 
@@ -607,20 +651,18 @@ export const getCorrectAnswerForWidgetKey = (
     return widget?.getOneCorrectAnswerFromRubric?.(rubric);
 };
 
-/* Verify if the widget key exists in the content string of the Perseus Item */
-export const isWidgetKeyInContent = (
+/* Verify if the widget ID exists in the content string of the Perseus Item */
+export const isWidgetIdInContent = (
     perseusItem: PerseusItem,
-    widgetKey: string,
+    widgetId: string,
 ): boolean => {
-    return perseusItem.question.content.indexOf(widgetKey as string) !== -1;
+    return perseusItem.question.content.indexOf(widgetId as string) !== -1;
 };
 
-/* Return an array of all the widget keys that exist in the content string of a Perseus Item */
-export const getValidWidgetKeys = (perseusItem: PerseusItem): Array<string> => {
+/* Return an array of all the widget IDs that exist in the content string of a Perseus Item */
+export const getValidWidgetIds = (perseusItem: PerseusItem): Array<string> => {
     const {widgets} = perseusItem.question;
-    return keys(widgets).filter((key) =>
-        isWidgetKeyInContent(perseusItem, key),
-    );
+    return keys(widgets).filter((id) => isWidgetIdInContent(perseusItem, id));
 };
 
 export {getAnswersFromWidgets, injectWidgets};
