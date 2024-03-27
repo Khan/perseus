@@ -12,7 +12,6 @@ import type {
     PerseusWidgetsMap,
     PerseusRenderer,
 } from "../perseus-types";
-import type {ServerItemRenderer} from "../server-item-renderer";
 
 /**
  * This function extracts the answers from the widgets.
@@ -268,7 +267,7 @@ const toOptionLetter = (index: number): string =>
 function injectWidgets(
     content: string,
     widgets: PerseusRenderer["widgets"],
-    serializedState?: ReturnType<ServerItemRenderer["getSerializedState"]>,
+    widgetProps?: PerseusWidgetsMap,
 ): string {
     // The types for taskProgress.itemData are not well defined,
     // so there is a chance that widgets or content could be undefined.
@@ -297,9 +296,10 @@ function injectWidgets(
                 // '[[☃ Radio 1]]' ->
                 //   'Option A: choice 1\nOption B: choice 2\nOption C: choice 3'
                 const radio = widget;
-                const radioSerializedState = serializedState?.question?.[
-                    widgetID
-                ] as PerseusRadioWidgetOptions | null | undefined;
+                const radioSerializedState = widgetProps?.[widgetID] as
+                    | PerseusRadioWidgetOptions
+                    | null
+                    | undefined;
                 if (radio.options?.choices?.length) {
                     let radioContext = joinOptionContents(
                         radioSerializedState
