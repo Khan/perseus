@@ -15,7 +15,8 @@ import {
     linearQuestionWithDefaultCorrect,
     linearSystemQuestionWithDefaultCorrect,
     rayQuestionWithDefaultCorrect,
-    polygonQuestionDefaultCorrect, pointQuestionWithDefaultCorrect,
+    polygonQuestionDefaultCorrect,
+    pointQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
