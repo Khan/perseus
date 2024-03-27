@@ -40,26 +40,20 @@ export function interactiveGraphReducer<
                               setAtIndex({
                                   array: tuple,
                                   index: action.pointIndex,
-                                  newValue: snap({
+                                  newValue: snapAndBound({
                                       snapStep,
-                                      point: bound({
-                                          snapStep,
-                                          range,
-                                          point: action.destination,
-                                      }),
+                                      range,
+                                      point: action.destination,
                                   }),
                               }),
                       })
                     : setAtIndex({
                           array: state.coords,
                           index: action.pointIndex,
-                          newValue: snap({
+                          newValue: snapAndBound({
                               snapStep,
-                              point: bound({
-                                  snapStep,
-                                  range,
-                                  point: action.destination,
-                              }),
+                              range,
+                              point: action.destination,
                           }),
                       });
 
@@ -154,13 +148,10 @@ export function interactiveGraphReducer<
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap({
+                    newValue: snapAndBound({
+                        point: action.destination,
+                        range: state.range,
                         snapStep: state.snapStep,
-                        point: bound({
-                            point: action.destination,
-                            range: state.range,
-                            snapStep: state.snapStep,
-                        }),
                     }),
                 }),
             };
@@ -194,6 +185,17 @@ interface ConstraintArgs {
     snapStep: vec.Vector2;
     range: [Interval, Interval];
     point: vec.Vector2;
+}
+
+function snapAndBound({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
+    return snap({
+        snapStep,
+        point: bound({
+            snapStep,
+            range,
+            point,
+        }),
+    })
 }
 
 function snap({snapStep, point}: Omit<ConstraintArgs, "range">): vec.Vector2 {
