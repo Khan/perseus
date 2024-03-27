@@ -1,5 +1,6 @@
 import {initializeGraphState} from "./interactive-graph-state";
-import {Interval, vec} from "mafs";
+
+import type {Interval, vec} from "mafs";
 
 const baseGraphData = {
     range: [
