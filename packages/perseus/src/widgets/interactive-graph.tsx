@@ -1813,10 +1813,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             return (
                 <MafsGraph
                     {...this.props}
-                    // Passing a key here ensures that the graph state is
-                    // cleared out if a new graph is rendered at the same DOM
-                    // location as a previous graph.
-                    key={JSON.stringify(this.props.graph)}
                     ref={this.mafsRef}
                     gridStep={gridStep}
                     snapStep={snapStep}
