@@ -91,9 +91,17 @@ class Explanation extends React.Component<Props, State> {
         // Special styling is needed to fit the button in a block of text without throwing off the line spacing.
         // While the button is not normally included in a block of text, it needs to be able to accommodate such a case.
         const buttonStyleOverrides = {
-            height: "22px",
+            height: "auto",
             marginLeft: "-2px",
-            padding: "0 2px",
+            marginRight: "2px",
+            paddingLeft: "2px",
+        };
+
+        const labelStyle = {
+            fontSize: "18px",
+            lineHeight: "20px",
+            marginRight: "-6px",
+            "white-space": "normal",
         };
 
         const contentStyling = [
@@ -119,8 +127,9 @@ class Explanation extends React.Component<Props, State> {
                             aria-controls={ids.get("content")}
                             endIcon={caretIcon}
                             kind="tertiary"
+                            labelStyle={labelStyle}
                             onClick={this._onClick}
-                            size="large"
+                            size="small"
                             style={buttonStyleOverrides}
                         >
                             {promptText}

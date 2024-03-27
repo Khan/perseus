@@ -5,6 +5,7 @@ import {
     ipsumExample,
     question1,
     question2,
+    wideButton,
 } from "../__testdata__/explanation.testdata";
 
 export default {
@@ -23,4 +24,8 @@ export const Question2 = (args: StoryArgs): React.ReactElement => {
 
 export const IpsumExample = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={ipsumExample} />;
+};
+
+export const WideButton = (args: StoryArgs): React.ReactElement => {
+    return <RendererWithDebugUI question={wideButton} />;
 };
