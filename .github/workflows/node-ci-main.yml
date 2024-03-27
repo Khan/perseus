@@ -12,7 +12,7 @@ on:
 # workflow.
 # See https://docs.github.com/en/actions/using-jobs/using-concurrency
 concurrency:
-    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    group: ${{ github.workflow }}
     cancel-in-progress: false
 
 # Our jobs run like this to minimize wasting resource cycles:
