@@ -2,15 +2,11 @@ import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
     CollinearTuple,
     PerseusGraphType,
-    PerseusGraphTypeLinearSystem,
-    PerseusGraphTypePolygon,
-    PerseusGraphTypeRay,
-    PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../../perseus-types";
 import type {WidgetProps} from "../../types";
+import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
-import {Coord} from "@khanacademy/perseus";
 
 export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
