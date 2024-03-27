@@ -10,6 +10,7 @@ import type {
 } from "../../perseus-types";
 import type {WidgetProps} from "../../types";
 import type {Interval, vec} from "mafs";
+import {Coord} from "@khanacademy/perseus";
 
 export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
@@ -41,18 +42,24 @@ export interface InteractiveGraphStateCommon {
     snapStep: vec.Vector2;
 }
 
-export type SegmentGraphState = InteractiveGraphStateCommon &
-    Omit<PerseusGraphTypeSegment, "numSegments">;
+export interface SegmentGraphState extends InteractiveGraphStateCommon {
+    type: "segment";
+    coords: ReadonlyArray<CollinearTuple>;
+}
 
-export type LinearGraphState = InteractiveGraphStateCommon &
-    Omit<PerseusGraphTypeLinearSystem, "type"> & {
-        type: "linear" | "linear-system";
-    };
+export interface LinearGraphState extends InteractiveGraphStateCommon {
+    type: "linear" | "linear-system";
+    coords: ReadonlyArray<CollinearTuple>;
+}
 
-export type RayGraphState = InteractiveGraphStateCommon &
-    Omit<PerseusGraphTypeRay, "coords"> & {
-        coords: readonly CollinearTuple[];
-    };
+export interface RayGraphState extends InteractiveGraphStateCommon {
+    type: "ray";
+    coords: ReadonlyArray<CollinearTuple>;
+}
 
-export type PolygonGraphState = InteractiveGraphStateCommon &
-    PerseusGraphTypePolygon;
+export interface PolygonGraphState extends InteractiveGraphStateCommon {
+    type: "polygon";
+    showAngles: boolean;
+    showSides: boolean;
+    coords: ReadonlyArray<Coord>;
+}

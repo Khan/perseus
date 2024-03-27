@@ -2495,7 +2495,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     rubric.correct,
                     component,
                 );
-                const guess = userInput.coords?.slice();
+                const guess = userInput.coords.slice();
                 correct = correct.slice();
                 // Everything's already rounded so we shouldn't need to do an
                 // eq() comparison but _.isEqual(0, -0) is false, so we'll use
