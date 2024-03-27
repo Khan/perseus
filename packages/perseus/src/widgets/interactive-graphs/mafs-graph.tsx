@@ -6,6 +6,7 @@ import * as React from "react";
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
+import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -37,6 +38,8 @@ const renderGraph = (props: {
             return <RayGraph graphState={state} dispatch={dispatch} />;
         case "polygon":
             return <PolygonGraph graphState={state} dispatch={dispatch} />;
+        case "point":
+            return <PointGraph graphState={state} dispatch={dispatch} />;
         default:
             return new UnreachableCaseError(type);
     }

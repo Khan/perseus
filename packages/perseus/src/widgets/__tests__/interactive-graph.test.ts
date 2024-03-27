@@ -16,6 +16,7 @@ import {
     linearSystemQuestionWithDefaultCorrect,
     rayQuestionWithDefaultCorrect,
     polygonQuestionDefaultCorrect,
+    pointQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
@@ -141,6 +142,7 @@ describe("mafs graphs", () => {
         "linear-system": linearSystemQuestionWithDefaultCorrect,
         ray: rayQuestionWithDefaultCorrect,
         polygon: polygonQuestionDefaultCorrect,
+        point: pointQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
@@ -150,7 +152,7 @@ describe("mafs graphs", () => {
                 renderQuestion(question, apiOptions);
             });
 
-            it("should reject when has not been interacteracted with", () => {
+            it("should reject when has not been interacted with", () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, apiOptions);
 

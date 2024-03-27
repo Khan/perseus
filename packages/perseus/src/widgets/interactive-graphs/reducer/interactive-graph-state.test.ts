@@ -1,6 +1,17 @@
 import {initializeGraphState} from "./interactive-graph-state";
 
-describe("initializeGraphState", () => {
+import type {Interval, vec} from "mafs";
+
+const baseGraphData = {
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ] as [Interval, Interval],
+    step: [1, 1] as vec.Vector2,
+    snapStep: [1, 1] as vec.Vector2,
+};
+
+describe("initializeGraphState for segment graphs", () => {
     it("sets the range and snapStep", () => {
         const state = initializeGraphState({
             range: [
@@ -18,14 +29,9 @@ describe("initializeGraphState", () => {
         expect(state.snapStep).toEqual([2, 3]);
     });
 
-    it("puts a default segment on a segment graph", () => {
+    it("adds a default segment", () => {
         const state = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
+            ...baseGraphData,
             graph: {type: "segment"},
         });
         expect(state.coords).toEqual([
@@ -33,67 +39,6 @@ describe("initializeGraphState", () => {
                 [-5, 5],
                 [5, 5],
             ],
-        ]);
-    });
-
-    it("puts a default line on a line graph", () => {
-        const state = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
-            graph: {type: "linear-system"},
-        });
-        expect(state.coords).toEqual([
-            [
-                [-5, 5],
-                [5, 5],
-            ],
-            [
-                [-5, -5],
-                [5, -5],
-            ],
-        ]);
-    });
-
-    it("puts a default polygon on a polygon graph", () => {
-        const state = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
-            graph: {type: "polygon"},
-        });
-        expect(state.coords).toEqual([
-            [3, -2],
-            [0, 4],
-            [-3, -2],
-        ]);
-    });
-
-    it("puts an 8-sided polygon on a polygon graph", () => {
-        const state = initializeGraphState({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            snapStep: [1, 1],
-            graph: {type: "polygon", numSides: 8},
-        });
-        expect(state.coords).toEqual([
-            [2, -4],
-            [4, -2],
-            [4, 2],
-            [2, 4],
-            [-2, 4],
-            [-4, 2],
-            [-4, -2],
-            [-2, -4],
         ]);
     });
 
@@ -121,4 +66,95 @@ describe("initializeGraphState", () => {
             ],
         ]);
     });
+});
+
+describe("initializeGraphState for line graphs", () => {
+    it("adds a default line", () => {
+        const state = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "linear-system"},
+        });
+        expect(state.coords).toEqual([
+            [
+                [-5, 5],
+                [5, 5],
+            ],
+            [
+                [-5, -5],
+                [5, -5],
+            ],
+        ]);
+    });
+});
+
+describe("initializeGraphState for polygon graphs", () => {
+    it("adds a default polygon", () => {
+        const state = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "polygon"},
+        });
+        expect(state.coords).toEqual([
+            [3, -2],
+            [0, 4],
+            [-3, -2],
+        ]);
+    });
+
+    it("adds an 8-sided polygon", () => {
+        const state = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "polygon", numSides: 8},
+        });
+        expect(state.coords).toEqual([
+            [2, -4],
+            [4, -2],
+            [4, 2],
+            [2, 4],
+            [-2, 4],
+            [-4, 2],
+            [-4, -2],
+            [-2, -4],
+        ]);
+    });
+});
+
+describe("initializeGraphState for point graphs", () => {
+    it("uses any coords already present", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "point", coords: [[1, 2]]},
+        });
+
+        expect(graph.coords).toEqual([[1, 2]]);
+    });
+
+    it("provides default coords when a the graph requests one point", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "point", numPoints: 1},
+        });
+
+        expect(graph.coords).toEqual([[0, 0]]);
+    });
+
+    it("uses the coordinates in graph.coord if present", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "point", numPoints: 1, coord: [5, 6]},
+        });
+
+        expect(graph.coords).toEqual([[5, 6]]);
+    });
+
+    it.each([2, 3, 4, 5, 6])(
+        "provides %d default coords when the graph requests %d points",
+        (n) => {
+            const graph = initializeGraphState({
+                ...baseGraphData,
+                graph: {type: "point", numPoints: n},
+            });
+
+            expect(graph.coords).toHaveLength(n);
+        },
+    );
 });

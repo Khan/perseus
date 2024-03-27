@@ -426,6 +426,62 @@ export const pointQuestion: PerseusRenderer = {
     },
 };
 
+export const pointQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "We want to find the zeros of this polynomial:\n\n$p(x)=x(2x+5)(x+1)$\n\n**Plot all the zeros ($x$-intercepts) of the polynomial in the interactive graph.**\n\n[[\u2603 interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "interactive-graph",
+            options: {
+                rulerTicks: 10,
+                showProtractor: false,
+                graph: {
+                    type: "point",
+                    coords: [
+                        [0, 0],
+                        [-2.5, 0],
+                        [-1, 0],
+                    ],
+                },
+                snapStep: [0.5, 0.5],
+                labels: ["x", "y"],
+                step: [1, 1],
+                gridStep: [0.5, 0.5],
+                backgroundImage: {
+                    url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/9e825947f778170369f22da5f87239cbf4c1ebe3",
+                    width: 425,
+                    height: 425,
+                },
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                showRuler: false,
+                markings: "none",
+                showTooltips: false,
+                rulerLabel: "",
+                correct: {
+                    coords: [
+                        [0, 0],
+                        [-2.5, 0],
+                        [-1, 0],
+                    ],
+                    numPoints: "unlimited",
+                    type: "point",
+                },
+            },
+            alignment: "default",
+        },
+    },
+};
+
 export const polygonQuestion: PerseusRenderer = {
     content:
         "**Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$.** \n[[\u2603 interactive-graph 1]] \n",
