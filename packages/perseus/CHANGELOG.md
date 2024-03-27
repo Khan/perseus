@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 21.0.0
+
+### Major Changes
+
+-   [#1117](https://github.com/Khan/perseus/pull/1117) [`4a2117e86`](https://github.com/Khan/perseus/commit/4a2117e865b709cd0788c7ddfc0abd011b3d4bac) Thanks [@handeyeco](https://github.com/handeyeco)! - Stop deriving widget type from widget ID
+
+### Patch Changes
+
+-   [#1125](https://github.com/Khan/perseus/pull/1125) [`64fd65129`](https://github.com/Khan/perseus/commit/64fd65129cac78750b848f32e205cb46860ee24b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor getGradableGraph
+
+*   [#1118](https://github.com/Khan/perseus/pull/1118) [`c56633482`](https://github.com/Khan/perseus/commit/c566334824faf9f6f90362bba0276e2ef7d59829) Thanks [@nedredmond](https://github.com/nedredmond)! - Add side length labels to polygon mafs graph
+
+-   [#1122](https://github.com/Khan/perseus/pull/1122) [`ad392c7b1`](https://github.com/Khan/perseus/commit/ad392c7b12ac7a214b03f86b8e68503499aaa381) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix angle-flipping bug on polygon mafs graph
+
 ## 20.8.1
 
 ### Patch Changes
