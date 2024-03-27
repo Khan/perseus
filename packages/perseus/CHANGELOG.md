@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 21.1.0
+
+### Minor Changes
+
+-   [#1127](https://github.com/Khan/perseus/pull/1127) [`8089ad435`](https://github.com/Khan/perseus/commit/8089ad43564044c59cad28428f4a744baaba7250) Thanks [@benchristel](https://github.com/benchristel)! - Port the Point interactive graph type to Mafs
+
+### Patch Changes
+
+-   [#1128](https://github.com/Khan/perseus/pull/1128) [`f7aa9a26d`](https://github.com/Khan/perseus/commit/f7aa9a26d5355e7e7e7e5229ca4bb8b71c3e967a) Thanks [@nedredmond](https://github.com/nedredmond)! - Injects SerializedState into prompt composition for radio widgets
+
+*   [#1132](https://github.com/Khan/perseus/pull/1132) [`3eb870e7a`](https://github.com/Khan/perseus/commit/3eb870e7a1fbcdd0cbec82568491fb9124037057) Thanks [@benchristel](https://github.com/benchristel)! - Internal: revise types used for interactive graph state
+
 ## 21.0.0
 
 ### Major Changes
