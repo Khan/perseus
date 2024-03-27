@@ -53,7 +53,6 @@ export const moveAll = (delta: vec.Vector2): MoveAll => ({
     delta,
 });
 
-// TODO: consolidate with moveAll?
 export const MOVE_POINT = "move-point";
 interface MovePoint {
     type: typeof MOVE_POINT;
