@@ -107,19 +107,29 @@ function clampIndex(index: number, array: unknown[]): number {
 // Selectors
 // ---------------------------------------------------------------------------
 
+export const selectQuestionsAsJSON = cache((state: FlipbookModel): string[] => {
+    return state.questions
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean);
+});
+
 export const selectQuestions = cache(
     (state: FlipbookModel): PerseusRenderer[] => {
-        return state.questions
-            .split("\n")
-            .map((s) => s.trim())
-            .filter(Boolean)
-            .map(parseQuestion);
+        return selectQuestionsAsJSON(state).map(parseQuestion);
     },
 );
 
 export const selectCurrentQuestion = cache(
     (state: FlipbookModel): PerseusRenderer | null => {
         const questions = selectQuestions(state);
+        return questions[selectCurrentQuestionIndex(state)] ?? null;
+    },
+);
+
+export const selectCurrentQuestionAsJSON = cache(
+    (state: FlipbookModel): string | null => {
+        const questions = selectQuestionsAsJSON(state);
         return questions[selectCurrentQuestionIndex(state)] ?? null;
     },
 );

@@ -82,31 +82,34 @@ export * as SizingUtils from "./util/sizing-utils";
 export {
     getAnswersFromWidgets,
     injectWidgets,
-    getWidgetTypeFromWidgetKey,
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
-    isWidgetKeyInContent,
-    getValidWidgetKeys,
-    getCorrectAnswerForWidgetKey,
+    isWidgetIdInContent,
+    getValidWidgetIds,
+    getCorrectAnswerForWidgetId,
     getAnswerFromUserInput,
 } from "./util/extract-perseus-data";
 export {parsePerseusItem} from "./util/parse-perseus-json";
 export {
     generateTestPerseusItem,
     genericPerseusItemData,
+    generateTestRadioWidget,
+    generateTestInteractiveGraphWidget,
+    generateTestCategorizerWidget,
+    generateTestExpressionWidget,
+    generateTestNumericInputWidget,
 } from "./util/test-utils";
 export {
-    convertWidgetNameToEnum,
-    getWidgetTypeFromWidgetId,
-} from "./util/widget-enum-utils";
-export {
-    WidgetType,
-    addWidget,
-    getAllWidgetIds,
-    getAllWidgetTypes,
-    getQuestionWidgetIds,
-    QUESTION_WIDGETS,
-} from "./util/snowman-utils";
+    getWidgetTypeByWidgetId,
+    contentHasWidgetType,
+    getWidgetIdsFromContent,
+    getWidgetIdsFromContentByType,
+    getWidgetsMapFromItemData,
+    getWidgetFromWidgetMap,
+    getWidgetsFromWidgetMap,
+} from "./widget-type-utils";
+export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
+export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
 
 /**
  * Mixins

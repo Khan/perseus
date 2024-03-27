@@ -126,7 +126,7 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
     video: "VIDEO",
 };
 
-export function convertWidgetNameToEnum(name: WidgetName): WidgetEnum {
+export function convertWidgetNameToEnum(name: string): WidgetEnum {
     const widgetEnum = widgetNameToEnum[name];
 
     if (!widgetEnum) {
@@ -134,20 +134,4 @@ export function convertWidgetNameToEnum(name: WidgetName): WidgetEnum {
     }
 
     return widgetEnum;
-}
-
-export function getWidgetTypeFromWidgetId(widgetId: string): WidgetName {
-    const [widgetType, widgetNumber] = widgetId.split(" ");
-
-    if (!widgetNumber) {
-        throw new Error(`Incorrect format for widget ID: ${widgetId}`);
-    }
-
-    if (!widgetNameToEnum[widgetType]) {
-        throw new Error(
-            `Unknown widget type (${widgetType}) in widget ID: ${widgetId}`,
-        );
-    }
-
-    return widgetType as WidgetName;
 }

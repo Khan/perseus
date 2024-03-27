@@ -482,8 +482,12 @@ class Renderer extends React.Component<Props, State> {
                 const newValues: Record<string, any> = {};
 
                 if (!widgetInfo.type) {
+                    // TODO: why does widget have no type?
+                    // We don't want to derive type from widget ID
+                    // see: LEMS-1845
                     newValues.type = widgetId.split(" ")[0];
                 }
+
                 if (!widgetInfo.alignment) {
                     newValues.alignment = "default";
                 }

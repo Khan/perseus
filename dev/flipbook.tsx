@@ -22,6 +22,7 @@ import {
     setQuestions,
     selectNumQuestions,
     jumpToQuestion,
+    selectCurrentQuestionAsJSON,
 } from "./flipbook-model";
 import {Header} from "./header";
 
@@ -47,6 +48,7 @@ export function Flipbook() {
         requestedIndex: 0,
     });
 
+    const questionJSON = selectCurrentQuestionAsJSON(state);
     const question = selectCurrentQuestion(state);
     const numQuestions = selectNumQuestions(state);
     const index = selectCurrentQuestionIndex(state);
@@ -119,7 +121,13 @@ export function Flipbook() {
                     </ol>
                 </div>
                 {question != null && (
-                    <SideBySideQuestionRenderer question={question} />
+                    // Passing a key here ensures that the graph state is
+                    // cleared out if a new graph is rendered at the same DOM
+                    // location as a previous graph.
+                    <SideBySideQuestionRenderer
+                        key={questionJSON}
+                        question={question}
+                    />
                 )}
             </View>
         </>

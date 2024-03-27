@@ -1,10 +1,4 @@
-import {
-    addWidget,
-    getAllWidgetIds,
-    getQuestionWidgetIds,
-    getAllWidgetTypes,
-    getWidgetRegex,
-} from "./snowman-utils";
+import {addWidget, getWidgetRegex} from "./snowman-utils";
 
 describe("widgetRegex", () => {
     it("locates match and capture groups as expected for non-hyphenated widget types", () => {
@@ -16,12 +10,10 @@ describe("widgetRegex", () => {
 
         const widgetPlaceholder = match ? match[0] : null;
         const firstCaptureGroup = match ? match[1] : null;
-        const secondCaptureGroup = match ? match[2] : null;
 
         //Assert
         expect(widgetPlaceholder).toEqual("[[☃ group 1]]");
         expect(firstCaptureGroup).toEqual("group 1");
-        expect(secondCaptureGroup).toEqual("group");
     });
 
     it("locates match and capture groups as expected for hyphenated widget types", () => {
@@ -33,70 +25,10 @@ describe("widgetRegex", () => {
 
         const widgetPlaceholder = match ? match[0] : null;
         const firstCaptureGroup = match ? match[1] : null;
-        const secondCaptureGroup = match ? match[2] : null;
 
         //Assert
         expect(widgetPlaceholder).toEqual("[[☃ numeric-input 1]]");
         expect(firstCaptureGroup).toEqual("numeric-input 1");
-        expect(secondCaptureGroup).toEqual("numeric-input");
-    });
-});
-
-describe("getAllWidgetTypes", () => {
-    it("returns all widget types present in a string with no duplicates", () => {
-        // Arrange
-        const content =
-            "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
-
-        // Act
-        const actual = getAllWidgetTypes(content);
-        const expected = ["passage", "group"];
-
-        // Assert
-        expect(actual).toEqual(expected);
-    });
-});
-
-describe("getAllWidgetIds", () => {
-    it("returns all widget Ids present in a string", () => {
-        // Arrange
-        const content =
-            "> [[☃ passage 3]]\n\n=====\n\n###Questions for Passage 1\n\n[[☃ group 1]]  \n[[☃ group 12]]  \n\n$$\n";
-
-        // Act
-        const actual = getAllWidgetIds(content);
-        const expected = ["passage 3", "group 1", "group 12"];
-
-        // Assert
-        expect(actual).toEqual(expected);
-    });
-});
-
-describe("getQuestionWidgetIds", () => {
-    it("returns all question widgets in a string", () => {
-        // Arrange
-        const questionContent = `${addWidget(
-            "numeric-input 1",
-        )} foo ${addWidget("radio 1")}`;
-
-        // Act
-        const questionWidget = getQuestionWidgetIds(questionContent);
-
-        // Assert
-        expect(questionWidget).toEqual(["numeric-input 1", "radio 1"]);
-    });
-
-    it("does not return non-question widgets", () => {
-        // Arrange
-        const questionContent = `${addWidget(
-            "numeric-input 1",
-        )} ${addWidget("video 1")} ${addWidget("radio 1")}`;
-
-        // Act
-        const questionWidgetNames = getQuestionWidgetIds(questionContent);
-
-        // Assert
-        expect(questionWidgetNames).toEqual(["numeric-input 1", "radio 1"]);
     });
 });
 
