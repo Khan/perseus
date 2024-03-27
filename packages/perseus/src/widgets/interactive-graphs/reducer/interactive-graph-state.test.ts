@@ -8,7 +8,7 @@ const baseGraphData = {
     ] as [Interval, Interval],
     step: [1, 1] as vec.Vector2,
     snapStep: [1, 1] as vec.Vector2,
-}
+};
 
 describe("initializeGraphState for segment graphs", () => {
     it("sets the range and snapStep", () => {
@@ -134,7 +134,7 @@ describe("initializeGraphState for point graphs", () => {
         });
 
         expect(graph.coords).toEqual([[0, 0]]);
-    })
+    });
 
     it("uses the coordinates in graph.coord if present", () => {
         const graph = initializeGraphState({
@@ -145,12 +145,15 @@ describe("initializeGraphState for point graphs", () => {
         expect(graph.coords).toEqual([[5, 6]]);
     });
 
-    it.each([2, 3, 4, 5, 6])("provides %d default coords when the graph requests %d points", (n) => {
-        const graph = initializeGraphState({
-            ...baseGraphData,
-            graph: {type: "point", numPoints: n},
-        });
+    it.each([2, 3, 4, 5, 6])(
+        "provides %d default coords when the graph requests %d points",
+        (n) => {
+            const graph = initializeGraphState({
+                ...baseGraphData,
+                graph: {type: "point", numPoints: n},
+            });
 
-        expect(graph.coords).toHaveLength(n);
-    });
+            expect(graph.coords).toHaveLength(n);
+        },
+    );
 });
