@@ -296,22 +296,20 @@ function injectWidgets(
                 // '[[☃ Radio 1]]' ->
                 //   'Option A: choice 1\nOption B: choice 2\nOption C: choice 3'
                 const radio = widget;
-                const radioSerializedState = widgetProps?.[widgetID] as
+                const radioProps = widgetProps?.[widgetID] as
                     | PerseusRadioWidgetOptions
                     | null
                     | undefined;
                 if (radio.options?.choices?.length) {
                     let radioContext = joinOptionContents(
-                        radioSerializedState
-                            ? radioSerializedState.choices.map(
-                                  ({content}, i) => ({
-                                      content: `Option ${toOptionLetter(i)}: ${content}`,
-                                  }),
-                              )
+                        radioProps
+                            ? radioProps.choices.map(({content}, i) => ({
+                                  content: `Option ${toOptionLetter(i)}: ${content}`,
+                              }))
                             : radio.options.choices,
                     );
 
-                    if (!radioSerializedState && radio.options?.randomize) {
+                    if (!radioProps && radio.options?.randomize) {
                         radioContext +=
                             "\nThose options are displayed in a different order to the user. If the user says the letter, number, or ordinal number, always ask them clarify which option they are referring to.\n";
                     }
