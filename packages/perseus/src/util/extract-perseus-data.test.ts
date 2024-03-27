@@ -1,6 +1,6 @@
 import {injectWidgets} from "./extract-perseus-data";
 
-import type {PerseusRadioChoice} from "../perseus-types";
+import type {PerseusRadioChoice, PerseusWidgetsMap} from "../perseus-types";
 
 describe("injectWidgets", () => {
     describe("radio", () => {
@@ -45,9 +45,9 @@ describe("injectWidgets", () => {
         });
 
         it("should use widget props when available to get correct order", () => {
-            const content = "[[☃ Radio 1]]";
+            const content = "[[☃ radio 1]]";
             const widgets = {
-                "Radio 1": {
+                "radio 1": {
                     type: "radio",
                     options: {
                         choices: [
@@ -58,18 +58,13 @@ describe("injectWidgets", () => {
                         randomize: true,
                     },
                 },
-            };
+            } satisfies PerseusWidgetsMap;
             const widgetProps = {
-                question: {
-                    "Radio 1": {
-                        choices: [
-                            {content: "2"},
-                            {content: "1"},
-                            {content: "3"},
-                        ],
-                    },
+                "radio 1": {
+                    choices: [{content: "2"}, {content: "1"}, {content: "3"}],
+                    type: "radio" as const,
+                    options: {} as any,
                 },
-                hints: {},
             };
             const expected = "Option A: 2\nOption B: 1\nOption C: 3";
             const result = injectWidgets(content, widgets, widgetProps);
