@@ -45,10 +45,12 @@ export function initializeGraphState(params: {
             };
         case "polygon":
             return {
+                type: "polygon",
                 hasBeenInteractedWith: false,
                 range,
                 snapStep,
-                ...graph,
+                showAngles: Boolean(graph.showAngles),
+                showSides: Boolean(graph.showSides),
                 coords: getPolygonCoords({graph, range, step}),
             };
         case "angle":
@@ -94,14 +96,14 @@ export function getGradableGraph(
     if (state.type === "linear" && initialGraph.type === "linear") {
         return {
             ...initialGraph,
-            coords: state.coords?.[0],
+            coords: state.coords[0],
         };
     }
 
     if (state.type === "ray" && initialGraph.type === "ray") {
         return {
             ...initialGraph,
-            coords: state.coords?.[0],
+            coords: state.coords[0],
         };
     }
 

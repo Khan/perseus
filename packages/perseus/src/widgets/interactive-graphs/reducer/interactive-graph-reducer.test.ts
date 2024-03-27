@@ -31,7 +31,7 @@ describe("moveControlPoint", () => {
             moveControlPoint(0, [5, 6], 0),
         );
 
-        expect(updated.coords?.[0]).toEqual([
+        expect(updated.coords[0]).toEqual([
             [5, 6],
             [3, 4],
         ]);
@@ -73,7 +73,7 @@ describe("moveControlPoint", () => {
         );
 
         // Assert: the move was canceled
-        expect(updated.coords?.[0]).toEqual([
+        expect(updated.coords[0]).toEqual([
             [1, 1],
             [2, 2],
         ]);
@@ -98,7 +98,7 @@ describe("moveControlPoint", () => {
 
         // Assert: x snaps to the nearest whole number; y snaps to the nearest
         // multiple of 2.
-        expect(updated.coords?.[0][0]).toEqual([2, 6]);
+        expect(updated.coords[0][0]).toEqual([2, 6]);
     });
 
     it("constrains points to be at least one snap step within the graph bounds", () => {
@@ -122,7 +122,7 @@ describe("moveControlPoint", () => {
             moveControlPoint(0, [99, 99], 0),
         );
 
-        expect(updated.coords?.[0][0]).toEqual([4.5, 7.5]);
+        expect(updated.coords[0][0]).toEqual([4.5, 7.5]);
     });
 });
 
@@ -140,7 +140,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(state, moveLine(0, [5, -3]));
 
-        expect(updated.coords?.[0]).toEqual([
+        expect(updated.coords[0]).toEqual([
             [6, -1],
             [8, 1],
         ]);
@@ -159,7 +159,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(state, moveLine(0, [0.5, 0.5]));
 
-        expect(updated.coords?.[0]).toEqual([
+        expect(updated.coords[0]).toEqual([
             [2, 3],
             [4, 5],
         ]);
@@ -178,7 +178,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(state, moveLine(0, [99, 99]));
 
-        expect(updated.coords?.[0]).toEqual([
+        expect(updated.coords[0]).toEqual([
             [7, 7],
             [9, 9],
         ]);

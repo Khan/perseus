@@ -89,7 +89,7 @@ export function interactiveGraphReducer<
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");
             }
-            const currentLine = state.coords?.[action.itemIndex];
+            const currentLine = state.coords[action.itemIndex];
             if (!currentLine) {
                 throw new Error("No line to move");
             }
