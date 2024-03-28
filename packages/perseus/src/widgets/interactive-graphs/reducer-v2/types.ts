@@ -7,12 +7,13 @@ export interface InteractiveGraphStateV2 {
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
     objects: GraphObject[]
+    // previously: coords: [vec.Vector2, vec.Vector2][]
 }
 
-export type GraphObject = Segment
+export type GraphObject = Segment // Line | Point | Ray | Polygon
 
 // TODO(benchristel): remove readonly from this type?
-export type Segment = {type: "segment", points: readonly [vec.Vector2, vec.Vector2]}
+export type Segment = {type: "segment", points: [vec.Vector2, vec.Vector2]}
 
 // type Line = {type: "line", points: [vec.Vector2, vec.Vector2]}
 //

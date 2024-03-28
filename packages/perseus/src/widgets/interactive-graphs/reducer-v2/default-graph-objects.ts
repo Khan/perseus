@@ -17,7 +17,7 @@ export function getDefaultSegments({
    graph,
    range,
    step,
-}: InitializeGraphStateParams<PerseusGraphTypeSegment>): CollinearTuple[] {
+}: InitializeGraphStateParams<PerseusGraphTypeSegment>): [vec.Vector2, vec.Vector2][] {
     const ys = (n?: number) => {
         switch (n) {
             case 2:

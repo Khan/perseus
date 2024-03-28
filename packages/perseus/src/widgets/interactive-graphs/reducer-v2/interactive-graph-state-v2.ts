@@ -29,10 +29,10 @@ export function initializeGraphStateV2(params: InitializeGraphStateParams): Inte
     };
 }
 
-export function getGradableGraphV2(
+export function getGradableGraphV2<G extends PerseusGraphType>(
     state: {hasBeenInteractedWith: boolean, objects: GraphObject[]},
-    initialGraph: PerseusGraphType
-): PerseusGraphType {
+    initialGraph: G
+): G {
     if (!state.hasBeenInteractedWith) {
         return initialGraph;
     }
