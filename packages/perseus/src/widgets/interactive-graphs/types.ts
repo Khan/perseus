@@ -13,7 +13,7 @@ export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions
 >;
 
-export type MafsGraphProps<T extends InteractiveGraphState> = {
+export type MafsGraphProps<T> = {
     graphState: T;
     dispatch: (action: InteractiveGraphAction) => unknown;
 };

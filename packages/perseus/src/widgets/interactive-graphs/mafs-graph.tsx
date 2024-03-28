@@ -1,5 +1,4 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
@@ -11,26 +10,32 @@ import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {
-    getGradableGraph,
+    getGradableGraph as getGradableGraphV1,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
-import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
+import type {InteractiveGraphProps} from "./types";
 import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {
+    interactiveGraphReducerV2
+} from "./reducer-v2/interactive-graph-reducer-v2";
+import {
+    getGradableGraphV2,
+    initializeGraphStateV2
+} from "./reducer-v2/interactive-graph-state-v2";
 
 const renderGraph = (props: {
-    state: InteractiveGraphState;
+    state: any; // FIXME don't use any
     dispatch: (action: InteractiveGraphAction) => unknown;
 }) => {
     const {state, dispatch} = props;
+    // FIXME implement the other graph types
     const {type} = state;
     switch (type) {
-        case "segment":
-            return <SegmentGraph graphState={state} dispatch={dispatch} />;
         case "linear":
         case "linear-system":
             return <LinearGraph graphState={state} dispatch={dispatch} />;
@@ -40,20 +45,33 @@ const renderGraph = (props: {
             return <PolygonGraph graphState={state} dispatch={dispatch} />;
         case "point":
             return <PointGraph graphState={state} dispatch={dispatch} />;
+        case undefined:
+            // if type is undefined, we are using the new graphState format,
+            // which is currently only implemented for segment graphs
         default:
-            return new UnreachableCaseError(type);
+            return <SegmentGraph graphState={state} dispatch={dispatch}/>;
+            // throw new UnreachableCaseError(type);
     }
 };
 
-export const MafsGraph = React.forwardRef<
-    Partial<Widget>,
-    React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
->((props, ref) => {
+export const MafsGraph = React.forwardRef<Partial<Widget>,
+    React.PropsWithChildren<InteractiveGraphProps> & { box: [number, number] }>((props, ref) => {
     const [width, height] = props.box;
+
+    // FIXME: don't use any
+    let reducer: any = interactiveGraphReducer
+    let initializeState: any = initializeGraphState
+    let getGradableGraph: any = getGradableGraphV1
+    if (props.graph.type === "segment") {
+        reducer = interactiveGraphReducerV2
+        initializeState = initializeGraphStateV2
+        getGradableGraph = getGradableGraphV2
+    }
+
     const [state, dispatch] = React.useReducer(
-        interactiveGraphReducer,
+        reducer,
         props,
-        initializeGraphState,
+        initializeState,
     );
 
     React.useImperativeHandle(ref, () => ({
@@ -92,14 +110,14 @@ export const MafsGraph = React.forwardRef<
                     height={height}
                 >
                     {/* Svg definitions to render only once */}
-                    <SvgDefs />
+                    <SvgDefs/>
 
                     {/* Background layer */}
                     <Grid {...props} />
 
                     {/* Locked layer */}
                     {props.lockedFigures && (
-                        <GraphLockedLayer lockedFigures={props.lockedFigures} />
+                        <GraphLockedLayer lockedFigures={props.lockedFigures}/>
                     )}
 
                     {/* Interactive layer */}

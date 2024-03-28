@@ -1,42 +1,47 @@
 import * as React from "react";
 
-import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
+import {moveControlPoint} from "../reducer-v2/interactive-graph-action-v2";
 
 import {MovableLine} from "./components/movable-line";
 import {StyledMovablePoint} from "./components/movable-point";
 
 import type {InteractiveLineProps} from "./types";
-import type {MafsGraphProps, SegmentGraphState} from "../types";
+import type {MafsGraphProps} from "../types";
 import type {vec} from "mafs";
+import {isSegment} from "../reducer-v2/graph-objects";
+import {InteractiveGraphStateV2} from "../reducer-v2/types";
 
-type SegmentProps = MafsGraphProps<SegmentGraphState>;
+type SegmentProps = MafsGraphProps<InteractiveGraphStateV2>;
 
 export const SegmentGraph = (props: SegmentProps) => {
     const {dispatch} = props;
-    const {coords: segments, snapStep, range} = props.graphState;
+    const {objects, snapStep, range} = props.graphState;
 
     return (
         <>
-            {segments?.map((segment, i) => (
-                <SegmentView
-                    key={i}
-                    collinearPair={segment}
-                    snaps={snapStep}
-                    range={range}
-                    onMoveLine={(delta: vec.Vector2) => {
-                        dispatch(moveLine(i, delta));
-                    }}
-                    onMovePoint={(
-                        endpointIndex: number,
-                        destination: vec.Vector2,
-                    ) =>
-                        dispatch(
-                            moveControlPoint(endpointIndex, destination, i),
-                        )
-                    }
-                    data-testid={"segment" + i}
-                />
-            ))}
+            {objects.filter(isSegment).map((segment, i) => {
+                return (
+                    <SegmentView
+                        key={i}
+                        collinearPair={segment.points}
+                        snaps={snapStep}
+                        range={range}
+                        onMoveLine={(delta: vec.Vector2) => {
+                            // FIXME
+                            // dispatch(moveLine(i, delta));
+                        }}
+                        onMovePoint={(
+                            endpointIndex: number,
+                            destination: vec.Vector2,
+                        ) =>
+                            dispatch(
+                                moveControlPoint(endpointIndex, destination, i),
+                            )
+                        }
+                        data-testid={"segment" + i}
+                    />
+                );
+            })}
         </>
     );
 };
