@@ -27,6 +27,8 @@ export const MovableCircle = (props: {
         constrain: (p) => p,
     });
 
+    const [[centerX, centerY]] = useTransform(center);
+
     return (
         <>
             <g
@@ -36,8 +38,8 @@ export const MovableCircle = (props: {
                 style={{cursor: dragging ? "grabbing" : "grab"}}
             >
                 <circle
-                    cx="0"
-                    cy="0"
+                    cx={centerX}
+                    cy={centerY}
                     r="5"
                     style={{
                         stroke: color,

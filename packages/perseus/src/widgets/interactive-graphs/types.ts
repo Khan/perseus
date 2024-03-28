@@ -43,6 +43,8 @@ export interface InteractiveGraphStateCommon {
 export interface CircleGraphState extends InteractiveGraphStateCommon {
     type: "circle";
     coords: ReadonlyArray<Coord>;
+    center: vec.Vector2;
+    radius: number;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {

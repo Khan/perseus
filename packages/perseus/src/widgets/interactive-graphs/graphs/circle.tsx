@@ -7,9 +7,10 @@ import type {CircleGraphState, MafsGraphProps} from "../types";
 type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 
 export function CircleGraph(props: CircleGraphProps) {
+    const {radius, center} = props.graphState;
     return (
         <>
-            <MovableCircle center={[0, 0]} radius={5} onMove={() => {}} />
+            <MovableCircle center={center} radius={radius} onMove={() => {}} />
         </>
     );
 }

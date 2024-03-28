@@ -62,7 +62,6 @@ export function initializeGraphState(params: {
                 snapStep,
                 coords: getDefaultPoints({graph, step, range}),
             };
-        case "angle":
         case "circle":
             return {
                 type: "circle",
@@ -70,7 +69,10 @@ export function initializeGraphState(params: {
                 range,
                 snapStep,
                 coords: [],
+                center: graph.center || [0, 0],
+                radius: graph.radius || 1,
             };
+        case "angle":
         case "sinusoid":
         case "quadratic":
             throw new Error(
