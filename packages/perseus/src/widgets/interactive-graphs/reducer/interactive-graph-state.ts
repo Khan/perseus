@@ -208,7 +208,7 @@ export function getGradableGraph(
     );
 }
 
-const getDefaultSegments = ({
+export const getDefaultSegments = ({
     graph,
     range,
     step,
