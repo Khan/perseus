@@ -4,6 +4,10 @@ import {mergeConfig} from "vite";
 
 import type {StorybookConfig} from "@storybook/react-vite";
 
+function getAbsolutePath(value: string): any {
+    return dirname(require.resolve(join(value, "package.json")));
+}
+
 const config: StorybookConfig = {
     framework: "@storybook/react-vite",
 
@@ -41,6 +45,17 @@ const config: StorybookConfig = {
     viteFinal: async (config, {configType}) => {
         return mergeConfig(config, {
             ...viteConfig,
+            build: {
+                // Vite 5 has a bug with how it builds `url(data: )` urls when
+                // it inlines SVGs. Given this is mostly used for static
+                // storybook builds, we just tell Vite to never inline assets.
+                // here.
+                // Feature introduced here: https://github.com/vitejs/vite/pull/14643
+                //
+                assetsInlineLimit: (file) => {
+                    return !file.endsWith(".svg");
+                },
+            },
             // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
             assetsInclude: ["/sb-preview/runtime.js"],
             plugins:
@@ -55,6 +70,9 @@ const config: StorybookConfig = {
         });
     },
 
+    core: {
+        disableTelemetry: true,
+    },
     docs: {
         autodocs: true,
     },
