@@ -29,7 +29,8 @@ export type InteractiveGraphState =
     | LinearGraphState
     | RayGraphState
     | PolygonGraphState
-    | PointGraphState;
+    | PointGraphState
+    | CircleGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -37,6 +38,13 @@ export interface InteractiveGraphStateCommon {
     range: [Interval, Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
+}
+
+export interface CircleGraphState extends InteractiveGraphStateCommon {
+    type: "circle";
+    coords: ReadonlyArray<Coord>;
+    center: vec.Vector2;
+    radius: number;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {
