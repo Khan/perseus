@@ -195,7 +195,7 @@ function snapAndBound({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
             range,
             point,
         }),
-    })
+    });
 }
 
 function snap({snapStep, point}: Omit<ConstraintArgs, "range">): vec.Vector2 {
