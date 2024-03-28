@@ -64,6 +64,13 @@ export function initializeGraphState(params: {
             };
         case "angle":
         case "circle":
+            return {
+                type: "circle",
+                hasBeenInteractedWith: false,
+                range,
+                snapStep,
+                coords: [],
+            };
         case "sinusoid":
         case "quadratic":
             throw new Error(

@@ -150,6 +150,7 @@ export function Gallery() {
                         <OptionItem value="point" label="Point" />
                         <OptionItem value="ray" label="Ray" />
                         <OptionItem value="polygon" label="Polygon" />
+                        <OptionItem value="circle" label="Circle" />
                     </MultiSelect>
                     <Strut size={spacing.xSmall_8} />
                     <label htmlFor={flagsId}>Mafs Flags</label>

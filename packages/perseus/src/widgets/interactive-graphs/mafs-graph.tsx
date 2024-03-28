@@ -4,7 +4,13 @@ import {Mafs} from "mafs";
 import * as React from "react";
 
 import GraphLockedLayer from "./graph-locked-layer";
-import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
+import {
+    LinearGraph,
+    PolygonGraph,
+    RayGraph,
+    SegmentGraph,
+    CircleGraph,
+} from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
@@ -40,6 +46,8 @@ const renderGraph = (props: {
             return <PolygonGraph graphState={state} dispatch={dispatch} />;
         case "point":
             return <PointGraph graphState={state} dispatch={dispatch} />;
+        case "circle":
+            return <CircleGraph graphState={state} dispatch={dispatch} />;
         default:
             return new UnreachableCaseError(type);
     }
