@@ -1,11 +1,11 @@
-import {
-    CollinearTuple,
-    PerseusGraphType,
-    PerseusGraphTypeSegment
-} from "../../../perseus-types";
-import {Interval, vec} from "mafs";
-import {Coord} from "@khanacademy/perseus";
 import {normalizeCoords, normalizePoints} from "../utils";
+
+import type {
+    PerseusGraphType,
+    PerseusGraphTypeSegment,
+} from "../../../perseus-types";
+import type {Coord} from "@khanacademy/perseus";
+import type {Interval, vec} from "mafs";
 
 export interface InitializeGraphStateParams<G extends PerseusGraphType> {
     graph: G;
@@ -14,10 +14,13 @@ export interface InitializeGraphStateParams<G extends PerseusGraphType> {
 }
 
 export function getDefaultSegments({
-   graph,
-   range,
-   step,
-}: InitializeGraphStateParams<PerseusGraphTypeSegment>): [vec.Vector2, vec.Vector2][] {
+    graph,
+    range,
+    step,
+}: InitializeGraphStateParams<PerseusGraphTypeSegment>): [
+    vec.Vector2,
+    vec.Vector2,
+][] {
     const ys = (n?: number) => {
         switch (n) {
             case 2:

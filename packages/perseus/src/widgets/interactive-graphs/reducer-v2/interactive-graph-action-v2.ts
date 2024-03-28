@@ -1,4 +1,4 @@
-import {vec} from "mafs";
+import type {vec} from "mafs";
 
 export type ActionV2 = MoveControlPoint;
 

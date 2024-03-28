@@ -3,7 +3,7 @@ import {Mafs} from "mafs";
 import * as React from "react";
 
 import GraphLockedLayer from "./graph-locked-layer";
-import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
+import {LinearGraph, PolygonGraph, RayGraph, GraphObjects} from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
@@ -13,6 +13,7 @@ import {
     getGradableGraph as getGradableGraphV1,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
+import {interactiveGraphReducerV2} from "./reducer-v2/interactive-graph-reducer-v2";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {InteractiveGraphProps} from "./types";
@@ -21,11 +22,8 @@ import type {Widget} from "../../renderer";
 import "mafs/core.css";
 import "./mafs-styles.css";
 import {
-    interactiveGraphReducerV2
-} from "./reducer-v2/interactive-graph-reducer-v2";
-import {
     getGradableGraphV2,
-    initializeGraphStateV2
+    initializeGraphStateV2,
 } from "./reducer-v2/interactive-graph-state-v2";
 
 const renderGraph = (props: {
@@ -45,34 +43,29 @@ const renderGraph = (props: {
             return <PolygonGraph graphState={state} dispatch={dispatch} />;
         case "point":
             return <PointGraph graphState={state} dispatch={dispatch} />;
-        case undefined:
-            // if type is undefined, we are using the new graphState format,
-            // which is currently only implemented for segment graphs
         default:
-            return <SegmentGraph graphState={state} dispatch={dispatch}/>;
-            // throw new UnreachableCaseError(type);
+            return <GraphObjects graphState={state} dispatch={dispatch} />;
+        // FIXME: throw new UnreachableCaseError(type);
     }
 };
 
-export const MafsGraph = React.forwardRef<Partial<Widget>,
-    React.PropsWithChildren<InteractiveGraphProps> & { box: [number, number] }>((props, ref) => {
+export const MafsGraph = React.forwardRef<
+    Partial<Widget>,
+    React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
+>((props, ref) => {
     const [width, height] = props.box;
 
     // FIXME: don't use any
-    let reducer: any = interactiveGraphReducer
-    let initializeState: any = initializeGraphState
-    let getGradableGraph: any = getGradableGraphV1
+    let reducer: any = interactiveGraphReducer;
+    let initializeState: any = initializeGraphState;
+    let getGradableGraph: any = getGradableGraphV1;
     if (props.graph.type === "segment") {
-        reducer = interactiveGraphReducerV2
-        initializeState = initializeGraphStateV2
-        getGradableGraph = getGradableGraphV2
+        reducer = interactiveGraphReducerV2;
+        initializeState = initializeGraphStateV2;
+        getGradableGraph = getGradableGraphV2;
     }
 
-    const [state, dispatch] = React.useReducer(
-        reducer,
-        props,
-        initializeState,
-    );
+    const [state, dispatch] = React.useReducer(reducer, props, initializeState);
 
     React.useImperativeHandle(ref, () => ({
         getUserInput: () => getGradableGraph(state, props.graph),
@@ -110,14 +103,14 @@ export const MafsGraph = React.forwardRef<Partial<Widget>,
                     height={height}
                 >
                     {/* Svg definitions to render only once */}
-                    <SvgDefs/>
+                    <SvgDefs />
 
                     {/* Background layer */}
                     <Grid {...props} />
 
                     {/* Locked layer */}
                     {props.lockedFigures && (
-                        <GraphLockedLayer lockedFigures={props.lockedFigures}/>
+                        <GraphLockedLayer lockedFigures={props.lockedFigures} />
                     )}
 
                     {/* Interactive layer */}

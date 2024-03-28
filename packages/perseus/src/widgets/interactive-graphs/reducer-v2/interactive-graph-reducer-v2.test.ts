@@ -1,6 +1,7 @@
-import {InteractiveGraphStateV2} from "./types";
-import {interactiveGraphReducerV2} from "./interactive-graph-reducer-v2";
 import {moveControlPoint} from "./interactive-graph-action-v2";
+import {interactiveGraphReducerV2} from "./interactive-graph-reducer-v2";
+
+import type {InteractiveGraphStateV2} from "./types";
 
 const baseGraphState: InteractiveGraphStateV2 = {
     hasBeenInteractedWith: false,
@@ -18,10 +19,11 @@ describe("moveControlPoint", () => {
             ...baseGraphState,
             objects: [
                 {
-                    type: "segment", points: [
+                    type: "segment",
+                    points: [
                         [1, 2],
                         [3, 4],
-                    ]
+                    ],
                 },
             ],
         };
@@ -32,10 +34,11 @@ describe("moveControlPoint", () => {
         );
 
         expect(updated.objects[0]).toEqual({
-            type: "segment", points: [
+            type: "segment",
+            points: [
                 [5, 6],
                 [3, 4],
-            ]
+            ],
         });
     });
 
@@ -44,10 +47,11 @@ describe("moveControlPoint", () => {
             ...baseGraphState,
             objects: [
                 {
-                    type: "segment", points: [
+                    type: "segment",
+                    points: [
                         [1, 2],
                         [3, 4],
-                    ]
+                    ],
                 },
             ],
         };
@@ -65,10 +69,11 @@ describe("moveControlPoint", () => {
             ...baseGraphState,
             objects: [
                 {
-                    type: "segment", points: [
+                    type: "segment",
+                    points: [
                         [1, 1],
                         [2, 2],
-                    ]
+                    ],
                 },
             ],
         };
@@ -80,10 +85,11 @@ describe("moveControlPoint", () => {
 
         // Assert: the move was canceled
         expect(updated.objects[0]).toEqual({
-            type: "segment", points: [
+            type: "segment",
+            points: [
                 [1, 1],
                 [2, 2],
-            ]
+            ],
         });
     });
 
@@ -93,10 +99,11 @@ describe("moveControlPoint", () => {
             snapStep: [1, 2],
             objects: [
                 {
-                    type: "segment", points: [
+                    type: "segment",
+                    points: [
                         [1, 2],
                         [3, 4],
-                    ]
+                    ],
                 },
             ],
         };
@@ -121,10 +128,11 @@ describe("moveControlPoint", () => {
             ],
             objects: [
                 {
-                    type: "segment", points: [
+                    type: "segment",
+                    points: [
                         [1, 2],
                         [3, 4],
-                    ]
+                    ],
                 },
             ],
         };

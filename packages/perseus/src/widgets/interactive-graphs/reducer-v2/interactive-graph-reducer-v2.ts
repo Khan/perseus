@@ -1,20 +1,35 @@
-import {vector as kvector} from "@khanacademy/kmath"
-import {GraphObject, InteractiveGraphStateV2} from "./types";
-import {ActionV2, MOVE_CONTROL_POINT} from "./interactive-graph-action-v2";
-import {Interval, vec} from "mafs";
+import {vector as kvector} from "@khanacademy/kmath";
 
-function snapAndBound(snapStep: vec.Vector2, range: [Interval, Interval], point: vec.Vector2) {
+import {MOVE_CONTROL_POINT} from "./interactive-graph-action-v2";
+
+import type {ActionV2} from "./interactive-graph-action-v2";
+import type {GraphObject, InteractiveGraphStateV2} from "./types";
+import type {Interval, vec} from "mafs";
+
+function snapAndBound(
+    snapStep: vec.Vector2,
+    range: [Interval, Interval],
+    point: vec.Vector2,
+) {
     return snap({
-        snapStep: snapStep, point: bound({
+        snapStep: snapStep,
+        point: bound({
             snapStep: snapStep,
             range: range,
-            point: point
-        })
+            point: point,
+        }),
     });
 }
 
-export function interactiveGraphReducerV2(state: InteractiveGraphStateV2, action: ActionV2): InteractiveGraphStateV2 {
-    function doMoveControlPointOnObject(original: GraphObject, pointIndex: number, destination: vec.Vector2): GraphObject {
+export function interactiveGraphReducerV2(
+    state: InteractiveGraphStateV2,
+    action: ActionV2,
+): InteractiveGraphStateV2 {
+    function doMoveControlPointOnObject(
+        original: GraphObject,
+        pointIndex: number,
+        destination: vec.Vector2,
+    ): GraphObject {
         const newValue = snapAndBound(state.snapStep, state.range, destination);
 
         const updated = {
@@ -24,7 +39,7 @@ export function interactiveGraphReducerV2(state: InteractiveGraphStateV2, action
                 index: pointIndex,
                 newValue,
             }),
-        }
+        };
 
         if (coordsOverlap(updated.points)) {
             return original;
@@ -33,7 +48,6 @@ export function interactiveGraphReducerV2(state: InteractiveGraphStateV2, action
         return updated;
     }
 
-
     switch (action.type) {
         case MOVE_CONTROL_POINT:
             return {
@@ -41,14 +55,15 @@ export function interactiveGraphReducerV2(state: InteractiveGraphStateV2, action
                 objects: updateAtIndex({
                     array: state.objects,
                     index: action.objectIndex,
-                    update: (object) => doMoveControlPointOnObject(
-                        object,
-                        action.pointIndex,
-                        action.destination,
-                    )
+                    update: (object) =>
+                        doMoveControlPointOnObject(
+                            object,
+                            action.pointIndex,
+                            action.destination,
+                        ),
                 }),
                 hasBeenInteractedWith: true,
-            }
+            };
     }
     return state;
 }
@@ -58,11 +73,13 @@ const coordsOverlap = (coords: readonly vec.Vector2[]): boolean =>
         coords.some((c, j) => i !== j && kvector.equal(coord, c)),
     );
 
-
 function snap({
-                  snapStep,
-                  point
-              }: { snapStep: vec.Vector2, point: vec.Vector2 }): vec.Vector2 {
+    snapStep,
+    point,
+}: {
+    snapStep: vec.Vector2;
+    point: vec.Vector2;
+}): vec.Vector2 {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = snapStep;
     return [
@@ -74,10 +91,14 @@ function snap({
 // Returns the closest point to the given `point` that is within the graph
 // bounds given in `state`.
 function bound({
-                   snapStep,
-                   range,
-                   point
-               }: { snapStep: vec.Vector2, range: [Interval, Interval], point: vec.Vector2 }): vec.Vector2 {
+    snapStep,
+    range,
+    point,
+}: {
+    snapStep: vec.Vector2;
+    range: [Interval, Interval];
+    point: vec.Vector2;
+}): vec.Vector2 {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = snapStep;
     const [[minX, maxX], [minY, maxY]] = range;

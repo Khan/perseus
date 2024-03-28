@@ -204,7 +204,7 @@ export function getGradableGraph(
     }
 
     if (state.type !== initialGraph.type) {
-        throw new Error("state type does not match initial graph type")
+        throw new Error("state type does not match initial graph type");
     }
 
     throw new Error(
