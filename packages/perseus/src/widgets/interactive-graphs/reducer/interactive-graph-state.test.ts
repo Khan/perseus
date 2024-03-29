@@ -1,7 +1,8 @@
+import invariant from "tiny-invariant";
+
 import {initializeGraphState} from "./interactive-graph-state";
 
 import type {Interval, vec} from "mafs";
-import invariant from "tiny-invariant";
 
 const baseGraphData = {
     range: [

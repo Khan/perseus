@@ -7,7 +7,11 @@ import {
     MOVE_ALL,
     MOVE_CONTROL_POINT,
     MOVE_LINE,
-    MOVE_POINT, MoveAll, MoveControlPoint, MoveLine, MovePoint,
+    MOVE_POINT,
+    MoveAll,
+    MoveControlPoint,
+    MoveLine,
+    MovePoint,
 } from "./interactive-graph-action";
 
 import type {CollinearTuple} from "../../../perseus-types";
@@ -19,7 +23,10 @@ const isCollinearTuples = (
     coords: readonly CollinearTuple[] | readonly vec.Vector2[],
 ): coords is readonly CollinearTuple[] => Array.isArray(coords[0][0]);
 
-function doMoveControlPoint(state: InteractiveGraphState, action: MoveControlPoint): InteractiveGraphState {
+function doMoveControlPoint(
+    state: InteractiveGraphState,
+    action: MoveControlPoint,
+): InteractiveGraphState {
     const {snapStep, range} = state;
     switch (state.type) {
         case "segment":
@@ -27,7 +34,9 @@ function doMoveControlPoint(state: InteractiveGraphState, action: MoveControlPoi
         case "linear-system":
         case "ray": {
             if (action.itemIndex == null) {
-                throw new Error("MoveControlPoint.itemIndex cannot be null when moving a point on a line")
+                throw new Error(
+                    "MoveControlPoint.itemIndex cannot be null when moving a point on a line",
+                );
             }
             const newCoords = updateAtIndex({
                 array: state.coords,
@@ -86,13 +95,16 @@ function doMoveControlPoint(state: InteractiveGraphState, action: MoveControlPoi
             };
         }
         case "circle":
-            throw "FIXME implement circle reducer"
+            throw "FIXME implement circle reducer";
         default:
-            throw new UnreachableCaseError(state)
+            throw new UnreachableCaseError(state);
     }
 }
 
-function doMoveLine(state: InteractiveGraphState, action: MoveLine): InteractiveGraphState {
+function doMoveLine(
+    state: InteractiveGraphState,
+    action: MoveLine,
+): InteractiveGraphState {
     const {snapStep, range} = state;
     switch (state.type) {
         case "segment":
@@ -142,7 +154,10 @@ function doMoveLine(state: InteractiveGraphState, action: MoveLine): Interactive
     }
 }
 
-function doMoveAll(state: InteractiveGraphState, action: MoveAll): InteractiveGraphState {
+function doMoveAll(
+    state: InteractiveGraphState,
+    action: MoveAll,
+): InteractiveGraphState {
     const {snapStep, range} = state;
     switch (state.type) {
         case "polygon": {
@@ -167,7 +182,10 @@ function doMoveAll(state: InteractiveGraphState, action: MoveAll): InteractiveGr
     }
 }
 
-function doMovePoint(state: InteractiveGraphState, action: MovePoint): InteractiveGraphState {
+function doMovePoint(
+    state: InteractiveGraphState,
+    action: MovePoint,
+): InteractiveGraphState {
     switch (state.type) {
         case "point": {
             return {
@@ -193,7 +211,10 @@ function doMovePoint(state: InteractiveGraphState, action: MovePoint): Interacti
 }
 
 // Generic type makes returned state match input state
-export function interactiveGraphReducer(state: InteractiveGraphState, action: InteractiveGraphAction): InteractiveGraphState {
+export function interactiveGraphReducer(
+    state: InteractiveGraphState,
+    action: InteractiveGraphAction,
+): InteractiveGraphState {
     const {snapStep, range} = state;
     switch (action.type) {
         case MOVE_CONTROL_POINT:

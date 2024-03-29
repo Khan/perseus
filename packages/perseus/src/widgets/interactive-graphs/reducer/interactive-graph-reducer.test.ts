@@ -1,3 +1,5 @@
+import invariant from "tiny-invariant";
+
 import {
     moveControlPoint,
     movePoint,
@@ -6,7 +8,6 @@ import {
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {InteractiveGraphState} from "../types";
-import invariant from "tiny-invariant";
 
 const baseSegmentGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,

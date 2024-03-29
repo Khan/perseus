@@ -14,7 +14,7 @@ import type {
 import type {
     InitializeGraphStateParams,
     InteractiveGraphState,
-    PairOfPoints
+    PairOfPoints,
 } from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
