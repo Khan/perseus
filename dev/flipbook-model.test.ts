@@ -7,6 +7,7 @@ import {
     selectQuestions,
     removeCurrentQuestion,
     jumpToQuestion,
+    loadQuestionsFromStorage,
 } from "./flipbook-model";
 
 import type {FlipbookModel} from "./flipbook-model";
@@ -125,6 +126,40 @@ describe("setQuestions", () => {
         };
         expect(flipbookModelReducer(model, setQuestions("{}"))).toEqual({
             questions: "{}",
+            requestedIndex: 0,
+        });
+    });
+});
+
+describe("loadQuestionsFromStorage", () => {
+    it("does not replace an existing questions string", () => {
+        const model: FlipbookModel = {
+            questions: "hello world",
+            requestedIndex: 0,
+        };
+        expect(
+            flipbookModelReducer(
+                model,
+                loadQuestionsFromStorage("hello universe"),
+            ),
+        ).toEqual({
+            questions: "hello world",
+            requestedIndex: 0,
+        });
+    });
+
+    it("does update empty questions string", () => {
+        const model: FlipbookModel = {
+            questions: "",
+            requestedIndex: 0,
+        };
+        expect(
+            flipbookModelReducer(
+                model,
+                loadQuestionsFromStorage("hello universe"),
+            ),
+        ).toEqual({
+            questions: "hello universe",
             requestedIndex: 0,
         });
     });
