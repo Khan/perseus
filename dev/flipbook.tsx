@@ -5,7 +5,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
-import {useReducer, useRef} from "react";
+import {useEffect, useReducer, useRef} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 import {isCorrect} from "../packages/perseus/src/util";
@@ -23,6 +23,7 @@ import {
     selectNumQuestions,
     jumpToQuestion,
     selectCurrentQuestionAsJSON,
+    loadQuestionsFromStorage,
 } from "./flipbook-model";
 import {Header} from "./header";
 
@@ -42,6 +43,8 @@ cat data/questions/*/*/* | pbcopy
 grep -rl '"type":"segment"' data/questions/ | xargs cat | pbcopy
 `.trim();
 
+const LS_QUESTIONS_KEY = "FLIPBOOK-QUESTIONS-JSON";
+
 export function Flipbook() {
     const [state, dispatch] = useReducer(flipbookModelReducer, {
         questions: "",
@@ -53,7 +56,18 @@ export function Flipbook() {
     const numQuestions = selectNumQuestions(state);
     const index = selectCurrentQuestionIndex(state);
 
-    const noTextEntered = state.questions.trim() === "";
+    const questionsState = state.questions.trim();
+    const noTextEntered = questionsState === "";
+
+    useEffect(() => {
+        const localStorageQuestions =
+            localStorage.getItem(LS_QUESTIONS_KEY) || "";
+        dispatch(loadQuestionsFromStorage(localStorageQuestions));
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem(LS_QUESTIONS_KEY, questionsState);
+    }, [questionsState]);
 
     return (
         <>
