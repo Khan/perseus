@@ -9,6 +9,7 @@ import {
     MOVE_LINE,
     MOVE_POINT,
     MOVE_CIRCLE,
+    RESIZE_CIRCLE,
 } from "./interactive-graph-action";
 
 import type {CollinearTuple} from "../../../perseus-types";
@@ -175,6 +176,23 @@ export function interactiveGraphReducer<
                 ...state,
                 hasBeenInteractedWith: true,
                 center: newCoords,
+            };
+        case RESIZE_CIRCLE:
+            const radius = action.proposedRadius;
+
+            // Since dragging only happens along the x-axis we do
+            // snapping using just the x-axis's snap steps
+            const snappedRadius = Math.max(
+                Math.round(radius / snapStep[0]) * snapStep[0],
+                // Never let a circle get smaller than a single snap step
+                // This prevents a learner from dragging a circle until
+                // it disappears and being unable tos solve the problem
+                snapStep[0],
+            );
+
+            return {
+                ...state,
+                radius: snappedRadius,
             };
         default:
             throw new UnreachableCaseError(action);

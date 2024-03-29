@@ -5,7 +5,8 @@ export type InteractiveGraphAction =
     | MoveLine
     | MoveAll
     | MovePoint
-    | MoveCircle;
+    | MoveCircle
+    | ResizeCircle;
 
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPoint {
@@ -30,7 +31,6 @@ export function moveControlPoint(
 
 export const MOVE_ALL = "move-all";
 export const MOVE_LINE = "move-line";
-export const MOVE_CIRCLE = "move-circle";
 interface MoveItem {
     delta: vec.Vector2;
     itemIndex?: number;
@@ -40,10 +40,6 @@ export interface MoveLine extends MoveItem {
 }
 export interface MoveAll extends MoveItem {
     type: typeof MOVE_ALL;
-}
-
-export interface MoveCircle extends MoveItem {
-    type: typeof MOVE_CIRCLE;
 }
 
 /** This action assumes the state.coords holds an array of collinear tuples that define lines */
@@ -74,9 +70,28 @@ export function movePoint(index: number, destination: vec.Vector2): MovePoint {
     };
 }
 
+// Circle Actions
+export const MOVE_CIRCLE = "move-circle";
+export interface MoveCircle extends MoveItem {
+    type: typeof MOVE_CIRCLE;
+}
+
 export function moveCircle(delta: vec.Vector2): MoveCircle {
     return {
         type: MOVE_CIRCLE,
         delta,
+    };
+}
+
+export const RESIZE_CIRCLE = "resize-circle";
+export interface ResizeCircle {
+    type: typeof RESIZE_CIRCLE;
+    proposedRadius: number;
+}
+
+export function resizeCircle(proposedRadius: number): ResizeCircle {
+    return {
+        type: RESIZE_CIRCLE,
+        proposedRadius,
     };
 }

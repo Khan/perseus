@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {moveCircle} from "../reducer/interactive-graph-action";
+import {moveCircle, resizeCircle} from "../reducer/interactive-graph-action";
 
 import {MovableCircle} from "./components/movable-circle";
 
@@ -19,6 +19,9 @@ export function CircleGraph(props: CircleGraphProps) {
                 radius={radius}
                 onMove={(delta: vec.Vector2) => {
                     dispatch(moveCircle(delta));
+                }}
+                onResize={(proposedRadius: number) => {
+                    dispatch(resizeCircle(proposedRadius));
                 }}
             />
         </>
