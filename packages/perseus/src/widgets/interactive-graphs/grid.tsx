@@ -54,6 +54,17 @@ const Arrow = (props: ArrowProps) => {
     );
 };
 
+const GridArrows = () => {
+    return (
+        <>
+            <Arrow x={10} y={0} rotate={0} />
+            <Arrow x={0} y={-10} rotate={90} />
+            <Arrow x={-10} y={0} rotate={180} />
+            <Arrow x={0} y={10} rotate={270} />
+        </>
+    );
+};
+
 export const Grid = (props: GridProps) =>
     props.markings === "none" ? null : (
         <>
@@ -61,9 +72,6 @@ export const Grid = (props: GridProps) =>
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
-            <Arrow x={10} y={0} rotate={0} />
-            <Arrow x={0} y={-10} rotate={90} />
-            <Arrow x={-10} y={0} rotate={180} />
-            <Arrow x={0} y={10} rotate={270} />
+            <GridArrows />
         </>
     );
