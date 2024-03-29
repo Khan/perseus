@@ -19,7 +19,8 @@ export type Action =
     | {type: "previous"}
     | {type: "set-questions"; questions: string}
     | {type: "remove-current-question"}
-    | {type: "jump-to-index"; index: number};
+    | {type: "jump-to-index"; index: number}
+    | {type: "load-questions-from-storage"; questions: string};
 
 export const next: Action = {type: "next"};
 
@@ -38,6 +39,10 @@ export const jumpToQuestion = (rawUserInput: string): Action => {
 
 export function setQuestions(questions: string): Action {
     return {type: "set-questions", questions};
+}
+
+export function loadQuestionsFromStorage(questions: string): Action {
+    return {type: "load-questions-from-storage", questions};
 }
 
 export const removeCurrentQuestion: Action = {type: "remove-current-question"};
@@ -61,6 +66,14 @@ export function flipbookModelReducer(
                 ...state,
                 questions: action.questions,
             };
+        }
+        case "load-questions-from-storage": {
+            return state.questions || !action.questions
+                ? state
+                : {
+                      ...state,
+                      questions: action.questions,
+                  };
         }
         case "remove-current-question": {
             const indexToRemove = selectCurrentQuestionIndex(state);
