@@ -1,6 +1,5 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import type {Interval} from "mafs";
 import {vec} from "mafs";
 
 import {
@@ -16,6 +15,7 @@ import {
 } from "./interactive-graph-action";
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
+import type {Interval} from "mafs";
 
 export function interactiveGraphReducer(
     state: InteractiveGraphState,
@@ -77,7 +77,9 @@ function doMoveControlPoint(
             throw new Error("FIXME implement circle reducer");
         case "point":
         case "polygon":
-            throw new Error(`Don't use moveControlPoint for ${state.type} graphs. Use movePoint instead!`)
+            throw new Error(
+                `Don't use moveControlPoint for ${state.type} graphs. Use movePoint instead!`,
+            );
         default:
             throw new UnreachableCaseError(state);
     }
@@ -189,7 +191,9 @@ function doMovePoint(
             };
         }
         default:
-            throw new Error("The movePoint action is only for point and polygon graphs")
+            throw new Error(
+                "The movePoint action is only for point and polygon graphs",
+            );
             return state;
     }
 }

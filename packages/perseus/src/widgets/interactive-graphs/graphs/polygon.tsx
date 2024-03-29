@@ -1,11 +1,7 @@
 import {Polygon, useMovable, vec} from "mafs";
 import * as React from "react";
 
-import {
-    moveAll,
-    moveControlPoint,
-    movePoint
-} from "../reducer/interactive-graph-action";
+import {moveAll, movePoint} from "../reducer/interactive-graph-action";
 import {TARGET_SIZE} from "../utils";
 
 import {Angle} from "./components/angle";
