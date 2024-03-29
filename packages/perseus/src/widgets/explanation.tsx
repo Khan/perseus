@@ -92,14 +92,17 @@ class Explanation extends React.Component<Props, State> {
         // While the button is not normally included in a block of text, it needs to be able to accommodate such a case.
         const buttonStyleOverrides = {
             height: "auto",
-            marginLeft: "-2px",
-            marginRight: "2px",
-            paddingLeft: "2px",
+            marginLeft: "-2px", // transfer space on the left side to the padding
+            marginRight: "2px", // adds space between the right border and any text that follows
+            paddingLeft: "2px", // adds space between the left border and the button text
         };
 
         const labelStyle = {
             fontSize: "18px",
             lineHeight: "20px",
+            // The following property adjusts the large space between the button text and the caret icon.
+            // Since we are unable to adjust the styling of the icon (where the extra space exists),
+            //      we are adjusting it on the text label by using a negative margin.
             marginRight: "-6px",
             "white-space": "normal",
         };
