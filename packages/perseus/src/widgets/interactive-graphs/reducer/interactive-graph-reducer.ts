@@ -194,7 +194,6 @@ function doMovePoint(
             throw new Error(
                 "The movePoint action is only for point and polygon graphs",
             );
-            return state;
     }
 }
 
