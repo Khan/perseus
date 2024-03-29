@@ -69,11 +69,6 @@ export function Flipbook() {
         localStorage.setItem(LS_QUESTIONS_KEY, questionsState);
     }, [questionsState]);
 
-    function handleDiscardQuestion() {
-        dispatch(removeCurrentQuestion);
-        localStorage.removeItem(LS_QUESTIONS_KEY);
-    }
-
     return (
         <>
             <Header>
@@ -114,7 +109,10 @@ export function Flipbook() {
                         }
                     />
                     <Strut size={spacing.medium_16} />
-                    <Button kind="tertiary" onClick={handleDiscardQuestion}>
+                    <Button
+                        kind="tertiary"
+                        onClick={() => dispatch(removeCurrentQuestion)}
+                    >
                         Discard question
                     </Button>
                 </View>
