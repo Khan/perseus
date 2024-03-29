@@ -8,10 +8,11 @@ import {
     MOVE_CONTROL_POINT,
     MOVE_LINE,
     MOVE_POINT,
+    MOVE_CIRCLE,
 } from "./interactive-graph-action";
 
 import type {CollinearTuple} from "../../../perseus-types";
-import type {InteractiveGraphState} from "../types";
+import type {CircleGraphState, InteractiveGraphState} from "../types";
 import type {Interval} from "mafs";
 
 /** Determine if coords is type CollinearTuple[] */
@@ -163,6 +164,17 @@ export function interactiveGraphReducer<
                         }),
                     }),
                 }),
+            };
+        case MOVE_CIRCLE:
+            const newCoords = snap({
+                snapStep,
+                point: vec.add(state.center, action.delta),
+            });
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                center: newCoords,
             };
         default:
             throw new UnreachableCaseError(action);

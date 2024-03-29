@@ -4,7 +4,8 @@ export type InteractiveGraphAction =
     | MoveControlPoint
     | MoveLine
     | MoveAll
-    | MovePoint;
+    | MovePoint
+    | MoveCircle;
 
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPoint {
@@ -29,6 +30,7 @@ export function moveControlPoint(
 
 export const MOVE_ALL = "move-all";
 export const MOVE_LINE = "move-line";
+export const MOVE_CIRCLE = "move-circle";
 interface MoveItem {
     delta: vec.Vector2;
     itemIndex?: number;
@@ -39,6 +41,11 @@ export interface MoveLine extends MoveItem {
 export interface MoveAll extends MoveItem {
     type: typeof MOVE_ALL;
 }
+
+export interface MoveCircle extends MoveItem {
+    type: typeof MOVE_CIRCLE;
+}
+
 /** This action assumes the state.coords holds an array of collinear tuples that define lines */
 export function moveLine(itemIndex: number, delta: vec.Vector2): MoveLine {
     return {
@@ -64,5 +71,12 @@ export function movePoint(index: number, destination: vec.Vector2): MovePoint {
         type: MOVE_POINT,
         index,
         destination,
+    };
+}
+
+export function moveCircle(delta: vec.Vector2): MoveCircle {
+    return {
+        type: MOVE_CIRCLE,
+        delta,
     };
 }

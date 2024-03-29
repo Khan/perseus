@@ -1,8 +1,7 @@
 import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
-import {vec, useMovable} from "mafs";
+import {vec, useMovable, Circle} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
-import {Circle} from "mafs";
 
 import {useTransform} from "../use-transform";
 
@@ -35,7 +34,11 @@ export const MovableCircle = (props: {
                 ref={circle}
                 tabIndex={0}
                 className="movable-circle"
-                style={{cursor: dragging ? "grabbing" : "grab"}}
+                style={{
+                    cursor: dragging ? "grabbing" : "grab",
+                    touchAction: "none",
+                    outline: "none",
+                }}
             >
                 <circle
                     cx={centerX}
