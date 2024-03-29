@@ -14,6 +14,7 @@ import {
     getGradableGraph,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
+import {GraphStateContext} from "./reducer/use-graph-state";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
@@ -61,54 +62,63 @@ export const MafsGraph = React.forwardRef<
     }));
 
     return (
-        <View
-            style={{
-                width,
-                height,
-                position: "relative",
+        <GraphStateContext.Provider
+            value={{
+                state,
+                dispatch,
             }}
         >
-            <LegacyGrid
-                box={props.box}
-                backgroundImage={props.backgroundImage}
-            />
             <View
                 style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
+                    width,
+                    height,
+                    position: "relative",
                 }}
             >
-                <Mafs
-                    preserveAspectRatio={false}
-                    viewBox={{
-                        x: props.range[0],
-                        y: props.range[1],
-                        padding: 0,
+                <LegacyGrid
+                    box={props.box}
+                    backgroundImage={props.backgroundImage}
+                />
+                <View
+                    style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
                     }}
-                    pan={false}
-                    zoom={false}
-                    width={width}
-                    height={height}
                 >
-                    {/* Svg definitions to render only once */}
-                    <SvgDefs />
+                    <Mafs
+                        preserveAspectRatio={false}
+                        viewBox={{
+                            x: props.range[0],
+                            y: props.range[1],
+                            padding: 0,
+                        }}
+                        pan={false}
+                        zoom={false}
+                        width={width}
+                        height={height}
+                    >
+                        {/* Svg definitions to render only once */}
+                        <SvgDefs />
 
-                    {/* Background layer */}
-                    <Grid {...props} />
+                        {/* Background layer */}
+                        <Grid {...props} />
 
-                    {/* Locked layer */}
-                    {props.lockedFigures && (
-                        <GraphLockedLayer lockedFigures={props.lockedFigures} />
-                    )}
+                        {/* Locked layer */}
+                        {props.lockedFigures && (
+                            <GraphLockedLayer
+                                lockedFigures={props.lockedFigures}
+                            />
+                        )}
 
-                    {/* Interactive layer */}
-                    {renderGraph({
-                        state,
-                        dispatch,
-                    })}
-                </Mafs>
+                        {/* Interactive layer */}
+                        {renderGraph({
+                            state,
+                            dispatch,
+                        })}
+                    </Mafs>
+                </View>
             </View>
-        </View>
+        </GraphStateContext.Provider>
     );
 });

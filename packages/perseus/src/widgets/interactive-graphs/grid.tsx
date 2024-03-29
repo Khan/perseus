@@ -1,6 +1,8 @@
 import {Coordinates, useTransformContext, vec} from "mafs";
 import * as React from "react";
 
+import useGraphState from "./reducer/use-graph-state";
+
 import type {SizeClass} from "../../util/sizing-utils";
 
 interface GridProps {
@@ -55,12 +57,18 @@ const Arrow = (props: ArrowProps) => {
 };
 
 const GridArrows = () => {
+    const {state} = useGraphState();
+
+    const range = state.range;
+    const [xMin, xMax] = range[0];
+    const [yMin, yMax] = range[1];
+
     return (
         <>
-            <Arrow x={10} y={0} rotate={0} />
-            <Arrow x={0} y={-10} rotate={90} />
-            <Arrow x={-10} y={0} rotate={180} />
-            <Arrow x={0} y={10} rotate={270} />
+            <Arrow x={xMax} y={0} rotate={0} />
+            <Arrow x={0} y={yMin} rotate={90} />
+            <Arrow x={xMin} y={0} rotate={180} />
+            <Arrow x={0} y={yMax} rotate={270} />
         </>
     );
 };
