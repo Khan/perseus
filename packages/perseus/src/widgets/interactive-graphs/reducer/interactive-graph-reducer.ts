@@ -68,8 +68,6 @@ function doMoveControlPoint(
                     }),
             });
 
-            // Cannot type narrow both conditions within function parameters,
-            // so this may seem redundant, but it's necessary for type safety.
             const coordsToCheck = newCoords[action.itemIndex];
             if (coordsOverlap(coordsToCheck)) {
                 return state;
