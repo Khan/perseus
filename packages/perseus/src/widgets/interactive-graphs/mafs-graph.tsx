@@ -40,6 +40,8 @@ const renderGraph = (props: {
             return <PolygonGraph graphState={state} dispatch={dispatch} />;
         case "point":
             return <PointGraph graphState={state} dispatch={dispatch} />;
+        case "circle":
+            throw new Error("the circle graph type is not yet implemented");
         default:
             return new UnreachableCaseError(type);
     }

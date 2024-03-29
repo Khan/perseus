@@ -6,13 +6,16 @@ import type {
     PerseusGraphTypePoint,
     PerseusGraphType,
     PerseusGraphTypeSegment,
-    CollinearTuple,
     PerseusGraphTypeRay,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
     PerseusGraphTypePolygon,
 } from "../../../perseus-types";
-import type {InitializeGraphStateParams, InteractiveGraphState} from "../types";
+import type {
+    InitializeGraphStateParams,
+    InteractiveGraphState,
+    PairOfPoints,
+} from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
@@ -82,9 +85,9 @@ const getDefaultPoints = ({
     graph: PerseusGraphTypePoint;
     range: [Interval, Interval];
     step: Coord;
-}): ReadonlyArray<Coord> => {
+}): Coord[] => {
     const numPoints = graph.numPoints || 1;
-    let coords = graph.coords;
+    let coords = graph.coords?.slice();
 
     if (coords) {
         return coords;
@@ -212,7 +215,7 @@ const getDefaultSegments = ({
     graph,
     range,
     step,
-}: InitializeGraphStateParams<PerseusGraphTypeSegment>): CollinearTuple[] => {
+}: InitializeGraphStateParams<PerseusGraphTypeSegment>): PairOfPoints[] => {
     const ys = (n?: number) => {
         switch (n) {
             case 2:
@@ -246,7 +249,7 @@ const getDefaultSegments = ({
     });
 };
 
-const defaultLinearCoords: readonly CollinearTuple[] = [
+const defaultLinearCoords: [Coord, Coord][] = [
     [
         [0.25, 0.75],
         [0.75, 0.75],
@@ -263,7 +266,7 @@ const getLineCoords = ({
     step,
 }: InitializeGraphStateParams<
     PerseusGraphTypeRay | PerseusGraphTypeLinear | PerseusGraphTypeLinearSystem
->): CollinearTuple[] =>
+>): PairOfPoints[] =>
     // Return two lines for a linear system, one for a ray or linear
     graph.coords ?? graph.type === "linear-system"
         ? defaultLinearCoords.map((collinear) =>
@@ -275,8 +278,8 @@ const getPolygonCoords = ({
     graph,
     range,
     step,
-}: InitializeGraphStateParams<PerseusGraphTypePolygon>): readonly Coord[] => {
-    let coords = graph.coords;
+}: InitializeGraphStateParams<PerseusGraphTypePolygon>): Coord[] => {
+    let coords = graph.coords?.slice();
     if (coords) {
         return coords;
     }

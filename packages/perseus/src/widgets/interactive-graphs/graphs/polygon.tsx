@@ -1,7 +1,7 @@
 import {Polygon, useMovable, vec} from "mafs";
 import * as React from "react";
 
-import {moveAll, moveControlPoint} from "../reducer/interactive-graph-action";
+import {moveAll, movePoint} from "../reducer/interactive-graph-action";
 import {TARGET_SIZE} from "../utils";
 
 import {Angle} from "./components/angle";
@@ -110,7 +110,7 @@ export const PolygonGraph = (props: Props) => {
                     key={"point-" + i}
                     point={point}
                     onMove={(destination: vec.Vector2) =>
-                        dispatch(moveControlPoint(i, destination))
+                        dispatch(movePoint(i, destination))
                     }
                     data-testid={type + i}
                 />

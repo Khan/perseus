@@ -1,3 +1,5 @@
+import invariant from "tiny-invariant";
+
 import {initializeGraphState} from "./interactive-graph-state";
 
 import type {Interval, vec} from "mafs";
@@ -34,6 +36,9 @@ describe("initializeGraphState for segment graphs", () => {
             ...baseGraphData,
             graph: {type: "segment"},
         });
+
+        // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(state.type === "segment");
         expect(state.coords).toEqual([
             [
                 [-5, 5],
@@ -59,6 +64,9 @@ describe("initializeGraphState for segment graphs", () => {
             snapStep: [1, 1],
             graph: {type: "segment", numSegments: 1},
         });
+
+        // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(state.type === "segment");
         expect(state.coords).toEqual([
             [
                 [-500, 500],
@@ -74,6 +82,9 @@ describe("initializeGraphState for line graphs", () => {
             ...baseGraphData,
             graph: {type: "linear-system"},
         });
+
+        // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(state.type === "linear-system");
         expect(state.coords).toEqual([
             [
                 [-5, 5],
@@ -93,6 +104,9 @@ describe("initializeGraphState for polygon graphs", () => {
             ...baseGraphData,
             graph: {type: "polygon"},
         });
+
+        // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(state.type === "polygon");
         expect(state.coords).toEqual([
             [3, -2],
             [0, 4],
@@ -105,6 +119,9 @@ describe("initializeGraphState for polygon graphs", () => {
             ...baseGraphData,
             graph: {type: "polygon", numSides: 8},
         });
+
+        // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(state.type === "polygon");
         expect(state.coords).toEqual([
             [2, -4],
             [4, -2],
@@ -125,6 +142,8 @@ describe("initializeGraphState for point graphs", () => {
             graph: {type: "point", coords: [[1, 2]]},
         });
 
+        // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(graph.type === "point");
         expect(graph.coords).toEqual([[1, 2]]);
     });
 
@@ -134,6 +153,8 @@ describe("initializeGraphState for point graphs", () => {
             graph: {type: "point", numPoints: 1},
         });
 
+        // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(graph.type === "point");
         expect(graph.coords).toEqual([[0, 0]]);
     });
 
@@ -143,6 +164,8 @@ describe("initializeGraphState for point graphs", () => {
             graph: {type: "point", numPoints: 1, coord: [5, 6]},
         });
 
+        // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(graph.type === "point");
         expect(graph.coords).toEqual([[5, 6]]);
     });
 
@@ -154,6 +177,8 @@ describe("initializeGraphState for point graphs", () => {
                 graph: {type: "point", numPoints: n},
             });
 
+            // Narrow the type of `graph` so TS knows it will have `coords`.
+            invariant(graph.type === "point");
             expect(graph.coords).toHaveLength(n);
         },
     );

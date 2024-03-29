@@ -1,3 +1,5 @@
+import invariant from "tiny-invariant";
+
 import {
     moveControlPoint,
     movePoint,
@@ -46,6 +48,7 @@ describe("moveControlPoint", () => {
             moveControlPoint(0, [5, 6], 0),
         );
 
+        invariant(updated.type === "segment");
         expect(updated.coords[0]).toEqual([
             [5, 6],
             [3, 4],
@@ -87,6 +90,7 @@ describe("moveControlPoint", () => {
             moveControlPoint(0, [2, 2], 0),
         );
 
+        invariant(updated.type === "segment");
         // Assert: the move was canceled
         expect(updated.coords[0]).toEqual([
             [1, 1],
@@ -111,7 +115,9 @@ describe("moveControlPoint", () => {
             moveControlPoint(0, [1.5, 6.6], 0),
         );
 
-        // Assert: x snaps to the nearest whole number; y snaps to the nearest
+        // Assert
+        invariant(updated.type === "segment");
+        // x snaps to the nearest whole number; y snaps to the nearest
         // multiple of 2.
         expect(updated.coords[0][0]).toEqual([2, 6]);
     });
@@ -137,6 +143,7 @@ describe("moveControlPoint", () => {
             moveControlPoint(0, [99, 99], 0),
         );
 
+        invariant(updated.type === "segment");
         expect(updated.coords[0][0]).toEqual([4.5, 7.5]);
     });
 });
@@ -155,6 +162,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(state, moveLine(0, [5, -3]));
 
+        invariant(updated.type === "segment");
         expect(updated.coords[0]).toEqual([
             [6, -1],
             [8, 1],
@@ -174,6 +182,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(state, moveLine(0, [0.5, 0.5]));
 
+        invariant(updated.type === "segment");
         expect(updated.coords[0]).toEqual([
             [2, 3],
             [4, 5],
@@ -193,6 +202,7 @@ describe("moveSegment", () => {
 
         const updated = interactiveGraphReducer(state, moveLine(0, [99, 99]));
 
+        invariant(updated.type === "segment");
         expect(updated.coords[0]).toEqual([
             [7, 7],
             [9, 9],
@@ -228,6 +238,7 @@ describe("movePoint", () => {
 
         const updated = interactiveGraphReducer(state, movePoint(0, [5, 6]));
 
+        invariant(updated.type === "point");
         expect(updated.coords[0]).toEqual([5, 6]);
     });
 
@@ -243,6 +254,7 @@ describe("movePoint", () => {
             movePoint(0, [-2, -2.5]),
         );
 
+        invariant(updated.type === "point");
         expect(updated.coords[0]).toEqual([-3, -4]);
     });
 
@@ -254,6 +266,7 @@ describe("movePoint", () => {
 
         const updated = interactiveGraphReducer(state, movePoint(0, [99, 99]));
 
+        invariant(updated.type === "point");
         expect(updated.coords[0]).toEqual([9, 9]);
     });
 
