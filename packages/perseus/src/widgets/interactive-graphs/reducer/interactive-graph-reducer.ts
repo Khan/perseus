@@ -8,20 +8,32 @@ import {
     MOVE_CONTROL_POINT,
     MOVE_LINE,
     MOVE_POINT,
-    MoveAll,
-    MoveControlPoint,
-    MoveLine,
-    MovePoint,
+    type MoveAll,
+    type MoveControlPoint,
+    type MoveLine,
+    type MovePoint,
 } from "./interactive-graph-action";
 
-import type {CollinearTuple} from "../../../perseus-types";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Interval} from "mafs";
 
-/** Determine if coords is type CollinearTuple[] */
-const isCollinearTuples = (
-    coords: readonly CollinearTuple[] | readonly vec.Vector2[],
-): coords is readonly CollinearTuple[] => Array.isArray(coords[0][0]);
+export function interactiveGraphReducer(
+    state: InteractiveGraphState,
+    action: InteractiveGraphAction,
+): InteractiveGraphState {
+    switch (action.type) {
+        case MOVE_CONTROL_POINT:
+            return doMoveControlPoint(state, action);
+        case MOVE_LINE:
+            return doMoveLine(state, action);
+        case MOVE_ALL:
+            return doMoveAll(state, action);
+        case MOVE_POINT:
+            return doMovePoint(state, action);
+        default:
+            throw new UnreachableCaseError(action);
+    }
+}
 
 function doMoveControlPoint(
     state: InteractiveGraphState,
@@ -58,14 +70,8 @@ function doMoveControlPoint(
 
             // Cannot type narrow both conditions within function parameters,
             // so this may seem redundant, but it's necessary for type safety.
-            const coordsToCheck =
-                isCollinearTuples(newCoords) && action.itemIndex !== undefined
-                    ? newCoords[action.itemIndex]
-                    : newCoords;
-            if (
-                !isCollinearTuples(coordsToCheck) &&
-                coordsOverlap(coordsToCheck)
-            ) {
+            const coordsToCheck = newCoords[action.itemIndex];
+            if (coordsOverlap(coordsToCheck)) {
                 return state;
             }
             return {
@@ -95,7 +101,7 @@ function doMoveControlPoint(
             };
         }
         case "circle":
-            throw "FIXME implement circle reducer";
+            throw new Error("FIXME implement circle reducer");
         default:
             throw new UnreachableCaseError(state);
     }
@@ -207,26 +213,6 @@ function doMovePoint(
         }
         default:
             return state;
-    }
-}
-
-// Generic type makes returned state match input state
-export function interactiveGraphReducer(
-    state: InteractiveGraphState,
-    action: InteractiveGraphAction,
-): InteractiveGraphState {
-    const {snapStep, range} = state;
-    switch (action.type) {
-        case MOVE_CONTROL_POINT:
-            return doMoveControlPoint(state, action);
-        case MOVE_LINE:
-            return doMoveLine(state, action);
-        case MOVE_ALL:
-            return doMoveAll(state, action);
-        case MOVE_POINT:
-            return doMovePoint(state, action);
-        default:
-            throw new UnreachableCaseError(action);
     }
 }
 
