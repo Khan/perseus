@@ -23,7 +23,6 @@ import {
     selectNumQuestions,
     jumpToQuestion,
     selectCurrentQuestionAsJSON,
-    selectQuestionsAsJSON,
 } from "./flipbook-model";
 import {Header} from "./header";
 
@@ -51,25 +50,22 @@ export function Flipbook() {
         requestedIndex: 0,
     });
 
-    const allQuestionsJSON = selectQuestionsAsJSON(state);
     const questionJSON = selectCurrentQuestionAsJSON(state);
     const question = selectCurrentQuestion(state);
     const numQuestions = selectNumQuestions(state);
     const index = selectCurrentQuestionIndex(state);
 
-    const noTextEntered = state.questions.trim() === "";
+    const questionsState = state.questions.trim();
+    const noTextEntered = questionsState === "";
 
     useEffect(() => {
         const localStorageQuestions = localStorage.getItem(LS_QUESTIONS_KEY);
-        if (!allQuestionsJSON?.length && localStorageQuestions) {
+        if (noTextEntered && localStorageQuestions) {
             dispatch(setQuestions(localStorageQuestions));
         }
 
-        localStorage.setItem(
-            LS_QUESTIONS_KEY,
-            allQuestionsJSON?.join("\n") || "",
-        );
-    }, [allQuestionsJSON]);
+        localStorage.setItem(LS_QUESTIONS_KEY, questionsState);
+    }, [noTextEntered, questionsState]);
 
     function handleDiscardQuestion() {
         dispatch(removeCurrentQuestion);
