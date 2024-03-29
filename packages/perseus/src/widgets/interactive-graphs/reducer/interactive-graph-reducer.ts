@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import type {Interval} from "mafs";
 import {vec} from "mafs";
 
 import {
@@ -15,7 +16,6 @@ import {
 } from "./interactive-graph-action";
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
-import type {Interval} from "mafs";
 
 export function interactiveGraphReducer(
     state: InteractiveGraphState,
@@ -45,11 +45,6 @@ function doMoveControlPoint(
         case "linear":
         case "linear-system":
         case "ray": {
-            if (action.itemIndex == null) {
-                throw new Error(
-                    "MoveControlPoint.itemIndex cannot be null when moving a point on a line",
-                );
-            }
             const newCoords = updateAtIndex({
                 array: state.coords,
                 index: action.itemIndex,
@@ -78,28 +73,11 @@ function doMoveControlPoint(
                 coords: newCoords,
             };
         }
-        case "polygon":
-        case "point": {
-            const newCoords = setAtIndex({
-                array: state.coords,
-                index: action.pointIndex,
-                newValue: snap({
-                    snapStep,
-                    point: bound({
-                        snapStep,
-                        range,
-                        point: action.destination,
-                    }),
-                }),
-            });
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: newCoords,
-            };
-        }
         case "circle":
             throw new Error("FIXME implement circle reducer");
+        case "point":
+        case "polygon":
+            throw new Error(`Don't use moveControlPoint for ${state.type} graphs. Use movePoint instead!`)
         default:
             throw new UnreachableCaseError(state);
     }
@@ -191,7 +169,8 @@ function doMovePoint(
     action: MovePoint,
 ): InteractiveGraphState {
     switch (state.type) {
-        case "point": {
+        case "point":
+        case "polygon": {
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -201,15 +180,16 @@ function doMovePoint(
                     newValue: snap({
                         snapStep: state.snapStep,
                         point: bound({
-                            point: action.destination,
-                            range: state.range,
                             snapStep: state.snapStep,
+                            range: state.range,
+                            point: action.destination,
                         }),
                     }),
                 }),
             };
         }
         default:
+            throw new Error("The movePoint action is only for point and polygon graphs")
             return state;
     }
 }
