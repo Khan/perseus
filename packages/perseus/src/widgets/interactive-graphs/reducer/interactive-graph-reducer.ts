@@ -7,11 +7,11 @@ import {
     MOVE_ALL,
     MOVE_CONTROL_POINT,
     MOVE_LINE,
-    MOVE_POINT,
+    MOVE_POINT, MoveAll, MoveControlPoint, MoveLine, MovePoint,
 } from "./interactive-graph-action";
 
 import type {CollinearTuple} from "../../../perseus-types";
-import type {InteractiveGraphState} from "../types";
+import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Interval} from "mafs";
 
 /** Determine if coords is type CollinearTuple[] */
@@ -19,49 +19,33 @@ const isCollinearTuples = (
     coords: readonly CollinearTuple[] | readonly vec.Vector2[],
 ): coords is readonly CollinearTuple[] => Array.isArray(coords[0][0]);
 
-// Generic type makes returned state match input state
-export function interactiveGraphReducer<
-    GraphState extends InteractiveGraphState,
->(state: Readonly<GraphState>, action: InteractiveGraphAction): GraphState {
+function doMoveControlPoint(state: InteractiveGraphState, action: MoveControlPoint): InteractiveGraphState {
     const {snapStep, range} = state;
-    if (!state.coords) {
-        throw new Error("Graph state must have been initialized with coords");
-    }
-    switch (action.type) {
-        case MOVE_CONTROL_POINT: {
-            const newCoords =
-                action.itemIndex !== undefined &&
-                state.coords &&
-                isCollinearTuples(state.coords)
-                    ? updateAtIndex({
-                          array: state.coords,
-                          index: action.itemIndex,
-                          update: (tuple) =>
-                              setAtIndex({
-                                  array: tuple,
-                                  index: action.pointIndex,
-                                  newValue: snap({
-                                      snapStep,
-                                      point: bound({
-                                          snapStep,
-                                          range,
-                                          point: action.destination,
-                                      }),
-                                  }),
-                              }),
-                      })
-                    : setAtIndex({
-                          array: state.coords,
-                          index: action.pointIndex,
-                          newValue: snap({
-                              snapStep,
-                              point: bound({
-                                  snapStep,
-                                  range,
-                                  point: action.destination,
-                              }),
-                          }),
-                      });
+    switch (state.type) {
+        case "segment":
+        case "linear":
+        case "linear-system":
+        case "ray": {
+            if (action.itemIndex == null) {
+                throw new Error("MoveControlPoint.itemIndex cannot be null when moving a point on a line")
+            }
+            const newCoords = updateAtIndex({
+                array: state.coords,
+                index: action.itemIndex,
+                update: (tuple) =>
+                    setAtIndex({
+                        array: tuple,
+                        index: action.pointIndex,
+                        newValue: snap({
+                            snapStep,
+                            point: bound({
+                                snapStep,
+                                range,
+                                point: action.destination,
+                            }),
+                        }),
+                    }),
+            });
 
             // Cannot type narrow both conditions within function parameters,
             // so this may seem redundant, but it's necessary for type safety.
@@ -81,12 +65,40 @@ export function interactiveGraphReducer<
                 coords: newCoords,
             };
         }
-        case MOVE_LINE: {
-            if (!isCollinearTuples(state.coords)) {
-                throw new Error(
-                    "Cannot call this action unless coords is array of CollinearTuple.",
-                );
-            }
+        case "polygon":
+        case "point": {
+            const newCoords = setAtIndex({
+                array: state.coords,
+                index: action.pointIndex,
+                newValue: snap({
+                    snapStep,
+                    point: bound({
+                        snapStep,
+                        range,
+                        point: action.destination,
+                    }),
+                }),
+            });
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
+        }
+        case "circle":
+            throw "FIXME implement circle reducer"
+        default:
+            throw new UnreachableCaseError(state)
+    }
+}
+
+function doMoveLine(state: InteractiveGraphState, action: MoveLine): InteractiveGraphState {
+    const {snapStep, range} = state;
+    switch (state.type) {
+        case "segment":
+        case "linear":
+        case "linear-system":
+        case "ray": {
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");
             }
@@ -99,7 +111,7 @@ export function interactiveGraphReducer<
                 range,
             });
 
-            const newLine: CollinearTuple = [
+            const newLine: PairOfPoints = [
                 snap({
                     snapStep,
                     point: vec.add(currentLine[0], change),
@@ -110,10 +122,7 @@ export function interactiveGraphReducer<
                 }),
             ];
 
-            const newCoords = setAtIndex<
-                CollinearTuple,
-                readonly CollinearTuple[]
-            >({
+            const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.itemIndex,
                 newValue: newLine,
@@ -121,17 +130,22 @@ export function interactiveGraphReducer<
 
             return {
                 ...state,
+                type: state.type,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
             };
         }
-        case MOVE_ALL: {
-            if (isCollinearTuples(state.coords)) {
-                throw new Error(
-                    "Cannot call this action unless coords is array of vectors.",
-                );
-            }
+        default:
+            // The MoveLine action doesn't make sense for other graph types;
+            // ignore it if it somehow happens
+            return state;
+    }
+}
 
+function doMoveAll(state: InteractiveGraphState, action: MoveAll): InteractiveGraphState {
+    const {snapStep, range} = state;
+    switch (state.type) {
+        case "polygon": {
             const change = getChange(state.coords, action.delta, {
                 snapStep,
                 range,
@@ -147,7 +161,15 @@ export function interactiveGraphReducer<
                 coords: newCoords,
             };
         }
-        case MOVE_POINT:
+        default:
+            // MoveAll is not supported for other state types; just ignore it.
+            return state;
+    }
+}
+
+function doMovePoint(state: InteractiveGraphState, action: MovePoint): InteractiveGraphState {
+    switch (state.type) {
+        case "point": {
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -164,6 +186,24 @@ export function interactiveGraphReducer<
                     }),
                 }),
             };
+        }
+        default:
+            return state;
+    }
+}
+
+// Generic type makes returned state match input state
+export function interactiveGraphReducer(state: InteractiveGraphState, action: InteractiveGraphAction): InteractiveGraphState {
+    const {snapStep, range} = state;
+    switch (action.type) {
+        case MOVE_CONTROL_POINT:
+            return doMoveControlPoint(state, action);
+        case MOVE_LINE:
+            return doMoveLine(state, action);
+        case MOVE_ALL:
+            return doMoveAll(state, action);
+        case MOVE_POINT:
+            return doMovePoint(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -245,24 +285,23 @@ const coordsOverlap = (coords: readonly vec.Vector2[]): boolean =>
         coords.some((c, j) => i !== j && kvector.equal(coord, c)),
     );
 
-function updateAtIndex<T>(args: {
-    array?: readonly T[];
+function updateAtIndex<A extends any[]>(args: {
+    array: A;
     index: number;
-    update: (elem: T) => T;
-}): readonly T[] {
-    const {array = [], index, update} = args;
+    update: (elem: A[number]) => A[number];
+}): A {
+    const {array, index, update} = args;
     const newValue = update(array[index]);
     return setAtIndex({array, index, newValue});
 }
 
-function setAtIndex<T, A extends readonly T[]>(args: {
-    array?: A;
+function setAtIndex<A extends any[]>(args: {
+    array: A;
     index: number;
     newValue: A[number];
 }): A {
-    const {array = [], index, newValue} = args;
-    const copy: T[] = [...array];
+    const {array, index, newValue} = args;
+    const copy: A = [...array] as A;
     copy[index] = newValue;
-    // restoring readonly to array
-    return copy as unknown as A;
+    return copy;
 }

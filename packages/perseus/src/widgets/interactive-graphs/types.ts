@@ -29,7 +29,8 @@ export type InteractiveGraphState =
     | LinearGraphState
     | RayGraphState
     | PolygonGraphState
-    | PointGraphState;
+    | PointGraphState
+    | CircleGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -41,27 +42,35 @@ export interface InteractiveGraphStateCommon {
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {
     type: "segment";
-    coords: ReadonlyArray<CollinearTuple>;
+    coords: PairOfPoints[];
 }
 
 export interface LinearGraphState extends InteractiveGraphStateCommon {
     type: "linear" | "linear-system";
-    coords: ReadonlyArray<CollinearTuple>;
+    coords: PairOfPoints[];
 }
 
 export interface PointGraphState extends InteractiveGraphStateCommon {
     type: "point";
-    coords: ReadonlyArray<Coord>;
+    coords: Coord[];
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
     type: "ray";
-    coords: ReadonlyArray<CollinearTuple>;
+    coords: PairOfPoints[];
 }
 
 export interface PolygonGraphState extends InteractiveGraphStateCommon {
     type: "polygon";
     showAngles: boolean;
     showSides: boolean;
-    coords: ReadonlyArray<Coord>;
+    coords: Coord[];
 }
+
+export interface CircleGraphState extends InteractiveGraphStateCommon {
+    type: "circle";
+    center: Coord;
+    radius: number;
+}
+
+export type PairOfPoints = [Coord, Coord];

@@ -54,7 +54,7 @@ export const moveAll = (delta: vec.Vector2): MoveAll => ({
 });
 
 export const MOVE_POINT = "move-point";
-interface MovePoint {
+export interface MovePoint {
     type: typeof MOVE_POINT;
     index: number;
     destination: vec.Vector2;
