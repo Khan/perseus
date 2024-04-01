@@ -23,6 +23,20 @@ import type {Widget} from "../../renderer";
 import "mafs/core.css";
 import "./mafs-styles.css";
 
+export type MafsWrapperProps = {
+    box: [number, number];
+    backgroundImage?: InteractiveGraphProps["backgroundImage"];
+    graph: InteractiveGraphProps["graph"];
+    lockedFigures?: InteractiveGraphProps["lockedFigures"];
+    range: InteractiveGraphProps["range"];
+    snapStep: InteractiveGraphProps["snapStep"];
+    step: InteractiveGraphProps["step"];
+    gridStep: InteractiveGraphProps["gridStep"];
+    containerSizeClass: InteractiveGraphProps["containerSizeClass"];
+    markings: InteractiveGraphProps["markings"];
+    onChange: InteractiveGraphProps["onChange"];
+};
+
 const renderGraph = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
@@ -50,7 +64,7 @@ const renderGraph = (props: {
 
 export const MafsGraph = React.forwardRef<
     Partial<Widget>,
-    React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
+    React.PropsWithChildren<MafsWrapperProps>
 >((props, ref) => {
     const [width, height] = props.box;
     const [state, dispatch] = React.useReducer(
