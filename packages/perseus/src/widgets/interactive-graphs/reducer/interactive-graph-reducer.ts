@@ -9,12 +9,14 @@ import {
     MOVE_CONTROL_POINT,
     MOVE_LINE,
     MOVE_POINT,
+    CHANGE_SNAP_STEP,
+    CHANGE_RANGE,
     type MoveAll,
     type MoveControlPoint,
     type MoveLine,
     type MovePoint,
-    type PropChange,
-    PROP_CHANGE,
+    type ChangeSnapStep,
+    type ChangeRange,
 } from "./interactive-graph-action";
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
@@ -33,8 +35,10 @@ export function interactiveGraphReducer(
             return doMoveAll(state, action);
         case MOVE_POINT:
             return doMovePoint(state, action);
-        case PROP_CHANGE:
-            return propChange(state, action);
+        case CHANGE_SNAP_STEP:
+            return doChangeStep(state, action);
+        case CHANGE_RANGE:
+            return doChangeRange(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -202,22 +206,37 @@ function doMovePoint(
     }
 }
 
-function propChange(
+function doChangeStep(
     state: InteractiveGraphState,
-    action: PropChange,
+    action: ChangeSnapStep,
 ): InteractiveGraphState {
     if (
         // Deep equality check since these are arrays
-        _.isEqual(state.range, action.props.range) &&
-        _.isEqual(state.snapStep, action.props.snapStep)
+        _.isEqual(state.snapStep, action.snapStep)
     ) {
         return state;
     }
 
     return {
         ...state,
-        range: action.props.range,
-        snapStep: action.props.snapStep,
+        snapStep: action.snapStep,
+    };
+}
+
+function doChangeRange(
+    state: InteractiveGraphState,
+    action: ChangeRange,
+): InteractiveGraphState {
+    if (
+        // Deep equality check since these are arrays
+        _.isEqual(state.range, action.range)
+    ) {
+        return state;
+    }
+
+    return {
+        ...state,
+        range: action.range,
     };
 }
 

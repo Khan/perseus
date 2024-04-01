@@ -12,7 +12,8 @@ import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
 import {
-    propChange,
+    changeRange,
+    changeSnapStep,
     type InteractiveGraphAction,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -86,13 +87,15 @@ export const MafsGraph = React.forwardRef<
         prevState.current = state;
     }, [props, state]);
 
-    const prevProps = useRef<MafsWrapperProps>(props);
+    const {snapStep, range} = props;
+
     useEffect(() => {
-        if (prevProps.current !== props) {
-            dispatch(propChange(props));
-        }
-        prevProps.current = props;
-    }, [props]);
+        dispatch(changeSnapStep(snapStep));
+    }, [snapStep]);
+
+    useEffect(() => {
+        dispatch(changeRange(range));
+    }, [range]);
 
     React.useImperativeHandle(ref, () => ({
         getUserInput: () => getGradableGraph(state, props.graph),

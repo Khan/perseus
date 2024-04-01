@@ -6,7 +6,8 @@ export type InteractiveGraphAction =
     | MoveLine
     | MoveAll
     | MovePoint
-    | PropChange;
+    | ChangeSnapStep
+    | ChangeRange;
 
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPoint {
@@ -68,14 +69,28 @@ export function movePoint(index: number, destination: vec.Vector2): MovePoint {
     };
 }
 
-export const PROP_CHANGE = "prop-change";
-export interface PropChange {
-    type: typeof PROP_CHANGE;
-    props: MafsWrapperProps;
+export const CHANGE_SNAP_STEP = "change-snap-step";
+export interface ChangeSnapStep {
+    type: typeof CHANGE_SNAP_STEP;
+    snapStep: MafsWrapperProps["snapStep"];
 }
-export function propChange(props: MafsWrapperProps): PropChange {
+export function changeSnapStep(
+    snapStep: MafsWrapperProps["snapStep"],
+): ChangeSnapStep {
     return {
-        type: PROP_CHANGE,
-        props,
+        type: CHANGE_SNAP_STEP,
+        snapStep,
+    };
+}
+
+export const CHANGE_RANGE = "change-range";
+export interface ChangeRange {
+    type: typeof CHANGE_RANGE;
+    range: MafsWrapperProps["range"];
+}
+export function changeRange(range: MafsWrapperProps["range"]): ChangeRange {
+    return {
+        type: CHANGE_RANGE,
+        range,
     };
 }
