@@ -1,6 +1,8 @@
 import {Coordinates} from "mafs";
 import * as React from "react";
 
+import AxisArrows from "./axis-arrows";
+
 import type {SizeClass} from "../../util/sizing-utils";
 
 interface GridProps {
@@ -26,8 +28,11 @@ const axisOptions = (
 
 export const Grid = (props: GridProps) =>
     props.markings === "none" ? null : (
-        <Coordinates.Cartesian
-            xAxis={axisOptions(props, 0)}
-            yAxis={axisOptions(props, 1)}
-        />
+        <>
+            <Coordinates.Cartesian
+                xAxis={axisOptions(props, 0)}
+                yAxis={axisOptions(props, 1)}
+            />
+            {props.markings === "graph" && <AxisArrows />}
+        </>
     );

@@ -1,14 +1,10 @@
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
-    CollinearTuple,
     PerseusGraphType,
-    PerseusGraphTypeLinearSystem,
-    PerseusGraphTypePolygon,
-    PerseusGraphTypeRay,
-    PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../../perseus-types";
 import type {WidgetProps} from "../../types";
+import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
 export type InteractiveGraphProps = WidgetProps<
@@ -31,7 +27,9 @@ export type InteractiveGraphState =
     | SegmentGraphState
     | LinearGraphState
     | RayGraphState
-    | PolygonGraphState;
+    | PolygonGraphState
+    | PointGraphState
+    | CircleGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -41,18 +39,37 @@ export interface InteractiveGraphStateCommon {
     snapStep: vec.Vector2;
 }
 
-export type SegmentGraphState = InteractiveGraphStateCommon &
-    Omit<PerseusGraphTypeSegment, "numSegments">;
+export interface SegmentGraphState extends InteractiveGraphStateCommon {
+    type: "segment";
+    coords: PairOfPoints[];
+}
 
-export type LinearGraphState = InteractiveGraphStateCommon &
-    Omit<PerseusGraphTypeLinearSystem, "type"> & {
-        type: "linear" | "linear-system";
-    };
+export interface LinearGraphState extends InteractiveGraphStateCommon {
+    type: "linear" | "linear-system";
+    coords: PairOfPoints[];
+}
 
-export type RayGraphState = InteractiveGraphStateCommon &
-    Omit<PerseusGraphTypeRay, "coords"> & {
-        coords: readonly CollinearTuple[];
-    };
+export interface PointGraphState extends InteractiveGraphStateCommon {
+    type: "point";
+    coords: Coord[];
+}
 
-export type PolygonGraphState = InteractiveGraphStateCommon &
-    PerseusGraphTypePolygon;
+export interface RayGraphState extends InteractiveGraphStateCommon {
+    type: "ray";
+    coords: PairOfPoints[];
+}
+
+export interface PolygonGraphState extends InteractiveGraphStateCommon {
+    type: "polygon";
+    showAngles: boolean;
+    showSides: boolean;
+    coords: Coord[];
+}
+
+export interface CircleGraphState extends InteractiveGraphStateCommon {
+    type: "circle";
+    center: Coord;
+    radius: number;
+}
+
+export type PairOfPoints = [Coord, Coord];

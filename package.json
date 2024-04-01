@@ -155,5 +155,8 @@
     "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
     "format": "prettier --write .",
     "typecheck": "tsc"
+  },
+  "dependencies": {
+    "tiny-invariant": "^1.3.1"
   }
 }

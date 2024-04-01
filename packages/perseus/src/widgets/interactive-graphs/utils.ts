@@ -8,7 +8,7 @@ import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 export const TARGET_SIZE = 44;
 
 // same as pointsFromNormalized in interactive-graph.tsx
-export const normalizePoints = <A extends ReadonlyArray<Coord>>(
+export const normalizePoints = <A extends Coord[]>(
     range: PerseusInteractiveGraphWidgetOptions["range"],
     step: PerseusInteractiveGraphWidgetOptions["step"],
     coordsList: A,
@@ -32,7 +32,7 @@ export const normalizePoints = <A extends ReadonlyArray<Coord>>(
     ) as any;
 
 // same as normalizeCoords in interactive-graph.tsx
-export const normalizeCoords = <A extends ReadonlyArray<Coord>>(
+export const normalizeCoords = <A extends Coord[]>(
     coordsList: A,
     ranges: PerseusInteractiveGraphWidgetOptions["range"],
 ): A =>

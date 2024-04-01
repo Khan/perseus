@@ -1,19 +1,22 @@
 import type {vec} from "mafs";
 
-export type InteractiveGraphAction = MoveControlPoint | MoveLine | MoveAll;
+export type InteractiveGraphAction =
+    | MoveControlPoint
+    | MoveLine
+    | MoveAll
+    | MovePoint;
 
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPoint {
     type: typeof MOVE_CONTROL_POINT;
-    /* Only necessary if there is an array of objects that contain points, such as collinear tuples (segments, lines). */
-    itemIndex?: number;
+    itemIndex: number;
     pointIndex: number;
     destination: vec.Vector2;
 }
 export function moveControlPoint(
     pointIndex: number,
     destination: vec.Vector2,
-    itemIndex?: number,
+    itemIndex: number,
 ): MoveControlPoint {
     return {
         type: MOVE_CONTROL_POINT,
@@ -48,3 +51,17 @@ export const moveAll = (delta: vec.Vector2): MoveAll => ({
     type: MOVE_ALL,
     delta,
 });
+
+export const MOVE_POINT = "move-point";
+export interface MovePoint {
+    type: typeof MOVE_POINT;
+    index: number;
+    destination: vec.Vector2;
+}
+export function movePoint(index: number, destination: vec.Vector2): MovePoint {
+    return {
+        type: MOVE_POINT,
+        index,
+        destination,
+    };
+}
