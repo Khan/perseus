@@ -33,7 +33,7 @@ function Arrow(props: ArrowProps) {
     );
 }
 
-export default function GridArrows() {
+export default function AxisArrows() {
     const {state} = useGraphState();
 
     const range = state.range;

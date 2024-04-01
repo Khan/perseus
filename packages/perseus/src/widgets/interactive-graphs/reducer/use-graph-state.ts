@@ -12,7 +12,5 @@ export const GraphStateContext = createContext<{
 });
 
 export default function useGraphState() {
-    const {state, dispatch} = React.useContext(GraphStateContext);
-
-    return {state, dispatch};
+    return React.useContext(GraphStateContext);
 }
