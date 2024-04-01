@@ -3,6 +3,7 @@ import {init, Widgets, Renderer, Dependencies} from "./perseus/src";
 import KhanUtils from "./perseus/src/util";
 import KhanAnswerTypesUtils from "./perseus/src/util/answer-types";
 import GraphUtils from "./perseus/src/util/graphie";
+import KhanMath from "./perseus/src/util/math";
 
 export interface TexOptions {
     functions?: string[];
@@ -18,6 +19,7 @@ export interface PerseusCore {
     GraphUtils: typeof GraphUtils;
     KhanUtils: typeof KhanUtils;
     KhanAnswerTypesUtils: typeof KhanAnswerTypesUtils;
+    KhanMath: typeof KhanMath;
     parseTex: (
         tex: string,
         options?: TexOptions,
@@ -44,6 +46,7 @@ export {
     Dependencies,
     KhanUtils,
     KhanAnswerTypesUtils,
+    KhanMath,
 };
 
 export type {WidgetExports} from "./perseus/src";
