@@ -1,4 +1,4 @@
-import {screen, render, waitFor} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
@@ -63,9 +63,16 @@ describe("MafsGraph", () => {
     });
 
     it("renders", () => {
-        render(<MafsGraph {...getBaseMafsGraphProps()} box={[400, 400]} />);
+        const {container} = render(
+            <MafsGraph {...getBaseMafsGraphProps()} box={[400, 400]} />,
+        );
 
-        expect(screen.getByTestId("mafs-graph__wrapper")).toBeInTheDocument();
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "circle.movable-point-hitbox",
+        );
+
+        expect(movablePoints).not.toBe(0);
     });
 
     it("calls onChange when using graph", async () => {
@@ -86,8 +93,6 @@ describe("MafsGraph", () => {
 
         await userEvent.type(movablePoints[1], "{arrowup}");
 
-        await waitFor(() => {
-            expect(mockChangeHandler).toHaveBeenCalled();
-        });
+        expect(mockChangeHandler).toHaveBeenCalled();
     });
 });

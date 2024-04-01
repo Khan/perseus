@@ -78,7 +78,6 @@ export const MafsGraph = React.forwardRef<
                 height,
                 position: "relative",
             }}
-            testId="mafs-graph__wrapper"
         >
             <LegacyGrid
                 box={props.box}
