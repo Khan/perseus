@@ -3,12 +3,13 @@ import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
 
+import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
 
 interface GridProps {
     step: [number, number];
     gridStep: [number, number];
-    range: [[number, number], [number, number]];
+    range: GraphRange;
     containerSizeClass: SizeClass;
     markings: "graph" | "grid" | "none";
 }

@@ -483,6 +483,9 @@ export type PerseusGradedGroupSetWidgetOptions = {
     gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>;
 };
 
+// 2D range: xMin, xMax, yMin, yMax
+export type GraphRange = [[number, number], [number, number]];
+
 export type PerseusGrapherWidgetOptions = {
     availableTypes: ReadonlyArray<
         | "absolute_value"
@@ -558,7 +561,7 @@ export type PerseusGrapherWidgetOptions = {
         gridStep?: [number, number];
         labels: [string, string];
         markings: "graph" | "none" | "grid";
-        range: [[number, number], [number, number]];
+        range: GraphRange;
         rulerLabel: "";
         rulerTicks: number;
         showProtractor?: boolean;
@@ -642,7 +645,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
     // TODO(kevinb): Add a transform function to interactive-graph.jsx to
     // rename `range` to `ranges` so that things are less confusing.
-    range: [[number, number], [number, number]];
+    range: GraphRange;
     // The type of graph
     graph: PerseusGraphType;
     // The correct kind of graph, if being used to select function type

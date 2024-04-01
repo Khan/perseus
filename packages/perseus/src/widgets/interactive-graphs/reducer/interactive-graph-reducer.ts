@@ -36,7 +36,7 @@ export function interactiveGraphReducer(
         case MOVE_POINT:
             return doMovePoint(state, action);
         case CHANGE_SNAP_STEP:
-            return doChangeStep(state, action);
+            return doChangeSnapStep(state, action);
         case CHANGE_RANGE:
             return doChangeRange(state, action);
         default:
@@ -206,7 +206,7 @@ function doMovePoint(
     }
 }
 
-function doChangeStep(
+function doChangeSnapStep(
     state: InteractiveGraphState,
     action: ChangeSnapStep,
 ): InteractiveGraphState {
