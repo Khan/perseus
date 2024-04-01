@@ -1,10 +1,12 @@
+import type {MafsWrapperProps} from "../mafs-graph";
 import type {vec} from "mafs";
 
 export type InteractiveGraphAction =
     | MoveControlPoint
     | MoveLine
     | MoveAll
-    | MovePoint;
+    | MovePoint
+    | PropChange;
 
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPoint {
@@ -63,5 +65,17 @@ export function movePoint(index: number, destination: vec.Vector2): MovePoint {
         type: MOVE_POINT,
         index,
         destination,
+    };
+}
+
+export const PROP_CHANGE = "prop-change";
+export interface PropChange {
+    type: typeof PROP_CHANGE;
+    props: MafsWrapperProps;
+}
+export function propChange(props: MafsWrapperProps): PropChange {
+    return {
+        type: PROP_CHANGE,
+        props,
     };
 }
