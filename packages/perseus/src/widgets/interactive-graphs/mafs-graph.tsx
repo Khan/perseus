@@ -17,8 +17,15 @@ import {
 } from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
-import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
+import type {InteractiveGraphState} from "./types";
+import type {
+    LockedFigure,
+    PerseusGraphType,
+    PerseusImageBackground,
+} from "../../perseus-types";
 import type {Widget} from "../../renderer";
+import type {SizeClass} from "../../util/sizing-utils";
+import type {Interval, vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
@@ -48,78 +55,93 @@ const renderGraph = (props: {
     }
 };
 
-export const MafsGraph = React.forwardRef<
-    Partial<Widget>,
-    React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
->((props, ref) => {
-    const [width, height] = props.box;
-    const [state, dispatch] = React.useReducer(
-        interactiveGraphReducer,
-        props,
-        initializeGraphState,
-    );
-    const prevState = useRef<InteractiveGraphState>(state);
+export type Props = {
+    graph: PerseusGraphType;
+    box: [number, number];
+    range: [Interval, Interval];
+    step: vec.Vector2;
+    gridStep: vec.Vector2;
+    containerSizeClass: SizeClass;
+    markings: "grid" | "graph" | "none";
+    snapStep: vec.Vector2;
+    lockedFigures?: ReadonlyArray<LockedFigure>;
+    backgroundImage?: PerseusImageBackground;
+    onChange: ({graph}: {graph: InteractiveGraphState}) => unknown;
+};
 
-    useEffect(() => {
-        if (prevState.current !== state) {
-            props.onChange({graph: state});
-        }
-        prevState.current = state;
-    }, [props, state]);
+export const MafsGraph = React.forwardRef<Partial<Widget>, Props>(
+    (props, ref) => {
+        const [width, height] = props.box;
+        const [state, dispatch] = React.useReducer(
+            interactiveGraphReducer,
+            props,
+            initializeGraphState,
+        );
+        const prevState = useRef<InteractiveGraphState>(state);
 
-    React.useImperativeHandle(ref, () => ({
-        getUserInput: () => getGradableGraph(state, props.graph),
-    }));
+        useEffect(() => {
+            if (prevState.current !== state) {
+                props.onChange({graph: state});
+            }
+            prevState.current = state;
+        }, [props, state]);
 
-    return (
-        <View
-            style={{
-                width,
-                height,
-                position: "relative",
-            }}
-        >
-            <LegacyGrid
-                box={props.box}
-                backgroundImage={props.backgroundImage}
-            />
+        React.useImperativeHandle(ref, () => ({
+            getUserInput: () => getGradableGraph(state, props.graph),
+        }));
+
+        return (
             <View
                 style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
+                    width,
+                    height,
+                    position: "relative",
                 }}
             >
-                <Mafs
-                    preserveAspectRatio={false}
-                    viewBox={{
-                        x: props.range[0],
-                        y: props.range[1],
-                        padding: 0,
+                <LegacyGrid
+                    box={props.box}
+                    backgroundImage={props.backgroundImage}
+                />
+                <View
+                    style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
                     }}
-                    pan={false}
-                    zoom={false}
-                    width={width}
-                    height={height}
                 >
-                    {/* Svg definitions to render only once */}
-                    <SvgDefs />
+                    <Mafs
+                        preserveAspectRatio={false}
+                        viewBox={{
+                            x: props.range[0],
+                            y: props.range[1],
+                            padding: 0,
+                        }}
+                        pan={false}
+                        zoom={false}
+                        width={width}
+                        height={height}
+                    >
+                        {/* Svg definitions to render only once */}
+                        <SvgDefs />
 
-                    {/* Background layer */}
-                    <Grid {...props} />
+                        {/* Background layer */}
+                        <Grid {...props} />
 
-                    {/* Locked layer */}
-                    {props.lockedFigures && (
-                        <GraphLockedLayer lockedFigures={props.lockedFigures} />
-                    )}
+                        {/* Locked layer */}
+                        {props.lockedFigures && (
+                            <GraphLockedLayer
+                                lockedFigures={props.lockedFigures}
+                            />
+                        )}
 
-                    {/* Interactive layer */}
-                    {renderGraph({
-                        state,
-                        dispatch,
-                    })}
-                </Mafs>
+                        {/* Interactive layer */}
+                        {renderGraph({
+                            state,
+                            dispatch,
+                        })}
+                    </Mafs>
+                </View>
             </View>
-        </View>
-    );
-});
+        );
+    },
+);
