@@ -22,28 +22,6 @@ function getBaseMafsGraphProps(): MafsWrapperProps {
         containerSizeClass: "small",
         onChange: () => {},
     };
-
-    // const widgetBaseProps: InteractiveGraphProps = {
-    //     ...mafsGraphBaseProps,
-    //     alignment: null,
-    //     apiOptions: {
-    //         ...ApiOptions.defaults,
-    //     },
-    //     containerSizeClass: "small",
-    //     findWidgets: () => [],
-    //     isLastUsedWidget: false,
-    //     onBlur: () => {},
-    //     onChange: () => {},
-    //     onFocus: () => {},
-    //     problemNum: 1,
-    //     reviewModeRubric: {
-    //         ...mafsGraphBaseProps,
-    //     },
-    //     static: true,
-    //     trackInteraction: () => {},
-    //     widgetId: "mafs-graph",
-    //     linterContext: {} as any,
-    // };
 }
 
 describe("MafsGraph", () => {
