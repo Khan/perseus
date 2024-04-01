@@ -44,7 +44,12 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
 import type {Widget} from "../renderer";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {
+    ChangeHandler,
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 import type {
     QuadraticCoefficient,
     SineCoefficient,
@@ -1312,7 +1317,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.onChange({graph: graph});
     };
 
-    onChange: (arg1: any) => void = (data) => {
+    onChange: ChangeHandler = (data) => {
         this.props.onChange(data);
         this.props.trackInteraction();
     };
@@ -1657,6 +1662,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
         $(this.angle).on("move", () => {
             this.onChange({
+                // @ts-expect-error Type '{ coords: any; type: "angle"; showAngles?: boolean | undefined; allowReflexAngles?: boolean | undefined; angleOffsetDeg?: number | undefined; snapDegrees?: number | undefined; match?: "congruent" | undefined; }' is not assignable to type 'InteractiveGraphState | undefined'.
                 graph: {...graph, coords: this.angle?.getClockwiseCoords()},
             });
         });

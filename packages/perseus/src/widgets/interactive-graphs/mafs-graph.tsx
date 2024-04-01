@@ -2,6 +2,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
+import {useEffect, useRef} from "react";
 
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
@@ -57,6 +58,14 @@ export const MafsGraph = React.forwardRef<
         props,
         initializeGraphState,
     );
+    const prevState = useRef<InteractiveGraphState>(state);
+
+    useEffect(() => {
+        if (prevState.current !== state) {
+            props.onChange({graph: state});
+        }
+        prevState.current = state;
+    }, [props, state]);
 
     React.useImperativeHandle(ref, () => ({
         getUserInput: () => getGradableGraph(state, props.graph),

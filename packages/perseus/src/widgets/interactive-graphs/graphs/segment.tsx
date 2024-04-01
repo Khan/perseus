@@ -29,11 +29,11 @@ export const SegmentGraph = (props: SegmentProps) => {
                     onMovePoint={(
                         endpointIndex: number,
                         destination: vec.Vector2,
-                    ) =>
+                    ) => {
                         dispatch(
                             moveControlPoint(endpointIndex, destination, i),
-                        )
-                    }
+                        );
+                    }}
                     data-testid={"segment" + i}
                 />
             ))}
