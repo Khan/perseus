@@ -46,7 +46,7 @@ export const lineLabelText = (
  * @param {GridProps} props
  * @param {number} axisIndex which axis we're getting options for
  */
-export const axisOptions = (
+const axisOptions = (
     props: Omit<GridProps, "containerSizeClass">,
     axisIndex: number,
 ) => {
