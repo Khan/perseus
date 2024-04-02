@@ -6,7 +6,7 @@ import {AxisTicks} from "./axis-ticks";
 
 import type {SizeClass} from "../../util/sizing-utils";
 
-interface GridProps {
+export interface GridProps {
     step: [number, number];
     gridStep: [number, number];
     range: [[number, number], [number, number]];
@@ -34,7 +34,7 @@ export const Grid = (props: GridProps) =>
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
-            <AxisTicks />
+            <AxisTicks grid={props} />
             {props.markings === "graph" && <AxisArrows />}
         </>
     );

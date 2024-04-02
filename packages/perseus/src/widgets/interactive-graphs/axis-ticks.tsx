@@ -2,26 +2,22 @@
 import * as React from "react";
 
 import {useTransform} from "./graphs/use-transform";
+import useGraphState from "./reducer/use-graph-state";
 
+import type {GridProps} from "./grid";
 import type {vec} from "mafs";
 
 // import type {vec} from "mafs";
-// import useGraphState from "./reducer/use-graph-state";
 
-type Props = any;
+type Props = GridProps;
 
-export const AxisTicks = (props: Props) => {
+//      -
+const YGridTick = ({y}: {y: number}) => {
     const tickSize = 0.3;
-    const startingPoint: vec.Vector2 = [-tickSize, 2];
-    const endingPoint: vec.Vector2 = [tickSize, 2];
+    const startingPoint: vec.Vector2 = [-tickSize, y];
+    const endingPoint: vec.Vector2 = [tickSize, y];
 
     const [startPtPx, endPtPx] = useTransform(startingPoint, endingPoint);
-
-    // const {state} = useGraphState();
-
-    // const range = state.range;
-    // const [xMin, xMax] = range[0];
-    // const [yMin, yMax] = range[1];
 
     return (
         <g className="axis-ticks" tabIndex={0} style={{} as any}>
@@ -35,6 +31,18 @@ export const AxisTicks = (props: Props) => {
                     strokeWidth: 2,
                 }}
             />
+        </g>
+    );
+};
+
+export const AxisTicks = (props: Props) => {
+    // from (0 + gridStep) to (max y - gridStep) stepping by gridstep
+
+    return (
+        <g className="axis-ticks" tabIndex={0} style={{} as any}>
+            <YGridTick y={1} />
+            <YGridTick y={2} />
+            <YGridTick y={-1} />
         </g>
     );
 };
