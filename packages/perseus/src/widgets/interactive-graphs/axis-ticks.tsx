@@ -71,6 +71,8 @@ export const AxisTicks = (props: Props) => {
     const [yMin, yMax] = range[1];
 
     const yTickStep = props.tickStep[1];
+
+    const yTickStep = props.tickStep[1];
     const xTickStep = props.tickStep[0];
 
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
