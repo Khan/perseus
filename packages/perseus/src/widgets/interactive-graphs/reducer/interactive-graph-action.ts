@@ -1,4 +1,4 @@
-import type {MafsWrapperProps} from "../mafs-graph";
+import type {Props as MafsGraphProps} from "../mafs-graph";
 import type {vec} from "mafs";
 
 export type InteractiveGraphAction =
@@ -72,10 +72,10 @@ export function movePoint(index: number, destination: vec.Vector2): MovePoint {
 export const CHANGE_SNAP_STEP = "change-snap-step";
 export interface ChangeSnapStep {
     type: typeof CHANGE_SNAP_STEP;
-    snapStep: MafsWrapperProps["snapStep"];
+    snapStep: MafsGraphProps["snapStep"];
 }
 export function changeSnapStep(
-    snapStep: MafsWrapperProps["snapStep"],
+    snapStep: MafsGraphProps["snapStep"],
 ): ChangeSnapStep {
     return {
         type: CHANGE_SNAP_STEP,
@@ -86,9 +86,9 @@ export function changeSnapStep(
 export const CHANGE_RANGE = "change-range";
 export interface ChangeRange {
     type: typeof CHANGE_RANGE;
-    range: MafsWrapperProps["range"];
+    range: MafsGraphProps["range"];
 }
-export function changeRange(range: MafsWrapperProps["range"]): ChangeRange {
+export function changeRange(range: MafsGraphProps["range"]): ChangeRange {
     return {
         type: CHANGE_RANGE,
         range,
