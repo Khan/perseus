@@ -87,15 +87,22 @@ export const MafsGraph = React.forwardRef<
         prevState.current = state;
     }, [props, state]);
 
-    const {snapStep, range} = props;
-
+    // Destructuring first to keep useEffect from making excess calls
+    const [xSnap, ySnap] = props.snapStep;
     useEffect(() => {
-        dispatch(changeSnapStep(snapStep));
-    }, [snapStep]);
+        dispatch(changeSnapStep([xSnap, ySnap]));
+    }, [xSnap, ySnap]);
 
+    // Destructuring first to keep useEffect from making excess calls
+    const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = props.range;
     useEffect(() => {
-        dispatch(changeRange(range));
-    }, [range]);
+        dispatch(
+            changeRange([
+                [xMinRange, xMaxRange],
+                [yMinRange, yMaxRange],
+            ]),
+        );
+    }, [xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
     React.useImperativeHandle(ref, () => ({
         getUserInput: () => getGradableGraph(state, props.graph),

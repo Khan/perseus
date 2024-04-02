@@ -484,7 +484,10 @@ export type PerseusGradedGroupSetWidgetOptions = {
 };
 
 // 2D range: xMin, xMax, yMin, yMax
-export type GraphRange = [[number, number], [number, number]];
+export type GraphRange = [
+    x: [min: number, max: number],
+    y: [min: number, max: number],
+];
 
 export type PerseusGrapherWidgetOptions = {
     availableTypes: ReadonlyArray<
