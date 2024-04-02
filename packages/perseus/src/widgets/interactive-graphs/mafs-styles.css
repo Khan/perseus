@@ -82,6 +82,8 @@
 }
 
 .MafsView .movable-point:focus-visible .movable-point-halo {
-    outline: 2px solid blue;
+    outline: 3px solid var(--movable-point-color);
+    /* Safari workaround to avoid the focus circle being clipped */
+    outline-offset: -3px;
     border-radius: 99px;
 }
