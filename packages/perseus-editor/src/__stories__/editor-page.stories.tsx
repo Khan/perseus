@@ -33,7 +33,14 @@ export const Demo = (): React.ReactElement => {
 
     return (
         <EditorPage
-            apiOptions={{isMobile: false}}
+            apiOptions={{
+                isMobile: false,
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            }}
             previewDevice={previewDevice}
             onPreviewDeviceChange={(newDevice) => setPreviewDevice(newDevice)}
             developerMode={true}

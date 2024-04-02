@@ -20,7 +20,7 @@ import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
-const questions = [
+const questions: [PerseusRenderer, number][] = pairWithIndices([
     interactiveGraph.segmentQuestion,
     interactiveGraph.pointQuestion,
     interactiveGraph.angleQuestion,
@@ -41,7 +41,7 @@ const questions = [
     grapher.quadraticQuestion,
     grapher.sinusoidQuestion,
     numberLine.question1,
-];
+]);
 
 const styles = StyleSheet.create({
     page: {
@@ -170,12 +170,12 @@ export function Gallery() {
                     className={isMobile ? "perseus-mobile" : ""}
                 >
                     {questions
-                        .filter((question) =>
+                        .filter(([question]: [PerseusRenderer, number]) =>
                             search
                                 ? graphTypeContainsText(question, search)
                                 : true,
                         )
-                        .map((question, i) => (
+                        .map(([question, i]) => (
                             <QuestionRenderer
                                 key={i}
                                 question={question}
@@ -239,3 +239,7 @@ const graphTypeContainsText = (
             return false;
     }
 };
+
+function pairWithIndices<T>(a: T[]): [T, number][] {
+    return a.map((elem, index) => [elem, index]);
+}
