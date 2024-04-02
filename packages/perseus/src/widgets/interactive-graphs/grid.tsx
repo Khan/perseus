@@ -8,7 +8,7 @@ import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
 import type {vec} from "mafs";
 
-interface GridProps {
+export interface GridProps {
     tickStep: vec.Vector2;
     gridStep: vec.Vector2;
     range: GraphRange;
