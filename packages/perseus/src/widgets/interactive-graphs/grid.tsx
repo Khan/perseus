@@ -2,6 +2,7 @@ import {Coordinates} from "mafs";
 import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
+import {AxisTicks} from "./axis-ticks";
 
 import type {SizeClass} from "../../util/sizing-utils";
 
@@ -33,6 +34,7 @@ export const Grid = (props: GridProps) =>
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
+            <AxisTicks />
             {props.markings === "graph" && <AxisArrows />}
         </>
     );
