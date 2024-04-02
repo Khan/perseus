@@ -2,14 +2,15 @@
 import * as React from "react";
 
 import {useTransform} from "./graphs/use-transform";
-import useGraphState from "./reducer/use-graph-state";
 
-import type {GridProps} from "./grid";
 import type {vec} from "mafs";
 
 // import type {vec} from "mafs";
 
-type Props = GridProps;
+type Props = {
+    tickStep: [number, number];
+    range: [[number, number], [number, number]];
+};
 
 //      -
 const YGridTick = ({y}: {y: number}) => {
@@ -37,6 +38,16 @@ const YGridTick = ({y}: {y: number}) => {
 
 export const AxisTicks = (props: Props) => {
     // from (0 + gridStep) to (max y - gridStep) stepping by gridstep
+
+    // We want to loop through y grids and create one at each grid step + -
+    const range = props.range;
+    // const [xMin, xMax] = range[0];
+    const [yMin, yMax] = range[1];
+
+    const yGridTicks: number[] = [];
+    for (let i = yMin; i < yMax; i += props.tickStep[1]) {
+        yGridTicks.push(i);
+    }
 
     return (
         <g className="axis-ticks" tabIndex={0} style={{} as any}>

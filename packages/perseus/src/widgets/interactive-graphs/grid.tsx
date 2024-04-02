@@ -6,7 +6,13 @@ import {AxisTicks} from "./axis-ticks";
 
 import type {SizeClass} from "../../util/sizing-utils";
 
+/*
+gridStep: where the lines on the grid show up
+tickStep: where the little black lines should up (just called tick)
+snapStep: where the points will lock to when they are dragging
+*/
 export interface GridProps {
+    // todo: this should probably be tickStep
     step: [number, number];
     gridStep: [number, number];
     range: [[number, number], [number, number]];
@@ -34,7 +40,7 @@ export const Grid = (props: GridProps) =>
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
-            <AxisTicks grid={props} />
+            <AxisTicks range={props.range} tickStep={props.step} />
             {props.markings === "graph" && <AxisArrows />}
         </>
     );
