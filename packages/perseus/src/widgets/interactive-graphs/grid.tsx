@@ -33,8 +33,8 @@ const axisOptions = (
     labels: (n: number) => (renderLineLabel(n, props.range[index]) ? n : ""),
 });
 
-export const Grid = (props: GridProps) =>
-    props.markings === "none" ? null : (
+export const Grid = (props: GridProps) => {
+    return props.markings === "none" ? null : (
         <>
             <Coordinates.Cartesian
                 xAxis={axisOptions(props, 0)}
@@ -44,3 +44,4 @@ export const Grid = (props: GridProps) =>
             {props.markings === "graph" && <AxisArrows />}
         </>
     );
+};

@@ -44,16 +44,23 @@ export const AxisTicks = (props: Props) => {
     // const [xMin, xMax] = range[0];
     const [yMin, yMax] = range[1];
 
+    const yTickStep = props.tickStep[1];
+
     const yGridTicks: number[] = [];
-    for (let i = yMin; i < yMax; i += props.tickStep[1]) {
+    for (let i = 0 + yTickStep; i < yMax; i += yTickStep) {
+        yGridTicks.push(i);
+    }
+    for (let i = 0 - yTickStep; i > yMin; i -= yTickStep) {
         yGridTicks.push(i);
     }
 
+    console.log(yGridTicks);
+
     return (
         <g className="axis-ticks" tabIndex={0} style={{} as any}>
-            <YGridTick y={1} />
-            <YGridTick y={2} />
-            <YGridTick y={-1} />
+            {yGridTicks.map((y) => {
+                return <YGridTick y={y} key={`y-grid-tick-${y}`} />;
+            })}
         </g>
     );
 };
