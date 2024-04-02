@@ -7,7 +7,7 @@ import type {SizeClass} from "../../util/sizing-utils";
 import type {vec} from "mafs";
 
 interface GridProps {
-    step: vec.Vector2;
+    tickStep: vec.Vector2;
     gridStep: vec.Vector2;
     range: [[number, number], [number, number]];
     containerSizeClass: SizeClass;
@@ -50,7 +50,7 @@ const axisOptions = (
     props: Omit<GridProps, "containerSizeClass">,
     axisIndex: number,
 ) => {
-    const axisStep = props.step[axisIndex];
+    const axisStep = props.tickStep[axisIndex];
     const axisRange = props.range[axisIndex];
     return {
         axis: props.markings === "graph",

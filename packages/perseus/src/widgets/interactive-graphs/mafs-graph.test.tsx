@@ -4,10 +4,10 @@ import React from "react";
 
 import {MafsGraph} from "./mafs-graph";
 
-import type {MafsWrapperProps} from "./mafs-graph";
+import type {Props as MafsGraphProps} from "./mafs-graph";
 import type {UserEvent} from "@testing-library/user-event";
 
-function getBaseMafsGraphProps(): MafsWrapperProps {
+function getBaseMafsGraphProps(): MafsGraphProps {
     return {
         box: [400, 400],
         step: [1, 1],
