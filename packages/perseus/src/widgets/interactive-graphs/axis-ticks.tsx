@@ -1,9 +1,7 @@
 import * as React from "react";
 
 import {useTransform} from "./graphs/use-transform";
-import useGraphState from "./reducer/use-graph-state";
 
-import type {GridProps} from "./grid";
 import type {vec} from "mafs";
 
 const tickSize = 10;
