@@ -23,7 +23,7 @@ import type {PerseusRenderer} from "@khanacademy/perseus";
  * @param {PerseusRenderer} q the question to check
  * @returns {boolean} whether the question is a match
  */
-function predicateCallback(q: PerseusRenderer) {
+function predicateCallback(q: PerseusRenderer): boolean {
     // Look through each widget in the question
     for (const widget of Object.values(q.widgets)) {
         // Skip everything that's not an interactive-graph
@@ -52,7 +52,7 @@ function predicateCallback(q: PerseusRenderer) {
 // ================================
 
 // Find all `.json` files in a directory (recursive)
-function findJsonFiles(dir, accumulator: string[] = []) {
+function findJsonFiles(dir: string, accumulator: string[] = []): string[] {
     fs.readdirSync(dir).forEach((file) => {
         const absolutePath = path.join(dir, file);
         if (fs.statSync(absolutePath).isDirectory()) {
@@ -66,7 +66,7 @@ function findJsonFiles(dir, accumulator: string[] = []) {
 
 // Open and parse JSON files, check if it passes
 // the predicate match, and if so store it in the output array
-function checkFiles(jsonFiles) {
+function checkFiles(jsonFiles: string[]): string[] {
     const output: string[] = [];
     for (const fileName of jsonFiles) {
         const data = fs.readFileSync(fileName, "utf8");
