@@ -3,7 +3,6 @@ import {useMovable} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
-import {TARGET_SIZE} from "../../utils";
 import {useTransform} from "../use-transform";
 
 import type {vec} from "mafs";
@@ -13,6 +12,10 @@ type Props = {
     onMove: (newPoint: vec.Vector2) => unknown;
     color?: string;
 };
+
+// The hitbox size of 48px by 48px is preserved from the legacy interactive
+// graph.
+const hitboxSizePx = 48;
 
 export const StyledMovablePoint = (props: Props) => {
     const hitboxRef = useRef<SVGCircleElement>(null);
@@ -41,10 +44,9 @@ export const StyledMovablePoint = (props: Props) => {
                 } as any
             }
         >
-            {/* Radius of 22 creates 44x44 click/touch target: AAA WCAG compliant */}
             <circle
                 className="movable-point-hitbox"
-                r={TARGET_SIZE / 2}
+                r={hitboxSizePx / 2}
                 cx={x}
                 cy={y}
             />
