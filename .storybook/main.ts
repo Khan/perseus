@@ -59,15 +59,15 @@ const config: StorybookConfig = {
             },
             // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
             assetsInclude: ["/sb-preview/runtime.js"],
-            plugins:
+            plugins: [
+                ...viteConfig.plugins,
                 configType === "PRODUCTION"
-                    ? [
-                          turbosnap({
+                    ? turbosnap({
                               // This should be the base path of your storybook.  In monorepos, you may only need process.cwd().
                               rootDir: config.root ?? process.cwd(),
-                          }),
-                      ]
-                    : [],
+                      })
+                    : undefined,
+            ],
         });
     },
 
