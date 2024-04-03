@@ -124,3 +124,15 @@
 .MafsView .movable-point:focus-visible .movable-point-focus-outline {
     visibility: visible;
 }
+
+.MafsView .mafs-axis text {
+    font-size: 12px;
+}
+
+.MafsView .mafs-shadow .mafs-axis:first-child {
+    transform: translate(0, 5px);
+}
+
+.MafsView .mafs-shadow .mafs-axis:last-child {
+    transform: translate(-25px, 0);
+}
