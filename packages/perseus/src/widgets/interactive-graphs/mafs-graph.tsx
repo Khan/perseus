@@ -3,6 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 import {useEffect, useRef} from "react";
+import _ from "underscore";
 
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
@@ -10,6 +11,11 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
+import {
+    changeRange,
+    changeSnapStep,
+    type InteractiveGraphAction,
+} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {
     getGradableGraph,
@@ -17,14 +23,13 @@ import {
 } from "./reducer/interactive-graph-state";
 import {GraphStateContext} from "./reducer/use-graph-state";
 
-import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
 
-export type MafsWrapperProps = {
+export type Props = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: InteractiveGraphProps["graph"];
@@ -65,7 +70,7 @@ const renderGraph = (props: {
 
 export const MafsGraph = React.forwardRef<
     Partial<Widget>,
-    React.PropsWithChildren<MafsWrapperProps>
+    React.PropsWithChildren<Props>
 >((props, ref) => {
     const [width, height] = props.box;
     const [state, dispatch] = React.useReducer(
@@ -73,14 +78,31 @@ export const MafsGraph = React.forwardRef<
         props,
         initializeGraphState,
     );
-    const prevState = useRef<InteractiveGraphState>(state);
 
+    const prevState = useRef<InteractiveGraphState>(state);
     useEffect(() => {
         if (prevState.current !== state) {
             props.onChange({graph: state});
         }
         prevState.current = state;
     }, [props, state]);
+
+    // Destructuring first to keep useEffect from making excess calls
+    const [xSnap, ySnap] = props.snapStep;
+    useEffect(() => {
+        dispatch(changeSnapStep([xSnap, ySnap]));
+    }, [xSnap, ySnap]);
+
+    // Destructuring first to keep useEffect from making excess calls
+    const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = props.range;
+    useEffect(() => {
+        dispatch(
+            changeRange([
+                [xMinRange, xMaxRange],
+                [yMinRange, yMaxRange],
+            ]),
+        );
+    }, [xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
     React.useImperativeHandle(ref, () => ({
         getUserInput: () => getGradableGraph(state, props.graph),
@@ -127,7 +149,13 @@ export const MafsGraph = React.forwardRef<
                         <SvgDefs />
 
                         {/* Background layer */}
-                        <Grid {...props} />
+                        <Grid
+                            tickStep={props.step}
+                            gridStep={props.gridStep}
+                            range={props.range}
+                            containerSizeClass={props.containerSizeClass}
+                            markings={props.markings}
+                        />
 
                         {/* Locked layer */}
                         {props.lockedFigures && (
