@@ -1,14 +1,16 @@
+#!/usr/bin/env -S node -r @swc-node/register
+
 /**
  * To use this:
  * - Modify `predicateCallback` to look for questions that
  *   match your requirements
- * - run: node find-questions.js
+ * - run: ./find-questions.js
  */
 
-/* eslint-disable import/no-commonjs */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const fs = require("fs");
-const Path = require("path");
+import fs from "fs";
+import path from "path";
+
+import type {PerseusRenderer} from "@khanacademy/perseus";
 
 // ==========================
 // MODIFY THIS WHEN SEARCHING
@@ -21,7 +23,7 @@ const Path = require("path");
  * @param {PerseusRenderer} q the question to check
  * @returns {boolean} whether the question is a match
  */
-function predicateCallback(q) {
+function predicateCallback(q: PerseusRenderer) {
     // Look through each widget in the question
     for (const widget of Object.values(q.widgets)) {
         // Skip everything that's not an interactive-graph
@@ -50,9 +52,9 @@ function predicateCallback(q) {
 // ================================
 
 // Find all `.json` files in a directory (recursive)
-function findJsonFiles(dir, accumulator = []) {
+function findJsonFiles(dir, accumulator: string[] = []) {
     fs.readdirSync(dir).forEach((file) => {
-        const absolutePath = Path.join(dir, file);
+        const absolutePath = path.join(dir, file);
         if (fs.statSync(absolutePath).isDirectory()) {
             return findJsonFiles(absolutePath, accumulator);
         } else if (absolutePath.endsWith(".json")) {
@@ -65,7 +67,7 @@ function findJsonFiles(dir, accumulator = []) {
 // Open and parse JSON files, check if it passes
 // the predicate match, and if so store it in the output array
 function checkFiles(jsonFiles) {
-    const output = [];
+    const output: string[] = [];
     for (const fileName of jsonFiles) {
         const data = fs.readFileSync(fileName, "utf8");
         const json = JSON.parse(data);
