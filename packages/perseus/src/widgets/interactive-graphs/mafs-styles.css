@@ -136,3 +136,8 @@
 .MafsView .mafs-shadow .mafs-axis:last-child {
     transform: translate(-25px, 0);
 }
+.MafsView .mathjax-wrapper {
+    font-size: 10px !important;
+    left: 5px;
+    position: fixed;
+}

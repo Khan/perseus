@@ -62,7 +62,7 @@ const axisOptions = (
     return {
         axis: props.markings === "graph",
         lines: props.gridStep[axisIndex],
-        labels: (n: number) => lineLabelText(n, axisStep, axisRange),
+        labels: false as const,
     };
 };
 
