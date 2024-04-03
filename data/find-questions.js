@@ -50,22 +50,22 @@ function predicateCallback(q) {
 // ================================
 
 // Find all `.json` files in a directory (recursive)
-const jsonFiles = [];
-function findJsonFiles(dir) {
+function findJsonFiles(dir, accumulator = []) {
     fs.readdirSync(dir).forEach((file) => {
         const absolutePath = Path.join(dir, file);
         if (fs.statSync(absolutePath).isDirectory()) {
-            return findJsonFiles(absolutePath);
+            return findJsonFiles(absolutePath, accumulator);
         } else if (absolutePath.endsWith(".json")) {
-            return jsonFiles.push(absolutePath);
+            return accumulator.push(absolutePath);
         }
     });
+    return accumulator;
 }
 
 // Open and parse JSON files, check if it passes
 // the predicate match, and if so store it in the output array
-const output = [];
-function checkFiles() {
+function checkFiles(jsonFiles) {
+    const output = [];
     for (const fileName of jsonFiles) {
         const data = fs.readFileSync(fileName, "utf8");
         const json = JSON.parse(data);
@@ -73,16 +73,17 @@ function checkFiles() {
             output.push(data);
         }
     }
+    return output;
 }
 
 function main() {
-    findJsonFiles("./questions");
-    checkFiles();
+    const jsonFiles = findJsonFiles("./questions");
+    const matches = checkFiles(jsonFiles);
 
     // output in a copy/paste-able way
     // so it can be dropped into flipbook
     /* eslint-disable no-console */
-    console.log(output.join("\n"));
+    console.log(matches.join("\n"));
 }
 
 main();
