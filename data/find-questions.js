@@ -5,8 +5,10 @@
  * - run: node find-questions.js
  */
 
-const Path = require("path");
+/* eslint-disable import/no-commonjs */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require("fs");
+const Path = require("path");
 
 // ==========================
 // MODIFY THIS WHEN SEARCHING
@@ -21,12 +23,16 @@ const fs = require("fs");
  */
 function predicateCallback(q) {
     // Look through each widget in the question
-    for (let widget of Object.values(q.widgets)) {
+    for (const widget of Object.values(q.widgets)) {
         // Skip everything that's not an interactive-graph
-        if (widget.type !== "interactive-graph") continue;
+        if (widget.type !== "interactive-graph") {
+            continue;
+        }
 
         // Make sure the interactive-graph has the data we're comparing
-        if (!widget?.options?.gridStep || !widget?.options.step) continue;
+        if (!widget?.options?.gridStep || !widget?.options.step) {
+            continue;
+        }
 
         // Do that actual check
         const [xGridStep, yGridStep] = widget.options.gridStep;
@@ -60,7 +66,7 @@ function findJsonFiles(dir) {
 // the predicate match, and if so store it in the output array
 const output = [];
 function checkFiles() {
-    for (let fileName of jsonFiles) {
+    for (const fileName of jsonFiles) {
         const data = fs.readFileSync(fileName, "utf8");
         const json = JSON.parse(data);
         if (predicateCallback(json)) {
@@ -75,6 +81,7 @@ function main() {
 
     // output in a copy/paste-able way
     // so it can be dropped into flipbook
+    /* eslint-disable no-console */
     console.log(output.join("\n"));
 }
 
