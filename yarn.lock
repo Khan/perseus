@@ -11844,9 +11844,9 @@ mathjax-full@3.2.2:
     mj-context-menu "^0.6.1"
     speech-rule-engine "^4.0.6"
 
-"mathquill@https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz":
-  version "0.10.1"
-  resolved "https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz#6acb1b4742bea24861e866d11f8b170bdb0c6014"
+"mathquill@https://github.com/Khan/mathquill/releases/download/v1.0.1/mathquill-1.0.1.tgz":
+  version "1.0.1"
+  resolved "https://github.com/Khan/mathquill/releases/download/v1.0.1/mathquill-1.0.1.tgz#277202655fd60bfeb7eb4a38dcdecc5da8b6dfbf"
 
 mdast-util-definitions@^4.0.0:
   version "4.0.0"
