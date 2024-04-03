@@ -119,7 +119,6 @@
     "typescript": "^5.4.2",
     "typescript-coverage-report": "^0.7.0",
     "vite-plugin-istanbul": "^5.0.0",
-    "vite-plugin-turbosnap": "^1.0.3",
     "winston": "^3.7.2"
   },
   "resolutions": {
@@ -145,7 +144,7 @@
     "test": "yarn jest",
     "storybook": "storybook dev -p 6006",
     "start": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build --stats-json",
     "cypress": "cypress open --component",
     "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
     "format": "prettier --write .",
