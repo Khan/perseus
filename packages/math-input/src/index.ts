@@ -26,9 +26,9 @@ export {CursorContext} from "./components/input/cursor-contexts";
 // Helper to get cursor context from MathField
 export {getCursorContext} from "./components/input/mathquill-helpers";
 
-// Wrapper around v1 and v2 mobile keypads to switch between them
+// The mobile keypad
 export {MobileKeypad} from "./components/keypad";
-// Unwrapped v2 keypad for desktop
+// The unwrapped desktop keypad
 export {default as DesktopKeypad} from "./components/keypad";
 
 // Context used to pass data/refs around
