@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import {resolve, dirname, join} from "node:path";
 
+import react from "@vitejs/plugin-react";
 import glob from "fast-glob";
 import {defineConfig} from "vite";
 
@@ -20,6 +21,7 @@ export default defineConfig({
         // Dev/Storybook environment.
         "process.env.STORYBOOK": JSON.stringify(true),
     },
+    plugins: [react({jsxRuntime: "automatic"})],
     resolve: {
         alias: {
             hubble: resolve(__dirname, "../vendor/hubble/hubble.js"),
