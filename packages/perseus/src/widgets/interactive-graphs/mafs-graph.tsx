@@ -3,6 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 import {useEffect, useRef} from "react";
+import _ from "underscore";
 
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
@@ -10,6 +11,11 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
+import {
+    changeRange,
+    changeSnapStep,
+    type InteractiveGraphAction,
+} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {
     getGradableGraph,
@@ -17,7 +23,6 @@ import {
 } from "./reducer/interactive-graph-state";
 import {GraphStateContext} from "./reducer/use-graph-state";
 
-import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {Widget} from "../../renderer";
 
@@ -73,14 +78,31 @@ export const MafsGraph = React.forwardRef<
         props,
         initializeGraphState,
     );
-    const prevState = useRef<InteractiveGraphState>(state);
 
+    const prevState = useRef<InteractiveGraphState>(state);
     useEffect(() => {
         if (prevState.current !== state) {
             props.onChange({graph: state});
         }
         prevState.current = state;
     }, [props, state]);
+
+    // Destructuring first to keep useEffect from making excess calls
+    const [xSnap, ySnap] = props.snapStep;
+    useEffect(() => {
+        dispatch(changeSnapStep([xSnap, ySnap]));
+    }, [xSnap, ySnap]);
+
+    // Destructuring first to keep useEffect from making excess calls
+    const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = props.range;
+    useEffect(() => {
+        dispatch(
+            changeRange([
+                [xMinRange, xMaxRange],
+                [yMinRange, yMaxRange],
+            ]),
+        );
+    }, [xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
     React.useImperativeHandle(ref, () => ({
         getUserInput: () => getGradableGraph(state, props.graph),

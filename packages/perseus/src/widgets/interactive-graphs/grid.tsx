@@ -3,13 +3,14 @@ import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
 
+import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
 import type {vec} from "mafs";
 
 interface GridProps {
     tickStep: vec.Vector2;
     gridStep: vec.Vector2;
-    range: [[number, number], [number, number]];
+    range: GraphRange;
     containerSizeClass: SizeClass;
     markings: "graph" | "grid" | "none";
 }

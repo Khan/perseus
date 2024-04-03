@@ -1,10 +1,11 @@
 import {normalizePoints, normalizeCoords} from "./utils";
 
 import type {Coord} from "../../interactive2/types";
+import type {GraphRange} from "../../perseus-types";
 
 describe("normalizePoints", () => {
     test("should normalize coordinates with snapping", () => {
-        const range: [[number, number], [number, number]] = [
+        const range: GraphRange = [
             [0, 10],
             [0, 10],
         ];
@@ -24,7 +25,7 @@ describe("normalizePoints", () => {
     });
 
     test("should normalize coordinates without snapping", () => {
-        const range: [[number, number], [number, number]] = [
+        const range: GraphRange = [
             [0, 10],
             [0, 10],
         ];
@@ -50,7 +51,7 @@ describe("normalizeCoords", () => {
             [0.25, 0.5],
             [0.75, 0.2],
         ];
-        const ranges: [[number, number], [number, number]] = [
+        const ranges: GraphRange = [
             [-10, 10],
             [-10, 10],
         ];

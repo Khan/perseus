@@ -1,6 +1,7 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
+import _ from "underscore";
 
 import {
     type InteractiveGraphAction,
@@ -8,10 +9,14 @@ import {
     MOVE_CONTROL_POINT,
     MOVE_LINE,
     MOVE_POINT,
+    CHANGE_SNAP_STEP,
+    CHANGE_RANGE,
     type MoveAll,
     type MoveControlPoint,
     type MoveLine,
     type MovePoint,
+    type ChangeSnapStep,
+    type ChangeRange,
 } from "./interactive-graph-action";
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
@@ -30,6 +35,10 @@ export function interactiveGraphReducer(
             return doMoveAll(state, action);
         case MOVE_POINT:
             return doMovePoint(state, action);
+        case CHANGE_SNAP_STEP:
+            return doChangeSnapStep(state, action);
+        case CHANGE_RANGE:
+            return doChangeRange(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -195,6 +204,40 @@ function doMovePoint(
                 "The movePoint action is only for point and polygon graphs",
             );
     }
+}
+
+function doChangeSnapStep(
+    state: InteractiveGraphState,
+    action: ChangeSnapStep,
+): InteractiveGraphState {
+    if (
+        // Deep equality check since these are arrays
+        _.isEqual(state.snapStep, action.snapStep)
+    ) {
+        return state;
+    }
+
+    return {
+        ...state,
+        snapStep: action.snapStep,
+    };
+}
+
+function doChangeRange(
+    state: InteractiveGraphState,
+    action: ChangeRange,
+): InteractiveGraphState {
+    if (
+        // Deep equality check since these are arrays
+        _.isEqual(state.range, action.range)
+    ) {
+        return state;
+    }
+
+    return {
+        ...state,
+        range: action.range,
+    };
 }
 
 const getChange = (
