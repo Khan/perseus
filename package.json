@@ -121,7 +121,6 @@
         "typescript": "^5.4.2",
         "typescript-coverage-report": "^0.7.0",
         "vite-plugin-istanbul": "^6.0.2",
-        "vite-plugin-turbosnap": "^1.0.3",
         "winston": "^3.7.2"
     },
     "scripts": {
@@ -141,7 +140,7 @@
         "test": "jest",
         "storybook": "storybook dev -p 6006",
         "start": "storybook dev -p 6006",
-        "build-storybook": "storybook build",
+    "build-storybook": "storybook build --stats-json",
         "cypress": "cypress open --component",
         "cypress:ci": "cross-env cypress run --component",
         "format": "prettier --write .",
