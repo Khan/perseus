@@ -12,19 +12,16 @@ const tickStyle: React.CSSProperties = {
 };
 
 const YGridTick = ({y}: {y: number}) => {
-    const startingPoint: vec.Vector2 = [0, y];
-    let [startPtPx] = useTransform(startingPoint);
-
-    const endPtPx = [startPtPx[0] + tickSize / 2, startPtPx[1]];
-    startPtPx = [startPtPx[0] - tickSize / 2, startPtPx[1]];
+    const pointOnAxis: vec.Vector2 = [0, y];
+    const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
     return (
-        <g className="y-axis-ticks" tabIndex={0} style={{} as any}>
+        <g className="y-axis-ticks">
             <line
-                x1={startPtPx[0]}
-                y1={startPtPx[1]}
-                x2={endPtPx[0]}
-                y2={endPtPx[1]}
+                x1={xPosition - tickSize / 2}
+                y1={yPosition}
+                x2={xPosition + tickSize / 2}
+                y2={yPosition}
                 style={tickStyle}
             />
         </g>
@@ -32,19 +29,16 @@ const YGridTick = ({y}: {y: number}) => {
 };
 
 const XGridTick = ({x}: {x: number}) => {
-    const startingPoint: vec.Vector2 = [x, 0];
-    let [startPtPx] = useTransform(startingPoint);
-
-    const endPtPx = [startPtPx[0], startPtPx[1] + tickSize / 2];
-    startPtPx = [startPtPx[0], startPtPx[1] - tickSize / 2];
+    const pointOnAxis: vec.Vector2 = [x, 0];
+    const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
     return (
-        <g className="x-axis-ticks" tabIndex={0} style={{} as any}>
+        <g className="x-axis-ticks">
             <line
-                x1={startPtPx[0]}
-                y1={startPtPx[1]}
-                x2={endPtPx[0]}
-                y2={endPtPx[1]}
+                x1={xPosition}
+                y1={yPosition + tickSize / 2}
+                x2={xPosition}
+                y2={yPosition - tickSize / 2}
                 style={tickStyle}
             />
         </g>
@@ -83,7 +77,7 @@ export const AxisTicks = (props: Props) => {
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
 
     return (
-        <g className="axis-ticks" tabIndex={0} style={{} as any}>
+        <g className="axis-ticks">
             {yGridTicks.map((y) => {
                 return <YGridTick y={y} key={`y-grid-tick-${y}`} />;
             })}
