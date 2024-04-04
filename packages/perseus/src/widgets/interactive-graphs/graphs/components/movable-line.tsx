@@ -2,7 +2,8 @@ import {vec, useMovable, Vector} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
-import {TARGET_SIZE} from "../../utils";
+import useGraphState from "../../reducer/use-graph-state";
+import {TARGET_SIZE, snap} from "../../utils";
 import {useTransform} from "../use-transform";
 import {getRayIntersectionCoords} from "../utils";
 
@@ -11,7 +12,7 @@ import type {SVGProps} from "react";
 
 const defaultStroke = "var(--movable-line-stroke-color)";
 
-export const MovableLine = (props: {
+type Props = {
     start: vec.Vector2;
     end: vec.Vector2;
     onMove: (delta: vec.Vector2) => unknown;
@@ -22,7 +23,10 @@ export const MovableLine = (props: {
         end: boolean;
         range: [Interval, Interval];
     };
-}) => {
+};
+
+export const MovableLine = (props: Props) => {
+    const {state} = useGraphState();
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
@@ -47,7 +51,7 @@ export const MovableLine = (props: {
         onMove: (newPoint) => {
             onMove(vec.sub(newPoint, midpoint));
         },
-        constrain: (p) => p,
+        constrain: (p) => snap(state.snapStep, p),
     });
 
     return (
