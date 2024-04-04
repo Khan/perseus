@@ -31,9 +31,6 @@ export {MobileKeypad} from "./components/keypad";
 // Unwrapped v2 keypad for desktop
 export {default as DesktopKeypad} from "./components/keypad";
 
-// For strings used in MathQuill and the keypad
-export {strings} from "./strings";
-
 // Context for managing i18n
 export {
     MathInputI18nContextProvider,
