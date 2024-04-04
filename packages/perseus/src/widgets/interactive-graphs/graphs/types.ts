@@ -7,4 +7,5 @@ export interface InteractiveLineProps {
     range: [x: Interval, y: Interval];
     onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
     onMoveLine: (delta: vec.Vector2) => unknown;
+    showTooltips: boolean;
 }

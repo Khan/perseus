@@ -1,4 +1,5 @@
 import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {useMovable} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
@@ -12,11 +13,12 @@ type Props = {
     point: vec.Vector2;
     onMove: (newPoint: vec.Vector2) => unknown;
     color?: string;
+    showTooltips: boolean;
 };
 
 export const StyledMovablePoint = (props: Props) => {
     const hitboxRef = useRef<SVGCircleElement>(null);
-    const {point, onMove, color = WBColor.blue} = props;
+    const {point, onMove, color = WBColor.blue, showTooltips} = props;
 
     const {dragging} = useMovable({
         gestureTarget: hitboxRef,
@@ -27,7 +29,7 @@ export const StyledMovablePoint = (props: Props) => {
 
     const [[x, y]] = useTransform(point);
 
-    return (
+    const svgForPoint = (
         <g
             ref={hitboxRef}
             className="movable-point"
@@ -57,5 +59,16 @@ export const StyledMovablePoint = (props: Props) => {
                 style={{fill: color}}
             />
         </g>
+    );
+
+    return showTooltips ? (
+        <Tooltip
+            content={`(${point[0]}, ${point[1]})`}
+            contentStyle={{color: WBColor.blue}}
+        >
+            {svgForPoint}
+        </Tooltip>
+    ) : (
+        svgForPoint
     );
 };

@@ -126,6 +126,29 @@ const makeInvalidTypeError = (
 };
 
 type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
+// type RenderProps = {
+//     step: Required<PerseusInteractiveGraphWidgetOptions["step"]>;
+//     gridStep: PerseusInteractiveGraphWidgetOptions["gridStep"];
+//     snapStep: PerseusInteractiveGraphWidgetOptions["snapStep"];
+//     backgroundImage: Required<
+//         PerseusInteractiveGraphWidgetOptions["backgroundImage"]
+//     >;
+//     markings: Required<PerseusInteractiveGraphWidgetOptions["markings"]>;
+//     labels: Required<PerseusInteractiveGraphWidgetOptions["labels"]>;
+//     showProtractor: Required<
+//         PerseusInteractiveGraphWidgetOptions["showProtractor"]
+//     >;
+//     showRuler: Required<PerseusInteractiveGraphWidgetOptions["showRuler"]>;
+//     showTooltips: Required<
+//         PerseusInteractiveGraphWidgetOptions["showTooltips"]
+//     >;
+//     rulerLabel: Required<PerseusInteractiveGraphWidgetOptions["rulerLabel"]>;
+//     rulerTicks: Required<PerseusInteractiveGraphWidgetOptions["rulerTicks"]>;
+//     range: Required<PerseusInteractiveGraphWidgetOptions["range"]>;
+//     graph: Required<PerseusInteractiveGraphWidgetOptions["graph"]>;
+//     correct: PerseusInteractiveGraphWidgetOptions["correct"];
+//     lockedFigures?: PerseusInteractiveGraphWidgetOptions["lockedFigures"];
+// };
 type Rubric = PerseusInteractiveGraphWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 type State = any;
@@ -1823,6 +1846,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     gridStep={gridStep}
                     snapStep={snapStep}
                     box={box}
+                    showTooltips={!!this.props.showTooltips}
                 />
             );
         }
