@@ -171,6 +171,8 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         InteractiveGraph.widget.validate(guess, rubric, null);
 
+        // Narrow the type of `rubric.correct` to segment graph; otherwise TS
+        // thinks it might not have a `coords` property.
         invariant(rubric.correct.type === "segment");
         expect(rubric.correct.coords).toEqual([
             [
