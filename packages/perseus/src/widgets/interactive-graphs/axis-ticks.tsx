@@ -21,7 +21,20 @@ const YGridTick = ({y}: {y: number}) => {
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
     const labelString = y < 0 ? `\\llap{-}` + Math.abs(y) : y.toString();
-    const labelXPosition = y === -1 ? startPtPx[0] - 22 : startPtPx[0] - 15;
+
+    if (y === -1) {
+        return (
+            <g className="x-axis-ticks">
+                <line
+                    x1={startPtPx[0]}
+                    y1={startPtPx[1]}
+                    x2={endPtPx[0]}
+                    y2={endPtPx[1]}
+                    style={tickStyle}
+                />
+            </g>
+        );
+    }
 
     return (
         <g className="y-axis-ticks">
@@ -35,8 +48,8 @@ const YGridTick = ({y}: {y: number}) => {
             <foreignObject
                 height={20}
                 width={50}
-                x={labelXPosition}
-                y={startPtPx[1] - 15}
+                x={startPtPx[0] - 15}
+                y={startPtPx[1] - 10}
             >
                 <TeX>{labelString}</TeX>
             </foreignObject>
@@ -54,7 +67,7 @@ const XGridTick = ({x}: {x: number}) => {
             <g className="x-axis-ticks">
                 <line
                     x1={startPtPx[0]}
-                    y1={startPtPx[1] + 10}
+                    y1={startPtPx[1]}
                     x2={endPtPx[0]}
                     y2={endPtPx[1]}
                     style={tickStyle}
