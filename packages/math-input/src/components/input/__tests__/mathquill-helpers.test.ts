@@ -1,4 +1,4 @@
-import {strings} from "../../../../../../testing/mock-strings";
+import {strings} from "../../../mock-strings";
 import {CursorContext} from "../cursor-contexts";
 import {getCursorContext} from "../mathquill-helpers";
 import {createMathField} from "../mathquill-instance";

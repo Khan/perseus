@@ -1,5 +1,8 @@
-import type {MathInputStrings} from "../packages/math-input/src/types";
+import type {MathInputStrings} from "./types";
 
+/**
+ * Mock strings for the Math Input package, to be used for tests and Storybook.
+ */
 export const strings: MathInputStrings = {
     mathInputBox: "Math input box",
     fingerTap: "Tap with one or two fingers to open keyboard",

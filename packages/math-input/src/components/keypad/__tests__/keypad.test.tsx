@@ -2,8 +2,8 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {strings} from "../../../../../../testing/mock-strings";
 import keyConfigs from "../../../data/key-configs";
+import {strings} from "../../../mock-strings";
 import {I18nContextProvider} from "../../i18n-context";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";

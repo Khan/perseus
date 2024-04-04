@@ -2,7 +2,7 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {strings} from "../../../../../testing/mock-strings";
+import {strings} from "../../mock-strings";
 import {CursorContext} from "../input/cursor-contexts";
 import {getCursorContext} from "../input/mathquill-helpers";
 import {createMathField} from "../input/mathquill-instance";

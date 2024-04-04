@@ -1,4 +1,4 @@
-import {strings} from "../../../../../../testing/mock-strings";
+import {strings} from "../../../mock-strings";
 import {createMathField} from "../../input/mathquill-instance";
 import handleJumpOut from "../handle-jump-out";
 

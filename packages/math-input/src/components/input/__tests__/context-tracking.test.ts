@@ -1,4 +1,4 @@
-import {strings} from "../../../../../../testing/mock-strings";
+import {strings} from "../../../mock-strings";
 import {CursorContext} from "../cursor-contexts";
 
 import TestMathWrapper from "./test-math-wrapper";

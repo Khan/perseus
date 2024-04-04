@@ -1,8 +1,8 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import {strings} from "../../../../../testing/mock-strings";
 import KeyConfigs from "../../data/key-configs";
+import {strings} from "../../mock-strings";
 
 import {KeypadButton} from "./keypad-button";
 

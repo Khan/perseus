@@ -6,8 +6,7 @@
 import * as React from "react";
 import {useContext} from "react";
 
-// eslint-disable-next-line
-import {strings} from "../../../../testing/mock-strings";
+import {strings} from "../mock-strings";
 
 import type {MathInputStrings} from "../types";
 

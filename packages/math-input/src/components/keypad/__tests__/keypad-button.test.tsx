@@ -2,8 +2,8 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {strings} from "../../../../../../testing/mock-strings";
 import Keys from "../../../data/key-configs";
+import {strings} from "../../../mock-strings";
 import {KeypadButton} from "../keypad-button";
 
 describe("<KeypadButton />", () => {
