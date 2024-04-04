@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.7
+
+### Patch Changes
+
+-   [#1156](https://github.com/Khan/perseus/pull/1156) [`179a42f65`](https://github.com/Khan/perseus/commit/179a42f65870bfb8a5197fb10384b34eadabdfb4) Thanks [@benchristel](https://github.com/benchristel)! - Fix HTML validation error that was logged to the JS console in the dev UI
+
 ## 1.3.6
 
 ### Patch Changes
