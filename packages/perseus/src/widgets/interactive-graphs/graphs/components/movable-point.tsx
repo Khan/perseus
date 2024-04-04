@@ -3,6 +3,8 @@ import {useMovable} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
+import useGraphState from "../../reducer/use-graph-state";
+import {snap} from "../../utils";
 import {useTransform} from "../use-transform";
 
 import type {vec} from "mafs";
@@ -18,6 +20,7 @@ type Props = {
 const hitboxSizePx = 48;
 
 export const StyledMovablePoint = (props: Props) => {
+    const {state} = useGraphState();
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
 
@@ -25,7 +28,7 @@ export const StyledMovablePoint = (props: Props) => {
         gestureTarget: hitboxRef,
         point,
         onMove,
-        constrain: (p) => p,
+        constrain: (p) => snap(state.snapStep, p),
     });
 
     const [[x, y]] = useTransform(point);

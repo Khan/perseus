@@ -3,6 +3,8 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {snap} from "../utils";
+
 import {
     type InteractiveGraphAction,
     MOVE_ALL,
@@ -61,14 +63,14 @@ function doMoveControlPoint(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: snap({
+                        newValue: snap(
                             snapStep,
-                            point: bound({
+                            bound({
                                 snapStep,
                                 range,
                                 point: action.destination,
                             }),
-                        }),
+                        ),
                     }),
             });
 
@@ -117,14 +119,8 @@ function doMoveLine(
             });
 
             const newLine: PairOfPoints = [
-                snap({
-                    snapStep,
-                    point: vec.add(currentLine[0], change),
-                }),
-                snap({
-                    snapStep,
-                    point: vec.add(currentLine[1], change),
-                }),
+                snap(snapStep, vec.add(currentLine[0], change)),
+                snap(snapStep, vec.add(currentLine[1], change)),
             ];
 
             const newCoords = setAtIndex({
@@ -160,7 +156,7 @@ function doMoveAll(
             });
 
             const newCoords = state.coords.map((point: vec.Vector2) =>
-                snap({snapStep, point: vec.add(point, change)}),
+                snap(snapStep, vec.add(point, change)),
             );
 
             return {
@@ -188,14 +184,14 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap({
-                        snapStep: state.snapStep,
-                        point: bound({
+                    newValue: snap(
+                        state.snapStep,
+                        bound({
                             snapStep: state.snapStep,
                             range: state.range,
                             point: action.destination,
                         }),
-                    }),
+                    ),
                 }),
             };
         }
@@ -265,15 +261,6 @@ interface ConstraintArgs {
     snapStep: vec.Vector2;
     range: [Interval, Interval];
     point: vec.Vector2;
-}
-
-function snap({snapStep, point}: Omit<ConstraintArgs, "range">): vec.Vector2 {
-    const [requestedX, requestedY] = point;
-    const [snapX, snapY] = snapStep;
-    return [
-        Math.round(requestedX / snapX) * snapX,
-        Math.round(requestedY / snapY) * snapY,
-    ];
 }
 
 // Returns the closest point to the given `point` that is within the graph
