@@ -66,8 +66,8 @@ const TIMES_ONLY = ["fr", "tr", "pt-pt"];
  * @returns {boolean} - true to convert to × (TIMES), false to use · (CDOT)
  */
 export function convertDotToTimesByLocale(
-    convertDotToTimes: boolean,
     locale: string,
+    convertDotToTimes: boolean,
 ): boolean {
     if (CDOT_ONLY.includes(locale)) {
         return false;

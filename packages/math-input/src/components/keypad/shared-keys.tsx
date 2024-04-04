@@ -60,7 +60,7 @@ export default function SharedKeys(props: Props) {
             {/* Row 2 */}
             <KeypadButton
                 keyConfig={
-                    convertDotToTimesByLocale(!!convertDotToTimes, locale)
+                    convertDotToTimesByLocale(locale, !!convertDotToTimes)
                         ? Keys.TIMES
                         : Keys.CDOT
                 }

@@ -177,8 +177,8 @@ class MathInput extends React.Component<Props, State> {
                             // which case 'x' should get converted to '\\times'
                             if (
                                 convertDotToTimesByLocale(
-                                    this.props.convertDotToTimes,
                                     locale,
+                                    this.props.convertDotToTimes,
                                 )
                             ) {
                                 value = value.replace(/\\cdot/g, "\\times");
