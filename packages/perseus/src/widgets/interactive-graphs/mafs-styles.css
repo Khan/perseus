@@ -125,8 +125,8 @@
     visibility: visible;
 }
 
-.MafsView .mafs-axis text {
-    font-size: 12px;
+.MafsView .axis-ticks foreignObject {
+    overflow: visible;
 }
 
 .MafsView .mafs-shadow .mafs-axis:first-child {
@@ -137,7 +137,7 @@
     transform: translate(-25px, 0);
 }
 .MafsView .mathjax-wrapper {
-    font-size: 10px !important;
+    font-size: 12px !important;
     left: 5px;
     position: fixed;
 }

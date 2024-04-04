@@ -1,8 +1,9 @@
-import {MathJaxRenderer} from "@khanacademy/mathjax-renderer";
 import * as React from "react";
 
 import "@khanacademy/mathjax-renderer/src/css/mathjax.css";
 import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
+import {getDependencies} from "../../dependencies";
+
 import {useTransform} from "./graphs/use-transform";
 
 import type {vec} from "mafs";
@@ -14,29 +15,12 @@ const tickStyle: React.CSSProperties = {
     strokeWidth: 1,
 };
 
-const mathJaxRenderer = new MathJaxRenderer({
-    // shouldFixUnicodeLayout ensures that non-ASCII text is correctly
-    // measured and positioned in e.g. \overbrace and \underbrace expressions.
-    // Set shouldFixUnicodeLayout to false if you're rendering in an
-    // environment without a layout engine, e.g. jsdom.
-    shouldFixUnicodeLayout: true,
-    fontURL: "https://cdn.kastatic.org/fonts/mathjax",
-});
-
-const createMathJaxElement = (label: string) => {
-    mathJaxRenderer.updateStyles();
-    const {domElement} = mathJaxRenderer.render(label);
-    return domElement;
-};
-
 const YGridTick = ({y}: {y: number}) => {
+    const {TeX} = getDependencies();
     const pointOnAxis: vec.Vector2 = [0, y];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
     const labelString = y < 0 ? `\\llap{-}` + Math.abs(y) : y.toString();
-
-    const mathJaxElement = createMathJaxElement(labelString);
-
     const labelXPosition = y === -1 ? startPtPx[0] - 22 : startPtPx[0] - 15;
 
     return (
@@ -50,16 +34,18 @@ const YGridTick = ({y}: {y: number}) => {
             />
             <foreignObject
                 height={20}
-                width={20}
+                width={50}
                 x={labelXPosition}
                 y={startPtPx[1] - 15}
-                dangerouslySetInnerHTML={{__html: mathJaxElement.outerHTML}}
-            />
+            >
+                <TeX>{labelString}</TeX>
+            </foreignObject>
         </g>
     );
 };
 
 const XGridTick = ({x}: {x: number}) => {
+    const {TeX} = getDependencies();
     const pointOnAxis: vec.Vector2 = [x, 0];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
@@ -68,7 +54,7 @@ const XGridTick = ({x}: {x: number}) => {
             <g className="x-axis-ticks">
                 <line
                     x1={startPtPx[0]}
-                    y1={startPtPx[1]}
+                    y1={startPtPx[1] + 10}
                     x2={endPtPx[0]}
                     y2={endPtPx[1]}
                     style={tickStyle}
@@ -78,8 +64,6 @@ const XGridTick = ({x}: {x: number}) => {
     }
 
     const labelString = x < 0 ? `\\llap{-}` + Math.abs(x) : x.toString();
-
-    const mathJaxElement = createMathJaxElement(labelString);
 
     return (
         <g className="x-axis-ticks">
@@ -92,11 +76,12 @@ const XGridTick = ({x}: {x: number}) => {
             />
             <foreignObject
                 height={20}
-                width={20}
+                width={50}
                 x={startPtPx[0] - 8}
-                y={startPtPx[1] + 5}
-                dangerouslySetInnerHTML={{__html: mathJaxElement.outerHTML}}
-            />
+                y={startPtPx[1] + 10}
+            >
+                <TeX>{labelString}</TeX>
+            </foreignObject>
         </g>
     );
 };
