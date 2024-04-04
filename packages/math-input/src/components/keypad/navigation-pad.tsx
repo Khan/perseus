@@ -3,45 +3,42 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
+import KeyConfigs from "../../data/key-configs";
+import {useI18n} from "../i18n-context";
 
 import NavigationButton from "./navigation-button";
 
-import type {MathInputStrings, ClickKeyCallback} from "../../types";
+import type {ClickKeyCallback} from "../../types";
 
 export type Props = {
     onClickKey: ClickKeyCallback;
-    strings: MathInputStrings;
-    locale: string;
 };
 
 export default function NavigationPad(props: Props) {
-    const {onClickKey, strings, locale} = props;
+    const {onClickKey} = props;
+    const {strings} = useI18n();
+    const Keys = KeyConfigs(strings);
 
     return (
         <View style={styles.container}>
             <View style={styles.grid}>
                 <NavigationButton
-                    locale={locale}
-                    keyConfig={Keys(strings).UP}
+                    keyConfig={Keys.UP}
                     onClickKey={onClickKey}
                     coord={[1, 0]}
                 />
                 <NavigationButton
-                    locale={locale}
-                    keyConfig={Keys(strings).RIGHT}
+                    keyConfig={Keys.RIGHT}
                     onClickKey={onClickKey}
                     coord={[2, 1]}
                 />
                 <NavigationButton
-                    locale={locale}
-                    keyConfig={Keys(strings).DOWN}
+                    keyConfig={Keys.DOWN}
                     onClickKey={onClickKey}
                     coord={[1, 2]}
                 />
                 <NavigationButton
-                    locale={locale}
-                    keyConfig={Keys(strings).LEFT}
+                    keyConfig={Keys.LEFT}
                     onClickKey={onClickKey}
                     coord={[0, 1]}
                 />

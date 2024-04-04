@@ -1,22 +1,23 @@
 import * as React from "react";
 
-import Keys from "../../../data/key-configs";
+import KeyConfigs from "../../../data/key-configs";
+import {useI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 
 import type Key from "../../../data/keys";
-import type {MathInputStrings, ClickKeyCallback} from "../../../types";
+import type {ClickKeyCallback} from "../../../types";
 
 type Props = {
     extraKeys: ReadonlyArray<Key>;
     onClickKey: ClickKeyCallback;
-    strings: MathInputStrings;
-    locale: string;
 };
 
 const columns = 3;
 
 export default function ExtrasPage(props: Props) {
-    const {extraKeys, onClickKey, strings, locale} = props;
+    const {extraKeys, onClickKey} = props;
+    const {strings} = useI18n();
+    const Keys = KeyConfigs(strings);
     return (
         <>
             {extraKeys.map((key, i) => {
@@ -26,8 +27,7 @@ export default function ExtrasPage(props: Props) {
                 return (
                     <KeypadButton
                         key={key}
-                        locale={locale}
-                        keyConfig={Keys(strings)[key]}
+                        keyConfig={Keys[key]}
                         onClickKey={onClickKey}
                         coord={[coordX, coordY]}
                     />

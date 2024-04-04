@@ -10,7 +10,6 @@ import {expandedViewThreshold} from "./utils";
 
 import type Key from "../../data/keys";
 import type {
-    MathInputStrings,
     Cursor,
     KeypadConfiguration,
     KeyHandler,
@@ -28,8 +27,6 @@ type Props = {
     onAnalyticsEvent: AnalyticsEventHandlerFn;
     setKeypadActive: (keypadActive: boolean) => void;
     keypadActive: boolean;
-    strings: MathInputStrings;
-    locale: string;
 };
 
 type State = {
@@ -171,7 +168,7 @@ class MobileKeypadInternals
     }
 
     render(): React.ReactNode {
-        const {keypadActive, style, strings, locale} = this.props;
+        const {keypadActive, style} = this.props;
         const {containerWidth, cursor, keypadConfig} = this.state;
 
         const containerStyle = [
@@ -223,8 +220,6 @@ class MobileKeypadInternals
                                 containerWidth > expandedViewThreshold
                             }
                             showDismiss
-                            strings={strings}
-                            locale={locale}
                         />
                     ) : null}
                 </AphroditeCssTransitionGroup>

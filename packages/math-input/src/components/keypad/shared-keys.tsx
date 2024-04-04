@@ -1,16 +1,13 @@
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
+import KeyConfigs from "../../data/key-configs";
 import {convertDotToTimesByLocale} from "../../utils";
+import {useI18n} from "../i18n-context";
 
 import {KeypadButton} from "./keypad-button";
 import {getCursorContextConfig} from "./utils";
 
-import type {
-    MathInputStrings,
-    ClickKeyCallback,
-    KeypadPageType,
-} from "../../types";
+import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 
 type Props = {
@@ -19,8 +16,6 @@ type Props = {
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     convertDotToTimes?: boolean;
     divisionKey?: boolean;
-    strings: MathInputStrings;
-    locale: string;
 };
 
 export default function SharedKeys(props: Props) {
@@ -30,11 +25,10 @@ export default function SharedKeys(props: Props) {
         divisionKey,
         convertDotToTimes,
         selectedPage,
-        strings,
-        locale,
     } = props;
-
+    const {strings, locale} = useI18n();
     const cursorKeyConfig = getCursorContextConfig(strings, cursorContext);
+    const Keys = KeyConfigs(strings);
 
     // Fraction position depends on the page
     const fractionCoord: readonly [number, number] =
@@ -45,22 +39,19 @@ export default function SharedKeys(props: Props) {
     return (
         <>
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).FRAC}
+                keyConfig={Keys.FRAC}
                 onClickKey={onClickKey}
                 coord={fractionCoord}
                 secondary
             />
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).PLUS}
+                keyConfig={Keys.PLUS}
                 onClickKey={onClickKey}
                 coord={[4, 0]}
                 secondary
             />
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).MINUS}
+                keyConfig={Keys.MINUS}
                 onClickKey={onClickKey}
                 coord={[5, 0]}
                 secondary
@@ -68,11 +59,10 @@ export default function SharedKeys(props: Props) {
 
             {/* Row 2 */}
             <KeypadButton
-                locale={locale}
                 keyConfig={
                     convertDotToTimesByLocale(!!convertDotToTimes, locale)
-                        ? Keys(strings).TIMES
-                        : Keys(strings).CDOT
+                        ? Keys.TIMES
+                        : Keys.CDOT
                 }
                 onClickKey={onClickKey}
                 coord={[4, 1]}
@@ -80,8 +70,7 @@ export default function SharedKeys(props: Props) {
             />
             {divisionKey && (
                 <KeypadButton
-                    locale={locale}
-                    keyConfig={Keys(strings).DIVIDE}
+                    keyConfig={Keys.DIVIDE}
                     onClickKey={onClickKey}
                     coord={[5, 1]}
                     secondary
@@ -90,15 +79,13 @@ export default function SharedKeys(props: Props) {
 
             {/* Row 3 */}
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).LEFT_PAREN}
+                keyConfig={Keys.LEFT_PAREN}
                 onClickKey={onClickKey}
                 coord={[4, 2]}
                 secondary
             />
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).RIGHT_PAREN}
+                keyConfig={Keys.RIGHT_PAREN}
                 onClickKey={onClickKey}
                 coord={[5, 2]}
                 secondary
@@ -107,7 +94,6 @@ export default function SharedKeys(props: Props) {
             {/* Row 4 */}
             {cursorKeyConfig && (
                 <KeypadButton
-                    locale={locale}
                     keyConfig={cursorKeyConfig}
                     onClickKey={onClickKey}
                     coord={[4, 3]}
@@ -115,8 +101,7 @@ export default function SharedKeys(props: Props) {
                 />
             )}
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).BACKSPACE}
+                keyConfig={Keys.BACKSPACE}
                 onClickKey={onClickKey}
                 coord={[5, 3]}
                 action

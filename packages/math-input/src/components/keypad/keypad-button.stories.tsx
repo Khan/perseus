@@ -75,7 +75,6 @@ export const AllButtons: ComponentStory<typeof KeypadButton> = ({
                     keyConfig={KeyConfigs(strings)[key]}
                     onClickKey={action("pressed")}
                     coord={[0, 0]}
-                    locale="en"
                 />
             </div>
         ))}

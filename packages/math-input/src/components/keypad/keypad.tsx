@@ -16,17 +16,11 @@ import SharedKeys from "./shared-keys";
 import {expandedViewThreshold} from "./utils";
 
 import type Key from "../../data/keys";
-import type {
-    MathInputStrings,
-    ClickKeyCallback,
-    KeypadPageType,
-} from "../../types";
+import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 export type Props = {
-    strings: MathInputStrings;
-    locale: string;
     extraKeys: ReadonlyArray<Key>;
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     showDismiss?: boolean;
@@ -104,8 +98,6 @@ export default function Keypad(props: Props) {
         onAnalyticsEvent,
         fractionsOnly,
         expandedView,
-        strings,
-        locale,
     } = props;
 
     // Use a different grid for our fraction keypad
@@ -166,29 +158,19 @@ export default function Keypad(props: Props) {
                             <FractionsPage
                                 onClickKey={onClickKey}
                                 cursorContext={cursorContext}
-                                strings={strings}
-                                locale={locale}
                             />
                         )}
                         {selectedPage === "Numbers" && (
-                            <NumbersPage
-                                strings={strings}
-                                locale={locale}
-                                onClickKey={onClickKey}
-                            />
+                            <NumbersPage onClickKey={onClickKey} />
                         )}
                         {selectedPage === "Extras" && (
                             <ExtrasPage
-                                strings={strings}
-                                locale={locale}
                                 onClickKey={onClickKey}
                                 extraKeys={extraKeys}
                             />
                         )}
                         {selectedPage === "Operators" && (
                             <OperatorsPage
-                                strings={strings}
-                                locale={locale}
                                 onClickKey={onClickKey}
                                 preAlgebra={preAlgebra}
                                 logarithms={logarithms}
@@ -197,16 +179,10 @@ export default function Keypad(props: Props) {
                             />
                         )}
                         {selectedPage === "Geometry" && (
-                            <GeometryPage
-                                strings={strings}
-                                locale={locale}
-                                onClickKey={onClickKey}
-                            />
+                            <GeometryPage onClickKey={onClickKey} />
                         )}
                         {!fractionsOnly && (
                             <SharedKeys
-                                locale={locale}
-                                strings={strings}
                                 onClickKey={onClickKey}
                                 cursorContext={cursorContext}
                                 convertDotToTimes={convertDotToTimes}
@@ -215,13 +191,7 @@ export default function Keypad(props: Props) {
                             />
                         )}
                     </View>
-                    {expandedView && (
-                        <NavigationPad
-                            locale={locale}
-                            strings={strings}
-                            onClickKey={onClickKey}
-                        />
-                    )}
+                    {expandedView && <NavigationPad onClickKey={onClickKey} />}
                 </View>
             </View>
         </View>

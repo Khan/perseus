@@ -4,10 +4,11 @@ import * as React from "react";
 
 import {strings} from "../../../../../../testing/mock-strings";
 import keyConfigs from "../../../data/key-configs";
+import {I18nContextProvider} from "../../i18n-context";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
 
-import tabs from "./test-data-tabs";
+import {getTestDataTabs} from "./test-data-tabs";
 
 const contextToKeyAria = {
     [CursorContext.IN_PARENS]:
@@ -39,8 +40,6 @@ describe("keypad", () => {
                 // Act
                 render(
                     <Keypad
-                        locale="en"
-                        strings={strings}
                         onClickKey={() => {}}
                         cursorContext={
                             context as (typeof CursorContext)[keyof typeof CursorContext]
@@ -66,8 +65,6 @@ describe("keypad", () => {
         // Act
         const {container} = render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={() => {}}
                 preAlgebra
                 trigonometry
@@ -86,8 +83,6 @@ describe("keypad", () => {
         // Act
         const {container} = render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={() => {}}
                 preAlgebra
                 trigonometry
@@ -106,8 +101,6 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={() => {}}
                 onAnalyticsEvent={async () => {}}
                 showDismiss
@@ -126,12 +119,7 @@ describe("keypad", () => {
         // Arrange
         // Act
         render(
-            <Keypad
-                locale="en"
-                strings={strings}
-                onClickKey={() => {}}
-                onAnalyticsEvent={async () => {}}
-            />,
+            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
         );
 
         // Assert
@@ -147,8 +135,6 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={() => {}}
                 convertDotToTimes={false}
                 onAnalyticsEvent={async () => {}}
@@ -164,8 +150,6 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={() => {}}
                 convertDotToTimes={true}
                 onAnalyticsEvent={async () => {}}
@@ -181,13 +165,13 @@ describe("keypad", () => {
 
         // Act
         render(
-            <Keypad
-                locale="en"
-                strings={strings}
-                onClickKey={() => {}}
-                convertDotToTimes={true}
-                onAnalyticsEvent={async () => {}}
-            />,
+            <I18nContextProvider locale="az" strings={strings}>
+                <Keypad
+                    onClickKey={() => {}}
+                    convertDotToTimes={true}
+                    onAnalyticsEvent={async () => {}}
+                />
+            </I18nContextProvider>,
         );
 
         // Assert
@@ -200,13 +184,13 @@ describe("keypad", () => {
 
         // Act
         render(
-            <Keypad
-                locale="fr"
-                strings={strings}
-                onClickKey={() => {}}
-                convertDotToTimes={false}
-                onAnalyticsEvent={async () => {}}
-            />,
+            <I18nContextProvider locale="fr" strings={strings}>
+                <Keypad
+                    onClickKey={() => {}}
+                    convertDotToTimes={false}
+                    onAnalyticsEvent={async () => {}}
+                />
+            </I18nContextProvider>,
         );
 
         // Assert
@@ -219,8 +203,6 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={() => {}}
                 fractionsOnly={true}
                 onAnalyticsEvent={async () => {}}
@@ -238,8 +220,6 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={onClickKey}
                 preAlgebra
                 trigonometry
@@ -248,6 +228,7 @@ describe("keypad", () => {
             />,
         );
 
+        const tabs = getTestDataTabs(strings);
         for (const tabData of tabs) {
             const tab = screen.getByLabelText(tabData.name);
             expect(tab).toBeInTheDocument();
@@ -266,8 +247,6 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={() => {}}
                 preAlgebra
                 trigonometry
@@ -297,8 +276,6 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
-                locale="en"
-                strings={strings}
                 onClickKey={() => {}}
                 preAlgebra
                 trigonometry
@@ -327,12 +304,12 @@ describe("keypad", () => {
         // Arrange
         // Act
         render(
-            <Keypad
-                locale="de-de"
-                strings={strings}
-                onClickKey={() => {}}
-                onAnalyticsEvent={async () => {}}
-            />,
+            <I18nContextProvider locale="fr" strings={strings}>
+                <Keypad
+                    onClickKey={() => {}}
+                    onAnalyticsEvent={async () => {}}
+                />
+            </I18nContextProvider>,
         );
 
         // Assert
@@ -343,12 +320,7 @@ describe("keypad", () => {
         // Arrange
         // Act
         render(
-            <Keypad
-                locale="en"
-                strings={strings}
-                onClickKey={() => {}}
-                onAnalyticsEvent={async () => {}}
-            />,
+            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
         );
 
         // Assert

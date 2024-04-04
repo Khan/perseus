@@ -19,7 +19,6 @@ export type KeypadButtonProps = {
     // Apply secondary button styles
     secondary?: boolean;
     style?: StyleType;
-    locale: string;
 };
 
 export const KeypadButton = ({
@@ -29,7 +28,6 @@ export const KeypadButton = ({
     style,
     secondary,
     action,
-    locale,
 }: KeypadButtonProps): React.ReactElement => {
     const tintColor = secondary ? "#F6F6F7" : action ? "#DBDCDD" : undefined;
 
@@ -71,10 +69,7 @@ export const KeypadButton = ({
                                     pressed && styles.pressed,
                                 ]}
                             >
-                                <ButtonAsset
-                                    id={keyConfig.id}
-                                    locale={locale}
-                                />
+                                <ButtonAsset id={keyConfig.id} />
                             </View>
                         </View>
                     );

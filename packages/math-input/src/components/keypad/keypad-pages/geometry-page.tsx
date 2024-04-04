@@ -1,36 +1,34 @@
 import * as React from "react";
 
-import Keys from "../../../data/key-configs";
+import KeyConfigs from "../../../data/key-configs";
+import {useI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 
-import type {MathInputStrings, ClickKeyCallback} from "../../../types";
+import type {ClickKeyCallback} from "../../../types";
 
 type Props = {
     onClickKey: ClickKeyCallback;
-    strings: MathInputStrings;
-    locale: string;
 };
 
 export default function GeometryPage(props: Props) {
-    const {onClickKey, strings, locale} = props;
+    const {onClickKey} = props;
+    const {strings} = useI18n();
+    const Keys = KeyConfigs(strings);
     return (
         <>
             {/* Row 1 */}
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).SIN}
+                keyConfig={Keys.SIN}
                 onClickKey={onClickKey}
                 coord={[0, 0]}
             />
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).COS}
+                keyConfig={Keys.COS}
                 onClickKey={onClickKey}
                 coord={[1, 0]}
             />
             <KeypadButton
-                locale={locale}
-                keyConfig={Keys(strings).TAN}
+                keyConfig={Keys.TAN}
                 onClickKey={onClickKey}
                 coord={[2, 0]}
             />

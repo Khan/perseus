@@ -9,7 +9,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import MathQuill from "mathquill";
 import React, {useState} from "react";
 
-import {strings} from "../../../../../testing/mock-strings";
 import {KeypadType} from "../../enums";
 import MathInput from "../input/math-input";
 import {MobileKeypad} from "../keypad";
@@ -31,8 +30,6 @@ function InputWithContext({keypadConfiguration}) {
             {({keypadElement}) => {
                 return (
                     <MathInput
-                        strings={strings}
-                        locale="en"
                         keypadElement={keypadElement as any}
                         value={value}
                         onChange={(nextValue, cb) => {
@@ -63,8 +60,6 @@ function KeypadWithContext() {
             {({setKeypadElement}) => {
                 return (
                     <MobileKeypad
-                        locale="en"
-                        strings={strings}
                         onElementMounted={setKeypadElement}
                         onDismiss={() => {}}
                         onAnalyticsEvent={async () => {}}

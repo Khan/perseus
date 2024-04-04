@@ -18,7 +18,6 @@ describe("<KeypadButton />", () => {
         // Arrange
         render(
             <KeypadButton
-                locale="en"
                 onClickKey={() => {}}
                 keyConfig={Keys(strings).LEFT_PAREN}
                 coord={[0, 0]}
@@ -37,7 +36,6 @@ describe("<KeypadButton />", () => {
         const mockClickKeyCallback = jest.fn((_, event) => event.persist());
         render(
             <KeypadButton
-                locale="en"
                 onClickKey={mockClickKeyCallback}
                 keyConfig={Keys(strings).LEFT_PAREN}
                 coord={[0, 0]}
@@ -65,7 +63,6 @@ describe("<KeypadButton />", () => {
         const mockClickKeyCallback = jest.fn((_, event) => event.persist());
         render(
             <KeypadButton
-                locale="en"
                 onClickKey={mockClickKeyCallback}
                 keyConfig={Keys(strings).RIGHT_PAREN}
                 coord={[0, 0]}

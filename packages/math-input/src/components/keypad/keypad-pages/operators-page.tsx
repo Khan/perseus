@@ -1,9 +1,10 @@
 import * as React from "react";
 
-import Keys from "../../../data/key-configs";
+import KeyConfigs from "../../../data/key-configs";
+import {useI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 
-import type {MathInputStrings, ClickKeyCallback} from "../../../types";
+import type {ClickKeyCallback} from "../../../types";
 
 type Props = {
     onClickKey: ClickKeyCallback;
@@ -11,8 +12,6 @@ type Props = {
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
-    strings: MathInputStrings;
-    locale: string;
 };
 
 export default function OperatorsPage(props: Props) {
@@ -22,9 +21,9 @@ export default function OperatorsPage(props: Props) {
         logarithms,
         basicRelations,
         advancedRelations,
-        strings,
-        locale,
     } = props;
+    const {strings} = useI18n();
+    const Keys = KeyConfigs(strings);
 
     return (
         <>
@@ -32,26 +31,22 @@ export default function OperatorsPage(props: Props) {
             {preAlgebra && (
                 <>
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).EXP_2}
+                        keyConfig={Keys.EXP_2}
                         onClickKey={onClickKey}
                         coord={[0, 0]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).EXP}
+                        keyConfig={Keys.EXP}
                         onClickKey={onClickKey}
                         coord={[1, 0]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).SQRT}
+                        keyConfig={Keys.SQRT}
                         onClickKey={onClickKey}
                         coord={[2, 0]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).RADICAL}
+                        keyConfig={Keys.RADICAL}
                         onClickKey={onClickKey}
                         coord={[3, 0]}
                     />
@@ -62,20 +57,17 @@ export default function OperatorsPage(props: Props) {
             {logarithms && (
                 <>
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).LOG}
+                        keyConfig={Keys.LOG}
                         onClickKey={onClickKey}
                         coord={[0, 1]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).LOG_N}
+                        keyConfig={Keys.LOG_N}
                         onClickKey={onClickKey}
                         coord={[1, 1]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).LN}
+                        keyConfig={Keys.LN}
                         onClickKey={onClickKey}
                         coord={[2, 1]}
                     />
@@ -86,20 +78,17 @@ export default function OperatorsPage(props: Props) {
             {basicRelations && (
                 <>
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).EQUAL}
+                        keyConfig={Keys.EQUAL}
                         onClickKey={onClickKey}
                         coord={[0, 2]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).LT}
+                        keyConfig={Keys.LT}
                         onClickKey={onClickKey}
                         coord={[1, 2]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).GT}
+                        keyConfig={Keys.GT}
                         onClickKey={onClickKey}
                         coord={[2, 2]}
                     />
@@ -110,20 +99,17 @@ export default function OperatorsPage(props: Props) {
             {advancedRelations && (
                 <>
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).NEQ}
+                        keyConfig={Keys.NEQ}
                         onClickKey={onClickKey}
                         coord={[0, 3]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).LEQ}
+                        keyConfig={Keys.LEQ}
                         onClickKey={onClickKey}
                         coord={[1, 3]}
                     />
                     <KeypadButton
-                        locale={locale}
-                        keyConfig={Keys(strings).GEQ}
+                        keyConfig={Keys.GEQ}
                         onClickKey={onClickKey}
                         coord={[2, 3]}
                     />

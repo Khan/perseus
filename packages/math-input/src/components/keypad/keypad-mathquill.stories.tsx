@@ -75,8 +75,6 @@ export function V2KeypadWithMathquill() {
                         }}
                     >
                         <Keypad
-                            locale="en"
-                            strings={strings}
                             extraKeys={["x", "y", "PI", "THETA"]}
                             onClickKey={handleClickKey}
                             cursorContext={cursorContext}

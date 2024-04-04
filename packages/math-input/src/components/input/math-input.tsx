@@ -6,6 +6,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
+import {I18nContext} from "../i18n-context";
 import {KeypadContext} from "../keypad-context";
 
 import CursorHandle from "./cursor-handle";
@@ -17,12 +18,7 @@ import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
 
-import type {
-    MathInputStrings,
-    Cursor,
-    KeypadAPI,
-    KeypadContextType,
-} from "../../types";
+import type {Cursor, KeypadAPI, KeypadContextType} from "../../types";
 
 const constrainingFrictionFactor = 0.8;
 
@@ -33,8 +29,6 @@ type Props = {
     onFocus: () => void;
     style: any;
     value: string;
-    strings: MathInputStrings;
-    locale: string;
 };
 
 type DefaultProps = {
@@ -100,8 +94,8 @@ class MathInput extends React.Component<Props, State> {
 
         this.mathField = new MathWrapper(
             this._mathContainer,
-            this.props.strings,
-            this.props.locale,
+            this.context.strings,
+            this.context.locale,
             {
                 onCursorMove: (cursor: Cursor) => {
                     // TODO(charlie): It's not great that there is so much coupling
@@ -946,7 +940,7 @@ class MathInput extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const {showInputFocusStyle, handle} = this.state;
-        const {style, strings} = this.props;
+        const {style} = this.props;
 
         const innerStyle = {
             ...inlineStyles.innerContainer,
@@ -966,7 +960,10 @@ class MathInput extends React.Component<Props, State> {
         // keyboard appear. It should only require one finger, which is how iOS works.
         // TODO(diedra): Fix the bug that is causing Android to require a two finger tap
         // to the open the keyboard, and then remove the second half of this label.
-        const ariaLabel = strings.mathInputBox + " " + strings.fingerTap;
+        const ariaLabel =
+            this.context.strings.mathInputBox +
+            " " +
+            this.context.strings.fingerTap;
 
         return (
             <KeypadContext.Consumer>
@@ -1029,6 +1026,8 @@ class MathInput extends React.Component<Props, State> {
         );
     }
 }
+
+MathInput.contextType = I18nContext;
 
 const fontSizePt = 18;
 const inputMaxWidth = 128;

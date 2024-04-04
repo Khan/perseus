@@ -1,21 +1,26 @@
 import KeyConfigs from "../../../data/key-configs";
 
-export default [
+import type {MathInputStrings} from "../../../types";
+
+export const getTestDataTabs = (strings: MathInputStrings) => [
     {
         name: "Operators",
         specialButton: "EXP_2",
-        label: KeyConfigs["EXP_2"].ariaLabel,
+        label: KeyConfigs(strings)["EXP_2"].ariaLabel,
     },
-    {name: "Extras", specialButton: "PI", label: KeyConfigs["PI"].ariaLabel},
-
+    {
+        name: "Extras",
+        specialButton: "PI",
+        label: KeyConfigs(strings)["PI"].ariaLabel,
+    },
     {
         name: "Geometry",
         specialButton: "COS",
-        label: KeyConfigs["COS"].ariaLabel,
+        label: KeyConfigs(strings)["COS"].ariaLabel,
     },
     {
         name: "Numbers",
         specialButton: "NUM_7",
-        label: KeyConfigs["NUM_7"].ariaLabel,
+        label: KeyConfigs(strings)["NUM_7"].ariaLabel,
     },
 ];

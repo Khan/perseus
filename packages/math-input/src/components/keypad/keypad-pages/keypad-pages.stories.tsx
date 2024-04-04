@@ -2,8 +2,6 @@ import {action} from "@storybook/addon-actions";
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import * as React from "react";
 
-import {strings} from "../../../../../../testing/mock-strings";
-
 import GeometryInputPage from "./geometry-page";
 import NumbersPage from "./numbers-page";
 import PrealgebraInputPage from "./operators-page";
@@ -18,26 +16,12 @@ export default {
     },
 };
 
-export const NumericInput = ({
-    locale,
-}: {
-    locale: string;
-}): React.ReactElement => (
-    <NumbersPage
-        strings={strings}
-        locale={locale}
-        onClickKey={action("onClickKey")}
-    />
+export const NumericInput = (): React.ReactElement => (
+    <NumbersPage onClickKey={action("onClickKey")} />
 );
 
-export const PreAlgebraInput = ({
-    locale,
-}: {
-    locale: string;
-}): React.ReactElement => (
+export const PreAlgebraInput = (): React.ReactElement => (
     <PrealgebraInputPage
-        strings={strings}
-        locale={locale}
         onClickKey={action("onClickKey")}
         preAlgebra={true}
         logarithms={true}
@@ -46,14 +30,6 @@ export const PreAlgebraInput = ({
     />
 );
 
-export const TrigonometryInput = ({
-    locale,
-}: {
-    locale: string;
-}): React.ReactElement => (
-    <GeometryInputPage
-        strings={strings}
-        locale={locale}
-        onClickKey={action("onClickKey")}
-    />
+export const TrigonometryInput = (): React.ReactElement => (
+    <GeometryInputPage onClickKey={action("onClickKey")} />
 );

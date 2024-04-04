@@ -1,8 +1,6 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import {strings} from "../../../testing/mock-strings";
-
 import {
     KeypadInput,
     KeypadType,
@@ -73,8 +71,6 @@ const Basic = ({keypadElement, setKeypadElement}) => {
             </div>
 
             <KeypadInput
-                strings={strings}
-                locale="en"
                 value={value}
                 ref={input}
                 keypadElement={keypadElement}
@@ -91,8 +87,6 @@ const Basic = ({keypadElement, setKeypadElement}) => {
             />
 
             <MobileKeypad
-                locale="en"
-                strings={strings}
                 onElementMounted={(node) => {
                     if (node) {
                         setKeypadElement(node);
