@@ -2,7 +2,7 @@ import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
 import {convertDotToTimesByLocale} from "../../utils";
-import {useI18n} from "../i18n-context";
+import {useMathInputI18n} from "../i18n-context";
 
 import {KeypadButton} from "./keypad-button";
 import {getCursorContextConfig} from "./utils";
@@ -26,7 +26,7 @@ export default function SharedKeys(props: Props) {
         convertDotToTimes,
         selectedPage,
     } = props;
-    const {strings, locale} = useI18n();
+    const {strings, locale} = useMathInputI18n();
     const cursorKeyConfig = getCursorContextConfig(strings, cursorContext);
     const Keys = KeyConfigs(strings);
 

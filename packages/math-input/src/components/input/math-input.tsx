@@ -6,7 +6,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
-import {I18nContext} from "../i18n-context";
+import {MathInputI18nContext} from "../i18n-context";
 import {KeypadContext} from "../keypad-context";
 
 import CursorHandle from "./cursor-handle";
@@ -1027,7 +1027,7 @@ class MathInput extends React.Component<Props, State> {
     }
 }
 
-MathInput.contextType = I18nContext;
+MathInput.contextType = MathInputI18nContext;
 
 const fontSizePt = 18;
 const inputMaxWidth = 128;

@@ -4,7 +4,7 @@ import * as React from "react";
 
 import keyConfigs from "../../../data/key-configs";
 import {strings} from "../../../mock-strings";
-import {I18nContextProvider} from "../../i18n-context";
+import {MathInputI18nContextProvider} from "../../i18n-context";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
 
@@ -165,13 +165,13 @@ describe("keypad", () => {
 
         // Act
         render(
-            <I18nContextProvider locale="az" strings={strings}>
+            <MathInputI18nContextProvider locale="az" strings={strings}>
                 <Keypad
                     onClickKey={() => {}}
                     convertDotToTimes={true}
                     onAnalyticsEvent={async () => {}}
                 />
-            </I18nContextProvider>,
+            </MathInputI18nContextProvider>,
         );
 
         // Assert
@@ -184,13 +184,13 @@ describe("keypad", () => {
 
         // Act
         render(
-            <I18nContextProvider locale="fr" strings={strings}>
+            <MathInputI18nContextProvider locale="fr" strings={strings}>
                 <Keypad
                     onClickKey={() => {}}
                     convertDotToTimes={false}
                     onAnalyticsEvent={async () => {}}
                 />
-            </I18nContextProvider>,
+            </MathInputI18nContextProvider>,
         );
 
         // Assert
@@ -304,12 +304,12 @@ describe("keypad", () => {
         // Arrange
         // Act
         render(
-            <I18nContextProvider locale="fr" strings={strings}>
+            <MathInputI18nContextProvider locale="fr" strings={strings}>
                 <Keypad
                     onClickKey={() => {}}
                     onAnalyticsEvent={async () => {}}
                 />
-            </I18nContextProvider>,
+            </MathInputI18nContextProvider>,
         );
 
         // Assert

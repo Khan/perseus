@@ -16,22 +16,27 @@ type I18nContextType = {
 };
 
 // @ts-expect-error - TS2322 - Type 'Context<{ strings: {}; locale: string; }>' is not assignable to type 'Context<I18nContextType>'.
-export const I18nContext: React.Context<I18nContextType> = React.createContext({
-    strings:
-        process.env.NODE_ENV !== "production" || process.env.STORYBOOK
-            ? strings
-            : {},
-    locale: "en",
-});
+export const MathInputI18nContext: React.Context<I18nContextType> =
+    React.createContext({
+        strings:
+            process.env.NODE_ENV !== "production" || process.env.STORYBOOK
+                ? strings
+                : {},
+        locale: "en",
+    });
 
 type Props = React.PropsWithChildren<I18nContextType>;
 
-export function I18nContextProvider({children, strings, locale}: Props) {
+export function MathInputI18nContextProvider({
+    children,
+    strings,
+    locale,
+}: Props) {
     return (
-        <I18nContext.Provider value={{strings, locale}}>
+        <MathInputI18nContext.Provider value={{strings, locale}}>
             {children}
-        </I18nContext.Provider>
+        </MathInputI18nContext.Provider>
     );
 }
 
-export const useI18n = () => useContext(I18nContext);
+export const useMathInputI18n = () => useContext(MathInputI18nContext);

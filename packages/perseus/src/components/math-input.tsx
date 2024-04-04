@@ -1,12 +1,13 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     DesktopKeypad,
-    keyTranslator,
+    getKeyTranslator,
     createMathField,
     mathQuillInstance,
     CursorContext,
     getCursorContext,
     convertDotToTimesByLocale,
+    MathInputI18nContext,
 } from "@khanacademy/math-input";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -78,20 +79,6 @@ type State = {
     openedWithEventType?: string;
 };
 
-const customKeyTranslator = {
-    ...keyTranslator,
-    // If there's something in the input that can become part of a
-    // fraction, typing "/" puts it in the numerator. If not, typing
-    // "/" does nothing. In that case, enter a \frac.
-    FRAC: (mathQuill) => {
-        const contents = mathQuill.latex();
-        mathQuill.typedText("/");
-        if (mathQuill.latex() === contents) {
-            mathQuill.cmd("\\frac");
-        }
-    },
-};
-
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
 class MathInput extends React.Component<Props, State> {
     // @ts-expect-error - TS2564 - Property 'mouseDown' has no initializer and is not definitely assigned in the constructor.
@@ -129,6 +116,20 @@ class MathInput extends React.Component<Props, State> {
 
     insert: (value: any) => void = (value) => {
         const input = this.mathField();
+        const {locale} = this.context;
+        const customKeyTranslator = {
+            ...getKeyTranslator(locale),
+            // If there's something in the input that can become part of a
+            // fraction, typing "/" puts it in the numerator. If not, typing
+            // "/" does nothing. In that case, enter a \frac.
+            FRAC: (mathQuill) => {
+                const contents = mathQuill.latex();
+                mathQuill.typedText("/");
+                if (mathQuill.latex() === contents) {
+                    mathQuill.cmd("\\frac");
+                }
+            },
+        };
         const inputModifier = customKeyTranslator[value];
         if (inputModifier) {
             inputModifier(input, value);
@@ -152,9 +153,11 @@ class MathInput extends React.Component<Props, State> {
 
     mathField: () => MathFieldInterface | null = () => {
         if (!this.__mathField && this.__mathFieldWrapperRef) {
+            const {strings, locale} = this.context;
             // Initialize MathQuill.MathField instance
             this.__mathField = createMathField(
                 this.__mathFieldWrapperRef,
+                strings,
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -175,6 +178,7 @@ class MathInput extends React.Component<Props, State> {
                             if (
                                 convertDotToTimesByLocale(
                                     this.props.convertDotToTimes,
+                                    locale,
                                 )
                             ) {
                                 value = value.replace(/\\cdot/g, "\\times");
@@ -238,7 +242,8 @@ class MathInput extends React.Component<Props, State> {
     blur: () => void = () => this.setState({focused: false});
 
     handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
-        const translator = keyTranslator[key];
+        const {strings} = this.context;
+        const translator = getKeyTranslator(strings)[key];
         const mathField = this.mathField();
 
         if (mathField) {
@@ -369,6 +374,8 @@ class MathInput extends React.Component<Props, State> {
         );
     }
 }
+
+MathInput.contextType = MathInputI18nContext;
 
 const MathInputIcon = ({hovered, focused, active}) => {
     let fillColor: string | undefined;

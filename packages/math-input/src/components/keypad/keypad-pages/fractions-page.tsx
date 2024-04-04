@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import KeyConfigs from "../../../data/key-configs";
-import {useI18n} from "../../i18n-context";
+import {useMathInputI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 import {getCursorContextConfig} from "../utils";
 
@@ -15,7 +15,7 @@ type Props = {
 
 export default function FractionsPage(props: Props) {
     const {onClickKey, cursorContext} = props;
-    const {strings} = useI18n();
+    const {strings} = useMathInputI18n();
     const cursorKeyConfig = getCursorContextConfig(strings, cursorContext);
     // These keys are arranged sequentially so that tabbing follows numerical order. This
     // allows us to visually mimic a keypad without affecting a11y. The visual order of the

@@ -4,7 +4,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
-import {useI18n} from "../i18n-context";
+import {useMathInputI18n} from "../i18n-context";
 
 import NavigationButton from "./navigation-button";
 
@@ -16,7 +16,7 @@ export type Props = {
 
 export default function NavigationPad(props: Props) {
     const {onClickKey} = props;
-    const {strings} = useI18n();
+    const {strings} = useMathInputI18n();
     const Keys = KeyConfigs(strings);
 
     return (

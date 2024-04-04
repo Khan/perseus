@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import KeyConfigs from "../../../data/key-configs";
-import {useI18n} from "../../i18n-context";
+import {useMathInputI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 
 import type {ClickKeyCallback} from "../../../types";
@@ -22,7 +22,7 @@ export default function OperatorsPage(props: Props) {
         basicRelations,
         advancedRelations,
     } = props;
-    const {strings} = useI18n();
+    const {strings} = useMathInputI18n();
     const Keys = KeyConfigs(strings);
 
     return (

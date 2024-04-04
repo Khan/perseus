@@ -34,6 +34,13 @@ export {default as DesktopKeypad} from "./components/keypad";
 // For strings used in MathQuill and the keypad
 export {strings} from "./strings";
 
+// Context for managing i18n
+export {
+    MathInputI18nContextProvider,
+    MathInputI18nContext,
+    useMathInputI18n,
+} from "./components/i18n-context";
+
 // Context used to pass data/refs around
 export {
     KeypadContext,
