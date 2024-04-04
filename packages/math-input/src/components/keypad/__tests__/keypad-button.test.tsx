@@ -2,6 +2,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {strings} from "../../../../../../testing/mock-strings";
 import Keys from "../../../data/key-configs";
 import {KeypadButton} from "../keypad-button";
 
@@ -17,8 +18,9 @@ describe("<KeypadButton />", () => {
         // Arrange
         render(
             <KeypadButton
+                locale="en"
                 onClickKey={() => {}}
-                keyConfig={Keys.LEFT_PAREN}
+                keyConfig={Keys(strings).LEFT_PAREN}
                 coord={[0, 0]}
             />,
         );
@@ -35,8 +37,9 @@ describe("<KeypadButton />", () => {
         const mockClickKeyCallback = jest.fn((_, event) => event.persist());
         render(
             <KeypadButton
+                locale="en"
                 onClickKey={mockClickKeyCallback}
-                keyConfig={Keys.LEFT_PAREN}
+                keyConfig={Keys(strings).LEFT_PAREN}
                 coord={[0, 0]}
             />,
         );
@@ -62,8 +65,9 @@ describe("<KeypadButton />", () => {
         const mockClickKeyCallback = jest.fn((_, event) => event.persist());
         render(
             <KeypadButton
+                locale="en"
                 onClickKey={mockClickKeyCallback}
-                keyConfig={Keys.RIGHT_PAREN}
+                keyConfig={Keys(strings).RIGHT_PAREN}
                 coord={[0, 0]}
             />,
         );

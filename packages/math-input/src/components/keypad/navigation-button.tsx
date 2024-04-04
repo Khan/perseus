@@ -14,6 +14,7 @@ export type KeypadButtonProps = {
     coord: readonly [number, number];
     keyConfig: KeyConfig;
     onClickKey: ClickKeyCallback;
+    locale: string;
 };
 
 function getStyles(key: Key) {
@@ -35,6 +36,7 @@ export default function NavigationButton({
     coord,
     keyConfig,
     onClickKey,
+    locale,
 }: KeypadButtonProps) {
     const key = keyConfig.id;
     const directionalStyles = getStyles(key);
@@ -62,7 +64,7 @@ export default function NavigationButton({
                                 pressed && styles.pressed,
                             ]}
                         >
-                            <ButtonAsset id={keyConfig.id} />
+                            <ButtonAsset id={keyConfig.id} locale={locale} />
                         </View>
                     </View>
                 )}

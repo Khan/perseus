@@ -1,4 +1,4 @@
-import {decimalSeparator} from "../../utils";
+import {getDecimalSeparator} from "../../utils";
 import {mathQuillInstance} from "../input/mathquill-instance";
 
 import handleArrow from "./handle-arrow";
@@ -47,7 +47,9 @@ function buildNormalFunctionCallback(command: string) {
     };
 }
 
-const keyToMathquillMap: Record<Key, MathFieldUpdaterCallback> = {
+export const getKeyTranslator = (
+    locale: string,
+): Record<Key, MathFieldUpdaterCallback> => ({
     EXP: handleExponent,
     EXP_2: handleExponent,
     EXP_3: handleExponent,
@@ -69,7 +71,7 @@ const keyToMathquillMap: Record<Key, MathFieldUpdaterCallback> = {
     TAN: buildNormalFunctionCallback("tan"),
 
     CDOT: buildGenericCallback("\\cdot"),
-    DECIMAL: buildGenericCallback(decimalSeparator),
+    DECIMAL: buildGenericCallback(getDecimalSeparator(locale)),
     DIVIDE: buildGenericCallback("\\div"),
     EQUAL: buildGenericCallback("="),
     GEQ: buildGenericCallback("\\geq"),
@@ -217,6 +219,4 @@ const keyToMathquillMap: Record<Key, MathFieldUpdaterCallback> = {
     X: buildGenericCallback("X"),
     Y: buildGenericCallback("Y"),
     Z: buildGenericCallback("Z"),
-};
-
-export default keyToMathquillMap;
+});

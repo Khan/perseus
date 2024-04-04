@@ -3,14 +3,16 @@ import * as React from "react";
 import Keys from "../../../data/key-configs";
 import {KeypadButton} from "../keypad-button";
 
-import type {ClickKeyCallback} from "../../../types";
+import type {MathInputStrings, ClickKeyCallback} from "../../../types";
 
 type Props = {
     onClickKey: ClickKeyCallback;
+    strings: MathInputStrings;
+    locale: string;
 };
 
 export default function NumbersPage(props: Props) {
-    const {onClickKey} = props;
+    const {onClickKey, strings, locale} = props;
     // These keys are arranged sequentially so that tabbing follows numerical order. This
     // allows us to visually mimic a keypad without affecting a11y. The visual order of the
     // keys in the keypad is determined by their coordinates, not their order in the DOM.
@@ -18,73 +20,86 @@ export default function NumbersPage(props: Props) {
         <>
             {/* Row 4 */}
             <KeypadButton
-                keyConfig={Keys.NUM_1}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_1}
                 onClickKey={onClickKey}
                 coord={[0, 2]}
             />
             <KeypadButton
-                keyConfig={Keys.NUM_2}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_2}
                 onClickKey={onClickKey}
                 coord={[1, 2]}
             />
             <KeypadButton
-                keyConfig={Keys.NUM_3}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_3}
                 onClickKey={onClickKey}
                 coord={[2, 2]}
             />
 
             {/* Row 3 */}
             <KeypadButton
-                keyConfig={Keys.NUM_4}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_4}
                 onClickKey={onClickKey}
                 coord={[0, 1]}
             />
             <KeypadButton
-                keyConfig={Keys.NUM_5}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_5}
                 onClickKey={onClickKey}
                 coord={[1, 1]}
             />
             <KeypadButton
-                keyConfig={Keys.NUM_6}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_6}
                 onClickKey={onClickKey}
                 coord={[2, 1]}
             />
 
             {/* Row 2 */}
             <KeypadButton
-                keyConfig={Keys.NUM_7}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_7}
                 onClickKey={onClickKey}
                 coord={[0, 0]}
             />
             <KeypadButton
-                keyConfig={Keys.NUM_8}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_8}
                 onClickKey={onClickKey}
                 coord={[1, 0]}
             />
             <KeypadButton
-                keyConfig={Keys.NUM_9}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_9}
                 onClickKey={onClickKey}
                 coord={[2, 0]}
             />
 
             {/* Row 1 */}
             <KeypadButton
-                keyConfig={Keys.NUM_0}
+                locale={locale}
+                keyConfig={Keys(strings).NUM_0}
                 onClickKey={onClickKey}
                 coord={[0, 3]}
             />
             <KeypadButton
-                keyConfig={Keys.DECIMAL}
+                locale={locale}
+                keyConfig={Keys(strings).DECIMAL}
                 onClickKey={onClickKey}
                 coord={[1, 3]}
             />
             <KeypadButton
-                keyConfig={Keys.NEGATIVE}
+                locale={locale}
+                keyConfig={Keys(strings).NEGATIVE}
                 onClickKey={onClickKey}
                 coord={[2, 3]}
             />
             <KeypadButton
-                keyConfig={Keys.PERCENT}
+                locale={locale}
+                keyConfig={Keys(strings).PERCENT}
                 onClickKey={onClickKey}
                 coord={[3, 0]}
                 secondary

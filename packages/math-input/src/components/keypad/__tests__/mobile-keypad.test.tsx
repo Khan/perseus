@@ -1,6 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
+import {strings} from "../../../../../../testing/mock-strings";
 import MobileKeypadInternals from "../mobile-keypad-internals";
 
 describe("mobile keypad", () => {
@@ -9,6 +10,8 @@ describe("mobile keypad", () => {
         // Act
         const {container} = render(
             <MobileKeypadInternals
+                locale="en"
+                strings={strings}
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
@@ -24,6 +27,8 @@ describe("mobile keypad", () => {
         // Act
         const {container} = render(
             <MobileKeypadInternals
+                locale="en"
+                strings={strings}
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={false}
@@ -38,6 +43,8 @@ describe("mobile keypad", () => {
         // Arrange
         const {rerender} = render(
             <MobileKeypadInternals
+                locale="en"
+                strings={strings}
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={false}
@@ -49,6 +56,8 @@ describe("mobile keypad", () => {
         // Act
         rerender(
             <MobileKeypadInternals
+                locale="en"
+                strings={strings}
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
@@ -66,6 +75,8 @@ describe("mobile keypad", () => {
         // Act
         render(
             <MobileKeypadInternals
+                locale="en"
+                strings={strings}
                 onAnalyticsEvent={onAnalyticsEvent}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
@@ -87,6 +98,8 @@ describe("mobile keypad", () => {
         // Arrange
         const {rerender, unmount} = render(
             <MobileKeypadInternals
+                locale="en"
+                strings={strings}
                 onAnalyticsEvent={onAnalyticsEvent}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
@@ -96,6 +109,8 @@ describe("mobile keypad", () => {
         // Act
         rerender(
             <MobileKeypadInternals
+                locale="en"
+                strings={strings}
                 onAnalyticsEvent={onAnalyticsEvent}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={false}

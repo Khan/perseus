@@ -4,8 +4,9 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {strings} from "../../../../../../testing/mock-strings";
 import {createMathField} from "../../input/mathquill-instance";
-import keyTranslator from "../../key-handlers/key-translator";
+import {getKeyTranslator} from "../../key-handlers/key-translator";
 import Keypad from "../index";
 
 import type Key from "../../../data/keys";
@@ -28,6 +29,7 @@ function V2KeypadWithMathquill(props: Props) {
         if (!mathField && mathFieldWrapperRef.current) {
             const mathFieldInstance = createMathField(
                 mathFieldWrapperRef.current,
+                strings,
                 (baseConfig) => {
                     return {
                         ...baseConfig,
@@ -42,6 +44,8 @@ function V2KeypadWithMathquill(props: Props) {
             setMathField(mathFieldInstance);
         }
     }, [mathField, onChangeMathInput]);
+
+    const keyTranslator = getKeyTranslator("en");
 
     function handleClickKey(key: Key) {
         if (!mathField) {
@@ -64,6 +68,8 @@ function V2KeypadWithMathquill(props: Props) {
                 content={
                     <div>
                         <Keypad
+                            locale="en"
+                            strings={strings}
                             extraKeys={["a", "b", "c"]}
                             onClickKey={handleClickKey}
                             advancedRelations

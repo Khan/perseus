@@ -3,29 +3,34 @@ import * as React from "react";
 import Keys from "../../../data/key-configs";
 import {KeypadButton} from "../keypad-button";
 
-import type {ClickKeyCallback} from "../../../types";
+import type {MathInputStrings, ClickKeyCallback} from "../../../types";
 
 type Props = {
     onClickKey: ClickKeyCallback;
+    strings: MathInputStrings;
+    locale: string;
 };
 
 export default function GeometryPage(props: Props) {
-    const {onClickKey} = props;
+    const {onClickKey, strings, locale} = props;
     return (
         <>
             {/* Row 1 */}
             <KeypadButton
-                keyConfig={Keys.SIN}
+                locale={locale}
+                keyConfig={Keys(strings).SIN}
                 onClickKey={onClickKey}
                 coord={[0, 0]}
             />
             <KeypadButton
-                keyConfig={Keys.COS}
+                locale={locale}
+                keyConfig={Keys(strings).COS}
                 onClickKey={onClickKey}
                 coord={[1, 0]}
             />
             <KeypadButton
-                keyConfig={Keys.TAN}
+                locale={locale}
+                keyConfig={Keys(strings).TAN}
                 onClickKey={onClickKey}
                 coord={[2, 0]}
             />

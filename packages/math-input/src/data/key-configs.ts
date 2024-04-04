@@ -1,11 +1,9 @@
 /**
  * This file contains configuration settings for the buttons in the keypad.
  */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
-
 import type Key from "./keys";
 import type {KeyType} from "../enums";
-import type {KeyConfig} from "../types";
+import type {MathInputStrings, KeyConfig} from "../types";
 
 type KeyConfigMapper = (args: {
     key: Key;
@@ -56,51 +54,47 @@ const getDefaultNumberFields: KeyConfigMapper = ({
     },
 });
 
-const KeyConfigs: {
+const KeyConfigs = (
+    strings: MathInputStrings,
+): {
     [key in Key]: KeyConfig;
-} = {
+} => ({
     // Basic math
     PLUS: {
         ...getDefaultOperatorFields({
             key: "PLUS",
-            // I18N: A label for a 'plus' sign.
-            ariaLabel: i18n._("Plus"),
+            ariaLabel: strings.plus,
         }),
     },
     MINUS: {
         ...getDefaultOperatorFields({
             key: "MINUS",
-            // I18N: A label for a 'minus' sign.
-            ariaLabel: i18n._("Minus"),
+            ariaLabel: strings.minus,
         }),
     },
     NEGATIVE: {
         ...getDefaultOperatorFields({
             key: "NEGATIVE",
-            // I18N: A label for a 'negative' sign.
-            ariaLabel: i18n._("Negative"),
+            ariaLabel: strings.negative,
         }),
     },
     TIMES: {
         ...getDefaultOperatorFields({
             key: "TIMES",
-            // I18N: A label for a 'multiply' sign.
-            ariaLabel: i18n._("Multiply"),
+            ariaLabel: strings.multiply,
         }),
     },
     DIVIDE: {
         ...getDefaultOperatorFields({
             key: "DIVIDE",
-            // I18N: A label for a 'divide' sign.
-            ariaLabel: i18n._("Divide"),
+            ariaLabel: strings.divide,
         }),
     },
     DECIMAL: {
         ...getDefaultOperatorFields({
             key: "DECIMAL",
             keyType: "VALUE",
-            // I18N: A label for a 'decimal' sign (represented as '.' or ',').
-            ariaLabel: i18n._("Decimal"),
+            ariaLabel: strings.decimal,
         }),
     },
     PERIOD: {
@@ -113,214 +107,168 @@ const KeyConfigs: {
     PERCENT: {
         ...getDefaultOperatorFields({
             key: "PERCENT",
-            // I18N: A label for a 'percent' sign (represented as '%').
-            ariaLabel: i18n._("Percent"),
+            ariaLabel: strings.percent,
         }),
     },
     CDOT: {
         ...getDefaultOperatorFields({
             key: "CDOT",
-            // I18N: A label for a 'centered dot' multiplication sign (represented as '⋅').
-            ariaLabel: i18n._("Multiply"),
+            ariaLabel: strings.multiply2,
         }),
     },
     EQUAL: {
         ...getDefaultOperatorFields({
             key: "EQUAL",
-            // I18N: A label for an 'equals' sign (represented as '=').
-            ariaLabel: i18n._("Equals sign"),
+            ariaLabel: strings.equalsSign,
         }),
     },
     NEQ: {
         ...getDefaultOperatorFields({
             key: "NEQ",
-            // I18N: A label for a 'not-equals' sign (represented as '≠').
-            ariaLabel: i18n._("Not-equals sign"),
+            ariaLabel: strings.notEqualsSign,
         }),
     },
     GT: {
         ...getDefaultOperatorFields({
             key: "GT",
-            // I18N: A label for a 'greater than' sign (represented as '>').
-            ariaLabel: i18n._("Greater than sign"),
+            ariaLabel: strings.greaterThanSign,
         }),
     },
     LT: {
         ...getDefaultOperatorFields({
             key: "LT",
-            // I18N: A label for a 'less than' sign (represented as '<').
-            ariaLabel: i18n._("Less than sign"),
+            ariaLabel: strings.lessThanSign,
         }),
     },
     GEQ: {
         ...getDefaultOperatorFields({
             key: "GEQ",
-            // I18N: A label for a 'greater than or equal to' sign (represented as '≥').
-            ariaLabel: i18n._("Greater than or equal to sign"),
+            ariaLabel: strings.greaterThanOrEqualToSign,
         }),
     },
     LEQ: {
         ...getDefaultOperatorFields({
             key: "LEQ",
-            // I18N: A label for a 'less than or equal to' sign (represented as '≤').
-            ariaLabel: i18n._("Less than or equal to sign"),
+            ariaLabel: strings.lessThanOrEqualSign,
         }),
     },
     // mobile native
     FRAC_INCLUSIVE: {
         ...getDefaultOperatorFields({
             key: "FRAC_INCLUSIVE",
-            // I18N: A label for a button that creates a new fraction and puts the
-            // current expression in the numerator of that fraction.
-            ariaLabel: i18n._("Fraction, with current expression in numerator"),
+            ariaLabel: strings.fractionExpressionInNumerator,
         }),
     },
     // mobile native
     FRAC_EXCLUSIVE: {
         ...getDefaultOperatorFields({
             key: "FRAC_EXCLUSIVE",
-            // I18N: A label for a button that creates a new fraction next to the
-            // cursor.
-            ariaLabel: i18n._("Fraction, excluding the current expression"),
+            ariaLabel: strings.fractionExcludingExpression,
         }),
     },
     // mobile web
     FRAC: {
         ...getDefaultOperatorFields({
             key: "FRAC",
-            // I18N: A label for a button that creates a new fraction next to the
-            // cursor.
-            ariaLabel: i18n._("Fraction, excluding the current expression"),
+            ariaLabel: strings.fractionExcludingExpression,
         }),
     },
     EXP: {
         ...getDefaultOperatorFields({
             key: "EXP",
-            // I18N: A label for a button that will allow the user to input a
-            // custom exponent.
-            ariaLabel: i18n._("Custom exponent"),
+            ariaLabel: strings.customExponent,
         }),
     },
     EXP_2: {
         ...getDefaultOperatorFields({
             key: "EXP_2",
-            // I18N: A label for a button that will square (take to the second
-            // power) some math.
-            ariaLabel: i18n._("Square"),
+            ariaLabel: strings.square,
         }),
     },
     EXP_3: {
         ...getDefaultOperatorFields({
             key: "EXP_3",
-            // I18N: A label for a button that will cube (take to the third power)
-            // some math.
-            ariaLabel: i18n._("Cube"),
+            ariaLabel: strings.cube,
         }),
     },
     SQRT: {
         ...getDefaultOperatorFields({
             key: "SQRT",
-            // I18N: A label for a button that will allow the user to input a
-            // square root.
-            ariaLabel: i18n._("Square root"),
+            ariaLabel: strings.squareRoot,
         }),
     },
     CUBE_ROOT: {
         ...getDefaultOperatorFields({
             key: "CUBE_ROOT",
-            // I18N: A label for a button that will allow the user to input a
-            // cube root.
-            ariaLabel: i18n._("Cube root"),
+            ariaLabel: strings.cubeRoot,
         }),
     },
     RADICAL: {
         ...getDefaultOperatorFields({
             key: "RADICAL",
-            // I18N: A label for a button that will allow the user to input a
-            // radical with a custom root.
-            ariaLabel: i18n._("Radical with custom root"),
+            ariaLabel: strings.radicalWithCustomRoot,
         }),
     },
     LEFT_PAREN: {
         ...getDefaultOperatorFields({
             key: "LEFT_PAREN",
-            // I18N: A label for a button that will allow the user to input a
-            // left parenthesis (i.e. '(')
-            ariaLabel: i18n._("Left parenthesis"),
+            ariaLabel: strings.leftParenthesis,
         }),
     },
     RIGHT_PAREN: {
         ...getDefaultOperatorFields({
             key: "RIGHT_PAREN",
-            // I18N: A label for a button that will allow the user to input a
-            // right parenthesis (i.e. ')')
-            ariaLabel: i18n._("Right parenthesis"),
+            ariaLabel: strings.rightParenthesis,
         }),
     },
     LN: {
         ...getDefaultOperatorFields({
             key: "LN",
-            // I18N: A label for a button that will allow the user to input a
-            // natural logarithm.
-            ariaLabel: i18n._("Natural logarithm"),
+            ariaLabel: strings.naturalLog,
         }),
     },
     LOG: {
         ...getDefaultOperatorFields({
             key: "LOG",
-            // I18N: A label for a button that will allow the user to input a
-            // logarithm with base 10.
-            ariaLabel: i18n._("Logarithm with base 10"),
+            ariaLabel: strings.logBase10,
         }),
     },
     LOG_N: {
         ...getDefaultOperatorFields({
             key: "LOG_N",
-            // I18N: A label for a button that will allow the user to input a
-            // logarithm with a custom base.
-            ariaLabel: i18n._("Logarithm with custom base"),
+            ariaLabel: strings.logCustomBase,
         }),
     },
     SIN: {
         ...getDefaultOperatorFields({
             key: "SIN",
-            // I18N: A label for a button that will allow the user to input a
-            // sine function.
-            ariaLabel: i18n._("Sine"),
+            ariaLabel: strings.sine,
         }),
     },
     COS: {
         ...getDefaultOperatorFields({
             key: "COS",
-            // I18N: A label for a button that will allow the user to input a
-            // cosine function.
-            ariaLabel: i18n._("Cosine"),
+            ariaLabel: strings.cosine,
         }),
     },
     TAN: {
         ...getDefaultOperatorFields({
             key: "TAN",
-            // I18N: A label for a button that will allow the user to input a
-            // tangent function.
-            ariaLabel: i18n._("Tangent"),
+            ariaLabel: strings.tangent,
         }),
     },
     PI: {
         ...getDefaultValueFields({
             key: "PI",
             data: "\\pi",
-            // I18N: A label for a button that will allow the user to input the
-            // mathematical constant pi (i.e., π)
-            ariaLabel: i18n._("Pi"),
+            ariaLabel: strings.pi,
         }),
     },
     THETA: {
         ...getDefaultValueFields({
             key: "THETA",
             data: "\\theta",
-            // I18N: A label for a button that will allow the user to input the
-            // mathematical constant theta (i.e., θ)
-            ariaLabel: i18n._("Theta"),
+            ariaLabel: strings.theta,
         }),
     },
     NOOP: {
@@ -334,83 +282,77 @@ const KeyConfigs: {
         ...getDefaultOperatorFields({
             key: "UP",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._("Up arrow"),
+            ariaLabel: strings.upArrow,
         }),
     },
     RIGHT: {
         ...getDefaultOperatorFields({
             key: "RIGHT",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._("Right arrow"),
+            ariaLabel: strings.rightArrow,
         }),
     },
     DOWN: {
         ...getDefaultOperatorFields({
             key: "DOWN",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._("Down arrow"),
+            ariaLabel: strings.downArrow,
         }),
     },
     LEFT: {
         ...getDefaultOperatorFields({
             key: "LEFT",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._("Left arrow"),
+            ariaLabel: strings.leftArrow,
         }),
     },
     JUMP_OUT_PARENTHESES: {
         ...getDefaultOperatorFields({
             key: "JUMP_OUT_PARENTHESES",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._("Navigate right out of a set of parentheses"),
+            ariaLabel: strings.navOutOfParentheses,
         }),
     },
     JUMP_OUT_EXPONENT: {
         ...getDefaultOperatorFields({
             key: "JUMP_OUT_EXPONENT",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._("Navigate right out of an exponent"),
+            ariaLabel: strings.navOutOfExponent,
         }),
     },
     JUMP_OUT_BASE: {
         ...getDefaultOperatorFields({
             key: "JUMP_OUT_BASE",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._("Navigate right out of a base"),
+            ariaLabel: strings.navOutOfBase,
         }),
     },
     JUMP_INTO_NUMERATOR: {
         ...getDefaultOperatorFields({
             key: "JUMP_INTO_NUMERATOR",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._(
-                "Navigate right into the numerator of a fraction",
-            ),
+            ariaLabel: strings.navIntoNumerator,
         }),
     },
     JUMP_OUT_NUMERATOR: {
         ...getDefaultOperatorFields({
             key: "JUMP_OUT_NUMERATOR",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._(
-                "Navigate right out of the numerator and into the denominator",
-            ),
+            ariaLabel: strings.navOutOfNumeratorIntoDenominator,
         }),
     },
     JUMP_OUT_DENOMINATOR: {
         ...getDefaultOperatorFields({
             key: "JUMP_OUT_DENOMINATOR",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._(
-                "Navigate right out of the denominator of a fraction",
-            ),
+            ariaLabel: strings.navOutOfDenominator,
         }),
     },
     BACKSPACE: {
         ...getDefaultOperatorFields({
             key: "BACKSPACE",
             keyType: "INPUT_NAVIGATION",
-            ariaLabel: i18n._("Delete"),
+            ariaLabel: strings.delete,
         }),
     },
 
@@ -419,8 +361,7 @@ const KeyConfigs: {
         ...getDefaultOperatorFields({
             key: "DISMISS",
             keyType: "KEYPAD_NAVIGATION",
-            // I18N: A label for a button that will dismiss/hide a keypad.
-            ariaLabel: i18n._("Dismiss"),
+            ariaLabel: strings.dismiss,
         }),
     },
 
@@ -765,6 +706,6 @@ const KeyConfigs: {
             key: "LOG_B",
         }),
     },
-};
+});
 
 export default KeyConfigs;

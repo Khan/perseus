@@ -1,20 +1,39 @@
-import {getDecimalSeparator, getLocale} from "@khanacademy/wonder-blocks-i18n";
-
 export const DecimalSeparator = {
     COMMA: ",",
     PERIOD: ".",
 } as const;
 
-// NOTES(kevinb):
-// - In order to get the correct decimal separator for the current locale,
-//   the locale must bet set using `setLocale(kaLocale)` which can be
-//   imported from wonder-blocks-i18n.
-// - Some languages/locales use different decimal separators than the ones
-//   listed here.  Much of the Arab world uses U+066C.
-export const decimalSeparator: string =
-    getDecimalSeparator() === ","
-        ? DecimalSeparator.COMMA
-        : DecimalSeparator.PERIOD;
+/**
+ *  Get the character used for separating decimals.
+ */
+export const getDecimalSeparator = (locale: string): string => {
+    let separator: string = DecimalSeparator.PERIOD;
+
+    switch (locale) {
+        // TODO(somewhatabstract): Remove this when Chrome supports the `ka`
+        // locale properly.
+        // https://github.com/formatjs/formatjs/issues/1526#issuecomment-559891201
+        //
+        // Supported locales in Chrome:
+        // https://source.chromium.org/chromium/chromium/src/+/master:third_party/icu/scripts/chrome_ui_languages.list
+        case "ka":
+            separator = ",";
+            break;
+
+        default:
+            const numberWithDecimalSeparator = 1.1;
+            // TODO(FEI-3647): Update to use .formatToParts() once we no longer have to
+            // support Safari 12.
+            const match = new Intl.NumberFormat(locale)
+                .format(numberWithDecimalSeparator)
+                // 0x661 is ARABIC-INDIC DIGIT ONE
+                // 0x6F1 is EXTENDED ARABIC-INDIC DIGIT ONE
+                .match(/[^\d\u0661\u06F1]/);
+            separator = match?.[0] ?? ".";
+    }
+
+    return separator === "," ? DecimalSeparator.COMMA : DecimalSeparator.PERIOD;
+};
 
 const CDOT_ONLY = [
     "az",
@@ -46,9 +65,10 @@ const TIMES_ONLY = ["fr", "tr", "pt-pt"];
  * @param {boolean} convertDotToTimes - the setting set by content creators
  * @returns {boolean} - true to convert to × (TIMES), false to use · (CDOT)
  */
-export function convertDotToTimesByLocale(convertDotToTimes: boolean): boolean {
-    const locale = getLocale();
-
+export function convertDotToTimesByLocale(
+    convertDotToTimes: boolean,
+    locale: string,
+): boolean {
     if (CDOT_ONLY.includes(locale)) {
         return false;
     }

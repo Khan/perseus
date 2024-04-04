@@ -31,6 +31,9 @@ export {MobileKeypad} from "./components/keypad";
 // Unwrapped v2 keypad for desktop
 export {default as DesktopKeypad} from "./components/keypad";
 
+// For strings used in MathQuill and the keypad
+export {strings} from "./strings";
+
 // Context used to pass data/refs around
 export {
     KeypadContext,
@@ -39,7 +42,7 @@ export {
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";
-export type {KeypadAPI, KeypadConfiguration} from "./types";
+export type {KeypadAPI, KeypadConfiguration, MathInputStrings} from "./types";
 export {convertDotToTimesByLocale} from "./utils";
 
 // Key list, configuration map, and types
@@ -49,4 +52,4 @@ export {default as KeyConfigs} from "./data/key-configs";
 export {type KeyType, KeypadType} from "./enums";
 
 // Helper to translate key pressed to MathField update
-export {default as keyTranslator} from "./components/key-handlers/key-translator";
+export {getKeyTranslator} from "./components/key-handlers/key-translator";

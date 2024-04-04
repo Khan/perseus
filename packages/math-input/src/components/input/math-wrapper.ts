@@ -15,7 +15,7 @@
 // when upgrading MathQuill.
 
 import handleBackspace from "../key-handlers/handle-backspace";
-import keyTranslator from "../key-handlers/key-translator";
+import {getKeyTranslator} from "../key-handlers/key-translator";
 
 import {getCursorContext, maybeFindCommand} from "./mathquill-helpers";
 import {createMathField, mathQuillInstance} from "./mathquill-instance";
@@ -25,17 +25,7 @@ import type {
     MathFieldUpdaterCallback,
 } from "./mathquill-types";
 import type Key from "../../data/keys";
-
-const mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
-    ...keyTranslator,
-    // note(Matthew): our mobile backspace logic is really complicated
-    // and for some reason doesn't really work in the desktop experience.
-    // So we default to the basic backspace functionality in the
-    // key translator and overwrite it with the complicated logic here
-    // until we can unify the experiences (if we even want to).
-    // https://khanacademy.atlassian.net/browse/LC-906
-    BACKSPACE: handleBackspace,
-};
+import type {MathInputStrings} from "../../types";
 
 /**
  * This file contains a wrapper around MathQuill so that we can provide a
@@ -45,9 +35,15 @@ const mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
 class MathWrapper {
     mathField: MathFieldInterface; // MathQuill MathField input
     callbacks: any;
+    mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback>;
 
-    constructor(element, callbacks = {}) {
-        this.mathField = createMathField(element, () => {
+    constructor(
+        element,
+        strings: MathInputStrings,
+        locale: string,
+        callbacks = {},
+    ) {
+        this.mathField = createMathField(element, strings, () => {
             return {
                 // use a span instead of a textarea so that we don't bring up the
                 // native keyboard on mobile when selecting the input
@@ -57,6 +53,17 @@ class MathWrapper {
             };
         });
         this.callbacks = callbacks;
+
+        this.mobileKeyTranslator = {
+            ...getKeyTranslator(locale),
+            // note(Matthew): our mobile backspace logic is really complicated
+            // and for some reason doesn't really work in the desktop experience.
+            // So we default to the basic backspace functionality in the
+            // key translator and overwrite it with the complicated logic here
+            // until we can unify the experiences (if we even want to).
+            // https://khanacademy.atlassian.net/browse/LC-906
+            BACKSPACE: handleBackspace,
+        };
     }
 
     focus() {
@@ -84,7 +91,7 @@ class MathWrapper {
      */
     pressKey(key: Key) {
         const cursor = this.getCursor();
-        const translator = mobileKeyTranslator[key];
+        const translator = this.mobileKeyTranslator[key];
 
         if (translator) {
             translator(this.mathField, key);

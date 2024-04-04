@@ -1,38 +1,35 @@
-import * as wbi18n from "@khanacademy/wonder-blocks-i18n";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {strings} from "../../../../../../testing/mock-strings";
 import keyConfigs from "../../../data/key-configs";
-import * as utils from "../../../utils";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
 
 import tabs from "./test-data-tabs";
 
 const contextToKeyAria = {
-    [CursorContext.IN_PARENS]: keyConfigs.JUMP_OUT_PARENTHESES.ariaLabel,
-    [CursorContext.IN_SUPER_SCRIPT]: keyConfigs.JUMP_OUT_EXPONENT.ariaLabel,
-    [CursorContext.IN_SUB_SCRIPT]: keyConfigs.JUMP_OUT_BASE.ariaLabel,
-    [CursorContext.IN_NUMERATOR]: keyConfigs.JUMP_OUT_NUMERATOR.ariaLabel,
-    [CursorContext.IN_DENOMINATOR]: keyConfigs.JUMP_OUT_DENOMINATOR.ariaLabel,
-    [CursorContext.BEFORE_FRACTION]: keyConfigs.JUMP_INTO_NUMERATOR.ariaLabel,
+    [CursorContext.IN_PARENS]:
+        keyConfigs(strings).JUMP_OUT_PARENTHESES.ariaLabel,
+    [CursorContext.IN_SUPER_SCRIPT]:
+        keyConfigs(strings).JUMP_OUT_EXPONENT.ariaLabel,
+    [CursorContext.IN_SUB_SCRIPT]: keyConfigs(strings).JUMP_OUT_BASE.ariaLabel,
+    [CursorContext.IN_NUMERATOR]:
+        keyConfigs(strings).JUMP_OUT_NUMERATOR.ariaLabel,
+    [CursorContext.IN_DENOMINATOR]:
+        keyConfigs(strings).JUMP_OUT_DENOMINATOR.ariaLabel,
+    [CursorContext.BEFORE_FRACTION]:
+        keyConfigs(strings).JUMP_INTO_NUMERATOR.ariaLabel,
 };
 
 describe("keypad", () => {
-    const originalDecimalSeparator = utils.decimalSeparator;
     let userEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-    });
-
-    afterEach(() => {
-        // @ts-expect-error TS2540 - Cannot assign to 'decimalSeparator' because it is a read-only property.
-        // eslint-disable-next-line import/namespace
-        utils.decimalSeparator = originalDecimalSeparator;
     });
 
     describe("shows navigation buttons", () => {
@@ -42,6 +39,8 @@ describe("keypad", () => {
                 // Act
                 render(
                     <Keypad
+                        locale="en"
+                        strings={strings}
                         onClickKey={() => {}}
                         cursorContext={
                             context as (typeof CursorContext)[keyof typeof CursorContext]
@@ -67,6 +66,8 @@ describe("keypad", () => {
         // Act
         const {container} = render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 preAlgebra
                 trigonometry
@@ -85,6 +86,8 @@ describe("keypad", () => {
         // Act
         const {container} = render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 preAlgebra
                 trigonometry
@@ -103,6 +106,8 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 onAnalyticsEvent={async () => {}}
                 showDismiss
@@ -121,7 +126,12 @@ describe("keypad", () => {
         // Arrange
         // Act
         render(
-            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
+            <Keypad
+                locale="en"
+                strings={strings}
+                onClickKey={() => {}}
+                onAnalyticsEvent={async () => {}}
+            />,
         );
 
         // Assert
@@ -137,6 +147,8 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 convertDotToTimes={false}
                 onAnalyticsEvent={async () => {}}
@@ -152,6 +164,8 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 convertDotToTimes={true}
                 onAnalyticsEvent={async () => {}}
@@ -164,11 +178,12 @@ describe("keypad", () => {
 
     it(`forces CDOT in locales that require it`, async () => {
         // Arrange
-        jest.spyOn(wbi18n, "getLocale").mockReturnValue("az");
 
         // Act
         render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 convertDotToTimes={true}
                 onAnalyticsEvent={async () => {}}
@@ -182,11 +197,12 @@ describe("keypad", () => {
 
     it(`forces TIMES in locales that require it`, async () => {
         // Arrange
-        jest.spyOn(wbi18n, "getLocale").mockReturnValue("fr");
 
         // Act
         render(
             <Keypad
+                locale="fr"
+                strings={strings}
                 onClickKey={() => {}}
                 convertDotToTimes={false}
                 onAnalyticsEvent={async () => {}}
@@ -203,6 +219,8 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 fractionsOnly={true}
                 onAnalyticsEvent={async () => {}}
@@ -220,6 +238,8 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={onClickKey}
                 preAlgebra
                 trigonometry
@@ -246,6 +266,8 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 preAlgebra
                 trigonometry
@@ -275,6 +297,8 @@ describe("keypad", () => {
         // Act
         render(
             <Keypad
+                locale="en"
+                strings={strings}
                 onClickKey={() => {}}
                 preAlgebra
                 trigonometry
@@ -300,14 +324,15 @@ describe("keypad", () => {
     });
 
     it(`can show the comma decimal separator`, async () => {
-        // @ts-expect-error TS2540 - Cannot assign to 'decimalSeparator' because it is a read-only property.
-        // eslint-disable-next-line import/namespace
-        utils.decimalSeparator = utils.DecimalSeparator.COMMA;
-
         // Arrange
         // Act
         render(
-            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
+            <Keypad
+                locale="de-de"
+                strings={strings}
+                onClickKey={() => {}}
+                onAnalyticsEvent={async () => {}}
+            />,
         );
 
         // Assert
@@ -318,7 +343,12 @@ describe("keypad", () => {
         // Arrange
         // Act
         render(
-            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
+            <Keypad
+                locale="en"
+                strings={strings}
+                onClickKey={() => {}}
+                onAnalyticsEvent={async () => {}}
+            />,
         );
 
         // Assert

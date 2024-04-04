@@ -1,3 +1,5 @@
+import {strings} from "../../../../../../testing/mock-strings";
+
 import TestMathWrapper from "./test-math-wrapper";
 
 const MQ = {L: "-1", R: "1"};
@@ -19,7 +21,7 @@ describe("MathQuill", () => {
         span = document.createElement("span");
         document.body.appendChild(span);
 
-        mathField = new TestMathWrapper(span);
+        mathField = new TestMathWrapper(span, strings, "en");
     });
 
     afterEach(() => {

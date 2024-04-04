@@ -7,35 +7,41 @@ import Keys from "../../data/key-configs";
 
 import NavigationButton from "./navigation-button";
 
-import type {ClickKeyCallback} from "../../types";
+import type {MathInputStrings, ClickKeyCallback} from "../../types";
 
 export type Props = {
     onClickKey: ClickKeyCallback;
+    strings: MathInputStrings;
+    locale: string;
 };
 
 export default function NavigationPad(props: Props) {
-    const {onClickKey} = props;
+    const {onClickKey, strings, locale} = props;
 
     return (
         <View style={styles.container}>
             <View style={styles.grid}>
                 <NavigationButton
-                    keyConfig={Keys.UP}
+                    locale={locale}
+                    keyConfig={Keys(strings).UP}
                     onClickKey={onClickKey}
                     coord={[1, 0]}
                 />
                 <NavigationButton
-                    keyConfig={Keys.RIGHT}
+                    locale={locale}
+                    keyConfig={Keys(strings).RIGHT}
                     onClickKey={onClickKey}
                     coord={[2, 1]}
                 />
                 <NavigationButton
-                    keyConfig={Keys.DOWN}
+                    locale={locale}
+                    keyConfig={Keys(strings).DOWN}
                     onClickKey={onClickKey}
                     coord={[1, 2]}
                 />
                 <NavigationButton
-                    keyConfig={Keys.LEFT}
+                    locale={locale}
+                    keyConfig={Keys(strings).LEFT}
                     onClickKey={onClickKey}
                     coord={[0, 1]}
                 />

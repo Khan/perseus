@@ -1,6 +1,8 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
+import {strings} from "../../../../../testing/mock-strings";
+
 import NavigationPad from "./navigation-pad";
 
 export default {
@@ -20,7 +22,11 @@ export default {
 export function basic() {
     return (
         <div style={{padding: 50}}>
-            <NavigationPad onClickKey={action("onClickKey")} />
+            <NavigationPad
+                locale="en"
+                strings={strings}
+                onClickKey={action("onClickKey")}
+            />
         </div>
     );
 }

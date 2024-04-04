@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
@@ -17,9 +16,13 @@ import {
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
-import {mathQuillStrings} from "./strings";
 
-import type {Cursor, KeypadAPI, KeypadContextType} from "../../types";
+import type {
+    MathInputStrings,
+    Cursor,
+    KeypadAPI,
+    KeypadContextType,
+} from "../../types";
 
 const constrainingFrictionFactor = 0.8;
 
@@ -30,6 +33,8 @@ type Props = {
     onFocus: () => void;
     style: any;
     value: string;
+    strings: MathInputStrings;
+    locale: string;
 };
 
 type DefaultProps = {
@@ -93,17 +98,22 @@ class MathInput extends React.Component<Props, State> {
     componentDidMount() {
         this._isMounted = true;
 
-        this.mathField = new MathWrapper(this._mathContainer, {
-            onCursorMove: (cursor: Cursor) => {
-                // TODO(charlie): It's not great that there is so much coupling
-                // between this keypad and the input behavior. We should wrap
-                // this `MathInput` component in an intermediary component
-                // that translates accesses on the keypad into vanilla props,
-                // to make this input keypad-agnostic.
-                this.props.keypadElement &&
-                    this.props.keypadElement.setCursor(cursor);
+        this.mathField = new MathWrapper(
+            this._mathContainer,
+            this.props.strings,
+            this.props.locale,
+            {
+                onCursorMove: (cursor: Cursor) => {
+                    // TODO(charlie): It's not great that there is so much coupling
+                    // between this keypad and the input behavior. We should wrap
+                    // this `MathInput` component in an intermediary component
+                    // that translates accesses on the keypad into vanilla props,
+                    // to make this input keypad-agnostic.
+                    this.props.keypadElement &&
+                        this.props.keypadElement.setCursor(cursor);
+                },
             },
-        });
+        );
 
         this.mathField.setContent(this.props.value);
 
@@ -936,7 +946,7 @@ class MathInput extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const {showInputFocusStyle, handle} = this.state;
-        const {style} = this.props;
+        const {style, strings} = this.props;
 
         const innerStyle = {
             ...inlineStyles.innerContainer,
@@ -956,10 +966,7 @@ class MathInput extends React.Component<Props, State> {
         // keyboard appear. It should only require one finger, which is how iOS works.
         // TODO(diedra): Fix the bug that is causing Android to require a two finger tap
         // to the open the keyboard, and then remove the second half of this label.
-        const ariaLabel =
-            mathQuillStrings.mathInputBox +
-            " " +
-            i18n._("Tap with one or two fingers to open keyboard");
+        const ariaLabel = strings.mathInputBox + " " + strings.fingerTap;
 
         return (
             <KeypadContext.Consumer>

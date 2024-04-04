@@ -12,13 +12,13 @@ no copying and pasting is necessary.
 */
 import * as React from "react";
 
-import {DecimalSeparator, decimalSeparator} from "../../utils";
+import {DecimalSeparator, getDecimalSeparator} from "../../utils";
 
 import type Key from "../../data/keys";
 
-type Props = {id: Key};
+type Props = {id: Key; locale: string};
 
-export default function ButtonAsset({id}: Props): React.ReactElement {
+export default function ButtonAsset({id, locale}: Props): React.ReactElement {
     switch (id) {
         case "NUM_0":
             return (
@@ -176,7 +176,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             // (, vs .)
             if (
                 id === "DECIMAL" &&
-                decimalSeparator === DecimalSeparator.COMMA
+                getDecimalSeparator(locale) === DecimalSeparator.COMMA
             ) {
                 // comma decimal separator
                 return (

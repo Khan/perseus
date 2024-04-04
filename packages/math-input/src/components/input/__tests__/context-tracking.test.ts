@@ -1,3 +1,4 @@
+import {strings} from "../../../../../../testing/mock-strings";
 import {CursorContext} from "../cursor-contexts";
 
 import TestMathWrapper from "./test-math-wrapper";
@@ -10,7 +11,7 @@ describe("Cursor context", () => {
         span = document.createElement("span");
         document.body.appendChild(span);
 
-        mathField = new TestMathWrapper(span);
+        mathField = new TestMathWrapper(span, strings, "en");
     });
 
     afterEach(() => {
