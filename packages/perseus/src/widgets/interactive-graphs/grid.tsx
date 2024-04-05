@@ -9,9 +9,9 @@ import type {SizeClass} from "../../util/sizing-utils";
 import type {vec} from "mafs";
 
 /*
-gridStep: where the lines on the grid show up
-tickStep: where the little black lines should up (just called tick)
-snapStep: where the points will lock to when they are dragging
+gridStep: Where the lines on the grid will render.
+tickStep: Where the little black axis lines & labels (ticks) should render. (e.g. 1, 2, 3, 4, 5)
+snapStep: Where the graph points will lock to when they are dragged.
 */
 interface GridProps {
     tickStep: vec.Vector2;
