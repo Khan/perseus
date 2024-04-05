@@ -173,6 +173,12 @@ const createConfig = (
         valueReplacementMappings["process.env.NODE_ENV"] = JSON.stringify(
             commandLineArgs.configEnvironment,
         );
+
+        // If we're doing a prod build we want to disable Storybook.
+        if (commandLineArgs.configEnvironment === "production") {
+            valueReplacementMappings["process.env.STORYBOOK"] =
+                JSON.stringify(false);
+        }
     }
 
     const extensions = [".js", ".jsx", ".ts", ".tsx"];
@@ -345,7 +351,6 @@ const createRollupConfig = async (commandLineArgs) => {
     const results = getPackageDirNamesInBuildOrder()
         .flatMap((p) => getPackageInfo(commandLineArgs, p))
         .map((c) => createConfig(commandLineArgs, c));
-    console.log(JSON.stringify(results, null, 2));
     return results;
 };
 
