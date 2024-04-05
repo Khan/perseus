@@ -7,7 +7,7 @@ export const GraphStateContext = createContext<{
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     graphOptions: {
-        [key:string]: any,
+        [key: string]: any;
     };
 }>({
     state: {} as any,

@@ -76,7 +76,7 @@ export const MafsGraph = React.forwardRef<
     );
     const prevState = useRef<InteractiveGraphState>(state);
     const graphOptions = {
-        showTooltips: props.showTooltips
+        showTooltips: props.showTooltips,
     }
 
     useEffect(() => {
