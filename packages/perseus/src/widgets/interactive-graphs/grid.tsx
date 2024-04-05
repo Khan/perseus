@@ -13,7 +13,7 @@ gridStep: where the lines on the grid show up
 tickStep: where the little black lines should up (just called tick)
 snapStep: where the points will lock to when they are dragging
 */
-export interface GridProps {
+interface GridProps {
     tickStep: vec.Vector2;
     gridStep: vec.Vector2;
     range: GraphRange;

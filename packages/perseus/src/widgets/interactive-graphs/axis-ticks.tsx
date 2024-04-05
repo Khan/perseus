@@ -20,21 +20,10 @@ const YGridTick = ({y}: {y: number}) => {
     const pointOnAxis: vec.Vector2 = [0, y];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
+    // We want to make sure to use the llap command to ensure that the negative
+    // sign is not included in the width of the label. This is important for
+    // ensuring that the labels are correctly positioned.
     const labelString = y < 0 ? `\\llap{-}` + Math.abs(y) : y.toString();
-
-    if (y === -1) {
-        return (
-            <g className="x-axis-ticks">
-                <line
-                    x1={startPtPx[0]}
-                    y1={startPtPx[1]}
-                    x2={endPtPx[0]}
-                    y2={endPtPx[1]}
-                    style={tickStyle}
-                />
-            </g>
-        );
-    }
 
     return (
         <g className="y-axis-ticks">
@@ -45,14 +34,20 @@ const YGridTick = ({y}: {y: number}) => {
                 y2={yPosition}
                 style={tickStyle}
             />
-            <foreignObject
-                height={20}
-                width={50}
-                x={startPtPx[0] - 15}
-                y={startPtPx[1] - 10}
-            >
-                <TeX>{labelString}</TeX>
-            </foreignObject>
+            {
+                // TODO (LEMS-1891): Negative one is a special case as the labels can
+                // overlap with the axis line. We should handle this case more gracefully.
+            }
+            {y !== -1 && (
+                <foreignObject
+                    height={20}
+                    width={50}
+                    x={xPosition - 20}
+                    y={yPosition - 10}
+                >
+                    <TeX>{labelString}</TeX>
+                </foreignObject>
+            )}
         </g>
     );
 };
@@ -62,20 +57,9 @@ const XGridTick = ({x}: {x: number}) => {
     const pointOnAxis: vec.Vector2 = [x, 0];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
-    if (x === -1) {
-        return (
-            <g className="x-axis-ticks">
-                <line
-                    x1={startPtPx[0]}
-                    y1={startPtPx[1]}
-                    x2={endPtPx[0]}
-                    y2={endPtPx[1]}
-                    style={tickStyle}
-                />
-            </g>
-        );
-    }
-
+    // We want to make sure to use the llap command to ensure that the negative
+    // sign is not included in the width of the label. This is important for
+    // ensuring that the labels are correctly positioned.
     const labelString = x < 0 ? `\\llap{-}` + Math.abs(x) : x.toString();
 
     return (
@@ -87,14 +71,20 @@ const XGridTick = ({x}: {x: number}) => {
                 y2={yPosition - tickSize / 2}
                 style={tickStyle}
             />
-            <foreignObject
-                height={20}
-                width={50}
-                x={startPtPx[0] - 8}
-                y={startPtPx[1] + 10}
-            >
-                <TeX>{labelString}</TeX>
-            </foreignObject>
+            {
+                // TODO (LEMS-1891): Negative one is a special case as the labels can
+                // overlap with the axis line. We should handle this case more gracefully.
+            }
+            {x !== -1 && (
+                <foreignObject
+                    height={20}
+                    width={50}
+                    x={xPosition - 8}
+                    y={yPosition + 10}
+                >
+                    <TeX>{labelString}</TeX>
+                </foreignObject>
+            )}
         </g>
     );
 };
@@ -105,9 +95,13 @@ export function generateTickLocations(
     max: number,
 ): number[] {
     const ticks: number[] = [];
+
+    // Add ticks in the positive direction
     for (let i = 0 + tickStep; i < max; i += tickStep) {
         ticks.push(i);
     }
+
+    // Add ticks in the negative direction
     for (let i = 0 - tickStep; i > min; i -= tickStep) {
         ticks.push(i);
     }
