@@ -262,7 +262,7 @@ export type APIOptions = Readonly<{
      * This is useful for when we need to know how a widget has shuffled its
      * the available choices.
      */
-    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => PerseusWidgetsMap;
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
 }>;
 
 type TeXProps = {

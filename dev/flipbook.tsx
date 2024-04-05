@@ -180,11 +180,11 @@ function SideBySideQuestionRenderer({
                     }}
                 />
             </View>
-            <p>
+            <div>
                 <pre style={{whiteSpace: "pre-wrap"}}>
                     <code>{JSON.stringify(question)}</code>
                 </pre>
-            </p>
+            </div>
         </>
     );
 }
