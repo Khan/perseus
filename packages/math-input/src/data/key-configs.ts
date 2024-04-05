@@ -81,7 +81,7 @@ const KeyConfigs = (
     TIMES: {
         ...getDefaultOperatorFields({
             key: "TIMES",
-            ariaLabel: strings.multiply,
+            ariaLabel: strings.times,
         }),
     },
     DIVIDE: {
@@ -113,7 +113,7 @@ const KeyConfigs = (
     CDOT: {
         ...getDefaultOperatorFields({
             key: "CDOT",
-            ariaLabel: strings.multiply2,
+            ariaLabel: strings.cdot,
         }),
     },
     EQUAL: {

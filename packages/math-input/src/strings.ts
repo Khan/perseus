@@ -1,8 +1,15 @@
+import type {MathInputStrings} from "./types";
+
 /**
  * Untranslated strings used in the math input. To be used by an external
  * translator to produce translated strings, passed in as `MathInputStrings`.
  */
-export const strings = {
+export const strings: {
+    [key in keyof MathInputStrings]:
+        | string
+        | {context?: string; message: string}
+        | {context?: string; one: string; other: string};
+} = {
     mathInputBox: "Math input box",
     fingerTap: "Tap with one or two fingers to open keyboard",
     before: "before %(obj)s",
@@ -25,7 +32,7 @@ export const strings = {
     },
     minus: {context: "A label for a 'minus' sign.", message: "Minus"},
     negative: {context: "A label for a 'negative' sign.", message: "Negative"},
-    multiply: {context: "A label for a 'multiply' sign.", message: "Multiply"},
+    times: {context: "A label for a 'multiply' sign.", message: "Multiply"},
     divide: {context: "A label for a 'divide' sign.", message: "Divide"},
     decimal: {
         context: "A label for a 'decimal' sign (represented as '.' or ',').",
@@ -35,7 +42,7 @@ export const strings = {
         context: "A label for a 'percent' sign (represented as '%').",
         message: "Percent",
     },
-    multiply2: {
+    cdot: {
         context:
             "A label for a 'centered dot' multiplication sign (represented as '⋅').",
         message: "Multiply",

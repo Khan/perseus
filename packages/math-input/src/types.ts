@@ -92,11 +92,11 @@ export type MathInputStrings = {
     plus: string;
     minus: string;
     negative: string;
-    multiply: string;
+    times: string;
     divide: string;
     decimal: string;
     percent: string;
-    multiply2: string;
+    cdot: string;
     equalsSign: string;
     notEqualsSign: string;
     greaterThanSign: string;
