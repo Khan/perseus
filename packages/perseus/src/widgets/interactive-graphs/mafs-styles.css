@@ -134,3 +134,10 @@
     left: 5px;
     position: fixed;
 }
+
+.MafsView .mathjax-selectable {
+    position: relative;
+}
+.MafsView .mathjax-selectable svg {
+    position: fixed !important;
+}

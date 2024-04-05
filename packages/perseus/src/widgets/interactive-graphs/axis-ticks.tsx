@@ -2,6 +2,8 @@ import * as React from "react";
 
 import "@khanacademy/mathjax-renderer/src/css/mathjax.css";
 import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
+import {useEffect, useState} from "react";
+
 import {getDependencies} from "../../dependencies";
 
 import {useTransform} from "./graphs/use-transform";
@@ -115,6 +117,12 @@ type Props = {
 
 export const AxisTicks = (props: Props) => {
     const range = props.range;
+    const [yOffSet, setYoffSet] = useState(0);
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            setYoffSet(window.scrollY);
+        });
+    });
     const [xMin, xMax] = range[0];
     const [yMin, yMax] = range[1];
 
@@ -127,10 +135,22 @@ export const AxisTicks = (props: Props) => {
     return (
         <g className="axis-ticks">
             {yGridTicks.map((y) => {
-                return <YGridTick y={y} key={`y-grid-tick-${y}`} />;
+                return (
+                    <YGridTick
+                        y={y}
+                        key={`y-grid-tick-${y}`}
+                        yOffSet={yOffSet}
+                    />
+                );
             })}
             {xGridTicks.map((x) => {
-                return <XGridTick x={x} key={`x-grid-tick-${x}`} />;
+                return (
+                    <XGridTick
+                        x={x}
+                        key={`x-grid-tick-${x}`}
+                        yOffSet={yOffSet}
+                    />
+                );
             })}
         </g>
     );
