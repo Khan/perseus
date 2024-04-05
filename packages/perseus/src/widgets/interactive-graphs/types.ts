@@ -15,7 +15,6 @@ export type InteractiveGraphProps = WidgetProps<
 export type MafsGraphProps<T extends InteractiveGraphState> = {
     graphState: T;
     dispatch: (action: InteractiveGraphAction) => unknown;
-    showTooltips: boolean;
 };
 
 export interface InitializeGraphStateParams<T extends PerseusGraphType> {

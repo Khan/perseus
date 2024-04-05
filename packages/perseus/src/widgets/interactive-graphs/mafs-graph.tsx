@@ -36,58 +36,27 @@ export type Props = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
-    showTooltips: boolean;
+    showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
 };
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
-    showTooltips: boolean;
 }) => {
-    const {state, dispatch, showTooltips} = props;
+    const {state, dispatch} = props;
     const {type} = state;
     switch (type) {
         case "segment":
-            return (
-                <SegmentGraph
-                    graphState={state}
-                    dispatch={dispatch}
-                    showTooltips={showTooltips}
-                />
-            );
+            return <SegmentGraph graphState={state} dispatch={dispatch} />;
         case "linear":
         case "linear-system":
-            return (
-                <LinearGraph
-                    graphState={state}
-                    dispatch={dispatch}
-                    showTooltips={showTooltips}
-                />
-            );
+            return <LinearGraph graphState={state} dispatch={dispatch} />;
         case "ray":
-            return (
-                <RayGraph
-                    graphState={state}
-                    dispatch={dispatch}
-                    showTooltips={showTooltips}
-                />
-            );
+            return <RayGraph graphState={state} dispatch={dispatch} />;
         case "polygon":
-            return (
-                <PolygonGraph
-                    graphState={state}
-                    dispatch={dispatch}
-                    showTooltips={showTooltips}
-                />
-            );
+            return <PolygonGraph graphState={state} dispatch={dispatch} />;
         case "point":
-            return (
-                <PointGraph
-                    graphState={state}
-                    dispatch={dispatch}
-                    showTooltips={showTooltips}
-                />
-            );
+            return <PointGraph graphState={state} dispatch={dispatch} />;
         case "circle":
             throw new Error("the circle graph type is not yet implemented");
         default:
@@ -100,13 +69,15 @@ export const MafsGraph = React.forwardRef<
     React.PropsWithChildren<Props>
 >((props, ref) => {
     const [width, height] = props.box;
-    const showTooltips = props.showTooltips;
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
         props,
         initializeGraphState,
     );
     const prevState = useRef<InteractiveGraphState>(state);
+    const graphOptions = {
+        showTooltips: props.showTooltips
+    }
 
     useEffect(() => {
         if (prevState.current !== state) {
@@ -124,6 +95,7 @@ export const MafsGraph = React.forwardRef<
             value={{
                 state,
                 dispatch,
+                graphOptions,
             }}
         >
             <View
@@ -179,7 +151,6 @@ export const MafsGraph = React.forwardRef<
                         {renderGraph({
                             state,
                             dispatch,
-                            showTooltips,
                         })}
                     </Mafs>
                 </View>

@@ -12,7 +12,7 @@ import type {vec} from "mafs";
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
 export const SegmentGraph = (props: SegmentProps) => {
-    const {dispatch, showTooltips} = props;
+    const {dispatch} = props;
     const {coords: segments, snapStep, range} = props.graphState;
 
     return (
@@ -35,7 +35,6 @@ export const SegmentGraph = (props: SegmentProps) => {
                         );
                     }}
                     data-testid={"segment" + i}
-                    showTooltips={showTooltips}
                 />
             ))}
         </>
@@ -46,7 +45,6 @@ const SegmentView = (props: InteractiveLineProps) => {
     const {
         onMoveLine: onMoveSegment,
         collinearPair: [start, end],
-        showTooltips,
     } = props;
 
     return (
@@ -57,14 +55,12 @@ const SegmentView = (props: InteractiveLineProps) => {
                 onMove={(newPoint) => {
                     props.onMovePoint(0, newPoint);
                 }}
-                showTooltips={showTooltips}
             />
             <StyledMovablePoint
                 point={end}
                 onMove={(newPoint) => {
                     props.onMovePoint(1, newPoint);
                 }}
-                showTooltips={showTooltips}
             />
         </>
     );

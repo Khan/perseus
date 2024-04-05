@@ -8,17 +8,18 @@ import {TARGET_SIZE} from "../../utils";
 import {useTransform} from "../use-transform";
 
 import type {vec} from "mafs";
+import useGraphState from "../../reducer/use-graph-state";
 
 type Props = {
     point: vec.Vector2;
     onMove: (newPoint: vec.Vector2) => unknown;
     color?: string;
-    showTooltips: boolean;
 };
 
 export const StyledMovablePoint = (props: Props) => {
     const hitboxRef = useRef<SVGCircleElement>(null);
-    const {point, onMove, color = WBColor.blue, showTooltips} = props;
+    const {point, onMove, color = WBColor.blue} = props;
+    const {graphOptions} = useGraphState();
 
     const {dragging} = useMovable({
         gestureTarget: hitboxRef,
@@ -61,7 +62,7 @@ export const StyledMovablePoint = (props: Props) => {
         </g>
     );
 
-    return showTooltips ? (
+    return graphOptions.showTooltips ? (
         <Tooltip
             content={`(${point[0]}, ${point[1]})`}
             contentStyle={{color: WBColor.blue}}
