@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 21.2.2
+
+### Patch Changes
+
+-   [#1160](https://github.com/Khan/perseus/pull/1160) [`000ce4bff`](https://github.com/Khan/perseus/commit/000ce4bff9bc91d7e3adff289a32bea972c4e827) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Style adjustments for Explanation widget button
+
 ## 21.2.1
 
 ### Patch Changes
