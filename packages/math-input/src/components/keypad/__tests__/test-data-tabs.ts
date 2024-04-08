@@ -1,6 +1,6 @@
 import KeyConfigs from "../../../data/key-configs";
 
-import type {MathInputStrings} from "../../../types";
+import type {MathInputStrings} from "../../../strings";
 
 export const getTestDataTabs = (strings: MathInputStrings) => [
     {

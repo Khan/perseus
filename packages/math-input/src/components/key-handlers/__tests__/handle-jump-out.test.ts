@@ -1,4 +1,4 @@
-import {strings} from "../../../mock-strings";
+import {mockStrings} from "../../../strings";
 import {createMathField} from "../../input/mathquill-instance";
 import handleJumpOut from "../handle-jump-out";
 
@@ -6,7 +6,7 @@ describe("handleJumpOut", () => {
     it("jumps out of parenthesis", () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount, strings);
+        const mathField = createMathField(mount, mockStrings);
 
         // Act
         mathField.typedText("(4");
@@ -20,7 +20,7 @@ describe("handleJumpOut", () => {
     it("jumps into numerator", () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount, strings);
+        const mathField = createMathField(mount, mockStrings);
 
         // Act
         mathField.typedText("4");
@@ -36,7 +36,7 @@ describe("handleJumpOut", () => {
     it("jumps out of numerator", () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount, strings);
+        const mathField = createMathField(mount, mockStrings);
 
         // Act
         mathField.cmd("frac");
@@ -51,7 +51,7 @@ describe("handleJumpOut", () => {
     it("jumps out of denominator", () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount, strings);
+        const mathField = createMathField(mount, mockStrings);
 
         // Act
         mathField.cmd("frac");
@@ -68,7 +68,7 @@ describe("handleJumpOut", () => {
     it("jumps out of superscript", () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount, strings);
+        const mathField = createMathField(mount, mockStrings);
 
         // Act
         mathField.typedText("4^22");
@@ -82,7 +82,7 @@ describe("handleJumpOut", () => {
     it("jumps out of subscript", () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount, strings);
+        const mathField = createMathField(mount, mockStrings);
 
         // Act
         mathField.typedText("4_22");

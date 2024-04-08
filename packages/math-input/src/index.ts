@@ -46,7 +46,7 @@ export {
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";
-export type {KeypadAPI, KeypadConfiguration, MathInputStrings} from "./types";
+export type {KeypadAPI, KeypadConfiguration} from "./types";
 export {convertDotToTimesByLocale} from "./utils";
 
 // Key list, configuration map, and types

@@ -1,7 +1,7 @@
 import Keys from "../../data/key-configs";
 import {CursorContext} from "../input/cursor-contexts";
 
-import type {MathInputStrings} from "../../types";
+import type {MathInputStrings} from "../../strings";
 
 // This is just a magic number, I just played around with it
 // until the transition from expanded -> regular -> expanded felt natural

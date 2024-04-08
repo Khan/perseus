@@ -25,7 +25,7 @@ import type {
     MathFieldUpdaterCallback,
 } from "./mathquill-types";
 import type Key from "../../data/keys";
-import type {MathInputStrings} from "../../types";
+import type {MathInputStrings} from "../../strings";
 
 /**
  * This file contains a wrapper around MathQuill so that we can provide a

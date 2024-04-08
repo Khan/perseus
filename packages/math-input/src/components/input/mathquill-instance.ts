@@ -8,7 +8,7 @@ import type {
     MathFieldConfig,
     MathFieldInterface,
 } from "./mathquill-types";
-import type {MathInputStrings} from "../../types";
+import type {MathInputStrings} from "../../strings";
 
 // We only need one MathQuill instance (referred to as MQ in the docs)
 // and that contains some MQ constants and the MathField constructor

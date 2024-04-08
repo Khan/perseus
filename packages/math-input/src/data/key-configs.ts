@@ -3,7 +3,8 @@
  */
 import type Key from "./keys";
 import type {KeyType} from "../enums";
-import type {MathInputStrings, KeyConfig} from "../types";
+import type {MathInputStrings} from "../strings";
+import type {KeyConfig} from "../types";
 
 type KeyConfigMapper = (args: {
     key: Key;

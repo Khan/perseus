@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import keyConfigs from "../../../data/key-configs";
-import {strings} from "../../../mock-strings";
+import {mockStrings} from "../../../strings";
 import {MathInputI18nContextProvider} from "../../i18n-context";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
@@ -12,16 +12,17 @@ import {getTestDataTabs} from "./test-data-tabs";
 
 const contextToKeyAria = {
     [CursorContext.IN_PARENS]:
-        keyConfigs(strings).JUMP_OUT_PARENTHESES.ariaLabel,
+        keyConfigs(mockStrings).JUMP_OUT_PARENTHESES.ariaLabel,
     [CursorContext.IN_SUPER_SCRIPT]:
-        keyConfigs(strings).JUMP_OUT_EXPONENT.ariaLabel,
-    [CursorContext.IN_SUB_SCRIPT]: keyConfigs(strings).JUMP_OUT_BASE.ariaLabel,
+        keyConfigs(mockStrings).JUMP_OUT_EXPONENT.ariaLabel,
+    [CursorContext.IN_SUB_SCRIPT]:
+        keyConfigs(mockStrings).JUMP_OUT_BASE.ariaLabel,
     [CursorContext.IN_NUMERATOR]:
-        keyConfigs(strings).JUMP_OUT_NUMERATOR.ariaLabel,
+        keyConfigs(mockStrings).JUMP_OUT_NUMERATOR.ariaLabel,
     [CursorContext.IN_DENOMINATOR]:
-        keyConfigs(strings).JUMP_OUT_DENOMINATOR.ariaLabel,
+        keyConfigs(mockStrings).JUMP_OUT_DENOMINATOR.ariaLabel,
     [CursorContext.BEFORE_FRACTION]:
-        keyConfigs(strings).JUMP_INTO_NUMERATOR.ariaLabel,
+        keyConfigs(mockStrings).JUMP_INTO_NUMERATOR.ariaLabel,
 };
 
 describe("keypad", () => {
@@ -165,7 +166,7 @@ describe("keypad", () => {
 
         // Act
         render(
-            <MathInputI18nContextProvider locale="az" strings={strings}>
+            <MathInputI18nContextProvider locale="az" strings={mockStrings}>
                 <Keypad
                     onClickKey={() => {}}
                     convertDotToTimes={true}
@@ -184,7 +185,7 @@ describe("keypad", () => {
 
         // Act
         render(
-            <MathInputI18nContextProvider locale="fr" strings={strings}>
+            <MathInputI18nContextProvider locale="fr" strings={mockStrings}>
                 <Keypad
                     onClickKey={() => {}}
                     convertDotToTimes={false}
@@ -228,7 +229,7 @@ describe("keypad", () => {
             />,
         );
 
-        const tabs = getTestDataTabs(strings);
+        const tabs = getTestDataTabs(mockStrings);
         for (const tabData of tabs) {
             const tab = screen.getByLabelText(tabData.name);
             expect(tab).toBeInTheDocument();
@@ -304,7 +305,7 @@ describe("keypad", () => {
         // Arrange
         // Act
         render(
-            <MathInputI18nContextProvider locale="fr" strings={strings}>
+            <MathInputI18nContextProvider locale="fr" strings={mockStrings}>
                 <Keypad
                     onClickKey={() => {}}
                     onAnalyticsEvent={async () => {}}

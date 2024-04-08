@@ -6,9 +6,9 @@
 import * as React from "react";
 import {useContext} from "react";
 
-import {strings} from "../mock-strings";
+import {mockStrings} from "../strings";
 
-import type {MathInputStrings} from "../types";
+import type {MathInputStrings} from "../strings";
 
 type I18nContextType = {
     strings: MathInputStrings;
@@ -20,7 +20,7 @@ export const MathInputI18nContext: React.Context<I18nContextType> =
     React.createContext({
         strings:
             process.env.NODE_ENV !== "production" || process.env.STORYBOOK
-                ? strings
+                ? mockStrings
                 : {},
         locale: "en",
     });

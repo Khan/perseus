@@ -2,7 +2,7 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {strings} from "../../mock-strings";
+import {mockStrings} from "../../strings";
 import {CursorContext} from "../input/cursor-contexts";
 import {getCursorContext} from "../input/mathquill-helpers";
 import {createMathField} from "../input/mathquill-instance";
@@ -29,7 +29,7 @@ export function V2KeypadWithMathquill() {
         if (!mathField && mathFieldWrapperRef.current) {
             const mathFieldInstance = createMathField(
                 mathFieldWrapperRef.current,
-                strings,
+                mockStrings,
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {

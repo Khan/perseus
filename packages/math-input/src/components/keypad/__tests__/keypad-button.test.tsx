@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
-import {strings} from "../../../mock-strings";
+import {mockStrings} from "../../../strings";
 import {KeypadButton} from "../keypad-button";
 
 describe("<KeypadButton />", () => {
@@ -19,7 +19,7 @@ describe("<KeypadButton />", () => {
         render(
             <KeypadButton
                 onClickKey={() => {}}
-                keyConfig={Keys(strings).LEFT_PAREN}
+                keyConfig={Keys(mockStrings).LEFT_PAREN}
                 coord={[0, 0]}
             />,
         );
@@ -37,7 +37,7 @@ describe("<KeypadButton />", () => {
         render(
             <KeypadButton
                 onClickKey={mockClickKeyCallback}
-                keyConfig={Keys(strings).LEFT_PAREN}
+                keyConfig={Keys(mockStrings).LEFT_PAREN}
                 coord={[0, 0]}
             />,
         );
@@ -64,7 +64,7 @@ describe("<KeypadButton />", () => {
         render(
             <KeypadButton
                 onClickKey={mockClickKeyCallback}
-                keyConfig={Keys(strings).RIGHT_PAREN}
+                keyConfig={Keys(mockStrings).RIGHT_PAREN}
                 coord={[0, 0]}
             />,
         );
