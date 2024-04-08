@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 21.2.1
+
+### Patch Changes
+
+-   [#1146](https://github.com/Khan/perseus/pull/1146) [`369316014`](https://github.com/Khan/perseus/commit/369316014208e7bc941de77d65e77586cf9b4d9b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix focus ring on movable points in interactive-graph widget
+
 ## 21.2.0
 
 ### Minor Changes
