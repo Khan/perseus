@@ -1,5 +1,5 @@
 /* eslint-disable react/sort-comp */
-import {components, Util} from "@khanacademy/perseus";
+import {components, PerseusI18nContext, Util} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
@@ -77,6 +77,9 @@ type DefaultProps = {
 };
 
 class InputNumberEditor extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static widgetName = "input-number" as const;
 
     static defaultProps: DefaultProps = {
@@ -92,7 +95,7 @@ class InputNumberEditor extends React.Component<Props> {
     input = React.createRef<BlurInput>();
 
     handleAnswerChange: (arg1: string) => void = (str) => {
-        const value = Util.firstNumericalParse(str) || 0;
+        const value = Util.firstNumericalParse(str, this.context.strings) || 0;
         this.props.onChange({value: value});
     };
 
@@ -190,8 +193,10 @@ class InputNumberEditor extends React.Component<Props> {
                             onBlur={(e) => {
                                 const ans =
                                     "" +
-                                    (Util.firstNumericalParse(e.target.value) ||
-                                        0);
+                                    (Util.firstNumericalParse(
+                                        e.target.value,
+                                        this.context.strings,
+                                    ) || 0);
                                 e.target.value = ans;
                                 this.props.onChange({maxError: ans});
                             }}

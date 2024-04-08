@@ -1,12 +1,12 @@
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import NumberInput from "../components/number-input";
 import SimpleKeypadInput from "../components/simple-keypad-input";
 import TextInput from "../components/text-input";
@@ -18,7 +18,8 @@ import KhanAnswerTypes from "../util/answer-types";
 
 // Type imports
 import type {PerseusMatrixWidgetOptions} from "../perseus-types";
-import type {WidgetExports, WidgetProps} from "../types";
+import type {PerseusStrings} from "../strings";
+import type {WidgetExports, WidgetProps, PerseusScore} from "../types";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
@@ -123,6 +124,9 @@ type State = {
     enterTheMatrix: number;
 };
 class Matrix extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // @ts-expect-error - TS2564 - Property 'cursorPosition' has no initializer and is not definitely assigned in the constructor.
     cursorPosition: [number, number];
 
@@ -135,6 +139,73 @@ class Matrix extends React.Component<Props, State> {
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
     };
+
+    static validate(state, rubric, strings: PerseusStrings): PerseusScore {
+        const solution = rubric.answers;
+        const supplied = state.answers;
+        const solutionSize = getMatrixSize(solution);
+        const suppliedSize = getMatrixSize(supplied);
+
+        const incorrectSize =
+            solutionSize[0] !== suppliedSize[0] ||
+            solutionSize[1] !== suppliedSize[1];
+
+        const createValidator =
+            KhanAnswerTypes.number.createValidatorFunctional;
+        let message = null;
+        let hasEmptyCell = false;
+        let incorrect = false;
+        _(suppliedSize[0]).times((row) => {
+            _(suppliedSize[1]).times((col) => {
+                if (
+                    supplied[row][col] == null ||
+                    supplied[row][col].toString().length === 0
+                ) {
+                    hasEmptyCell = true;
+                }
+                if (!incorrectSize) {
+                    const validator = createValidator(
+                        solution[row][col],
+                        {
+                            simplify: true,
+                        },
+                        strings,
+                    );
+                    const result = validator(supplied[row][col]);
+                    if (result.message) {
+                        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
+                        message = result.message;
+                    }
+                    if (!result.correct) {
+                        incorrect = true;
+                    }
+                }
+            });
+        });
+
+        if (hasEmptyCell) {
+            return {
+                type: "invalid",
+                message: strings.fillAllCells,
+            };
+        }
+
+        if (incorrectSize) {
+            return {
+                type: "points",
+                earned: 0,
+                total: 1,
+                message: null,
+            };
+        }
+
+        return {
+            type: "points",
+            earned: incorrect ? 0 : 1,
+            total: 1,
+            message: message,
+        };
+    }
 
     state: State = {
         enterTheMatrix: 0,
@@ -183,6 +254,7 @@ class Matrix extends React.Component<Props, State> {
                         <Renderer
                             content={this.props.prefix}
                             linterContext={this.props.linterContext}
+                            strings={this.context.strings}
                         />
                     </div>
                 )}
@@ -345,6 +417,7 @@ class Matrix extends React.Component<Props, State> {
                         <Renderer
                             content={this.props.suffix}
                             linterContext={this.props.linterContext}
+                            strings={this.context.strings}
                         />
                     </div>
                 )}
@@ -524,77 +597,13 @@ class Matrix extends React.Component<Props, State> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Matrix'.
-        return Matrix.validate(this.getUserInput(), rubric);
+        return Matrix.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+        );
     };
 }
-
-_.extend(Matrix, {
-    validate: function (state, rubric) {
-        const solution = rubric.answers;
-        const supplied = state.answers;
-        const solutionSize = getMatrixSize(solution);
-        const suppliedSize = getMatrixSize(supplied);
-
-        const incorrectSize =
-            solutionSize[0] !== suppliedSize[0] ||
-            solutionSize[1] !== suppliedSize[1];
-
-        const createValidator =
-            KhanAnswerTypes.number.createValidatorFunctional;
-        let message = null;
-        let hasEmptyCell = false;
-        let incorrect = false;
-        _(suppliedSize[0]).times((row) => {
-            _(suppliedSize[1]).times((col) => {
-                if (
-                    supplied[row][col] == null ||
-                    supplied[row][col].toString().length === 0
-                ) {
-                    hasEmptyCell = true;
-                }
-                if (!incorrectSize) {
-                    const validator = createValidator(solution[row][col], {
-                        simplify: true,
-                    });
-                    const result = validator(supplied[row][col]);
-                    if (result.message) {
-                        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
-                        message = result.message;
-                    }
-                    if (!result.correct) {
-                        incorrect = true;
-                    }
-                }
-            });
-        });
-
-        if (hasEmptyCell) {
-            return {
-                type: "invalid",
-                message: i18n._(
-                    "Make sure you fill in all cells in the matrix.",
-                ),
-            };
-        }
-
-        if (incorrectSize) {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1,
-                message: null,
-            };
-        }
-
-        return {
-            type: "points",
-            earned: incorrect ? 0 : 1,
-            total: 1,
-            message: message,
-        };
-    },
-});
 
 const propTransform: (arg1: any) => any = (editorProps) => {
     // Remove answers before passing to widget

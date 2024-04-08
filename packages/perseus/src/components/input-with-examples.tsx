@@ -7,6 +7,7 @@ import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
 
+import {PerseusI18nContext} from "./i18n-context";
 import MathInput from "./math-input";
 import MathOutput from "./math-output";
 import TextInput from "./text-input";
@@ -52,6 +53,9 @@ type State = {
 };
 
 class InputWithExamples extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         type: "text",
         shouldShowExamples: true,
@@ -199,6 +203,7 @@ class InputWithExamples extends React.Component<Props, State> {
                             this.props.linterContext,
                             "input-with-examples",
                         )}
+                        strings={this.context.strings}
                     />
                 </div>
             </Tooltip>

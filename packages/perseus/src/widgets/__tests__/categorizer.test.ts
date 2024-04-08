@@ -3,6 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {mockStrings} from "../../strings";
 import {question1} from "../__testdata__/categorizer.testdata";
 import {Categorizer} from "../categorizer";
 
@@ -137,7 +138,7 @@ describe("validating answers", () => {
         const useInput = {
             values: [1, 3],
         } as const;
-        const score = Categorizer.validate(useInput, rubric);
+        const score = Categorizer.validate(useInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
             {
@@ -167,7 +168,7 @@ describe("validating answers", () => {
         const useInput = {
             values: [2, 3],
         } as const;
-        const score = Categorizer.validate(useInput, rubric);
+        const score = Categorizer.validate(useInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
             {
@@ -196,7 +197,7 @@ describe("validating answers", () => {
         const useInput = {
             values: [2],
         } as const;
-        const score = Categorizer.validate(useInput, rubric);
+        const score = Categorizer.validate(useInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
             {

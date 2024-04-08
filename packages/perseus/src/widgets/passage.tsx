@@ -1,5 +1,4 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import * as React from "react";
@@ -7,6 +6,7 @@ import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
 import HighlightableContent from "../components/highlighting/highlightable-content";
+import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 import Renderer from "../renderer";
 
@@ -100,6 +100,9 @@ export type Reference = {
 };
 
 export class Passage extends React.Component<PassageProps, PassageState> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _contentRef: HTMLDivElement | null | undefined;
     _lineHeightMeasurerRef: LineHeightMeasurer | null | undefined;
     // @ts-expect-error - TS2564 - Property '_onResize' has no initializer and is not definitely assigned in the constructor.
@@ -393,27 +396,19 @@ export class Passage extends React.Component<PassageProps, PassageState> {
     _renderInstructions(parseState: ParseState): React.ReactElement<any> {
         const firstQuestionNumber = parseState.firstQuestionRef;
         const firstSentenceRef = parseState.firstSentenceRef;
+        const {strings} = this.context;
 
         let instructions = "";
         if (firstQuestionNumber) {
-            instructions += i18n._(
-                "The symbol %(questionSymbol)s indicates that question " +
-                    "%(questionNumber)s references this portion of the " +
-                    "passage.",
-                {
-                    questionSymbol: "[[" + firstQuestionNumber + "]]",
-                    questionNumber: firstQuestionNumber,
-                },
-            );
+            instructions += strings.symbolPassage({
+                questionSymbol: "[[" + firstQuestionNumber + "]]",
+                questionNumber: firstQuestionNumber,
+            });
         }
         if (firstSentenceRef) {
-            instructions += i18n._(
-                " The symbol %(sentenceSymbol)s indicates that the " +
-                    "following sentence is referenced in a question.",
-                {
-                    sentenceSymbol: "[" + firstSentenceRef + "]",
-                },
-            );
+            instructions += strings.symbolQuestion({
+                sentenceSymbol: "[" + firstSentenceRef + "]",
+            });
         }
         const parsedInstructions = PassageMarkdown.parse(instructions);
         return (
@@ -469,6 +464,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
     }
 
     render(): React.ReactNode {
+        const {strings} = this.context;
         let lineNumbers: ReadonlyArray<React.ReactNode>;
         const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
@@ -477,9 +473,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
             lineNumbers = _.range(1, nLines + 1).map((lineN) => {
                 const lineAt = lineN + this.state.startLineNumbersAfter;
                 if (lineAt === 4) {
-                    // we leave a space in i18n to disambiguate translations, see TP-5392
-                    // I18N: a label next to a reading passage to denote the line number
-                    const translatedLine = i18n._("Line ");
+                    const translatedLine = strings.lineLabel;
                     return (
                         <span key="line-marker" className="line-marker">
                             {translatedLine}
@@ -518,6 +512,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
                                 <Renderer
                                     content={this.props.passageTitle}
                                     linterContext={this.props.linterContext}
+                                    strings={strings}
                                 />
                             </h3>
                         )}
@@ -529,7 +524,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
                         )}
                         {!hasTitle && (
                             <h3 className="perseus-sr-only">
-                                {i18n._("Beginning of reading passage.")}
+                                {strings.beginningPassage}
                             </h3>
                         )}
                         <div className="passage-text">
@@ -537,7 +532,10 @@ export class Passage extends React.Component<PassageProps, PassageState> {
                                 // If we're in JIPT mode, just pass off our
                                 // content to a <Renderer /> which knows how
                                 // to handle rendering JIPT text.
-                                <Renderer content={this.props.passageText} />
+                                <Renderer
+                                    content={this.props.passageText}
+                                    strings={strings}
+                                />
                             ) : (
                                 this._renderContent(parsedContent)
                             )}
@@ -547,16 +545,14 @@ export class Passage extends React.Component<PassageProps, PassageState> {
                                 key="footnote-start"
                                 className="perseus-sr-only"
                             >
-                                {i18n._(
-                                    "Beginning of reading passage footnotes.",
-                                )}
+                                {strings.beginningFootnotes}
                             </h4>,
                             <div key="footnotes" className="footnotes">
                                 {this._renderFootnotes()}
                             </div>,
                         ]}
                         <div className="perseus-sr-only">
-                            {i18n._("End of reading passage.")}
+                            {strings.endPassage}
                         </div>
                     </div>
                 </div>

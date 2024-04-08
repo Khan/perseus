@@ -8,6 +8,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import Renderer from "../renderer";
 
@@ -45,6 +46,9 @@ function mediaQueryIsMatched(mediaQuery: string): boolean {
 }
 
 class Explanation extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         showPrompt: "Explain",
         hidePrompt: "Hide explanation",
@@ -150,6 +154,7 @@ class Explanation extends React.Component<Props, State> {
                                     content={this.props.explanation}
                                     widgets={this.props.widgets}
                                     linterContext={this.props.linterContext}
+                                    strings={this.context.strings}
                                 />
                             </View>
                         </View>

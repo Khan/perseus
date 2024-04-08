@@ -3,6 +3,7 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import {DefinitionConsumer} from "../definition-context";
 import Renderer from "../renderer";
 
@@ -31,6 +32,9 @@ type DefaultProps = {
 };
 
 class Definition extends React.Component<DefinitionProps> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         togglePrompt: "define me",
         definition: "definition goes here",
@@ -68,6 +72,7 @@ class Definition extends React.Component<DefinitionProps> {
                                     apiOptions={this.props.apiOptions}
                                     content={this.props.definition}
                                     widgets={this.props.widgets}
+                                    strings={this.context.strings}
                                 />
                             </PopoverContentCore>
                         }

@@ -1,4 +1,4 @@
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import type {PerseusStrings} from "../../strings";
 
 function getA11yText(
     letter: string,
@@ -6,6 +6,7 @@ function getA11yText(
     correct: boolean,
     crossedOut: boolean,
     showCorrectness: boolean,
+    strings: PerseusStrings,
 ): string {
     // There are two pieces of metadata we want to add to each a11yText:
     // whether the answer was checked/crossed-out/neither, and whether the
@@ -15,45 +16,45 @@ function getA11yText(
     // we've just enumerated all 9 possibilities as separate strings.
     if (showCorrectness && correct) {
         if (checked) {
-            return i18n._("(Choice %(letter)s, Checked, Correct)", {
+            return strings.choiceCheckedCorrect({
                 letter,
             });
         }
         if (crossedOut) {
-            return i18n._("(Choice %(letter)s, Crossed out, Correct)", {
+            return strings.choiceCrossedOutCorrect({
                 letter,
             });
         }
-        return i18n._("(Choice %(letter)s, Correct)", {
+        return strings.choiceCorrect({
             letter,
         });
     }
     if (showCorrectness && !correct) {
         if (checked) {
-            return i18n._("(Choice %(letter)s, Checked, Incorrect)", {
+            return strings.choiceCheckedIncorrect({
                 letter,
             });
         }
         if (crossedOut) {
-            return i18n._("(Choice %(letter)s, Crossed out, Incorrect)", {
+            return strings.choiceCrossedOutIncorrect({
                 letter,
             });
         }
-        return i18n._("(Choice %(letter)s, Incorrect)", {
+        return strings.choiceIncorrect({
             letter,
         });
     }
     if (checked) {
-        return i18n._("(Choice %(letter)s, Checked)", {
+        return strings.choiceChecked({
             letter,
         });
     }
     if (crossedOut) {
-        return i18n._("(Choice %(letter)s, Crossed out)", {
+        return strings.choiceCrossedOut({
             letter,
         });
     }
-    return i18n._("(Choice %(letter)s)", {
+    return strings.choice({
         letter,
     });
 }

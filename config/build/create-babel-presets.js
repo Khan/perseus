@@ -22,7 +22,12 @@ module.exports = function createBabelPresets({platform, format}) {
     }
 
     return [
-        "@babel/preset-typescript",
+        [
+            "@babel/preset-typescript",
+            {
+                allowDeclareFields: true,
+            },
+        ],
         ["@babel/preset-env", options],
         "@babel/preset-react",
     ];

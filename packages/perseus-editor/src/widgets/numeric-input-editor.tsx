@@ -5,8 +5,8 @@ import {
     Changeable,
     EditorJsonify,
     Util,
+    PerseusI18nContext,
 } from "@khanacademy/perseus";
-import createReactClass from "create-react-class";
 import * as React from "react";
 import _ from "underscore";
 
@@ -49,35 +49,53 @@ const initAnswer = (status: string) => {
     };
 };
 
-const NumericInputEditor: any = createReactClass({
-    displayName: "NumericInputEditor",
+type Props = {
+    answers: {
+        value: null;
+        status: string;
+        message: string;
+        simplify: string;
+        answerForms: never[];
+        strict: boolean;
+        maxError: null;
+    }[];
+    size: string;
+    coefficient: boolean;
+    labelText: string;
+    rightAlign: boolean;
+    onChange: (results: any) => any;
+    apiOptions?: any;
+};
 
-    propTypes: {
-        ...Changeable.propTypes,
-    },
+type State = {
+    lastStatus: string;
+    showOptions: boolean[];
+};
 
-    statics: {
-        widgetName: "numeric-input",
-    },
+class NumericInputEditor extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    getDefaultProps: function () {
-        return {
-            answers: [initAnswer("correct")],
-            size: "normal",
-            coefficient: false,
-            labelText: "",
-            rightAlign: false,
-        };
-    },
+    static widgetName = "numeric-input";
+    static displayName = "NumericInputEditor";
 
-    getInitialState: function () {
-        return {
+    static defaultProps = {
+        answers: [initAnswer("correct")],
+        size: "normal",
+        coefficient: false,
+        labelText: "",
+        rightAlign: false,
+    };
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {
             lastStatus: "wrong",
             showOptions: _.map(this.props.answers, () => false),
         };
-    },
+    }
 
-    render: function () {
+    render() {
         const answers = this.props.answers;
 
         const unsimplifiedAnswers = (i: any) => (
@@ -91,7 +109,7 @@ const NumericInputEditor: any = createReactClass({
                         {value: "optional", content: "accepted"},
                         {value: "enforced", content: "wrong"},
                     ]}
-                    onChange={this.updateAnswer(i, "simplify")}
+                    onChange={this.updateAnswer(i, "simplify") || (() => {})}
                 />
                 <InfoTip>
                     <p>
@@ -120,7 +138,9 @@ const NumericInputEditor: any = createReactClass({
                     <MultiButtonGroup
                         buttons={answerFormButtons}
                         values={answers[i]["answerForms"]}
-                        onChange={this.updateAnswer(i, "answerForms")}
+                        onChange={
+                            this.updateAnswer(i, "answerForms") || (() => {})
+                        }
                     />
                     <InfoTip>
                         <p>
@@ -321,13 +341,19 @@ const NumericInputEditor: any = createReactClass({
                                         forms = ["proper", "improper"];
                                     }
                                     this.updateAnswer(i, {
-                                        value: firstNumericalParse(newValue),
+                                        value: firstNumericalParse(
+                                            newValue,
+                                            this.context.strings,
+                                        ),
                                         answerForms: forms,
                                     });
                                 }}
                                 onChange={(newValue) => {
                                     this.updateAnswer(i, {
-                                        value: firstNumericalParse(newValue),
+                                        value: firstNumericalParse(
+                                            newValue,
+                                            this.context.strings,
+                                        ),
                                     });
                                 }}
                             />
@@ -373,7 +399,7 @@ const NumericInputEditor: any = createReactClass({
                                 className={"answer-status " + answer.status}
                                 onClick={() => this.onStatusChange(i)}
                                 onKeyDown={(e) =>
-                                    this.onSpace(e, this.onStatusChange, i)
+                                    this.onSpace(e, this.onStatusChange)
                                 }
                             >
                                 {answer.status}
@@ -384,7 +410,7 @@ const NumericInputEditor: any = createReactClass({
                                 aria-label="Delete answer"
                                 onClick={() => this.onTrashAnswer(i)}
                                 onKeyDown={(e) =>
-                                    this.onSpace(e, this.onTrashAnswer, i)
+                                    this.onSpace(e, this.onTrashAnswer)
                                 }
                             >
                                 <InlineIcon {...iconTrash} />
@@ -395,7 +421,7 @@ const NumericInputEditor: any = createReactClass({
                                 aria-label="Toggle options"
                                 onClick={() => this.onToggleOptions(i)}
                                 onKeyDown={(e) =>
-                                    this.onSpace(e, this.onToggleOptions, i)
+                                    this.onSpace(e, this.onToggleOptions)
                                 }
                             >
                                 <InlineIcon {...iconGear} />
@@ -430,36 +456,36 @@ const NumericInputEditor: any = createReactClass({
                 {labelText}
             </div>
         );
-    },
+    }
 
     change(...args) {
         return Changeable.change.apply(this, args);
-    },
+    }
 
-    onToggleOptions: function (choiceIndex) {
+    onToggleOptions(choiceIndex) {
         const showOptions = this.state.showOptions.slice();
         showOptions[choiceIndex] = !showOptions[choiceIndex];
         this.setState({showOptions: showOptions});
-    },
+    }
 
-    onTrashAnswer: function (choiceIndex) {
+    onTrashAnswer(choiceIndex) {
         if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
             const answers = this.props.answers.slice(0);
             answers.splice(choiceIndex, 1);
             this.props.onChange({answers: answers});
         }
-    },
+    }
 
-    onSpace: function (e, callback) {
+    onSpace(e, callback) {
         if (e.key === " ") {
             e.preventDefault(); // prevent page shifting
             // eslint-disable-next-line prefer-rest-params
             const args = _.toArray(arguments).slice(2);
             callback.apply(this, args);
         }
-    },
+    }
 
-    onStatusChange: function (choiceIndex) {
+    onStatusChange(choiceIndex) {
         const statuses = ["wrong", "ungraded", "correct"];
         const answers = this.props.answers;
         const i = _.indexOf(statuses, answers[choiceIndex].status);
@@ -469,9 +495,9 @@ const NumericInputEditor: any = createReactClass({
             status: newStatus,
             simplify: newStatus === "correct" ? "required" : "accepted",
         });
-    },
+    }
 
-    updateAnswer: function (choiceIndex, update) {
+    updateAnswer(choiceIndex, update) {
         if (!_.isObject(update)) {
             return _.partial(
                 (choiceIndex, key, value) => {
@@ -496,15 +522,15 @@ const NumericInputEditor: any = createReactClass({
 
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
         this.props.onChange({answers: answers});
-    },
+    }
 
-    addAnswer: function () {
+    addAnswer() {
         const lastAnswer = initAnswer(this.state.lastStatus);
         const answers = this.props.answers.concat(lastAnswer);
         this.props.onChange({answers: answers});
-    },
+    }
 
-    getSaveWarnings: function () {
+    getSaveWarnings() {
         // Filter out all the empty answers
         const warnings = [];
         // TODO(emily): This doesn't actually work, because the value is either
@@ -526,11 +552,11 @@ const NumericInputEditor: any = createReactClass({
             }
         });
         return warnings;
-    },
+    }
 
     serialize() {
         return EditorJsonify.serialize.call(this);
-    },
-});
+    }
+}
 
 export default NumericInputEditor;

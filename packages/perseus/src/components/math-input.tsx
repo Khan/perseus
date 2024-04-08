@@ -22,9 +22,14 @@ import _ from "underscore";
 
 import {debounce} from "../util/debounce";
 
+import {PerseusI18nContext} from "./i18n-context";
+
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+// NOTE(john): This is a public API and it's safe to import
+// eslint-disable-next-line monorepo/no-internal-import
+import type {MathInputStrings} from "@khanacademy/math-input/strings";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -67,6 +72,10 @@ type Props = {
     analytics: PerseusDependenciesV2["analytics"];
 };
 
+type InnerProps = Props & {
+    mathInputStrings: MathInputStrings;
+};
+
 type DefaultProps = {
     value: Props["value"];
     convertDotToTimes: Props["convertDotToTimes"];
@@ -80,7 +89,10 @@ type State = {
 };
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
-class MathInput extends React.Component<Props, State> {
+class InnerMathInput extends React.Component<InnerProps, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // @ts-expect-error - TS2564 - Property 'mouseDown' has no initializer and is not definitely assigned in the constructor.
     mouseDown: boolean;
     __mathFieldWrapperRef: HTMLSpanElement | null = null;
@@ -153,11 +165,11 @@ class MathInput extends React.Component<Props, State> {
 
     mathField: () => MathFieldInterface | null = () => {
         if (!this.__mathField && this.__mathFieldWrapperRef) {
-            const {strings, locale} = this.context;
+            const {locale} = this.context;
             // Initialize MathQuill.MathField instance
             this.__mathField = createMathField(
                 this.__mathFieldWrapperRef,
-                strings,
+                this.props.mathInputStrings,
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -242,8 +254,8 @@ class MathInput extends React.Component<Props, State> {
     blur: () => void = () => this.setState({focused: false});
 
     handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
-        const {strings} = this.context;
-        const translator = getKeyTranslator(strings)[key];
+        const {locale} = this.context;
+        const translator = getKeyTranslator(locale)[key];
         const mathField = this.mathField();
 
         if (mathField) {
@@ -375,7 +387,33 @@ class MathInput extends React.Component<Props, State> {
     }
 }
 
-MathInput.contextType = MathInputI18nContext;
+// We need to have two contexts (one for Perseus and one for MathInput), so we
+// add a wrapper around the MathInput component to provide the MathInput context
+// to it.
+class MathInput extends React.Component<Props, State> {
+    static contextType = MathInputI18nContext;
+    declare context: React.ContextType<typeof MathInputI18nContext>;
+
+    focus() {
+        // @ts-expect-error - types aren't valid here, but this API is exposed.
+        this.refs.input.focus();
+    }
+
+    insert(value: any) {
+        // @ts-expect-error - types aren't valid here, but this API is exposed.
+        this.refs.input.insert(value);
+    }
+
+    render() {
+        return (
+            <InnerMathInput
+                {...this.props}
+                ref="input"
+                mathInputStrings={this.context.strings}
+            />
+        );
+    }
+}
 
 const MathInputIcon = ({hovered, focused, active}) => {
     let fillColor: string | undefined;

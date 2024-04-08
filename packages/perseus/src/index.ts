@@ -71,6 +71,13 @@ export {violatingWidgets} from "./a11y";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
 
+// Context for managing i18n
+export {
+    PerseusI18nContextProvider,
+    PerseusI18nContext,
+    usePerseusI18n,
+} from "./components/i18n-context";
+
 /**
  * Util
  */

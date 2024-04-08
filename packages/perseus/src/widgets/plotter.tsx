@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unsafe */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import Interactive2 from "../interactive2";
 import WrappedLine from "../interactive2/wrapped-line";
 import {ClassNames as ApiClassNames} from "../perseus-api";
@@ -46,6 +46,9 @@ type State = {
 };
 
 export class Plotter extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // @ts-expect-error - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldSetupGraphie: boolean;
     _isMounted = false;
@@ -312,7 +315,7 @@ export class Plotter extends React.Component<Props, State> {
             self.graphie.dragPrompt = graphie
                 .label(
                     [c.dimX / 2, c.dimY / 2],
-                    i18n._("Drag handles to make graph"),
+                    this.context.strings.dragHandles,
                     "center",
                     false,
                 )
@@ -327,7 +330,7 @@ export class Plotter extends React.Component<Props, State> {
             self.graphie.dotPrompt = graphie
                 .label(
                     [c.dimX / 2, c.dimY / 2],
-                    i18n._("Tap to add points"),
+                    this.context.strings.tapAddPoints,
                     "center",
                     false,
                 )

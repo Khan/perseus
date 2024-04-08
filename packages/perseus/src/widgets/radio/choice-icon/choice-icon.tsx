@@ -5,6 +5,7 @@ import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
+import {usePerseusI18n} from "../../../components/i18n-context";
 import InlineIcon from "../../../components/inline-icon";
 import {iconCheck, iconMinus} from "../../../icon-paths";
 import * as styleConstants from "../../../styles/constants";
@@ -36,7 +37,8 @@ type ChoiceInnerProps = {
 
 function ChoiceInner(props: ChoiceInnerProps) {
     const {pos, showCorrectness, correct} = props;
-    const letter = getChoiceLetter(pos);
+    const {strings} = usePerseusI18n();
+    const letter = getChoiceLetter(pos, strings);
 
     if (!showCorrectness) {
         return letter;

@@ -1,12 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import InlineIcon from "../components/inline-icon";
 import {iconCircle, iconCircleThin} from "../icon-paths";
 import * as Changeable from "../mixins/changeable";
@@ -18,6 +18,7 @@ import sharedStyles from "../styles/shared";
 import Util from "../util";
 
 import type {PerseusCategorizerWidgetOptions} from "../perseus-types";
+import type {PerseusStrings} from "../strings";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 type UserInput = any;
@@ -40,6 +41,9 @@ type State = {
 };
 
 export class Categorizer extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         items: [],
         categories: [],
@@ -88,6 +92,7 @@ export class Categorizer extends React.Component<Props, State> {
                                     <Renderer
                                         content={category}
                                         linterContext={this.props.linterContext}
+                                        strings={this.context.strings}
                                     />
                                 </th>
                             );
@@ -219,10 +224,18 @@ export class Categorizer extends React.Component<Props, State> {
     }
 
     simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Categorizer.validate(this.getUserInput(), rubric);
+        return Categorizer.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+        );
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    static validate(
+        userInput: UserInput,
+        rubric: Rubric,
+        strings: PerseusStrings,
+    ): PerseusScore {
         let completed = true;
         let allCorrect = true;
         rubric.values.forEach((value, i) => {
@@ -236,9 +249,7 @@ export class Categorizer extends React.Component<Props, State> {
         if (!completed) {
             return {
                 type: "invalid",
-                message: i18n._(
-                    "Make sure you select something for every row.",
-                ),
+                message: strings.invalidSelection,
             };
         }
         return {

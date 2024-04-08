@@ -8,7 +8,7 @@ import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {errors} from "../../util/answer-types";
+import {mockStrings} from "../../strings";
 import {question3 as question} from "../__testdata__/input-number.testdata";
 import InputNumber from "../input-number";
 
@@ -235,7 +235,7 @@ describe("input-number", function () {
         if (!transform) {
             throw new Error("transform not defined");
         }
-        const widgetProps = transform(editorProps);
+        const widgetProps = transform(editorProps, mockStrings);
         expect(_.has(widgetProps, "value")).toBe(false);
     });
 });
@@ -248,11 +248,17 @@ describe("invalid", function () {
     });
 
     it("should handle invalid answers with no error callback", function () {
-        const err = InputNumber.widget.validate({currentValue: "x+1"}, options);
-        expect(err).toStrictEqual({
-            message: errors.EXTRA_SYMBOLS_ERROR,
-            type: "invalid",
-        });
+        const err = InputNumber.widget.validate(
+            {currentValue: "x+1"},
+            options,
+            mockStrings,
+        );
+        expect(err).toMatchInlineSnapshot(`
+            {
+              "message": "We could not understand your answer. Please check your answer for extra text or symbols.",
+              "type": "invalid",
+            }
+        `);
     });
 });
 

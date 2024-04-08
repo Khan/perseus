@@ -1,9 +1,9 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
 
+import {PerseusI18nContext} from "./components/i18n-context";
 import Renderer from "./renderer";
 import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
@@ -29,6 +29,9 @@ type DefaultProps = {
 
 /* Renders just a hint preview */
 class HintRenderer extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         linterContext: PerseusLinter.linterContextDefault,
     };
@@ -86,7 +89,7 @@ class HintRenderer extends React.Component<Props> {
             <div className={classNames} tabIndex="-1">
                 {!apiOptions.isMobile && (
                     <span className="perseus-sr-only">
-                        {i18n._("Hint #%(pos)s", {pos: pos + 1})}
+                        {this.context.strings.hintPos({pos: pos + 1})}
                     </span>
                 )}
                 {!apiOptions.isMobile && totalHints != null && pos != null && (
@@ -112,6 +115,7 @@ class HintRenderer extends React.Component<Props> {
                         this.props.linterContext,
                         "hint",
                     )}
+                    strings={this.context.strings}
                 />
             </div>
         );

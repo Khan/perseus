@@ -803,7 +803,7 @@ export type PerseusLightsPuzzleWidgetOptions = {
     cells?: ReadonlyArray<ReadonlyArray<boolean>>;
     startCells?: ReadonlyArray<ReadonlyArray<boolean>>;
     flipPattern?: string;
-    moveCount?: number;
+    moveCount: number;
 };
 
 export type PerseusMatcherWidgetOptions = {

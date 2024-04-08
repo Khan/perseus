@@ -7,8 +7,9 @@
  * determine the currently-hovered highlight, it calls the `isHovered` method
  * on each HighlightRenderer.
  */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
+
+import {PerseusI18nContext} from "../../i18n-context";
 
 import HighlightRenderer from "./highlight-renderer";
 import HighlightTooltip from "./highlight-tooltip";
@@ -43,6 +44,9 @@ type State = {
 };
 
 class HighlightSetRenderer extends React.PureComponent<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     state: State = {
         hoveredHighlightKey: null,
         hoveringTooltipFor: null,
@@ -142,7 +146,7 @@ class HighlightSetRenderer extends React.PureComponent<Props, State> {
 
         return (
             <HighlightTooltip
-                label={i18n._("Remove highlight")}
+                label={this.context.strings.removeHighlight}
                 focusNode={hoveredHighlight.domRange.endContainer}
                 focusOffset={hoveredHighlight.domRange.endOffset}
                 offsetParent={this.props.offsetParent}

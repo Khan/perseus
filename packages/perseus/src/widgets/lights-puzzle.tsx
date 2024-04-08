@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, react/sort-comp */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
 
 import type {PerseusLightsPuzzleWidgetOptions} from "../perseus-types";
+import type {PerseusStrings} from "../strings";
 import type {WidgetExports} from "../types";
 
 // Types
@@ -202,6 +203,9 @@ const flipTilesPattern = (oldCells: any, tileY: any, tileX, pattern: any) => {
 
 // The lights puzzle widget
 class LightsPuzzle extends React.Component<LightsPuzzleProps> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _currPattern: any;
     _nextPattern: any;
     // @ts-expect-error - TS2564 - Property '_patternIndex' has no initializer and is not definitely assigned in the constructor.
@@ -239,11 +243,9 @@ class LightsPuzzle extends React.Component<LightsPuzzleProps> {
                 />
                 <div style={{width: pxWidth}}>
                     <div style={MOVE_COUNT_STYLE}>
-                        {i18n.ngettext(
-                            "Moves: %(num)s",
-                            "Moves: %(num)s",
-                            this.props.moveCount,
-                        )}
+                        {this.context.strings.moves({
+                            num: this.props.moveCount,
+                        })}
                     </div>
                     <div style={RESET_BUTTON_STYLE}>
                         <input
@@ -322,12 +324,12 @@ class LightsPuzzle extends React.Component<LightsPuzzleProps> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-        return validate(rubric, this.getUserInput());
+        return validate(rubric, this.getUserInput(), this.context.strings);
     };
 }
 
 // grading function
-const validate = function (rubric: any, state: any) {
+const validate = function (rubric: any, state: any, strings: PerseusStrings) {
     const empty = _.all(state.cells, (row, y) => {
         return _.all(row, (cell, x) => {
             return cell === rubric.startCells[y][x];
@@ -336,7 +338,7 @@ const validate = function (rubric: any, state: any) {
     if (empty) {
         return {
             type: "invalid",
-            message: i18n._("Click on the tiles to change the lights."),
+            message: strings.clickTiles,
         };
     }
 
@@ -364,7 +366,7 @@ const validate = function (rubric: any, state: any) {
     }
     return {
         type: "invalid",
-        message: i18n._("You must turn on all of the lights to continue."),
+        message: strings.turnOffLights,
     };
 };
 

@@ -6,6 +6,7 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
+import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {InteractiveGraphState} from "./widgets/interactive-graphs/types";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -442,6 +443,7 @@ type WidgetOptions = any;
 // become strongly typed.
 export type WidgetTransform = (
     arg1: WidgetOptions,
+    strings: PerseusStrings,
     problemNumber?: number,
 ) => any;
 

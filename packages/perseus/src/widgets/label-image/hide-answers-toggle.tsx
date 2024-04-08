@@ -4,7 +4,7 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {strings} from "./strings";
+import {usePerseusI18n} from "../../components/i18n-context";
 
 export const HideAnswersToggle = (props: {
     areAnswersHidden: boolean;
@@ -13,6 +13,7 @@ export const HideAnswersToggle = (props: {
     const idFactory = useUniqueIdWithMock();
     const switchId = idFactory.get("hide-answers-toggle");
     const labelId = idFactory.get("hide-answers-label");
+    const {strings} = usePerseusI18n();
     return (
         <View style={styles.switchWrapper}>
             <Switch

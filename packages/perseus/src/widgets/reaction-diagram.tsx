@@ -1,5 +1,6 @@
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
+
+import {PerseusI18nContext} from "../components/i18n-context";
 
 import {Molecule} from "./molecule";
 
@@ -15,6 +16,9 @@ type SeparatorProps = {
 };
 
 class Separator extends React.Component<SeparatorProps> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     arrowLength = 100;
 
     componentDidMount() {
@@ -62,7 +66,7 @@ class Separator extends React.Component<SeparatorProps> {
                     ref={"arrowCanvas" + this.props.index}
                     width={this.arrowLength}
                 >
-                    {i18n._("Reaction arrow pointing to the right.")}
+                    {this.context.strings.rightArrow}
                 </canvas>
                 <div className="below-text">{this.props.data.bottomText}</div>
             </div>

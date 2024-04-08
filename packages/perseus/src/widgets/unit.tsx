@@ -3,7 +3,6 @@
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
 // value?
 import * as KAS from "@khanacademy/kas";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
 import $ from "jquery";
@@ -11,11 +10,13 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import {ClassNames as ApiClassNames, ApiOptions} from "../perseus-api";
 import {SignificantFigures, displaySigFigs} from "../sigfigs";
 
 import type {PerseusUnitInputWidgetOptions} from "../perseus-types";
+import type {PerseusStrings} from "../strings";
 import type {
     APIOptions,
     ChangeHandler,
@@ -81,6 +82,9 @@ type DefaultProps = {
  * rolling two second delay, but hidden immediately on further typing.
  */
 export class OldUnitInput extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _errorTimeout: number | null | undefined;
 
     static defaultProps: DefaultProps = {
@@ -88,20 +92,24 @@ export class OldUnitInput extends React.Component<Props> {
         value: "",
     };
 
-    static validate(userInput: string, rubric: Rubric): ValidationResult {
+    static validate(
+        userInput: string,
+        rubric: Rubric,
+        strings: PerseusStrings,
+    ): ValidationResult {
         const answer = KAS.unitParse(rubric.value).expr;
         const guess = KAS.unitParse(userInput);
         if (!guess.parsed) {
             return {
                 type: "invalid",
-                message: i18n._("I couldn't understand those units."),
+                message: strings.dontUnderstandUnits,
             };
         }
 
         // Note: we check sigfigs, then numerical correctness, then units, so
         // the most significant things come last, that way the user will see
         // the most important message.
-        let message = null;
+        let message: string | null = null;
 
         // did the user specify the right number of sigfigs?
         // TODO(joel) - add a grading mode where the wrong number of sigfigs
@@ -109,8 +117,7 @@ export class OldUnitInput extends React.Component<Props> {
         const sigfigs = rubric.sigfigs;
         const sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
         if (!sigfigsCorrect) {
-            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
-            message = i18n._("Check your significant figures.");
+            message = strings.checkSigFigs;
         }
 
         // now we need to check that the answer is correct to the precision we
@@ -137,8 +144,7 @@ export class OldUnitInput extends React.Component<Props> {
         }
 
         if (!numericallyCorrect) {
-            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
-            message = i18n._("That answer is numerically incorrect.");
+            message = strings.answerNumericallyIncorrect;
         }
 
         let kasCorrect;
@@ -164,8 +170,7 @@ export class OldUnitInput extends React.Component<Props> {
             });
         }
         if (!kasCorrect) {
-            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
-            message = i18n._("Check your units.");
+            message = strings.checkUnits;
         }
 
         const correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
@@ -264,7 +269,11 @@ export class OldUnitInput extends React.Component<Props> {
         onInputError?: () => unknown,
     ) => ValidationResult = (rubric: Rubric, onInputError?: () => unknown) => {
         onInputError = onInputError || function () {};
-        return OldUnitInput.validate(this.getUserInput(), rubric);
+        return OldUnitInput.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+        );
     };
 
     getUserInput: () => string = () => {
@@ -351,7 +360,7 @@ export class OldUnitInput extends React.Component<Props> {
                 />
                 {/* eslint-disable-next-line react/no-string-refs */}
                 <div ref="error" className="error" style={{display: "none"}}>
-                    {i18n._("I don't understand that")}
+                    {this.context.strings.dontUnderstand}
                 </div>
             </div>
         );

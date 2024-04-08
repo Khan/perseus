@@ -5,6 +5,7 @@ import React from "react";
 import AssetContext from "../packages/perseus/src/asset-context";
 import {DependenciesContext} from "../packages/perseus/src/dependencies";
 import * as Perseus from "../packages/perseus/src/index";
+import {mockStrings} from "../packages/perseus/src/strings";
 
 import {cypressDependenciesV2} from "./test-dependencies";
 
@@ -55,6 +56,7 @@ const renderQuestion = (
                             apiOptions={apiOptions}
                             reviewMode={reviewMode}
                             onRender={onRender}
+                            strings={mockStrings}
                         />
                     </DependenciesContext.Provider>
                 </RenderStateRoot>
