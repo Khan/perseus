@@ -1,5 +1,31 @@
 # @khanacademy/perseus
 
+## 21.2.1
+
+### Patch Changes
+
+-   [#1146](https://github.com/Khan/perseus/pull/1146) [`369316014`](https://github.com/Khan/perseus/commit/369316014208e7bc941de77d65e77586cf9b4d9b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix focus ring on movable points in interactive-graph widget
+
+## 21.2.0
+
+### Minor Changes
+
+-   [#1142](https://github.com/Khan/perseus/pull/1142) [`f4f85583c`](https://github.com/Khan/perseus/commit/f4f85583c794cd6513914537baf0536e96855ff7) Thanks [@handeyeco](https://github.com/handeyeco)! - Make grid and tick steps act independently in Mafs charts
+
+*   [#1141](https://github.com/Khan/perseus/pull/1141) [`d3faae5a2`](https://github.com/Khan/perseus/commit/d3faae5a25f1a21b72907ba4cd769105c1c2d43b) Thanks [@handeyeco](https://github.com/handeyeco)! - update Mafs store when certain props change
+
+-   [#1143](https://github.com/Khan/perseus/pull/1143) [`df96d28c5`](https://github.com/Khan/perseus/commit/df96d28c5cb6f1503ab907582260edc2448fa8cf) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Grid ticks for MAFS
+
+### Patch Changes
+
+-   [#1152](https://github.com/Khan/perseus/pull/1152) [`ab3c47f96`](https://github.com/Khan/perseus/commit/ab3c47f96de9ee42280def09f05429585b7c38b6) Thanks [@benchristel](https://github.com/benchristel)! - Fix hitbox size of movable points on Mafs interactive graphs, to match the legacy graphs
+
+*   [#1155](https://github.com/Khan/perseus/pull/1155) [`3d29e9f8d`](https://github.com/Khan/perseus/commit/3d29e9f8d21bdc49c1c7c97ab3887dd818bcf6d0) Thanks [@benchristel](https://github.com/benchristel)! - Fixed a bug where the wrong point moved if you dragged the endpoint of an interactive line segment after grading the question
+
+-   [#1154](https://github.com/Khan/perseus/pull/1154) [`e2165df84`](https://github.com/Khan/perseus/commit/e2165df84110a94c3ff5251a71da2b82905c36b2) Thanks [@handeyeco](https://github.com/handeyeco)! - Use snap in constrain callback for movable elements
+
+*   [#1148](https://github.com/Khan/perseus/pull/1148) [`9195c4f28`](https://github.com/Khan/perseus/commit/9195c4f284842688f60985e901a8534a9e4ac0c9) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix return type for callback function `onWidgetStartProps`
+
 ## 21.1.0
 
 ### Minor Changes
