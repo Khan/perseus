@@ -126,7 +126,10 @@ const makeInvalidTypeError = (
 };
 
 type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
-type Rubric = PerseusInteractiveGraphWidgetOptions;
+export type Rubric = {
+    correct: PerseusGraphType;
+    graph: PerseusGraphType;
+};
 type Props = WidgetProps<RenderProps, Rubric>;
 type State = any;
 type DefaultProps = {
@@ -2554,8 +2557,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 rubric.correct.type === "segment" &&
                 userInput.coords != null
             ) {
-                let guess = userInput.coords.slice();
-                let correct = rubric.correct.coords?.slice();
+                let guess = Util.deepClone(userInput.coords);
+                let correct = Util.deepClone(rubric.correct?.coords);
                 guess = _.invoke(guess, "sort").sort();
                 // @ts-expect-error - TS2345 - Argument of type '(readonly Coord[])[] | undefined' is not assignable to parameter of type 'Collection<any>'.
                 correct = _.invoke(correct, "sort").sort();

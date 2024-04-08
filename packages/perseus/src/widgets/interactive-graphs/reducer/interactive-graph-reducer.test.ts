@@ -4,9 +4,12 @@ import {
     moveControlPoint,
     movePoint,
     moveLine,
+    changeSnapStep,
+    changeRange,
 } from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
+import type {GraphRange} from "../../../perseus-types";
 import type {InteractiveGraphState} from "../types";
 
 const baseSegmentGraphState: InteractiveGraphState = {
@@ -279,5 +282,66 @@ describe("movePoint", () => {
         const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+});
+
+describe("doChangeSnapStep", () => {
+    it("doesn't update if there are no changes", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            changeSnapStep(state.snapStep),
+        );
+
+        // make sure the state object is the same
+        expect(state).toBe(updated);
+    });
+
+    it("does update if there are changes", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+        };
+
+        const next: [number, number] = [5, 5];
+        const updated = interactiveGraphReducer(state, changeSnapStep(next));
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect(updated.snapStep).toEqual(next);
+    });
+});
+
+describe("doChangeRange", () => {
+    it("doesn't update if there are no changes", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            changeRange(state.range),
+        );
+
+        // make sure the state object is the same
+        expect(state).toBe(updated);
+    });
+
+    it("does update if there are changes", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+        };
+
+        const next: GraphRange = [
+            [-20, 20],
+            [-20, 20],
+        ];
+        const updated = interactiveGraphReducer(state, changeRange(next));
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect(updated.range).toEqual(next);
     });
 });

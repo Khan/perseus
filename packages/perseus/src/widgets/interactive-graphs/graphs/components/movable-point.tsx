@@ -3,7 +3,8 @@ import {useMovable} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
-import {TARGET_SIZE} from "../../utils";
+import useGraphState from "../../reducer/use-graph-state";
+import {snap} from "../../utils";
 import {useTransform} from "../use-transform";
 
 import type {vec} from "mafs";
@@ -14,7 +15,12 @@ type Props = {
     color?: string;
 };
 
+// The hitbox size of 48px by 48px is preserved from the legacy interactive
+// graph.
+const hitboxSizePx = 48;
+
 export const StyledMovablePoint = (props: Props) => {
+    const {state} = useGraphState();
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
 
@@ -22,7 +28,7 @@ export const StyledMovablePoint = (props: Props) => {
         gestureTarget: hitboxRef,
         point,
         onMove,
-        constrain: (p) => p,
+        constrain: (p) => snap(state.snapStep, p),
     });
 
     const [[x, y]] = useTransform(point);
@@ -41,15 +47,15 @@ export const StyledMovablePoint = (props: Props) => {
                 } as any
             }
         >
-            {/* Radius of 22 creates 44x44 click/touch target: AAA WCAG compliant */}
             <circle
                 className="movable-point-hitbox"
-                r={TARGET_SIZE / 2}
+                r={hitboxSizePx / 2}
                 cx={x}
                 cy={y}
             />
             <circle className="movable-point-halo" cx={x} cy={y} />
             <circle className="movable-point-ring" cx={x} cy={y} />
+            <circle className="movable-point-focus-outline" cx={x} cy={y} />
             <circle
                 className="movable-point-center"
                 cx={x}

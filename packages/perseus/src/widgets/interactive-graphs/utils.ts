@@ -1,5 +1,6 @@
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
+import type {vec} from "mafs";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG
@@ -43,3 +44,12 @@ export const normalizeCoords = <A extends Coord[]>(
                 return (coord + ranges[i][1]) / extent;
             }) as Coord,
     ) as any;
+
+export function snap(snapStep: vec.Vector2, point: vec.Vector2): vec.Vector2 {
+    const [requestedX, requestedY] = point;
+    const [snapX, snapY] = snapStep;
+    return [
+        Math.round(requestedX / snapX) * snapX,
+        Math.round(requestedY / snapY) * snapY,
+    ];
+}

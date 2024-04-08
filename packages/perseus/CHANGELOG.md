@@ -1,5 +1,51 @@
 # @khanacademy/perseus
 
+## 21.2.1
+
+### Patch Changes
+
+-   [#1146](https://github.com/Khan/perseus/pull/1146) [`369316014`](https://github.com/Khan/perseus/commit/369316014208e7bc941de77d65e77586cf9b4d9b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix focus ring on movable points in interactive-graph widget
+
+## 21.2.0
+
+### Minor Changes
+
+-   [#1142](https://github.com/Khan/perseus/pull/1142) [`f4f85583c`](https://github.com/Khan/perseus/commit/f4f85583c794cd6513914537baf0536e96855ff7) Thanks [@handeyeco](https://github.com/handeyeco)! - Make grid and tick steps act independently in Mafs charts
+
+*   [#1141](https://github.com/Khan/perseus/pull/1141) [`d3faae5a2`](https://github.com/Khan/perseus/commit/d3faae5a25f1a21b72907ba4cd769105c1c2d43b) Thanks [@handeyeco](https://github.com/handeyeco)! - update Mafs store when certain props change
+
+-   [#1143](https://github.com/Khan/perseus/pull/1143) [`df96d28c5`](https://github.com/Khan/perseus/commit/df96d28c5cb6f1503ab907582260edc2448fa8cf) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Grid ticks for MAFS
+
+### Patch Changes
+
+-   [#1152](https://github.com/Khan/perseus/pull/1152) [`ab3c47f96`](https://github.com/Khan/perseus/commit/ab3c47f96de9ee42280def09f05429585b7c38b6) Thanks [@benchristel](https://github.com/benchristel)! - Fix hitbox size of movable points on Mafs interactive graphs, to match the legacy graphs
+
+*   [#1155](https://github.com/Khan/perseus/pull/1155) [`3d29e9f8d`](https://github.com/Khan/perseus/commit/3d29e9f8d21bdc49c1c7c97ab3887dd818bcf6d0) Thanks [@benchristel](https://github.com/benchristel)! - Fixed a bug where the wrong point moved if you dragged the endpoint of an interactive line segment after grading the question
+
+-   [#1154](https://github.com/Khan/perseus/pull/1154) [`e2165df84`](https://github.com/Khan/perseus/commit/e2165df84110a94c3ff5251a71da2b82905c36b2) Thanks [@handeyeco](https://github.com/handeyeco)! - Use snap in constrain callback for movable elements
+
+*   [#1148](https://github.com/Khan/perseus/pull/1148) [`9195c4f28`](https://github.com/Khan/perseus/commit/9195c4f284842688f60985e901a8534a9e4ac0c9) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix return type for callback function `onWidgetStartProps`
+
+## 21.1.0
+
+### Minor Changes
+
+-   [#1137](https://github.com/Khan/perseus/pull/1137) [`6341541f4`](https://github.com/Khan/perseus/commit/6341541f44a217e69e5f2599704bb635bf33fb2e) Thanks [@handeyeco](https://github.com/handeyeco)! - Add arrows to axes in Mafs grids
+
+*   [#1139](https://github.com/Khan/perseus/pull/1139) [`e36173d6a`](https://github.com/Khan/perseus/commit/e36173d6a125813f66ec4457d0cccdcba57d87dc) Thanks [@handeyeco](https://github.com/handeyeco)! - Provide graph state to onChange callback in Mafs
+
+-   [#1127](https://github.com/Khan/perseus/pull/1127) [`8089ad435`](https://github.com/Khan/perseus/commit/8089ad43564044c59cad28428f4a744baaba7250) Thanks [@benchristel](https://github.com/benchristel)! - Port the Point interactive graph type to Mafs
+
+### Patch Changes
+
+-   [#1128](https://github.com/Khan/perseus/pull/1128) [`f7aa9a26d`](https://github.com/Khan/perseus/commit/f7aa9a26d5355e7e7e7e5229ca4bb8b71c3e967a) Thanks [@nedredmond](https://github.com/nedredmond)! - Injects SerializedState into prompt composition for radio widgets
+
+*   [#1138](https://github.com/Khan/perseus/pull/1138) [`7ecc1dc64`](https://github.com/Khan/perseus/commit/7ecc1dc64f5c7c249c96c1dff17c884f1ecc442f) Thanks [@benchristel](https://github.com/benchristel)! - Refactor the InteractiveGraphState type to accommodate circle graphs
+
+-   [#1131](https://github.com/Khan/perseus/pull/1131) [`7851bcb85`](https://github.com/Khan/perseus/commit/7851bcb85f5f09c2f93e5c8c435e59adef6afb40) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Adjust Explanation Widget to Handle Lots of Text in its Button
+
+*   [#1132](https://github.com/Khan/perseus/pull/1132) [`3eb870e7a`](https://github.com/Khan/perseus/commit/3eb870e7a1fbcdd0cbec82568491fb9124037057) Thanks [@benchristel](https://github.com/benchristel)! - Internal: revise types used for interactive graph state
+
 ## 21.0.0
 
 ### Major Changes
