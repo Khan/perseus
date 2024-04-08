@@ -86,6 +86,9 @@ export const MafsGraph = React.forwardRef<
         getUserInput: () => getGradableGraph(state, props.graph),
     }));
 
+    const xL = String(props.range[0][1]);
+    const yL = String(props.range[1][1]);
+
     return (
         <GraphStateContext.Provider
             value={{
@@ -93,6 +96,7 @@ export const MafsGraph = React.forwardRef<
                 dispatch,
             }}
         >
+            <p>D</p>
             <View
                 style={{
                     width,
@@ -125,22 +129,28 @@ export const MafsGraph = React.forwardRef<
                     >
                         {/* Svg definitions to render only once */}
                         <SvgDefs />
+                        <clipPath id="myClip">
+                            <rect x="xL" y="yL" width="200" height="100" />
+                        </clipPath>
+                        <g clipPath={"url(#myClip)"}>
+                            {/*<clipPath id="myClip" clipPathUnits={5}>*/}
+                            {/* Background layer */}
+                            <Grid {...props} />
 
-                        {/* Background layer */}
-                        <Grid {...props} />
+                            {/* Locked layer */}
+                            {props.lockedFigures && (
+                                <GraphLockedLayer
+                                    lockedFigures={props.lockedFigures}
+                                />
+                            )}
 
-                        {/* Locked layer */}
-                        {props.lockedFigures && (
-                            <GraphLockedLayer
-                                lockedFigures={props.lockedFigures}
-                            />
-                        )}
-
-                        {/* Interactive layer */}
-                        {renderGraph({
-                            state,
-                            dispatch,
-                        })}
+                            {/* Interactive layer */}
+                            {renderGraph({
+                                state,
+                                dispatch,
+                            })}
+                            {/*</clipPath>*/}
+                        </g>
                     </Mafs>
                 </View>
             </View>
