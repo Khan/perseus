@@ -1,10 +1,10 @@
 import renderSingleKeypad from "../../../../../../testing/render-keypad-with-cypress";
-import {strings} from "../../../mock-strings";
+import {mockStrings} from "../../../strings";
 
 import {getTestDataTabs} from "./test-data-tabs";
 
 describe("Keypad v2", () => {
-    const tabs = getTestDataTabs(strings);
+    const tabs = getTestDataTabs(mockStrings);
     tabs.forEach((tab) => {
         it(`switches to the correct tab: ${tab.name}`, () => {
             renderSingleKeypad();
