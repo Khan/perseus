@@ -38,7 +38,9 @@
     outline: none;
 }
 
-.MafsView .movable-line :is(.movable-line-focus-outline, .movable-line-focus-outline-gap) {
+.MafsView
+    .movable-line
+    :is(.movable-line-focus-outline, .movable-line-focus-outline-gap) {
     stroke: transparent;
 }
 
