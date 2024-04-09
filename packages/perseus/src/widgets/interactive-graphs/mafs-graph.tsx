@@ -120,6 +120,8 @@ export const MafsGraph = React.forwardRef<
                     width,
                     height,
                     position: "relative",
+                    padding: "25px 25px 0 0",
+                    boxSizing: "content-box",
                 }}
             >
                 <LegacyGrid
