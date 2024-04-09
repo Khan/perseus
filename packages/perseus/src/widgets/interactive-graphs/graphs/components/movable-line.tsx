@@ -49,9 +49,7 @@ export const MovableLine = (props: Props) => {
         onMove: (newPoint) => {
             onMove(vec.sub(newPoint, midpoint));
         },
-        constrain: (p) => {
-            return p;
-        },
+        constrain: (p) => p,
     });
 
     return (
