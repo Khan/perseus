@@ -2,8 +2,7 @@ import {vec, useMovable, Vector} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
-import useGraphState from "../../reducer/use-graph-state";
-import {TARGET_SIZE, snap} from "../../utils";
+import {TARGET_SIZE} from "../../utils";
 import {useTransform} from "../use-transform";
 import {getRayIntersectionCoords} from "../utils";
 
@@ -26,7 +25,6 @@ type Props = {
 };
 
 export const MovableLine = (props: Props) => {
-    const {state} = useGraphState();
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
@@ -51,7 +49,9 @@ export const MovableLine = (props: Props) => {
         onMove: (newPoint) => {
             onMove(vec.sub(newPoint, midpoint));
         },
-        constrain: (p) => snap(state.snapStep, p),
+        constrain: (p) => {
+            return p;
+        },
     });
 
     return (
