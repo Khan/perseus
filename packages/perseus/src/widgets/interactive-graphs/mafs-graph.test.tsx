@@ -2,7 +2,7 @@ import {render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
-import {MafsGraph} from "./mafs-graph";
+import {StatefulMafsGraph} from "./mafs-graph";
 
 import type {Props as MafsGraphProps} from "./mafs-graph";
 import type {UserEvent} from "@testing-library/user-event";
@@ -33,7 +33,9 @@ describe("MafsGraph", () => {
     });
 
     it("renders", () => {
-        const {container} = render(<MafsGraph {...getBaseMafsGraphProps()} />);
+        const {container} = render(
+            <StatefulMafsGraph {...getBaseMafsGraphProps()} />,
+        );
 
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const movablePoints = container.querySelectorAll(
@@ -47,7 +49,7 @@ describe("MafsGraph", () => {
         const mockChangeHandler = jest.fn();
 
         const {container} = render(
-            <MafsGraph
+            <StatefulMafsGraph
                 {...getBaseMafsGraphProps()}
                 onChange={mockChangeHandler}
             />,
