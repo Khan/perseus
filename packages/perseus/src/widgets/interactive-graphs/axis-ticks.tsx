@@ -1,6 +1,4 @@
 import * as React from "react";
-import "@khanacademy/mathjax-renderer/src/css/mathjax.css";
-import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
 
 import {useTransform} from "./graphs/use-transform";
 
