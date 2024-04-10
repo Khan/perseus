@@ -9,6 +9,7 @@ import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import type {Props as MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
 import type {UserEvent} from "@testing-library/user-event";
+import type {vec} from "mafs";
 
 function getBaseMafsGraphProps(): MafsGraphProps {
     return {
@@ -82,6 +83,16 @@ function map(
     );
 }
 
+function graphToPixel(
+    num: number,
+    range: vec.Vector2 = [-10, 10],
+    fullPixelSpace: number = 400,
+) {
+    const [rangeMin, rangeMax] = range;
+    const halfPixelSpace = fullPixelSpace / 2;
+    return map(num, rangeMin, rangeMax, halfPixelSpace * -1, halfPixelSpace);
+}
+
 describe("MafsGraph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -121,16 +132,16 @@ describe("MafsGraph", () => {
         const line = screen.getByTestId("movable-line__line");
 
         expect(line).toBeInTheDocument();
-        expect(line.getAttribute("x1")).toBe("0");
-        expect(line.getAttribute("y1")).toBe("0");
 
         // Map graph coordinates to SVG coordinates
-        const halfXBox = baseMafsGraphProps.box[0] / 2;
-        const halfYBox = baseMafsGraphProps.box[1] / 2;
-        const expectedX2 = map(-7, -10, 10, halfXBox * -1, halfXBox);
-        const expectedY2 = map(0.5, -10, 10, halfYBox * -1, halfYBox) * -1;
-        expect(line.getAttribute("x2")).toBe(`${expectedX2}`);
-        expect(line.getAttribute("y2")).toBe(`${expectedY2}`);
+        const expectedX1 = graphToPixel(0);
+        const expectedY1 = graphToPixel(0) * -1;
+        const expectedX2 = graphToPixel(-7);
+        const expectedY2 = graphToPixel(0.5) * -1;
+        expect(line.getAttribute("x1")).toBe(expectedX1 + "");
+        expect(line.getAttribute("y1")).toBe(expectedY1 + "");
+        expect(line.getAttribute("x2")).toBe(expectedX2 + "");
+        expect(line.getAttribute("y2")).toBe(expectedY2 + "");
     });
 
     /**
@@ -181,10 +192,8 @@ describe("MafsGraph", () => {
         const point = screen.getByTestId("movable-point__center");
 
         // Map graph coordinates to SVG coordinates
-        const halfXBox = baseMafsGraphProps.box[0] / 2;
-        const halfYBox = baseMafsGraphProps.box[1] / 2;
-        const expectedCX = map(4, -10, 10, halfXBox * -1, halfXBox);
-        const expectedCY = map(2, -10, 10, halfYBox * -1, halfYBox) * -1;
+        const expectedCX = graphToPixel(4);
+        const expectedCY = graphToPixel(2) * -1;
         expect(point.getAttribute("cx")).toBe(`${expectedCX}`);
         expect(point.getAttribute("cy")).toBe(`${expectedCY}`);
     });
@@ -244,12 +253,10 @@ describe("MafsGraph", () => {
         expect(line).toBeInTheDocument();
 
         // Map graph coordinates to SVG coordinates
-        const halfXBox = baseMafsGraphProps.box[0] / 2;
-        const halfYBox = baseMafsGraphProps.box[1] / 2;
-        const expectedX1 = map(-7, -10, 10, halfXBox * -1, halfXBox);
-        const expectedY1 = map(0, -10, 10, halfYBox * -1, halfYBox) * -1;
-        const expectedX2 = map(0, -10, 10, halfXBox * -1, halfXBox);
-        const expectedY2 = map(-0.5, -10, 10, halfYBox * -1, halfYBox) * -1;
+        const expectedX1 = graphToPixel(-7);
+        const expectedY1 = graphToPixel(0) * -1;
+        const expectedX2 = graphToPixel(0);
+        const expectedY2 = graphToPixel(-0.5) * -1;
 
         expect(line.getAttribute("x1")).toBe(`${expectedX1}`);
         expect(line.getAttribute("y1")).toBe(`${expectedY1}`);

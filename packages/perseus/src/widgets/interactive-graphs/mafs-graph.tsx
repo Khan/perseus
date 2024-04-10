@@ -68,24 +68,23 @@ const renderGraph = (props: {
     }
 };
 
-export const StatefulMafsGraph = React.forwardRef<
-    Partial<Widget>,
-    React.PropsWithChildren<Props>
->((props, ref) => {
-    const [state, dispatch] = React.useReducer(
-        interactiveGraphReducer,
-        props,
-        initializeGraphState,
-    );
+export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
+    (props, ref) => {
+        const [state, dispatch] = React.useReducer(
+            interactiveGraphReducer,
+            props,
+            initializeGraphState,
+        );
 
-    useImperativeHandle(ref, () => ({
-        getUserInput: () => getGradableGraph(state, props.graph),
-    }));
+        useImperativeHandle(ref, () => ({
+            getUserInput: () => getGradableGraph(state, props.graph),
+        }));
 
-    return <MafsGraph state={state} dispatch={dispatch} {...props} />;
-});
+        return <MafsGraph state={state} dispatch={dispatch} {...props} />;
+    },
+);
 
-type MafsGraphProps = React.PropsWithChildren<Props> & {
+type MafsGraphProps = Props & {
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
 };
