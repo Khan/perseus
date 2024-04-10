@@ -26,6 +26,7 @@
     --movable-line-stroke-color: var(--mafs-blue);
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
+    overflow: initial;
 }
 
 .MafsView .movable-line:hover,
