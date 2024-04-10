@@ -1,14 +1,13 @@
 import * as React from "react";
-
 import "@khanacademy/mathjax-renderer/src/css/mathjax.css";
 import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
 import {useEffect, useState} from "react";
 
-import {getDependencies} from "../../dependencies";
-
 import {useTransform} from "./graphs/use-transform";
 
 import type {vec} from "mafs";
+
+import {use} from "chai";
 
 const tickSize = 10;
 
@@ -18,14 +17,10 @@ const tickStyle: React.CSSProperties = {
 };
 
 const YGridTick = ({y}: {y: number}) => {
-    const {TeX} = getDependencies();
     const pointOnAxis: vec.Vector2 = [0, y];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
-    // We want to make sure to use the llap command to ensure that the negative
-    // sign is not included in the width of the label. This is important for
-    // ensuring that the labels are correctly positioned.
-    const labelString = y < 0 ? `\\llap{-}` + Math.abs(y) : y.toString();
+    const labelString = y < 0 ? y.toString() : " " + y.toString();
 
     return (
         <g className="y-axis-ticks">
@@ -41,29 +36,25 @@ const YGridTick = ({y}: {y: number}) => {
                 // overlap with the axis line. We should handle this case more gracefully.
             }
             {y !== -1 && (
-                <foreignObject
+                <text
                     height={20}
                     width={50}
-                    x={xPosition - 20}
-                    y={yPosition - 10}
+                    textAnchor="end"
+                    x={xPosition - 10}
+                    y={yPosition + 5}
                 >
-                    <TeX>{labelString}</TeX>
-                </foreignObject>
+                    {labelString}
+                </text>
             )}
         </g>
     );
 };
 
 const XGridTick = ({x}: {x: number}) => {
-    const {TeX} = getDependencies();
     const pointOnAxis: vec.Vector2 = [x, 0];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
-    // We want to make sure to use the llap command to ensure that the negative
-    // sign is not included in the width of the label. This is important for
-    // ensuring that the labels are correctly positioned.
-    const labelString = x < 0 ? `\\llap{-}` + Math.abs(x) : x.toString();
-
+    const labelString = x < 0 ? x.toString() : x.toString();
     return (
         <g className="x-axis-ticks">
             <line
@@ -78,14 +69,15 @@ const XGridTick = ({x}: {x: number}) => {
                 // overlap with the axis line. We should handle this case more gracefully.
             }
             {x !== -1 && (
-                <foreignObject
+                <text
                     height={20}
                     width={50}
-                    x={xPosition - 8}
-                    y={yPosition + 10}
+                    textAnchor="middle"
+                    x={xPosition}
+                    y={yPosition + 25}
                 >
-                    <TeX>{labelString}</TeX>
-                </foreignObject>
+                    {labelString}
+                </text>
             )}
         </g>
     );
@@ -113,7 +105,22 @@ export function generateTickLocations(
 type Props = {
     tickStep: [number, number];
     range: [[number, number], [number, number]];
+    graphSize: vec.Vector2;
 };
+/**
+ * Given the range and a dimension, come up with the appropriate
+ * scale.
+ * Example:
+ *      scaleFromExtent([-25, 25], 500) // returns 10
+ */
+function scaleFromExtent(
+    extent: [number, number],
+    dimensionConstraint: number,
+): number {
+    const span = extent[1] - extent[0];
+    const scale = dimensionConstraint / span;
+    return scale;
+}
 
 export const AxisTicks = (props: Props) => {
     const range = props.range;
@@ -131,6 +138,18 @@ export const AxisTicks = (props: Props) => {
 
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
+
+    const dimensionConstraint = 500;
+
+    // Okay so I want to find out how many pixels a step is
+    // from the origin / center axis. If it's greater than 30
+    // then we can show the unity label.
+
+    // how do I get the full grid width?
+    const [width, height] = props.graphSize;
+
+    // Okay so we have the width. That should be divided by the
+    // grid step to get the number of pixels per step.
 
     return (
         <g className="axis-ticks">

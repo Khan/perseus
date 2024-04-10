@@ -19,6 +19,7 @@ interface GridProps {
     range: GraphRange;
     containerSizeClass: SizeClass;
     markings: "graph" | "grid" | "none";
+    graphSize: vec.Vector2;
 }
 
 /**
@@ -69,11 +70,16 @@ const axisOptions = (
 export const Grid = (props: GridProps) => {
     return props.markings === "none" ? null : (
         <>
+            <AxisTicks
+                range={props.range}
+                tickStep={props.tickStep}
+                graphSize={props.graphSize}
+            />
             <Coordinates.Cartesian
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
-            <AxisTicks range={props.range} tickStep={props.tickStep} />
+
             {props.markings === "graph" && <AxisArrows />}
         </>
     );

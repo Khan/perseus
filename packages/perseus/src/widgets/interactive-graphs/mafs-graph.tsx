@@ -167,6 +167,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             range={props.range}
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
+                            graphSize={[width, height]}
                         />
 
                         {/* Locked layer */}

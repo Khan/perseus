@@ -125,10 +125,6 @@
     visibility: visible;
 }
 
-.MafsView .axis-ticks foreignObject {
-    overflow: visible;
-}
-
 .MafsView .mathjax-wrapper {
     font-size: 12px !important;
     left: 5px;
@@ -138,6 +134,12 @@
 .MafsView .mathjax-selectable {
     position: relative;
 }
+
 .MafsView .mathjax-selectable svg {
     position: fixed !important;
+}
+
+.MafsView .axis-ticks text {
+    font-size: 12px !important;
+    font-family: "MJXTEX";
 }
