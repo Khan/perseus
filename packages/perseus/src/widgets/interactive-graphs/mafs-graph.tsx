@@ -130,6 +130,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     width,
                     height,
                     position: "relative",
+                    padding: "25px 25px 0 0",
+                    boxSizing: "content-box",
                 }}
             >
                 <LegacyGrid

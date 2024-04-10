@@ -72,6 +72,18 @@ export const MovableLine = (props: Props) => {
                 <SVGLine
                     start={startPtPx}
                     end={endPtPx}
+                    className="movable-line-focus-outline"
+                    style={{}}
+                />
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    className="movable-line-focus-outline-gap"
+                    style={{}}
+                />
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
                     style={{
                         stroke,
                         strokeWidth: "var(--movable-line-stroke-weight)",
@@ -93,11 +105,13 @@ export const MovableLine = (props: Props) => {
 function SVGLine(props: {
     start: vec.Vector2;
     end: vec.Vector2;
-    style: SVGProps<SVGLineElement>["style"];
+    style?: SVGProps<SVGLineElement>["style"];
+    className?: string;
     dragging?: boolean;
     testId?: string;
 }) {
-    const {start, end, style, dragging, testId} = props;
+    const {start, end, style, dragging, className, testId} = props;
+    const draggingClass = dragging ? "movable-dragging" : "";
     return (
         <line
             x1={start[0]}
@@ -105,7 +119,7 @@ function SVGLine(props: {
             x2={end[0]}
             y2={end[1]}
             style={style}
-            className={dragging ? "movable-dragging" : undefined}
+            className={`${className} ${draggingClass}`}
             data-test-id={testId}
         />
     );

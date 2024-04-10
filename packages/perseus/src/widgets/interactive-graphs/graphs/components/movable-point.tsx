@@ -56,6 +56,7 @@ export const StyledMovablePoint = (props: Props) => {
             />
             <circle className="movable-point-halo" cx={x} cy={y} />
             <circle className="movable-point-ring" cx={x} cy={y} />
+            <circle className="movable-point-focus-outline" cx={x} cy={y} />
             <circle
                 className="movable-point-center"
                 cx={x}

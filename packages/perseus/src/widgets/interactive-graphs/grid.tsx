@@ -2,6 +2,7 @@ import {Coordinates} from "mafs";
 import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
+import {AxisTicks} from "./axis-ticks";
 
 import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
@@ -67,6 +68,7 @@ export const Grid = (props: GridProps) => {
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
+            <AxisTicks range={props.range} tickStep={props.tickStep} />
             {props.markings === "graph" && <AxisArrows />}
         </>
     );
