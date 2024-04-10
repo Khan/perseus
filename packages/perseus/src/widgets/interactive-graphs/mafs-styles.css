@@ -30,15 +30,30 @@
     overflow: visible;
 }
 
-.MafsView .movable-line:is(:focus-visible, :hover),
+.MafsView .movable-line:hover,
 .movable-dragging {
-    outline: none;
     --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
 }
 
 .MafsView .movable-line:focus,
 .movable-polygon:focus {
     outline: none;
+}
+
+.MafsView
+    .movable-line
+    :is(.movable-line-focus-outline, .movable-line-focus-outline-gap) {
+    stroke: transparent;
+}
+
+.MafsView .movable-line:focus-visible .movable-line-focus-outline {
+    stroke: var(--mafs-blue);
+    stroke-width: 10px;
+}
+
+.MafsView .movable-line:focus-visible .movable-line-focus-outline-gap {
+    stroke: white;
+    stroke-width: 6px;
 }
 
 .MafsView .movable-point-hitbox {
