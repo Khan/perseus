@@ -70,7 +70,7 @@ describe("StatefulMafsGraph", () => {
     });
 });
 
-function map(
+function linearMap(
     num: number,
     startMin: number,
     startMax: number,
@@ -90,7 +90,13 @@ function graphToPixel(
 ) {
     const [rangeMin, rangeMax] = range;
     const halfPixelSpace = fullPixelSpace / 2;
-    return map(num, rangeMin, rangeMax, halfPixelSpace * -1, halfPixelSpace);
+    return linearMap(
+        num,
+        rangeMin,
+        rangeMax,
+        halfPixelSpace * -1,
+        halfPixelSpace,
+    );
 }
 
 describe("MafsGraph", () => {
