@@ -2,7 +2,7 @@ import {Polygon, useMovable, vec} from "mafs";
 import * as React from "react";
 
 import {moveAll, movePoint} from "../reducer/interactive-graph-action";
-import {TARGET_SIZE} from "../utils";
+import {TARGET_SIZE, snap} from "../utils";
 
 import {Angle} from "./components/angle";
 import {StyledMovablePoint} from "./components/movable-point";
@@ -18,7 +18,8 @@ export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, type, showAngles, showSides, range} = props.graphState;
+    const {coords, type, showAngles, showSides, range, snapStep} =
+        props.graphState;
 
     const points = coords ?? [[0, 0]];
 
@@ -37,7 +38,7 @@ export const PolygonGraph = (props: Props) => {
             const delta = vec.sub(newPoint, midpoint);
             dispatch(moveAll(delta));
         },
-        constrain: (p) => p,
+        constrain: (p) => snap(snapStep, p),
     });
 
     const active = hovered || focused || dragging;

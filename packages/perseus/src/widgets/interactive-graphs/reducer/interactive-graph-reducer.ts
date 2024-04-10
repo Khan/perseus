@@ -1,6 +1,9 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
+import _ from "underscore";
+
+import {snap} from "../utils";
 
 import {
     type InteractiveGraphAction,
@@ -8,10 +11,14 @@ import {
     MOVE_CONTROL_POINT,
     MOVE_LINE,
     MOVE_POINT,
+    CHANGE_SNAP_STEP,
+    CHANGE_RANGE,
     type MoveAll,
     type MoveControlPoint,
     type MoveLine,
     type MovePoint,
+    type ChangeSnapStep,
+    type ChangeRange,
 } from "./interactive-graph-action";
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
@@ -30,6 +37,10 @@ export function interactiveGraphReducer(
             return doMoveAll(state, action);
         case MOVE_POINT:
             return doMovePoint(state, action);
+        case CHANGE_SNAP_STEP:
+            return doChangeSnapStep(state, action);
+        case CHANGE_RANGE:
+            return doChangeRange(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -52,14 +63,14 @@ function doMoveControlPoint(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: snap({
+                        newValue: snap(
                             snapStep,
-                            point: bound({
+                            bound({
                                 snapStep,
                                 range,
                                 point: action.destination,
                             }),
-                        }),
+                        ),
                     }),
             });
 
@@ -108,14 +119,8 @@ function doMoveLine(
             });
 
             const newLine: PairOfPoints = [
-                snap({
-                    snapStep,
-                    point: vec.add(currentLine[0], change),
-                }),
-                snap({
-                    snapStep,
-                    point: vec.add(currentLine[1], change),
-                }),
+                snap(snapStep, vec.add(currentLine[0], change)),
+                snap(snapStep, vec.add(currentLine[1], change)),
             ];
 
             const newCoords = setAtIndex({
@@ -151,7 +156,7 @@ function doMoveAll(
             });
 
             const newCoords = state.coords.map((point: vec.Vector2) =>
-                snap({snapStep, point: vec.add(point, change)}),
+                snap(snapStep, vec.add(point, change)),
             );
 
             return {
@@ -179,14 +184,14 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap({
-                        snapStep: state.snapStep,
-                        point: bound({
+                    newValue: snap(
+                        state.snapStep,
+                        bound({
                             snapStep: state.snapStep,
                             range: state.range,
                             point: action.destination,
                         }),
-                    }),
+                    ),
                 }),
             };
         }
@@ -195,6 +200,40 @@ function doMovePoint(
                 "The movePoint action is only for point and polygon graphs",
             );
     }
+}
+
+function doChangeSnapStep(
+    state: InteractiveGraphState,
+    action: ChangeSnapStep,
+): InteractiveGraphState {
+    if (
+        // Deep equality check since these are arrays
+        _.isEqual(state.snapStep, action.snapStep)
+    ) {
+        return state;
+    }
+
+    return {
+        ...state,
+        snapStep: action.snapStep,
+    };
+}
+
+function doChangeRange(
+    state: InteractiveGraphState,
+    action: ChangeRange,
+): InteractiveGraphState {
+    if (
+        // Deep equality check since these are arrays
+        _.isEqual(state.range, action.range)
+    ) {
+        return state;
+    }
+
+    return {
+        ...state,
+        range: action.range,
+    };
 }
 
 const getChange = (
@@ -222,15 +261,6 @@ interface ConstraintArgs {
     snapStep: vec.Vector2;
     range: [Interval, Interval];
     point: vec.Vector2;
-}
-
-function snap({snapStep, point}: Omit<ConstraintArgs, "range">): vec.Vector2 {
-    const [requestedX, requestedY] = point;
-    const [snapX, snapY] = snapStep;
-    return [
-        Math.round(requestedX / snapX) * snapX,
-        Math.round(requestedY / snapY) * snapY,
-    ];
 }
 
 // Returns the closest point to the given `point` that is within the graph
