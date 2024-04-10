@@ -1,5 +1,6 @@
 import {screen, render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
+import {vec} from "mafs";
 import React from "react";
 
 import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
@@ -8,8 +9,8 @@ import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
 import type {Props as MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
+import type {GraphRange} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
-import type {vec} from "mafs";
 
 function getBaseMafsGraphProps(): MafsGraphProps {
     return {
@@ -70,33 +71,26 @@ describe("StatefulMafsGraph", () => {
     });
 });
 
-function linearMap(
-    num: number,
-    startMin: number,
-    startMax: number,
-    targetMin: number,
-    targetMax: number,
-): number {
-    return (
-        ((num - startMin) / (startMax - startMin)) * (targetMax - targetMin) +
-        targetMin
-    );
-}
-
 function graphToPixel(
-    num: number,
-    range: vec.Vector2 = [-10, 10],
-    fullPixelSpace: number = 400,
+    point: vec.Vector2,
+    range: GraphRange = [
+        [-10, 10],
+        [-10, 10],
+    ],
+    fullPixelSpace: vec.Vector2 = [400, 400],
 ) {
-    const [rangeMin, rangeMax] = range;
-    const halfPixelSpace = fullPixelSpace / 2;
-    return linearMap(
-        num,
-        rangeMin,
-        rangeMax,
-        halfPixelSpace * -1,
-        halfPixelSpace,
-    );
+    const [rangeX, rangeY] = range;
+    const scaleX = fullPixelSpace[0] / (rangeX[1] - rangeX[0]);
+    const scaleY = fullPixelSpace[1] / (rangeY[1] - rangeY[0]);
+    const translateX = fullPixelSpace[0] / 2;
+    const translateY = fullPixelSpace[1] / 2;
+    const graphToPixelTransform = vec
+        .matrixBuilder()
+        .translate(-rangeX[0], -rangeY[0])
+        .scale(scaleX, scaleY)
+        .translate(-translateX, -translateY)
+        .get();
+    return vec.transform(point, graphToPixelTransform);
 }
 
 describe("MafsGraph", () => {
@@ -140,14 +134,12 @@ describe("MafsGraph", () => {
         expect(line).toBeInTheDocument();
 
         // Map graph coordinates to SVG coordinates
-        const expectedX1 = graphToPixel(0);
-        const expectedY1 = graphToPixel(0) * -1;
-        const expectedX2 = graphToPixel(-7);
-        const expectedY2 = graphToPixel(0.5) * -1;
+        const [expectedX1, expectedY1] = graphToPixel([0, 0]);
+        const [expectedX2, expectedY2] = graphToPixel([-7, 0.5]);
         expect(line.getAttribute("x1")).toBe(expectedX1 + "");
-        expect(line.getAttribute("y1")).toBe(expectedY1 + "");
+        expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
         expect(line.getAttribute("x2")).toBe(expectedX2 + "");
-        expect(line.getAttribute("y2")).toBe(expectedY2 + "");
+        expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 
     /**
@@ -198,10 +190,9 @@ describe("MafsGraph", () => {
         const point = screen.getByTestId("movable-point__center");
 
         // Map graph coordinates to SVG coordinates
-        const expectedCX = graphToPixel(4);
-        const expectedCY = graphToPixel(2) * -1;
-        expect(point.getAttribute("cx")).toBe(`${expectedCX}`);
-        expect(point.getAttribute("cy")).toBe(`${expectedCY}`);
+        const [expectedCX, expectedCY] = graphToPixel([4, 2]);
+        expect(point.getAttribute("cx")).toBe(expectedCX + "");
+        expect(point.getAttribute("cy")).toBe(-expectedCY + "");
     });
 
     /**
@@ -259,14 +250,12 @@ describe("MafsGraph", () => {
         expect(line).toBeInTheDocument();
 
         // Map graph coordinates to SVG coordinates
-        const expectedX1 = graphToPixel(-7);
-        const expectedY1 = graphToPixel(0) * -1;
-        const expectedX2 = graphToPixel(0);
-        const expectedY2 = graphToPixel(-0.5) * -1;
+        const [expectedX1, expectedY1] = graphToPixel([-7, 0]);
+        const [expectedX2, expectedY2] = graphToPixel([0, -0.5]);
 
-        expect(line.getAttribute("x1")).toBe(`${expectedX1}`);
-        expect(line.getAttribute("y1")).toBe(`${expectedY1}`);
-        expect(line.getAttribute("x2")).toBe(`${expectedX2}`);
-        expect(line.getAttribute("y2")).toBe(`${expectedY2}`);
+        expect(line.getAttribute("x1")).toBe(expectedX1 + "");
+        expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
+        expect(line.getAttribute("x2")).toBe(expectedX2 + "");
+        expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 });
