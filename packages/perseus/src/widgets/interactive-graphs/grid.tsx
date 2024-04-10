@@ -68,16 +68,15 @@ const axisOptions = (
 export const Grid = (props: GridProps) => {
     return props.markings === "none" ? null : (
         <>
+            <Coordinates.Cartesian
+                xAxis={axisOptions(props, 0)}
+                yAxis={axisOptions(props, 1)}
+            />
             <AxisTicks
                 range={props.range}
                 tickStep={props.tickStep}
                 graphSize={props.graphSize}
             />
-            <Coordinates.Cartesian
-                xAxis={axisOptions(props, 0)}
-                yAxis={axisOptions(props, 1)}
-            />
-
             {props.markings === "graph" && <AxisArrows />}
         </>
     );

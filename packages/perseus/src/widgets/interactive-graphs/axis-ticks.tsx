@@ -17,8 +17,6 @@ const YGridTick = ({y}: {y: number}) => {
     const pointOnAxis: vec.Vector2 = [0, y];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
-    const labelString = y < 0 ? y.toString() : " " + y.toString();
-
     return (
         <g className="y-axis-ticks">
             <line
@@ -40,7 +38,7 @@ const YGridTick = ({y}: {y: number}) => {
                     x={xPosition - 10}
                     y={yPosition + 5}
                 >
-                    {labelString}
+                    {y.toString()}
                 </text>
             )}
         </g>
@@ -51,7 +49,6 @@ const XGridTick = ({x}: {x: number}) => {
     const pointOnAxis: vec.Vector2 = [x, 0];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
-    const labelString = x < 0 ? x.toString() : x.toString();
     return (
         <g className="x-axis-ticks">
             <line
@@ -73,7 +70,7 @@ const XGridTick = ({x}: {x: number}) => {
                     x={xPosition}
                     y={yPosition + 25}
                 >
-                    {labelString}
+                    {x.toString()}
                 </text>
             )}
         </g>

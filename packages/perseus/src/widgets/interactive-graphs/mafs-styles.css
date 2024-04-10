@@ -125,21 +125,7 @@
     visibility: visible;
 }
 
-.MafsView .mathjax-wrapper {
-    font-size: 12px !important;
-    left: 5px;
-    position: fixed;
-}
-
-.MafsView .mathjax-selectable {
-    position: relative;
-}
-
-.MafsView .mathjax-selectable svg {
-    position: fixed !important;
-}
-
 .MafsView .axis-ticks text {
-    font-size: 14px !important;
+    font-size: 14px;
     font-family: "MJXTEX";
 }
