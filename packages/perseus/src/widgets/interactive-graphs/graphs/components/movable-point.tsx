@@ -9,7 +9,6 @@ import {snap} from "../../utils";
 import {useTransform} from "../use-transform";
 
 import type {vec} from "mafs";
-import useGraphState from "../../reducer/use-graph-state";
 
 type Props = {
     point: vec.Vector2;
