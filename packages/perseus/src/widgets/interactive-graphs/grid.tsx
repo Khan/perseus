@@ -4,6 +4,7 @@ import * as React from "react";
 import AxisArrows from "./axis-arrows";
 import AxisLabels from "./axis-labels";
 import {AxisTicks} from "./axis-ticks";
+import {useTransform} from "./graphs/use-transform";
 
 import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
@@ -15,6 +16,10 @@ interface GridProps {
     range: GraphRange;
     containerSizeClass: SizeClass;
     markings: "graph" | "grid" | "none";
+    width: number;
+    height: number;
+    step: number[];
+    labels: readonly string[];
 }
 
 /**
@@ -63,15 +68,41 @@ const axisOptions = (
 };
 
 export const Grid = (props: GridProps) => {
+    const xRange = useTransform(props.range[0]);
+    const yRange = useTransform(props.range[1]);
+
+    // The clip definition starts from the top left of the shape
+    // so the below values make use of the minimum x and maximum y of the range
+    const clipStartX = String(xRange[0][0]); // x min
+    const clipStartY = String(yRange[0][1]); // y max
+
+    // const xPadding = 67 * props.step[0]; // subtract from clip width
+    // const yPadding = 67 * props.step[1]; // subtract from clup height
+    // These were meant to multiply the number of pixels in a step by the step
+    // value for each axis. This is to be able to remove the padding width and
+    // height from the clipPath
+
+    const clipWidth = props.width;
+    const clipHeight = props.height;
     return props.markings === "none" ? null : (
         <>
-            <Coordinates.Cartesian
-                xAxis={axisOptions(props, 0)}
-                yAxis={axisOptions(props, 1)}
-            />
-            <AxisTicks range={props.range} tickStep={props.tickStep} />
-            {props.markings === "graph" && <AxisArrows />}
-            {props.markings === "graph" && <AxisLabels />}
+            <clipPath id="myClip">
+                <rect
+                    x={clipStartX}
+                    y={clipStartY}
+                    width={clipWidth}
+                    height={clipHeight}
+                />
+            </clipPath>
+            <g clipPath={"url(#myClip)"}>
+                <Coordinates.Cartesian
+                    xAxis={axisOptions(props, 0)}
+                    yAxis={axisOptions(props, 1)}
+                />
+                <AxisTicks range={props.range} tickStep={props.tickStep} />
+                {props.markings === "graph" && <AxisArrows />}
+            </g>
+            {props.markings === "graph" && <AxisLabels labels={props.labels} />}
         </>
     );
 };

@@ -1,38 +1,21 @@
 import React from "react";
 
-import useGraphState from "./reducer/use-graph-state";
-import {Interval, useTransformContext, vec} from "mafs";
 import {useTransform} from "./graphs/use-transform";
+import useGraphState from "./reducer/use-graph-state";
 
-function Labels() {
-    return <></>;
-}
+import type {vec} from "mafs";
 
-export default function AxisLabels() {
+export default function AxisLabels(props) {
     const {state} = useGraphState();
 
     const point: vec.Vector2 = [0, state.range[1][1]];
 
     const [[x, y]] = useTransform(point);
-    return <circle cx={x} cy={y} r={20} />;
+    return (
+        // Find the length of the label, divide in half, then move the x and y over by that much!
+        // can do this with CSS with transform by moving it left 50%
+        <text x={x - 5} y={y - 10}>
+            Points
+        </text>
+    );
 }
-// take the whole chart and transform it!
-// Need range and transform
-// Could add legacy grid to svg/mafs -> potentially more correct (vector/points/coordinates/svg vs bitmap/the image/pixel info)
-// Cntain the mafs stuff within clip path so the excess graph gets cut off, and then you can show the label outside
-// maybe 0 minus the xmin to determine how far over the y axis is? Want the label to be on top of that line
-// ... could just do (0,yMax) for the y label
-
-/*
-export interface InteractiveGraphStateCommon {
-    hasBeenInteractedWith: boolean;
-    // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
-    range: [Interval, Interval];
-    // snapStep = [xStep, yStep] in Cartesian units
-    snapStep: vec.Vector2;
-}
-
-
-label padding is 7px
-graph padding is 25 px to the top and right
-*/

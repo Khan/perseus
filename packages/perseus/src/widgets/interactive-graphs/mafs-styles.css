@@ -26,6 +26,8 @@
     --movable-line-stroke-color: var(--mafs-blue);
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
+
+    overflow: visible;
 }
 
 .MafsView .movable-line:is(:focus-visible, :hover),
@@ -108,4 +110,8 @@
 
 .MafsView .movable-point:focus-visible .movable-point-focus-outline {
     visibility: visible;
+}
+
+.MafsView > svg {
+    overflow: visible;
 }

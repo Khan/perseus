@@ -3,7 +3,6 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 import {useEffect, useRef} from "react";
-import _ from "underscore";
 
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
@@ -41,6 +40,7 @@ export type Props = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
+    labels: InteractiveGraphProps["labels"];
 };
 
 const renderGraph = (props: {
@@ -108,17 +108,14 @@ export const MafsGraph = React.forwardRef<
         getUserInput: () => getGradableGraph(state, props.graph),
     }));
 
-    const xL = String(props.range[0][1]);
-    const yL = String(props.range[1][1]);
-
     return (
         <GraphStateContext.Provider
             value={{
                 state,
                 dispatch,
+                graphOptions,
             }}
         >
-            <p>D</p>
             <View
                 style={{
                     width,
@@ -149,36 +146,35 @@ export const MafsGraph = React.forwardRef<
                         width={width}
                         height={height}
                     >
+                        {/*<AxisLabels props={props} />*/}
+
                         {/* Svg definitions to render only once */}
                         <SvgDefs />
-                        <clipPath id="myClip">
-                            <rect x="xL" y="yL" width="200" height="100" />
-                        </clipPath>
-                        <g clipPath={"url(#myClip)"}>
-                            {/*<clipPath id="myClip" clipPathUnits={5}>*/}
-                            {/* Background layer */}
-                            <Grid
-                                tickStep={props.step}
-                                gridStep={props.gridStep}
-                                range={props.range}
-                                containerSizeClass={props.containerSizeClass}
-                                markings={props.markings}
+                        {/* Background layer */}
+                        <Grid
+                            tickStep={props.step}
+                            gridStep={props.gridStep}
+                            range={props.range}
+                            containerSizeClass={props.containerSizeClass}
+                            markings={props.markings}
+                            width={width}
+                            height={height}
+                            step={props.step}
+                            labels={props.labels}
+                        />
+
+                        {/* Locked layer */}
+                        {props.lockedFigures && (
+                            <GraphLockedLayer
+                                lockedFigures={props.lockedFigures}
                             />
+                        )}
 
-                            {/* Locked layer */}
-                            {props.lockedFigures && (
-                                <GraphLockedLayer
-                                    lockedFigures={props.lockedFigures}
-                                />
-                            )}
-
-                            {/* Interactive layer */}
-                            {renderGraph({
-                                state,
-                                dispatch,
-                            })}
-                            {/*</clipPath>*/}
-                        </g>
+                        {/* Interactive layer */}
+                        {renderGraph({
+                            state,
+                            dispatch,
+                        })}
                     </Mafs>
                 </View>
             </View>
