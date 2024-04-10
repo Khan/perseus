@@ -1,13 +1,10 @@
 import * as React from "react";
 import "@khanacademy/mathjax-renderer/src/css/mathjax.css";
 import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
-import {useEffect, useState} from "react";
 
 import {useTransform} from "./graphs/use-transform";
 
 import type {vec} from "mafs";
-
-import {use} from "chai";
 
 const tickSize = 10;
 
@@ -107,29 +104,10 @@ type Props = {
     range: [[number, number], [number, number]];
     graphSize: vec.Vector2;
 };
-/**
- * Given the range and a dimension, come up with the appropriate
- * scale.
- * Example:
- *      scaleFromExtent([-25, 25], 500) // returns 10
- */
-function scaleFromExtent(
-    extent: [number, number],
-    dimensionConstraint: number,
-): number {
-    const span = extent[1] - extent[0];
-    const scale = dimensionConstraint / span;
-    return scale;
-}
 
 export const AxisTicks = (props: Props) => {
     const range = props.range;
-    const [yOffSet, setYoffSet] = useState(0);
-    useEffect(() => {
-        window.addEventListener("scroll", () => {
-            setYoffSet(window.scrollY);
-        });
-    });
+
     const [xMin, xMax] = range[0];
     const [yMin, yMax] = range[1];
 
@@ -139,37 +117,13 @@ export const AxisTicks = (props: Props) => {
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
 
-    const dimensionConstraint = 500;
-
-    // Okay so I want to find out how many pixels a step is
-    // from the origin / center axis. If it's greater than 30
-    // then we can show the unity label.
-
-    // how do I get the full grid width?
-    const [width, height] = props.graphSize;
-
-    // Okay so we have the width. That should be divided by the
-    // grid step to get the number of pixels per step.
-
     return (
         <g className="axis-ticks">
             {yGridTicks.map((y) => {
-                return (
-                    <YGridTick
-                        y={y}
-                        key={`y-grid-tick-${y}`}
-                        yOffSet={yOffSet}
-                    />
-                );
+                return <YGridTick y={y} key={`y-grid-tick-${y}`} />;
             })}
             {xGridTicks.map((x) => {
-                return (
-                    <XGridTick
-                        x={x}
-                        key={`x-grid-tick-${x}`}
-                        yOffSet={yOffSet}
-                    />
-                );
+                return <XGridTick x={x} key={`x-grid-tick-${x}`} />;
             })}
         </g>
     );

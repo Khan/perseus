@@ -58,8 +58,6 @@ const axisOptions = (
     props: Omit<GridProps, "containerSizeClass">,
     axisIndex: number,
 ) => {
-    const axisStep = props.tickStep[axisIndex];
-    const axisRange = props.range[axisIndex];
     return {
         axis: props.markings === "graph",
         lines: props.gridStep[axisIndex],
