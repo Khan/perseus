@@ -58,6 +58,7 @@ export const MovableLine = (props: Props) => {
                 ref={line}
                 tabIndex={0}
                 className="movable-line"
+                data-test-id="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}
             >
                 {/**
@@ -76,6 +77,7 @@ export const MovableLine = (props: Props) => {
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
                     dragging={dragging}
+                    data-test-id="movable-line__line"
                 />
             </g>
 
@@ -94,9 +96,10 @@ function SVGLine(props: {
     style: SVGProps<SVGLineElement>["style"];
     dragging?: boolean;
 }) {
-    const {start, end, style, dragging} = props;
+    const {start, end, style, dragging, ...rest} = props;
     return (
         <line
+            {...rest}
             x1={start[0]}
             y1={start[1]}
             x2={end[0]}
