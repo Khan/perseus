@@ -29,6 +29,7 @@
 }
 
 .MafsView > svg {
+    /* Chrome/Safari bugfix for LEMS-1906 */
     display: block;
 }
 
