@@ -8,11 +8,6 @@ import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
 import type {vec} from "mafs";
 
-/*
-gridStep: Where the lines on the grid will render.
-tickStep: Where the little black axis lines & labels (ticks) should render. (e.g. 1, 2, 3, 4, 5)
-snapStep: Where the graph points will lock to when they are dragged.
-*/
 interface GridProps {
     tickStep: vec.Vector2;
     gridStep: vec.Vector2;
