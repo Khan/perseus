@@ -28,6 +28,11 @@
     --movable-line-stroke-weight-active: 4px;
 }
 
+.MafsView > svg {
+    /* Chrome/Safari bugfix for LEMS-1906 */
+    display: block;
+}
+
 .MafsView .movable-line:hover,
 .movable-dragging {
     --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
