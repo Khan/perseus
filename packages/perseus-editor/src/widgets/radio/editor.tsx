@@ -6,7 +6,6 @@ import {
     BaseRadio,
     Changeable,
 } from "@khanacademy/perseus";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -62,10 +61,7 @@ class ChoiceEditor extends React.Component<any> {
                 apiOptions={this.props.apiOptions}
                 content={this.props.choice.clue || ""}
                 widgetEnabled={false}
-                placeholder={i18n._(
-                    "Why is this choice %(correctOrIncorrect)s?",
-                    {correctOrIncorrect: checkedClass},
-                )}
+                placeholder={`Why is this choice ${checkedClass}?`}
                 onChange={this.props.onClueChange}
             />
         );

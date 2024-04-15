@@ -11,7 +11,6 @@ import {
 } from "@khanacademy/math-input";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -361,8 +360,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                             <Clickable
                                 aria-label={
                                     this.state.keypadOpen
-                                        ? i18n._("close math keypad")
-                                        : i18n._("open math keypad")
+                                        ? this.context.strings.closeKeypad
+                                        : this.context.strings.openKeypad
                                 }
                                 aria-checked={this.state.keypadOpen}
                                 role="switch"

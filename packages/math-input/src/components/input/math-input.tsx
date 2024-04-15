@@ -54,6 +54,9 @@ type State = {
 
 // eslint-disable-next-line react/no-unsafe
 class MathInput extends React.Component<Props, State> {
+    static contextType = MathInputI18nContext;
+    declare context: React.ContextType<typeof MathInputI18nContext>;
+
     didTouchOutside: boolean | null | undefined;
     didScroll: boolean | null | undefined;
     mathField: any;
@@ -1026,8 +1029,6 @@ class MathInput extends React.Component<Props, State> {
         );
     }
 }
-
-MathInput.contextType = MathInputI18nContext;
 
 const fontSizePt = 18;
 const inputMaxWidth = 128;
