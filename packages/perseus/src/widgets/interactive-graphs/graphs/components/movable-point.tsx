@@ -30,7 +30,7 @@ export const StyledMovablePoint = (props: Props) => {
         onMove,
         constrain: (p) => snap(state.snapStep, p),
     });
-    const pointClasses = "movable-point" + (dragging ? " dragging" : "");
+    const pointClasses = `movable-point ${dragging ? "dragging" : ""}`;
 
     const [[x, y]] = useTransform(point);
 
