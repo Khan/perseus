@@ -26,9 +26,6 @@ import {PerseusI18nContext} from "./i18n-context";
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
-// NOTE(john): This is a public API and it's safe to import
-// eslint-disable-next-line monorepo/no-internal-import
-import type {MathInputStrings} from "@khanacademy/math-input/strings";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -72,7 +69,10 @@ type Props = {
 };
 
 type InnerProps = Props & {
-    mathInputStrings: MathInputStrings;
+    // NOTE(john): We'd like to use the real MathInputStrings type here, but
+    // getting the types and imports to work correctly turns out to be really
+    // hard, it's not worth it as we are just passing the types through.
+    mathInputStrings: any;
 };
 
 type DefaultProps = {

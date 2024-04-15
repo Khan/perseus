@@ -25,6 +25,8 @@ module.exports = function createBabelPresets({platform, format}) {
         [
             "@babel/preset-typescript",
             {
+                // NOTE(john): We need this so that we can handle the declare
+                // fields inside React classes.
                 allowDeclareFields: true,
             },
         ],
