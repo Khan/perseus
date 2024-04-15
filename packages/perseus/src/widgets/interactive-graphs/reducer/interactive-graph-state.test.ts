@@ -2,12 +2,10 @@ import invariant from "tiny-invariant";
 
 import {initializeGraphState} from "./interactive-graph-state";
 
-import type {InteractiveGraphProps} from "../types";
 import type {Interval, vec} from "mafs";
 
 const baseGraphData = {
-    markings: "graph" as InteractiveGraphProps["markings"],
-    isMobile: false,
+    showHairlines: false,
     range: [
         [-10, 10],
         [-10, 10],
@@ -19,8 +17,7 @@ const baseGraphData = {
 describe("initializeGraphState for segment graphs", () => {
     it("sets the range and snapStep", () => {
         const state = initializeGraphState({
-            markings: "graph",
-            isMobile: false,
+            showHairlines: false,
             range: [
                 [0, 10],
                 [1, 20],

@@ -37,8 +37,7 @@ export interface InteractiveGraphStateCommon {
     range: [Interval, Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
-    markings: PerseusInteractiveGraphWidgetOptions["markings"];
-    isMobile: boolean;
+    showHairlines: boolean;
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {

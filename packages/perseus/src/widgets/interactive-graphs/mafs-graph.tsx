@@ -71,9 +71,10 @@ const renderGraph = (props: {
 
 export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     (props, ref) => {
+        const showHairlines = props.isMobile && props.markings !== "none";
         const [state, dispatch] = React.useReducer(
             interactiveGraphReducer,
-            props,
+            {...props, showHairlines},
             initializeGraphState,
         );
 

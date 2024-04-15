@@ -25,18 +25,16 @@ export type InitializeGraphStateParam = {
     step: InteractiveGraphProps["step"];
     snapStep: InteractiveGraphProps["snapStep"];
     graph: InteractiveGraphProps["graph"];
-    markings: InteractiveGraphProps["markings"];
-    isMobile: boolean;
+    showHairlines: boolean;
 };
 
 export function initializeGraphState(
     params: InitializeGraphStateParam,
 ): InteractiveGraphState {
-    const {graph, step, snapStep, range, isMobile, markings} = params;
+    const {graph, step, snapStep, range, showHairlines} = params;
     const shared = {
         hasBeenInteractedWith: false,
-        isMobile,
-        markings,
+        showHairlines,
         range,
         snapStep,
     };

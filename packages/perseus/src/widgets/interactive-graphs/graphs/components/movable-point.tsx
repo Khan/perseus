@@ -40,8 +40,7 @@ export const StyledMovablePoint = (props: Props) => {
     const [[verticalEndX]] = useTransform([xMax, 0]);
     const [[_, horizontalStartY]] = useTransform([0, yMin]);
     const [[__, horizontalEndY]] = useTransform([0, yMax]);
-    const showHairlines =
-        dragging && state.isMobile && state.markings !== "none";
+    const showHairlines = dragging && state.showHairlines;
 
     return (
         <>
