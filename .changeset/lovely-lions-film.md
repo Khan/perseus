@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Remove Deprecated Widgets
+Remove Deprecated Widgets (`lights-puzzle` and `reaction-diagram`)
