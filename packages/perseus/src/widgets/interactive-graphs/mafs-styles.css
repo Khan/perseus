@@ -64,10 +64,7 @@
     cursor: grabbing;
 }
 
-.MafsView .movable-point.dragging :is(
-        .movable-point-ring,
-        .movable-point-halo
-) {
+.MafsView .movable-point.dragging .movable-point-halo {
     opacity: 0;
 }
 
