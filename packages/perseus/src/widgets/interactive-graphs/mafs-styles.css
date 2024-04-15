@@ -129,3 +129,14 @@
 .MafsView .movable-point:focus-visible .movable-point-focus-outline {
     visibility: visible;
 }
+
+@font-face {
+    font-family: Mafs-MJXTEX;
+    src: url("https://cdn.kastatic.org/fonts/mathjax/MathJax_Main-Regular.woff")
+        format("woff");
+}
+
+.MafsView .axis-ticks text {
+    font-size: 14px;
+    font-family: "Mafs-MJXTEX";
+}
