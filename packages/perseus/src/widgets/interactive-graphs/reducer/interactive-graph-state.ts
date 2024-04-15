@@ -13,56 +13,62 @@ import type {
 } from "../../../perseus-types";
 import type {
     InitializeGraphStateParams,
+    InteractiveGraphProps,
     InteractiveGraphState,
     PairOfPoints,
 } from "../types";
 import type {Coord} from "@khanacademy/perseus";
-import type {Interval, vec} from "mafs";
+import type {Interval} from "mafs";
 
-export function initializeGraphState(params: {
-    range: [Interval, Interval];
-    step: vec.Vector2;
-    snapStep: vec.Vector2;
-    graph: PerseusGraphType;
-}): InteractiveGraphState {
-    const {graph, step, snapStep, range} = params;
+export type InitializeGraphStateParam = {
+    range: InteractiveGraphProps["range"];
+    step: InteractiveGraphProps["step"];
+    snapStep: InteractiveGraphProps["snapStep"];
+    graph: InteractiveGraphProps["graph"];
+    markings: InteractiveGraphProps["markings"];
+    isMobile: boolean;
+};
+
+export function initializeGraphState(
+    params: InitializeGraphStateParam,
+): InteractiveGraphState {
+    const {graph, step, snapStep, range, isMobile, markings} = params;
+    const shared = {
+        hasBeenInteractedWith: false,
+        isMobile,
+        markings,
+        range,
+        snapStep,
+    };
     switch (graph.type) {
         case "segment":
             return {
+                ...shared,
                 type: "segment",
-                hasBeenInteractedWith: false,
-                range,
-                snapStep,
                 coords: getDefaultSegments({graph, step, range}),
             };
         case "linear":
         case "linear-system":
         case "ray":
             return {
+                ...shared,
                 type: graph.type,
-                hasBeenInteractedWith: false,
-                range,
-                snapStep,
                 // Linear and ray graphs have a single tuple of points, while a
                 // linear system has two tuples of points.
                 coords: getLineCoords({graph, range, step}),
             };
         case "polygon":
             return {
+                ...shared,
                 type: "polygon",
-                hasBeenInteractedWith: false,
-                range,
-                snapStep,
                 showAngles: Boolean(graph.showAngles),
                 showSides: Boolean(graph.showSides),
                 coords: getPolygonCoords({graph, range, step}),
             };
         case "point":
             return {
+                ...shared,
                 type: graph.type,
-                hasBeenInteractedWith: false,
-                range,
-                snapStep,
                 coords: getDefaultPoints({graph, step, range}),
             };
         case "angle":

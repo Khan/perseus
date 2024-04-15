@@ -14,6 +14,8 @@ import type {InteractiveGraphState} from "../types";
 
 const baseSegmentGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
+    markings: "graph",
+    isMobile: false,
     type: "segment",
     range: [
         [-10, 10],
@@ -25,6 +27,8 @@ const baseSegmentGraphState: InteractiveGraphState = {
 
 const basePointGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
+    markings: "graph",
+    isMobile: false,
     type: "point",
     range: [
         [-10, 10],

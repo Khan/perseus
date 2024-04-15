@@ -41,6 +41,7 @@ export type Props = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
+    isMobile: boolean;
 };
 
 const renderGraph = (props: {

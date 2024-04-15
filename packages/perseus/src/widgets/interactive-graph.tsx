@@ -1826,6 +1826,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     gridStep={gridStep}
                     snapStep={snapStep}
                     box={box}
+                    isMobile={this.props.apiOptions.isMobile}
                 />
             );
         }

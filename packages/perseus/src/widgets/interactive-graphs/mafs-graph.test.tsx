@@ -26,6 +26,7 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         graph: {type: "segment"},
         containerSizeClass: "small",
         onChange: () => {},
+        isMobile: false,
     };
 }
 
@@ -106,6 +107,8 @@ describe("MafsGraph", () => {
         const state: InteractiveGraphState = {
             type: "segment",
             hasBeenInteractedWith: true,
+            markings: "graph",
+            isMobile: false,
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -153,6 +156,8 @@ describe("MafsGraph", () => {
         const state: InteractiveGraphState = {
             type: "point",
             hasBeenInteractedWith: true,
+            markings: "graph",
+            isMobile: false,
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -207,6 +212,8 @@ describe("MafsGraph", () => {
         const state: InteractiveGraphState = {
             type: "segment",
             hasBeenInteractedWith: true,
+            markings: "graph",
+            isMobile: false,
             range: [
                 [-10, 10],
                 [-10, 10],
