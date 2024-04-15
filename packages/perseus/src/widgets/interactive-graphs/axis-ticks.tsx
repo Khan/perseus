@@ -97,7 +97,6 @@ export function generateTickLocations(
 type Props = {
     tickStep: [number, number];
     range: [[number, number], [number, number]];
-    graphSize: vec.Vector2;
 };
 
 export const AxisTicks = (props: Props) => {
