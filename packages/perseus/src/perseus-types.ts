@@ -800,13 +800,6 @@ export type PerseusLabelImageMarker = {
     y: number;
 };
 
-export type PerseusLightsPuzzleWidgetOptions = {
-    cells?: ReadonlyArray<ReadonlyArray<boolean>>;
-    startCells?: ReadonlyArray<ReadonlyArray<boolean>>;
-    flipPattern?: string;
-    moveCount?: number;
-};
-
 export type PerseusMatcherWidgetOptions = {
     // Translatable Text; Labels to adorn the headings for the columns.  Only 2 values [left, right]. e.g. ["Concepts", "Things"]
     labels: ReadonlyArray<string>;
@@ -1455,24 +1448,6 @@ export type PerseusMoleculeRendererWidgetOptions = {
 
 export type PerseusPassageRefTargetWidgetOptions = {
     content: string;
-};
-
-export type PerseusReactionDiagramWidgetOptions = {
-    rotationAngle: ReadonlyArray<number>;
-    widgetId: string;
-    separators: ReadonlyArray<PerseusReactionDiagramSeparators>;
-    smiles: ReadonlyArray<string>;
-};
-
-export type PerseusReactionDiagramSeparators = {
-    type: string;
-    topText: string;
-    bottomText: string;
-};
-
-export type PerseusReactionDiagramSeparatorsData = {
-    topText: string;
-    bottomText: string;
 };
 
 export type PerseusSimpleMarkdownTesterWidgetOptions = {
