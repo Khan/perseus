@@ -65,11 +65,11 @@
     outline: none;
 }
 
-.MafsView .movable-point.dragging {
+.MafsView .movable-point.movable-point--dragging {
     cursor: grabbing;
 }
 
-.MafsView .movable-point.dragging .movable-point-halo {
+.MafsView .movable-point.movable-point--dragging .movable-point-halo {
     opacity: 0;
 }
 
