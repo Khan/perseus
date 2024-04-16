@@ -95,6 +95,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const [width, height] = props.box;
 
     const prevState = useRef<InteractiveGraphState>(state);
+    const graphOptions = {
+        labels: props.labels,
+    };
+
     useEffect(() => {
         if (prevState.current !== state) {
             props.onChange({graph: state});

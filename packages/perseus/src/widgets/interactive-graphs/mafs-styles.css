@@ -130,3 +130,8 @@
 .MafsView > svg {
     overflow: visible;
 }
+
+.MafsView > svg > text {
+    font-family: "MJXTEX";
+    font-style: italic;
+}
