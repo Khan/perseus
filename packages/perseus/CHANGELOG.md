@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 21.3.1
+
+### Patch Changes
+
+-   [#1171](https://github.com/Khan/perseus/pull/1171) [`53fa89b50`](https://github.com/Khan/perseus/commit/53fa89b50240309dcf56919b77715e135682e0ee) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Adjust movable point style while dragging
+
+*   [#1170](https://github.com/Khan/perseus/pull/1170) [`9c5363795`](https://github.com/Khan/perseus/commit/9c53637953ff0267306bdc98175be9770bf2f098) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Remove Deprecated Widgets (`lights-puzzle` and `reaction-diagram`)
+
+-   [#1173](https://github.com/Khan/perseus/pull/1173) [`ce547c5ec`](https://github.com/Khan/perseus/commit/ce547c5ec1ef0d17e0adebe24532c93007e82c4d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change APIOptions.flags to be strongly typed
+
 ## 21.3.0
 
 ### Minor Changes
