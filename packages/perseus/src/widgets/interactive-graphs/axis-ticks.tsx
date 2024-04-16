@@ -11,7 +11,24 @@ const tickStyle: React.CSSProperties = {
     strokeWidth: 1,
 };
 
-const YGridTick = ({y}: {y: number}) => {
+const showTickLabel = (
+    gridStep: number,
+    tickStep: number,
+    label: number,
+): boolean => {
+    const showLabel = gridStep > tickStep ? true : label !== -tickStep;
+    return showLabel;
+};
+
+const YGridTick = ({
+    y,
+    gridStep,
+    tickStep,
+}: {
+    y: number;
+    gridStep: number;
+    tickStep: number;
+}) => {
     const pointOnAxis: vec.Vector2 = [0, y];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
@@ -28,21 +45,30 @@ const YGridTick = ({y}: {y: number}) => {
                 // TODO (LEMS-1891): Negative one is a special case as the labels can
                 // overlap with the axis line. We should handle this case more gracefully.
             }
-
-            <text
-                height={20}
-                width={50}
-                textAnchor="end"
-                x={xPosition - 10}
-                y={yPosition + 5}
-            >
-                {y.toString()}
-            </text>
+            {showTickLabel(gridStep, tickStep, y) && (
+                <text
+                    height={20}
+                    width={50}
+                    textAnchor="end"
+                    x={xPosition - 10}
+                    y={yPosition + 5}
+                >
+                    {y.toString()}
+                </text>
+            )}
         </g>
     );
 };
 
-const XGridTick = ({x}: {x: number}) => {
+const XGridTick = ({
+    x,
+    gridStep,
+    tickStep,
+}: {
+    x: number;
+    gridStep: number;
+    tickStep: number;
+}) => {
     const pointOnAxis: vec.Vector2 = [x, 0];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
@@ -59,16 +85,17 @@ const XGridTick = ({x}: {x: number}) => {
                 // TODO (LEMS-1891): Negative one is a special case as the labels can
                 // overlap with the axis line. We should handle this case more gracefully.
             }
-
-            <text
-                height={20}
-                width={50}
-                textAnchor="middle"
-                x={xPosition}
-                y={yPosition + 25}
-            >
-                {x.toString()}
-            </text>
+            {showTickLabel(gridStep, tickStep, x) && (
+                <text
+                    height={20}
+                    width={50}
+                    textAnchor="middle"
+                    x={xPosition}
+                    y={yPosition + 25}
+                >
+                    {x.toString()}
+                </text>
+            )}
         </g>
     );
 };
@@ -85,9 +112,8 @@ export function generateTickLocations(
         ticks.push(i);
     }
 
-    // Add ticks in the negative direction, but skip the first tick
-    // as it will overlap with the label on the other axis line
-    for (let i = 0 - tickStep * 2; i > min; i -= tickStep) {
+    // Add ticks in the negative direction
+    for (let i = 0 - tickStep; i > min; i -= tickStep) {
         ticks.push(i);
     }
     return ticks;
@@ -96,6 +122,7 @@ export function generateTickLocations(
 type Props = {
     tickStep: [number, number];
     range: [[number, number], [number, number]];
+    gridStep: [number, number];
 };
 
 export const AxisTicks = (props: Props) => {
@@ -113,10 +140,24 @@ export const AxisTicks = (props: Props) => {
     return (
         <g className="axis-ticks">
             {yGridTicks.map((y) => {
-                return <YGridTick y={y} key={`y-grid-tick-${y}`} />;
+                return (
+                    <YGridTick
+                        y={y}
+                        key={`y-grid-tick-${y}`}
+                        gridStep={props.gridStep[0]}
+                        tickStep={yTickStep}
+                    />
+                );
             })}
             {xGridTicks.map((x) => {
-                return <XGridTick x={x} key={`x-grid-tick-${x}`} />;
+                return (
+                    <XGridTick
+                        x={x}
+                        key={`x-grid-tick-${x}`}
+                        gridStep={props.gridStep[1]}
+                        tickStep={xTickStep}
+                    />
+                );
             })}
         </g>
     );
