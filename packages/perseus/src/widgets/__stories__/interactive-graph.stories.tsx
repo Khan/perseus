@@ -13,6 +13,7 @@ import {
     rayQuestion,
     segmentQuestion,
     segmentWithLockedPointsQuestion,
+    segmentWithLockedLineQuestion,
     sinusoidQuestion,
 } from "../__testdata__/interactive-graph.testdata";
 
@@ -74,6 +75,21 @@ export const SegmentWithMafsAndLockedPoints = (
             },
         }}
         question={segmentWithLockedPointsQuestion}
+    />
+);
+
+export const SegmentWithMafsAndLockedLines = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={{
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        }}
+        question={segmentWithLockedLineQuestion}
     />
 );
 

@@ -2,6 +2,7 @@ import type {
     LockedFigure,
     LockedFigureType,
     LockedPointType,
+    LockedLineType,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
@@ -58,6 +59,23 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 color: "blue",
                 filled: true,
             } as LockedPointType;
+        case "line":
+            return {
+                type: "line",
+                kind: "line",
+                points: [
+                    getDefaultFigureForType("point"),
+                    {
+                        ...getDefaultFigureForType("point"),
+                        coord: [2, 2],
+                    },
+                ],
+                color: "blue",
+                lineStyle: "solid",
+                showArrows: false,
+                showStartPoint: false,
+                showEndPoint: false,
+            } as LockedLineType;
     }
 }
 

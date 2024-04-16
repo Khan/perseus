@@ -17,6 +17,7 @@ import {
     rayQuestionWithDefaultCorrect,
     polygonQuestionDefaultCorrect,
     pointQuestionWithDefaultCorrect,
+    segmentWithLockedLineQuestion,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
@@ -245,7 +246,7 @@ describe("mafs graphs", () => {
                 stroke: color.blue,
             });
             expect(points[1]).toHaveStyle({
-                fill: color.blue,
+                fill: color.white,
                 stroke: color.blue,
             });
         });
@@ -288,7 +289,7 @@ describe("locked layer", () => {
 
         // Assert
         expect(points[0]).toHaveStyle({fill: color.blue, stroke: color.blue});
-        expect(points[1]).toHaveStyle({fill: color.blue, stroke: color.blue});
+        expect(points[1]).toHaveStyle({fill: color.white, stroke: color.blue});
     });
 
     test("should render locked points with styles when color is specified", async () => {
@@ -313,5 +314,72 @@ describe("locked layer", () => {
         // Assert
         expect(points[0]).toHaveStyle({fill: color.green, stroke: color.green});
         expect(points[1]).toHaveStyle({fill: color.green, stroke: color.green});
+    });
+
+    test("should render locked lines", () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const lines = container.querySelectorAll(".locked-line");
+
+        // Assert
+        expect(lines).toHaveLength(2);
+    });
+
+    test("should render locked lines with styles", () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const lines = container.querySelectorAll(".locked-line line");
+
+        // Assert
+        expect(lines).toHaveLength(2);
+        expect(lines[0]).toHaveStyle({stroke: color.purple});
+        expect(lines[1]).toHaveStyle({stroke: color.green});
+    });
+
+    test("should render locked lines with shown points", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const points = container.querySelectorAll(".locked-line circle");
+
+        // Assert
+        expect(points).toHaveLength(4);
+        // Two points for each line
+        expect(points[0]).toHaveStyle({
+            fill: color.purple,
+            stroke: color.purple,
+        });
+        expect(points[1]).toHaveStyle({
+            fill: color.white,
+            stroke: color.purple,
+        });
+        expect(points[2]).toHaveStyle({fill: color.green, stroke: color.green});
+        expect(points[3]).toHaveStyle({fill: color.white, stroke: color.green});
     });
 });

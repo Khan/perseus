@@ -975,7 +975,7 @@ export const segmentWithLockedPointsQuestion: PerseusRenderer = {
                         type: "point",
                         coord: [2, -5],
                         color: "blue",
-                        filled: true,
+                        filled: false,
                     },
                 ],
             },
@@ -1033,6 +1033,120 @@ export const segmentWithLockedPointsWithColorQuestion: PerseusRenderer = {
                         coord: [2, -5],
                         color: "green",
                         filled: true,
+                    },
+                ],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const segmentWithLockedLineQuestion: PerseusRenderer = {
+    content:
+        "Line segment $\\overline{OG}$ is rotated $180^\\circ$ about the point $(-2,4)$.  \n\n**Draw the image of this rotation using the interactive graph.**\n\n*The direction of a rotation by a positive angle is counter-clockwise.* \n\n[[☃ interactive-graph 1]]\n\n",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [
+                            [-7, -7],
+                            [2, -5],
+                        ],
+                    ],
+                    type: "segment",
+                },
+                graph: {
+                    type: "segment",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+                lockedFigures: [
+                    {
+                        type: "line",
+                        kind: "line",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -7],
+                                color: "purple",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -5],
+                                color: "purple",
+                                filled: false,
+                            },
+                        ],
+                        color: "purple",
+                        lineStyle: "solid",
+                        showArrows: false,
+                        showStartPoint: true,
+                        showEndPoint: true,
+                    },
+                    {
+                        type: "line",
+                        kind: "ray",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -6],
+                                color: "blue",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -4],
+                                color: "blue",
+                                filled: false,
+                            },
+                        ],
+                        color: "blue",
+                        lineStyle: "solid",
+                        showArrows: false,
+                        showStartPoint: true,
+                        showEndPoint: true,
+                    },
+                    {
+                        type: "line",
+                        kind: "segment",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -5],
+                                color: "green",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -3],
+                                color: "green",
+                                filled: false,
+                            },
+                        ],
+                        color: "green",
+                        lineStyle: "solid",
+                        showArrows: false,
+                        showStartPoint: true,
+                        showEndPoint: true,
                     },
                 ],
             },

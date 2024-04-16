@@ -654,14 +654,25 @@ export type PerseusInteractiveGraphWidgetOptions = {
     lockedFigures?: ReadonlyArray<LockedFigure>;
 };
 
-export type LockedFigure = LockedPointType;
-export type LockedFigureType = "point";
+export type LockedFigure = LockedPointType | LockedLineType;
+export type LockedFigureType = "point" | "line";
 
 export type LockedPointType = {
     type: "point";
     coord: Coord;
     color: string;
     filled: boolean;
+};
+
+export type LockedLineType = {
+    type: "line";
+    kind: "line" | "ray" | "segment";
+    points: [startPoint: LockedPointType, endPoint: LockedPointType];
+    color: string;
+    lineStyle: "solid" | "dashed";
+    showArrows: boolean;
+    showStartPoint: boolean;
+    showEndPoint: boolean;
 };
 
 export type PerseusGraphType =

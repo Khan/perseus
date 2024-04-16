@@ -53,7 +53,7 @@ const LockedFiguresSection = (props: Props) => {
                 {
                     ...lockedFigures[index],
                     ...newProps,
-                },
+                } as LockedFigure,
                 ...lockedFigures.slice(index + 1),
             ],
         };
@@ -62,14 +62,23 @@ const LockedFiguresSection = (props: Props) => {
 
     return (
         <View style={styles.container}>
-            {figures?.map((figure, index) => (
-                <LockedFigureSettings
-                    key={`${uniqueId}-locked-${figure}-${index}`}
-                    {...figure}
-                    onChangeProps={(newProps) => changeProps(index, newProps)}
-                    onRemove={() => removeLockedFigure(index)}
-                />
-            ))}
+            {figures?.map((figure, index) => {
+                // TODO(LEMS-1740): Remove this check when
+                // locked lines are added to LockedFigureSettings.
+                if (figure.type === "line") {
+                    return;
+                }
+                return (
+                    <LockedFigureSettings
+                        key={`${uniqueId}-locked-${figure}-${index}`}
+                        {...figure}
+                        onChangeProps={(newProps) =>
+                            changeProps(index, newProps)
+                        }
+                        onRemove={() => removeLockedFigure(index)}
+                    />
+                );
+            })}
             <LockedFigureSelect
                 id={`${uniqueId}-select`}
                 onChange={addLockedFigure}

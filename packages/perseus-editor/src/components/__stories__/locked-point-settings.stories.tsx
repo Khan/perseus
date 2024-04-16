@@ -3,6 +3,7 @@ import * as React from "react";
 import LockedPointSettings from "../locked-point-settings";
 import {getDefaultFigureForType} from "../util";
 
+import type {LockedPointType} from "@khanacademy/perseus";
 import type {Meta, StoryObj} from "@storybook/react";
 
 export default {
@@ -25,7 +26,7 @@ Default.args = {
 export const Controlled: StoryComponentType = {
     render: function Render() {
         const [props, setProps] = React.useState(
-            getDefaultFigureForType("point"),
+            getDefaultFigureForType("point") as LockedPointType,
         );
 
         const handlePropsUpdate = (newProps) => {
@@ -54,7 +55,7 @@ export const Toggleable: StoryComponentType = {
     render: function Render() {
         const [toggled, setToggled] = React.useState(true);
         const [props, setProps] = React.useState(
-            getDefaultFigureForType("point"),
+            getDefaultFigureForType("point") as LockedPointType,
         );
 
         const handlePropsUpdate = (newProps) => {
