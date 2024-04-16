@@ -4,39 +4,48 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {TextField} from "@khanacademy/wonder-blocks-form";
+import {Checkbox, TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {Spring} from "@khanacademy/wonder-blocks-layout";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Switch from "@khanacademy/wonder-blocks-switch";
+import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {getValidNumberFromString} from "./util";
+import {getValidNumberFromString, possibleColors} from "./util";
 
-import type {LockedPoint} from "@khanacademy/perseus";
+import type {LockedPointType} from "@khanacademy/perseus";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-const possibleColors = [
-    "purple",
-    "blue",
-    "teal",
-    "green",
-    "gold",
-    "red",
-    "pink",
-];
-
-export type Props = LockedPoint & {
-    onRemove: () => void;
-    onChangeCoord: (coord: [number, number]) => void;
-    onChangeColor: (color: string) => void;
+export type Props = LockedPointType & {
+    label?: string;
+    toggled?: boolean;
+    style?: StyleType;
+    onRemove?: () => void;
+    onToggle?: (newValue) => void;
+    onChangeProps: (newProps: Partial<LockedPointType>) => void;
 };
 
 const LockedPointSettings = (props: Props) => {
-    const {coord, style, onChangeColor, onChangeCoord, onRemove} = props;
+    const {
+        coord,
+        color: pointColor,
+        filled = "true",
+        label,
+        toggled = "true",
+        style,
+        onChangeProps,
+        onToggle,
+        onRemove,
+    } = props;
+
+    // Keep track of the coordinates via state as the user is editing them,
+    // before they are updated in the props on blur.
     const [coordState, setCoordState] = React.useState([
         // Using strings to make it easier to work with the text fields.
         coord[0].toString(),
@@ -48,7 +57,8 @@ const LockedPointSettings = (props: Props) => {
     const ids = useUniqueIdWithMock();
     const xCoordId = ids.get("x-coord");
     const yCoordId = ids.get("y-coord");
-    const colorSelectId = ids.get("color-select");
+    const colorSelectId = ids.get("point-color-select");
+    const showPointToggleId = ids.get("show-point-toggle");
 
     function handleBlur() {
         const validCoord = [
@@ -59,7 +69,7 @@ const LockedPointSettings = (props: Props) => {
         // Make the text field only show valid numbers after blur.
         setCoordState([validCoord[0].toString(), validCoord[1].toString()]);
         // Update the graph with the new coordinates.
-        onChangeCoord(validCoord);
+        onChangeProps({coord: validCoord});
     }
 
     function handleCoordChange(newValue, coordIndex) {
@@ -68,105 +78,183 @@ const LockedPointSettings = (props: Props) => {
         setCoordState(newCoord);
     }
 
+    function handleColorChange(newValue) {
+        onChangeProps({color: newValue});
+    }
+
     return (
-        <View style={styles.container}>
-            {/* Title row */}
-            <View style={styles.row}>
-                <LabelLarge>Point</LabelLarge>
-                <Spring />
-                <IconButton
-                    icon={trashIcon}
-                    aria-label={`Delete locked point at ${coordState[0]}, ${coordState[1]}`}
-                    onClick={onRemove}
-                />
-            </View>
-
-            {/* Coordinates */}
-            <View>
+        <AccordionSection
+            style={[styles.container, style]}
+            headerStyle={styles.accordionHeader}
+            header={
                 <View style={styles.row}>
-                    <LabelMedium
-                        htmlFor={xCoordId}
-                        style={styles.label}
-                        tag="label"
-                    >
-                        x Coordinate
-                    </LabelMedium>
-                    <TextField
-                        id={xCoordId}
-                        value={coordState[0]}
-                        onChange={(newValue) => handleCoordChange(newValue, 0)}
-                        onBlur={handleBlur}
-                        style={styles.textField}
-                    />
+                    <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
+                    <Strut size={spacing.xSmall_8} />
+                    {toggled && (
+                        <View
+                            aria-label={`Point color: ${pointColor}, ${filled ? "filled" : "open"}`}
+                            style={[
+                                styles.colorCircle,
+                                styles.spaceStart,
+                                {
+                                    border: `4px solid ${wbColor[pointColor]}`,
+                                    backgroundColor: filled
+                                        ? wbColor[pointColor]
+                                        : wbColor.white,
+                                },
+                            ]}
+                        />
+                    )}
                 </View>
-
+            }
+        >
+            <View style={styles.accordionPanel}>
+                {/* Coordinates */}
                 <View style={styles.row}>
-                    <LabelMedium
-                        htmlFor={yCoordId}
-                        style={styles.label}
-                        tag="label"
-                    >
-                        y Coordinate
-                    </LabelMedium>
-                    <TextField
-                        id={yCoordId}
-                        value={coordState[1]}
-                        onChange={(newValue) => handleCoordChange(newValue, 1)}
-                        onBlur={handleBlur}
-                        style={styles.textField}
-                    />
-                </View>
-            </View>
-
-            {/* Color */}
-            <View style={styles.row}>
-                <LabelMedium
-                    htmlFor={colorSelectId}
-                    style={styles.label}
-                    tag="label"
-                >
-                    Color
-                </LabelMedium>
-                <SingleSelect
-                    id={colorSelectId}
-                    selectedValue={style?.fill || "blue"}
-                    onChange={onChangeColor}
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
-                >
-                    {possibleColors.map((colorName) => (
-                        <OptionItem
-                            key={colorName}
-                            value={colorName}
-                            label={colorName}
-                            leftAccessory={
-                                <View
-                                    style={[
-                                        styles.colorCircle,
-                                        {backgroundColor: color[colorName]},
-                                    ]}
-                                />
-                            }
+                    <View style={[styles.row, styles.spaceUnder]}>
+                        <LabelMedium
+                            htmlFor={xCoordId}
+                            style={styles.label}
+                            tag="label"
                         >
-                            {colorName}
-                        </OptionItem>
-                    ))}
-                </SingleSelect>
+                            x Coord
+                        </LabelMedium>
+                        <TextField
+                            id={xCoordId}
+                            type="number"
+                            value={coordState[0]}
+                            onChange={(newValue) =>
+                                handleCoordChange(newValue, 0)
+                            }
+                            onBlur={handleBlur}
+                            style={styles.textField}
+                        />
+                    </View>
+
+                    <Strut size={spacing.medium_16} />
+
+                    <View style={[styles.row, styles.spaceUnder]}>
+                        <LabelMedium
+                            htmlFor={yCoordId}
+                            style={styles.label}
+                            tag="label"
+                        >
+                            y Coord
+                        </LabelMedium>
+                        <TextField
+                            id={yCoordId}
+                            type="number"
+                            value={coordState[1]}
+                            onChange={(newValue) =>
+                                handleCoordChange(newValue, 1)
+                            }
+                            onBlur={handleBlur}
+                            style={styles.textField}
+                        />
+                    </View>
+                </View>
+
+                {onToggle && (
+                    <View style={[styles.row, styles.spaceUnder]}>
+                        <Switch
+                            id={showPointToggleId}
+                            checked={!!toggled}
+                            onChange={onToggle}
+                        />
+                        <Strut size={spacing.small_12} />
+                        <LabelMedium tag="label" htmlFor={showPointToggleId}>
+                            Show point on graph
+                        </LabelMedium>
+                    </View>
+                )}
+
+                {/* Toggleable section */}
+                {toggled && (
+                    <>
+                        {/* Color */}
+                        <View style={[styles.row, styles.spaceUnder]}>
+                            <LabelMedium
+                                htmlFor={colorSelectId}
+                                style={styles.label}
+                                tag="label"
+                            >
+                                Color
+                            </LabelMedium>
+                            <SingleSelect
+                                id={colorSelectId}
+                                selectedValue={pointColor || "blue"}
+                                onChange={handleColorChange}
+                                // Placeholder is required, but never gets used.
+                                placeholder=""
+                            >
+                                {possibleColors.map((colorName) => (
+                                    <OptionItem
+                                        key={colorName}
+                                        value={colorName}
+                                        label={colorName}
+                                        leftAccessory={
+                                            <View
+                                                style={[
+                                                    styles.colorCircle,
+                                                    {
+                                                        backgroundColor:
+                                                            wbColor[colorName],
+                                                    },
+                                                ]}
+                                            />
+                                        }
+                                    >
+                                        {colorName}
+                                    </OptionItem>
+                                ))}
+                            </SingleSelect>
+                        </View>
+                        <Checkbox
+                            label="Open point"
+                            checked={!filled}
+                            onChange={(newValue) => {
+                                onChangeProps({filled: !newValue});
+                            }}
+                            style={styles.spaceUnder}
+                        />
+                    </>
+                )}
+
+                {onRemove && (
+                    <IconButton
+                        icon={trashIcon}
+                        aria-label={`Delete locked point at ${coordState[0]}, ${coordState[1]}`}
+                        onClick={onRemove}
+                        style={styles.deleteButton}
+                    />
+                )}
             </View>
-        </View>
+        </AccordionSection>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: color.fadedBlue8,
-        marginBottom: spacing.xSmall_8,
+        backgroundColor: wbColor.fadedBlue8,
+        marginBottom: spacing.small_12,
+    },
+    accordionHeader: {
+        paddingTop: spacing.small_12,
+        paddingBottom: spacing.small_12,
+        paddingInlineStart: spacing.medium_16,
+        // Fixed height so the addition of the color circle doesn't
+        // change the height of the header when toggling.
+        height: spacing.xxLarge_48,
+    },
+    accordionPanel: {
         padding: spacing.medium_16,
-        borderRadius: spacing.xSmall_8,
+        paddingBottom: spacing.xSmall_8,
     },
     row: {
         flexDirection: "row",
         alignItems: "center",
+    },
+    spaceUnder: {
         marginBottom: spacing.xSmall_8,
     },
     label: {
@@ -176,12 +264,17 @@ const styles = StyleSheet.create({
         width: spacing.xxxLarge_64,
     },
     colorCircle: {
-        // Add a white border so that the color circle is visible when
+        // Add a white outline so that the color circle is visible when
         // the dropdown option is highlighted with its blue background.
-        border: `2px solid ${color.offWhite}`,
+        outline: `2px solid ${wbColor.offWhite}`,
         borderRadius: "50%",
         width: spacing.large_24,
         height: spacing.large_24,
+    },
+    deleteButton: {
+        position: "absolute",
+        top: spacing.small_12,
+        right: spacing.small_12,
     },
 });
 

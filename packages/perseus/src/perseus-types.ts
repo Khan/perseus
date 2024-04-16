@@ -10,11 +10,6 @@ export type Range = Interval;
 export type Size = [number, number];
 export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
 
-export type StyleParams = {
-    fill?: string;
-    stroke?: string;
-};
-
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
 
@@ -659,13 +654,14 @@ export type PerseusInteractiveGraphWidgetOptions = {
     lockedFigures?: ReadonlyArray<LockedFigure>;
 };
 
-export type LockedFigure = LockedPoint;
+export type LockedFigure = LockedPointType;
 export type LockedFigureType = "point";
 
-export type LockedPoint = {
+export type LockedPointType = {
     type: "point";
     coord: Coord;
-    style?: StyleParams;
+    color: string;
+    filled: boolean;
 };
 
 export type PerseusGraphType =

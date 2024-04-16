@@ -1,7 +1,7 @@
 import type {
     LockedFigure,
     LockedFigureType,
-    LockedPoint,
+    LockedPointType,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
@@ -49,14 +49,24 @@ export function getValidNumberFromString(value: string) {
     return isNaN(parsed) ? 0 : parsed;
 }
 
-export function getDefaultFigureForFigureType(
-    type: LockedFigureType,
-): LockedFigure {
+export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
     switch (type) {
         case "point":
             return {
                 type: "point",
                 coord: [0, 0],
-            } as LockedPoint;
+                color: "blue",
+                filled: true,
+            } as LockedPointType;
     }
 }
+
+export const possibleColors = [
+    "purple",
+    "blue",
+    "teal",
+    "green",
+    "gold",
+    "red",
+    "pink",
+];
