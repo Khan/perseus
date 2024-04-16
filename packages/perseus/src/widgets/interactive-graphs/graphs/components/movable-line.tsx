@@ -1,4 +1,4 @@
-import {vec, useMovable, Vector} from "mafs";
+import {vec, useMovable} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
@@ -7,7 +7,8 @@ import {useTransform} from "../use-transform";
 import {getRayIntersectionCoords} from "../utils";
 
 import type {Interval} from "mafs";
-import type {SVGProps} from "react";
+import {SVGLine} from "./svg-line";
+import {Vector} from "./vector";
 
 const defaultStroke = "var(--movable-line-stroke-color)";
 
@@ -88,7 +89,7 @@ export const MovableLine = (props: Props) => {
                         stroke,
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
-                    dragging={dragging}
+                    className={dragging ? "movable-dragging" : ""}
                     testId="movable-line__line"
                 />
             </g>
@@ -101,26 +102,3 @@ export const MovableLine = (props: Props) => {
         </>
     );
 };
-
-function SVGLine(props: {
-    start: vec.Vector2;
-    end: vec.Vector2;
-    style?: SVGProps<SVGLineElement>["style"];
-    className?: string;
-    dragging?: boolean;
-    testId?: string;
-}) {
-    const {start, end, style, dragging, className, testId} = props;
-    const draggingClass = dragging ? "movable-dragging" : "";
-    return (
-        <line
-            x1={start[0]}
-            y1={start[1]}
-            x2={end[0]}
-            y2={end[1]}
-            style={style}
-            className={`${className} ${draggingClass}`}
-            data-test-id={testId}
-        />
-    );
-}
