@@ -28,17 +28,16 @@ const YGridTick = ({y}: {y: number}) => {
                 // TODO (LEMS-1891): Negative one is a special case as the labels can
                 // overlap with the axis line. We should handle this case more gracefully.
             }
-            {y !== -1 && (
-                <text
-                    height={20}
-                    width={50}
-                    textAnchor="end"
-                    x={xPosition - 10}
-                    y={yPosition + 5}
-                >
-                    {y.toString()}
-                </text>
-            )}
+
+            <text
+                height={20}
+                width={50}
+                textAnchor="end"
+                x={xPosition - 10}
+                y={yPosition + 5}
+            >
+                {y.toString()}
+            </text>
         </g>
     );
 };
@@ -60,17 +59,16 @@ const XGridTick = ({x}: {x: number}) => {
                 // TODO (LEMS-1891): Negative one is a special case as the labels can
                 // overlap with the axis line. We should handle this case more gracefully.
             }
-            {x !== -1 && (
-                <text
-                    height={20}
-                    width={50}
-                    textAnchor="middle"
-                    x={xPosition}
-                    y={yPosition + 25}
-                >
-                    {x.toString()}
-                </text>
-            )}
+
+            <text
+                height={20}
+                width={50}
+                textAnchor="middle"
+                x={xPosition}
+                y={yPosition + 25}
+            >
+                {x.toString()}
+            </text>
         </g>
     );
 };
@@ -87,8 +85,9 @@ export function generateTickLocations(
         ticks.push(i);
     }
 
-    // Add ticks in the negative direction
-    for (let i = 0 - tickStep; i > min; i -= tickStep) {
+    // Add ticks in the negative direction, but skip the first tick
+    // as it will overlap with the label on the other axis line
+    for (let i = 0 - tickStep * 2; i > min; i -= tickStep) {
         ticks.push(i);
     }
     return ticks;
