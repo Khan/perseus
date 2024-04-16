@@ -1,5 +1,35 @@
 # @khanacademy/perseus
 
+## 21.3.0
+
+### Minor Changes
+
+-   [#1157](https://github.com/Khan/perseus/pull/1157) [`163e650d4`](https://github.com/Khan/perseus/commit/163e650d47732f80395934761bc44714cd89d937) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Inclusion of new MathJax-rendered tick labels for interactive graph.
+
+*   [#1162](https://github.com/Khan/perseus/pull/1162) [`754934486`](https://github.com/Khan/perseus/commit/754934486b89e3d308e75cd46acde823266ac588) Thanks [@benchristel](https://github.com/benchristel)! - Update the style of focused lines in Mafs interactive graphs
+
+### Patch Changes
+
+-   [#1163](https://github.com/Khan/perseus/pull/1163) [`98ae896e1`](https://github.com/Khan/perseus/commit/98ae896e1b4bb394f4776699e19b0eab020e14eb) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: don't snap line midpoint in Mafs graph
+
+*   [#1166](https://github.com/Khan/perseus/pull/1166) [`2ba54f4ba`](https://github.com/Khan/perseus/commit/2ba54f4ba2a3e0a447e0975f0a238a62250933ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Split MafsGraph into MafsGraph and StatefulMafsGraph
+
+-   [#1164](https://github.com/Khan/perseus/pull/1164) [`004a62e8e`](https://github.com/Khan/perseus/commit/004a62e8e71e41c7d2d9d86ff9606fdbe5893728) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Restore Padding Around Mafs Graph
+
+*   [#1167](https://github.com/Khan/perseus/pull/1167) [`44f83a700`](https://github.com/Khan/perseus/commit/44f83a700779a0a8dd6b74ba79a99dfcecb47072) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix for Mafs SVG positioning bug
+
+## 21.2.2
+
+### Patch Changes
+
+-   [#1160](https://github.com/Khan/perseus/pull/1160) [`000ce4bff`](https://github.com/Khan/perseus/commit/000ce4bff9bc91d7e3adff289a32bea972c4e827) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Style adjustments for Explanation widget button
+
+## 21.2.1
+
+### Patch Changes
+
+-   [#1146](https://github.com/Khan/perseus/pull/1146) [`369316014`](https://github.com/Khan/perseus/commit/369316014208e7bc941de77d65e77586cf9b4d9b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix focus ring on movable points in interactive-graph widget
+
 ## 21.2.0
 
 ### Minor Changes

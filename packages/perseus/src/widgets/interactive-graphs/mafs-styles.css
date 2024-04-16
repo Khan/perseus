@@ -28,15 +28,49 @@
     --movable-line-stroke-weight-active: 4px;
 }
 
-.MafsView .movable-line:is(:focus-visible, :hover),
+.MafsView > svg {
+    /* Chrome/Safari bugfix for LEMS-1906 */
+    display: block;
+}
+
+.MafsView .movable-line:hover,
 .movable-dragging {
-    outline: none;
     --movable-line-stroke-weight: var(--movable-line-stroke-weight-active);
 }
 
 .MafsView .movable-line:focus,
 .movable-polygon:focus {
     outline: none;
+}
+
+.MafsView
+    .movable-line
+    :is(.movable-line-focus-outline, .movable-line-focus-outline-gap) {
+    stroke: transparent;
+}
+
+.MafsView .movable-line:focus-visible .movable-line-focus-outline {
+    stroke: var(--mafs-blue);
+    stroke-width: 10px;
+}
+
+.MafsView .movable-line:focus-visible .movable-line-focus-outline-gap {
+    stroke: white;
+    stroke-width: 6px;
+}
+
+.MafsView .movable-point {
+    cursor: grab;
+    touch-action: none;
+    outline: none;
+}
+
+.MafsView .movable-point.movable-point--dragging {
+    cursor: grabbing;
+}
+
+.MafsView .movable-point.movable-point--dragging .movable-point-halo {
+    opacity: 0;
 }
 
 .MafsView .movable-point-hitbox {
@@ -50,7 +84,9 @@
         .movable-point-halo,
         .movable-point-focus-outline
     ) {
-    transition: r 0.15s ease-out;
+    transition:
+        r 0.15s ease-out,
+        opacity 0.15s ease-out;
 }
 
 .MafsView .movable-point-center {
@@ -108,4 +144,15 @@
 
 .MafsView .movable-point:focus-visible .movable-point-focus-outline {
     visibility: visible;
+}
+
+@font-face {
+    font-family: Mafs-MJXTEX;
+    src: url("https://cdn.kastatic.org/fonts/mathjax/MathJax_Main-Regular.woff")
+        format("woff");
+}
+
+.MafsView .axis-ticks text {
+    font-size: 14px;
+    font-family: "Mafs-MJXTEX";
 }
