@@ -2,15 +2,22 @@ import invariant from "tiny-invariant";
 
 import {initializeGraphState} from "./interactive-graph-state";
 
-import type {Interval, vec} from "mafs";
+import type {InteractiveGraphProps} from "../types";
 
-const baseGraphData: any = {
+type BaseGraphData = {
+    range: InteractiveGraphProps["range"];
+    step: InteractiveGraphProps["step"];
+    snapStep: InteractiveGraphProps["snapStep"];
+    markings: InteractiveGraphProps["markings"];
+};
+
+const baseGraphData: BaseGraphData = {
     range: [
         [-10, 10],
         [-10, 10],
-    ] as [Interval, Interval],
-    step: [1, 1] as vec.Vector2,
-    snapStep: [1, 1] as vec.Vector2,
+    ],
+    step: [1, 1],
+    snapStep: [1, 1],
     markings: "graph",
 };
 
