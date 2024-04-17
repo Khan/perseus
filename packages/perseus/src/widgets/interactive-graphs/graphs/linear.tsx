@@ -8,7 +8,7 @@ import {StyledMovablePoint} from "./components/movable-point";
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, LinearGraphState} from "../types";
 import type {vec} from "mafs";
-import useGraphModel from "../reducer/use-graph-model";
+import useGraphConfig from "../reducer/use-graph-config";
 
 type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
@@ -56,7 +56,7 @@ const LineView = (props: LineViewProps) => {
         stroke,
     } = props;
 
-    const {range} = useGraphModel();
+    const {range} = useGraphConfig();
 
     return (
         <>

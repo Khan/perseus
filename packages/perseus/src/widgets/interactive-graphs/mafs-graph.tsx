@@ -21,7 +21,7 @@ import {
     getGradableGraph,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
-import {GraphModelContext} from "./reducer/use-graph-model";
+import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {Widget} from "../../renderer";
@@ -119,7 +119,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
     return (
-        <GraphModelContext.Provider
+        <GraphConfigContext.Provider
             value={{
                 range: state.range,
                 snapStep: props.snapStep,
@@ -185,6 +185,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     </Mafs>
                 </View>
             </View>
-        </GraphModelContext.Provider>
+        </GraphConfigContext.Provider>
     );
 };

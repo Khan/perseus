@@ -3,7 +3,7 @@ import {useMovable} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
-import useGraphModel from "../../reducer/use-graph-model";
+import useGraphConfig from "../../reducer/use-graph-config";
 import {snap} from "../../utils";
 import {useTransform} from "../use-transform";
 
@@ -20,7 +20,7 @@ type Props = {
 const hitboxSizePx = 48;
 
 export const StyledMovablePoint = (props: Props) => {
-    const {range, snapStep, markings} = useGraphModel();
+    const {range, snapStep, markings} = useGraphConfig();
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
 
