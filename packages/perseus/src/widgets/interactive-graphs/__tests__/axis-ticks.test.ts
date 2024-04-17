@@ -1,4 +1,4 @@
-import {generateTickLocations} from "../axis-ticks";
+import {generateTickLocations, showTickLabel} from "../axis-ticks";
 
 describe("generateTickLocations", () => {
     it("should generate ticks from the origin", () => {
@@ -18,5 +18,13 @@ describe("generateTickLocations", () => {
         expect(generateTickLocations(3, -10, 10)).toEqual([
             3, 6, 9, -3, -6, -9,
         ]);
+    });
+
+    it("should hide the first negative axis tick label if the gridStep > tickStep", () => {
+        expect(showTickLabel(2, 1, -1)).toEqual(false);
+    });
+
+    it("should show the first negative axis tick label if the tickStep > gridStep", () => {
+        expect(showTickLabel(1, 2, -2)).toEqual(true);
     });
 });

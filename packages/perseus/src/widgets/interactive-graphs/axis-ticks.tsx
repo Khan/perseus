@@ -15,7 +15,7 @@ const tickStyle: React.CSSProperties = {
 // axis if the tickStep > gridStep, to ensure that these labels do not overlap.
 // e.g. If gridStep = 1 and tickStep = 2, there are 2 grid lines for every 1 tick,
 // which allows enough room for both these tick labels to render.
-const showTickLabel = (
+export const showTickLabel = (
     gridStep: number,
     tickStep: number,
     label: number,
