@@ -11,15 +11,16 @@ const tickStyle: React.CSSProperties = {
     strokeWidth: 1,
 };
 
-// We only want to show the initial negative tick labels on each axis if the
-// gridStep is larger than the tickStep, which allows for enough space for
-// these labels to render without overlapping.
+// We only want to show the initial negative tick labels (e.g. -1) on each
+// axis if the tickStep > gridStep, to ensure that these labels do not overlap.
+// e.g. If gridStep = 1 and tickStep = 2, there are 2 grid lines for every 1 tick,
+// which allows enough room for both these tick labels to render.
 const showTickLabel = (
     gridStep: number,
     tickStep: number,
     label: number,
 ): boolean => {
-    const showLabel = gridStep > tickStep ? true : label !== -tickStep;
+    const showLabel = tickStep > gridStep ? true : label !== -tickStep;
     return showLabel;
 };
 
