@@ -21,10 +21,9 @@ type Props = {
 const hitboxSizePx = 48;
 
 export const StyledMovablePoint = (props: Props) => {
-    const {state} = useGraphState();
+    const {state, graphOptions} = useGraphState();
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
-    const {graphOptions} = useGraphState();
 
     const {dragging} = useMovable({
         gestureTarget: hitboxRef,
@@ -71,6 +70,7 @@ export const StyledMovablePoint = (props: Props) => {
 
     return graphOptions.showTooltips ? (
         <Tooltip
+            autoUpdate={true}
             content={`(${point[0]}, ${point[1]})`}
             contentStyle={{color: WBColor.blue}}
         >
