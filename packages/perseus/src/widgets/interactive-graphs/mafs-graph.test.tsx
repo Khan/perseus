@@ -163,13 +163,17 @@ describe("MafsGraph", () => {
             coords: [[2, 2]],
         };
 
-        const baseMafsGraphProps = getBaseMafsGraphProps();
+        const props = {
+            ...getBaseMafsGraphProps(),
+            range: state.range,
+            snapStep: state.snapStep,
+        };
 
         const {rerender} = render(
             <MafsGraph
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
+                {...props}
             />,
         );
 
@@ -185,7 +189,7 @@ describe("MafsGraph", () => {
             <MafsGraph
                 state={updatedState}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
+                {...props}
             />,
         );
 
