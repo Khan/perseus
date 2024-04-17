@@ -88,6 +88,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -101,6 +102,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -114,6 +116,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -127,6 +130,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -144,6 +148,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -157,6 +162,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -170,6 +176,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -183,6 +190,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -200,6 +208,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -213,6 +222,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -226,6 +236,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -239,6 +250,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -342,6 +354,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -355,6 +368,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -368,6 +382,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -381,6 +396,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -398,6 +414,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -411,6 +428,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -424,6 +442,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -437,6 +456,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -454,6 +474,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -467,6 +488,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -480,6 +502,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -493,6 +516,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   class="matrix-input-field"
                 >
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"

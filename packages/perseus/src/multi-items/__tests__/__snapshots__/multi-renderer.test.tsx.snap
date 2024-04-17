@@ -980,6 +980,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
               <span>
                 <div>
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"

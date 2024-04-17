@@ -72,7 +72,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
-              data-test-id="NUM_1"
+              data-testid="NUM_1"
             >
               <button
                 aria-disabled="false"
@@ -104,7 +104,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_4h080i"
-              data-test-id="NUM_2"
+              data-testid="NUM_2"
             >
               <button
                 aria-disabled="false"
@@ -136,7 +136,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_ei5lhv"
-              data-test-id="NUM_3"
+              data-testid="NUM_3"
             >
               <button
                 aria-disabled="false"
@@ -168,7 +168,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_1drshe8"
-              data-test-id="NUM_4"
+              data-testid="NUM_4"
             >
               <button
                 aria-disabled="false"
@@ -200,7 +200,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_1j1cer"
-              data-test-id="NUM_5"
+              data-testid="NUM_5"
             >
               <button
                 aria-disabled="false"
@@ -232,7 +232,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
-              data-test-id="NUM_6"
+              data-testid="NUM_6"
             >
               <button
                 aria-disabled="false"
@@ -264,7 +264,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_1o7q2hf"
-              data-test-id="NUM_7"
+              data-testid="NUM_7"
             >
               <button
                 aria-disabled="false"
@@ -296,7 +296,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
-              data-test-id="NUM_8"
+              data-testid="NUM_8"
             >
               <button
                 aria-disabled="false"
@@ -328,7 +328,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_mr6jkh"
-              data-test-id="NUM_9"
+              data-testid="NUM_9"
             >
               <button
                 aria-disabled="false"
@@ -360,7 +360,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_xra0eu"
-              data-test-id="NUM_0"
+              data-testid="NUM_0"
             >
               <button
                 aria-disabled="false"
@@ -392,7 +392,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_6bvuz9"
-              data-test-id="DECIMAL"
+              data-testid="DECIMAL"
             >
               <button
                 aria-disabled="false"
@@ -425,7 +425,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_l02gwk"
-              data-test-id="NEGATIVE"
+              data-testid="NEGATIVE"
             >
               <button
                 aria-disabled="false"
@@ -459,7 +459,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_ma0as6"
-              data-test-id="PERCENT"
+              data-testid="PERCENT"
             >
               <button
                 aria-disabled="false"
@@ -493,7 +493,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_771h91"
-              data-test-id="PI"
+              data-testid="PI"
             >
               <button
                 aria-disabled="false"
@@ -525,7 +525,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_yucc9g"
-              data-test-id="FRAC"
+              data-testid="FRAC"
             >
               <button
                 aria-disabled="false"
@@ -559,7 +559,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             </div>
             <div
               class="default_xu2jcg-o_O-inlineStyles_1pnuemq"
-              data-test-id="BACKSPACE"
+              data-testid="BACKSPACE"
             >
               <button
                 aria-disabled="false"
