@@ -5,7 +5,6 @@ import {initializeGraphState} from "./interactive-graph-state";
 import type {Interval, vec} from "mafs";
 
 const baseGraphData = {
-    showHairlines: false,
     range: [
         [-10, 10],
         [-10, 10],
@@ -17,7 +16,6 @@ const baseGraphData = {
 describe("initializeGraphState for segment graphs", () => {
     it("sets the range and snapStep", () => {
         const state = initializeGraphState({
-            showHairlines: false,
             range: [
                 [0, 10],
                 [1, 20],

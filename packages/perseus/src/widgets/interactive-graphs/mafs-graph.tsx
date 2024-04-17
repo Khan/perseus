@@ -41,7 +41,6 @@ export type Props = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
-    isMobile: boolean;
 };
 
 const renderGraph = (props: {
@@ -71,10 +70,9 @@ const renderGraph = (props: {
 
 export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     (props, ref) => {
-        const showHairlines = props.isMobile && props.markings !== "none";
         const [state, dispatch] = React.useReducer(
             interactiveGraphReducer,
-            {...props, showHairlines},
+            props,
             initializeGraphState,
         );
 
