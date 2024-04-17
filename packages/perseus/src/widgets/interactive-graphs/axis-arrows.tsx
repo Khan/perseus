@@ -4,7 +4,9 @@ import {Arrowhead} from "./graphs/components/arrowhead";
 import useGraphConfig from "./reducer/use-graph-config";
 
 export default function AxisArrows() {
-    const {range: [[xMin, xMax], [yMin, yMax]]} = useGraphConfig();
+    const {
+        range: [[xMin, xMax], [yMin, yMax]],
+    } = useGraphConfig();
 
     return (
         <>

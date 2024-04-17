@@ -1,6 +1,6 @@
 import React, {createContext} from "react";
 
-import {Interval, vec} from "mafs";
+import type {Interval, vec} from "mafs";
 
 type GraphConfig = {
     range: [Interval, Interval];
@@ -9,12 +9,16 @@ type GraphConfig = {
 };
 
 const defaultGraphConfig: GraphConfig = {
-    range: [[0, 1], [0, 1]],
+    range: [
+        [0, 1],
+        [0, 1],
+    ],
     snapStep: [1, 1],
     markings: "none",
 };
 
-export const GraphConfigContext = createContext<GraphConfig>(defaultGraphConfig);
+export const GraphConfigContext =
+    createContext<GraphConfig>(defaultGraphConfig);
 
 export default function useGraphConfig(): GraphConfig {
     return React.useContext(GraphConfigContext);

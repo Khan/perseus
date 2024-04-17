@@ -1,5 +1,4 @@
-import type {CollinearTuple} from "../../../perseus-types";
-import type {Interval, vec} from "mafs";
+import type {vec} from "mafs";
 
 export interface InteractiveLineProps {
     points: Readonly<[vec.Vector2, vec.Vector2]>;

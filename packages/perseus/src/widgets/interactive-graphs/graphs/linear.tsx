@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovableLine} from "./components/movable-line";
 import {StyledMovablePoint} from "./components/movable-point";
@@ -8,13 +9,12 @@ import {StyledMovablePoint} from "./components/movable-point";
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, LinearGraphState} from "../types";
 import type {vec} from "mafs";
-import useGraphConfig from "../reducer/use-graph-config";
 
 type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
 export const LinearGraph = (props: LinearGraphProps) => {
     const {dispatch} = props;
-    const {coords: lines, snapStep, range, type} = props.graphState;
+    const {coords: lines, type} = props.graphState;
 
     const colors = ["var(--movable-line-stroke-color)", "var(--mafs-violet)"];
 

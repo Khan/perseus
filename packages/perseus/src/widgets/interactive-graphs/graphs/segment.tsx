@@ -13,7 +13,7 @@ type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
 export const SegmentGraph = (props: SegmentProps) => {
     const {dispatch} = props;
-    const {coords: segments, snapStep, range} = props.graphState;
+    const {coords: segments} = props.graphState;
 
     return (
         <>
