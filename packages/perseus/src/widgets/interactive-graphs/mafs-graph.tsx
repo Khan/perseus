@@ -121,7 +121,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
     return (
         <GraphModelContext.Provider
             value={{
-                state,
+                range: state.range,
+                snapStep: props.snapStep,
+                markings: props.markings,
             }}
         >
             <View

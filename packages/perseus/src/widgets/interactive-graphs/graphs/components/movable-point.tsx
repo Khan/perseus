@@ -20,7 +20,7 @@ type Props = {
 const hitboxSizePx = 48;
 
 export const StyledMovablePoint = (props: Props) => {
-    const {state} = useGraphModel();
+    const {range, snapStep, markings} = useGraphModel();
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
 
@@ -28,21 +28,21 @@ export const StyledMovablePoint = (props: Props) => {
         gestureTarget: hitboxRef,
         point,
         onMove,
-        constrain: (p) => snap(state.snapStep, p),
+        constrain: (p) => snap(snapStep, p),
     });
     const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""}`;
 
     const [[x, y]] = useTransform(point);
 
-    const [xMin, xMax] = state.range[0];
-    const [yMin, yMax] = state.range[1];
+    const [xMin, xMax] = range[0];
+    const [yMin, yMax] = range[1];
 
     const [[verticalStartX]] = useTransform([xMin, 0]);
     const [[verticalEndX]] = useTransform([xMax, 0]);
     const [[_, horizontalStartY]] = useTransform([0, yMin]);
     const [[__, horizontalEndY]] = useTransform([0, yMax]);
 
-    const showHairlines = dragging && state.markings !== "none";
+    const showHairlines = dragging && markings !== "none";
 
     return (
         <>
