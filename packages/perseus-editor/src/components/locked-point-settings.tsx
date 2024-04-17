@@ -4,6 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import {lockedFigureColors} from "@khanacademy/perseus";
 import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -17,7 +18,7 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {getValidNumberFromString, possibleColors} from "./util";
+import {getValidNumberFromString} from "./util";
 
 import type {LockedPointType} from "@khanacademy/perseus";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
@@ -85,7 +86,8 @@ const LockedPointSettings = (props: Props) => {
     return (
         <View
             // More specificity so that we can override the default
-            // universal styles from the .less file.
+            // .heading > h2 > .header styles from the articles.less
+            // file (which is imported in perseus-renderer.less).
             className="locked-figure-accordion"
         >
             <AccordionSection
@@ -195,7 +197,7 @@ const LockedPointSettings = (props: Props) => {
                                     // Placeholder is required, but never gets used.
                                     placeholder=""
                                 >
-                                    {possibleColors.map((colorName) => (
+                                    {lockedFigureColors.map((colorName) => (
                                         <OptionItem
                                             key={colorName}
                                             value={colorName}
