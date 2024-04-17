@@ -692,7 +692,7 @@ export type LockedLineType = {
     showArrows: boolean;
     showStartPoint: boolean;
     showEndPoint: boolean;
-}
+};
 
 export type PerseusGraphType =
     | PerseusGraphTypeAngle
