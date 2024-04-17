@@ -1104,42 +1104,19 @@ export const segmentWithLockedLineQuestion: PerseusRenderer = {
                     },
                     {
                         type: "line",
-                        kind: "ray",
-                        points: [
-                            {
-                                type: "point",
-                                coord: [-7, -6],
-                                color: "blue",
-                                filled: true,
-                            },
-                            {
-                                type: "point",
-                                coord: [2, -4],
-                                color: "blue",
-                                filled: false,
-                            },
-                        ],
-                        color: "blue",
-                        lineStyle: "solid",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: true,
-                    },
-                    {
-                        type: "line",
                         kind: "segment",
                         points: [
                             {
                                 type: "point",
-                                coord: [-7, -5],
+                                coord: [-7, -6],
                                 color: "green",
-                                filled: true,
+                                filled: false,
                             },
                             {
                                 type: "point",
-                                coord: [2, -3],
+                                coord: [2, -4],
                                 color: "green",
-                                filled: false,
+                                filled: true,
                             },
                         ],
                         color: "green",

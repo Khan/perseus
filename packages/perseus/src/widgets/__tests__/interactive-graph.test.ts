@@ -379,7 +379,48 @@ describe("locked layer", () => {
             fill: color.white,
             stroke: color.purple,
         });
-        expect(points[2]).toHaveStyle({fill: color.green, stroke: color.green});
-        expect(points[3]).toHaveStyle({fill: color.white, stroke: color.green});
+        expect(points[2]).toHaveStyle({
+            fill: color.white,
+            stroke: color.green,
+        });
+        expect(points[3]).toHaveStyle({fill: color.green, stroke: color.green});
+    });
+});
+
+describe("snapshots", () => {
+    test("should render correctly", () => {
+        const {container} = renderQuestion(segmentQuestionDefaultCorrect, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        expect(container).toMatchSnapshot();
+    });
+
+    test("should render correctly with locked points", () => {
+        const {container} = renderQuestion(segmentWithLockedPointsQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        expect(container).toMatchSnapshot();
+    });
+
+    test("should render correctly with locked lines", () => {
+        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        expect(container).toMatchSnapshot();
     });
 });
