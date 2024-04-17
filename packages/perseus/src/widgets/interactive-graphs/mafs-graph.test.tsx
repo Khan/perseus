@@ -170,11 +170,7 @@ describe("MafsGraph", () => {
         };
 
         const {rerender} = render(
-            <MafsGraph
-                state={state}
-                dispatch={mockDispatch}
-                {...props}
-            />,
+            <MafsGraph state={state} dispatch={mockDispatch} {...props} />,
         );
 
         const group = screen.getByTestId("movable-point");
