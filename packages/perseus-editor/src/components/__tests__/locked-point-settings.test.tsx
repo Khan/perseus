@@ -20,7 +20,7 @@ describe("LockedPointSettings", () => {
         );
 
         const titleText = screen.getByText("Point (0, 0)");
-        const colorCircle = screen.getByLabelText("Point color: blue, filled");
+        const colorCircle = screen.getByLabelText("Color: blue, filled");
 
         // Assert
         expect(titleText).toBeInTheDocument();

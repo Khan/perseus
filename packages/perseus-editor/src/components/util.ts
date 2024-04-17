@@ -78,13 +78,3 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             } as LockedLineType;
     }
 }
-
-export const possibleColors = [
-    "purple",
-    "blue",
-    "teal",
-    "green",
-    "gold",
-    "red",
-    "pink",
-];

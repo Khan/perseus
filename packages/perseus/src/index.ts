@@ -64,6 +64,7 @@ export {
     PerseusExpressionAnswerFormConsidered,
     plotterPlotTypes,
     ItemExtras,
+    lockedFigureColors,
 } from "./perseus-types";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";

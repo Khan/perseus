@@ -663,6 +663,15 @@ export type LockedPointType = {
     color: string;
     filled: boolean;
 };
+export const lockedFigureColors = [
+    "purple",
+    "blue",
+    "teal",
+    "green",
+    "gold",
+    "red",
+    "pink",
+];
 
 export type LockedLineType = {
     type: "line";
