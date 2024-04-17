@@ -5,9 +5,7 @@ import * as React from "react";
 import LockedPointSettings from "../locked-point-settings";
 import {getDefaultFigureForType} from "../util";
 
-import type {LockedPointType} from "@khanacademy/perseus";
-
-const defaultProps = getDefaultFigureForType("point") as LockedPointType;
+const defaultProps = getDefaultFigureForType("point");
 
 describe("LockedPointSettings", () => {
     test("Should show the point's coordinates and color by default", () => {

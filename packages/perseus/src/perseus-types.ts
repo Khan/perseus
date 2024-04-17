@@ -654,16 +654,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     lockedFigures?: ReadonlyArray<LockedFigure>;
 };
 
-export type LockedFigureColor =
-    | "purple"
-    | "blue"
-    | "teal"
-    | "green"
-    | "gold"
-    | "red"
-    | "pink";
-
-export const lockedFigureColors: ReadonlyArray<LockedFigureColor> = [
+export const lockedFigureColors = [
     "purple",
     "blue",
     "teal",
@@ -671,10 +662,12 @@ export const lockedFigureColors: ReadonlyArray<LockedFigureColor> = [
     "gold",
     "red",
     "pink",
-];
+] as const;
+
+export type LockedFigureColor = (typeof lockedFigureColors)[number];
 
 export type LockedFigure = LockedPointType | LockedLineType;
-export type LockedFigureType = "point" | "line";
+export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
     type: "point";
