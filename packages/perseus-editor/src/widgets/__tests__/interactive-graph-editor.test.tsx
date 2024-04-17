@@ -8,6 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
@@ -18,12 +19,13 @@ const baseProps = {
     graph: undefined,
 };
 
-const mafsProps = {
+const mafsProps: PropsFor<typeof InteractiveGraphEditor> = {
     ...baseProps,
     apiOptions: {
         ...ApiOptions.defaults,
         flags: {
             mafs: {
+                "interactive-graph-locked-features-m1": true,
                 segment: true,
             },
         },
