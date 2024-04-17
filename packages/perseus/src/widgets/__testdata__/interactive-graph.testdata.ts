@@ -1429,3 +1429,237 @@ export const questionsAndAnswers: ReadonlyArray<
         ],
     ],
 ];
+
+export const segmentWithAllLockedLineSegmentVariations: PerseusRenderer = {
+    content: "All locked line segments\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [
+                            [-7, -7],
+                            [2, -5],
+                        ],
+                    ],
+                    type: "segment",
+                },
+                graph: {
+                    type: "segment",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+                lockedFigures: [
+                    // Point shown, one filled, one open
+                    {
+                        type: "line",
+                        kind: "segment",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -5],
+                                color: "green",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -3],
+                                color: "green",
+                                filled: false,
+                            },
+                        ],
+                        color: "green",
+                        lineStyle: "solid",
+                        showArrows: false,
+                        showStartPoint: true,
+                        showEndPoint: true,
+                    },
+                    // Dashed line, one point shown
+                    {
+                        type: "line",
+                        kind: "segment",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -6],
+                                color: "blue",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -4],
+                                color: "purple",
+                                filled: false,
+                            },
+                        ],
+                        color: "purple",
+                        lineStyle: "dashed",
+                        showArrows: false,
+                        showStartPoint: true,
+                        showEndPoint: false,
+                    },
+                    // Show arrows
+                    {
+                        type: "line",
+                        kind: "segment",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -7],
+                                color: "teal",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -5],
+                                color: "teal",
+                                filled: false,
+                            },
+                        ],
+                        color: "teal",
+                        lineStyle: "solid",
+                        showArrows: true,
+                        showStartPoint: false,
+                        showEndPoint: false,
+                    },
+                ],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const segmentWithAllLockedLineVariations: PerseusRenderer = {
+    content: "All locked lines\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [
+                            [-7, -7],
+                            [2, -5],
+                        ],
+                    ],
+                    type: "segment",
+                },
+                graph: {
+                    type: "segment",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+                lockedFigures: [
+                    // Point shown, one filled, one open
+                    {
+                        type: "line",
+                        kind: "line",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -5],
+                                color: "green",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -3],
+                                color: "green",
+                                filled: false,
+                            },
+                        ],
+                        color: "green",
+                        lineStyle: "solid",
+                        showArrows: false,
+                        showStartPoint: true,
+                        showEndPoint: true,
+                    },
+                    // Dashed line, one point shown
+                    {
+                        type: "line",
+                        kind: "line",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -6],
+                                color: "blue",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -4],
+                                color: "purple",
+                                filled: false,
+                            },
+                        ],
+                        color: "purple",
+                        lineStyle: "dashed",
+                        showArrows: false,
+                        showStartPoint: true,
+                        showEndPoint: false,
+                    },
+                    // Show arrows
+                    {
+                        type: "line",
+                        kind: "line",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -7],
+                                color: "teal",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -5],
+                                color: "teal",
+                                filled: false,
+                            },
+                        ],
+                        color: "teal",
+                        lineStyle: "solid",
+                        showArrows: true,
+                        showStartPoint: false,
+                        showEndPoint: false,
+                    },
+                ],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+// TODO(LEMS-1928): Add data for all locked rays, similar to the ones above.

@@ -14,7 +14,9 @@ import {
     segmentQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedLineQuestion,
+    segmentWithAllLockedLineSegmentVariations,
     sinusoidQuestion,
+    segmentWithAllLockedLineVariations,
 } from "../__testdata__/interactive-graph.testdata";
 
 export default {
@@ -90,6 +92,32 @@ export const SegmentWithMafsAndLockedLines = (
             },
         }}
         question={segmentWithLockedLineQuestion}
+    />
+);
+
+export const AllLockedLineSegments = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={{
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        }}
+        question={segmentWithAllLockedLineSegmentVariations}
+    />
+);
+
+export const AllLockedLines = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={{
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        }}
+        question={segmentWithAllLockedLineVariations}
     />
 );
 
