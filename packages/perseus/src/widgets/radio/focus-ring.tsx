@@ -29,7 +29,7 @@ const FocusRing = function (props: Props): React.ReactElement {
     } as const;
     return (
         <span
-            data-test-id="focus-ring"
+            data-testid="focus-ring"
             className={css(styles.ring)}
             style={style}
         >

@@ -42,7 +42,7 @@ type Props = DefaultProps & {
     // The relationship between the linked page and the current page.
     // Mostly used to prevent abuse from linked sites.
     rel?: string;
-    // The data-test-id attribute
+    // The data-testid attribute
     testId?: string;
     // Specify either an HTML tag (like "a") or a React component (like
     // React Router's `Link`) to be used as the underlying element.
@@ -141,7 +141,7 @@ class Link extends React.Component<Props> {
         return React.createElement(
             element,
             {
-                "data-test-id": testId,
+                "data-testid": testId,
                 ...otherProps,
                 ...urlProp,
                 className: css(...delegatedStyles) + delegatedClassName,
