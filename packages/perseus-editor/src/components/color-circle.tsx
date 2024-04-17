@@ -3,8 +3,10 @@ import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {LockedFigureColor} from "@khanacademy/perseus";
+
 type Props = {
-    color: string;
+    color: LockedFigureColor;
     filled?: boolean;
 };
 

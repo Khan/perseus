@@ -3,6 +3,7 @@ import * as React from "react";
 import ColorSelect from "../color-select";
 
 import type {Meta} from "@storybook/react";
+import {LockedFigure, LockedFigureColor} from "@khanacademy/perseus";
 
 export default {
     title: "Perseus Editor/Components/Color Select",
@@ -17,18 +18,24 @@ export const Default = (args): React.ReactElement => {
 Default.args = {
     id: "color-select",
     selectedValue: "blue",
-    onChange: () => {},
+    onChange: (color: LockedFigureColor) => {},
 };
 
 export const Controlled = {
     render: function Render() {
-        const [selectedValue, setSelectedValue] = React.useState("blue");
+        const [selectedValue, setSelectedValue] = React.useState(
+            "blue" as LockedFigureColor,
+        );
+
+        const handleColorChange = (color: LockedFigureColor) => {
+            setSelectedValue(color);
+        }
 
         return (
             <ColorSelect
                 id="color-select"
                 selectedValue={selectedValue}
-                onChange={setSelectedValue}
+                onChange={handleColorChange}
             />
         );
     },

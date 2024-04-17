@@ -8,10 +8,12 @@ import * as React from "react";
 
 import ColorCircle from "./color-circle";
 
+import type {LockedFigureColor} from "@khanacademy/perseus";
+
 type Props = {
     // Required ID so that the label can be associated with the select.
     id: string;
-    selectedValue: string;
+    selectedValue: LockedFigureColor;
     onChange: (newValue: string) => void;
 };
 
