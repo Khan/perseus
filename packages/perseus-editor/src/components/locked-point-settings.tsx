@@ -4,10 +4,8 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {lockedFigureColors} from "@khanacademy/perseus";
 import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox, TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -22,6 +20,8 @@ import {getValidNumberFromString} from "./util";
 
 import type {LockedPointType} from "@khanacademy/perseus";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import ColorCircle from "./color-circle";
+import ColorSelect from "./color-select";
 
 export type Props = LockedPointType & {
     label?: string;
@@ -36,7 +36,7 @@ const LockedPointSettings = (props: Props) => {
     const {
         coord,
         color: pointColor,
-        filled = "true",
+        filled = true,
         label,
         toggled = "true",
         style,
@@ -94,23 +94,12 @@ const LockedPointSettings = (props: Props) => {
                 style={[styles.container, style]}
                 headerStyle={styles.accordionHeader}
                 header={
+                    // Summary: Point, coords, color (filled/open)
                     <View style={styles.row}>
                         <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
                         <Strut size={spacing.xSmall_8} />
                         {toggled && (
-                            <View
-                                aria-label={`Point color: ${pointColor}, ${filled ? "filled" : "open"}`}
-                                style={[
-                                    styles.colorCircle,
-                                    styles.spaceStart,
-                                    {
-                                        border: `4px solid ${wbColor[pointColor]}`,
-                                        backgroundColor: filled
-                                            ? wbColor[pointColor]
-                                            : wbColor.white,
-                                    },
-                                ]}
-                            />
+                            <ColorCircle color={pointColor} filled={filled} />
                         )}
                     </View>
                 }
@@ -137,9 +126,7 @@ const LockedPointSettings = (props: Props) => {
                                 style={styles.textField}
                             />
                         </View>
-
                         <Strut size={spacing.medium_16} />
-
                         <View style={[styles.row, styles.spaceUnder]}>
                             <LabelMedium
                                 htmlFor={yCoordId}
@@ -161,6 +148,7 @@ const LockedPointSettings = (props: Props) => {
                         </View>
                     </View>
 
+                    {/* Toggle switch */}
                     {onToggle && (
                         <View style={[styles.row, styles.spaceUnder]}>
                             <Switch
@@ -181,46 +169,12 @@ const LockedPointSettings = (props: Props) => {
                     {/* Toggleable section */}
                     {toggled && (
                         <>
-                            {/* Color */}
-                            <View style={[styles.row, styles.spaceUnder]}>
-                                <LabelMedium
-                                    htmlFor={colorSelectId}
-                                    style={styles.label}
-                                    tag="label"
-                                >
-                                    Color
-                                </LabelMedium>
-                                <SingleSelect
-                                    id={colorSelectId}
-                                    selectedValue={pointColor || "blue"}
-                                    onChange={handleColorChange}
-                                    // Placeholder is required, but never gets used.
-                                    placeholder=""
-                                >
-                                    {lockedFigureColors.map((colorName) => (
-                                        <OptionItem
-                                            key={colorName}
-                                            value={colorName}
-                                            label={colorName}
-                                            leftAccessory={
-                                                <View
-                                                    style={[
-                                                        styles.colorCircle,
-                                                        {
-                                                            backgroundColor:
-                                                                wbColor[
-                                                                    colorName
-                                                                ],
-                                                        },
-                                                    ]}
-                                                />
-                                            }
-                                        >
-                                            {colorName}
-                                        </OptionItem>
-                                    ))}
-                                </SingleSelect>
-                            </View>
+                            <ColorSelect
+                                id={colorSelectId}
+                                selectedValue={pointColor || "blue"}
+                                onChange={handleColorChange}
+                            />
+                            <Strut size={spacing.xSmall_8} />
                             <Checkbox
                                 label="Open point"
                                 checked={!filled}
@@ -232,6 +186,7 @@ const LockedPointSettings = (props: Props) => {
                         </>
                     )}
 
+                    {/* Delete icon */}
                     {onRemove && (
                         <IconButton
                             icon={trashIcon}
