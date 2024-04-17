@@ -23,7 +23,7 @@ export const LinearGraph = (props: LinearGraphProps) => {
             {lines?.map((line, i) => (
                 <LineView
                     key={i}
-                    collinearPair={line}
+                    points={line}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i, delta));
                     }}
@@ -48,7 +48,7 @@ const LineView = (props: InteractiveLineProps & {stroke: string}) => {
     const {
         onMoveLine,
         onMovePoint,
-        collinearPair: [start, end],
+        points: [start, end],
         stroke,
     } = props;
 

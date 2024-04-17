@@ -20,7 +20,7 @@ export const SegmentGraph = (props: SegmentProps) => {
             {segments?.map((segment, i) => (
                 <SegmentView
                     key={i}
-                    collinearPair={segment}
+                    points={segment}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i, delta));
                     }}
@@ -42,7 +42,7 @@ export const SegmentGraph = (props: SegmentProps) => {
 const SegmentView = (props: InteractiveLineProps) => {
     const {
         onMoveLine: onMoveSegment,
-        collinearPair: [start, end],
+        points: [start, end],
     } = props;
 
     return (
