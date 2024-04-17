@@ -3,14 +3,18 @@ import React, {createContext} from "react";
 import type {InteractiveGraphAction} from "./interactive-graph-action";
 import type {InteractiveGraphState} from "../types";
 
-export const GraphStateContext = createContext<{
+type GraphModel = {
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
-}>({
+};
+
+const defaultGraphModel = {
     state: {} as any,
     dispatch: () => {},
-});
+};
 
-export default function useGraphState() {
-    return React.useContext(GraphStateContext);
+export const GraphModelContext = createContext<GraphModel>(defaultGraphModel);
+
+export default function useGraphModel() {
+    return React.useContext(GraphModelContext);
 }

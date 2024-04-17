@@ -1,10 +1,10 @@
 import React from "react";
 
 import {Arrowhead} from "./graphs/components/arrowhead";
-import useGraphState from "./reducer/use-graph-state";
+import useGraphModel from "./reducer/use-graph-model";
 
 export default function AxisArrows() {
-    const {state} = useGraphState();
+    const {state} = useGraphModel();
 
     const range = state.range;
     const [xMin, xMax] = range[0];
