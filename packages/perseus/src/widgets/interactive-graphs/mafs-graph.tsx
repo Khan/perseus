@@ -122,7 +122,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
         <GraphModelContext.Provider
             value={{
                 state,
-                dispatch,
             }}
         >
             <View
