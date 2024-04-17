@@ -84,9 +84,10 @@ const LockedPointSettings = (props: Props) => {
 
     return (
         <View
-        // More specificity so that we can override the default
-        // universal styles from the .less file.
-        className="locked-figure-accordion">
+            // More specificity so that we can override the default
+            // universal styles from the .less file.
+            className="locked-figure-accordion"
+        >
             <AccordionSection
                 style={[styles.container, style]}
                 headerStyle={styles.accordionHeader}
