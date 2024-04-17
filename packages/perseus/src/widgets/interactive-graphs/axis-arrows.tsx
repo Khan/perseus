@@ -1,8 +1,7 @@
-import {useTransformContext, vec} from "mafs";
 import React from "react";
 
-import useGraphState from "./reducer/use-graph-state";
 import {Arrowhead} from "./graphs/components/arrowhead";
+import useGraphState from "./reducer/use-graph-state";
 
 export default function AxisArrows() {
     const {state} = useGraphState();

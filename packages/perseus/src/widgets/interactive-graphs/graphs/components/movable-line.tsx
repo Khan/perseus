@@ -6,9 +6,10 @@ import {TARGET_SIZE} from "../../utils";
 import {useTransform} from "../use-transform";
 import {getRayIntersectionCoords} from "../utils";
 
-import type {Interval} from "mafs";
 import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
+
+import type {Interval} from "mafs";
 
 const defaultStroke = "var(--movable-line-stroke-color)";
 

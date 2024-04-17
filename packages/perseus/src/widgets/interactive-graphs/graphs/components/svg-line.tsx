@@ -1,6 +1,7 @@
 import * as React from "react";
-import {SVGProps} from "react";
-import {vec} from "mafs";
+
+import type {vec} from "mafs";
+import type {SVGProps} from "react";
 
 export type Props = {
     start: vec.Vector2;
@@ -8,7 +9,7 @@ export type Props = {
     style?: SVGProps<SVGLineElement>["style"];
     className?: string;
     testId?: string;
-}
+};
 
 export function SVGLine(props: Props) {
     const {start, end, style, className, testId} = props;

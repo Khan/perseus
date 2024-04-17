@@ -1,5 +1,6 @@
-import * as React from "react";
 import {useTransformContext, vec} from "mafs";
+import * as React from "react";
+
 import {pathBuilder} from "../../../../util/svg";
 
 type Props = {
@@ -17,7 +18,7 @@ const arrowPath = pathBuilder()
     .curve(-2.75, 2.5, 0, 0.25, 0.75, 0)
     .curve(0, -0.25, -2.75, -2.5, -3, -4)
     .scale(1.4)
-    .build()
+    .build();
 
 export function Arrowhead(props: Props) {
     const {userTransform, viewTransform} = useTransformContext();
