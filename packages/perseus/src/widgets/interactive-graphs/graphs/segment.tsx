@@ -32,7 +32,6 @@ export const SegmentGraph = (props: SegmentProps) => {
                             moveControlPoint(endpointIndex, destination, i),
                         );
                     }}
-                    data-testid={"segment" + i}
                 />
             ))}
         </>
