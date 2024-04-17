@@ -55,20 +55,14 @@
 
 // Image widgets are centred, by default
 .perseus-image-widget {
-    border: solid 1px red;
     margin-inline-start: auto;
     margin-inline-end: auto;
-}
-
-// Markdown images are centred, by default
-// Eg `![alt text](image.png)`
-.svg-image {
 }
 
 // Image widgets inside of a hint are left-aligned
 .perseus-hint-renderer {
     .perseus-image-widget {
-        margin-left: 0 !important;
+        margin-inline-start: 0;
     }
 }
 
@@ -76,6 +70,6 @@
 // Eg `![alt text](image.png)`
 .perseus-hint-renderer {
     .svg-image {
-        margin-left: 0 !important;
+        margin-inline-start: 0;
     }
 }
