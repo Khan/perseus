@@ -19,7 +19,7 @@ export function Vector(props: Props) {
     return (
         <g style={{stroke: color, strokeWidth: 2}}>
             <SVGLine start={tailPx} end={tipPx} />
-            <Arrowhead x={tip[0]} y={tip[1]} rotate={angleDegrees(direction)} />
+            <Arrowhead x={tip[0]} y={tip[1]} angle={angleDegrees(direction)} />
         </g>
     );
 }

@@ -1,12 +1,12 @@
-import {useTransformContext, vec} from "mafs";
 import * as React from "react";
 
 import {pathBuilder} from "../../../../util/svg";
+import {useTransform} from "../use-transform";
 
 type Props = {
     x: number;
     y: number;
-    rotate: number; // degrees counterclockwise from the positive x-axis
+    angle: number; // degrees counterclockwise from the positive x-axis
 };
 
 // We use the pathBuilder here to scale up the SVG path coordinates used
@@ -21,18 +21,11 @@ const arrowPath = pathBuilder()
     .build();
 
 export function Arrowhead(props: Props) {
-    const {userTransform, viewTransform} = useTransformContext();
-
-    const point: vec.Vector2 = [props.x, props.y];
-    const userTransformedPoint = vec.transform(point, userTransform);
-    const viewTransformedPoint = vec.transform(
-        userTransformedPoint,
-        viewTransform,
-    );
+    const [point] = useTransform([props.x, props.y]);
 
     return (
         <g
-            transform={`translate(${viewTransformedPoint[0]} ${viewTransformedPoint[1]}) rotate(${-props.rotate})`}
+            transform={`translate(${point[0]} ${point[1]}) rotate(${-props.angle})`}
         >
             <g transform="translate(-1.5)">
                 <path
