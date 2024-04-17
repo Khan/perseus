@@ -158,9 +158,6 @@ export type Widget = {
             message?: string | null | undefined,
         ) => unknown | null | undefined,
     ) => PerseusScore;
-    /**
-     * @deprecated Internal only. Use `showSolutions` prop instead.
-     */
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
 };
@@ -784,7 +781,6 @@ class Renderer extends React.Component<Props, State> {
      * currently selected choices inside of them. If the widget is correct, it
      * shows rationales for all of the choices. This also disables interaction
      * with the choices that we show rationales for.
-     * @deprecated Internal only. Use `showSolutions` prop instead.
      */
     showRationalesForCurrentlySelectedChoices: () => void = () => {
         Object.keys(this.props.widgets).forEach((widgetId) => {
