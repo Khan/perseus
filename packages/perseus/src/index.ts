@@ -151,6 +151,7 @@ export type {
 export type {ParsedValue} from "./util";
 export type {
     LockedFigure,
+    LockedFigureColor,
     LockedFigureType,
     LockedPointType,
     LockedLineType,
