@@ -28,19 +28,10 @@ export class PathBuilder {
         endX: number,
         endY: number,
     ): PathBuilder {
-        this.path.push(
-            {
-                action: "C",
-                coords: [
-                    control1X,
-                    control1Y,
-                    control2X,
-                    control2Y,
-                    endX,
-                    endY,
-                ]
-            },
-        );
+        this.path.push({
+            action: "C",
+            coords: [control1X, control1Y, control2X, control2Y, endX, endY],
+        });
         return this;
     }
 
@@ -51,13 +42,15 @@ export class PathBuilder {
     }
 }
 
-type Command = { action: "M" | "C", coords: number[] }
+type Command = {action: "M" | "C"; coords: number[]};
 
 function commandToString(command: Command): string {
-    return `${command.action}${command.coords.join(" ")}`
+    return `${command.action}${command.coords.join(" ")}`;
 }
 
 function scaleCommandBy(scaleFactor: number): (command: Command) => Command {
-    return (command) =>
-        ({...command, coords: command.coords.map(c => c * scaleFactor)})
+    return (command) => ({
+        ...command,
+        coords: command.coords.map((c) => c * scaleFactor),
+    });
 }
