@@ -21,10 +21,16 @@ describe("generateTickLocations", () => {
     });
 
     it("should hide the first negative axis tick label if the gridStep > tickStep", () => {
-        expect(showTickLabel(2, 1, -1)).toEqual(false);
+        const gridStep = 2;
+        const tickStep = 1;
+        const label = -1;
+        expect(showTickLabel(gridStep, tickStep, label)).toEqual(false);
     });
 
     it("should show the first negative axis tick label if the tickStep > gridStep", () => {
-        expect(showTickLabel(1, 2, -2)).toEqual(true);
+        const gridStep = 1;
+        const tickStep = 2;
+        const label = -2;
+        expect(showTickLabel(gridStep, tickStep, label)).toEqual(true);
     });
 });
