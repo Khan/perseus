@@ -15,7 +15,7 @@ import {
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer, ShowSolutions} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
 const selectOption = async (
@@ -330,7 +330,7 @@ describe("single-choice question", () => {
         expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
     });
 
-    it("should render rationales for selected choices", async () => {
+    it("should render rationales for selected choices using method", async () => {
         // Arrange
         const {renderer} = renderQuestion(question, apiOptions);
 
@@ -340,10 +340,47 @@ describe("single-choice question", () => {
 
         // Assert
         expect(
-            screen.queryAllByTestId(
-                `perseus-radio-rationale-content-${incorrect[0]}`,
-            ),
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
         ).toHaveLength(1);
+    });
+
+    it("should render rationales for selected choices using prop", async () => {
+        // Arrange
+        const {rerender} = renderQuestion(question, apiOptions);
+
+        // Act
+        await selectOption(userEvent, incorrect[0]);
+
+        rerender(question, {showSolutions: "selected"});
+
+        // Assert
+        expect(
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
+        ).toHaveLength(1);
+    });
+
+    it("should render all rationales when showSolutions is 'all'", async () => {
+        // Arrange
+        renderQuestion(question, apiOptions, {
+            showSolutions: "all",
+        });
+
+        // Assert
+        expect(
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
+        ).toHaveLength(4);
+    });
+
+    it("should render no rationales when showSolutions is 'none'", async () => {
+        // Arrange
+        renderQuestion(question, apiOptions, {
+            showSolutions: "none",
+        });
+
+        // Assert
+        expect(
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
+        ).toHaveLength(0);
     });
 
     describe("cross-out is enabled", () => {
