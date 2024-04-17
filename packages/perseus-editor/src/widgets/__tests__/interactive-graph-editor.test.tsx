@@ -571,7 +571,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("Calls onChange when a locked point's coordinates are changed", async () => {
+    test("Calls onChange when a locked point's x coordinate is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -601,6 +601,42 @@ describe("InteractiveGraphEditor", () => {
                     expect.objectContaining({
                         type: "point",
                         coord: [1, 0],
+                    }),
+                ],
+            }),
+        );
+    });
+
+    test("Calls onChange when a locked point's y coordinate is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                onChange={onChangeMock}
+                lockedFigures={[
+                    {type: "point", coord: [0, 0], color: "blue", filled: true},
+                ]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const xCoordInput = screen.getByLabelText("y Coord");
+        await userEvent.clear(xCoordInput);
+        await userEvent.type(xCoordInput, "1");
+        await userEvent.tab();
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith(
+            expect.objectContaining({
+                lockedFigures: [
+                    expect.objectContaining({
+                        type: "point",
+                        coord: [0, 1],
                     }),
                 ],
             }),
