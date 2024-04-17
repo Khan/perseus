@@ -8,6 +8,7 @@ import {StyledMovablePoint} from "./components/movable-point";
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, LinearGraphState} from "../types";
 import type {vec} from "mafs";
+import useGraphModel from "../reducer/use-graph-model";
 
 type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
@@ -23,7 +24,6 @@ export const LinearGraph = (props: LinearGraphProps) => {
                 <LineView
                     key={i}
                     collinearPair={line}
-                    range={range}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i, delta));
                     }}
@@ -49,9 +49,10 @@ const LineView = (props: InteractiveLineProps & {stroke: string}) => {
         onMoveLine,
         onMovePoint,
         collinearPair: [start, end],
-        range,
         stroke,
     } = props;
+
+    const {range} = useGraphModel();
 
     return (
         <>

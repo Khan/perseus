@@ -21,7 +21,6 @@ export const SegmentGraph = (props: SegmentProps) => {
                 <SegmentView
                     key={i}
                     collinearPair={segment}
-                    range={range}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i, delta));
                     }}
