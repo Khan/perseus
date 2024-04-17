@@ -23,7 +23,6 @@ export const LinearGraph = (props: LinearGraphProps) => {
                 <LineView
                     key={i}
                     collinearPair={line}
-                    snaps={snapStep}
                     range={range}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i, delta));
