@@ -9,20 +9,19 @@ import {
 
 import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
+import type {Meta} from "@storybook/react";
 
-type StoryArgs = {
+interface StoryArgs {
+    // Story Option
+    question: PerseusRenderer;
     // Radio Options
     static: boolean;
     // API Options
     crossOutEnabled: boolean;
     // Renderer Options
     reviewMode: boolean;
-};
-
-type Story = {
-    title: string;
-    args: StoryArgs;
-};
+    showRationales: "none" | "all" | "selected";
+}
 
 export default {
     title: "Perseus/Widgets/Radio",
@@ -30,57 +29,58 @@ export default {
         static: false,
         crossOutEnabled: false,
         reviewMode: false,
+        showRationales: "none",
+        question: questionWithPassage,
+    } satisfies StoryArgs,
+    argTypes: {
+        showRationales: {
+            options: ["none", "all", "selected"],
+            control: {
+                type: "select",
+            },
+        },
     },
-} as Story;
+    render: (args: StoryArgs) => (
+        <RendererWithDebugUI
+            question={applyStoryArgs(args)}
+            apiOptions={buildApiOptions(args)}
+            reviewMode={args.reviewMode}
+            showRationales={args.showRationales}
+        />
+    ),
+} satisfies Meta;
 
-const applyStoryArgs = (
-    question: PerseusRenderer,
-    args: StoryArgs,
-): PerseusRenderer => {
+const applyStoryArgs = (args: StoryArgs): PerseusRenderer => {
     const q = {
-        ...question,
+        ...args.question,
         widgets: {},
     } as const;
 
-    for (const [widgetId, widget] of Object.entries(question.widgets)) {
+    for (const [widgetId, widget] of Object.entries(args.question.widgets)) {
         q.widgets[widgetId] = {...widget, static: args.static};
     }
 
     return q;
 };
 
-const buildApiOptions = (args: StoryArgs): APIOptions => {
-    return {
-        crossOutEnabled: args.crossOutEnabled,
-    };
+const buildApiOptions = (args: StoryArgs): APIOptions => ({
+    crossOutEnabled: args.crossOutEnabled,
+});
+
+export const SingleSelect = {
+    args: {
+        question: questionWithPassage,
+    },
 };
 
-export const SingleSelect = (args: StoryArgs): React.ReactElement => {
-    return (
-        <RendererWithDebugUI
-            question={applyStoryArgs(questionWithPassage, args)}
-            apiOptions={buildApiOptions(args)}
-            reviewMode={args.reviewMode}
-        />
-    );
+export const MultiSelectSimple = {
+    args: {
+        question: multiChoiceQuestionSimple,
+    },
 };
 
-export const MultiSelectSimple = (args: StoryArgs): React.ReactElement => {
-    return (
-        <RendererWithDebugUI
-            question={applyStoryArgs(multiChoiceQuestionSimple, args)}
-            apiOptions={buildApiOptions(args)}
-            reviewMode={args.reviewMode}
-        />
-    );
-};
-
-export const MultiSelect = (args: StoryArgs): React.ReactElement => {
-    return (
-        <RendererWithDebugUI
-            question={applyStoryArgs(multiChoiceQuestion, args)}
-            apiOptions={buildApiOptions(args)}
-            reviewMode={args.reviewMode}
-        />
-    );
+export const MultiSelect = {
+    args: {
+        question: multiChoiceQuestion,
+    },
 };
