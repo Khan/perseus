@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.3.8
+
+### Patch Changes
+
+-   [#1173](https://github.com/Khan/perseus/pull/1173) [`ce547c5ec`](https://github.com/Khan/perseus/commit/ce547c5ec1ef0d17e0adebe24532c93007e82c4d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change APIOptions.flags to be strongly typed
+
 ## 1.3.7
 
 ### Patch Changes

@@ -24,6 +24,21 @@ const YGridTick = ({y}: {y: number}) => {
                 y2={yPosition}
                 style={tickStyle}
             />
+            {
+                // TODO (LEMS-1891): Negative one is a special case as the labels can
+                // overlap with the axis line. We should handle this case more gracefully.
+            }
+            {y !== -1 && (
+                <text
+                    height={20}
+                    width={50}
+                    textAnchor="end"
+                    x={xPosition - 10}
+                    y={yPosition + 5}
+                >
+                    {y.toString()}
+                </text>
+            )}
         </g>
     );
 };
@@ -41,6 +56,21 @@ const XGridTick = ({x}: {x: number}) => {
                 y2={yPosition - tickSize / 2}
                 style={tickStyle}
             />
+            {
+                // TODO (LEMS-1891): Negative one is a special case as the labels can
+                // overlap with the axis line. We should handle this case more gracefully.
+            }
+            {x !== -1 && (
+                <text
+                    height={20}
+                    width={50}
+                    textAnchor="middle"
+                    x={xPosition}
+                    y={yPosition + 25}
+                >
+                    {x.toString()}
+                </text>
+            )}
         </g>
     );
 };
@@ -51,9 +81,13 @@ export function generateTickLocations(
     max: number,
 ): number[] {
     const ticks: number[] = [];
+
+    // Add ticks in the positive direction
     for (let i = 0 + tickStep; i < max; i += tickStep) {
         ticks.push(i);
     }
+
+    // Add ticks in the negative direction
     for (let i = 0 - tickStep; i > min; i -= tickStep) {
         ticks.push(i);
     }
@@ -67,6 +101,7 @@ type Props = {
 
 export const AxisTicks = (props: Props) => {
     const range = props.range;
+
     const [xMin, xMax] = range[0];
     const [yMin, yMax] = range[1];
 

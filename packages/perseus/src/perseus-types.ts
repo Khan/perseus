@@ -614,13 +614,14 @@ export type PerseusImageLabel = {
 };
 
 export type PerseusInteractiveGraphWidgetOptions = {
-    // The tick steps. default [1, 1]
+    // Where the little black axis lines & labels (ticks) should render.
+    // Also known as the tick step. default [1, 1]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
     step: [number, number];
-    // The steps in the grid. default [1, 1]
+    // Where the grid lines on the graph will render. default [1, 1]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
     gridStep: [number, number];
-    // The snap steps. default [0.5, 0.5]
+    // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
     // NOTE(kevinb): perseus_data.go defines this as Array<number>
     snapStep: [number, number];
     // An optional image to use in the background
@@ -797,13 +798,6 @@ export type PerseusLabelImageMarker = {
     x: number;
     // Y Coordinate location of the marker on the image
     y: number;
-};
-
-export type PerseusLightsPuzzleWidgetOptions = {
-    cells?: ReadonlyArray<ReadonlyArray<boolean>>;
-    startCells?: ReadonlyArray<ReadonlyArray<boolean>>;
-    flipPattern?: string;
-    moveCount?: number;
 };
 
 export type PerseusMatcherWidgetOptions = {
@@ -1454,24 +1448,6 @@ export type PerseusMoleculeRendererWidgetOptions = {
 
 export type PerseusPassageRefTargetWidgetOptions = {
     content: string;
-};
-
-export type PerseusReactionDiagramWidgetOptions = {
-    rotationAngle: ReadonlyArray<number>;
-    widgetId: string;
-    separators: ReadonlyArray<PerseusReactionDiagramSeparators>;
-    smiles: ReadonlyArray<string>;
-};
-
-export type PerseusReactionDiagramSeparators = {
-    type: string;
-    topText: string;
-    bottomText: string;
-};
-
-export type PerseusReactionDiagramSeparatorsData = {
-    topText: string;
-    bottomText: string;
 };
 
 export type PerseusSimpleMarkdownTesterWidgetOptions = {

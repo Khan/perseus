@@ -30,6 +30,7 @@ export const StyledMovablePoint = (props: Props) => {
         onMove,
         constrain: (p) => snap(state.snapStep, p),
     });
+    const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""}`;
 
     const [[x, y]] = useTransform(point);
 
@@ -66,16 +67,9 @@ export const StyledMovablePoint = (props: Props) => {
 
             <g
                 ref={hitboxRef}
-                className="movable-point"
+                className={pointClasses}
                 tabIndex={0}
-                style={
-                    {
-                        cursor: dragging ? "grabbing" : "grab",
-                        touchAction: "none",
-                        outline: "none",
-                        "--movable-point-color": color,
-                    } as any
-                }
+                style={{"--movable-point-color": color} as any}
                 data-test-id="movable-point"
             >
                 <circle
