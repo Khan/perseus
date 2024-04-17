@@ -36,7 +36,7 @@ import type {
     PerseusWidget,
     PerseusWidgetOptions,
     PerseusWidgetsMap,
-    ShowRationales,
+    ShowSolutions,
 } from "./perseus-types";
 import type {
     APIOptions,
@@ -159,7 +159,7 @@ export type Widget = {
         ) => unknown | null | undefined,
     ) => PerseusScore;
     /**
-     * @deprecated Use `showRationales` prop instead.
+     * @deprecated Internal only. Use `showSolutions` prop instead.
      */
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
@@ -178,11 +178,11 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
     /**
-     * If set to "all", all rationales will be shown. If set to "selected",
-     * rationales will only be shown for selected choices. If set to "none",
-     * rationales will not be shown-- equivalent to `undefined`.
+     * If set to "all", all rationales or solutions will be shown. If set to
+     * "selected", soltions will only be shown for selected choices. If set to
+     * "none", solutions will not be shown-- equivalent to `undefined`.
      */
-    showRationales?: ShowRationales;
+    showSolutions?: ShowSolutions;
     content: PerseusRenderer["content"];
     serializedState?: any;
     /**
@@ -238,7 +238,7 @@ type DefaultProps = Required<
         | "onRender"
         | "onSerializedStateUpdated"
         | "questionCompleted"
-        | "showRationales"
+        | "showSolutions"
         | "reviewMode"
         | "serializedState"
         | "widgets"
@@ -277,7 +277,7 @@ class Renderer extends React.Component<Props, State> {
         images: {},
         highlightedWidgets: [],
         questionCompleted: false,
-        showRationales: "none",
+        showSolutions: "none",
         // onRender may be called multiple times per render, for example
         // if there are multiple images or TeX pieces within `content`.
         // It is a good idea to debounce any functions passed here.
@@ -660,7 +660,7 @@ class Renderer extends React.Component<Props, State> {
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,
             questionCompleted: this.props.questionCompleted,
-            showRationales: this.props.showRationales,
+            showSolutions: this.props.showSolutions,
             onFocus: _.partial(this._onWidgetFocus, id),
             onBlur: _.partial(this._onWidgetBlur, id),
             findWidgets: this.findWidgets,
@@ -784,6 +784,7 @@ class Renderer extends React.Component<Props, State> {
      * currently selected choices inside of them. If the widget is correct, it
      * shows rationales for all of the choices. This also disables interaction
      * with the choices that we show rationales for.
+     * @deprecated Internal only. Use `showSolutions` prop instead.
      */
     showRationalesForCurrentlySelectedChoices: () => void = () => {
         Object.keys(this.props.widgets).forEach((widgetId) => {

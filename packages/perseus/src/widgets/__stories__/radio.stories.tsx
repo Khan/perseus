@@ -11,17 +11,17 @@ import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 import type {Meta} from "@storybook/react";
 
-interface StoryArgs {
+type StoryArgs = {
     // Story Option
     question: PerseusRenderer;
     // Radio Options
     static: boolean;
     // API Options
     crossOutEnabled: boolean;
-    // Renderer Options
-    reviewMode: boolean;
-    showRationales: "none" | "all" | "selected";
-}
+} & Pick<
+    React.ComponentProps<typeof RendererWithDebugUI>,
+    "reviewMode" | "showSolutions"
+>;
 
 export default {
     title: "Perseus/Widgets/Radio",
@@ -29,11 +29,11 @@ export default {
         static: false,
         crossOutEnabled: false,
         reviewMode: false,
-        showRationales: "none",
+        showSolutions: "none",
         question: questionWithPassage,
     } satisfies StoryArgs,
     argTypes: {
-        showRationales: {
+        showSolutions: {
             options: ["none", "all", "selected"],
             control: {
                 type: "select",
@@ -45,7 +45,7 @@ export default {
             question={applyStoryArgs(args)}
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
-            showRationales={args.showRationales}
+            showSolutions={args.showSolutions}
         />
     ),
 } satisfies Meta;

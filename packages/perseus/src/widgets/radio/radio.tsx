@@ -12,7 +12,7 @@ import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
-    ShowRationales,
+    ShowSolutions,
 } from "../../perseus-types";
 import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
 
@@ -25,7 +25,7 @@ export type RenderProps = {
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
     selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
-    showRationales?: ShowRationales;
+    showSolutions?: ShowSolutions;
     choiceStates?: ReadonlyArray<ChoiceState>;
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
@@ -50,7 +50,7 @@ type DefaultProps = Required<
         | "countChoices"
         | "deselectEnabled"
         | "linterContext"
-        | "showRationales"
+        | "showSolutions"
     >
 >;
 
@@ -69,7 +69,7 @@ class Radio extends React.Component<Props> {
         countChoices: false,
         deselectEnabled: false,
         linterContext: linterContextDefault,
-        showRationales: "none",
+        showSolutions: "none",
     };
 
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
@@ -202,10 +202,10 @@ class Radio extends React.Component<Props> {
         };
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
         if (
-            this.props.showRationales === "selected" &&
-            prevProps.showRationales !== "selected"
+            this.props.showSolutions === "selected" &&
+            prevProps.showSolutions !== "selected"
         ) {
             this.showRationalesForCurrentlySelectedChoices(this.props);
         }
@@ -350,7 +350,7 @@ class Radio extends React.Component<Props> {
      * Turn on rationale display for the currently selected choices. Note that
      * this leaves rationales on for choices that are already showing
      * rationales.
-     * @deprecated Internal only. Use `showRationales` prop instead.
+     * @deprecated Internal only. Use `showSolutions` prop instead.
      */
     showRationalesForCurrentlySelectedChoices: (
         arg1: PerseusRadioWidgetOptions,
@@ -380,7 +380,7 @@ class Radio extends React.Component<Props> {
                         state.selected ||
                         state.readOnly ||
                         widgetCorrect ||
-                        this.props.showRationales !== "none",
+                        this.props.showSolutions !== "none",
                     correctnessShown: state.selected || state.correctnessShown,
                     previouslyAnswered:
                         state.previouslyAnswered || state.selected,
@@ -437,7 +437,7 @@ class Radio extends React.Component<Props> {
                 correctnessShown: true,
                 previouslyAnswered: false,
             }));
-        } else if (this.props.showRationales === "all") {
+        } else if (this.props.showSolutions === "all") {
             choiceStates = choices.map(() => ({
                 selected: false,
                 crossedOut: false,
