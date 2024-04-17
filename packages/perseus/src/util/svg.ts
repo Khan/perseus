@@ -8,13 +8,14 @@ export class PathBuilder {
 
     build(): string {
         return this.path
-            .map((command) => command.scaleBy(this.scaleFactor))
+            .map(scaleCommandBy(this.scaleFactor))
+            .map(commandToString)
             .join("");
     }
 
     // add a move (M) command to the path
     move(x: number, y: number): PathBuilder {
-        this.path.push(new MoveCommand(x, y));
+        this.path.push({action: "M", coords: [x, y]});
         return this;
     }
 
@@ -28,57 +29,35 @@ export class PathBuilder {
         endY: number,
     ): PathBuilder {
         this.path.push(
-            new CurveCommand(
-                control1X,
-                control1Y,
-                control2X,
-                control2Y,
-                endX,
-                endY,
-            ),
+            {
+                action: "C",
+                coords: [
+                    control1X,
+                    control1Y,
+                    control2X,
+                    control2Y,
+                    endX,
+                    endY,
+                ]
+            },
         );
         return this;
     }
 
+    // Scale all coordinates of the path by a factor
     scale(factor: number): PathBuilder {
         this.scaleFactor *= factor;
         return this;
     }
 }
 
-abstract class Command {
-    abstract type: string;
-    coords: number[] = [];
+type Command = { action: "M" | "C", coords: number[] }
 
-    toString() {
-        return `${this.type}${this.coords.join(" ")}`;
-    }
-
-    scaleBy(factor: number) {
-        this.coords = this.coords.map((coord) => coord * factor);
-        return this;
-    }
+function commandToString(command: Command): string {
+    return `${command.action}${command.coords.join(" ")}`
 }
 
-class MoveCommand extends Command {
-    type = "M";
-    constructor(x, y) {
-        super();
-        this.coords = [x, y];
-    }
-}
-
-class CurveCommand extends Command {
-    type = "C";
-    constructor(
-        control1X: number,
-        control1Y: number,
-        control2X: number,
-        control2Y: number,
-        endX: number,
-        endY: number,
-    ) {
-        super();
-        this.coords = [control1X, control1Y, control2X, control2Y, endX, endY];
-    }
+function scaleCommandBy(scaleFactor: number): (command: Command) => Command {
+    return (command) =>
+        ({...command, coords: command.coords.map(c => c * scaleFactor)})
 }
