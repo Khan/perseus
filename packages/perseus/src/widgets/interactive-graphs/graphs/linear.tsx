@@ -44,7 +44,11 @@ export const LinearGraph = (props: LinearGraphProps) => {
     );
 };
 
-const LineView = (props: InteractiveLineProps & {stroke: string}) => {
+interface LineViewProps extends InteractiveLineProps {
+    stroke: string;
+}
+
+const LineView = (props: LineViewProps) => {
     const {
         onMoveLine,
         onMovePoint,
