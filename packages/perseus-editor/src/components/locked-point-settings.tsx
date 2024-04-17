@@ -83,153 +83,163 @@ const LockedPointSettings = (props: Props) => {
     }
 
     return (
-        <AccordionSection
-            style={[styles.container, style]}
-            headerStyle={styles.accordionHeader}
-            header={
-                <View style={styles.row}>
-                    <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
-                    <Strut size={spacing.xSmall_8} />
-                    {toggled && (
-                        <View
-                            aria-label={`Point color: ${pointColor}, ${filled ? "filled" : "open"}`}
-                            style={[
-                                styles.colorCircle,
-                                styles.spaceStart,
-                                {
-                                    border: `4px solid ${wbColor[pointColor]}`,
-                                    backgroundColor: filled
-                                        ? wbColor[pointColor]
-                                        : wbColor.white,
-                                },
-                            ]}
-                        />
-                    )}
-                </View>
-            }
-        >
-            <View style={styles.accordionPanel}>
-                {/* Coordinates */}
-                <View style={styles.row}>
-                    <View style={[styles.row, styles.spaceUnder]}>
-                        <LabelMedium
-                            htmlFor={xCoordId}
-                            style={styles.label}
-                            tag="label"
-                        >
-                            x Coord
-                        </LabelMedium>
-                        <TextField
-                            id={xCoordId}
-                            type="number"
-                            value={coordState[0]}
-                            onChange={(newValue) =>
-                                handleCoordChange(newValue, 0)
-                            }
-                            onBlur={handleBlur}
-                            style={styles.textField}
-                        />
+        <View
+        // More specificity so that we can override the default
+        // universal styles from the .less file.
+        className="locked-figure-accordion">
+            <AccordionSection
+                style={[styles.container, style]}
+                headerStyle={styles.accordionHeader}
+                header={
+                    <View style={styles.row}>
+                        <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
+                        <Strut size={spacing.xSmall_8} />
+                        {toggled && (
+                            <View
+                                aria-label={`Point color: ${pointColor}, ${filled ? "filled" : "open"}`}
+                                style={[
+                                    styles.colorCircle,
+                                    styles.spaceStart,
+                                    {
+                                        border: `4px solid ${wbColor[pointColor]}`,
+                                        backgroundColor: filled
+                                            ? wbColor[pointColor]
+                                            : wbColor.white,
+                                    },
+                                ]}
+                            />
+                        )}
                     </View>
-
-                    <Strut size={spacing.medium_16} />
-
-                    <View style={[styles.row, styles.spaceUnder]}>
-                        <LabelMedium
-                            htmlFor={yCoordId}
-                            style={styles.label}
-                            tag="label"
-                        >
-                            y Coord
-                        </LabelMedium>
-                        <TextField
-                            id={yCoordId}
-                            type="number"
-                            value={coordState[1]}
-                            onChange={(newValue) =>
-                                handleCoordChange(newValue, 1)
-                            }
-                            onBlur={handleBlur}
-                            style={styles.textField}
-                        />
-                    </View>
-                </View>
-
-                {onToggle && (
-                    <View style={[styles.row, styles.spaceUnder]}>
-                        <Switch
-                            id={showPointToggleId}
-                            checked={!!toggled}
-                            onChange={onToggle}
-                        />
-                        <Strut size={spacing.small_12} />
-                        <LabelMedium tag="label" htmlFor={showPointToggleId}>
-                            Show point on graph
-                        </LabelMedium>
-                    </View>
-                )}
-
-                {/* Toggleable section */}
-                {toggled && (
-                    <>
-                        {/* Color */}
+                }
+            >
+                <View style={styles.accordionPanel}>
+                    {/* Coordinates */}
+                    <View style={styles.row}>
                         <View style={[styles.row, styles.spaceUnder]}>
                             <LabelMedium
-                                htmlFor={colorSelectId}
+                                htmlFor={xCoordId}
                                 style={styles.label}
                                 tag="label"
                             >
-                                Color
+                                x Coord
                             </LabelMedium>
-                            <SingleSelect
-                                id={colorSelectId}
-                                selectedValue={pointColor || "blue"}
-                                onChange={handleColorChange}
-                                // Placeholder is required, but never gets used.
-                                placeholder=""
-                            >
-                                {possibleColors.map((colorName) => (
-                                    <OptionItem
-                                        key={colorName}
-                                        value={colorName}
-                                        label={colorName}
-                                        leftAccessory={
-                                            <View
-                                                style={[
-                                                    styles.colorCircle,
-                                                    {
-                                                        backgroundColor:
-                                                            wbColor[colorName],
-                                                    },
-                                                ]}
-                                            />
-                                        }
-                                    >
-                                        {colorName}
-                                    </OptionItem>
-                                ))}
-                            </SingleSelect>
+                            <TextField
+                                id={xCoordId}
+                                type="number"
+                                value={coordState[0]}
+                                onChange={(newValue) =>
+                                    handleCoordChange(newValue, 0)
+                                }
+                                onBlur={handleBlur}
+                                style={styles.textField}
+                            />
                         </View>
-                        <Checkbox
-                            label="Open point"
-                            checked={!filled}
-                            onChange={(newValue) => {
-                                onChangeProps({filled: !newValue});
-                            }}
-                            style={styles.spaceUnder}
-                        />
-                    </>
-                )}
 
-                {onRemove && (
-                    <IconButton
-                        icon={trashIcon}
-                        aria-label={`Delete locked point at ${coordState[0]}, ${coordState[1]}`}
-                        onClick={onRemove}
-                        style={styles.deleteButton}
-                    />
-                )}
-            </View>
-        </AccordionSection>
+                        <Strut size={spacing.medium_16} />
+
+                        <View style={[styles.row, styles.spaceUnder]}>
+                            <LabelMedium
+                                htmlFor={yCoordId}
+                                style={styles.label}
+                                tag="label"
+                            >
+                                y Coord
+                            </LabelMedium>
+                            <TextField
+                                id={yCoordId}
+                                type="number"
+                                value={coordState[1]}
+                                onChange={(newValue) =>
+                                    handleCoordChange(newValue, 1)
+                                }
+                                onBlur={handleBlur}
+                                style={styles.textField}
+                            />
+                        </View>
+                    </View>
+
+                    {onToggle && (
+                        <View style={[styles.row, styles.spaceUnder]}>
+                            <Switch
+                                id={showPointToggleId}
+                                checked={!!toggled}
+                                onChange={onToggle}
+                            />
+                            <Strut size={spacing.small_12} />
+                            <LabelMedium
+                                tag="label"
+                                htmlFor={showPointToggleId}
+                            >
+                                Show point on graph
+                            </LabelMedium>
+                        </View>
+                    )}
+
+                    {/* Toggleable section */}
+                    {toggled && (
+                        <>
+                            {/* Color */}
+                            <View style={[styles.row, styles.spaceUnder]}>
+                                <LabelMedium
+                                    htmlFor={colorSelectId}
+                                    style={styles.label}
+                                    tag="label"
+                                >
+                                    Color
+                                </LabelMedium>
+                                <SingleSelect
+                                    id={colorSelectId}
+                                    selectedValue={pointColor || "blue"}
+                                    onChange={handleColorChange}
+                                    // Placeholder is required, but never gets used.
+                                    placeholder=""
+                                >
+                                    {possibleColors.map((colorName) => (
+                                        <OptionItem
+                                            key={colorName}
+                                            value={colorName}
+                                            label={colorName}
+                                            leftAccessory={
+                                                <View
+                                                    style={[
+                                                        styles.colorCircle,
+                                                        {
+                                                            backgroundColor:
+                                                                wbColor[
+                                                                    colorName
+                                                                ],
+                                                        },
+                                                    ]}
+                                                />
+                                            }
+                                        >
+                                            {colorName}
+                                        </OptionItem>
+                                    ))}
+                                </SingleSelect>
+                            </View>
+                            <Checkbox
+                                label="Open point"
+                                checked={!filled}
+                                onChange={(newValue) => {
+                                    onChangeProps({filled: !newValue});
+                                }}
+                                style={styles.spaceUnder}
+                            />
+                        </>
+                    )}
+
+                    {onRemove && (
+                        <IconButton
+                            icon={trashIcon}
+                            aria-label={`Delete locked point at ${coordState[0]}, ${coordState[1]}`}
+                            onClick={onRemove}
+                            style={styles.deleteButton}
+                        />
+                    )}
+                </View>
+            </AccordionSection>
+        </View>
     );
 };
 

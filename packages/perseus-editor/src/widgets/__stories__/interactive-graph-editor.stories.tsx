@@ -89,14 +89,14 @@ export const WithLockedPoints: StoryComponentType = {
                 {
                     type: "point",
                     coord: [1, 1],
+                    color: "blue",
+                    filled: true,
                 },
                 {
                     type: "point",
                     coord: [-1, -1],
-                    style: {
-                        stroke: "gold",
-                        fill: "gold",
-                    },
+                    color: "purple",
+                    filled: false,
                 },
             ],
         });
