@@ -45,10 +45,6 @@ const YGridTick = ({
                 y2={yPosition}
                 style={tickStyle}
             />
-            {
-                // TODO (LEMS-1891): Negative one is a special case as the labels can
-                // overlap with the axis line. We should handle this case more gracefully.
-            }
             {showTickLabel(gridStep, tickStep, y) && (
                 <text
                     height={20}
@@ -85,10 +81,6 @@ const XGridTick = ({
                 y2={yPosition - tickSize / 2}
                 style={tickStyle}
             />
-            {
-                // TODO (LEMS-1891): Negative one is a special case as the labels can
-                // overlap with the axis line. We should handle this case more gracefully.
-            }
             {showTickLabel(gridStep, tickStep, x) && (
                 <text
                     height={20}
