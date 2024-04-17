@@ -1,11 +1,10 @@
-import * as React from "react";
-import {StyleSheet} from "aphrodite";
-
 import {lockedFigureColors} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
 
 import ColorCircle from "./color-circle";
 

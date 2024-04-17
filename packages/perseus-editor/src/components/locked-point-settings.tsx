@@ -16,12 +16,12 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import ColorCircle from "./color-circle";
+import ColorSelect from "./color-select";
 import {getValidNumberFromString} from "./util";
 
 import type {LockedPointType} from "@khanacademy/perseus";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-import ColorCircle from "./color-circle";
-import ColorSelect from "./color-select";
 
 export type Props = LockedPointType & {
     label?: string;
@@ -230,14 +230,6 @@ const styles = StyleSheet.create({
     },
     textField: {
         width: spacing.xxxLarge_64,
-    },
-    colorCircle: {
-        // Add a white outline so that the color circle is visible when
-        // the dropdown option is highlighted with its blue background.
-        outline: `2px solid ${wbColor.offWhite}`,
-        borderRadius: "50%",
-        width: spacing.large_24,
-        height: spacing.large_24,
     },
     deleteButton: {
         position: "absolute",

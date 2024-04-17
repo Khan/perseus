@@ -1,8 +1,7 @@
-import * as React from "react";
-import {StyleSheet} from "aphrodite";
-
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
 
 type Props = {
     color: string;
