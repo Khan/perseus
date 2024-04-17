@@ -105,6 +105,7 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
+            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -152,6 +153,7 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "point",
+            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -206,6 +208,7 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
+            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],

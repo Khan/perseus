@@ -41,9 +41,11 @@ export const StyledMovablePoint = (props: Props) => {
     const [[_, horizontalStartY]] = useTransform([0, yMin]);
     const [[__, horizontalEndY]] = useTransform([0, yMax]);
 
+    const showHairlines = dragging && state.markings !== "none";
+
     return (
         <>
-            {dragging && (
+            {showHairlines && (
                 <g>
                     <line
                         x1={verticalStartX}

@@ -4,13 +4,14 @@ import {initializeGraphState} from "./interactive-graph-state";
 
 import type {Interval, vec} from "mafs";
 
-const baseGraphData = {
+const baseGraphData: any = {
     range: [
         [-10, 10],
         [-10, 10],
     ] as [Interval, Interval],
     step: [1, 1] as vec.Vector2,
     snapStep: [1, 1] as vec.Vector2,
+    markings: "graph",
 };
 
 describe("initializeGraphState for segment graphs", () => {
@@ -23,6 +24,7 @@ describe("initializeGraphState for segment graphs", () => {
             step: [1, 1],
             snapStep: [2, 3],
             graph: {type: "segment"},
+            markings: "graph",
         });
         expect(state.range).toEqual([
             [0, 10],
