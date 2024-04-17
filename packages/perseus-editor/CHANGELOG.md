@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 5.2.12
+
+### Patch Changes
+
+-   [#1174](https://github.com/Khan/perseus/pull/1174) [`108cb3bc4`](https://github.com/Khan/perseus/commit/108cb3bc4b9c4d734c4f8cd424e55f8c14c77009) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: allow selecting financial calculator options again
+
 ## 5.2.11
 
 ### Patch Changes
