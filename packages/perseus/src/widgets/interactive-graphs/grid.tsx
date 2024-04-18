@@ -66,7 +66,11 @@ export const Grid = (props: GridProps) => {
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
-            <AxisTicks range={props.range} tickStep={props.tickStep} />
+            <AxisTicks
+                range={props.range}
+                tickStep={props.tickStep}
+                gridStep={props.gridStep}
+            />
             {props.markings === "graph" && <AxisArrows />}
         </>
     );
