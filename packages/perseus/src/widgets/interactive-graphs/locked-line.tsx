@@ -2,6 +2,8 @@ import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Line} from "mafs";
 import * as React from "react";
 
+import {lockedFigureColors} from "../../perseus-types";
+
 import type {LockedLineType} from "../../perseus-types";
 
 const LockedLine = (props: LockedLineType) => {
@@ -17,7 +19,7 @@ const LockedLine = (props: LockedLineType) => {
             <LineType
                 point1={point1.coord}
                 point2={point2.coord}
-                color={wbColor[color]}
+                color={lockedFigureColors[color]}
                 style={lineStyle}
             />
         );
@@ -36,9 +38,9 @@ const LockedLine = (props: LockedLineType) => {
                     svgCircleProps={{
                         style: {
                             fill: point1.filled
-                                ? wbColor[point1.color]
+                                ? lockedFigureColors[point1.color]
                                 : wbColor.white,
-                            stroke: wbColor[point1.color],
+                            stroke: lockedFigureColors[point1.color],
                             strokeWidth: spacing.xxxxSmall_2,
                         },
                     }}
@@ -51,9 +53,9 @@ const LockedLine = (props: LockedLineType) => {
                     svgCircleProps={{
                         style: {
                             fill: point2.filled
-                                ? wbColor[point2.color]
+                                ? lockedFigureColors[point2.color]
                                 : wbColor.white,
-                            stroke: wbColor[point2.color],
+                            stroke: lockedFigureColors[point2.color],
                             strokeWidth: spacing.xxxxSmall_2,
                         },
                     }}
