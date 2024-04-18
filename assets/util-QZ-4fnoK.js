@@ -1,0 +1,1 @@
+function e(r){r.focus({preventScroll:!0})}function o(r){const t=parseInt(r);return isNaN(t)?0:t}function u(r){switch(r){case"point":return{type:"point",coord:[0,0],color:"blue",filled:!0}}}export{o as a,e as f,u as g};

@@ -1,0 +1,1 @@
+const a=["calculator","chi2Table","financialCalculatorMonthlyPayment","financialCalculatorTotalAmount","financialCalculatorTimeToPayOff","periodicTable","periodicTableWithKey","tTable","zTable"],e=["correct","wrong","ungraded"],l=["purple","blue","teal","green","gold","red","pink"],o=["bar","line","pic","histogram","dotplot"];export{a as I,e as P,l,o as p};
