@@ -141,15 +141,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
-    useEffect(() => {
-        dispatch(
-            changeRange([
-                [xMinRange, xMaxRange],
-                [yMinRange, yMaxRange],
-            ]),
-        );
-    }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
-
     return (
         <GraphConfigContext.Provider
             value={{
