@@ -4,7 +4,6 @@ import * as React from "react";
 import AxisArrows from "./axis-arrows";
 import AxisLabels from "./axis-labels";
 import {AxisTicks} from "./axis-ticks";
-import {useTransform} from "./graphs/use-transform";
 import {useTransformVectorToPixel} from "./graphs/use-transform";
 
 import type {GraphRange} from "../../perseus-types";
@@ -67,8 +66,6 @@ const axisOptions = (
 };
 
 export const Grid = (props: GridProps) => {
-    const xRange = useTransform(props.range[0]);
-    const yRange = useTransform(props.range[1]);
     const xRange = useTransformVectorToPixel(props.range[0]);
     const yRange = useTransformVectorToPixel(props.range[1]);
 
@@ -100,10 +97,9 @@ export const Grid = (props: GridProps) => {
                     xAxis={axisOptions(props, 0)}
                     yAxis={axisOptions(props, 1)}
                 />
-                <AxisTicks range={props.range} tickStep={props.tickStep} />
-                {props.markings === "graph" && <AxisArrows />}
             </g>
-            {props.markings === "graph" && <AxisLabels labels={props.labels} />}
+            <AxisTicks range={props.range} tickStep={props.tickStep} />
+            {props.markings === "graph" && <AxisArrows />}
         </>
     );
 };
