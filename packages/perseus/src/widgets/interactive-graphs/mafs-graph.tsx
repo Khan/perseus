@@ -69,13 +69,16 @@ const renderGraph = (props: {
     }
 };
 
-function isMajorGraphChange(prev: Props, curr: Props): boolean {
-    if (curr.graph.type !== prev.graph.type) {
+function isMajorGraphChange(
+    prev: Props["graph"],
+    curr: Props["graph"],
+): boolean {
+    if (curr.type !== prev.type) {
         return true;
     }
 
-    if (curr.graph.type === "segment" && prev.graph.type === "segment") {
-        if (curr.graph.numSegments !== prev.graph.numSegments) {
+    if (curr.type === "segment" && prev.type === "segment") {
+        if (curr.numSegments !== prev.numSegments) {
             return true;
         }
     }
@@ -93,7 +96,7 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
 
         const prevProps = useRef<Props>(props);
         useEffect(() => {
-            if (isMajorGraphChange(prevProps.current, props)) {
+            if (isMajorGraphChange(prevProps.current.graph, props.graph)) {
                 dispatch(majorGraphChange(props));
             }
             prevProps.current = props;
