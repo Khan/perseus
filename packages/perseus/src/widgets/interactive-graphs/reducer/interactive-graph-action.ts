@@ -2,7 +2,6 @@ import type {Props as MafsGraphProps} from "../mafs-graph";
 import type {vec} from "mafs";
 
 export type InteractiveGraphAction =
-    | MajorGraphChange
     | MoveControlPoint
     | MoveLine
     | MoveAll
@@ -67,18 +66,6 @@ export function movePoint(index: number, destination: vec.Vector2): MovePoint {
         type: MOVE_POINT,
         index,
         destination,
-    };
-}
-
-export const MAJOR_GRAPH_CHANGE = "MAJOR_GRAPH_CHANGE";
-export interface MajorGraphChange {
-    type: typeof MAJOR_GRAPH_CHANGE;
-    props: MafsGraphProps;
-}
-export function majorGraphChange(props: MafsGraphProps): MajorGraphChange {
-    return {
-        type: MAJOR_GRAPH_CHANGE,
-        props,
     };
 }
 

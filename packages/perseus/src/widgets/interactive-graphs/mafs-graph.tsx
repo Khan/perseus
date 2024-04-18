@@ -14,7 +14,6 @@ import {LegacyGrid} from "./legacy-grid";
 import {
     changeRange,
     changeSnapStep,
-    majorGraphChange,
     type InteractiveGraphAction,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -69,23 +68,6 @@ const renderGraph = (props: {
     }
 };
 
-function isMajorGraphChange(
-    prev: Props["graph"],
-    curr: Props["graph"],
-): boolean {
-    if (curr.type !== prev.type) {
-        return true;
-    }
-
-    if (curr.type === "segment" && prev.type === "segment") {
-        if (curr.numSegments !== prev.numSegments) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     (props, ref) => {
         const [state, dispatch] = React.useReducer(
@@ -93,14 +75,6 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
             props,
             initializeGraphState,
         );
-
-        const prevProps = useRef<Props>(props);
-        useEffect(() => {
-            if (isMajorGraphChange(prevProps.current.graph, props.graph)) {
-                dispatch(majorGraphChange(props));
-            }
-            prevProps.current = props;
-        }, [props]);
 
         useImperativeHandle(ref, () => ({
             getUserInput: () => getGradableGraph(state, props.graph),

@@ -19,9 +19,7 @@ import {
     type MovePoint,
     type ChangeSnapStep,
     type ChangeRange,
-    MAJOR_GRAPH_CHANGE,
 } from "./interactive-graph-action";
-import {initializeGraphState} from "./interactive-graph-state";
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Interval} from "mafs";
@@ -31,8 +29,6 @@ export function interactiveGraphReducer(
     action: InteractiveGraphAction,
 ): InteractiveGraphState {
     switch (action.type) {
-        case MAJOR_GRAPH_CHANGE:
-            return initializeGraphState(action.props);
         case MOVE_CONTROL_POINT:
             return doMoveControlPoint(state, action);
         case MOVE_LINE:
