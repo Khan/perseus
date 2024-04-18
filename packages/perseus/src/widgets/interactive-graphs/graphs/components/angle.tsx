@@ -2,7 +2,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
-import {getRayIntersectionCoords as getRangeIntersectionVertex} from "../utils";
+import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
@@ -166,11 +166,7 @@ export const shouldDrawArcOutside = (
     polygonLines: readonly CollinearTuple[],
 ) => {
     // Create a ray from the midpoint (inside angle) to the edge of the range
-    const rangeIntersectionPoint = getRangeIntersectionVertex(
-        midpoint,
-        vertex,
-        range,
-    );
+    const rangeIntersectionPoint = getRangeIntersectionVertex(vertex, midpoint, range);
 
     let lineIntersectionCount = 0;
 

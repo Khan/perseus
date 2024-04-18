@@ -2,19 +2,20 @@ import type {CollinearTuple} from "../../../perseus-types";
 import type {Interval, vec} from "mafs";
 
 /**
- * Given two points, find the tips that extends through the points to the edge of the range.
- * @param collinearPoint - The point that the line passes through. Needed to establish slope.
- * @param extendFrom - The point that the line extends from to the edge of the graph.
+ * Given a ray and a rectangular box, find the point where the ray intersects
+ * the edge of the box. Assumes the `initialPoint` is inside the box.
+ * @param initialPoint - The starting point of the ray.
+ * @param throughPoint - A point that the ray passes through. Must be different from initialPoint.
+ * @param box - The box with which to intersect the ray, in the form [[xMin, xMax], [yMin, yMax]]
  */
-export const getRayIntersectionCoords = (
-    collinearPoint: vec.Vector2,
-    extendFrom: vec.Vector2,
-    range: [Interval, Interval],
+export const getIntersectionOfRayWithBox = (
+    initialPoint: vec.Vector2,
+    throughPoint: vec.Vector2,
+    box: [x: Interval, y: Interval],
 ): [number, number] => {
-    // edges of the graph
-    const [[xMin, xMax], [yMin, yMax]] = range;
-    const [aX, aY] = collinearPoint;
-    const [bX, bY] = extendFrom;
+    const [[xMin, xMax], [yMin, yMax]] = box;
+    const [aX, aY] = throughPoint;
+    const [bX, bY] = initialPoint;
 
     const yDiff = bY - aY;
     const xDiff = bX - aX;

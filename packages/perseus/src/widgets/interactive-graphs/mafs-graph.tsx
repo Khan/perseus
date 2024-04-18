@@ -127,6 +127,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 snapStep: state.snapStep,
                 markings: props.markings,
                 showTooltips: !!props.showTooltips,
+                graphDimensionsInPixels: props.box,
             }}
         >
             <View
