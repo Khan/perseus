@@ -2,6 +2,7 @@ import {vec, useMovable} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
+import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
 import {useTransform} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
@@ -10,7 +11,6 @@ import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
 
 import type {Interval} from "mafs";
-import useGraphConfig from "../../reducer/use-graph-config";
 
 const defaultStroke = "var(--movable-line-stroke-color)";
 

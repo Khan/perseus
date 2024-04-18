@@ -1,5 +1,6 @@
+import type {Interval, vec} from "mafs";
+
 import {trimRange} from "./movable-line";
-import {type Interval, vec} from "mafs";
 
 describe("trimRange", () => {
     it("does not trim smaller than [[0, 0], [0, 0]]", () => {
