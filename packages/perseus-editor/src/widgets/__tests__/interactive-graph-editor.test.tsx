@@ -749,4 +749,31 @@ describe("InteractiveGraphEditor", () => {
             }),
         );
     });
+
+    test("changes number of segments when segment prop changes", async () => {
+        // Arrange
+
+        // Act
+        const {rerender} = render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+        expect(await screen.findAllByTestId("movable-line")).toHaveLength(1);
+
+        // Assert
+        rerender(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment", numSegments: 4}}
+            />,
+        );
+        expect(await screen.findAllByTestId("movable-line")).toHaveLength(4);
+    });
 });
