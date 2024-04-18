@@ -92,6 +92,7 @@ type MafsGraphProps = Props & {
 
 export const MafsGraph = (props: MafsGraphProps) => {
     const {state, dispatch} = props;
+    const {state, dispatch, labels} = props;
     const [width, height] = props.box;
 
     const prevState = useRef<InteractiveGraphState>(state);
@@ -128,7 +129,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
             value={{
                 state,
                 dispatch,
-                graphOptions,
+                labels,
+                width,
+                height,
             }}
         >
             <View

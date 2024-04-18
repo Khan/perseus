@@ -11,12 +11,12 @@ import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
 import "@khanacademy/mathjax-renderer/src/css/selectable.css";
 
 export default function AxisLabels(props) {
-    const {state, graphOptions, width, height} = useGraphState();
+    const {state, labels, width, height} = useGraphState();
 
     const yAxisLabelLocation: vec.Vector2 = [0, state.range[1][1] + 1];
     const xAxisLabelLocation: vec.Vector2 = [state.range[0][1], 0];
 
-    const [xAxisLabelText, yAxisLabelText] = graphOptions.labels;
+    const [xAxisLabelText, yAxisLabelText] = labels;
     const graphInfo = {
         state: {
             range: state.range,
