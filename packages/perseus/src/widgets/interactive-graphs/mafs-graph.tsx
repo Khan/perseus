@@ -14,6 +14,7 @@ import {LegacyGrid} from "./legacy-grid";
 import {
     changeRange,
     changeSnapStep,
+    majorGraphChange,
     type InteractiveGraphAction,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -68,6 +69,20 @@ const renderGraph = (props: {
     }
 };
 
+function isMajorGraphChange(prev: Props, curr: Props): boolean {
+    if (curr.graph.type !== prev.graph.type) {
+        return true;
+    }
+
+    if (curr.graph.type === "segment" && prev.graph.type === "segment") {
+        if (curr.graph.numSegments !== prev.graph.numSegments) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     (props, ref) => {
         const [state, dispatch] = React.useReducer(
@@ -75,6 +90,14 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
             props,
             initializeGraphState,
         );
+
+        const prevProps = useRef<Props>(props);
+        useEffect(() => {
+            if (isMajorGraphChange(prevProps.current, props)) {
+                dispatch(majorGraphChange(props));
+            }
+            prevProps.current = props;
+        }, [props]);
 
         useImperativeHandle(ref, () => ({
             getUserInput: () => getGradableGraph(state, props.graph),
@@ -109,6 +132,15 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     // Destructuring first to keep useEffect from making excess calls
     const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = props.range;
+    useEffect(() => {
+        dispatch(
+            changeRange([
+                [xMinRange, xMaxRange],
+                [yMinRange, yMaxRange],
+            ]),
+        );
+    }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
+
     useEffect(() => {
         dispatch(
             changeRange([

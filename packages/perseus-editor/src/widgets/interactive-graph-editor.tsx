@@ -441,7 +441,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     correct: {
                                         type: "segment",
                                         numSegments: sides,
-                                        coords: null,
+                                        // coords: null,
                                     },
                                 });
                             }}
