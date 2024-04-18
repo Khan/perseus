@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 21.4.0
+
+### Minor Changes
+
+-   [#1184](https://github.com/Khan/perseus/pull/1184) [`a3d724b86`](https://github.com/Khan/perseus/commit/a3d724b8657edd78266335e236f8eba5f5f1b9dd) Thanks [@nedredmond](https://github.com/nedredmond)! - Adds `showSolutions`, which adds the ability to show all rationales for the radio widget and will deprecate `showshowRationalesForCurrentlySelectedChoices`
+
+*   [#1176](https://github.com/Khan/perseus/pull/1176) [`3da51638b`](https://github.com/Khan/perseus/commit/3da51638b513e10c42da421667c3d877c5dcc161) Thanks [@benchristel](https://github.com/benchristel)! - Style the arrowheads used on lines in Mafs graphs
+
+-   [#1183](https://github.com/Khan/perseus/pull/1183) [`0f80f4089`](https://github.com/Khan/perseus/commit/0f80f4089a6000301fc63ceef24646bd05a26db6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Added new logic for conditionally rendering initial negative axis tick labels.
+
+### Patch Changes
+
+-   [#1185](https://github.com/Khan/perseus/pull/1185) [`dd97c422a`](https://github.com/Khan/perseus/commit/dd97c422a7d40a3786075d8c6988509fc2c43012) Thanks [@benchristel](https://github.com/benchristel)! - Internal: restructure the interactive graph React context to clarify its purpose
+
+*   [#1175](https://github.com/Khan/perseus/pull/1175) [`e3063ddc7`](https://github.com/Khan/perseus/commit/e3063ddc76ad22469ca5a8557bee78216869f5d3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that axis ticks are conditionally rendered based on the markings setting.
+
+-   [#1169](https://github.com/Khan/perseus/pull/1169) [`ccead133f`](https://github.com/Khan/perseus/commit/ccead133fa30e1d93e02fd9a7c9e544c750e55ab) Thanks [@handeyeco](https://github.com/handeyeco)! - Add hairLines to MovablePoint for mobile UX
+
 ## 21.3.1
 
 ### Patch Changes
