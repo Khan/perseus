@@ -3,7 +3,6 @@ import {act, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
-import {getMockUniqueId} from "../../../../../testing/mock-unique-id";
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -40,7 +39,6 @@ describe("single-choice question", () => {
             advanceTimers: jest.advanceTimersByTime,
         });
 
-        jest.spyOn(_, "uniqueId").mockImplementation(getMockUniqueId());
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );

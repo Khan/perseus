@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unsafe */
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
@@ -69,15 +69,6 @@ type WithForwardRef = {
 
 type ChoicePropsWithForwardRef = ChoiceProps & WithForwardRef;
 
-// Note(TB): Received errors when using useUniqueIdWithMock
-// so created this workaround function. Will update when
-// useUniqueIdWithMock is available.
-// https://khanacademy.atlassian.net/browse/FEI-4861?atlOrigin=eyJpIjoiNDJlZWMwNjM1NWJhNDBkMWFjY2FmN2I0ZjcxZmQxOGUiLCJwIjoiaiJ9
-let id = 0;
-function uniqueId() {
-    return `choice-${id++}`;
-}
-
 const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
     const {
         disabled = false,
@@ -143,7 +134,9 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
         crossedOut,
         showCorrectness,
     );
-    const choiceId = uniqueId();
+
+    const idFactory = useUniqueIdWithMock(`choice`);
+    const choiceId = idFactory.get(letter);
 
     return (
         <div
