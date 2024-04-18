@@ -5,7 +5,7 @@ import {useRef} from "react";
 
 import useGraphState from "../../reducer/use-graph-state";
 import {snap} from "../../utils";
-import {useTransform} from "../use-transform";
+import {useTransformVectorToPixel} from "../use-transform";
 
 import type {vec} from "mafs";
 
@@ -31,7 +31,7 @@ export const StyledMovablePoint = (props: Props) => {
         constrain: (p) => snap(state.snapStep, p),
     });
 
-    const [[x, y]] = useTransform(point);
+    const [[x, y]] = useTransformVectorToPixel(point);
 
     return (
         <g

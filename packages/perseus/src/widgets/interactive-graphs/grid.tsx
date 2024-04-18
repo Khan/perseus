@@ -5,6 +5,7 @@ import AxisArrows from "./axis-arrows";
 import AxisLabels from "./axis-labels";
 import {AxisTicks} from "./axis-ticks";
 import {useTransform} from "./graphs/use-transform";
+import {useTransformVectorToPixel} from "./graphs/use-transform";
 
 import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
@@ -68,6 +69,8 @@ const axisOptions = (
 export const Grid = (props: GridProps) => {
     const xRange = useTransform(props.range[0]);
     const yRange = useTransform(props.range[1]);
+    const xRange = useTransformVectorToPixel(props.range[0]);
+    const yRange = useTransformVectorToPixel(props.range[1]);
 
     // The clip definition starts from the top left of the shape
     // so the below values make use of the minimum x and maximum y of the range
