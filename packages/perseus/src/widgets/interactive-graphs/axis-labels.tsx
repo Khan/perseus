@@ -6,9 +6,6 @@ import {pointToPixel} from "./graphs/use-transform";
 import useGraphState from "./reducer/use-graph-state";
 
 import type {vec} from "mafs";
-import "@khanacademy/mathjax-renderer/src/css/mathjax.css";
-import "@khanacademy/mathjax-renderer/src/css/safari-hacks.css";
-import "@khanacademy/mathjax-renderer/src/css/selectable.css";
 
 export default function AxisLabels(props) {
     const {state, labels, width, height} = useGraphState();
