@@ -122,7 +122,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         <GraphConfigContext.Provider
             value={{
                 range: state.range,
-                snapStep: props.snapStep,
+                snapStep: state.snapStep,
                 markings: props.markings,
             }}
         >

@@ -163,14 +163,14 @@ describe("MafsGraph", () => {
             coords: [[2, 2]],
         };
 
-        const props = {
-            ...getBaseMafsGraphProps(),
-            range: state.range,
-            snapStep: state.snapStep,
-        };
+        const baseMafsGraphProps = getBaseMafsGraphProps();
 
         const {rerender} = render(
-            <MafsGraph state={state} dispatch={mockDispatch} {...props} />,
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
         );
 
         const group = screen.getByTestId("movable-point");
@@ -185,7 +185,7 @@ describe("MafsGraph", () => {
             <MafsGraph
                 state={updatedState}
                 dispatch={mockDispatch}
-                {...props}
+                {...baseMafsGraphProps}
             />,
         );
 
