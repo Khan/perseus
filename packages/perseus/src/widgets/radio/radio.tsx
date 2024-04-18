@@ -438,11 +438,11 @@ class Radio extends React.Component<Props> {
                 previouslyAnswered: false,
             }));
         } else if (this.props.showSolutions === "all") {
-            choiceStates = choices.map(() => ({
-                selected: false,
+            choiceStates = choices.map(({correct}) => ({
+                selected: correct, // to draw the eye to the correct answer
                 crossedOut: false,
                 readOnly: true,
-                highlighted: false,
+                highlighted: false, // has no effect in this mode
                 rationaleShown: true,
                 correctnessShown: true,
                 previouslyAnswered: false,
