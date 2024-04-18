@@ -1,6 +1,6 @@
 /**
  * PerseusI18nContext provides a way to set the strings and locale that are
- * used inside the Math Input package.
+ * used inside the Perseus package.
  *
  */
 import * as React from "react";
@@ -17,13 +17,17 @@ type I18nContextType = {
 
 // @ts-expect-error - TS2322 - Type 'Context<{ strings: {}; locale: string; }>' is not assignable to type 'Context<I18nContextType>'.
 export const PerseusI18nContext: React.Context<I18nContextType> =
-    React.createContext({
-        strings:
-            process.env.NODE_ENV !== "production" || process.env.STORYBOOK
-                ? mockStrings
-                : {},
-        locale: "en",
-    });
+    React.createContext(
+        process.env.NODE_ENV === "test" || process.env.STORYBOOK
+            ? {
+                  strings: mockStrings,
+                  locale: "en",
+              }
+            : // We want to return null here, not an empty object, so that we
+              // are will throw an error when attempting to access the
+              // undefined locale or strings, making it easier to debug.
+              null,
+    );
 
 type Props = React.PropsWithChildren<I18nContextType>;
 
