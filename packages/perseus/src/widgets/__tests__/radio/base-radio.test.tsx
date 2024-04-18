@@ -9,6 +9,7 @@ import {generateChoice} from "../../__testdata__/base-radio.testdata";
 import BaseRadio from "../../radio/base-radio";
 
 import type {APIOptions} from "../../../types";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 
 function renderBaseRadio(props) {
     const apiOptions: APIOptions = Object.freeze({});
@@ -37,7 +38,9 @@ function renderBaseRadio(props) {
 
     const overwrittenProps = {...baseProps, ...props} as const;
 
-    return render(<BaseRadio {...overwrittenProps} />);
+    return render(<BaseRadio {...overwrittenProps} />, {
+        wrapper: RenderStateRoot,
+    });
 }
 
 describe("base-radio", () => {

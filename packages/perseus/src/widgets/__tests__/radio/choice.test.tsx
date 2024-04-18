@@ -4,6 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import Choice from "../../radio/choice";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 
 function renderChoice(options) {
     const defaultOptions = {
@@ -24,7 +25,9 @@ function renderChoice(options) {
 
     const overwrittenOptions = {...defaultOptions, ...options} as const;
 
-    return render(<Choice {...overwrittenOptions} />);
+    return render(<Choice {...overwrittenOptions} />, {
+        wrapper: RenderStateRoot,
+    });
 }
 
 describe("all choice options", () => {
