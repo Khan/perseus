@@ -11,7 +11,28 @@ const tickStyle: React.CSSProperties = {
     strokeWidth: 1,
 };
 
-const YGridTick = ({y}: {y: number}) => {
+// We only want to show the initial negative tick labels (e.g. -1) on each
+// axis if the tickStep > gridStep, to ensure that these labels do not overlap.
+// e.g. If gridStep = 1 and tickStep = 2, there are 2 grid lines for every 1 tick,
+// which allows enough room for both these tick labels to render.
+export const showTickLabel = (
+    gridStep: number,
+    tickStep: number,
+    label: number,
+): boolean => {
+    const showLabel = tickStep > gridStep ? true : label !== -tickStep;
+    return showLabel;
+};
+
+const YGridTick = ({
+    y,
+    gridStep,
+    tickStep,
+}: {
+    y: number;
+    gridStep: number;
+    tickStep: number;
+}) => {
     const pointOnAxis: vec.Vector2 = [0, y];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
@@ -24,11 +45,7 @@ const YGridTick = ({y}: {y: number}) => {
                 y2={yPosition}
                 style={tickStyle}
             />
-            {
-                // TODO (LEMS-1891): Negative one is a special case as the labels can
-                // overlap with the axis line. We should handle this case more gracefully.
-            }
-            {y !== -1 && (
+            {showTickLabel(gridStep, tickStep, y) && (
                 <text
                     height={20}
                     width={50}
@@ -43,7 +60,15 @@ const YGridTick = ({y}: {y: number}) => {
     );
 };
 
-const XGridTick = ({x}: {x: number}) => {
+const XGridTick = ({
+    x,
+    gridStep,
+    tickStep,
+}: {
+    x: number;
+    gridStep: number;
+    tickStep: number;
+}) => {
     const pointOnAxis: vec.Vector2 = [x, 0];
     const [[xPosition, yPosition]] = useTransform(pointOnAxis);
 
@@ -56,11 +81,7 @@ const XGridTick = ({x}: {x: number}) => {
                 y2={yPosition - tickSize / 2}
                 style={tickStyle}
             />
-            {
-                // TODO (LEMS-1891): Negative one is a special case as the labels can
-                // overlap with the axis line. We should handle this case more gracefully.
-            }
-            {x !== -1 && (
+            {showTickLabel(gridStep, tickStep, x) && (
                 <text
                     height={20}
                     width={50}
@@ -97,6 +118,7 @@ export function generateTickLocations(
 type Props = {
     tickStep: [number, number];
     range: [[number, number], [number, number]];
+    gridStep: [number, number];
 };
 
 export const AxisTicks = (props: Props) => {
@@ -114,10 +136,24 @@ export const AxisTicks = (props: Props) => {
     return (
         <g className="axis-ticks">
             {yGridTicks.map((y) => {
-                return <YGridTick y={y} key={`y-grid-tick-${y}`} />;
+                return (
+                    <YGridTick
+                        y={y}
+                        key={`y-grid-tick-${y}`}
+                        gridStep={props.gridStep[0]}
+                        tickStep={yTickStep}
+                    />
+                );
             })}
             {xGridTicks.map((x) => {
-                return <XGridTick x={x} key={`x-grid-tick-${x}`} />;
+                return (
+                    <XGridTick
+                        x={x}
+                        key={`x-grid-tick-${x}`}
+                        gridStep={props.gridStep[1]}
+                        tickStep={xTickStep}
+                    />
+                );
             })}
         </g>
     );

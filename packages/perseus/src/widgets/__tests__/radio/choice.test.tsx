@@ -1,4 +1,5 @@
 import {describe, it} from "@jest/globals";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -24,7 +25,9 @@ function renderChoice(options) {
 
     const overwrittenOptions = {...defaultOptions, ...options} as const;
 
-    return render(<Choice {...overwrittenOptions} />);
+    return render(<Choice {...overwrittenOptions} />, {
+        wrapper: RenderStateRoot,
+    });
 }
 
 describe("all choice options", () => {

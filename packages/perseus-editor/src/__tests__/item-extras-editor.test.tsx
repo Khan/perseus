@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import React from "react";
+import React, {useState} from "react";
 
 import ItemExtrasEditor from "../item-extras-editor";
 
@@ -72,47 +72,155 @@ describe("ItemExtrasEditor", () => {
         });
     });
 
-    it("should call onChange on dependent values when financialCalculator is checked", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(<ItemExtrasEditor onChange={onChangeMock} />);
-        const checkbox = screen.getByLabelText("Show financial calculator:");
+    describe("financial calculator", () => {
+        function TestComponent(props: {
+            monthlyPayment?: boolean;
+            totalAmount?: boolean;
+            timeToPayOff?: boolean;
+        }) {
+            const [monthlyPayment, setMonthlyPayment] = useState(
+                props.monthlyPayment || false,
+            );
+            const [totalAmount, setTotalAmount] = useState(
+                props.totalAmount || false,
+            );
+            const [timeToPayOff, setTimeToPayOff] = useState(
+                props.timeToPayOff || false,
+            );
 
-        // Act
-        await userEvent.click(checkbox);
+            function handleChange(newProps: any) {
+                if ("financialCalculatorMonthlyPayment" in newProps) {
+                    setMonthlyPayment(
+                        newProps.financialCalculatorMonthlyPayment,
+                    );
+                }
+                if ("financialCalculatorTotalAmount" in newProps) {
+                    setTotalAmount(newProps.financialCalculatorTotalAmount);
+                }
+                if ("financialCalculatorTimeToPayOff" in newProps) {
+                    setTimeToPayOff(newProps.financialCalculatorTimeToPayOff);
+                }
+            }
 
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            financialCalculatorMonthlyPayment: true,
-            financialCalculatorTotalAmount: true,
-            financialCalculatorTimeToPayOff: true,
+            return (
+                <ItemExtrasEditor
+                    onChange={handleChange}
+                    financialCalculatorMonthlyPayment={monthlyPayment}
+                    financialCalculatorTotalAmount={totalAmount}
+                    financialCalculatorTimeToPayOff={timeToPayOff}
+                />
+            );
+        }
+
+        it("when parent checkbox is clicked, children also become checked", async () => {
+            // Arrange
+            render(<TestComponent />);
+
+            // Act
+            const checkbox = screen.getByLabelText(
+                "Show financial calculator:",
+            );
+            await userEvent.click(checkbox);
+
+            // Assert
+            expect(checkbox).toBeChecked();
+            expect(
+                screen.getByLabelText("Include monthly payment:"),
+            ).toBeChecked();
+            expect(
+                screen.getByLabelText("Include total amount:"),
+            ).toBeChecked();
+            expect(
+                screen.getByLabelText("Include time-to-pay-off:"),
+            ).toBeChecked();
         });
-    });
 
-    it("when fin calc option checked, should render with expanded options and expected option checked", async () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        render(
-            <ItemExtrasEditor
-                onChange={onChangeMock}
-                financialCalculatorMonthlyPayment={true}
-            />,
-        );
-        const checkbox = screen.getByLabelText("Show financial calculator:");
-        const monthlyPaymentCheckbox = screen.getByLabelText(
-            "Include monthly payment:",
-        );
-        const totalAmountCheckbox = screen.getByLabelText(
-            "Include total amount:",
-        );
-        const timeToPayOffCheckbox = screen.getByLabelText(
-            "Include time-to-pay-off:",
-        );
+        it("when child starts off checked, parent is also checked", async () => {
+            // Arrange
+            render(<TestComponent monthlyPayment={true} />);
 
-        // Assert
-        expect(checkbox).toBeChecked();
-        expect(monthlyPaymentCheckbox).toBeChecked();
-        expect(totalAmountCheckbox).not.toBeChecked();
-        expect(timeToPayOffCheckbox).not.toBeChecked();
+            // Assert
+            expect(
+                screen.getByLabelText("Show financial calculator:"),
+            ).toBeChecked();
+            expect(
+                screen.getByLabelText("Include monthly payment:"),
+            ).toBeChecked();
+            expect(
+                screen.getByLabelText("Include total amount:"),
+            ).not.toBeChecked();
+            expect(
+                screen.getByLabelText("Include time-to-pay-off:"),
+            ).not.toBeChecked();
+        });
+
+        it("when child starts off checked and is unchecked, parent is unchecked", async () => {
+            // Arrange
+            render(<TestComponent monthlyPayment={true} />);
+
+            // Act
+            await userEvent.click(
+                screen.getByLabelText("Include monthly payment:"),
+            );
+
+            // Assert
+            expect(
+                screen.getByLabelText("Show financial calculator:"),
+            ).not.toBeChecked();
+            expect(
+                screen.queryByLabelText("Include monthly payment:"),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByLabelText("Include total amount:"),
+            ).not.toBeInTheDocument();
+            expect(
+                screen.queryByLabelText("Include time-to-pay-off:"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("when parent is checked, callback should check children", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(<ItemExtrasEditor onChange={onChangeMock} />);
+            const checkbox = screen.getByLabelText(
+                "Show financial calculator:",
+            );
+
+            // Act
+            await userEvent.click(checkbox);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                financialCalculatorMonthlyPayment: true,
+                financialCalculatorTotalAmount: true,
+                financialCalculatorTimeToPayOff: true,
+            });
+        });
+
+        it("when parent is unchecked, callback should uncheck children", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <ItemExtrasEditor
+                    onChange={onChangeMock}
+                    financialCalculatorMonthlyPayment={true}
+                    financialCalculatorTotalAmount={true}
+                    financialCalculatorTimeToPayOff={true}
+                />,
+            );
+            const checkbox = screen.getByLabelText(
+                "Show financial calculator:",
+            );
+
+            // Act
+            await userEvent.click(checkbox);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+            });
+        });
     });
 });
