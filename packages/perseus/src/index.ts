@@ -64,6 +64,7 @@ export {
     PerseusExpressionAnswerFormConsidered,
     plotterPlotTypes,
     ItemExtras,
+    lockedFigureColors,
 } from "./perseus-types";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
@@ -150,8 +151,9 @@ export type {
 export type {ParsedValue} from "./util";
 export type {
     LockedFigure,
+    LockedFigureColor,
     LockedFigureType,
-    LockedPoint,
+    LockedPointType,
     PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,
