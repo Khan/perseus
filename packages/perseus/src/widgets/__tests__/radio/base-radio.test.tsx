@@ -1,3 +1,4 @@
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -9,7 +10,6 @@ import {generateChoice} from "../../__testdata__/base-radio.testdata";
 import BaseRadio from "../../radio/base-radio";
 
 import type {APIOptions} from "../../../types";
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 
 function renderBaseRadio(props) {
     const apiOptions: APIOptions = Object.freeze({});

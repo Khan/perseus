@@ -1,10 +1,10 @@
 import {describe, it} from "@jest/globals";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import Choice from "../../radio/choice";
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 
 function renderChoice(options) {
     const defaultOptions = {
