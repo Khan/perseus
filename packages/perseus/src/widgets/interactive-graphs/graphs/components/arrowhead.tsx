@@ -1,11 +1,13 @@
+import {type vec} from "mafs";
 import * as React from "react";
 
 import {pathBuilder} from "../../../../util/svg";
-import {useTransform} from "../use-transform";
+import useGraphState from "../../reducer/use-graph-state";
+import {type GraphDimensions, vectorToPixel} from "../use-transform";
 
 type Props = {
-    x: number;
-    y: number;
+    x: vec.Vector2;
+    y: vec.Vector2;
     angle: number; // degrees counterclockwise from the positive x-axis
 };
 
@@ -21,7 +23,15 @@ const arrowPath = pathBuilder()
     .build();
 
 export function Arrowhead(props: Props) {
-    const [point] = useTransform([props.x, props.y]);
+    const {state, width, height} = useGraphState();
+    const arrowContext: GraphDimensions = {
+        state: {
+            range: state.range,
+        },
+        width: width,
+        height: height,
+    };
+    const [point] = vectorToPixel([props.x, props.y], arrowContext);
 
     return (
         <g
