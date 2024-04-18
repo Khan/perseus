@@ -3,7 +3,6 @@ import {act, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
-import {getMockUniqueId} from "../../../../../testing/mock-unique-id";
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -40,7 +39,6 @@ describe("single-choice question", () => {
             advanceTimers: jest.advanceTimersByTime,
         });
 
-        jest.spyOn(_, "uniqueId").mockImplementation(getMockUniqueId());
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -330,7 +328,7 @@ describe("single-choice question", () => {
         expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
     });
 
-    it("should render rationales for selected choices", async () => {
+    it("should render rationales for selected choices using method", async () => {
         // Arrange
         const {renderer} = renderQuestion(question, apiOptions);
 
@@ -340,10 +338,47 @@ describe("single-choice question", () => {
 
         // Assert
         expect(
-            screen.queryAllByTestId(
-                `perseus-radio-rationale-content-${incorrect[0]}`,
-            ),
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
         ).toHaveLength(1);
+    });
+
+    it("should render rationales for selected choices using prop", async () => {
+        // Arrange
+        const {rerender} = renderQuestion(question, apiOptions);
+
+        // Act
+        await selectOption(userEvent, incorrect[0]);
+
+        rerender(question, {showSolutions: "selected"});
+
+        // Assert
+        expect(
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
+        ).toHaveLength(1);
+    });
+
+    it("should render all rationales when showSolutions is 'all'", async () => {
+        // Arrange
+        renderQuestion(question, apiOptions, {
+            showSolutions: "all",
+        });
+
+        // Assert
+        expect(
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
+        ).toHaveLength(4);
+    });
+
+    it("should render no rationales when showSolutions is 'none'", async () => {
+        // Arrange
+        renderQuestion(question, apiOptions, {
+            showSolutions: "none",
+        });
+
+        // Assert
+        expect(
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
+        ).toHaveLength(0);
     });
 
     describe("cross-out is enabled", () => {

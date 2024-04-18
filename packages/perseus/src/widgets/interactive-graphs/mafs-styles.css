@@ -61,6 +61,20 @@
     stroke-width: 6px;
 }
 
+.MafsView .movable-point {
+    cursor: grab;
+    touch-action: none;
+    outline: none;
+}
+
+.MafsView .movable-point.movable-point--dragging {
+    cursor: grabbing;
+}
+
+.MafsView .movable-point.movable-point--dragging .movable-point-halo {
+    opacity: 0;
+}
+
 .MafsView .movable-point-hitbox {
     fill: transparent;
 }
@@ -72,7 +86,9 @@
         .movable-point-halo,
         .movable-point-focus-outline
     ) {
-    transition: r 0.15s ease-out;
+    transition:
+        r 0.15s ease-out,
+        opacity 0.15s ease-out;
 }
 
 .MafsView .movable-point-center {
