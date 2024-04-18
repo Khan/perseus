@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 21.5.0
+
+### Minor Changes
+
+-   [#1188](https://github.com/Khan/perseus/pull/1188) [`661964d40`](https://github.com/Khan/perseus/commit/661964d40ba86e6b477ab87224692361f7aaaa27) Thanks [@nedredmond](https://github.com/nedredmond)! - Expose `showSolutions` on ServerItemRenderer
+
 ## 21.4.0
 
 ### Minor Changes
