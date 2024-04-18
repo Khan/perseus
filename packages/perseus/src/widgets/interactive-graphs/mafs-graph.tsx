@@ -3,8 +3,8 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
-import _ from "underscore";
 
+import AxisLabels from "./axis-labels";
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
@@ -91,7 +91,6 @@ type MafsGraphProps = Props & {
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch} = props;
     const {state, dispatch, labels} = props;
     const [width, height] = props.box;
 
@@ -154,6 +153,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         left: 0,
                     }}
                 >
+                    {props.markings === "graph" && (
+                        <AxisLabels labels={props.labels} />
+                    )}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
