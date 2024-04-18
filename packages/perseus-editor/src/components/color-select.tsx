@@ -37,7 +37,9 @@ const ColorSelect = (props: Props) => {
                         key={colorName}
                         value={colorName}
                         label={colorName}
-                        leftAccessory={<ColorCircle color={colorName} />}
+                        leftAccessory={
+                            <ColorCircle color={colorName} decorative={true} />
+                        }
                     >
                         {colorName}
                     </OptionItem>
