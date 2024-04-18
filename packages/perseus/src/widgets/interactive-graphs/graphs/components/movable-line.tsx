@@ -38,7 +38,7 @@ export const MovableLine = (props: Props) => {
     let endExtend: vec.Vector2 | undefined = undefined;
 
     if (extend) {
-        const trimmedRange = trimRange(extend.range, graphDimensionsInPixels)
+        const trimmedRange = trimRange(extend.range, graphDimensionsInPixels);
         startExtend = extend.start
             ? getIntersectionOfRayWithBox(start, end, trimmedRange)
             : undefined;
@@ -107,24 +107,27 @@ export const MovableLine = (props: Props) => {
     );
 };
 
-export function trimRange(range: [Interval, Interval], graphDimensionsInPixels: vec.Vector2): [Interval, Interval] {
+export function trimRange(
+    range: [Interval, Interval],
+    graphDimensionsInPixels: vec.Vector2,
+): [Interval, Interval] {
     const pixelsToTrim = 4;
     const [xRange, yRange] = range;
     const [pixelsWide, pixelsTall] = graphDimensionsInPixels;
-    const graphUnitsPerPixelX = size(xRange) / pixelsWide
-    const graphUnitsPerPixelY = size(yRange) / pixelsTall
-    const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX
-    const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY
-    return [trim(xRange, graphUnitsToTrimX), trim(yRange, graphUnitsToTrimY)]
+    const graphUnitsPerPixelX = size(xRange) / pixelsWide;
+    const graphUnitsPerPixelY = size(yRange) / pixelsTall;
+    const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX;
+    const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY;
+    return [trim(xRange, graphUnitsToTrimX), trim(yRange, graphUnitsToTrimY)];
 }
 
 function trim(interval: Interval, amount: number): Interval {
     if (size(interval) < amount * 2) {
         return [0, 0];
     }
-    return [interval[0] + amount, interval[1] - amount]
+    return [interval[0] + amount, interval[1] - amount];
 }
 
 function size(interval: Interval): number {
-    return interval[1] - interval[0]
+    return interval[1] - interval[0];
 }
