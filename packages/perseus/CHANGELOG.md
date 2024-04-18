@@ -1,5 +1,33 @@
 # @khanacademy/perseus
 
+## 21.3.1
+
+### Patch Changes
+
+-   [#1171](https://github.com/Khan/perseus/pull/1171) [`53fa89b50`](https://github.com/Khan/perseus/commit/53fa89b50240309dcf56919b77715e135682e0ee) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Adjust movable point style while dragging
+
+*   [#1170](https://github.com/Khan/perseus/pull/1170) [`9c5363795`](https://github.com/Khan/perseus/commit/9c53637953ff0267306bdc98175be9770bf2f098) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Remove Deprecated Widgets (`lights-puzzle` and `reaction-diagram`)
+
+-   [#1173](https://github.com/Khan/perseus/pull/1173) [`ce547c5ec`](https://github.com/Khan/perseus/commit/ce547c5ec1ef0d17e0adebe24532c93007e82c4d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change APIOptions.flags to be strongly typed
+
+## 21.3.0
+
+### Minor Changes
+
+-   [#1157](https://github.com/Khan/perseus/pull/1157) [`163e650d4`](https://github.com/Khan/perseus/commit/163e650d47732f80395934761bc44714cd89d937) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Inclusion of new MathJax-rendered tick labels for interactive graph.
+
+*   [#1162](https://github.com/Khan/perseus/pull/1162) [`754934486`](https://github.com/Khan/perseus/commit/754934486b89e3d308e75cd46acde823266ac588) Thanks [@benchristel](https://github.com/benchristel)! - Update the style of focused lines in Mafs interactive graphs
+
+### Patch Changes
+
+-   [#1163](https://github.com/Khan/perseus/pull/1163) [`98ae896e1`](https://github.com/Khan/perseus/commit/98ae896e1b4bb394f4776699e19b0eab020e14eb) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: don't snap line midpoint in Mafs graph
+
+*   [#1166](https://github.com/Khan/perseus/pull/1166) [`2ba54f4ba`](https://github.com/Khan/perseus/commit/2ba54f4ba2a3e0a447e0975f0a238a62250933ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Split MafsGraph into MafsGraph and StatefulMafsGraph
+
+-   [#1164](https://github.com/Khan/perseus/pull/1164) [`004a62e8e`](https://github.com/Khan/perseus/commit/004a62e8e71e41c7d2d9d86ff9606fdbe5893728) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Restore Padding Around Mafs Graph
+
+*   [#1167](https://github.com/Khan/perseus/pull/1167) [`44f83a700`](https://github.com/Khan/perseus/commit/44f83a700779a0a8dd6b74ba79a99dfcecb47072) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix for Mafs SVG positioning bug
+
 ## 21.2.2
 
 ### Patch Changes

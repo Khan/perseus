@@ -10,6 +10,7 @@ import * as React from "react";
 import {useEffect, useMemo, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
+import {MafsFlags} from "../packages/perseus/src/types";
 import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
 import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import * as numberLine from "../packages/perseus/src/widgets/__testdata__/number-line.testdata";
@@ -76,6 +77,16 @@ const styles = StyleSheet.create({
     },
 });
 
+function capitalize(key: string): string {
+    return key
+        .split("-")
+        .map(
+            (word) =>
+                `${word.slice(0, 1).toLocaleUpperCase()}${word.slice(1).toLocaleLowerCase()}`,
+        )
+        .join(" ");
+}
+
 export function Gallery() {
     const ids = useUniqueIdWithMock();
     const params = useMemo(
@@ -88,7 +99,12 @@ export function Gallery() {
         params.get("tooltips") === "true",
     );
     const [mafsFlags, setMafsFlags] = useState<Array<string>>(
-        params.get("flags")?.split(",") || [],
+        params
+            .get("flags")
+            ?.split(",")
+            // We filter through the MafsFlags array to ensure we don't retain
+            // flags from the query string that don't actually exist anymore.
+            .filter((flag) => MafsFlags.includes(flag as any)) || [],
     );
     const [search, setSearch] = useState<string>(params.get("search") || "");
 
@@ -161,15 +177,13 @@ export function Gallery() {
                         onChange={setMafsFlags}
                         selectedValues={mafsFlags}
                     >
-                        <OptionItem value="segment" label="Segment" />
-                        <OptionItem value="linear" label="Linear" />
-                        <OptionItem
-                            value="linear-system"
-                            label="Linear System"
-                        />
-                        <OptionItem value="point" label="Point" />
-                        <OptionItem value="ray" label="Ray" />
-                        <OptionItem value="polygon" label="Polygon" />
+                        {MafsFlags.map((flag) => (
+                            <OptionItem
+                                key={flag}
+                                value={flag}
+                                label={capitalize(flag)}
+                            />
+                        ))}
                     </MultiSelect>
                     <Strut size={spacing.xSmall_8} />
                     <label htmlFor={flagsId}>Mafs Flags</label>

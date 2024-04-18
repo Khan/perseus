@@ -12,57 +12,60 @@ import type {
     PerseusGraphTypePolygon,
 } from "../../../perseus-types";
 import type {
-    InitializeGraphStateParams,
+    InteractiveGraphProps,
     InteractiveGraphState,
     PairOfPoints,
 } from "../types";
 import type {Coord} from "@khanacademy/perseus";
-import type {Interval, vec} from "mafs";
+import type {Interval} from "mafs";
 
-export function initializeGraphState(params: {
-    range: [Interval, Interval];
-    step: vec.Vector2;
-    snapStep: vec.Vector2;
-    graph: PerseusGraphType;
-}): InteractiveGraphState {
-    const {graph, step, snapStep, range} = params;
+export type InitializeGraphStateParam = {
+    range: InteractiveGraphProps["range"];
+    step: InteractiveGraphProps["step"];
+    snapStep: InteractiveGraphProps["snapStep"];
+    graph: InteractiveGraphProps["graph"];
+    markings: InteractiveGraphProps["markings"];
+};
+
+export function initializeGraphState(
+    params: InitializeGraphStateParam,
+): InteractiveGraphState {
+    const {graph, step, snapStep, range, markings} = params;
+    const shared = {
+        hasBeenInteractedWith: false,
+        range,
+        snapStep,
+        markings,
+    };
     switch (graph.type) {
         case "segment":
             return {
+                ...shared,
                 type: "segment",
-                hasBeenInteractedWith: false,
-                range,
-                snapStep,
                 coords: getDefaultSegments({graph, step, range}),
             };
         case "linear":
         case "linear-system":
         case "ray":
             return {
+                ...shared,
                 type: graph.type,
-                hasBeenInteractedWith: false,
-                range,
-                snapStep,
                 // Linear and ray graphs have a single tuple of points, while a
                 // linear system has two tuples of points.
                 coords: getLineCoords({graph, range, step}),
             };
         case "polygon":
             return {
+                ...shared,
                 type: "polygon",
-                hasBeenInteractedWith: false,
-                range,
-                snapStep,
                 showAngles: Boolean(graph.showAngles),
                 showSides: Boolean(graph.showSides),
                 coords: getPolygonCoords({graph, range, step}),
             };
         case "point":
             return {
+                ...shared,
                 type: graph.type,
-                hasBeenInteractedWith: false,
-                range,
-                snapStep,
                 coords: getDefaultPoints({graph, step, range}),
             };
         case "angle":
@@ -211,11 +214,17 @@ export function getGradableGraph(
     );
 }
 
+type getDefaultSegmentsArg = {
+    graph: PerseusGraphTypeSegment;
+    range: InitializeGraphStateParam["range"];
+    step: InitializeGraphStateParam["step"];
+};
+
 const getDefaultSegments = ({
     graph,
     range,
     step,
-}: InitializeGraphStateParams<PerseusGraphTypeSegment>): PairOfPoints[] => {
+}: getDefaultSegmentsArg): PairOfPoints[] => {
     const ys = (n?: number) => {
         switch (n) {
             case 2:
@@ -260,13 +269,20 @@ const defaultLinearCoords: [Coord, Coord][] = [
     ],
 ];
 
+type getLineCoordsArg = {
+    graph:
+        | PerseusGraphTypeRay
+        | PerseusGraphTypeLinear
+        | PerseusGraphTypeLinearSystem;
+    range: InitializeGraphStateParam["range"];
+    step: InitializeGraphStateParam["step"];
+};
+
 const getLineCoords = ({
     graph,
     range,
     step,
-}: InitializeGraphStateParams<
-    PerseusGraphTypeRay | PerseusGraphTypeLinear | PerseusGraphTypeLinearSystem
->): PairOfPoints[] =>
+}: getLineCoordsArg): PairOfPoints[] =>
     // Return two lines for a linear system, one for a ray or linear
     graph.coords ?? graph.type === "linear-system"
         ? defaultLinearCoords.map((collinear) =>
@@ -274,11 +290,17 @@ const getLineCoords = ({
           )
         : [normalizePoints(range, step, defaultLinearCoords[0])];
 
+type getPolygonCoordsArg = {
+    graph: PerseusGraphTypePolygon;
+    range: InitializeGraphStateParam["range"];
+    step: InitializeGraphStateParam["step"];
+};
+
 const getPolygonCoords = ({
     graph,
     range,
     step,
-}: InitializeGraphStateParams<PerseusGraphTypePolygon>): Coord[] => {
+}: getPolygonCoordsArg): Coord[] => {
     let coords = graph.coords?.slice();
     if (coords) {
         return coords;

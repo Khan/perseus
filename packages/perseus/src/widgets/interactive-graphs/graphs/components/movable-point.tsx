@@ -31,22 +31,44 @@ export const StyledMovablePoint = (props: Props) => {
         onMove,
         constrain: (p) => snap(state.snapStep, p),
     });
+    const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""}`;
 
     const [[x, y]] = useTransform(point);
+
+    const [xMin, xMax] = state.range[0];
+    const [yMin, yMax] = state.range[1];
+
+    const [[verticalStartX]] = useTransform([xMin, 0]);
+    const [[verticalEndX]] = useTransform([xMax, 0]);
+    const [[_, horizontalStartY]] = useTransform([0, yMin]);
+    const [[__, horizontalEndY]] = useTransform([0, yMax]);
+
+    const showHairlines = true; //dragging && state.markings !== "none";
+    const hairlines = (
+        <g>
+            <line
+                x1={verticalStartX}
+                y1={y}
+                x2={verticalEndX}
+                y2={y}
+                stroke={color}
+            />
+            <line
+                x1={x}
+                y1={horizontalStartY}
+                x2={x}
+                y2={horizontalEndY}
+                stroke={color}
+            />
+        </g>
+    );
 
     const svgForPoint = (
         <g
             ref={hitboxRef}
-            className="movable-point"
+            className={pointClasses}
             tabIndex={0}
-            style={
-                {
-                    cursor: dragging ? "grabbing" : "grab",
-                    touchAction: "none",
-                    outline: "none",
-                    "--movable-point-color": color,
-                } as any
-            }
+            style={{"--movable-point-color": color} as any}
             data-test-id="movable-point"
         >
             <circle
@@ -68,15 +90,21 @@ export const StyledMovablePoint = (props: Props) => {
         </g>
     );
 
-    return graphOptions.showTooltips ? (
-        <Tooltip
-            autoUpdate={true}
-            content={`(${point[0]}, ${point[1]})`}
-            contentStyle={{color: WBColor.blue}}
-        >
-            {svgForPoint}
-        </Tooltip>
-    ) : (
-        svgForPoint
+    return (
+        <>
+            {showHairlines && hairlines}
+
+            {graphOptions.showTooltips ? (
+                <Tooltip
+                    autoUpdate={true}
+                    content={`(${point[0]}, ${point[1]})`}
+                    contentStyle={{color}}
+                >
+                    {svgForPoint}
+                </Tooltip>
+            ) : (
+                svgForPoint
+            )}
+        </>
     );
 };
