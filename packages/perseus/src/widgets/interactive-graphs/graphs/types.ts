@@ -1,10 +1,7 @@
-import type {CollinearTuple} from "../../../perseus-types";
-import type {Interval, vec} from "mafs";
+import type {vec} from "mafs";
 
 export interface InteractiveLineProps {
-    collinearPair: Readonly<CollinearTuple>;
-    snaps: [number, number];
-    range: [x: Interval, y: Interval];
+    points: Readonly<[vec.Vector2, vec.Vector2]>;
     onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
     onMoveLine: (delta: vec.Vector2) => unknown;
 }
