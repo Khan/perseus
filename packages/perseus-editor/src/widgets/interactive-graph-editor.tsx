@@ -587,7 +587,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     // Only show the "Add locked figure" dropdown if the graph is
                     // using Mafs.
                     this.props.graph &&
-                        this.props.apiOptions?.flags?.["mafs"]?.[
+                        this.props.apiOptions?.flags?.mafs?.[
+                            "interactive-graph-locked-features-m1"
+                        ] &&
+                        this.props.apiOptions?.flags?.mafs?.[
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
