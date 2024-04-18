@@ -8,14 +8,20 @@ import type {LockedFigureColor} from "@khanacademy/perseus";
 type Props = {
     color: LockedFigureColor;
     filled?: boolean;
+    decorative?: boolean;
 };
 
 const ColorCircle = (props: Props) => {
-    const {color, filled = true} = props;
+    const {color, filled = true, decorative = false} = props;
 
     return (
         <View
-            aria-label={`Color: ${color}, ${filled ? "filled" : "open"}`}
+            aria-label={
+                // Don't include an aria label for decorative circles.
+                !decorative
+                    ? `Color: ${color}, ${filled ? "filled" : "open"}`
+                    : undefined
+            }
             style={[
                 styles.colorCircle,
                 {

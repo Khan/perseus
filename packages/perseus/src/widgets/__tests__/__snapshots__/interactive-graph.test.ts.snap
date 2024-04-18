@@ -3046,7 +3046,7 @@ exports[`snapshots should render correctly 1`] = `
                     tabindex="0"
                   >
                     <line
-                      class="undefined "
+                      class="undefined"
                       style="stroke: transparent; stroke-width: 44;"
                       x1="-100"
                       x2="100"
@@ -3054,21 +3054,21 @@ exports[`snapshots should render correctly 1`] = `
                       y2="-100"
                     />
                     <line
-                      class="movable-line-focus-outline "
+                      class="movable-line-focus-outline"
                       x1="-100"
                       x2="100"
                       y1="-100"
                       y2="-100"
                     />
                     <line
-                      class="movable-line-focus-outline-gap "
+                      class="movable-line-focus-outline-gap"
                       x1="-100"
                       x2="100"
                       y1="-100"
                       y2="-100"
                     />
                     <line
-                      class="undefined "
+                      class=""
                       data-test-id="movable-line__line"
                       style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
                       x1="-100"
@@ -3078,9 +3078,9 @@ exports[`snapshots should render correctly 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point"
+                    class="movable-point "
                     data-test-id="movable-point"
-                    style="cursor: grab; outline: none; --movable-point-color: #1865f2;"
+                    style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
                     <circle
@@ -3113,9 +3113,9 @@ exports[`snapshots should render correctly 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point"
+                    class="movable-point "
                     data-test-id="movable-point"
-                    style="cursor: grab; outline: none; --movable-point-color: #1865f2;"
+                    style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
                     <circle
@@ -3363,6 +3363,66 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
+                    transform="translate(200 0) rotate(0)"
+                  >
+                    <g
+                      transform="translate(-1.5)"
+                    >
+                      <path
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
+                      />
+                    </g>
+                  </g>
+                  <g
+                    transform="translate(0 200) rotate(-90)"
+                  >
+                    <g
+                      transform="translate(-1.5)"
+                    >
+                      <path
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
+                      />
+                    </g>
+                  </g>
+                  <g
+                    transform="translate(-200 0) rotate(-180)"
+                  >
+                    <g
+                      transform="translate(-1.5)"
+                    >
+                      <path
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
+                      />
+                    </g>
+                  </g>
+                  <g
+                    transform="translate(0 -200) rotate(-270)"
+                  >
+                    <g
+                      transform="translate(-1.5)"
+                    >
+                      <path
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
+                      />
+                    </g>
+                  </g>
+                  <g
                     class="axis-ticks"
                   >
                     <g
@@ -4069,50 +4129,62 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     </g>
                   </g>
                   <g
-                    transform="translate(200 0) rotate(0) scale(1.25)"
+                    transform="translate(200 0) rotate(0)"
                   >
                     <g
-                      transform="translate(-1)"
+                      transform="translate(-1.5)"
                     >
                       <path
-                        d="M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4"
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
                         fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
                       />
                     </g>
                   </g>
                   <g
-                    transform="translate(0 200) rotate(90) scale(1.25)"
+                    transform="translate(0 200) rotate(-90)"
                   >
                     <g
-                      transform="translate(-1)"
+                      transform="translate(-1.5)"
                     >
                       <path
-                        d="M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4"
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
                         fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
                       />
                     </g>
                   </g>
                   <g
-                    transform="translate(-200 0) rotate(180) scale(1.25)"
+                    transform="translate(-200 0) rotate(-180)"
                   >
                     <g
-                      transform="translate(-1)"
+                      transform="translate(-1.5)"
                     >
                       <path
-                        d="M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4"
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
                         fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
                       />
                     </g>
                   </g>
                   <g
-                    transform="translate(0 -200) rotate(270) scale(1.25)"
+                    transform="translate(0 -200) rotate(-270)"
                   >
                     <g
-                      transform="translate(-1)"
+                      transform="translate(-1.5)"
                     >
                       <path
-                        d="M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4"
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
                         fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
                       />
                     </g>
                   </g>
@@ -4173,7 +4245,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     tabindex="0"
                   >
                     <line
-                      class="undefined "
+                      class="undefined"
                       style="stroke: transparent; stroke-width: 44;"
                       x1="-100"
                       x2="100"
@@ -4181,21 +4253,21 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       y2="-100"
                     />
                     <line
-                      class="movable-line-focus-outline "
+                      class="movable-line-focus-outline"
                       x1="-100"
                       x2="100"
                       y1="-100"
                       y2="-100"
                     />
                     <line
-                      class="movable-line-focus-outline-gap "
+                      class="movable-line-focus-outline-gap"
                       x1="-100"
                       x2="100"
                       y1="-100"
                       y2="-100"
                     />
                     <line
-                      class="undefined "
+                      class=""
                       data-test-id="movable-line__line"
                       style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
                       x1="-100"
@@ -4205,9 +4277,9 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point"
+                    class="movable-point "
                     data-test-id="movable-point"
-                    style="cursor: grab; outline: none; --movable-point-color: #1865f2;"
+                    style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
                     <circle
@@ -4240,9 +4312,9 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point"
+                    class="movable-point "
                     data-test-id="movable-point"
-                    style="cursor: grab; outline: none; --movable-point-color: #1865f2;"
+                    style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
                     <circle
@@ -4490,6 +4562,66 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     />
                   </g>
                   <g
+                    transform="translate(200 0) rotate(0)"
+                  >
+                    <g
+                      transform="translate(-1.5)"
+                    >
+                      <path
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
+                      />
+                    </g>
+                  </g>
+                  <g
+                    transform="translate(0 200) rotate(-90)"
+                  >
+                    <g
+                      transform="translate(-1.5)"
+                    >
+                      <path
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
+                      />
+                    </g>
+                  </g>
+                  <g
+                    transform="translate(-200 0) rotate(-180)"
+                  >
+                    <g
+                      transform="translate(-1.5)"
+                    >
+                      <path
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
+                      />
+                    </g>
+                  </g>
+                  <g
+                    transform="translate(0 -200) rotate(-270)"
+                  >
+                    <g
+                      transform="translate(-1.5)"
+                    >
+                      <path
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
+                      />
+                    </g>
+                  </g>
+                  <g
                     class="axis-ticks"
                   >
                     <g
@@ -5196,50 +5328,62 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     </g>
                   </g>
                   <g
-                    transform="translate(200 0) rotate(0) scale(1.25)"
+                    transform="translate(200 0) rotate(0)"
                   >
                     <g
-                      transform="translate(-1)"
+                      transform="translate(-1.5)"
                     >
                       <path
-                        d="M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4"
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
                         fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
                       />
                     </g>
                   </g>
                   <g
-                    transform="translate(0 200) rotate(90) scale(1.25)"
+                    transform="translate(0 200) rotate(-90)"
                   >
                     <g
-                      transform="translate(-1)"
+                      transform="translate(-1.5)"
                     >
                       <path
-                        d="M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4"
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
                         fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
                       />
                     </g>
                   </g>
                   <g
-                    transform="translate(-200 0) rotate(180) scale(1.25)"
+                    transform="translate(-200 0) rotate(-180)"
                   >
                     <g
-                      transform="translate(-1)"
+                      transform="translate(-1.5)"
                     >
                       <path
-                        d="M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4"
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
                         fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
                       />
                     </g>
                   </g>
                   <g
-                    transform="translate(0 -200) rotate(270) scale(1.25)"
+                    transform="translate(0 -200) rotate(-270)"
                   >
                     <g
-                      transform="translate(-1)"
+                      transform="translate(-1.5)"
                     >
                       <path
-                        d="M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4"
+                        d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
                         fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        style="stroke: inherit;"
                       />
                     </g>
                   </g>
@@ -5262,7 +5406,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     tabindex="0"
                   >
                     <line
-                      class="undefined "
+                      class="undefined"
                       style="stroke: transparent; stroke-width: 44;"
                       x1="-100"
                       x2="100"
@@ -5270,21 +5414,21 @@ exports[`snapshots should render correctly with locked points 1`] = `
                       y2="-100"
                     />
                     <line
-                      class="movable-line-focus-outline "
+                      class="movable-line-focus-outline"
                       x1="-100"
                       x2="100"
                       y1="-100"
                       y2="-100"
                     />
                     <line
-                      class="movable-line-focus-outline-gap "
+                      class="movable-line-focus-outline-gap"
                       x1="-100"
                       x2="100"
                       y1="-100"
                       y2="-100"
                     />
                     <line
-                      class="undefined "
+                      class=""
                       data-test-id="movable-line__line"
                       style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
                       x1="-100"
@@ -5294,9 +5438,9 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point"
+                    class="movable-point "
                     data-test-id="movable-point"
-                    style="cursor: grab; outline: none; --movable-point-color: #1865f2;"
+                    style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
                     <circle
@@ -5329,9 +5473,9 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point"
+                    class="movable-point "
                     data-test-id="movable-point"
-                    style="cursor: grab; outline: none; --movable-point-color: #1865f2;"
+                    style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
                     <circle

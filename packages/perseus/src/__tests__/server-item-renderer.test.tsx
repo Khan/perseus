@@ -11,6 +11,7 @@ import {
     itemWithInput,
     itemWithLintingError,
     itemWithNumericAndNumberInputs,
+    itemWithRadioAndExpressionWidgets,
     mockedItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
@@ -137,6 +138,18 @@ describe("server item renderer", () => {
         // Assert
         expect(score.correct).toBe(true);
         expect(score.empty).toBe(false);
+    });
+
+    it("should pass showSolutions to the widgets", () => {
+        // Arrange
+        renderQuestion(itemWithRadioAndExpressionWidgets, Object.freeze({}), {
+            showSolutions: "all",
+        });
+
+        // Assert
+        expect(
+            screen.queryAllByTestId(/perseus-radio-rationale-content/),
+        ).toHaveLength(4);
     });
 
     it("calls onInteraction callback with the current user data", async () => {
