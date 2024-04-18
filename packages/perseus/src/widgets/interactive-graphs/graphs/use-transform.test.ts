@@ -2,7 +2,7 @@ import {
     type GraphDimensions,
     pointToPixel,
     vectorToPixel,
-} from "../graphs/use-transform";
+} from "./use-transform";
 
 describe("vectorToPixel", () => {
     it("should correctly transform the origin", () => {
