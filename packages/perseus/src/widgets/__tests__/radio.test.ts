@@ -15,7 +15,7 @@ import {
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {PerseusRenderer, ShowSolutions} from "../../perseus-types";
+import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
 const selectOption = async (
