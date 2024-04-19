@@ -22,7 +22,7 @@ import {
     getGradableGraph,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
-import {GraphConfigContext} from "./reducer/use-graph-config";
+import useGraphConfig, {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {Widget} from "../../renderer";
@@ -42,7 +42,6 @@ export type Props = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
-    labels: InteractiveGraphProps["labels"];
 };
 
 const renderGraph = (props: {
@@ -92,8 +91,9 @@ type MafsGraphProps = Props & {
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch, labels} = props;
+    const {state, dispatch} = props;
     const [width, height] = props.box;
+    const {labels} = useGraphConfig();
 
     const prevState = useRef<InteractiveGraphState>(state);
     useEffect(() => {
@@ -126,9 +126,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 range: state.range,
                 snapStep: state.snapStep,
                 markings: props.markings,
-                labels,
                 width,
                 height,
+                labels,
             }}
         >
             <View
@@ -152,7 +152,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }}
                 >
                     {props.markings === "graph" && (
-                        <AxisLabels labels={props.labels} />
+                        <AxisLabels labels={labels} />
                     )}
                     <Mafs
                         preserveAspectRatio={false}
@@ -176,7 +176,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             range={props.range}
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
-                            step={props.step}
                         />
 
                         {/* Locked layer */}

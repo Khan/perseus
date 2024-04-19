@@ -16,7 +16,6 @@ interface GridProps {
     range: GraphRange;
     containerSizeClass: SizeClass;
     markings: "graph" | "grid" | "none";
-    step: number[];
 }
 
 /**
@@ -72,16 +71,14 @@ export const Grid = (props: GridProps) => {
     const clipStartX = String(xRange[0][0]); // x min
     const clipStartY = String(yRange[0][1]); // y max
 
-    const clipWidth = width;
-    const clipHeight = height;
     return props.markings === "none" ? null : (
         <>
             <clipPath id="myClip">
                 <rect
                     x={clipStartX}
                     y={clipStartY}
-                    width={clipWidth}
-                    height={clipHeight}
+                    width={width}
+                    height={height}
                 />
             </clipPath>
             <g clipPath={"url(#myClip)"}>
