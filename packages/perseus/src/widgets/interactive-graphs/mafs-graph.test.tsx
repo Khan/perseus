@@ -144,6 +144,82 @@ describe("MafsGraph", () => {
         expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
     });
 
+    it("renders the axis ticks if the graph markings are set to graph", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        // Assert
+        const axisLabel = screen.queryAllByText("-2");
+
+        // There are two axis labels, one for each axis
+        expect(axisLabel[0]).toBeInTheDocument();
+        expect(axisLabel[1]).toBeInTheDocument();
+    });
+
+    it("does not render axis ticks if the graph markings are not set to graph", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "none",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+                markings="none"
+            />,
+        );
+
+        // Assert
+        const axisLabel = screen.queryByText("-2");
+        expect(axisLabel).not.toBeInTheDocument();
+    });
+
     /**
      * regression LEMS-1885
      * Important parts of this test:

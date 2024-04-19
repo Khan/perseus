@@ -200,7 +200,6 @@ export const linearQuestionWithDefaultCorrect: PerseusRenderer = {
     },
 };
 
-const bluePointStyle = {stroke: "#6494ed", fill: "#6494ed"};
 export const linearQuestionWithLockedPoints: PerseusRenderer = {
     content:
         "**Draw the line of reflection that will map $\\triangle{SIM}$ onto the other triangle below.**\n\n\n[[☃ interactive-graph 1]]",
@@ -226,17 +225,20 @@ export const linearQuestionWithLockedPoints: PerseusRenderer = {
                     {
                         type: "point",
                         coord: [5, 3],
-                        style: bluePointStyle,
+                        color: "blue",
+                        filled: true,
                     },
                     {
                         type: "point",
                         coord: [4, -4],
-                        style: bluePointStyle,
+                        color: "blue",
+                        filled: true,
                     },
                     {
                         type: "point",
                         coord: [7, -3],
-                        style: bluePointStyle,
+                        color: "blue",
+                        filled: true,
                     },
                 ],
                 markings: "graph",
@@ -966,10 +968,14 @@ export const segmentWithLockedPointsQuestion: PerseusRenderer = {
                     {
                         type: "point",
                         coord: [-7, -7],
+                        color: "blue",
+                        filled: true,
                     },
                     {
                         type: "point",
                         coord: [2, -5],
+                        color: "blue",
+                        filled: true,
                     },
                 ],
             },
@@ -1019,12 +1025,14 @@ export const segmentWithLockedPointsWithColorQuestion: PerseusRenderer = {
                     {
                         type: "point",
                         coord: [-7, -7],
-                        style: {fill: "green", stroke: "green"},
+                        color: "green",
+                        filled: true,
                     },
                     {
                         type: "point",
                         coord: [2, -5],
-                        style: {fill: "green", stroke: "green"},
+                        color: "green",
+                        filled: true,
                     },
                 ],
             },

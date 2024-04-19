@@ -21,7 +21,10 @@ const LockedFigureSelect = (props: Props) => {
 
     return (
         <View style={styles.container}>
-            <ActionMenu menuText="Add element" style={styles.addElementSelect}>
+            <ActionMenu
+                menuText="Add locked figure"
+                style={styles.addElementSelect}
+            >
                 {[
                     <ActionItem
                         key={`${id}-point`}

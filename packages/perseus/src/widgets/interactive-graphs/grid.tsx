@@ -98,8 +98,19 @@ export const Grid = (props: GridProps) => {
                     yAxis={axisOptions(props, 1)}
                 />
             </g>
-            <AxisTicks range={props.range} tickStep={props.tickStep} />
-            {props.markings === "graph" && <AxisArrows />}
+            {
+                // Only render the axis ticks and arrows if the markings are set to a full "graph"
+                props.markings === "graph" && (
+                    <>
+                        <AxisTicks
+                            range={props.range}
+                            tickStep={props.tickStep}
+                            gridStep={props.gridStep}
+                        />
+                        <AxisArrows />
+                    </>
+                )
+            }
         </>
     );
 };

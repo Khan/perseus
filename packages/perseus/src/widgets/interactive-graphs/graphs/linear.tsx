@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovableLine} from "./components/movable-line";
 import {StyledMovablePoint} from "./components/movable-point";
@@ -13,7 +14,7 @@ type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
 export const LinearGraph = (props: LinearGraphProps) => {
     const {dispatch} = props;
-    const {coords: lines, snapStep, range, type} = props.graphState;
+    const {coords: lines, type} = props.graphState;
 
     const colors = ["var(--movable-line-stroke-color)", "var(--mafs-violet)"];
 
@@ -22,9 +23,7 @@ export const LinearGraph = (props: LinearGraphProps) => {
             {lines?.map((line, i) => (
                 <LineView
                     key={i}
-                    collinearPair={line}
-                    snaps={snapStep}
-                    range={range}
+                    points={line}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i, delta));
                     }}
@@ -45,14 +44,19 @@ export const LinearGraph = (props: LinearGraphProps) => {
     );
 };
 
-const LineView = (props: InteractiveLineProps & {stroke: string}) => {
+interface LineViewProps extends InteractiveLineProps {
+    stroke: string;
+}
+
+const LineView = (props: LineViewProps) => {
     const {
         onMoveLine,
         onMovePoint,
-        collinearPair: [start, end],
-        range,
+        points: [start, end],
         stroke,
     } = props;
+
+    const {range} = useGraphConfig();
 
     return (
         <>

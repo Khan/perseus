@@ -21,7 +21,7 @@ import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-import type {PerseusItem} from "./perseus-types";
+import type {PerseusItem, ShowSolutions} from "./perseus-types";
 import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
@@ -43,6 +43,7 @@ type OwnProps = {
     reviewMode?: boolean;
     keypadElement?: KeypadAPI | null | undefined;
     dependencies: PerseusDependenciesV2;
+    showSolutions?: ShowSolutions;
 };
 
 type HOCProps = {
@@ -51,11 +52,9 @@ type HOCProps = {
 
 type Props = OwnProps & HOCProps;
 
-type DefaultProps = {
-    apiOptions: Props["apiOptions"];
-    onRendered: Props["onRendered"];
-    linterContext: Props["linterContext"];
-};
+type DefaultProps = Required<
+    Pick<Props, "apiOptions" | "onRendered" | "linterContext">
+>;
 
 type State = {
     questionCompleted: boolean;
@@ -423,6 +422,7 @@ export class ServerItemRenderer
                     apiOptions={apiOptions}
                     questionCompleted={this.state.questionCompleted}
                     reviewMode={this.props.reviewMode}
+                    showSolutions={this.props.showSolutions}
                     ref={(elem) => {
                         if (elem != null) {
                             this.questionRenderer = elem;
