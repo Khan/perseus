@@ -10,7 +10,7 @@ type Props = {
     decorative?: boolean;
 };
 
-const ColorCircle = (props: Props) => {
+const ColorIndicator = (props: Props) => {
     const {color, filled = true, decorative = false} = props;
 
     return (
@@ -22,7 +22,7 @@ const ColorCircle = (props: Props) => {
                     : undefined
             }
             style={[
-                styles.colorCircle,
+                styles.ColorIndicator,
                 {
                     border: `4px solid ${lockedFigureColors[color]}`,
                     backgroundColor: filled
@@ -35,8 +35,8 @@ const ColorCircle = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-    colorCircle: {
-        // Add a white outline so that the color circle is visible when
+    ColorIndicator: {
+        // Add a white outline so that the color indicator is visible when
         // the dropdown option is highlighted with its blue background.
         outline: `2px solid ${wbColor.offWhite}`,
         borderRadius: "50%",
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ColorCircle;
+export default ColorIndicator;
