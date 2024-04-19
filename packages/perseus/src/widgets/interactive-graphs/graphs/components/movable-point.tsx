@@ -37,10 +37,10 @@ export const StyledMovablePoint = (props: Props) => {
     const [xMin, xMax] = range[0];
     const [yMin, yMax] = range[1];
 
-    const [[verticalStartX]] = useTransform([xMin, 0]);
-    const [[verticalEndX]] = useTransform([xMax, 0]);
-    const [[_, horizontalStartY]] = useTransform([0, yMin]);
-    const [[__, horizontalEndY]] = useTransform([0, yMax]);
+    const [[verticalStartX]] = useTransformVectorToPixel([xMin, 0]);
+    const [[verticalEndX]] = useTransformVectorToPixel([xMax, 0]);
+    const [[_, horizontalStartY]] = useTransformVectorToPixel([0, yMin]);
+    const [[__, horizontalEndY]] = useTransformVectorToPixel([0, yMax]);
 
     const showHairlines = dragging && markings !== "none";
 

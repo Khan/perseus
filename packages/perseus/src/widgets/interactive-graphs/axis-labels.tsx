@@ -2,27 +2,31 @@ import React from "react";
 
 import {getDependencies} from "../../dependencies";
 
-import {pointToPixel} from "./graphs/use-transform";
-import useGraphState from "./reducer/use-graph-state";
+import {useTransformPointToPixel} from "./graphs/use-transform";
+import useGraphConfig from "./reducer/use-graph-config";
 
 import type {vec} from "mafs";
 
 export default function AxisLabels(props) {
-    const {state, labels, width, height} = useGraphState();
+    const {range, labels, width, height} = useGraphConfig();
 
-    const yAxisLabelLocation: vec.Vector2 = [0, state.range[1][1] + 1];
-    const xAxisLabelLocation: vec.Vector2 = [state.range[0][1], 0];
+    const yAxisLabelLocation: vec.Vector2 = [0, range[1][1] + 1];
+    const xAxisLabelLocation: vec.Vector2 = [range[0][1], 0];
 
     const [xAxisLabelText, yAxisLabelText] = labels;
     const graphInfo = {
-        state: {
-            range: state.range,
-        },
+        range: range,
         width,
         height,
     };
-    const [[x1, y1]] = pointToPixel([xAxisLabelLocation], graphInfo);
-    const [[x2, y2]] = pointToPixel([yAxisLabelLocation], graphInfo);
+    const [[x1, y1]] = useTransformPointToPixel(
+        [xAxisLabelLocation],
+        graphInfo,
+    );
+    const [[x2, y2]] = useTransformPointToPixel(
+        [yAxisLabelLocation],
+        graphInfo,
+    );
 
     const {TeX} = getDependencies();
 

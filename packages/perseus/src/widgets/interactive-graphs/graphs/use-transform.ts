@@ -1,13 +1,11 @@
 import {type Interval, vec} from "mafs";
 
-import useGraphState from "../reducer/use-graph-state";
+import useGraphConfig from "../reducer/use-graph-config";
 
 const matrixBuilder = vec.matrixBuilder;
 
 export type GraphDimensions = {
-    state: {
-        range: [Interval, Interval];
-    };
+    range: [Interval, Interval];
     width: number; // pixels
     height: number; // pixels
 };
@@ -17,8 +15,8 @@ export function vectorToPixel(
     graphState: GraphDimensions,
     translation: vec.Vector2 = [0, 0],
 ) {
-    const {state, width, height} = graphState;
-    const [[xMin, xMax], [yMin, yMax]] = state.range;
+    const {range, width, height} = graphState;
+    const [[xMin, xMax], [yMin, yMax]] = range;
     const transformToPx = matrixBuilder()
         .translate(...translation)
         .scale(width / (xMax - xMin), -height / (yMax - yMin))
@@ -26,17 +24,17 @@ export function vectorToPixel(
     return points.map((p) => vec.transform(p, transformToPx));
 }
 
-export function pointToPixel(
+export function useTransformPointToPixel(
     points: vec.Vector2[],
     graphState: GraphDimensions,
 ) {
-    const {state} = graphState;
-    const [[xMin], [, yMax]] = state.range;
+    const {range} = useGraphConfig();
+    const [[xMin], [, yMax]] = range;
     const [a, b] = [-xMin, -yMax];
     return vectorToPixel(points, graphState, [a, b]);
 }
 
 export const useTransformVectorToPixel = (...points: vec.Vector2[]) => {
-    const graphState = useGraphState();
+    const graphState = useGraphConfig();
     return vectorToPixel(points, graphState);
 };

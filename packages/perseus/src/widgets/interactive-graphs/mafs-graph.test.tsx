@@ -3,6 +3,9 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
 import React from "react";
 
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import {setDependencies} from "../../dependencies";
+
 import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
 import {moveLine, movePoint} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -33,6 +36,7 @@ function getBaseMafsGraphProps(): MafsGraphProps {
 describe("StatefulMafsGraph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
+        setDependencies(testDependencies);
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });

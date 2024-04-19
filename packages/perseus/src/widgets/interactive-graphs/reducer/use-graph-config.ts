@@ -6,6 +6,9 @@ type GraphConfig = {
     range: [Interval, Interval];
     snapStep: vec.Vector2;
     markings: "graph" | "grid" | "none";
+    width: number; // pixels
+    height: number; // pixels
+    labels: readonly string[];
 };
 
 const defaultGraphConfig: GraphConfig = {
@@ -15,6 +18,9 @@ const defaultGraphConfig: GraphConfig = {
     ],
     snapStep: [1, 1],
     markings: "none",
+    labels: [],
+    width: 0,
+    height: 0,
 };
 
 export const GraphConfigContext =

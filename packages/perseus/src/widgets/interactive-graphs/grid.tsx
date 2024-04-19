@@ -2,9 +2,9 @@ import {Coordinates} from "mafs";
 import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
-import AxisLabels from "./axis-labels";
 import {AxisTicks} from "./axis-ticks";
 import {useTransformVectorToPixel} from "./graphs/use-transform";
+import useGraphConfig from "./reducer/use-graph-config";
 
 import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
@@ -16,10 +16,7 @@ interface GridProps {
     range: GraphRange;
     containerSizeClass: SizeClass;
     markings: "graph" | "grid" | "none";
-    width: number;
-    height: number;
     step: number[];
-    labels: readonly string[];
 }
 
 /**
@@ -66,6 +63,7 @@ const axisOptions = (
 };
 
 export const Grid = (props: GridProps) => {
+    const {width, height} = useGraphConfig();
     const xRange = useTransformVectorToPixel(props.range[0]);
     const yRange = useTransformVectorToPixel(props.range[1]);
 
@@ -74,14 +72,8 @@ export const Grid = (props: GridProps) => {
     const clipStartX = String(xRange[0][0]); // x min
     const clipStartY = String(yRange[0][1]); // y max
 
-    // const xPadding = 67 * props.step[0]; // subtract from clip width
-    // const yPadding = 67 * props.step[1]; // subtract from clup height
-    // These were meant to multiply the number of pixels in a step by the step
-    // value for each axis. This is to be able to remove the padding width and
-    // height from the clipPath
-
-    const clipWidth = props.width;
-    const clipHeight = props.height;
+    const clipWidth = width;
+    const clipHeight = height;
     return props.markings === "none" ? null : (
         <>
             <clipPath id="myClip">

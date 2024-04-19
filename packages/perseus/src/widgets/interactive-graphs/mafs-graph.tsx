@@ -175,8 +175,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             gridStep={props.gridStep}
                             range={props.range}
                             containerSizeClass={props.containerSizeClass}
-                            markings={props.markings,
-                                step={props.step},
+                            markings={props.markings}
+                            step={props.step}
                         />
 
                         {/* Locked layer */}

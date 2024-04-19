@@ -1,18 +1,22 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import {renderHook} from "@testing-library/react-hooks";
+
 import {
     type GraphDimensions,
-    pointToPixel,
+    useTransformPointToPixel,
     vectorToPixel,
 } from "./use-transform";
 
 describe("vectorToPixel", () => {
     it("should correctly transform the origin", () => {
         const testContext: GraphDimensions = {
-            state: {
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-            },
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
             width: 400,
             height: 400,
         };
@@ -21,12 +25,10 @@ describe("vectorToPixel", () => {
 
     it("should correctly transform vector (1,1)", () => {
         const testContext: GraphDimensions = {
-            state: {
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-            },
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
             width: 400,
             height: 400,
         };
@@ -35,12 +37,10 @@ describe("vectorToPixel", () => {
 
     it("should correctly transform vector (2,-2)", () => {
         const testContext: GraphDimensions = {
-            state: {
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-            },
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
             width: 400,
             height: 400,
         };
@@ -51,73 +51,73 @@ describe("vectorToPixel", () => {
 describe("pointToPixel", () => {
     it("should correctly transform the origin", () => {
         const testContext: GraphDimensions = {
-            state: {
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-            },
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
             width: 400,
             height: 400,
         };
-        expect(pointToPixel([[0, 0]], testContext)).toEqual([[200, 200]]);
+        const {result} = renderHook(() =>
+            useTransformPointToPixel([[0, 0]], testContext),
+        );
+        expect(result.current).toEqual([[200, 200]]);
     });
 
     it("should correctly transform origin on a smaller graph", () => {
         const testContext: GraphDimensions = {
-            state: {
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-            },
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
             width: 100,
             height: 100,
         };
-        expect(pointToPixel([[0, 0]], testContext)).toEqual([[50, 50]]);
+        expect(useTransformPointToPixel([[0, 0]], testContext)).toEqual([
+            [50, 50],
+        ]);
     });
 
     it("should correctly transform origin on a non-square graph", () => {
         const testContext: GraphDimensions = {
-            state: {
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-            },
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+
             width: 100,
             height: 200,
         };
-        expect(pointToPixel([[0, 0]], testContext)).toEqual([[50, 100]]);
+        expect(useTransformPointToPixel([[0, 0]], testContext)).toEqual([
+            [50, 100],
+        ]);
     });
 
     it("should correctly transform origin when not in the center of the svg", () => {
         const testContext: GraphDimensions = {
-            state: {
-                range: [
-                    [0, 10],
-                    [0, 10],
-                ],
-            },
+            range: [
+                [0, 10],
+                [0, 10],
+            ],
             width: 200,
             height: 200,
         };
-        expect(pointToPixel([[0, 0]], testContext)).toEqual([[0, 200]]);
+        expect(useTransformPointToPixel([[0, 0]], testContext)).toEqual([
+            [0, 200],
+        ]);
     });
 
     it("should correctly transform multiple points", () => {
         const testContext: GraphDimensions = {
-            state: {
-                range: [
-                    [0, 10],
-                    [0, 10],
-                ],
-            },
+            range: [
+                [0, 10],
+                [0, 10],
+            ],
             width: 200,
             height: 200,
         };
         expect(
-            pointToPixel(
+            useTransformPointToPixel(
                 [
                     [0, 0],
                     [1, 1],

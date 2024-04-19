@@ -10,10 +10,10 @@ export default function AxisArrows() {
 
     return (
         <>
-            <Arrowhead x={xMax} y={0} angle={0} />
-            <Arrowhead x={0} y={yMin} angle={90} />
-            <Arrowhead x={xMin} y={0} angle={180} />
-            <Arrowhead x={0} y={yMax} angle={270} />
+            <Arrowhead tip={[xMax, 0]} angle={0} />
+            <Arrowhead tip={[0, yMin]} angle={90} />
+            <Arrowhead tip={[xMin, 0]} angle={180} />
+            <Arrowhead tip={[0, yMax]} angle={270} />
         </>
     );
 }
