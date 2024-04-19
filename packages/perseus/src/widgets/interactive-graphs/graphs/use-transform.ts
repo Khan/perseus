@@ -24,12 +24,11 @@ export function vectorToPixel(
     return points.map((p) => vec.transform(p, transformToPx));
 }
 
-export function useTransformPointToPixel(
+export function pointToPixel(
     points: vec.Vector2[],
     graphState: GraphDimensions,
 ) {
-    const {range} = useGraphConfig();
-    const [[xMin], [, yMax]] = range;
+    const [[xMin], [, yMax]] = graphState.range;
     const [a, b] = [-xMin, -yMax];
     return vectorToPixel(points, graphState, [a, b]);
 }

@@ -6,7 +6,7 @@ import {renderHook} from "@testing-library/react-hooks";
 
 import {
     type GraphDimensions,
-    useTransformPointToPixel,
+    pointToPixel,
     vectorToPixel,
 } from "./use-transform";
 
@@ -58,10 +58,7 @@ describe("pointToPixel", () => {
             width: 400,
             height: 400,
         };
-        const {result} = renderHook(() =>
-            useTransformPointToPixel([[0, 0]], testContext),
-        );
-        expect(result.current).toEqual([[200, 200]]);
+        expect(pointToPixel([[0, 0]], testContext)).toEqual([[200, 200]]);
     });
 
     it("should correctly transform origin on a smaller graph", () => {
@@ -73,9 +70,7 @@ describe("pointToPixel", () => {
             width: 100,
             height: 100,
         };
-        expect(useTransformPointToPixel([[0, 0]], testContext)).toEqual([
-            [50, 50],
-        ]);
+        expect(pointToPixel([[0, 0]], testContext)).toEqual([[50, 50]]);
     });
 
     it("should correctly transform origin on a non-square graph", () => {
@@ -88,9 +83,7 @@ describe("pointToPixel", () => {
             width: 100,
             height: 200,
         };
-        expect(useTransformPointToPixel([[0, 0]], testContext)).toEqual([
-            [50, 100],
-        ]);
+        expect(pointToPixel([[0, 0]], testContext)).toEqual([[50, 100]]);
     });
 
     it("should correctly transform origin when not in the center of the svg", () => {
@@ -102,9 +95,7 @@ describe("pointToPixel", () => {
             width: 200,
             height: 200,
         };
-        expect(useTransformPointToPixel([[0, 0]], testContext)).toEqual([
-            [0, 200],
-        ]);
+        expect(pointToPixel([[0, 0]], testContext)).toEqual([[0, 200]]);
     });
 
     it("should correctly transform multiple points", () => {
@@ -117,7 +108,7 @@ describe("pointToPixel", () => {
             height: 200,
         };
         expect(
-            useTransformPointToPixel(
+            pointToPixel(
                 [
                     [0, 0],
                     [1, 1],
