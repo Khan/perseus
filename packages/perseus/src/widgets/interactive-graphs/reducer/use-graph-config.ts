@@ -18,9 +18,9 @@ const defaultGraphConfig: GraphConfig = {
     ],
     snapStep: [1, 1],
     markings: "none",
-    labels: [],
     width: 0,
     height: 0,
+    labels: [],
 };
 
 export const GraphConfigContext =
