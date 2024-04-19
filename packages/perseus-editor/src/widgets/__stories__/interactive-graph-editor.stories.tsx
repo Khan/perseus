@@ -1,7 +1,9 @@
 import * as React from "react";
 
+import {flags} from "../../__stories__/flags-for-api-options";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
+import {apiOptionsWithDefaults} from "./flags-for-api-options";
 import InteractiveGraphEditorArgTypes from "./interactive-graph-editor.argtypes";
 
 import type {Meta, StoryObj} from "@storybook/react";
@@ -72,13 +74,7 @@ export const WithLockedPoints: StoryComponentType = {
 
         const [state, dispatch] = React.useReducer(reducer, {
             // Use locked figures with mafs only.
-            apiOptions: {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            },
+            apiOptions: {flags},
             graph: {
                 type: "segment",
             },
@@ -119,13 +115,7 @@ export const WithMafs: StoryComponentType = {
         };
 
         const [state, dispatch] = React.useReducer(reducer, {
-            apiOptions: {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            },
+            apiOptions: {flags},
             graph: {
                 type: "segment",
             },
