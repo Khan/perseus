@@ -155,4 +155,10 @@
 .MafsView .axis-ticks text {
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
+    stroke: white;
+    stroke-width: 8px;
+    paint-order: stroke fill;
+}
+.MafsView pattern g {
+    stroke: #bfbfc1;
 }
