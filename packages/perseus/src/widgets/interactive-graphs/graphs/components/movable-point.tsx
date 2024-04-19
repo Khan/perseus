@@ -13,7 +13,7 @@ import type {vec} from "mafs";
 type Props = {
     point: vec.Vector2;
     onMove: (newPoint: vec.Vector2) => unknown;
-    color?: string;
+    color?: keyof typeof WBColor;
 };
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
@@ -24,6 +24,12 @@ export const StyledMovablePoint = (props: Props) => {
     const {state, graphOptions} = useGraphState();
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
+
+    // WB Tooltip requires a color name for the background color.
+    // Since the color in props is a hex value, a reverse lookup is needed.
+    const wbColorName = (Object.entries(WBColor).find(
+        ([_, value]) => value === color,
+    )?.[0] ?? "blue") as keyof typeof WBColor;
 
     const {dragging} = useMovable({
         gestureTarget: hitboxRef,
@@ -97,8 +103,9 @@ export const StyledMovablePoint = (props: Props) => {
             {graphOptions.showTooltips ? (
                 <Tooltip
                     autoUpdate={true}
+                    backgroundColor={wbColorName}
                     content={`(${point[0]}, ${point[1]})`}
-                    contentStyle={{color}}
+                    contentStyle={{color: "white"}}
                 >
                     {svgForPoint}
                 </Tooltip>

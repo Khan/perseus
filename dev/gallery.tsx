@@ -221,7 +221,7 @@ export function Gallery() {
                         .map(insertShowTooltips)
                         .map(([question, i]) => (
                             <QuestionRenderer
-                                key={i}
+                                key={`${i}${showTooltips ? "-with-tooltips" : ""}`}
                                 question={question}
                                 apiOptions={{
                                     isMobile,
