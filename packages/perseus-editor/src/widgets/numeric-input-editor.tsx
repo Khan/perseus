@@ -12,6 +12,9 @@ import _ from "underscore";
 
 import Editor from "../editor";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus/dist/perseus-types";
+
 const {
     ButtonGroup,
     InfoTip,
@@ -49,22 +52,9 @@ const initAnswer = (status: string) => {
     };
 };
 
-type Props = {
-    answers: {
-        value: null;
-        status: string;
-        message: string;
-        simplify: string;
-        answerForms: never[];
-        strict: boolean;
-        maxError: null;
-    }[];
-    size: string;
-    coefficient: boolean;
-    labelText: string;
-    rightAlign: boolean;
+type Props = PerseusNumericInputWidgetOptions & {
     onChange: (results: any) => any;
-    apiOptions?: any;
+    apiOptions?: APIOptionsWithDefaults;
 };
 
 type State = {
@@ -314,7 +304,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 value={answer.value}
                                 className="numeric-input-value"
                                 placeholder="answer"
-                                format={_.last(answer.answerForms)}
+                                format={_.last(answer.answerForms || [])}
                                 onFormatChange={(newValue, format) => {
                                     // NOTE(charlie): The mobile web expression
                                     // editor relies on this automatic answer
@@ -385,7 +375,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     <NumberInput
                                         placeholder={0}
                                         value={answers[i]["maxError"]}
-                                        format={_.last(answer.answerForms)}
+                                        format={_.last(
+                                            answer.answerForms || [],
+                                        )}
                                         onChange={this.updateAnswer(
                                             i,
                                             "maxError",
@@ -510,13 +502,16 @@ class NumericInputEditor extends React.Component<Props, State> {
             );
         }
 
-        let answers = _.clone(this.props.answers);
+        let answers = {
+            // Have to do this to remove the `readonly` state from the prop
+            ..._.clone(this.props.answers),
+        };
 
         // Don't bother to make a new answer box unless we are editing the last
         // one.
         // TODO(oliver): This might not be necessary anymore.
         if (choiceIndex === answers.length) {
-            const lastAnswer = initAnswer(this.state.lastStatus);
+            const lastAnswer: any = initAnswer(this.state.lastStatus);
             answers = answers.concat(lastAnswer);
         }
 
@@ -525,7 +520,7 @@ class NumericInputEditor extends React.Component<Props, State> {
     }
 
     addAnswer() {
-        const lastAnswer = initAnswer(this.state.lastStatus);
+        const lastAnswer: any = initAnswer(this.state.lastStatus);
         const answers = this.props.answers.concat(lastAnswer);
         this.props.onChange({answers: answers});
     }

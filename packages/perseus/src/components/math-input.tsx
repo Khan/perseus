@@ -392,22 +392,21 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 class MathInput extends React.Component<Props, State> {
     static contextType = MathInputI18nContext;
     declare context: React.ContextType<typeof MathInputI18nContext>;
+    inputRef = React.createRef<InnerMathInput>();
 
     focus() {
-        // @ts-expect-error - types aren't valid here, but this API is exposed.
-        this.refs.input.focus();
+        this.inputRef.current?.focus();
     }
 
     insert(value: any) {
-        // @ts-expect-error - types aren't valid here, but this API is exposed.
-        this.refs.input.insert(value);
+        this.inputRef.current?.insert(value);
     }
 
     render() {
         return (
             <InnerMathInput
                 {...this.props}
-                ref="input"
+                ref={this.inputRef}
                 mathInputStrings={this.context.strings}
             />
         );
