@@ -254,6 +254,7 @@ class Radio extends React.Component<Props> {
                     // @ts-expect-error - TS2322 - Type '{ blockHighlight: true; contentType: string; highlightLint: boolean; paths: readonly string[]; stack: readonly string[]; }' is not assignable to type 'LinterContextProps'.
                     blockHighlight: true,
                 }}
+                strings={this.context.strings}
             />
         );
     };

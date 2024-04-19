@@ -111,6 +111,7 @@ export class Categorizer extends React.Component<Props, State> {
                                         // @ts-expect-error - TS2322 - Type 'string | number' is not assignable to type 'string | undefined'.
                                         content={item}
                                         linterContext={this.props.linterContext}
+                                        strings={this.context.strings}
                                     />
                                 </td>
                                 {self.props.categories.map(

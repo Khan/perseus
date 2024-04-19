@@ -9,7 +9,7 @@ import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
-import {Renderer} from "../packages/perseus/src/index";
+import {Renderer, usePerseusI18n} from "../packages/perseus/src/index";
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
 import SideBySide from "./side-by-side";
@@ -32,6 +32,7 @@ export const RendererWithDebugUI = ({
     const ref = React.useRef<Renderer | null | undefined>(null);
     const [state, setState] = React.useState<any>(null);
     const [isMobile, setIsMobile] = React.useState(false);
+    const {strings} = usePerseusI18n();
 
     return (
         <SideBySide
@@ -65,6 +66,7 @@ export const RendererWithDebugUI = ({
                             problemNum={0}
                             apiOptions={{...apiOptions, isMobile}}
                             reviewMode={reviewMode}
+                            strings={strings}
                         />
                     </View>
                     <View style={{flexDirection: "row", alignItems: "center"}}>

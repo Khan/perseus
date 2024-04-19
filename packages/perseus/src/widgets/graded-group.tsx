@@ -299,6 +299,7 @@ export class GradedGroup extends React.Component<Props, State> {
                     apiOptions={{...apiOptions, readOnly}}
                     onInteractWithWidget={this._onInteractWithWidget}
                     linterContext={this.props.linterContext}
+                    strings={this.context.strings}
                 />
                 {!apiOptions.isMobile && icon && (
                     <div className="group-icon">{icon}</div>
