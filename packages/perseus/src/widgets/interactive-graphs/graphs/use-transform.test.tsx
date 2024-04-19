@@ -1,9 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-import {renderHook} from "@testing-library/react-hooks";
-
 import {
     type GraphDimensions,
     pointToPixel,
