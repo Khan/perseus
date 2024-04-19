@@ -22,7 +22,7 @@ import {
     getGradableGraph,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
-import useGraphConfig, {GraphConfigContext} from "./reducer/use-graph-config";
+import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {Widget} from "../../renderer";
@@ -42,6 +42,7 @@ export type Props = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
+    labels: InteractiveGraphProps["labels"];
 };
 
 const renderGraph = (props: {
@@ -91,9 +92,8 @@ type MafsGraphProps = Props & {
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch} = props;
+    const {state, dispatch, labels} = props;
     const [width, height] = props.box;
-    const {labels} = useGraphConfig();
 
     const prevState = useRef<InteractiveGraphState>(state);
     useEffect(() => {
@@ -152,7 +152,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }}
                 >
                     {props.markings === "graph" && (
-                        <AxisLabels labels={labels} />
+                        <AxisLabels labels={props.labels} />
                     )}
                     <Mafs
                         preserveAspectRatio={false}
