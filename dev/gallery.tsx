@@ -143,7 +143,6 @@ export function Gallery() {
     const flagsId = ids.get("flags");
     const searchId = ids.get("search");
 
-
     const insertShowTooltips = ([question, i]): [PerseusRenderer, number] => {
         Object.keys(question.widgets).forEach((widgetName) => {
             if (question.widgets[widgetName].type === "interactive-graph") {
