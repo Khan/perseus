@@ -9,11 +9,7 @@ import type {Interval, vec} from "mafs";
 export type Range = Interval;
 export type Size = [number, number];
 export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
-
-export type StyleParams = {
-    fill?: string;
-    stroke?: string;
-};
+export type ShowSolutions = "all" | "selected" | "none";
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
@@ -659,13 +655,34 @@ export type PerseusInteractiveGraphWidgetOptions = {
     lockedFigures?: ReadonlyArray<LockedFigure>;
 };
 
-export type LockedFigure = LockedPoint;
+export const lockedFigureColors: ReadonlyArray<LockedFigureColor> = [
+    "purple",
+    "blue",
+    "teal",
+    "green",
+    "gold",
+    "red",
+    "pink",
+];
+
+// export type LockedFigureColor = typeof lockedFigureColors[number];
+export type LockedFigureColor =
+    | "purple"
+    | "blue"
+    | "teal"
+    | "green"
+    | "gold"
+    | "red"
+    | "pink";
+
+export type LockedFigure = LockedPointType;
 export type LockedFigureType = "point";
 
-export type LockedPoint = {
+export type LockedPointType = {
     type: "point";
     coord: Coord;
-    style?: StyleParams;
+    color: LockedFigureColor;
+    filled: boolean;
 };
 
 export type PerseusGraphType =

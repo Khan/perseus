@@ -1,14 +1,12 @@
 import React from "react";
 
 import {Arrowhead} from "./graphs/components/arrowhead";
-import useGraphState from "./reducer/use-graph-state";
+import useGraphConfig from "./reducer/use-graph-config";
 
 export default function AxisArrows() {
-    const {state} = useGraphState();
-
-    const range = state.range;
-    const [xMin, xMax] = range[0];
-    const [yMin, yMax] = range[1];
+    const {
+        range: [[xMin, xMax], [yMin, yMax]],
+    } = useGraphConfig();
 
     return (
         <>

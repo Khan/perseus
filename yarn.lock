@@ -2441,6 +2441,17 @@
     mathjax-full "3.2.2"
     mu-lambda "^0.0.3"
 
+"@khanacademy/wonder-blocks-accordion@^1.2.16":
+  version "1.2.16"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-accordion/-/wonder-blocks-accordion-1.2.16.tgz#ebbf90399b5a45f443f1b9a3c1d22d15548ff8fc"
+  integrity sha512-3jrHw/oRm1ri4YKWwGIFM49Avk2V1moVt40Z4ayKvuxQXW2IXd/ZBaQvs+qMAw/zWtGEnMoFGkrQdKIfh9rVyw==
+  dependencies:
+    "@khanacademy/wonder-blocks-clickable" "^4.1.3"
+    "@khanacademy/wonder-blocks-core" "^6.3.1"
+    "@khanacademy/wonder-blocks-icon" "^4.0.1"
+    "@khanacademy/wonder-blocks-tokens" "^1.2.0"
+    "@khanacademy/wonder-blocks-typography" "^2.1.10"
+
 "@khanacademy/wonder-blocks-banner@^3.0.33":
   version "3.0.34"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-banner/-/wonder-blocks-banner-3.0.34.tgz#b19e7b6757d9ce94eb0882189a75f94d15b9aa16"
@@ -2897,6 +2908,17 @@
     "@khanacademy/wonder-blocks-icon" "^4.0.1"
     "@khanacademy/wonder-blocks-theming" "^2.0.1"
     "@khanacademy/wonder-blocks-tokens" "^1.0.0"
+
+"@khanacademy/wonder-blocks-switch@^1.1.14":
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-switch/-/wonder-blocks-switch-1.1.14.tgz#e147033c48d7d0f6926d3ea5f497a8d8811a32f6"
+  integrity sha512-n/Qcu4Di/T02vJj8guQ9h2bBzVWgYV6nuelE64YvbsoduMY+iIz1dJIcIf6Ag+TJoSi5Y9BFUSAiSW2uDCSzTg==
+  dependencies:
+    "@babel/runtime" "^7.18.6"
+    "@khanacademy/wonder-blocks-core" "^6.3.1"
+    "@khanacademy/wonder-blocks-icon" "^4.0.1"
+    "@khanacademy/wonder-blocks-theming" "^2.0.2"
+    "@khanacademy/wonder-blocks-tokens" "^1.2.0"
 
 "@khanacademy/wonder-blocks-theming@^1.3.0":
   version "1.3.0"

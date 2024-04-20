@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.2.12",
+    "version": "5.2.14",
     "publishConfig": {
         "access": "public"
     },
@@ -28,10 +28,11 @@
         "@khanacademy/kas": "^0.3.9",
         "@khanacademy/kmath": "^0.1.12",
         "@khanacademy/math-input": "^17.4.1",
-        "@khanacademy/perseus": "^21.3.1",
+        "@khanacademy/perseus": "^21.5.0",
         "@khanacademy/perseus-core": "1.4.2"
     },
     "devDependencies": {
+        "@khanacademy/wonder-blocks-accordion": "^1.2.16",
         "@khanacademy/wonder-blocks-button": "^6.2.8",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
@@ -40,6 +41,7 @@
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "4.0.1",
         "@khanacademy/wonder-blocks-icon-button": "^5.1.13",
+        "@khanacademy/wonder-blocks-switch": "^1.1.14",
         "@khanacademy/wonder-blocks-tokens": "^1.1.0",
         "@khanacademy/wonder-blocks-typography": "^2.1.10",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
@@ -56,6 +58,7 @@
         "underscore": "^1.4.4"
     },
     "peerDependencies": {
+        "@khanacademy/wonder-blocks-accordion": "^1.2.16",
         "@khanacademy/wonder-blocks-button": "^6.2.8",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
@@ -64,6 +67,7 @@
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "4.0.1",
         "@khanacademy/wonder-blocks-icon-button": "^5.1.13",
+        "@khanacademy/wonder-blocks-switch": "^1.1.14",
         "@khanacademy/wonder-blocks-tokens": "^1.1.0",
         "@khanacademy/wonder-blocks-typography": "^2.1.10",
         "@khanacademy/wonder-stuff-core": "^1.5.1",

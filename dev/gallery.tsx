@@ -10,7 +10,7 @@ import * as React from "react";
 import {useEffect, useMemo, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
-import {MafsFlags} from "../packages/perseus/src/types";
+import {MafsGraphTypeFlags} from "../packages/perseus/src/types";
 import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
 import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import * as numberLine from "../packages/perseus/src/widgets/__testdata__/number-line.testdata";
@@ -104,7 +104,7 @@ export function Gallery() {
             ?.split(",")
             // We filter through the MafsFlags array to ensure we don't retain
             // flags from the query string that don't actually exist anymore.
-            .filter((flag) => MafsFlags.includes(flag as any)) || [],
+            .filter((flag) => MafsGraphTypeFlags.includes(flag as any)) || [],
     );
     const [search, setSearch] = useState<string>(params.get("search") || "");
 
@@ -177,7 +177,7 @@ export function Gallery() {
                         onChange={setMafsFlags}
                         selectedValues={mafsFlags}
                     >
-                        {MafsFlags.map((flag) => (
+                        {MafsGraphTypeFlags.map((flag) => (
                             <OptionItem
                                 key={flag}
                                 value={flag}

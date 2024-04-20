@@ -1,3 +1,4 @@
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -37,7 +38,9 @@ function renderBaseRadio(props) {
 
     const overwrittenProps = {...baseProps, ...props} as const;
 
-    return render(<BaseRadio {...overwrittenProps} />);
+    return render(<BaseRadio {...overwrittenProps} />, {
+        wrapper: RenderStateRoot,
+    });
 }
 
 describe("base-radio", () => {

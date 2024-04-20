@@ -1,4 +1,4 @@
-import {getValidNumberFromString, getDefaultFigureForFigureType} from "../util";
+import {getValidNumberFromString, getDefaultFigureForType} from "../util";
 
 describe("getValidNumberFromString", () => {
     test("should return a number from a string", () => {
@@ -34,9 +34,14 @@ describe("getValidNumberFromString", () => {
     });
 });
 
-describe("getDefaultFigureForFigureType", () => {
+describe("getDefaultFigureForType", () => {
     test("should return a point with default coordinates", () => {
-        const figure = getDefaultFigureForFigureType("point");
-        expect(figure).toEqual({type: "point", coord: [0, 0]});
+        const figure = getDefaultFigureForType("point");
+        expect(figure).toEqual({
+            type: "point",
+            coord: [0, 0],
+            color: "blue",
+            filled: true,
+        });
     });
 });

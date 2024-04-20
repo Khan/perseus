@@ -4,7 +4,7 @@ import {useMovable} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
-import useGraphState from "../../reducer/use-graph-state";
+import useGraphConfig from "../../reducer/use-graph-config";
 import {snap} from "../../utils";
 import {useTransform} from "../use-transform";
 
@@ -13,7 +13,7 @@ import type {vec} from "mafs";
 type Props = {
     point: vec.Vector2;
     onMove: (newPoint: vec.Vector2) => unknown;
-    color?: keyof typeof WBColor;
+    color?: string;
 };
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
@@ -21,7 +21,7 @@ type Props = {
 const hitboxSizePx = 48;
 
 export const StyledMovablePoint = (props: Props) => {
-    const {state, graphOptions} = useGraphState();
+    const {range, snapStep, markings, showTooltips} = useGraphConfig();
     const hitboxRef = useRef<SVGCircleElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
 
@@ -35,21 +35,21 @@ export const StyledMovablePoint = (props: Props) => {
         gestureTarget: hitboxRef,
         point,
         onMove,
-        constrain: (p) => snap(state.snapStep, p),
+        constrain: (p) => snap(snapStep, p),
     });
     const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""}`;
 
     const [[x, y]] = useTransform(point);
 
-    const [xMin, xMax] = state.range[0];
-    const [yMin, yMax] = state.range[1];
+    const [xMin, xMax] = range[0];
+    const [yMin, yMax] = range[1];
 
     const [[verticalStartX]] = useTransform([xMin, 0]);
     const [[verticalEndX]] = useTransform([xMax, 0]);
     const [[_, horizontalStartY]] = useTransform([0, yMin]);
     const [[__, horizontalEndY]] = useTransform([0, yMax]);
 
-    const showHairlines = dragging && state.markings !== "none";
+    const showHairlines = dragging && markings !== "none";
     const hairlines = (
         <g>
             <line
@@ -100,7 +100,7 @@ export const StyledMovablePoint = (props: Props) => {
         <>
             {showHairlines && hairlines}
 
-            {graphOptions.showTooltips ? (
+            {showTooltips ? (
                 <Tooltip
                     autoUpdate={true}
                     backgroundColor={wbColorName}
