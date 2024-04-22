@@ -123,13 +123,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 3px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -238,13 +238,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
@@ -353,13 +353,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
@@ -459,13 +459,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
@@ -696,13 +696,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -824,13 +824,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -939,13 +939,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -1057,13 +1057,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1268,13 +1268,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -1396,13 +1396,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1511,13 +1511,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1629,13 +1629,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1840,13 +1840,13 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1968,13 +1968,13 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2083,13 +2083,13 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2201,13 +2201,13 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2412,13 +2412,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2540,13 +2540,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2655,13 +2655,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -2773,13 +2773,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2984,13 +2984,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -3112,13 +3112,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3227,13 +3227,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3345,13 +3345,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3556,13 +3556,13 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3639,7 +3639,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     </div>
                     <div
                       class="perseus-radio-rationale-content rationale_1ctj0s0"
-                      data-test-id="perseus-radio-rationale-content-0"
+                      data-testid="perseus-radio-rationale-content-0"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -3765,13 +3765,13 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3835,7 +3835,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     </div>
                     <div
                       class="perseus-radio-rationale-content rationale_1ctj0s0"
-                      data-test-id="perseus-radio-rationale-content-1"
+                      data-testid="perseus-radio-rationale-content-1"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -3945,13 +3945,13 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1-o_O-circleCorrect_ifnw95"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -4015,7 +4015,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     </div>
                     <div
                       class="perseus-radio-rationale-content rationale_1ctj0s0"
-                      data-test-id="perseus-radio-rationale-content-2"
+                      data-testid="perseus-radio-rationale-content-2"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -4123,13 +4123,13 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -4196,7 +4196,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     </div>
                     <div
                       class="perseus-radio-rationale-content rationale_1ctj0s0"
-                      data-test-id="perseus-radio-rationale-content-3"
+                      data-testid="perseus-radio-rationale-content-3"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"

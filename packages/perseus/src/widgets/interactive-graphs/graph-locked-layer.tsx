@@ -1,6 +1,7 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
+import LockedLine from "./locked-line";
 import LockedPoint from "./locked-point";
 
 import type {LockedFigure} from "../../perseus-types";
@@ -19,6 +20,9 @@ const GraphLockedLayer = (props: Props) => {
                     case "point":
                         Figure = LockedPoint;
                         break;
+                    case "line":
+                        Figure = LockedLine;
+                        break;
                     default:
                         /**
                          * Devlopment-time future-proofing: This should
@@ -26,7 +30,7 @@ const GraphLockedLayer = (props: Props) => {
                          * shape type and forget to handle it in any other
                          * switch case here.
                          */
-                        throw new UnreachableCaseError(figure.type);
+                        throw new UnreachableCaseError(figure);
                 }
 
                 return <Figure key={`${figure.type}-${index}`} {...figure} />;

@@ -75,7 +75,7 @@ export const StyledMovablePoint = (props: Props) => {
             className={pointClasses}
             tabIndex={0}
             style={{"--movable-point-color": color} as any}
-            data-test-id="movable-point"
+            data-testid="movable-point"
         >
             <circle
                 className="movable-point-hitbox"
@@ -91,7 +91,7 @@ export const StyledMovablePoint = (props: Props) => {
                 cx={x}
                 cy={y}
                 style={{fill: color}}
-                data-test-id="movable-point__center"
+                data-testid="movable-point__center"
             />
         </g>
     );

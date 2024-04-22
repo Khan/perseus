@@ -45,14 +45,19 @@ const LockedFiguresSection = (props: Props) => {
         });
     }
 
-    function changeProps(index: number, newProps: Partial<LockedFigure>) {
+    function changeProps(
+        index: number,
+        // Omit the type from the figure props so it doesn't think
+        // we're trying to pass in the props for the wrong type.
+        figureProps: Omit<Partial<LockedFigure>, "type">,
+    ) {
         const lockedFigures = figures || [];
         const newFigures = {
             lockedFigures: [
                 ...lockedFigures.slice(0, index),
                 {
                     ...lockedFigures[index],
-                    ...newProps,
+                    ...figureProps,
                 },
                 ...lockedFigures.slice(index + 1),
             ],
@@ -62,14 +67,23 @@ const LockedFiguresSection = (props: Props) => {
 
     return (
         <View style={styles.container}>
-            {figures?.map((figure, index) => (
-                <LockedFigureSettings
-                    key={`${uniqueId}-locked-${figure}-${index}`}
-                    {...figure}
-                    onChangeProps={(newProps) => changeProps(index, newProps)}
-                    onRemove={() => removeLockedFigure(index)}
-                />
-            ))}
+            {figures?.map((figure, index) => {
+                // TODO(LEMS-1740): Remove this check when
+                // locked lines are added to LockedFigureSettings.
+                if (figure.type === "line") {
+                    return;
+                }
+                return (
+                    <LockedFigureSettings
+                        key={`${uniqueId}-locked-${figure}-${index}`}
+                        {...figure}
+                        onChangeProps={(newProps) =>
+                            changeProps(index, newProps)
+                        }
+                        onRemove={() => removeLockedFigure(index)}
+                    />
+                );
+            })}
             <LockedFigureSelect
                 id={`${uniqueId}-select`}
                 onChange={addLockedFigure}
