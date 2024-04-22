@@ -21,7 +21,7 @@ const CrossOutLine = function (props: {color: string}): React.ReactElement {
             height={CROSS_OUT_LINE_SIZE}
             viewBox={`0 0 ${CROSS_OUT_LINE_SIZE} ${CROSS_OUT_LINE_SIZE}`}
             className={css(styles.crossOutLine)}
-            data-test-id="choice-icon__cross-out-line"
+            data-testid="choice-icon__cross-out-line"
         >
             <line
                 // The line stretches from the bottom-left to top-right.

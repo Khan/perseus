@@ -3,7 +3,6 @@
  * but before any tests have run.
  */
 import MutationObserver from "@sheerun/mutationobserver-shim";
-import {configure} from "@testing-library/dom"; // eslint-disable-line testing-library/no-dom-import
 // @ts-expect-error - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
 import {StyleSheetTestUtils} from "aphrodite";
 import jestSerializerHtml from "jest-serializer-html";
@@ -17,11 +16,6 @@ StyleSheetTestUtils.suppressStyleInjection();
 // Hook in the Jest HTML Serializer to our custom snapshot matcher.
 // See https://www.npmjs.com/package/jest-specific-snapshot#with-custom-serializer
 addSerializer(jestSerializerHtml);
-
-// @testing-library uses "data-testId" by default but wonder-blocks uses "data-test-id"
-configure({
-    testIdAttribute: "data-test-id",
-});
 
 if (typeof window !== "undefined") {
     // @ts-expect-error - TS2322 - Type '() => { removeAllRanges: () => void; }' is not assignable to type '(() => Selection | null) & (() => Selection | null)'.
