@@ -16,7 +16,7 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import ColorIndicator from "./color-indicator";
+import ColorSwatch from "./color-swatch";
 import ColorSelect from "./color-select";
 import LockedPointSettings from "./locked-point-settings";
 
@@ -101,7 +101,7 @@ const LockedLineSettings = (props: Props) => {
                     <View style={styles.row}>
                         <LabelLarge>{lineLabel}</LabelLarge>
                         <Strut size={spacing.xSmall_8} />
-                        <ColorIndicator color={lineColor} />
+                        <ColorSwatch color={lineColor} />
                     </View>
                 }
             >

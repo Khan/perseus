@@ -10,7 +10,7 @@ type Props = {
     decorative?: boolean;
 };
 
-const ColorIndicator = (props: Props) => {
+const ColorSwatch = (props: Props) => {
     const {color, filled = true, decorative = false} = props;
 
     return (
@@ -22,7 +22,7 @@ const ColorIndicator = (props: Props) => {
                     : undefined
             }
             style={[
-                styles.ColorIndicator,
+                styles.ColorSwatch,
                 {
                     border: `4px solid ${lockedFigureColors[color]}`,
                     backgroundColor: filled
@@ -35,8 +35,8 @@ const ColorIndicator = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-    ColorIndicator: {
-        // Add a white outline so that the color indicator is visible when
+    ColorSwatch: {
+        // Add a white outline so that the color swatch is visible when
         // the dropdown option is highlighted with its blue background.
         outline: `2px solid ${wbColor.offWhite}`,
         borderRadius: "50%",
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ColorIndicator;
+export default ColorSwatch;

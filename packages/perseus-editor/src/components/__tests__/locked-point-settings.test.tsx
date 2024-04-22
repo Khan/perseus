@@ -18,11 +18,11 @@ describe("LockedPointSettings", () => {
         );
 
         const titleText = screen.getByText("Point (0, 0)");
-        const ColorIndicator = screen.getByLabelText("Color: blue, filled");
+        const ColorSwatch = screen.getByLabelText("Color: blue, filled");
 
         // Assert
         expect(titleText).toBeInTheDocument();
-        expect(ColorIndicator).toBeInTheDocument();
+        expect(ColorSwatch).toBeInTheDocument();
     });
 
     test("Should not show the color in summary if toggled off", () => {
@@ -40,13 +40,13 @@ describe("LockedPointSettings", () => {
         );
 
         const titleText = screen.getByText("Point (0, 0)");
-        const ColorIndicator = screen.queryByLabelText(
+        const ColorSwatch = screen.queryByLabelText(
             "Point color: blue, filled",
         );
 
         // Assert
         expect(titleText).toBeInTheDocument();
-        expect(ColorIndicator).not.toBeInTheDocument();
+        expect(ColorSwatch).not.toBeInTheDocument();
     });
 
     test("Should show toggle switch if onToggle is passed in", () => {

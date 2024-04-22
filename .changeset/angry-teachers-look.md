@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Rename ColorCircle to ColorIndicator
+Rename ColorCircle to ColorSwatch
