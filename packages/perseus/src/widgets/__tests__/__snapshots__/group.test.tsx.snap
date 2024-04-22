@@ -188,13 +188,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -303,13 +303,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -418,13 +418,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -533,13 +533,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -648,13 +648,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -761,6 +761,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             <span>
                               <div>
                                 <input
+                                  aria-invalid="false"
                                   aria-label="value rounded to the nearest ten"
                                   autocapitalize="off"
                                   autocomplete="off"
@@ -967,6 +968,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             <span>
                               <div>
                                 <input
+                                  aria-invalid="false"
                                   aria-label="value rounded to the nearest hundred"
                                   autocapitalize="off"
                                   autocomplete="off"

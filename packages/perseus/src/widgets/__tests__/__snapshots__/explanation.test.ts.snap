@@ -42,7 +42,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
           <div
             aria-hidden="false"
             class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentExpanded_1ojyq0m"
-            data-test-id="content-container"
+            data-testid="content-container"
             id="uid-explanation-widget-1-content"
           >
             <div
@@ -115,7 +115,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
           <div
             aria-hidden="true"
             class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentCollapsed_j2403j"
-            data-test-id="content-container"
+            data-testid="content-container"
             id="uid-explanation-widget-0-content"
           >
             <div

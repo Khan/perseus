@@ -354,7 +354,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 aria-live="polite"
                 aria-relevant="additions text"
                 class="srOnly_19bpjuy"
-                data-test-id="dropdown-live-region"
+                data-testid="dropdown-live-region"
               />
               <button
                 aria-expanded="false"
@@ -419,7 +419,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 aria-live="polite"
                 aria-relevant="additions text"
                 class="srOnly_19bpjuy"
-                data-test-id="dropdown-live-region"
+                data-testid="dropdown-live-region"
               />
               <button
                 aria-expanded="false"
@@ -484,7 +484,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 aria-live="polite"
                 aria-relevant="additions text"
                 class="srOnly_19bpjuy"
-                data-test-id="dropdown-live-region"
+                data-testid="dropdown-live-region"
               />
               <button
                 aria-expanded="false"

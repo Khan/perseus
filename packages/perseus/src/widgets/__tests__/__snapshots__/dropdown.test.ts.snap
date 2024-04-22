@@ -25,7 +25,7 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 aria-live="polite"
                 aria-relevant="additions text"
                 class="srOnly_19bpjuy"
-                data-test-id="dropdown-live-region"
+                data-testid="dropdown-live-region"
               >
                 3 items
               </span>
@@ -92,7 +92,7 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 aria-live="polite"
                 aria-relevant="additions text"
                 class="srOnly_19bpjuy"
-                data-test-id="dropdown-live-region"
+                data-testid="dropdown-live-region"
               />
               <button
                 aria-expanded="false"

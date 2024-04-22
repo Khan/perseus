@@ -60,7 +60,7 @@ export const MovableLine = (props: Props) => {
                 ref={line}
                 tabIndex={0}
                 className="movable-line"
-                data-test-id="movable-line"
+                data-testid="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}
             >
                 {/**

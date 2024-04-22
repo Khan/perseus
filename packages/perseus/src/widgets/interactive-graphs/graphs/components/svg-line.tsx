@@ -21,7 +21,7 @@ export function SVGLine(props: Props) {
             y2={end[1]}
             style={style}
             className={`${className}`}
-            data-test-id={testId}
+            data-testid={testId}
         />
     );
 }

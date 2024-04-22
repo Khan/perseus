@@ -105,7 +105,7 @@ describe("Definition widget", () => {
         expect(tooltip).toHaveTextContent("Definition text");
     });
 
-    it("should dimiss by a click on the x when showing", async () => {
+    it("should dismiss by a click on the x when showing", async () => {
         renderQuestion(question);
 
         // Act
@@ -114,7 +114,7 @@ describe("Definition widget", () => {
         await userEvent.click(definitionAnchor);
 
         // Click close, tooltip is hidden
-        const close = screen.getByTestId("popover-close-btn");
+        const close = screen.getByLabelText("Close Popover");
         await userEvent.click(close);
 
         // Assert

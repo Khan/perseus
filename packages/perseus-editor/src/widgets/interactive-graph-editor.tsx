@@ -213,6 +213,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         const sizeClass = containerSizeClass.SMALL;
         if (this.props.valid === true) {
+            const correct = this.props.correct;
+
             // TODO(aria): send these down all at once
             const graphProps = {
                 ref: "graph",
@@ -222,7 +224,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 step: this.props.step,
                 gridStep: gridStep,
                 snapStep: snapStep,
-                graph: this.props.correct,
+                graph: correct,
                 backgroundImage: this.props.backgroundImage,
                 markings: this.props.markings,
                 showProtractor: this.props.showProtractor,
@@ -244,6 +246,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     this.props.onChange({correct: correct});
                 },
             } as const;
+
+            // This is used to force a remount of the graph component
+            // when there's a significant change
+            const graphKey = `${correct.type}:${correct.numSegments || 0}`;
             graph = (
                 // There are a bunch of props that renderer.jsx passes to widgets via
                 // getWidgetProps() and widget-container.jsx that the editors don't
@@ -251,6 +257,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // @ts-expect-error - TS2769 - No overload matches this call.
                 <InteractiveGraph
                     {...graphProps}
+                    key={graphKey}
                     containerSizeClass={sizeClass}
                     apiOptions={{
                         ...this.props.apiOptions,
@@ -580,7 +587,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     // Only show the "Add locked figure" dropdown if the graph is
                     // using Mafs.
                     this.props.graph &&
-                        this.props.apiOptions?.flags?.["mafs"]?.[
+                        this.props.apiOptions?.flags?.mafs?.[
+                            "interactive-graph-locked-features-m1"
+                        ] &&
+                        this.props.apiOptions?.flags?.mafs?.[
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
