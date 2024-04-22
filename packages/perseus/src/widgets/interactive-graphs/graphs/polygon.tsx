@@ -18,8 +18,7 @@ export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, type, showAngles, showSides, range, snapStep} =
-        props.graphState;
+    const {coords, showAngles, showSides, range, snapStep} = props.graphState;
 
     const points = coords ?? [[0, 0]];
 
