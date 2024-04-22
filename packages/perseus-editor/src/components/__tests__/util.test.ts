@@ -44,4 +44,31 @@ describe("getDefaultFigureForType", () => {
             filled: true,
         });
     });
+
+    test("should return a line with default values", () => {
+        const figure = getDefaultFigureForType("line");
+        expect(figure).toEqual({
+            type: "line",
+            kind: "line",
+            points: [
+                {
+                    type: "point",
+                    coord: [0, 0],
+                    color: "blue",
+                    filled: true,
+                },
+                {
+                    type: "point",
+                    coord: [2, 2],
+                    color: "blue",
+                    filled: true,
+                },
+            ],
+            color: "blue",
+            lineStyle: "solid",
+            showArrows: false,
+            showStartPoint: false,
+            showEndPoint: false,
+        });
+    });
 });

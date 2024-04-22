@@ -1,7 +1,10 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+
 import type {
     LockedFigure,
     LockedFigureType,
     LockedPointType,
+    LockedLineType,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
@@ -49,6 +52,9 @@ export function getValidNumberFromString(value: string) {
     return isNaN(parsed) ? 0 : parsed;
 }
 
+export function getDefaultFigureForType(type: "point"): LockedPointType;
+export function getDefaultFigureForType(type: "line"): LockedLineType;
+export function getDefaultFigureForType(type: LockedFigureType): LockedFigure;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
     switch (type) {
         case "point":
@@ -57,6 +63,25 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 coord: [0, 0],
                 color: "blue",
                 filled: true,
-            } as LockedPointType;
+            };
+        case "line":
+            return {
+                type: "line",
+                kind: "line",
+                points: [
+                    getDefaultFigureForType("point"),
+                    {
+                        ...getDefaultFigureForType("point"),
+                        coord: [2, 2],
+                    },
+                ],
+                color: "blue",
+                lineStyle: "solid",
+                showArrows: false,
+                showStartPoint: false,
+                showEndPoint: false,
+            };
+        default:
+            throw new UnreachableCaseError(type);
     }
 }

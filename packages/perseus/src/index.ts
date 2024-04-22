@@ -154,6 +154,7 @@ export type {
     LockedFigureColor,
     LockedFigureType,
     LockedPointType,
+    LockedLineType,
     PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,

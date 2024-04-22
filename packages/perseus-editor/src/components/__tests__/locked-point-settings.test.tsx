@@ -5,16 +5,15 @@ import * as React from "react";
 import LockedPointSettings from "../locked-point-settings";
 import {getDefaultFigureForType} from "../util";
 
+const defaultProps = getDefaultFigureForType("point");
+
 describe("LockedPointSettings", () => {
     test("Should show the point's coordinates and color by default", () => {
         // Arrange
 
         // Act
         render(
-            <LockedPointSettings
-                {...getDefaultFigureForType("point")}
-                onChangeProps={() => {}}
-            />,
+            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
             {wrapper: RenderStateRoot},
         );
 
@@ -32,7 +31,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={false}
                 onToggle={() => {}}
@@ -56,7 +55,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 onToggle={() => {}}
             />,
@@ -75,7 +74,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={true}
                 onToggle={() => {}}
@@ -95,7 +94,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={false}
                 onToggle={() => {}}
@@ -115,7 +114,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={true}
                 onToggle={() => {}}
@@ -137,7 +136,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={false}
                 onToggle={() => {}}
@@ -159,7 +158,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 coord={[23, 45]}
                 onChangeProps={() => {}}
             />,
