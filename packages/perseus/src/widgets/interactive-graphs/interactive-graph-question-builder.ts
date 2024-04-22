@@ -1,23 +1,22 @@
-import {PerseusRenderer} from "../../perseus-types";
-import {Interval, vec} from "mafs";
+import type {PerseusRenderer} from "../../perseus-types";
+import type {Interval, vec} from "mafs";
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
     return new InteractiveGraphQuestionBuilder();
 }
 
 class InteractiveGraphQuestionBuilder {
-    gridStep: vec.Vector2 = [1, 1]
-    labels: [string, string] = ["x", "y"]
-    markings: "graph" | "grid" | "none" = "graph"
-    xRange: Interval = [-10, 10]
-    yRange: Interval = [-10, 10]
-    snapStep: vec.Vector2 = [0.5, 0.5]
-    tickStep: vec.Vector2 = [1, 1]
+    gridStep: vec.Vector2 = [1, 1];
+    labels: [string, string] = ["x", "y"];
+    markings: "graph" | "grid" | "none" = "graph";
+    xRange: Interval = [-10, 10];
+    yRange: Interval = [-10, 10];
+    snapStep: vec.Vector2 = [0.5, 0.5];
+    tickStep: vec.Vector2 = [1, 1];
 
     build(): PerseusRenderer {
         return {
-            content:
-                "[[☃ interactive-graph 1]]",
+            content: "[[☃ interactive-graph 1]]",
             images: {},
             widgets: {
                 "interactive-graph 1": {
@@ -38,10 +37,7 @@ class InteractiveGraphQuestionBuilder {
                         gridStep: this.gridStep,
                         labels: this.labels,
                         markings: this.markings,
-                        range: [
-                            this.xRange,
-                            this.yRange,
-                        ],
+                        range: [this.xRange, this.yRange],
                         rulerLabel: "",
                         rulerTicks: 10,
                         showProtractor: false,
@@ -56,7 +52,7 @@ class InteractiveGraphQuestionBuilder {
                     },
                 },
             },
-        }
+        };
     }
 
     withGridStep(x: number, y: number): InteractiveGraphQuestionBuilder {
@@ -69,30 +65,30 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    withMarkings(markings: "graph" | "grid" | "none"): InteractiveGraphQuestionBuilder {
+    withMarkings(
+        markings: "graph" | "grid" | "none",
+    ): InteractiveGraphQuestionBuilder {
         this.markings = markings;
         return this;
     }
 
     withXRange(min: number, max: number): InteractiveGraphQuestionBuilder {
-        this.xRange = [min, max]
+        this.xRange = [min, max];
         return this;
     }
 
     withYRange(min: number, max: number): InteractiveGraphQuestionBuilder {
-        this.yRange = [min, max]
+        this.yRange = [min, max];
         return this;
     }
 
     withSnapStep(x: number, y: number): InteractiveGraphQuestionBuilder {
-        this.snapStep = [x, y]
+        this.snapStep = [x, y];
         return this;
     }
 
     withTickStep(x: number, y: number): InteractiveGraphQuestionBuilder {
-        this.tickStep = [x, y]
+        this.tickStep = [x, y];
         return this;
     }
 }
-
-

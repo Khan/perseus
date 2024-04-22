@@ -1,14 +1,13 @@
-import {
-    interactiveGraphQuestionBuilder
-} from "./interactive-graph-question-builder";
-import {PerseusRenderer} from "../../perseus-types";
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
+
+import type {PerseusRenderer} from "../../perseus-types";
 
 describe("InteractiveGraphQuestionBuilder", () => {
     it("builds a default graph question", () => {
-        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .build()
+        const question: PerseusRenderer =
+            interactiveGraphQuestionBuilder().build();
 
-        expect(question.content).toBe("[[☃ interactive-graph 1]]")
+        expect(question.content).toBe("[[☃ interactive-graph 1]]");
     });
 
     it("sets the grid step", () => {
@@ -45,7 +44,10 @@ describe("InteractiveGraphQuestionBuilder", () => {
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
-        expect(graph.options.range).toEqual([[-1, 2], [3, 4]]);
+        expect(graph.options.range).toEqual([
+            [-1, 2],
+            [3, 4],
+        ]);
     });
 
     it("sets the snap step", () => {
@@ -54,7 +56,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
-        expect(graph.options.snapStep).toEqual([5, 6])
+        expect(graph.options.snapStep).toEqual([5, 6]);
     });
 
     it("sets the axis tick step", () => {
@@ -63,6 +65,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
-        expect(graph.options.step).toEqual([7, 8])
-    })
-})
+        expect(graph.options.step).toEqual([7, 8]);
+    });
+});
