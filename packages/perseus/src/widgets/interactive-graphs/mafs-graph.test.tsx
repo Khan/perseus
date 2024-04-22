@@ -29,6 +29,7 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         graph: {type: "segment"},
         containerSizeClass: "small",
         onChange: () => {},
+        labels: ["x", "y"],
     };
 }
 

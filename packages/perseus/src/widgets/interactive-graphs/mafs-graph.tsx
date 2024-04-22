@@ -3,7 +3,6 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
-import _ from "underscore";
 
 import AxisLabels from "./axis-labels";
 import GraphLockedLayer from "./graph-locked-layer";
