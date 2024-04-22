@@ -163,7 +163,8 @@
     overflow: visible;
 }
 
-#x-axis-label, #y-axis-label {
+#x-axis-label,
+#y-axis-label {
     font-size: 14px;
 }
 
