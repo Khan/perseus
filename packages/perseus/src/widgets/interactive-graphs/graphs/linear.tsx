@@ -35,6 +35,8 @@ export const LinearGraph = (props: LinearGraphProps) => {
                             moveControlPoint(endpointIndex, destination, i),
                         )
                     }
+                    // "linear" or "linear-system" + index
+                    data-testid={type + i}
                     stroke={colors[i]}
                 />
             ))}

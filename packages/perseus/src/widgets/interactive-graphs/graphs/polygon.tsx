@@ -113,6 +113,7 @@ export const PolygonGraph = (props: Props) => {
                     onMove={(destination: vec.Vector2) =>
                         dispatch(movePoint(i, destination))
                     }
+                    data-testid={type + i}
                 />
             ))}
         </>
