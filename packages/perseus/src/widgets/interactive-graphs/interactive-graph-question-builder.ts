@@ -12,6 +12,7 @@ class InteractiveGraphQuestionBuilder {
     xRange: Interval = [-10, 10]
     yRange: Interval = [-10, 10]
     snapStep: vec.Vector2 = [0.5, 0.5]
+    tickStep: vec.Vector2 = [1, 1]
 
     build(): PerseusRenderer {
         return {
@@ -46,7 +47,7 @@ class InteractiveGraphQuestionBuilder {
                         showProtractor: false,
                         showRuler: false,
                         snapStep: this.snapStep,
-                        step: [1, 1],
+                        step: this.tickStep,
                     },
                     type: "interactive-graph",
                     version: {
@@ -85,6 +86,11 @@ class InteractiveGraphQuestionBuilder {
 
     withSnapStep(x: number, y: number): InteractiveGraphQuestionBuilder {
         this.snapStep = [x, y]
+        return this;
+    }
+
+    withTickStep(x: number, y: number): InteractiveGraphQuestionBuilder {
+        this.tickStep = [x, y]
         return this;
     }
 }

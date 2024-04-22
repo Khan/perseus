@@ -56,4 +56,13 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
         expect(graph.options.snapStep).toEqual([5, 6])
     });
+
+    it("sets the axis tick step", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withTickStep(7, 8)
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.step).toEqual([7, 8])
+    })
 })

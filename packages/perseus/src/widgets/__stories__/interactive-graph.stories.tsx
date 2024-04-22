@@ -37,7 +37,28 @@ export const SideBySideFlipbook = (args: StoryArgs): React.ReactElement => (
 export const MafsWithCustomAxisLabels = (
     args: StoryArgs,
 ): React.ReactElement => (
-    <MafsQuestionRenderer question={interactiveGraphQuestionBuilder().build()} />
+    <MafsQuestionRenderer question={
+        interactiveGraphQuestionBuilder()
+            .withAxisLabels("\\text{Custom $x$ label}", "\\text{Custom $y$ label}")
+            .build()} />
+);
+
+export const MafsWithFractionalGridStep = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <MafsQuestionRenderer question={
+        interactiveGraphQuestionBuilder()
+            .withGridStep(2.571, 3.123)
+            .build()} />
+);
+
+export const MafsWithFractionalAxisTicks = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <MafsQuestionRenderer question={
+        interactiveGraphQuestionBuilder()
+            .withTickStep(1.5, 1.5)
+            .build()} />
 );
 
 
