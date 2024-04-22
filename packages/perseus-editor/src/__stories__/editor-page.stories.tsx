@@ -4,6 +4,8 @@ import * as React from "react";
 import {EditorPage} from "..";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
+import {flags} from "./flags-for-api-options";
+
 import type {
     DeviceType,
     Hint,
@@ -35,11 +37,7 @@ export const Demo = (): React.ReactElement => {
         <EditorPage
             apiOptions={{
                 isMobile: false,
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
+                flags,
             }}
             previewDevice={previewDevice}
             onPreviewDeviceChange={(newDevice) => setPreviewDevice(newDevice)}
