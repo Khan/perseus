@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.5.0
+
+### Minor Changes
+
+-   [#1179](https://github.com/Khan/perseus/pull/1179) [`437bce7be`](https://github.com/Khan/perseus/commit/437bce7be32cbb03e0926719df0e03c193ba6df5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change testId to render the default Testing Library HTML attribute: data-testid (was data-test-id)
+
 ## 17.4.1
 
 ### Patch Changes
