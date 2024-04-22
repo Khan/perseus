@@ -1,9 +1,8 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
 import Button from "@khanacademy/wonder-blocks-button";
-import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 
@@ -207,7 +206,7 @@ function GradableRenderer(props: QuestionRendererProps) {
             style={{
                 alignItems: "flex-start",
                 overflow: "hidden",
-                background: Color.white,
+                background: color.white,
                 padding: spacing.medium_16,
             }}
         >
