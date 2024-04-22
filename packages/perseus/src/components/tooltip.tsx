@@ -120,12 +120,24 @@ type TooltipArrowProps = {
     zIndex?: number;
 };
 
-const TooltipArrow = (props: TooltipArrowProps) => {
+const TooltipArrow = ({
+    position = "relative",
+    visibility = "visible",
+    left = 0,
+    top = 0,
+    color,
+    border,
+    width,
+    height,
+    horizontalDirection,
+    verticalDirection,
+    zIndex,
+}: TooltipArrowProps) => {
     // TODO(aria): Think about adding a box-shadow to the triangle here
     // See http://css-tricks.com/triangle-with-shadow/
 
     //const isRight = (this.props.horizontalDirection === "right");
-    const isTop = props.verticalDirection === "top";
+    const isTop = verticalDirection === "top";
 
     const frontTopOffset = isTop ? 0 : 1;
     const borderTopOffset = isTop ? 0 : -1;
@@ -134,38 +146,38 @@ const TooltipArrow = (props: TooltipArrowProps) => {
         <div
             style={{
                 display: "block",
-                position: props.position,
-                visibility: props.visibility,
-                left: props.left,
-                top: props["top"],
-                width: props.width + 2,
-                height: props.height + 1,
+                position,
+                visibility,
+                left,
+                top,
+                width: width + 2,
+                height: height + 1,
                 marginTop: -1,
                 marginBottom: -2,
-                zIndex: zIndex,
+                zIndex,
             }}
         >
             {/* The background triangle used to create the effect of a
                 border around the foreground triangle*/}
             <Triangle
-                horizontalDirection={props.horizontalDirection}
-                verticalDirection={props.verticalDirection}
-                color={props.border}
+                horizontalDirection={horizontalDirection}
+                verticalDirection={verticalDirection}
+                color={border}
                 left={0}
                 top={borderTopOffset}
-                width={props.width + 2} // one extra for the diagonal
-                height={props.height + 2}
+                width={width + 2} // one extra for the diagonal
+                height={height + 2}
             />
             {/* The foreground triangle covers all but the left/right edges
                 of the background triangle */}
             <Triangle
-                horizontalDirection={props.horizontalDirection}
-                verticalDirection={props.verticalDirection}
-                color={props.color}
+                horizontalDirection={horizontalDirection}
+                verticalDirection={verticalDirection}
+                color={color}
                 left={1}
                 top={frontTopOffset}
-                width={props.width}
-                height={props.height}
+                width={width}
+                height={height}
             />
         </div>
     );

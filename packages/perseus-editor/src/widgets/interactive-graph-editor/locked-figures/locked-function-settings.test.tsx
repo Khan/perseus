@@ -5,9 +5,6 @@ import * as React from "react";
 
 import {flags} from "../../../__stories__/flags-for-api-options";
 
-// Disabling the following linting error because the import is needed for mocking purposes.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import examples from "./locked-function-examples";
 import LockedFunctionSettings from "./locked-function-settings";
 import {getDefaultFigureForType} from "./util";
 
@@ -24,12 +21,11 @@ const defaultProps = {
 
 const defaultLabel = getDefaultFigureForType("label");
 
-const exampleEquationsMock = {
-    foo: ["bar", "zot"],
-};
 jest.mock("./locked-function-examples", () => ({
     __esModule: true,
-    default: exampleEquationsMock,
+    default: {
+        foo: ["bar", "zot"],
+    },
 }));
 
 describe("Locked Function Settings", () => {

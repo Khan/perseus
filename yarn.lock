@@ -15463,6 +15463,11 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
+swc_mut_cjs_exports@^0.109.1:
+  version "0.109.1"
+  resolved "https://registry.yarnpkg.com/swc_mut_cjs_exports/-/swc_mut_cjs_exports-0.109.1.tgz#41ca9f93cd667e4fe1391112de166b6d8f69ff5b"
+  integrity sha512-964w4tAFD9jqEgk9igW4o4qfW9iNHhf7VdeEJcxH27XmbcWgcSwdsRg7ou4gNRoVuZNnpKMXa5sVH2HSD8yxOg==
+
 symbol-tree@^3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"

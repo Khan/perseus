@@ -43,7 +43,11 @@ const pkgMap = fs
 module.exports = {
     rootDir: path.join(__dirname, "../../"),
     transform: {
-        "^.+\\.(j|t)sx?$": "@swc/jest",
+        "^.+\\.(j|t)sx?$": [
+            "@swc/jest",
+            // https://swc.rs/docs/configuration/compilation#jscexperimental
+            {jsc: {experimental: {plugins: [["swc_mut_cjs_exports", {}]]}}},
+        ],
         // Compile .svg files using a custom transformer that returns the
         // basename of the file being transformed.
         "^.+.svg$": "<rootDir>/config/test/svg.transform.js",

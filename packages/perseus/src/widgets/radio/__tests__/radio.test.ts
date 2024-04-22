@@ -22,7 +22,7 @@ import type {APIOptions} from "../../../types";
 import type {PerseusRadioUserInput} from "../../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
-jest.mock("../../dependencies");
+jest.mock("../../../dependencies");
 
 const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,

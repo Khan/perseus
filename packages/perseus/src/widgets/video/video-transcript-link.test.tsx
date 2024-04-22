@@ -6,7 +6,7 @@ import * as Dependencies from "../../dependencies";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
-jest.mock("../dependencies");
+jest.mock("../../dependencies");
 
 describe("VideoTranscriptLink", () => {
     beforeEach(() => {
