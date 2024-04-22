@@ -120,6 +120,7 @@
     "sloc": "^0.2.1",
     "storybook": "^7.6.17",
     "style-loader": "^3.3.3",
+    "swc_mut_cjs_exports": "^0.90.24",
     "typescript": "^5.4.2",
     "typescript-coverage-report": "^0.7.0",
     "vite-plugin-istanbul": "^5.0.0",
