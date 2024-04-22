@@ -18,6 +18,11 @@ import {
     sinusoidQuestion,
     segmentWithAllLockedLineVariations,
 } from "../__testdata__/interactive-graph.testdata";
+import {
+    interactiveGraphQuestionBuilder
+} from "../interactive-graphs/interactive-graph-question-builder";
+import Renderer from "../../renderer";
+import {PerseusRenderer} from "@khanacademy/perseus";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph",
@@ -28,6 +33,13 @@ type StoryArgs = Record<any, any>;
 export const SideBySideFlipbook = (args: StoryArgs): React.ReactElement => (
     <Flipbook />
 );
+
+export const MafsWithCustomAxisLabels = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <MafsQuestionRenderer question={interactiveGraphQuestionBuilder().build()} />
+);
+
 
 export const Angle = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={angleQuestion} />
@@ -124,6 +136,22 @@ export const AllLockedLines = (args: StoryArgs): React.ReactElement => (
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={sinusoidQuestion} />
 );
+
+function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
+    const {question} = props;
+    return <Renderer
+        content={question.content}
+        widgets={question.widgets}
+        images={question.images}
+        apiOptions={{
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        }}
+    />
+}
 
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that
 // use the "quadratic" graph type.
