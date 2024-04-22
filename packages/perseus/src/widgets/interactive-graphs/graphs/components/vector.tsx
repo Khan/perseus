@@ -2,7 +2,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
-import {pointToPixel} from "../use-transform";
+import {vectorToPixel} from "../use-transform";
 
 import {Arrowhead} from "./arrowhead";
 import {SVGLine} from "./svg-line";
@@ -16,7 +16,7 @@ type Props = {
 export function Vector(props: Props) {
     const {tail, tip, color} = props;
     const {range, width, height} = useGraphConfig();
-    const [tailPx, tipPx] = pointToPixel([tail, tip], {
+    const [tailPx, tipPx] = vectorToPixel([tail, tip], {
         range,
         width,
         height,
