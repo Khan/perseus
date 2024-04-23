@@ -1,3 +1,0 @@
-import{j as c}from"./jsx-runtime-BGVbfQ2Z.js";import{C as s}from"./color-circle-xqm9n2rJ.js";import"./index-qhcEwEpg.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./index-4c2J3ov1.js";import"./index-awljIyHI.js";import"./index-fuyzzUuV.js";const d={title:"Perseus Editor/Components/Color Circle",component:s},r=a=>c(s,{...a});r.args={color:"blue",filled:!0};var o,e,t;r.parameters={...r.parameters,docs:{...(o=r.parameters)==null?void 0:o.docs,source:{originalSource:`(args): React.ReactElement => {
-  return <ColorCircle {...args} />;
-}`,...(t=(e=r.parameters)==null?void 0:e.docs)==null?void 0:t.source}}};const f=["Default"];export{r as Default,f as __namedExportsOrder,d as default};
