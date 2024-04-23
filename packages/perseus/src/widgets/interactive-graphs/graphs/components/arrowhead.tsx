@@ -21,7 +21,7 @@ const arrowPath = pathBuilder()
     .build();
 
 export function Arrowhead(props: Props) {
-    const [point] = useTransformVectorToPixel([...props.tip]);
+    const [point] = useTransformVectorToPixel(props.tip);
 
     return (
         <g

@@ -1,7 +1,7 @@
 import {
     type GraphDimensions,
     pointToPixel,
-    vectorToPixel,
+    vectorsToPixel,
 } from "./use-transform";
 
 describe("vectorToPixel", () => {
@@ -14,7 +14,7 @@ describe("vectorToPixel", () => {
             width: 400,
             height: 400,
         };
-        expect(vectorToPixel([[0, 0]], testContext)).toEqual([[0, 0]]);
+        expect(vectorsToPixel([[0, 0]], testContext)).toEqual([[0, 0]]);
     });
 
     it("should correctly transform vector (1,1)", () => {
@@ -26,7 +26,7 @@ describe("vectorToPixel", () => {
             width: 400,
             height: 400,
         };
-        expect(vectorToPixel([[1, 1]], testContext)).toEqual([[20, -20]]);
+        expect(vectorsToPixel([[1, 1]], testContext)).toEqual([[20, -20]]);
     });
 
     it("should correctly transform vector (2,-2)", () => {
@@ -38,7 +38,7 @@ describe("vectorToPixel", () => {
             width: 400,
             height: 400,
         };
-        expect(vectorToPixel([[2, -2]], testContext)).toEqual([[40, 40]]);
+        expect(vectorsToPixel([[2, -2]], testContext)).toEqual([[40, 40]]);
     });
 });
 

@@ -14,7 +14,7 @@ export default function AxisLabels(props) {
 
     const [xAxisLabelText, yAxisLabelText] = labels;
     const graphInfo = {
-        range: range,
+        range,
         width,
         height,
     };

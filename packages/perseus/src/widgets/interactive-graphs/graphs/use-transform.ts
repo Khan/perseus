@@ -10,7 +10,7 @@ export type GraphDimensions = {
     height: number; // pixels
 };
 
-export function vectorToPixel(
+export function vectorsToPixel(
     points: vec.Vector2[],
     graphState: GraphDimensions,
     translation: vec.Vector2 = [0, 0],
@@ -27,10 +27,10 @@ export function vectorToPixel(
 export function pointToPixel(point: vec.Vector2, graphState: GraphDimensions) {
     const [[xMin], [, yMax]] = graphState.range;
     const [a, b] = [-xMin, -yMax];
-    return vectorToPixel([point], graphState, [a, b]);
+    return vectorsToPixel([point], graphState, [a, b]);
 }
 
 export const useTransformVectorToPixel = (...points: vec.Vector2[]) => {
     const graphState = useGraphConfig();
-    return vectorToPixel(points, graphState);
+    return vectorsToPixel(points, graphState);
 };

@@ -1,8 +1,7 @@
 import {vec} from "mafs";
 import * as React from "react";
 
-import useGraphConfig from "../../reducer/use-graph-config";
-import {vectorToPixel} from "../use-transform";
+import {useTransformVectorToPixel} from "../use-transform";
 
 import {Arrowhead} from "./arrowhead";
 import {SVGLine} from "./svg-line";
@@ -15,12 +14,8 @@ type Props = {
 
 export function Vector(props: Props) {
     const {tail, tip, color} = props;
-    const {range, width, height} = useGraphConfig();
-    const [tailPx, tipPx] = vectorToPixel([tail, tip], {
-        range,
-        width,
-        height,
-    });
+
+    const [tailPx, tipPx] = useTransformVectorToPixel(tail, tip);
     const direction = vec.sub(tip, tail);
     return (
         <g style={{stroke: color, strokeWidth: 2}}>
