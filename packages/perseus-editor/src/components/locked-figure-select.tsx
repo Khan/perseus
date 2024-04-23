@@ -21,7 +21,10 @@ const LockedFigureSelect = (props: Props) => {
 
     return (
         <View style={styles.container}>
-            <ActionMenu menuText="Add element" style={styles.addElementSelect}>
+            <ActionMenu
+                menuText="Add locked figure"
+                style={styles.addElementSelect}
+            >
                 {[
                     <ActionItem
                         key={`${id}-point`}
@@ -29,6 +32,13 @@ const LockedFigureSelect = (props: Props) => {
                         onClick={() => onChange("point")}
                     >
                         Point
+                    </ActionItem>,
+                    <ActionItem
+                        key={`${id}-line`}
+                        label="Line"
+                        onClick={() => onChange("line")}
+                    >
+                        Line
                     </ActionItem>,
                 ]}
             </ActionMenu>
@@ -38,10 +48,10 @@ const LockedFigureSelect = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: spacing.medium_16,
+        marginTop: spacing.xxxSmall_4,
     },
     addElementSelect: {
-        backgroundColor: color.fadedBlue16,
+        backgroundColor: color.fadedBlue8,
         borderRadius: spacing.xxxSmall_4,
     },
 });

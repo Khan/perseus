@@ -9,11 +9,7 @@ import type {Interval, vec} from "mafs";
 export type Range = Interval;
 export type Size = [number, number];
 export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
-
-export type StyleParams = {
-    fill?: string;
-    stroke?: string;
-};
+export type ShowSolutions = "all" | "selected" | "none";
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
@@ -659,13 +655,55 @@ export type PerseusInteractiveGraphWidgetOptions = {
     lockedFigures?: ReadonlyArray<LockedFigure>;
 };
 
-export type LockedFigure = LockedPoint;
-export type LockedFigureType = "point";
+// TODO: If/when these colors are added to Wonder Blocks, we should remove
+// them from here and use Wonder Blocks everywhere else instead.
+const lockedFigureColorNames = [
+    "blue",
+    "green",
+    "gray",
+    "grayH",
+    "grayI",
+    "purple",
+    "purpleD",
+    "pink",
+    "orange",
+    "red",
+] as const;
 
-export type LockedPoint = {
+export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
+
+export const lockedFigureColors: Record<LockedFigureColor, string> = {
+    blue: "#3D7586",
+    green: "#447A53",
+    gray: "#5D5F66",
+    grayH: "#3B3D45",
+    grayI: "#21242C",
+    purple: "#594094",
+    purpleD: "#8351E8",
+    pink: "#B25071",
+    orange: "#946700",
+    red: "#D92916",
+} as const;
+
+export type LockedFigure = LockedPointType | LockedLineType;
+export type LockedFigureType = LockedFigure["type"];
+
+export type LockedPointType = {
     type: "point";
     coord: Coord;
-    style?: StyleParams;
+    color: LockedFigureColor;
+    filled: boolean;
+};
+
+export type LockedLineType = {
+    type: "line";
+    kind: "line" | "ray" | "segment";
+    points: [startPoint: LockedPointType, endPoint: LockedPointType];
+    color: LockedFigureColor;
+    lineStyle: "solid" | "dashed";
+    showArrows: boolean;
+    showStartPoint: boolean;
+    showEndPoint: boolean;
 };
 
 export type PerseusGraphType =

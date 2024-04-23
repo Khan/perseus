@@ -140,12 +140,12 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       >
                                         <input
                                           class="perseus-radio-option-content"
-                                          id="choice-5"
+                                          id="uid-choice-0-a"
                                           tabindex="-1"
                                           type="radio"
                                         />
                                         <label
-                                          for="choice-5"
+                                          for="uid-choice-0-a"
                                         >
                                           (Choice A)
                                              
@@ -188,13 +188,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -255,12 +255,12 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       >
                                         <input
                                           class="perseus-radio-option-content"
-                                          id="choice-6"
+                                          id="uid-choice-1-b"
                                           tabindex="-1"
                                           type="radio"
                                         />
                                         <label
-                                          for="choice-6"
+                                          for="uid-choice-1-b"
                                         >
                                           (Choice B)
                                              
@@ -303,13 +303,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -370,12 +370,12 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       >
                                         <input
                                           class="perseus-radio-option-content"
-                                          id="choice-7"
+                                          id="uid-choice-2-c"
                                           tabindex="-1"
                                           type="radio"
                                         />
                                         <label
-                                          for="choice-7"
+                                          for="uid-choice-2-c"
                                         >
                                           (Choice C)
                                              
@@ -418,13 +418,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -485,12 +485,12 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       >
                                         <input
                                           class="perseus-radio-option-content"
-                                          id="choice-8"
+                                          id="uid-choice-3-d"
                                           tabindex="-1"
                                           type="radio"
                                         />
                                         <label
-                                          for="choice-8"
+                                          for="uid-choice-3-d"
                                         >
                                           (Choice D)
                                              
@@ -533,13 +533,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -600,12 +600,12 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       >
                                         <input
                                           class="perseus-radio-option-content"
-                                          id="choice-9"
+                                          id="uid-choice-4-e"
                                           tabindex="-1"
                                           type="radio"
                                         />
                                         <label
-                                          for="choice-9"
+                                          for="uid-choice-4-e"
                                         >
                                           (Choice E)
                                              
@@ -648,13 +648,13 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           >
                                             <span
                                               class="ring_ya75gi"
-                                              data-test-id="focus-ring"
+                                              data-testid="focus-ring"
                                               style="border-color: transparent; border-radius: 50%;"
                                             >
                                               <div
                                                 class="circle_1w6i3h1"
                                                 data-is-radio-icon="true"
-                                                data-test-id="choice-icon__library-choice-icon"
+                                                data-testid="choice-icon__library-choice-icon"
                                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                               >
                                                 <div
@@ -761,6 +761,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             <span>
                               <div>
                                 <input
+                                  aria-invalid="false"
                                   aria-label="value rounded to the nearest ten"
                                   autocapitalize="off"
                                   autocomplete="off"
@@ -967,6 +968,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             <span>
                               <div>
                                 <input
+                                  aria-invalid="false"
                                   aria-label="value rounded to the nearest hundred"
                                   autocapitalize="off"
                                   autocomplete="off"

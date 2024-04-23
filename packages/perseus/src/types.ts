@@ -127,7 +127,7 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
-export const MafsFlags = [
+export const MafsGraphTypeFlags = [
     /** Enables the `segment` interactive-graph type.  */
     "segment",
     /** Enables the `linear` interactive-graph type.  */
@@ -138,6 +138,14 @@ export const MafsFlags = [
     "ray",
     /** Enables the `polygon` interactive-graph type.  */
     "polygon",
+] as const;
+
+export const InteractiveGraphLockedFeaturesFlags = [
+    /**
+     * Enables/Disables Milestone 1 locked features in the new Mafs
+     * interactive-graph widget (points and lines).
+     */
+    "interactive-graph-locked-features-m1",
 ] as const;
 
 /**
@@ -272,9 +280,13 @@ export type APIOptions = Readonly<{
         /**
          * Flags related to the interactive-graph Mafs migration.
          *
-         * Add values to the `MafsFlags` array to create new flags.
+         * Add values to the relevant array to create new flags.
          */
-        mafs?: false | {[Key in (typeof MafsFlags)[number]]?: boolean};
+        mafs?:
+            | false
+            | ({[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean} & {
+                  [Key in (typeof InteractiveGraphLockedFeaturesFlags)[number]]?: boolean;
+              });
     };
     /**
      * This is a callback function that returns all of the Widget props

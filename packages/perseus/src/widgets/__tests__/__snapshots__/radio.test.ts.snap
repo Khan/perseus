@@ -75,12 +75,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-318"
+                          id="uid-choice-210-a"
                           tabindex="-1"
                           type="checkbox"
                         />
                         <label
-                          for="choice-318"
+                          for="uid-choice-210-a"
                         >
                           (Choice A, Checked)
                              
@@ -123,13 +123,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 3px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -190,12 +190,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-319"
+                          id="uid-choice-211-b"
                           tabindex="-1"
                           type="checkbox"
                         />
                         <label
-                          for="choice-319"
+                          for="uid-choice-211-b"
                         >
                           (Choice B)
                              
@@ -238,13 +238,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
@@ -305,12 +305,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-320"
+                          id="uid-choice-212-c"
                           tabindex="-1"
                           type="checkbox"
                         />
                         <label
-                          for="choice-320"
+                          for="uid-choice-212-c"
                         >
                           (Choice C)
                              
@@ -353,13 +353,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
@@ -420,12 +420,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-321"
+                          id="uid-choice-213-d"
                           tabindex="-1"
                           type="checkbox"
                         />
                         <label
-                          for="choice-321"
+                          for="uid-choice-213-d"
                         >
                           (Choice D)
                              
@@ -459,13 +459,13 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 3px;"
                               >
                                 <div
@@ -635,12 +635,12 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-88"
+                          id="uid-choice-48-a"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-88"
+                          for="uid-choice-48-a"
                         >
                           (Choice A)
                              
@@ -696,13 +696,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -776,12 +776,12 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-89"
+                          id="uid-choice-49-b"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-89"
+                          for="uid-choice-49-b"
                         >
                           (Choice B)
                              
@@ -824,13 +824,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -891,12 +891,12 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-90"
+                          id="uid-choice-50-c"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-90"
+                          for="uid-choice-50-c"
                         >
                           (Choice C, Checked)
                              
@@ -939,13 +939,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -1006,12 +1006,12 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-91"
+                          id="uid-choice-51-d"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-91"
+                          for="uid-choice-51-d"
                         >
                           (Choice D)
                              
@@ -1057,13 +1057,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1207,12 +1207,12 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-96"
+                          id="uid-choice-52-a"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-96"
+                          for="uid-choice-52-a"
                         >
                           (Choice A, Checked)
                              
@@ -1268,13 +1268,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -1348,12 +1348,12 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-97"
+                          id="uid-choice-53-b"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-97"
+                          for="uid-choice-53-b"
                         >
                           (Choice B)
                              
@@ -1396,13 +1396,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1463,12 +1463,12 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-98"
+                          id="uid-choice-54-c"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-98"
+                          for="uid-choice-54-c"
                         >
                           (Choice C)
                              
@@ -1511,13 +1511,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1578,12 +1578,12 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-99"
+                          id="uid-choice-55-d"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-99"
+                          for="uid-choice-55-d"
                         >
                           (Choice D)
                              
@@ -1629,13 +1629,13 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1779,12 +1779,12 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-80"
+                          id="uid-choice-44-a"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-80"
+                          for="uid-choice-44-a"
                         >
                           (Choice A)
                              
@@ -1840,13 +1840,13 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -1920,12 +1920,12 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-81"
+                          id="uid-choice-45-b"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-81"
+                          for="uid-choice-45-b"
                         >
                           (Choice B)
                              
@@ -1968,13 +1968,13 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2035,12 +2035,12 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-82"
+                          id="uid-choice-46-c"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-82"
+                          for="uid-choice-46-c"
                         >
                           (Choice C)
                              
@@ -2083,13 +2083,13 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2150,12 +2150,12 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-83"
+                          id="uid-choice-47-d"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-83"
+                          for="uid-choice-47-d"
                         >
                           (Choice D)
                              
@@ -2201,13 +2201,13 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2351,12 +2351,12 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-8"
+                          id="uid-choice-4-a"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-8"
+                          for="uid-choice-4-a"
                         >
                           (Choice A)
                              
@@ -2412,13 +2412,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2492,12 +2492,12 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-9"
+                          id="uid-choice-5-b"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-9"
+                          for="uid-choice-5-b"
                         >
                           (Choice B)
                              
@@ -2540,13 +2540,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2607,12 +2607,12 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-10"
+                          id="uid-choice-6-c"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-10"
+                          for="uid-choice-6-c"
                         >
                           (Choice C, Checked)
                              
@@ -2655,13 +2655,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -2722,12 +2722,12 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-11"
+                          id="uid-choice-7-d"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-11"
+                          for="uid-choice-7-d"
                         >
                           (Choice D)
                              
@@ -2773,13 +2773,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -2923,12 +2923,12 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-16"
+                          id="uid-choice-8-a"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-16"
+                          for="uid-choice-8-a"
                         >
                           (Choice A, Checked)
                              
@@ -2984,13 +2984,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: #1865f2; color: rgb(255, 255, 255); border-radius: 24px; background-color: rgb(24, 101, 242);"
                               >
                                 <div
@@ -3064,12 +3064,12 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-17"
+                          id="uid-choice-9-b"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-17"
+                          for="uid-choice-9-b"
                         >
                           (Choice B)
                              
@@ -3112,13 +3112,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3179,12 +3179,12 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-18"
+                          id="uid-choice-10-c"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-18"
+                          for="uid-choice-10-c"
                         >
                           (Choice C)
                              
@@ -3227,13 +3227,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3294,12 +3294,12 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-19"
+                          id="uid-choice-11-d"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-19"
+                          for="uid-choice-11-d"
                         >
                           (Choice D)
                              
@@ -3345,13 +3345,13 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3495,12 +3495,12 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-0"
+                          id="uid-choice-0-a"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-0"
+                          for="uid-choice-0-a"
                         >
                           (Choice A, Incorrect)
                              
@@ -3556,13 +3556,13 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3639,7 +3639,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     </div>
                     <div
                       class="perseus-radio-rationale-content rationale_1ctj0s0"
-                      data-test-id="perseus-radio-rationale-content-0"
+                      data-testid="perseus-radio-rationale-content-0"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -3717,12 +3717,12 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-1"
+                          id="uid-choice-1-b"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-1"
+                          for="uid-choice-1-b"
                         >
                           (Choice B, Incorrect)
                              
@@ -3765,13 +3765,13 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -3835,7 +3835,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     </div>
                     <div
                       class="perseus-radio-rationale-content rationale_1ctj0s0"
-                      data-test-id="perseus-radio-rationale-content-1"
+                      data-testid="perseus-radio-rationale-content-1"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -3897,12 +3897,12 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-2"
+                          id="uid-choice-2-c"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-2"
+                          for="uid-choice-2-c"
                         >
                           (Choice C, Correct)
                              
@@ -3945,13 +3945,13 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1-o_O-circleCorrect_ifnw95"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -4015,7 +4015,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     </div>
                     <div
                       class="perseus-radio-rationale-content rationale_1ctj0s0"
-                      data-test-id="perseus-radio-rationale-content-2"
+                      data-testid="perseus-radio-rationale-content-2"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
@@ -4072,12 +4072,12 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       >
                         <input
                           class="perseus-radio-option-content"
-                          id="choice-3"
+                          id="uid-choice-3-d"
                           tabindex="-1"
                           type="radio"
                         />
                         <label
-                          for="choice-3"
+                          for="uid-choice-3-d"
                         >
                           (Choice D, Incorrect)
                              
@@ -4123,13 +4123,13 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                           >
                             <span
                               class="ring_ya75gi"
-                              data-test-id="focus-ring"
+                              data-testid="focus-ring"
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
                                 class="circle_1w6i3h1-o_O-circleIncorrect_gxqnr9"
                                 data-is-radio-icon="true"
-                                data-test-id="choice-icon__library-choice-icon"
+                                data-testid="choice-icon__library-choice-icon"
                                 style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                               >
                                 <div
@@ -4196,7 +4196,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     </div>
                     <div
                       class="perseus-radio-rationale-content rationale_1ctj0s0"
-                      data-test-id="perseus-radio-rationale-content-3"
+                      data-testid="perseus-radio-rationale-content-3"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"

@@ -10,7 +10,7 @@ import * as React from "react";
 import {useEffect, useMemo, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
-import {MafsFlags} from "../packages/perseus/src/types";
+import {MafsGraphTypeFlags} from "../packages/perseus/src/types";
 import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
 import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import * as numberLine from "../packages/perseus/src/widgets/__testdata__/number-line.testdata";
@@ -95,13 +95,16 @@ export function Gallery() {
     );
 
     const [isMobile, setIsMobile] = useState(params.get("mobile") === "true");
+    const [showTooltips, setShowTooltips] = useState(
+        params.get("tooltips") === "true",
+    );
     const [mafsFlags, setMafsFlags] = useState<Array<string>>(
         params
             .get("flags")
             ?.split(",")
             // We filter through the MafsFlags array to ensure we don't retain
             // flags from the query string that don't actually exist anymore.
-            .filter((flag) => MafsFlags.includes(flag as any)) || [],
+            .filter((flag) => MafsGraphTypeFlags.includes(flag as any)) || [],
     );
     const [search, setSearch] = useState<string>(params.get("search") || "");
 
@@ -111,6 +114,11 @@ export function Gallery() {
             url.searchParams.set("mobile", "true");
         } else {
             url.searchParams.delete("mobile");
+        }
+        if (showTooltips) {
+            url.searchParams.set("tooltips", "true");
+        } else {
+            url.searchParams.delete("tooltips");
         }
         if (mafsFlags.length === 0) {
             url.searchParams.delete("flags");
@@ -123,7 +131,7 @@ export function Gallery() {
             url.searchParams.set("search", search);
         }
         window.history.replaceState({}, "", url.toString());
-    }, [isMobile, mafsFlags, params, search]);
+    }, [isMobile, showTooltips, mafsFlags, params, search]);
 
     const mafsFlagsObject = mafsFlags.reduce((acc, flag) => {
         acc[flag] = true;
@@ -131,8 +139,19 @@ export function Gallery() {
     }, {});
 
     const mobileId = ids.get("mobile");
+    const tooltipId = ids.get("tooltip");
     const flagsId = ids.get("flags");
     const searchId = ids.get("search");
+
+    const insertShowTooltips = ([question, i]): [PerseusRenderer, number] => {
+        Object.keys(question.widgets).forEach((widgetName) => {
+            if (question.widgets[widgetName].type === "interactive-graph") {
+                question.widgets[widgetName].options.showTooltips =
+                    showTooltips;
+            }
+        });
+        return [question, i];
+    };
 
     return (
         <View className={css(styles.page)}>
@@ -157,7 +176,7 @@ export function Gallery() {
                         onChange={setMafsFlags}
                         selectedValues={mafsFlags}
                     >
-                        {MafsFlags.map((flag) => (
+                        {MafsGraphTypeFlags.map((flag) => (
                             <OptionItem
                                 key={flag}
                                 value={flag}
@@ -167,6 +186,15 @@ export function Gallery() {
                     </MultiSelect>
                     <Strut size={spacing.xSmall_8} />
                     <label htmlFor={flagsId}>Mafs Flags</label>
+                </View>
+                <View style={styles.headerItem}>
+                    <Switch
+                        id={tooltipId}
+                        checked={showTooltips}
+                        onChange={setShowTooltips}
+                    />
+                    <Strut size={spacing.xSmall_8} />
+                    <label htmlFor={tooltipId}>Show Tooltips</label>
                 </View>
                 <View style={styles.headerItem}>
                     <Switch
@@ -189,9 +217,10 @@ export function Gallery() {
                                 ? graphTypeContainsText(question, search)
                                 : true,
                         )
+                        .map(insertShowTooltips)
                         .map(([question, i]) => (
                             <QuestionRenderer
-                                key={i}
+                                key={`${i}${showTooltips ? "-with-tooltips" : ""}`}
                                 question={question}
                                 apiOptions={{
                                     isMobile,

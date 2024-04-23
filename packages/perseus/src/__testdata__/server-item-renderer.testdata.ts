@@ -165,18 +165,22 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
                         {
                             content: "Content 1",
                             correct: true,
+                            clue: "Clue 1",
                         },
                         {
                             content: "Content 2",
                             correct: false,
+                            clue: "Clue 2",
                         },
                         {
                             content: "Content 3",
                             correct: false,
+                            clue: "Clue 3",
                         },
                         {
                             content: "Content 4",
                             correct: false,
+                            clue: "Clue 4",
                         },
                     ],
                 },
