@@ -1,5 +1,108 @@
 # @khanacademy/perseus
 
+## 21.6.0
+
+### Minor Changes
+
+-   [#1182](https://github.com/Khan/perseus/pull/1182) [`066719c82`](https://github.com/Khan/perseus/commit/066719c82cbb934287082961de93abb427c7600e) Thanks [@nishasy](https://github.com/nishasy)! - View locked lines on Interactive Graph
+
+*   [#1179](https://github.com/Khan/perseus/pull/1179) [`437bce7be`](https://github.com/Khan/perseus/commit/437bce7be32cbb03e0926719df0e03c193ba6df5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change testId to render the default Testing Library HTML attribute: data-testid (was data-test-id)
+
+### Patch Changes
+
+-   [#1178](https://github.com/Khan/perseus/pull/1178) [`ba0f36561`](https://github.com/Khan/perseus/commit/ba0f36561bf556b7bd0f85eb98be25c834643022) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Rename internal type `MafsFlags` to `MafsGraphTypeFlags`
+
+*   [#1202](https://github.com/Khan/perseus/pull/1202) [`a1e3fdfee`](https://github.com/Khan/perseus/commit/a1e3fdfee5768209a9d96749e78c5fd0e05f7dfb) Thanks [@nishasy](https://github.com/nishasy)! - Update snapshots
+
+-   [#1177](https://github.com/Khan/perseus/pull/1177) [`f419d18fb`](https://github.com/Khan/perseus/commit/f419d18fbc76ff87720d9d49562c0b43ed1c2b33) Thanks [@nishasy](https://github.com/nishasy)! - LockedPointSettings update: Allow toggleable points, refactor so that it's easy to add lines later
+
+-   Updated dependencies [[`437bce7be`](https://github.com/Khan/perseus/commit/437bce7be32cbb03e0926719df0e03c193ba6df5)]:
+    -   @khanacademy/math-input@17.5.0
+
+## 21.5.0
+
+### Minor Changes
+
+-   [#1188](https://github.com/Khan/perseus/pull/1188) [`661964d40`](https://github.com/Khan/perseus/commit/661964d40ba86e6b477ab87224692361f7aaaa27) Thanks [@nedredmond](https://github.com/nedredmond)! - Expose `showSolutions` on ServerItemRenderer
+
+## 21.4.0
+
+### Minor Changes
+
+-   [#1184](https://github.com/Khan/perseus/pull/1184) [`a3d724b86`](https://github.com/Khan/perseus/commit/a3d724b8657edd78266335e236f8eba5f5f1b9dd) Thanks [@nedredmond](https://github.com/nedredmond)! - Adds `showSolutions`, which adds the ability to show all rationales for the radio widget and will deprecate `showshowRationalesForCurrentlySelectedChoices`
+
+*   [#1176](https://github.com/Khan/perseus/pull/1176) [`3da51638b`](https://github.com/Khan/perseus/commit/3da51638b513e10c42da421667c3d877c5dcc161) Thanks [@benchristel](https://github.com/benchristel)! - Style the arrowheads used on lines in Mafs graphs
+
+-   [#1183](https://github.com/Khan/perseus/pull/1183) [`0f80f4089`](https://github.com/Khan/perseus/commit/0f80f4089a6000301fc63ceef24646bd05a26db6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Added new logic for conditionally rendering initial negative axis tick labels.
+
+### Patch Changes
+
+-   [#1185](https://github.com/Khan/perseus/pull/1185) [`dd97c422a`](https://github.com/Khan/perseus/commit/dd97c422a7d40a3786075d8c6988509fc2c43012) Thanks [@benchristel](https://github.com/benchristel)! - Internal: restructure the interactive graph React context to clarify its purpose
+
+*   [#1175](https://github.com/Khan/perseus/pull/1175) [`e3063ddc7`](https://github.com/Khan/perseus/commit/e3063ddc76ad22469ca5a8557bee78216869f5d3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that axis ticks are conditionally rendered based on the markings setting.
+
+-   [#1169](https://github.com/Khan/perseus/pull/1169) [`ccead133f`](https://github.com/Khan/perseus/commit/ccead133fa30e1d93e02fd9a7c9e544c750e55ab) Thanks [@handeyeco](https://github.com/handeyeco)! - Add hairLines to MovablePoint for mobile UX
+
+## 21.3.1
+
+### Patch Changes
+
+-   [#1171](https://github.com/Khan/perseus/pull/1171) [`53fa89b50`](https://github.com/Khan/perseus/commit/53fa89b50240309dcf56919b77715e135682e0ee) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Adjust movable point style while dragging
+
+*   [#1170](https://github.com/Khan/perseus/pull/1170) [`9c5363795`](https://github.com/Khan/perseus/commit/9c53637953ff0267306bdc98175be9770bf2f098) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Remove Deprecated Widgets (`lights-puzzle` and `reaction-diagram`)
+
+-   [#1173](https://github.com/Khan/perseus/pull/1173) [`ce547c5ec`](https://github.com/Khan/perseus/commit/ce547c5ec1ef0d17e0adebe24532c93007e82c4d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change APIOptions.flags to be strongly typed
+
+## 21.3.0
+
+### Minor Changes
+
+-   [#1157](https://github.com/Khan/perseus/pull/1157) [`163e650d4`](https://github.com/Khan/perseus/commit/163e650d47732f80395934761bc44714cd89d937) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Inclusion of new MathJax-rendered tick labels for interactive graph.
+
+*   [#1162](https://github.com/Khan/perseus/pull/1162) [`754934486`](https://github.com/Khan/perseus/commit/754934486b89e3d308e75cd46acde823266ac588) Thanks [@benchristel](https://github.com/benchristel)! - Update the style of focused lines in Mafs interactive graphs
+
+### Patch Changes
+
+-   [#1163](https://github.com/Khan/perseus/pull/1163) [`98ae896e1`](https://github.com/Khan/perseus/commit/98ae896e1b4bb394f4776699e19b0eab020e14eb) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: don't snap line midpoint in Mafs graph
+
+*   [#1166](https://github.com/Khan/perseus/pull/1166) [`2ba54f4ba`](https://github.com/Khan/perseus/commit/2ba54f4ba2a3e0a447e0975f0a238a62250933ae) Thanks [@handeyeco](https://github.com/handeyeco)! - Split MafsGraph into MafsGraph and StatefulMafsGraph
+
+-   [#1164](https://github.com/Khan/perseus/pull/1164) [`004a62e8e`](https://github.com/Khan/perseus/commit/004a62e8e71e41c7d2d9d86ff9606fdbe5893728) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Restore Padding Around Mafs Graph
+
+*   [#1167](https://github.com/Khan/perseus/pull/1167) [`44f83a700`](https://github.com/Khan/perseus/commit/44f83a700779a0a8dd6b74ba79a99dfcecb47072) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix for Mafs SVG positioning bug
+
+## 21.2.2
+
+### Patch Changes
+
+-   [#1160](https://github.com/Khan/perseus/pull/1160) [`000ce4bff`](https://github.com/Khan/perseus/commit/000ce4bff9bc91d7e3adff289a32bea972c4e827) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Style adjustments for Explanation widget button
+
+## 21.2.1
+
+### Patch Changes
+
+-   [#1146](https://github.com/Khan/perseus/pull/1146) [`369316014`](https://github.com/Khan/perseus/commit/369316014208e7bc941de77d65e77586cf9b4d9b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix focus ring on movable points in interactive-graph widget
+
+## 21.2.0
+
+### Minor Changes
+
+-   [#1142](https://github.com/Khan/perseus/pull/1142) [`f4f85583c`](https://github.com/Khan/perseus/commit/f4f85583c794cd6513914537baf0536e96855ff7) Thanks [@handeyeco](https://github.com/handeyeco)! - Make grid and tick steps act independently in Mafs charts
+
+*   [#1141](https://github.com/Khan/perseus/pull/1141) [`d3faae5a2`](https://github.com/Khan/perseus/commit/d3faae5a25f1a21b72907ba4cd769105c1c2d43b) Thanks [@handeyeco](https://github.com/handeyeco)! - update Mafs store when certain props change
+
+-   [#1143](https://github.com/Khan/perseus/pull/1143) [`df96d28c5`](https://github.com/Khan/perseus/commit/df96d28c5cb6f1503ab907582260edc2448fa8cf) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Grid ticks for MAFS
+
+### Patch Changes
+
+-   [#1152](https://github.com/Khan/perseus/pull/1152) [`ab3c47f96`](https://github.com/Khan/perseus/commit/ab3c47f96de9ee42280def09f05429585b7c38b6) Thanks [@benchristel](https://github.com/benchristel)! - Fix hitbox size of movable points on Mafs interactive graphs, to match the legacy graphs
+
+*   [#1155](https://github.com/Khan/perseus/pull/1155) [`3d29e9f8d`](https://github.com/Khan/perseus/commit/3d29e9f8d21bdc49c1c7c97ab3887dd818bcf6d0) Thanks [@benchristel](https://github.com/benchristel)! - Fixed a bug where the wrong point moved if you dragged the endpoint of an interactive line segment after grading the question
+
+-   [#1154](https://github.com/Khan/perseus/pull/1154) [`e2165df84`](https://github.com/Khan/perseus/commit/e2165df84110a94c3ff5251a71da2b82905c36b2) Thanks [@handeyeco](https://github.com/handeyeco)! - Use snap in constrain callback for movable elements
+
+*   [#1148](https://github.com/Khan/perseus/pull/1148) [`9195c4f28`](https://github.com/Khan/perseus/commit/9195c4f284842688f60985e901a8534a9e4ac0c9) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix return type for callback function `onWidgetStartProps`
+
 ## 21.1.0
 
 ### Minor Changes

@@ -30,11 +30,11 @@ jobs:
                   fetch-depth: 0
 
             - name: Get changed files
-              uses: Khan/actions@get-changed-files-v1
+              uses: Khan/actions@get-changed-files-v2
               id: changed
 
             - name: Filter out files that don't need a changeset
-              uses: Khan/actions@filter-files-v0
+              uses: Khan/actions@filter-files-v1
               id: match
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -70,7 +70,7 @@ jobs:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Get All Changed Files
-              uses: Khan/actions@get-changed-files-v1
+              uses: Khan/actions@get-changed-files-v2
               id: changed
 
             - name: Check formatting
@@ -79,14 +79,14 @@ jobs:
 
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
-              uses: Khan/actions@filter-files-v0
+              uses: Khan/actions@filter-files-v1
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   extensions: ".js,.jsx,.ts,.tsx"
                   files: "yarn.lock"
 
             - id: eslint-reset
-              uses: Khan/actions@filter-files-v0
+              uses: Khan/actions@filter-files-v1
               name: Files that would trigger a full eslint run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -111,7 +111,7 @@ jobs:
 
             # Run tests for our target matrix
             - id: jest-reset
-              uses: Khan/actions@filter-files-v0
+              uses: Khan/actions@filter-files-v1
               name: Files that would trigger a full jest run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
@@ -226,7 +226,7 @@ jobs:
             # shows the results from only one of the reports which would make it appear
             # as though coverage dropped a lot.
             - name: Upload Coverage
-              uses: codecov/codecov-action@v3
+              uses: codecov/codecov-action@v4
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   files: ./coverage-final.json,./out.json
@@ -334,7 +334,7 @@ jobs:
             # Note: these two actions are locked to the latest version that were
             # published when I created this yml file (just for security).
             - name: Find existing comment
-              uses: peter-evans/find-comment@034abe94d3191f9c89d870519735beae326f2bdb
+              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
               id: find-comment
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -343,7 +343,7 @@ jobs:
 
             - name: Create or update npm snapshot comment - success
               if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
-              uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
@@ -369,7 +369,7 @@ jobs:
 
             - name: Create or update npm snapshot comment - failure
               if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
-              uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}

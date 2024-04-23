@@ -7,7 +7,7 @@ jobs:
     gerald:
         runs-on: ubuntu-latest
         steps:
-            - uses: Khan/actions@gerald-pr-v0
+            - uses: Khan/actions@gerald-pr-v3
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   admin-token: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}

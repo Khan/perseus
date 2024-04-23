@@ -140,12 +140,12 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           >
                             <input
                               class="perseus-radio-option-content"
-                              id="choice-0"
+                              id="uid-choice-0-a"
                               tabindex="-1"
                               type="radio"
                             />
                             <label
-                              for="choice-0"
+                              for="uid-choice-0-a"
                             >
                               (Choice A)
                                  
@@ -214,13 +214,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               >
                                 <span
                                   class="ring_ya75gi"
-                                  data-test-id="focus-ring"
+                                  data-testid="focus-ring"
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
                                     class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
+                                    data-testid="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
@@ -307,12 +307,12 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           >
                             <input
                               class="perseus-radio-option-content"
-                              id="choice-1"
+                              id="uid-choice-1-b"
                               tabindex="-1"
                               type="radio"
                             />
                             <label
-                              for="choice-1"
+                              for="uid-choice-1-b"
                             >
                               (Choice B)
                                  
@@ -381,13 +381,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               >
                                 <span
                                   class="ring_ya75gi"
-                                  data-test-id="focus-ring"
+                                  data-testid="focus-ring"
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
                                     class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
+                                    data-testid="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
@@ -474,12 +474,12 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           >
                             <input
                               class="perseus-radio-option-content"
-                              id="choice-2"
+                              id="uid-choice-2-c"
                               tabindex="-1"
                               type="radio"
                             />
                             <label
-                              for="choice-2"
+                              for="uid-choice-2-c"
                             >
                               (Choice C)
                                  
@@ -548,13 +548,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               >
                                 <span
                                   class="ring_ya75gi"
-                                  data-test-id="focus-ring"
+                                  data-testid="focus-ring"
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
                                     class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
+                                    data-testid="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
@@ -641,12 +641,12 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           >
                             <input
                               class="perseus-radio-option-content"
-                              id="choice-3"
+                              id="uid-choice-3-d"
                               tabindex="-1"
                               type="radio"
                             />
                             <label
-                              for="choice-3"
+                              for="uid-choice-3-d"
                             >
                               (Choice D)
                                  
@@ -715,13 +715,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               >
                                 <span
                                   class="ring_ya75gi"
-                                  data-test-id="focus-ring"
+                                  data-testid="focus-ring"
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
                                     class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
+                                    data-testid="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
@@ -808,12 +808,12 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           >
                             <input
                               class="perseus-radio-option-content"
-                              id="choice-4"
+                              id="uid-choice-4-e"
                               tabindex="-1"
                               type="radio"
                             />
                             <label
-                              for="choice-4"
+                              for="uid-choice-4-e"
                             >
                               (Choice E)
                                  
@@ -882,13 +882,13 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                               >
                                 <span
                                   class="ring_ya75gi"
-                                  data-test-id="focus-ring"
+                                  data-testid="focus-ring"
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
                                     class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
-                                    data-test-id="choice-icon__library-choice-icon"
+                                    data-testid="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
@@ -980,6 +980,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
               <span>
                 <div>
                   <input
+                    aria-invalid="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"

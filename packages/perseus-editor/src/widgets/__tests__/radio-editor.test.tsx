@@ -1,4 +1,5 @@
 import {Dependencies, ApiOptions} from "@khanacademy/perseus";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -24,6 +25,7 @@ describe("radio-editor", () => {
                 onChange={() => undefined}
                 apiOptions={ApiOptions.defaults}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         expect(screen.getByText(/Multiple selections/)).toBeInTheDocument();
@@ -37,6 +39,7 @@ describe("radio-editor", () => {
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         await userEvent.click(
@@ -56,6 +59,7 @@ describe("radio-editor", () => {
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         await userEvent.click(
@@ -75,6 +79,7 @@ describe("radio-editor", () => {
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         await userEvent.click(
@@ -101,6 +106,7 @@ describe("radio-editor", () => {
                 onChange={onChangeMock}
                 apiOptions={ApiOptions.defaults}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         await userEvent.click(

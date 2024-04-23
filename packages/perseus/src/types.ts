@@ -127,6 +127,27 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
+export const MafsGraphTypeFlags = [
+    /** Enables the `segment` interactive-graph type.  */
+    "segment",
+    /** Enables the `linear` interactive-graph type.  */
+    "linear",
+    /** Enables the `linear-system` interactive-graph type.  */
+    "linear-system",
+    /** Enables the `ray` interactive-graph type.  */
+    "ray",
+    /** Enables the `polygon` interactive-graph type.  */
+    "polygon",
+] as const;
+
+export const InteractiveGraphLockedFeaturesFlags = [
+    /**
+     * Enables/Disables Milestone 1 locked features in the new Mafs
+     * interactive-graph widget (points and lines).
+     */
+    "interactive-graph-locked-features-m1",
+] as const;
+
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -255,7 +276,18 @@ export type APIOptions = Readonly<{
      */
     editorChangeDelay?: number;
     /** Feature flags that can be passed from consuming application. */
-    flags?: Record<string, boolean | Record<string, boolean>>;
+    flags?: {
+        /**
+         * Flags related to the interactive-graph Mafs migration.
+         *
+         * Add values to the relevant array to create new flags.
+         */
+        mafs?:
+            | false
+            | ({[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean} & {
+                  [Key in (typeof InteractiveGraphLockedFeaturesFlags)[number]]?: boolean;
+              });
+    };
     /**
      * This is a callback function that returns all of the Widget props
      * after they have been transformed by the widget's transform function.

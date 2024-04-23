@@ -135,7 +135,7 @@ class Option extends React.Component<Props> {
                 onKeyDown={(event: KeyboardEvent) => this.handleKeyDown(event)}
                 aria-disabled={disabled}
                 aria-label={ariaLabel}
-                data-test-id={testId}
+                data-testid={testId}
             >
                 {optionRenderer &&
                     optionRenderer(

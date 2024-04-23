@@ -1,14 +1,15 @@
-import {vec, useMovable, Vector} from "mafs";
+import {vec, useMovable} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
-import useGraphState from "../../reducer/use-graph-state";
-import {TARGET_SIZE, snap} from "../../utils";
+import {TARGET_SIZE} from "../../utils";
 import {useTransform} from "../use-transform";
 import {getRayIntersectionCoords} from "../utils";
 
+import {SVGLine} from "./svg-line";
+import {Vector} from "./vector";
+
 import type {Interval} from "mafs";
-import type {SVGProps} from "react";
 
 const defaultStroke = "var(--movable-line-stroke-color)";
 
@@ -26,7 +27,6 @@ type Props = {
 };
 
 export const MovableLine = (props: Props) => {
-    const {state} = useGraphState();
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
@@ -51,7 +51,7 @@ export const MovableLine = (props: Props) => {
         onMove: (newPoint) => {
             onMove(vec.sub(newPoint, midpoint));
         },
-        constrain: (p) => snap(state.snapStep, p),
+        constrain: (p) => p,
     });
 
     return (
@@ -60,6 +60,7 @@ export const MovableLine = (props: Props) => {
                 ref={line}
                 tabIndex={0}
                 className="movable-line"
+                data-testid="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}
             >
                 {/**
@@ -73,11 +74,24 @@ export const MovableLine = (props: Props) => {
                 <SVGLine
                     start={startPtPx}
                     end={endPtPx}
+                    className="movable-line-focus-outline"
+                    style={{}}
+                />
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    className="movable-line-focus-outline-gap"
+                    style={{}}
+                />
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
                     style={{
                         stroke,
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
-                    dragging={dragging}
+                    className={dragging ? "movable-dragging" : ""}
+                    testId="movable-line__line"
                 />
             </g>
 
@@ -89,22 +103,3 @@ export const MovableLine = (props: Props) => {
         </>
     );
 };
-
-function SVGLine(props: {
-    start: vec.Vector2;
-    end: vec.Vector2;
-    style: SVGProps<SVGLineElement>["style"];
-    dragging?: boolean;
-}) {
-    const {start, end, style, dragging} = props;
-    return (
-        <line
-            x1={start[0]}
-            y1={start[1]}
-            x2={end[0]}
-            y2={end[1]}
-            style={style}
-            className={dragging ? "movable-dragging" : undefined}
-        />
-    );
-}
