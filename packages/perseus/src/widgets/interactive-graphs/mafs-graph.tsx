@@ -3,6 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
+import _ from "underscore";
 
 import AxisLabels from "./axis-labels";
 import GraphLockedLayer from "./graph-locked-layer";
@@ -41,6 +42,7 @@ export type Props = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
+    showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     labels: InteractiveGraphProps["labels"];
 };
 
@@ -95,6 +97,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const [width, height] = props.box;
 
     const prevState = useRef<InteractiveGraphState>(state);
+
     useEffect(() => {
         if (prevState.current !== state) {
             props.onChange({graph: state});
@@ -125,6 +128,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 range: state.range,
                 snapStep: state.snapStep,
                 markings: props.markings,
+                showTooltips: !!props.showTooltips,
                 width,
                 height,
                 labels,
