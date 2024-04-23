@@ -17,7 +17,7 @@ glob.sync(resolve(__dirname, "../packages/*/package.json")).forEach(
 export default defineConfig({
     define: {
         // This is used to determine if we are running in a
-        // Storybook environment.
+        // Dev/Storybook environment.
         "process.env.STORYBOOK": JSON.stringify(true),
     },
     resolve: {
