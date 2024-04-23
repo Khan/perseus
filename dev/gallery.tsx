@@ -95,6 +95,9 @@ export function Gallery() {
     );
 
     const [isMobile, setIsMobile] = useState(params.get("mobile") === "true");
+    const [showTooltips, setShowTooltips] = useState(
+        params.get("tooltips") === "true",
+    );
     const [mafsFlags, setMafsFlags] = useState<Array<string>>(
         params
             .get("flags")
@@ -112,6 +115,11 @@ export function Gallery() {
         } else {
             url.searchParams.delete("mobile");
         }
+        if (showTooltips) {
+            url.searchParams.set("tooltips", "true");
+        } else {
+            url.searchParams.delete("tooltips");
+        }
         if (mafsFlags.length === 0) {
             url.searchParams.delete("flags");
         } else {
@@ -123,7 +131,7 @@ export function Gallery() {
             url.searchParams.set("search", search);
         }
         window.history.replaceState({}, "", url.toString());
-    }, [isMobile, mafsFlags, params, search]);
+    }, [isMobile, showTooltips, mafsFlags, params, search]);
 
     const mafsFlagsObject = mafsFlags.reduce((acc, flag) => {
         acc[flag] = true;
@@ -131,8 +139,19 @@ export function Gallery() {
     }, {});
 
     const mobileId = ids.get("mobile");
+    const tooltipId = ids.get("tooltip");
     const flagsId = ids.get("flags");
     const searchId = ids.get("search");
+
+    const insertShowTooltips = ([question, i]): [PerseusRenderer, number] => {
+        Object.keys(question.widgets).forEach((widgetName) => {
+            if (question.widgets[widgetName].type === "interactive-graph") {
+                question.widgets[widgetName].options.showTooltips =
+                    showTooltips;
+            }
+        });
+        return [question, i];
+    };
 
     return (
         <View className={css(styles.page)}>
@@ -170,6 +189,15 @@ export function Gallery() {
                 </View>
                 <View style={styles.headerItem}>
                     <Switch
+                        id={tooltipId}
+                        checked={showTooltips}
+                        onChange={setShowTooltips}
+                    />
+                    <Strut size={spacing.xSmall_8} />
+                    <label htmlFor={tooltipId}>Show Tooltips</label>
+                </View>
+                <View style={styles.headerItem}>
+                    <Switch
                         id={mobileId}
                         checked={isMobile}
                         onChange={setIsMobile}
@@ -189,9 +217,10 @@ export function Gallery() {
                                 ? graphTypeContainsText(question, search)
                                 : true,
                         )
+                        .map(insertShowTooltips)
                         .map(([question, i]) => (
                             <QuestionRenderer
-                                key={i}
+                                key={`${i}${showTooltips ? "-with-tooltips" : ""}`}
                                 question={question}
                                 apiOptions={{
                                     isMobile,
