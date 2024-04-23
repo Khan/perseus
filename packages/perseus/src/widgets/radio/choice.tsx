@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unsafe */
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -68,15 +68,6 @@ type WithForwardRef = {
 };
 
 type ChoicePropsWithForwardRef = ChoiceProps & WithForwardRef;
-
-// Note(TB): Received errors when using useUniqueIdWithMock
-// so created this workaround function. Will update when
-// useUniqueIdWithMock is available.
-// https://khanacademy.atlassian.net/browse/FEI-4861?atlOrigin=eyJpIjoiNDJlZWMwNjM1NWJhNDBkMWFjY2FmN2I0ZjcxZmQxOGUiLCJwIjoiaiJ9
-let id = 0;
-function uniqueId() {
-    return `choice-${id++}`;
-}
 
 const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
     const {
@@ -146,7 +137,9 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
         showCorrectness,
         strings,
     );
-    const choiceId = uniqueId();
+
+    const idFactory = useUniqueIdWithMock(`choice`);
+    const choiceId = idFactory.get(letter);
 
     return (
         <div
@@ -331,7 +324,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
             {showRationale && (
                 <div
                     className={rationaleClassName}
-                    data-test-id={`perseus-radio-rationale-content-${pos}`}
+                    data-testid={`perseus-radio-rationale-content-${pos}`}
                 >
                     {rationale}
                 </div>

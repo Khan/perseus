@@ -15,18 +15,22 @@ import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/registe
 import SideBySide from "./side-by-side";
 
 import type {PerseusRenderer} from "../packages/perseus/src/perseus-types";
-import type {APIOptions} from "../packages/perseus/src/types";
+import type {ComponentProps} from "react";
 
 type Props = {
     question: PerseusRenderer;
-    apiOptions?: APIOptions;
-    reviewMode?: boolean;
-};
+} & Partial<
+    Omit<
+        ComponentProps<typeof Renderer>,
+        "content" | "images" | "widgets" | "problemNum"
+    >
+>;
 
 export const RendererWithDebugUI = ({
     question,
     apiOptions,
     reviewMode = false,
+    ...rest
 }: Props): React.ReactElement => {
     registerAllWidgetsForTesting();
     const ref = React.useRef<Renderer | null | undefined>(null);
@@ -67,6 +71,7 @@ export const RendererWithDebugUI = ({
                             apiOptions={{...apiOptions, isMobile}}
                             reviewMode={reviewMode}
                             strings={strings}
+                            {...rest}
                         />
                     </View>
                     <View style={{flexDirection: "row", alignItems: "center"}}>

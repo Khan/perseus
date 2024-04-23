@@ -32,7 +32,7 @@ import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
-import {MafsGraph} from "./interactive-graphs";
+import {StatefulMafsGraph} from "./interactive-graphs";
 
 import type {Coord} from "../interactive2/types";
 import type {
@@ -1823,7 +1823,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
             return (
-                <MafsGraph
+                <StatefulMafsGraph
                     {...this.props}
                     ref={this.mafsRef}
                     gridStep={gridStep}

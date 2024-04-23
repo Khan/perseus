@@ -36,6 +36,7 @@ import type {
     PerseusWidget,
     PerseusWidgetOptions,
     PerseusWidgetsMap,
+    ShowSolutions,
 } from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {
@@ -174,20 +175,31 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     problemNum?: number;
     questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
+    /**
+     * If set to "all", all rationales or solutions will be shown. If set to
+     * "selected", soltions will only be shown for selected choices. If set to
+     * "none", solutions will not be shown-- equivalent to `undefined`.
+     */
+    showSolutions?: ShowSolutions;
     content: PerseusRenderer["content"];
     serializedState?: any;
-    // Callback which is called when serialized state changes with the new
-    // serialized state.
+    /**
+     * Callback which is called when serialized state changes with the new
+     * serialized state.
+     */
     onSerializedStateUpdated: (serializedState: {
         [key: string]: any;
     }) => unknown;
-    // If linterContext.highlightLint is true, then content will be passed
-    // to the linter and any warnings will be highlighted in the rendered
-    // output.
+    /**
+     * If linterContext.highlightLint is true, then content will be passed to
+     * the linter and any warnings will be highlighted in the rendered output.
+     */
     linterContext: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
     widgets: PerseusRenderer["widgets"];
-    // Skip adding paragraph class
+    /**
+     *  Skip adding paragraph class
+     */
     inline?: boolean;
     strings: PerseusStrings;
 };
@@ -212,21 +224,25 @@ type Context = LinterContextProps & {
     // This is inexact because LinterContextProps is inexact
 };
 
-type DefaultProps = {
-    alwaysUpdate: Props["alwaysUpdate"];
-    content: Props["content"];
-    findExternalWidgets: Props["findExternalWidgets"];
-    highlightedWidgets: Props["highlightedWidgets"];
-    images: Props["images"];
-    linterContext: Props["linterContext"];
-    onInteractWithWidget: Props["onInteractWithWidget"];
-    onRender: Props["onRender"];
-    onSerializedStateUpdated: Props["onSerializedStateUpdated"];
-    questionCompleted: Props["questionCompleted"];
-    reviewMode: Props["reviewMode"];
-    serializedState: Props["serializedState"];
-    widgets: Props["widgets"];
-};
+type DefaultProps = Required<
+    Pick<
+        Props,
+        | "alwaysUpdate"
+        | "content"
+        | "findExternalWidgets"
+        | "highlightedWidgets"
+        | "images"
+        | "linterContext"
+        | "onInteractWithWidget"
+        | "onRender"
+        | "onSerializedStateUpdated"
+        | "questionCompleted"
+        | "showSolutions"
+        | "reviewMode"
+        | "serializedState"
+        | "widgets"
+    >
+>;
 
 class Renderer extends React.Component<Props, State> {
     _currentFocus: FocusPath | null | undefined;
@@ -260,6 +276,7 @@ class Renderer extends React.Component<Props, State> {
         images: {},
         highlightedWidgets: [],
         questionCompleted: false,
+        showSolutions: "none",
         // onRender may be called multiple times per render, for example
         // if there are multiple images or TeX pieces within `content`.
         // It is a good idea to debounce any functions passed here.
@@ -644,6 +661,7 @@ class Renderer extends React.Component<Props, State> {
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,
             questionCompleted: this.props.questionCompleted,
+            showSolutions: this.props.showSolutions,
             onFocus: _.partial(this._onWidgetFocus, id),
             onBlur: _.partial(this._onWidgetBlur, id),
             findWidgets: this.findWidgets,

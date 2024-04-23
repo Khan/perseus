@@ -1,4 +1,4 @@
-import {getValidNumberFromString, getDefaultFigureForFigureType} from "../util";
+import {getValidNumberFromString, getDefaultFigureForType} from "../util";
 
 describe("getValidNumberFromString", () => {
     test("should return a number from a string", () => {
@@ -32,11 +32,47 @@ describe("getValidNumberFromString", () => {
     test("should return the first number from a mixed combo of numbers and letters", () => {
         expect(getValidNumberFromString("123abc123")).toBe(123);
     });
+
+    test("should work with decimal numbers", () => {
+        expect(getValidNumberFromString("123.456")).toBe(123.456);
+    });
 });
 
-describe("getDefaultFigureForFigureType", () => {
+describe("getDefaultFigureForType", () => {
     test("should return a point with default coordinates", () => {
-        const figure = getDefaultFigureForFigureType("point");
-        expect(figure).toEqual({type: "point", coord: [0, 0]});
+        const figure = getDefaultFigureForType("point");
+        expect(figure).toEqual({
+            type: "point",
+            coord: [0, 0],
+            color: "blue",
+            filled: true,
+        });
+    });
+
+    test("should return a line with default values", () => {
+        const figure = getDefaultFigureForType("line");
+        expect(figure).toEqual({
+            type: "line",
+            kind: "line",
+            points: [
+                {
+                    type: "point",
+                    coord: [0, 0],
+                    color: "blue",
+                    filled: true,
+                },
+                {
+                    type: "point",
+                    coord: [2, 2],
+                    color: "blue",
+                    filled: true,
+                },
+            ],
+            color: "blue",
+            lineStyle: "solid",
+            showArrows: false,
+            showStartPoint: false,
+            showEndPoint: false,
+        });
     });
 });

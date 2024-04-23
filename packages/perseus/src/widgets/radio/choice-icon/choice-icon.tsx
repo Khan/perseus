@@ -133,7 +133,7 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                 <div
                     // @ts-expect-error - TS2322 - Type '{ backgroundColor: string | null | undefined; borderColor: string; color: string; borderRadius: number; }' is not assignable to type 'Properties<string | number, string & {}>'.
                     style={dynamicStyles}
-                    data-test-id="choice-icon__library-choice-icon"
+                    data-testid="choice-icon__library-choice-icon"
                     className={css(
                         styles.circle,
                         showCorrectness && correct && styles.circleCorrect,

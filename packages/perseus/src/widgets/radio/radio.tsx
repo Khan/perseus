@@ -12,6 +12,7 @@ import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
+    ShowSolutions,
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
@@ -25,6 +26,7 @@ export type RenderProps = {
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
     selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
+    showSolutions?: ShowSolutions;
     choiceStates?: ReadonlyArray<ChoiceState>;
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
@@ -41,13 +43,17 @@ type UserInput = {
 type Rubric = PerseusRadioWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
-type DefaultProps = {
-    choices: Props["choices"];
-    multipleSelect: Props["multipleSelect"];
-    countChoices: Props["countChoices"];
-    deselectEnabled: Props["deselectEnabled"];
-    linterContext: Props["linterContext"];
-};
+type DefaultProps = Required<
+    Pick<
+        Props,
+        | "choices"
+        | "multipleSelect"
+        | "countChoices"
+        | "deselectEnabled"
+        | "linterContext"
+        | "showSolutions"
+    >
+>;
 
 export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     originalIndex: number;
@@ -67,6 +73,7 @@ class Radio extends React.Component<Props> {
         countChoices: false,
         deselectEnabled: false,
         linterContext: linterContextDefault,
+        showSolutions: "none",
     };
 
     static validate(
@@ -198,6 +205,15 @@ class Radio extends React.Component<Props> {
         return {
             choicesSelected: props.choices.map(() => false),
         };
+    }
+
+    componentDidUpdate(prevProps: Props) {
+        if (
+            this.props.showSolutions === "selected" &&
+            prevProps.showSolutions !== "selected"
+        ) {
+            this.showRationalesForCurrentlySelectedChoices(this.props);
+        }
     }
 
     _renderRenderer: (content?: string) => React.ReactElement = (
@@ -344,6 +360,7 @@ class Radio extends React.Component<Props> {
      * Turn on rationale display for the currently selected choices. Note that
      * this leaves rationales on for choices that are already showing
      * rationales.
+     * @deprecated Internal only. Use `showSolutions` prop instead.
      */
     showRationalesForCurrentlySelectedChoices: (
         arg1: PerseusRadioWidgetOptions,
@@ -369,7 +386,11 @@ class Radio extends React.Component<Props> {
                     // We use the same behavior for the readOnly flag as for
                     // rationaleShown, but we keep it separate in case other
                     // behaviors want to disable choices without showing rationales.
-                    readOnly: state.selected || state.readOnly || widgetCorrect,
+                    readOnly:
+                        state.selected ||
+                        state.readOnly ||
+                        widgetCorrect ||
+                        this.props.showSolutions !== "none",
                     correctnessShown: state.selected || state.correctnessShown,
                     previouslyAnswered:
                         state.previouslyAnswered || state.selected,
@@ -423,6 +444,16 @@ class Radio extends React.Component<Props> {
                 crossedOut: false,
                 readOnly: true,
                 highlighted: false,
+                rationaleShown: true,
+                correctnessShown: true,
+                previouslyAnswered: false,
+            }));
+        } else if (this.props.showSolutions === "all") {
+            choiceStates = choices.map(({correct}) => ({
+                selected: correct, // to draw the eye to the correct answer
+                crossedOut: false,
+                readOnly: true,
+                highlighted: false, // has no effect in this mode
                 rationaleShown: true,
                 correctnessShown: true,
                 previouslyAnswered: false,

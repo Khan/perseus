@@ -1,5 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -7,6 +7,7 @@ import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
+import {lockedFigureColors} from "../../perseus-types";
 import {
     questionsAndAnswers,
     segmentWithLockedPointsQuestion,
@@ -17,6 +18,7 @@ import {
     rayQuestionWithDefaultCorrect,
     polygonQuestionDefaultCorrect,
     pointQuestionWithDefaultCorrect,
+    segmentWithLockedLineQuestion,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
@@ -241,12 +243,12 @@ describe("mafs graphs", () => {
 
             // Assert
             expect(points[0]).toHaveStyle({
-                fill: color.blue,
-                stroke: color.blue,
+                fill: lockedFigureColors.blue,
+                stroke: lockedFigureColors.blue,
             });
             expect(points[1]).toHaveStyle({
-                fill: color.blue,
-                stroke: color.blue,
+                fill: wbColor.white,
+                stroke: lockedFigureColors.blue,
             });
         });
     });
@@ -287,8 +289,14 @@ describe("locked layer", () => {
         );
 
         // Assert
-        expect(points[0]).toHaveStyle({fill: color.blue, stroke: color.blue});
-        expect(points[1]).toHaveStyle({fill: color.blue, stroke: color.blue});
+        expect(points[0]).toHaveStyle({
+            fill: lockedFigureColors.blue,
+            stroke: lockedFigureColors.blue,
+        });
+        expect(points[1]).toHaveStyle({
+            fill: wbColor.white,
+            stroke: lockedFigureColors.blue,
+        });
     });
 
     test("should render locked points with styles when color is specified", async () => {
@@ -311,7 +319,124 @@ describe("locked layer", () => {
         );
 
         // Assert
-        expect(points[0]).toHaveStyle({fill: color.green, stroke: color.green});
-        expect(points[1]).toHaveStyle({fill: color.green, stroke: color.green});
+        expect(points[0]).toHaveStyle({
+            fill: lockedFigureColors.green,
+            stroke: lockedFigureColors.green,
+        });
+        expect(points[1]).toHaveStyle({
+            fill: lockedFigureColors.green,
+            stroke: lockedFigureColors.green,
+        });
+    });
+
+    test("should render locked lines", () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const lines = container.querySelectorAll(".locked-line");
+
+        // Assert
+        expect(lines).toHaveLength(2);
+    });
+
+    test("should render locked lines with styles", () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const lines = container.querySelectorAll(".locked-line line");
+
+        // Assert
+        expect(lines).toHaveLength(2);
+        expect(lines[0]).toHaveStyle({stroke: lockedFigureColors.purple});
+        expect(lines[1]).toHaveStyle({stroke: lockedFigureColors.green});
+    });
+
+    test("should render locked lines with shown points", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const points = container.querySelectorAll(".locked-line circle");
+
+        // Assert
+        expect(points).toHaveLength(4);
+        // Two points for each line
+        expect(points[0]).toHaveStyle({
+            fill: lockedFigureColors.purple,
+            stroke: lockedFigureColors.purple,
+        });
+        expect(points[1]).toHaveStyle({
+            fill: wbColor.white,
+            stroke: lockedFigureColors.purple,
+        });
+        expect(points[2]).toHaveStyle({
+            fill: wbColor.white,
+            stroke: lockedFigureColors.green,
+        });
+        expect(points[3]).toHaveStyle({
+            fill: lockedFigureColors.green,
+            stroke: lockedFigureColors.green,
+        });
+    });
+});
+
+describe("snapshots", () => {
+    test("should render correctly", () => {
+        const {container} = renderQuestion(segmentQuestionDefaultCorrect, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        expect(container).toMatchSnapshot();
+    });
+
+    test("should render correctly with locked points", () => {
+        const {container} = renderQuestion(segmentWithLockedPointsQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        expect(container).toMatchSnapshot();
+    });
+
+    test("should render correctly with locked lines", () => {
+        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        expect(container).toMatchSnapshot();
     });
 });

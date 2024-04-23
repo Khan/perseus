@@ -52,12 +52,10 @@ const axisOptions = (
     props: Omit<GridProps, "containerSizeClass">,
     axisIndex: number,
 ) => {
-    const axisStep = props.tickStep[axisIndex];
-    const axisRange = props.range[axisIndex];
     return {
         axis: props.markings === "graph",
         lines: props.gridStep[axisIndex],
-        labels: (n: number) => lineLabelText(n, axisStep, axisRange),
+        labels: false as const,
     };
 };
 
@@ -68,8 +66,20 @@ export const Grid = (props: GridProps) => {
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
-            <AxisTicks range={props.range} tickStep={props.tickStep} />
             {props.markings === "graph" && <AxisArrows />}
+            {
+                // Only render the axis ticks and arrows if the markings are set to a full "graph"
+                props.markings === "graph" && (
+                    <>
+                        <AxisTicks
+                            range={props.range}
+                            tickStep={props.tickStep}
+                            gridStep={props.gridStep}
+                        />
+                        <AxisArrows />
+                    </>
+                )
+            }
         </>
     );
 };
