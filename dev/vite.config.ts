@@ -15,6 +15,11 @@ glob.sync(resolve(__dirname, "../packages/*/package.json")).forEach(
 );
 
 export default defineConfig({
+    define: {
+        // This is used to determine if we are running in a
+        // Dev/Storybook environment.
+        "process.env.STORYBOOK": JSON.stringify(true),
+    },
     resolve: {
         alias: {
             hubble: resolve(__dirname, "../vendor/hubble/hubble.js"),
