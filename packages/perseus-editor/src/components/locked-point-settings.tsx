@@ -16,8 +16,8 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import ColorCircle from "./color-circle";
 import ColorSelect from "./color-select";
+import ColorSwatch from "./color-swatch";
 import {getValidNumberFromString} from "./util";
 
 import type {LockedPointType} from "@khanacademy/perseus";
@@ -99,7 +99,7 @@ const LockedPointSettings = (props: Props) => {
                         <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
                         <Strut size={spacing.xSmall_8} />
                         {toggled && (
-                            <ColorCircle color={pointColor} filled={filled} />
+                            <ColorSwatch color={pointColor} filled={filled} />
                         )}
                     </View>
                 }
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
         paddingTop: spacing.small_12,
         paddingBottom: spacing.small_12,
         paddingInlineStart: spacing.medium_16,
-        // Fixed height so the addition of the color circle doesn't
+        // Fixed height so the addition of the color swatch doesn't
         // change the height of the header when toggling.
         height: spacing.xxLarge_48,
     },

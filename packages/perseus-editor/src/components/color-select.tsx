@@ -6,7 +6,7 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import ColorCircle from "./color-circle";
+import ColorSwatch from "./color-swatch";
 
 import type {LockedFigureColor} from "@khanacademy/perseus";
 
@@ -40,7 +40,7 @@ const ColorSelect = (props: Props) => {
                         value={colorName}
                         label={colorName}
                         leftAccessory={
-                            <ColorCircle color={colorName} decorative={true} />
+                            <ColorSwatch color={colorName} decorative={true} />
                         }
                     >
                         {colorName}
