@@ -13,6 +13,7 @@ import {
     setDependencies,
 } from "../../dependencies";
 import * as Perseus from "../../index";
+import {mockStrings} from "../../strings";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusRenderer} from "../../perseus-types";
@@ -24,13 +25,13 @@ type RenderResult = ReturnType<typeof render>;
 export const renderQuestion = (
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
-    extraProps?: PropsFor<typeof Perseus.Renderer>,
+    extraProps?: Omit<PropsFor<typeof Perseus.Renderer>, "strings">,
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
     rerender: (
         question: PerseusRenderer,
-        extraProps?: PropsFor<typeof Perseus.Renderer>,
+        extraProps?: Omit<PropsFor<typeof Perseus.Renderer>, "strings">,
     ) => void;
     unmount: RenderResult["unmount"];
 } => {
@@ -45,7 +46,10 @@ export const renderQuestion = (
                     ref={(node) => (renderer = node)}
                     question={question as any}
                     apiOptions={apiOptions}
-                    extraProps={extraProps}
+                    extraProps={{
+                        ...extraProps,
+                        strings: mockStrings,
+                    }}
                 />
             </DependenciesContext.Provider>
         </RenderStateRoot>,
@@ -64,7 +68,10 @@ export const renderQuestion = (
                         ref={(node) => (renderer = node)}
                         question={question}
                         apiOptions={apiOptions}
-                        extraProps={extraProps}
+                        extraProps={{
+                            ...extraProps,
+                            strings: mockStrings,
+                        }}
                     />
                 </DependenciesContext.Provider>
             </RenderStateRoot>,
@@ -94,6 +101,7 @@ const Renderer = React.forwardRef<
             widgets={props.question.widgets}
             problemNum={0}
             apiOptions={props.apiOptions}
+            strings={mockStrings}
             {...props.extraProps}
             {...dependencies}
         />

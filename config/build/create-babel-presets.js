@@ -22,7 +22,14 @@ module.exports = function createBabelPresets({platform, format}) {
     }
 
     return [
-        "@babel/preset-typescript",
+        [
+            "@babel/preset-typescript",
+            {
+                // NOTE(john): We need this so that we can handle the declare
+                // fields inside React classes.
+                allowDeclareFields: true,
+            },
+        ],
         ["@babel/preset-env", options],
         "@babel/preset-react",
     ];

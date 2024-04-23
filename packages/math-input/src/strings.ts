@@ -251,16 +251,13 @@ export const strings: {
 export const mockStrings: MathInputStrings = {
     mathInputBox: "Math input box",
     fingerTap: "Tap with one or two fingers to open keyboard",
-    before: ({obj}: {obj: string}) => "before %(obj)s".replace("%(obj)s", obj),
-    after: ({obj}: {obj: string}) => "after %(obj)s".replace("%(obj)s", obj),
-    "beginning of": ({obj}: {obj: string}) =>
-        "beginning of %(obj)s".replace("%(obj)s", obj),
-    "end of": ({obj}: {obj: string}) =>
-        "end of %(obj)s".replace("%(obj)s", obj),
+    before: ({obj}: {obj: string}) => `before ${obj}`,
+    after: ({obj}: {obj: string}) => `after ${obj}`,
+    "beginning of": ({obj}: {obj: string}) => `beginning of ${obj}`,
+    "end of": ({obj}: {obj: string}) => `end of ${obj}`,
     Baseline: "Baseline",
     Superscript: "Superscript",
-    selected: ({obj}: {obj: string}) =>
-        "%(obj)s selected".replace("%(obj)s", obj),
+    selected: ({obj}: {obj: string}) => `${obj} selected`,
     "no answer": "no answer",
     "nothing selected": "nothing selected",
     "nothing to the right": "nothing to the right",
@@ -268,9 +265,7 @@ export const mockStrings: MathInputStrings = {
     "block is empty": "block is empty",
     "nothing above": "nothing above",
     labelValue: ({label, value}: {label: string; value: string}) =>
-        "%(label)s: %(value)s"
-            .replace("%(label)s", label)
-            .replace("%(value)s", value),
+        `${label}: ${value}`,
     plus: "Plus",
     minus: "Minus",
     negative: "Negative",

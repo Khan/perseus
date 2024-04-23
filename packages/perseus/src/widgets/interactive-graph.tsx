@@ -1,12 +1,12 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import {number as knumber, point as kpoint} from "@khanacademy/kmath";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import $ from "jquery";
 import debounce from "lodash.debounce";
 import * as React from "react";
 import _ from "underscore";
 
 import Graph from "../components/graph";
+import {PerseusI18nContext} from "../components/i18n-context";
 import Interactive2 from "../interactive2";
 import WrappedLine from "../interactive2/wrapped-line";
 import {Errors} from "../logging/log";
@@ -147,6 +147,9 @@ type DefaultProps = {
 };
 
 class LegacyInteractiveGraph extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     angle: any | null | undefined;
     circle: any | null | undefined;
     graphie: any | null | undefined;
@@ -1708,9 +1711,9 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         // isClickToAddPoints() only applies to points and polygons
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
             if (this.props.graph.type === "point") {
-                instructions = i18n._("Click to add points");
+                instructions = this.context.strings.addPoints;
             } else if (this.props.graph.type === "polygon") {
-                instructions = i18n._("Click to add vertices");
+                instructions = this.context.strings.addVertices;
             }
         } else {
             instructions = undefined;

@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {errors} from "../../util/answer-types";
+import {mockStrings} from "../../strings";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -183,7 +183,7 @@ describe("static function validate", () => {
             currentValue: "1",
         } as const;
 
-        const score = NumericInput.validate(useInput, rubric);
+        const score = NumericInput.validate(useInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
             {
@@ -217,7 +217,7 @@ describe("static function validate", () => {
             currentValue: "sadasdfas",
         } as const;
 
-        const score = NumericInput.validate(useInput, rubric);
+        const score = NumericInput.validate(useInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
             {
@@ -258,9 +258,15 @@ describe("static function validate", () => {
             currentValue: "45.282",
         } as const;
 
-        const score = NumericInput.validate(userInput, rubric);
+        const score = NumericInput.validate(userInput, rubric, mockStrings);
 
-        expect(score.message).not.toBe(errors.APPROXIMATED_PI_ERROR);
+        expect(score.message).not.toBe(
+            "Your answer is close, but you may " +
+                "have approximated pi. Enter your " +
+                "answer as a multiple of pi, like " +
+                "<code>12\\ \\text{pi}</code> or " +
+                "<code>2/3\\ \\text{pi}</code>",
+        );
         expect(score.message?.includes("pi")).toBeFalsy();
     });
 
@@ -287,7 +293,7 @@ describe("static function validate", () => {
             currentValue: "99 pi",
         } as const;
 
-        const score = NumericInput.validate(userInput, rubric);
+        const score = NumericInput.validate(userInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
         {
@@ -321,7 +327,7 @@ describe("static function validate", () => {
             currentValue: "1.0",
         } as const;
 
-        const score = NumericInput.validate(useInput, rubric);
+        const score = NumericInput.validate(useInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
             {
@@ -355,7 +361,7 @@ describe("static function validate", () => {
             currentValue: "1.3",
         } as const;
 
-        const score = NumericInput.validate(useInput, rubric);
+        const score = NumericInput.validate(useInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
             {
@@ -389,7 +395,7 @@ describe("static function validate", () => {
             currentValue: "1.12",
         } as const;
 
-        const score = NumericInput.validate(useInput, rubric);
+        const score = NumericInput.validate(useInput, rubric, mockStrings);
 
         expect(score).toMatchInlineSnapshot(`
             {

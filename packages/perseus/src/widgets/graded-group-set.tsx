@@ -2,12 +2,12 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
 import {
@@ -33,6 +33,9 @@ type IndicatorsProps = {
 };
 
 class Indicators extends React.Component<IndicatorsProps> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     handleKeyDown = (e: React.KeyboardEvent, i: number) => {
         if (e.key === "Enter" || e.key === " ") {
             this.props.onChangeCurrentGroup(i);
@@ -53,7 +56,7 @@ class Indicators extends React.Component<IndicatorsProps> {
                     <li className={css(styles.indicator)} key={title}>
                         <Clickable
                             role="button"
-                            aria-label={i18n._("Skip to %(title)s", {
+                            aria-label={this.context.strings.skipToTitle({
                                 title,
                             })}
                             style={styles.indicatorButton}
@@ -71,7 +74,7 @@ class Indicators extends React.Component<IndicatorsProps> {
                                     {i === this.props.currentGroup && (
                                         <View style={styles.indicatorDotActive}>
                                             <span className={css(a11y.srOnly)}>
-                                                {i18n._("Current")}
+                                                {this.context.strings.current}
                                             </span>
                                         </View>
                                     )}
@@ -192,7 +195,7 @@ class GradedGroupSet extends React.Component<Props, State> {
         const currentGroup = this.props.gradedGroups[this.state.currentGroup];
 
         if (!currentGroup) {
-            return <span>{i18n.doNotTranslate("No current group...")}</span>;
+            return <span>No current group...</span>;
         }
 
         const numGroups = this.props.gradedGroups.length;

@@ -10,6 +10,7 @@ import * as React from "react";
 import {useEffect, useMemo, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
+import {mockStrings} from "../packages/perseus/src/strings";
 import {MafsGraphTypeFlags} from "../packages/perseus/src/types";
 import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
 import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
@@ -249,6 +250,7 @@ function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
                     widgets={question.widgets}
                     problemNum={0}
                     apiOptions={apiOptions}
+                    strings={mockStrings}
                 />
             </div>
         </div>

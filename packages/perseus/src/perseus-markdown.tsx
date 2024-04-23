@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-escape, no-prototype-builtins */
 import {pureMarkdownRules} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
 
@@ -154,12 +153,7 @@ const rules = {
             // The actual output is handled in the renderer, where
             // we know the current widget props/state. This is
             // just a stub for testing.
-            return (
-                <em key={state.key}>
-                    {/* @ts-expect-error - TS2554 - Expected 1-2 arguments, but got 3. */}
-                    {i18n.doNotTranslate("[Widget: ", node.id, "]")}
-                </em>
-            );
+            return <em key={state.key}>{`[Widget: ${node.id}]`}</em>;
         },
     },
     blockMath: {

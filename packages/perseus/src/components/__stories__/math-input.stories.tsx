@@ -21,6 +21,8 @@ const defaultObject = {
         preAlgebra: true,
         trigonometry: true,
     },
+    convertDotToTimes: false,
+    value: "",
     onChange: () => {},
     analytics: {onAnalyticsEvent: () => Promise.resolve()},
 } as const;

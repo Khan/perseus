@@ -1,6 +1,6 @@
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 
+import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
 import Choice from "./choice";
@@ -22,6 +22,8 @@ const ChoiceNoneAbove = function (
 ): React.ReactElement {
     const {showContent, content, forwardedRef, ...rest} = props;
 
+    const {strings} = usePerseusI18n();
+
     const choiceProps = {
         ...rest,
         content: showContent ? (
@@ -39,7 +41,8 @@ const ChoiceNoneAbove = function (
             // just to render a string
             <Renderer
                 key="noneOfTheAboveRenderer"
-                content={i18n._("None of the above")}
+                content={strings.noneOfTheAbove}
+                strings={strings}
             />
         ),
     } as const;

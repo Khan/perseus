@@ -36,6 +36,8 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 labelText="test"
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
             />,
         );
         jest.runOnlyPendingTimers();
@@ -52,6 +54,8 @@ describe("Perseus' MathInput", () => {
                 onChange={mockOnChange}
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
             />,
         );
         jest.runOnlyPendingTimers();
@@ -72,6 +76,8 @@ describe("Perseus' MathInput", () => {
                 onChange={mockOnChange}
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
             />,
         );
         jest.runOnlyPendingTimers();
@@ -97,6 +103,8 @@ describe("Perseus' MathInput", () => {
                 onChange={mockOnChange}
                 buttonSets={["basic+div"]}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
             />,
         );
         jest.runOnlyPendingTimers();
@@ -122,6 +130,8 @@ describe("Perseus' MathInput", () => {
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
             />,
         );
         jest.runOnlyPendingTimers();
@@ -142,6 +152,8 @@ describe("Perseus' MathInput", () => {
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
             />,
         );
         jest.runOnlyPendingTimers();
@@ -167,6 +179,8 @@ describe("Perseus' MathInput", () => {
                 onChange={() => {}}
                 buttonsVisible="always"
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
             />,
         );
 

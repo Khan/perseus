@@ -1,9 +1,9 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import InputWithExamples from "../components/input-with-examples";
 import SimpleKeypadInput from "../components/simple-keypad-input";
 import {ApiOptions} from "../perseus-api";
@@ -17,6 +17,7 @@ import type {
     PerseusNumericInputAnswerForm,
     MathFormat,
 } from "../perseus-types";
+import type {PerseusStrings} from "../strings";
 import type {
     FocusPath,
     PerseusScore,
@@ -44,24 +45,23 @@ const answerFormButtons: ReadonlyArray<{
 ];
 
 const formExamples: {
-    [key: string]: (arg1: PerseusNumericInputAnswerForm) => string;
+    [key: string]: (
+        arg1: PerseusNumericInputAnswerForm,
+        strings: PerseusStrings,
+    ) => string;
 } = {
-    integer: () => i18n._("an integer, like $6$"),
-    proper: (form) =>
+    integer: (form, strings: PerseusStrings) => strings.integerExample,
+    proper: (form, strings: PerseusStrings) =>
         form.simplify === "optional"
-            ? i18n._("a *proper* fraction, like $1/2$ or $6/10$")
-            : i18n._("a *simplified proper* fraction, like $3/5$"),
-    improper: (form) =>
+            ? strings.properExample
+            : strings.simplifiedProperExample,
+    improper: (form, strings: PerseusStrings) =>
         form.simplify === "optional"
-            ? i18n._("an *improper* fraction, like $10/7$ or $14/8$")
-            : i18n._("a *simplified improper* fraction, like $7/4$"),
-    mixed: () => i18n._("a mixed number, like $1\\ 3/4$"),
-    decimal: () => i18n._("an *exact* decimal, like $0.75$"),
-    pi: () =>
-        i18n._(
-            "a multiple of pi, like $12\\ \\text{pi}$ or " +
-                "$2/3\\ \\text{pi}$",
-        ),
+            ? strings.improperExample
+            : strings.simplifiedImproperExample,
+    mixed: (form, strings: PerseusStrings) => strings.mixedExample,
+    decimal: (form, strings: PerseusStrings) => strings.decimalExample,
+    pi: (form, strings: PerseusStrings) => strings.piExample,
 };
 
 type UserInput = {
@@ -101,6 +101,9 @@ type State = {
 };
 
 export class NumericInput extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     inputRef: SimpleKeypadInput | InputWithExamples | null | undefined;
 
     static defaultProps: DefaultProps = {
@@ -154,7 +157,11 @@ export class NumericInput extends React.Component<Props, State> {
         return answerStrings[0];
     }
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    static validate(
+        userInput: UserInput,
+        rubric: Rubric,
+        strings: PerseusStrings,
+    ): PerseusScore {
         const defaultAnswerForms = answerFormButtons
             .map((e) => e["value"])
             // Don't default to validating the answer as a pi answer
@@ -188,6 +195,7 @@ export class NumericInput extends React.Component<Props, State> {
                     maxError: answer.maxError,
                     forms: validatorForms,
                 },
+                strings,
             );
         };
 
@@ -292,18 +300,17 @@ export class NumericInput extends React.Component<Props, State> {
                       return {
                           name: name,
                           simplify: "required",
-                      };
+                      } as PerseusNumericInputAnswerForm;
                   });
 
         let examples = _.map(forms, (form) => {
-            // @ts-expect-error - TS2345 - Argument of type 'PerseusNumericInputAnswerForm | { name: string; simplify: string; }' is not assignable to parameter of type 'PerseusNumericInputAnswerForm'.
-            return formExamples[form.name](form);
+            return formExamples[form.name](form, this.context.strings);
         });
         // Ensure no duplicate tooltip text from simplified and unsimplified
         // versions of the same format
         examples = _.uniq(examples);
 
-        return [i18n._("**Your answer should be** ")].concat(examples);
+        return [this.context.strings.yourAnswer].concat(examples);
     };
 
     shouldShowExamples: () => boolean = () => {
@@ -320,7 +327,11 @@ export class NumericInput extends React.Component<Props, State> {
     };
 
     simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return NumericInput.validate(this.getUserInput(), rubric);
+        return NumericInput.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+        );
     };
 
     focus: () => boolean = () => {
@@ -385,7 +396,7 @@ export class NumericInput extends React.Component<Props, State> {
     render(): React.ReactNode {
         let labelText = this.props.labelText;
         if (labelText == null || labelText === "") {
-            labelText = i18n._("Your answer:");
+            labelText = this.context.strings.yourAnswerLabel;
         }
 
         // To right align a custom keypad we need to wrap it.

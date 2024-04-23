@@ -13,6 +13,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
 import Objective from "./interactive2/objective_";
@@ -76,6 +77,9 @@ export class ServerItemRenderer
     extends React.Component<Props, State>
     implements RendererInterface, KeypadContextRendererInterface
 {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // @ts-expect-error - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
     hintsRenderer: any;
@@ -435,6 +439,7 @@ export class ServerItemRenderer
                         this.props.linterContext,
                         "question",
                     )}
+                    strings={this.context.strings}
                     {...this.props.dependencies}
                 />
             </AssetContext.Provider>
@@ -450,6 +455,7 @@ export class ServerItemRenderer
                     this.props.linterContext,
                     "hints",
                 )}
+                strings={this.context.strings}
             />
         );
 

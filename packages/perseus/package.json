@@ -18,6 +18,20 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/es/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "source": "./src/index.ts"
+        },
+        "./strings": {
+            "import": "./dist/es/strings.js",
+            "require": "./dist/strings.js",
+            "types": "./dist/strings.d.ts",
+            "source": "./src/strings.ts"
+        }
+    },
     "files": [
         "dist"
     ],
@@ -42,7 +56,6 @@
         "@khanacademy/wonder-blocks-data": "^13.0.7",
         "@khanacademy/wonder-blocks-dropdown": "^5.2.0",
         "@khanacademy/wonder-blocks-form": "^4.5.0",
-        "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "^4.1.0",
         "@khanacademy/wonder-blocks-layout": "^2.0.31",
         "@khanacademy/wonder-blocks-link": "^6.1.0",
@@ -78,7 +91,6 @@
         "@khanacademy/wonder-blocks-data": "^13.0.7",
         "@khanacademy/wonder-blocks-dropdown": "^5.2.0",
         "@khanacademy/wonder-blocks-form": "^4.5.0",
-        "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "^4.1.0",
         "@khanacademy/wonder-blocks-layout": "^2.0.31",
         "@khanacademy/wonder-blocks-link": "^6.1.0",

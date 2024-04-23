@@ -22,11 +22,13 @@
         ".": {
             "import": "./dist/es/index.js",
             "require": "./dist/index.js",
+            "types": "./dist/index.d.ts",
             "source": "./src/index.ts"
         },
         "./strings": {
             "import": "./dist/es/strings.js",
             "require": "./dist/strings.js",
+            "types": "./dist/strings.d.ts",
             "source": "./src/strings.ts"
         }
     },

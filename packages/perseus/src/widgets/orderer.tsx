@@ -10,6 +10,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 import {Errors, Log} from "../logging/log";
 import {ClassNames as ApiClassNames} from "../perseus-api";
@@ -56,6 +57,9 @@ const PropTypePosition = PropTypes.shape({
 });
 
 class Card extends React.Component<any, any> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // @ts-expect-error - TS2564 - Property 'mouseMoveUpBound' has no initializer and is not definitely assigned in the constructor.
     mouseMoveUpBound: boolean;
 
@@ -128,6 +132,7 @@ class Card extends React.Component<any, any> {
                     <Renderer
                         {...rendererProps}
                         linterContext={this.props.linterContext}
+                        strings={this.context.strings}
                     />
                 </div>
             </div>

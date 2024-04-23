@@ -1,4 +1,3 @@
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import _ from "underscore";
 
 import Util from "../util";
@@ -7,22 +6,15 @@ import Radio from "./radio/radio";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio/radio";
 import type {PerseusRadioWidgetOptions} from "../perseus-types";
+import type {PerseusStrings} from "../strings";
 import type {WidgetExports} from "../types";
 
 const {shuffle, random} = Util;
 
-// Represents choices that we automatically re-order if encountered.
-// Note: these are in the reversed (incorrect) order that we will swap, if
-// found.
-// Note 2: these are internationalized when compared later on.
-const ReversedChoices: ReadonlyArray<[string, string]> = [
-    [i18n._("False"), i18n._("True")],
-    [i18n._("No"), i18n._("Yes")],
-];
-
 // Transforms the choices for display.
 const _choiceTransform = (
     widgetOptions: PerseusRadioWidgetOptions,
+    strings: PerseusStrings,
     problemNum?: number | null,
 ) => {
     const _maybeRandomize = function (
@@ -65,6 +57,14 @@ const _choiceTransform = (
     const enforceOrdering = (
         choices: ReadonlyArray<RadioChoiceWithMetadata>,
     ) => {
+        // Represents choices that we automatically re-order if encountered.
+        // Note: these are in the reversed (incorrect) order that we will swap, if
+        // found.
+        // Note 2: these are internationalized when compared later on.
+        const ReversedChoices: ReadonlyArray<[string, string]> = [
+            [strings.false, strings.true],
+            [strings.no, strings.yes],
+        ];
         const content = choices.map((c) => c.content);
         if (ReversedChoices.some((reversed) => _.isEqual(content, reversed))) {
             return [choices[1], choices[0]];
@@ -97,9 +97,10 @@ const _choiceTransform = (
 
 const transform = (
     widgetOptions: PerseusRadioWidgetOptions,
+    strings: PerseusStrings,
     problemNum?: number | null,
 ): RenderProps => {
-    const choices = _choiceTransform(widgetOptions, problemNum);
+    const choices = _choiceTransform(widgetOptions, strings, problemNum);
 
     const numCorrect: number = _.reduce(
         widgetOptions.choices,

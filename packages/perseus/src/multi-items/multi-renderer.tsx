@@ -36,11 +36,11 @@
  *       }
  *   </MultiRenderer>
  */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite"; // eslint-disable-line import/no-extraneous-dependencies
 import lens from "hubble"; // eslint-disable-line import/no-extraneous-dependencies
 import * as React from "react";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import {DependenciesContext} from "../dependencies";
 import HintsRenderer from "../hints-renderer";
 import {Errors, Log} from "../logging/log";
@@ -125,6 +125,9 @@ type State = {
 };
 
 class MultiRenderer extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     rendererDataTreeMapper: TreeMapper<
         ContentNode,
         ContentRendererData,
@@ -235,7 +238,10 @@ class MultiRenderer extends React.Component<Props, State> {
             onSerializedStateUpdated: _____,
             ...otherProps
         } = this.props;
-        return otherProps;
+        return {
+            ...otherProps,
+            strings: this.context.strings,
+        };
     }
 
     /**
@@ -541,7 +547,7 @@ class MultiRenderer extends React.Component<Props, State> {
         if (this.state.renderError) {
             return (
                 <div className={css(styles.error)}>
-                    {i18n.$_("Error rendering: %(error)s", {
+                    {this.context.strings.errorRendering({
                         error: String(this.state.renderError),
                     })}
                 </div>

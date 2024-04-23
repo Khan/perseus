@@ -1,6 +1,6 @@
 /**
- * MathInputI18nContext provides a way to set the strings and locale that are
- * used inside the Math Input package.
+ * PerseusI18nContext provides a way to set the strings and locale that are
+ * used inside the Perseus package.
  *
  */
 import * as React from "react";
@@ -8,15 +8,15 @@ import {useContext} from "react";
 
 import {mockStrings} from "../strings";
 
-import type {MathInputStrings} from "../strings";
+import type {PerseusStrings} from "../strings";
 
 type I18nContextType = {
-    strings: MathInputStrings;
+    strings: PerseusStrings;
     locale: string;
 };
 
 // @ts-expect-error - TS2322 - Type 'Context<{ strings: {}; locale: string; }>' is not assignable to type 'Context<I18nContextType>'.
-export const MathInputI18nContext: React.Context<I18nContextType> =
+export const PerseusI18nContext: React.Context<I18nContextType> =
     React.createContext(
         process.env.NODE_ENV === "test" || process.env.STORYBOOK
             ? {
@@ -31,16 +31,12 @@ export const MathInputI18nContext: React.Context<I18nContextType> =
 
 type Props = React.PropsWithChildren<I18nContextType>;
 
-export function MathInputI18nContextProvider({
-    children,
-    strings,
-    locale,
-}: Props) {
+export function PerseusI18nContextProvider({children, strings, locale}: Props) {
     return (
-        <MathInputI18nContext.Provider value={{strings, locale}}>
+        <PerseusI18nContext.Provider value={{strings, locale}}>
             {children}
-        </MathInputI18nContext.Provider>
+        </PerseusI18nContext.Provider>
     );
 }
 
-export const useMathInputI18n = () => useContext(MathInputI18nContext);
+export const usePerseusI18n = () => useContext(PerseusI18nContext);

@@ -1,5 +1,4 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -32,19 +31,19 @@ export const SingleItem = (args: StoryArgs): React.ReactElement => {
                     <View>
                         <View style={styles.section}>
                             <HeadingSmall style={styles.heading}>
-                                {i18n.doNotTranslate("Blurb")}
+                                Blurb
                             </HeadingSmall>
                             {blurb}
                         </View>
                         <View style={styles.section}>
                             <HeadingSmall style={styles.heading}>
-                                {i18n.doNotTranslate("Question")}
+                                Question
                             </HeadingSmall>
                             {question}
                         </View>
                         <View style={styles.section}>
                             <HeadingSmall style={styles.heading}>
-                                {i18n.doNotTranslate("Hints")}
+                                Hints
                             </HeadingSmall>
                             <View style={styles.hints}>
                                 {// @ts-expect-error [FEI-5003] - TS2339 - Property 'firstN' does not exist on type 'readonly ReactNode[]'.
