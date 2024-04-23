@@ -162,20 +162,3 @@
 .MafsView > svg {
     overflow: visible;
 }
-
-#x-axis-label,
-#y-axis-label {
-    font-size: 14px;
-}
-
-#x-axis-label {
-    /* This vertically centers the x-axis-label to the right of the x-axis and
-    adds the same amount of padding as found on the previous, non-mafs graphs */
-    transform: translate(7px, -50%);
-}
-
-#y-axis-label {
-    /* This centers the y-axis-label on top of the y-axis and
-    adds the same amount of padding as found on the previous, non-mafs graphs */
-    transform: translate(-50%, -7px);
-}

@@ -32,14 +32,24 @@ export default function AxisLabels(props) {
     return (
         <>
             <span
-                id="x-axis-label"
-                style={{position: "absolute", left: x1, top: y1}}
+                style={{
+                    position: "absolute",
+                    left: x1,
+                    top: y1,
+                    fontSize: "14px",
+                    transform: "translate(7px, -50%)",
+                }}
             >
                 <TeX>{xAxisLabelText}</TeX>
             </span>
             <span
-                id="y-axis-label"
-                style={{position: "absolute", left: x2, top: y2}}
+                style={{
+                    position: "absolute",
+                    left: x2,
+                    top: y2,
+                    fontSize: "14px",
+                    transform: "translate(-50%, -7px)",
+                }}
             >
                 <TeX>{yAxisLabelText}</TeX>
             </span>
