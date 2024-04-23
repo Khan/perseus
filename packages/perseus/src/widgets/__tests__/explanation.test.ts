@@ -15,7 +15,7 @@ describe("Explanation", function () {
     // NOTE: Since the visibility of an element is controlled by CSS,
     //          the only way that we can verify in RTL that an element is visible or not (expanded/collapsed)
     //          is by checking the classes that are applied to the wrapper of that element.
-    //       Therefore, we are checking the wrapper element by its data-test-id instead of the normal
+    //       Therefore, we are checking the wrapper element by its data-testid instead of the normal
     //          getByRole or getByText functions.
     //       The same is true for the animation tests found in this file.
 

@@ -129,6 +129,7 @@ exports[`graded group widget should snapshot 1`] = `
                         <span>
                           <div>
                             <input
+                              aria-invalid="false"
                               aria-label="Your answer:"
                               autocapitalize="off"
                               autocomplete="off"

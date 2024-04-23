@@ -63,6 +63,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         <span>
                           <div>
                             <input
+                              aria-invalid="false"
                               aria-label="Your answer:"
                               autocapitalize="off"
                               autocomplete="off"
@@ -291,6 +292,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         <span>
                           <div>
                             <input
+                              aria-invalid="false"
                               aria-label="Your answer:"
                               autocapitalize="off"
                               autocomplete="off"
@@ -519,6 +521,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         <span>
                           <div>
                             <input
+                              aria-invalid="false"
                               aria-label="Your answer:"
                               autocapitalize="off"
                               autocomplete="off"
