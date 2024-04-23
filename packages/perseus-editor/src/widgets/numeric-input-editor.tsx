@@ -61,7 +61,7 @@ type PerseusNumericInputWidgetOptions = {
     size: string;
     coefficient: boolean;
     rightAlign?: boolean;
-    static: boolean;
+    static?: boolean;
     answerForms?: ReadonlyArray<PerseusNumericInputAnswerForm>;
 };
 
