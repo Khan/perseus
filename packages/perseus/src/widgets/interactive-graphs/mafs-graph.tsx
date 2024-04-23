@@ -41,6 +41,7 @@ export type Props = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
+    showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
 };
 
 const renderGraph = (props: {
@@ -94,6 +95,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const [width, height] = props.box;
 
     const prevState = useRef<InteractiveGraphState>(state);
+
     useEffect(() => {
         if (prevState.current !== state) {
             props.onChange({graph: state});
@@ -124,6 +126,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 range: state.range,
                 snapStep: state.snapStep,
                 markings: props.markings,
+                showTooltips: !!props.showTooltips,
             }}
         >
             <View

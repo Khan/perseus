@@ -90,7 +90,7 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
-                choices: [{}, {}, {isNoneOfTheAbove: false}],
+                choices: [{}, {}, {}, {}, {isNoneOfTheAbove: false}],
                 hasNoneOfTheAbove: false,
             }),
             // there's some anonymous function that's also passed
@@ -117,7 +117,7 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
-                choices: [{}],
+                choices: [{}, {}, {}],
                 hasNoneOfTheAbove: false,
             }),
         );

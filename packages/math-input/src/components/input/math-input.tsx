@@ -1030,6 +1030,8 @@ class MathInput extends React.Component<Props, State> {
     }
 }
 
+MathInput.contextType = MathInputI18nContext;
+
 const fontSizePt = 18;
 const inputMaxWidth = 128;
 
