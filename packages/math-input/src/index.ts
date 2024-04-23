@@ -31,6 +31,13 @@ export {MobileKeypad} from "./components/keypad";
 // Unwrapped v2 keypad for desktop
 export {default as DesktopKeypad} from "./components/keypad";
 
+// Context for managing i18n
+export {
+    MathInputI18nContextProvider,
+    MathInputI18nContext,
+    useMathInputI18n,
+} from "./components/i18n-context";
+
 // Context used to pass data/refs around
 export {
     KeypadContext,
@@ -49,4 +56,4 @@ export {default as KeyConfigs} from "./data/key-configs";
 export {type KeyType, KeypadType} from "./enums";
 
 // Helper to translate key pressed to MathField update
-export {default as keyTranslator} from "./components/key-handlers/key-translator";
+export {getKeyTranslator} from "./components/key-handlers/key-translator";

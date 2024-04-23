@@ -173,6 +173,12 @@ const createConfig = (
         valueReplacementMappings["process.env.NODE_ENV"] = JSON.stringify(
             commandLineArgs.configEnvironment,
         );
+
+        // If we're doing a prod build we want to disable Storybook.
+        if (commandLineArgs.configEnvironment === "production") {
+            valueReplacementMappings["process.env.STORYBOOK"] =
+                JSON.stringify(false);
+        }
     }
 
     const extensions = [".js", ".jsx", ".ts", ".tsx"];
@@ -276,28 +282,61 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     const formats = getFormats(commandLineArgs);
 
     const configs = [];
-    if (formats.has("cjs")) {
-        configs.push({
-            name: pkgName,
-            fullName: pkgJson.name,
-            version: pkgJson.version,
-            format: "cjs",
-            platform: "browser",
-            file: pkgJson.main,
-            plugins: [],
-        });
-    }
-    if (formats.has("esm")) {
-        configs.push({
-            name: pkgName,
-            fullName: pkgJson.name,
-            version: pkgJson.version,
-            format: "esm",
-            platform: "browser",
-            file: pkgJson.module,
-            // We care about the file size of this one.
-            plugins: [filesize()],
-        });
+
+    if (pkgJson.exports) {
+        for (const exportConfig of Object.values(pkgJson.exports)) {
+            if (exportConfig.require && formats.has("cjs")) {
+                configs.push({
+                    name: pkgName,
+                    fullName: pkgJson.name,
+                    version: pkgJson.version,
+                    format: "cjs",
+                    platform: "browser",
+                    inputFile: exportConfig.source,
+                    file: exportConfig.require,
+                    plugins: [],
+                });
+            }
+
+            if (exportConfig.import && formats.has("esm")) {
+                configs.push({
+                    name: pkgName,
+                    fullName: pkgJson.name,
+                    version: pkgJson.version,
+                    format: "esm",
+                    platform: "browser",
+                    inputFile: exportConfig.source,
+                    file: exportConfig.import,
+                    plugins: [filesize()],
+                });
+            }
+        }
+    } else {
+        if (formats.has("cjs")) {
+            configs.push({
+                name: pkgName,
+                fullName: pkgJson.name,
+                version: pkgJson.version,
+                format: "cjs",
+                platform: "browser",
+                inputFile: pkgJson.source,
+                file: pkgJson.main,
+                plugins: [],
+            });
+        }
+        if (formats.has("esm")) {
+            configs.push({
+                name: pkgName,
+                fullName: pkgJson.name,
+                version: pkgJson.version,
+                format: "esm",
+                platform: "browser",
+                inputFile: pkgJson.source,
+                file: pkgJson.module,
+                // We care about the file size of this one.
+                plugins: [filesize()],
+            });
+        }
     }
 
     return configs;
@@ -309,9 +348,10 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
 const createRollupConfig = async (commandLineArgs) => {
     // For the packages we have determined we want, let's get more information
     // about them and generate configurations.
-    return getPackageDirNamesInBuildOrder()
+    const results = getPackageDirNamesInBuildOrder()
         .flatMap((p) => getPackageInfo(commandLineArgs, p))
         .map((c) => createConfig(commandLineArgs, c));
+    return results;
 };
 
 // eslint-disable-next-line import/no-default-export

@@ -1,4 +1,4 @@
-import {createMathField} from "@khanacademy/math-input";
+import {createMathField, useMathInputI18n} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -20,6 +20,7 @@ type Props = {
 export default function MathquillInput(props: Props) {
     const mathFieldWrapperRef = useRef<HTMLSpanElement>(null);
     const mathFieldInstance = useRef<MathFieldInterface>();
+    const {strings} = useMathInputI18n();
 
     useEffect(() => {
         // If we have the mount for the input, but not the input
@@ -28,6 +29,7 @@ export default function MathquillInput(props: Props) {
             // Initialize MathQuill.MathField instance
             mathFieldInstance.current = createMathField(
                 mathFieldWrapperRef.current,
+                strings,
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
