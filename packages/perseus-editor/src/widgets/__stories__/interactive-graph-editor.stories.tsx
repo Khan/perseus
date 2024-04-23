@@ -7,6 +7,24 @@ import InteractiveGraphEditorArgTypes from "./interactive-graph-editor.argtypes"
 
 import type {Meta, StoryObj} from "@storybook/react";
 
+const mafsOptions = {
+    apiOptions: {
+        flags,
+    },
+    graph: {
+        type: "segment",
+    },
+    correct: {
+        type: "segment",
+    },
+};
+
+const defaultPointProps = {
+    type: "point",
+    color: "blue",
+    filled: true,
+};
+
 export default {
     title: "Perseus Editor/Widgets/Interactive Graph Editor",
     component: InteractiveGraphEditor,
@@ -58,49 +76,6 @@ export const Controlled: StoryComponentType = {
 };
 
 /**
- * This InteractiveGraphEditor has locked figures. Locked figures are graph
- * elements such as points, lines, line segements, etc. that are locked in
- * place and not interactive.
- */
-export const WithLockedPoints: StoryComponentType = {
-    render: function Render() {
-        const reducer = (state, newState) => {
-            return {
-                ...state,
-                ...newState,
-            };
-        };
-
-        const [state, dispatch] = React.useReducer(reducer, {
-            // Use locked figures with mafs only.
-            apiOptions: {flags},
-            graph: {
-                type: "segment",
-            },
-            correct: {
-                type: "segment",
-            },
-            lockedFigures: [
-                {
-                    type: "point",
-                    coord: [1, 1],
-                    color: "blue",
-                    filled: true,
-                },
-                {
-                    type: "point",
-                    coord: [-1, -1],
-                    color: "purple",
-                    filled: false,
-                },
-            ],
-        });
-
-        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
-    },
-};
-
-/**
  * Example of what the InteractiveGraphEditor experience is when using
  * a Mafs-based InteractiveGraph.
  */
@@ -113,14 +88,94 @@ export const WithMafs: StoryComponentType = {
             };
         };
 
+        const [state, dispatch] = React.useReducer(reducer, mafsOptions);
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
+
+/**
+ * This InteractiveGraphEditor has locked points.
+ *
+ * Locked figures are graph elements such as points, lines, line segements,
+ * etc. that are locked in place and not interactive. They can be added
+ * with the "Add element" dropdown at the bottom.
+ */
+export const WithLockedPoints: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
         const [state, dispatch] = React.useReducer(reducer, {
-            apiOptions: {flags},
-            graph: {
-                type: "segment",
-            },
-            correct: {
-                type: "segment",
-            },
+            // Use locked figures with mafs only.
+            ...mafsOptions,
+            lockedFigures: [
+                {
+                    ...defaultPointProps,
+                    coord: [1, 1],
+                },
+                {
+                    ...defaultPointProps,
+                    coord: [-1, -1],
+                },
+            ],
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
+
+/**
+ * This InteractiveGraphEditor has a locked line segment, line, and ray.
+ *
+ * Locked figures are graph elements such as points, lines, line segements,
+ * etc. that are locked in place and not interactive. They can be added
+ * with the "Add element" dropdown at the bottom.
+ */
+export const WithLockedLines: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            // Use locked figures with mafs only.
+            ...mafsOptions,
+            lockedFigures: [
+                {
+                    type: "line",
+                    kind: "line",
+                    points: [
+                        {...defaultPointProps, coord: [1, 0]},
+                        {...defaultPointProps, coord: [-1, -1]},
+                    ],
+                    color: "blue",
+                    lineStyle: "solid",
+                    showArrows: false,
+                    showStartPoint: false,
+                    showEndPoint: false,
+                },
+                {
+                    type: "line",
+                    kind: "line",
+                    points: [
+                        {...defaultPointProps, color: "red", coord: [1, 2]},
+                        {...defaultPointProps, color: "red", coord: [-1, 1]},
+                    ],
+                    color: "red",
+                    lineStyle: "dashed",
+                    showArrows: true,
+                    showStartPoint: true,
+                    showEndPoint: true,
+                },
+            ],
         });
 
         return <InteractiveGraphEditor {...state} onChange={dispatch} />;
