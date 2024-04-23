@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "17.5.0",
+    "version": "18.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -52,7 +52,7 @@
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
-        "perseus-build-settings": "^0.3.0",
+        "perseus-build-settings": "^0.4.0",
         "prop-types": "15.6.1",
         "react": "^16.8.0",
         "react-dom": "^16.8.0",
