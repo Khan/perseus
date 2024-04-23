@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {flags} from "../../__stories__/flags-for-api-options";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import InteractiveGraphEditorArgTypes from "./interactive-graph-editor.argtypes";
@@ -8,11 +9,7 @@ import type {Meta, StoryObj} from "@storybook/react";
 
 const mafsOptions = {
     apiOptions: {
-        flags: {
-            mafs: {
-                segment: true,
-            },
-        },
+        flags,
     },
     graph: {
         type: "segment",

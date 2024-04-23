@@ -1,5 +1,20 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.4.0
+
+### Minor Changes
+
+-   [#1179](https://github.com/Khan/perseus/pull/1179) [`437bce7be`](https://github.com/Khan/perseus/commit/437bce7be32cbb03e0926719df0e03c193ba6df5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change testId to render the default Testing Library HTML attribute: data-testid (was data-test-id)
+
+### Patch Changes
+
+-   [#1178](https://github.com/Khan/perseus/pull/1178) [`ba0f36561`](https://github.com/Khan/perseus/commit/ba0f36561bf556b7bd0f85eb98be25c834643022) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Rename internal type `MafsFlags` to `MafsGraphTypeFlags`
+
+*   [#1197](https://github.com/Khan/perseus/pull/1197) [`6a44e32b2`](https://github.com/Khan/perseus/commit/6a44e32b2c681002e2027849d9887e54fef57b54) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix up stale usage of wonder-blocks-color to use wonder-blocks-tokens
+
+*   Updated dependencies [[`437bce7be`](https://github.com/Khan/perseus/commit/437bce7be32cbb03e0926719df0e03c193ba6df5)]:
+    -   @khanacademy/math-input@17.5.0
+
 ## 1.3.8
 
 ### Patch Changes

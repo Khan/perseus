@@ -3041,7 +3041,7 @@ exports[`snapshots should render correctly 1`] = `
                   </defs>
                   <g
                     class="movable-line"
-                    data-test-id="movable-line"
+                    data-testid="movable-line"
                     style="cursor: grab;"
                     tabindex="0"
                   >
@@ -3069,7 +3069,7 @@ exports[`snapshots should render correctly 1`] = `
                     />
                     <line
                       class=""
-                      data-test-id="movable-line__line"
+                      data-testid="movable-line__line"
                       style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
                       x1="-100"
                       x2="100"
@@ -3079,7 +3079,7 @@ exports[`snapshots should render correctly 1`] = `
                   </g>
                   <g
                     class="movable-point "
-                    data-test-id="movable-point"
+                    data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -3108,13 +3108,13 @@ exports[`snapshots should render correctly 1`] = `
                       class="movable-point-center"
                       cx="-100"
                       cy="-100"
-                      data-test-id="movable-point__center"
+                      data-testid="movable-point__center"
                       style="fill: #1865f2;"
                     />
                   </g>
                   <g
                     class="movable-point "
-                    data-test-id="movable-point"
+                    data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -3143,7 +3143,7 @@ exports[`snapshots should render correctly 1`] = `
                       class="movable-point-center"
                       cx="100"
                       cy="-100"
-                      data-test-id="movable-point__center"
+                      data-testid="movable-point__center"
                       style="fill: #1865f2;"
                     />
                   </g>
@@ -4240,7 +4240,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                   </g>
                   <g
                     class="movable-line"
-                    data-test-id="movable-line"
+                    data-testid="movable-line"
                     style="cursor: grab;"
                     tabindex="0"
                   >
@@ -4268,7 +4268,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                     <line
                       class=""
-                      data-test-id="movable-line__line"
+                      data-testid="movable-line__line"
                       style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
                       x1="-100"
                       x2="100"
@@ -4278,7 +4278,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                   </g>
                   <g
                     class="movable-point "
-                    data-test-id="movable-point"
+                    data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -4307,13 +4307,13 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       class="movable-point-center"
                       cx="-100"
                       cy="-100"
-                      data-test-id="movable-point__center"
+                      data-testid="movable-point__center"
                       style="fill: #1865f2;"
                     />
                   </g>
                   <g
                     class="movable-point "
-                    data-test-id="movable-point"
+                    data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -4342,7 +4342,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       class="movable-point-center"
                       cx="100"
                       cy="-100"
-                      data-test-id="movable-point__center"
+                      data-testid="movable-point__center"
                       style="fill: #1865f2;"
                     />
                   </g>
@@ -5401,7 +5401,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                   />
                   <g
                     class="movable-line"
-                    data-test-id="movable-line"
+                    data-testid="movable-line"
                     style="cursor: grab;"
                     tabindex="0"
                   >
@@ -5429,7 +5429,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     />
                     <line
                       class=""
-                      data-test-id="movable-line__line"
+                      data-testid="movable-line__line"
                       style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
                       x1="-100"
                       x2="100"
@@ -5439,7 +5439,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                   </g>
                   <g
                     class="movable-point "
-                    data-test-id="movable-point"
+                    data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -5468,13 +5468,13 @@ exports[`snapshots should render correctly with locked points 1`] = `
                       class="movable-point-center"
                       cx="-100"
                       cy="-100"
-                      data-test-id="movable-point__center"
+                      data-testid="movable-point__center"
                       style="fill: #1865f2;"
                     />
                   </g>
                   <g
                     class="movable-point "
-                    data-test-id="movable-point"
+                    data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -5503,7 +5503,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                       class="movable-point-center"
                       cx="100"
                       cy="-100"
-                      data-test-id="movable-point__center"
+                      data-testid="movable-point__center"
                       style="fill: #1865f2;"
                     />
                   </g>

@@ -5,6 +5,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {flags} from "../../__stories__/flags-for-api-options";
 import {getDefaultFigureForType} from "../../components/util";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
@@ -26,11 +27,7 @@ const mafsProps = {
     ...baseProps,
     apiOptions: {
         ...ApiOptions.defaults,
-        flags: {
-            mafs: {
-                segment: true,
-            },
-        },
+        flags,
     },
     graph: {type: "segment"} as PerseusGraphType,
 };

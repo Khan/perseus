@@ -324,7 +324,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
             {showRationale && (
                 <div
                     className={rationaleClassName}
-                    data-test-id={`perseus-radio-rationale-content-${pos}`}
+                    data-testid={`perseus-radio-rationale-content-${pos}`}
                 >
                     {rationale}
                 </div>

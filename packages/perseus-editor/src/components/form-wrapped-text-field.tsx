@@ -179,7 +179,7 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
                     className={css(inputBase)}
                     ref={forwardedRef}
                     id={id}
-                    data-test-id={testId}
+                    data-testid={testId}
                 />
                 {!leftSideIcon && wrappedIcon}
             </form>

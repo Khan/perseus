@@ -94,6 +94,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
             <span>
               <div>
                 <input
+                  aria-invalid="false"
                   aria-label="Your answer:"
                   autocapitalize="off"
                   autocomplete="off"
@@ -297,6 +298,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
             <span>
               <div>
                 <input
+                  aria-invalid="false"
                   aria-label="Your answer:"
                   autocapitalize="off"
                   autocomplete="off"
