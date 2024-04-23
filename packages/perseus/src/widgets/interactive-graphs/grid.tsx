@@ -66,7 +66,6 @@ export const Grid = (props: GridProps) => {
                 xAxis={axisOptions(props, 0)}
                 yAxis={axisOptions(props, 1)}
             />
-            {props.markings === "graph" && <AxisArrows />}
             {
                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
                 props.markings === "graph" && (
