@@ -16,8 +16,8 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import ColorSwatch from "./color-swatch";
 import ColorSelect from "./color-select";
+import ColorSwatch from "./color-swatch";
 import LockedPointSettings from "./locked-point-settings";
 
 import type {
