@@ -3439,7 +3439,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-15"
                       >
                         1
@@ -3459,7 +3459,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-35"
                       >
                         2
@@ -3479,7 +3479,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-55"
                       >
                         3
@@ -3499,7 +3499,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-75"
                       >
                         4
@@ -3519,7 +3519,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-95"
                       >
                         5
@@ -3539,7 +3539,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-115"
                       >
                         6
@@ -3559,7 +3559,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-135"
                       >
                         7
@@ -3579,7 +3579,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-155"
                       >
                         8
@@ -3599,7 +3599,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-175"
                       >
                         9
@@ -3630,7 +3630,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="45"
                       >
                         -2
@@ -3650,7 +3650,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="65"
                       >
                         -3
@@ -3670,7 +3670,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="85"
                       >
                         -4
@@ -3690,7 +3690,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="105"
                       >
                         -5
@@ -3710,7 +3710,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="125"
                       >
                         -6
@@ -3730,7 +3730,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="145"
                       >
                         -7
@@ -3750,7 +3750,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="165"
                       >
                         -8
@@ -3770,7 +3770,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="185"
                       >
                         -9
@@ -3791,7 +3791,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="20"
-                        y="25"
+                        y="20"
                       >
                         1
                       </text>
@@ -3811,7 +3811,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="40"
-                        y="25"
+                        y="20"
                       >
                         2
                       </text>
@@ -3831,7 +3831,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="60"
-                        y="25"
+                        y="20"
                       >
                         3
                       </text>
@@ -3851,7 +3851,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="80"
-                        y="25"
+                        y="20"
                       >
                         4
                       </text>
@@ -3871,7 +3871,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="100"
-                        y="25"
+                        y="20"
                       >
                         5
                       </text>
@@ -3891,7 +3891,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="120"
-                        y="25"
+                        y="20"
                       >
                         6
                       </text>
@@ -3911,7 +3911,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="140"
-                        y="25"
+                        y="20"
                       >
                         7
                       </text>
@@ -3931,7 +3931,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="160"
-                        y="25"
+                        y="20"
                       >
                         8
                       </text>
@@ -3951,7 +3951,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="180"
-                        y="25"
+                        y="20"
                       >
                         9
                       </text>
@@ -3982,7 +3982,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-40"
-                        y="25"
+                        y="20"
                       >
                         -2
                       </text>
@@ -4002,7 +4002,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-60"
-                        y="25"
+                        y="20"
                       >
                         -3
                       </text>
@@ -4022,7 +4022,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-80"
-                        y="25"
+                        y="20"
                       >
                         -4
                       </text>
@@ -4042,7 +4042,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-100"
-                        y="25"
+                        y="20"
                       >
                         -5
                       </text>
@@ -4062,7 +4062,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-120"
-                        y="25"
+                        y="20"
                       >
                         -6
                       </text>
@@ -4082,7 +4082,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-140"
-                        y="25"
+                        y="20"
                       >
                         -7
                       </text>
@@ -4102,7 +4102,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-160"
-                        y="25"
+                        y="20"
                       >
                         -8
                       </text>
@@ -4122,7 +4122,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-180"
-                        y="25"
+                        y="20"
                       >
                         -9
                       </text>
@@ -4638,7 +4638,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-15"
                       >
                         1
@@ -4658,7 +4658,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-35"
                       >
                         2
@@ -4678,7 +4678,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-55"
                       >
                         3
@@ -4698,7 +4698,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-75"
                       >
                         4
@@ -4718,7 +4718,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-95"
                       >
                         5
@@ -4738,7 +4738,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-115"
                       >
                         6
@@ -4758,7 +4758,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-135"
                       >
                         7
@@ -4778,7 +4778,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-155"
                       >
                         8
@@ -4798,7 +4798,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="-175"
                       >
                         9
@@ -4829,7 +4829,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="45"
                       >
                         -2
@@ -4849,7 +4849,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="65"
                       >
                         -3
@@ -4869,7 +4869,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="85"
                       >
                         -4
@@ -4889,7 +4889,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="105"
                       >
                         -5
@@ -4909,7 +4909,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="125"
                       >
                         -6
@@ -4929,7 +4929,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="145"
                       >
                         -7
@@ -4949,7 +4949,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="165"
                       >
                         -8
@@ -4969,7 +4969,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         height="20"
                         text-anchor="end"
                         width="50"
-                        x="-10"
+                        x="-8"
                         y="185"
                       >
                         -9
@@ -4990,7 +4990,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="20"
-                        y="25"
+                        y="20"
                       >
                         1
                       </text>
@@ -5010,7 +5010,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="40"
-                        y="25"
+                        y="20"
                       >
                         2
                       </text>
@@ -5030,7 +5030,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="60"
-                        y="25"
+                        y="20"
                       >
                         3
                       </text>
@@ -5050,7 +5050,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="80"
-                        y="25"
+                        y="20"
                       >
                         4
                       </text>
@@ -5070,7 +5070,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="100"
-                        y="25"
+                        y="20"
                       >
                         5
                       </text>
@@ -5090,7 +5090,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="120"
-                        y="25"
+                        y="20"
                       >
                         6
                       </text>
@@ -5110,7 +5110,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="140"
-                        y="25"
+                        y="20"
                       >
                         7
                       </text>
@@ -5130,7 +5130,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="160"
-                        y="25"
+                        y="20"
                       >
                         8
                       </text>
@@ -5150,7 +5150,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="180"
-                        y="25"
+                        y="20"
                       >
                         9
                       </text>
@@ -5181,7 +5181,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-40"
-                        y="25"
+                        y="20"
                       >
                         -2
                       </text>
@@ -5201,7 +5201,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-60"
-                        y="25"
+                        y="20"
                       >
                         -3
                       </text>
@@ -5221,7 +5221,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-80"
-                        y="25"
+                        y="20"
                       >
                         -4
                       </text>
@@ -5241,7 +5241,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-100"
-                        y="25"
+                        y="20"
                       >
                         -5
                       </text>
@@ -5261,7 +5261,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-120"
-                        y="25"
+                        y="20"
                       >
                         -6
                       </text>
@@ -5281,7 +5281,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-140"
-                        y="25"
+                        y="20"
                       >
                         -7
                       </text>
@@ -5301,7 +5301,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-160"
-                        y="25"
+                        y="20"
                       >
                         -8
                       </text>
@@ -5321,7 +5321,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         text-anchor="middle"
                         width="50"
                         x="-180"
-                        y="25"
+                        y="20"
                       >
                         -9
                       </text>
