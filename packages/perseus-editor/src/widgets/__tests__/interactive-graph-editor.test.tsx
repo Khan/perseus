@@ -5,6 +5,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {flags} from "../../__stories__/flags-for-api-options";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
@@ -23,12 +24,7 @@ const mafsProps: PropsFor<typeof InteractiveGraphEditor> = {
     ...baseProps,
     apiOptions: {
         ...ApiOptions.defaults,
-        flags: {
-            mafs: {
-                "interactive-graph-locked-features-m1": true,
-                segment: true,
-            },
-        },
+        flags,
     },
     graph: {type: "segment"} as PerseusGraphType,
 };
