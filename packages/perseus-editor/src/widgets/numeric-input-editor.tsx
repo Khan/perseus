@@ -13,7 +13,6 @@ import _ from "underscore";
 import Editor from "../editor";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus/dist/perseus-types";
 
 const {
     ButtonGroup,
@@ -26,6 +25,45 @@ const {
 } = components;
 const {iconGear, iconTrash} = icons;
 const {firstNumericalParse} = Util;
+
+// NOTE(john): Copied from perseus-types.d.ts in the Perseus package.
+// I'm unable to find a good way of importing these types into this project.
+type MathFormat =
+    | "integer"
+    | "mixed"
+    | "improper"
+    | "proper"
+    | "decimal"
+    | "percent"
+    | "pi";
+type PerseusNumericInputAnswerForm = {
+    simplify:
+        | "required"
+        | "correct"
+        | "enforced"
+        | "optional"
+        | null
+        | undefined;
+    name: MathFormat;
+};
+type PerseusNumericInputAnswer = {
+    message: string;
+    value: number;
+    status: string;
+    answerForms?: ReadonlyArray<MathFormat>;
+    strict: boolean;
+    maxError: number | null | undefined;
+    simplify: string | null | undefined;
+};
+type PerseusNumericInputWidgetOptions = {
+    answers: ReadonlyArray<PerseusNumericInputAnswer>;
+    labelText: string;
+    size: string;
+    coefficient: boolean;
+    rightAlign?: boolean;
+    static: boolean;
+    answerForms?: ReadonlyArray<PerseusNumericInputAnswerForm>;
+};
 
 const answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -502,10 +540,10 @@ class NumericInputEditor extends React.Component<Props, State> {
             );
         }
 
-        let answers = {
+        let answers = [
             // Have to do this to remove the `readonly` state from the prop
-            ..._.clone(this.props.answers),
-        };
+            ...this.props.answers,
+        ];
 
         // Don't bother to make a new answer box unless we are editing the last
         // one.
