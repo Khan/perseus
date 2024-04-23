@@ -32,6 +32,10 @@ describe("getValidNumberFromString", () => {
     test("should return the first number from a mixed combo of numbers and letters", () => {
         expect(getValidNumberFromString("123abc123")).toBe(123);
     });
+
+    test("should work with decimal numbers", () => {
+        expect(getValidNumberFromString("123.456")).toBe(123.456);
+    });
 });
 
 describe("getDefaultFigureForType", () => {

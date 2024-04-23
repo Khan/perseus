@@ -7,17 +7,21 @@
 
 import * as React from "react";
 
+import LockedLineSettings from "./locked-line-settings";
 import LockedPointSettings from "./locked-point-settings";
 
+import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 
 // Union this type with other locked figure types when they are added.
-type Props = LockedPointProps;
+type Props = LockedPointProps | LockedLineProps;
 
 const LockedFigureSettings = (props: Props) => {
     switch (props.type) {
         case "point":
             return <LockedPointSettings {...props} />;
+        case "line":
+            return <LockedLineSettings {...props} />;
     }
 
     return null;

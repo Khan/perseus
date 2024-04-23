@@ -6,9 +6,11 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import ColorCircle from "./color-circle";
+import ColorSwatch from "./color-swatch";
 
 import type {LockedFigureColor} from "@khanacademy/perseus";
+
+const possibleColors = Object.keys(lockedFigureColors) as LockedFigureColor[];
 
 type Props = {
     // Required ID so that the label can be associated with the select.
@@ -32,13 +34,13 @@ const ColorSelect = (props: Props) => {
                 // Placeholder is required, but never gets used.
                 placeholder=""
             >
-                {lockedFigureColors.map((colorName) => (
+                {possibleColors.map((colorName) => (
                     <OptionItem
                         key={colorName}
                         value={colorName}
                         label={colorName}
                         leftAccessory={
-                            <ColorCircle color={colorName} decorative={true} />
+                            <ColorSwatch color={colorName} decorative={true} />
                         }
                     >
                         {colorName}

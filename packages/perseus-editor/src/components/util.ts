@@ -47,7 +47,7 @@ export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
 }
 
 export function getValidNumberFromString(value: string) {
-    const parsed = parseInt(value);
+    const parsed = parseFloat(value);
     // If the value is not a number, return 0.
     return isNaN(parsed) ? 0 : parsed;
 }

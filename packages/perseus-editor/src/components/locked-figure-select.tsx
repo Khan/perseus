@@ -33,6 +33,13 @@ const LockedFigureSelect = (props: Props) => {
                     >
                         Point
                     </ActionItem>,
+                    <ActionItem
+                        key={`${id}-line`}
+                        label="Line"
+                        onClick={() => onChange("line")}
+                    >
+                        Line
+                    </ActionItem>,
                 ]}
             </ActionMenu>
         </View>
@@ -41,10 +48,10 @@ const LockedFigureSelect = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: spacing.medium_16,
+        marginTop: spacing.xxxSmall_4,
     },
     addElementSelect: {
-        backgroundColor: color.fadedBlue16,
+        backgroundColor: color.fadedBlue8,
         borderRadius: spacing.xxxSmall_4,
     },
 });
