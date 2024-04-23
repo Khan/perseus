@@ -45,14 +45,19 @@ const LockedFiguresSection = (props: Props) => {
         });
     }
 
-    function changeProps(index: number, newProps: Partial<LockedFigure>) {
+    function changeProps(
+        index: number,
+        // Omit the type from the figure props so it doesn't think
+        // we're trying to pass in the props for the wrong type.
+        figureProps: Omit<Partial<LockedFigure>, "type">,
+    ) {
         const lockedFigures = figures || [];
         const newFigures = {
             lockedFigures: [
                 ...lockedFigures.slice(0, index),
                 {
                     ...lockedFigures[index],
-                    ...newProps,
+                    ...figureProps,
                 },
                 ...lockedFigures.slice(index + 1),
             ],

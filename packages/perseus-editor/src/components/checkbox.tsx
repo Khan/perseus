@@ -72,7 +72,7 @@ export default class Checkbox extends React.Component<CheckboxProps> {
                             focused && styles.focused,
                         )}
                         style={style}
-                        data-test-id={dataTestId}
+                        data-testid={dataTestId}
                         data-checked={checked}
                     >
                         <svg

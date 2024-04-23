@@ -5,25 +5,24 @@ import * as React from "react";
 import LockedPointSettings from "../locked-point-settings";
 import {getDefaultFigureForType} from "../util";
 
+const defaultProps = getDefaultFigureForType("point");
+
 describe("LockedPointSettings", () => {
     test("Should show the point's coordinates and color by default", () => {
         // Arrange
 
         // Act
         render(
-            <LockedPointSettings
-                {...getDefaultFigureForType("point")}
-                onChangeProps={() => {}}
-            />,
+            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
             {wrapper: RenderStateRoot},
         );
 
         const titleText = screen.getByText("Point (0, 0)");
-        const colorCircle = screen.getByLabelText("Color: blue, filled");
+        const colorSwatch = screen.getByLabelText("Color: blue, filled");
 
         // Assert
         expect(titleText).toBeInTheDocument();
-        expect(colorCircle).toBeInTheDocument();
+        expect(colorSwatch).toBeInTheDocument();
     });
 
     test("Should not show the color in summary if toggled off", () => {
@@ -32,7 +31,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={false}
                 onToggle={() => {}}
@@ -41,13 +40,13 @@ describe("LockedPointSettings", () => {
         );
 
         const titleText = screen.getByText("Point (0, 0)");
-        const colorCircle = screen.queryByLabelText(
+        const colorSwatch = screen.queryByLabelText(
             "Point color: blue, filled",
         );
 
         // Assert
         expect(titleText).toBeInTheDocument();
-        expect(colorCircle).not.toBeInTheDocument();
+        expect(colorSwatch).not.toBeInTheDocument();
     });
 
     test("Should show toggle switch if onToggle is passed in", () => {
@@ -56,7 +55,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 onToggle={() => {}}
             />,
@@ -75,7 +74,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={true}
                 onToggle={() => {}}
@@ -95,7 +94,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={false}
                 onToggle={() => {}}
@@ -115,7 +114,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={true}
                 onToggle={() => {}}
@@ -137,7 +136,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 onChangeProps={() => {}}
                 toggled={false}
                 onToggle={() => {}}
@@ -159,7 +158,7 @@ describe("LockedPointSettings", () => {
         // Act
         render(
             <LockedPointSettings
-                {...getDefaultFigureForType("point")}
+                {...defaultProps}
                 coord={[23, 45]}
                 onChangeProps={() => {}}
             />,

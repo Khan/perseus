@@ -14,7 +14,7 @@ type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
 export const LinearGraph = (props: LinearGraphProps) => {
     const {dispatch} = props;
-    const {coords: lines, type} = props.graphState;
+    const {coords: lines} = props.graphState;
 
     const colors = ["var(--movable-line-stroke-color)", "var(--mafs-violet)"];
 
@@ -35,8 +35,6 @@ export const LinearGraph = (props: LinearGraphProps) => {
                             moveControlPoint(endpointIndex, destination, i),
                         )
                     }
-                    // "linear" or "linear-system" + index
-                    data-testid={type + i}
                     stroke={colors[i]}
                 />
             ))}

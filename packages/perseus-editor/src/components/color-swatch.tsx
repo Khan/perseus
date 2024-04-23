@@ -1,9 +1,8 @@
+import {lockedFigureColors, type LockedFigureColor} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import type {LockedFigureColor} from "@khanacademy/perseus";
 
 type Props = {
     color: LockedFigureColor;
@@ -11,7 +10,7 @@ type Props = {
     decorative?: boolean;
 };
 
-const ColorCircle = (props: Props) => {
+const ColorSwatch = (props: Props) => {
     const {color, filled = true, decorative = false} = props;
 
     return (
@@ -23,10 +22,12 @@ const ColorCircle = (props: Props) => {
                     : undefined
             }
             style={[
-                styles.colorCircle,
+                styles.colorSwatch,
                 {
-                    border: `4px solid ${wbColor[color]}`,
-                    backgroundColor: filled ? wbColor[color] : wbColor.white,
+                    border: `4px solid ${lockedFigureColors[color]}`,
+                    backgroundColor: filled
+                        ? lockedFigureColors[color]
+                        : wbColor.white,
                 },
             ]}
         />
@@ -34,8 +35,8 @@ const ColorCircle = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-    colorCircle: {
-        // Add a white outline so that the color circle is visible when
+    colorSwatch: {
+        // Add a white outline so that the color swatch is visible when
         // the dropdown option is highlighted with its blue background.
         outline: `2px solid ${wbColor.offWhite}`,
         borderRadius: "50%",
@@ -44,4 +45,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ColorCircle;
+export default ColorSwatch;

@@ -18,14 +18,13 @@ export const Default = (args): React.ReactElement => {
 Default.args = {
     id: "color-select",
     selectedValue: "blue",
-    onChange: (color: LockedFigureColor) => {},
+    onChange: () => {},
 };
 
 export const Controlled = {
     render: function Render() {
-        const [selectedValue, setSelectedValue] = React.useState(
-            "blue" as LockedFigureColor,
-        );
+        const [selectedValue, setSelectedValue] =
+            React.useState<LockedFigureColor>("blue");
 
         const handleColorChange = (color: LockedFigureColor) => {
             setSelectedValue(color);

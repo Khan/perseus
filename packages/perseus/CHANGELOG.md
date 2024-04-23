@@ -1,5 +1,24 @@
 # @khanacademy/perseus
 
+## 21.6.0
+
+### Minor Changes
+
+-   [#1182](https://github.com/Khan/perseus/pull/1182) [`066719c82`](https://github.com/Khan/perseus/commit/066719c82cbb934287082961de93abb427c7600e) Thanks [@nishasy](https://github.com/nishasy)! - View locked lines on Interactive Graph
+
+*   [#1179](https://github.com/Khan/perseus/pull/1179) [`437bce7be`](https://github.com/Khan/perseus/commit/437bce7be32cbb03e0926719df0e03c193ba6df5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change testId to render the default Testing Library HTML attribute: data-testid (was data-test-id)
+
+### Patch Changes
+
+-   [#1178](https://github.com/Khan/perseus/pull/1178) [`ba0f36561`](https://github.com/Khan/perseus/commit/ba0f36561bf556b7bd0f85eb98be25c834643022) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Rename internal type `MafsFlags` to `MafsGraphTypeFlags`
+
+*   [#1202](https://github.com/Khan/perseus/pull/1202) [`a1e3fdfee`](https://github.com/Khan/perseus/commit/a1e3fdfee5768209a9d96749e78c5fd0e05f7dfb) Thanks [@nishasy](https://github.com/nishasy)! - Update snapshots
+
+-   [#1177](https://github.com/Khan/perseus/pull/1177) [`f419d18fb`](https://github.com/Khan/perseus/commit/f419d18fbc76ff87720d9d49562c0b43ed1c2b33) Thanks [@nishasy](https://github.com/nishasy)! - LockedPointSettings update: Allow toggleable points, refactor so that it's easy to add lines later
+
+-   Updated dependencies [[`437bce7be`](https://github.com/Khan/perseus/commit/437bce7be32cbb03e0926719df0e03c193ba6df5)]:
+    -   @khanacademy/math-input@17.5.0
+
 ## 21.5.0
 
 ### Minor Changes
