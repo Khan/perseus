@@ -50,7 +50,7 @@ const YGridTick = ({
                     height={20}
                     width={50}
                     textAnchor="end"
-                    x={xPosition - 10}
+                    x={xPosition - 8}
                     y={yPosition + 5}
                 >
                     {y.toString()}
@@ -87,7 +87,7 @@ const XGridTick = ({
                     width={50}
                     textAnchor="middle"
                     x={xPosition}
-                    y={yPosition + 25}
+                    y={yPosition + 20}
                 >
                     {x.toString()}
                 </text>
