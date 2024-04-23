@@ -44,6 +44,9 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
                   autoAcceptChanges: "main"
-                  # Generate snapshots for only changed stories
-                  # See: https://www.chromatic.com/docs/turbosnap
-                  onlyChanged: true
+                  onlyStoryFiles:
+                      # TODO(benchristel): currently the list of story files to
+                      # regression-test is hardcoded. In the future we may want
+                      # to establish a convention, e.g. testing story files with
+                      # `.chromatic.` in their name.
+                      - packages/perseus/src/widgets/__stories__/interactive-graph-regression.stories.tsx
