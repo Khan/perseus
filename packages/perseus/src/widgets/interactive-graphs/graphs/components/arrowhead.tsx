@@ -2,8 +2,7 @@ import {type vec} from "mafs";
 import * as React from "react";
 
 import {pathBuilder} from "../../../../util/svg";
-import useGraphConfig from "../../reducer/use-graph-config";
-import {type GraphDimensions, vectorToPixel} from "../use-transform";
+import {useTransformVectorToPixel} from "../use-transform";
 
 type Props = {
     tip: vec.Vector2;
@@ -22,13 +21,7 @@ const arrowPath = pathBuilder()
     .build();
 
 export function Arrowhead(props: Props) {
-    const {range, width, height} = useGraphConfig();
-    const arrowContext: GraphDimensions = {
-        range: range,
-        width: width,
-        height: height,
-    };
-    const [point] = vectorToPixel([props.tip], arrowContext);
+    const [point] = useTransformVectorToPixel([...props.tip]);
 
     return (
         <g
