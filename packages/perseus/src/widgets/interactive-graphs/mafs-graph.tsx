@@ -120,8 +120,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
-    throw new Error("kablooie"); // STOPSHIP
-
     return (
         <GraphConfigContext.Provider
             value={{
