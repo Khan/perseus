@@ -22,7 +22,7 @@ const ColorSwatch = (props: Props) => {
                     : undefined
             }
             style={[
-                styles.ColorSwatch,
+                styles.colorSwatch,
                 {
                     border: `4px solid ${lockedFigureColors[color]}`,
                     backgroundColor: filled
@@ -35,7 +35,7 @@ const ColorSwatch = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-    ColorSwatch: {
+    colorSwatch: {
         // Add a white outline so that the color swatch is visible when
         // the dropdown option is highlighted with its blue background.
         outline: `2px solid ${wbColor.offWhite}`,
