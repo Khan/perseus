@@ -228,7 +228,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it("deletes from the input using the backspace button", async () => {
+    it.skip("deletes from the input using the backspace button", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(

@@ -1689,8 +1689,9 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.onChange({graph: graph});
     };
 
-    getUserInput: () => PerseusGraphType = () =>
-        InteractiveGraph.getUserInputFromProps(this.props);
+    getUserInput() {
+        return InteractiveGraph.getUserInputFromProps(this.props);
+    }
 
     simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
         InteractiveGraph.validate(this.getUserInput(), rubric, this);
