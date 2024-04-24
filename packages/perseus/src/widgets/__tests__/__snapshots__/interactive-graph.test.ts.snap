@@ -4179,6 +4179,42 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
+                    class="locked-line"
+                  >
+                    <g
+                      style="stroke: #B25071; stroke-width: 2;"
+                    >
+                      <line
+                        class="undefined"
+                        x1="-140"
+                        x2="200"
+                        y1="160"
+                        y2="84.44444444444444"
+                      />
+                      <g
+                        transform="translate(200 84.44444444444444) rotate(-12.528807709151511)"
+                      >
+                        <g
+                          transform="translate(-1.5)"
+                        >
+                          <path
+                            d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            style="stroke: inherit;"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                    <circle
+                      cx="-140"
+                      cy="160"
+                      r="6"
+                      style="fill: #ffffff; opacity: 1; stroke: #B25071; stroke-width: 2;"
+                    />
+                  </g>
+                  <g
                     class="movable-line"
                     data-testid="movable-line"
                     style="cursor: grab;"

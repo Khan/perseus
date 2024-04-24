@@ -344,7 +344,7 @@ describe("locked layer", () => {
         const lines = container.querySelectorAll(".locked-line");
 
         // Assert
-        expect(lines).toHaveLength(2);
+        expect(lines).toHaveLength(3);
     });
 
     test("should render locked lines with styles", () => {
@@ -360,11 +360,16 @@ describe("locked layer", () => {
         // Act
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const lines = container.querySelectorAll(".locked-line line");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const ray = container.querySelector(".locked-line g");
 
         // Assert
-        expect(lines).toHaveLength(2);
+        expect(lines).toHaveLength(3);
         expect(lines[0]).toHaveStyle({stroke: lockedFigureColors.purple});
         expect(lines[1]).toHaveStyle({stroke: lockedFigureColors.green});
+        // Rays are handled a little differently - their color is applied
+        // to the g rather than to the line element.
+        expect(ray).toHaveStyle({stroke: lockedFigureColors.pink});
     });
 
     test("should render locked lines with shown points", async () => {
@@ -382,7 +387,7 @@ describe("locked layer", () => {
         const points = container.querySelectorAll(".locked-line circle");
 
         // Assert
-        expect(points).toHaveLength(4);
+        expect(points).toHaveLength(5);
         // Two points for each line
         expect(points[0]).toHaveStyle({
             fill: lockedFigureColors.purple,
@@ -399,6 +404,10 @@ describe("locked layer", () => {
         expect(points[3]).toHaveStyle({
             fill: lockedFigureColors.green,
             stroke: lockedFigureColors.green,
+        });
+        expect(points[4]).toHaveStyle({
+            fill: wbColor.white,
+            stroke: lockedFigureColors.pink,
         });
     });
 });
