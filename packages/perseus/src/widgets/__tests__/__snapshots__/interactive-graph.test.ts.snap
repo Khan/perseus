@@ -3298,88 +3298,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       />
                     </filter>
                   </defs>
-                  <g
-                    fill="none"
-                  >
-                    <pattern
-                      height="20"
-                      id="cartesian-18"
-                      patternUnits="userSpaceOnUse"
-                      width="20"
-                      x="0"
-                      y="0"
-                    >
-                      <pattern
-                        height="20"
-                        id="cartesian-18-subdivision"
-                        patternUnits="userSpaceOnUse"
-                        width="20"
-                      >
-                        <g
-                          stroke="var(--grid-line-subdivision-color)"
-                        />
-                      </pattern>
-                      <rect
-                        fill="url(#cartesian-18-subdivision)"
-                        height="20"
-                        width="20"
-                      />
-                      <g
-                        stroke="var(--mafs-line-color)"
-                      >
-                        <line
-                          x1="0"
-                          x2="20"
-                          y1="0"
-                          y2="0"
-                        />
-                        <line
-                          x1="0"
-                          x2="20"
-                          y1="20"
-                          y2="20"
-                        />
-                        <line
-                          x1="0"
-                          x2="0"
-                          y1="0"
-                          y2="20"
-                        />
-                        <line
-                          x1="20"
-                          x2="20"
-                          y1="0"
-                          y2="20"
-                        />
-                      </g>
-                    </pattern>
-                    <rect
-                      fill="url(#cartesian-18)"
-                      height="640"
-                      width="640"
-                      x="-320"
-                      y="-320"
-                    />
-                    <g
-                      stroke="var(--mafs-origin-color)"
-                    >
-                      <line
-                        x1="-320"
-                        x2="320"
-                        y1="0"
-                        y2="0"
-                      />
-                      <line
-                        x1="0"
-                        x2="0"
-                        y1="320"
-                        y2="-320"
-                      />
-                    </g>
-                    <g
-                      class="mafs-shadow"
-                    />
-                  </g>
                   <clippath
                     id="myClip"
                   >
@@ -3398,7 +3316,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     >
                       <pattern
                         height="20"
-                        id="cartesian-19"
+                        id="cartesian-9"
                         patternUnits="userSpaceOnUse"
                         width="20"
                         x="0"
@@ -3406,7 +3324,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       >
                         <pattern
                           height="20"
-                          id="cartesian-19-subdivision"
+                          id="cartesian-9-subdivision"
                           patternUnits="userSpaceOnUse"
                           width="20"
                         >
@@ -3415,7 +3333,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                           />
                         </pattern>
                         <rect
-                          fill="url(#cartesian-19-subdivision)"
+                          fill="url(#cartesian-9-subdivision)"
                           height="20"
                           width="20"
                         />
@@ -3449,7 +3367,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         </g>
                       </pattern>
                       <rect
-                        fill="url(#cartesian-19)"
+                        fill="url(#cartesian-9)"
                         height="640"
                         width="640"
                         x="-320"
@@ -4551,88 +4469,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                       />
                     </filter>
                   </defs>
-                  <g
-                    fill="none"
-                  >
-                    <pattern
-                      height="20"
-                      id="cartesian-16"
-                      patternUnits="userSpaceOnUse"
-                      width="20"
-                      x="0"
-                      y="0"
-                    >
-                      <pattern
-                        height="20"
-                        id="cartesian-16-subdivision"
-                        patternUnits="userSpaceOnUse"
-                        width="20"
-                      >
-                        <g
-                          stroke="var(--grid-line-subdivision-color)"
-                        />
-                      </pattern>
-                      <rect
-                        fill="url(#cartesian-16-subdivision)"
-                        height="20"
-                        width="20"
-                      />
-                      <g
-                        stroke="var(--mafs-line-color)"
-                      >
-                        <line
-                          x1="0"
-                          x2="20"
-                          y1="0"
-                          y2="0"
-                        />
-                        <line
-                          x1="0"
-                          x2="20"
-                          y1="20"
-                          y2="20"
-                        />
-                        <line
-                          x1="0"
-                          x2="0"
-                          y1="0"
-                          y2="20"
-                        />
-                        <line
-                          x1="20"
-                          x2="20"
-                          y1="0"
-                          y2="20"
-                        />
-                      </g>
-                    </pattern>
-                    <rect
-                      fill="url(#cartesian-16)"
-                      height="640"
-                      width="640"
-                      x="-320"
-                      y="-320"
-                    />
-                    <g
-                      stroke="var(--mafs-origin-color)"
-                    >
-                      <line
-                        x1="-320"
-                        x2="320"
-                        y1="0"
-                        y2="0"
-                      />
-                      <line
-                        x1="0"
-                        x2="0"
-                        y1="320"
-                        y2="-320"
-                      />
-                    </g>
-                    <g
-                      class="mafs-shadow"
-                    />
-                  </g>
                   <clippath
                     id="myClip"
                   >
@@ -4651,7 +4487,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     >
                       <pattern
                         height="20"
-                        id="cartesian-17"
+                        id="cartesian-8"
                         patternUnits="userSpaceOnUse"
                         width="20"
                         x="0"
@@ -4659,7 +4495,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                       >
                         <pattern
                           height="20"
-                          id="cartesian-17-subdivision"
+                          id="cartesian-8-subdivision"
                           patternUnits="userSpaceOnUse"
                           width="20"
                         >
@@ -4668,7 +4504,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                           />
                         </pattern>
                         <rect
-                          fill="url(#cartesian-17-subdivision)"
+                          fill="url(#cartesian-8-subdivision)"
                           height="20"
                           width="20"
                         />
@@ -4702,7 +4538,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         </g>
                       </pattern>
                       <rect
-                        fill="url(#cartesian-17)"
+                        fill="url(#cartesian-8)"
                         height="640"
                         width="640"
                         x="-320"
