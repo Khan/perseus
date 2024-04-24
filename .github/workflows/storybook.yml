@@ -37,11 +37,13 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
-            - name: Publish to Chromatic
-              uses: chromaui/action@v11
+            - name: Build Storybook
+              run: yarn build-storybook
+
+            - name: Publish to Chromatic for visual testing
+              uses: chromaui/action@v1
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
-                  projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
-                  autoAcceptChanges: "main"
-                  onlyStoryNames: "**/*Mafs*"
-                  onlyChanged: false
+                  projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+                  storybookBuildDir: storybook-static
+                  debug: true
