@@ -36,7 +36,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
 
     blur() {
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs.input.blur(); // eslint-disable-line react/no-string-refs
+        this.refs.input?.blur(); // eslint-disable-line react/no-string-refs
     }
 
     getValue(): string | number {
