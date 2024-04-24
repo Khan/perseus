@@ -93,7 +93,9 @@ class WidgetContainer extends React.Component<Props, State> {
             alignment = Widgets.getDefaultAlignment(type);
         }
 
-        className += " widget-" + alignment;
+        const alignmentStyles = {
+            display: alignment,
+        };
 
         const apiOptions = this.state.widgetProps.apiOptions;
 
@@ -135,7 +137,11 @@ class WidgetContainer extends React.Component<Props, State> {
         return (
             <div
                 className={className}
-                style={isStatic ? staticContainerStyles : {}}
+                style={
+                    isStatic
+                        ? {...staticContainerStyles, ...alignmentStyles}
+                        : alignmentStyles
+                }
             >
                 <DependenciesContext.Consumer>
                     {({analytics}) => (
