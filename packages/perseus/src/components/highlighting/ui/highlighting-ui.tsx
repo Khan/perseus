@@ -9,9 +9,9 @@
  *     we should add a hook to allow the parent to `forceUpdate` the
  *     `HighlightingUI`.
  */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../../i18n-context";
 import {rangesOverlap} from "../ranges";
 
 import HighlightSetRenderer from "./highlight-set-renderer";
@@ -50,6 +50,9 @@ type Props = {
 };
 
 class HighlightingUI extends React.PureComponent<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _handleAddHighlight(highlightToAdd: DOMHighlight) {
         this.props.onAddHighlight(highlightToAdd);
 
@@ -122,7 +125,7 @@ class HighlightingUI extends React.PureComponent<Props> {
                         {this._selectionIsValid(trackedSelection) &&
                             !userIsMouseSelecting && (
                                 <HighlightTooltip
-                                    label={i18n._("Add highlight")}
+                                    label={this.context.strings.addHighlight}
                                     onClick={() =>
                                         this._handleAddHighlight(
                                             trackedSelection.proposedHighlight,

@@ -33,8 +33,7 @@ export default class QuestionMarkers extends React.Component<Props> {
         // Open answer selection dropdown for each of the specified markers.
         indices.forEach((index) => {
             if (this._markers[index]) {
-                // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'.
-                this._markers[index].openDropdown();
+                this._markers[index]?.openDropdown();
             }
         });
     }

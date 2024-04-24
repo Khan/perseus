@@ -4,6 +4,7 @@ import {Errors, Log} from "./logging/log";
 import {PerseusError} from "./perseus-error";
 
 import type {PerseusWidget} from "./perseus-types";
+import type {PerseusStrings} from "./strings";
 import type {
     Alignment,
     Tracking,
@@ -123,9 +124,8 @@ export const getWidget = (
     }
 
     // Allow widgets to specify a widget directly or via a function
-    if (widgets[name].getWidget) {
-        // @ts-expect-error - TS2722 - Cannot invoke an object which is possibly 'undefined'.
-        return widgets[name].getWidget();
+    if (widgets[name]?.getWidget) {
+        return widgets[name].getWidget?.();
     }
     return widgets[name].widget;
 };
@@ -309,6 +309,7 @@ export const upgradeWidgetInfoToLatestVersion = (
 
 export const getRendererPropsForWidgetInfo = (
     widgetInfo: PerseusWidget,
+    strings: PerseusStrings,
     problemNum?: number,
 ): PerseusWidget => {
     const type = widgetInfo.type;
@@ -331,7 +332,7 @@ export const getRendererPropsForWidgetInfo = (
         transform = widgetExports.transform || _.identity;
     }
     // widgetInfo.options are the widgetEditor's props:
-    return transform(widgetInfo.options, problemNum);
+    return transform(widgetInfo.options, strings, problemNum);
 };
 
 export const traverseChildWidgets = (

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Renderer from "../../renderer";
+import {mockStrings} from "../../strings";
 import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
 
 import type {PerseusRenderer} from "@khanacademy/perseus";
@@ -144,6 +145,7 @@ function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
         <Renderer
+            strings={mockStrings}
             content={question.content}
             widgets={question.widgets}
             images={question.images}

@@ -6,10 +6,13 @@
  * between the states more immediately clear to users.
  */
 
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
+
+import {usePerseusI18n} from "../../components/i18n-context";
+
+import type {PerseusStrings} from "../../strings";
 
 type Props = {
     // Was this option the correct answer?
@@ -27,29 +30,32 @@ function renderText(
     checked: boolean,
     correct: boolean,
     crossedOut: boolean,
+    strings: PerseusStrings,
 ): string {
     if (correct) {
         // For correct answers, we surface checked _or_ crossedOut state,
         // because any interaction with the correct answer is noteworthy!
         if (checked) {
-            return i18n._("Correct (selected)");
+            return strings.correctSelected;
         }
         if (crossedOut) {
-            return i18n._("Correct (but you crossed it out)");
+            return strings.correctCrossedOut;
         }
-        return i18n._("Correct");
+        return strings.correct;
     }
     // But, for incorrect answers, we only surface checked state,
     // because crossing out an incorrect answer is not noteworthy.
     if (checked) {
-        return i18n._("Incorrect (selected)");
+        return strings.incorrectSelected;
     }
-    return i18n._("Incorrect");
+    return strings.incorrect;
 }
 
 const OptionStatus = function (props: Props): React.ReactElement {
     const {checked, correct, crossedOut, previouslyAnswered, reviewMode} =
         props;
+
+    const {strings} = usePerseusI18n();
 
     // Option status is shown only in review mode, or for incorrectly
     // answered items.
@@ -71,7 +77,7 @@ const OptionStatus = function (props: Props): React.ReactElement {
 
     return (
         <div className={css(styles.text, textStyle)}>
-            {renderText(checked, correct, crossedOut)}
+            {renderText(checked, correct, crossedOut, strings)}
         </div>
     );
 };

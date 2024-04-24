@@ -10,6 +10,7 @@ import {
 import * as React from "react";
 import _ from "underscore";
 
+import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
 export type AnswerType = {
@@ -35,6 +36,8 @@ type AnswerChoicesProps = {
 };
 
 const AnswerChoices = (props: AnswerChoicesProps) => {
+    const {strings} = usePerseusI18n();
+
     const onAnswerChange = (selected: string[]) => {
         const {choices, onChange} = props;
         onChange(choices.map((choice) => selected.includes(choice.content)));
@@ -47,7 +50,7 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
             <OptionItem
                 key={content}
                 value={content}
-                label={<Renderer content={content} inline />}
+                label={<Renderer content={content} strings={strings} inline />}
             />
         ));
 

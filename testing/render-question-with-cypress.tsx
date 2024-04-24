@@ -2,9 +2,12 @@ import {mount} from "@cypress/react";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
+import {MathInputI18nContextProvider} from "../packages/math-input/src/components/i18n-context";
+import {mockStrings as mathInputMockStrings} from "../packages/math-input/src/strings";
 import AssetContext from "../packages/perseus/src/asset-context";
 import {DependenciesContext} from "../packages/perseus/src/dependencies";
 import * as Perseus from "../packages/perseus/src/index";
+import {mockStrings} from "../packages/perseus/src/strings";
 
 import {cypressDependenciesV2} from "./test-dependencies";
 
@@ -46,16 +49,27 @@ const renderQuestion = (
             <AssetContext.Provider value={{assetStatuses, setAssetStatus}}>
                 <RenderStateRoot>
                     <DependenciesContext.Provider value={cypressDependenciesV2}>
-                        <Perseus.Renderer
-                            ref={(node) => (renderer = node)}
-                            content={question.content}
-                            images={question.images}
-                            widgets={question.widgets}
-                            problemNum={0}
-                            apiOptions={apiOptions}
-                            reviewMode={reviewMode}
-                            onRender={onRender}
-                        />
+                        <MathInputI18nContextProvider
+                            locale="en"
+                            strings={mathInputMockStrings}
+                        >
+                            <Perseus.PerseusI18nContextProvider
+                                locale="en"
+                                strings={mockStrings}
+                            >
+                                <Perseus.Renderer
+                                    ref={(node) => (renderer = node)}
+                                    content={question.content}
+                                    images={question.images}
+                                    widgets={question.widgets}
+                                    problemNum={0}
+                                    apiOptions={apiOptions}
+                                    reviewMode={reviewMode}
+                                    onRender={onRender}
+                                    strings={mockStrings}
+                                />
+                            </Perseus.PerseusI18nContextProvider>
+                        </MathInputI18nContextProvider>
                     </DependenciesContext.Provider>
                 </RenderStateRoot>
             </AssetContext.Provider>

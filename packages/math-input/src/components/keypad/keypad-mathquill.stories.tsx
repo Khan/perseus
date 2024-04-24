@@ -2,10 +2,11 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
+import {mockStrings} from "../../strings";
 import {CursorContext} from "../input/cursor-contexts";
 import {getCursorContext} from "../input/mathquill-helpers";
 import {createMathField} from "../input/mathquill-instance";
-import keyTranslator from "../key-handlers/key-translator";
+import {getKeyTranslator} from "../key-handlers/key-translator";
 
 import type Key from "../../data/keys";
 import type {MathFieldInterface} from "../input/mathquill-types";
@@ -28,6 +29,7 @@ export function V2KeypadWithMathquill() {
         if (!mathField && mathFieldWrapperRef.current) {
             const mathFieldInstance = createMathField(
                 mathFieldWrapperRef.current,
+                mockStrings,
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -40,6 +42,8 @@ export function V2KeypadWithMathquill() {
             setMathField(mathFieldInstance);
         }
     }, [mathField]);
+
+    const keyTranslator = getKeyTranslator("en");
 
     function handleClickKey(key: Key) {
         if (!mathField) {

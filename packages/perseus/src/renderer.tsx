@@ -38,6 +38,7 @@ import type {
     PerseusWidgetsMap,
     ShowSolutions,
 } from "./perseus-types";
+import type {PerseusStrings} from "./strings";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -200,6 +201,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      *  Skip adding paragraph class
      */
     inline?: boolean;
+    strings: PerseusStrings;
 };
 
 type State = {
@@ -521,9 +523,11 @@ class Renderer extends React.Component<Props, State> {
     ) => PerseusWidgetsMap = (allWidgetInfo, props) => {
         const {apiOptions, problemNum} = props;
         const widgetsStartProps: PerseusWidgetsMap = {};
+        const {strings} = this.props;
         entries(allWidgetInfo).forEach(([key, widgetInfo]) => {
             widgetsStartProps[key] = Widgets.getRendererPropsForWidgetInfo(
                 widgetInfo,
+                strings,
                 problemNum,
             );
         });

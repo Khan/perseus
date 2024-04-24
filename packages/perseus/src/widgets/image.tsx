@@ -5,6 +5,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import AssetContext from "../asset-context";
+import {PerseusI18nContext} from "../components/i18n-context";
 import SvgImage from "../components/svg-image";
 import * as Changeable from "../mixins/changeable";
 import Renderer from "../renderer";
@@ -60,6 +61,9 @@ type DefaultProps = {
 };
 
 class ImageWidget extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         alignment: DEFAULT_ALIGNMENT,
         title: "",
@@ -150,6 +154,7 @@ class ImageWidget extends React.Component<Props> {
                         content={this.props.alt}
                         apiOptions={apiOptions}
                         linterContext={this.props.linterContext}
+                        strings={this.context.strings}
                     />
                 </span>
             );
@@ -220,6 +225,7 @@ class ImageWidget extends React.Component<Props> {
                                 content={title + this.props.caption}
                                 apiOptions={apiOptions}
                                 linterContext={this.props.linterContext}
+                                strings={this.context.strings}
                             />
                         </div>
                     </figcaption>
@@ -249,6 +255,7 @@ class ImageWidget extends React.Component<Props> {
                         content={this.props.title}
                         apiOptions={apiOptions}
                         linterContext={this.props.linterContext}
+                        strings={this.context.strings}
                     />
                 </div>
             );
@@ -266,6 +273,7 @@ class ImageWidget extends React.Component<Props> {
                         content={this.props.caption}
                         apiOptions={apiOptions}
                         linterContext={this.props.linterContext}
+                        strings={this.context.strings}
                     />
                 </figcaption>
             );

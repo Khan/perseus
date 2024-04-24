@@ -1,6 +1,10 @@
 /* eslint-disable import/no-commonjs */
 module.exports = function createBabelPlugins({platform, format, coverage}) {
-    const plugins = [];
+    const plugins = [
+        // NOTE(john): We need this so that we can handle the declare fields
+        // inside React classes.
+        ["@babel/plugin-transform-typescript", {allowDeclareFields: true}],
+    ];
     if (coverage) {
         plugins.push("istanbul");
     }

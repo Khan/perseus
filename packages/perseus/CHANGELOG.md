@@ -1,5 +1,33 @@
 # @khanacademy/perseus
 
+## 22.0.0
+
+### Major Changes
+
+-   [#1168](https://github.com/Khan/perseus/pull/1168) [`a9c2308f9`](https://github.com/Khan/perseus/commit/a9c2308f907178794cfe761240ae9d1bec839296) Thanks [@jeresig](https://github.com/jeresig)! - Remove wonder-blocks-i18n usage from perseus and perseus-editor packages.
+
+*   [#1153](https://github.com/Khan/perseus/pull/1153) [`22709bd9b`](https://github.com/Khan/perseus/commit/22709bd9be3e7fa7965939c7dc6a548a6189d2af) Thanks [@jeresig](https://github.com/jeresig)! - Remove wonder-blocks-i18n from math-input, support multiple exports in rollup.
+
+### Minor Changes
+
+-   [#1186](https://github.com/Khan/perseus/pull/1186) [`d7fbe3e99`](https://github.com/Khan/perseus/commit/d7fbe3e99eaa8686144442b47c7b46cc9ace6c12) Thanks [@nishasy](https://github.com/nishasy)! - Add UI within InteractiveGraphEditor to add/edit locked lines
+
+*   [#1192](https://github.com/Khan/perseus/pull/1192) [`e86ed507e`](https://github.com/Khan/perseus/commit/e86ed507e67beffb02f59c064f072b8e6fb9f484) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Display tooltip for movable point when option is indicated (Interactive Graph)
+
+-   [#1195](https://github.com/Khan/perseus/pull/1195) [`9b5a9a40a`](https://github.com/Khan/perseus/commit/9b5a9a40a0d3453ccb4e7f2883815869c3d32f37) Thanks [@nishasy](https://github.com/nishasy)! - Use MathJax colors for Interactive Graph locked figures
+
+*   [#1195](https://github.com/Khan/perseus/pull/1195) [`9b5a9a40a`](https://github.com/Khan/perseus/commit/9b5a9a40a0d3453ccb4e7f2883815869c3d32f37) Thanks [@nishasy](https://github.com/nishasy)! - View locked lines on Interactive Graph
+
+### Patch Changes
+
+-   [#1196](https://github.com/Khan/perseus/pull/1196) [`52b57c95d`](https://github.com/Khan/perseus/commit/52b57c95d3e0f8c1445e2a7e862d3a52041b26c2) Thanks [@nishasy](https://github.com/nishasy)! - Rename ColorCircle to ColorSwatch
+
+*   [#1198](https://github.com/Khan/perseus/pull/1198) [`890587ef1`](https://github.com/Khan/perseus/commit/890587ef174007ac019a363874b2088f4b4ca9e9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add Storybook stories for visual regression testing of Mafs interactive graphs
+
+*   Updated dependencies [[`a9c2308f9`](https://github.com/Khan/perseus/commit/a9c2308f907178794cfe761240ae9d1bec839296), [`22709bd9b`](https://github.com/Khan/perseus/commit/22709bd9be3e7fa7965939c7dc6a548a6189d2af)]:
+    -   @khanacademy/math-input@18.0.0
+    -   @khanacademy/pure-markdown@0.3.2
+
 ## 21.6.0
 
 ### Minor Changes

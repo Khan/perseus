@@ -1,8 +1,9 @@
 /* eslint-disable react/sort-comp */
 import SimpleMarkdown from "@khanacademy/simple-markdown";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
+
+import {usePerseusI18n} from "../../components/i18n-context";
 
 import type {
     Capture,
@@ -65,7 +66,7 @@ function getInitialParseState(): ParseState {
 
 class RefStart extends React.Component<Props> {
     render(): React.ReactNode {
-        return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
+        return <span style={REF_STYLE}>_</span>;
     }
 
     // @ts-expect-error - TS2322 - Type '() => React.ReactNode' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>>'.
@@ -76,9 +77,20 @@ class RefStart extends React.Component<Props> {
 
 class RefEnd extends React.Component<Record<any, any>> {
     render(): React.ReactNode {
-        return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
+        return <span style={REF_STYLE}>_</span>;
     }
 }
+
+const AltText = ({id, number}: {id: string; number: string}) => {
+    const {strings} = usePerseusI18n();
+    return (
+        <span key="alt-text" className="perseus-sr-only">
+            {strings[id]({
+                number,
+            })}
+        </span>
+    );
+};
 
 const rules = {
     newline: SimpleMarkdown.defaultRules.newline,
@@ -277,11 +289,7 @@ const rules = {
                 >
                     <span style={SQUARE_LABEL_STYLE}>{node.content}</span>
                 </span>,
-                <span key="alt-text" className="perseus-sr-only">
-                    {i18n.$_("[Marker for question %(number)s]", {
-                        number: node.content,
-                    })}
-                </span>,
+                <AltText id="questionMarker" number={node.content} />,
                 node.space ? "\u00A0" : null,
             ];
         },
@@ -314,11 +322,7 @@ const rules = {
                 >
                     <span style={CIRCLE_LABEL_STYLE}>{node.content}</span>
                 </span>,
-                <span key="alt-text" className="perseus-sr-only">
-                    {i18n.$_("[Circle marker %(number)s]", {
-                        number: node.content,
-                    })}
-                </span>,
+                <AltText id="circleMarker" number={node.content} />,
                 node.space ? "\u00A0" : null,
             ];
         },
@@ -348,9 +352,7 @@ const rules = {
                 >
                     [{node.content}]
                 </span>,
-                <span key="alt-text" className="perseus-sr-only">
-                    {i18n.$_("[Sentence %(number)s]", {number: node.content})}
-                </span>,
+                <AltText id="sentenceMarker" number={node.content} />,
                 node.space ? "\u00A0" : null,
             ];
         },

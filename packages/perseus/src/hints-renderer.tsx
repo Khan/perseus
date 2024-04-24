@@ -1,12 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "./components/i18n-context";
 import HintRenderer from "./hint-renderer";
 import {ApiOptions} from "./perseus-api";
 import {
@@ -43,6 +43,9 @@ type State = {
 // Use of UNSAFE_componentWillReceiveProps:
 // eslint-disable-next-line react/no-unsafe
 class HintsRenderer extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         linterContext: PerseusLinter.linterContextDefault,
     };
@@ -235,7 +238,7 @@ class HintsRenderer extends React.Component<Props, State> {
                             sharedStyles.responsiveLabel,
                         )}
                     >
-                        {i18n._("Hints")}
+                        {this.context.strings.hints}
                     </div>
                 )}
                 {hints}
@@ -267,7 +270,8 @@ class HintsRenderer extends React.Component<Props, State> {
                             +
                         </span>
                         <span className={css(styles.getAnotherHintText)}>
-                            {i18n._("Get another hint")} {hintRatioCopy}
+                            {this.context.strings.getAnotherHint}{" "}
+                            {hintRatioCopy}
                         </span>
                     </button>
                 )}

@@ -7,6 +7,7 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {mockStrings} from "../../strings";
 import {
     expressionItem2,
     expressionItem3,
@@ -196,14 +197,26 @@ describe("Expression Widget", function () {
 
     describe("ungraded", function () {
         it("should handle ungraded answers with no error callback", function () {
-            const err = Expression.validate("x+1", expressionItem3Options);
+            const err = Expression.validate(
+                "x+1",
+                expressionItem3Options,
+                undefined,
+                mockStrings,
+                "en",
+            );
             expect(err).toStrictEqual({message: "", type: "invalid"});
         });
     });
 
     describe("invalid", function () {
         it("should handle ungraded answers with no error callback", function () {
-            const err = Expression.validate("x+^1", expressionItem3Options);
+            const err = Expression.validate(
+                "x+^1",
+                expressionItem3Options,
+                undefined,
+                mockStrings,
+                "en",
+            );
             expect(err).toStrictEqual({message: null, type: "invalid"});
         });
     });

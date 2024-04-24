@@ -6,11 +6,11 @@
  */
 
 import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import Icon from "../../components/icon";
 import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
@@ -44,6 +44,9 @@ function shouldReduceMotion(): boolean {
 const MARKER_SIZE = 24;
 
 export default class Marker extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // The marker icon element.
     _icon: HTMLElement | null | undefined;
 
@@ -143,8 +146,11 @@ export default class Marker extends React.Component<Props> {
                         styles.marker,
                         active && !markerDisabled && styles.markerActive,
                     ]}
-                    // already translated in: /widgets/graded-group.tsx
-                    aria-label={markerDisabled ? i18n._("Correct!") : label}
+                    aria-label={
+                        markerDisabled
+                            ? this.context.strings.correctExcited
+                            : label
+                    }
                 >
                     {this.renderIcon()}
                 </View>

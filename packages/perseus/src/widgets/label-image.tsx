@@ -8,13 +8,13 @@
 
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import AssetContext from "../asset-context";
+import {PerseusI18nContext} from "../components/i18n-context";
 import SvgImage from "../components/svg-image";
 import {useDependencies} from "../dependencies";
 import Renderer from "../renderer";
@@ -104,6 +104,9 @@ export class LabelImage extends React.Component<
     LabelImageProps,
     LabelImageState
 > {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // The rendered markers on the question image for labeling.
     _markers: Array<Marker | null | undefined>;
 
@@ -637,20 +640,17 @@ export class LabelImage extends React.Component<
             multipleAnswers,
             hideChoicesFromInstructions: hideChoices,
         } = this.props;
+        const {strings} = this.context;
 
         const promptString = isMobile
             ? multipleAnswers
-                ? i18n._(
-                      "Tap each dot on the image to select all answers that apply.",
-                  )
-                : i18n._("Tap each dot on the image to select an answer.")
+                ? strings.tapMultiple
+                : strings.tapSingle
             : multipleAnswers
-              ? i18n._(
-                    "Click each dot on the image to select all answers that apply.",
-                )
-              : i18n._("Click each dot on the image to select an answer.");
+              ? strings.clickMultiple
+              : strings.clickSingle;
 
-        const choicesString = i18n._("Choices:");
+        const choicesString = strings.choices;
 
         return (
             <div
@@ -670,7 +670,7 @@ export class LabelImage extends React.Component<
                                 className={css(styles.instructionsChoice)}
                                 key={index}
                             >
-                                <Renderer content={choice} />
+                                <Renderer content={choice} strings={strings} />
                             </div>
                         ))}
                     </div>

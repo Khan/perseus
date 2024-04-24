@@ -1,16 +1,16 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     DesktopKeypad,
-    keyTranslator,
+    getKeyTranslator,
     createMathField,
     mathQuillInstance,
     CursorContext,
     getCursorContext,
     convertDotToTimesByLocale,
+    MathInputI18nContext,
 } from "@khanacademy/math-input";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -20,6 +20,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import {debounce} from "../util/debounce";
+
+import {PerseusI18nContext} from "./i18n-context";
 
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
@@ -66,6 +68,13 @@ type Props = {
     analytics: PerseusDependenciesV2["analytics"];
 };
 
+type InnerProps = Props & {
+    // NOTE(john): We'd like to use the real MathInputStrings type here, but
+    // getting the types and imports to work correctly turns out to be really
+    // hard, it's not worth it as we are just passing the types through.
+    mathInputStrings: any;
+};
+
 type DefaultProps = {
     value: Props["value"];
     convertDotToTimes: Props["convertDotToTimes"];
@@ -78,22 +87,11 @@ type State = {
     openedWithEventType?: string;
 };
 
-const customKeyTranslator = {
-    ...keyTranslator,
-    // If there's something in the input that can become part of a
-    // fraction, typing "/" puts it in the numerator. If not, typing
-    // "/" does nothing. In that case, enter a \frac.
-    FRAC: (mathQuill) => {
-        const contents = mathQuill.latex();
-        mathQuill.typedText("/");
-        if (mathQuill.latex() === contents) {
-            mathQuill.cmd("\\frac");
-        }
-    },
-};
-
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
-class MathInput extends React.Component<Props, State> {
+class InnerMathInput extends React.Component<InnerProps, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // @ts-expect-error - TS2564 - Property 'mouseDown' has no initializer and is not definitely assigned in the constructor.
     mouseDown: boolean;
     __mathFieldWrapperRef: HTMLSpanElement | null = null;
@@ -129,6 +127,20 @@ class MathInput extends React.Component<Props, State> {
 
     insert: (value: any) => void = (value) => {
         const input = this.mathField();
+        const {locale} = this.context;
+        const customKeyTranslator = {
+            ...getKeyTranslator(locale),
+            // If there's something in the input that can become part of a
+            // fraction, typing "/" puts it in the numerator. If not, typing
+            // "/" does nothing. In that case, enter a \frac.
+            FRAC: (mathQuill) => {
+                const contents = mathQuill.latex();
+                mathQuill.typedText("/");
+                if (mathQuill.latex() === contents) {
+                    mathQuill.cmd("\\frac");
+                }
+            },
+        };
         const inputModifier = customKeyTranslator[value];
         if (inputModifier) {
             inputModifier(input, value);
@@ -152,9 +164,11 @@ class MathInput extends React.Component<Props, State> {
 
     mathField: () => MathFieldInterface | null = () => {
         if (!this.__mathField && this.__mathFieldWrapperRef) {
+            const {locale} = this.context;
             // Initialize MathQuill.MathField instance
             this.__mathField = createMathField(
                 this.__mathFieldWrapperRef,
+                this.props.mathInputStrings,
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
@@ -174,6 +188,7 @@ class MathInput extends React.Component<Props, State> {
                             // which case 'x' should get converted to '\\times'
                             if (
                                 convertDotToTimesByLocale(
+                                    locale,
                                     this.props.convertDotToTimes,
                                 )
                             ) {
@@ -238,7 +253,8 @@ class MathInput extends React.Component<Props, State> {
     blur: () => void = () => this.setState({focused: false});
 
     handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
-        const translator = keyTranslator[key];
+        const {locale} = this.context;
+        const translator = getKeyTranslator(locale)[key];
         const mathField = this.mathField();
 
         if (mathField) {
@@ -344,8 +360,8 @@ class MathInput extends React.Component<Props, State> {
                             <Clickable
                                 aria-label={
                                     this.state.keypadOpen
-                                        ? i18n._("close math keypad")
-                                        : i18n._("open math keypad")
+                                        ? this.context.strings.closeKeypad
+                                        : this.context.strings.openKeypad
                                 }
                                 aria-checked={this.state.keypadOpen}
                                 role="switch"
@@ -366,6 +382,33 @@ class MathInput extends React.Component<Props, State> {
                     </Popover>
                 </div>
             </View>
+        );
+    }
+}
+
+// We need to have two contexts (one for Perseus and one for MathInput), so we
+// add a wrapper around the MathInput component to provide the MathInput context
+// to it.
+class MathInput extends React.Component<Props, State> {
+    static contextType = MathInputI18nContext;
+    declare context: React.ContextType<typeof MathInputI18nContext>;
+    inputRef = React.createRef<InnerMathInput>();
+
+    focus() {
+        this.inputRef.current?.focus();
+    }
+
+    insert(value: any) {
+        this.inputRef.current?.insert(value);
+    }
+
+    render() {
+        return (
+            <InnerMathInput
+                {...this.props}
+                ref={this.inputRef}
+                mathInputStrings={this.context.strings}
+            />
         );
     }
 }

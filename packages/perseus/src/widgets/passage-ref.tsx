@@ -1,8 +1,8 @@
 /* eslint-disable react/sort-comp */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import {removeDenylistProps} from "../mixins/widget-prop-denylist";
 import PerseusMarkdown from "../perseus-markdown";
@@ -49,6 +49,9 @@ type State = {
 };
 
 class PassageRef extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     displayName = "PassageRef";
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
@@ -80,18 +83,19 @@ class PassageRef extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
+        const {strings} = this.context;
         const lineRange = this.state.lineRange;
         let lineRangeOutput;
         if (!lineRange) {
-            lineRangeOutput = i18n.$_("lines %(lineRange)s", {
+            lineRangeOutput = strings.lineRange({
                 lineRange: `?${EN_DASH}?`,
             });
         } else if (lineRange[0] === lineRange[1]) {
-            lineRangeOutput = i18n.$_("line %(lineNumber)s", {
-                lineNumber: lineRange[0],
+            lineRangeOutput = strings.lineNumber({
+                lineNumber: String(lineRange[0]),
             });
         } else {
-            lineRangeOutput = i18n.$_("lines %(lineRange)s", {
+            lineRangeOutput = strings.lineRange({
                 lineRange: lineRange[0] + EN_DASH + lineRange[1],
             });
         }

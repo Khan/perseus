@@ -3,6 +3,7 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
 import Renderer from "../renderer";
@@ -22,6 +23,9 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 class PassageRefTarget extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         content: "",
         linterContext: linterContextDefault,
@@ -59,6 +63,7 @@ class PassageRefTarget extends React.Component<Props> {
                 // inline={true}
                 apiOptions={this.props.apiOptions}
                 linterContext={this.props.linterContext}
+                strings={this.context.strings}
             />
         );
     }

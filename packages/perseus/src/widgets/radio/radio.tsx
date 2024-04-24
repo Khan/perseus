@@ -1,7 +1,7 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import Util from "../../util";
 import PassageRef from "../passage-ref";
@@ -14,6 +14,7 @@ import type {
     PerseusRadioWidgetOptions,
     ShowSolutions,
 } from "../../perseus-types";
+import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
 
 // RenderProps is the return type for radio.jsx#transform
@@ -60,6 +61,9 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
 };
 
 class Radio extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // @ts-expect-error - TS2564 - Property 'focusFunction' has no initializer and is not definitely assigned in the constructor.
     focusFunction: FocusFunction;
 
@@ -72,7 +76,11 @@ class Radio extends React.Component<Props> {
         showSolutions: "none",
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    static validate(
+        userInput: UserInput,
+        rubric: Rubric,
+        strings: PerseusStrings,
+    ): PerseusScore {
         const numSelected = userInput.choicesSelected.reduce(
             (sum, selected) => {
                 return sum + (selected ? 1 : 0);
@@ -94,17 +102,14 @@ class Radio extends React.Component<Props> {
         ) {
             return {
                 type: "invalid",
-                message: i18n._("Please choose the correct number of answers."),
+                message: strings.chooseCorrectNum,
             };
             // If NOTA and some other answer are checked, ...
         }
         if (userInput.noneOfTheAboveSelected && numSelected > 1) {
             return {
                 type: "invalid",
-                message: i18n._(
-                    "'None of the above' may not be selected " +
-                        "when other answers are selected.",
-                ),
+                message: strings.notNoneOfTheAbove,
             };
         }
 
@@ -265,6 +270,7 @@ class Radio extends React.Component<Props> {
                     // @ts-expect-error - TS2322 - Type '{ blockHighlight: true; contentType: string; highlightLint: boolean; paths: readonly string[]; stack: readonly string[]; }' is not assignable to type 'LinterContextProps'.
                     blockHighlight: true,
                 }}
+                strings={this.context.strings}
             />
         );
     };
@@ -343,7 +349,11 @@ class Radio extends React.Component<Props> {
     simpleValidate: (arg1: PerseusRadioWidgetOptions) => PerseusScore = (
         rubric,
     ) => {
-        return Radio.validate(this.getUserInput(), rubric);
+        return Radio.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+        );
     };
 
     /**
@@ -426,6 +436,7 @@ class Radio extends React.Component<Props> {
 
     render(): React.ReactNode {
         const {choices} = this.props;
+        const {strings} = this.context;
         let choiceStates: ReadonlyArray<ChoiceState>;
         if (this.props.static) {
             choiceStates = choices.map((choice) => ({
@@ -477,10 +488,7 @@ class Radio extends React.Component<Props> {
             (choice, i) => {
                 const content =
                     choice.isNoneOfTheAbove && !choice.content
-                        ? // we use i18n._ instead of $_ here because the content
-                          // sent to a renderer needs to be a string, not a react
-                          // node (/renderable/fragment).
-                          i18n._("None of the above")
+                        ? strings.noneOfTheAbove
                         : choice.content;
 
                 const {

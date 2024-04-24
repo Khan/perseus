@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unsafe */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
+
+import {PerseusI18nContext} from "../components/i18n-context";
 
 import draw from "./molecule/molecule-drawing";
 import MoleculeLayout from "./molecule/molecule-layout";
@@ -27,6 +28,9 @@ type Props = {
 };
 
 export class Molecule extends React.Component<Props, MoleculeState> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     state: MoleculeState = {parsedSmiles: null, error: null};
 
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
@@ -114,12 +118,9 @@ export class Molecule extends React.Component<Props, MoleculeState> {
                 // eslint-disable-next-line react/no-string-refs
                 ref="canvas"
             >
-                {i18n.$_(
-                    "A molecular structure drawing. SMILES notation: %(content)s",
-                    {
-                        content: this.props.smiles,
-                    },
-                )}
+                {this.context.strings.molecularDrawing({
+                    content: this.props.smiles || "",
+                })}
             </canvas>
         );
         if (this.state.error) {

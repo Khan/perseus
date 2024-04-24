@@ -1,10 +1,10 @@
 import {number as knumber} from "@khanacademy/kmath";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import Graphie from "../components/graphie";
+import {PerseusI18nContext} from "../components/i18n-context";
 import NumberInput from "../components/number-input";
 import SimpleKeypadInput from "../components/simple-keypad-input";
 import InteractiveUtil from "../interactive2/interactive-util";
@@ -232,6 +232,9 @@ type State = {
     numDivisionsEmpty: boolean;
 };
 class NumberLine extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         range: [0, 10],
         labelStyle: "decimal",
@@ -630,6 +633,7 @@ class NumberLine extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
+        const {strings} = this.context;
         const divisionRange = this.props.divisionRange;
         const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
         const invalidNumDivisions =
@@ -641,7 +645,7 @@ class NumberLine extends React.Component<Props, State> {
                 <input
                     type="button"
                     className="simple-button"
-                    value={i18n._("Switch direction")}
+                    value={strings.switchDirection}
                     onClick={this.handleReverse}
                 />
                 <input
@@ -649,8 +653,8 @@ class NumberLine extends React.Component<Props, State> {
                     className="simple-button"
                     value={
                         _(["le", "ge"]).contains(this.props.rel)
-                            ? i18n._("Make circle open")
-                            : i18n._("Make circle filled")
+                            ? strings.circleOpen
+                            : strings.circleFilled
                     }
                     onClick={this.handleToggleStrict}
                 />
@@ -667,7 +671,7 @@ class NumberLine extends React.Component<Props, State> {
             }
             tickCtrl = (
                 <label>
-                    {i18n._("Number of divisions:")}{" "}
+                    {strings.numDivisions}{" "}
                     <Input
                         // eslint-disable-next-line react/no-string-refs
                         ref="tick-ctrl"
@@ -698,17 +702,11 @@ class NumberLine extends React.Component<Props, State> {
                 {tickCtrl}
                 {!this.isValid() ? (
                     <div className="perseus-error">
-                        {i18n.doNotTranslate(
-                            "Invalid number line configuration.",
-                        )}
+                        Invalid number line configuration.
                     </div>
                 ) : this.props.isTickCtrl && invalidNumDivisions ? (
                     <div className="perseus-error">
-                        {i18n.$_(
-                            "Please make sure the number of divisions is " +
-                                "in the range %(divRangeString)s.",
-                            {divRangeString: divRangeString},
-                        )}
+                        {strings.divisions({divRangeString: divRangeString})}
                     </div>
                 ) : (
                     this._renderGraphie()

@@ -1,11 +1,11 @@
 import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, type CSSProperties} from "aphrodite";
 import * as React from "react";
 import {Popper} from "react-popper";
 
+import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
 const BringToFront: CSSProperties = {
@@ -35,15 +35,11 @@ export const AnswerPill = (props: {
     } = props;
 
     const idFactory = useUniqueIdWithMock();
+    const {strings} = usePerseusI18n();
 
     const answerString =
         selectedAnswers.length > 1
-            ? // always need `ngettext` for variable numbers even if we don't use the singular, see https://khanacademy.slack.com/archives/C0918TZ5G/p1700163024293079
-              i18n.ngettext(
-                  "%(num)s answer",
-                  "%(num)s answers",
-                  selectedAnswers.length,
-              )
+            ? strings.answers({num: selectedAnswers.length})
             : selectedAnswers[0];
 
     // It should no longer be possible to interact with an answer after it
@@ -80,7 +76,7 @@ export const AnswerPill = (props: {
                         (focused || hovered) && BringToFront,
                     ]}
                 >
-                    <Renderer content={answerString} inline />
+                    <Renderer content={answerString} strings={strings} inline />
                 </Pill>
             )}
         </Popper>

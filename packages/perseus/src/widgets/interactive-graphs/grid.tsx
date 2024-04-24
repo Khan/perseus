@@ -73,6 +73,10 @@ export const Grid = (props: GridProps) => {
 
     return props.markings === "none" ? null : (
         <>
+            <Coordinates.Cartesian
+                xAxis={axisOptions(props, 0)}
+                yAxis={axisOptions(props, 1)}
+            />
             <clipPath id="myClip">
                 <rect
                     x={clipStartX}

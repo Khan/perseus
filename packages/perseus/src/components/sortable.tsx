@@ -13,6 +13,8 @@ import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
 
+import {PerseusI18nContext} from "./i18n-context";
+
 import type {Position} from "../util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -111,6 +113,9 @@ type DraggableState = {
 // Usual flow:      Static -> Dragging -> Animating -> Static
 // [Dis|en]abling:  Static|Dragging|Animating -> Disabled -> Static
 class Draggable extends React.Component<DraggableProps, DraggableState> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     // Handler returned by requestAnimationFrame.
     animationFrameRequest = null;
     // @ts-expect-error - TS2564 - Property 'isMouseMoveUpBound' has no initializer and is not definitely assigned in the constructor.
@@ -243,6 +248,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                         "draggable",
                     )}
                     onRender={this.props.onRender}
+                    strings={this.context.strings}
                 />
             </li>
         );

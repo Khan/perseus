@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import Keys from "../../../data/key-configs";
+import KeyConfigs from "../../../data/key-configs";
+import {useMathInputI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 
 import type {ClickKeyCallback} from "../../../types";
@@ -11,6 +12,8 @@ type Props = {
 
 export default function NumbersPage(props: Props) {
     const {onClickKey} = props;
+    const {strings} = useMathInputI18n();
+    const Keys = KeyConfigs(strings);
     // These keys are arranged sequentially so that tabbing follows numerical order. This
     // allows us to visually mimic a keypad without affecting a11y. The visual order of the
     // keys in the keypad is determined by their coordinates, not their order in the DOM.

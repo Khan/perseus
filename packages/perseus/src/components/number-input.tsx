@@ -11,6 +11,8 @@ import _ from "underscore";
 import Util from "../util";
 import KhanMath from "../util/math";
 
+import {PerseusI18nContext} from "./i18n-context";
+
 import type {MathFormat} from "../perseus-types";
 
 const {firstNumericalParse, captureScratchpadTouchStart} = Util;
@@ -31,6 +33,9 @@ const getNumericFormat = KhanMath.getNumericFormat;
  * Optionally takes a size ("mini", "small", "normal")
  */
 class NumberInput extends React.Component<any, any> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static propTypes = {
         value: PropTypes.number,
         format: PropTypes.string,
@@ -127,7 +132,7 @@ class NumberInput extends React.Component<any, any> {
             const placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? +placeholder : null;
         }
-        const result = firstNumericalParse(value);
+        const result = firstNumericalParse(value, this.context.strings);
         return _.isFinite(result) ? result : this.props.value;
     };
 
@@ -170,7 +175,7 @@ class NumberInput extends React.Component<any, any> {
             return true;
         }
 
-        const val = firstNumericalParse(value);
+        const val = firstNumericalParse(value, this.context.strings);
         const checkValidity = this.props.checkValidity;
 
         return _.isFinite(val) && checkValidity(val);

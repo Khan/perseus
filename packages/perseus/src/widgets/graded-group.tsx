@@ -1,13 +1,13 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import InlineIcon from "../components/inline-icon";
 import {iconOk, iconRemove} from "../icon-paths";
 import * as Changeable from "../mixins/changeable";
@@ -60,12 +60,6 @@ const getNextState = (
     }
 };
 
-// Prepended to all invalid messages to make the widget messages a bit clearer
-const INVALID_MESSAGE_PREFIX = i18n._("We couldn't grade your answer.");
-const DEFAULT_INVALID_MESSAGE =
-    i18n._("It looks like you left something blank or ") +
-    i18n._("entered in an invalid answer.");
-
 type Rubric = PerseusGradedGroupWidgetOptions;
 type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform'
 
@@ -100,6 +94,9 @@ type State = {
 // the stuff inside and displays feedback about whether the inputted answer was
 // correct or not.
 export class GradedGroup extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         title: "",
         content: "",
@@ -159,6 +156,11 @@ export class GradedGroup extends React.Component<Props, State> {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'score' does not exist on type 'ReactInstance'.
         const score: PerseusScore = this.refs.renderer.score();
+        const {
+            INVALID_MESSAGE_PREFIX,
+            DEFAULT_INVALID_MESSAGE_1,
+            DEFAULT_INVALID_MESSAGE_2,
+        } = this.context.strings;
 
         const status =
             score.type === "points"
@@ -171,7 +173,7 @@ export class GradedGroup extends React.Component<Props, State> {
                 ? score.message || ""
                 : score.message
                   ? `${INVALID_MESSAGE_PREFIX} ${score.message}`
-                  : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
+                  : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
         this.setState({
             status: status,
@@ -239,21 +241,19 @@ export class GradedGroup extends React.Component<Props, State> {
             },
         );
 
-        let gradeStatus = null;
+        let gradeStatus: string | null = null;
         let icon = null;
         // Colors are 10% darker than the colors in graded-group.less
         if (this.state.status === GRADING_STATUSES.correct) {
             // TODO(jeremy): update to a WB colour
             // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = <InlineIcon {...iconOk} style={{color: "#526f03"}} />;
-            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
-            gradeStatus = i18n._("Correct");
+            gradeStatus = this.context.strings.correct;
         } else if (this.state.status === GRADING_STATUSES.incorrect) {
             // TODO(jeremy): update to a WB colour
             // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = <InlineIcon {...iconRemove} style={{color: "#ff5454"}} />;
-            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
-            gradeStatus = i18n._("Incorrect");
+            gradeStatus = this.context.strings.incorrect;
         }
 
         const mobileClass = this.props.inGradedGroupSet
@@ -299,6 +299,7 @@ export class GradedGroup extends React.Component<Props, State> {
                     apiOptions={{...apiOptions, readOnly}}
                     onInteractWithWidget={this._onInteractWithWidget}
                     linterContext={this.props.linterContext}
+                    strings={this.context.strings}
                 />
                 {!apiOptions.isMobile && icon && (
                     <div className="group-icon">{icon}</div>
@@ -323,7 +324,7 @@ export class GradedGroup extends React.Component<Props, State> {
                         disabled={this.props.apiOptions.readOnly}
                         onClick={this._checkAnswer}
                     >
-                        {i18n._("Check")}
+                        {this.context.strings.check}
                     </Button>
                 )}
                 {!apiOptions.isMobile &&
@@ -335,7 +336,7 @@ export class GradedGroup extends React.Component<Props, State> {
                             onClick={this.props.onNextQuestion}
                             style={{marginLeft: 5}}
                         >
-                            {i18n._("Next question")}
+                            {this.context.strings.nextQuestion}
                         </Button>
                     )}
 
@@ -355,7 +356,7 @@ export class GradedGroup extends React.Component<Props, State> {
                                     this.setState({showHint: false});
                                 }}
                             >
-                                {i18n._("Hide explanation")}
+                                {this.context.strings.hideExplanation}
                             </button>
                             {/**
                              * We're passing a couple of props to Renderer that it doesn't
@@ -367,6 +368,7 @@ export class GradedGroup extends React.Component<Props, State> {
                                 ref="hints-renderer"
                                 apiOptions={apiOptions}
                                 linterContext={this.props.linterContext}
+                                strings={this.context.strings}
                             />
                         </div>
                     ) : (
@@ -382,7 +384,7 @@ export class GradedGroup extends React.Component<Props, State> {
                             }}
                             className={css(styles.showHintLink)}
                         >
-                            {i18n._("Explain")}
+                            {this.context.strings.explain}
                         </button>
                     ))}
                 {apiOptions.isMobile && answerBarState !== "HIDDEN" && (

@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import type {PerseusStrings} from "../strings";
 import type {WidgetExports, WidgetProps} from "../types";
 
 type PerseusMockWidgetOptions = Record<any, any>;
@@ -9,6 +10,7 @@ type Props = WidgetProps<RenderProps, Rubric>;
 
 const transform = (
     widgetOptions: PerseusMockWidgetOptions,
+    strings: PerseusStrings,
     problemNum?: number | null,
 ): RenderProps => widgetOptions;
 
