@@ -488,34 +488,32 @@ class NumericInputEditor extends React.Component<Props, State> {
         );
     }
 
-    change(...args) {
+    change = (...args) => {
         return Changeable.change.apply(this, args);
-    }
+    };
 
-    onToggleOptions(choiceIndex) {
+    onToggleOptions = (choiceIndex) => {
         const showOptions = this.state.showOptions.slice();
         showOptions[choiceIndex] = !showOptions[choiceIndex];
         this.setState({showOptions: showOptions});
-    }
+    };
 
-    onTrashAnswer(choiceIndex) {
+    onTrashAnswer = (choiceIndex) => {
         if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
             const answers = this.props.answers.slice(0);
             answers.splice(choiceIndex, 1);
             this.props.onChange({answers: answers});
         }
-    }
+    };
 
-    onSpace(e, callback) {
+    onSpace = (e, callback, ...args) => {
         if (e.key === " ") {
             e.preventDefault(); // prevent page shifting
-            // eslint-disable-next-line prefer-rest-params
-            const args = _.toArray(arguments).slice(2);
             callback.apply(this, args);
         }
-    }
+    };
 
-    onStatusChange(choiceIndex) {
+    onStatusChange = (choiceIndex) => {
         const statuses = ["wrong", "ungraded", "correct"];
         const answers = this.props.answers;
         const i = _.indexOf(statuses, answers[choiceIndex].status);
@@ -525,9 +523,9 @@ class NumericInputEditor extends React.Component<Props, State> {
             status: newStatus,
             simplify: newStatus === "correct" ? "required" : "accepted",
         });
-    }
+    };
 
-    updateAnswer(choiceIndex, update) {
+    updateAnswer = (choiceIndex, update) => {
         if (!_.isObject(update)) {
             return _.partial(
                 (choiceIndex, key, value) => {
@@ -555,15 +553,15 @@ class NumericInputEditor extends React.Component<Props, State> {
 
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
         this.props.onChange({answers: answers});
-    }
+    };
 
-    addAnswer() {
+    addAnswer = () => {
         const lastAnswer: any = initAnswer(this.state.lastStatus);
         const answers = this.props.answers.concat(lastAnswer);
         this.props.onChange({answers: answers});
-    }
+    };
 
-    getSaveWarnings() {
+    getSaveWarnings = () => {
         // Filter out all the empty answers
         const warnings = [];
         // TODO(emily): This doesn't actually work, because the value is either
@@ -585,11 +583,11 @@ class NumericInputEditor extends React.Component<Props, State> {
             }
         });
         return warnings;
-    }
+    };
 
-    serialize() {
+    serialize = () => {
         return EditorJsonify.serialize.call(this);
-    }
+    };
 }
 
 export default NumericInputEditor;
