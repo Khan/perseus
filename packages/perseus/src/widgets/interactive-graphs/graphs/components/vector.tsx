@@ -1,7 +1,7 @@
 import {vec} from "mafs";
 import * as React from "react";
 
-import {useTransformVectorToPixel} from "../use-transform";
+import {useTransformVectorsToPixels} from "../use-transform";
 
 import {Arrowhead} from "./arrowhead";
 import {SVGLine} from "./svg-line";
@@ -15,7 +15,7 @@ type Props = {
 export function Vector(props: Props) {
     const {tail, tip, color} = props;
 
-    const [tailPx, tipPx] = useTransformVectorToPixel(tail, tip);
+    const [tailPx, tipPx] = useTransformVectorsToPixels(tail, tip);
     const direction = vec.sub(tip, tail);
     return (
         <g style={{stroke: color, strokeWidth: 2}}>

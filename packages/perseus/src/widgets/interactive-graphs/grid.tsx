@@ -3,7 +3,7 @@ import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
 import {AxisTicks} from "./axis-ticks";
-import {useTransformVectorToPixel} from "./graphs/use-transform";
+import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import useGraphConfig from "./reducer/use-graph-config";
 
 import type {GraphRange} from "../../perseus-types";
@@ -63,8 +63,8 @@ const axisOptions = (
 
 export const Grid = (props: GridProps) => {
     const {width, height} = useGraphConfig();
-    const xRange = useTransformVectorToPixel(props.range[0]);
-    const yRange = useTransformVectorToPixel(props.range[1]);
+    const xRange = useTransformVectorsToPixels(props.range[0]);
+    const yRange = useTransformVectorsToPixels(props.range[1]);
 
     // The clip definition starts from the top left of the shape
     // so the below values make use of the minimum x and maximum y of the range

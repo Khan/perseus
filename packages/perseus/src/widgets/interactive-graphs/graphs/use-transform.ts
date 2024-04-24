@@ -34,7 +34,7 @@ export function pointToPixel(point: vec.Vector2, graphState: GraphDimensions) {
     return vectorsToPixels([point], graphState, [a, b])[0];
 }
 
-export const useTransformVectorToPixel = (...vectors: vec.Vector2[]) => {
+export const useTransformVectorsToPixels = (...vectors: vec.Vector2[]) => {
     const graphState = useGraphConfig();
     return vectorsToPixels(vectors, graphState);
 };

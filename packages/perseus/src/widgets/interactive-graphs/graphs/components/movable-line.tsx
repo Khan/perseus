@@ -3,7 +3,7 @@ import {useRef} from "react";
 import * as React from "react";
 
 import {TARGET_SIZE} from "../../utils";
-import {useTransformVectorToPixel} from "../use-transform";
+import {useTransformVectorsToPixels} from "../use-transform";
 import {getRayIntersectionCoords} from "../utils";
 
 import {SVGLine} from "./svg-line";
@@ -30,7 +30,7 @@ export const MovableLine = (props: Props) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
-    const [startPtPx, endPtPx] = useTransformVectorToPixel(start, end);
+    const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
