@@ -85,7 +85,7 @@ export const Grid = (props: GridProps) => {
                     height={height}
                 />
             </clipPath>
-            <g clipPath={"url(#myClip)"}>
+            <g clipPath={`url(#${clipId})`}>
                 <Coordinates.Cartesian
                     xAxis={axisOptions(props, 0)}
                     yAxis={axisOptions(props, 1)}
