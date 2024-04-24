@@ -1727,7 +1727,7 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -6],
-                                color: "blue",
+                                color: "purple",
                                 filled: true,
                             },
                             {
