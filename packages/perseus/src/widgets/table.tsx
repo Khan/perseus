@@ -9,6 +9,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import SimpleKeypadInput from "../components/simple-keypad-input";
 import InteractiveUtil from "../interactive2/interactive-util";
 import {ApiOptions} from "../perseus-api";
@@ -16,6 +17,7 @@ import Renderer from "../renderer";
 import Util from "../util";
 import KhanAnswerTypes from "../util/answer-types";
 
+import type {PerseusStrings} from "../strings";
 import type {WidgetExports} from "../types";
 
 const {assert} = InteractiveUtil;
@@ -50,6 +52,9 @@ const getRefForPath = function (path) {
 };
 
 class Table extends React.Component<any> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static propTypes = {
         answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
         editableHeaders: PropTypes.bool,
@@ -131,6 +136,7 @@ class Table extends React.Component<any> {
                                     <Renderer
                                         content={header}
                                         linterContext={this.props.linterContext}
+                                        strings={this.context.strings}
                                     />
                                 </th>
                             );
@@ -215,7 +221,11 @@ class Table extends React.Component<any> {
 
     simpleValidate: (arg1: any) => any = (rubric) => {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Table'.
-        return Table.validate(this.getUserInput(), rubric);
+        return Table.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+        );
     };
 
     _handleFocus: (arg1: any) => void = (inputPath) => {
@@ -304,7 +314,7 @@ class Table extends React.Component<any> {
 }
 
 _.extend(Table, {
-    validate: function (state, rubric) {
+    validate: function (state, rubric, strings: PerseusStrings) {
         const filterNonEmpty = function (table: any) {
             return _.filter(table, function (row) {
                 // Check if row has a cell that is nonempty
@@ -343,9 +353,13 @@ _.extend(Table, {
                     rowSupplied,
                     function (cellSupplied, i) {
                         const cellSolution = rowSolution[i];
-                        const validator = createValidator(cellSolution, {
-                            simplify: true,
-                        });
+                        const validator = createValidator(
+                            cellSolution,
+                            {
+                                simplify: true,
+                            },
+                            strings,
+                        );
                         const result = validator(cellSupplied);
                         if (result.message) {
                             // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.

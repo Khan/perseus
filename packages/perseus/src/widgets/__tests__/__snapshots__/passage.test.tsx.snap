@@ -122,9 +122,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                   <span
                     class="perseus-sr-only"
                   >
-                    [Marker for question 
-                    1
-                    ]
+                    [Marker for question 1]
                   </span>
                    
                   <span>
@@ -172,7 +170,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                   <span
                     class="line-marker"
                   >
-                    Line 
+                    Line
                   </span>
                   <span>
                     5
@@ -249,9 +247,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                             <span
                               class="perseus-sr-only"
                             >
-                              [Marker for question 
-                              1
-                              ]
+                              [Marker for question 1]
                             </span>
                             <span>
                               , they tend to evolve relatively quickly toward an outsized or pint
@@ -612,9 +608,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                   <span
                     class="perseus-sr-only"
                   >
-                    [Sentence 
-                    1
-                    ]
+                    [Sentence 1]
                   </span>
                    
                   <span>
@@ -743,9 +737,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                             <span
                               class="perseus-sr-only"
                             >
-                              [Sentence 
-                              1
-                              ]
+                              [Sentence 1]
                             </span>
                             <span>
                               . The authors say their results
@@ -981,9 +973,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                   <span
                     class="perseus-sr-only"
                   >
-                    [Marker for question 
-                    1
-                    ]
+                    [Marker for question 1]
                   </span>
                    
                   <span>
@@ -1031,7 +1021,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                   <span
                     class="line-marker"
                   >
-                    Line 
+                    Line
                   </span>
                   <span>
                     5
@@ -1108,9 +1098,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                             <span
                               class="perseus-sr-only"
                             >
-                              [Marker for question 
-                              1
-                              ]
+                              [Marker for question 1]
                             </span>
                             <span>
                               , they tend to evolve relatively quickly toward an outsized or pint
@@ -1471,9 +1459,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                   <span
                     class="perseus-sr-only"
                   >
-                    [Sentence 
-                    1
-                    ]
+                    [Sentence 1]
                   </span>
                    
                   <span>
@@ -1602,9 +1588,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                             <span
                               class="perseus-sr-only"
                             >
-                              [Sentence 
-                              1
-                              ]
+                              [Sentence 1]
                             </span>
                             <span>
                               . The authors say their results

@@ -3,10 +3,10 @@ import {render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {mockStrings} from "../../../strings";
 import {HideAnswersToggle} from "../hide-answers-toggle";
-import {strings} from "../strings";
 
-const labelText = strings.hideAnswersToggleLabel;
+const labelText = mockStrings.hideAnswersToggleLabel;
 
 describe("HideAnswersToggle", () => {
     let userEvent;

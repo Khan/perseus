@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "21.6.0",
+    "version": "22.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -18,6 +18,20 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/es/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "source": "./src/index.ts"
+        },
+        "./strings": {
+            "import": "./dist/es/strings.js",
+            "require": "./dist/strings.js",
+            "types": "./dist/strings.d.ts",
+            "source": "./src/strings.ts"
+        }
+    },
     "files": [
         "dist"
     ],
@@ -27,10 +41,10 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.9",
         "@khanacademy/kmath": "^0.1.12",
-        "@khanacademy/math-input": "^17.5.0",
+        "@khanacademy/math-input": "^18.0.0",
         "@khanacademy/perseus-core": "1.4.2",
         "@khanacademy/perseus-linter": "^0.3.12",
-        "@khanacademy/pure-markdown": "^0.3.1",
+        "@khanacademy/pure-markdown": "^0.3.2",
         "@khanacademy/simple-markdown": "^0.11.4",
         "mafs": "https://github.com/Khan/mafs/releases/download/v0.18.1%2Bbuild-cd8b2467893342ba0b02100073fe21f93f8b1125/mafs-0.18.1.tgz"
     },
@@ -42,7 +56,6 @@
         "@khanacademy/wonder-blocks-data": "^13.0.7",
         "@khanacademy/wonder-blocks-dropdown": "^5.2.0",
         "@khanacademy/wonder-blocks-form": "^4.5.0",
-        "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "^4.1.0",
         "@khanacademy/wonder-blocks-layout": "^2.0.31",
         "@khanacademy/wonder-blocks-link": "^6.1.0",
@@ -63,7 +76,7 @@
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
         "lodash.debounce": "^4.0.8",
-        "perseus-build-settings": "^0.3.0",
+        "perseus-build-settings": "^0.4.0",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
         "react-dom": "16.14.0",
@@ -78,7 +91,6 @@
         "@khanacademy/wonder-blocks-data": "^13.0.7",
         "@khanacademy/wonder-blocks-dropdown": "^5.2.0",
         "@khanacademy/wonder-blocks-form": "^4.5.0",
-        "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "^4.1.0",
         "@khanacademy/wonder-blocks-layout": "^2.0.31",
         "@khanacademy/wonder-blocks-link": "^6.1.0",

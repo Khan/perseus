@@ -1,5 +1,23 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.5.1
+
+### Patch Changes
+
+-   [#1206](https://github.com/Khan/perseus/pull/1206) [`02bd5fc0c`](https://github.com/Khan/perseus/commit/02bd5fc0c1bd91efd9f0d68ee0ec5f4db394feb7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix 'process.env' replacement in dev UI
+
+## 1.5.0
+
+### Minor Changes
+
+-   [#1168](https://github.com/Khan/perseus/pull/1168) [`a9c2308f9`](https://github.com/Khan/perseus/commit/a9c2308f907178794cfe761240ae9d1bec839296) Thanks [@jeresig](https://github.com/jeresig)! - Remove wonder-blocks-i18n usage from perseus and perseus-editor packages.
+
+### Patch Changes
+
+-   Updated dependencies [[`a9c2308f9`](https://github.com/Khan/perseus/commit/a9c2308f907178794cfe761240ae9d1bec839296), [`22709bd9b`](https://github.com/Khan/perseus/commit/22709bd9be3e7fa7965939c7dc6a548a6189d2af)]:
+    -   @khanacademy/math-input@18.0.0
+    -   @khanacademy/pure-markdown@0.3.2
+
 ## 1.4.0
 
 ### Minor Changes

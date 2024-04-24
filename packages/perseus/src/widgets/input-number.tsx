@@ -1,11 +1,11 @@
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import InputWithExamples from "../components/input-with-examples";
 import SimpleKeypadInput from "../components/simple-keypad-input";
 import {ApiOptions} from "../perseus-api";
@@ -13,6 +13,7 @@ import TexWrangler from "../tex-wrangler";
 import KhanAnswerTypes from "../util/answer-types";
 
 import type {PerseusInputNumberWidgetOptions} from "../perseus-types";
+import type {PerseusStrings} from "../strings";
 import type {
     APIOptions,
     Path,
@@ -59,35 +60,32 @@ const answerTypes = {
 } as const;
 
 const formExamples = {
-    integer: function (options) {
-        return i18n._("an integer, like $6$");
+    integer: function (options, strings: PerseusStrings) {
+        return strings.integerExample;
     },
-    proper: function (options) {
+    proper: function (options, strings: PerseusStrings) {
         if (options.simplify === "optional") {
-            return i18n._("a *proper* fraction, like $1/2$ or $6/10$");
+            return strings.properExample;
         }
-        return i18n._("a *simplified proper* fraction, like $3/5$");
+        return strings.simplifiedProperExample;
     },
-    improper: function (options) {
+    improper: function (options, strings: PerseusStrings) {
         if (options.simplify === "optional") {
-            return i18n._("an *improper* fraction, like $10/7$ or $14/8$");
+            return strings.improperExample;
         }
-        return i18n._("a *simplified improper* fraction, like $7/4$");
+        return strings.simplifiedImproperExample;
     },
-    mixed: function (options) {
-        return i18n._("a mixed number, like $1\\ 3/4$");
+    mixed: function (options, strings: PerseusStrings) {
+        return strings.mixedExample;
     },
-    decimal: function (options) {
-        return i18n._("an *exact* decimal, like $0.75$");
+    decimal: function (options, strings: PerseusStrings) {
+        return strings.decimalExample;
     },
-    percent: function (options) {
-        return i18n._("a percent, like $12.34\\%$");
+    percent: function (options, strings: PerseusStrings) {
+        return strings.percentExample;
     },
-    pi: function (options) {
-        return i18n._(
-            "a multiple of pi, like $12\\ \\text{pi}$ or " +
-                "$2/3\\ \\text{pi}$",
-        );
+    pi: function (options, strings: PerseusStrings) {
+        return strings.piExample;
     },
 } as const;
 
@@ -123,6 +121,9 @@ type DefaultProps = {
 };
 
 class InputNumber extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         currentValue: "",
         size: "normal",
@@ -224,7 +225,7 @@ class InputNumber extends React.Component<Props> {
     blurInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs.input.blur();
+        this.refs.input?.blur();
     };
 
     getInputPaths: () => ReadonlyArray<Path> = () => {
@@ -263,25 +264,24 @@ class InputNumber extends React.Component<Props> {
         onInputError?: APIOptions["onInputError"],
     ) => PerseusScore = (rubric, onInputError) => {
         onInputError = onInputError || function () {};
-        return InputNumber.validate(this.getUserInput(), rubric, onInputError);
+        return InputNumber.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+            onInputError,
+        );
     };
 
     examples: () => ReadonlyArray<string> = () => {
+        const {strings} = this.context;
         const type = this.props.answerType;
         const forms = answerTypes[type].forms.split(/\s*,\s*/);
 
-        const examples = _.map(
-            forms,
-            function (form) {
-                // eslint-disable-next-line @babel/no-invalid-this
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                // eslint-disable-next-line @babel/no-invalid-this
-                return formExamples[form](this.props);
-            },
-            this,
+        const examples = _.map(forms, (form) =>
+            formExamples[form](this.props, strings),
         );
 
-        return [i18n._("**Your answer should be** ")].concat(examples);
+        return [strings.yourAnswer].concat(examples);
     };
 
     static validate(
@@ -289,6 +289,7 @@ class InputNumber extends React.Component<Props> {
             currentValue: string;
         },
         rubric: Rubric,
+        strings: PerseusStrings,
         onInputError: APIOptions["onInputError"] = () => {},
     ): PerseusScore {
         if (rubric.answerType == null) {
@@ -307,6 +308,7 @@ class InputNumber extends React.Component<Props> {
                 maxError: rubric.maxError,
                 forms: answerTypes[rubric.answerType].forms,
             },
+            strings,
         );
 
         // We may have received TeX; try to parse it before grading.

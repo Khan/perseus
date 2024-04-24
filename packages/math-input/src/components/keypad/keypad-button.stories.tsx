@@ -2,6 +2,7 @@ import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
+import {mockStrings} from "../../strings";
 
 import {KeypadButton} from "./keypad-button";
 
@@ -18,7 +19,7 @@ export default {
     argTypes: {
         keyConfig: {
             control: "select",
-            options: {...KeyConfigs},
+            options: {...KeyConfigs(mockStrings)},
         },
         tintColor: {
             control: "color",
@@ -60,7 +61,7 @@ export const AllButtons: ComponentStory<typeof KeypadButton> = ({
             gap: "25px",
         }}
     >
-        {Object.keys(KeyConfigs).map((key) => (
+        {Object.keys(KeyConfigs(mockStrings)).map((key) => (
             <div
                 key={key}
                 style={{
@@ -71,7 +72,7 @@ export const AllButtons: ComponentStory<typeof KeypadButton> = ({
             >
                 {key}
                 <KeypadButton
-                    keyConfig={KeyConfigs[key]}
+                    keyConfig={KeyConfigs(mockStrings)[key]}
                     onClickKey={action("pressed")}
                     coord={[0, 0]}
                 />

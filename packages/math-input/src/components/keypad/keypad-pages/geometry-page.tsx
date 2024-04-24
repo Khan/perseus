@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import Keys from "../../../data/key-configs";
+import KeyConfigs from "../../../data/key-configs";
+import {useMathInputI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 
 import type {ClickKeyCallback} from "../../../types";
@@ -11,6 +12,8 @@ type Props = {
 
 export default function GeometryPage(props: Props) {
     const {onClickKey} = props;
+    const {strings} = useMathInputI18n();
+    const Keys = KeyConfigs(strings);
     return (
         <>
             {/* Row 1 */}

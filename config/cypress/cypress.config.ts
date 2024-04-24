@@ -49,6 +49,11 @@ export default defineConfig({
                     // The istanbul plugin only enables itself if the
                     // CYPRESS_COVERAGE Cypress env is set!
                     plugins: [istanbul()],
+                    define: {
+                        // This is used to determine if we are running in a
+                        // Storybook environment.
+                        "process.env.STORYBOOK": JSON.stringify(true),
+                    },
                 });
             },
         },

@@ -4,8 +4,9 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {useMathInputI18n} from "../../i18n-context";
 import {createMathField} from "../../input/mathquill-instance";
-import keyTranslator from "../../key-handlers/key-translator";
+import {getKeyTranslator} from "../../key-handlers/key-translator";
 import Keypad from "../index";
 
 import type Key from "../../../data/keys";
@@ -23,11 +24,13 @@ function V2KeypadWithMathquill(props: Props) {
     const [mathField, setMathField] = React.useState<MathFieldInterface>();
     const {onChangeMathInput, keypadClosed, onAnalyticsEvent} = props;
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(!keypadClosed);
+    const {strings} = useMathInputI18n();
 
     React.useEffect(() => {
         if (!mathField && mathFieldWrapperRef.current) {
             const mathFieldInstance = createMathField(
                 mathFieldWrapperRef.current,
+                strings,
                 (baseConfig) => {
                     return {
                         ...baseConfig,
@@ -41,7 +44,9 @@ function V2KeypadWithMathquill(props: Props) {
             );
             setMathField(mathFieldInstance);
         }
-    }, [mathField, onChangeMathInput]);
+    }, [mathField, strings, onChangeMathInput]);
+
+    const keyTranslator = getKeyTranslator("en");
 
     function handleClickKey(key: Key) {
         if (!mathField) {

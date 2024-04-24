@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
+import KeyConfigs from "../../data/key-configs";
 import {convertDotToTimesByLocale} from "../../utils";
+import {useMathInputI18n} from "../i18n-context";
 
 import {KeypadButton} from "./keypad-button";
 import {getCursorContextConfig} from "./utils";
@@ -25,8 +26,9 @@ export default function SharedKeys(props: Props) {
         convertDotToTimes,
         selectedPage,
     } = props;
-
-    const cursorKeyConfig = getCursorContextConfig(cursorContext);
+    const {strings, locale} = useMathInputI18n();
+    const cursorKeyConfig = getCursorContextConfig(strings, cursorContext);
+    const Keys = KeyConfigs(strings);
 
     // Fraction position depends on the page
     const fractionCoord: readonly [number, number] =
@@ -58,7 +60,7 @@ export default function SharedKeys(props: Props) {
             {/* Row 2 */}
             <KeypadButton
                 keyConfig={
-                    convertDotToTimesByLocale(!!convertDotToTimes)
+                    convertDotToTimesByLocale(locale, !!convertDotToTimes)
                         ? Keys.TIMES
                         : Keys.CDOT
                 }

@@ -1,38 +1,37 @@
-import * as wbi18n from "@khanacademy/wonder-blocks-i18n";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import keyConfigs from "../../../data/key-configs";
-import * as utils from "../../../utils";
+import {mockStrings} from "../../../strings";
+import {MathInputI18nContextProvider} from "../../i18n-context";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
 
-import tabs from "./test-data-tabs";
+import {getTestDataTabs} from "./test-data-tabs";
 
 const contextToKeyAria = {
-    [CursorContext.IN_PARENS]: keyConfigs.JUMP_OUT_PARENTHESES.ariaLabel,
-    [CursorContext.IN_SUPER_SCRIPT]: keyConfigs.JUMP_OUT_EXPONENT.ariaLabel,
-    [CursorContext.IN_SUB_SCRIPT]: keyConfigs.JUMP_OUT_BASE.ariaLabel,
-    [CursorContext.IN_NUMERATOR]: keyConfigs.JUMP_OUT_NUMERATOR.ariaLabel,
-    [CursorContext.IN_DENOMINATOR]: keyConfigs.JUMP_OUT_DENOMINATOR.ariaLabel,
-    [CursorContext.BEFORE_FRACTION]: keyConfigs.JUMP_INTO_NUMERATOR.ariaLabel,
+    [CursorContext.IN_PARENS]:
+        keyConfigs(mockStrings).JUMP_OUT_PARENTHESES.ariaLabel,
+    [CursorContext.IN_SUPER_SCRIPT]:
+        keyConfigs(mockStrings).JUMP_OUT_EXPONENT.ariaLabel,
+    [CursorContext.IN_SUB_SCRIPT]:
+        keyConfigs(mockStrings).JUMP_OUT_BASE.ariaLabel,
+    [CursorContext.IN_NUMERATOR]:
+        keyConfigs(mockStrings).JUMP_OUT_NUMERATOR.ariaLabel,
+    [CursorContext.IN_DENOMINATOR]:
+        keyConfigs(mockStrings).JUMP_OUT_DENOMINATOR.ariaLabel,
+    [CursorContext.BEFORE_FRACTION]:
+        keyConfigs(mockStrings).JUMP_INTO_NUMERATOR.ariaLabel,
 };
 
 describe("keypad", () => {
-    const originalDecimalSeparator = utils.decimalSeparator;
     let userEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-    });
-
-    afterEach(() => {
-        // @ts-expect-error TS2540 - Cannot assign to 'decimalSeparator' because it is a read-only property.
-        // eslint-disable-next-line import/namespace
-        utils.decimalSeparator = originalDecimalSeparator;
     });
 
     describe("shows navigation buttons", () => {
@@ -164,15 +163,16 @@ describe("keypad", () => {
 
     it(`forces CDOT in locales that require it`, async () => {
         // Arrange
-        jest.spyOn(wbi18n, "getLocale").mockReturnValue("az");
 
         // Act
         render(
-            <Keypad
-                onClickKey={() => {}}
-                convertDotToTimes={true}
-                onAnalyticsEvent={async () => {}}
-            />,
+            <MathInputI18nContextProvider locale="az" strings={mockStrings}>
+                <Keypad
+                    onClickKey={() => {}}
+                    convertDotToTimes={true}
+                    onAnalyticsEvent={async () => {}}
+                />
+            </MathInputI18nContextProvider>,
         );
 
         // Assert
@@ -182,15 +182,16 @@ describe("keypad", () => {
 
     it(`forces TIMES in locales that require it`, async () => {
         // Arrange
-        jest.spyOn(wbi18n, "getLocale").mockReturnValue("fr");
 
         // Act
         render(
-            <Keypad
-                onClickKey={() => {}}
-                convertDotToTimes={false}
-                onAnalyticsEvent={async () => {}}
-            />,
+            <MathInputI18nContextProvider locale="fr" strings={mockStrings}>
+                <Keypad
+                    onClickKey={() => {}}
+                    convertDotToTimes={false}
+                    onAnalyticsEvent={async () => {}}
+                />
+            </MathInputI18nContextProvider>,
         );
 
         // Assert
@@ -228,6 +229,7 @@ describe("keypad", () => {
             />,
         );
 
+        const tabs = getTestDataTabs(mockStrings);
         for (const tabData of tabs) {
             const tab = screen.getByLabelText(tabData.name);
             expect(tab).toBeInTheDocument();
@@ -300,14 +302,15 @@ describe("keypad", () => {
     });
 
     it(`can show the comma decimal separator`, async () => {
-        // @ts-expect-error TS2540 - Cannot assign to 'decimalSeparator' because it is a read-only property.
-        // eslint-disable-next-line import/namespace
-        utils.decimalSeparator = utils.DecimalSeparator.COMMA;
-
         // Arrange
         // Act
         render(
-            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
+            <MathInputI18nContextProvider locale="fr" strings={mockStrings}>
+                <Keypad
+                    onClickKey={() => {}}
+                    onAnalyticsEvent={async () => {}}
+                />
+            </MathInputI18nContextProvider>,
         );
 
         // Assert

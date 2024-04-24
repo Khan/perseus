@@ -7,6 +7,7 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
+import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext, getDependencies} from "./dependencies";
 import JiptParagraphs from "./jipt-paragraphs";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
@@ -43,6 +44,9 @@ class ArticleRenderer
     extends React.Component<Props>
     implements KeypadContextRendererInterface
 {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _currentFocus: any;
     sectionRenderers: Array<Renderer> = [];
 
@@ -242,7 +246,7 @@ class ArticleRenderer
                             "article",
                         )}
                         legacyPerseusLint={this.props.legacyPerseusLint}
-                        {...this.props.dependencies}
+                        strings={this.context.strings}
                     />
                 </div>
             );

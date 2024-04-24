@@ -3,13 +3,12 @@ import MathQuill from "mathquill";
 
 import {inJest} from "../../utils";
 
-import {mathQuillStrings} from "./strings";
-
 import type {
     MathQuillInterface,
     MathFieldConfig,
     MathFieldInterface,
 } from "./mathquill-types";
+import type {MathInputStrings} from "../../strings";
 
 // We only need one MathQuill instance (referred to as MQ in the docs)
 // and that contains some MQ constants and the MathField constructor
@@ -102,6 +101,7 @@ const createBaseConfig = (): MathFieldConfig => ({
  */
 export function createMathField(
     container: HTMLDivElement | HTMLSpanElement,
+    strings: MathInputStrings,
     configCallback?: (baseConfig: MathFieldConfig) => MathFieldConfig,
 ): MathFieldInterface {
     const baseConfig = createBaseConfig();
@@ -109,10 +109,23 @@ export function createMathField(
 
     const mathField = mathQuillInstance
         .MathField(container, config)
-        .setAriaLabel(mathQuillStrings.mathInputBox)
-        .setAriaStringsOverrideMap(
-            mathQuillStrings.ariaStaticStringsMap,
-        ) as MathFieldInterface;
+        .setAriaLabel(strings.mathInputBox)
+        .setAriaStringsOverrideMap({
+            before: (obj) => strings.before({obj}),
+            after: (obj) => strings.after({obj}),
+            "beginning of": (obj) => strings["beginning of"]({obj}),
+            "end of": (obj) => strings["end of"]({obj}),
+            Baseline: strings.Baseline,
+            Superscript: strings.Superscript,
+            selected: (obj) => strings.selected({obj}),
+            "no answer": strings["no answer"],
+            "nothing selected": strings["nothing selected"],
+            "nothing to the right": strings["nothing to the right"],
+            "nothing to the left": strings["nothing to the left"],
+            "block is empty": strings["block is empty"],
+            "nothing above": strings["nothing above"],
+            labelValue: (label, value) => strings.labelValue({label, value}),
+        }) as MathFieldInterface;
 
     // We should avoid running SpeechRuleEngine.setup() in Jest. It makes an
     //   HTTP request to fetch non-english speech rules, and cannot be easily

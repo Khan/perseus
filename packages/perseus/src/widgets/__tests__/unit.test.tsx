@@ -1,6 +1,7 @@
 import {render} from "@testing-library/react";
 import React from "react";
 
+import {mockStrings} from "../../strings";
 import Unit, {countSigfigs, sigfigPrint} from "../unit";
 
 const {widget} = Unit;
@@ -43,52 +44,72 @@ describe("Unit Widget", () => {
 
     describe("Unit Widget Grading", () => {
         it("accepts correct answers", () => {
-            let maybeValid = UnitWidget.validate("5 tbsp", {
-                value: "5 tbsp",
-                accepting: "all",
-                sigfigs: 1,
-            });
+            let maybeValid = UnitWidget.validate(
+                "5 tbsp",
+                {
+                    value: "5 tbsp",
+                    accepting: "all",
+                    sigfigs: 1,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
             expect(maybeValid.earned).toEqual(1);
 
-            maybeValid = UnitWidget.validate("0.0739 L", {
-                value: "5.00 tbsp",
-                accepting: "all",
-                sigfigs: 3,
-            });
+            maybeValid = UnitWidget.validate(
+                "0.0739 L",
+                {
+                    value: "5.00 tbsp",
+                    accepting: "all",
+                    sigfigs: 3,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
             expect(maybeValid.earned).toEqual(1);
 
-            maybeValid = UnitWidget.validate("5.00 tbsp", {
-                value: "0.0739 L",
-                accepting: "all",
-                sigfigs: 3,
-            });
+            maybeValid = UnitWidget.validate(
+                "5.00 tbsp",
+                {
+                    value: "0.0739 L",
+                    accepting: "all",
+                    sigfigs: 3,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
             expect(maybeValid.earned).toEqual(1);
 
-            maybeValid = UnitWidget.validate("1124 lb", {
-                value: "5000 N",
-                accepting: "all",
-                sigfigs: 4,
-            });
+            maybeValid = UnitWidget.validate(
+                "1124 lb",
+                {
+                    value: "5000 N",
+                    accepting: "all",
+                    sigfigs: 4,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
             expect(maybeValid.earned).toEqual(1);
 
-            maybeValid = UnitWidget.validate("1124 lb", {
-                value: "5000 N",
-                accepting: "some",
-                acceptingUnits: ["lb"],
-                sigfigs: 4,
-            });
+            maybeValid = UnitWidget.validate(
+                "1124 lb",
+                {
+                    value: "5000 N",
+                    accepting: "some",
+                    acceptingUnits: ["lb"],
+                    sigfigs: 4,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
@@ -96,12 +117,16 @@ describe("Unit Widget", () => {
         });
 
         it("handles loss of precision gracefully", () => {
-            const maybeValid = UnitWidget.validate("1.12 lb", {
-                value: "5 N",
-                accepting: "some",
-                acceptingUnits: ["lb"],
-                sigfigs: 3,
-            });
+            const maybeValid = UnitWidget.validate(
+                "1.12 lb",
+                {
+                    value: "5 N",
+                    accepting: "some",
+                    acceptingUnits: ["lb"],
+                    sigfigs: 3,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
@@ -109,11 +134,15 @@ describe("Unit Widget", () => {
         });
 
         it("flags incorrect units", () => {
-            const maybeValid = UnitWidget.validate("5 tbsp", {
-                value: "5 m",
-                accepting: "all",
-                sigfigs: 1,
-            });
+            const maybeValid = UnitWidget.validate(
+                "5 tbsp",
+                {
+                    value: "5 m",
+                    accepting: "all",
+                    sigfigs: 1,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
@@ -122,11 +151,15 @@ describe("Unit Widget", () => {
         });
 
         it("flags incorrect sigfigs", () => {
-            let maybeValid = UnitWidget.validate("5.0 tbsp", {
-                value: "5 tbsp",
-                accepting: "all",
-                sigfigs: 1,
-            });
+            let maybeValid = UnitWidget.validate(
+                "5.0 tbsp",
+                {
+                    value: "5 tbsp",
+                    accepting: "all",
+                    sigfigs: 1,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
@@ -135,11 +168,15 @@ describe("Unit Widget", () => {
                 "Check your significant figures.",
             );
 
-            maybeValid = UnitWidget.validate("5 tbsp", {
-                value: "5.0 tbsp",
-                accepting: "all",
-                sigfigs: 2,
-            });
+            maybeValid = UnitWidget.validate(
+                "5 tbsp",
+                {
+                    value: "5.0 tbsp",
+                    accepting: "all",
+                    sigfigs: 2,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }
@@ -150,11 +187,15 @@ describe("Unit Widget", () => {
         });
 
         it("flags numerically incorrect answers", () => {
-            const maybeValid = UnitWidget.validate("8.1 tbsp", {
-                value: "5.0 tbsp",
-                accepting: "all",
-                sigfigs: 2,
-            });
+            const maybeValid = UnitWidget.validate(
+                "8.1 tbsp",
+                {
+                    value: "5.0 tbsp",
+                    accepting: "all",
+                    sigfigs: 2,
+                },
+                mockStrings,
+            );
             if (maybeValid.type === "invalid") {
                 throw new Error("invalid unit");
             }

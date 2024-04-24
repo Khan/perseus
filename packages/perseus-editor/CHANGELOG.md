@@ -1,5 +1,40 @@
 # @khanacademy/perseus-editor
 
+## 6.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`08b401d34`](https://github.com/Khan/perseus/commit/08b401d34cd06ad5bdee7298a35d1adb1497f611), [`87d12ad4a`](https://github.com/Khan/perseus/commit/87d12ad4afedafe70063715163d8f448b4d31b85)]:
+    -   @khanacademy/perseus@22.0.1
+
+## 6.0.0
+
+### Major Changes
+
+-   [#1168](https://github.com/Khan/perseus/pull/1168) [`a9c2308f9`](https://github.com/Khan/perseus/commit/a9c2308f907178794cfe761240ae9d1bec839296) Thanks [@jeresig](https://github.com/jeresig)! - Remove wonder-blocks-i18n usage from perseus and perseus-editor packages.
+
+*   [#1153](https://github.com/Khan/perseus/pull/1153) [`22709bd9b`](https://github.com/Khan/perseus/commit/22709bd9be3e7fa7965939c7dc6a548a6189d2af) Thanks [@jeresig](https://github.com/jeresig)! - Remove wonder-blocks-i18n from math-input, support multiple exports in rollup.
+
+### Minor Changes
+
+-   [#1186](https://github.com/Khan/perseus/pull/1186) [`d7fbe3e99`](https://github.com/Khan/perseus/commit/d7fbe3e99eaa8686144442b47c7b46cc9ace6c12) Thanks [@nishasy](https://github.com/nishasy)! - Add UI within InteractiveGraphEditor to add/edit locked lines
+
+*   [#1195](https://github.com/Khan/perseus/pull/1195) [`9b5a9a40a`](https://github.com/Khan/perseus/commit/9b5a9a40a0d3453ccb4e7f2883815869c3d32f37) Thanks [@nishasy](https://github.com/nishasy)! - Use MathJax colors for Interactive Graph locked figures
+
+-   [#1195](https://github.com/Khan/perseus/pull/1195) [`9b5a9a40a`](https://github.com/Khan/perseus/commit/9b5a9a40a0d3453ccb4e7f2883815869c3d32f37) Thanks [@nishasy](https://github.com/nishasy)! - View locked lines on Interactive Graph
+
+### Patch Changes
+
+-   [#1196](https://github.com/Khan/perseus/pull/1196) [`52b57c95d`](https://github.com/Khan/perseus/commit/52b57c95d3e0f8c1445e2a7e862d3a52041b26c2) Thanks [@nishasy](https://github.com/nishasy)! - Rename ColorCircle to ColorSwatch
+
+*   [#1201](https://github.com/Khan/perseus/pull/1201) [`125394c94`](https://github.com/Khan/perseus/commit/125394c944a361f6b747ac826201834337d5f76d) Thanks [@jeanettehead](https://github.com/jeanettehead)! - Default a new radio widget to having four options
+
+-   [#1200](https://github.com/Khan/perseus/pull/1200) [`d733aeaec`](https://github.com/Khan/perseus/commit/d733aeaec46b57da9bb592702070e36c0fd30501) Thanks [@jeanettehead](https://github.com/jeanettehead)! - Prevent horizontal scrolling of radio widget options in the editor
+
+-   Updated dependencies [[`52b57c95d`](https://github.com/Khan/perseus/commit/52b57c95d3e0f8c1445e2a7e862d3a52041b26c2), [`890587ef1`](https://github.com/Khan/perseus/commit/890587ef174007ac019a363874b2088f4b4ca9e9), [`d7fbe3e99`](https://github.com/Khan/perseus/commit/d7fbe3e99eaa8686144442b47c7b46cc9ace6c12), [`e86ed507e`](https://github.com/Khan/perseus/commit/e86ed507e67beffb02f59c064f072b8e6fb9f484), [`a9c2308f9`](https://github.com/Khan/perseus/commit/a9c2308f907178794cfe761240ae9d1bec839296), [`22709bd9b`](https://github.com/Khan/perseus/commit/22709bd9be3e7fa7965939c7dc6a548a6189d2af), [`9b5a9a40a`](https://github.com/Khan/perseus/commit/9b5a9a40a0d3453ccb4e7f2883815869c3d32f37), [`9b5a9a40a`](https://github.com/Khan/perseus/commit/9b5a9a40a0d3453ccb4e7f2883815869c3d32f37)]:
+    -   @khanacademy/perseus@22.0.0
+    -   @khanacademy/math-input@18.0.0
+
 ## 5.3.0
 
 ### Minor Changes

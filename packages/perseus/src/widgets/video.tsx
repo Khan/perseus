@@ -3,11 +3,11 @@
  */
 
 import {View} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
 
 import FixedToResponsive from "../components/fixed-to-responsive";
+import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
 import a11y from "../util/a11y";
@@ -37,6 +37,9 @@ type Props = WidgetProps<RenderProps, Rubric> & {
  * Video renderer.
  */
 class Video extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     /**
      * This is the widget's grading function.
      * Points for videos are tallied by the embedded video itself, in the case
@@ -105,7 +108,7 @@ class Video extends React.Component<Props> {
                     key={location + this.props.alignment}
                 >
                     <View style={a11y.srOnly}>
-                        {i18n._("Khan Academy video wrapper")}
+                        {this.context.strings.videoWrapper}
                     </View>
 
                     <iframe

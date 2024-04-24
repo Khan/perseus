@@ -2,6 +2,7 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import {ApiOptions} from "../perseus-api";
 import Renderer from "../renderer";
@@ -28,6 +29,9 @@ type DefaultProps = {
 };
 
 class Group extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     rendererRef: Renderer | null | undefined;
 
     static defaultProps: DefaultProps = {
@@ -170,6 +174,7 @@ class Group extends React.Component<Props> {
                     reviewMode={!!this.props.reviewModeRubric}
                     onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
+                    strings={this.context.strings}
                 />
                 {/* @ts-expect-error - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'. */}
                 {this.props.icon && (

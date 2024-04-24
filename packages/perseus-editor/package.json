@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.3.0",
+    "version": "6.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -27,8 +27,8 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.9",
         "@khanacademy/kmath": "^0.1.12",
-        "@khanacademy/math-input": "^17.5.0",
-        "@khanacademy/perseus": "^21.6.0",
+        "@khanacademy/math-input": "^18.0.0",
+        "@khanacademy/perseus": "^22.0.1",
         "@khanacademy/perseus-core": "1.4.2"
     },
     "devDependencies": {
@@ -38,7 +38,6 @@
         "@khanacademy/wonder-blocks-core": "^6.4.0",
         "@khanacademy/wonder-blocks-dropdown": "^5.2.0",
         "@khanacademy/wonder-blocks-form": "^4.5.0",
-        "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "4.1.0",
         "@khanacademy/wonder-blocks-icon-button": "^5.2.0",
         "@khanacademy/wonder-blocks-switch": "^1.1.15",
@@ -51,7 +50,7 @@
         "create-react-class": "^15.6.3",
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
-        "perseus-build-settings": "^0.3.0",
+        "perseus-build-settings": "^0.4.0",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
         "react-dom": "16.14.0",
@@ -64,7 +63,6 @@
         "@khanacademy/wonder-blocks-core": "^6.4.0",
         "@khanacademy/wonder-blocks-dropdown": "^5.2.0",
         "@khanacademy/wonder-blocks-form": "^4.5.0",
-        "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-icon": "4.1.0",
         "@khanacademy/wonder-blocks-icon-button": "^5.2.0",
         "@khanacademy/wonder-blocks-switch": "^1.1.15",

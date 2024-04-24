@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -7,6 +6,7 @@ import {useRef, useEffect} from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {usePerseusI18n} from "../../components/i18n-context";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
@@ -18,6 +18,7 @@ import Choice from "./choice";
 import ChoiceNoneAbove from "./choice-none-above";
 
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
+import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {StyleDeclaration} from "aphrodite";
 
@@ -75,16 +76,17 @@ function getInstructionsText(
     multipleSelect: boolean,
     countChoices: boolean | null | undefined,
     numCorrect: number,
+    strings: PerseusStrings,
 ): string {
     if (multipleSelect) {
         if (countChoices) {
-            return i18n._("Choose %(numCorrect)s answers:", {
-                numCorrect: numCorrect,
+            return strings.chooseNumAnswers({
+                numCorrect: String(numCorrect),
             });
         }
-        return i18n._("Choose all answers that apply:");
+        return strings.chooseAllAnswers;
     }
-    return i18n._("Choose 1 answer:");
+    return strings.chooseOneAnswer;
 }
 
 const BaseRadio = function (props: Props): React.ReactElement {
@@ -100,6 +102,8 @@ const BaseRadio = function (props: Props): React.ReactElement {
         isLastUsedWidget,
         registerFocusFunction,
     } = props;
+
+    const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
     const prevReviewModeRubric = useRef();
@@ -242,6 +246,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
         multipleSelect,
         countChoices,
         numCorrect,
+        strings,
     );
 
     const responsiveClassName = css(styles.responsiveFieldset);

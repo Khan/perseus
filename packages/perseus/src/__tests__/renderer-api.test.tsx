@@ -9,6 +9,7 @@ import {testDependencies} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
+import {mockStrings} from "../strings";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import {renderQuestion} from "../widgets/__tests__/renderQuestion";
 
@@ -263,6 +264,7 @@ describe("Perseus API", function () {
                     widgets={itemWidget.question.widgets}
                     problemNum={0}
                     apiOptions={apiOptions}
+                    strings={mockStrings}
                 />,
             );
 
@@ -287,6 +289,7 @@ describe("Perseus API", function () {
                     widgets={imageItem.question.widgets}
                     problemNum={0}
                     apiOptions={apiOptions}
+                    strings={mockStrings}
                 />,
             );
 

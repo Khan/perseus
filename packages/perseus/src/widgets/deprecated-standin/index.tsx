@@ -1,6 +1,7 @@
 import Banner from "@khanacademy/wonder-blocks-banner";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import React from "react";
+
+import {PerseusI18nContext} from "../../components/i18n-context";
 
 import type {PerseusScore, WidgetExports} from "../../types";
 
@@ -11,6 +12,9 @@ type Rubric = any;
 type UserInput = Empty;
 
 class DeprecatedStandin extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
         // Since this mean to replace an existing widget the learner
         // WILL earn points for this widget
@@ -39,9 +43,7 @@ class DeprecatedStandin extends React.Component<Props> {
                 }}
             >
                 <Banner
-                    text={i18n._(
-                        "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!",
-                    )}
+                    text={this.context.strings.deprecatedStandin}
                     kind="info"
                     layout="full-width"
                 />

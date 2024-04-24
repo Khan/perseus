@@ -2,7 +2,6 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -12,6 +11,7 @@ import * as React from "react";
 import {useState, useEffect} from "react";
 import _ from "underscore";
 
+import {usePerseusI18n} from "../../components/i18n-context";
 import Icon from "../../components/icon";
 import {ApiOptions, ClassNames} from "../../perseus-api";
 import mediaQueries from "../../styles/media-queries";
@@ -92,6 +92,8 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
     } = props;
     const [isInputFocused, setIsInputFocused] = useState(false);
 
+    const {strings} = usePerseusI18n();
+
     useEffect(() => {
         if (isInputFocused && disabled) {
             setIsInputFocused(false);
@@ -126,13 +128,14 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
     // content library.
     const showDimmed = (!reviewMode && apiOptions.readOnly) || crossedOut;
 
-    const letter = getChoiceLetter(pos);
+    const letter = getChoiceLetter(pos, strings);
     const a11yText = getA11yText(
         letter,
         checked,
         correct,
         crossedOut,
         showCorrectness,
+        strings,
     );
 
     const idFactory = useUniqueIdWithMock(`choice`);
@@ -246,22 +249,20 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                         dismissEnabled
                         content={({close}) => (
                             <PopoverContent
-                                title={i18n._("Cross out")}
-                                content={i18n._("Cross out option")}
+                                title={strings.crossOut}
+                                content={strings.crossOutOption}
                                 closeButtonVisible
                                 actions={
                                     <View>
                                         <Strut size={spacing.medium_16} />
                                         <Button
                                             kind="primary"
-                                            aria-label={i18n._(
-                                                "Cross out Choice %(letter)s",
-                                                {
-                                                    letter: getChoiceLetter(
-                                                        pos,
-                                                    ),
-                                                },
-                                            )}
+                                            aria-label={strings.crossOutChoice({
+                                                letter: getChoiceLetter(
+                                                    pos,
+                                                    strings,
+                                                ),
+                                            })}
                                             disabled={
                                                 apiOptions.readOnly ||
                                                 reviewMode
@@ -285,8 +286,8 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                                             }}
                                         >
                                             {crossedOut
-                                                ? i18n._("Bring back")
-                                                : i18n._("Cross out")}
+                                                ? strings.bringBack
+                                                : strings.crossOut}
                                         </Button>
                                     </View>
                                 }
@@ -296,10 +297,9 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                         {({open}) => (
                             <Clickable
                                 onClick={open}
-                                aria-label={i18n._(
-                                    `Open menu for Choice %(letter)s`,
-                                    {letter: getChoiceLetter(pos)},
-                                )}
+                                aria-label={strings.openMenuForChoice({
+                                    letter: getChoiceLetter(pos, strings),
+                                })}
                                 style={{
                                     alignSelf: "center",
                                     padding: "5px",

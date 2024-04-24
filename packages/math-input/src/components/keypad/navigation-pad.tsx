@@ -3,7 +3,8 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
+import KeyConfigs from "../../data/key-configs";
+import {useMathInputI18n} from "../i18n-context";
 
 import NavigationButton from "./navigation-button";
 
@@ -15,6 +16,8 @@ export type Props = {
 
 export default function NavigationPad(props: Props) {
     const {onClickKey} = props;
+    const {strings} = useMathInputI18n();
+    const Keys = KeyConfigs(strings);
 
     return (
         <View style={styles.container}>

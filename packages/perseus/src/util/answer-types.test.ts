@@ -1,9 +1,12 @@
+import {mockStrings} from "../strings";
+
 import khanAnswerTypes from "./answer-types";
 
 const validateFraction = (correctAnswer: string, guess: string) => {
     const validator = khanAnswerTypes.number.createValidatorFunctional(
         correctAnswer,
         {simplified: true},
+        mockStrings,
     );
     return validator(guess);
 };

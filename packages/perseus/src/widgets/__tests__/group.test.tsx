@@ -7,6 +7,7 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import * as Perseus from "../../index";
+import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
 import {question1} from "../__testdata__/group.testdata";
 
@@ -146,6 +147,7 @@ describe("group widget", () => {
                     problemNum={0}
                     reviewMode={false}
                     onInteractWithWidget={onInteractWithWidget}
+                    strings={mockStrings}
                 />
             </RenderStateRoot>,
         );

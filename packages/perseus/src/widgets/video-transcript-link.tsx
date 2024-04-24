@@ -3,12 +3,12 @@
  */
 
 import {View, Text} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import {usePerseusI18n} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 
 const IS_URL = /^https?:\/\//;
@@ -41,10 +41,11 @@ const VideoTranscriptLink = (props: Props): React.ReactElement => {
     // which is used by our GraphQL framework.
     // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'VideoKind'.
     const result = useVideo(id, kind);
+    const {strings} = usePerseusI18n();
 
     switch (result.status) {
         case "loading":
-            return <View>{i18n._("Loading...")}</View>;
+            return <View>{strings.loading}</View>;
         case "success": {
             const video = result.data?.video;
             return (
@@ -59,17 +60,17 @@ const VideoTranscriptLink = (props: Props): React.ReactElement => {
                         target="_blank"
                         className="visited-no-recolor"
                     >
-                        {i18n._("See video transcript")}
+                        {strings.videoTranscript}
                     </Link>
                 </View>
             );
         }
         case "error":
-            return <View>{i18n._("Something went wrong.")}</View>;
+            return <View>{strings.somethingWrong}</View>;
         case "aborted":
-            return <View>{i18n._("Something went wrong.")}</View>;
+            return <View>{strings.somethingWrong}</View>;
         default:
-            return <View>{i18n._("Something went wrong.")}</View>;
+            return <View>{strings.somethingWrong}</View>;
     }
 };
 

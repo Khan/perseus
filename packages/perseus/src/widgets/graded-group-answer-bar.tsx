@@ -2,10 +2,10 @@
  * Renders answer bar for mobile graded groups. [STATELESS]
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import InlineIcon from "../components/inline-icon";
 import {iconStar, iconTryAgain} from "../icon-paths";
 import {phoneMargin, negativePhoneMargin} from "../styles/constants";
@@ -37,9 +37,14 @@ type Props = {
 };
 
 class GradedGroupAnswerBar extends React.Component<Props> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     render(): React.ReactNode {
         const {apiOptions, answerBarState, onCheckAnswer, onNextQuestion} =
             this.props;
+        const {keepTrying, tryAgain, check, correctExcited, nextQuestion} =
+            this.context.strings;
 
         const answerBarStyle = {
             ...styles.answerBar,
@@ -58,7 +63,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     <span style={styles.tryAgainIcon}>
                         <InlineIcon {...iconTryAgain} />
                     </span>
-                    <span style={{marginLeft: 8}}>{i18n._("Keep trying")}</span>
+                    <span style={{marginLeft: 8}}>{keepTrying}</span>
                 </span>
             ) : (
                 <span />
@@ -66,9 +71,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
 
         if (answerBarState !== "CORRECT") {
             const buttonLabel =
-                answerBarState === "INCORRECT"
-                    ? i18n._("Try again")
-                    : i18n._("Check");
+                answerBarState === "INCORRECT" ? tryAgain : check;
 
             return (
                 <div style={answerBarStyle}>
@@ -92,16 +95,14 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     </span>
                     <span
                         role="alert"
-                        aria-label={i18n._("Correct!")}
+                        aria-label={correctExcited}
                         style={{marginLeft: 8}}
                     >
-                        {i18n._("Correct!")}
+                        {correctExcited}
                     </span>
                 </span>
                 {onNextQuestion && (
-                    <Button onClick={onNextQuestion}>
-                        {i18n._("Next question")}
-                    </Button>
+                    <Button onClick={onNextQuestion}>{nextQuestion}</Button>
                 )}
             </div>
         );

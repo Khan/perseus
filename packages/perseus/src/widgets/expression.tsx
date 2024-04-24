@@ -2,12 +2,12 @@ import * as KAS from "@khanacademy/kas";
 import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import MathInput from "../components/math-input";
 import {useDependencies} from "../dependencies";
 import {Errors as PerseusErrors, Log} from "../logging/log";
@@ -21,6 +21,7 @@ import type {
     PerseusExpressionWidgetOptions,
     PerseusExpressionAnswerForm,
 } from "../perseus-types";
+import type {PerseusStrings} from "../strings";
 import type {
     APIOptions,
     PerseusScore,
@@ -31,9 +32,6 @@ import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;
-
-const ERROR_TITLE = i18n._("Oops!");
-const ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
 // Map of international operator names to their English equivalents
 const englishOperators = {
@@ -117,8 +115,38 @@ type OnInputErrorFunctionType = (
     arg3?: any,
 ) => boolean | null | undefined;
 
+/**
+ *  Get the character used for separating decimals.
+ */
+export const getDecimalSeparator = (locale: string): string => {
+    switch (locale) {
+        // TODO(somewhatabstract): Remove this when Chrome supports the `ka`
+        // locale properly.
+        // https://github.com/formatjs/formatjs/issues/1526#issuecomment-559891201
+        //
+        // Supported locales in Chrome:
+        // https://source.chromium.org/chromium/chromium/src/+/master:third_party/icu/scripts/chrome_ui_languages.list
+        case "ka":
+            return ",";
+
+        default:
+            const numberWithDecimalSeparator = 1.1;
+            // TODO(FEI-3647): Update to use .formatToParts() once we no longer have to
+            // support Safari 12.
+            const match = new Intl.NumberFormat(locale)
+                .format(numberWithDecimalSeparator)
+                // 0x661 is ARABIC-INDIC DIGIT ONE
+                // 0x6F1 is EXTENDED ARABIC-INDIC DIGIT ONE
+                .match(/[^\d\u0661\u06F1]/);
+            return match?.[0] ?? ".";
+    }
+};
+
 // The new, MathQuill input expression widget
 export class Expression extends React.Component<Props, ExpressionState> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _isMounted = false;
 
     //#region Previously a class extension
@@ -145,10 +173,12 @@ export class Expression extends React.Component<Props, ExpressionState> {
         rubric: Rubric,
         // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
         onInputError: OnInputErrorFunctionType = function () {},
+        strings: PerseusStrings,
+        locale: string,
     ): PerseusScore {
         const options = _.clone(rubric);
         _.extend(options, {
-            decimal_separator: i18n.getDecimalSeparator(),
+            decimal_separator: getDecimalSeparator(locale),
         });
 
         const createValidator = (answer: PerseusExpressionAnswerForm) => {
@@ -175,6 +205,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                     simplify: answer.simplify,
                     form: answer.form,
                 }),
+                strings,
             );
         };
 
@@ -344,7 +375,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 const apiResult = this.props.apiOptions.onInputError(
                     null, // reserved for some widget identifier
                     this.props.value,
-                    ERROR_MESSAGE,
+                    this.context.strings.ERROR_TITLE,
                 );
                 if (apiResult !== false) {
                     this.setState({
@@ -375,6 +406,8 @@ export class Expression extends React.Component<Props, ExpressionState> {
             this.getUserInput(),
             rubric,
             onInputError || function () {},
+            this.context.strings,
+            this.context.locale,
         );
 
         // "scoring" is a flag that indicates when we are checking answers.
@@ -411,7 +444,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // make it so that solution answers with ','s or '.'s work
         const options = _.pick(props || this.props, "functions");
         _.extend(options, {
-            decimal_separator: i18n.getDecimalSeparator(),
+            decimal_separator: getDecimalSeparator(this.context.locale),
         });
         return KAS.parse(normalizeTex(value), options);
     };
@@ -461,7 +494,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     blurInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs.input.blur();
+        this.refs.input?.blur();
     };
 
     // HACK(joel)
@@ -532,6 +565,8 @@ export class Expression extends React.Component<Props, ExpressionState> {
             "perseus-widget-expression": true,
             "show-error-tooltip": this.state.showErrorTooltip,
         });
+
+        const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
         return (
             <div

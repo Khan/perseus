@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import Sortable, {Layout} from "../components/sortable";
 import {getDependencies} from "../dependencies";
 import {ApiOptions} from "../perseus-api";
@@ -29,6 +30,9 @@ type State = {
 };
 
 export class Matcher extends React.Component<any, any> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static propTypes = {
         apiOptions: ApiOptions.propTypes,
         labels: PropTypes.array,
@@ -123,6 +127,7 @@ export class Matcher extends React.Component<any, any> {
                                 <Renderer
                                     content={this.props.labels[0] || "..."}
                                     linterContext={this.props.linterContext}
+                                    strings={this.context.strings}
                                 />
                             </th>
                             <th
@@ -135,6 +140,7 @@ export class Matcher extends React.Component<any, any> {
                                 <Renderer
                                     content={this.props.labels[1] || "..."}
                                     linterContext={this.props.linterContext}
+                                    strings={this.context.strings}
                                 />
                             </th>
                         </tr>

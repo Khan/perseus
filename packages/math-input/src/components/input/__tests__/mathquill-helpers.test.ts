@@ -1,3 +1,4 @@
+import {mockStrings} from "../../../strings";
 import {CursorContext} from "../cursor-contexts";
 import {getCursorContext} from "../mathquill-helpers";
 import {createMathField} from "../mathquill-instance";
@@ -7,7 +8,7 @@ describe("MathQuill Helpers", () => {
         it("returns NONE for empty MathField", () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = createMathField(mount, mockStrings);
 
             // Act
             const context = getCursorContext(mathField);
@@ -19,7 +20,7 @@ describe("MathQuill Helpers", () => {
         it("returns BEFORE_FRACTION when before a fraction", () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = createMathField(mount, mockStrings);
             // create fraction and move cursor before it
             mathField.cmd("\\frac");
             mathField.keystroke("Left");
@@ -34,7 +35,7 @@ describe("MathQuill Helpers", () => {
         it("returns IN_PARENS when in parenthesis", () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = createMathField(mount, mockStrings);
             // MQ puts you inside parens when you start a paren
             mathField.typedText("(");
 
@@ -48,7 +49,7 @@ describe("MathQuill Helpers", () => {
         it("returns IN_NUMERATOR when in numerator", () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = createMathField(mount, mockStrings);
             // MQ puts you in the numerator when making a fraction
             mathField.cmd("\\frac");
 
@@ -62,7 +63,7 @@ describe("MathQuill Helpers", () => {
         it("returns IN_DENOMINATOR when in denominator", () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = createMathField(mount, mockStrings);
             // create fraction and move cursor to denominator
             mathField.cmd("\\frac");
             mathField.keystroke("Down");
@@ -77,7 +78,7 @@ describe("MathQuill Helpers", () => {
         it("returns IN_SUB_SCRIPT when in subscript", () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = createMathField(mount, mockStrings);
             // "_" triggers a subscript
             mathField.typedText("6_");
 
@@ -91,7 +92,7 @@ describe("MathQuill Helpers", () => {
         it("returns IN_SUPER_SCRIPT when in superscript", () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = createMathField(mount, mockStrings);
             // "^" triggers a superscript
             mathField.typedText("6^");
 

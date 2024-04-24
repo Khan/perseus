@@ -12,13 +12,15 @@ no copying and pasting is necessary.
 */
 import * as React from "react";
 
-import {DecimalSeparator, decimalSeparator} from "../../utils";
+import {DecimalSeparator, getDecimalSeparator} from "../../utils";
+import {useMathInputI18n} from "../i18n-context";
 
 import type Key from "../../data/keys";
 
 type Props = {id: Key};
 
 export default function ButtonAsset({id}: Props): React.ReactElement {
+    const {locale} = useMathInputI18n();
     switch (id) {
         case "NUM_0":
             return (
@@ -176,7 +178,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             // (, vs .)
             if (
                 id === "DECIMAL" &&
-                decimalSeparator === DecimalSeparator.COMMA
+                getDecimalSeparator(locale) === DecimalSeparator.COMMA
             ) {
                 // comma decimal separator
                 return (

@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import Keys from "../../../data/key-configs";
+import KeyConfigs from "../../../data/key-configs";
+import {useMathInputI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 
 import type Key from "../../../data/keys";
@@ -15,6 +16,8 @@ const columns = 3;
 
 export default function ExtrasPage(props: Props) {
     const {extraKeys, onClickKey} = props;
+    const {strings} = useMathInputI18n();
+    const Keys = KeyConfigs(strings);
     return (
         <>
             {extraKeys.map((key, i) => {
