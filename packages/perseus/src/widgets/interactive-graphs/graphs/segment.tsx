@@ -46,13 +46,13 @@ const SegmentView = (props: InteractiveLineProps) => {
 
     return (
         <>
-            <MovableLine start={start} end={end} onMove={onMoveSegment} />
             <StyledMovablePoint
                 point={start}
                 onMove={(newPoint) => {
                     props.onMovePoint(0, newPoint);
                 }}
             />
+            <MovableLine start={start} end={end} onMove={onMoveSegment} />
             <StyledMovablePoint
                 point={end}
                 onMove={(newPoint) => {
