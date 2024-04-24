@@ -1693,8 +1693,9 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return InteractiveGraph.getUserInputFromProps(this.props);
     }
 
-    simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
-        InteractiveGraph.validate(this.getUserInput(), rubric, this);
+    simpleValidate(rubric: Rubric) {
+        return InteractiveGraph.validate(this.getUserInput(), rubric, this);
+    }
 
     focus: () => void = $.noop;
 

@@ -154,6 +154,17 @@ describe("mafs graphs", () => {
                 renderQuestion(question, apiOptions);
             });
 
+            it("should reject when has not been interacted with", () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, apiOptions);
+
+                // Act
+                // no action
+
+                // Assert
+                expect(renderer).toHaveInvalidInput();
+            });
+
             it("rejects incorrect answer", async () => {
                 // Arrange
                 const {renderer, container} = renderQuestion(
