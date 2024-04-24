@@ -19,11 +19,14 @@ export default function AxisLabels(props) {
         height,
     };
     const [x1, y1] = vec.add(
-        pointToPixel(xAxisLabelLocation, graphInfo)[0],
+        pointToPixel(xAxisLabelLocation, graphInfo),
         [0, 0],
     );
+    // The default location for the y-axis-label is at the maximum y point
+    // This is just underneath the tick line for that point. The -24 moves the
+    // label up one grid square so it sits on top of the graph
     const [x2, y2] = vec.add(
-        pointToPixel(yAxisLabelLocation, graphInfo)[0],
+        pointToPixel(yAxisLabelLocation, graphInfo),
         [0, -24],
     );
 

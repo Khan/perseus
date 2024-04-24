@@ -1,7 +1,7 @@
 import {
     type GraphDimensions,
     pointToPixel,
-    vectorsToPixel,
+    vectorsToPixels,
 } from "./use-transform";
 
 describe("vectorToPixel", () => {
@@ -14,7 +14,7 @@ describe("vectorToPixel", () => {
             width: 400,
             height: 400,
         };
-        expect(vectorsToPixel([[0, 0]], testContext)).toEqual([[0, 0]]);
+        expect(vectorsToPixels([[0, 0]], testContext)).toEqual([[0, 0]]);
     });
 
     it("should correctly transform vector (1,1)", () => {
@@ -26,7 +26,7 @@ describe("vectorToPixel", () => {
             width: 400,
             height: 400,
         };
-        expect(vectorsToPixel([[1, 1]], testContext)).toEqual([[20, -20]]);
+        expect(vectorsToPixels([[1, 1]], testContext)).toEqual([[20, -20]]);
     });
 
     it("should correctly transform vector (2,-2)", () => {
@@ -38,7 +38,7 @@ describe("vectorToPixel", () => {
             width: 400,
             height: 400,
         };
-        expect(vectorsToPixel([[2, -2]], testContext)).toEqual([[40, 40]]);
+        expect(vectorsToPixels([[2, -2]], testContext)).toEqual([[40, 40]]);
     });
 });
 
@@ -52,7 +52,7 @@ describe("pointToPixel", () => {
             width: 400,
             height: 400,
         };
-        expect(pointToPixel([0, 0], testContext)).toEqual([[200, 200]]);
+        expect(pointToPixel([0, 0], testContext)).toEqual([200, 200]);
     });
 
     it("should correctly transform origin on a smaller graph", () => {
@@ -64,7 +64,7 @@ describe("pointToPixel", () => {
             width: 100,
             height: 100,
         };
-        expect(pointToPixel([0, 0], testContext)).toEqual([[50, 50]]);
+        expect(pointToPixel([0, 0], testContext)).toEqual([50, 50]);
     });
 
     it("should correctly transform origin on a non-square graph", () => {
@@ -77,7 +77,7 @@ describe("pointToPixel", () => {
             width: 100,
             height: 200,
         };
-        expect(pointToPixel([0, 0], testContext)).toEqual([[50, 100]]);
+        expect(pointToPixel([0, 0], testContext)).toEqual([50, 100]);
     });
 
     it("should correctly transform origin when not in the center of the svg", () => {
@@ -89,7 +89,7 @@ describe("pointToPixel", () => {
             width: 200,
             height: 200,
         };
-        expect(pointToPixel([0, 0], testContext)).toEqual([[0, 200]]);
+        expect(pointToPixel([0, 0], testContext)).toEqual([0, 200]);
     });
 
     it("should correctly transform multiple points", () => {
@@ -101,13 +101,7 @@ describe("pointToPixel", () => {
             width: 200,
             height: 200,
         };
-        expect(
-            pointToPixel(
-                [0, 0],
-
-                testContext,
-            ),
-        ).toEqual([[0, 200]]);
-        expect(pointToPixel([1, 1], testContext)).toEqual([[20, 180]]);
+        expect(pointToPixel([0, 0], testContext)).toEqual([0, 200]);
+        expect(pointToPixel([1, 1], testContext)).toEqual([20, 180]);
     });
 });

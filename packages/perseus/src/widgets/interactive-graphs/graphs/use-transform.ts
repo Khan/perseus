@@ -10,8 +10,10 @@ export type GraphDimensions = {
     height: number; // pixels
 };
 
-export function vectorsToPixel(
-    points: vec.Vector2[],
+// When converting vectors, we don't need to translate because a vector
+// is like a pair of x and y distances, which are not bound to specific graph locations.
+export function vectorsToPixels(
+    vectors: vec.Vector2[],
     graphState: GraphDimensions,
     translation: vec.Vector2 = [0, 0],
 ) {
@@ -21,16 +23,18 @@ export function vectorsToPixel(
         .translate(...translation)
         .scale(width / (xMax - xMin), -height / (yMax - yMin))
         .get();
-    return points.map((p) => vec.transform(p, transformToPx));
+    return vectors.map((p) => vec.transform(p, transformToPx));
 }
 
+// When converting points, we translate so the pixel point ends up in the right location.
+// This is because points are specific locations on graphs, unlike vectors.
 export function pointToPixel(point: vec.Vector2, graphState: GraphDimensions) {
     const [[xMin], [, yMax]] = graphState.range;
     const [a, b] = [-xMin, -yMax];
-    return vectorsToPixel([point], graphState, [a, b]);
+    return vectorsToPixels([point], graphState, [a, b])[0];
 }
 
-export const useTransformVectorToPixel = (...points: vec.Vector2[]) => {
+export const useTransformVectorToPixel = (...vectors: vec.Vector2[]) => {
     const graphState = useGraphConfig();
-    return vectorsToPixel(points, graphState);
+    return vectorsToPixels(vectors, graphState);
 };
