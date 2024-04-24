@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 6.0.3
+
+### Patch Changes
+
+-   [#1215](https://github.com/Khan/perseus/pull/1215) [`efa0e3737`](https://github.com/Khan/perseus/commit/efa0e3737b2b6af528f3e42b32d7787ecf763911) Thanks [@jeresig](https://github.com/jeresig)! - Fix up a binding issue with NumericInputEditor
+
 ## 6.0.2
 
 ### Patch Changes
