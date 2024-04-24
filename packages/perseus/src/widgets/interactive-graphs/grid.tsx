@@ -1,3 +1,4 @@
+import {useUniqueIdWithoutMock} from "@khanacademy/wonder-blocks-core";
 import {Coordinates} from "mafs";
 import * as React from "react";
 
@@ -71,9 +72,12 @@ export const Grid = (props: GridProps) => {
     const clipStartX = String(xRange[0][0]); // x min
     const clipStartY = String(yRange[0][1]); // y max
 
+    const idFactory = useUniqueIdWithoutMock("clip-path-definition");
+    const clipId = idFactory?.get("clip");
+
     return props.markings === "none" ? null : (
         <>
-            <clipPath id="myClip">
+            <clipPath id={clipId}>
                 <rect
                     x={clipStartX}
                     y={clipStartY}
