@@ -3046,7 +3046,6 @@ exports[`snapshots should render correctly 1`] = `
                     tabindex="0"
                   >
                     <line
-                      class="undefined"
                       style="stroke: transparent; stroke-width: 44;"
                       x1="-100"
                       x2="100"
@@ -4185,7 +4184,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       style="stroke: #B25071; stroke-width: 2;"
                     >
                       <line
-                        class="undefined"
                         x1="-140"
                         x2="200"
                         y1="160"
@@ -4221,7 +4219,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     tabindex="0"
                   >
                     <line
-                      class="undefined"
                       style="stroke: transparent; stroke-width: 44;"
                       x1="-100"
                       x2="100"
@@ -5322,7 +5319,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     tabindex="0"
                   >
                     <line
-                      class="undefined"
                       style="stroke: transparent; stroke-width: 44;"
                       x1="-100"
                       x2="100"
