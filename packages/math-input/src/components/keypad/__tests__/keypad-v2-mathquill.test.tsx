@@ -228,7 +228,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it.skip("deletes from the input using the backspace button", async () => {
+    it("deletes from the input using the backspace button", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -275,7 +275,7 @@ describe("Keypad v2 with MathQuill", () => {
         }
 
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("");
-    });
+    }, 10000);
 
     // Keypad event tests
     it("fires the keypad open event on open", async () => {
