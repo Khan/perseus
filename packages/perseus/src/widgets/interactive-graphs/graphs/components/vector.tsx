@@ -11,16 +11,25 @@ type Props = {
     tip: vec.Vector2;
     color: string;
     style?: React.SVGProps<SVGLineElement>["style"];
+    showArrows: boolean;
 };
 
+// TODO: Make <Arrowhead> applicable to locked-line.tsx
+
 export function Vector(props: Props) {
-    const {tail, tip, color, style} = props;
+    const {tail, tip, color, style, showArrows} = props;
     const [tailPx, tipPx] = useTransform(tail, tip);
     const direction = vec.sub(tip, tail);
     return (
         <g style={{stroke: color, strokeWidth: 2}}>
             <SVGLine start={tailPx} end={tipPx} style={style} />
-            <Arrowhead x={tip[0]} y={tip[1]} angle={angleDegrees(direction)} />
+            {showArrows && (
+                <Arrowhead
+                    x={tip[0]}
+                    y={tip[1]}
+                    angle={angleDegrees(direction)}
+                />
+            )}
         </g>
     );
 }

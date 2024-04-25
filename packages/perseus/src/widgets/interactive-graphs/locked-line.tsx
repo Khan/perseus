@@ -20,6 +20,7 @@ const LockedLine = (props: Props) => {
         lineStyle,
         kind,
         points,
+        showArrows,
         showStartPoint,
         showEndPoint,
         range,
@@ -40,6 +41,7 @@ const LockedLine = (props: Props) => {
                 tail={point1.coord}
                 tip={endExtend}
                 color={lockedFigureColors[color]}
+                showArrows={showArrows}
                 style={{
                     strokeDasharray:
                         lineStyle === "dashed"
