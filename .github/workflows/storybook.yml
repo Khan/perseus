@@ -47,3 +47,4 @@ jobs:
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
                   storybookBuildDir: storybook-static
                   debug: true
+                  onlyStoryFiles: "**/*regression.stories.tsx"
