@@ -10,22 +10,9 @@ import type {KeypadButtonProps} from "./keypad-button";
 
 export default {
     title: "math-input/components/Keypad Button",
-    args: {
-        keyConfig: KeyConfigs["PLUS"],
-        coord: [0, 0],
-    },
-    argTypes: {
-        keyConfig: {
-            control: "select",
-            options: {...KeyConfigs(mockStrings)},
-        },
-    },
-};
+}
 
-export const Default = ({
-    keyConfig = KeyConfigs["PLUS"],
-    coord = [0, 0],
-}: KeypadButtonProps): React.ReactElement => (
+export const Default = (): React.ReactElement => (
     <div
         style={{
             width: 200,
@@ -40,7 +27,7 @@ export const Default = ({
                 margin: "auto",
             }}
         >
-            <KeypadButton keyConfig={keyConfig} coord={coord} onClickKey={action("pressed")} />
+            <KeypadButton keyConfig={KeyConfigs(mockStrings)["PLUS"]} coord={[0, 0]} onClickKey={action("pressed")} />
         </div>
     </div>
 );
