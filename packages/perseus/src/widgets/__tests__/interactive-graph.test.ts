@@ -19,6 +19,12 @@ import {
     polygonQuestionDefaultCorrect,
     pointQuestionWithDefaultCorrect,
     segmentWithLockedLineQuestion,
+    segmentQuestion,
+    linearQuestion,
+    linearSystemQuestion,
+    rayQuestion,
+    polygonQuestion,
+    pointQuestion,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
@@ -139,6 +145,17 @@ describe("mafs graphs", () => {
     const graphQuestionRenderers: {
         [K in (typeof mafsSupportedGraphTypes)[number]]: PerseusRenderer;
     } = {
+        segment: segmentQuestion,
+        linear: linearQuestion,
+        "linear-system": linearSystemQuestion,
+        ray: rayQuestion,
+        polygon: polygonQuestion,
+        point: pointQuestion,
+    };
+
+    const graphQuestionRenderersCorrect: {
+        [K in (typeof mafsSupportedGraphTypes)[number]]: PerseusRenderer;
+    } = {
         segment: segmentQuestionDefaultCorrect,
         linear: linearQuestionWithDefaultCorrect,
         "linear-system": linearSystemQuestionWithDefaultCorrect,
@@ -163,6 +180,15 @@ describe("mafs graphs", () => {
 
                 // Assert
                 expect(renderer).toHaveInvalidInput();
+            });
+        },
+    );
+
+    describe.each(Object.entries(graphQuestionRenderersCorrect))(
+        "graph type %s: default correct",
+        (_type, question) => {
+            it("should render", () => {
+                renderQuestion(question, apiOptions);
             });
 
             it("rejects incorrect answer", async () => {

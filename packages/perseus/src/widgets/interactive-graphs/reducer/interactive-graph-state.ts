@@ -161,7 +161,7 @@ export function getGradableGraph(
     initialGraph: PerseusGraphType,
 ): PerseusGraphType {
     if (!state.hasBeenInteractedWith) {
-        return {type: initialGraph.type};
+        return {...initialGraph};
     }
 
     if (
