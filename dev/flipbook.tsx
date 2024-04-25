@@ -1,12 +1,12 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import Button from "@khanacademy/wonder-blocks-button";
 import Banner from "@khanacademy/wonder-blocks-banner";
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import Toolbar from "@khanacademy/wonder-blocks-toolbar";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import {useEffect, useReducer, useRef, useState} from "react";
 
