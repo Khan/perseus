@@ -3299,7 +3299,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     </filter>
                   </defs>
                   <clippath
-                    id="myClip"
+                    id="uid-clip-path-definition-34-clip"
                   >
                     <rect
                       height="400"
@@ -3309,14 +3309,14 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </clippath>
                   <g
-                    clip-path="url(#myClip)"
+                    clip-path="url(#uid-clip-path-definition-34-clip)"
                   >
                     <g
                       fill="none"
                     >
                       <pattern
                         height="20"
-                        id="cartesian-9"
+                        id="cartesian-19"
                         patternUnits="userSpaceOnUse"
                         width="20"
                         x="0"
@@ -3324,7 +3324,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       >
                         <pattern
                           height="20"
-                          id="cartesian-9-subdivision"
+                          id="cartesian-19-subdivision"
                           patternUnits="userSpaceOnUse"
                           width="20"
                         >
@@ -3333,7 +3333,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                           />
                         </pattern>
                         <rect
-                          fill="url(#cartesian-9-subdivision)"
+                          fill="url(#cartesian-19-subdivision)"
                           height="20"
                           width="20"
                         />
@@ -3367,7 +3367,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         </g>
                       </pattern>
                       <rect
-                        fill="url(#cartesian-9)"
+                        fill="url(#cartesian-19)"
                         height="640"
                         width="640"
                         x="-320"
@@ -4470,7 +4470,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     </filter>
                   </defs>
                   <clippath
-                    id="myClip"
+                    id="uid-clip-path-definition-33-clip"
                   >
                     <rect
                       height="400"
@@ -4480,14 +4480,14 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     />
                   </clippath>
                   <g
-                    clip-path="url(#myClip)"
+                    clip-path="url(#uid-clip-path-definition-33-clip)"
                   >
                     <g
                       fill="none"
                     >
                       <pattern
                         height="20"
-                        id="cartesian-8"
+                        id="cartesian-17"
                         patternUnits="userSpaceOnUse"
                         width="20"
                         x="0"
@@ -4495,7 +4495,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                       >
                         <pattern
                           height="20"
-                          id="cartesian-8-subdivision"
+                          id="cartesian-17-subdivision"
                           patternUnits="userSpaceOnUse"
                           width="20"
                         >
@@ -4504,7 +4504,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                           />
                         </pattern>
                         <rect
-                          fill="url(#cartesian-8-subdivision)"
+                          fill="url(#cartesian-17-subdivision)"
                           height="20"
                           width="20"
                         />
@@ -4538,7 +4538,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         </g>
                       </pattern>
                       <rect
-                        fill="url(#cartesian-8)"
+                        fill="url(#cartesian-17)"
                         height="640"
                         width="640"
                         x="-320"
