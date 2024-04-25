@@ -63,34 +63,12 @@ const axisOptions = (
 };
 
 export const Grid = (props: GridProps) => {
-    const {width, height} = useGraphConfig();
-    const xRange = useTransformVectorsToPixels(props.range[0]);
-    const yRange = useTransformVectorsToPixels(props.range[1]);
-
-    // The clip definition starts from the top left of the shape
-    // so the below values make use of the minimum x and maximum y of the range
-    const clipStartX = String(xRange[0][0]); // x min
-    const clipStartY = String(yRange[0][1]); // y max
-
-    const idFactory = useUniqueIdWithoutMock("clip-path-definition");
-    const clipId = idFactory?.get("clip");
-
     return props.markings === "none" ? null : (
         <>
-            <clipPath id={clipId}>
-                <rect
-                    x={clipStartX}
-                    y={clipStartY}
-                    width={width}
-                    height={height}
-                />
-            </clipPath>
-            <g clipPath={`url(#${clipId})`}>
-                <Coordinates.Cartesian
-                    xAxis={axisOptions(props, 0)}
-                    yAxis={axisOptions(props, 1)}
-                />
-            </g>
+            <Coordinates.Cartesian
+                xAxis={axisOptions(props, 0)}
+                yAxis={axisOptions(props, 1)}
+            />
             {
                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
                 props.markings === "graph" && (

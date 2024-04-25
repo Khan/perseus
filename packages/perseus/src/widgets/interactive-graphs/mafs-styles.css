@@ -26,8 +26,6 @@
     --movable-line-stroke-color: var(--mafs-blue);
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
-
-    overflow: visible;
 }
 
 .MafsView > svg {
@@ -157,8 +155,4 @@
 .MafsView .axis-ticks text {
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
-}
-
-.MafsView > svg {
-    overflow: visible;
 }

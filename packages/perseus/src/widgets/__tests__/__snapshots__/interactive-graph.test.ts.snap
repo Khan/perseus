@@ -3298,101 +3298,87 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       />
                     </filter>
                   </defs>
-                  <clippath
-                    id="uid-clip-path-definition-34-clip"
-                  >
-                    <rect
-                      height="400"
-                      width="400"
-                      x="-200"
-                      y="-200"
-                    />
-                  </clippath>
                   <g
-                    clip-path="url(#uid-clip-path-definition-34-clip)"
+                    fill="none"
                   >
-                    <g
-                      fill="none"
+                    <pattern
+                      height="20"
+                      id="cartesian-9"
+                      patternUnits="userSpaceOnUse"
+                      width="20"
+                      x="0"
+                      y="0"
                     >
                       <pattern
                         height="20"
-                        id="cartesian-19"
+                        id="cartesian-9-subdivision"
                         patternUnits="userSpaceOnUse"
                         width="20"
-                        x="0"
-                        y="0"
                       >
-                        <pattern
-                          height="20"
-                          id="cartesian-19-subdivision"
-                          patternUnits="userSpaceOnUse"
-                          width="20"
-                        >
-                          <g
-                            stroke="var(--grid-line-subdivision-color)"
-                          />
-                        </pattern>
-                        <rect
-                          fill="url(#cartesian-19-subdivision)"
-                          height="20"
-                          width="20"
-                        />
                         <g
-                          stroke="var(--mafs-line-color)"
-                        >
-                          <line
-                            x1="0"
-                            x2="20"
-                            y1="0"
-                            y2="0"
-                          />
-                          <line
-                            x1="0"
-                            x2="20"
-                            y1="20"
-                            y2="20"
-                          />
-                          <line
-                            x1="0"
-                            x2="0"
-                            y1="0"
-                            y2="20"
-                          />
-                          <line
-                            x1="20"
-                            x2="20"
-                            y1="0"
-                            y2="20"
-                          />
-                        </g>
+                          stroke="var(--grid-line-subdivision-color)"
+                        />
                       </pattern>
                       <rect
-                        fill="url(#cartesian-19)"
-                        height="640"
-                        width="640"
-                        x="-320"
-                        y="-320"
+                        fill="url(#cartesian-9-subdivision)"
+                        height="20"
+                        width="20"
                       />
                       <g
-                        stroke="var(--mafs-origin-color)"
+                        stroke="var(--mafs-line-color)"
                       >
                         <line
-                          x1="-320"
-                          x2="320"
+                          x1="0"
+                          x2="20"
                           y1="0"
                           y2="0"
                         />
                         <line
                           x1="0"
+                          x2="20"
+                          y1="20"
+                          y2="20"
+                        />
+                        <line
+                          x1="0"
                           x2="0"
-                          y1="320"
-                          y2="-320"
+                          y1="0"
+                          y2="20"
+                        />
+                        <line
+                          x1="20"
+                          x2="20"
+                          y1="0"
+                          y2="20"
                         />
                       </g>
-                      <g
-                        class="mafs-shadow"
+                    </pattern>
+                    <rect
+                      fill="url(#cartesian-9)"
+                      height="640"
+                      width="640"
+                      x="-320"
+                      y="-320"
+                    />
+                    <g
+                      stroke="var(--mafs-origin-color)"
+                    >
+                      <line
+                        x1="-320"
+                        x2="320"
+                        y1="0"
+                        y2="0"
+                      />
+                      <line
+                        x1="0"
+                        x2="0"
+                        y1="320"
+                        y2="-320"
                       />
                     </g>
+                    <g
+                      class="mafs-shadow"
+                    />
                   </g>
                   <g
                     class="axis-ticks"
@@ -4469,101 +4455,87 @@ exports[`snapshots should render correctly with locked points 1`] = `
                       />
                     </filter>
                   </defs>
-                  <clippath
-                    id="uid-clip-path-definition-33-clip"
-                  >
-                    <rect
-                      height="400"
-                      width="400"
-                      x="-200"
-                      y="-200"
-                    />
-                  </clippath>
                   <g
-                    clip-path="url(#uid-clip-path-definition-33-clip)"
+                    fill="none"
                   >
-                    <g
-                      fill="none"
+                    <pattern
+                      height="20"
+                      id="cartesian-8"
+                      patternUnits="userSpaceOnUse"
+                      width="20"
+                      x="0"
+                      y="0"
                     >
                       <pattern
                         height="20"
-                        id="cartesian-17"
+                        id="cartesian-8-subdivision"
                         patternUnits="userSpaceOnUse"
                         width="20"
-                        x="0"
-                        y="0"
                       >
-                        <pattern
-                          height="20"
-                          id="cartesian-17-subdivision"
-                          patternUnits="userSpaceOnUse"
-                          width="20"
-                        >
-                          <g
-                            stroke="var(--grid-line-subdivision-color)"
-                          />
-                        </pattern>
-                        <rect
-                          fill="url(#cartesian-17-subdivision)"
-                          height="20"
-                          width="20"
-                        />
                         <g
-                          stroke="var(--mafs-line-color)"
-                        >
-                          <line
-                            x1="0"
-                            x2="20"
-                            y1="0"
-                            y2="0"
-                          />
-                          <line
-                            x1="0"
-                            x2="20"
-                            y1="20"
-                            y2="20"
-                          />
-                          <line
-                            x1="0"
-                            x2="0"
-                            y1="0"
-                            y2="20"
-                          />
-                          <line
-                            x1="20"
-                            x2="20"
-                            y1="0"
-                            y2="20"
-                          />
-                        </g>
+                          stroke="var(--grid-line-subdivision-color)"
+                        />
                       </pattern>
                       <rect
-                        fill="url(#cartesian-17)"
-                        height="640"
-                        width="640"
-                        x="-320"
-                        y="-320"
+                        fill="url(#cartesian-8-subdivision)"
+                        height="20"
+                        width="20"
                       />
                       <g
-                        stroke="var(--mafs-origin-color)"
+                        stroke="var(--mafs-line-color)"
                       >
                         <line
-                          x1="-320"
-                          x2="320"
+                          x1="0"
+                          x2="20"
                           y1="0"
                           y2="0"
                         />
                         <line
                           x1="0"
+                          x2="20"
+                          y1="20"
+                          y2="20"
+                        />
+                        <line
+                          x1="0"
                           x2="0"
-                          y1="320"
-                          y2="-320"
+                          y1="0"
+                          y2="20"
+                        />
+                        <line
+                          x1="20"
+                          x2="20"
+                          y1="0"
+                          y2="20"
                         />
                       </g>
-                      <g
-                        class="mafs-shadow"
+                    </pattern>
+                    <rect
+                      fill="url(#cartesian-8)"
+                      height="640"
+                      width="640"
+                      x="-320"
+                      y="-320"
+                    />
+                    <g
+                      stroke="var(--mafs-origin-color)"
+                    >
+                      <line
+                        x1="-320"
+                        x2="320"
+                        y1="0"
+                        y2="0"
+                      />
+                      <line
+                        x1="0"
+                        x2="0"
+                        y1="320"
+                        y2="-320"
                       />
                     </g>
+                    <g
+                      class="mafs-shadow"
+                    />
                   </g>
                   <g
                     class="axis-ticks"

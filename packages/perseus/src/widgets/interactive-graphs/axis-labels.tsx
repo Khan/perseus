@@ -6,7 +6,7 @@ import {getDependencies} from "../../dependencies";
 import {pointToPixel} from "./graphs/use-transform";
 import useGraphConfig from "./reducer/use-graph-config";
 
-export default function AxisLabels(props) {
+export default function AxisLabels() {
     const {range, labels, width, height} = useGraphConfig();
 
     const yAxisLabelLocation: vec.Vector2 = [0, range[1][1]];

@@ -154,9 +154,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         left: 0,
                     }}
                 >
-                    {props.markings === "graph" && (
-                        <AxisLabels labels={props.labels} />
-                    )}
+                    {props.markings === "graph" && <AxisLabels />}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
