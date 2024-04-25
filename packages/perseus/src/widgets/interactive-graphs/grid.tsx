@@ -1,11 +1,8 @@
-import {useUniqueIdWithoutMock} from "@khanacademy/wonder-blocks-core";
 import {Coordinates} from "mafs";
 import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
 import {AxisTicks} from "./axis-ticks";
-import {useTransformVectorsToPixels} from "./graphs/use-transform";
-import useGraphConfig from "./reducer/use-graph-config";
 
 import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
