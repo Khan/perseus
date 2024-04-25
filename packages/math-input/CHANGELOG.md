@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 18.0.1
+
+### Patch Changes
+
+-   [#1212](https://github.com/Khan/perseus/pull/1212) [`b4143615b`](https://github.com/Khan/perseus/commit/b4143615b294da439339836d679052c8e1d479a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: interactive graph editor kept resetting state
+
 ## 18.0.0
 
 ### Major Changes

@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 6.0.4
+
+### Patch Changes
+
+-   [#1219](https://github.com/Khan/perseus/pull/1219) [`ca9b86e91`](https://github.com/Khan/perseus/commit/ca9b86e91190f9535ba57edcdb0f635d0a4e61be) Thanks [@nishasy](https://github.com/nishasy)! - Move the delete button in locked figure settings
+
+*   [#1212](https://github.com/Khan/perseus/pull/1212) [`b4143615b`](https://github.com/Khan/perseus/commit/b4143615b294da439339836d679052c8e1d479a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: interactive graph editor kept resetting state
+
+-   [#1218](https://github.com/Khan/perseus/pull/1218) [`04f57fdd0`](https://github.com/Khan/perseus/commit/04f57fdd00b9f8327ccb97f612cc2aae33ada1da) Thanks [@nishasy](https://github.com/nishasy)! - Use Wonder Blocks Tooltip for InfoTip
+
+-   Updated dependencies [[`f0b51093b`](https://github.com/Khan/perseus/commit/f0b51093b809e2ad3408437bb8eb47ec2bd809e3), [`b4143615b`](https://github.com/Khan/perseus/commit/b4143615b294da439339836d679052c8e1d479a5), [`361d5e7ad`](https://github.com/Khan/perseus/commit/361d5e7adcea4c4156ad536bccb2b2b9fa6eb872), [`04f57fdd0`](https://github.com/Khan/perseus/commit/04f57fdd00b9f8327ccb97f612cc2aae33ada1da), [`e419bb89c`](https://github.com/Khan/perseus/commit/e419bb89c1001472447f4ec3e5ca7f2fc60e1da9)]:
+    -   @khanacademy/perseus@22.1.0
+    -   @khanacademy/math-input@18.0.1
+
 ## 6.0.3
 
 ### Patch Changes
