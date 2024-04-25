@@ -6,7 +6,7 @@ import {useRef} from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
 import {snap} from "../../utils";
-import {useTransform} from "../use-transform";
+import {useTransformVectorsToPixels} from "../use-transform";
 
 import type {vec} from "mafs";
 
@@ -39,15 +39,15 @@ export const StyledMovablePoint = (props: Props) => {
     });
     const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""}`;
 
-    const [[x, y]] = useTransform(point);
+    const [[x, y]] = useTransformVectorsToPixels(point);
 
     const [xMin, xMax] = range[0];
     const [yMin, yMax] = range[1];
 
-    const [[verticalStartX]] = useTransform([xMin, 0]);
-    const [[verticalEndX]] = useTransform([xMax, 0]);
-    const [[_, horizontalStartY]] = useTransform([0, yMin]);
-    const [[__, horizontalEndY]] = useTransform([0, yMax]);
+    const [[verticalStartX]] = useTransformVectorsToPixels([xMin, 0]);
+    const [[verticalEndX]] = useTransformVectorsToPixels([xMax, 0]);
+    const [[_, horizontalStartY]] = useTransformVectorsToPixels([0, yMin]);
+    const [[__, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
 
     const showHairlines = dragging && markings !== "none";
     const hairlines = (

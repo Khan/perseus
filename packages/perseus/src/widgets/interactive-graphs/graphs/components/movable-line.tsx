@@ -4,7 +4,7 @@ import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
-import {useTransform} from "../use-transform";
+import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
 
 import {SVGLine} from "./svg-line";
@@ -31,7 +31,7 @@ export const MovableLine = (props: Props) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
-    const [startPtPx, endPtPx] = useTransform(start, end);
+    const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
     const {graphDimensionsInPixels} = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;

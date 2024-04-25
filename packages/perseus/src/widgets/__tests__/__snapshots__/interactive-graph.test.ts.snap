@@ -3250,6 +3250,24 @@ exports[`snapshots should render correctly with locked lines 1`] = `
             <div
               class="default_xu2jcg-o_O-inlineStyles_16155wj"
             >
+              <span
+                style="position: absolute; left: 400px; top: 200px; font-size: 14px; transform: translate(7px, -50%);"
+              >
+                <span
+                  class="mock-TeX"
+                >
+                  x
+                </span>
+              </span>
+              <span
+                style="position: absolute; left: 200px; top: -24px; font-size: 14px; transform: translate(-50%, 0px);"
+              >
+                <span
+                  class="mock-TeX"
+                >
+                  y
+                </span>
+              </span>
               <div
                 class="MafsView"
                 style="width: 400px; height: 400px;"
@@ -4389,6 +4407,24 @@ exports[`snapshots should render correctly with locked points 1`] = `
             <div
               class="default_xu2jcg-o_O-inlineStyles_16155wj"
             >
+              <span
+                style="position: absolute; left: 400px; top: 200px; font-size: 14px; transform: translate(7px, -50%);"
+              >
+                <span
+                  class="mock-TeX"
+                >
+                  x
+                </span>
+              </span>
+              <span
+                style="position: absolute; left: 200px; top: -24px; font-size: 14px; transform: translate(-50%, 0px);"
+              >
+                <span
+                  class="mock-TeX"
+                >
+                  y
+                </span>
+              </span>
               <div
                 class="MafsView"
                 style="width: 400px; height: 400px;"
