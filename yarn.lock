@@ -2729,6 +2729,11 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.5.1.tgz#3f179b1dc3795117ae7104e37132403f4cf26043"
   integrity sha512-3/8d8+ewqhMwYj5L9slJwrX8rmZ8BYTJvToB/7L13bq7b8CYBCcxPMRY9B6hJJdKytpBwq1EGfv2p3rKWHXR5w==
 
+"@khanacademy/wonder-stuff-core@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.5.2.tgz#d3c6583ddb101181421d61b7cbd36a6bd74f3a71"
+  integrity sha512-GHuBdNvuDkDbXuJ5FZy58p5z+dosQ0YBnDrSS9uHppzAYXqSsTnBghpBFmr5CDYWt48pXbNYO5U+wHMsytLipQ==
+
 "@manypkg/find-root@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@manypkg/find-root/-/find-root-1.1.0.tgz#a62d8ed1cd7e7d4c11d9d52a8397460b5d4ad29f"
