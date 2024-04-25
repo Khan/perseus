@@ -58,7 +58,7 @@ grep -rl '"type":"segment"' data/questions/ | xargs cat | pbcopy
 
 const LS_QUESTIONS_KEY = "FLIPBOOK-QUESTIONS-JSON";
 
-function interactiveGraphPredicate(
+function isInteractiveGraph(
     widget: PerseusWidget,
 ): widget is InteractiveGraphWidget {
     return widget.type === "interactive-graph";
@@ -85,7 +85,7 @@ export function Flipbook() {
     const graphieImageUrls = useMemo<ReadonlyArray<string>>(
         () =>
             Object.values(question?.widgets ?? {})
-                .filter(interactiveGraphPredicate)
+                .filter(isInteractiveGraph)
                 .map((w) => w.options.backgroundImage?.url ?? "")
                 .filter((url) => url.length > 0),
         [question],
