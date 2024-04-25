@@ -3260,7 +3260,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                 </span>
               </span>
               <span
-                style="position: absolute; left: 200px; top: -24px; font-size: 14px; transform: translate(-50%, -7px);"
+                style="position: absolute; left: 200px; top: -24px; font-size: 14px; transform: translate(-50%, 0px);"
               >
                 <span
                   class="mock-TeX"
@@ -4417,7 +4417,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                 </span>
               </span>
               <span
-                style="position: absolute; left: 200px; top: -24px; font-size: 14px; transform: translate(-50%, -7px);"
+                style="position: absolute; left: 200px; top: -24px; font-size: 14px; transform: translate(-50%, 0px);"
               >
                 <span
                   class="mock-TeX"
