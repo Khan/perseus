@@ -7,6 +7,10 @@ type GraphConfig = {
     snapStep: vec.Vector2;
     markings: "graph" | "grid" | "none";
     showTooltips: boolean;
+    graphDimensionsInPixels: vec.Vector2;
+    width: number; // pixels
+    height: number; // pixels
+    labels: readonly string[];
 };
 
 const defaultGraphConfig: GraphConfig = {
@@ -17,6 +21,10 @@ const defaultGraphConfig: GraphConfig = {
     snapStep: [1, 1],
     markings: "none",
     showTooltips: false,
+    graphDimensionsInPixels: [1, 1],
+    width: 0,
+    height: 0,
+    labels: [],
 };
 
 export const GraphConfigContext =

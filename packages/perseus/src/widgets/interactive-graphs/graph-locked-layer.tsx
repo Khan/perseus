@@ -4,28 +4,32 @@ import * as React from "react";
 import LockedLine from "./locked-line";
 import LockedPoint from "./locked-point";
 
-import type {LockedFigure, Range} from "../../perseus-types";
+import type {LockedFigure} from "../../perseus-types";
+import type {Interval} from "mafs";
 
 type Props = {
     lockedFigures: ReadonlyArray<LockedFigure>;
-    range: [Range, Range];
+    range: [x: Interval, y: Interval];
 };
 
 const GraphLockedLayer = (props: Props) => {
     const {lockedFigures} = props;
-    let otherProps;
     return (
         <>
             {lockedFigures.map((figure, index) => {
-                let Figure;
                 switch (figure.type) {
                     case "point":
-                        Figure = LockedPoint;
-                        break;
+                        return (
+                            <LockedPoint key={`point-${index}`} {...figure} />
+                        );
                     case "line":
-                        Figure = LockedLine;
-                        otherProps = {range: props.range};
-                        break;
+                        return (
+                            <LockedLine
+                                key={`line-${index}`}
+                                range={props.range}
+                                {...figure}
+                            />
+                        );
                     default:
                         /**
                          * Devlopment-time future-proofing: This should
@@ -35,14 +39,6 @@ const GraphLockedLayer = (props: Props) => {
                          */
                         throw new UnreachableCaseError(figure);
                 }
-
-                return (
-                    <Figure
-                        key={`${figure.type}-${index}`}
-                        {...figure}
-                        {...otherProps}
-                    />
-                );
             })}
         </>
     );

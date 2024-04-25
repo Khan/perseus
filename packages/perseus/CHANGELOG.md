@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 22.0.2
+
+### Patch Changes
+
+-   [#1211](https://github.com/Khan/perseus/pull/1211) [`463b80d67`](https://github.com/Khan/perseus/commit/463b80d679d84e6d70c42dd7a019024b9a8e7aec) Thanks [@jeresig](https://github.com/jeresig)! - Add additional blur checks.
+
+## 22.0.1
+
+### Patch Changes
+
+-   [#1209](https://github.com/Khan/perseus/pull/1209) [`08b401d34`](https://github.com/Khan/perseus/commit/08b401d34cd06ad5bdee7298a35d1adb1497f611) Thanks [@jeresig](https://github.com/jeresig)! - Fixes an error when accessing the blur method.
+
+*   [#1204](https://github.com/Khan/perseus/pull/1204) [`87d12ad4a`](https://github.com/Khan/perseus/commit/87d12ad4afedafe70063715163d8f448b4d31b85) Thanks [@benchristel](https://github.com/benchristel)! - Fix bug where arrowheads on Mafs graph axes weren't visible
+
 ## 22.0.0
 
 ### Major Changes

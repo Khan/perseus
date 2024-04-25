@@ -1,11 +1,11 @@
+import {type vec} from "mafs";
 import * as React from "react";
 
 import {pathBuilder} from "../../../../util/svg";
-import {useTransform} from "../use-transform";
+import {useTransformVectorsToPixels} from "../use-transform";
 
 type Props = {
-    x: number;
-    y: number;
+    tip: vec.Vector2;
     angle: number; // degrees counterclockwise from the positive x-axis
     color?: string;
 };
@@ -22,7 +22,7 @@ const arrowPath = pathBuilder()
     .build();
 
 export function Arrowhead(props: Props) {
-    const [point] = useTransform([props.x, props.y]);
+    const [point] = useTransformVectorsToPixels(props.tip);
 
     return (
         <g
