@@ -46,7 +46,7 @@
         "@khanacademy/perseus-linter": "^0.3.12",
         "@khanacademy/pure-markdown": "^0.3.2",
         "@khanacademy/simple-markdown": "^0.11.4",
-        "mafs": "https://github.com/Khan/mafs/releases/download/v0.18.1%2Bbuild-cd8b2467893342ba0b02100073fe21f93f8b1125/mafs-0.18.1.tgz"
+        "mafs": "0.18.5"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-banner": "^3.0.41",
