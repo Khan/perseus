@@ -7,7 +7,8 @@ on:
     # and it appears to work-ish, so we'll use the same. If it starts to break,
     # review the above URL to see how to fix it.
     pull_request:
-    push: {branches: [main]}
+    push:
+        branches: [main]
 
 # When a new revision is pushed to a PR, cancel all in-progress CI runs for that
 # PR. See https://docs.github.com/en/actions/using-jobs/using-concurrency
@@ -37,14 +38,13 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
-            - name: Build Storybook
-              run: yarn build-storybook
-
             - name: Publish to Chromatic for visual testing
-              uses: chromaui/action@v1
+              uses: chromaui/action@v11
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
-                  storybookBuildDir: storybook-static
-                  debug: true
+                  autoAcceptChanges: "main"
+                  # Generate snapshots for only changed stories
+                  # See: https://www.chromatic.com/docs/turbosnap
+                  onlyChanged: true
                   onlyStoryFiles: "**/*regression.stories.tsx"
