@@ -33,7 +33,8 @@ const preview: Preview = {
     parameters: {
         options: {
             storySort: {
-                order: ["Perseus", "Perseus Editor", "Math-Input", "*"],
+                order: ["Perseus", "PerseusEditor", "Math-Input", "*"],
+                includeNames: true,
             },
         },
         // TODO(somewhatabstract): This actions configuration does not appear to be

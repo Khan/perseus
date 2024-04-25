@@ -5,7 +5,7 @@ import ColorSwatch from "../color-swatch";
 import type {Meta} from "@storybook/react";
 
 export default {
-    title: "Perseus Editor/Components/Color Swatch",
+    title: "PerseusEditor/Components/Color Swatch",
     component: ColorSwatch,
 } as Meta<typeof ColorSwatch>;
 

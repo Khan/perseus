@@ -10,7 +10,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus Editor/Components/Section Control Button",
+    title: "PerseusEditor/Components/Section Control Button",
 } as Story;
 
 export const ButtonForEditingSectionsOfContentWithInArticleEditor = (

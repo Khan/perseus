@@ -15,7 +15,7 @@ import type {PerseusRenderer} from "@khanacademy/perseus";
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
-    title: "Perseus Editor/Editor",
+    title: "PerseusEditor/Editor",
 };
 
 export const Demo = (): React.ReactElement => {
