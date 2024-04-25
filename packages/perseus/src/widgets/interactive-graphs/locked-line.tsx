@@ -64,7 +64,7 @@ const LockedLine = (props: Props) => {
     }
 
     return (
-        <g className="locked-line">
+        <g className={kind === "ray" ? "locked-ray" : "locked-line"}>
             {line}
             {showStartPoint && (
                 <Point

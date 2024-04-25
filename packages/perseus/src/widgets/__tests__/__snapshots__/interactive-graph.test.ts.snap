@@ -4178,7 +4178,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
-                    class="locked-line"
+                    class="locked-ray"
                   >
                     <g
                       style="stroke: #B25071; stroke-width: 2;"
