@@ -18,13 +18,10 @@ export default function AxisLabels() {
         width,
         height,
     };
-    const [x1, y1] = vec.add(
-        pointToPixel(xAxisLabelLocation, graphInfo),
-        [0, 0],
-    );
+    const [x1, y1] = pointToPixel(xAxisLabelLocation, graphInfo);
     // The default location for the y-axis-label is at the maximum y point
     // This is just underneath the tick line for that point. The -24 moves the
-    // label up one grid square so it sits on top of the graph
+    // label up one grid square, so it sits on top of the graph
     const [x2, y2] = vec.add(
         pointToPixel(yAxisLabelLocation, graphInfo),
         [0, -24],
@@ -51,7 +48,7 @@ export default function AxisLabels() {
                     left: x2,
                     top: y2,
                     fontSize: "14px",
-                    transform: "translate(-50%, -7px)",
+                    transform: "translate(-50%, 0px)",
                 }}
             >
                 <TeX>{yAxisLabelText}</TeX>
