@@ -109,20 +109,20 @@ export function Flipbook() {
                             >
                                 Next
                             </Button>
-                    <Strut size={spacing.medium_16} />
-                    <Progress
-                        zeroBasedIndex={index}
-                        total={numQuestions}
-                        onIndexChanged={(input) =>
-                            dispatch(jumpToQuestion(input))
-                        }
-                    />
-                    <Strut size={spacing.medium_16} />
-                    <Button
-                        kind="tertiary"
-                        onClick={() => dispatch(removeCurrentQuestion)}
-                    >
-                        Discard question
+                            <Strut size={spacing.medium_16} />
+                            <Progress
+                                zeroBasedIndex={index}
+                                total={numQuestions}
+                                onIndexChanged={(input) =>
+                                    dispatch(jumpToQuestion(input))
+                                }
+                            />
+                            <Strut size={spacing.medium_16} />
+                            <Button
+                                kind="tertiary"
+                                onClick={() => dispatch(removeCurrentQuestion)}
+                            >
+                                Discard question
                             </Button>
                         </>
                     }
