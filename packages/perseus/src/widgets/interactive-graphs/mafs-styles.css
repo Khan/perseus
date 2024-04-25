@@ -189,7 +189,27 @@
         format("woff");
 }
 
-.MafsView .axis-ticks text {
+.axis-tick-labels {
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
+}
+
+.y-axis-tick-labels {
+    display: flex;
+    flex-flow: column;
+    height: 400px;
+    position: absolute;
+    left: -10px;
+}
+
+.x-axis-tick-labels {
+    display: flex;
+    flex-flow: row-reverse;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    justify-content: flex-end;
+    padding-left: 20px;
+    padding-top: 10px;
 }

@@ -45,17 +45,6 @@ const YGridTick = ({
                 y2={yPosition}
                 style={tickStyle}
             />
-            {showTickLabel(gridStep, tickStep, y) && (
-                <text
-                    height={20}
-                    width={50}
-                    textAnchor="end"
-                    x={xPosition - 10}
-                    y={yPosition + 5}
-                >
-                    {y.toString()}
-                </text>
-            )}
         </g>
     );
 };
@@ -81,17 +70,6 @@ const XGridTick = ({
                 y2={yPosition - tickSize / 2}
                 style={tickStyle}
             />
-            {showTickLabel(gridStep, tickStep, x) && (
-                <text
-                    height={20}
-                    width={50}
-                    textAnchor="middle"
-                    x={xPosition}
-                    y={yPosition + 25}
-                >
-                    {x.toString()}
-                </text>
-            )}
         </g>
     );
 };

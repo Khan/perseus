@@ -13,6 +13,7 @@ import {
     SegmentGraph,
     CircleGraph,
 } from "./graphs";
+import {AxisTickLabels} from "./graphs/components/axis-tick-labels";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
@@ -32,6 +33,7 @@ import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {Widget} from "../../renderer";
+import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
@@ -169,6 +171,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 range: state.range,
                 snapStep: state.snapStep,
                 markings: props.markings,
+                tickStep: tickStep,
+                gridStep: props.gridStep,
                 showTooltips: !!props.showTooltips,
                 graphDimensionsInPixels: props.box,
                 width,
@@ -197,7 +201,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         left: 0,
                     }}
                 >
-                    {props.markings === "graph" && <AxisLabels />}
+                    {props.markings === "graph" && (
+                        <>
+                            <AxisLabels />
+                            <AxisTickLabels
+                                tickStep={props.step}
+                                gridStep={props.gridStep}
+                                range={props.range}
+                            />
+                        </>
+                    )}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
