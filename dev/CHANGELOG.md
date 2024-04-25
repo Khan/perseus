@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.5.1
+
+### Patch Changes
+
+-   [#1206](https://github.com/Khan/perseus/pull/1206) [`02bd5fc0c`](https://github.com/Khan/perseus/commit/02bd5fc0c1bd91efd9f0d68ee0ec5f4db394feb7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix 'process.env' replacement in dev UI
+
 ## 1.5.0
 
 ### Minor Changes

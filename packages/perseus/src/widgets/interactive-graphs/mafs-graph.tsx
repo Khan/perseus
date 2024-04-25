@@ -3,8 +3,8 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
-import _ from "underscore";
 
+import AxisLabels from "./axis-labels";
 import GraphLockedLayer from "./graph-locked-layer";
 import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
@@ -42,6 +42,7 @@ export type Props = {
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    labels: InteractiveGraphProps["labels"];
 };
 
 const renderGraph = (props: {
@@ -91,7 +92,7 @@ type MafsGraphProps = Props & {
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch} = props;
+    const {state, dispatch, labels} = props;
     const [width, height] = props.box;
 
     const prevState = useRef<InteractiveGraphState>(state);
@@ -127,6 +128,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 snapStep: state.snapStep,
                 markings: props.markings,
                 showTooltips: !!props.showTooltips,
+                graphDimensionsInPixels: props.box,
+                width,
+                height,
+                labels,
             }}
         >
             <View
@@ -149,6 +154,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         left: 0,
                     }}
                 >
+                    {props.markings === "graph" && <AxisLabels />}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{

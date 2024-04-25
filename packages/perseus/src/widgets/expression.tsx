@@ -494,7 +494,11 @@ export class Expression extends React.Component<Props, ExpressionState> {
     blurInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs.input.blur();
+        if (typeof this.refs.input?.blur === "function") {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+            this.refs.input?.blur();
+        }
     };
 
     // HACK(joel)
