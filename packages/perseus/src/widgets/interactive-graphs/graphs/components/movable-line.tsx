@@ -2,9 +2,10 @@ import {vec, useMovable} from "mafs";
 import {useRef} from "react";
 import * as React from "react";
 
+import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
-import {useTransform} from "../use-transform";
-import {getRayIntersectionCoords} from "../utils";
+import {useTransformVectorsToPixels} from "../use-transform";
+import {getIntersectionOfRayWithBox} from "../utils";
 
 import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
@@ -30,17 +31,19 @@ export const MovableLine = (props: Props) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
-    const [startPtPx, endPtPx] = useTransform(start, end);
+    const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
+    const {graphDimensionsInPixels} = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
 
     if (extend) {
+        const trimmedRange = trimRange(extend.range, graphDimensionsInPixels);
         startExtend = extend.start
-            ? getRayIntersectionCoords(end, start, extend.range)
+            ? getIntersectionOfRayWithBox(start, end, trimmedRange)
             : undefined;
         endExtend = extend.end
-            ? getRayIntersectionCoords(start, end, extend.range)
+            ? getIntersectionOfRayWithBox(end, start, trimmedRange)
             : undefined;
     }
 
@@ -103,3 +106,28 @@ export const MovableLine = (props: Props) => {
         </>
     );
 };
+
+export function trimRange(
+    range: [Interval, Interval],
+    graphDimensionsInPixels: vec.Vector2,
+): [Interval, Interval] {
+    const pixelsToTrim = 4;
+    const [xRange, yRange] = range;
+    const [pixelsWide, pixelsTall] = graphDimensionsInPixels;
+    const graphUnitsPerPixelX = size(xRange) / pixelsWide;
+    const graphUnitsPerPixelY = size(yRange) / pixelsTall;
+    const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX;
+    const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY;
+    return [trim(xRange, graphUnitsToTrimX), trim(yRange, graphUnitsToTrimY)];
+}
+
+function trim(interval: Interval, amount: number): Interval {
+    if (size(interval) < amount * 2) {
+        return [0, 0];
+    }
+    return [interval[0] + amount, interval[1] - amount];
+}
+
+function size(interval: Interval): number {
+    return interval[1] - interval[0];
+}
