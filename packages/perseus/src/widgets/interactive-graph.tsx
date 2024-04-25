@@ -1809,8 +1809,9 @@ class InteractiveGraph extends React.Component<Props, State> {
         );
     };
 
-    simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
-        InteractiveGraph.validate(this.getUserInput?.(), rubric, this);
+    simpleValidate(rubric: Rubric) {
+        return InteractiveGraph.validate(this.getUserInput?.(), rubric, this);
+    }
 
     render() {
         // Mafs shim
