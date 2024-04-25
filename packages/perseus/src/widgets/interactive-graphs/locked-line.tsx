@@ -5,7 +5,7 @@ import * as React from "react";
 import {lockedFigureColors} from "../../perseus-types";
 
 import {Vector} from "./graphs/components/vector";
-import {getRayIntersectionCoords} from "./graphs/utils";
+import {getIntersectionOfRayWithBox} from "./graphs/utils";
 
 import type {LockedLineType} from "../../perseus-types";
 import type {Interval} from "mafs";
@@ -30,9 +30,9 @@ const LockedLine = (props: Props) => {
 
     if (kind === "ray") {
         // Rays extend to the end of the graph in one direction.
-        const endExtend = getRayIntersectionCoords(
-            point1.coord,
+        const endExtend = getIntersectionOfRayWithBox(
             point2.coord,
+            point1.coord,
             range,
         );
         line = (
