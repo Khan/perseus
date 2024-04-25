@@ -77,6 +77,7 @@ describe("InteractiveGraphEditor locked figures", () => {
         test("Calls onChange when a locked point is removed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
+            window.confirm = jest.fn(() => true); // always click yes
 
             render(
                 <InteractiveGraphEditor
@@ -96,6 +97,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(deleteButton);
 
             // Assert
+            expect(window.confirm).toBeCalled();
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({
                     lockedFigures: [],
@@ -303,6 +305,7 @@ describe("InteractiveGraphEditor locked figures", () => {
         test("Calls onChange when a locked line is removed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
+            window.confirm = jest.fn(() => true); // always click yes
 
             render(
                 <InteractiveGraphEditor
@@ -322,6 +325,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(deleteButton);
 
             // Assert
+            expect(window.confirm).toBeCalled();
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({
                     lockedFigures: [],

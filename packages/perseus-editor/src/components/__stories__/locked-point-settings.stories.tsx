@@ -20,13 +20,15 @@ type StoryComponentType = StoryObj<typeof LockedPointSettings>;
 Default.args = {
     ...getDefaultFigureForType("point"),
     onChangeProps: () => {},
+    onRemove: () => {},
 };
 
 export const Controlled: StoryComponentType = {
     render: function Render() {
-        const [props, setProps] = React.useState(
-            getDefaultFigureForType("point"),
-        );
+        const [props, setProps] = React.useState({
+            ...getDefaultFigureForType("point"),
+            onRemove: () => {},
+        });
 
         const handlePropsUpdate = (newProps) => {
             setProps({
