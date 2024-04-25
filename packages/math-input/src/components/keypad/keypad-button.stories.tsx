@@ -7,13 +7,11 @@ import {mockStrings} from "../../strings";
 import {KeypadButton} from "./keypad-button";
 
 import type {KeypadButtonProps} from "./keypad-button";
-import type {ComponentStory} from "@storybook/react";
 
 export default {
     title: "math-input/components/Keypad Button",
     args: {
         keyConfig: KeyConfigs["PLUS"],
-        tintColor: "#F6F6F7",
         coord: [0, 0],
     },
     argTypes: {
@@ -21,14 +19,12 @@ export default {
             control: "select",
             options: {...KeyConfigs(mockStrings)},
         },
-        tintColor: {
-            control: "color",
-        },
     },
 };
 
-const Template: ComponentStory<typeof KeypadButton> = ({
-    ...args
+export const Default = ({
+    keyConfig = KeyConfigs["PLUS"],
+    coord = [0, 0],
 }: KeypadButtonProps): React.ReactElement => (
     <div
         style={{
@@ -44,13 +40,12 @@ const Template: ComponentStory<typeof KeypadButton> = ({
                 margin: "auto",
             }}
         >
-            <KeypadButton {...args} onClickKey={action("pressed")} />
+            <KeypadButton keyConfig={keyConfig} coord={coord} onClickKey={action("pressed")} />
         </div>
     </div>
 );
-export const Default = Template.bind({});
 
-export const AllButtons: ComponentStory<typeof KeypadButton> = ({
+export const AllButtons = ({
     ...args
 }: KeypadButtonProps): React.ReactElement => (
     <div
