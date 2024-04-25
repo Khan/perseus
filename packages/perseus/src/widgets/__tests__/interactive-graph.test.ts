@@ -368,9 +368,12 @@ describe("locked layer", () => {
         // Act
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const lines = container.querySelectorAll(".locked-line");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const rays = container.querySelectorAll(".locked-ray");
 
         // Assert
         expect(lines).toHaveLength(2);
+        expect(rays).toHaveLength(1);
     });
 
     test("should render locked lines with styles", () => {
@@ -386,11 +389,14 @@ describe("locked layer", () => {
         // Act
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const lines = container.querySelectorAll(".locked-line line");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const ray = container.querySelector(".locked-ray g");
 
         // Assert
         expect(lines).toHaveLength(2);
         expect(lines[0]).toHaveStyle({stroke: lockedFigureColors.purple});
         expect(lines[1]).toHaveStyle({stroke: lockedFigureColors.green});
+        expect(ray).toHaveStyle({stroke: lockedFigureColors.pink});
     });
 
     test("should render locked lines with shown points", async () => {
@@ -405,26 +411,32 @@ describe("locked layer", () => {
 
         // Act
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const points = container.querySelectorAll(".locked-line circle");
+        const linePoints = container.querySelectorAll(".locked-line circle");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const rayPoints = container.querySelectorAll(".locked-ray circle");
 
         // Assert
-        expect(points).toHaveLength(4);
+        expect(linePoints).toHaveLength(4);
         // Two points for each line
-        expect(points[0]).toHaveStyle({
+        expect(linePoints[0]).toHaveStyle({
             fill: lockedFigureColors.purple,
             stroke: lockedFigureColors.purple,
         });
-        expect(points[1]).toHaveStyle({
+        expect(linePoints[1]).toHaveStyle({
             fill: wbColor.white,
             stroke: lockedFigureColors.purple,
         });
-        expect(points[2]).toHaveStyle({
+        expect(linePoints[2]).toHaveStyle({
             fill: wbColor.white,
             stroke: lockedFigureColors.green,
         });
-        expect(points[3]).toHaveStyle({
+        expect(linePoints[3]).toHaveStyle({
             fill: lockedFigureColors.green,
             stroke: lockedFigureColors.green,
+        });
+        expect(rayPoints[0]).toHaveStyle({
+            fill: wbColor.white,
+            stroke: lockedFigureColors.pink,
         });
     });
 });

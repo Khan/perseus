@@ -183,6 +183,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {props.lockedFigures && (
                             <GraphLockedLayer
                                 lockedFigures={props.lockedFigures}
+                                range={props.range}
                             />
                         )}
 

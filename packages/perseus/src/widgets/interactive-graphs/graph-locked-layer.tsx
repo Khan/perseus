@@ -5,9 +5,11 @@ import LockedLine from "./locked-line";
 import LockedPoint from "./locked-point";
 
 import type {LockedFigure} from "../../perseus-types";
+import type {Interval} from "mafs";
 
 type Props = {
     lockedFigures: ReadonlyArray<LockedFigure>;
+    range: [x: Interval, y: Interval];
 };
 
 const GraphLockedLayer = (props: Props) => {
@@ -15,14 +17,19 @@ const GraphLockedLayer = (props: Props) => {
     return (
         <>
             {lockedFigures.map((figure, index) => {
-                let Figure;
                 switch (figure.type) {
                     case "point":
-                        Figure = LockedPoint;
-                        break;
+                        return (
+                            <LockedPoint key={`point-${index}`} {...figure} />
+                        );
                     case "line":
-                        Figure = LockedLine;
-                        break;
+                        return (
+                            <LockedLine
+                                key={`line-${index}`}
+                                range={props.range}
+                                {...figure}
+                            />
+                        );
                     default:
                         /**
                          * Devlopment-time future-proofing: This should
@@ -32,8 +39,6 @@ const GraphLockedLayer = (props: Props) => {
                          */
                         throw new UnreachableCaseError(figure);
                 }
-
-                return <Figure key={`${figure.type}-${index}`} {...figure} />;
             })}
         </>
     );

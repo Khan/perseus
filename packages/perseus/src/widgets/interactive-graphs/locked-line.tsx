@@ -4,16 +4,54 @@ import * as React from "react";
 
 import {lockedFigureColors} from "../../perseus-types";
 
-import type {LockedLineType} from "../../perseus-types";
+import {Vector} from "./graphs/components/vector";
+import {getIntersectionOfRayWithBox} from "./graphs/utils";
 
-const LockedLine = (props: LockedLineType) => {
-    const {color, lineStyle, kind, points, showStartPoint, showEndPoint} =
-        props;
+import type {LockedLineType} from "../../perseus-types";
+import type {Interval} from "mafs";
+
+type Props = LockedLineType & {
+    range: [Interval, Interval];
+};
+
+const LockedLine = (props: Props) => {
+    const {
+        color,
+        lineStyle,
+        kind,
+        points,
+        showStartPoint,
+        showEndPoint,
+        range,
+    } = props;
     const [point1, point2] = points;
 
     let line;
 
-    if (kind === "line" || kind === "segment") {
+    if (kind === "ray") {
+        // Rays extend to the end of the graph in one direction.
+        const endExtend = getIntersectionOfRayWithBox(
+            point2.coord,
+            point1.coord,
+            range,
+        );
+        line = (
+            <Vector
+                tail={point1.coord}
+                tip={endExtend}
+                color={lockedFigureColors[color]}
+                style={{
+                    strokeDasharray:
+                        lineStyle === "dashed"
+                            ? // TODO(lems-1930): Uncomment this line when the
+                              // dashed style is updated in Mafs.
+                              // ? "var(--mafs-line-stroke-dash-style)"
+                              "4, 3"
+                            : undefined,
+                }}
+            />
+        );
+    } else {
         const LineType = kind === "segment" ? Line.Segment : Line.ThroughPoints;
         line = (
             <LineType
@@ -23,13 +61,10 @@ const LockedLine = (props: LockedLineType) => {
                 style={lineStyle}
             />
         );
-    } else {
-        // TODO(LEMS-1928): Implement rays
-        return null;
     }
 
     return (
-        <g className="locked-line">
+        <g className={kind === "ray" ? "locked-ray" : "locked-line"}>
             {line}
             {showStartPoint && (
                 <Point
