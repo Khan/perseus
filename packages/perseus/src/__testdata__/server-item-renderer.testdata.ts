@@ -359,3 +359,196 @@ export const itemWithLintingError: PerseusItem = {
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
+
+export const itemWithImages: PerseusItem = {
+    question: {
+        content: `_An example of the different images and their alignments._
+
+All articles in the main content of Articles and Exercises should be **centered**.
+
+A small portrait image:
+[[\u2603 image 1]]
+
+A large portrait Jpeg image:
+[[\u2603 image 2]]
+
+A small landscape image:
+[[\u2603 image 3]]
+
+A large portrait image:
+[[\u2603 image 4]]
+
+And what follows are _hints_...
+`,
+        images: {},
+        widgets: {
+            "image 1": {
+                type: "image",
+                alignment: "block",
+                static: false,
+                graded: true,
+                options: {
+                    static: false,
+                    title: "",
+                    backgroundImage: {
+                        url: "https://ka-perseus-graphie.s3.amazonaws.com/532e339d4d95f9cf6423e66bdc70dd06f1143a97.png",
+                        width: 300,
+                        height: 270,
+                    },
+                    alt: "A right triangle word problem. How far does the parachute fall?",
+                    caption:
+                        "A right triangle word problem. How far does the parachute fall?",
+                },
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
+            },
+            "image 2": {
+                type: "image",
+                alignment: "block",
+                static: false,
+                graded: true,
+                options: {
+                    backgroundImage: {
+                        url: "https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg",
+                        width: 2317,
+                        height: 2535,
+                    },
+                    alt: "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, Last Judgment, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
+                    caption:
+                        "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, *Last Judgment*, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
+                },
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
+            },
+            "image 3": {
+                type: "image",
+                alignment: "block",
+                static: false,
+                graded: true,
+                options: {
+                    static: false,
+                    title: "",
+                    range: [
+                        [0, 10],
+                        [0, 10],
+                    ],
+                    box: [228, 89],
+                    backgroundImage: {
+                        url: "https://ka-perseus-images.s3.amazonaws.com/d0f2df15737d3feeaeea4cf4ec640413c493a875.png",
+                        width: 228,
+                        height: 89,
+                    },
+                    labels: [],
+                    alt: "A chemical diagram with O atom in the center connected on one side to an R atom by a single bond and on the other side to an H atom by a single bond.",
+                    caption:
+                        "A chemical diagram with O atom in the center connected on one side to an R atom by a single bond and on the other side to an H atom by a single bond.",
+                },
+                version: {major: 0, minor: 0},
+            },
+            "image 4": {
+                type: "image",
+                alignment: "block",
+                static: false,
+                graded: true,
+                options: {
+                    static: false,
+                    title: "",
+                    backgroundImage: {
+                        url: "https://ka-perseus-images.s3.amazonaws.com/c983f96a29a07e5c3369a85f2c9b6ae9d2d07d2b.jpg",
+                        height: 2503,
+                        width: 3587,
+                    },
+                    alt: "Milo dreaming he is riding on a bird's back to the moon.",
+                    caption:
+                        "Milo dreaming he is riding on a bird's back to the moon.",
+                },
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
+            },
+        },
+    },
+    hints: [
+        {
+            content:
+                "A image widget with a portrait orientation:\n\n_should be left-aligned in hints_\n[[\u2603 image 1]]\n\n",
+            images: {},
+            widgets: {
+                "image 1": {
+                    type: "image",
+                    alignment: "block",
+                    static: false,
+                    graded: true,
+                    options: {
+                        backgroundImage: {
+                            url: "https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg",
+                            width: 2317,
+                            height: 2535,
+                        },
+                        alt: "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, Last Judgment, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
+                        caption:
+                            "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, *Last Judgment*, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
+                    },
+                    version: {
+                        major: 0,
+                        minor: 0,
+                    },
+                },
+            },
+        },
+        {
+            content:
+                "A image widget with a portrait orientation:\n\n_should be left-aligned in hints_\n[[\u2603 image 1]]\n\n",
+            images: {},
+            widgets: {
+                "image 1": {
+                    type: "image",
+                    alignment: "block",
+                    static: false,
+                    graded: true,
+                    options: {
+                        backgroundImage: {
+                            url: "https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg",
+                            width: 2317,
+                            height: 2535,
+                        },
+                        alt: "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, Last Judgment, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
+                        caption:
+                            "The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, *Last Judgment*, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)",
+                    },
+                    version: {
+                        major: 0,
+                        minor: 0,
+                    },
+                },
+            },
+        },
+        {
+            content:
+                "A Portrait Markdown image:\n![The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, Last Judgment, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)](https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg)\n\n",
+            images: {
+                "https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg":
+                    {width: 2317, height: 2535},
+            },
+            widgets: {},
+        },
+        {
+            content:
+                "A small Landscape Markdown image:\n\n![Some building](https://ka-perseus-images.s3.amazonaws.com/84c9521c5f9ec8c6d2a06435e48295817db54b65.jpeg)\n\n",
+            images: {
+                "https://ka-perseus-images.s3.amazonaws.com/84c9521c5f9ec8c6d2a06435e48295817db54b65.jpeg":
+                    {width: 450 / 2, height: 288 / 2},
+            },
+            widgets: {},
+        },
+    ],
+    answerArea: null,
+    _multi: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};

@@ -77,6 +77,10 @@ describe("InteractiveGraphEditor locked figures", () => {
         test("Calls onChange when a locked point is removed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
+            const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+                // Confirm button clicked
+                () => true,
+            );
 
             render(
                 <InteractiveGraphEditor
@@ -96,11 +100,42 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(deleteButton);
 
             // Assert
+            expect(confirmSpy).toBeCalled();
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({
                     lockedFigures: [],
                 }),
             );
+        });
+
+        test("Does not call onChange when the delete is canceled", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+                // Cancel button clicked
+                () => false,
+            );
+
+            render(
+                <InteractiveGraphEditor
+                    {...mafsProps}
+                    onChange={onChangeMock}
+                    lockedFigures={[defaultPoint]}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Act
+            const deleteButton = screen.getByRole("button", {
+                name: "Delete locked point at 0, 0",
+            });
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(confirmSpy).toBeCalled();
+            expect(onChangeMock).not.toBeCalled();
         });
 
         test("Calls onChange when a locked point's x coordinate is changed", async () => {
@@ -303,6 +338,10 @@ describe("InteractiveGraphEditor locked figures", () => {
         test("Calls onChange when a locked line is removed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
+            const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+                // Confirm button clicked
+                () => true,
+            );
 
             render(
                 <InteractiveGraphEditor
@@ -322,11 +361,42 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(deleteButton);
 
             // Assert
+            expect(confirmSpy).toBeCalled();
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({
                     lockedFigures: [],
                 }),
             );
+        });
+
+        test("Does not call onChange when the delete is canceled", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+                // Cancel button clicked
+                () => false,
+            );
+
+            render(
+                <InteractiveGraphEditor
+                    {...mafsProps}
+                    onChange={onChangeMock}
+                    lockedFigures={[defaultLine]}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Act
+            const deleteButton = screen.getByRole("button", {
+                name: "Delete locked line defined by 0, 0 and 2, 2.",
+            });
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(confirmSpy).toBeCalled();
+            expect(onChangeMock).not.toBeCalled();
         });
 
         test("Shows the locked line settings when a locked line is passed in", async () => {

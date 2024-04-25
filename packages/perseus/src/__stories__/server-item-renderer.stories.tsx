@@ -6,6 +6,7 @@ import {
     itemWithInput,
     itemWithLintingError,
     labelImageItem,
+    itemWithImages,
     itemWithMultipleInputNumbers,
     itemWithRadioAndExpressionWidgets,
 } from "../__testdata__/server-item-renderer.testdata";
@@ -27,6 +28,10 @@ export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
 
 export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={labelImageItem} />;
+};
+
+export const ImageExamplesItem = (args: StoryArgs): React.ReactElement => {
+    return <ServerItemRendererWithDebugUI item={itemWithImages} />;
 };
 
 export const WithLintingError = (args: StoryArgs): React.ReactElement => {

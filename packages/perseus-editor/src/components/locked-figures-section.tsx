@@ -36,13 +36,16 @@ const LockedFiguresSection = (props: Props) => {
     }
 
     function removeLockedFigure(index: number) {
-        const lockedFigures = figures || [];
-        onChange({
-            lockedFigures: [
-                ...lockedFigures.slice(0, index),
-                ...lockedFigures.slice(index + 1),
-            ],
-        });
+        // eslint-disable-next-line no-alert
+        if (window.confirm("Are you sure you want to delete this figure?")) {
+            const lockedFigures = figures || [];
+            onChange({
+                lockedFigures: [
+                    ...lockedFigures.slice(0, index),
+                    ...lockedFigures.slice(index + 1),
+                ],
+            });
+        }
     }
 
     function changeProps(

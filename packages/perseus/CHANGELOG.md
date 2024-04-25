@@ -1,5 +1,24 @@
 # @khanacademy/perseus
 
+## 22.1.0
+
+### Minor Changes
+
+-   [#1193](https://github.com/Khan/perseus/pull/1193) [`e419bb89c`](https://github.com/Khan/perseus/commit/e419bb89c1001472447f4ec3e5ca7f2fc60e1da9) Thanks [@Myranae](https://github.com/Myranae)! - Add axis labels to Mafs graphs
+
+### Patch Changes
+
+-   [#1187](https://github.com/Khan/perseus/pull/1187) [`f0b51093b`](https://github.com/Khan/perseus/commit/f0b51093b809e2ad3408437bb8eb47ec2bd809e3) Thanks [@benchristel](https://github.com/benchristel)! - Fix a visual bug where the arrowheads of graphed lines were sometimes clipped off at the edge of the graph.
+
+*   [#1212](https://github.com/Khan/perseus/pull/1212) [`b4143615b`](https://github.com/Khan/perseus/commit/b4143615b294da439339836d679052c8e1d479a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: interactive graph editor kept resetting state
+
+-   [#1103](https://github.com/Khan/perseus/pull/1103) [`361d5e7ad`](https://github.com/Khan/perseus/commit/361d5e7adcea4c4156ad536bccb2b2b9fa6eb872) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change images so that they are centred everywhere except hints (where they are left-aligned)
+
+*   [#1218](https://github.com/Khan/perseus/pull/1218) [`04f57fdd0`](https://github.com/Khan/perseus/commit/04f57fdd00b9f8327ccb97f612cc2aae33ada1da) Thanks [@nishasy](https://github.com/nishasy)! - Use Wonder Blocks Tooltip for InfoTip
+
+*   Updated dependencies [[`b4143615b`](https://github.com/Khan/perseus/commit/b4143615b294da439339836d679052c8e1d479a5)]:
+    -   @khanacademy/math-input@18.0.1
+
 ## 22.0.2
 
 ### Patch Changes

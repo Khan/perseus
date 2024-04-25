@@ -8,16 +8,15 @@ import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
+import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedPointSettings from "./locked-point-settings";
 
 import type {
@@ -199,14 +198,12 @@ const LockedLineSettings = (props: Props) => {
                         style={styles.lockedPointSettingsContainer}
                     />
 
-                    {/* Delete button */}
-                    <IconButton
-                        icon={trashIcon}
-                        aria-label={`Delete locked line defined by
-            ${startPoint.coord[0]}, ${startPoint.coord[1]} and
-            ${endPoint.coord[0]}, ${endPoint.coord[1]}.`}
-                        onClick={onRemove}
-                        style={styles.deleteButton}
+                    {/* Actions */}
+                    <LockedFigureSettingsActions
+                        onRemove={onRemove}
+                        figureAriaLabel={`locked line defined by
+                    ${startPoint.coord[0]}, ${startPoint.coord[1]} and
+                    ${endPoint.coord[0]}, ${endPoint.coord[1]}.`}
                     />
                 </View>
             </AccordionSection>
@@ -244,11 +241,6 @@ const styles = StyleSheet.create({
     },
     label: {
         marginInlineEnd: spacing.xSmall_8,
-    },
-    deleteButton: {
-        position: "absolute",
-        top: spacing.small_12,
-        right: spacing.small_12,
     },
 });
 

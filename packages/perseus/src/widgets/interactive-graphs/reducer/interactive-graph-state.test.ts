@@ -1,8 +1,12 @@
 import invariant from "tiny-invariant";
 
-import {initializeGraphState} from "./interactive-graph-state";
+import {
+    getGradableGraph,
+    initializeGraphState,
+} from "./interactive-graph-state";
 
-import type {InteractiveGraphProps} from "../types";
+import type {PerseusGraphType} from "../../../perseus-types";
+import type {InteractiveGraphProps, InteractiveGraphState} from "../types";
 
 type BaseGraphData = {
     range: InteractiveGraphProps["range"];
@@ -192,4 +196,32 @@ describe("initializeGraphState for point graphs", () => {
             expect(graph.coords).toHaveLength(n);
         },
     );
+});
+
+describe("getGradableGraph", () => {
+    /**
+     * Originally `getGradableGraph` was returning a PerseusGraphType with just a
+     * `type` property, stripping everything else off of `initialGraph`.
+     * This caused the editor to keep resetting certain properties (ie `numSegments`).
+     */
+    it("regression LEMS-1935: false hasBeenInteractedWith returns full initial graph", () => {
+        const state: InteractiveGraphState = {
+            type: "segment",
+            coords: [],
+            hasBeenInteractedWith: false,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [1, 1],
+            markings: "graph",
+        };
+        const initialGraph: PerseusGraphType = {
+            type: "segment",
+            numSegments: 4,
+        };
+        const result = getGradableGraph(state, initialGraph);
+
+        expect(result).toEqual(initialGraph);
+    });
 });
