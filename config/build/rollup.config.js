@@ -186,6 +186,7 @@ const createConfig = (
     const config = {
         output: createOutputConfig(name, format, file),
         input: makePackageBasedPath(name, inputFile),
+        external: [/@phosphor-icons\/core\/.*/],
         plugins: [
             // We don't want to do process.env.NODE_ENV checks in our main
             // builds. Our consumers should handle that. However, if we
