@@ -1,9 +1,9 @@
-import {type LockedFigureColor} from "@khanacademy/perseus";
 import * as React from "react";
 
 import ColorSelect from "../color-select";
 import {getDefaultFigureForType} from "../util";
 
+import type {LockedFigureColor} from "@khanacademy/perseus";
 import type {Meta} from "@storybook/react";
 
 export default {

@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Limit colorest for locked figures in Interactive Graph
+Limit color set for locked figures in Interactive Graph

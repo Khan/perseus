@@ -655,8 +655,6 @@ export type PerseusInteractiveGraphWidgetOptions = {
     lockedFigures?: ReadonlyArray<LockedFigure>;
 };
 
-// TODO: If/when these colors are added to Wonder Blocks, we should remove
-// them from here and use Wonder Blocks everywhere else instead.
 const lockedFigureColorNames = [
     "green",
     "grayH",
