@@ -1,5 +1,36 @@
+import {vec} from "mafs";
+
 import type {CollinearTuple} from "../../../perseus-types";
-import type {Interval, vec} from "mafs";
+import type {Interval} from "mafs";
+
+export function calculateAngleInDegrees([x, y]: vec.Vector2) {
+    return (Math.atan2(y, x) * 180) / Math.PI;
+}
+
+/**
+ * Given two points, generate the x, y, and rotation angle that an arrowhead should use when drawn in the graph.
+ * @param collinearPoint - The point that the line passes through. Needed to establish slope.
+ * @param extendFrom - The point that the line extends from to the edge of the graph.
+ * @param range - The range scale of the graph.
+ */
+export const getArrowheadValues = (
+    collinearPoint: vec.Vector2,
+    extendFrom: vec.Vector2,
+    range: [Interval, Interval],
+): {
+    x: number;
+    y: number;
+    angle: number;
+} => {
+    const extendedPoint = getRayIntersectionCoords(
+        collinearPoint,
+        extendFrom,
+        range,
+    );
+    const direction = vec.sub(extendedPoint, collinearPoint);
+    const angle = calculateAngleInDegrees(direction);
+    return {x: extendedPoint[0], y: extendedPoint[1], angle};
+};
 
 /**
  * Given two points, find the tips that extends through the points to the edge of the range.

@@ -4,8 +4,9 @@ import * as React from "react";
 
 import {lockedFigureColors} from "../../perseus-types";
 
+import {Arrowhead} from "./graphs/components/arrowhead";
 import {Vector} from "./graphs/components/vector";
-import {getRayIntersectionCoords} from "./graphs/utils";
+import {getArrowheadValues} from "./graphs/utils";
 
 import type {LockedLineType} from "../../perseus-types";
 import type {Interval} from "mafs";
@@ -27,41 +28,48 @@ const LockedLine = (props: Props) => {
     } = props;
     const [point1, point2] = points;
 
+    let arrowHeadValues = getArrowheadValues(point1.coord, point2.coord, range);
+    const startArrowHead = showArrows && <Arrowhead {...arrowHeadValues} />;
+
     let line;
 
     if (kind === "ray") {
-        // Rays extend to the end of the graph in one direction.
-        const endExtend = getRayIntersectionCoords(
-            point1.coord,
-            point2.coord,
-            range,
-        );
         line = (
-            <Vector
-                tail={point1.coord}
-                tip={endExtend}
-                color={lockedFigureColors[color]}
-                showArrows={showArrows}
-                style={{
-                    strokeDasharray:
-                        lineStyle === "dashed"
-                            ? // TODO(lems-1930): Uncomment this line when the
-                              // dashed style is updated in Mafs.
-                              // ? "var(--mafs-line-stroke-dash-style)"
-                              "4, 3"
-                            : undefined,
-                }}
-            />
+            <>
+                {showArrows && startArrowHead}
+                <Vector
+                    tail={point1.coord}
+                    tip={[arrowHeadValues.x, arrowHeadValues.y]}
+                    color={lockedFigureColors[color]}
+                    style={{
+                        strokeDasharray:
+                            lineStyle === "dashed"
+                                ? // TODO(lems-1930): Uncomment this line when the
+                                  // dashed style is updated in Mafs.
+                                  // ? "var(--mafs-line-stroke-dash-style)"
+                                "4, 3"
+                                : undefined,
+                    }}
+                />
+            </>
         );
     } else {
         const LineType = kind === "segment" ? Line.Segment : Line.ThroughPoints;
+
+        arrowHeadValues = getArrowheadValues(point2.coord, point1.coord, range);
+        const endArrowHead = showArrows && <Arrowhead {...arrowHeadValues} />;
+
         line = (
-            <LineType
-                point1={point1.coord}
-                point2={point2.coord}
-                color={lockedFigureColors[color]}
-                style={lineStyle}
-            />
+            <>
+                {showArrows && startArrowHead}
+                <LineType
+                    point1={point1.coord}
+                    point2={point2.coord}
+                    color={lockedFigureColors[color]}
+                    style={lineStyle}
+                />
+                {showArrows && endArrowHead}
+            </>
         );
     }
 
