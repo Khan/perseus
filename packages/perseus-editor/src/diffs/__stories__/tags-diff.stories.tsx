@@ -14,7 +14,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus Editor/Diffs/Tags Diff",
+    title: "PerseusEditor/Diffs/Tags Diff",
     decorators: [
         (StoryComponent) => (
             <Wrapper>

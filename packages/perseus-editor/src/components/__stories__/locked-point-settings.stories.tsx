@@ -6,7 +6,7 @@ import {getDefaultFigureForType} from "../util";
 import type {Meta, StoryObj} from "@storybook/react";
 
 export default {
-    title: "Perseus Editor/Components/Locked Point Settings",
+    title: "PerseusEditor/Components/Locked Point Settings",
     component: LockedPointSettings,
 } as Meta<typeof LockedPointSettings>;
 

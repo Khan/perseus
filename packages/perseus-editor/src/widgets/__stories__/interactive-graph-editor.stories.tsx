@@ -26,7 +26,7 @@ const defaultPointProps = {
 };
 
 export default {
-    title: "Perseus Editor/Widgets/Interactive Graph Editor",
+    title: "PerseusEditor/Widgets/Interactive Graph Editor",
     component: InteractiveGraphEditor,
     argTypes: InteractiveGraphEditorArgTypes,
 } as Meta<typeof InteractiveGraphEditor>;
