@@ -208,7 +208,7 @@ function SideBySideQuestionRenderer({
 function GradableRenderer(props: QuestionRendererProps) {
     const {question, apiOptions} = props;
     const rendererRef = useRef<Renderer>(null);
-    const [score, setScore] = useState<PerseusScore | undefined>();
+    const [score, setScore] = useState<PerseusScore>();
 
     useTimeout(() => setScore(undefined), 2500, !!score);
 
