@@ -170,7 +170,7 @@ const LockedPointSettings = (props: Props) => {
                         <>
                             <ColorSelect
                                 id={colorSelectId}
-                                selectedValue={pointColor || "blue"}
+                                selectedValue={pointColor}
                                 onChange={handleColorChange}
                             />
                             <Strut size={spacing.xSmall_8} />

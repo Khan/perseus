@@ -44,7 +44,7 @@ describe("getDefaultFigureForType", () => {
         expect(figure).toEqual({
             type: "point",
             coord: [0, 0],
-            color: "blue",
+            color: "green",
             filled: true,
         });
     });
@@ -58,17 +58,17 @@ describe("getDefaultFigureForType", () => {
                 {
                     type: "point",
                     coord: [0, 0],
-                    color: "blue",
+                    color: "green",
                     filled: true,
                 },
                 {
                     type: "point",
                     coord: [2, 2],
-                    color: "blue",
+                    color: "green",
                     filled: true,
                 },
             ],
-            color: "blue",
+            color: "green",
             lineStyle: "solid",
             showArrows: false,
             showStartPoint: false,
