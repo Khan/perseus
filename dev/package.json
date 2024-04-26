@@ -3,7 +3,7 @@
     "description": "Perseus dev UI",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "1.5.2",
+    "version": "1.5.3",
     "publishConfig": {
         "access": "public"
     },
@@ -21,7 +21,7 @@
         "@khanacademy/math-input": "^18.0.1",
         "@khanacademy/perseus-core": "1.4.2",
         "@khanacademy/perseus-linter": "^0.3.12",
-        "@khanacademy/pure-markdown": "^0.3.2",
+        "@khanacademy/pure-markdown": "^0.3.3",
         "@khanacademy/simple-markdown": "^0.11.4",
         "@khanacademy/wonder-blocks-banner": "^3.0.41",
         "@khanacademy/wonder-blocks-search-field": "^2.2.9",

@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.4.1
+
+### Patch Changes
+
+-   [#1226](https://github.com/Khan/perseus/pull/1226) [`3d7e3b685`](https://github.com/Khan/perseus/commit/3d7e3b6854cf9f3a945e86988c6bbcb2b6c9e2cb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Mark @phosphor-icons/core as external so they aren't bundled into Perseus
+
 ## 0.4.0
 
 ### Minor Changes
