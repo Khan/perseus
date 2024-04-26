@@ -12,10 +12,10 @@ export default function AxisArrows() {
 
     return (
         <>
-            <Arrowhead color={axisColor} x={xMin} y={0} angle={180} />
-            <Arrowhead color={axisColor} x={xMax} y={0} angle={0} />
-            <Arrowhead color={axisColor} x={0} y={yMin} angle={270} />
-            <Arrowhead color={axisColor} x={0} y={yMax} angle={90} />
+            <Arrowhead color={axisColor} tip={[xMin, 0]} angle={180} />
+            <Arrowhead color={axisColor} tip={[xMax, 0]} angle={0} />
+            <Arrowhead color={axisColor} tip={[0, yMin]} angle={270} />
+            <Arrowhead color={axisColor} tip={[0, yMax]} angle={90} />
         </>
     );
 }

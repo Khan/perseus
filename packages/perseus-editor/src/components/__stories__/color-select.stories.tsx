@@ -6,7 +6,7 @@ import type {LockedFigureColor} from "@khanacademy/perseus";
 import type {Meta} from "@storybook/react";
 
 export default {
-    title: "Perseus Editor/Components/Color Select",
+    title: "PerseusEditor/Components/Color Select",
     component: ColorSelect,
 } as Meta<typeof ColorSelect>;
 

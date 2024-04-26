@@ -386,9 +386,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 <p>
                                     The interior angle and side measure options
                                     guide the points to the nearest whole angle
-                                    or side
-                                </p>{" "}
-                                measure respectively.
+                                    or side measure respectively.
+                                </p>
                             </InfoTip>
                         </LabeledRow>
                         <View style={styles.row}>

@@ -52,3 +52,24 @@
         margin-top: 5px;
     }
 }
+
+// Image widgets are centred, by default
+.perseus-image-widget {
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+}
+
+// Image widgets inside of a hint are left-aligned
+.perseus-hint-renderer {
+    .perseus-image-widget {
+        margin-inline-start: 0;
+    }
+}
+
+// Markdown images inside of a hint are left-aligned
+// Eg `![alt text](image.png)`
+.perseus-hint-renderer {
+    .svg-image {
+        margin-inline-start: 0;
+    }
+}

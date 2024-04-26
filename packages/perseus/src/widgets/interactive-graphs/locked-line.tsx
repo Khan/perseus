@@ -29,7 +29,9 @@ const LockedLine = (props: Props) => {
     const [point1, point2] = points;
 
     let arrowHeadValues = getArrowheadValues(point1.coord, point2.coord, range);
-    const startArrowHead = showArrows && <Arrowhead {...arrowHeadValues} />;
+    const startArrowHead = showArrows && (
+        <Arrowhead {...arrowHeadValues} color={lockedFigureColors[color]} />
+    );
 
     let line;
 
@@ -39,7 +41,7 @@ const LockedLine = (props: Props) => {
                 {showArrows && startArrowHead}
                 <Vector
                     tail={point1.coord}
-                    tip={[arrowHeadValues.x, arrowHeadValues.y]}
+                    tip={arrowHeadValues.tip}
                     color={lockedFigureColors[color]}
                     style={{
                         strokeDasharray:
@@ -57,7 +59,9 @@ const LockedLine = (props: Props) => {
         const LineType = kind === "segment" ? Line.Segment : Line.ThroughPoints;
 
         arrowHeadValues = getArrowheadValues(point2.coord, point1.coord, range);
-        const endArrowHead = showArrows && <Arrowhead {...arrowHeadValues} />;
+        const endArrowHead = showArrows && (
+            <Arrowhead {...arrowHeadValues} color={lockedFigureColors[color]} />
+        );
 
         line = (
             <>
@@ -74,7 +78,7 @@ const LockedLine = (props: Props) => {
     }
 
     return (
-        <g className="locked-line">
+        <g className={kind === "ray" ? "locked-ray" : "locked-line"}>
             {line}
             {showStartPoint && (
                 <Point

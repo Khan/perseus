@@ -12,20 +12,27 @@ export default {
     title: "Perseus/Components/Info Tip",
 } as Story;
 
-const svgUrl = "http://www.khanacademy.org/images/ohnoes-concerned.svg";
-
 export const TextOnMouseover = (args: StoryArgs): React.ReactElement => {
+    return <InfoTip>Sample text</InfoTip>;
+};
+
+export const CodeInText = (args: StoryArgs): React.ReactElement => {
     return (
+        // InfoTip is complaining about <code> not being a string
+        // or React.ReactElement even though it should be valid.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         <InfoTip>
-            <span>Sample text</span>
+            Settings that you add here are available to the program as an object
+            returned by <code>Program.settings()</code>
         </InfoTip>
     );
 };
 
-export const ImageOnMouseover = (args: StoryArgs): React.ReactElement => {
+export const MultipleElements = (args: StoryArgs): React.ReactElement => {
     return (
         <InfoTip>
-            <img alt="" src={svgUrl} />
+            <p>First paragraph</p>
+            <p>Second paragraph</p>
         </InfoTip>
     );
 };

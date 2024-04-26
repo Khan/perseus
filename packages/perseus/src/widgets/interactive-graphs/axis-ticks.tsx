@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {useTransform} from "./graphs/use-transform";
+import {useTransformVectorsToPixels} from "./graphs/use-transform";
 
 import type {vec} from "mafs";
 
@@ -34,7 +34,7 @@ const YGridTick = ({
     tickStep: number;
 }) => {
     const pointOnAxis: vec.Vector2 = [0, y];
-    const [[xPosition, yPosition]] = useTransform(pointOnAxis);
+    const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
 
     return (
         <g className="y-axis-ticks">
@@ -70,7 +70,7 @@ const XGridTick = ({
     tickStep: number;
 }) => {
     const pointOnAxis: vec.Vector2 = [x, 0];
-    const [[xPosition, yPosition]] = useTransform(pointOnAxis);
+    const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
 
     return (
         <g className="x-axis-ticks">

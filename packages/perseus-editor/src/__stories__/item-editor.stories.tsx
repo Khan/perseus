@@ -27,7 +27,7 @@ const Wrapper = (props: Props) => {
 };
 
 const story: Meta<Props> = {
-    title: "Perseus Editor/Item Extras Editor",
+    title: "PerseusEditor/Item Extras Editor",
     component: ItemExtrasEditor,
     render: (args) => <Wrapper {...args} />,
     argTypes: {onChange: {action: "changed"}},

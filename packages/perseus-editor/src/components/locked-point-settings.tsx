@@ -7,17 +7,16 @@
 import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, TextField} from "@khanacademy/wonder-blocks-form";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
+import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import {getValidNumberFromString} from "./util";
 
 import type {LockedPointType} from "@khanacademy/perseus";
@@ -186,13 +185,11 @@ const LockedPointSettings = (props: Props) => {
                         </>
                     )}
 
-                    {/* Delete icon */}
+                    {/* Actions */}
                     {onRemove && (
-                        <IconButton
-                            icon={trashIcon}
-                            aria-label={`Delete locked point at ${coordState[0]}, ${coordState[1]}`}
-                            onClick={onRemove}
-                            style={styles.deleteButton}
+                        <LockedFigureSettingsActions
+                            onRemove={onRemove}
+                            figureAriaLabel={`locked point at ${coordState[0]}, ${coordState[1]}`}
                         />
                     )}
                 </View>
@@ -230,11 +227,6 @@ const styles = StyleSheet.create({
     },
     textField: {
         width: spacing.xxxLarge_64,
-    },
-    deleteButton: {
-        position: "absolute",
-        top: spacing.small_12,
-        right: spacing.small_12,
     },
 });
 

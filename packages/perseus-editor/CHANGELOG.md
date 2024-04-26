@@ -1,5 +1,39 @@
 # @khanacademy/perseus-editor
 
+## 6.0.4
+
+### Patch Changes
+
+-   [#1219](https://github.com/Khan/perseus/pull/1219) [`ca9b86e91`](https://github.com/Khan/perseus/commit/ca9b86e91190f9535ba57edcdb0f635d0a4e61be) Thanks [@nishasy](https://github.com/nishasy)! - Move the delete button in locked figure settings
+
+*   [#1212](https://github.com/Khan/perseus/pull/1212) [`b4143615b`](https://github.com/Khan/perseus/commit/b4143615b294da439339836d679052c8e1d479a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: interactive graph editor kept resetting state
+
+-   [#1218](https://github.com/Khan/perseus/pull/1218) [`04f57fdd0`](https://github.com/Khan/perseus/commit/04f57fdd00b9f8327ccb97f612cc2aae33ada1da) Thanks [@nishasy](https://github.com/nishasy)! - Use Wonder Blocks Tooltip for InfoTip
+
+-   Updated dependencies [[`f0b51093b`](https://github.com/Khan/perseus/commit/f0b51093b809e2ad3408437bb8eb47ec2bd809e3), [`b4143615b`](https://github.com/Khan/perseus/commit/b4143615b294da439339836d679052c8e1d479a5), [`361d5e7ad`](https://github.com/Khan/perseus/commit/361d5e7adcea4c4156ad536bccb2b2b9fa6eb872), [`04f57fdd0`](https://github.com/Khan/perseus/commit/04f57fdd00b9f8327ccb97f612cc2aae33ada1da), [`e419bb89c`](https://github.com/Khan/perseus/commit/e419bb89c1001472447f4ec3e5ca7f2fc60e1da9)]:
+    -   @khanacademy/perseus@22.1.0
+    -   @khanacademy/math-input@18.0.1
+
+## 6.0.3
+
+### Patch Changes
+
+-   [#1215](https://github.com/Khan/perseus/pull/1215) [`efa0e3737`](https://github.com/Khan/perseus/commit/efa0e3737b2b6af528f3e42b32d7787ecf763911) Thanks [@jeresig](https://github.com/jeresig)! - Fix up a binding issue with NumericInputEditor
+
+## 6.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`463b80d67`](https://github.com/Khan/perseus/commit/463b80d679d84e6d70c42dd7a019024b9a8e7aec)]:
+    -   @khanacademy/perseus@22.0.2
+
+## 6.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`08b401d34`](https://github.com/Khan/perseus/commit/08b401d34cd06ad5bdee7298a35d1adb1497f611), [`87d12ad4a`](https://github.com/Khan/perseus/commit/87d12ad4afedafe70063715163d8f448b4d31b85)]:
+    -   @khanacademy/perseus@22.0.1
+
 ## 6.0.0
 
 ### Major Changes

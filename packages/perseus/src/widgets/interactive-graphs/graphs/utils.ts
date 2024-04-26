@@ -8,44 +8,44 @@ export function calculateAngleInDegrees([x, y]: vec.Vector2) {
 }
 
 /**
- * Given two points, generate the x, y, and rotation angle that an arrowhead should use when drawn in the graph.
- * @param collinearPoint - The point that the line passes through. Needed to establish slope.
- * @param extendFrom - The point that the line extends from to the edge of the graph.
- * @param range - The range scale of the graph.
+ * Given two points, generate the tip and rotation angle that an arrowhead should use when drawn in the graph.
+ * @param referencePoint - The point of the associated line used for reference to help determine arrowhead location.
+ * @param throughPoint - A point that the associated line passes through. Must be different from referencePoint.
+ * @param box - The box with which to intersect the line, in the form [[xMin, xMax], [yMin, yMax]]
  */
 export const getArrowheadValues = (
-    collinearPoint: vec.Vector2,
-    extendFrom: vec.Vector2,
-    range: [Interval, Interval],
+    referencePoint: vec.Vector2,
+    throughPoint: vec.Vector2,
+    box: [x: Interval, y: Interval],
 ): {
-    x: number;
-    y: number;
+    tip: vec.Vector2;
     angle: number;
 } => {
-    const extendedPoint = getRayIntersectionCoords(
-        collinearPoint,
-        extendFrom,
-        range,
+    const extendedPoint = getIntersectionOfRayWithBox(
+        throughPoint,
+        referencePoint,
+        box,
     );
-    const direction = vec.sub(extendedPoint, collinearPoint);
+    const direction = vec.sub(extendedPoint, referencePoint);
     const angle = calculateAngleInDegrees(direction);
-    return {x: extendedPoint[0], y: extendedPoint[1], angle};
+    return {tip: extendedPoint, angle};
 };
 
 /**
- * Given two points, find the tips that extends through the points to the edge of the range.
- * @param collinearPoint - The point that the line passes through. Needed to establish slope.
- * @param extendFrom - The point that the line extends from to the edge of the graph.
+ * Given a ray and a rectangular box, find the point where the ray intersects
+ * the edge of the box. Assumes the `initialPoint` is inside the box.
+ * @param initialPoint - The starting point of the ray.
+ * @param throughPoint - A point that the ray passes through. Must be different from initialPoint.
+ * @param box - The box with which to intersect the ray, in the form [[xMin, xMax], [yMin, yMax]]
  */
-export const getRayIntersectionCoords = (
-    collinearPoint: vec.Vector2,
-    extendFrom: vec.Vector2,
-    range: [Interval, Interval],
+export const getIntersectionOfRayWithBox = (
+    initialPoint: vec.Vector2,
+    throughPoint: vec.Vector2,
+    box: [x: Interval, y: Interval],
 ): [number, number] => {
-    // edges of the graph
-    const [[xMin, xMax], [yMin, yMax]] = range;
-    const [aX, aY] = collinearPoint;
-    const [bX, bY] = extendFrom;
+    const [[xMin, xMax], [yMin, yMax]] = box;
+    const [aX, aY] = throughPoint;
+    const [bX, bY] = initialPoint;
 
     const yDiff = bY - aY;
     const xDiff = bX - aX;

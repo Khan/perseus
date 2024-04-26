@@ -225,7 +225,11 @@ class InputNumber extends React.Component<Props> {
     blurInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs.input.blur();
+        if (typeof this.refs.input?.blur === "function") {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+            this.refs.input?.blur();
+        }
     };
 
     getInputPaths: () => ReadonlyArray<Path> = () => {

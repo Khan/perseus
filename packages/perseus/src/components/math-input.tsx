@@ -394,6 +394,10 @@ class MathInput extends React.Component<Props, State> {
     declare context: React.ContextType<typeof MathInputI18nContext>;
     inputRef = React.createRef<InnerMathInput>();
 
+    blur() {
+        this.inputRef.current?.blur();
+    }
+
     focus() {
         this.inputRef.current?.focus();
     }

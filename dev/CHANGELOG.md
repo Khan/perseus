@@ -1,5 +1,18 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.5.2
+
+### Patch Changes
+
+-   Updated dependencies [[`b4143615b`](https://github.com/Khan/perseus/commit/b4143615b294da439339836d679052c8e1d479a5)]:
+    -   @khanacademy/math-input@18.0.1
+
+## 1.5.1
+
+### Patch Changes
+
+-   [#1206](https://github.com/Khan/perseus/pull/1206) [`02bd5fc0c`](https://github.com/Khan/perseus/commit/02bd5fc0c1bd91efd9f0d68ee0ec5f4db394feb7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix 'process.env' replacement in dev UI
+
 ## 1.5.0
 
 ### Minor Changes

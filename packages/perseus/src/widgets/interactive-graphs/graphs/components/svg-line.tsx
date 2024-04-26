@@ -20,7 +20,7 @@ export function SVGLine(props: Props) {
             x2={end[0]}
             y2={end[1]}
             style={style}
-            className={`${className}`}
+            className={className}
             data-testid={testId}
         />
     );

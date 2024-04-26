@@ -275,7 +275,7 @@ describe("Keypad v2 with MathQuill", () => {
         }
 
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("");
-    });
+    }, 10000);
 
     // Keypad event tests
     it("fires the keypad open event on open", async () => {

@@ -7,7 +7,7 @@ import InteractiveGraphSettingsArgTypes from "./interactive-graph-settings.argty
 import type {StoryObj} from "@storybook/react";
 
 export default {
-    title: "Perseus Editor/Components/Interactive Graph Settings",
+    title: "PerseusEditor/Components/Interactive Graph Settings",
     component: InteractiveGraphSettings,
     argTypes: InteractiveGraphSettingsArgTypes,
 };

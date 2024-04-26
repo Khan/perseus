@@ -16,7 +16,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus Editor/Widgets/Label Image Editor",
+    title: "PerseusEditor/Widgets/Label Image Editor",
 } as Story;
 
 const styles = StyleSheet.create({

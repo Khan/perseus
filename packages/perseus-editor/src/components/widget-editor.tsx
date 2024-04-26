@@ -11,7 +11,7 @@ import _ from "underscore";
 import SectionControlButton from "./section-control-button";
 
 import type Editor from "../editor";
-import type {Alignment, PerseusWidget} from "@khanacademy/perseus";
+import type {APIOptions, Alignment, PerseusWidget} from "@khanacademy/perseus";
 
 const {InlineIcon} = components;
 const {iconChevronDown, iconChevronRight, iconTrash} = icons;
@@ -25,7 +25,7 @@ type WidgetEditorProps = {
         silent?: boolean,
     ) => unknown;
     onRemove: () => unknown;
-    apiOptions: any;
+    apiOptions: APIOptions;
 } & Omit<PerseusWidget, "key">;
 
 type WidgetEditorState = {
