@@ -7,7 +7,6 @@
 import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
@@ -16,6 +15,7 @@ import * as React from "react";
 
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
+import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedPointSettings from "./locked-point-settings";
 
@@ -93,6 +93,9 @@ const LockedLineSettings = (props: Props) => {
             // file (which is imported in perseus-renderer.less).
             className="locked-figure-accordion"
         >
+            {/* TODO(LEMS-1966): Break out AccordionSection + its styles
+                into its own component to remove redundancy across
+                locked figure settings. */}
             <AccordionSection
                 style={styles.container}
                 headerStyle={styles.accordionHeader}
@@ -112,7 +115,7 @@ const LockedLineSettings = (props: Props) => {
                             style={styles.label}
                             tag="label"
                         >
-                            Kind
+                            kind
                         </LabelMedium>
                         <SingleSelect
                             id={kindSelectId}
@@ -136,7 +139,7 @@ const LockedLineSettings = (props: Props) => {
                             selectedValue={lineColor}
                             onChange={handleColorChange}
                         />
-                        <Strut size={spacing.medium_16} />
+                        <Strut size={spacing.small_12} />
 
                         {/* Line style settings */}
                         <View style={styles.row}>
@@ -145,7 +148,7 @@ const LockedLineSettings = (props: Props) => {
                                 style={styles.label}
                                 tag="label"
                             >
-                                Style
+                                style
                             </LabelMedium>
                             <SingleSelect
                                 id={styleSelectId}
@@ -155,6 +158,7 @@ const LockedLineSettings = (props: Props) => {
                                 }
                                 // Placeholder is required, but never gets used.
                                 placeholder=""
+                                style={styles.selectMarginOffset}
                             >
                                 <OptionItem value="solid" label="solid" />
                                 <OptionItem value="dashed" label="dashed" />
@@ -163,13 +167,12 @@ const LockedLineSettings = (props: Props) => {
                     </View>
 
                     {/* Show arrows setting */}
-                    <Checkbox
-                        label="Show arrows"
+                    <LabeledSwitch
+                        label="show arrows"
                         checked={showArrows}
                         onChange={(newValue) =>
                             onChangeProps({showArrows: newValue})
                         }
-                        style={styles.spaceUnder}
                     />
 
                     {/* Defining points settings */}
@@ -214,20 +217,22 @@ const LockedLineSettings = (props: Props) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: wbColor.fadedBlue8,
-        marginBottom: spacing.xSmall_8,
+        marginTop: spacing.xSmall_8,
     },
     accordionHeader: {
-        paddingTop: spacing.small_12,
-        paddingBottom: spacing.small_12,
-        paddingInlineStart: spacing.medium_16,
+        padding: spacing.small_12,
+        // Don't move the dropdown caret.
+        paddingInlineEnd: 0,
     },
     accordionPanel: {
-        padding: spacing.medium_16,
-        paddingBottom: spacing.xSmall_8,
+        paddingTop: spacing.xxSmall_6,
+        paddingBottom: spacing.xxxSmall_4,
+        paddingLeft: spacing.small_12,
+        paddingRight: spacing.small_12,
     },
     lockedPointSettingsContainer: {
         marginTop: spacing.xSmall_8,
-        marginBottom: spacing.xSmall_8,
+        marginBottom: 0,
         marginLeft: -spacing.xxxSmall_4,
         marginRight: -spacing.xxxSmall_4,
         backgroundColor: wbColor.white,
@@ -240,7 +245,11 @@ const styles = StyleSheet.create({
         marginBottom: spacing.xSmall_8,
     },
     label: {
-        marginInlineEnd: spacing.xSmall_8,
+        marginInlineEnd: spacing.xxxSmall_4,
+    },
+    selectMarginOffset: {
+        // Align with the point settings accordions.
+        marginInlineEnd: -spacing.xxxSmall_4,
     },
 });
 

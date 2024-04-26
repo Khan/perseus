@@ -9,6 +9,7 @@ import * as React from "react";
 import ColorSwatch from "./color-swatch";
 
 import type {LockedFigureColor} from "@khanacademy/perseus";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const possibleColors = Object.keys(lockedFigureColors) as LockedFigureColor[];
 
@@ -16,16 +17,17 @@ type Props = {
     // Required ID so that the label can be associated with the select.
     id: string;
     selectedValue: LockedFigureColor;
+    style?: StyleType;
     onChange: (newValue: string) => void;
 };
 
 const ColorSelect = (props: Props) => {
-    const {id, selectedValue, onChange} = props;
+    const {id, selectedValue, style, onChange} = props;
 
     return (
-        <View style={styles.row}>
+        <View style={[styles.row, style]}>
             <LabelMedium htmlFor={id} style={styles.label} tag="label">
-                Color
+                color
             </LabelMedium>
             <SingleSelect
                 id={id}
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     label: {
-        marginInlineEnd: spacing.xSmall_8,
+        marginInlineEnd: spacing.xxxSmall_4,
     },
 });
 
