@@ -266,25 +266,6 @@ jobs:
             # Do not place any steps after "Check Builds"
             #
 
-    extract_strings:
-        name: Extract i18n strings
-        runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [20.x]
-        steps:
-            - uses: actions/checkout@v4
-
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
-
-            - name: Extract strings
-              run: yarn extract-strings
-
     publish_snapshot:
         name: Publish npm snapshot
         # We don't publish snapshots on draft PRs or
