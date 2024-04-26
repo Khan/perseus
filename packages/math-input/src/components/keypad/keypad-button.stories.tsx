@@ -8,16 +8,18 @@ import {KeypadButton} from "./keypad-button";
 
 import type {KeypadButtonProps} from "./keypad-button";
 
+const keyConfigs = KeyConfigs(mockStrings);
+
 export default {
     title: "math-input/components/Keypad Button",
     args: {
-        keyConfig: KeyConfigs["PLUS"],
+        keyConfig: keyConfigs["PLUS"],
         coord: [0, 0],
     },
     argTypes: {
         keyConfig: {
             control: "select",
-            options: {...KeyConfigs(mockStrings)},
+            options: {...keyConfigs},
         },
     },
 };
@@ -56,7 +58,7 @@ export const AllButtons = ({
             gap: "25px",
         }}
     >
-        {Object.keys(KeyConfigs(mockStrings)).map((key) => (
+        {Object.keys(keyConfigs).map((key) => (
             <div
                 key={key}
                 style={{
@@ -67,7 +69,7 @@ export const AllButtons = ({
             >
                 {key}
                 <KeypadButton
-                    keyConfig={KeyConfigs(mockStrings)[key]}
+                    keyConfig={keyConfigs[key]}
                     onClickKey={action("pressed")}
                     coord={[0, 0]}
                 />
