@@ -30,7 +30,7 @@
     },
     "devDependencies": {
         "jison": "0.4.15",
-        "perseus-build-settings": "^0.4.0",
+        "perseus-build-settings": "^0.4.1",
         "underscore": "1.4.4"
     },
     "peerDependencies": {

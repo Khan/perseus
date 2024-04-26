@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 6.1.0
+
+### Minor Changes
+
+-   [#1208](https://github.com/Khan/perseus/pull/1208) [`87c0e75d6`](https://github.com/Khan/perseus/commit/87c0e75d6b64723f33d0a2319c34ec5b4a81dfc3) Thanks [@nishasy](https://github.com/nishasy)! - Implement locked rays for Interactive Graph
+
+### Patch Changes
+
+-   [#1225](https://github.com/Khan/perseus/pull/1225) [`be7de3a5e`](https://github.com/Khan/perseus/commit/be7de3a5edb9c08b6976be508c56dd4253e3c86c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update all story names to avoid spaces
+
+-   Updated dependencies [[`87c0e75d6`](https://github.com/Khan/perseus/commit/87c0e75d6b64723f33d0a2319c34ec5b4a81dfc3), [`162f0c855`](https://github.com/Khan/perseus/commit/162f0c855f1e5b8777bf429fcbd18be73e1b9a11)]:
+    -   @khanacademy/perseus@22.2.0
+
 ## 6.0.4
 
 ### Patch Changes
