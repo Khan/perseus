@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
+import useGraphConfig from "./reducer/use-graph-config";
 
 import type {vec} from "mafs";
 
@@ -28,23 +29,39 @@ const YGridTick = ({
     y,
     gridStep,
     tickStep,
+    graphInfo,
 }: {
     y: number;
     gridStep: number;
     tickStep: number;
+    graphInfo: any; //STOPSHIP FIX LATER
 }) => {
-    const pointOnAxis: vec.Vector2 = [0, y];
+    let xPointOnAxis = 0;
+
+    // If the graph is zoomed in, we want to make sure the ticks are still visible
+    // even if they are outside the graph's range.
+    if (graphInfo.range[0][0] > 0) {
+        // If the graph is on the positive side of the x-axis, lock the ticks to the left side of the graph
+        xPointOnAxis = graphInfo.range[0][0];
+    }
+    if (graphInfo.range[0][1] < 0) {
+        // If the graph is on the negative side of the x-axis, lock the ticks to the right side of the graph
+        xPointOnAxis = graphInfo.range[0][1];
+    }
+
+    const pointOnAxis: vec.Vector2 = [xPointOnAxis, y];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
+
+    const x1 = xPosition - tickSize / 2;
+
+    const y1 = yPosition;
+    const x2 = xPosition + tickSize / 2;
+
+    const y2 = yPosition;
 
     return (
         <g className="y-axis-ticks">
-            <line
-                x1={xPosition - tickSize / 2}
-                y1={yPosition}
-                x2={xPosition + tickSize / 2}
-                y2={yPosition}
-                style={tickStyle}
-            />
+            <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
         </g>
     );
 };
@@ -53,10 +70,12 @@ const XGridTick = ({
     x,
     gridStep,
     tickStep,
+    graphInfo,
 }: {
     x: number;
     gridStep: number;
     tickStep: number;
+    graphInfo: any; //STOPSHIP FIX LATER
 }) => {
     const pointOnAxis: vec.Vector2 = [x, 0];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
@@ -93,20 +112,20 @@ export function generateTickLocations(
     return ticks;
 }
 
-type Props = {
-    tickStep: [number, number];
-    range: [[number, number], [number, number]];
-    gridStep: [number, number];
-};
+export const AxisTicks = () => {
+    const {tickStep, range, gridStep, width, height} = useGraphConfig();
 
-export const AxisTicks = (props: Props) => {
-    const range = props.range;
+    const graphInfo = {
+        range,
+        width,
+        height,
+    };
 
     const [xMin, xMax] = range[0];
     const [yMin, yMax] = range[1];
 
-    const yTickStep = props.tickStep[1];
-    const xTickStep = props.tickStep[0];
+    const yTickStep = tickStep[1];
+    const xTickStep = tickStep[0];
 
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
@@ -118,8 +137,9 @@ export const AxisTicks = (props: Props) => {
                     <YGridTick
                         y={y}
                         key={`y-grid-tick-${y}`}
-                        gridStep={props.gridStep[0]}
+                        gridStep={gridStep[0]}
                         tickStep={yTickStep}
+                        graphInfo={graphInfo}
                     />
                 );
             })}
@@ -128,8 +148,9 @@ export const AxisTicks = (props: Props) => {
                     <XGridTick
                         x={x}
                         key={`x-grid-tick-${x}`}
-                        gridStep={props.gridStep[1]}
+                        gridStep={gridStep[1]}
                         tickStep={xTickStep}
+                        graphInfo={graphInfo}
                     />
                 );
             })}

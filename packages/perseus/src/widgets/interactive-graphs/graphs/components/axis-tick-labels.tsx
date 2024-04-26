@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
-import {pointToPixel, useTransformVectorsToPixels} from "../use-transform";
+import {pointToPixel} from "../use-transform";
 
 import type {vec} from "mafs";
 
@@ -31,12 +31,19 @@ const YGridLabel = ({
 }) => {
     const pointOnAxis: vec.Vector2 = [0, y];
     const pixelPoint = pointToPixel(pointOnAxis, graphInfo);
-    console.log(pixelPoint, "pixelPoint");
 
     return (
         <>
             {showTickLabel(gridStep, tickStep, y) && (
-                <span className="y-axis-tick">{y.toString()}</span>
+                <span
+                    className="y-axis-tick"
+                    style={{
+                        left: Math.max(pixelPoint[0] - 40, -35),
+                        top: pixelPoint[1] - 7,
+                    }}
+                >
+                    {y.toString()}
+                </span>
             )}
         </>
     );
@@ -54,11 +61,20 @@ const XGridLabel = ({
     graphInfo: any; //STOPSHIP FIX LATER
 }) => {
     const pointOnAxis: vec.Vector2 = [x, 0];
+    const pixelPoint = pointToPixel(pointOnAxis, graphInfo);
 
     return (
         <>
             {showTickLabel(gridStep, tickStep, x) && (
-                <span className="x-axis-tick">{x.toString()}</span>
+                <span
+                    className="x-axis-tick"
+                    style={{
+                        left: pixelPoint[0] - 15,
+                        top: Math.min(pixelPoint[1] + 12, graphInfo.height + 5),
+                    }}
+                >
+                    {x.toString()}
+                </span>
             )}
         </>
     );
@@ -73,9 +89,6 @@ export function generateTickLocations(
     const negativeTicks: number[] = [];
     const ticks: number[] = [];
 
-    //  ticks.reverse();
-    console.log(tickStep, min, max, "tickStep, min, max");
-
     // Add ticks in the positive direction
     let i = Math.max(min, 0) + tickStep;
     for (i; min < i && i < max; i += tickStep) {
@@ -83,8 +96,8 @@ export function generateTickLocations(
     }
 
     // Add ticks in the negative direction
-    i = Math.min(max, 0) - tickStep;
-    for (let i = -tickStep; i > min; i -= tickStep) {
+    i = Math.min(max, 0 - tickStep);
+    for (i; i > min; i -= tickStep) {
         negativeTicks.push(i);
     }
 
@@ -110,15 +123,12 @@ export const AxisTickLabels = () => {
     const yTickStep = tickStep[1];
     const xTickStep = tickStep[0];
 
-    console.log(xMax, xMin, yMax, yMin, "xMax, xMin, yMax, yMin");
-
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
-    console.log(yGridTicks, xGridTicks, "yGridTicks, xGridTicks");
 
     return (
         <div className="axis-tick-labels">
-            <div className="y-axis-tick-labels">
+            <div className="y-axis-tick-labels" style={{height: height}}>
                 {yGridTicks.map((y) => {
                     return (
                         <YGridLabel
@@ -131,7 +141,7 @@ export const AxisTickLabels = () => {
                     );
                 })}
             </div>
-            <div className="x-axis-tick-labels">
+            <div className="x-axis-tick-labels" style={{width: width}}>
                 {xGridTicks.map((x) => {
                     return (
                         <XGridLabel

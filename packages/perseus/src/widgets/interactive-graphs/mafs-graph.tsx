@@ -188,6 +188,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     position: "relative",
                     padding: "25px 25px 0 0",
                     boxSizing: "content-box",
+                    marginLeft: "20px !important",
+                    marginBottom: "20px !important",
                 }}
             >
                 <LegacyGrid
@@ -204,11 +206,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     {props.markings === "graph" && (
                         <>
                             <AxisLabels />
-                            <AxisTickLabels
-                                tickStep={props.step}
-                                gridStep={props.gridStep}
-                                range={props.range}
-                            />
+                            <AxisTickLabels />
                         </>
                     )}
                     <Mafs
