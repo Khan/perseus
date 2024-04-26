@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 22.2.0
+
+### Minor Changes
+
+-   [#1208](https://github.com/Khan/perseus/pull/1208) [`87c0e75d6`](https://github.com/Khan/perseus/commit/87c0e75d6b64723f33d0a2319c34ec5b4a81dfc3) Thanks [@nishasy](https://github.com/nishasy)! - Implement locked rays for Interactive Graph
+
+### Patch Changes
+
+-   [#1223](https://github.com/Khan/perseus/pull/1223) [`162f0c855`](https://github.com/Khan/perseus/commit/162f0c855f1e5b8777bf429fcbd18be73e1b9a11) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgrade Mafs to v0.18.5 - includes fix to make dashed lines use a consistent dash style
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@0.3.3
+
 ## 22.1.0
 
 ### Minor Changes

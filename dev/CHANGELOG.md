@@ -1,5 +1,12 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.5.3
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@0.3.3
+
 ## 1.5.2
 
 ### Patch Changes
