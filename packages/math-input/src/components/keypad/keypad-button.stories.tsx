@@ -42,7 +42,11 @@ export const Default = ({
                 margin: "auto",
             }}
         >
-            <KeypadButton keyConfig={keyConfig} coord={coord} onClickKey={action("pressed")} />
+            <KeypadButton
+                keyConfig={keyConfig}
+                coord={coord}
+                onClickKey={action("pressed")}
+            />
         </div>
     </div>
 );
