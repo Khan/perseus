@@ -25,7 +25,8 @@
         "@khanacademy/simple-markdown": "^0.11.4",
         "@khanacademy/wonder-blocks-banner": "^3.0.41",
         "@khanacademy/wonder-blocks-search-field": "^2.2.9",
-        "@khanacademy/wonder-blocks-tokens": "^1.0.0"
+        "@khanacademy/wonder-blocks-tokens": "^1.0.0",
+        "@khanacademy/wonder-blocks-toolbar": "^3.0.30"
     },
     "devDependencies": {
         "vite": "^5.1.0"
