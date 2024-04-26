@@ -7,28 +7,26 @@ import {mockStrings} from "../../strings";
 import {KeypadButton} from "./keypad-button";
 
 import type {KeypadButtonProps} from "./keypad-button";
-import type {ComponentStory} from "@storybook/react";
+
+const keyConfigs = KeyConfigs(mockStrings);
 
 export default {
     title: "math-input/components/Keypad Button",
     args: {
-        keyConfig: KeyConfigs["PLUS"],
-        tintColor: "#F6F6F7",
+        keyConfig: keyConfigs["PLUS"],
         coord: [0, 0],
     },
     argTypes: {
         keyConfig: {
             control: "select",
-            options: {...KeyConfigs(mockStrings)},
-        },
-        tintColor: {
-            control: "color",
+            options: {...keyConfigs},
         },
     },
 };
 
-const Template: ComponentStory<typeof KeypadButton> = ({
-    ...args
+export const Default = ({
+    keyConfig = KeyConfigs["PLUS"],
+    coord = [0, 0],
 }: KeypadButtonProps): React.ReactElement => (
     <div
         style={{
@@ -44,13 +42,16 @@ const Template: ComponentStory<typeof KeypadButton> = ({
                 margin: "auto",
             }}
         >
-            <KeypadButton {...args} onClickKey={action("pressed")} />
+            <KeypadButton
+                keyConfig={keyConfig}
+                coord={coord}
+                onClickKey={action("pressed")}
+            />
         </div>
     </div>
 );
-export const Default = Template.bind({});
 
-export const AllButtons: ComponentStory<typeof KeypadButton> = ({
+export const AllButtons = ({
     ...args
 }: KeypadButtonProps): React.ReactElement => (
     <div
@@ -61,7 +62,7 @@ export const AllButtons: ComponentStory<typeof KeypadButton> = ({
             gap: "25px",
         }}
     >
-        {Object.keys(KeyConfigs(mockStrings)).map((key) => (
+        {Object.keys(keyConfigs).map((key) => (
             <div
                 key={key}
                 style={{
@@ -72,7 +73,7 @@ export const AllButtons: ComponentStory<typeof KeypadButton> = ({
             >
                 {key}
                 <KeypadButton
-                    keyConfig={KeyConfigs(mockStrings)[key]}
+                    keyConfig={keyConfigs[key]}
                     onClickKey={action("pressed")}
                     coord={[0, 0]}
                 />
