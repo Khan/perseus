@@ -19,6 +19,7 @@ import {
     polygonQuestionDefaultCorrect,
     pointQuestionWithDefaultCorrect,
     segmentWithLockedLineQuestion,
+    segmentWithLockedLineAndArrowheadsQuestion,
     segmentQuestion,
     linearQuestion,
     linearSystemQuestion,
@@ -393,7 +394,7 @@ describe("locked layer", () => {
         const ray = container.querySelector(".locked-ray g");
 
         // Assert
-        expect(lines).toHaveLength(3);
+        expect(lines).toHaveLength(2);
         expect(lines[0]).toHaveStyle({stroke: lockedFigureColors.purple});
         expect(lines[1]).toHaveStyle({stroke: lockedFigureColors.green});
         expect(ray).toHaveStyle({stroke: lockedFigureColors.pink});
@@ -474,6 +475,21 @@ describe("snapshots", () => {
                 },
             },
         });
+
+        expect(container).toMatchSnapshot();
+    });
+
+    test("should render correctly with locked lines when 'show arrows' is set on", () => {
+        const {container} = renderQuestion(
+            segmentWithLockedLineAndArrowheadsQuestion,
+            {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+        );
 
         expect(container).toMatchSnapshot();
     });

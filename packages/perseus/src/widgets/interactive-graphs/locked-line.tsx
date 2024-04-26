@@ -22,15 +22,25 @@ const LockedLine = (props: Props) => {
         kind,
         points,
         showArrows,
-        showStartPoint,
-        showEndPoint,
         range,
     } = props;
     const [point1, point2] = points;
+    // NOTE: Segments should not show both a point and an arrow.
+    //       Arrows supersede points.
+    const showStartPoint =
+        props.showStartPoint && (kind !== "segment" || !showArrows);
+    const showEndPoint =
+        props.showEndPoint && (kind !== "segment" || !showArrows);
 
     let arrowHeadValues = getArrowheadValues(point1.coord, point2.coord, range);
+    let arrowAngle = arrowHeadValues.angle;
+    let arrowTip = kind === "segment" ? point2.coord : arrowHeadValues.tip;
     const startArrowHead = showArrows && (
-        <Arrowhead {...arrowHeadValues} color={lockedFigureColors[color]} />
+        <Arrowhead
+            angle={arrowAngle}
+            tip={arrowTip}
+            color={lockedFigureColors[color]}
+        />
     );
 
     let line;
@@ -59,8 +69,14 @@ const LockedLine = (props: Props) => {
         const LineType = kind === "segment" ? Line.Segment : Line.ThroughPoints;
 
         arrowHeadValues = getArrowheadValues(point2.coord, point1.coord, range);
+        arrowAngle = arrowHeadValues.angle;
+        arrowTip = kind === "segment" ? point1.coord : arrowHeadValues.tip;
         const endArrowHead = showArrows && (
-            <Arrowhead {...arrowHeadValues} color={lockedFigureColors[color]} />
+            <Arrowhead
+                angle={arrowAngle}
+                tip={arrowTip}
+                color={lockedFigureColors[color]}
+            />
         );
 
         line = (
