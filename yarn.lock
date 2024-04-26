@@ -2434,10 +2434,10 @@
     "@typescript-eslint/utils" "^5.60.1"
     checksync "^5.0.5"
 
-"@khanacademy/mathjax-renderer@^1.7.1":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@khanacademy/mathjax-renderer/-/mathjax-renderer-1.7.1.tgz#590bb7b3c046308c5379d4b391497d74290ba4f9"
-  integrity sha512-SQJlgPYTQ7ei+oGZB7Un1AFvHfFqMbd5KRCs5/bDUXcBVottG1Nm/+zjHzk7pzq0a0OgVitaQ+LniA0nIvLxjQ==
+"@khanacademy/mathjax-renderer@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@khanacademy/mathjax-renderer/-/mathjax-renderer-1.7.2.tgz#18127f24a9ae2c77424ee4cce52e62d558258e25"
+  integrity sha512-p4mYMrgX7CdgtPR3zAeThh3ZkteaxlB1PLIY4CcHVeKYmVXklWPh57tpj6gt3eHycEZqX4LpHYp69Z466rdApA==
   dependencies:
     mathjax-full "3.2.2"
     mu-lambda "^0.0.3"
