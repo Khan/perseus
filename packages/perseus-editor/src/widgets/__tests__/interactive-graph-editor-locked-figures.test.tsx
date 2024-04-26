@@ -518,7 +518,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             const showArrowsInput = screen.getByRole("checkbox", {
                 name: "Show arrows",
             });
-            await userEvent.click(showArrowsInput);
+            await userEvent.click(showArrowsInput); // Uncheck the "Show Arrows" setting
 
             // Assert
             expect(onChangeMock).toBeCalledWith(
@@ -526,7 +526,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             ...defaultLine,
-                            showArrows: true,
+                            showArrows: false,
                         }),
                     ],
                 }),
@@ -651,6 +651,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                         expect.objectContaining({
                             ...defaultLine,
                             kind: "segment",
+                            showArrows: false,
                         }),
                     ],
                 }),
