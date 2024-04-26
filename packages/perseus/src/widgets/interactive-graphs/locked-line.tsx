@@ -16,14 +16,7 @@ type Props = LockedLineType & {
 };
 
 const LockedLine = (props: Props) => {
-    const {
-        color,
-        lineStyle,
-        kind,
-        points,
-        showArrows,
-        range,
-    } = props;
+    const {color, lineStyle, kind, points, showArrows, range} = props;
     const [point1, point2] = points;
     // NOTE: Segments should not show both a point and an arrow.
     //       Arrows supersede points.
@@ -59,7 +52,7 @@ const LockedLine = (props: Props) => {
                                 ? // TODO(lems-1930): Uncomment this line when the
                                   // dashed style is updated in Mafs.
                                   // ? "var(--mafs-line-stroke-dash-style)"
-                                "4, 3"
+                                  "4, 3"
                                 : undefined,
                     }}
                 />
