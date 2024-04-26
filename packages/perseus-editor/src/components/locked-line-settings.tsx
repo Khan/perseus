@@ -118,7 +118,10 @@ const LockedLineSettings = (props: Props) => {
                             id={kindSelectId}
                             selectedValue={kind}
                             onChange={(value: "line" | "segment" | "ray") =>
-                                onChangeProps({kind: value})
+                                onChangeProps({
+                                    kind: value,
+                                    showArrows: value === "ray",
+                                })
                             }
                             // Placeholder is required, but never gets used.
                             placeholder=""

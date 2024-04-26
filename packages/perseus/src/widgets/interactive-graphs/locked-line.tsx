@@ -26,11 +26,10 @@ const LockedLine = (props: Props) => {
         props.showEndPoint && (kind !== "segment" || !showArrows);
 
     let arrowHeadValues = getArrowheadValues(point1.coord, point2.coord, range);
-    let arrowAngle = arrowHeadValues.angle;
     let arrowTip = kind === "segment" ? point2.coord : arrowHeadValues.tip;
     const startArrowHead = showArrows && (
         <Arrowhead
-            angle={arrowAngle}
+            angle={arrowHeadValues.angle}
             tip={arrowTip}
             color={lockedFigureColors[color]}
         />
@@ -62,11 +61,10 @@ const LockedLine = (props: Props) => {
         const LineType = kind === "segment" ? Line.Segment : Line.ThroughPoints;
 
         arrowHeadValues = getArrowheadValues(point2.coord, point1.coord, range);
-        arrowAngle = arrowHeadValues.angle;
         arrowTip = kind === "segment" ? point1.coord : arrowHeadValues.tip;
         const endArrowHead = showArrows && (
             <Arrowhead
-                angle={arrowAngle}
+                angle={arrowHeadValues.angle}
                 tip={arrowTip}
                 color={lockedFigureColors[color]}
             />
