@@ -4,7 +4,6 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -16,6 +15,7 @@ import * as React from "react";
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
 import LabeledSwitch from "./labeled-switch";
+import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedPointSettings from "./locked-point-settings";
 
@@ -87,149 +87,112 @@ const LockedLineSettings = (props: Props) => {
     }
 
     return (
-        <View
-            // More specificity so that we can override the default
-            // .heading > h2 > .header styles from the articles.less
-            // file (which is imported in perseus-renderer.less).
-            className="locked-figure-accordion"
+        <LockedFigureSettingsAccordion
+            header={
+                <View style={styles.row}>
+                    <LabelLarge>{lineLabel}</LabelLarge>
+                    <Strut size={spacing.xSmall_8} />
+                    <ColorSwatch color={lineColor} />
+                </View>
+            }
         >
-            {/* TODO(LEMS-1966): Break out AccordionSection + its styles
-                into its own component to remove redundancy across
-                locked figure settings. */}
-            <AccordionSection
-                style={styles.container}
-                headerStyle={styles.accordionHeader}
-                header={
-                    <View style={styles.row}>
-                        <LabelLarge>{lineLabel}</LabelLarge>
-                        <Strut size={spacing.xSmall_8} />
-                        <ColorSwatch color={lineColor} />
-                    </View>
+            {/* Line kind settings */}
+            <View style={[styles.row, styles.spaceUnder]}>
+                <LabelMedium
+                    htmlFor={kindSelectId}
+                    style={styles.label}
+                    tag="label"
+                >
+                    kind
+                </LabelMedium>
+                <SingleSelect
+                    id={kindSelectId}
+                    selectedValue={kind}
+                    onChange={(value: "line" | "segment" | "ray") =>
+                        onChangeProps({kind: value})
+                    }
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    <OptionItem value="line" label="line" />
+                    <OptionItem value="segment" label="segment" />
+                    <OptionItem value="ray" label="ray" />
+                </SingleSelect>
+            </View>
+
+            <View style={[styles.row, styles.spaceUnder]}>
+                {/* Line color settings */}
+                <ColorSelect
+                    id={colorSelectId}
+                    selectedValue={lineColor}
+                    onChange={handleColorChange}
+                />
+                <Strut size={spacing.small_12} />
+
+                {/* Line style settings */}
+                <View style={styles.row}>
+                    <LabelMedium
+                        htmlFor={styleSelectId}
+                        style={styles.label}
+                        tag="label"
+                    >
+                        style
+                    </LabelMedium>
+                    <SingleSelect
+                        id={styleSelectId}
+                        selectedValue={lineStyle}
+                        onChange={(value: "solid" | "dashed") =>
+                            onChangeProps({lineStyle: value})
+                        }
+                        // Placeholder is required, but never gets used.
+                        placeholder=""
+                        style={styles.selectMarginOffset}
+                    >
+                        <OptionItem value="solid" label="solid" />
+                        <OptionItem value="dashed" label="dashed" />
+                    </SingleSelect>
+                </View>
+            </View>
+
+            {/* Show arrows setting */}
+            <LabeledSwitch
+                label="show arrows"
+                checked={showArrows}
+                onChange={(newValue) => onChangeProps({showArrows: newValue})}
+            />
+
+            {/* Defining points settings */}
+            <LockedPointSettings
+                label="Start point"
+                toggled={showStartPoint}
+                {...startPoint}
+                onToggle={(newValue) =>
+                    onChangeProps({showStartPoint: newValue})
                 }
-            >
-                <View style={styles.accordionPanel}>
-                    {/* Line kind settings */}
-                    <View style={[styles.row, styles.spaceUnder]}>
-                        <LabelMedium
-                            htmlFor={kindSelectId}
-                            style={styles.label}
-                            tag="label"
-                        >
-                            kind
-                        </LabelMedium>
-                        <SingleSelect
-                            id={kindSelectId}
-                            selectedValue={kind}
-                            onChange={(value: "line" | "segment" | "ray") =>
-                                onChangeProps({kind: value})
-                            }
-                            // Placeholder is required, but never gets used.
-                            placeholder=""
-                        >
-                            <OptionItem value="line" label="line" />
-                            <OptionItem value="segment" label="segment" />
-                            <OptionItem value="ray" label="ray" />
-                        </SingleSelect>
-                    </View>
+                onChangeProps={(newProps) => handleChangePoint(newProps, 0)}
+                style={styles.lockedPointSettingsContainer}
+            />
+            <LockedPointSettings
+                label="End point"
+                toggled={showEndPoint}
+                {...endPoint}
+                onToggle={(newValue) => onChangeProps({showEndPoint: newValue})}
+                onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
+                style={styles.lockedPointSettingsContainer}
+            />
 
-                    <View style={[styles.row, styles.spaceUnder]}>
-                        {/* Line color settings */}
-                        <ColorSelect
-                            id={colorSelectId}
-                            selectedValue={lineColor}
-                            onChange={handleColorChange}
-                        />
-                        <Strut size={spacing.small_12} />
-
-                        {/* Line style settings */}
-                        <View style={styles.row}>
-                            <LabelMedium
-                                htmlFor={styleSelectId}
-                                style={styles.label}
-                                tag="label"
-                            >
-                                style
-                            </LabelMedium>
-                            <SingleSelect
-                                id={styleSelectId}
-                                selectedValue={lineStyle}
-                                onChange={(value: "solid" | "dashed") =>
-                                    onChangeProps({lineStyle: value})
-                                }
-                                // Placeholder is required, but never gets used.
-                                placeholder=""
-                                style={styles.selectMarginOffset}
-                            >
-                                <OptionItem value="solid" label="solid" />
-                                <OptionItem value="dashed" label="dashed" />
-                            </SingleSelect>
-                        </View>
-                    </View>
-
-                    {/* Show arrows setting */}
-                    <LabeledSwitch
-                        label="show arrows"
-                        checked={showArrows}
-                        onChange={(newValue) =>
-                            onChangeProps({showArrows: newValue})
-                        }
-                    />
-
-                    {/* Defining points settings */}
-                    <LockedPointSettings
-                        label="Start point"
-                        toggled={showStartPoint}
-                        {...startPoint}
-                        onToggle={(newValue) =>
-                            onChangeProps({showStartPoint: newValue})
-                        }
-                        onChangeProps={(newProps) =>
-                            handleChangePoint(newProps, 0)
-                        }
-                        style={styles.lockedPointSettingsContainer}
-                    />
-                    <LockedPointSettings
-                        label="End point"
-                        toggled={showEndPoint}
-                        {...endPoint}
-                        onToggle={(newValue) =>
-                            onChangeProps({showEndPoint: newValue})
-                        }
-                        onChangeProps={(newProps) =>
-                            handleChangePoint(newProps, 1)
-                        }
-                        style={styles.lockedPointSettingsContainer}
-                    />
-
-                    {/* Actions */}
-                    <LockedFigureSettingsActions
-                        onRemove={onRemove}
-                        figureAriaLabel={`locked line defined by
+            {/* Actions */}
+            <LockedFigureSettingsActions
+                onRemove={onRemove}
+                figureAriaLabel={`locked line defined by
                     ${startPoint.coord[0]}, ${startPoint.coord[1]} and
                     ${endPoint.coord[0]}, ${endPoint.coord[1]}.`}
-                    />
-                </View>
-            </AccordionSection>
-        </View>
+            />
+        </LockedFigureSettingsAccordion>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: wbColor.fadedBlue8,
-        marginTop: spacing.xSmall_8,
-    },
-    accordionHeader: {
-        padding: spacing.small_12,
-        // Don't move the dropdown caret.
-        paddingInlineEnd: 0,
-    },
-    accordionPanel: {
-        paddingTop: spacing.xxSmall_6,
-        paddingBottom: spacing.xxxSmall_4,
-        paddingLeft: spacing.small_12,
-        paddingRight: spacing.small_12,
-    },
     lockedPointSettingsContainer: {
         marginTop: spacing.xSmall_8,
         marginBottom: 0,
