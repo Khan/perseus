@@ -1,35 +1,9 @@
-import {vec} from "mafs";
-
 import type {CollinearTuple} from "../../../perseus-types";
-import type {Interval} from "mafs";
+import type {Interval, vec} from "mafs";
 
 export function calculateAngleInDegrees([x, y]: vec.Vector2) {
     return (Math.atan2(y, x) * 180) / Math.PI;
 }
-
-/**
- * Given two points, generate the tip and rotation angle that an arrowhead should use when drawn in the graph.
- * @param referencePoint - The point of the associated line used for reference to help determine arrowhead location.
- * @param throughPoint - A point that the associated line passes through. Must be different from referencePoint.
- * @param box - The box with which to intersect the line, in the form [[xMin, xMax], [yMin, yMax]]
- */
-export const getArrowheadValues = (
-    referencePoint: vec.Vector2,
-    throughPoint: vec.Vector2,
-    box: [x: Interval, y: Interval],
-): {
-    tip: vec.Vector2;
-    angle: number;
-} => {
-    const extendedPoint = getIntersectionOfRayWithBox(
-        throughPoint,
-        referencePoint,
-        box,
-    );
-    const direction = vec.sub(extendedPoint, referencePoint);
-    const angle = calculateAngleInDegrees(direction);
-    return {tip: extendedPoint, angle};
-};
 
 /**
  * Given a ray and a rectangular box, find the point where the ray intersects
