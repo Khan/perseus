@@ -4151,7 +4151,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     <line
                       opacity="1"
                       stroke-width="2"
-                      style="stroke: #594094; transform: var(--mafs-view-transform); vector-effect: non-scaling-stroke;"
+                      style="stroke: #447A53; transform: var(--mafs-view-transform); vector-effect: non-scaling-stroke;"
                       x1="-16"
                       x2="16"
                       y1="-9"
@@ -4161,13 +4161,13 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       cx="-140"
                       cy="140"
                       r="6"
-                      style="fill: #594094; opacity: 1; stroke: #594094; stroke-width: 2;"
+                      style="fill: #447A53; opacity: 1; stroke: #447A53; stroke-width: 2;"
                     />
                     <circle
                       cx="40"
                       cy="100"
                       r="6"
-                      style="fill: #ffffff; opacity: 1; stroke: #594094; stroke-width: 2;"
+                      style="fill: #ffffff; opacity: 1; stroke: #447A53; stroke-width: 2;"
                     />
                   </g>
                   <g
@@ -4176,7 +4176,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     <line
                       opacity="1"
                       stroke-width="2"
-                      style="stroke: #447A53;"
+                      style="stroke: #3B3D45;"
                       x1="-140"
                       x2="40"
                       y1="120"
@@ -4186,13 +4186,13 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       cx="-140"
                       cy="120"
                       r="6"
-                      style="fill: #ffffff; opacity: 1; stroke: #447A53; stroke-width: 2;"
+                      style="fill: #ffffff; opacity: 1; stroke: #3B3D45; stroke-width: 2;"
                     />
                     <circle
                       cx="40"
                       cy="80"
                       r="6"
-                      style="fill: #447A53; opacity: 1; stroke: #447A53; stroke-width: 2;"
+                      style="fill: #3B3D45; opacity: 1; stroke: #3B3D45; stroke-width: 2;"
                     />
                   </g>
                   <g
@@ -5340,13 +5340,13 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     cx="-140"
                     cy="140"
                     r="6"
-                    style="fill: #3D7586; opacity: 1; stroke: #3D7586; stroke-width: 2;"
+                    style="fill: #447A53; opacity: 1; stroke: #447A53; stroke-width: 2;"
                   />
                   <circle
                     cx="40"
                     cy="100"
                     r="6"
-                    style="fill: #ffffff; opacity: 1; stroke: #3D7586; stroke-width: 2;"
+                    style="fill: #ffffff; opacity: 1; stroke: #447A53; stroke-width: 2;"
                   />
                   <g
                     class="movable-line"

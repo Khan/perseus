@@ -3,6 +3,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import Toolbar from "@khanacademy/wonder-blocks-toolbar";
 import * as React from "react";
 import {useEffect, useReducer, useRef} from "react";
 
@@ -92,30 +93,41 @@ export function Flipbook() {
                     value={state.questions}
                     onChange={(e) => dispatch(setQuestions(e.target.value))}
                 />
-                <View style={{flexDirection: "row", alignItems: "baseline"}}>
-                    <Button kind="secondary" onClick={() => dispatch(previous)}>
-                        Previous
-                    </Button>
-                    <Strut size={spacing.xxSmall_6} />
-                    <Button kind="secondary" onClick={() => dispatch(next)}>
-                        Next
-                    </Button>
-                    <Strut size={spacing.medium_16} />
-                    <Progress
-                        zeroBasedIndex={index}
-                        total={numQuestions}
-                        onIndexChanged={(input) =>
-                            dispatch(jumpToQuestion(input))
-                        }
-                    />
-                    <Strut size={spacing.medium_16} />
-                    <Button
-                        kind="tertiary"
-                        onClick={() => dispatch(removeCurrentQuestion)}
-                    >
-                        Discard question
-                    </Button>
-                </View>
+                <Toolbar
+                    leftContent={
+                        <>
+                            <Button
+                                kind="secondary"
+                                onClick={() => dispatch(previous)}
+                            >
+                                Previous
+                            </Button>
+                            <Strut size={spacing.xxSmall_6} />
+                            <Button
+                                kind="secondary"
+                                onClick={() => dispatch(next)}
+                            >
+                                Next
+                            </Button>
+                            <Strut size={spacing.medium_16} />
+                            <Progress
+                                zeroBasedIndex={index}
+                                total={numQuestions}
+                                onIndexChanged={(input) =>
+                                    dispatch(jumpToQuestion(input))
+                                }
+                            />
+                            <Strut size={spacing.medium_16} />
+                            <Button
+                                kind="tertiary"
+                                onClick={() => dispatch(removeCurrentQuestion)}
+                            >
+                                Discard question
+                            </Button>
+                        </>
+                    }
+                />
+
                 <Strut size={spacing.small_12} />
                 <div style={{display: noTextEntered ? "block" : "none"}}>
                     <h2>Instructions</h2>

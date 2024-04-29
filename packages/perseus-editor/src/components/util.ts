@@ -52,6 +52,8 @@ export function getValidNumberFromString(value: string) {
     return isNaN(parsed) ? 0 : parsed;
 }
 
+const DEFAULT_COLOR = "green";
+
 export function getDefaultFigureForType(type: "point"): LockedPointType;
 export function getDefaultFigureForType(type: "line"): LockedLineType;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure;
@@ -61,7 +63,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             return {
                 type: "point",
                 coord: [0, 0],
-                color: "blue",
+                color: DEFAULT_COLOR,
                 filled: true,
             };
         case "line":
@@ -75,7 +77,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                         coord: [2, 2],
                     },
                 ],
-                color: "blue",
+                color: DEFAULT_COLOR,
                 lineStyle: "solid",
                 showArrows: false,
                 showStartPoint: false,

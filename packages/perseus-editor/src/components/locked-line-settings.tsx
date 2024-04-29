@@ -35,7 +35,7 @@ const LockedLineSettings = (props: Props) => {
     const {
         kind,
         points,
-        color: lineColor = "blue",
+        color: lineColor,
         lineStyle = "solid",
         showArrows,
         showStartPoint,
@@ -133,7 +133,7 @@ const LockedLineSettings = (props: Props) => {
                         {/* Line color settings */}
                         <ColorSelect
                             id={colorSelectId}
-                            selectedValue={lineColor || "blue"}
+                            selectedValue={lineColor}
                             onChange={handleColorChange}
                         />
                         <Strut size={spacing.medium_16} />

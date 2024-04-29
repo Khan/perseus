@@ -2694,6 +2694,16 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-1.2.0.tgz#b58611f8b4a58e0c6e7e4e505d5acdb2b475acf4"
   integrity sha512-F24xzjFjpZFEGsuV7s8pBqeIVOY+NeIRVZU0BzTeMqRWvkaz9NzZbIcbYBxMnOvrw3Jk/xAPaSjcRukzbEbkdA==
 
+"@khanacademy/wonder-blocks-toolbar@^3.0.30":
+  version "3.0.30"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-toolbar/-/wonder-blocks-toolbar-3.0.30.tgz#30054636e5af57b963d4c376610c3aac4de70fc9"
+  integrity sha512-On31nldxQnD8ssuS+0GzMDhHCj/WrThP+v7HyyeAGGCEe8ciG4mOeNk78uLHvCXvRmOvfrHyf1wunpTpv9Ouaw==
+  dependencies:
+    "@babel/runtime" "^7.18.6"
+    "@khanacademy/wonder-blocks-core" "^6.4.0"
+    "@khanacademy/wonder-blocks-tokens" "^1.2.0"
+    "@khanacademy/wonder-blocks-typography" "^2.1.11"
+
 "@khanacademy/wonder-blocks-tooltip@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tooltip/-/wonder-blocks-tooltip-2.2.1.tgz#16b406577822c9605d39d59c50d4bcf804efa2a2"
