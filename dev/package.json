@@ -4,9 +4,7 @@
     "author": "Khan Academy",
     "license": "MIT",
     "version": "1.5.3",
-    "publishConfig": {
-        "access": "public"
-    },
+    "private": true,
     "repository": {
         "type": "git",
         "url": "https://github.com/Khan/perseus.git",
