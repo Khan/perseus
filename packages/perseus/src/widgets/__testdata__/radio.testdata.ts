@@ -101,17 +101,22 @@ export const questionWithPassage: PerseusRenderer = {
                 displayCount: null,
                 choices: [
                     {
-                        content: "$-8$ and $8$",
+                        content: "Hello \nWorld\n![](https://pro.jirachecklist.com/logo-biz.png)",
                         correct: false,
                         clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                     },
                     {
-                        content: "$-8$",
+                        content: "Hello \n\nWorld\n\n![](https://pro.jirachecklist.com/logo-biz.png)",
                         correct: false,
-                        clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                     },
                     {
-                        content: "$8$ {{passage-ref 1 1}}\n\n",
+                        content: "![](https://pro.jirachecklist.com/logo-biz.png)\n\nHello \n\nWorld",
+                        correct: false,
+                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                    },
+                    {
+                        content: `A cell\n\n\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n`,
                         correct: true,
                         isNoneOfTheAbove: false,
                         clue: "$8$ is the positive square root of $64$.",
