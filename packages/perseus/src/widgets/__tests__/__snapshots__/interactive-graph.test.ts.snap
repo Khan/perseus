@@ -3040,6 +3040,41 @@ exports[`snapshots should render correctly 1`] = `
                     </filter>
                   </defs>
                   <g
+                    class="movable-point "
+                    data-testid="movable-point"
+                    style="--movable-point-color: #1865f2;"
+                    tabindex="0"
+                  >
+                    <circle
+                      class="movable-point-hitbox"
+                      cx="-100"
+                      cy="-100"
+                      r="24"
+                    />
+                    <circle
+                      class="movable-point-halo"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-ring"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-focus-outline"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-center"
+                      cx="-100"
+                      cy="-100"
+                      data-testid="movable-point__center"
+                      style="fill: #1865f2;"
+                    />
+                  </g>
+                  <g
                     class="movable-line"
                     data-testid="movable-line"
                     style="cursor: grab;"
@@ -3074,41 +3109,6 @@ exports[`snapshots should render correctly 1`] = `
                       x2="100"
                       y1="-100"
                       y2="-100"
-                    />
-                  </g>
-                  <g
-                    class="movable-point "
-                    data-testid="movable-point"
-                    style="--movable-point-color: #1865f2;"
-                    tabindex="0"
-                  >
-                    <circle
-                      class="movable-point-hitbox"
-                      cx="-100"
-                      cy="-100"
-                      r="24"
-                    />
-                    <circle
-                      class="movable-point-halo"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-ring"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-focus-outline"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-center"
-                      cx="-100"
-                      cy="-100"
-                      data-testid="movable-point__center"
-                      style="fill: #1865f2;"
                     />
                   </g>
                   <g
@@ -4231,6 +4231,41 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
+                    class="movable-point "
+                    data-testid="movable-point"
+                    style="--movable-point-color: #1865f2;"
+                    tabindex="0"
+                  >
+                    <circle
+                      class="movable-point-hitbox"
+                      cx="-100"
+                      cy="-100"
+                      r="24"
+                    />
+                    <circle
+                      class="movable-point-halo"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-ring"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-focus-outline"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-center"
+                      cx="-100"
+                      cy="-100"
+                      data-testid="movable-point__center"
+                      style="fill: #1865f2;"
+                    />
+                  </g>
+                  <g
                     class="movable-line"
                     data-testid="movable-line"
                     style="cursor: grab;"
@@ -4265,41 +4300,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       x2="100"
                       y1="-100"
                       y2="-100"
-                    />
-                  </g>
-                  <g
-                    class="movable-point "
-                    data-testid="movable-point"
-                    style="--movable-point-color: #1865f2;"
-                    tabindex="0"
-                  >
-                    <circle
-                      class="movable-point-hitbox"
-                      cx="-100"
-                      cy="-100"
-                      r="24"
-                    />
-                    <circle
-                      class="movable-point-halo"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-ring"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-focus-outline"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-center"
-                      cx="-100"
-                      cy="-100"
-                      data-testid="movable-point__center"
-                      style="fill: #1865f2;"
                     />
                   </g>
                   <g
@@ -5349,6 +5349,41 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     style="fill: #ffffff; opacity: 1; stroke: #447A53; stroke-width: 2;"
                   />
                   <g
+                    class="movable-point "
+                    data-testid="movable-point"
+                    style="--movable-point-color: #1865f2;"
+                    tabindex="0"
+                  >
+                    <circle
+                      class="movable-point-hitbox"
+                      cx="-100"
+                      cy="-100"
+                      r="24"
+                    />
+                    <circle
+                      class="movable-point-halo"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-ring"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-focus-outline"
+                      cx="-100"
+                      cy="-100"
+                    />
+                    <circle
+                      class="movable-point-center"
+                      cx="-100"
+                      cy="-100"
+                      data-testid="movable-point__center"
+                      style="fill: #1865f2;"
+                    />
+                  </g>
+                  <g
                     class="movable-line"
                     data-testid="movable-line"
                     style="cursor: grab;"
@@ -5383,41 +5418,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                       x2="100"
                       y1="-100"
                       y2="-100"
-                    />
-                  </g>
-                  <g
-                    class="movable-point "
-                    data-testid="movable-point"
-                    style="--movable-point-color: #1865f2;"
-                    tabindex="0"
-                  >
-                    <circle
-                      class="movable-point-hitbox"
-                      cx="-100"
-                      cy="-100"
-                      r="24"
-                    />
-                    <circle
-                      class="movable-point-halo"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-ring"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-focus-outline"
-                      cx="-100"
-                      cy="-100"
-                    />
-                    <circle
-                      class="movable-point-center"
-                      cx="-100"
-                      cy="-100"
-                      data-testid="movable-point__center"
-                      style="fill: #1865f2;"
                     />
                   </g>
                   <g
