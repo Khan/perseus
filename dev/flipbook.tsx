@@ -1,11 +1,14 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
+import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import Toolbar from "@khanacademy/wonder-blocks-toolbar";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
-import {useEffect, useReducer, useRef} from "react";
+import {useEffect, useReducer, useRef, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
 import {mockStrings} from "../packages/perseus/src/strings";
@@ -33,6 +36,7 @@ import type {
     PerseusRenderer,
     PerseusScore,
 } from "../packages/perseus/src";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
@@ -204,6 +208,9 @@ function SideBySideQuestionRenderer({
 function GradableRenderer(props: QuestionRendererProps) {
     const {question, apiOptions} = props;
     const rendererRef = useRef<Renderer>(null);
+    const [score, setScore] = useState<PerseusScore>();
+
+    useTimeout(() => setScore(undefined), 2500, !!score);
 
     function describeScore(score: PerseusScore): string {
         switch (score.type) {
@@ -211,6 +218,23 @@ function GradableRenderer(props: QuestionRendererProps) {
                 return "You didn't answer the question.";
             case "points":
                 return isCorrect(score) ? "Correct!" : "Incorrect.";
+        }
+    }
+
+    function bannerKindFromScore(
+        score: PerseusScore,
+    ): PropsFor<typeof Banner>["kind"] {
+        switch (score.type) {
+            case "invalid":
+                return "critical";
+            case "points":
+                if (score.earned === score.total) {
+                    return "success";
+                } else {
+                    return "warning";
+                }
+            default:
+                throw new UnreachableCaseError(score);
         }
     }
 
@@ -232,15 +256,32 @@ function GradableRenderer(props: QuestionRendererProps) {
                 apiOptions={{...apiOptions}}
                 strings={mockStrings}
             />
-            <Button
-                onClick={() =>
-                    rendererRef.current &&
-                    // eslint-disable-next-line no-alert
-                    alert(describeScore(rendererRef.current.score()))
+            <Toolbar
+                leftContent={
+                    <Button
+                        onClick={() => setScore(rendererRef.current?.score())}
+                    >
+                        Check answer
+                    </Button>
                 }
-            >
-                Check answer
-            </Button>
+            />
+            {score && (
+                <View
+                    style={{
+                        position: "absolute",
+                        alignSelf: "center",
+                        width: "60%",
+                        top: "150px",
+                        zIndex: "1000",
+                    }}
+                >
+                    <Banner
+                        layout="full-width"
+                        text={describeScore(score)}
+                        kind={bannerKindFromScore(score)}
+                    />
+                </View>
+            )}
         </View>
     );
 }
