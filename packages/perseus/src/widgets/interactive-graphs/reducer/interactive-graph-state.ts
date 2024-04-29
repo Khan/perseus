@@ -1,5 +1,6 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
+import {getRadius} from "../graphs/utils";
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {
@@ -73,7 +74,6 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 center: [0, 0],
-                radius: 1,
                 radiusPoint: [1, 0],
             };
         case "angle":
@@ -220,7 +220,7 @@ export function getGradableGraph(
         return {
             ...initialGraph,
             center: state.center,
-            radius: state.radius,
+            radius: getRadius(state.center, state.radiusPoint),
         };
     }
 

@@ -216,14 +216,37 @@ function doMoveCenter(
 ): InteractiveGraphState {
     switch (state.type) {
         case "circle": {
+            // Constrain the center of the circle to the chart range
+            const [xMin, xMax] = state.range[0];
+            const [yMin, yMax] = state.range[1];
+            const constrainedCenter: vec.Vector2 = [
+                Math.min(Math.max(xMin, action.destination[0]), xMax),
+                Math.min(Math.max(yMin, action.destination[1]), yMax),
+            ];
+
+            // Reposition the radius point based on the new center
             const newRadiusPoint = vec.add(
                 state.radiusPoint,
-                vec.sub(action.destination, state.center),
+                vec.sub(constrainedCenter, state.center),
             );
+
+            // Try to position the radius handle in a visible spot
+            // if it otherwise would be off the chart
+            // ex: if the handle is on the right and we move the center
+            // to the rightmost position, move the handle to the left
+            const [radX] = newRadiusPoint;
+            if (radX < xMin || radX > xMax) {
+                const xJumpDist = (radX - constrainedCenter[0]) * 2;
+                const possibleNewX = newRadiusPoint[0] - xJumpDist;
+                if (possibleNewX >= xMin && possibleNewX <= xMax) {
+                    newRadiusPoint[0] = possibleNewX;
+                }
+            }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                center: action.destination,
+                center: constrainedCenter,
                 radiusPoint: newRadiusPoint,
             };
         }
@@ -240,9 +263,11 @@ function doMoveRadiusPoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "circle": {
+            const [xMin, xMax] = state.range[0];
             const nextRadiusPoint: vec.Vector2 = [
+                // Constrain to graph range
                 // The +0 is to convert -0 to +0
-                action.destination[0] + 0,
+                Math.min(Math.max(xMin, action.destination[0] + 0), xMax),
                 state.center[1],
             ];
 
@@ -250,17 +275,10 @@ function doMoveRadiusPoint(
                 return state;
             }
 
-            const [centerX, centerY] = state.center;
-            const [radiusX, radiusY] = nextRadiusPoint;
-            const radius = Math.sqrt(
-                Math.pow(radiusX - centerX, 2) + Math.pow(radiusY - centerY, 2),
-            );
-
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 radiusPoint: nextRadiusPoint,
-                radius,
             };
         }
         default:

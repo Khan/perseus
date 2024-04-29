@@ -46,8 +46,25 @@ export const getIntersectionOfRayWithBox = (
     }
 };
 
-export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
-    points.map((point, i) => {
+export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] => {
+    return points.map((point, i) => {
         const next = points[(i + 1) % points.length];
         return [point, next];
     });
+};
+
+/**
+ * determine radius of a circle given the center point
+ * and a point on the circle's circumference
+ *
+ * @param center - center point of the circle
+ * @param edgePoint - point on the circumference of the circle
+ * @returns the radius of the circle
+ */
+export function getRadius(center: vec.Vector2, edgePoint: vec.Vector2): number {
+    const [centerX, centerY] = center;
+    const [edgeX, edgeY] = edgePoint;
+    return Math.sqrt(
+        Math.pow(edgeX - centerX, 2) + Math.pow(edgeY - centerY, 2),
+    );
+}

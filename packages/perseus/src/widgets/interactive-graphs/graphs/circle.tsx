@@ -5,6 +5,7 @@ import * as React from "react";
 import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
 
 import {StyledMovablePoint} from "./components/movable-point";
+import {getRadius} from "./utils";
 
 import type {CircleGraphState, MafsGraphProps} from "../types";
 
@@ -12,13 +13,13 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, radius, radiusPoint} = graphState;
+    const {center, radiusPoint} = graphState;
 
     return (
         <>
             <Circle
                 center={center}
-                radius={radius}
+                radius={getRadius(center, radiusPoint)}
                 fillOpacity={0}
                 color={color.blue}
             />
@@ -30,8 +31,8 @@ export function CircleGraph(props: CircleGraphProps) {
             />
             <StyledMovablePoint
                 point={radiusPoint}
-                onMove={(newCenter) => {
-                    dispatch(moveRadiusPoint(newCenter));
+                onMove={(newRadiusPoint) => {
+                    dispatch(moveRadiusPoint(newRadiusPoint));
                 }}
             />
         </>
