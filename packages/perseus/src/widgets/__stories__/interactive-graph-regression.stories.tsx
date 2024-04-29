@@ -141,6 +141,14 @@ export const MafsWithXAxisOffTop = (args: StoryArgs): React.ReactElement => (
     />
 );
 
+export const MafsInMobileContainer = (args: StoryArgs): React.ReactElement => (
+    <div className="framework-perseus perseus-mobile">
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder().build()}
+        />
+    </div>
+);
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
