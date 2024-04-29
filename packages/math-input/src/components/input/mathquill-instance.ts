@@ -101,6 +101,7 @@ const createBaseConfig = (): MathFieldConfig => ({
  */
 export function createMathField(
     container: HTMLDivElement | HTMLSpanElement,
+    locale: string,
     strings: MathInputStrings,
     configCallback?: (baseConfig: MathFieldConfig) => MathFieldConfig,
 ): MathFieldInterface {
@@ -132,7 +133,7 @@ export function createMathField(
     //   mocked in consuming packages now that we do not bundle source code.
     //   When it eventually times out, it will cause arbitrary test failures.
     !inJest &&
-        SpeechRuleEngine.setup().then((SRE) =>
+        SpeechRuleEngine.setup(locale).then((SRE) =>
             mathField.setMathspeakOverride(SRE.texToSpeech),
         );
 

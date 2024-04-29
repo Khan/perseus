@@ -20,7 +20,7 @@ type Props = {
 export default function MathquillInput(props: Props) {
     const mathFieldWrapperRef = useRef<HTMLSpanElement>(null);
     const mathFieldInstance = useRef<MathFieldInterface>();
-    const {strings} = useMathInputI18n();
+    const {locale, strings} = useMathInputI18n();
 
     useEffect(() => {
         // If we have the mount for the input, but not the input
@@ -29,6 +29,7 @@ export default function MathquillInput(props: Props) {
             // Initialize MathQuill.MathField instance
             mathFieldInstance.current = createMathField(
                 mathFieldWrapperRef.current,
+                locale,
                 strings,
                 (baseConfig) => ({
                     ...baseConfig,

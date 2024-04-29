@@ -30,6 +30,7 @@ function V2KeypadWithMathquill(props: Props) {
         if (!mathField && mathFieldWrapperRef.current) {
             const mathFieldInstance = createMathField(
                 mathFieldWrapperRef.current,
+                "en",
                 strings,
                 (baseConfig) => {
                     return {
