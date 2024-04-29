@@ -6,7 +6,13 @@ import {useEffect, useImperativeHandle, useRef} from "react";
 
 import AxisLabels from "./axis-labels";
 import GraphLockedLayer from "./graph-locked-layer";
-import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
+import {
+    LinearGraph,
+    PolygonGraph,
+    RayGraph,
+    SegmentGraph,
+    CircleGraph,
+} from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
@@ -64,7 +70,7 @@ const renderGraph = (props: {
         case "point":
             return <PointGraph graphState={state} dispatch={dispatch} />;
         case "circle":
-            throw new Error("the circle graph type is not yet implemented");
+            return <CircleGraph graphState={state} dispatch={dispatch} />;
         default:
             return new UnreachableCaseError(type);
     }
