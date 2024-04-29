@@ -52,11 +52,17 @@ const YGridTick = ({
     const pointOnAxis: vec.Vector2 = [xPointOnAxis, y];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
 
+    // If the tick is on the edge of the graph's range, don't render it
+    if (yPosition === -graphInfo.height || yPosition === graphInfo.height) {
+        return null;
+    }
+
+    // Position of the start of the tick
     const x1 = xPosition - tickSize / 2;
-
     const y1 = yPosition;
-    const x2 = xPosition + tickSize / 2;
 
+    // Position of the end of the tick
+    const x2 = xPosition + tickSize / 2;
     const y2 = yPosition;
 
     return (
@@ -77,18 +83,37 @@ const XGridTick = ({
     tickStep: number;
     graphInfo: any; //STOPSHIP FIX LATER
 }) => {
-    const pointOnAxis: vec.Vector2 = [x, 0];
+    let yPointOnAxis = 0;
+    // If the graph is zoomed in, we want to make sure the ticks are still visible
+    // even if they are outside the graph's range.
+    if (graphInfo.range[1][0] > 0) {
+        // If the graph is on the positive side of the x-axis, lock the ticks to the left side of the graph
+        yPointOnAxis = graphInfo.range[1][0];
+    }
+    if (graphInfo.range[1][1] < 0) {
+        // If the graph is on the negative side of the x-axis, lock the ticks to the right side of the graph
+        yPointOnAxis = graphInfo.range[1][1];
+    }
+
+    const pointOnAxis: vec.Vector2 = [x, yPointOnAxis];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
+
+    // If the tick is on the edge of the graph's range, don't render it
+    if (xPosition === -graphInfo.width || xPosition === graphInfo.width) {
+        return null;
+    }
+
+    // Position of the start of the tick
+    const x1 = xPosition;
+    const y1 = yPosition + tickSize / 2;
+
+    // Position of the end of the tick
+    const x2 = xPosition;
+    const y2 = yPosition - tickSize / 2;
 
     return (
         <g className="x-axis-ticks">
-            <line
-                x1={xPosition}
-                y1={yPosition + tickSize / 2}
-                x2={xPosition}
-                y2={yPosition - tickSize / 2}
-                style={tickStyle}
-            />
+            <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
         </g>
     );
 };
