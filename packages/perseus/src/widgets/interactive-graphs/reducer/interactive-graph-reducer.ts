@@ -13,9 +13,11 @@ import {
     MOVE_POINT,
     CHANGE_SNAP_STEP,
     CHANGE_RANGE,
+    MOVE_CENTER,
     type MoveAll,
     type MoveControlPoint,
     type MoveLine,
+    type MoveCenter,
     type MovePoint,
     type ChangeSnapStep,
     type ChangeRange,
@@ -37,6 +39,8 @@ export function interactiveGraphReducer(
             return doMoveAll(state, action);
         case MOVE_POINT:
             return doMovePoint(state, action);
+        case MOVE_CENTER:
+            return doMoveCenter(state, action);
         case CHANGE_SNAP_STEP:
             return doChangeSnapStep(state, action);
         case CHANGE_RANGE:
@@ -193,6 +197,25 @@ function doMovePoint(
                         }),
                     ),
                 }),
+            };
+        }
+        default:
+            throw new Error(
+                "The movePoint action is only for point and polygon graphs",
+            );
+    }
+}
+
+function doMoveCenter(
+    state: InteractiveGraphState,
+    action: MoveCenter,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "circle": {
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                center: action.destination,
             };
         }
         default:
