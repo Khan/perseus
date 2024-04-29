@@ -14,10 +14,12 @@ import {
     CHANGE_SNAP_STEP,
     CHANGE_RANGE,
     MOVE_CENTER,
+    MOVE_RADIUS_POINT,
     type MoveAll,
     type MoveControlPoint,
     type MoveLine,
     type MoveCenter,
+    type MoveRadiusPoint,
     type MovePoint,
     type ChangeSnapStep,
     type ChangeRange,
@@ -41,6 +43,8 @@ export function interactiveGraphReducer(
             return doMovePoint(state, action);
         case MOVE_CENTER:
             return doMoveCenter(state, action);
+        case MOVE_RADIUS_POINT:
+            return doMoveRadiusPoint(state, action);
         case CHANGE_SNAP_STEP:
             return doChangeSnapStep(state, action);
         case CHANGE_RANGE:
@@ -212,15 +216,39 @@ function doMoveCenter(
 ): InteractiveGraphState {
     switch (state.type) {
         case "circle": {
+            const newRadiusPoint = vec.add(
+                state.radiusPoint,
+                vec.sub(action.destination, state.center),
+            );
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 center: action.destination,
+                radiusPoint: newRadiusPoint,
             };
         }
         default:
             throw new Error(
-                "The movePoint action is only for point and polygon graphs",
+                "The doMoveCenter action is only for circle graphs",
+            );
+    }
+}
+
+function doMoveRadiusPoint(
+    state: InteractiveGraphState,
+    action: MoveRadiusPoint,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "circle": {
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                radiusPoint: [action.destination[0], state.center[1]],
+            };
+        }
+        default:
+            throw new Error(
+                "The doMoveRadiusPoint action is only for circle graphs",
             );
     }
 }

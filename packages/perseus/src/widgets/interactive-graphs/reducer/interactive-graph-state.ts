@@ -73,7 +73,8 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 center: [0, 0],
-                radius: 1,
+                radius: 2,
+                radiusPoint: [1, 0],
             };
         case "angle":
         case "sinusoid":

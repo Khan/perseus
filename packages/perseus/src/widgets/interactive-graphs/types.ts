@@ -71,6 +71,7 @@ export interface CircleGraphState extends InteractiveGraphStateCommon {
     type: "circle";
     center: Coord;
     radius: number;
+    radiusPoint: Coord;
 }
 
 export type PairOfPoints = [Coord, Coord];

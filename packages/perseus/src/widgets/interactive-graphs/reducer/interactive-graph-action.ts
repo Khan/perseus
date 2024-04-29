@@ -7,6 +7,7 @@ export type InteractiveGraphAction =
     | MoveAll
     | MovePoint
     | MoveCenter
+    | MoveRadiusPoint
     | ChangeSnapStep
     | ChangeRange;
 
@@ -78,6 +79,18 @@ export interface MoveCenter {
 export function moveCenter(destination: vec.Vector2): MoveCenter {
     return {
         type: MOVE_CENTER,
+        destination,
+    };
+}
+
+export const MOVE_RADIUS_POINT = "MOVE_RADIUS_POINT";
+export interface MoveRadiusPoint {
+    type: typeof MOVE_RADIUS_POINT;
+    destination: vec.Vector2;
+}
+export function moveRadiusPoint(destination: vec.Vector2): MoveRadiusPoint {
+    return {
+        type: MOVE_RADIUS_POINT,
         destination,
     };
 }

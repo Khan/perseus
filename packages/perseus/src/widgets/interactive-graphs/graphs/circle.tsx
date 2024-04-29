@@ -2,7 +2,7 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Circle} from "mafs";
 import * as React from "react";
 
-import {moveCenter} from "../reducer/interactive-graph-action";
+import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
 
 import {StyledMovablePoint} from "./components/movable-point";
 
@@ -12,7 +12,13 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, radius} = graphState;
+    const {center, radiusPoint} = graphState;
+
+    const [centerX, centerY] = center;
+    const [radiusX, radiusY] = radiusPoint;
+    const radius = Math.sqrt(
+        Math.pow(radiusX - centerX, 2) + Math.pow(radiusY - centerY, 2),
+    );
 
     return (
         <>
@@ -26,6 +32,12 @@ export function CircleGraph(props: CircleGraphProps) {
                 point={center}
                 onMove={(newCenter) => {
                     dispatch(moveCenter(newCenter));
+                }}
+            />
+            <StyledMovablePoint
+                point={radiusPoint}
+                onMove={(newCenter) => {
+                    dispatch(moveRadiusPoint(newCenter));
                 }}
             />
         </>
