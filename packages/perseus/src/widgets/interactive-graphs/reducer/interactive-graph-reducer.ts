@@ -240,10 +240,21 @@ function doMoveRadiusPoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "circle": {
+            const nextRadiusPoint: vec.Vector2 = [
+                action.destination[0],
+                state.center[1],
+            ];
+            const [centerX, centerY] = state.center;
+            const [radiusX, radiusY] = nextRadiusPoint;
+            const radius = Math.sqrt(
+                Math.pow(radiusX - centerX, 2) + Math.pow(radiusY - centerY, 2),
+            );
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                radiusPoint: [action.destination[0], state.center[1]],
+                radiusPoint: nextRadiusPoint,
+                radius,
             };
         }
         default:

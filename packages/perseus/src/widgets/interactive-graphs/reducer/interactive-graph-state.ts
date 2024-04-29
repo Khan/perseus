@@ -73,7 +73,7 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 center: [0, 0],
-                radius: 2,
+                radius: 1,
                 radiusPoint: [1, 0],
             };
         case "angle":
@@ -213,6 +213,14 @@ export function getGradableGraph(
         return {
             ...initialGraph,
             coords: state.coords,
+        };
+    }
+
+    if (state.type === "circle" && initialGraph.type === "circle") {
+        return {
+            ...initialGraph,
+            center: state.center,
+            radius: state.radius,
         };
     }
 
