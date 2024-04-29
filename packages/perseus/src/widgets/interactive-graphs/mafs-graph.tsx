@@ -15,6 +15,7 @@ import {
 } from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
+import {getRadius} from "./graphs/utils";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
 import {
@@ -51,6 +52,10 @@ export type Props = {
     labels: InteractiveGraphProps["labels"];
 };
 
+type MafsChange = {
+    graph: InteractiveGraphState;
+};
+
 const renderGraph = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
@@ -76,6 +81,25 @@ const renderGraph = (props: {
     }
 };
 
+// Rather than be tightly bound to how data was structured in
+// the legacy interactive graph, this lets us store state
+// however we want and we just transform it before handing it off
+// the the parent InteractiveGraph
+function mafStateToInteractiveGraph(state: MafsChange) {
+    if (state.graph.type === "circle") {
+        return {
+            ...state,
+            graph: {
+                ...state.graph,
+                radius: getRadius(state.graph.center, state.graph.radiusPoint),
+            },
+        };
+    }
+    return {
+        ...state,
+    };
+}
+
 export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     (props, ref) => {
         const [state, dispatch] = React.useReducer(
@@ -88,7 +112,18 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
             getUserInput: () => getGradableGraph(state, props.graph),
         }));
 
-        return <MafsGraph state={state} dispatch={dispatch} {...props} />;
+        function onChange(next: MafsChange) {
+            props.onChange(mafStateToInteractiveGraph(next));
+        }
+
+        return (
+            <MafsGraph
+                {...props}
+                state={state}
+                dispatch={dispatch}
+                onChange={onChange}
+            />
+        );
     },
 );
 
