@@ -68,8 +68,14 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getDefaultPoints({graph, step, range}),
             };
-        case "angle":
         case "circle":
+            return {
+                ...shared,
+                type: graph.type,
+                center: [0, 0],
+                radius: 1,
+            };
+        case "angle":
         case "sinusoid":
         case "quadratic":
             throw new Error(
