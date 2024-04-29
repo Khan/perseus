@@ -82,7 +82,7 @@ export function Flipbook() {
     const questionsState = state.questions.trim();
     const noTextEntered = questionsState === "";
 
-    const graphieImageUrls = useMemo<ReadonlyArray<string>>(
+    const imageUrls = useMemo<ReadonlyArray<string>>(
         () =>
             Object.values(question?.widgets ?? {})
                 .filter(isInteractiveGraph)
@@ -159,7 +159,7 @@ export function Flipbook() {
                     }
                     rightContent={
                         <View>
-                            {graphieImageUrls?.map((url) => (
+                            {imageUrls?.map((url) => (
                                 <Tooltip
                                     key={url}
                                     placement="right"
