@@ -241,9 +241,15 @@ function doMoveRadiusPoint(
     switch (state.type) {
         case "circle": {
             const nextRadiusPoint: vec.Vector2 = [
-                action.destination[0],
+                // The +0 is to convert -0 to +0
+                action.destination[0] + 0,
                 state.center[1],
             ];
+
+            if (_.isEqual(nextRadiusPoint, state.center)) {
+                return state;
+            }
+
             const [centerX, centerY] = state.center;
             const [radiusX, radiusY] = nextRadiusPoint;
             const radius = Math.sqrt(
