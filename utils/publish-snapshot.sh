@@ -111,7 +111,6 @@ create_npmrc
 
 yarn build
 yarn build:types
-yarn extract-strings
 
 # Now version the packages and publish a snapshot
 # By using the `--snapshot` option we are asking Changeset to version the
