@@ -9,7 +9,6 @@ import {snap} from "../../utils";
 import {useTransformVectorsToPixels} from "../use-transform";
 
 import type {vec} from "mafs";
-import {CSSProperties} from "aphrodite";
 
 type Props = {
     point: vec.Vector2;
