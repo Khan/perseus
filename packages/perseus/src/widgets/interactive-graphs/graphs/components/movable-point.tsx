@@ -9,11 +9,13 @@ import {snap} from "../../utils";
 import {useTransformVectorsToPixels} from "../use-transform";
 
 import type {vec} from "mafs";
+import {CSSProperties} from "aphrodite";
 
 type Props = {
     point: vec.Vector2;
     onMove: (newPoint: vec.Vector2) => unknown;
     color?: string;
+    id?: string;
 };
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
@@ -23,7 +25,7 @@ const hitboxSizePx = 48;
 export const StyledMovablePoint = (props: Props) => {
     const {range, snapStep, markings, showTooltips} = useGraphConfig();
     const hitboxRef = useRef<SVGCircleElement>(null);
-    const {point, onMove, color = WBColor.blue} = props;
+    const {point, onMove, color = WBColor.blue, id} = props;
 
     // WB Tooltip requires a color name for the background color.
     // Since the color in props is a hex value, a reverse lookup is needed.
@@ -71,6 +73,7 @@ export const StyledMovablePoint = (props: Props) => {
 
     const svgForPoint = (
         <g
+            id={id}
             ref={hitboxRef}
             className={pointClasses}
             tabIndex={0}

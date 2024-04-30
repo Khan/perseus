@@ -46,19 +46,24 @@ const SegmentView = (props: InteractiveLineProps) => {
 
     return (
         <>
-            <StyledMovablePoint
-                point={start}
-                onMove={(newPoint) => {
-                    props.onMovePoint(0, newPoint);
-                }}
-            />
+            <g style={{opacity: 0}}>
+                <StyledMovablePoint
+                    id={"point1"}
+                    point={start}
+                    onMove={(newPoint) => {
+                        props.onMovePoint(0, newPoint);
+                    }}
+                />
+            </g>
             <MovableLine start={start} end={end} onMove={onMoveSegment} />
             <StyledMovablePoint
+                id={"point2"}
                 point={end}
                 onMove={(newPoint) => {
                     props.onMovePoint(1, newPoint);
                 }}
             />
+            <use href="#point1" tabIndex={-1} />
         </>
     );
 };
