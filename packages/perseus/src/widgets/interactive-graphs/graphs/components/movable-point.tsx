@@ -1,29 +1,28 @@
 import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
-import {useMovable} from "mafs";
 import * as React from "react";
-import {useRef} from "react";
+import {ForwardedRef, forwardRef} from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
-import {snap} from "../../utils";
 import {useTransformVectorsToPixels} from "../use-transform";
 
 import type {vec} from "mafs";
 
 type Props = {
     point: vec.Vector2;
-    onMove: (newPoint: vec.Vector2) => unknown;
+    onMove?: (newPoint: vec.Vector2) => unknown; // FIXME: remove onMove
     color?: string;
+    dragging?: boolean; // FIXME: make dragging required
 };
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
 // graph.
 const hitboxSizePx = 48;
 
-export const StyledMovablePoint = (props: Props) => {
-    const {range, snapStep, markings, showTooltips} = useGraphConfig();
-    const hitboxRef = useRef<SVGCircleElement>(null);
-    const {point, onMove, color = WBColor.blue} = props;
+export const StyledMovablePoint = forwardRef((props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
+    const {range, markings, showTooltips} = useGraphConfig();
+    // FIXME: remove dragging default
+    const {point, color = WBColor.blue, dragging = false} = props;
 
     // WB Tooltip requires a color name for the background color.
     // Since the color in props is a hex value, a reverse lookup is needed.
@@ -31,12 +30,6 @@ export const StyledMovablePoint = (props: Props) => {
         ([_, value]) => value === color,
     )?.[0] ?? "blue") as keyof typeof WBColor;
 
-    const {dragging} = useMovable({
-        gestureTarget: hitboxRef,
-        point,
-        onMove,
-        constrain: (p) => snap(snapStep, p),
-    });
     const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""}`;
 
     const [[x, y]] = useTransformVectorsToPixels(point);
@@ -114,4 +107,4 @@ export const StyledMovablePoint = (props: Props) => {
             )}
         </>
     );
-};
+});
