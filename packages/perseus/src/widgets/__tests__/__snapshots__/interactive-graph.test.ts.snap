@@ -3045,7 +3045,7 @@ exports[`snapshots should render correctly 1`] = `
                     <g
                       class="movable-point "
                       data-testid="movable-point"
-                      id="point1"
+                      id="uid--18-point"
                       style="--movable-point-color: #1865f2;"
                       tabindex="0"
                     >
@@ -3119,7 +3119,6 @@ exports[`snapshots should render correctly 1`] = `
                   <g
                     class="movable-point "
                     data-testid="movable-point"
-                    id="point2"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -3153,7 +3152,7 @@ exports[`snapshots should render correctly 1`] = `
                     />
                   </g>
                   <use
-                    href="#point1"
+                    href="#uid--18-point"
                     tabindex="-1"
                   />
                 </svg>
@@ -4246,7 +4245,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     <g
                       class="movable-point "
                       data-testid="movable-point"
-                      id="point1"
+                      id="uid--20-point"
                       style="--movable-point-color: #1865f2;"
                       tabindex="0"
                     >
@@ -4320,7 +4319,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                   <g
                     class="movable-point "
                     data-testid="movable-point"
-                    id="point2"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -4354,7 +4352,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <use
-                    href="#point1"
+                    href="#uid--20-point"
                     tabindex="-1"
                   />
                 </svg>
@@ -5374,7 +5372,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     <g
                       class="movable-point "
                       data-testid="movable-point"
-                      id="point1"
+                      id="uid--19-point"
                       style="--movable-point-color: #1865f2;"
                       tabindex="0"
                     >
@@ -5448,7 +5446,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                   <g
                     class="movable-point "
                     data-testid="movable-point"
-                    id="point2"
                     style="--movable-point-color: #1865f2;"
                     tabindex="0"
                   >
@@ -5482,7 +5479,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     />
                   </g>
                   <use
-                    href="#point1"
+                    href="#uid--19-point"
                     tabindex="-1"
                   />
                 </svg>
