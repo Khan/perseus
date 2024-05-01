@@ -1,41 +1,45 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
+import type {PerseusRenderer} from "../../perseus-types";
 import {lockedFigureColors} from "../../perseus-types";
 import {
+    linearQuestion,
+    linearQuestionWithDefaultCorrect,
+    linearSystemQuestion,
+    linearSystemQuestionWithDefaultCorrect,
+    pointQuestion,
+    pointQuestionWithDefaultCorrect,
+    polygonQuestion,
+    polygonQuestionDefaultCorrect,
     questionsAndAnswers,
+    rayQuestion,
+    rayQuestionWithDefaultCorrect,
+    segmentQuestion,
+    segmentQuestionDefaultCorrect,
+    segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
-    segmentQuestionDefaultCorrect,
-    linearQuestionWithDefaultCorrect,
-    linearSystemQuestionWithDefaultCorrect,
-    rayQuestionWithDefaultCorrect,
-    polygonQuestionDefaultCorrect,
-    pointQuestionWithDefaultCorrect,
-    segmentWithLockedLineQuestion,
-    segmentQuestion,
-    linearQuestion,
-    linearSystemQuestion,
-    rayQuestion,
-    polygonQuestion,
-    pointQuestion,
 } from "../__testdata__/interactive-graph.testdata";
-import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
+import type {
+    mafsSupportedGraphTypes
+} from "../interactive-graphs/mafs-supported-graph-types";
+import {
+    trueForAllMafsSupportedGraphTypes
+} from "../interactive-graphs/mafs-supported-graph-types";
 
 import {renderQuestion} from "./renderQuestion";
 
 import type {Coord} from "../../interactive2/types";
-import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
-import type {mafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
-import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -129,7 +133,7 @@ describe("interactive-graph widget", function () {
     );
 });
 
-describe("mafs graphs", () => {
+describe("a mafs graph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -277,6 +281,77 @@ describe("mafs graphs", () => {
                 stroke: lockedFigureColors.green,
             });
         });
+    });
+});
+
+describe("tabbing forward on a Mafs segment graph", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("focuses the first endpoint of a segment first", async () => {
+        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+
+        await userEvent.tab();
+
+        const movablePoints = container.querySelectorAll("[data-testid=movable-point]");
+        expect(movablePoints[0]).toHaveFocus();
+    });
+
+    it("focuses the whole segment second", async () => {
+        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+
+        await userEvent.tab();
+        await userEvent.tab();
+
+        const movableLine = container.querySelector("[data-testid=movable-line]");
+        expect(movableLine).toHaveFocus();
+    });
+
+    it("focuses the second point third", async () => {
+        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab();
+
+        const movablePoints = container.querySelectorAll("[data-testid=movable-point]");
+        expect(movablePoints[1]).toHaveFocus();
+    });
+});
+
+describe("tabbing backward on a Mafs segment graph", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("moves focus from the last point to the whole segment", async () => {
+        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab({shift: true})
+
+        const movableLine = container.querySelector("[data-testid=movable-line]");
+        expect(movableLine).toHaveFocus();
+    });
+
+    it("moves focus from the whole segment to the first point", async () => {
+        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab({shift: true})
+
+        const movablePoints = container.querySelectorAll("[data-testid=movable-point]");
+        expect(movablePoints[0]).toHaveFocus();
     });
 });
 
