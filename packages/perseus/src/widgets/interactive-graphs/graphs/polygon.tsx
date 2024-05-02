@@ -26,15 +26,14 @@ export const PolygonGraph = (props: Props) => {
         (acc, point) => vec.add(acc, point),
         [0, 0],
     );
-    const midpoint =
-        pointsSum && vec.scale(pointsSum, 1 / (points.length ?? 1));
 
     const ref = React.useRef<SVGPolygonElement>(null);
+    const dragReferencePoint = points[0];
     const {dragging} = useMovable({
         gestureTarget: ref,
-        point: midpoint,
+        point: dragReferencePoint,
         onMove: (newPoint) => {
-            const delta = vec.sub(newPoint, midpoint);
+            const delta = vec.sub(newPoint, dragReferencePoint);
             dispatch(moveAll(delta));
         },
         constrain: (p) => snap(snapStep, p),
