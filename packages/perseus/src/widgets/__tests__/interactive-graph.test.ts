@@ -206,14 +206,10 @@ describe("a mafs graph", () => {
                     apiOptions,
                 );
 
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                const movablePoints = container.querySelectorAll(
-                    "circle.movable-point-hitbox",
-                );
+                userEvent.tab();
 
                 // Act
-                await userEvent.type(movablePoints[1], "{arrowup}");
-                await userEvent.type(movablePoints[1], "{arrowright}");
+                await userEvent.keyboard( "{arrowup}{arrowright}");
 
                 // Assert
                 await waitFor(() => {
@@ -227,13 +223,10 @@ describe("a mafs graph", () => {
                     apiOptions,
                 );
 
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                const movablePoints = container.querySelectorAll(
-                    "circle.movable-point-hitbox",
-                );
+                userEvent.tab();
 
                 // Act
-                await userEvent.type(movablePoints[0], "{arrowup}{arrowdown}");
+                await userEvent.keyboard("{arrowup}{arrowdown}");
 
                 // Assert
                 await waitFor(() => {
@@ -302,7 +295,7 @@ describe("tabbing forward on a Mafs segment graph", () => {
 
         await userEvent.tab();
 
-        const movablePoints = container.querySelectorAll("[data-testid=movable-point]");
+        const movablePoints = container.querySelectorAll("[data-testid=movable-point__focusable-handle]");
         expect(movablePoints[0]).toHaveFocus();
     });
 
@@ -312,7 +305,7 @@ describe("tabbing forward on a Mafs segment graph", () => {
         await userEvent.tab();
         await userEvent.tab();
 
-        const movableLine = container.querySelector("[data-testid=movable-line]");
+        const movableLine = container.querySelector("[data-testid=movable-point__focusable-handle]");
         expect(movableLine).toHaveFocus();
     });
 
@@ -323,7 +316,7 @@ describe("tabbing forward on a Mafs segment graph", () => {
         await userEvent.tab();
         await userEvent.tab();
 
-        const movablePoints = container.querySelectorAll("[data-testid=movable-point]");
+        const movablePoints = container.querySelectorAll("[data-testid=movable-point__focusable-handle]");
         expect(movablePoints[1]).toHaveFocus();
     });
 });
@@ -344,7 +337,7 @@ describe("tabbing backward on a Mafs segment graph", () => {
         await userEvent.tab();
         await userEvent.tab({shift: true})
 
-        const movableLine = container.querySelector("[data-testid=movable-line]");
+        const movableLine = container.querySelector("[data-testid=movable-point__focusable-handle]");
         expect(movableLine).toHaveFocus();
     });
 
@@ -355,7 +348,7 @@ describe("tabbing backward on a Mafs segment graph", () => {
         await userEvent.tab();
         await userEvent.tab({shift: true})
 
-        const movablePoints = container.querySelectorAll("[data-testid=movable-point]");
+        const movablePoints = container.querySelectorAll("[data-testid=movable-point__focusable-handle]");
         expect(movablePoints[0]).toHaveFocus();
     });
 });

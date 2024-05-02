@@ -48,73 +48,61 @@ const SegmentView = (props: InteractiveLineProps) => {
         points: [start, end],
     } = props;
 
-    const {snapStep} = useGraphConfig();
-
-    const [point1Focused, setPoint1Focused] = useState(false);
-    const point1KeyboardHandleRef = useRef<SVGGElement>(null);
-    useMovable({
-        gestureTarget: point1KeyboardHandleRef,
-        point: start,
-        onMove: (newPoint) => {
-            props.onMovePoint(0, newPoint);
-        },
-        constrain: (p) => snap(snapStep, p),
-    });
-
-    const point1Ref = useRef<SVGGElement>(null);
-    const {dragging: draggingPoint1} = useMovable({
-        gestureTarget: point1Ref,
-        point: start,
-        onMove: (newPoint) => {
-            props.onMovePoint(0, newPoint);
-        },
-        constrain: (p) => snap(snapStep, p),
-    });
-
-    const [point2Focused, setPoint2Focused] = useState(false);
-    const point2KeyboardHandleRef = useRef<SVGGElement>(null);
-    useMovable({
-        gestureTarget: point2KeyboardHandleRef,
-        point: end,
-        onMove: (newPoint) => {
-            props.onMovePoint(1, newPoint);
-        },
-        constrain: (p) => snap(snapStep, p),
-    });
-
-    const point2Ref = useRef<SVGGElement>(null);
-    const {dragging: draggingPoint2} = useMovable({
-        gestureTarget: point2Ref,
-        point: end,
-        onMove: (newPoint) => {
-            props.onMovePoint(1, newPoint);
-        },
-        constrain: (p) => snap(snapStep, p),
-    });
+    const {
+        visiblePoint: visiblePoint1,
+        focusableHandle: focusableHandle1
+    } = useControlPoint(start, p => props.onMovePoint(0, p))
+    const {
+        visiblePoint: visiblePoint2,
+        focusableHandle: focusableHandle2,
+    } = useControlPoint(end, p => props.onMovePoint(1, p))
 
     return (
         <>
-            <g tabIndex={0} ref={point1KeyboardHandleRef} onFocus={() => setPoint1Focused(true)} onBlur={() => setPoint1Focused(false)} />
+            {focusableHandle1}
             <MovableLine start={start} end={end} onMove={onMoveSegment} />
-            <g tabIndex={0} ref={point2KeyboardHandleRef} onFocus={() => setPoint2Focused(true)} onBlur={() => setPoint2Focused(false)} />
-            <StyledMovablePoint
-                point={start}
-                dragging={draggingPoint1}
-                ref={point1Ref}
-                showFocusRing={point1Focused}
-                onMove={(newPoint) => {
-                    props.onMovePoint(0, newPoint);
-                }}
-            />
-            <StyledMovablePoint
-                point={end}
-                dragging={draggingPoint2}
-                ref={point2Ref}
-                showFocusRing={point2Focused}
-                onMove={(newPoint) => {
-                    props.onMovePoint(1, newPoint);
-                }}
-            />
+            {focusableHandle2}
+            {visiblePoint1}
+            {visiblePoint2}
         </>
     );
 };
+
+function useControlPoint(point: vec.Vector2, onMovePoint: (newPoint: vec.Vector2) => unknown) {
+    const {snapStep} = useGraphConfig();
+    const [focused, setFocused] = useState(false);
+    const keyboardHandleRef = useRef<SVGGElement>(null);
+    useMovable({
+        gestureTarget: keyboardHandleRef,
+        point,
+        onMove: onMovePoint,
+        constrain: (p) => snap(snapStep, p),
+    });
+
+    const visiblePointRef = useRef<SVGGElement>(null);
+    const {dragging} = useMovable({
+        gestureTarget: visiblePointRef,
+        point,
+        onMove: onMovePoint,
+        constrain: (p) => snap(snapStep, p),
+    });
+
+    const focusableHandle = <g
+        data-testid="movable-point__focusable-handle"
+        tabIndex={0} ref={keyboardHandleRef}
+        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />
+    const visiblePoint = <StyledMovablePoint
+        point={point}
+        dragging={dragging}
+        ref={visiblePointRef}
+        showFocusRing={focused}
+        onMove={(newPoint) => {
+            onMovePoint(newPoint);
+        }}
+    />
+
+    return {
+        focusableHandle,
+        visiblePoint,
+    }
+}
