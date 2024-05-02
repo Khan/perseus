@@ -105,7 +105,7 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
         return {
             type: "segment",
             numSegments: this.numSegments,
-            coords: repeat(this.numSegments, [
+            coords: repeat(this.numSegments, () => [
                 [-7, 7],
                 [2, 5],
             ]),
@@ -117,6 +117,6 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
     }
 }
 
-function repeat<T>(n: number, item: T): T[] {
-    return new Array(n).fill(null).map(() => item);
+function repeat<T>(n: number, makeItem: () => T): T[] {
+    return new Array(n).fill(null).map(makeItem);
 }
