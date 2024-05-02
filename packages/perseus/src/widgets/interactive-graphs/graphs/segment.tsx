@@ -95,7 +95,7 @@ function useControlPoint(point: vec.Vector2, onMovePoint: (newPoint: vec.Vector2
         point={point}
         dragging={dragging}
         ref={visiblePointRef}
-        showFocusRing={focused}
+        focusBehavior={{type: "controlled", showFocusRing: focused}}
         onMove={(newPoint) => {
             onMovePoint(newPoint);
         }}

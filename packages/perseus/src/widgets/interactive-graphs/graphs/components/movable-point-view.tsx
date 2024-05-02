@@ -13,8 +13,12 @@ type Props = {
     onMove?: (newPoint: vec.Vector2) => unknown; // FIXME: remove onMove
     color?: string;
     dragging?: boolean; // FIXME: make dragging required
-    showFocusRing?: boolean;
+    focusBehavior: FocusBehaviorConfig
 };
+
+type FocusBehaviorConfig =
+    | {type: "uncontrolled", tabIndex: number}
+    | {type: "controlled", showFocusRing: boolean};
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
 // graph.
@@ -23,7 +27,7 @@ const hitboxSizePx = 48;
 export const MovablePointView = forwardRef((props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
     const {range, markings, showTooltips} = useGraphConfig();
     // FIXME: remove dragging default
-    const {point, color = WBColor.blue, dragging = false, showFocusRing = false} = props;
+    const {point, color = WBColor.blue, dragging = false, focusBehavior} = props;
 
     // WB Tooltip requires a color name for the background color.
     // Since the color in props is a hex value, a reverse lookup is needed.
@@ -31,7 +35,7 @@ export const MovablePointView = forwardRef((props: Props, hitboxRef: ForwardedRe
         ([_, value]) => value === color,
     )?.[0] ?? "blue") as keyof typeof WBColor;
 
-    const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""} ${showFocusRing ? "movable-point--focus" : ""}`;
+    const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""} ${focusClass(focusBehavior)}`;
 
     const [[x, y]] = useTransformVectorsToPixels(point);
 
@@ -69,6 +73,7 @@ export const MovablePointView = forwardRef((props: Props, hitboxRef: ForwardedRe
             className={pointClasses}
             style={{"--movable-point-color": color} as any}
             data-testid="movable-point"
+            tabIndex={tabIndex(focusBehavior)}
         >
             <circle
                 className="movable-point-hitbox"
@@ -108,3 +113,17 @@ export const MovablePointView = forwardRef((props: Props, hitboxRef: ForwardedRe
         </>
     );
 });
+
+function focusClass(config: FocusBehaviorConfig) {
+    if (config.type === "controlled" && config.showFocusRing) {
+        return "movable-point--focus"
+    }
+    return "";
+}
+
+function tabIndex(config: FocusBehaviorConfig) {
+    if (config.type === "uncontrolled") {
+        return config.tabIndex
+    }
+    return undefined
+}
