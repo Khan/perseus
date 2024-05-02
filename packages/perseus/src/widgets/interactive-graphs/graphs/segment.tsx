@@ -3,7 +3,7 @@ import * as React from "react";
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
-import {StyledMovablePoint} from "./components/movable-point";
+import {MovablePointView} from "./components/movable-point-view";
 
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, SegmentGraphState} from "../types";
@@ -91,7 +91,7 @@ function useControlPoint(point: vec.Vector2, onMovePoint: (newPoint: vec.Vector2
         data-testid="movable-point__focusable-handle"
         tabIndex={0} ref={keyboardHandleRef}
         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />
-    const visiblePoint = <StyledMovablePoint
+    const visiblePoint = <MovablePointView
         point={point}
         dragging={dragging}
         ref={visiblePointRef}
