@@ -206,7 +206,7 @@ describe("a mafs graph", () => {
                     apiOptions,
                 );
 
-                userEvent.tab();
+                await userEvent.tab();
 
                 // Act
                 await userEvent.keyboard( "{arrowup}{arrowright}");
@@ -218,12 +218,12 @@ describe("a mafs graph", () => {
             });
 
             it("accepts correct answer", async () => {
-                const {renderer, container} = renderQuestion(
+                const {renderer} = renderQuestion(
                     question,
                     apiOptions,
                 );
 
-                userEvent.tab();
+                await userEvent.tab();
 
                 // Act
                 await userEvent.keyboard("{arrowup}{arrowdown}");
