@@ -17,7 +17,7 @@ type Props = {
 
 export const StyledMovablePoint = (props: Props) => {
     const {snapStep} = useGraphConfig();
-    const hitboxRef = useRef<SVGCircleElement>(null);
+    const hitboxRef = useRef<SVGGElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
 
     const {dragging} = useMovable({
