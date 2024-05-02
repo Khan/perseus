@@ -13,6 +13,7 @@ type Props = {
     onMove?: (newPoint: vec.Vector2) => unknown; // FIXME: remove onMove
     color?: string;
     dragging?: boolean; // FIXME: make dragging required
+    showFocusRing?: boolean;
 };
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
@@ -22,7 +23,7 @@ const hitboxSizePx = 48;
 export const StyledMovablePoint = forwardRef((props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
     const {range, markings, showTooltips} = useGraphConfig();
     // FIXME: remove dragging default
-    const {point, color = WBColor.blue, dragging = false} = props;
+    const {point, color = WBColor.blue, dragging = false, showFocusRing = false} = props;
 
     // WB Tooltip requires a color name for the background color.
     // Since the color in props is a hex value, a reverse lookup is needed.
@@ -30,7 +31,7 @@ export const StyledMovablePoint = forwardRef((props: Props, hitboxRef: Forwarded
         ([_, value]) => value === color,
     )?.[0] ?? "blue") as keyof typeof WBColor;
 
-    const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""}`;
+    const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""} ${showFocusRing ? "movable-point--focus" : ""}`;
 
     const [[x, y]] = useTransformVectorsToPixels(point);
 
@@ -66,7 +67,6 @@ export const StyledMovablePoint = forwardRef((props: Props, hitboxRef: Forwarded
         <g
             ref={hitboxRef}
             className={pointClasses}
-            tabIndex={0}
             style={{"--movable-point-color": color} as any}
             data-testid="movable-point"
         >
