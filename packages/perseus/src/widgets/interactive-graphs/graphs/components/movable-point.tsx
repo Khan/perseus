@@ -17,17 +17,17 @@ type Props = {
 
 export const StyledMovablePoint = (props: Props) => {
     const {snapStep} = useGraphConfig();
-    const hitboxRef = useRef<SVGGElement>(null);
+    const elementRef = useRef<SVGGElement>(null);
     const {point, onMove, color = WBColor.blue} = props;
 
     const {dragging} = useMovable({
-        gestureTarget: hitboxRef,
+        gestureTarget: elementRef,
         point,
         onMove,
         constrain: (p) => snap(snapStep, p),
     });
 
     return (
-        <MovablePointView ref={hitboxRef} point={point} color={color} dragging={dragging} focusBehavior={{type: "uncontrolled", tabIndex: 0}} />
+        <MovablePointView ref={elementRef} point={point} color={color} dragging={dragging} focusBehavior={{type: "uncontrolled", tabIndex: 0}} />
     );
 };
