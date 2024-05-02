@@ -1,6 +1,10 @@
+import {useMovable} from "mafs";
 import * as React from "react";
+import {useRef, useState} from "react";
 
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
+import {snap} from "../utils";
 
 import {MovableLine} from "./components/movable-line";
 import {MovablePointView} from "./components/movable-point-view";
@@ -8,10 +12,6 @@ import {MovablePointView} from "./components/movable-point-view";
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, SegmentGraphState} from "../types";
 import type {vec} from "mafs";
-import {useMovable} from "mafs";
-import {snap} from "../utils";
-import {useRef, useState} from "react";
-import useGraphConfig from "../reducer/use-graph-config";
 
 type SegmentProps = MafsGraphProps<SegmentGraphState>;
 
@@ -48,14 +48,10 @@ const SegmentView = (props: InteractiveLineProps) => {
         points: [start, end],
     } = props;
 
-    const {
-        visiblePoint: visiblePoint1,
-        focusableHandle: focusableHandle1
-    } = useControlPoint(start, p => props.onMovePoint(0, p))
-    const {
-        visiblePoint: visiblePoint2,
-        focusableHandle: focusableHandle2,
-    } = useControlPoint(end, p => props.onMovePoint(1, p))
+    const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
+        useControlPoint(start, (p) => props.onMovePoint(0, p));
+    const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
+        useControlPoint(end, (p) => props.onMovePoint(1, p));
 
     return (
         <>
@@ -68,7 +64,10 @@ const SegmentView = (props: InteractiveLineProps) => {
     );
 };
 
-function useControlPoint(point: vec.Vector2, onMovePoint: (newPoint: vec.Vector2) => unknown) {
+function useControlPoint(
+    point: vec.Vector2,
+    onMovePoint: (newPoint: vec.Vector2) => unknown,
+) {
     const {snapStep} = useGraphConfig();
     const [focused, setFocused] = useState(false);
     const keyboardHandleRef = useRef<SVGGElement>(null);
@@ -87,22 +86,29 @@ function useControlPoint(point: vec.Vector2, onMovePoint: (newPoint: vec.Vector2
         constrain: (p) => snap(snapStep, p),
     });
 
-    const focusableHandle = <g
-        data-testid="movable-point__focusable-handle"
-        tabIndex={0} ref={keyboardHandleRef}
-        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />
-    const visiblePoint = <MovablePointView
-        point={point}
-        dragging={dragging}
-        ref={visiblePointRef}
-        focusBehavior={{type: "controlled", showFocusRing: focused}}
-        onMove={(newPoint) => {
-            onMovePoint(newPoint);
-        }}
-    />
+    const focusableHandle = (
+        <g
+            data-testid="movable-point__focusable-handle"
+            tabIndex={0}
+            ref={keyboardHandleRef}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+        />
+    );
+    const visiblePoint = (
+        <MovablePointView
+            point={point}
+            dragging={dragging}
+            ref={visiblePointRef}
+            focusBehavior={{type: "controlled", showFocusRing: focused}}
+            onMove={(newPoint) => {
+                onMovePoint(newPoint);
+            }}
+        />
+    );
 
     return {
         focusableHandle,
         visiblePoint,
-    }
+    };
 }

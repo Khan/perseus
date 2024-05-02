@@ -1,6 +1,5 @@
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusGraphType, PerseusRenderer} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
-import {PerseusGraphType} from "../../perseus-types";
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
     return new InteractiveGraphQuestionBuilder();
@@ -14,10 +13,10 @@ class InteractiveGraphQuestionBuilder {
     private yRange: Interval = [-10, 10];
     private snapStep: vec.Vector2 = [0.5, 0.5];
     private tickStep: vec.Vector2 = [1, 1];
-    private interactiveFigureConfig: InteractiveFigureConfig = new SegmentGraphConfig(1);
+    private interactiveFigureConfig: InteractiveFigureConfig =
+        new SegmentGraphConfig(1);
 
     build(): PerseusRenderer {
-        console.log("config", this.interactiveFigureConfig.correct())
         return {
             content: "[[☃ interactive-graph 1]]",
             images: {},
@@ -86,14 +85,14 @@ class InteractiveGraphQuestionBuilder {
     }
 
     withSegments(numSegments: number): InteractiveGraphQuestionBuilder {
-        this.interactiveFigureConfig = new SegmentGraphConfig(numSegments)
+        this.interactiveFigureConfig = new SegmentGraphConfig(numSegments);
         return this;
     }
 }
 
 interface InteractiveFigureConfig {
-    graph(): PerseusGraphType
-    correct(): PerseusGraphType
+    graph(): PerseusGraphType;
+    correct(): PerseusGraphType;
 }
 
 class SegmentGraphConfig implements InteractiveFigureConfig {
@@ -101,17 +100,15 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
     constructor(numSegments: number) {
         this.numSegments = numSegments;
     }
-    
+
     correct(): PerseusGraphType {
         return {
             type: "segment",
             numSegments: this.numSegments,
-            coords: repeat(this.numSegments,
-                [
-                    [-7, 7],
-                    [2, 5],
-                ],
-            ),
+            coords: repeat(this.numSegments, [
+                [-7, 7],
+                [2, 5],
+            ]),
         };
     }
 

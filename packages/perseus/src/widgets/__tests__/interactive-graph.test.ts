@@ -1,14 +1,12 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
-import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import type {PerseusRenderer} from "../../perseus-types";
 import {lockedFigureColors} from "../../perseus-types";
 import {
     circleQuestion,
@@ -30,18 +28,16 @@ import {
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
 } from "../__testdata__/interactive-graph.testdata";
-import type {
-    mafsSupportedGraphTypes
-} from "../interactive-graphs/mafs-supported-graph-types";
-import {
-    trueForAllMafsSupportedGraphTypes
-} from "../interactive-graphs/mafs-supported-graph-types";
+import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
 import {renderQuestion} from "./renderQuestion";
 
 import type {Coord} from "../../interactive2/types";
+import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
+import type {mafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -201,10 +197,7 @@ describe("a mafs graph", () => {
 
             it("rejects incorrect answer", async () => {
                 // Arrange
-                const {renderer, container} = renderQuestion(
-                    question,
-                    apiOptions,
-                );
+                const {renderer} = renderQuestion(question, apiOptions);
 
                 await userEvent.tab();
 
@@ -218,10 +211,7 @@ describe("a mafs graph", () => {
             });
 
             it("accepts correct answer", async () => {
-                const {renderer} = renderQuestion(
-                    question,
-                    apiOptions,
-                );
+                const {renderer} = renderQuestion(question, apiOptions);
 
                 await userEvent.tab();
 
@@ -291,32 +281,47 @@ describe("tabbing forward on a Mafs segment graph", () => {
     });
 
     it("focuses the first endpoint of a segment first", async () => {
-        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
 
         await userEvent.tab();
 
-        const movablePoints = container.querySelectorAll("[data-testid=movable-point__focusable-handle]");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "[data-testid=movable-point__focusable-handle]",
+        );
         expect(movablePoints[0]).toHaveFocus();
     });
 
     it("focuses the whole segment second", async () => {
-        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
 
         await userEvent.tab();
         await userEvent.tab();
 
-        const movableLine = container.querySelector("[data-testid=movable-line]");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movableLine = container.querySelector(
+            "[data-testid=movable-line]",
+        );
         expect(movableLine).toHaveFocus();
     });
 
     it("focuses the second point third", async () => {
-        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
 
         await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
 
-        const movablePoints = container.querySelectorAll("[data-testid=movable-point__focusable-handle]");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "[data-testid=movable-point__focusable-handle]",
+        );
         expect(movablePoints[1]).toHaveFocus();
     });
 });
@@ -330,25 +335,35 @@ describe("tabbing backward on a Mafs segment graph", () => {
     });
 
     it("moves focus from the last point to the whole segment", async () => {
-        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
 
         await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
-        await userEvent.tab({shift: true})
+        await userEvent.tab({shift: true});
 
-        const movableLine = container.querySelector("[data-testid=movable-line]");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movableLine = container.querySelector(
+            "[data-testid=movable-line]",
+        );
         expect(movableLine).toHaveFocus();
     });
 
     it("moves focus from the whole segment to the first point", async () => {
-        const {container} = renderQuestion(segmentQuestion, {flags: {mafs: {segment: true}}});
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
 
         await userEvent.tab();
         await userEvent.tab();
-        await userEvent.tab({shift: true})
+        await userEvent.tab({shift: true});
 
-        const movablePoints = container.querySelectorAll("[data-testid=movable-point__focusable-handle]");
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "[data-testid=movable-point__focusable-handle]",
+        );
         expect(movablePoints[0]).toHaveFocus();
     });
 });

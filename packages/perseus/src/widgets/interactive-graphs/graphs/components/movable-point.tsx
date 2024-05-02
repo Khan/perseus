@@ -6,8 +6,9 @@ import {useRef} from "react";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {snap} from "../../utils";
 
-import type {vec} from "mafs";
 import {MovablePointView} from "./movable-point-view";
+
+import type {vec} from "mafs";
 
 type Props = {
     point: vec.Vector2;
@@ -28,6 +29,12 @@ export const StyledMovablePoint = (props: Props) => {
     });
 
     return (
-        <MovablePointView ref={elementRef} point={point} color={color} dragging={dragging} focusBehavior={{type: "uncontrolled", tabIndex: 0}} />
+        <MovablePointView
+            ref={elementRef}
+            point={point}
+            color={color}
+            dragging={dragging}
+            focusBehavior={{type: "uncontrolled", tabIndex: 0}}
+        />
     );
 };
