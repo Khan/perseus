@@ -3040,6 +3040,10 @@ exports[`snapshots should render correctly 1`] = `
                     </filter>
                   </defs>
                   <g
+                    data-testid="movable-point__focusable-handle"
+                    tabindex="0"
+                  />
+                  <g
                     class="movable-line"
                     data-testid="movable-line"
                     style="cursor: grab;"
@@ -3077,10 +3081,13 @@ exports[`snapshots should render correctly 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point "
+                    data-testid="movable-point__focusable-handle"
+                    tabindex="0"
+                  />
+                  <g
+                    class="movable-point  "
                     data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
-                    tabindex="0"
                   >
                     <circle
                       class="movable-point-hitbox"
@@ -3112,10 +3119,9 @@ exports[`snapshots should render correctly 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point "
+                    class="movable-point  "
                     data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
-                    tabindex="0"
                   >
                     <circle
                       class="movable-point-hitbox"
@@ -4268,6 +4274,10 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
+                    data-testid="movable-point__focusable-handle"
+                    tabindex="0"
+                  />
+                  <g
                     class="movable-line"
                     data-testid="movable-line"
                     style="cursor: grab;"
@@ -4305,10 +4315,13 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point "
+                    data-testid="movable-point__focusable-handle"
+                    tabindex="0"
+                  />
+                  <g
+                    class="movable-point  "
                     data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
-                    tabindex="0"
                   >
                     <circle
                       class="movable-point-hitbox"
@@ -4340,10 +4353,9 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point "
+                    class="movable-point  "
                     data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
-                    tabindex="0"
                   >
                     <circle
                       class="movable-point-hitbox"
@@ -5390,6 +5402,10 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     style="fill: #ffffff; opacity: 1; stroke: #447A53; stroke-width: 2;"
                   />
                   <g
+                    data-testid="movable-point__focusable-handle"
+                    tabindex="0"
+                  />
+                  <g
                     class="movable-line"
                     data-testid="movable-line"
                     style="cursor: grab;"
@@ -5427,10 +5443,13 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point "
+                    data-testid="movable-point__focusable-handle"
+                    tabindex="0"
+                  />
+                  <g
+                    class="movable-point  "
                     data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
-                    tabindex="0"
                   >
                     <circle
                       class="movable-point-hitbox"
@@ -5462,10 +5481,9 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     />
                   </g>
                   <g
-                    class="movable-point "
+                    class="movable-point  "
                     data-testid="movable-point"
                     style="--movable-point-color: #1865f2;"
-                    tabindex="0"
                   >
                     <circle
                       class="movable-point-hitbox"
