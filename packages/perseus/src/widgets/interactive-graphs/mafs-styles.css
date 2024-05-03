@@ -142,7 +142,9 @@
     );
 }
 
-.MafsView .movable-point:is(:focus-visible, .movable-point--focus) .movable-point-focus-outline {
+.MafsView
+    .movable-point:is(:focus-visible, .movable-point--focus)
+    .movable-point-focus-outline {
     visibility: visible;
 }
 
