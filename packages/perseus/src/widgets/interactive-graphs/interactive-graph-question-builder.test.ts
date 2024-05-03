@@ -74,16 +74,22 @@ describe("InteractiveGraphQuestionBuilder", () => {
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
-        expect(graph.options).toEqual(expect.objectContaining({
-            graph: {
-                type: "segment",
-                numSegments: 3,
-            },
-            correct: {
-                type: "segment",
-                numSegments: 3,
-                coords: [expect.anything(), expect.anything(), expect.anything()],
-            }
-        }));
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "segment",
+                    numSegments: 3,
+                },
+                correct: {
+                    type: "segment",
+                    numSegments: 3,
+                    coords: [
+                        expect.anything(),
+                        expect.anything(),
+                        expect.anything(),
+                    ],
+                },
+            }),
+        );
     });
 });
