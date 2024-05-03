@@ -17,17 +17,15 @@ export const RayGraph = (props: Props) => {
         dispatch(moveControlPoint(pointIndex, newPoint, 0));
 
     return (
-        <>
-            <Segment
-                // a ray only has one line
-                points={lines[0]}
-                onMoveLine={handleMoveLine}
-                onMovePoint={handleMovePoint}
-                extend={{
-                    start: false,
-                    end: true,
-                }}
-            />
-        </>
+        <Segment
+            // a ray only has one line
+            points={lines[0]}
+            onMoveLine={handleMoveLine}
+            onMovePoint={handleMovePoint}
+            extend={{
+                start: false,
+                end: true,
+            }}
+        />
     );
 };
