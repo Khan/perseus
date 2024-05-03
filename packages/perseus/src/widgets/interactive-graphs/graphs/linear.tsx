@@ -36,7 +36,7 @@ export const LinearGraph = (props: LinearGraphProps) => {
                             moveControlPoint(endpointIndex, destination, i),
                         )
                     }
-                    stroke={colors[i]}
+                    color={colors[i]}
                 />
             ))}
         </>

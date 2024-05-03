@@ -17,7 +17,7 @@ type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;
     onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
     onMoveLine: (delta: vec.Vector2) => unknown;
-    stroke?: string; // FIXME: rename to `color`
+    color?: string;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
         start: boolean;
@@ -28,7 +28,7 @@ type Props = {
 export const Segment = (props: Props) => {
     const {
         onMoveLine,
-        stroke: color,
+        color,
         points: [start, end],
         extend,
     } = props;
