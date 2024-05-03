@@ -2,7 +2,7 @@ import {render} from "@testing-library/react";
 import * as MafsLibrary from "mafs";
 import React from "react";
 
-import {MovableLine, trimRange} from "./movable-line";
+import {MovableLine, trimRange} from "./segment";
 
 import type {Interval, vec} from "mafs";
 

@@ -3,9 +3,6 @@ import * as React from "react";
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {MovableLine} from "./components/movable-line";
-import {StyledMovablePoint} from "./components/movable-point";
-
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, LinearGraphState} from "../types";
 import type {vec} from "mafs";
