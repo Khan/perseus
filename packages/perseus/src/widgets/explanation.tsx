@@ -2,8 +2,8 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
-import caretDown from "@phosphor-icons/core/assets/regular/caret-down.svg";
-import caretUp from "@phosphor-icons/core/assets/regular/caret-up.svg";
+import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
+import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
