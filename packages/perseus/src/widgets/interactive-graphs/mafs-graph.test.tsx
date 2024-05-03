@@ -59,19 +59,15 @@ describe("StatefulMafsGraph", () => {
     it("calls onChange when using graph", async () => {
         const mockChangeHandler = jest.fn();
 
-        const {container} = render(
+        render(
             <StatefulMafsGraph
                 {...getBaseMafsGraphProps()}
                 onChange={mockChangeHandler}
             />,
         );
 
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const movablePoints = container.querySelectorAll(
-            "circle.movable-point-hitbox",
-        );
-
-        await userEvent.type(movablePoints[1], "{arrowup}");
+        await userEvent.tab();
+        await userEvent.keyboard("{arrowup}");
 
         expect(mockChangeHandler).toHaveBeenCalled();
     });
