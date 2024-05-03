@@ -2975,7 +2975,7 @@ exports[`snapshots should render correctly 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_5seapk"
+            class="default_xu2jcg-o_O-inlineStyles_5seapk mafs-graph"
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -3244,7 +3244,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_5seapk"
+            class="default_xu2jcg-o_O-inlineStyles_5seapk mafs-graph"
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -4435,7 +4435,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_5seapk"
+            class="default_xu2jcg-o_O-inlineStyles_5seapk mafs-graph"
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_16155wj"
