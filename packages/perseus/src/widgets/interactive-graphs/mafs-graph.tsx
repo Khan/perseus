@@ -135,6 +135,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
             }}
         >
             <View
+                className="mafs-graph"
                 style={{
                     width,
                     height,
