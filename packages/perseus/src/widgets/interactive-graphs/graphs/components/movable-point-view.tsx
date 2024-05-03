@@ -11,7 +11,7 @@ import type {ForwardedRef} from "react";
 
 type Props = {
     point: vec.Vector2;
-    color?: string;
+    color?: string | undefined;
     dragging: boolean;
     focusBehavior: FocusBehaviorConfig;
 };

@@ -20,7 +20,7 @@ type Props = {
     onMove: (delta: vec.Vector2) => unknown;
     stroke?: string;
     /* Extends the line to the edge of the graph with an arrow */
-    extend?: {
+    extend?: undefined | {
         start: boolean;
         end: boolean;
         range: [Interval, Interval];

@@ -9,6 +9,7 @@ import {StyledMovablePoint} from "./components/movable-point";
 import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, LinearGraphState} from "../types";
 import type {vec} from "mafs";
+import {Segment} from "./components/segment";
 
 type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
@@ -50,7 +51,7 @@ const LineView = (props: LineViewProps) => {
     const {
         onMoveLine,
         onMovePoint,
-        points: [start, end],
+        points,
         stroke,
     } = props;
 
@@ -58,30 +59,16 @@ const LineView = (props: LineViewProps) => {
 
     return (
         <>
-            <MovableLine
-                start={start}
-                end={end}
-                onMove={onMoveLine}
+            <Segment
+                points={points}
+                onMoveLine={onMoveLine}
+                onMovePoint={onMovePoint}
                 extend={{
                     start: true,
                     end: true,
                     range,
                 }}
                 stroke={stroke}
-            />
-            <StyledMovablePoint
-                point={start}
-                onMove={(newPoint) => {
-                    onMovePoint(0, newPoint);
-                }}
-                color={stroke}
-            />
-            <StyledMovablePoint
-                point={end}
-                onMove={(newPoint) => {
-                    onMovePoint(1, newPoint);
-                }}
-                color={stroke}
             />
         </>
     );
