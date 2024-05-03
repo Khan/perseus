@@ -22,7 +22,7 @@ export const SegmentGraph = (props: SegmentProps) => {
     return (
         <>
             {segments?.map((segment, i) => (
-                <SegmentView
+                <Segment
                     key={i}
                     points={segment}
                     onMoveLine={(delta: vec.Vector2) => {
@@ -42,7 +42,7 @@ export const SegmentGraph = (props: SegmentProps) => {
     );
 };
 
-const SegmentView = (props: InteractiveLineProps) => {
+const Segment = (props: InteractiveLineProps) => {
     const {
         onMoveLine: onMoveSegment,
         points: [start, end],
