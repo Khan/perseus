@@ -13,8 +13,6 @@ export const LinearGraph = (props: LinearGraphProps) => {
     const {dispatch} = props;
     const {coords: lines} = props.graphState;
 
-    const {range} = useGraphConfig();
-
     const colors = ["var(--movable-line-stroke-color)", "var(--mafs-violet)"];
 
     return (
@@ -29,7 +27,6 @@ export const LinearGraph = (props: LinearGraphProps) => {
                     extend={{
                         start: true,
                         end: true,
-                        range,
                     }}
                     onMovePoint={(
                         endpointIndex: number,

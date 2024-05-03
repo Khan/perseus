@@ -10,7 +10,7 @@ type Props = MafsGraphProps<RayGraphState>;
 
 export const RayGraph = (props: Props) => {
     const {dispatch} = props;
-    const {coords: lines, range} = props.graphState;
+    const {coords: lines} = props.graphState;
 
     const handleMoveLine = (delta: vec.Vector2) => dispatch(moveLine(0, delta));
     const handleMovePoint = (pointIndex: number, newPoint: vec.Vector2) =>
@@ -26,7 +26,6 @@ export const RayGraph = (props: Props) => {
                 extend={{
                     start: false,
                     end: true,
-                    range,
                 }}
             />
         </>

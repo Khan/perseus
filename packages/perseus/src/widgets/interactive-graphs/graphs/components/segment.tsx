@@ -18,7 +18,6 @@ type Props = {
     extend?: {
         start: boolean;
         end: boolean;
-        range: [Interval, Interval];
     };
 }
 
@@ -105,7 +104,6 @@ type MovableLineProps = {
     extend?: undefined | {
         start: boolean;
         end: boolean;
-        range: [Interval, Interval];
     };
 };
 
@@ -114,13 +112,13 @@ export const MovableLine = (props: MovableLineProps) => {
     const midpoint = vec.midpoint(start, end);
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
-    const {graphDimensionsInPixels} = useGraphConfig();
+    const {range, graphDimensionsInPixels} = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
 
     if (extend) {
-        const trimmedRange = trimRange(extend.range, graphDimensionsInPixels);
+        const trimmedRange = trimRange(range, graphDimensionsInPixels);
         startExtend = extend.start
             ? getIntersectionOfRayWithBox(start, end, trimmedRange)
             : undefined;
