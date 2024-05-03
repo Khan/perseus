@@ -11,9 +11,8 @@ import type {ForwardedRef} from "react";
 
 type Props = {
     point: vec.Vector2;
-    onMove?: (newPoint: vec.Vector2) => unknown; // FIXME: remove onMove
     color?: string;
-    dragging?: boolean; // FIXME: make dragging required
+    dragging: boolean;
     focusBehavior: FocusBehaviorConfig;
 };
 
@@ -28,11 +27,10 @@ const hitboxSizePx = 48;
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
         const {range, markings, showTooltips} = useGraphConfig();
-        // FIXME: remove dragging default
         const {
             point,
             color = WBColor.blue,
-            dragging = false,
+            dragging,
             focusBehavior,
         } = props;
 

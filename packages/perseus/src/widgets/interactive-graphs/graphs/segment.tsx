@@ -101,9 +101,6 @@ function useControlPoint(
             dragging={dragging}
             ref={visiblePointRef}
             focusBehavior={{type: "controlled", showFocusRing: focused}}
-            onMove={(newPoint) => {
-                onMovePoint(newPoint);
-            }}
         />
     );
 
