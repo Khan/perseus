@@ -9,7 +9,7 @@ import * as React from "react";
 
 export const Segment = (props: InteractiveLineProps) => {
     const {
-        onMoveLine: onMoveSegment,
+        onMoveLine,
         points: [start, end],
     } = props;
 
@@ -21,7 +21,7 @@ export const Segment = (props: InteractiveLineProps) => {
     return (
         <>
             {focusableHandle1}
-            <MovableLine start={start} end={end} onMove={onMoveSegment} />
+            <MovableLine start={start} end={end} onMove={onMoveLine} />
             {focusableHandle2}
             {visiblePoint1}
             {visiblePoint2}
