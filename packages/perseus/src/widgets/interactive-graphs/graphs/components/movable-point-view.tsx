@@ -27,12 +27,7 @@ const hitboxSizePx = 48;
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
         const {range, markings, showTooltips} = useGraphConfig();
-        const {
-            point,
-            color = WBColor.blue,
-            dragging,
-            focusBehavior,
-        } = props;
+        const {point, color = WBColor.blue, dragging, focusBehavior} = props;
 
         // WB Tooltip requires a color name for the background color.
         // Since the color in props is a hex value, a reverse lookup is needed.
