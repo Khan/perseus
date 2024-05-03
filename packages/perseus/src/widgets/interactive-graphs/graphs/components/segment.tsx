@@ -1,13 +1,17 @@
-import {Interval, useMovable, vec} from "mafs";
-import useGraphConfig from "../../reducer/use-graph-config";
+import {useMovable, vec} from "mafs";
 import {useRef, useState} from "react";
-import {snap, TARGET_SIZE} from "../../utils";
-import {MovablePointView} from "./movable-point-view";
 import * as React from "react";
+
+import useGraphConfig from "../../reducer/use-graph-config";
+import {snap, TARGET_SIZE} from "../../utils";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
+
+import {MovablePointView} from "./movable-point-view";
 import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
+
+import type {Interval} from "mafs";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;
@@ -19,7 +23,7 @@ type Props = {
         start: boolean;
         end: boolean;
     };
-}
+};
 
 export const Segment = (props: Props) => {
     const {
@@ -30,14 +34,20 @@ export const Segment = (props: Props) => {
     } = props;
 
     const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
-        useControlPoint(start, color,(p) => props.onMovePoint(0, p));
+        useControlPoint(start, color, (p) => props.onMovePoint(0, p));
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
         useControlPoint(end, color, (p) => props.onMovePoint(1, p));
 
     return (
         <>
             {focusableHandle1}
-            <MovableLine start={start} end={end} stroke={color} extend={extend} onMove={onMoveLine} />
+            <MovableLine
+                start={start}
+                end={end}
+                stroke={color}
+                extend={extend}
+                onMove={onMoveLine}
+            />
             {focusableHandle2}
             {visiblePoint1}
             {visiblePoint2}
@@ -101,10 +111,12 @@ type MovableLineProps = {
     onMove: (delta: vec.Vector2) => unknown;
     stroke?: string | undefined;
     /* Extends the line to the edge of the graph with an arrow */
-    extend?: undefined | {
-        start: boolean;
-        end: boolean;
-    };
+    extend?:
+        | undefined
+        | {
+              start: boolean;
+              end: boolean;
+          };
 };
 
 export const MovableLine = (props: MovableLineProps) => {

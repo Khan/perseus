@@ -1,11 +1,11 @@
 import * as React from "react";
 
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
-import useGraphConfig from "../reducer/use-graph-config";
+
+import {Segment} from "./components/segment";
 
 import type {MafsGraphProps, LinearGraphState} from "../types";
 import type {vec} from "mafs";
-import {Segment} from "./components/segment";
 
 type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 

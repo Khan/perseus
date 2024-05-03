@@ -2,9 +2,10 @@ import * as React from "react";
 
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
 
+import {Segment} from "./components/segment";
+
 import type {MafsGraphProps, RayGraphState} from "../types";
 import type {vec} from "mafs";
-import {Segment} from "./components/segment";
 
 type Props = MafsGraphProps<RayGraphState>;
 
