@@ -1,6 +1,5 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
-import {getRadius} from "../graphs/utils";
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {
@@ -13,6 +12,7 @@ import type {
     PerseusGraphTypePolygon,
 } from "../../../perseus-types";
 import type {
+    CircleGraphState,
     InteractiveGraphProps,
     InteractiveGraphState,
     PairOfPoints,
@@ -220,7 +220,7 @@ export function getGradableGraph(
         return {
             ...initialGraph,
             center: state.center,
-            radius: getRadius(state.center, state.radiusPoint),
+            radius: getRadius(state),
         };
     }
 
@@ -350,3 +350,17 @@ const getPolygonCoords = ({
 
     return coords;
 };
+
+/**
+ * determine radius of a circle graph
+ *
+ * @param graph - the graph object containing the circle
+ * @returns the radius of the circle
+ */
+export function getRadius(graph: CircleGraphState): number {
+    const [centerX, centerY] = graph.center;
+    const [edgeX, edgeY] = graph.radiusPoint;
+    return Math.sqrt(
+        Math.pow(edgeX - centerX, 2) + Math.pow(edgeY - centerY, 2),
+    );
+}

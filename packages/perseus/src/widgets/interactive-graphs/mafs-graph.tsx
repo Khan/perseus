@@ -15,7 +15,6 @@ import {
 } from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
-import {getRadius} from "./graphs/utils";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
 import {
@@ -26,6 +25,7 @@ import {
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {
     getGradableGraph,
+    getRadius,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
@@ -91,7 +91,7 @@ function mafStateToInteractiveGraph(state: MafsChange) {
             ...state,
             graph: {
                 ...state.graph,
-                radius: getRadius(state.graph.center, state.graph.radiusPoint),
+                radius: getRadius(state.graph),
             },
         };
     }

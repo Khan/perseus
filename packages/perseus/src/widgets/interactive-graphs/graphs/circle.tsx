@@ -3,9 +3,9 @@ import {Circle} from "mafs";
 import * as React from "react";
 
 import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
+import {getRadius} from "../reducer/interactive-graph-state";
 
 import {StyledMovablePoint} from "./components/movable-point";
-import {getRadius} from "./utils";
 
 import type {CircleGraphState, MafsGraphProps} from "../types";
 
@@ -19,7 +19,7 @@ export function CircleGraph(props: CircleGraphProps) {
         <>
             <Circle
                 center={center}
-                radius={getRadius(center, radiusPoint)}
+                radius={getRadius(graphState)}
                 fillOpacity={0}
                 color={color.blue}
             />
