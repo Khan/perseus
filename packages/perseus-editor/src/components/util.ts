@@ -52,7 +52,7 @@ export function getValidNumberFromString(value: string) {
     return isNaN(parsed) ? 0 : parsed;
 }
 
-const DEFAULT_COLOR = "green";
+const DEFAULT_COLOR = "grayH";
 
 export function getDefaultFigureForType(type: "point"): LockedPointType;
 export function getDefaultFigureForType(type: "line"): LockedLineType;
