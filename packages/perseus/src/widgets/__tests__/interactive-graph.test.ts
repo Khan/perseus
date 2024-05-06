@@ -25,6 +25,8 @@ import {
     rayQuestion,
     polygonQuestion,
     pointQuestion,
+    circleQuestion,
+    circleQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
@@ -151,6 +153,7 @@ describe("mafs graphs", () => {
         ray: rayQuestion,
         polygon: polygonQuestion,
         point: pointQuestion,
+        circle: circleQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -162,6 +165,7 @@ describe("mafs graphs", () => {
         ray: rayQuestionWithDefaultCorrect,
         polygon: polygonQuestionDefaultCorrect,
         point: pointQuestionWithDefaultCorrect,
+        circle: circleQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(

@@ -102,6 +102,47 @@ export const circleQuestion: PerseusRenderer = {
     },
 };
 
+export const circleQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Graph the circle $x^2+y^2+4x+8y+16=0$.**\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            type: "interactive-graph",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                step: [1, 1],
+                markings: "graph",
+                labels: ["x", "y"],
+                showProtractor: false,
+                showRuler: false,
+                rulerLabel: "",
+                rulerTicks: 10,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                gridStep: [1, 1],
+                snapStep: [1, 1],
+                graph: {
+                    type: "circle",
+                },
+                correct: {
+                    type: "circle",
+                    center: [0, 0],
+                    radius: 1,
+                },
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
 export const linearQuestion: PerseusRenderer = {
     content:
         "**Draw the line of reflection that will map $\\triangle{SIM}$ onto the other triangle below.**\n\n\n[[☃ interactive-graph 1]]",
