@@ -209,6 +209,7 @@ describe("mafs graphs", () => {
 
                 // Act
                 await userEvent.type(movablePoints[1], "{arrowup}");
+                await userEvent.type(movablePoints[1], "{arrowright}");
 
                 // Assert
                 await waitFor(() => {
