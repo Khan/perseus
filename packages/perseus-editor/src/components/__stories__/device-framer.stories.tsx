@@ -7,7 +7,7 @@ import type {Meta, StoryObj} from "@storybook/react";
 
 const meta: Meta<typeof DeviceFramer> = {
     component: DeviceFramer,
-    title: "Perseus/Editor/Components/Device Framer",
+    title: "PerseusEditor/Components/Device Framer",
 };
 
 export default meta;
