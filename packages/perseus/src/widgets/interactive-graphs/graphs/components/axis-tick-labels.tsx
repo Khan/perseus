@@ -43,7 +43,7 @@ export const showTickLabel = ({
     // which allows enough room for both these tick labels to render.
     showLabel = tickStep > gridStep ? true : label !== -tickStep;
 
-    // If the tick label is on the relevant edge of the graph, don't render it
+    // If the tick label position is greater than the relevant edge of the graph, don't render it
     if (position <= -graphEdge || position >= graphEdge) {
         showLabel = false;
     }

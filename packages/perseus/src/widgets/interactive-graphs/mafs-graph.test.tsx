@@ -212,7 +212,7 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        const axisLabel = screen.queryAllByText("-2");
+        const axisLabel = screen.queryAllByText("2");
 
         // There are two axis labels, one for each axis
         expect(axisLabel[0]).toBeInTheDocument();
@@ -251,8 +251,48 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        const axisLabel = screen.queryByText("-2");
+        const axisLabel = screen.queryByText("2");
         expect(axisLabel).not.toBeInTheDocument();
+    });
+
+    it("should left align y-axis labels rendered on the right side of the graph", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [-15, -5],
+                [-20, -1],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        // Assert
+        // There is only one axis label for -2 due to the range of the graph
+        const axisLabel = screen.queryAllByText("2");
+        const axisLabelStyle = getComputedStyle(axisLabel[0]);
+        expect(
+            axisLabelStyle.getPropertyValue("text-align").includes("left"),
+        ).toEqual(true);
     });
 
     /**
