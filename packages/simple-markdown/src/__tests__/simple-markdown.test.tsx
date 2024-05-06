@@ -90,7 +90,7 @@ var htmlFromMarkdown = function (source) {
  * @param {string} html
  */
 var assertParsesToReact = function (source: string, html: string) {
-    var actualHtml = htmlFromReactMarkdown(source); // ?
+    var actualHtml = htmlFromReactMarkdown(source);
     assert.strictEqual(actualHtml, html);
 };
 
