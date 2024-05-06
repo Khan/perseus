@@ -173,6 +173,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           y2="0"
         />
         <g
+          class="interactive-graph-arrowhead"
           transform="translate(0 0) rotate(-45)"
         >
           <g
@@ -198,6 +199,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           y2="0"
         />
         <g
+          class="interactive-graph-arrowhead"
           transform="translate(0 0) rotate(135)"
         >
           <g

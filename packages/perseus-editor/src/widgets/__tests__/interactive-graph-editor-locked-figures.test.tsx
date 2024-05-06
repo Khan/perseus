@@ -154,7 +154,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const xCoordInput = screen.getByLabelText("x Coord");
+            const xCoordInput = screen.getByLabelText("x coord");
             await userEvent.clear(xCoordInput);
             await userEvent.type(xCoordInput, "1");
             await userEvent.tab();
@@ -187,7 +187,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const xCoordInput = screen.getByLabelText("y Coord");
+            const xCoordInput = screen.getByLabelText("y coord");
             await userEvent.clear(xCoordInput);
             await userEvent.type(xCoordInput, "1");
             await userEvent.tab();
@@ -221,14 +221,14 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Assert
             expect(screen.getByText("Point (0, 0)")).toBeInTheDocument();
-            expect(screen.getByText("x Coord")).toBeInTheDocument();
-            expect(screen.getByText("y Coord")).toBeInTheDocument();
+            expect(screen.getByText("x coord")).toBeInTheDocument();
+            expect(screen.getByText("y coord")).toBeInTheDocument();
             expect(
                 screen.getByRole("button", {
                     name: "Delete locked point at 0, 0",
                 }),
             ).toBeInTheDocument();
-            expect(screen.getByText("Color")).toBeInTheDocument();
+            expect(screen.getByText("color")).toBeInTheDocument();
         });
 
         test("Calls onChange when a locked point's color is changed", async () => {
@@ -248,7 +248,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const colorInput = screen.getByRole("button", {
-                name: "Color",
+                name: "color",
             });
             await userEvent.click(colorInput);
             const colorSelection = screen.getByText("purple");
@@ -282,8 +282,8 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const fillInput = screen.getByRole("checkbox", {
-                name: "Open point",
+            const fillInput = screen.getByRole("switch", {
+                name: "open point",
             });
             await userEvent.click(fillInput);
 
@@ -416,9 +416,9 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Assert
             expect(screen.getByText("Line (0, 0), (2, 2)")).toBeInTheDocument();
-            expect(screen.getByText("Kind")).toBeInTheDocument();
-            expect(screen.getByText("Color")).toBeInTheDocument();
-            expect(screen.getByText("Style")).toBeInTheDocument();
+            expect(screen.getByText("kind")).toBeInTheDocument();
+            expect(screen.getByText("color")).toBeInTheDocument();
+            expect(screen.getByText("style")).toBeInTheDocument();
             expect(screen.getByText("Start point (0, 0)")).toBeInTheDocument();
             expect(screen.getByText("End point (2, 2)")).toBeInTheDocument();
         });
@@ -440,7 +440,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const colorInput = screen.getByRole("button", {
-                name: "Color",
+                name: "color",
             });
             await userEvent.click(colorInput);
             const colorSelection = screen.getByText("purple");
@@ -480,7 +480,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const styleInput = screen.getByRole("button", {
-                name: "Style",
+                name: "style",
             });
             await userEvent.click(styleInput);
             const styleSelection = screen.getByText("dashed");
@@ -515,13 +515,13 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const startPointInput = screen.getAllByLabelText("x Coord")[0];
+            const startPointInput = screen.getAllByLabelText("x coord")[0];
             await userEvent.click(startPointInput);
             await userEvent.clear(startPointInput);
             await userEvent.type(startPointInput, "1");
             await userEvent.tab();
 
-            const endPointInput = screen.getAllByLabelText("y Coord")[0];
+            const endPointInput = screen.getAllByLabelText("y coord")[0];
             await userEvent.click(endPointInput);
             await userEvent.clear(endPointInput);
             await userEvent.type(endPointInput, "5");
@@ -559,13 +559,13 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const startPointInput = screen.getAllByLabelText("x Coord")[1];
+            const startPointInput = screen.getAllByLabelText("x coord")[1];
             await userEvent.click(startPointInput);
             await userEvent.clear(startPointInput);
             await userEvent.type(startPointInput, "1");
             await userEvent.tab();
 
-            const endPointInput = screen.getAllByLabelText("y Coord")[1];
+            const endPointInput = screen.getAllByLabelText("y coord")[1];
             await userEvent.click(endPointInput);
             await userEvent.clear(endPointInput);
             await userEvent.type(endPointInput, "5");
@@ -604,7 +604,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const kindInput = screen.getByRole("button", {
-                name: "Kind",
+                name: "kind",
             });
             await userEvent.click(kindInput);
             const kindSelection = screen.getByText("segment");
@@ -639,7 +639,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const toggle = screen.getAllByRole("switch")[0];
+            const toggle = screen.getAllByLabelText("show point on graph")[0];
             await userEvent.click(toggle);
 
             // Assert
@@ -671,7 +671,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const toggle = screen.getAllByRole("switch")[1];
+            const toggle = screen.getAllByLabelText("show point on graph")[1];
             await userEvent.click(toggle);
 
             // Assert

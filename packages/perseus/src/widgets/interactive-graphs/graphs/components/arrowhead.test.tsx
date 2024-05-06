@@ -1,5 +1,4 @@
 import {render} from "@testing-library/react";
-import {Mafs} from "mafs";
 import React from "react";
 
 import {Arrowhead} from "./arrowhead";

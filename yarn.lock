@@ -2434,9 +2434,10 @@
     "@typescript-eslint/utils" "^5.60.1"
     checksync "^5.0.5"
 
-"@khanacademy/mathjax-renderer@git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2":
-  version "1.6.2"
-  resolved "git+ssh://git@github.com:Khan/mathjax-renderer.git#8bc76941309e4083a5207447c97eaf17fda15e65"
+"@khanacademy/mathjax-renderer@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@khanacademy/mathjax-renderer/-/mathjax-renderer-1.7.2.tgz#18127f24a9ae2c77424ee4cce52e62d558258e25"
+  integrity sha512-p4mYMrgX7CdgtPR3zAeThh3ZkteaxlB1PLIY4CcHVeKYmVXklWPh57tpj6gt3eHycEZqX4LpHYp69Z466rdApA==
   dependencies:
     mathjax-full "3.2.2"
     mu-lambda "^0.0.3"
@@ -2694,6 +2695,16 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-1.2.0.tgz#b58611f8b4a58e0c6e7e4e505d5acdb2b475acf4"
   integrity sha512-F24xzjFjpZFEGsuV7s8pBqeIVOY+NeIRVZU0BzTeMqRWvkaz9NzZbIcbYBxMnOvrw3Jk/xAPaSjcRukzbEbkdA==
 
+"@khanacademy/wonder-blocks-toolbar@^3.0.30":
+  version "3.0.30"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-toolbar/-/wonder-blocks-toolbar-3.0.30.tgz#30054636e5af57b963d4c376610c3aac4de70fc9"
+  integrity sha512-On31nldxQnD8ssuS+0GzMDhHCj/WrThP+v7HyyeAGGCEe8ciG4mOeNk78uLHvCXvRmOvfrHyf1wunpTpv9Ouaw==
+  dependencies:
+    "@babel/runtime" "^7.18.6"
+    "@khanacademy/wonder-blocks-core" "^6.4.0"
+    "@khanacademy/wonder-blocks-tokens" "^1.2.0"
+    "@khanacademy/wonder-blocks-typography" "^2.1.11"
+
 "@khanacademy/wonder-blocks-tooltip@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tooltip/-/wonder-blocks-tooltip-2.2.1.tgz#16b406577822c9605d39d59c50d4bcf804efa2a2"
@@ -2719,15 +2730,10 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.5.1.tgz#3f179b1dc3795117ae7104e37132403f4cf26043"
   integrity sha512-3/8d8+ewqhMwYj5L9slJwrX8rmZ8BYTJvToB/7L13bq7b8CYBCcxPMRY9B6hJJdKytpBwq1EGfv2p3rKWHXR5w==
 
-"@khanacademy/wonder-stuff-i18n@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-i18n/-/wonder-stuff-i18n-2.1.2.tgz#8b11fddfbae7e892c1de27b1d663ff7018714fac"
-  integrity sha512-zP8+mvNvM6nWZlQvUKRRHWiBLi0PWmV+vP1HPEpImn9FjtnEqcYJZdwaklbKKnjwj0WSLAyX4cMScKYmqS26QQ==
-  dependencies:
-    ancesdir "^4.0.0"
-    async "^3.2.4"
-    fast-glob "^3.2.12"
-    pofile "^1.1.4"
+"@khanacademy/wonder-stuff-core@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.5.2.tgz#d3c6583ddb101181421d61b7cbd36a6bd74f3a71"
+  integrity sha512-GHuBdNvuDkDbXuJ5FZy58p5z+dosQ0YBnDrSS9uHppzAYXqSsTnBghpBFmr5CDYWt48pXbNYO5U+wHMsytLipQ==
 
 "@manypkg/find-root@^1.1.0":
   version "1.1.0"
@@ -5021,11 +5027,6 @@ ancesdir@^3.1.0:
   resolved "https://registry.yarnpkg.com/ancesdir/-/ancesdir-3.1.0.tgz#d563f73135d94e6ffe939b5232fea00092b01e45"
   integrity sha512-geMhDUb1xQrOWqw0mUVUJqXhDs3pqqZ8cgKC9UaBhTd76eqgfm8kLnIL9PDvYQByKEgIYpKxUItiP4XH4gLFQA==
 
-ancesdir@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/ancesdir/-/ancesdir-4.0.0.tgz#97ad1dc912ace45638f8021846b95aa3ff6d7126"
-  integrity sha512-y4Dx7uxjzFjdD7el51+EIER4Bmjz4JGxhO73jv0UnTfVnqVGUrECc55lns2hgU2XZgZqzaBuuSbhGTS2uJu7bw==
-
 ansi-align@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-3.0.1.tgz#0cdf12e111ace773a86e9a1fad1225c43cb19a59"
@@ -5429,7 +5430,7 @@ async@^3.2.0:
   resolved "https://registry.yarnpkg.com/async/-/async-3.2.3.tgz#ac53dafd3f4720ee9e8a160628f18ea91df196c9"
   integrity sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==
 
-async@^3.2.3, async@^3.2.4:
+async@^3.2.3:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/async/-/async-3.2.4.tgz#2d22e00f8cddeb5fde5dd33522b56d1cf569a81c"
   integrity sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==
@@ -8461,7 +8462,7 @@ fast-diff@^1.1.2:
   resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
   integrity sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
 
-fast-glob@3, fast-glob@^3.2.12:
+fast-glob@3:
   version "3.2.12"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.12.tgz#7f39ec99c2e6ab030337142da9e0c18f37afae80"
   integrity sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==
@@ -12907,11 +12908,6 @@ pkg-dir@^7.0.0:
   integrity sha512-Ie9z/WINcxxLp27BKOCHGde4ITq9UklYKDzVo1nhk5sqGEXU3FpkwP5GM2voTGJkGd9B3Otl+Q4uwSOeSUtOBA==
   dependencies:
     find-up "^6.3.0"
-
-pofile@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/pofile/-/pofile-1.1.4.tgz#eab7e29f5017589b2a61b2259dff608c0cad76a2"
-  integrity sha512-r6Q21sKsY1AjTVVjOuU02VYKVNQGJNQHjTIvs4dEbeuuYfxgYk/DGD2mqqq4RDaVkwdSq0VEtmQUOPe/wH8X3g==
 
 polished@^4.2.2:
   version "4.2.2"

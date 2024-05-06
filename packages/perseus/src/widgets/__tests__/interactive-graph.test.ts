@@ -19,7 +19,6 @@ import {
     polygonQuestionDefaultCorrect,
     pointQuestionWithDefaultCorrect,
     segmentWithLockedLineQuestion,
-    segmentWithLockedLineAndArrowheadsQuestion,
     segmentQuestion,
     linearQuestion,
     linearSystemQuestion,
@@ -270,12 +269,12 @@ describe("mafs graphs", () => {
 
             // Assert
             expect(points[0]).toHaveStyle({
-                fill: lockedFigureColors.blue,
-                stroke: lockedFigureColors.blue,
+                fill: lockedFigureColors.green,
+                stroke: lockedFigureColors.green,
             });
             expect(points[1]).toHaveStyle({
                 fill: wbColor.white,
-                stroke: lockedFigureColors.blue,
+                stroke: lockedFigureColors.green,
             });
         });
     });
@@ -317,12 +316,12 @@ describe("locked layer", () => {
 
         // Assert
         expect(points[0]).toHaveStyle({
-            fill: lockedFigureColors.blue,
-            stroke: lockedFigureColors.blue,
+            fill: lockedFigureColors.green,
+            stroke: lockedFigureColors.green,
         });
         expect(points[1]).toHaveStyle({
             fill: wbColor.white,
-            stroke: lockedFigureColors.blue,
+            stroke: lockedFigureColors.green,
         });
     });
 
@@ -395,8 +394,8 @@ describe("locked layer", () => {
 
         // Assert
         expect(lines).toHaveLength(2);
-        expect(lines[0]).toHaveStyle({stroke: lockedFigureColors.purple});
-        expect(lines[1]).toHaveStyle({stroke: lockedFigureColors.green});
+        expect(lines[0]).toHaveStyle({stroke: lockedFigureColors.green});
+        expect(lines[1]).toHaveStyle({stroke: lockedFigureColors.grayH});
         expect(ray).toHaveStyle({stroke: lockedFigureColors.pink});
     });
 
@@ -420,20 +419,20 @@ describe("locked layer", () => {
         expect(linePoints).toHaveLength(4);
         // Two points for each line
         expect(linePoints[0]).toHaveStyle({
-            fill: lockedFigureColors.purple,
-            stroke: lockedFigureColors.purple,
+            fill: lockedFigureColors.green,
+            stroke: lockedFigureColors.green,
         });
         expect(linePoints[1]).toHaveStyle({
             fill: wbColor.white,
-            stroke: lockedFigureColors.purple,
+            stroke: lockedFigureColors.green,
         });
         expect(linePoints[2]).toHaveStyle({
             fill: wbColor.white,
-            stroke: lockedFigureColors.green,
+            stroke: lockedFigureColors.grayH,
         });
         expect(linePoints[3]).toHaveStyle({
-            fill: lockedFigureColors.green,
-            stroke: lockedFigureColors.green,
+            fill: lockedFigureColors.grayH,
+            stroke: lockedFigureColors.grayH,
         });
         expect(rayPoints[0]).toHaveStyle({
             fill: wbColor.white,

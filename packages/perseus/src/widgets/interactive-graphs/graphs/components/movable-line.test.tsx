@@ -5,7 +5,6 @@ import React from "react";
 import {MovableLine, trimRange} from "./movable-line";
 
 import type {Interval, vec} from "mafs";
-import * as ReducerGraphConfig from "../../reducer/use-graph-config";
 
 jest.mock("mafs", () => {
     const originalModule = jest.requireActual("mafs");

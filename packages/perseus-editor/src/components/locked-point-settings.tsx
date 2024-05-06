@@ -4,18 +4,18 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
-import {Checkbox, TextField} from "@khanacademy/wonder-blocks-form";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
+import LabeledSwitch from "./labeled-switch";
+import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import {getValidNumberFromString} from "./util";
 
@@ -58,7 +58,6 @@ const LockedPointSettings = (props: Props) => {
     const xCoordId = ids.get("x-coord");
     const yCoordId = ids.get("y-coord");
     const colorSelectId = ids.get("point-color-select");
-    const showPointToggleId = ids.get("show-point-toggle");
 
     function handleBlur() {
         const validCoord = [
@@ -83,137 +82,99 @@ const LockedPointSettings = (props: Props) => {
     }
 
     return (
-        <View
-            // More specificity so that we can override the default
-            // .heading > h2 > .header styles from the articles.less
-            // file (which is imported in perseus-renderer.less).
-            className="locked-figure-accordion"
-        >
-            <AccordionSection
-                style={[styles.container, style]}
-                headerStyle={styles.accordionHeader}
-                header={
-                    // Summary: Point, coords, color (filled/open)
-                    <View style={styles.row}>
-                        <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
-                        <Strut size={spacing.xSmall_8} />
-                        {toggled && (
-                            <ColorSwatch color={pointColor} filled={filled} />
-                        )}
-                    </View>
-                }
-            >
-                <View style={styles.accordionPanel}>
-                    {/* Coordinates */}
-                    <View style={styles.row}>
-                        <View style={[styles.row, styles.spaceUnder]}>
-                            <LabelMedium
-                                htmlFor={xCoordId}
-                                style={styles.label}
-                                tag="label"
-                            >
-                                x Coord
-                            </LabelMedium>
-                            <TextField
-                                id={xCoordId}
-                                type="number"
-                                value={coordState[0]}
-                                onChange={(newValue) =>
-                                    handleCoordChange(newValue, 0)
-                                }
-                                onBlur={handleBlur}
-                                style={styles.textField}
-                            />
-                        </View>
-                        <Strut size={spacing.medium_16} />
-                        <View style={[styles.row, styles.spaceUnder]}>
-                            <LabelMedium
-                                htmlFor={yCoordId}
-                                style={styles.label}
-                                tag="label"
-                            >
-                                y Coord
-                            </LabelMedium>
-                            <TextField
-                                id={yCoordId}
-                                type="number"
-                                value={coordState[1]}
-                                onChange={(newValue) =>
-                                    handleCoordChange(newValue, 1)
-                                }
-                                onBlur={handleBlur}
-                                style={styles.textField}
-                            />
-                        </View>
-                    </View>
-
-                    {/* Toggle switch */}
-                    {onToggle && (
-                        <View style={[styles.row, styles.spaceUnder]}>
-                            <Switch
-                                id={showPointToggleId}
-                                checked={!!toggled}
-                                onChange={onToggle}
-                            />
-                            <Strut size={spacing.small_12} />
-                            <LabelMedium
-                                tag="label"
-                                htmlFor={showPointToggleId}
-                            >
-                                Show point on graph
-                            </LabelMedium>
-                        </View>
-                    )}
-
-                    {/* Toggleable section */}
+        <LockedFigureSettingsAccordion
+            containerStyle={style}
+            panelStyle={!onRemove && styles.accordionPanelWithoutActions}
+            header={
+                // Summary: Point, coords, color (filled/open)
+                <View style={styles.row}>
+                    <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
+                    <Strut size={spacing.xSmall_8} />
                     {toggled && (
-                        <>
-                            <ColorSelect
-                                id={colorSelectId}
-                                selectedValue={pointColor || "blue"}
-                                onChange={handleColorChange}
-                            />
-                            <Strut size={spacing.xSmall_8} />
-                            <Checkbox
-                                label="Open point"
-                                checked={!filled}
-                                onChange={(newValue) => {
-                                    onChangeProps({filled: !newValue});
-                                }}
-                                style={styles.spaceUnder}
-                            />
-                        </>
-                    )}
-
-                    {/* Actions */}
-                    {onRemove && (
-                        <LockedFigureSettingsActions
-                            onRemove={onRemove}
-                            figureAriaLabel={`locked point at ${coordState[0]}, ${coordState[1]}`}
-                        />
+                        <ColorSwatch color={pointColor} filled={filled} />
                     )}
                 </View>
-            </AccordionSection>
-        </View>
+            }
+        >
+            {/* Coordinates */}
+            <View style={[styles.row, styles.spaceUnder]}>
+                <LabelMedium
+                    htmlFor={xCoordId}
+                    style={styles.label}
+                    tag="label"
+                >
+                    x coord
+                </LabelMedium>
+                <TextField
+                    id={xCoordId}
+                    type="number"
+                    value={coordState[0]}
+                    onChange={(newValue) => handleCoordChange(newValue, 0)}
+                    onBlur={handleBlur}
+                    style={styles.textField}
+                />
+                <Strut size={spacing.medium_16} />
+                <LabelMedium
+                    htmlFor={yCoordId}
+                    style={styles.label}
+                    tag="label"
+                >
+                    y coord
+                </LabelMedium>
+                <TextField
+                    id={yCoordId}
+                    type="number"
+                    value={coordState[1]}
+                    onChange={(newValue) => handleCoordChange(newValue, 1)}
+                    onBlur={handleBlur}
+                    style={styles.textField}
+                />
+            </View>
+
+            {/* Toggle switch */}
+            {onToggle && (
+                <LabeledSwitch
+                    label="show point on graph"
+                    checked={!!toggled}
+                    style={toggled && styles.spaceUnder}
+                    onChange={onToggle}
+                />
+            )}
+
+            {/* Toggleable section */}
+            {toggled && (
+                <>
+                    <ColorSelect
+                        id={colorSelectId}
+                        selectedValue={pointColor}
+                        onChange={handleColorChange}
+                        style={styles.spaceUnder}
+                    />
+                    <LabeledSwitch
+                        label="open point"
+                        checked={!filled}
+                        onChange={(newValue) => {
+                            onChangeProps({filled: !newValue});
+                        }}
+                    />
+                </>
+            )}
+
+            {/* Actions */}
+            {onRemove && (
+                <LockedFigureSettingsActions
+                    onRemove={onRemove}
+                    figureAriaLabel={`locked point at ${coordState[0]}, ${coordState[1]}`}
+                />
+            )}
+        </LockedFigureSettingsAccordion>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: wbColor.fadedBlue8,
-        marginBottom: spacing.small_12,
-    },
-    accordionHeader: {
-        paddingTop: spacing.small_12,
-        paddingBottom: spacing.small_12,
-        paddingInlineStart: spacing.medium_16,
-        // Fixed height so the addition of the color swatch doesn't
-        // change the height of the header when toggling.
-        height: spacing.xxLarge_48,
-    },
-    accordionPanel: {
-        padding: spacing.medium_16,
-        paddingBottom: spacing.xSmall_8,
+    accordionPanelWithoutActions: {
+        // Need more space since we don't have the actions' margins.
+        paddingBottom: spacing.medium_16,
     },
     row: {
         flexDirection: "row",
@@ -223,7 +184,7 @@ const styles = StyleSheet.create({
         marginBottom: spacing.xSmall_8,
     },
     label: {
-        marginInlineEnd: spacing.xSmall_8,
+        marginInlineEnd: spacing.xxSmall_6,
     },
     textField: {
         width: spacing.xxxLarge_64,
