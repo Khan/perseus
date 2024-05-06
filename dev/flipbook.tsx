@@ -10,7 +10,7 @@ import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import Toolbar from "@khanacademy/wonder-blocks-toolbar";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import emptyIcon from "@phosphor-icons/core/regular/empty.svg";
+import cameraSlashIcon from "@phosphor-icons/core/regular/camera-slash.svg";
 import graphIcon from "@phosphor-icons/core/regular/graph.svg";
 import imageIcon from "@phosphor-icons/core/regular/image.svg";
 import * as React from "react";
@@ -175,8 +175,15 @@ export function Flipbook() {
                                     />
                                 </Tooltip>
                             ))}
-                            {(imageUrls?.length ?? 0 === 0) && (
-                                <IconButton icon={emptyIcon} />
+                            {(imageUrls?.length ?? 0) === 0 && (
+                                <Tooltip
+                                    placement="right"
+                                    content={
+                                        "This graph does not specify a background image"
+                                    }
+                                >
+                                    <IconButton icon={cameraSlashIcon} />
+                                </Tooltip>
                             )}
                         </View>
                     }
