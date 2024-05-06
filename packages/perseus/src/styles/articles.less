@@ -421,8 +421,7 @@
 
     .math(@blockMathTextSize; @blockMathLineHeight;
           @inlineMathTextSize; @inlineMathLineHeight) {
-        .katex,
-        mjx-container {
+        :is(.katex, mjx-container):not(.mafs-graph *) {
             font-size: @inlineMathTextSize;
             line-height: @inlineMathLineHeight;
             color: @gray17;

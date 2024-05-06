@@ -4,9 +4,7 @@
     "author": "Khan Academy",
     "license": "MIT",
     "version": "1.5.3",
-    "publishConfig": {
-        "access": "public"
-    },
+    "private": true,
     "repository": {
         "type": "git",
         "url": "https://github.com/Khan/perseus.git",
@@ -25,7 +23,9 @@
         "@khanacademy/simple-markdown": "^0.11.4",
         "@khanacademy/wonder-blocks-banner": "^3.0.41",
         "@khanacademy/wonder-blocks-search-field": "^2.2.9",
-        "@khanacademy/wonder-blocks-tokens": "^1.0.0"
+        "@khanacademy/wonder-blocks-tokens": "^1.0.0",
+        "@khanacademy/wonder-blocks-toolbar": "^3.0.30",
+        "@khanacademy/wonder-stuff-core": "^1.5.2"
     },
     "devDependencies": {
         "vite": "^5.1.0"

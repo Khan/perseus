@@ -1,4 +1,5 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
+import Button from "@khanacademy/wonder-blocks-button";
 import {useUniqueIdWithMock, View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, MultiSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -75,6 +76,9 @@ const styles = StyleSheet.create({
         width: 460,
         borderRadius: 7,
         border: "1px solid #ccc",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
     },
 });
 
@@ -253,6 +257,15 @@ function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
                     strings={mockStrings}
                 />
             </div>
+            <Button
+                onClick={() => {
+                    navigator.clipboard.writeText(JSON.stringify(question));
+                }}
+                size="small"
+                kind="tertiary"
+            >
+                Copy question
+            </Button>
         </div>
     );
 }
