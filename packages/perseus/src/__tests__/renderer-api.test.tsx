@@ -216,7 +216,7 @@ describe("Perseus API", function () {
     describe("widget placeholders", function () {
         it("should replace widgets with [WIDGET]", function () {
             const widgetPlaceholder = (
-                <span data-test-id="widget-container">[WIDGET]</span>
+                <span data-testid="widget-container">[WIDGET]</span>
             );
 
             render(
@@ -238,7 +238,7 @@ describe("Perseus API", function () {
 
         it("should replace images with [IMAGE]", function () {
             const imagePlaceholder = (
-                <span data-test-id="image-container">[IMAGE]</span>
+                <span data-testid="image-container">[IMAGE]</span>
             );
             render(
                 <Renderer
