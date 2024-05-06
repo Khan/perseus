@@ -2867,11 +2867,6 @@
   resolved "https://registry.yarnpkg.com/@phosphor-icons/core/-/core-2.0.2.tgz#108c0e5d798bcb76951ae8d0a61987cd549ac949"
   integrity sha512-ZHvHBagars5C2IGKW9TdiOe8LwIVq6/LmJRfxBlfFcbsNAfYXTNzf6IUQKy0hrPTn6bTdQh5ghe436i+W1JKrw==
 
-"@phosphor-icons/core@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@phosphor-icons/core/-/core-2.1.1.tgz#62a4cfbec9772f1a613a647da214fbb96f3ad39d"
-  integrity sha512-v4ARvrip4qBCImOE5rmPUylOEK4iiED9ZyKjcvzuezqMaiRASCHKcRIuvvxL/twvLpkfnEODCOJp5dM4eZilxQ==
-
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
