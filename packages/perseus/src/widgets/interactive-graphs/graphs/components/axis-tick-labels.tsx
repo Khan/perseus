@@ -70,12 +70,12 @@ const YGridLabel = ({label, gridStep, tickStep, graphInfo}: GridLabel) => {
     // If the label is on the right edge of the graph, text-align to the left
     const textAlign = left === graphInfo.width + 5 ? "left" : "right";
 
-    // Remove the negative sign from the label string as it is handled separately
-    const labelString = Math.abs(label).toString();
-
     // If the label requires padding for the negative sign, add it
     // This allows us to ensure that labels are placed correctly when left-aligned
     const negativeNumberPadding = label < 0 ? "12px" : "0px";
+
+    // Remove the negative sign from the label string as it is handled in the data-content attribute
+    const labelString = Math.abs(label).toString();
 
     const styles = {
         left,
@@ -121,16 +121,16 @@ const XGridLabel = ({label, gridStep, tickStep, graphInfo}: GridLabel) => {
     const leftPadding = 22;
     const left = pixelPoint[0] - leftPadding;
 
-    // Remove the negative sign from the label string as it is handled separately
+    // Remove the negative sign from the label string as it is handled in the data-content attribute
     const labelString = Math.abs(label).toString();
 
-    // For the x-axis, we want to make sure the widths of the labels are consistent
-    const negativeNumberPadding = "12px";
+    // For the x-axis, we want to make sure the padding of the labels is consistent
+    const padding = "12px";
 
     const styles = {
         left,
         top,
-        "--padding": negativeNumberPadding,
+        "--padding": padding,
     };
 
     return (

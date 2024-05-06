@@ -1,4 +1,4 @@
-import {type Interval, vec} from "mafs";
+import {vec} from "mafs";
 
 import useGraphConfig from "../reducer/use-graph-config";
 

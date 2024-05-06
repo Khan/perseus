@@ -164,7 +164,7 @@ export type MafsGraphProps = {
 export const MafsGraph = (props: MafsGraphProps) => {
     const {state, dispatch, labels} = props;
     const [width, height] = props.box;
-
+    const tickStep = props.step as vec.Vector2;
     return (
         <GraphConfigContext.Provider
             value={{
@@ -188,8 +188,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     position: "relative",
                     padding: "25px 25px 0 0",
                     boxSizing: "content-box",
-                    marginLeft: "20px !important",
-                    marginBottom: "20px !important",
+                    marginLeft: "20px",
+                    marginBottom: "20px",
                 }}
             >
                 <LegacyGrid
