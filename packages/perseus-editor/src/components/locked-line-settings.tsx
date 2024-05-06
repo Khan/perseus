@@ -7,7 +7,6 @@
 import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
@@ -37,7 +36,6 @@ const LockedLineSettings = (props: Props) => {
         points,
         color: lineColor = "blue",
         lineStyle = "solid",
-        showArrows,
         showStartPoint,
         showEndPoint,
         onChangeProps,
@@ -120,7 +118,6 @@ const LockedLineSettings = (props: Props) => {
                             onChange={(value: "line" | "segment" | "ray") =>
                                 onChangeProps({
                                     kind: value,
-                                    showArrows: value !== "segment",
                                 })
                             }
                             // Placeholder is required, but never gets used.
@@ -164,16 +161,6 @@ const LockedLineSettings = (props: Props) => {
                             </SingleSelect>
                         </View>
                     </View>
-
-                    {/* Show arrows setting */}
-                    <Checkbox
-                        label="Show arrows"
-                        checked={showArrows}
-                        onChange={(newValue) =>
-                            onChangeProps({showArrows: newValue})
-                        }
-                        style={styles.spaceUnder}
-                    />
 
                     {/* Defining points settings */}
                     <LockedPointSettings

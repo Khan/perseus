@@ -11,12 +11,11 @@ type Props = {
     tail: vec.Vector2;
     tip: vec.Vector2;
     color: string;
-    showArrow?: boolean;
     style?: React.SVGProps<SVGLineElement>["style"];
 };
 
 export function Vector(props: Props) {
-    const {tail, tip, color, showArrow = true, style} = props;
+    const {tail, tip, color, style} = props;
     const [tailPx, tipPx] = useTransformVectorsToPixels(tail, tip);
     const direction = vec.sub(tip, tail);
     const angle = calculateAngleInDegrees(direction);
@@ -24,7 +23,7 @@ export function Vector(props: Props) {
     return (
         <g style={{stroke: color, strokeWidth: 2}}>
             <SVGLine start={tailPx} end={tipPx} style={style} />
-            {showArrow && <Arrowhead angle={angle} tip={tip} color={color} />}
+            <Arrowhead angle={angle} tip={tip} color={color} />
         </g>
     );
 }

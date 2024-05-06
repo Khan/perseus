@@ -19,14 +19,16 @@ type Props = LockedLineType & {
 };
 
 const LockedLine = (props: Props) => {
-    const {color, lineStyle, kind, points, showArrows, range} = props;
+    const {
+        color,
+        lineStyle,
+        kind,
+        points,
+        showStartPoint,
+        showEndPoint,
+        range,
+    } = props;
     const [point1, point2] = points;
-    // NOTE: Segments should not show both a point and an arrow.
-    //       Arrows supersede points.
-    const showStartPoint =
-        props.showStartPoint && (kind !== "segment" || !showArrows);
-    const showEndPoint =
-        props.showEndPoint && (kind !== "segment" || !showArrows);
 
     let line;
 
@@ -42,7 +44,6 @@ const LockedLine = (props: Props) => {
                 tail={point1.coord}
                 tip={extendedPoint}
                 color={lockedFigureColors[color]}
-                showArrow={showArrows}
                 style={{
                     strokeDasharray:
                         lineStyle === "dashed"
@@ -67,7 +68,7 @@ const LockedLine = (props: Props) => {
                   );
         const direction = vec.sub(point2.coord, point1.coord);
         let angle = calculateAngleInDegrees(direction);
-        const startArrowHead = showArrows && (
+        const startArrowHead = kind !== "segment" && (
             <Arrowhead
                 angle={angle}
                 tip={arrowTip}
@@ -84,7 +85,7 @@ const LockedLine = (props: Props) => {
                       range,
                   );
         angle = angle > 180 ? angle - 180 : angle + 180;
-        const endArrowHead = showArrows && (
+        const endArrowHead = kind !== "segment" && (
             <Arrowhead
                 angle={angle}
                 tip={arrowTip}

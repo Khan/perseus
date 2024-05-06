@@ -478,19 +478,4 @@ describe("snapshots", () => {
 
         expect(container).toMatchSnapshot();
     });
-
-    test("should render correctly with locked lines when 'show arrows' is set on", () => {
-        const {container} = renderQuestion(
-            segmentWithLockedLineAndArrowheadsQuestion,
-            {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            },
-        );
-
-        expect(container).toMatchSnapshot();
-    });
 });

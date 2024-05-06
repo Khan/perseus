@@ -499,40 +499,6 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked line's showArrows is changed", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Act
-            const showArrowsInput = screen.getByRole("checkbox", {
-                name: "Show arrows",
-            });
-            await userEvent.click(showArrowsInput); // Uncheck the "Show Arrows" setting
-
-            // Assert
-            expect(onChangeMock).toBeCalledWith(
-                expect.objectContaining({
-                    lockedFigures: [
-                        expect.objectContaining({
-                            ...defaultLine,
-                            showArrows: false,
-                        }),
-                    ],
-                }),
-            );
-        });
-
         test("Calls onChange when a locked line's start point is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
@@ -651,7 +617,6 @@ describe("InteractiveGraphEditor locked figures", () => {
                         expect.objectContaining({
                             ...defaultLine,
                             kind: "segment",
-                            showArrows: false,
                         }),
                     ],
                 }),

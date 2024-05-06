@@ -70,7 +70,6 @@ describe("getDefaultFigureForType", () => {
             ],
             color: "blue",
             lineStyle: "solid",
-            showArrows: true,
             showStartPoint: false,
             showEndPoint: false,
         });
