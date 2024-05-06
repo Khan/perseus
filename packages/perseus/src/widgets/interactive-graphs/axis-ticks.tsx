@@ -3,6 +3,7 @@ import * as React from "react";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import useGraphConfig from "./reducer/use-graph-config";
 
+import type {GraphDimensions} from "./types";
 import type {vec} from "mafs";
 
 const tickSize = 10;
@@ -12,30 +13,7 @@ const tickStyle: React.CSSProperties = {
     strokeWidth: 1,
 };
 
-// We only want to show the initial negative tick labels (e.g. -1) on each
-// axis if the tickStep > gridStep, to ensure that these labels do not overlap.
-// e.g. If gridStep = 1 and tickStep = 2, there are 2 grid lines for every 1 tick,
-// which allows enough room for both these tick labels to render.
-export const showTickLabel = (
-    gridStep: number,
-    tickStep: number,
-    label: number,
-): boolean => {
-    const showLabel = tickStep > gridStep ? true : label !== -tickStep;
-    return showLabel;
-};
-
-const YGridTick = ({
-    y,
-    gridStep,
-    tickStep,
-    graphInfo,
-}: {
-    y: number;
-    gridStep: number;
-    tickStep: number;
-    graphInfo: any; //STOPSHIP FIX LATER
-}) => {
+const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
     let xPointOnAxis = 0;
 
     // If the graph is zoomed in, we want to make sure the ticks are still visible
@@ -53,7 +31,10 @@ const YGridTick = ({
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
 
     // If the tick is on the edge of the graph's range, don't render it
-    if (yPosition === -graphInfo.height || yPosition === graphInfo.height) {
+    if (
+        yPosition === -graphInfo.height ||
+        yPosition === graphInfo.height + 20
+    ) {
         return null;
     }
 
@@ -72,17 +53,7 @@ const YGridTick = ({
     );
 };
 
-const XGridTick = ({
-    x,
-    gridStep,
-    tickStep,
-    graphInfo,
-}: {
-    x: number;
-    gridStep: number;
-    tickStep: number;
-    graphInfo: any; //STOPSHIP FIX LATER
-}) => {
+const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
     let yPointOnAxis = 0;
     // If the graph is zoomed in, we want to make sure the ticks are still visible
     // even if they are outside the graph's range.
@@ -99,7 +70,7 @@ const XGridTick = ({
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
 
     // If the tick is on the edge of the graph's range, don't render it
-    if (xPosition === -graphInfo.width || xPosition === graphInfo.width) {
+    if (xPosition === -graphInfo.width / 2 || xPosition === graphInfo.width) {
         return null;
     }
 
@@ -131,14 +102,16 @@ export function generateTickLocations(
     }
 
     // Add ticks in the negative direction
-    for (let i = 0 - tickStep; i > min; i -= tickStep) {
+    // Start at the first tick after 0 or the maximum value if it is negative
+    let i = Math.min(max, 0) - tickStep;
+    for (i; i > min; i -= tickStep) {
         ticks.push(i);
     }
     return ticks;
 }
 
 export const AxisTicks = () => {
-    const {tickStep, range, gridStep, width, height} = useGraphConfig();
+    const {tickStep, range, width, height} = useGraphConfig();
 
     const graphInfo = {
         range,
@@ -162,8 +135,6 @@ export const AxisTicks = () => {
                     <YGridTick
                         y={y}
                         key={`y-grid-tick-${y}`}
-                        gridStep={gridStep[0]}
-                        tickStep={yTickStep}
                         graphInfo={graphInfo}
                     />
                 );
@@ -173,8 +144,6 @@ export const AxisTicks = () => {
                     <XGridTick
                         x={x}
                         key={`x-grid-tick-${x}`}
-                        gridStep={gridStep[1]}
-                        tickStep={xTickStep}
                         graphInfo={graphInfo}
                     />
                 );

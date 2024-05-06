@@ -206,12 +206,20 @@
 .x-axis-tick-labels span,
 .y-axis-tick-labels span {
     position: absolute;
+    white-space: pre;
+
+    &::before {
+        content: attr(data-content);
+        width: 0 !important;
+        display: inline-block;
+        padding-right: var(--padding);
+    }
 }
 .y-axis-tick-labels span {
-    width: 30px;
+    width: 35px;
     text-align: right;
 }
 .x-axis-tick-labels span {
-    width: 30px;
+    width: 35px;
     text-align: center;
 }

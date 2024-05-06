@@ -2,13 +2,9 @@ import {type Interval, vec} from "mafs";
 
 import useGraphConfig from "../reducer/use-graph-config";
 
-const matrixBuilder = vec.matrixBuilder;
+import type {GraphDimensions} from "../types";
 
-export type GraphDimensions = {
-    range: [Interval, Interval];
-    width: number; // pixels
-    height: number; // pixels
-};
+const matrixBuilder = vec.matrixBuilder;
 
 // When converting vectors, we don't need to translate because a vector
 // is like a pair of x and y distances, which are not bound to specific graph locations.
