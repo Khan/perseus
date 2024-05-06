@@ -22,10 +22,16 @@
         "@khanacademy/pure-markdown": "^0.3.3",
         "@khanacademy/simple-markdown": "^0.11.4",
         "@khanacademy/wonder-blocks-banner": "^3.0.41",
+        "@khanacademy/wonder-blocks-icon": "^4.1.0",
+        "@khanacademy/wonder-blocks-icon-button": "^5.2.0",
+        "@khanacademy/wonder-blocks-link": "^6.1.0",
         "@khanacademy/wonder-blocks-search-field": "^2.2.9",
+        "@khanacademy/wonder-blocks-timing": "^4.0.2",
         "@khanacademy/wonder-blocks-tokens": "^1.0.0",
         "@khanacademy/wonder-blocks-toolbar": "^3.0.30",
-        "@khanacademy/wonder-stuff-core": "^1.5.2"
+        "@khanacademy/wonder-blocks-tooltip": "^2.2.1",
+        "@khanacademy/wonder-stuff-core": "^1.5.2",
+        "@phosphor-icons/core": "^2.0.2"
     },
     "devDependencies": {
         "vite": "^5.1.0"

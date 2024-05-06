@@ -39,6 +39,7 @@ const pkgMap = fs
         };
     }, {});
 
+/** @type {import('jest').Config} */
 module.exports = {
     rootDir: path.join(__dirname, "../../"),
     transform: {
