@@ -361,8 +361,6 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        // There is only one axis label for -2 due to the range of the graph
-        // the negative symbol is rendered separately, so we only check for the number
         const axisLabel = screen.queryAllByText("2");
         const axisLabelStyle = getComputedStyle(axisLabel[0]);
         const axisLabelTop = axisLabelStyle.getPropertyValue("top");
