@@ -1818,3 +1818,78 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer = {
         },
     },
 };
+
+export const segmentWithLockedFigures: PerseusRenderer = {
+    content: "All locked lines\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [
+                            [-7, -7],
+                            [2, -5],
+                        ],
+                    ],
+                    type: "segment",
+                },
+                graph: {
+                    type: "segment",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+                lockedFigures: [
+                    // Just a point
+                    {
+                        type: "point",
+                        coord: [-7, -7],
+                        color: "green",
+                        filled: true,
+                    },
+                    // Point shown, one filled, one open
+                    {
+                        type: "line",
+                        kind: "line",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -5],
+                                color: "green",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -3],
+                                color: "green",
+                                filled: false,
+                            },
+                        ],
+                        color: "green",
+                        lineStyle: "solid",
+                        showArrows: false,
+                        showStartPoint: true,
+                        showEndPoint: true,
+                    },
+                ],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
