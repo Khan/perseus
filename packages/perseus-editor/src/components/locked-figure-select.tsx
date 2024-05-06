@@ -48,7 +48,7 @@ const LockedFigureSelect = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: spacing.xxxSmall_4,
+        marginTop: spacing.xSmall_8,
     },
     addElementSelect: {
         backgroundColor: color.fadedBlue8,

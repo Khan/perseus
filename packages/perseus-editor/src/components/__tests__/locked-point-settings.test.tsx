@@ -62,7 +62,7 @@ describe("LockedPointSettings", () => {
             {wrapper: RenderStateRoot},
         );
 
-        const toggleSwitch = screen.getByLabelText("Show point on graph");
+        const toggleSwitch = screen.getByLabelText("show point on graph");
 
         // Assert
         expect(toggleSwitch).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("LockedPointSettings", () => {
             {wrapper: RenderStateRoot},
         );
 
-        const toggleSwitch = screen.getByLabelText("Show point on graph");
+        const toggleSwitch = screen.getByLabelText("show point on graph");
 
         // Assert
         expect(toggleSwitch).toBeChecked();
@@ -102,7 +102,7 @@ describe("LockedPointSettings", () => {
             {wrapper: RenderStateRoot},
         );
 
-        const toggleSwitch = screen.getByLabelText("Show point on graph");
+        const toggleSwitch = screen.getByLabelText("show point on graph");
 
         // Assert
         expect(toggleSwitch).not.toBeChecked();
@@ -122,8 +122,8 @@ describe("LockedPointSettings", () => {
             {wrapper: RenderStateRoot},
         );
 
-        const colorSelect = screen.getByLabelText("Color");
-        const openCheckbox = screen.getByLabelText("Open point");
+        const colorSelect = screen.getByLabelText("color");
+        const openCheckbox = screen.getByLabelText("open point");
 
         // Assert
         expect(colorSelect).toBeInTheDocument();
