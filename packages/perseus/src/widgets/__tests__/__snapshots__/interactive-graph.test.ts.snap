@@ -2975,7 +2975,7 @@ exports[`snapshots should render correctly 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_5seapk mafs-graph"
+            class="default_xu2jcg-o_O-inlineStyles_13vp764 mafs-graph"
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -3250,7 +3250,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_5seapk mafs-graph"
+            class="default_xu2jcg-o_O-inlineStyles_13vp764 mafs-graph"
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -3273,6 +3273,240 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                   y
                 </span>
               </span>
+              <div
+                class="axis-tick-labels"
+              >
+                <div
+                  class="y-axis-tick-labels"
+                  style="height: 400px;"
+                >
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 13px; text-align: right; --padding: 0px;"
+                  >
+                    9
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 33px; text-align: right; --padding: 0px;"
+                  >
+                    8
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 53px; text-align: right; --padding: 0px;"
+                  >
+                    7
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 73px; text-align: right; --padding: 0px;"
+                  >
+                    6
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 93px; text-align: right; --padding: 0px;"
+                  >
+                    5
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 113px; text-align: right; --padding: 0px;"
+                  >
+                    4
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 133px; text-align: right; --padding: 0px;"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 153px; text-align: right; --padding: 0px;"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 173px; text-align: right; --padding: 0px;"
+                  >
+                    1
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 233px; text-align: right; --padding: 12px;"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 253px; text-align: right; --padding: 12px;"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 273px; text-align: right; --padding: 12px;"
+                  >
+                    4
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 293px; text-align: right; --padding: 12px;"
+                  >
+                    5
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 313px; text-align: right; --padding: 12px;"
+                  >
+                    6
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 333px; text-align: right; --padding: 12px;"
+                  >
+                    7
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 353px; text-align: right; --padding: 12px;"
+                  >
+                    8
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 373px; text-align: right; --padding: 12px;"
+                  >
+                    9
+                  </span>
+                </div>
+                <div
+                  class="x-axis-tick-labels"
+                  style="width: 400px;"
+                >
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 358px; top: 212px; --padding: 12px;"
+                  >
+                    9
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 338px; top: 212px; --padding: 12px;"
+                  >
+                    8
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 318px; top: 212px; --padding: 12px;"
+                  >
+                    7
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 298px; top: 212px; --padding: 12px;"
+                  >
+                    6
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 278px; top: 212px; --padding: 12px;"
+                  >
+                    5
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 258px; top: 212px; --padding: 12px;"
+                  >
+                    4
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 238px; top: 212px; --padding: 12px;"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 218px; top: 212px; --padding: 12px;"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 198px; top: 212px; --padding: 12px;"
+                  >
+                    1
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 138px; top: 212px; --padding: 12px;"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 118px; top: 212px; --padding: 12px;"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 98px; top: 212px; --padding: 12px;"
+                  >
+                    4
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 78px; top: 212px; --padding: 12px;"
+                  >
+                    5
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 58px; top: 212px; --padding: 12px;"
+                  >
+                    6
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 38px; top: 212px; --padding: 12px;"
+                  >
+                    7
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 18px; top: 212px; --padding: 12px;"
+                  >
+                    8
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: -2px; top: 212px; --padding: 12px;"
+                  >
+                    9
+                  </span>
+                </div>
+              </div>
               <div
                 class="MafsView"
                 style="width: 400px; height: 400px;"
@@ -3398,15 +3632,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-20"
                         y2="-20"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-15"
-                      >
-                        1
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3418,15 +3643,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-40"
                         y2="-40"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-35"
-                      >
-                        2
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3438,15 +3654,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-60"
                         y2="-60"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-55"
-                      >
-                        3
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3458,15 +3665,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-80"
                         y2="-80"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-75"
-                      >
-                        4
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3478,15 +3676,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-100"
                         y2="-100"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-95"
-                      >
-                        5
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3498,15 +3687,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-120"
                         y2="-120"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-115"
-                      >
-                        6
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3518,15 +3698,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-140"
                         y2="-140"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-135"
-                      >
-                        7
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3538,15 +3709,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-160"
                         y2="-160"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-155"
-                      >
-                        8
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3558,15 +3720,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="-180"
                         y2="-180"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-175"
-                      >
-                        9
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3589,15 +3742,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="40"
                         y2="40"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="45"
-                      >
-                        -2
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3609,15 +3753,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="60"
                         y2="60"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="65"
-                      >
-                        -3
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3629,15 +3764,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="80"
                         y2="80"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="85"
-                      >
-                        -4
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3649,15 +3775,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="100"
                         y2="100"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="105"
-                      >
-                        -5
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3669,15 +3786,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="120"
                         y2="120"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="125"
-                      >
-                        -6
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3689,15 +3797,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="140"
                         y2="140"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="145"
-                      >
-                        -7
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3709,15 +3808,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="160"
                         y2="160"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="165"
-                      >
-                        -8
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -3729,15 +3819,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="180"
                         y2="180"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="185"
-                      >
-                        -9
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3749,15 +3830,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="20"
-                        y="25"
-                      >
-                        1
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3769,15 +3841,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="40"
-                        y="25"
-                      >
-                        2
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3789,15 +3852,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="60"
-                        y="25"
-                      >
-                        3
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3809,15 +3863,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="80"
-                        y="25"
-                      >
-                        4
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3829,15 +3874,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="100"
-                        y="25"
-                      >
-                        5
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3849,15 +3885,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="120"
-                        y="25"
-                      >
-                        6
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3869,15 +3896,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="140"
-                        y="25"
-                      >
-                        7
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3889,15 +3907,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="160"
-                        y="25"
-                      >
-                        8
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3909,15 +3918,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="180"
-                        y="25"
-                      >
-                        9
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3940,15 +3940,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-40"
-                        y="25"
-                      >
-                        -2
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3960,15 +3951,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-60"
-                        y="25"
-                      >
-                        -3
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -3980,15 +3962,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-80"
-                        y="25"
-                      >
-                        -4
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -4000,15 +3973,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-100"
-                        y="25"
-                      >
-                        -5
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -4020,15 +3984,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-120"
-                        y="25"
-                      >
-                        -6
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -4040,15 +3995,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-140"
-                        y="25"
-                      >
-                        -7
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -4060,15 +4006,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-160"
-                        y="25"
-                      >
-                        -8
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -4080,15 +4017,6 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-180"
-                        y="25"
-                      >
-                        -9
-                      </text>
                     </g>
                   </g>
                   <g
@@ -4484,7 +4412,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_5seapk mafs-graph"
+            class="default_xu2jcg-o_O-inlineStyles_13vp764 mafs-graph"
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -4507,6 +4435,240 @@ exports[`snapshots should render correctly with locked points 1`] = `
                   y
                 </span>
               </span>
+              <div
+                class="axis-tick-labels"
+              >
+                <div
+                  class="y-axis-tick-labels"
+                  style="height: 400px;"
+                >
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 13px; text-align: right; --padding: 0px;"
+                  >
+                    9
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 33px; text-align: right; --padding: 0px;"
+                  >
+                    8
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 53px; text-align: right; --padding: 0px;"
+                  >
+                    7
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 73px; text-align: right; --padding: 0px;"
+                  >
+                    6
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 93px; text-align: right; --padding: 0px;"
+                  >
+                    5
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 113px; text-align: right; --padding: 0px;"
+                  >
+                    4
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 133px; text-align: right; --padding: 0px;"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 153px; text-align: right; --padding: 0px;"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    style="left: 155px; top: 173px; text-align: right; --padding: 0px;"
+                  >
+                    1
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 233px; text-align: right; --padding: 12px;"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 253px; text-align: right; --padding: 12px;"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 273px; text-align: right; --padding: 12px;"
+                  >
+                    4
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 293px; text-align: right; --padding: 12px;"
+                  >
+                    5
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 313px; text-align: right; --padding: 12px;"
+                  >
+                    6
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 333px; text-align: right; --padding: 12px;"
+                  >
+                    7
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 353px; text-align: right; --padding: 12px;"
+                  >
+                    8
+                  </span>
+                  <span
+                    class="y-axis-tick-label"
+                    data-content="−"
+                    style="left: 155px; top: 373px; text-align: right; --padding: 12px;"
+                  >
+                    9
+                  </span>
+                </div>
+                <div
+                  class="x-axis-tick-labels"
+                  style="width: 400px;"
+                >
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 358px; top: 212px; --padding: 12px;"
+                  >
+                    9
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 338px; top: 212px; --padding: 12px;"
+                  >
+                    8
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 318px; top: 212px; --padding: 12px;"
+                  >
+                    7
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 298px; top: 212px; --padding: 12px;"
+                  >
+                    6
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 278px; top: 212px; --padding: 12px;"
+                  >
+                    5
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 258px; top: 212px; --padding: 12px;"
+                  >
+                    4
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 238px; top: 212px; --padding: 12px;"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 218px; top: 212px; --padding: 12px;"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    style="left: 198px; top: 212px; --padding: 12px;"
+                  >
+                    1
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 138px; top: 212px; --padding: 12px;"
+                  >
+                    2
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 118px; top: 212px; --padding: 12px;"
+                  >
+                    3
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 98px; top: 212px; --padding: 12px;"
+                  >
+                    4
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 78px; top: 212px; --padding: 12px;"
+                  >
+                    5
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 58px; top: 212px; --padding: 12px;"
+                  >
+                    6
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 38px; top: 212px; --padding: 12px;"
+                  >
+                    7
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: 18px; top: 212px; --padding: 12px;"
+                  >
+                    8
+                  </span>
+                  <span
+                    class="x-axis-tick-label"
+                    data-content="−"
+                    style="left: -2px; top: 212px; --padding: 12px;"
+                  >
+                    9
+                  </span>
+                </div>
+              </div>
               <div
                 class="MafsView"
                 style="width: 400px; height: 400px;"
@@ -4632,15 +4794,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-20"
                         y2="-20"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-15"
-                      >
-                        1
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4652,15 +4805,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-40"
                         y2="-40"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-35"
-                      >
-                        2
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4672,15 +4816,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-60"
                         y2="-60"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-55"
-                      >
-                        3
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4692,15 +4827,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-80"
                         y2="-80"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-75"
-                      >
-                        4
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4712,15 +4838,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-100"
                         y2="-100"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-95"
-                      >
-                        5
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4732,15 +4849,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-120"
                         y2="-120"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-115"
-                      >
-                        6
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4752,15 +4860,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-140"
                         y2="-140"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-135"
-                      >
-                        7
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4772,15 +4871,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-160"
                         y2="-160"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-155"
-                      >
-                        8
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4792,15 +4882,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="-180"
                         y2="-180"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="-175"
-                      >
-                        9
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4823,15 +4904,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="40"
                         y2="40"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="45"
-                      >
-                        -2
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4843,15 +4915,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="60"
                         y2="60"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="65"
-                      >
-                        -3
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4863,15 +4926,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="80"
                         y2="80"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="85"
-                      >
-                        -4
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4883,15 +4937,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="100"
                         y2="100"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="105"
-                      >
-                        -5
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4903,15 +4948,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="120"
                         y2="120"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="125"
-                      >
-                        -6
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4923,15 +4959,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="140"
                         y2="140"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="145"
-                      >
-                        -7
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4943,15 +4970,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="160"
                         y2="160"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="165"
-                      >
-                        -8
-                      </text>
                     </g>
                     <g
                       class="y-axis-ticks"
@@ -4963,15 +4981,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="180"
                         y2="180"
                       />
-                      <text
-                        height="20"
-                        text-anchor="end"
-                        width="50"
-                        x="-10"
-                        y="185"
-                      >
-                        -9
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -4983,15 +4992,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="20"
-                        y="25"
-                      >
-                        1
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5003,15 +5003,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="40"
-                        y="25"
-                      >
-                        2
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5023,15 +5014,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="60"
-                        y="25"
-                      >
-                        3
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5043,15 +5025,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="80"
-                        y="25"
-                      >
-                        4
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5063,15 +5036,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="100"
-                        y="25"
-                      >
-                        5
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5083,15 +5047,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="120"
-                        y="25"
-                      >
-                        6
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5103,15 +5058,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="140"
-                        y="25"
-                      >
-                        7
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5123,15 +5069,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="160"
-                        y="25"
-                      >
-                        8
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5143,15 +5080,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="180"
-                        y="25"
-                      >
-                        9
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5174,15 +5102,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-40"
-                        y="25"
-                      >
-                        -2
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5194,15 +5113,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-60"
-                        y="25"
-                      >
-                        -3
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5214,15 +5124,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-80"
-                        y="25"
-                      >
-                        -4
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5234,15 +5135,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-100"
-                        y="25"
-                      >
-                        -5
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5254,15 +5146,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-120"
-                        y="25"
-                      >
-                        -6
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5274,15 +5157,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-140"
-                        y="25"
-                      >
-                        -7
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5294,15 +5168,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-160"
-                        y="25"
-                      >
-                        -8
-                      </text>
                     </g>
                     <g
                       class="x-axis-ticks"
@@ -5314,15 +5179,6 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         y1="5"
                         y2="-5"
                       />
-                      <text
-                        height="20"
-                        text-anchor="middle"
-                        width="50"
-                        x="-180"
-                        y="25"
-                      >
-                        -9
-                      </text>
                     </g>
                   </g>
                   <g

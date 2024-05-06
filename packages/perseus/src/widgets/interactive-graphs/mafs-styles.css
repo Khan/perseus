@@ -194,19 +194,16 @@
     font-family: "Mafs-MJXTEX";
 }
 
-.y-axis-tick-labels {
+.y-axis-tick-labels,
+.x-axis-tick-labels {
     position: absolute;
 }
 
-.x-axis-tick-labels {
-    display: flex;
-    flex-flow: row-reverse;
-    position: absolute;
-}
 .x-axis-tick-labels span,
 .y-axis-tick-labels span {
     position: absolute;
     white-space: pre;
+    width: 35px;
 
     &::before {
         content: attr(data-content);
@@ -215,11 +212,11 @@
         padding-right: var(--padding);
     }
 }
+
 .y-axis-tick-labels span {
-    width: 35px;
     text-align: right;
 }
+
 .x-axis-tick-labels span {
-    width: 35px;
     text-align: center;
 }
