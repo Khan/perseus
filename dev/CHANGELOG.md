@@ -1,5 +1,14 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.5.4
+
+### Patch Changes
+
+-   [#1220](https://github.com/Khan/perseus/pull/1220) [`e3fd10f0e`](https://github.com/Khan/perseus/commit/e3fd10f0e975a23a74811fbccf3ac46fc2752e0b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - ✨ Wrap the navigation controls of the Flipbook inside of a WB Toolbar
+
+-   Updated dependencies [[`71e74ff64`](https://github.com/Khan/perseus/commit/71e74ff647264f0067d279cfa51e7c9dd8b45043), [`db041577d`](https://github.com/Khan/perseus/commit/db041577dda780e2a871ad9e63c295a1d3fbe185)]:
+    -   @khanacademy/math-input@18.1.0
+
 ## 1.5.3
 
 ### Patch Changes

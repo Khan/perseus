@@ -1,5 +1,22 @@
 # @khanacademy/perseus
 
+## 22.3.0
+
+### Minor Changes
+
+-   [#1210](https://github.com/Khan/perseus/pull/1210) [`2d3c3b49a`](https://github.com/Khan/perseus/commit/2d3c3b49a652020e5bf662b7b19682fa94212755) Thanks [@nishasy](https://github.com/nishasy)! - Limit color set for locked figures in Interactive Graph
+
+### Patch Changes
+
+-   [#1231](https://github.com/Khan/perseus/pull/1231) [`4fae0155d`](https://github.com/Khan/perseus/commit/4fae0155d358ca3c6bfaaac328631fec77d3fbe3) Thanks [@nishasy](https://github.com/nishasy)! - Adjust spacing in locked point and locked line settings
+
+*   [#1232](https://github.com/Khan/perseus/pull/1232) [`cf1dc61b0`](https://github.com/Khan/perseus/commit/cf1dc61b041bbb15bac4120490bfd0f1909f5507) Thanks [@nishasy](https://github.com/nishasy)! - Refactor: separate LockedFigureSettingsAccordion component to reduce redundancy
+
+-   [#1239](https://github.com/Khan/perseus/pull/1239) [`f757db589`](https://github.com/Khan/perseus/commit/f757db589c6500e0e1487e886fc3e92646492f1c) Thanks [@benchristel](https://github.com/benchristel)! - Fix sizing of interactive graph axis labels on mobile
+
+-   Updated dependencies [[`71e74ff64`](https://github.com/Khan/perseus/commit/71e74ff647264f0067d279cfa51e7c9dd8b45043), [`db041577d`](https://github.com/Khan/perseus/commit/db041577dda780e2a871ad9e63c295a1d3fbe185)]:
+    -   @khanacademy/math-input@18.1.0
+
 ## 22.2.0
 
 ### Minor Changes
