@@ -43,10 +43,7 @@ const LockedLine = (props: Props) => {
                 style={{
                     strokeDasharray:
                         lineStyle === "dashed"
-                            ? // TODO(lems-1930): Uncomment this line when the
-                              // dashed style is updated in Mafs.
-                              // ? "var(--mafs-line-stroke-dash-style)"
-                              "4, 3"
+                            ? "var(--mafs-line-stroke-dash-style)"
                             : undefined,
                 }}
             />
