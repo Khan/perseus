@@ -395,7 +395,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        expect((updated as CircleGraphState).center).toEqual([10, 10]);
+        expect((updated as CircleGraphState).center).toEqual([9, 9]);
     });
 
     it("updates the radius", () => {
@@ -415,11 +415,11 @@ describe("moveCenter", () => {
             ...baseCircleGraphState,
         };
 
-        const updated = interactiveGraphReducer(state, moveCenter([10, 0]));
+        const updated = interactiveGraphReducer(state, moveCenter([9, 0]));
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        expect((updated as CircleGraphState).radiusPoint).toEqual([8, 0]);
+        expect((updated as CircleGraphState).radiusPoint).toEqual([7, 0]);
     });
 
     it("throws for non-circle graphs", () => {

@@ -217,27 +217,30 @@ function doMoveCenter(
     switch (state.type) {
         case "circle": {
             // Constrain the center of the circle to the chart range
-            const [xMin, xMax] = state.range[0];
-            const [yMin, yMax] = state.range[1];
-            const constrainedCenter: vec.Vector2 = [
-                Math.min(Math.max(xMin, action.destination[0]), xMax),
-                Math.min(Math.max(yMin, action.destination[1]), yMax),
-            ];
+            const constrainedCenter: vec.Vector2 = bound({
+                snapStep: state.snapStep,
+                range: state.range,
+                point: action.destination,
+            });
 
             // Reposition the radius point based on the new center
-            const newRadiusPoint = vec.add(
-                state.radiusPoint,
-                vec.sub(constrainedCenter, state.center),
-            );
+            // (spread to make sure we're not going to  mutate anything)
+            const newRadiusPoint: vec.Vector2 = [
+                ...vec.add(
+                    state.radiusPoint,
+                    vec.sub(constrainedCenter, state.center),
+                ),
+            ];
 
             // Try to position the radius handle in a visible spot
             // if it otherwise would be off the chart
             // ex: if the handle is on the right and we move the center
             // to the rightmost position, move the handle to the left
+            const [xMin, xMax] = state.range[0];
             const [radX] = newRadiusPoint;
             if (radX < xMin || radX > xMax) {
                 const xJumpDist = (radX - constrainedCenter[0]) * 2;
-                const possibleNewX = newRadiusPoint[0] - xJumpDist;
+                const possibleNewX = radX - xJumpDist;
                 if (possibleNewX >= xMin && possibleNewX <= xMax) {
                     newRadiusPoint[0] = possibleNewX;
                 }

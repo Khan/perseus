@@ -85,7 +85,7 @@ const renderGraph = (props: {
 // the legacy interactive graph, this lets us store state
 // however we want and we just transform it before handing it off
 // the the parent InteractiveGraph
-function mafStateToInteractiveGraph(state: MafsChange) {
+function mafsStateToInteractiveGraph(state: MafsChange) {
     if (state.graph.type === "circle") {
         return {
             ...state,
@@ -113,7 +113,7 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
         }));
 
         function onChange(next: MafsChange) {
-            props.onChange(mafStateToInteractiveGraph(next));
+            props.onChange(mafsStateToInteractiveGraph(next));
         }
 
         return (
