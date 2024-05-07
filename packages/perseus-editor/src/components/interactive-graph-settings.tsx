@@ -583,11 +583,13 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 </LabeledRow>
 
                 <View style={styles.rulerSection}>
-                    <Banner
-                        layout="floating"
-                        text="The ruler and protractor are not accessible. Please consider an alternate approach."
-                        kind="warning"
-                    />
+                    {(this.props.showRuler || this.props.showProtractor) && (
+                        <Banner
+                            layout="floating"
+                            text="The ruler and protractor are not accessible. Please consider an alternate approach."
+                            kind="warning"
+                        />
+                    )}
                     <View style={styles.checkboxRow}>
                         <PropCheckBox
                             label="Show ruler"
