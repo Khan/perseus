@@ -39,12 +39,12 @@ describe("getValidNumberFromString", () => {
 });
 
 describe("getDefaultFigureForType", () => {
-    test("should return a point with default coordinates", () => {
+    test("should return a point with default values", () => {
         const figure = getDefaultFigureForType("point");
         expect(figure).toEqual({
             type: "point",
             coord: [0, 0],
-            color: "green",
+            color: "grayH",
             filled: true,
         });
     });
@@ -58,17 +58,17 @@ describe("getDefaultFigureForType", () => {
                 {
                     type: "point",
                     coord: [0, 0],
-                    color: "green",
+                    color: "grayH",
                     filled: true,
                 },
                 {
                     type: "point",
                     coord: [2, 2],
-                    color: "green",
+                    color: "grayH",
                     filled: true,
                 },
             ],
-            color: "green",
+            color: "grayH",
             lineStyle: "solid",
             showArrows: false,
             showStartPoint: false,
