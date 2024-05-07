@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 22.4.0
+
+### Minor Changes
+
+-   [#1229](https://github.com/Khan/perseus/pull/1229) [`3c1e398d5`](https://github.com/Khan/perseus/commit/3c1e398d5f6fd3fad256eedfec821264ba857f9a) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Show Arrowheads on Locked Lines in Interactive Graphs
+
+*   [#1237](https://github.com/Khan/perseus/pull/1237) [`54689a18f`](https://github.com/Khan/perseus/commit/54689a18f73bc29b6601c9309d5385bd47c101b9) Thanks [@handeyeco](https://github.com/handeyeco)! - Rough out new Circle Graph behind a feature flag
+
+### Patch Changes
+
+-   [#1222](https://github.com/Khan/perseus/pull/1222) [`44cf7348c`](https://github.com/Khan/perseus/commit/44cf7348c5f80726da8b93a71e0ce0121b90a4ba) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix @phosphor-icon paths in `explanation` widget
+
+*   [#1243](https://github.com/Khan/perseus/pull/1243) [`ee89a1b01`](https://github.com/Khan/perseus/commit/ee89a1b0169808c9c7fb14c14d2e78975e390ce9) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix dash style for locked lines when kind is 'ray'
+
 ## 22.3.0
 
 ### Minor Changes
