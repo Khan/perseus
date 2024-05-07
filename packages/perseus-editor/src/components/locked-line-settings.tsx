@@ -14,7 +14,6 @@ import * as React from "react";
 
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
-import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedPointSettings from "./locked-point-settings";
@@ -37,7 +36,6 @@ const LockedLineSettings = (props: Props) => {
         points,
         color: lineColor,
         lineStyle = "solid",
-        showArrows,
         showStartPoint,
         showEndPoint,
         onChangeProps,
@@ -153,13 +151,6 @@ const LockedLineSettings = (props: Props) => {
                     </SingleSelect>
                 </View>
             </View>
-
-            {/* Show arrows setting */}
-            <LabeledSwitch
-                label="show arrows"
-                checked={showArrows}
-                onChange={(newValue) => onChangeProps({showArrows: newValue})}
-            />
 
             {/* Defining points settings */}
             <LockedPointSettings

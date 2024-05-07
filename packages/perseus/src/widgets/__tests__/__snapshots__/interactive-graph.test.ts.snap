@@ -4086,6 +4086,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     </g>
                   </g>
                   <g
+                    class="interactive-graph-arrowhead"
                     transform="translate(-200 0) rotate(-180)"
                   >
                     <g
@@ -4101,6 +4102,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     </g>
                   </g>
                   <g
+                    class="interactive-graph-arrowhead"
                     transform="translate(200 0) rotate(0)"
                   >
                     <g
@@ -4116,6 +4118,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     </g>
                   </g>
                   <g
+                    class="interactive-graph-arrowhead"
                     transform="translate(0 200) rotate(-270)"
                   >
                     <g
@@ -4131,6 +4134,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     </g>
                   </g>
                   <g
+                    class="interactive-graph-arrowhead"
                     transform="translate(0 -200) rotate(-90)"
                   >
                     <g
@@ -4148,6 +4152,22 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                   <g
                     class="locked-line"
                   >
+                    <g
+                      class="interactive-graph-arrowhead"
+                      transform="translate(200 64.44444444444444) rotate(-12.528807709151511)"
+                    >
+                      <g
+                        transform="translate(-1.5)"
+                      >
+                        <path
+                          d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="stroke: #447A53;"
+                        />
+                      </g>
+                    </g>
                     <line
                       opacity="1"
                       stroke-width="2"
@@ -4157,6 +4177,22 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                       y1="-9"
                       y2="-1.89"
                     />
+                    <g
+                      class="interactive-graph-arrowhead"
+                      transform="translate(-200 153.33333333333331) rotate(-192.52880770915152)"
+                    >
+                      <g
+                        transform="translate(-1.5)"
+                      >
+                        <path
+                          d="M-4.199999999999999 5.6C-3.8499999999999996 3.5 0 0.35 1.0499999999999998 0C0 -0.35 -3.8499999999999996 -3.5 -4.199999999999999 -5.6"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="stroke: #447A53;"
+                        />
+                      </g>
+                    </g>
                     <circle
                       cx="-140"
                       cy="140"
@@ -4208,6 +4244,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         y2="84.44444444444444"
                       />
                       <g
+                        class="interactive-graph-arrowhead"
                         transform="translate(200 84.44444444444444) rotate(-12.528807709151511)"
                       >
                         <g
@@ -4218,7 +4255,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                             fill="none"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            style="stroke: inherit;"
+                            style="stroke: #B25071;"
                           />
                         </g>
                       </g>
@@ -5277,6 +5314,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     </g>
                   </g>
                   <g
+                    class="interactive-graph-arrowhead"
                     transform="translate(-200 0) rotate(-180)"
                   >
                     <g
@@ -5292,6 +5330,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     </g>
                   </g>
                   <g
+                    class="interactive-graph-arrowhead"
                     transform="translate(200 0) rotate(0)"
                   >
                     <g
@@ -5307,6 +5346,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     </g>
                   </g>
                   <g
+                    class="interactive-graph-arrowhead"
                     transform="translate(0 200) rotate(-270)"
                   >
                     <g
@@ -5322,6 +5362,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                     </g>
                   </g>
                   <g
+                    class="interactive-graph-arrowhead"
                     transform="translate(0 -200) rotate(-90)"
                   >
                     <g

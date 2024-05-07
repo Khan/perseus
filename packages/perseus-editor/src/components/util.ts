@@ -79,7 +79,6 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 ],
                 color: DEFAULT_COLOR,
                 lineStyle: "solid",
-                showArrows: false,
                 showStartPoint: false,
                 showEndPoint: false,
             };

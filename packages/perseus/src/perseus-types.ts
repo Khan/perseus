@@ -689,7 +689,6 @@ export type LockedLineType = {
     points: [startPoint: LockedPointType, endPoint: LockedPointType];
     color: LockedFigureColor;
     lineStyle: "solid" | "dashed";
-    showArrows: boolean;
     showStartPoint: boolean;
     showEndPoint: boolean;
 };
