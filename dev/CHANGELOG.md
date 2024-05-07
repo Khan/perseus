@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.5.5
+
+### Patch Changes
+
+-   [#1222](https://github.com/Khan/perseus/pull/1222) [`44cf7348c`](https://github.com/Khan/perseus/commit/44cf7348c5f80726da8b93a71e0ce0121b90a4ba) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - ✨ Display image background info in Dev UI
+
 ## 1.5.4
 
 ### Patch Changes

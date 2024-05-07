@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 6.2.1
+
+### Patch Changes
+
+-   [#1237](https://github.com/Khan/perseus/pull/1237) [`54689a18f`](https://github.com/Khan/perseus/commit/54689a18f73bc29b6601c9309d5385bd47c101b9) Thanks [@handeyeco](https://github.com/handeyeco)! - Rough out new Circle Graph behind a feature flag
+
+*   [#1246](https://github.com/Khan/perseus/pull/1246) [`d66b79e44`](https://github.com/Khan/perseus/commit/d66b79e449a4b359ea35617f7903d1b7087d2566) Thanks [@nishasy](https://github.com/nishasy)! - Change locked figures' initial color to grayH (previusly green)
+
+-   [#1242](https://github.com/Khan/perseus/pull/1242) [`7d172698e`](https://github.com/Khan/perseus/commit/7d172698e81cc8cb1bf9bc92680717f0af130e7e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Adds a warning above the protractor and ruler checkboxes in interactive-graph settings
+
+*   [#1245](https://github.com/Khan/perseus/pull/1245) [`45a6647cf`](https://github.com/Khan/perseus/commit/45a6647cf1b0ce032cbd2926a30cdf5ff7a3b7fb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix location of DeviceFramer and ViewportResizer in Storybook
+
+*   Updated dependencies [[`44cf7348c`](https://github.com/Khan/perseus/commit/44cf7348c5f80726da8b93a71e0ce0121b90a4ba), [`3c1e398d5`](https://github.com/Khan/perseus/commit/3c1e398d5f6fd3fad256eedfec821264ba857f9a), [`ee89a1b01`](https://github.com/Khan/perseus/commit/ee89a1b0169808c9c7fb14c14d2e78975e390ce9), [`54689a18f`](https://github.com/Khan/perseus/commit/54689a18f73bc29b6601c9309d5385bd47c101b9)]:
+    -   @khanacademy/perseus@22.4.0
+
 ## 6.2.0
 
 ### Minor Changes
