@@ -6,11 +6,13 @@ import {
     moveLine,
     changeSnapStep,
     changeRange,
+    moveCenter,
+    moveRadiusPoint,
 } from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {GraphRange} from "../../../perseus-types";
-import type {InteractiveGraphState} from "../types";
+import type {CircleGraphState, InteractiveGraphState} from "../types";
 
 const baseSegmentGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
@@ -34,6 +36,19 @@ const basePointGraphState: InteractiveGraphState = {
     ],
     snapStep: [1, 1],
     coords: [],
+};
+
+const baseCircleGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "circle",
+    markings: "graph",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    center: [0, 0],
+    radiusPoint: [2, 0],
 };
 
 describe("moveControlPoint", () => {
@@ -345,5 +360,139 @@ describe("doChangeRange", () => {
         // make sure the state object is different
         expect(state).not.toBe(updated);
         expect(updated.range).toEqual(next);
+    });
+});
+
+describe("moveCenter", () => {
+    it("moves the center", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(state, moveCenter([1, 1]));
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect((updated as CircleGraphState).center).toEqual([1, 1]);
+    });
+
+    it("sets hasBeenInteractedWith", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(state, moveCenter([1, 1]));
+
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("constrains the center to the range", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(state, moveCenter([11, 11]));
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect((updated as CircleGraphState).center).toEqual([9, 9]);
+    });
+
+    it("updates the radius", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(state, moveCenter([1, 1]));
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect((updated as CircleGraphState).radiusPoint).toEqual([3, 1]);
+    });
+
+    it("swaps radius sides when needed", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(state, moveCenter([9, 0]));
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect((updated as CircleGraphState).radiusPoint).toEqual([7, 0]);
+    });
+
+    it("throws for non-circle graphs", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+        };
+
+        expect(() =>
+            interactiveGraphReducer(state, moveCenter([1, 1])),
+        ).toThrow();
+    });
+});
+
+describe("doMoveRadiusPoint", () => {
+    it("updates radius", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(state, moveRadiusPoint([5, 0]));
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect((updated as CircleGraphState).radiusPoint).toEqual([5, 0]);
+    });
+
+    it("sets hasBeenInteractedWith", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(state, moveRadiusPoint([4, 0]));
+
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+
+    it("constrains to range", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            moveRadiusPoint([20, 0]),
+        );
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect((updated as CircleGraphState).radiusPoint).toEqual([10, 0]);
+    });
+
+    it("locks y axis", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            moveRadiusPoint([2, 20]),
+        );
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        expect((updated as CircleGraphState).radiusPoint).toEqual([2, 0]);
+    });
+
+    it("throws for non-circle graphs", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+        };
+
+        expect(() =>
+            interactiveGraphReducer(state, moveRadiusPoint([5, 0])),
+        ).toThrow();
     });
 });

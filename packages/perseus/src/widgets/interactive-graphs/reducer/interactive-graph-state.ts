@@ -12,6 +12,7 @@ import type {
     PerseusGraphTypePolygon,
 } from "../../../perseus-types";
 import type {
+    CircleGraphState,
     InteractiveGraphProps,
     InteractiveGraphState,
     PairOfPoints,
@@ -68,8 +69,14 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getDefaultPoints({graph, step, range}),
             };
-        case "angle":
         case "circle":
+            return {
+                ...shared,
+                type: graph.type,
+                center: [0, 0],
+                radiusPoint: [1, 0],
+            };
+        case "angle":
         case "sinusoid":
         case "quadratic":
             throw new Error(
@@ -209,6 +216,14 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "circle" && initialGraph.type === "circle") {
+        return {
+            ...initialGraph,
+            center: state.center,
+            radius: getRadius(state),
+        };
+    }
+
     throw new Error(
         "Mafs is not yet implemented for graph type: " + initialGraph.type,
     );
@@ -335,3 +350,17 @@ const getPolygonCoords = ({
 
     return coords;
 };
+
+/**
+ * determine radius of a circle graph
+ *
+ * @param graph - the graph object containing the circle
+ * @returns the radius of the circle
+ */
+export function getRadius(graph: CircleGraphState): number {
+    const [centerX, centerY] = graph.center;
+    const [edgeX, edgeY] = graph.radiusPoint;
+    return Math.sqrt(
+        Math.pow(edgeX - centerX, 2) + Math.pow(edgeY - centerY, 2),
+    );
+}

@@ -34,7 +34,7 @@ export type InteractiveGraphState =
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
-    range: [Interval, Interval];
+    range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
     markings: InteractiveGraphProps["markings"];
@@ -70,7 +70,7 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
 export interface CircleGraphState extends InteractiveGraphStateCommon {
     type: "circle";
     center: Coord;
-    radius: number;
+    radiusPoint: Coord;
 }
 
 export type PairOfPoints = [Coord, Coord];
