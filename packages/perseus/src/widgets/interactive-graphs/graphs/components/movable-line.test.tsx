@@ -106,10 +106,6 @@ describe("Rendering", () => {
                     extend={{
                         start: false,
                         end: false,
-                        range: [
-                            [-200, 200],
-                            [-200, 200],
-                        ],
                     }}
                 />
             </Mafs>,
@@ -127,10 +123,6 @@ describe("Rendering", () => {
                     extend={{
                         start: true,
                         end: true,
-                        range: [
-                            [-200, 200],
-                            [-200, 200],
-                        ],
                     }}
                 />
             </Mafs>,
