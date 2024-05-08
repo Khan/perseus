@@ -29,6 +29,7 @@ export function V2KeypadWithMathquill() {
         if (!mathField && mathFieldWrapperRef.current) {
             const mathFieldInstance = createMathField(
                 mathFieldWrapperRef.current,
+                "en",
                 mockStrings,
                 (baseConfig) => ({
                     ...baseConfig,

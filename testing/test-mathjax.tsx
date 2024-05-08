@@ -15,6 +15,7 @@ const renderer = new MathJaxRenderer({
     // environment without a layout engine, e.g. jsdom.
     shouldFixUnicodeLayout: true,
     fontURL: "https://cdn.kastatic.org/fonts/mathjax",
+    locale: "en",
 });
 
 type Props = {

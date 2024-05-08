@@ -168,6 +168,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             // Initialize MathQuill.MathField instance
             this.__mathField = createMathField(
                 this.__mathFieldWrapperRef,
+                locale,
                 this.props.mathInputStrings,
                 (baseConfig) => ({
                     ...baseConfig,

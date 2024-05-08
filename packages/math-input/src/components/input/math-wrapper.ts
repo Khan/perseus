@@ -43,7 +43,7 @@ class MathWrapper {
         locale: string,
         callbacks = {},
     ) {
-        this.mathField = createMathField(element, strings, () => {
+        this.mathField = createMathField(element, locale, strings, () => {
             return {
                 // use a span instead of a textarea so that we don't bring up the
                 // native keyboard on mobile when selecting the input
