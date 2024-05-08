@@ -15,61 +15,9 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
       width="200"
     >
       <g
-        class="movable-line"
-        data-testid="movable-line"
-        style="cursor: grab;"
+        data-testid="movable-point__focusable-handle"
         tabindex="0"
-      >
-        <line
-          style="stroke: transparent; stroke-width: 44;"
-          x1="0"
-          x2="0"
-          y1="0"
-          y2="0"
-        />
-        <line
-          class="movable-line-focus-outline"
-          x1="0"
-          x2="0"
-          y1="0"
-          y2="0"
-        />
-        <line
-          class="movable-line-focus-outline-gap"
-          x1="0"
-          x2="0"
-          y1="0"
-          y2="0"
-        />
-        <line
-          class=""
-          data-testid="movable-line__line"
-          style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
-          x1="0"
-          x2="0"
-          y1="0"
-          y2="0"
-        />
-      </g>
-    </svg>
-  </div>
-</div>
-`;
-
-exports[`Rendering Does NOT render extensions of line when option is not provided 1`] = `
-<div>
-  <div
-    class="MafsView"
-    style="width: 200px; height: 200px;"
-    tabindex="0"
-  >
-    <svg
-      height="200"
-      preserveAspectRatio="xMidYMin"
-      style="width: 200px; --mafs-view-transform: matrix(28.57143, 0, 0, -28.57143, 0, 0); --mafs-user-transform: translate(0, 0);"
-      viewBox="-100 -100 200 200"
-      width="200"
-    >
+      />
       <g
         class="movable-line"
         data-testid="movable-line"
@@ -107,6 +55,210 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           y2="0"
         />
       </g>
+      <g
+        data-testid="movable-point__focusable-handle"
+        tabindex="0"
+      />
+      <g
+        class="movable-point  "
+        data-testid="movable-point"
+        style="--movable-point-color: #1865f2;"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: #1865f2;"
+        />
+      </g>
+      <g
+        class="movable-point  "
+        data-testid="movable-point"
+        style="--movable-point-color: #1865f2;"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: #1865f2;"
+        />
+      </g>
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Rendering Does NOT render extensions of line when option is not provided 1`] = `
+<div>
+  <div
+    class="MafsView"
+    style="width: 200px; height: 200px;"
+    tabindex="0"
+  >
+    <svg
+      height="200"
+      preserveAspectRatio="xMidYMin"
+      style="width: 200px; --mafs-view-transform: matrix(28.57143, 0, 0, -28.57143, 0, 0); --mafs-user-transform: translate(0, 0);"
+      viewBox="-100 -100 200 200"
+      width="200"
+    >
+      <g
+        data-testid="movable-point__focusable-handle"
+        tabindex="0"
+      />
+      <g
+        class="movable-line"
+        data-testid="movable-line"
+        style="cursor: grab;"
+        tabindex="0"
+      >
+        <line
+          style="stroke: transparent; stroke-width: 44;"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          class="movable-line-focus-outline"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          class="movable-line-focus-outline-gap"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+        <line
+          class=""
+          data-testid="movable-line__line"
+          style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="0"
+        />
+      </g>
+      <g
+        data-testid="movable-point__focusable-handle"
+        tabindex="0"
+      />
+      <g
+        class="movable-point  "
+        data-testid="movable-point"
+        style="--movable-point-color: #1865f2;"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: #1865f2;"
+        />
+      </g>
+      <g
+        class="movable-point  "
+        data-testid="movable-point"
+        style="--movable-point-color: #1865f2;"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: #1865f2;"
+        />
+      </g>
     </svg>
   </div>
 </div>
@@ -126,6 +278,10 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
       viewBox="-100 -100 200 200"
       width="200"
     >
+      <g
+        data-testid="movable-point__focusable-handle"
+        tabindex="0"
+      />
       <g
         class="movable-line"
         data-testid="movable-line"
@@ -214,6 +370,78 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
             />
           </g>
         </g>
+      </g>
+      <g
+        data-testid="movable-point__focusable-handle"
+        tabindex="0"
+      />
+      <g
+        class="movable-point  "
+        data-testid="movable-point"
+        style="--movable-point-color: #1865f2;"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: #1865f2;"
+        />
+      </g>
+      <g
+        class="movable-point  "
+        data-testid="movable-point"
+        style="--movable-point-color: #1865f2;"
+      >
+        <circle
+          class="movable-point-hitbox"
+          cx="0"
+          cy="0"
+          r="24"
+        />
+        <circle
+          class="movable-point-halo"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-ring"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-focus-outline"
+          cx="0"
+          cy="0"
+        />
+        <circle
+          class="movable-point-center"
+          cx="0"
+          cy="0"
+          data-testid="movable-point__center"
+          style="fill: #1865f2;"
+        />
       </g>
     </svg>
   </div>
