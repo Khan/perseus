@@ -37,121 +37,28 @@ type GridAxisProps = {
 // have enough space to render without overlapping the tick lines
 const tickPadding = 5;
 
-// Determine whether or not to show the tick label
-export const showTickLabel = ({
-    gridStep,
-    tickStep,
-    label,
-    graphEdge,
-    position,
-    axisOutOfBounds,
-}: ShowTickLabelProps): boolean => {
-    let showLabel = true;
+export const AxisTickLabels = () => {
+    const graphConfig = useGraphConfig();
+    const {tickStep, range} = graphConfig;
 
-    // We only want to show the initial negative tick labels (e.g. -1) on each
-    // axis if the tickStep > gridStep, to ensure that these labels do not overlap.
-    // e.g. If gridStep = 1 and tickStep = 2, there are 2 grid lines for every 1 tick,
-    // which allows enough room for both these tick labels to render.
-    showLabel = tickStep > gridStep ? true : label !== -tickStep;
+    const [xMin, xMax] = range[0];
+    const [yMin, yMax] = range[1];
 
-    // If the tick label position is greater than the relevant edge of the graph, don't render it
-    if (position <= -graphEdge || position >= graphEdge) {
-        showLabel = false;
-    }
+    const yTickStep = tickStep[1];
+    const xTickStep = tickStep[0];
 
-    // If the label is 0, we only want to show it if the axis is to the left of the graph's viewbox/range
-    // otherwise it will overlap with graph axis labels
-    if (label === 0 && !axisOutOfBounds) {
-        showLabel = false;
-    }
-
-    return showLabel;
-};
-
-const AxisTickLabel = ({
-    label,
-    graphConfig,
-    axisOutOfBounds,
-    axis,
-}: GridLabel) => {
-    const {gridStep, tickStep} = graphConfig;
-    // Determine the point on the axis based on the axis type
-    const pointOnAxis: vec.Vector2 = axis === "x" ? [label, 0] : [0, label];
-    const pixelPoint = pointToPixel(pointOnAxis, graphConfig);
-
-    // Remove the negative sign from the label string as it is handled in the data-content attribute
-    const labelString = Math.abs(label).toString();
-
-    // Determine the relevant edge of the graph based on the axis type
-    const graphEdge = axis === "x" ? graphConfig.width : graphConfig.height;
-
-    // Determine the vector index based on the axis type
-    const vectorIndex = axis === "x" ? 0 : 1;
-
-    // Determine whether or not to render the tick label text
-    const shouldShowLabel = showTickLabel({
-        gridStep: gridStep[vectorIndex],
-        tickStep: tickStep[vectorIndex],
-        label,
-        axisOutOfBounds,
-        graphEdge: graphEdge,
-        position: pixelPoint[vectorIndex],
-    });
-
-    // Determine whether or not to render a negative symbol for the tick label
-    // as the negative sign is handled in the data-content attribute in order to
-    // maintain the correct spacing between the labels
-    const dataContent = label < 0 && shouldShowLabel ? "−" : null;
+    const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
+    const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
 
     return (
-        <span
-            className={`${axis}"-axis-tick-label"`}
-            data-content={dataContent}
-        >
-            {shouldShowLabel && labelString}
-        </span>
+        <div className="axis-tick-labels">
+            <YGridAxis axisTicks={yGridTicks} graphConfig={graphConfig} />
+            <XGridAxis axisTicks={xGridTicks} graphConfig={graphConfig} />
+        </div>
     );
 };
 
-export function generateTickLocations(
-    tickStep: number,
-    min: number,
-    max: number,
-): number[] {
-    const positiveTicks: number[] = [];
-    const negativeTicks: number[] = [];
-    const ticks: number[] = [];
-
-    // Add 0 if it is applicable.
-    // This will be conditionally rendered using showTickLabel.
-    if (min <= 0 && max >= 0) {
-        positiveTicks.push(0);
-    }
-
-    // Add ticks on the positive axis
-    // Start at the first tick after 0 or the minimum value,
-    // taking into account that the graph may be zoomed in on the positive axis
-    let i = Math.max(min, 0) + tickStep;
-    for (i; min < i && i < max; i += tickStep) {
-        positiveTicks.push(i);
-    }
-
-    // Add ticks on the negative axis
-    // Start at the first tick before 0 or the maximum value,
-    // taking into account that the graph may be zoomed in on the negative axis
-    i = Math.min(max, 0) - tickStep;
-    for (i; i > min; i -= tickStep) {
-        negativeTicks.push(i);
-    }
-
-    // Reverse the ticks so that they are in the correct render order
-    positiveTicks.reverse();
-
-    ticks.push(...positiveTicks, ...negativeTicks);
-    return ticks;
-}
-
-/* Generate the necessary styles and ticks for the y-axis */
+// Generate the necessary styles and ticks for the y-axis tick labels container
 const YGridAxis = (props: GridAxisProps): React.ReactElement => {
     const {axisTicks, graphConfig} = props;
     const {width, height} = graphConfig;
@@ -219,7 +126,7 @@ const YGridAxis = (props: GridAxisProps): React.ReactElement => {
     );
 };
 
-/* Generate the necessary styles and ticks for the x-axis */
+// Generate the necessary styles and ticks for the x-axis tick labels container
 const XGridAxis = (props: GridAxisProps): React.ReactElement => {
     const {axisTicks, graphConfig} = props;
     const {width, height} = graphConfig;
@@ -274,23 +181,118 @@ const XGridAxis = (props: GridAxisProps): React.ReactElement => {
     );
 };
 
-export const AxisTickLabels = () => {
-    const graphConfig = useGraphConfig();
-    const {tickStep, range} = graphConfig;
+// Generate the individual tick label elements
+const AxisTickLabel = ({
+    label,
+    graphConfig,
+    axisOutOfBounds,
+    axis,
+}: GridLabel) => {
+    const {gridStep, tickStep} = graphConfig;
+    // Determine the point on the axis based on the axis type
+    const pointOnAxis: vec.Vector2 = axis === "x" ? [label, 0] : [0, label];
+    const pixelPoint = pointToPixel(pointOnAxis, graphConfig);
 
-    const [xMin, xMax] = range[0];
-    const [yMin, yMax] = range[1];
+    // Remove the negative sign from the label string as it is handled in the data-content attribute
+    const labelString = Math.abs(label).toString();
 
-    const yTickStep = tickStep[1];
-    const xTickStep = tickStep[0];
+    // Determine the relevant edge of the graph based on the axis type
+    const graphEdge = axis === "x" ? graphConfig.width : graphConfig.height;
 
-    const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
-    const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
+    // Determine the vector index based on the axis type
+    const vectorIndex = axis === "x" ? 0 : 1;
+
+    // Determine whether or not to render the tick label text
+    const shouldShowLabel = showTickLabel({
+        label,
+        axisOutOfBounds,
+        graphEdge,
+        position: pixelPoint[vectorIndex],
+        gridStep: gridStep[vectorIndex],
+        tickStep: tickStep[vectorIndex],
+    });
+
+    // Determine whether or not to render a negative symbol for the tick label
+    // as the negative sign is handled in the data-content attribute in order to
+    // maintain the correct spacing between the labels
+    const dataContent = label < 0 && shouldShowLabel ? "−" : null;
 
     return (
-        <div className="axis-tick-labels">
-            <YGridAxis axisTicks={yGridTicks} graphConfig={graphConfig} />
-            <XGridAxis axisTicks={xGridTicks} graphConfig={graphConfig} />
-        </div>
+        <span
+            className={`${axis}"-axis-tick-label"`}
+            data-content={dataContent}
+        >
+            {shouldShowLabel && labelString}
+        </span>
     );
 };
+
+// Determine whether or not to show the tick label text
+export const showTickLabel = ({
+    gridStep,
+    tickStep,
+    label,
+    graphEdge,
+    position,
+    axisOutOfBounds,
+}: ShowTickLabelProps): boolean => {
+    let showLabel = true;
+
+    // We only want to show the initial negative tick labels (e.g. -1) on each
+    // axis if the tickStep > gridStep, to ensure that these labels do not overlap.
+    // e.g. If gridStep = 1 and tickStep = 2, there are 2 grid lines for every 1 tick,
+    // which allows enough room for both these tick labels to render.
+    showLabel = tickStep > gridStep ? true : label !== -tickStep;
+
+    // If the tick label position is greater than the relevant edge of the graph, don't render it
+    if (position <= -graphEdge || position >= graphEdge) {
+        showLabel = false;
+    }
+
+    // If the label is 0, we only want to show it if the axis is to the left of the graph's viewbox/range
+    // otherwise it will overlap with graph axis labels
+    if (label === 0 && !axisOutOfBounds) {
+        showLabel = false;
+    }
+
+    return showLabel;
+};
+
+// Generate the tick labels for an axis based on the tick step
+export function generateTickLocations(
+    tickStep: number,
+    min: number,
+    max: number,
+): number[] {
+    const positiveTicks: number[] = [];
+    const negativeTicks: number[] = [];
+    const ticks: number[] = [];
+
+    // Add 0 if it is applicable.
+    // This will be conditionally rendered using showTickLabel.
+    if (min <= 0 && max >= 0) {
+        positiveTicks.push(0);
+    }
+
+    // Add ticks on the positive axis
+    // Start at the first tick after 0 or the minimum value,
+    // taking into account that the graph may be zoomed in on the positive axis
+    let i = Math.max(min, 0) + tickStep;
+    for (i; min < i && i < max; i += tickStep) {
+        positiveTicks.push(i);
+    }
+
+    // Add ticks on the negative axis
+    // Start at the first tick before 0 or the maximum value,
+    // taking into account that the graph may be zoomed in on the negative axis
+    i = Math.min(max, 0) - tickStep;
+    for (i; i > min; i -= tickStep) {
+        negativeTicks.push(i);
+    }
+
+    // Reverse the ticks so that they are in the correct render order
+    positiveTicks.reverse();
+
+    ticks.push(...positiveTicks, ...negativeTicks);
+    return ticks;
+}
