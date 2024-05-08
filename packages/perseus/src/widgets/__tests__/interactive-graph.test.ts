@@ -139,6 +139,10 @@ describe("mafs graphs", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
+
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
     });
 
     // Add types to this array as you test them
@@ -289,6 +293,13 @@ describe("mafs graphs", () => {
 
 describe("locked layer", () => {
     const apiOptions = {flags: {mafs: {segment: true}}};
+
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
     it("should render locked points", async () => {
         // Arrange
         const {container} = renderQuestion(
@@ -449,6 +460,12 @@ describe("locked layer", () => {
 });
 
 describe("snapshots", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
     test("should render correctly", () => {
         const {container} = renderQuestion(segmentQuestionDefaultCorrect, {
             flags: {
