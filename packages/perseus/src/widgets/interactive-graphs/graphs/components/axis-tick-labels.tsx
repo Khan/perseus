@@ -3,7 +3,7 @@ import * as React from "react";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {pointToPixel} from "../use-transform";
 
-import type {GraphDimensions} from "../../types";
+import type {GraphConfig} from "../../reducer/use-graph-config";
 import type {vec} from "mafs";
 
 type ShowTickLabelProps = {
@@ -17,23 +17,34 @@ type ShowTickLabelProps = {
     graphEdge: number;
     // The relevant position of the tick label in pixels (either the x or y position)
     position: number;
+    // Whether or not the axis is outside of the graph's viewbox/range
+    axisOutOfBounds: boolean;
 };
 
 type GridLabel = {
     label: number;
-    gridStep: number;
-    tickStep: number;
-    graphInfo: GraphDimensions;
+    graphConfig: GraphConfig;
+    axisOutOfBounds: boolean;
+    axis: "x" | "y";
 };
 
+type GridAxisProps = {
+    axisTicks: number[];
+    graphConfig: GraphConfig;
+};
+
+// Universal padding for the axis ticks to ensure that the labels
+// have enough space to render without overlapping the tick lines
 const tickPadding = 5;
 
+// Determine whether or not to show the tick label
 export const showTickLabel = ({
     gridStep,
     tickStep,
     label,
     graphEdge,
     position,
+    axisOutOfBounds,
 }: ShowTickLabelProps): boolean => {
     let showLabel = true;
 
@@ -48,109 +59,57 @@ export const showTickLabel = ({
         showLabel = false;
     }
 
+    // If the label is 0, we only want to show it if the axis is to the left of the graph's viewbox/range
+    // otherwise it will overlap with graph axis labels
+    if (label === 0 && !axisOutOfBounds) {
+        showLabel = false;
+    }
+
     return showLabel;
 };
 
-const YGridLabel = ({label, gridStep, tickStep, graphInfo}: GridLabel) => {
-    const pointOnAxis: vec.Vector2 = [0, label];
-    const pixelPoint = pointToPixel(pointOnAxis, graphInfo);
-
-    // If the axis is outside of the graphs viewbox/range we want to make sure
-    // the labels are still visible by clamping them to the edge of the graph
-    const leftPadding = 40;
-    const left = Math.min(
-        Math.max(pixelPoint[0] - leftPadding - tickPadding, -leftPadding),
-        graphInfo.width + 5,
-    );
-
-    // Provide a little padding above the tick label
-    const topPadding = 7;
-    const top = pixelPoint[1] - topPadding;
-
-    // If the label is on the right edge of the graph, text-align to the left
-    const textAlign = left === graphInfo.width + 5 ? "left" : "right";
-
-    // If the label requires padding for the negative sign, add it
-    // This allows us to ensure that labels are placed correctly when left-aligned
-    const negativeNumberPadding = label < 0 ? "12px" : "0px";
+const AxisTickLabel = ({
+    label,
+    graphConfig,
+    axisOutOfBounds,
+    axis,
+}: GridLabel) => {
+    const {gridStep, tickStep} = graphConfig;
+    // Determine the point on the axis based on the axis type
+    const pointOnAxis: vec.Vector2 = axis === "x" ? [label, 0] : [0, label];
+    const pixelPoint = pointToPixel(pointOnAxis, graphConfig);
 
     // Remove the negative sign from the label string as it is handled in the data-content attribute
     const labelString = Math.abs(label).toString();
 
-    const styles = {
-        left,
-        top,
-        "text-align": textAlign,
-        "--padding": negativeNumberPadding,
-    };
+    // Determine the relevant edge of the graph based on the axis type
+    const graphEdge = axis === "x" ? graphConfig.width : graphConfig.height;
+
+    // Determine the vector index based on the axis type
+    const vectorIndex = axis === "x" ? 0 : 1;
+
+    // Determine whether or not to render the tick label text
+    const shouldShowLabel = showTickLabel({
+        gridStep: gridStep[vectorIndex],
+        tickStep: tickStep[vectorIndex],
+        label,
+        axisOutOfBounds,
+        graphEdge: graphEdge,
+        position: pixelPoint[vectorIndex],
+    });
+
+    // Determine whether or not to render a negative symbol for the tick label
+    // as the negative sign is handled in the data-content attribute in order to
+    // maintain the correct spacing between the labels
+    const dataContent = label < 0 && shouldShowLabel ? "−" : null;
 
     return (
-        <>
-            {showTickLabel({
-                gridStep,
-                tickStep,
-                label,
-                graphEdge: graphInfo.height,
-                position: pixelPoint[1],
-            }) && (
-                <span
-                    className="y-axis-tick-label"
-                    style={styles}
-                    data-content={label < 0 ? "−" : null}
-                >
-                    {labelString}
-                </span>
-            )}
-        </>
-    );
-};
-
-const XGridLabel = ({label, gridStep, tickStep, graphInfo}: GridLabel) => {
-    const pointOnAxis: vec.Vector2 = [label, 0];
-    const pixelPoint = pointToPixel(pointOnAxis, graphInfo);
-
-    // If the label are outside of the graphs viewbox/range we want to make sure the
-    // labels are still visible by clamping them to the appropriate edge of the graph
-    const topPadding = graphInfo.range[1][1] < 0 ? -16 : 7;
-    const top = Math.min(
-        Math.max(pixelPoint[1] + topPadding + tickPadding, topPadding),
-        graphInfo.height + topPadding,
-    );
-
-    // Provide a little padding to the left of the tick label
-    const leftPadding = 22;
-    const left = pixelPoint[0] - leftPadding;
-
-    // Remove the negative sign from the label string as it is handled in the data-content attribute
-    const labelString = Math.abs(label).toString();
-
-    // For the x-axis, we want to make sure the padding of the labels is consistent
-    const padding = "12px";
-
-    const styles = {
-        left,
-        top,
-        "--padding": padding,
-    };
-
-    return (
-        <>
-            {showTickLabel({
-                gridStep,
-                tickStep,
-                label: label,
-                graphEdge: graphInfo.width,
-                position: pixelPoint[0],
-            }) && (
-                <span
-                    className="x-axis-tick-label"
-                    style={styles}
-                    data-content={label < 0 ? "−" : undefined}
-                >
-                    {labelString}
-                </span>
-            )}
-        </>
+        <span
+            className={`${axis}"-axis-tick-label"`}
+            data-content={dataContent}
+        >
+            {shouldShowLabel && labelString}
+        </span>
     );
 };
 
@@ -162,6 +121,12 @@ export function generateTickLocations(
     const positiveTicks: number[] = [];
     const negativeTicks: number[] = [];
     const ticks: number[] = [];
+
+    // Add 0 if it is applicable.
+    // This will be conditionally rendered using showTickLabel.
+    if (min <= 0 && max >= 0) {
+        positiveTicks.push(0);
+    }
 
     // Add ticks on the positive axis
     // Start at the first tick after 0 or the minimum value,
@@ -179,20 +144,139 @@ export function generateTickLocations(
         negativeTicks.push(i);
     }
 
-    // Reverse the positive ticks so that they are in the correct render order
+    // Reverse the ticks so that they are in the correct render order
     positiveTicks.reverse();
 
     ticks.push(...positiveTicks, ...negativeTicks);
     return ticks;
 }
-export const AxisTickLabels = () => {
-    const {tickStep, range, gridStep, width, height} = useGraphConfig();
 
-    const graphInfo: GraphDimensions = {
-        range,
+/* Generate the necessary styles and ticks for the y-axis */
+const YGridAxis = (props: GridAxisProps): React.ReactElement => {
+    const {axisTicks, graphConfig} = props;
+    const {width, height} = graphConfig;
+
+    // First get the label height by calculating the difference between the first two y-axis labels
+    const yTopPoint: vec.Vector2 = pointToPixel([0, axisTicks[0]], graphConfig);
+    const ySecondPoint: vec.Vector2 = pointToPixel(
+        [0, axisTicks[1]],
+        graphConfig,
+    );
+    const yLabelHeight = ySecondPoint[1] - yTopPoint[1];
+
+    // When rendering purely positive y-axis labels, we want to adjust the left position
+    // from the lowest calculated tick, as yMin may be negative
+    const yLowestTick = axisTicks[axisTicks.length - 1];
+    const yLeftAdjustment = Math.min(
+        Math.max(yTopPoint[0] - tickPadding, 0),
         width,
-        height,
+    );
+
+    // We only want to render the 0 label on the y-axis if it is left of the grid
+    const yAxisIsLeftOfGrid = yLeftAdjustment === 0;
+
+    // If the y-axis is right of the graph's viewbox/range,
+    // we want to adjust both the positioning and text alignment
+    const yAxisRightOfGrid = yLeftAdjustment === width;
+
+    // Determine the default spacing for the labels based on whether the y-axis is right of the grid
+    const defaultSpacing = yAxisRightOfGrid ? 0.5 : 0;
+
+    // We also want to adjust the spacing if there are no negative y-axis labels as the extra space is not needed
+    const marginSpacing =
+        yLowestTick >= 0 ? defaultSpacing * 2 : defaultSpacing;
+
+    const yAxisStyles = {
+        left: `calc(${yLeftAdjustment}px - ${marginSpacing}em)`,
+        top: `calc(${yTopPoint[1]}px - 0.5em)`,
+        height: height,
+        "text-align": yAxisRightOfGrid ? "left" : "right",
+        "--y-axis-label-height": yLabelHeight + "px",
     };
+
+    const classNames = yAxisRightOfGrid
+        ? "y-axis-tick-labels y-axis-right-of-grid"
+        : "y-axis-tick-labels ";
+
+    return (
+        <div
+            className={classNames}
+            data-testid="y-axis-tick-labels"
+            style={yAxisStyles}
+        >
+            {axisTicks.map((label) => {
+                return (
+                    <AxisTickLabel
+                        label={label}
+                        axis="y"
+                        key={`y-grid-tick-${label}`}
+                        graphConfig={graphConfig}
+                        axisOutOfBounds={yAxisIsLeftOfGrid}
+                    />
+                );
+            })}
+        </div>
+    );
+};
+
+/* Generate the necessary styles and ticks for the x-axis */
+const XGridAxis = (props: GridAxisProps): React.ReactElement => {
+    const {axisTicks, graphConfig} = props;
+    const {width, height} = graphConfig;
+
+    // Determine label width by calculating the difference between the first two x-axis labels
+    const xLeftPoint: vec.Vector2 = pointToPixel(
+        [axisTicks[0], 0],
+        graphConfig,
+    );
+    const xSecondPoint: vec.Vector2 = pointToPixel(
+        [axisTicks[1], 0],
+        graphConfig,
+    );
+    const xLabelWidth = Math.abs(xSecondPoint[0] - xLeftPoint[0]);
+
+    // Determine the top position of the x-axis labels based on
+    // whether the x-axis is above, within, or below the graph
+    const xAxisAboveGraph = xLeftPoint[1] < 0;
+    const xTopAdjustment = xAxisAboveGraph
+        ? 0
+        : Math.min(xLeftPoint[1] + tickPadding, height);
+
+    // Determine whether the x-axis is outside of the graph's viewbox/range
+    // This is used to conditionally render the 0 label on the x-axis
+    const xAxisOutOfBounds = xTopAdjustment === height || xAxisAboveGraph;
+
+    const xAxisStyles = {
+        top: xTopAdjustment,
+        left: -(xLabelWidth / 2),
+        width: width,
+        "--x-axis-label-width": xLabelWidth + "px",
+    };
+
+    return (
+        <div
+            className={`x-axis-tick-labels ${xAxisAboveGraph && "x-axis-top-of-grid"}`}
+            data-testid="x-axis-tick-labels"
+            style={xAxisStyles}
+        >
+            {axisTicks.map((label) => {
+                return (
+                    <AxisTickLabel
+                        axis="x"
+                        label={label}
+                        key={`x-grid-tick-${label}`}
+                        graphConfig={graphConfig}
+                        axisOutOfBounds={xAxisOutOfBounds}
+                    />
+                );
+            })}
+        </div>
+    );
+};
+
+export const AxisTickLabels = () => {
+    const graphConfig = useGraphConfig();
+    const {tickStep, range} = graphConfig;
 
     const [xMin, xMax] = range[0];
     const [yMin, yMax] = range[1];
@@ -205,32 +289,8 @@ export const AxisTickLabels = () => {
 
     return (
         <div className="axis-tick-labels">
-            <div className="y-axis-tick-labels" style={{height: height}}>
-                {yGridTicks.map((label) => {
-                    return (
-                        <YGridLabel
-                            label={label}
-                            key={`y-grid-tick-${label}`}
-                            gridStep={gridStep[1]}
-                            tickStep={yTickStep}
-                            graphInfo={graphInfo}
-                        />
-                    );
-                })}
-            </div>
-            <div className="x-axis-tick-labels" style={{width: width}}>
-                {xGridTicks.map((label) => {
-                    return (
-                        <XGridLabel
-                            label={label}
-                            key={`x-grid-tick-${label}`}
-                            gridStep={gridStep[0]}
-                            tickStep={xTickStep}
-                            graphInfo={graphInfo}
-                        />
-                    );
-                })}
-            </div>
+            <YGridAxis axisTicks={yGridTicks} graphConfig={graphConfig} />
+            <XGridAxis axisTicks={xGridTicks} graphConfig={graphConfig} />
         </div>
     );
 };

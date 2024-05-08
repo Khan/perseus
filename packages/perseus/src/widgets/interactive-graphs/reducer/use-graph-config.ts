@@ -2,7 +2,7 @@ import React, {createContext} from "react";
 
 import type {Interval, vec} from "mafs";
 
-type GraphConfig = {
+export type GraphConfig = {
     range: [Interval, Interval];
     tickStep: vec.Vector2;
     gridStep: vec.Vector2;

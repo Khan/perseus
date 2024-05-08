@@ -6,8 +6,16 @@ it("should hide the first negative axis tick label if the gridStep > tickStep", 
     const label = -1;
     const graphEdge = 400;
     const position = 220;
+    const axisOutOfBounds = false;
     expect(
-        showTickLabel({gridStep, tickStep, label, graphEdge, position}),
+        showTickLabel({
+            gridStep,
+            tickStep,
+            label,
+            graphEdge,
+            position,
+            axisOutOfBounds,
+        }),
     ).toEqual(false);
 });
 
@@ -17,8 +25,16 @@ it("should show the first negative axis tick label if the tickStep > gridStep", 
     const label = -2;
     const graphEdge = 400;
     const position = 220;
+    const axisOutOfBounds = false;
     expect(
-        showTickLabel({gridStep, tickStep, label, graphEdge, position}),
+        showTickLabel({
+            gridStep,
+            tickStep,
+            label,
+            graphEdge,
+            position,
+            axisOutOfBounds,
+        }),
     ).toEqual(true);
 });
 
@@ -28,7 +44,15 @@ it("should hide a label if the position is greater than the relevant graph edge"
     const label = -1;
     const graphEdge = 400;
     const position = 420;
+    const axisOutOfBounds = false;
     expect(
-        showTickLabel({gridStep, tickStep, label, graphEdge, position}),
+        showTickLabel({
+            gridStep,
+            tickStep,
+            label,
+            graphEdge,
+            position,
+            axisOutOfBounds,
+        }),
     ).toEqual(false);
 });

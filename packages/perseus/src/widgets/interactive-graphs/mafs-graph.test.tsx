@@ -255,7 +255,93 @@ describe("MafsGraph", () => {
         expect(axisLabel).not.toBeInTheDocument();
     });
 
-    it("should render the y-axis tick labels to the left of the graph when the yMin > 0", () => {
+    it("renders the first negative axis ticks if the gridStep is greater than the tickStep", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        baseMafsGraphProps.step = [2, 2]; // this is the tickStep
+
+        // Act
+        render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        // Assert
+        // Since the tickStep is 2, the first negative axis tick labels should be -2
+        // however we are rendering the negative symbol in the data-content attribute
+        const axisLabel = screen.queryAllByText("2");
+
+        // There should be four axis labels that contain "2" [y=2, x=2, y=-2, x=-2]
+        expect(axisLabel).toHaveLength(4);
+    });
+
+    it("does not render the first negative axis ticks if the tickStep <= gridStep", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        baseMafsGraphProps.step = [2, 2]; // this is the tickStep
+        baseMafsGraphProps.gridStep = [2, 2]; // this is the gridStep
+
+        // Act
+        render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        // Assert
+        // Since the tickStep is 2, the first negative axis tick labels should be -2
+        // however we are rendering the negative symbol in the data-content attribute
+        const axisLabel = screen.queryAllByText("2");
+
+        // There should only be 2 axis labels that contain "2" [y=2, x=2]
+        // The negative axis labels should not be rendered
+        expect(axisLabel).toHaveLength(2);
+    });
+
+    it("should render the y-axis tick labels to the left of the graph when the xMin > 0", () => {
         // Arrange
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
@@ -287,12 +373,16 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        const axisLabel = screen.queryAllByText("2");
-        const axisLabelStyle = getComputedStyle(axisLabel[0]);
-        expect(axisLabelStyle.getPropertyValue("left")).toEqual("-40px");
+        const yAxis = screen.getByTestId("y-axis-tick-labels");
+        const axisLabelStyle = getComputedStyle(yAxis);
+        expect(yAxis).not.toHaveClass("y-axis-right-of-grid");
+        // The left position of the left-sided axis label calculates to 0px
+        expect(axisLabelStyle.getPropertyValue("left")).toEqual(
+            "calc(0px - 0em)",
+        );
     });
 
-    it("should render the y-axis tick labels to the right of the graph when the yMax < 0", () => {
+    it("should render the y-axis tick labels to the right of the graph when the xMax < 0", () => {
         // Arrange
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
@@ -300,7 +390,7 @@ describe("MafsGraph", () => {
             markings: "graph",
             hasBeenInteractedWith: true,
             range: [
-                [5, 15],
+                [-15, -5],
                 [1, 20],
             ],
             snapStep: [0.5, 0.5],
@@ -324,12 +414,17 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        const axisLabel = screen.queryAllByText("2");
-        const axisLabelStyle = getComputedStyle(axisLabel[0]);
-        expect(axisLabelStyle.getPropertyValue("left")).toEqual("-40px");
+        const yAxis = screen.getByTestId("y-axis-tick-labels");
+        const axisLabelStyle = getComputedStyle(yAxis);
+        expect(yAxis).toHaveClass("y-axis-right-of-grid");
+        // The left position of the right-sided axis label is the width
+        // of the graph minus the width of the label
+        expect(axisLabelStyle.getPropertyValue("left")).toEqual(
+            "calc(400px - 1em)",
+        );
     });
 
-    it("should align x-axis labels below the graph when xMin > 0", () => {
+    it("should align x-axis labels below the graph when yMin > 0", () => {
         // Arrange
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
@@ -361,14 +456,15 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        const axisLabel = screen.queryAllByText("2");
-        const axisLabelStyle = getComputedStyle(axisLabel[0]);
-        const axisLabelTop = axisLabelStyle.getPropertyValue("top");
-
-        expect(axisLabelTop).toEqual("407px");
+        const yAxis = screen.getByTestId("x-axis-tick-labels");
+        const axisLabelStyle = getComputedStyle(yAxis);
+        expect(yAxis).not.toHaveClass("x-axis-top-of-grid");
+        // The left position of the right-sided axis label is the width
+        // of the graph minus the width of the label
+        expect(axisLabelStyle.getPropertyValue("top")).toEqual("400px");
     });
 
-    it("should align x-axis labels below the graph when xMax < 0", () => {
+    it("should align x-axis labels above the graph when yMax < 0", () => {
         // Arrange
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
@@ -400,13 +496,85 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        // There is only one axis label for -2 due to the range of the graph
-        // the negative symbol is rendered separately, so we only check for the number
-        const axisLabel = screen.queryAllByText("2");
-        const axisLabelStyle = getComputedStyle(axisLabel[0]);
-        const axisLabelTop = axisLabelStyle.getPropertyValue("top");
+        const yAxis = screen.getByTestId("x-axis-tick-labels");
+        const axisLabelStyle = getComputedStyle(yAxis);
+        expect(yAxis).toHaveClass("x-axis-top-of-grid");
+        // The left position of the right-sided axis label is the width
+        // of the graph minus the width of the label
+        expect(axisLabelStyle.getPropertyValue("top")).toEqual("0px");
+    });
 
-        expect(axisLabelTop).toEqual("-16px");
+    it("should render 0 label when the y-axis is to the left of the graph", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [5, 15],
+                [-5, 20],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        // Assert
+        // Assert
+        const zeroLabel = screen.queryByText("0");
+        expect(zeroLabel).toBeInTheDocument();
+    });
+
+    it("should not render the 0 label when the y-axis is right of the graph", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [-15, -5],
+                [1, 20],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        // Assert
+        const zeroLabel = screen.queryByText("0");
+        expect(zeroLabel).not.toBeInTheDocument();
     });
 
     /**
