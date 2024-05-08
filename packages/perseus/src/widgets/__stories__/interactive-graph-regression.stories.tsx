@@ -149,6 +149,14 @@ export const MafsInMobileContainer = (args: StoryArgs): React.ReactElement => (
     </div>
 );
 
+export const MafsWithMultipleSegments = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder().withSegments(3).build()}
+    />
+);
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (

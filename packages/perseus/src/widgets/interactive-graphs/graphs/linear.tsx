@@ -1,12 +1,9 @@
 import * as React from "react";
 
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
-import useGraphConfig from "../reducer/use-graph-config";
 
-import {MovableLine} from "./components/movable-line";
-import {StyledMovablePoint} from "./components/movable-point";
+import {Segment} from "./components/segment";
 
-import type {InteractiveLineProps} from "./types";
 import type {MafsGraphProps, LinearGraphState} from "../types";
 import type {vec} from "mafs";
 
@@ -21,11 +18,15 @@ export const LinearGraph = (props: LinearGraphProps) => {
     return (
         <>
             {lines?.map((line, i) => (
-                <LineView
+                <Segment
                     key={i}
                     points={line}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i, delta));
+                    }}
+                    extend={{
+                        start: true,
+                        end: true,
                     }}
                     onMovePoint={(
                         endpointIndex: number,
@@ -35,54 +36,9 @@ export const LinearGraph = (props: LinearGraphProps) => {
                             moveControlPoint(endpointIndex, destination, i),
                         )
                     }
-                    stroke={colors[i]}
+                    color={colors[i]}
                 />
             ))}
-        </>
-    );
-};
-
-interface LineViewProps extends InteractiveLineProps {
-    stroke: string;
-}
-
-const LineView = (props: LineViewProps) => {
-    const {
-        onMoveLine,
-        onMovePoint,
-        points: [start, end],
-        stroke,
-    } = props;
-
-    const {range} = useGraphConfig();
-
-    return (
-        <>
-            <MovableLine
-                start={start}
-                end={end}
-                onMove={onMoveLine}
-                extend={{
-                    start: true,
-                    end: true,
-                    range,
-                }}
-                stroke={stroke}
-            />
-            <StyledMovablePoint
-                point={start}
-                onMove={(newPoint) => {
-                    onMovePoint(0, newPoint);
-                }}
-                color={stroke}
-            />
-            <StyledMovablePoint
-                point={end}
-                onMove={(newPoint) => {
-                    onMovePoint(1, newPoint);
-                }}
-                color={stroke}
-            />
         </>
     );
 };

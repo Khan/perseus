@@ -810,7 +810,6 @@ export const polygonQuestionDefaultCorrect: PerseusRenderer = {
                         [2.5, 4],
                         [1.5, 2],
                     ],
-                    match: "congruent",
                     snapTo: "grid",
                 },
             },

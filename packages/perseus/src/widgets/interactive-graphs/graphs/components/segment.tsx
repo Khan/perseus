@@ -1,44 +1,147 @@
-import {vec, useMovable} from "mafs";
-import {useRef} from "react";
+import {useMovable, vec} from "mafs";
+import {useRef, useState} from "react";
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
-import {TARGET_SIZE} from "../../utils";
+import {snap, TARGET_SIZE} from "../../utils";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
 
+import {MovablePointView} from "./movable-point-view";
 import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
 
 import type {Interval} from "mafs";
 
-const defaultStroke = "var(--movable-line-stroke-color)";
-
 type Props = {
-    start: vec.Vector2;
-    end: vec.Vector2;
-    onMove: (delta: vec.Vector2) => unknown;
-    stroke?: string;
+    points: Readonly<[vec.Vector2, vec.Vector2]>;
+    onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
+    onMoveLine: (delta: vec.Vector2) => unknown;
+    color?: string;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
         start: boolean;
         end: boolean;
-        range: [Interval, Interval];
     };
 };
 
-export const MovableLine = (props: Props) => {
+export const Segment = (props: Props) => {
+    const {
+        onMoveLine,
+        color,
+        points: [start, end],
+        extend,
+    } = props;
+
+    // We use separate focusableHandle elements, instead of letting the movable
+    // points themselves be focusable, to allow the tab order of the points to
+    // be different from the rendering order. We had to solve for the following
+    // constraints:
+    // - SVG has no equivalent of z-index, so the order of elements in the
+    //   document determines the order in which they're painted. We want the
+    //   movable line segment to render behind its endpoints (it looks weird
+    //   otherwise) so we have to render the line first.
+    // - There isn't a browser-native way to customize tab order, other than
+    //   setting tabindex > 0. But that bumps elements to the front of the
+    //   tab order for the entire page, which is not what we want.
+    const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
+        useControlPoint(start, color, (p) => props.onMovePoint(0, p));
+    const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
+        useControlPoint(end, color, (p) => props.onMovePoint(1, p));
+
+    return (
+        <>
+            {focusableHandle1}
+            <MovableLine
+                start={start}
+                end={end}
+                stroke={color}
+                extend={extend}
+                onMove={onMoveLine}
+            />
+            {focusableHandle2}
+            {visiblePoint1}
+            {visiblePoint2}
+        </>
+    );
+};
+
+function useControlPoint(
+    point: vec.Vector2,
+    color: string | undefined,
+    onMovePoint: (newPoint: vec.Vector2) => unknown,
+) {
+    const {snapStep} = useGraphConfig();
+    const [focused, setFocused] = useState(false);
+    const keyboardHandleRef = useRef<SVGGElement>(null);
+    useMovable({
+        gestureTarget: keyboardHandleRef,
+        point,
+        onMove: onMovePoint,
+        constrain: (p) => snap(snapStep, p),
+    });
+
+    const visiblePointRef = useRef<SVGGElement>(null);
+    const {dragging} = useMovable({
+        gestureTarget: visiblePointRef,
+        point,
+        onMove: onMovePoint,
+        constrain: (p) => snap(snapStep, p),
+    });
+
+    const focusableHandle = (
+        <g
+            data-testid="movable-point__focusable-handle"
+            tabIndex={0}
+            ref={keyboardHandleRef}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+        />
+    );
+    const visiblePoint = (
+        <MovablePointView
+            point={point}
+            dragging={dragging}
+            color={color}
+            ref={visiblePointRef}
+            focusBehavior={{type: "controlled", showFocusRing: focused}}
+        />
+    );
+
+    return {
+        focusableHandle,
+        visiblePoint,
+    };
+}
+
+const defaultStroke = "var(--movable-line-stroke-color)";
+
+type MovableLineProps = {
+    start: vec.Vector2;
+    end: vec.Vector2;
+    onMove: (delta: vec.Vector2) => unknown;
+    stroke?: string | undefined;
+    /* Extends the line to the edge of the graph with an arrow */
+    extend?:
+        | undefined
+        | {
+              start: boolean;
+              end: boolean;
+          };
+};
+
+export const MovableLine = (props: MovableLineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
-    const {graphDimensionsInPixels} = useGraphConfig();
+    const {range, graphDimensionsInPixels} = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
 
     if (extend) {
-        const trimmedRange = trimRange(extend.range, graphDimensionsInPixels);
+        const trimmedRange = trimRange(range, graphDimensionsInPixels);
         startExtend = extend.start
             ? getIntersectionOfRayWithBox(start, end, trimmedRange)
             : undefined;

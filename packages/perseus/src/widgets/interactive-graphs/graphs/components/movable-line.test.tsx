@@ -2,7 +2,7 @@ import {render} from "@testing-library/react";
 import * as MafsLibrary from "mafs";
 import React from "react";
 
-import {MovableLine, trimRange} from "./movable-line";
+import {MovableLine, trimRange} from "./segment";
 
 import type {Interval, vec} from "mafs";
 
@@ -106,10 +106,6 @@ describe("Rendering", () => {
                     extend={{
                         start: false,
                         end: false,
-                        range: [
-                            [-200, 200],
-                            [-200, 200],
-                        ],
                     }}
                 />
             </Mafs>,
@@ -127,10 +123,6 @@ describe("Rendering", () => {
                     extend={{
                         start: true,
                         end: true,
-                        range: [
-                            [-200, 200],
-                            [-200, 200],
-                        ],
                     }}
                 />
             </Mafs>,
