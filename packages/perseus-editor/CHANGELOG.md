@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 6.2.2
+
+### Patch Changes
+
+-   [#1247](https://github.com/Khan/perseus/pull/1247) [`99f32f531`](https://github.com/Khan/perseus/commit/99f32f531d8a8ad6dd0bed5d7bc5729dd853218b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Only show a11y banner for ruler and protractor when either or both is enabled
+
+*   [#1240](https://github.com/Khan/perseus/pull/1240) [`4a59b85ab`](https://github.com/Khan/perseus/commit/4a59b85ab8d4d49e66bbd771c88e1f3d40c23a85) Thanks [@benchristel](https://github.com/benchristel)! - Adjust spacing in locked point and locked line settings
+
+-   [#1235](https://github.com/Khan/perseus/pull/1235) [`87169b22b`](https://github.com/Khan/perseus/commit/87169b22b45c37d7cece4e3fc19acc8665f04c39) Thanks [@jeresig](https://github.com/jeresig)! - Update mathjax-renderer usage, locale is now required for createMathField.
+
+-   Updated dependencies [[`4a59b85ab`](https://github.com/Khan/perseus/commit/4a59b85ab8d4d49e66bbd771c88e1f3d40c23a85), [`4a59b85ab`](https://github.com/Khan/perseus/commit/4a59b85ab8d4d49e66bbd771c88e1f3d40c23a85), [`87169b22b`](https://github.com/Khan/perseus/commit/87169b22b45c37d7cece4e3fc19acc8665f04c39)]:
+    -   @khanacademy/perseus@22.4.1
+    -   @khanacademy/math-input@19.0.0
+
 ## 6.2.1
 
 ### Patch Changes

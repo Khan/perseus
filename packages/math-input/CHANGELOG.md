@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 19.0.0
+
+### Major Changes
+
+-   [#1235](https://github.com/Khan/perseus/pull/1235) [`87169b22b`](https://github.com/Khan/perseus/commit/87169b22b45c37d7cece4e3fc19acc8665f04c39) Thanks [@jeresig](https://github.com/jeresig)! - Update mathjax-renderer usage, locale is now required for createMathField.
+
 ## 18.1.0
 
 ### Minor Changes
