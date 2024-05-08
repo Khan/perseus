@@ -443,7 +443,9 @@ describe("i18n", () => {
     });
 
     beforeEach(() => {
-        Dependencies.setDependencies(testDependencies);
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
     });
 
     describe("Exercise image finding", () => {
