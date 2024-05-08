@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
 
-import {Segment} from "./components/segment";
+import {MovableLine} from "./components/movable-line";
 
 import type {MafsGraphProps, RayGraphState} from "../types";
 import type {vec} from "mafs";
@@ -18,7 +18,7 @@ export const RayGraph = (props: Props) => {
         dispatch(moveControlPoint(pointIndex, newPoint, 0));
 
     return (
-        <Segment
+        <MovableLine
             // a ray only has one line
             points={lines[0]}
             onMoveLine={handleMoveLine}

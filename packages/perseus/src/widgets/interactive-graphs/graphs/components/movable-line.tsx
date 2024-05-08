@@ -25,7 +25,7 @@ type Props = {
     };
 };
 
-export const Segment = (props: Props) => {
+export const MovableLine = (props: Props) => {
     const {
         onMoveLine,
         color,
@@ -52,7 +52,7 @@ export const Segment = (props: Props) => {
     return (
         <>
             {focusableHandle1}
-            <MovableLine
+            <Line
                 start={start}
                 end={end}
                 stroke={color}
@@ -116,7 +116,7 @@ function useControlPoint(
 
 const defaultStroke = "var(--movable-line-stroke-color)";
 
-type MovableLineProps = {
+type LineProps = {
     start: vec.Vector2;
     end: vec.Vector2;
     onMove: (delta: vec.Vector2) => unknown;
@@ -130,7 +130,8 @@ type MovableLineProps = {
           };
 };
 
-export const MovableLine = (props: MovableLineProps) => {
+// Exported for testing
+export const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 
