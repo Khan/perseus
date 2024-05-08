@@ -583,13 +583,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 </LabeledRow>
 
                 <View style={styles.rulerSection}>
-                    {(this.props.showRuler || this.props.showProtractor) && (
-                        <Banner
-                            layout="floating"
-                            text="The ruler and protractor are not accessible. Please consider an alternate approach."
-                            kind="warning"
-                        />
-                    )}
                     <View style={styles.checkboxRow}>
                         <PropCheckBox
                             label="Show ruler"
@@ -604,6 +597,13 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             style={styles.resetSpaceTop}
                         />
                     </View>
+                    {(this.props.showRuler || this.props.showProtractor) && (
+                        <Banner
+                            layout="floating"
+                            text="The ruler and protractor are not accessible. Please consider an alternate approach."
+                            kind="warning"
+                        />
+                    )}
                     {this.props.showRuler && (
                         <View style={styles.spaceTop}>
                             <LabeledRow
@@ -689,7 +689,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginTop: spacing.xSmall_8,
+        marginBottom: spacing.xSmall_8,
     },
     rulerSection: {
         marginTop: spacing.xSmall_8,
