@@ -24,6 +24,15 @@ type FocusBehaviorConfig =
 // graph.
 const hitboxSizePx = 48;
 
+// MovablePointView is a purely presentational component (i.e. it is a pure
+// function with no state or effects) that renders the SVG for a movable point
+// on an interactive graph.
+//
+// It has two modes for managing tabbing / focus: "controlled" (where the caller
+// manages the display of the focus ring, and the point itself cannot be
+// focused) and "uncontrolled" (where the point is focusable, and the browser
+// manages the focus state and styling). For context on why we did this, see
+// the description of https://github.com/Khan/perseus/pull/1240
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
         const {range, markings, showTooltips} = useGraphConfig();

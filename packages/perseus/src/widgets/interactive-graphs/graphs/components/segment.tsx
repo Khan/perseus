@@ -33,6 +33,17 @@ export const Segment = (props: Props) => {
         extend,
     } = props;
 
+    // We use separate focusableHandle elements, instead of letting the movable
+    // points themselves be focusable, to allow the tab order of the points to
+    // be different from the rendering order. We had to solve for the following
+    // constraints:
+    // - SVG has no equivalent of z-index, so the order of elements in the
+    //   document determines the order in which they're painted. We want the
+    //   movable line segment to render behind its endpoints (it looks weird
+    //   otherwise) so we have to render the line first.
+    // - There isn't a browser-native way to customize tab order, other than
+    //   setting tabindex > 0. But that bumps elements to the front of the
+    //   tab order for the entire page, which is not what we want.
     const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
         useControlPoint(start, color, (p) => props.onMovePoint(0, p));
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
