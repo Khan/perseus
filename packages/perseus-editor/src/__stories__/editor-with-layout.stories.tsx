@@ -69,19 +69,38 @@ export const Controlled: Story = {
             >
                 {(items) => (
                     <View style={{gap: spacing.xSmall_8}}>
-                        <Section title="JSON Mode Editor">
-                            {items.jsonModeEditor}
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                gap: spacing.xSmall_8,
+                            }}
+                        >
+                            <Section title="Viewport Resizer">
+                                {items.viewportResizerElement}
+                            </Section>
+
+                            <Section title="Heads-up Display (HUD)">
+                                {items.hudElement}
+                            </Section>
+
+                            <Section title="JSON Mode Editor">
+                                {items.jsonModeEditor}
+                            </Section>
+                        </View>
+
+                        <Section title="Item Editor">
+                            {items.itemEditor}
                         </Section>
 
                         <Section
                             title="JSON Editor"
-                            style={{width: 50, height: 300}}
+                            style={{width: "100%", height: 300}}
                         >
                             <items.JsonEditor style={{height: 100}} />
                         </Section>
 
-                        <Section title="Heads-up Display (HUD)">
-                            {items.hudElement}
+                        <Section title="Hints Editor">
+                            {items.hintsEditor}
                         </Section>
                     </View>
                 )}

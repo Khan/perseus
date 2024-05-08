@@ -5,9 +5,9 @@ import _ from "underscore";
 
 import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
+import CombinedHintsEditor from "./hint-editor";
+import ItemEditor from "./item-editor";
 
-import type CombinedHintsEditor from "./hint-editor";
-import type ItemEditor from "./item-editor";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -55,7 +55,7 @@ type Props = {
 
     children: (components: {
         /**
-         * Provides a rendered component that allows users to flip between the
+         * A rendered component that allows users to flip between the
          * standard content editors or the raw JSON view. This view should be
          * gated behind a permission check and only "Developer" level folks
          * should be able to access this mode.
@@ -63,23 +63,37 @@ type Props = {
         jsonModeEditor: React.ReactNode;
 
         /**
-         * Provides a React Component that renders the JSON view of the current
+         * A React Component that renders the JSON view of the current
          * item being edited. Note that this is a "Power User" editor and can
          * easily break an item if not used carefully.
          */
         JsonEditor: React.ComponentType<{style: StyleType}>;
 
         /**
-         * Provides a rendered component that flips the preview component
+         * A rendered component that flips the preview component
          * between different viewport sizes (ie. phone, tablet, desktop).
          */
         viewportResizerElement: React.ReactNode;
 
         /**
-         * Provides a rendered component that provides a button to toggle lint
+         * A rendered component of a button to toggle lint
          * warnings on and off in the other editors.
          */
         hudElement: React.ReactNode;
+
+        /**
+         * A rendered component that provides the item editing experience.
+         * TODO: Inline this component into EditorWithLayout for more layout
+         * control.
+         */
+        itemEditor: React.ReactNode;
+
+        /**
+         * A rendered component that provides the hints editing experience.
+         * TODO: Inline this component into EditorWithLayout for more layout
+         * control.
+         */
+        hintsEditor: React.ReactNode;
     }) => React.ReactNode;
 };
 
@@ -285,8 +299,6 @@ class EditorWithLayout extends React.Component<Props, State> {
                 {this.props.children({
                     jsonModeEditor: jsonModeEditor,
                     JsonEditor: ({style}: {style: StyleType}) => (
-                        // I suspect this will need some way to pass styles in
-                        // so the host can define its size.
                         <JsonEditor
                             value={this.state.json}
                             onChange={this.changeJSON}
@@ -313,41 +325,38 @@ class EditorWithLayout extends React.Component<Props, State> {
                             }}
                         />
                     ),
+                    itemEditor: !this.props.jsonMode && (
+                        <ItemEditor
+                            ref={this.itemEditor}
+                            itemId={this.props.itemId}
+                            question={this.props.question}
+                            answerArea={this.props.answerArea}
+                            imageUploader={this.props.imageUploader}
+                            onChange={this.handleChange}
+                            wasAnswered={this.state.wasAnswered}
+                            gradeMessage={this.state.gradeMessage}
+                            deviceType={this.props.previewDevice}
+                            apiOptions={deviceBasedApiOptions}
+                            previewURL={this.props.previewURL}
+                        />
+                    ),
+                    hintsEditor: !this.props.jsonMode && (
+                        <CombinedHintsEditor
+                            ref={this.hintsEditor}
+                            itemId={this.props.itemId}
+                            hints={this.props.hints}
+                            imageUploader={this.props.imageUploader}
+                            onChange={this.handleChange}
+                            deviceType={this.props.previewDevice}
+                            apiOptions={deviceBasedApiOptions}
+                            previewURL={this.props.previewURL}
+                            highlightLint={this.state.highlightLint}
+                        />
+                    ),
                 })}
             </div>
         );
     }
 }
-/*
 
-{(!this.props.developerMode || !this.props.jsonMode) && (
-<ItemEditor
-    ref={this.itemEditor}
-    itemId={this.props.itemId}
-    question={this.props.question}
-    answerArea={this.props.answerArea}
-    imageUploader={this.props.imageUploader}
-    onChange={this.handleChange}
-    wasAnswered={this.state.wasAnswered}
-    gradeMessage={this.state.gradeMessage}
-    deviceType={this.props.previewDevice}
-    apiOptions={deviceBasedApiOptions}
-    previewURL={this.props.previewURL}
-/>
-)}
-
-{(!this.props.developerMode || !this.props.jsonMode) && (
-<CombinedHintsEditor
-    ref={this.hintsEditor}
-    itemId={this.props.itemId}
-    hints={this.props.hints}
-    imageUploader={this.props.imageUploader}
-    onChange={this.handleChange}
-    deviceType={this.props.previewDevice}
-    apiOptions={deviceBasedApiOptions}
-    previewURL={this.props.previewURL}
-    highlightLint={this.state.highlightLint}
-/>
-)}
-*/
 export default EditorWithLayout;
