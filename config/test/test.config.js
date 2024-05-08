@@ -45,7 +45,7 @@ module.exports = {
     transform: {
         "^.+\\.(j|t)sx?$": [
             "@swc/jest",
-            {jsc: {expiremental: {plugins: ["swc_mut_cjs_exports"]}}},
+            {jsc: {experimental: {plugins: [["swc_mut_cjs_exports", {}]]}}},
         ],
         // Compile .svg files using a custom transformer that returns the
         // basename of the file being transformed.
