@@ -50,13 +50,15 @@ export const MovableLine = (props: Props) => {
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
         useControlPoint(end, color, (p) => onMovePoint(1, p));
 
-    const line = <Line
-        start={start}
-        end={end}
-        stroke={color}
-        extend={extend}
-        onMove={onMoveLine}
-    />;
+    const line = (
+        <Line
+            start={start}
+            end={end}
+            stroke={color}
+            extend={extend}
+            onMove={onMoveLine}
+        />
+    );
 
     return (
         <>
