@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 22.4.1
+
+### Patch Changes
+
+-   [#1240](https://github.com/Khan/perseus/pull/1240) [`4a59b85ab`](https://github.com/Khan/perseus/commit/4a59b85ab8d4d49e66bbd771c88e1f3d40c23a85) Thanks [@benchristel](https://github.com/benchristel)! - Change the tab order for movable line segments in interactive graphs. Previously, the order was `(whole segment, first point, second point)`. Now it's `(first point, whole segment, second point)`, which aligns better with the visual layout of the graph.
+
+*   [#1240](https://github.com/Khan/perseus/pull/1240) [`4a59b85ab`](https://github.com/Khan/perseus/commit/4a59b85ab8d4d49e66bbd771c88e1f3d40c23a85) Thanks [@benchristel](https://github.com/benchristel)! - Adjust spacing in locked point and locked line settings
+
+-   [#1235](https://github.com/Khan/perseus/pull/1235) [`87169b22b`](https://github.com/Khan/perseus/commit/87169b22b45c37d7cece4e3fc19acc8665f04c39) Thanks [@jeresig](https://github.com/jeresig)! - Update mathjax-renderer usage, locale is now required for createMathField.
+
+-   Updated dependencies [[`87169b22b`](https://github.com/Khan/perseus/commit/87169b22b45c37d7cece4e3fc19acc8665f04c39)]:
+    -   @khanacademy/math-input@19.0.0
+
 ## 22.4.0
 
 ### Minor Changes
