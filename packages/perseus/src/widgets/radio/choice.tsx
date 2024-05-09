@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unsafe */
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -138,9 +138,6 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
         strings,
     );
 
-    const idFactory = useUniqueIdWithMock(`choice`);
-    const choiceId = idFactory.get(letter);
-
     return (
         <div
             style={{
@@ -161,25 +158,24 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                 }}
             >
                 <div className="perseus-sr-only">
-                    <input
-                        type={multipleSelect ? "checkbox" : "radio"}
-                        id={choiceId}
-                        checked={checked}
-                        onClick={() => {
-                            // If we're checking a crossed-out option, let's
-                            // also uncross it.
-                            sendChange({
-                                checked: !checked,
-                                crossedOut: false,
-                            });
-                        }}
-                        onChange={() => {}}
-                        disabled={disabled || apiOptions.readOnly}
-                        tabIndex={-1}
-                        className={ClassNames.RADIO.OPTION_CONTENT}
-                    />
-                    <label htmlFor={choiceId}>
+                    <label>
                         {a11yText} &nbsp; {content}
+                        <input
+                            type={multipleSelect ? "checkbox" : "radio"}
+                            checked={checked}
+                            onClick={() => {
+                                // If we're checking a crossed-out option, let's
+                                // also uncross it.
+                                sendChange({
+                                    checked: !checked,
+                                    crossedOut: false,
+                                });
+                            }}
+                            onChange={() => {}}
+                            disabled={disabled || apiOptions.readOnly}
+                            tabIndex={-1}
+                            className={ClassNames.RADIO.OPTION_CONTENT}
+                        />
                     </label>
                 </div>
                 <Clickable
