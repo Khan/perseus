@@ -7,6 +7,7 @@ import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 
+import type {SerializeOptions} from "./types";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -193,7 +194,7 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
-    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
+    serialize(options?: SerializeOptions): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
         }
