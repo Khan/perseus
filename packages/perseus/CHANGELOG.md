@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 22.4.2
+
+### Patch Changes
+
+-   [#1251](https://github.com/Khan/perseus/pull/1251) [`917a6dafb`](https://github.com/Khan/perseus/commit/917a6dafb54cbff371d0d390384d001d11c15a9b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove useUniqueIdWithMock for label/id in Choice
+
 ## 22.4.1
 
 ### Patch Changes
