@@ -156,6 +156,18 @@
     cursor: grabbing;
 }
 
+.MafsView .movable-circle .focus-ring {
+    visibility: hidden;
+}
+
+.MafsView .movable-circle:focus-visible {
+    outline: none;
+}
+
+.MafsView .movable-circle:focus-visible .focus-ring {
+    visibility: visible;
+}
+
 @font-face {
     font-family: Mafs-MJXTEX;
     src: url("https://cdn.kastatic.org/fonts/mathjax/MathJax_Main-Regular.woff")

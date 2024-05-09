@@ -49,8 +49,12 @@ function MovableCircle(props: {center: vec.Vector2, radius: number, onMove: (new
         constrain: (p) => snap(snapStep, p),
     })
 
+    const [centerPx, [radiusPx]] = useTransformVectorsToPixels(center, [radius, 0]);
+
     return (
-        <g ref={draggableRef} className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}>
+        <g ref={draggableRef} tabIndex={0} className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}>
+            {/* focus ring */}
+            <ellipse className="focus-ring" cx={centerPx[0]} cy={centerPx[1]} rx={radiusPx + 3} ry={radiusPx + 3} stroke="var(--mafs-blue)" strokeWidth={2} fill="transparent" />
             <Circle
                 center={center}
                 radius={radius}
