@@ -9,6 +9,9 @@
     /* Grid lines */
     --mafs-line-color: rgba(33, 36, 44, 0.16); /* WB color.offBlack16*/
 
+    /* Axis lines */
+    --mafs-axis-stroke-width: 2px;
+
     --mafs-blue: #1865f2; /* WB color.blue */
     --mafs-red: #d92916; /* WB color.red */
     --mafs-green: #00a60e; /* WB color.green */
@@ -159,12 +162,4 @@
 .MafsView .axis-ticks text {
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
-}
-
-/* This is a gross method of referencing the axis lines within the graph,
-        but there are no other identifying traits that we can use to target these lines
-        since they are controlled by Mafs.
- */
-.MafsView svg > g > g[stroke="var(--mafs-origin-color)"] > line {
-    stroke-width: 2px; /* Make the axis line match the thickness of other lines) */
 }
