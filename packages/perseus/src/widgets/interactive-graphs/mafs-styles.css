@@ -148,6 +148,14 @@
     visibility: visible;
 }
 
+.MafsView .movable-circle {
+    cursor: grab;
+}
+
+.MafsView .movable-circle.movable-circle--dragging {
+    cursor: grabbing;
+}
+
 @font-face {
     font-family: Mafs-MJXTEX;
     src: url("https://cdn.kastatic.org/fonts/mathjax/MathJax_Main-Regular.woff")
