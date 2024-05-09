@@ -3277,231 +3277,211 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                 class="axis-tick-labels"
               >
                 <div
-                  class="y-axis-tick-labels"
-                  style="height: 400px;"
+                  class="y-axis-tick-labels "
+                  data-testid="y-axis-tick-labels"
+                  style="left: calc(195px - 0em); top: calc(20px - 0.5em); height: 400px; text-align: right; --y-axis-label-height: 20px;"
                 >
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 13px; text-align: right; --padding: 0px;"
                   >
                     9
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 33px; text-align: right; --padding: 0px;"
                   >
                     8
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 53px; text-align: right; --padding: 0px;"
                   >
                     7
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 73px; text-align: right; --padding: 0px;"
                   >
                     6
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 93px; text-align: right; --padding: 0px;"
                   >
                     5
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 113px; text-align: right; --padding: 0px;"
                   >
                     4
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 133px; text-align: right; --padding: 0px;"
                   >
                     3
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 153px; text-align: right; --padding: 0px;"
                   >
                     2
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 173px; text-align: right; --padding: 0px;"
                   >
                     1
                   </span>
                   <span
                     class="y-axis-tick-label"
+                  />
+                  <span
+                    class="y-axis-tick-label"
+                  />
+                  <span
+                    class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 233px; text-align: right; --padding: 12px;"
                   >
                     2
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 253px; text-align: right; --padding: 12px;"
                   >
                     3
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 273px; text-align: right; --padding: 12px;"
                   >
                     4
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 293px; text-align: right; --padding: 12px;"
                   >
                     5
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 313px; text-align: right; --padding: 12px;"
                   >
                     6
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 333px; text-align: right; --padding: 12px;"
                   >
                     7
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 353px; text-align: right; --padding: 12px;"
                   >
                     8
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 373px; text-align: right; --padding: 12px;"
                   >
                     9
                   </span>
                 </div>
                 <div
-                  class="x-axis-tick-labels"
-                  style="width: 400px;"
+                  class="x-axis-tick-labels false"
+                  data-testid="x-axis-tick-labels"
+                  style="top: 205px; left: -10px; width: 400px; --x-axis-label-width: 20px;"
                 >
                   <span
                     class="x-axis-tick-label"
-                    style="left: 358px; top: 212px; --padding: 12px;"
                   >
                     9
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 338px; top: 212px; --padding: 12px;"
                   >
                     8
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 318px; top: 212px; --padding: 12px;"
                   >
                     7
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 298px; top: 212px; --padding: 12px;"
                   >
                     6
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 278px; top: 212px; --padding: 12px;"
                   >
                     5
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 258px; top: 212px; --padding: 12px;"
                   >
                     4
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 238px; top: 212px; --padding: 12px;"
                   >
                     3
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 218px; top: 212px; --padding: 12px;"
                   >
                     2
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 198px; top: 212px; --padding: 12px;"
                   >
                     1
                   </span>
                   <span
                     class="x-axis-tick-label"
+                  />
+                  <span
+                    class="x-axis-tick-label"
+                  />
+                  <span
+                    class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 138px; top: 212px; --padding: 12px;"
                   >
                     2
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 118px; top: 212px; --padding: 12px;"
                   >
                     3
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 98px; top: 212px; --padding: 12px;"
                   >
                     4
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 78px; top: 212px; --padding: 12px;"
                   >
                     5
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 58px; top: 212px; --padding: 12px;"
                   >
                     6
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 38px; top: 212px; --padding: 12px;"
                   >
                     7
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 18px; top: 212px; --padding: 12px;"
                   >
                     8
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: -2px; top: 212px; --padding: 12px;"
                   >
                     9
                   </span>
@@ -4439,231 +4419,211 @@ exports[`snapshots should render correctly with locked points 1`] = `
                 class="axis-tick-labels"
               >
                 <div
-                  class="y-axis-tick-labels"
-                  style="height: 400px;"
+                  class="y-axis-tick-labels "
+                  data-testid="y-axis-tick-labels"
+                  style="left: calc(195px - 0em); top: calc(20px - 0.5em); height: 400px; text-align: right; --y-axis-label-height: 20px;"
                 >
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 13px; text-align: right; --padding: 0px;"
                   >
                     9
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 33px; text-align: right; --padding: 0px;"
                   >
                     8
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 53px; text-align: right; --padding: 0px;"
                   >
                     7
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 73px; text-align: right; --padding: 0px;"
                   >
                     6
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 93px; text-align: right; --padding: 0px;"
                   >
                     5
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 113px; text-align: right; --padding: 0px;"
                   >
                     4
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 133px; text-align: right; --padding: 0px;"
                   >
                     3
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 153px; text-align: right; --padding: 0px;"
                   >
                     2
                   </span>
                   <span
                     class="y-axis-tick-label"
-                    style="left: 155px; top: 173px; text-align: right; --padding: 0px;"
                   >
                     1
                   </span>
                   <span
                     class="y-axis-tick-label"
+                  />
+                  <span
+                    class="y-axis-tick-label"
+                  />
+                  <span
+                    class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 233px; text-align: right; --padding: 12px;"
                   >
                     2
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 253px; text-align: right; --padding: 12px;"
                   >
                     3
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 273px; text-align: right; --padding: 12px;"
                   >
                     4
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 293px; text-align: right; --padding: 12px;"
                   >
                     5
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 313px; text-align: right; --padding: 12px;"
                   >
                     6
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 333px; text-align: right; --padding: 12px;"
                   >
                     7
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 353px; text-align: right; --padding: 12px;"
                   >
                     8
                   </span>
                   <span
                     class="y-axis-tick-label"
                     data-content="−"
-                    style="left: 155px; top: 373px; text-align: right; --padding: 12px;"
                   >
                     9
                   </span>
                 </div>
                 <div
-                  class="x-axis-tick-labels"
-                  style="width: 400px;"
+                  class="x-axis-tick-labels false"
+                  data-testid="x-axis-tick-labels"
+                  style="top: 205px; left: -10px; width: 400px; --x-axis-label-width: 20px;"
                 >
                   <span
                     class="x-axis-tick-label"
-                    style="left: 358px; top: 212px; --padding: 12px;"
                   >
                     9
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 338px; top: 212px; --padding: 12px;"
                   >
                     8
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 318px; top: 212px; --padding: 12px;"
                   >
                     7
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 298px; top: 212px; --padding: 12px;"
                   >
                     6
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 278px; top: 212px; --padding: 12px;"
                   >
                     5
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 258px; top: 212px; --padding: 12px;"
                   >
                     4
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 238px; top: 212px; --padding: 12px;"
                   >
                     3
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 218px; top: 212px; --padding: 12px;"
                   >
                     2
                   </span>
                   <span
                     class="x-axis-tick-label"
-                    style="left: 198px; top: 212px; --padding: 12px;"
                   >
                     1
                   </span>
                   <span
                     class="x-axis-tick-label"
+                  />
+                  <span
+                    class="x-axis-tick-label"
+                  />
+                  <span
+                    class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 138px; top: 212px; --padding: 12px;"
                   >
                     2
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 118px; top: 212px; --padding: 12px;"
                   >
                     3
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 98px; top: 212px; --padding: 12px;"
                   >
                     4
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 78px; top: 212px; --padding: 12px;"
                   >
                     5
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 58px; top: 212px; --padding: 12px;"
                   >
                     6
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 38px; top: 212px; --padding: 12px;"
                   >
                     7
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: 18px; top: 212px; --padding: 12px;"
                   >
                     8
                   </span>
                   <span
                     class="x-axis-tick-label"
                     data-content="−"
-                    style="left: -2px; top: 212px; --padding: 12px;"
                   >
                     9
                   </span>

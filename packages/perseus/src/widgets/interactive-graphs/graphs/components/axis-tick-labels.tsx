@@ -218,10 +218,7 @@ const AxisTickLabel = ({
     const dataContent = label < 0 && shouldShowLabel ? "−" : null;
 
     return (
-        <span
-            className={`${axis}"-axis-tick-label"`}
-            data-content={dataContent}
-        >
+        <span className={`${axis}-axis-tick-label`} data-content={dataContent}>
             {shouldShowLabel && labelString}
         </span>
     );
