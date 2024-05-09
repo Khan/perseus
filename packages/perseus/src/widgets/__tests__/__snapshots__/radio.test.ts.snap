@@ -73,15 +73,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-210-a"
-                          tabindex="-1"
-                          type="checkbox"
-                        />
-                        <label
-                          for="uid-choice-210-a"
-                        >
+                        <label>
                           (Choice A, Checked)
                              
                           <div
@@ -107,6 +99,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="checkbox"
+                          />
                         </label>
                       </div>
                       <button
@@ -188,15 +185,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-211-b"
-                          tabindex="-1"
-                          type="checkbox"
-                        />
-                        <label
-                          for="uid-choice-211-b"
-                        >
+                        <label>
                           (Choice B)
                              
                           <div
@@ -222,6 +211,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="checkbox"
+                          />
                         </label>
                       </div>
                       <button
@@ -303,15 +297,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-212-c"
-                          tabindex="-1"
-                          type="checkbox"
-                        />
-                        <label
-                          for="uid-choice-212-c"
-                        >
+                        <label>
                           (Choice C)
                              
                           <div
@@ -337,6 +323,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="checkbox"
+                          />
                         </label>
                       </div>
                       <button
@@ -418,15 +409,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-213-d"
-                          tabindex="-1"
-                          type="checkbox"
-                        />
-                        <label
-                          for="uid-choice-213-d"
-                        >
+                        <label>
                           (Choice D)
                              
                           <div
@@ -443,6 +426,11 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="checkbox"
+                          />
                         </label>
                       </div>
                       <button
@@ -633,15 +621,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-48-a"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-48-a"
-                        >
+                        <label>
                           (Choice A)
                              
                           <div
@@ -680,6 +660,11 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -774,15 +759,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-49-b"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-49-b"
-                        >
+                        <label>
                           (Choice B)
                              
                           <div
@@ -808,6 +785,11 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -889,15 +871,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-50-c"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-50-c"
-                        >
+                        <label>
                           (Choice C, Checked)
                              
                           <div
@@ -923,6 +897,11 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -1004,15 +983,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-51-d"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-51-d"
-                        >
+                        <label>
                           (Choice D)
                              
                           <div
@@ -1041,6 +1012,11 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -1205,15 +1181,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-52-a"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-52-a"
-                        >
+                        <label>
                           (Choice A, Checked)
                              
                           <div
@@ -1252,6 +1220,11 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -1346,15 +1319,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-53-b"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-53-b"
-                        >
+                        <label>
                           (Choice B)
                              
                           <div
@@ -1380,6 +1345,11 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -1461,15 +1431,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-54-c"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-54-c"
-                        >
+                        <label>
                           (Choice C)
                              
                           <div
@@ -1495,6 +1457,11 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -1576,15 +1543,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-55-d"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-55-d"
-                        >
+                        <label>
                           (Choice D)
                              
                           <div
@@ -1613,6 +1572,11 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -1777,15 +1741,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-44-a"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-44-a"
-                        >
+                        <label>
                           (Choice A)
                              
                           <div
@@ -1824,6 +1780,11 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -1918,15 +1879,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-45-b"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-45-b"
-                        >
+                        <label>
                           (Choice B)
                              
                           <div
@@ -1952,6 +1905,11 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -2033,15 +1991,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-46-c"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-46-c"
-                        >
+                        <label>
                           (Choice C)
                              
                           <div
@@ -2067,6 +2017,11 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -2148,15 +2103,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-47-d"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-47-d"
-                        >
+                        <label>
                           (Choice D)
                              
                           <div
@@ -2185,6 +2132,11 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -2349,15 +2301,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-4-a"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-4-a"
-                        >
+                        <label>
                           (Choice A)
                              
                           <div
@@ -2396,6 +2340,11 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -2490,15 +2439,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-5-b"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-5-b"
-                        >
+                        <label>
                           (Choice B)
                              
                           <div
@@ -2524,6 +2465,11 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -2605,15 +2551,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-6-c"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-6-c"
-                        >
+                        <label>
                           (Choice C, Checked)
                              
                           <div
@@ -2639,6 +2577,11 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -2720,15 +2663,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-7-d"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-7-d"
-                        >
+                        <label>
                           (Choice D)
                              
                           <div
@@ -2757,6 +2692,11 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -2921,15 +2861,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-8-a"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-8-a"
-                        >
+                        <label>
                           (Choice A, Checked)
                              
                           <div
@@ -2968,6 +2900,11 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -3062,15 +2999,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-9-b"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-9-b"
-                        >
+                        <label>
                           (Choice B)
                              
                           <div
@@ -3096,6 +3025,11 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -3177,15 +3111,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-10-c"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-10-c"
-                        >
+                        <label>
                           (Choice C)
                              
                           <div
@@ -3211,6 +3137,11 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -3292,15 +3223,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-11-d"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-11-d"
-                        >
+                        <label>
                           (Choice D)
                              
                           <div
@@ -3329,6 +3252,11 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -3493,15 +3421,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-0-a"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-0-a"
-                        >
+                        <label>
                           (Choice A, Incorrect)
                              
                           <div
@@ -3540,6 +3460,11 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -3715,15 +3640,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-1-b"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-1-b"
-                        >
+                        <label>
                           (Choice B, Incorrect)
                              
                           <div
@@ -3749,6 +3666,11 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -3895,15 +3817,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-2-c"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-2-c"
-                        >
+                        <label>
                           (Choice C, Correct)
                              
                           <div
@@ -3929,6 +3843,11 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button
@@ -4070,15 +3989,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       <div
                         class="perseus-sr-only"
                       >
-                        <input
-                          class="perseus-radio-option-content"
-                          id="uid-choice-3-d"
-                          tabindex="-1"
-                          type="radio"
-                        />
-                        <label
-                          for="uid-choice-3-d"
-                        >
+                        <label>
                           (Choice D, Incorrect)
                              
                           <div
@@ -4107,6 +4018,11 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                               </div>
                             </div>
                           </div>
+                          <input
+                            class="perseus-radio-option-content"
+                            tabindex="-1"
+                            type="radio"
+                          />
                         </label>
                       </div>
                       <button

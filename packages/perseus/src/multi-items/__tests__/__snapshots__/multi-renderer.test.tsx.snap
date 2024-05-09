@@ -138,15 +138,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             class="perseus-sr-only"
                           >
-                            <input
-                              class="perseus-radio-option-content"
-                              id="uid-choice-0-a"
-                              tabindex="-1"
-                              type="radio"
-                            />
-                            <label
-                              for="uid-choice-0-a"
-                            >
+                            <label>
                               (Choice A)
                                  
                               <div
@@ -198,6 +190,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   </div>
                                 </div>
                               </div>
+                              <input
+                                class="perseus-radio-option-content"
+                                tabindex="-1"
+                                type="radio"
+                              />
                             </label>
                           </div>
                           <button
@@ -305,15 +302,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             class="perseus-sr-only"
                           >
-                            <input
-                              class="perseus-radio-option-content"
-                              id="uid-choice-1-b"
-                              tabindex="-1"
-                              type="radio"
-                            />
-                            <label
-                              for="uid-choice-1-b"
-                            >
+                            <label>
                               (Choice B)
                                  
                               <div
@@ -365,6 +354,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   </div>
                                 </div>
                               </div>
+                              <input
+                                class="perseus-radio-option-content"
+                                tabindex="-1"
+                                type="radio"
+                              />
                             </label>
                           </div>
                           <button
@@ -472,15 +466,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             class="perseus-sr-only"
                           >
-                            <input
-                              class="perseus-radio-option-content"
-                              id="uid-choice-2-c"
-                              tabindex="-1"
-                              type="radio"
-                            />
-                            <label
-                              for="uid-choice-2-c"
-                            >
+                            <label>
                               (Choice C)
                                  
                               <div
@@ -532,6 +518,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   </div>
                                 </div>
                               </div>
+                              <input
+                                class="perseus-radio-option-content"
+                                tabindex="-1"
+                                type="radio"
+                              />
                             </label>
                           </div>
                           <button
@@ -639,15 +630,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             class="perseus-sr-only"
                           >
-                            <input
-                              class="perseus-radio-option-content"
-                              id="uid-choice-3-d"
-                              tabindex="-1"
-                              type="radio"
-                            />
-                            <label
-                              for="uid-choice-3-d"
-                            >
+                            <label>
                               (Choice D)
                                  
                               <div
@@ -699,6 +682,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   </div>
                                 </div>
                               </div>
+                              <input
+                                class="perseus-radio-option-content"
+                                tabindex="-1"
+                                type="radio"
+                              />
                             </label>
                           </div>
                           <button
@@ -806,15 +794,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                           <div
                             class="perseus-sr-only"
                           >
-                            <input
-                              class="perseus-radio-option-content"
-                              id="uid-choice-4-e"
-                              tabindex="-1"
-                              type="radio"
-                            />
-                            <label
-                              for="uid-choice-4-e"
-                            >
+                            <label>
                               (Choice E)
                                  
                               <div
@@ -866,6 +846,11 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   </div>
                                 </div>
                               </div>
+                              <input
+                                class="perseus-radio-option-content"
+                                tabindex="-1"
+                                type="radio"
+                              />
                             </label>
                           </div>
                           <button
