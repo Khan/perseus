@@ -6,7 +6,6 @@ import _ from "underscore";
 import DeviceFramer from "./components/device-framer";
 import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
-import ContentPreview from "./content-preview";
 import CombinedHintsEditor from "./hint-editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemEditor from "./item-editor";
@@ -393,7 +392,6 @@ class EditorWithLayout extends React.Component<Props, State> {
                             ref={this.itemExtrasEditor}
                             onChange={(answerArea) =>
                                 this.handleChange({
-                                    // @ts-expect-error - TS2322 - Types of property 'calculator' are incompatible.
                                     answerArea: {
                                         ...this.props.answerArea,
                                         ...answerArea,
