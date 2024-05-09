@@ -831,11 +831,10 @@ GraphUtils.createGraphie = function (el: any) {
 
             // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
             $span.processMath = function (math, force) {
-                processMath(span, math, force, function () {
-                    const width = span.scrollWidth;
-                    const height = span.scrollHeight;
-                    setLabelMargins(span, [width, height]);
-                });
+                processMath(span, math, force);
+                const width = span.scrollWidth;
+                const height = span.scrollHeight;
+                setLabelMargins(span, [width, height]);
             };
 
             // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
