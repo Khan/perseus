@@ -4103,6 +4103,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         fill="none"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        stroke-width="2px"
                         style="stroke: var(--mafs-fg);"
                       />
                     </g>
@@ -4119,6 +4120,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         fill="none"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        stroke-width="2px"
                         style="stroke: var(--mafs-fg);"
                       />
                     </g>
@@ -4135,6 +4137,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         fill="none"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        stroke-width="2px"
                         style="stroke: var(--mafs-fg);"
                       />
                     </g>
@@ -4151,6 +4154,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                         fill="none"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        stroke-width="2px"
                         style="stroke: var(--mafs-fg);"
                       />
                     </g>
@@ -4170,6 +4174,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                           fill="none"
                           stroke-linecap="round"
                           stroke-linejoin="round"
+                          stroke-width="2px"
                           style="stroke: #447A53;"
                         />
                       </g>
@@ -4195,6 +4200,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                           fill="none"
                           stroke-linecap="round"
                           stroke-linejoin="round"
+                          stroke-width="2px"
                           style="stroke: #447A53;"
                         />
                       </g>
@@ -4261,6 +4267,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                             fill="none"
                             stroke-linecap="round"
                             stroke-linejoin="round"
+                            stroke-width="2px"
                             style="stroke: #B25071;"
                           />
                         </g>
@@ -5337,6 +5344,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         fill="none"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        stroke-width="2px"
                         style="stroke: var(--mafs-fg);"
                       />
                     </g>
@@ -5353,6 +5361,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         fill="none"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        stroke-width="2px"
                         style="stroke: var(--mafs-fg);"
                       />
                     </g>
@@ -5369,6 +5378,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         fill="none"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        stroke-width="2px"
                         style="stroke: var(--mafs-fg);"
                       />
                     </g>
@@ -5385,6 +5395,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                         fill="none"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        stroke-width="2px"
                         style="stroke: var(--mafs-fg);"
                       />
                     </g>

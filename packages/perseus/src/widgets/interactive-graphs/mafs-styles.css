@@ -154,7 +154,17 @@
         format("woff");
 }
 
+/* Axis-related styling */
+
 .MafsView .axis-ticks text {
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
+}
+
+/* This is a gross method of referencing the axis lines within the graph,
+        but there are no other identifying traits that we can use to target these lines
+        since they are controlled by Mafs.
+ */
+.MafsView svg > g > g[stroke="var(--mafs-origin-color)"] > line {
+    stroke-width: 2px; /* Make the axis line match the thickness of other lines) */
 }
