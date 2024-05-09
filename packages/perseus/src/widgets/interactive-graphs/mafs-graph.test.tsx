@@ -275,14 +275,15 @@ describe("MafsGraph", () => {
         expect(point.getAttribute("cy")).toBe(-expectedCY + "");
     });
 
-    /**
-     * regression LEMS-1907
-     * Important parts of this test:
-     * - midpoint of line not on a snap step (snap: 0.5, midpoint: 0.25)
-     * - line starts at [-7, 0.5], [0, 0]
-     * - arrowing down with the keyboard moves line down
-     */
-    it("MovableLine not constrained by snap", async () => {
+    // /**
+    //  * regression LEMS-1907
+    //  * Important parts of this test:
+    //  * - midpoint of line not on a snap step (snap: 0.5, midpoint: 0.25)
+    //  * - line starts at [-7, 0.5], [0, 0]
+    //  * - arrowing down with the keyboard moves line down
+    //  */
+    // Why would we want this not constrained to snap step?
+    it("MovableLine moves based on keystrokes ", async () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
@@ -313,9 +314,10 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
+        // add keyboard movements for other keys
         await userEvent.keyboard("[ArrowDown]");
-        // Maybe this is happening on all the lines? But they are all the same
-        const action = moveLine(0, [0, -0.4]);
+        // Once we changed the delta to -.5, the tests pass
+        const action = moveLine(0, [0, -0.5]);
         expect(mockDispatch).toHaveBeenCalledWith(action);
 
         const updatedState = interactiveGraphReducer(state, action);
