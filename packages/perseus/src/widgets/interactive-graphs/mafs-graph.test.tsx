@@ -314,6 +314,7 @@ describe("MafsGraph", () => {
         const group = screen.getByTestId("movable-line");
         group.focus();
         await userEvent.keyboard("[ArrowDown]");
+        // Maybe this is happening on all the lines? But they are all the same
         const action = moveLine(0, [0, -0.4]);
         expect(mockDispatch).toHaveBeenCalledWith(action);
 
