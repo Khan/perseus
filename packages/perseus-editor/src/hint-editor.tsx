@@ -414,9 +414,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             return (
                 <CombinedHintEditor
                     ref={"hintEditor" + i}
-                        key={"hintEditor" + i}
-                        isFirst={i === 0}
-                        isLast={i + 1 === hints.length}
+                    key={"hintEditor" + i}
+                    isFirst={i === 0}
+                    isLast={i + 1 === hints.length}
                     itemId={itemId}
                     hint={hint}
                     pos={i}
@@ -430,6 +430,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                     deviceType={this.props.deviceType}
                     apiOptions={this.props.apiOptions}
                     highlightLint={this.props.highlightLint}
+                    previewURL={this.props.previewURL}
                     // TODO(CP-4838): what should be passed here?
                     contentPaths={[]}
                 />

@@ -86,6 +86,10 @@ export const Controlled: Story = {
                             <Section title="JSON Mode Editor">
                                 {items.jsonModeEditor}
                             </Section>
+
+                            <Section title="Question Extras">
+                                {items.questionExtras}
+                            </Section>
                         </View>
 
                         <Section title="Item Editor">
@@ -101,10 +105,6 @@ export const Controlled: Story = {
 
                         <Section title="Hints Editor">
                             {items.hintsEditor}
-                        </Section>
-
-                        <Section title="Question Extras">
-                            {items.questionExtras}
                         </Section>
                     </View>
                 )}
