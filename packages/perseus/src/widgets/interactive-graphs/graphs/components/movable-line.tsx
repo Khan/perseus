@@ -15,8 +15,8 @@ import type {Interval} from "mafs";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;
-    onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
-    onMoveLine: (delta: vec.Vector2) => unknown;
+    onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
+    onMoveLine?: (delta: vec.Vector2) => unknown;
     color?: string;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
@@ -25,9 +25,10 @@ type Props = {
     };
 };
 
-export const Segment = (props: Props) => {
+export const MovableLine = (props: Props) => {
     const {
-        onMoveLine,
+        onMoveLine = () => {},
+        onMovePoint = () => {},
         color,
         points: [start, end],
         extend,
@@ -45,20 +46,24 @@ export const Segment = (props: Props) => {
     //   setting tabindex > 0. But that bumps elements to the front of the
     //   tab order for the entire page, which is not what we want.
     const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
-        useControlPoint(start, color, (p) => props.onMovePoint(0, p));
+        useControlPoint(start, color, (p) => onMovePoint(0, p));
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
-        useControlPoint(end, color, (p) => props.onMovePoint(1, p));
+        useControlPoint(end, color, (p) => onMovePoint(1, p));
+
+    const line = (
+        <Line
+            start={start}
+            end={end}
+            stroke={color}
+            extend={extend}
+            onMove={onMoveLine}
+        />
+    );
 
     return (
         <>
             {focusableHandle1}
-            <MovableLine
-                start={start}
-                end={end}
-                stroke={color}
-                extend={extend}
-                onMove={onMoveLine}
-            />
+            {line}
             {focusableHandle2}
             {visiblePoint1}
             {visiblePoint2}
@@ -116,7 +121,7 @@ function useControlPoint(
 
 const defaultStroke = "var(--movable-line-stroke-color)";
 
-type MovableLineProps = {
+type LineProps = {
     start: vec.Vector2;
     end: vec.Vector2;
     onMove: (delta: vec.Vector2) => unknown;
@@ -130,7 +135,7 @@ type MovableLineProps = {
           };
 };
 
-export const MovableLine = (props: MovableLineProps) => {
+const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
     const midpoint = vec.midpoint(start, end);
 

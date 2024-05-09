@@ -2,7 +2,7 @@ import {render} from "@testing-library/react";
 import * as MafsLibrary from "mafs";
 import React from "react";
 
-import {MovableLine, trimRange} from "./segment";
+import {MovableLine, trimRange} from "./movable-line";
 
 import type {Interval, vec} from "mafs";
 
@@ -90,7 +90,12 @@ describe("Rendering", () => {
     it("Does NOT render extensions of line when option is not provided", () => {
         const {container} = render(
             <Mafs width={200} height={200}>
-                <MovableLine start={[-1, -1]} end={[1, 1]} onMove={() => {}} />
+                <MovableLine
+                    points={[
+                        [-1, -1],
+                        [1, 1],
+                    ]}
+                />
             </Mafs>,
         );
         expect(container).toMatchSnapshot();
@@ -100,9 +105,10 @@ describe("Rendering", () => {
         const {container} = render(
             <Mafs width={200} height={200}>
                 <MovableLine
-                    start={[-1, -1]}
-                    end={[1, 1]}
-                    onMove={() => {}}
+                    points={[
+                        [-1, -1],
+                        [1, 1],
+                    ]}
                     extend={{
                         start: false,
                         end: false,
@@ -117,9 +123,10 @@ describe("Rendering", () => {
         const {container} = render(
             <Mafs width={200} height={200}>
                 <MovableLine
-                    start={[-1, -1]}
-                    end={[1, 1]}
-                    onMove={() => {}}
+                    points={[
+                        [-1, -1],
+                        [1, 1],
+                    ]}
                     extend={{
                         start: true,
                         end: true,
@@ -134,7 +141,12 @@ describe("Rendering", () => {
         // Verify normal non-dragging state
         let container = render(
             <Mafs width={200} height={200}>
-                <MovableLine start={[-1, -1]} end={[1, 1]} onMove={() => {}} />
+                <MovableLine
+                    points={[
+                        [-1, -1],
+                        [1, 1],
+                    ]}
+                />
             </Mafs>,
         ).container;
         // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
@@ -150,7 +162,12 @@ describe("Rendering", () => {
         useMovableMock.mockReturnValue({dragging: true});
         container = render(
             <Mafs width={200} height={200}>
-                <MovableLine start={[-1, -1]} end={[1, 1]} onMove={() => {}} />
+                <MovableLine
+                    points={[
+                        [-1, -1],
+                        [1, 1],
+                    ]}
+                />
             </Mafs>,
         ).container;
         // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access

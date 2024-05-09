@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
 
-import {Segment} from "./components/segment";
+import {MovableLine} from "./components/movable-line";
 
 import type {MafsGraphProps, SegmentGraphState} from "../types";
 import type {vec} from "mafs";
@@ -16,7 +16,7 @@ export const SegmentGraph = (props: SegmentProps) => {
     return (
         <>
             {segments?.map((segment, i) => (
-                <Segment
+                <MovableLine
                     key={i}
                     points={segment}
                     onMoveLine={(delta: vec.Vector2) => {
