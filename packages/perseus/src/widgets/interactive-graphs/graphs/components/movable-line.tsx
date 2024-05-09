@@ -137,7 +137,6 @@ type LineProps = {
 
 const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
-    const midpoint = vec.midpoint(start, end);
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
     const {range, graphDimensionsInPixels} = useGraphConfig();
@@ -158,9 +157,9 @@ const Line = (props: LineProps) => {
     const line = useRef<SVGGElement>(null);
     const {dragging} = useMovable({
         gestureTarget: line,
-        point: midpoint,
+        point: start,
         onMove: (newPoint) => {
-            onMove(vec.sub(newPoint, midpoint));
+            onMove(vec.sub(newPoint, start));
         },
         constrain: (p) => p,
     });
