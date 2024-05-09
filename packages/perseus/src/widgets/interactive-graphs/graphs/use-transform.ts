@@ -54,4 +54,4 @@ export const useTransformVectorsToPixels = (...vectors: vec.Vector2[]) => {
 export const useTransformDimensionsToPixels = (...dimens: vec.Vector2[]) => {
     const graphState = useGraphConfig();
     return dimensionsToPixels(dimens, graphState);
-}
+};

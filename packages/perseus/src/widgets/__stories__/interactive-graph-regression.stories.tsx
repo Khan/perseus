@@ -157,10 +157,16 @@ export const MafsWithMultipleSegments = (
     />
 );
 
-export const MafsCircleGraphWithNonsquareRange = (args: StoryArgs): React.ReactElement => (
+export const MafsCircleGraphWithNonsquareRange = (
+    args: StoryArgs,
+): React.ReactElement => (
     <div className="framework-perseus perseus-mobile">
         <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder().withCircle().withYRange(-5, 5).withXRange(-10, 10).build()}
+            question={interactiveGraphQuestionBuilder()
+                .withCircle()
+                .withXRange(-10, 10)
+                .withYRange(-5, 5)
+                .build()}
         />
     </div>
 );

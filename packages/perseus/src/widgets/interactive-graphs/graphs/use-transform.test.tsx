@@ -52,8 +52,8 @@ describe("dimensionsToPixels", () => {
             ],
             width: 400,
             height: 400,
-        }
-        expect(dimensionsToPixels([[0, 0]], testContext)).toEqual([[0, 0]])
+        };
+        expect(dimensionsToPixels([[0, 0]], testContext)).toEqual([[0, 0]]);
     });
 
     it("scales the x and y dimensions", () => {
@@ -64,8 +64,8 @@ describe("dimensionsToPixels", () => {
             ],
             width: 100, // 10 px per graph unit in the x dimension
             height: 100, // 5 px per graph unit in the y dimension
-        }
-        expect(dimensionsToPixels([[3, 7]], testContext)).toEqual([[30, 35]])
+        };
+        expect(dimensionsToPixels([[3, 7]], testContext)).toEqual([[30, 35]]);
     });
 });
 

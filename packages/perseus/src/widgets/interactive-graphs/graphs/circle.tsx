@@ -11,7 +11,7 @@ import {snap} from "../utils";
 import {StyledMovablePoint} from "./components/movable-point";
 import {
     useTransformDimensionsToPixels,
-    useTransformVectorsToPixels
+    useTransformVectorsToPixels,
 } from "./use-transform";
 
 import type {CircleGraphState, MafsGraphProps} from "../types";
@@ -105,7 +105,13 @@ function DragHandle(props: {center: [x: number, y: number]}) {
             />
             {dragHandlePointPositions.map((offsetPx) => {
                 const [xPx, yPx] = vec.add(offsetPx, centerPx);
-                return <circle className="movable-circle-handle-dot" cx={xPx} cy={yPx} />;
+                return (
+                    <circle
+                        className="movable-circle-handle-dot"
+                        cx={xPx}
+                        cy={yPx}
+                    />
+                );
             })}
         </>
     );
