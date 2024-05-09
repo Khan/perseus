@@ -34,14 +34,11 @@ export default {
         elem: HTMLElement,
         text: string | number,
         force?: boolean,
-        callback?: () => unknown,
     ) {
         const $elem = $(elem);
 
         // Only process if it hasn't been done before, or it is forced
         if ($elem.attr("data-math-formula") == null || force) {
-            const $texHolder = findChildOrAdd($elem, "tex-holder");
-
             // If text wasn't provided, we use the cached text.
             // TODO(benchristel): I'm not sure if text can ever be null. It's
             // possible we don't need this check.
@@ -57,17 +54,6 @@ export default {
 
             // Store the formula that we're using
             $elem.attr("data-math-formula", text);
-
-            const {TeX} = await getDependencies();
-            // We use createElement instead of JSX here because we can't name this file tex.tsx;
-            // that name is already taken.
-            reactRender(
-                React.createElement(TeX, {
-                    children: text,
-                    onRender: callback,
-                }),
-                $texHolder[0],
-            );
         }
     },
 };
