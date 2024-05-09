@@ -9,7 +9,10 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {snap} from "../utils";
 
 import {StyledMovablePoint} from "./components/movable-point";
-import {useTransformVectorsToPixels} from "./use-transform";
+import {
+    useTransformDimensionsToPixels,
+    useTransformVectorsToPixels
+} from "./use-transform";
 
 import type {CircleGraphState, MafsGraphProps} from "../types";
 
@@ -53,10 +56,8 @@ function MovableCircle(props: {
         constrain: (p) => snap(snapStep, p),
     });
 
-    const [centerPx, [radiusPx]] = useTransformVectorsToPixels(center, [
-        radius,
-        0,
-    ]);
+    const [centerPx] = useTransformVectorsToPixels(center);
+    const [radiiPx] = useTransformDimensionsToPixels([radius, radius]);
 
     return (
         <g
@@ -69,8 +70,8 @@ function MovableCircle(props: {
                 className="focus-ring"
                 cx={centerPx[0]}
                 cy={centerPx[1]}
-                rx={radiusPx + 3}
-                ry={radiusPx + 3}
+                rx={radiiPx[0] + 3}
+                ry={radiiPx[1] + 3}
                 stroke="var(--mafs-blue)"
                 strokeWidth={2}
                 fill="transparent"
