@@ -154,18 +154,33 @@
 
 .MafsView .movable-circle.movable-circle--dragging {
     cursor: grabbing;
+    outline: none;
 }
 
 .MafsView .movable-circle .focus-ring {
-    visibility: hidden;
+    visibility: hidden; /* overridden when the circle is focused */
+    stroke: var(--mafs-blue);
+    stroke-width: 2px;
+    fill: transparent;
 }
 
-.MafsView .movable-circle:focus-visible {
+.MafsView .movable-circle:focus {
     outline: none;
 }
 
 .MafsView .movable-circle:focus-visible .focus-ring {
     visibility: visible;
+}
+
+.MafsView .movable-circle .movable-circle-handle {
+    fill: #717378; /* WB fadedOffBlack64 */
+    stroke: #fff;
+    stroke-width: 2px;
+}
+
+.MafsView .movable-circle .movable-circle-handle-dot {
+    fill: #fff;
+    r: 1.25px;
 }
 
 @font-face {

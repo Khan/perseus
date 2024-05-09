@@ -72,9 +72,6 @@ function MovableCircle(props: {
                 cy={centerPx[1]}
                 rx={radiiPx[0] + 3}
                 ry={radiiPx[1] + 3}
-                stroke="var(--mafs-blue)"
-                strokeWidth={2}
-                fill="transparent"
             />
             <Circle
                 center={center}
@@ -95,23 +92,20 @@ function DragHandle(props: {center: [x: number, y: number]}) {
     const [centerPx] = useTransformVectorsToPixels(center);
     const topLeft = vec.sub(centerPx, vec.scale(dragHandleDimensions, 0.5));
 
-    // FIXME make fill color a WB color
     return (
         <>
             <rect
+                className="movable-circle-handle"
                 x={topLeft[0]}
                 y={topLeft[1]}
                 width={dragHandleDimensions[0]}
                 height={dragHandleDimensions[1]}
                 rx={cornerRadius}
                 ry={cornerRadius}
-                fill="#777"
-                stroke="#fff"
-                strokeWidth={2}
             />
             {dragHandlePointPositions.map((offsetPx) => {
                 const [xPx, yPx] = vec.add(offsetPx, centerPx);
-                return <circle cx={xPx} cy={yPx} r={1.25} fill="#fff" />;
+                return <circle className="movable-circle-handle-dot" cx={xPx} cy={yPx} />;
             })}
         </>
     );
