@@ -3,10 +3,14 @@ import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
+import DeviceFramer from "./components/device-framer";
 import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
+import ContentPreview from "./content-preview";
 import CombinedHintsEditor from "./hint-editor";
+import IframeContentRenderer from "./iframe-content-renderer";
 import ItemEditor from "./item-editor";
+import ItemExtrasEditor from "./item-extras-editor";
 
 import type {
     APIOptions,
@@ -89,11 +93,25 @@ type Props = {
         itemEditor: React.ReactNode;
 
         /**
+         * A rendered component that previews the current item. It is updated
+         * any time the question, hints, or answerArea changes. It is also
+         * updaed when the `jsonModeEditor` is toggled on and the `JsonEditor`
+         * is changed.
+         */
+        itemPreview: React.ReactNode;
+
+        /**
          * A rendered component that provides the hints editing experience.
          * TODO: Inline this component into EditorWithLayout for more layout
          * control.
          */
         hintsEditor: React.ReactNode;
+
+        /**
+         * A rendered component that provides an editor to toggle question
+         * extras for this item (such as calculator, periodic table, etc).
+         */
+        questionExtras: React.ReactNode;
     }) => React.ReactNode;
 };
 
@@ -115,6 +133,8 @@ class EditorWithLayout extends React.Component<Props, State> {
 
     itemEditor = React.createRef<ItemEditor>();
     hintsEditor = React.createRef<CombinedHintsEditor>();
+    itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+    previewRenderer = React.createRef<IframeContentRenderer>();
 
     static defaultProps: {
         developerMode: boolean;
@@ -340,6 +360,21 @@ class EditorWithLayout extends React.Component<Props, State> {
                             previewURL={this.props.previewURL}
                         />
                     ),
+                    itemPreview: (
+                        <DeviceFramer
+                            deviceType={this.props.previewDevice}
+                            nochrome={true}
+                        >
+                            <IframeContentRenderer
+                                ref={this.previewRenderer}
+                                key={this.props.previewDevice}
+                                datasetKey="mobile"
+                                datasetValue={touch}
+                                seamless={true}
+                                url={this.props.previewURL}
+                            />
+                        </DeviceFramer>
+                    ),
                     hintsEditor: !this.props.jsonMode && (
                         <CombinedHintsEditor
                             ref={this.hintsEditor}
@@ -351,6 +386,21 @@ class EditorWithLayout extends React.Component<Props, State> {
                             apiOptions={deviceBasedApiOptions}
                             previewURL={this.props.previewURL}
                             highlightLint={this.state.highlightLint}
+                        />
+                    ),
+                    questionExtras: (
+                        <ItemExtrasEditor
+                            ref={this.itemExtrasEditor}
+                            onChange={(answerArea) =>
+                                this.handleChange({
+                                    // @ts-expect-error - TS2322 - Types of property 'calculator' are incompatible.
+                                    answerArea: {
+                                        ...this.props.answerArea,
+                                        ...answerArea,
+                                    },
+                                })
+                            }
+                            {...this.props.answerArea}
                         />
                     ),
                 })}

@@ -102,6 +102,10 @@ export const Controlled: Story = {
                         <Section title="Hints Editor">
                             {items.hintsEditor}
                         </Section>
+
+                        <Section title="Question Extras">
+                            {items.questionExtras}
+                        </Section>
                     </View>
                 )}
             </EditorWithLayout>
