@@ -17,6 +17,7 @@ import {
     iconPlus,
 } from "./styles/icon-paths";
 
+import type {SerializeOptions} from "./types";
 import type {
     APIOptions,
     ImageDict,
@@ -90,7 +91,7 @@ class HintEditor extends React.Component<HintEditorProps> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize: (options?: any) => any = (options: any) => {
+    serialize: (options?: SerializeOptions) => any = (options) => {
         return this.editor.current?.serialize(options);
     };
 
@@ -224,7 +225,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize = (options: any) => {
+    serialize = (options: SerializeOptions) => {
         return this.editor.current?.serialize(options);
     };
 
@@ -387,7 +388,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .value();
     };
 
-    serialize: (options?: any) => ReadonlyArray<string> = (options: any) => {
+    serialize: (options?: SerializeOptions) => ReadonlyArray<string> = (
+        options,
+    ) => {
         return this.props.hints.map((hint, i) => {
             return this.serializeHint(i, options);
         });

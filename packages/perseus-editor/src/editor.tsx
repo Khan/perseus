@@ -28,6 +28,7 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
+import type {SerializeOptions} from "./types";
 import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
@@ -833,12 +834,12 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
-    serialize: (options?: any) => {
+    serialize: (options?: SerializeOptions) => {
         content: string;
         images: any;
         replace: any | undefined;
         widgets: Record<any, any>;
-    } = (options: any) => {
+    } = (options) => {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
