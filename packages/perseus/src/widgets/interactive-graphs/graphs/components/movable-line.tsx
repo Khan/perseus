@@ -139,7 +139,7 @@ const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
-    const {range, graphDimensionsInPixels} = useGraphConfig();
+    const {range, graphDimensionsInPixels, snapStep} = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
@@ -161,7 +161,7 @@ const Line = (props: LineProps) => {
         onMove: (newPoint) => {
             onMove(vec.sub(newPoint, start));
         },
-        constrain: (p) => p,
+        constrain: (p) => snap(snapStep, p),
     });
 
     return (
