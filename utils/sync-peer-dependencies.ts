@@ -10,15 +10,18 @@ import {execSync} from "child_process";
 import * as fs from "fs";
 
 function printHelp() {
+    console.log("--- Package Dependency Sync ---");
+
     console.log(`
-    This tool synchronizes all peer dependencies found in any package.json
-    file in this repo to match the versions listed in the provided package.json
-    file. Typically, this would be the package.json file from the hosting web
-    application (ie. webapp).
+    This tool synchronizes all dev and peer dependencies found in any
+    package.json file in this repo to match the versions listed in the provided
+    package.json file. Typically, this would be the package.json file from the
+    hosting web application (ie. webapp).
 `);
     console.log("usage: sync-peer-dependencies <package.json>");
 }
 
+// Package version regexes that we don't want to sync in
 const RestrictedPackageVersions = [
     /^link:.*/,
     // We don't use hot-loader/react-dom in Perseus. It's basically
@@ -27,6 +30,7 @@ const RestrictedPackageVersions = [
     /hot-loader\/react-dom/,
 ];
 
+// Package names that we don't want to sync in
 const RestrictedPackageNames = ["typescript"];
 
 // There are some packages and version number constructs that we don't want to
@@ -62,8 +66,6 @@ function syncPackageDependencies(
 }
 
 function main(argv: string[]) {
-    console.log("--- Wonder (Blocks|Stuff) Sync ---");
-
     // The first arg is the node binary running this script, the second arg is
     // this script itself. So, we strip these two args off so that all that's
     // left are the arguments passed to this script.
