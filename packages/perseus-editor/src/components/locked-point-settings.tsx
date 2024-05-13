@@ -4,6 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import * as KAS from "@khanacademy/kas";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -17,7 +18,6 @@ import ColorSwatch from "./color-swatch";
 import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
-import {getValidNumberFromString} from "./util";
 
 import type {LockedPointType} from "@khanacademy/perseus";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
@@ -44,13 +44,16 @@ const LockedPointSettings = (props: Props) => {
         onRemove,
     } = props;
 
-    // Keep track of the coordinates via state as the user is editing them,
-    // before they are updated in the props on blur.
-    const [coordState, setCoordState] = React.useState([
+    const initialCoordStrings = [
         // Using strings to make it easier to work with the text fields.
         coord[0].toString(),
         coord[1].toString(),
-    ]);
+    ];
+
+    // Keep track of the coordinates via state as the user is editing them,
+    // before they are updated in the props as a valid number.
+    const [coordState, setCoordState] = React.useState(initialCoordStrings);
+    const [summaryCoord, setSummaryCoord] = React.useState(initialCoordStrings);
 
     // Generate unique IDs so that the programmatic labels can be associated
     // with their respective text fields.
@@ -59,22 +62,36 @@ const LockedPointSettings = (props: Props) => {
     const yCoordId = ids.get("y-coord");
     const colorSelectId = ids.get("point-color-select");
 
-    function handleBlur() {
-        const validCoord = [
-            getValidNumberFromString(coordState[0]),
-            getValidNumberFromString(coordState[1]),
-        ] as [number, number];
-
-        // Make the text field only show valid numbers after blur.
-        setCoordState([validCoord[0].toString(), validCoord[1].toString()]);
-        // Update the graph with the new coordinates.
-        onChangeProps({coord: validCoord});
-    }
-
     function handleCoordChange(newValue, coordIndex) {
         const newCoord = [...coordState];
         newCoord[coordIndex] = newValue;
+        // String, may or may not be a fully parsed number.
         setCoordState(newCoord);
+
+        try {
+            const newCoordNum = KAS.parse(newValue).expr.eval();
+
+            if (
+                isNaN(newCoordNum) ||
+                newCoordNum === Infinity ||
+                newCoordNum === -Infinity
+            ) {
+                return;
+            }
+
+            // Valid number
+            if (newValue !== "") {
+                const newCoordProps = [...coord] satisfies [number, number];
+                newCoordProps[coordIndex] = newCoordNum;
+                // Valid demical number
+                onChangeProps({coord: newCoordProps});
+                // Valid fraction string
+                setSummaryCoord(newCoord);
+            }
+        } catch (e) {
+            // Invalid expression
+            return;
+        }
     }
 
     function handleColorChange(newValue) {
@@ -88,7 +105,7 @@ const LockedPointSettings = (props: Props) => {
             header={
                 // Summary: Point, coords, color (filled/open)
                 <View style={styles.row}>
-                    <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
+                    <LabelLarge>{`${label || "Point"} (${summaryCoord[0]}, ${summaryCoord[1]})`}</LabelLarge>
                     <Strut size={spacing.xSmall_8} />
                     {toggled && (
                         <ColorSwatch color={pointColor} filled={filled} />
@@ -107,10 +124,8 @@ const LockedPointSettings = (props: Props) => {
                 </LabelMedium>
                 <TextField
                     id={xCoordId}
-                    type="number"
                     value={coordState[0]}
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
-                    onBlur={handleBlur}
                     style={styles.textField}
                 />
                 <Strut size={spacing.medium_16} />
@@ -123,10 +138,8 @@ const LockedPointSettings = (props: Props) => {
                 </LabelMedium>
                 <TextField
                     id={yCoordId}
-                    type="number"
                     value={coordState[1]}
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
-                    onBlur={handleBlur}
                     style={styles.textField}
                 />
             </View>
