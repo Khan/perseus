@@ -43,6 +43,8 @@ export const getIntersectionOfRayWithBox = (
         case yDiff < 0 && xDiff >= 0:
             return [xAtYMin, yMin];
         // 9 o'clock to 11:59
+        case yDiff === 0 && xDiff < 0:
+            return [xMin, aY]
         case yDiff >= 0 && xDiff < 0 && xAtYMax < xMin:
             return [xMin, yAtXMin]
         case yDiff >= 0 && xDiff < 0:
