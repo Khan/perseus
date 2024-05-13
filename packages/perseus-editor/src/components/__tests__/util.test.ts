@@ -70,8 +70,8 @@ describe("getDefaultFigureForType", () => {
             ],
             color: "grayH",
             lineStyle: "solid",
-            showStartPoint: false,
-            showEndPoint: false,
+            showPoint1: false,
+            showPoint2: false,
         });
     });
 });
