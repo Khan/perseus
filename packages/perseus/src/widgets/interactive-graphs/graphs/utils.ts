@@ -8,8 +8,8 @@ export function calculateAngleInDegrees([x, y]: vec.Vector2) {
 /**
  * Given a ray and a rectangular box, find the point where the ray intersects
  * the edge of the box. Assumes the `initialPoint` is inside the box.
- * @param initialPoint - The starting point of the ray.
- * @param throughPoint - A point that the ray passes through. Must be different from initialPoint.
+ * @param initialPoint - A point that the ray passes through. Must be different from initialPoint.
+ * @param throughPoint - The starting point of the ray.
  * @param box - The box with which to intersect the ray, in the form [[xMin, xMax], [yMin, yMax]]
  */
 export const getIntersectionOfRayWithBox = (
@@ -18,8 +18,8 @@ export const getIntersectionOfRayWithBox = (
     box: [x: Interval, y: Interval],
 ): [number, number] => {
     const [[xMin, xMax], [yMin, yMax]] = box;
-    const [aX, aY] = throughPoint;
-    const [bX, bY] = initialPoint;
+    const [aX, aY] = initialPoint;
+    const [bX, bY] = throughPoint;
 
     const yDiff = bY - aY;
     const xDiff = bX - aX;
