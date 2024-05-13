@@ -3384,7 +3384,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                 <div
                   class="x-axis-tick-labels false"
                   data-testid="x-axis-tick-labels"
-                  style="top: 205px; left: -10px; width: 400px; --x-axis-label-width: 20px;"
+                  style="top: 205px; right: 10px; width: 400px; --x-axis-label-width: 20px;"
                 >
                   <span
                     class="x-axis-tick-label"
@@ -4526,7 +4526,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                 <div
                   class="x-axis-tick-labels false"
                   data-testid="x-axis-tick-labels"
-                  style="top: 205px; left: -10px; width: 400px; --x-axis-label-width: 20px;"
+                  style="top: 205px; right: 10px; width: 400px; --x-axis-label-width: 20px;"
                 >
                   <span
                     class="x-axis-tick-label"
