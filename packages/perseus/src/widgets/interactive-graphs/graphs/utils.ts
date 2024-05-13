@@ -50,7 +50,7 @@ export const getIntersectionOfRayWithBox = (
         case yDiff < 0 && xDiff > 0 && xAtYMin > xMax:
             return [xMax, yAtXMax]
 
-        case yDiff < 0 && xDiff > 0:
+        case yDiff < 0 && xDiff > 0 && xAtYMin >= xMin:
         case yDiff < 0 && xDiff < 0 && xAtYMin >= xMin:
             return [xAtYMin, yMin];
 
@@ -59,7 +59,7 @@ export const getIntersectionOfRayWithBox = (
             return [xMin, yAtXMin];
 
         case yDiff > 0 && xDiff > 0 && xAtYMax <= xMax:
-        case yDiff > 0 && xDiff < 0:
+        case yDiff > 0 && xDiff < 0 && xAtYMax <= xMax:
             return [xAtYMax, yMax];
 
         default:
