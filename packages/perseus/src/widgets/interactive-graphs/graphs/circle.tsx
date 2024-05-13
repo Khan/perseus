@@ -65,7 +65,6 @@ function MovableCircle(props: {
             tabIndex={0}
             className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
         >
-            {/* focus ring */}
             <ellipse
                 className="focus-ring"
                 cx={centerPx[0]}
