@@ -84,7 +84,7 @@ function MovableCircle(props: {
 }
 
 const dragHandleDimensions: vec.Vector2 = [24, 14];
-const dragHandlePointPositions = crossProduct([-4.4, 0, 4.4], [-2.1, 2.1]);
+const dragHandleDotPositions = crossProduct([-4.4, 0, 4.4], [-2.1, 2.1]);
 function DragHandle(props: {center: [x: number, y: number]}) {
     const {center} = props;
     const cornerRadius = Math.min(...dragHandleDimensions) / 2;
@@ -102,7 +102,7 @@ function DragHandle(props: {center: [x: number, y: number]}) {
                 rx={cornerRadius}
                 ry={cornerRadius}
             />
-            {dragHandlePointPositions.map((offsetPx) => {
+            {dragHandleDotPositions.map((offsetPx) => {
                 const [xPx, yPx] = vec.add(offsetPx, centerPx);
                 return (
                     <circle
