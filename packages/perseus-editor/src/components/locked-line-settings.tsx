@@ -50,8 +50,9 @@ const LockedLineSettings = (props: Props) => {
     const colorSelectId = ids.get("line-color-select");
     const styleSelectId = ids.get("line-style-select");
 
-    const lineLabel = `Line (${startPoint.coord[0]}, ${startPoint.coord[1]}),
-        (${endPoint.coord[0]}, ${endPoint.coord[1]})`;
+    const capitalizeKind = kind.charAt(0).toUpperCase() + kind.slice(1);
+    const lineLabel = `${capitalizeKind} (${startPoint.coord[0]},
+        ${startPoint.coord[1]}), (${endPoint.coord[0]}, ${endPoint.coord[1]})`;
 
     function handleChangePoint(
         newPointProps: Partial<LockedPointType>,
