@@ -26,30 +26,23 @@ export const getIntersectionOfRayWithBox = (
     const slope = yDiff / xDiff;
     const inverseSlope = 1 / slope
 
-    const yAtXMin = aY + (xMin - aX) * slope;
-    const yAtXMax = aY + (xMax - aX) * slope;
-    const xAtYMin = aX + (yMin - aY) * inverseSlope;
-    const xAtYMax = aX + (yMax - aY) * inverseSlope;
+    const xExtreme = xDiff < 0 ? xMin : xMax;
+    const yExtreme = yDiff < 0 ? yMin : yMax;
+
+    const yAtXExtreme = aY + (xExtreme - aX) * slope;
+    const xAtYExtreme = aX + (yExtreme - aY) * inverseSlope;
 
     switch (true) {
-        // check if the ray intersects the left edge of the graph
-        case xDiff < 0 && isBetween(yAtXMin, yMin, yMax):
-            return [xMin, yAtXMin]
+        // does the ray intersect the left or right edge?
+        case isBetween(yAtXExtreme, yMin, yMax):
+            return [xExtreme, yAtXExtreme];
 
-        // right edge
-        case xDiff > 0 && isBetween(yAtXMax, yMin, yMax):
-            return [xMax, yAtXMax]
-
-        // bottom edge
-        case yDiff < 0 && isBetween(xAtYMin, xMin, xMax):
-            return [xAtYMin, yMin]
-
-        // top edge
-        case yDiff > 0 && isBetween(xAtYMax, xMin, xMax):
-            return [xAtYMax, yMax]
+        // does the ray intersect the top or bottom edge?
+        case isBetween(xAtYExtreme, xMin, xMax):
+            return [xAtYExtreme, yExtreme];
 
         default:
-            return [xMax, yAtXMax];
+            return [0, 0];
     }
 };
 
