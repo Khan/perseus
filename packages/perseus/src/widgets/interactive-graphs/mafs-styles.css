@@ -173,7 +173,7 @@
 }
 
 .MafsView .movable-circle .movable-circle-handle {
-    fill: #717378; /* WB fadedOffBlack64 */
+    fill: var(--mafs-blue); /* WB fadedOffBlack64 */
     stroke: #fff;
     stroke-width: 2px;
 }
