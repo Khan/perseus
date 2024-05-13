@@ -31,7 +31,6 @@
     "@khanacademy/eslint-plugin": "^3.0.0",
     "@khanacademy/mathjax-renderer": "^2.0.0",
     "@khanacademy/wonder-blocks-button": "6.3.0",
-    "@khanacademy/wonder-blocks-i18n": "^2.0.2",
     "@khanacademy/wonder-blocks-layout": "^2.0.31",
     "@khanacademy/wonder-blocks-spacing": "^4.0.1",
     "@popperjs/core": "^2.10.1",
