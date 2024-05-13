@@ -79,8 +79,8 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 ],
                 color: DEFAULT_COLOR,
                 lineStyle: "solid",
-                showStartPoint: false,
-                showEndPoint: false,
+                showPoint1: false,
+                showPoint2: false,
             };
         default:
             throw new UnreachableCaseError(type);
