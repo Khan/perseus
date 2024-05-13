@@ -33,31 +33,43 @@ export const getIntersectionOfRayWithBox = (
 
     // clock analogy to describe quadrants
     switch (true) {
-        // 12 o'clock to 2:59
-        case yDiff > 0 && xDiff >= 0 && xAtYMax > xMax:
+        // 6 o'clock
+        case yDiff < 0 && xDiff === 0:
+            return [aX + 0, yMin]
+        // 12 o'clock
+        case yDiff > 0 && xDiff === 0:
+            return [aX + 0, yMax]
+        // 9 o'clock
+        case yDiff === 0 && xDiff < 0:
+            return [xMin, aY + 0]
+        // 3 o'clock
+        case yDiff === 0 && xDiff > 0:
+            return [xMax, aY + 0]
+
+        // 12:00 to 3:00
+        case yDiff > 0 && xDiff > 0 && xAtYMax > xMax:
             return [xMax, yAtXMax]
-        case yDiff > 0 && xDiff >= 0:
+        case yDiff > 0 && xDiff > 0:
             return [xAtYMax, yMax];
 
-        // 3 o'clock to 5:59
-        case yDiff < 0 && xDiff >= 0 && xAtYMin > xMax:
+        // 3:00 to 6:00
+        case yDiff < 0 && xDiff > 0 && xAtYMin > xMax:
             return [xMax, yAtXMax]
-        case yDiff < 0 && xDiff >= 0:
+        case yDiff < 0 && xDiff > 0:
             return [xAtYMin, yMin];
 
-        // 9 o'clock to 11:59
-        case yDiff === 0 && xDiff < 0:
-            return [xMin, aY]
-        case yDiff >= 0 && xDiff < 0 && xAtYMax < xMin:
-            return [xMin, yAtXMin]
-        case yDiff >= 0 && xDiff < 0:
-            return [xAtYMax, yMax]
+        // 9:00 to 12:00
+        case yDiff > 0 && xDiff < 0 && xAtYMax < xMin:
+            return [xMin, yAtXMin];
+        case yDiff > 0 && xDiff < 0:
+            return [xAtYMax, yMax];
 
-        // 6 o'clock to 8:59
+        // 6:00 to 9:00
         case yDiff < 0 && xDiff < 0 && xAtYMin < xMin:
             return [xMin, yAtXMin]
         case yDiff < 0 && xDiff < 0:
             return [xAtYMin, yMin];
+
         default:
             return [xMax, yAtXMax];
     }

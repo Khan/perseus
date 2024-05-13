@@ -18,6 +18,22 @@ describe("getIntersectionOfRayWithBox", () => {
         expect(intersection).toEqual([7, 0]);
     });
 
+    test("given a vertical ray passing through the origin upward", () => {
+        const box: [Interval, Interval] = [[-7, 7], [-11, 11]];
+        const initialPoint: vec.Vector2 = [0, -1];
+        const throughPoint: vec.Vector2 = [0, 1];
+        const intersection = getIntersectionOfRayWithBox(initialPoint, throughPoint, box);
+        expect(intersection).toEqual([0, 11]);
+    });
+
+    test("given a vertical ray passing through the origin downward", () => {
+        const box: [Interval, Interval] = [[-7, 7], [-11, 11]];
+        const initialPoint: vec.Vector2 = [0, 1];
+        const throughPoint: vec.Vector2 = [0, -1];
+        const intersection = getIntersectionOfRayWithBox(initialPoint, throughPoint, box);
+        expect(intersection).toEqual([0, -11]);
+    });
+
     test("given a y coordinate of -0 for the initialPoint when the ray points right", () => {
         const box: [Interval, Interval] = [[-7, 7], [-11, 11]];
         const initialPoint: vec.Vector2 = [-1, -0];
