@@ -283,7 +283,7 @@ describe("MafsGraph", () => {
     //  * - arrowing down with the keyboard moves line down
     //  */
     // Why would we want this not constrained to snap step?
-    it("MovableLine moves based on keystrokes ", async () => {
+    it("MovableLine moves down based on down keystroke ", async () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
@@ -336,6 +336,180 @@ describe("MafsGraph", () => {
         // Map graph coordinates to SVG coordinates
         const [expectedX1, expectedY1] = graphToPixel([-7, 0]);
         const [expectedX2, expectedY2] = graphToPixel([0, -0.5]);
+
+        expect(line.getAttribute("x1")).toBe(expectedX1 + "");
+        expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
+        expect(line.getAttribute("x2")).toBe(expectedX2 + "");
+        expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
+    });
+
+    it("MovableLine moves up based on up keystroke ", async () => {
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [-6, -0.5],
+                    [3, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        const {rerender} = render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        const group = screen.getByTestId("movable-line");
+        group.focus();
+        await userEvent.keyboard("[ArrowUp]");
+        const action = moveLine(0, [0, 0.5]);
+        expect(mockDispatch).toHaveBeenCalledWith(action);
+
+        const updatedState = interactiveGraphReducer(state, action);
+
+        rerender(
+            <MafsGraph
+                state={updatedState}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        const line = screen.getByTestId("movable-line__line");
+        expect(line).toBeInTheDocument();
+
+        // Map graph coordinates to SVG coordinates
+        const [expectedX1, expectedY1] = graphToPixel([-6, 0]);
+        const [expectedX2, expectedY2] = graphToPixel([3, 1]);
+
+        expect(line.getAttribute("x1")).toBe(expectedX1 + "");
+        expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
+        expect(line.getAttribute("x2")).toBe(expectedX2 + "");
+        expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
+    });
+
+    it("MovableLine moves right based on right keystroke ", async () => {
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0.5, -8],
+                    [-0.5, 0],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        const {rerender} = render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        const group = screen.getByTestId("movable-line");
+        group.focus();
+        await userEvent.keyboard("[ArrowRight]");
+        const action = moveLine(0, [0.5, 0]);
+        expect(mockDispatch).toHaveBeenCalledWith(action);
+
+        const updatedState = interactiveGraphReducer(state, action);
+
+        rerender(
+            <MafsGraph
+                state={updatedState}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        const line = screen.getByTestId("movable-line__line");
+        expect(line).toBeInTheDocument();
+
+        // Map graph coordinates to SVG coordinates
+        const [expectedX1, expectedY1] = graphToPixel([1, -8]);
+        const [expectedX2, expectedY2] = graphToPixel([0, 0]);
+
+        expect(line.getAttribute("x1")).toBe(expectedX1 + "");
+        expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
+        expect(line.getAttribute("x2")).toBe(expectedX2 + "");
+        expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
+    });
+
+    it("MovableLine moves left based on left keystroke ", async () => {
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            markings: "graph",
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [1.5, -2],
+                    [-2.5, 4],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        const {rerender} = render(
+            <MafsGraph
+                state={state}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        const group = screen.getByTestId("movable-line");
+        group.focus();
+        await userEvent.keyboard("[ArrowLeft]");
+        const action = moveLine(0, [-0.5, 0]);
+        expect(mockDispatch).toHaveBeenCalledWith(action);
+
+        const updatedState = interactiveGraphReducer(state, action);
+
+        rerender(
+            <MafsGraph
+                state={updatedState}
+                dispatch={mockDispatch}
+                {...baseMafsGraphProps}
+            />,
+        );
+
+        const line = screen.getByTestId("movable-line__line");
+        expect(line).toBeInTheDocument();
+
+        // Map graph coordinates to SVG coordinates
+        const [expectedX1, expectedY1] = graphToPixel([1, -2]);
+        const [expectedX2, expectedY2] = graphToPixel([-3, 4]);
 
         expect(line.getAttribute("x1")).toBe(expectedX1 + "");
         expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
