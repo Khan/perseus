@@ -307,7 +307,7 @@ describe("MafsGraph", () => {
         const group = screen.getByTestId("movable-line");
         group.focus();
         await userEvent.keyboard("[ArrowDown]");
-        const action = moveLine(0, [0, -0.5]); // previously was [0, -0.4]
+        const action = moveLine(0, [0, -0.5]);
         expect(mockDispatch).toHaveBeenCalledWith(action);
 
         const updatedState = interactiveGraphReducer(state, action);
