@@ -686,11 +686,11 @@ export type LockedPointType = {
 export type LockedLineType = {
     type: "line";
     kind: "line" | "ray" | "segment";
-    points: [startPoint: LockedPointType, endPoint: LockedPointType];
+    points: [point1: LockedPointType, point2: LockedPointType];
     color: LockedFigureColor;
     lineStyle: "solid" | "dashed";
-    showStartPoint: boolean;
-    showEndPoint: boolean;
+    showPoint1: boolean;
+    showPoint2: boolean;
 };
 
 export type PerseusGraphType =

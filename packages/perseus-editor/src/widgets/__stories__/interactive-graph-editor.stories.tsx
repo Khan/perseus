@@ -155,8 +155,8 @@ export const WithLockedLines: StoryComponentType = {
                     ],
                     color: "green",
                     lineStyle: "solid",
-                    showStartPoint: false,
-                    showEndPoint: false,
+                    showPoint1: false,
+                    showPoint2: false,
                 },
                 {
                     type: "line",
@@ -167,8 +167,8 @@ export const WithLockedLines: StoryComponentType = {
                     ],
                     color: "pink",
                     lineStyle: "solid",
-                    showStartPoint: true,
-                    showEndPoint: false,
+                    showPoint1: true,
+                    showPoint2: false,
                 },
                 {
                     type: "line",
@@ -179,8 +179,8 @@ export const WithLockedLines: StoryComponentType = {
                     ],
                     color: "grayH",
                     lineStyle: "solid",
-                    showStartPoint: true,
-                    showEndPoint: true,
+                    showPoint1: true,
+                    showPoint2: true,
                 },
             ],
         });
