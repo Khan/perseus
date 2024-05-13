@@ -132,7 +132,7 @@ const XGridAxis = (props: GridAxisProps): React.ReactElement => {
     const {width, height} = graphConfig;
 
     // Determine label width by calculating the difference between the first two x-axis labels
-    const xLeftPoint: vec.Vector2 = pointToPixel(
+    const xFirstPoint: vec.Vector2 = pointToPixel(
         [axisTicks[0], 0],
         graphConfig,
     );
@@ -140,23 +140,36 @@ const XGridAxis = (props: GridAxisProps): React.ReactElement => {
         [axisTicks[1], 0],
         graphConfig,
     );
-    const xLabelWidth = Math.abs(xSecondPoint[0] - xLeftPoint[0]);
+    const xLabelWidth = Math.abs(xSecondPoint[0] - xFirstPoint[0]);
 
     // Determine the top position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const xAxisAboveGraph = xLeftPoint[1] < 0;
+    const xAxisAboveGraph = xFirstPoint[1] < 0;
     const xTopAdjustment = xAxisAboveGraph
         ? 0
-        : Math.min(xLeftPoint[1] + tickPadding, height);
+        : Math.min(xFirstPoint[1] + tickPadding, height);
 
     // Determine whether the x-axis is outside of the graph's viewbox/range
     // This is used to conditionally render the 0 label on the x-axis
     const xAxisOutOfBounds = xTopAdjustment === height || xAxisAboveGraph;
 
+    // Determine the available space to the right of the x-axis labels
+    const availableSpaceRight = width - xFirstPoint[0];
+
+    // Calculate the total combined width of ALL the x-axis labels
+    const axisTicksWidth = axisTicks.length * xLabelWidth;
+
+    // Determine if we need to increase the width of the axis past the graph width
+    const calculatedWidth = axisTicksWidth > width ? axisTicksWidth : width;
+
+    // Determine the right adjustment for the x-axis labels based on the available space
+    // We're adjusting the right as the flex-direction is row-reverse
+    const xRightAdjustment = availableSpaceRight - xLabelWidth / 2;
+
     const xAxisStyles = {
         top: xTopAdjustment,
-        left: -(xLabelWidth / 2),
-        width: width,
+        right: xRightAdjustment,
+        width: calculatedWidth,
         "--x-axis-label-width": xLabelWidth + "px",
     };
 
