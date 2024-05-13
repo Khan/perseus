@@ -226,6 +226,8 @@ describe("LockedPointSettings", () => {
         ${"x"}     | ${".2"}    | ${0.2}
         ${"x"}     | ${"0.2"}   | ${0.2}
         ${"x"}     | ${"-1"}    | ${-1}
+        ${"x"}     | ${"-1.2"}  | ${-1.2}
+        ${"x"}     | ${"-.2"}   | ${-0.2}
         ${"y"}     | ${"-"}     | ${null}
         ${"y"}     | ${"."}     | ${null}
         ${"y"}     | ${"0"}     | ${0}
@@ -234,6 +236,8 @@ describe("LockedPointSettings", () => {
         ${"y"}     | ${".2"}    | ${0.2}
         ${"y"}     | ${"0.2"}   | ${0.2}
         ${"y"}     | ${"-1"}    | ${-1}
+        ${"y"}     | ${"-1.2"}  | ${-1.2}
+        ${"y"}     | ${"-.2"}   | ${-0.2}
     `(
         "Typing in the $Coordinate coordinate field should update the field ($inputValue)",
         async ({Coordinate, inputValue, expectedValue}) => {
