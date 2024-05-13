@@ -31,36 +31,22 @@ export const getIntersectionOfRayWithBox = (
     const xAtYMin = aX + (yMin - aY) * inverseSlope;
     const xAtYMax = aX + (yMax - aY) * inverseSlope;
 
-    // clock analogy to describe quadrants
     switch (true) {
-        // 6 o'clock
-        case yDiff < 0 && xDiff === 0:
-            return [aX + 0, yMin]
-        // 12 o'clock
-        case yDiff > 0 && xDiff === 0:
-            return [aX + 0, yMax]
-        // 9 o'clock
-        case yDiff === 0 && xDiff < 0:
-            return [xMin, aY + 0]
-        // 3 o'clock
-        case yDiff === 0 && xDiff > 0:
-            return [xMax, aY + 0]
+        // check if the ray intersects the left edge of the graph
+        case xDiff < 0 && isBetween(yAtXMin, yMin, yMax):
+            return [xMin, yAtXMin]
 
-        case yDiff > 0 && xDiff > 0 && xAtYMax > xMax:
-        case yDiff < 0 && xDiff > 0 && xAtYMin > xMax:
+        // right edge
+        case xDiff > 0 && isBetween(yAtXMax, yMin, yMax):
             return [xMax, yAtXMax]
 
-        case yDiff < 0 && xDiff > 0 && xAtYMin >= xMin:
-        case yDiff < 0 && xDiff < 0 && xAtYMin >= xMin:
-            return [xAtYMin, yMin];
+        // bottom edge
+        case yDiff < 0 && isBetween(xAtYMin, xMin, xMax):
+            return [xAtYMin, yMin]
 
-        case yDiff < 0 && xDiff < 0 && xAtYMin < xMin:
-        case yDiff > 0 && xDiff < 0 && xAtYMax < xMin:
-            return [xMin, yAtXMin];
-
-        case yDiff > 0 && xDiff > 0 && xAtYMax <= xMax:
-        case yDiff > 0 && xDiff < 0 && xAtYMax <= xMax:
-            return [xAtYMax, yMax];
+        // top edge
+        case yDiff > 0 && isBetween(xAtYMax, xMin, xMax):
+            return [xAtYMax, yMax]
 
         default:
             return [xMax, yAtXMax];
@@ -73,3 +59,7 @@ export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] => {
         return [point, next];
     });
 };
+
+function isBetween(x: number, low: number, high: number) {
+    return x >= low && x <= high
+}
