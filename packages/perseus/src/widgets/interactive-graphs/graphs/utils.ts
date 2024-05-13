@@ -24,11 +24,12 @@ export const getIntersectionOfRayWithBox = (
     const yDiff = bY - aY;
     const xDiff = bX - aX;
     const slope = yDiff / xDiff;
+    const inverseSlope = 1 / slope
 
-    const yAtXMin = slope * (xMin - aX) + aY;
-    const yAtXMax = slope * (xMax - aX) + aY;
-    const xAtYMin = (yMin - aY) / slope + aX;
-    const xAtYMax = (yMax - aY) / slope + aX;
+    const yAtXMin = aY + (xMin - aX) * slope;
+    const yAtXMax = aY + (xMax - aX) * slope;
+    const xAtYMin = aX + (yMin - aY) * inverseSlope;
+    const xAtYMax = aX + (yMax - aY) * inverseSlope;
 
     // clock analogy to describe quadrants
     switch (true) {
