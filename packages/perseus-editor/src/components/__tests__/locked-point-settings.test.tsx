@@ -1,13 +1,22 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedPointSettings from "../locked-point-settings";
 import {getDefaultFigureForType} from "../util";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 const defaultProps = getDefaultFigureForType("point");
 
 describe("LockedPointSettings", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
     test("Should show the point's coordinates and color by default", () => {
         // Arrange
 
@@ -170,4 +179,82 @@ describe("LockedPointSettings", () => {
         // Assert
         expect(titleText).toBeInTheDocument();
     });
+
+    test("Clear the x coordinate field should update the field", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const xCoordField = screen.getByLabelText("x coord");
+        await userEvent.clear(xCoordField);
+
+        // Assert
+        expect(xCoordField).toHaveValue(null);
+    });
+
+    test("Clear the y coordinate field should update the field", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const yCoordField = screen.getByLabelText("y coord");
+        await userEvent.clear(yCoordField);
+
+        // Assert
+        expect(yCoordField).toHaveValue(null);
+    });
+
+    // While you may expect the value of the field to reflect the input value,
+    // (and it does, visually), the actual value on the HTML element is null
+    // unless the input is a valid number. This is because the input has
+    // type="number".
+    test.each`
+        Coordinate | inputValue | expectedValue
+        ${"x"}     | ${"-"}     | ${null}
+        ${"x"}     | ${"."}     | ${null}
+        ${"x"}     | ${"0"}     | ${0}
+        ${"x"}     | ${"1"}     | ${1}
+        ${"x"}     | ${"1.2"}   | ${1.2}
+        ${"x"}     | ${".2"}    | ${0.2}
+        ${"x"}     | ${"0.2"}   | ${0.2}
+        ${"x"}     | ${"-1"}    | ${-1}
+        ${"y"}     | ${"-"}     | ${null}
+        ${"y"}     | ${"."}     | ${null}
+        ${"y"}     | ${"0"}     | ${0}
+        ${"y"}     | ${"1"}     | ${1}
+        ${"y"}     | ${"1.2"}   | ${1.2}
+        ${"y"}     | ${".2"}    | ${0.2}
+        ${"y"}     | ${"0.2"}   | ${0.2}
+        ${"y"}     | ${"-1"}    | ${-1}
+    `(
+        "Typing in the $Coordinate coordinate field should update the field ($inputValue)",
+        async ({Coordinate, inputValue, expectedValue}) => {
+            // Arrange
+
+            // Act
+            render(
+                <LockedPointSettings
+                    {...defaultProps}
+                    onChangeProps={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const coordField = screen.getByLabelText(`${Coordinate} coord`);
+            await userEvent.clear(coordField);
+            await userEvent.type(coordField, inputValue);
+            await userEvent.tab();
+
+            // Assert
+            expect(coordField).toHaveValue(expectedValue);
+        },
+    );
 });
