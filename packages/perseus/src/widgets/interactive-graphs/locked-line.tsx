@@ -27,7 +27,11 @@ const LockedLine = (props: Props) => {
 
     if (kind === "ray") {
         // Rays extend to the end of the graph in one direction.
-        const extendedPoint = getIntersectionOfRayWithBox(point1.coord, point2.coord, range);
+        const extendedPoint = getIntersectionOfRayWithBox(
+            point1.coord,
+            point2.coord,
+            range,
+        );
         line = (
             <Vector
                 tail={point1.coord}
@@ -47,7 +51,11 @@ const LockedLine = (props: Props) => {
         let arrowTip =
             kind === "segment"
                 ? point2.coord
-                : getIntersectionOfRayWithBox(point1.coord, point2.coord, range);
+                : getIntersectionOfRayWithBox(
+                      point1.coord,
+                      point2.coord,
+                      range,
+                  );
         const direction = vec.sub(point2.coord, point1.coord);
         let angle = calculateAngleInDegrees(direction);
         const startArrowHead = kind !== "segment" && (
@@ -61,7 +69,11 @@ const LockedLine = (props: Props) => {
         arrowTip =
             kind === "segment"
                 ? point1.coord
-                : getIntersectionOfRayWithBox(point2.coord, point1.coord, range);
+                : getIntersectionOfRayWithBox(
+                      point2.coord,
+                      point1.coord,
+                      range,
+                  );
         angle = angle > 180 ? angle - 180 : angle + 180;
         const endArrowHead = kind !== "segment" && (
             <Arrowhead

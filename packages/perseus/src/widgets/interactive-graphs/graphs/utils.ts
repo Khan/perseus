@@ -24,7 +24,7 @@ export const getIntersectionOfRayWithBox = (
     const yDiff = bY - aY;
     const xDiff = bX - aX;
     const slope = yDiff / xDiff;
-    const inverseSlope = 1 / slope
+    const inverseSlope = 1 / slope;
 
     const xExtreme = xDiff < 0 ? xMin : xMax;
     const yExtreme = yDiff < 0 ? yMin : yMax;
@@ -54,5 +54,5 @@ export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] => {
 };
 
 function isBetween(x: number, low: number, high: number) {
-    return x >= low && x <= high
+    return x >= low && x <= high;
 }

@@ -166,7 +166,11 @@ export const shouldDrawArcOutside = (
     polygonLines: readonly CollinearTuple[],
 ) => {
     // Create a ray from the midpoint (inside angle) to the edge of the range
-    const rangeIntersectionPoint = getRangeIntersectionVertex(midpoint, vertex, range);
+    const rangeIntersectionPoint = getRangeIntersectionVertex(
+        midpoint,
+        vertex,
+        range,
+    );
 
     let lineIntersectionCount = 0;
 
