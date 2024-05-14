@@ -52,13 +52,13 @@
         }
     }
 
-    .perseus-radio-option { /* Radio options with images that are set apart should be on their own line */
+    .perseus-radio-option {
+        /* Radio options with images that are set apart should be on their own line */
         .paragraph + .paragraph:has(img:only-child), /* Image that is preceded by content */
         .paragraph:has(img:only-child):has(+ .paragraph) /* Image that precedes other content */ {
             display: block;
         }
     }
-
 }
 
 .perseus-widget-radio-fieldset .instructions {
