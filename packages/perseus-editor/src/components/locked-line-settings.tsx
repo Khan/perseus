@@ -13,7 +13,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ColorSelect from "./color-select";
-import ColorSwatch from "./color-swatch";
+import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedPointSettings from "./locked-point-settings";
@@ -91,7 +91,7 @@ const LockedLineSettings = (props: Props) => {
                 <View style={styles.row}>
                     <LabelLarge>{lineLabel}</LabelLarge>
                     <Strut size={spacing.xSmall_8} />
-                    <ColorSwatch color={lineColor} />
+                    <LineSwatch color={lineColor} lineStyle={lineStyle} />
                 </View>
             }
         >
