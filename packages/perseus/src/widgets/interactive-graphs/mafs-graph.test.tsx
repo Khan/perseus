@@ -23,7 +23,6 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         gridStep: [1, 1],
         markings: "graph",
         containerSizeClass: "small",
-        onChange: () => {},
         showTooltips: false,
         labels: ["x", "y"],
         dispatch: () => {},

@@ -116,6 +116,15 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, StatefulMafsG
             props.onChange(mafsStateToInteractiveGraph(next));
         }
 
+        const prevState = useRef<InteractiveGraphState>(state);
+
+        useEffect(() => {
+            if (prevState.current !== state) {
+                onChange({graph: state});
+            }
+            prevState.current = state;
+        }, [props, state]);
+
         // Destructuring first to keep useEffect from making excess calls
         const [xSnap, ySnap] = props.snapStep;
         useEffect(() => {
@@ -138,7 +147,6 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, StatefulMafsG
                 {...props}
                 state={state}
                 dispatch={dispatch}
-                onChange={onChange}
             />
         );
     },
@@ -152,7 +160,6 @@ export interface MafsGraphProps {
     gridStep: InteractiveGraphProps["gridStep"];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
-    onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     labels: InteractiveGraphProps["labels"];
     state: InteractiveGraphState;
@@ -162,15 +169,6 @@ export interface MafsGraphProps {
 export const MafsGraph = (props: MafsGraphProps) => {
     const {state, dispatch, labels} = props;
     const [width, height] = props.box;
-
-    const prevState = useRef<InteractiveGraphState>(state);
-
-    useEffect(() => {
-        if (prevState.current !== state) {
-            props.onChange({graph: state});
-        }
-        prevState.current = state;
-    }, [props, state]);
 
     return (
         <GraphConfigContext.Provider
