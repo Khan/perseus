@@ -4,6 +4,7 @@ export const flags = {
     mafs: {
         segment: true,
         circle: true,
+        quadratic: true,
         "interactive-graph-locked-features-m1": true,
     },
 } satisfies APIOptions["flags"];

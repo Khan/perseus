@@ -1990,3 +1990,84 @@ export const segmentWithLockedFigures: PerseusRenderer = {
         },
     },
 };
+
+export const quadraticQuestion: PerseusRenderer = {
+    content: "All locked lines\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [0, 0],
+                        [3, 8],
+                    ],
+                    type: "quadratic",
+                },
+                graph: {
+                    type: "quadratic",
+                },
+                gridStep: [1, 1],
+                labels: ["t", "d"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const quadraticQuestionWithDefaultCorrect: PerseusRenderer = {
+    content: "All locked lines\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [-1, 0],
+                        [1, 0],
+                        [0, -1],
+                    ],
+                    type: "quadratic",
+                },
+                graph: {
+                    type: "quadratic",
+                },
+                gridStep: [1, 1],
+                labels: ["t", "d"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};

@@ -74,9 +74,22 @@ export function initializeGraphState(
                 center: [0, 0],
                 radiusPoint: [1, 0],
             };
+        case "quadratic":
+            const rangeCenterPoint = range.map(([min, max]) =>
+                Math.round((min + max) / 2),
+            );
+            const defaultQuadraticCoords: Coord[] = [
+                [rangeCenterPoint[0] - 4, rangeCenterPoint[1] + 5],
+                [rangeCenterPoint[0], rangeCenterPoint[1] - 5],
+                [rangeCenterPoint[0] + 3, rangeCenterPoint[1] + 5],
+            ];
+            return {
+                ...shared,
+                type: graph.type,
+                coords: defaultQuadraticCoords,
+            };
         case "angle":
         case "sinusoid":
-        case "quadratic":
             throw new Error(
                 "Mafs not yet implemented for graph type: " + graph.type,
             );

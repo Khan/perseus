@@ -29,7 +29,8 @@ export type InteractiveGraphState =
     | RayGraphState
     | PolygonGraphState
     | PointGraphState
-    | CircleGraphState;
+    | CircleGraphState
+    | QuadraticGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -70,6 +71,11 @@ export interface CircleGraphState extends InteractiveGraphStateCommon {
     type: "circle";
     center: Coord;
     radiusPoint: Coord;
+}
+
+export interface QuadraticGraphState extends InteractiveGraphStateCommon {
+    type: "quadratic";
+    coords: Coord[];
 }
 
 export type PairOfPoints = [Coord, Coord];

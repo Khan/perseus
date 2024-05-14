@@ -92,6 +92,9 @@ function doMoveControlPoint(
                 coords: newCoords,
             };
         }
+        case "quadratic": {
+            throw new Error("FIXME implement quadratic reducer");
+        }
         case "circle":
             throw new Error("FIXME implement circle reducer");
         case "point":
@@ -184,6 +187,7 @@ function doMovePoint(
     action: MovePoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "quadratic":
         case "point":
         case "polygon": {
             return {
@@ -205,7 +209,7 @@ function doMovePoint(
         }
         default:
             throw new Error(
-                "The movePoint action is only for point and polygon graphs",
+                "The movePoint action is only for point, quadratic, and polygon graphs",
             );
     }
 }
