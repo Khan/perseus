@@ -1,5 +1,41 @@
 # @khanacademy/perseus-editor
 
+## 6.3.0
+
+### Minor Changes
+
+-   [#1265](https://github.com/Khan/perseus/pull/1265) [`ef684516c`](https://github.com/Khan/perseus/commit/ef684516c4b15c97686229f16c1b6b97d26f958a) Thanks [@nishasy](https://github.com/nishasy)! - LockedLineSettings summary now uses a line swatch instead of a color swatch
+
+*   [#1259](https://github.com/Khan/perseus/pull/1259) [`c07644f63`](https://github.com/Khan/perseus/commit/c07644f63957ada78ba60c9b3ecd7b42e289f67b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update all Perseus peer dependencies to match webapp exactly (commit: 2bd290251a8)
+    -   @khanacademy/wonder-blocks-accordion v1.3.1
+    -   @khanacademy/wonder-blocks-button v6.3.1
+    -   @khanacademy/wonder-blocks-banner v3.0.42
+    -   @khanacademy/wonder-blocks-clickable v4.2.1
+    -   @khanacademy/wonder-blocks-core v6.4.0
+    -   @khanacademy/wonder-blocks-dropdown v5.3.0
+    -   @khanacademy/wonder-blocks-form v4.5.1
+    -   @khanacademy/wonder-blocks-icon-button v5.2.1
+    -   @khanacademy/wonder-blocks-switch v1.1.16
+    -   @khanacademy/wonder-blocks-tooltip v2.3.1
+    -   @khanacademy/wonder-blocks-tokens v1.3.0
+    -   @khanacademy/wonder-blocks-typography v2.1.11
+    -   @khanacademy/wonder-stuff-core v1.5.2
+    -   classnames v1.1.4
+    -   create-react-class v15.6.3
+    -   prop-types v15.6.1
+
+### Patch Changes
+
+-   [#1260](https://github.com/Khan/perseus/pull/1260) [`896a159a6`](https://github.com/Khan/perseus/commit/896a159a6f602f2453a9e69af0ca73e7081dfc02) Thanks [@nishasy](https://github.com/nishasy)! - Rename "start point" and "end point" to "point 1" and "point 2" respectively in Interactive Graph locked line settings
+
+*   [#1262](https://github.com/Khan/perseus/pull/1262) [`88c48a784`](https://github.com/Khan/perseus/commit/88c48a784270553bad5a05133fbabdcc17a35969) Thanks [@nishasy](https://github.com/nishasy)! - Locked line coordinates update on input change instead of on input blur
+
+-   [#1254](https://github.com/Khan/perseus/pull/1254) [`e4b893c76`](https://github.com/Khan/perseus/commit/e4b893c76f181386c6e1b2b8c01e8620041ec1d7) Thanks [@nishasy](https://github.com/nishasy)! - Locked line summary reflects line kind
+
+-   Updated dependencies [[`9e2f404bb`](https://github.com/Khan/perseus/commit/9e2f404bb52ab599c61a5c322bed492e4568b8ae), [`1f03243ba`](https://github.com/Khan/perseus/commit/1f03243ba7ed5a9fe82b1b272bfce4ae4be68212), [`896a159a6`](https://github.com/Khan/perseus/commit/896a159a6f602f2453a9e69af0ca73e7081dfc02), [`3806759ea`](https://github.com/Khan/perseus/commit/3806759ea4f140724a820d619604d8ef221059f2), [`c07644f63`](https://github.com/Khan/perseus/commit/c07644f63957ada78ba60c9b3ecd7b42e289f67b), [`c07644f63`](https://github.com/Khan/perseus/commit/c07644f63957ada78ba60c9b3ecd7b42e289f67b), [`f92c52412`](https://github.com/Khan/perseus/commit/f92c524129294c1940c95d5134477c1d0e6193b1)]:
+    -   @khanacademy/perseus@22.5.0
+    -   @khanacademy/math-input@19.1.0
+
 ## 6.2.3
 
 ### Patch Changes
