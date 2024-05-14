@@ -36,7 +36,7 @@ import type {Widget} from "../../renderer";
 import "mafs/core.css";
 import "./mafs-styles.css";
 
-export interface Props {
+export interface StatefulMafsGraphProps {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: InteractiveGraphProps["graph"];
@@ -100,7 +100,7 @@ function mafsStateToInteractiveGraph(state: MafsChange) {
     };
 }
 
-export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
+export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, StatefulMafsGraphProps>(
     (props, ref) => {
         const [state, dispatch] = React.useReducer(
             interactiveGraphReducer,
@@ -127,7 +127,7 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     },
 );
 
-interface MafsGraphProps {
+export interface MafsGraphProps {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
