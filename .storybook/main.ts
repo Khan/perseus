@@ -1,11 +1,15 @@
-import turbosnap from "vite-plugin-turbosnap";
+import {dirname, join} from "path";
 import viteConfig from "../dev/vite.config";
 import {mergeConfig} from "vite";
 
 import type {StorybookConfig} from "@storybook/react-vite";
 
+function getAbsolutePath(value: string): any {
+    return dirname(require.resolve(join(value, "package.json")));
+}
+
 const config: StorybookConfig = {
-    framework: "@storybook/react-vite",
+    framework: getAbsolutePath("@storybook/react-vite"),
 
     stories: [
         // NOTE(jeremy): This glob is extremely finicky! I would have written
@@ -21,9 +25,9 @@ const config: StorybookConfig = {
     ],
 
     addons: [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
-        "@storybook/addon-a11y",
+        getAbsolutePath("@storybook/addon-links"),
+        getAbsolutePath("@storybook/addon-essentials"),
+        getAbsolutePath("@storybook/addon-a11y"),
     ],
 
     // NOTE(kevinb): We customize the padding a bit so that so that stories
@@ -54,15 +58,6 @@ const config: StorybookConfig = {
             },
             // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
             assetsInclude: ["/sb-preview/runtime.js"],
-            plugins:
-                configType === "PRODUCTION"
-                    ? [
-                          turbosnap({
-                              // This should be the base path of your storybook.  In monorepos, you may only need process.cwd().
-                              rootDir: config.root ?? process.cwd(),
-                          }),
-                      ]
-                    : [],
         });
     },
 
