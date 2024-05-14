@@ -148,10 +148,10 @@ const Line = (props: LineProps) => {
     if (extend) {
         const trimmedRange = trimRange(range, graphDimensionsInPixels);
         startExtend = extend.start
-            ? getIntersectionOfRayWithBox(start, end, trimmedRange)
+            ? getIntersectionOfRayWithBox(end, start, trimmedRange)
             : undefined;
         endExtend = extend.end
-            ? getIntersectionOfRayWithBox(end, start, trimmedRange)
+            ? getIntersectionOfRayWithBox(start, end, trimmedRange)
             : undefined;
     }
 

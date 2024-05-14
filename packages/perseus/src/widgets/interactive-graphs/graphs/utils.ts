@@ -18,35 +18,34 @@ export const getIntersectionOfRayWithBox = (
     box: [x: Interval, y: Interval],
 ): [number, number] => {
     const [[xMin, xMax], [yMin, yMax]] = box;
-    const [aX, aY] = throughPoint;
-    const [bX, bY] = initialPoint;
+    const [aX, aY] = initialPoint;
+    const [bX, bY] = throughPoint;
 
     const yDiff = bY - aY;
     const xDiff = bX - aX;
     const slope = yDiff / xDiff;
+    const inverseSlope = 1 / slope;
 
-    const yAtXMin = slope * (xMin - aX) + aY;
-    const yAtXMax = slope * (xMax - aX) + aY;
-    const xAtYMin = (yMin - aY) / slope + aX;
-    const xAtYMax = (yMax - aY) / slope + aX;
+    const xExtreme = xDiff < 0 ? xMin : xMax;
+    const yExtreme = yDiff < 0 ? yMin : yMax;
 
-    // clock analogy to describe quadrants
+    const yAtXExtreme = aY + (xExtreme - aX) * slope;
+    const xAtYExtreme = aX + (yExtreme - aY) * inverseSlope;
+
     switch (true) {
-        // 12 o'clock to 2:59
-        case yDiff > 0 && xDiff >= 0:
-            return xAtYMax > xMax ? [xMax, yAtXMax] : [xAtYMax, yMax];
-        // 3 o'clock to 5:59
-        case yDiff <= 0 && xDiff > 0:
-            // xAtYMin evaluates to -Infinity here, so we use absolute value
-            return Math.abs(xAtYMin) > xMax ? [xMax, yAtXMax] : [xAtYMin, yMin];
-        // 9 o'clock to 11:59
-        case yDiff >= 0 && xDiff < 0:
-            return xAtYMax < xMin ? [xMin, yAtXMin] : [xAtYMax, yMax];
-        // 6 o'clock to 8:59
-        case yDiff < 0 && xDiff <= 0:
-            return xAtYMin < xMin ? [xMin, yAtXMin] : [xAtYMin, yMin];
+        // does the ray exit the graph bounding box via the left or right edge?
+        case isBetween(yAtXExtreme, yMin, yMax):
+            return [xExtreme, yAtXExtreme];
+
+        // does the ray exit the graph bounding box via the top or bottom edge?
+        case isBetween(xAtYExtreme, xMin, xMax):
+            return [xAtYExtreme, yExtreme];
+
         default:
-            return [xMax, yAtXMax];
+            // This default case is only reachable if the input is invalid
+            // (initialPoint is outside the graph bounds, or initialPoint and
+            // throughPoint are the same).
+            return [0, 0];
     }
 };
 
@@ -56,3 +55,7 @@ export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] => {
         return [point, next];
     });
 };
+
+function isBetween(x: number, low: number, high: number) {
+    return x >= low && x <= high;
+}
