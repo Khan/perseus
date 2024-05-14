@@ -17,6 +17,10 @@ import type {Preview} from "@storybook/react";
 Dependencies.setDependencies(storybookTestDependencies);
 
 const preview: Preview = {
+    tags: [
+        //👇 Enables auto-generated documentation for all stories
+        "autodocs",
+    ],
     // These decorators apply to all stories, both inside and outside the
     // fixture framework.
     decorators: [
