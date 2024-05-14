@@ -183,6 +183,12 @@ export const choicesWithImages: PerseusRenderer = {
                         correct: false,
                         clue: "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
                     },
+                    {
+                        content:
+                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        correct: false,
+                        clue: "The markdown only has an image (no text), so nothing should be adjusted.",
+                    },
                 ],
                 countChoices: false,
                 hasNoneOfTheAbove: false,
