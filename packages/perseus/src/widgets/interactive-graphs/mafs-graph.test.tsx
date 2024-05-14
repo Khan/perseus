@@ -2,6 +2,7 @@ import {screen, render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
 import React from "react";
+import invariant from "tiny-invariant";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {setDependencies} from "../../dependencies";
@@ -113,6 +114,7 @@ describe("MafsGraph", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
+        setDependencies(testDependencies);
     });
 
     it("renders", () => {
@@ -296,18 +298,20 @@ describe("MafsGraph", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            snapStep: [0.5, 0.5],
+            snapStep: [1, 1],
             coords: [
                 [
-                    [-7, 0.5],
+                    [-7, 1],
                     [0, 0],
                 ],
             ],
         };
 
         const expectedCoords = [
-            [-7, 0],
-            [0, -0.5],
+            [
+                [-7, 0],
+                [0, -1],
+            ],
         ];
 
         const {dispatch, getState} = createFakeStore(
@@ -321,23 +325,20 @@ describe("MafsGraph", () => {
             <MafsGraph
                 state={getState()}
                 dispatch={dispatch}
-                {...baseMafsGraphProps} // So this spread doesn't overwrite the snapstep from initial state?
-                snapStep={[0.5, 0.5]}
+                {...baseMafsGraphProps}
             />,
         );
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("[ArrowDown]");
+        await userEvent.keyboard("{arrowdown>1}");
 
-        const newState = getState().coords ? getState() : null;
-        expect(newState).toEqual(expectedCoords);
-
-        /*
-        const newState = getState();
-        newState.coords ??= null;
-        expect(newState).toEqual(expectedCoords);
-         */
+        const state = getState();
+        invariant(
+            state.type === "segment",
+            `state type must be segment but was ${state.type}`,
+        );
+        expect(state.coords).toEqual(expectedCoords);
     });
 
     it("MovableLine moves up based on up keystroke ", async () => {
