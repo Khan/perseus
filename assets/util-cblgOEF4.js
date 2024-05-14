@@ -1,0 +1,1 @@
+import{w as n}from"./index-J2t_5nK1.js";function i(o){o.focus({preventScroll:!0})}const t="grayH";function e(o){switch(o){case"point":return{type:"point",coord:[0,0],color:t,filled:!0};case"line":return{type:"line",kind:"line",points:[e("point"),{...e("point"),coord:[2,2]}],color:t,lineStyle:"solid",showPoint1:!1,showPoint2:!1};default:throw new n(o)}}export{i as f,e as g};
