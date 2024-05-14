@@ -141,10 +141,6 @@ describe("LockedFiguresSection", () => {
             name: "Expand all",
         });
 
-        const collapseAllButton = screen.getByRole("button", {
-            name: "Collapse all",
-        });
-
         const pointHeader = screen.getByRole("button", {
             name: "Point (0, 0) grayH, filled",
         });
@@ -154,6 +150,10 @@ describe("LockedFiguresSection", () => {
 
         // Act
         await userEvent.click(expandAllButton);
+
+        const collapseAllButton = screen.getByRole("button", {
+            name: "Collapse all",
+        });
         await userEvent.click(collapseAllButton);
 
         // Assert

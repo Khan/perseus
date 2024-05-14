@@ -25,7 +25,7 @@ type Props = {
 const LockedFiguresSection = (props: Props) => {
     // Keep track of all figures' accordions' expanded states for the
     // expand/collapse all button. Set the whole array to false initially.
-    const [expanded, setExpanded] = React.useState(
+    const [expandedStates, setExpandedStates] = React.useState(
         Array(props.figures?.length).fill(false),
     );
 
@@ -77,10 +77,10 @@ const LockedFiguresSection = (props: Props) => {
     }
 
     function toggleExpanded(newValue: boolean) {
-        setExpanded(Array(expanded.length).fill(newValue));
+        setExpandedStates(Array(figures?.length).fill(newValue));
     }
 
-    const allCollapsed = expanded.every((value) => !value);
+    const allCollapsed = expandedStates.every((value) => !value);
     const buttonLabel = allCollapsed ? "Expand all" : "Collapse all";
     const showExpandButton = !!figures?.length;
 
@@ -88,11 +88,11 @@ const LockedFiguresSection = (props: Props) => {
         <View>
             {figures?.map((figure, index) => (
                 <LockedFigureSettings
-                    expanded={expanded[index]}
+                    expanded={expandedStates[index]}
                     onToggle={(newValue) => {
-                        const newExpanded = [...expanded];
+                        const newExpanded = [...expandedStates];
                         newExpanded[index] = newValue;
-                        setExpanded(newExpanded);
+                        setExpandedStates(newExpanded);
                     }}
                     key={`${uniqueId}-locked-${figure}-${index}`}
                     {...figure}
