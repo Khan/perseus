@@ -3,6 +3,7 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {
     questionWithPassage,
+    choicesWithImages,
     multiChoiceQuestion,
     multiChoiceQuestionSimple,
 } from "../__testdata__/radio.testdata";
@@ -70,6 +71,12 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({
 export const SingleSelect = {
     args: {
         question: questionWithPassage,
+    },
+};
+
+export const SelectWithImages = {
+    args: {
+        question: choicesWithImages,
     },
 };
 

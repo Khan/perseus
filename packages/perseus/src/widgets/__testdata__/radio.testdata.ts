@@ -101,22 +101,17 @@ export const questionWithPassage: PerseusRenderer = {
                 displayCount: null,
                 choices: [
                     {
-                        content: "Hello \nWorld\n![](https://pro.jirachecklist.com/logo-biz.png)",
+                        content: "$-8$ and $8$",
                         correct: false,
                         clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                     },
                     {
-                        content: "Hello \n\nWorld\n\n![](https://pro.jirachecklist.com/logo-biz.png)",
+                        content: "$-8$",
                         correct: false,
-                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                        clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
                     },
                     {
-                        content: "![](https://pro.jirachecklist.com/logo-biz.png)\n\nHello \n\nWorld",
-                        correct: false,
-                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
-                    },
-                    {
-                        content: `A cell\n\n\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n`,
+                        content: "$8$ {{passage-ref 1 1}}\n\n",
                         correct: true,
                         isNoneOfTheAbove: false,
                         clue: "$8$ is the positive square root of $64$.",
@@ -126,6 +121,67 @@ export const questionWithPassage: PerseusRenderer = {
                         correct: false,
                         isNoneOfTheAbove: false,
                         clue: "$8$ satisfies the equation.",
+                    },
+                ],
+                countChoices: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                randomize: false,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+        "passage 1": {
+            alignment: "default",
+            graded: true,
+            options: {
+                footnotes: "",
+                passageText:
+                    "Here's a passage about the positive square root. It contains a {{reference to something}}.",
+                passageTitle: "",
+                showLineNumbers: true,
+                static: false,
+            },
+            static: false,
+            type: "passage",
+            version: {major: 0, minor: 0},
+        } as PassageWidget,
+    },
+};
+
+export const choicesWithImages: PerseusRenderer = {
+    content:
+        "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                displayCount: null,
+                choices: [
+                    {
+                        content:
+                            "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        correct: false,
+                        clue: "The markdown only has single lines between each item, so they should be treated as one complete line.",
+                    },
+                    {
+                        content:
+                            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        correct: false,
+                        clue: "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+                    },
+                    {
+                        content:
+                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+                        correct: false,
+                        clue: "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
                     },
                 ],
                 countChoices: false,
