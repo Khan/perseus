@@ -127,10 +127,10 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     },
 );
 
-type MafsGraphProps = Props & {
+interface MafsGraphProps extends Props {
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
-};
+}
 
 export const MafsGraph = (props: MafsGraphProps) => {
     const {state, dispatch, labels} = props;
