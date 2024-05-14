@@ -116,6 +116,23 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, StatefulMafsG
             props.onChange(mafsStateToInteractiveGraph(next));
         }
 
+        // Destructuring first to keep useEffect from making excess calls
+        const [xSnap, ySnap] = props.snapStep;
+        useEffect(() => {
+            dispatch(changeSnapStep([xSnap, ySnap]));
+        }, [dispatch, xSnap, ySnap]);
+
+        // Destructuring first to keep useEffect from making excess calls
+        const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = props.range;
+        useEffect(() => {
+            dispatch(
+                changeRange([
+                    [xMinRange, xMaxRange],
+                    [yMinRange, yMaxRange],
+                ]),
+            );
+        }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
+
         return (
             <MafsGraph
                 {...props}
@@ -154,23 +171,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
         }
         prevState.current = state;
     }, [props, state]);
-
-    // Destructuring first to keep useEffect from making excess calls
-    const [xSnap, ySnap] = state.snapStep;
-    useEffect(() => {
-        dispatch(changeSnapStep([xSnap, ySnap]));
-    }, [dispatch, xSnap, ySnap]);
-
-    // Destructuring first to keep useEffect from making excess calls
-    const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = state.range;
-    useEffect(() => {
-        dispatch(
-            changeRange([
-                [xMinRange, xMaxRange],
-                [yMinRange, yMaxRange],
-            ]),
-        );
-    }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
     return (
         <GraphConfigContext.Provider
