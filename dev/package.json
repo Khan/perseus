@@ -34,6 +34,6 @@
         "@phosphor-icons/core": "^2.0.2"
     },
     "devDependencies": {
-        "vite": "^5.2.11"
+        "vite": "^5.1.0"
     }
 }
