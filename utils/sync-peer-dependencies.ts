@@ -43,8 +43,12 @@ function filterUnusableTargetVersions(
     return Object.fromEntries(
         Object.entries(targetVersions).filter(
             ([pkgName, pkgVersion]) =>
+                // Eliminate packages who's version we don't/can't use.
                 !RestrictedPackageVersions.some((r) => r.test(pkgVersion)) &&
+                // Eliminate packages that we don't want to sync in.
                 !RestrictedPackageNames.some((name) => name === pkgName) &&
+                // Eliminate any packages within this repo - they're managed by
+                // our `changeset` tooling.
                 !packagesInThisRepo.some((name) => name === pkgName),
         ),
     );
