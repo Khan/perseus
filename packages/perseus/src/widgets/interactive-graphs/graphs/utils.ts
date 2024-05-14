@@ -8,8 +8,8 @@ export function calculateAngleInDegrees([x, y]: vec.Vector2) {
 /**
  * Given a ray and a rectangular box, find the point where the ray intersects
  * the edge of the box. Assumes the `initialPoint` is inside the box.
- * @param initialPoint - A point that the ray passes through. Must be different from initialPoint.
- * @param throughPoint - The starting point of the ray.
+ * @param initialPoint - The starting point of the ray.
+ * @param throughPoint - A point that the ray passes through. Must be different from initialPoint.
  * @param box - The box with which to intersect the ray, in the form [[xMin, xMax], [yMin, yMax]]
  */
 export const getIntersectionOfRayWithBox = (
@@ -33,15 +33,18 @@ export const getIntersectionOfRayWithBox = (
     const xAtYExtreme = aX + (yExtreme - aY) * inverseSlope;
 
     switch (true) {
-        // does the ray intersect the left or right edge?
+        // does the ray exit the graph bounding box via the left or right edge?
         case isBetween(yAtXExtreme, yMin, yMax):
             return [xExtreme, yAtXExtreme];
 
-        // does the ray intersect the top or bottom edge?
+        // does the ray exit the graph bounding box via the top or bottom edge?
         case isBetween(xAtYExtreme, xMin, xMax):
             return [xAtYExtreme, yExtreme];
 
         default:
+            // This default case is only reachable if the input is invalid
+            // (initialPoint is outside the graph bounds, or initialPoint and
+            // throughPoint are the same).
             return [0, 0];
     }
 };
