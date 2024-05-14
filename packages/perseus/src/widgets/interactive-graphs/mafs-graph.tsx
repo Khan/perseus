@@ -36,7 +36,7 @@ import type {Widget} from "../../renderer";
 import "mafs/core.css";
 import "./mafs-styles.css";
 
-export type Props = {
+export interface Props {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: InteractiveGraphProps["graph"];
@@ -50,7 +50,7 @@ export type Props = {
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     labels: InteractiveGraphProps["labels"];
-};
+}
 
 type MafsChange = {
     graph: InteractiveGraphState;
