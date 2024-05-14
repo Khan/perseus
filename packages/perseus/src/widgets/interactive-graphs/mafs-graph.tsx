@@ -127,7 +127,20 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     },
 );
 
-interface MafsGraphProps extends Props {
+interface MafsGraphProps {
+    box: [number, number];
+    backgroundImage?: InteractiveGraphProps["backgroundImage"];
+    graph: InteractiveGraphProps["graph"];
+    lockedFigures?: InteractiveGraphProps["lockedFigures"];
+    range: InteractiveGraphProps["range"];
+    snapStep: InteractiveGraphProps["snapStep"];
+    step: InteractiveGraphProps["step"];
+    gridStep: InteractiveGraphProps["gridStep"];
+    containerSizeClass: InteractiveGraphProps["containerSizeClass"];
+    markings: InteractiveGraphProps["markings"];
+    onChange: InteractiveGraphProps["onChange"];
+    showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    labels: InteractiveGraphProps["labels"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
 }
