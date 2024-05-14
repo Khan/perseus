@@ -130,7 +130,6 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
 interface MafsGraphProps {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
-    graph: InteractiveGraphProps["graph"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
     snapStep: InteractiveGraphProps["snapStep"];
