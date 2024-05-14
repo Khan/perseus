@@ -131,7 +131,6 @@ interface MafsGraphProps {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
-    snapStep: InteractiveGraphProps["snapStep"]; // FIXME: snapStep is duplicated in state; remove it
     step: InteractiveGraphProps["step"];
     gridStep: InteractiveGraphProps["gridStep"];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
@@ -157,7 +156,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     }, [props, state]);
 
     // Destructuring first to keep useEffect from making excess calls
-    const [xSnap, ySnap] = props.snapStep;
+    const [xSnap, ySnap] = state.snapStep;
     useEffect(() => {
         dispatch(changeSnapStep([xSnap, ySnap]));
     }, [dispatch, xSnap, ySnap]);
