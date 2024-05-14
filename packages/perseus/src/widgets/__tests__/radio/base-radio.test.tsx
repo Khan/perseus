@@ -5,7 +5,7 @@ import * as React from "react";
 
 // eslint-disable-next-line import/no-relative-packages
 import {testDependencies} from "../../../../../../testing/test-dependencies";
-import {setDependencies} from "../../../dependencies";
+import * as dependencies from "../../../dependencies";
 import {generateChoice} from "../../__testdata__/base-radio.testdata";
 import BaseRadio from "../../radio/base-radio";
 
@@ -52,9 +52,11 @@ describe("base-radio", () => {
         });
 
         // because choice-none-above uses a Renderer
-        // we need to set dependencies when it's rendered
+        // we need to stub dependencies when it's rendered
         // (this probably needs to be fixed)
-        setDependencies(testDependencies);
+        jest.spyOn(dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
     });
 
     it("renders a none of the above choice", () => {

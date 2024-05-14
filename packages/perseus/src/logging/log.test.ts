@@ -1,13 +1,16 @@
 import {testDependencies} from "../../../../testing/test-dependencies";
-import {setDependencies} from "../dependencies";
+import * as dependencies from "../dependencies";
 
 import {Errors, Log} from "./log";
 
 describe("Perseus logging", () => {
-    it("should proxy log() calls to the logger provided through setDependencies", () => {
+    it("should proxy log() calls to the logger obtained from getDependencies", () => {
         // Arrange
-        const logSpy = jest.spyOn(testDependencies.Log, "log");
-        setDependencies(testDependencies);
+        const logSpy = jest.fn();
+        jest.spyOn(dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            Log: {...testDependencies.Log, log: logSpy},
+        });
 
         // Act
         Log.log("test message", {a: 1, b: "two"});
@@ -16,10 +19,13 @@ describe("Perseus logging", () => {
         expect(logSpy).toHaveBeenCalledWith("test message", {a: 1, b: "two"});
     });
 
-    it("should proxy error() calls to the logger provided through setDependencies", () => {
+    it("should proxy error() calls to the logger obtained from getDependencies", () => {
         // Arrange
-        const errorSpy = jest.spyOn(testDependencies.Log, "error");
-        setDependencies(testDependencies);
+        const errorSpy = jest.fn();
+        jest.spyOn(dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            Log: {...testDependencies.Log, error: errorSpy},
+        });
 
         // Act
         Log.error("test error", Errors.NotAllowed, {
