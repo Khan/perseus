@@ -7,7 +7,11 @@ import invariant from "tiny-invariant";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {setDependencies} from "../../dependencies";
 
-import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
+import {
+    MafsGraph,
+    StatefulMafsGraph,
+    StatefulMafsGraphProps
+} from "./mafs-graph";
 import {movePoint} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
@@ -341,9 +345,9 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={getState()}
                 dispatch={dispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -393,9 +397,9 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={getState()}
                 dispatch={dispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
