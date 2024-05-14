@@ -35,7 +35,6 @@ describe("initializeGraphState for segment graphs", () => {
             step: [1, 1],
             snapStep: [2, 3],
             graph: {type: "segment"},
-            markings: "graph",
         });
         expect(state.range).toEqual([
             [0, 10],
@@ -214,7 +213,6 @@ describe("getGradableGraph", () => {
                 [-10, 10],
             ],
             snapStep: [1, 1],
-            markings: "graph",
         };
         const initialGraph: PerseusGraphType = {
             type: "segment",
