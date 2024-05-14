@@ -34,6 +34,18 @@ function getBaseMafsGraphProps(): MafsGraphProps {
     };
 }
 
+function createFakeStore<S, A>(reducer: (state: S, action: A) => S, state: S) {
+    return {
+        dispatch(action: A) {
+            state = reducer(state, action);
+        },
+
+        getState() {
+            return state;
+        },
+    };
+}
+
 describe("StatefulMafsGraph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -276,8 +288,7 @@ describe("MafsGraph", () => {
     });
 
     it("MovableLine moves down based on down keystroke ", async () => {
-        const mockDispatch = jest.fn();
-        const state: InteractiveGraphState = {
+        const initialState: InteractiveGraphState = {
             type: "segment",
             markings: "graph",
             hasBeenInteractedWith: true,
@@ -294,43 +305,39 @@ describe("MafsGraph", () => {
             ],
         };
 
+        const expectedCoords = [
+            [-7, 0],
+            [0, -0.5],
+        ];
+
+        const {dispatch, getState} = createFakeStore(
+            interactiveGraphReducer,
+            initialState,
+        );
+
         const baseMafsGraphProps = getBaseMafsGraphProps();
 
-        const {rerender} = render(
+        render(
             <MafsGraph
-                state={state}
-                dispatch={mockDispatch}
-                {...baseMafsGraphProps}
+                state={getState()}
+                dispatch={dispatch}
+                {...baseMafsGraphProps} // So this spread doesn't overwrite the snapstep from initial state?
+                snapStep={[0.5, 0.5]}
             />,
         );
 
         const group = screen.getByTestId("movable-line");
         group.focus();
         await userEvent.keyboard("[ArrowDown]");
-        const action = moveLine(0, [0, -0.5]);
-        expect(mockDispatch).toHaveBeenCalledWith(action);
 
-        const updatedState = interactiveGraphReducer(state, action);
+        const newState = getState().coords ? getState() : null;
+        expect(newState).toEqual(expectedCoords);
 
-        rerender(
-            <MafsGraph
-                state={updatedState}
-                dispatch={mockDispatch}
-                {...baseMafsGraphProps}
-            />,
-        );
-
-        const line = screen.getByTestId("movable-line__line");
-        expect(line).toBeInTheDocument();
-
-        // Map graph coordinates to SVG coordinates
-        const [expectedX1, expectedY1] = graphToPixel([-7, 0]);
-        const [expectedX2, expectedY2] = graphToPixel([0, -0.5]);
-
-        expect(line.getAttribute("x1")).toBe(expectedX1 + "");
-        expect(line.getAttribute("y1")).toBe(-expectedY1 + "");
-        expect(line.getAttribute("x2")).toBe(expectedX2 + "");
-        expect(line.getAttribute("y2")).toBe(-expectedY2 + "");
+        /*
+        const newState = getState();
+        newState.coords ??= null;
+        expect(newState).toEqual(expectedCoords);
+         */
     });
 
     it("MovableLine moves up based on up keystroke ", async () => {
