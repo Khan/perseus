@@ -1,0 +1,15 @@
+{
+    "$schema": "https://swc.rs/schema.json",
+    "jsc": {
+        "parser": {
+            "syntax": "typescript",
+            "topLevelAwait": true
+        },
+        "target": "esnext",
+        "baseUrl": "."
+    },
+    "module": {
+        "type": "nodenext"
+    },
+    "isModule": true
+}

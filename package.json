@@ -128,7 +128,7 @@
     },
     "scripts": {
         "gen:parsers": "yarn --cwd packages/kas gen:parsers",
-    "gen:schema": "utils/generate-schema.ts",
+    "gen:schema": "SWCRC=true utils/generate-schema.ts",
         "prebuild": "yarn gen:parsers",
         "build": "rollup -c config/build/rollup.config.js",
         "build:types": "tsc --build tsconfig-build.json",
