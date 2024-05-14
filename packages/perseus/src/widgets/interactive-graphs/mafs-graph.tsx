@@ -6,7 +6,13 @@ import {useEffect, useImperativeHandle, useRef} from "react";
 
 import AxisLabels from "./axis-labels";
 import GraphLockedLayer from "./graph-locked-layer";
-import {LinearGraph, PolygonGraph, RayGraph, SegmentGraph} from "./graphs";
+import {
+    LinearGraph,
+    PolygonGraph,
+    RayGraph,
+    SegmentGraph,
+    CircleGraph,
+} from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
@@ -19,6 +25,7 @@ import {
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {
     getGradableGraph,
+    getRadius,
     initializeGraphState,
 } from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
@@ -45,6 +52,10 @@ export type Props = {
     labels: InteractiveGraphProps["labels"];
 };
 
+type MafsChange = {
+    graph: InteractiveGraphState;
+};
+
 const renderGraph = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
@@ -64,11 +75,30 @@ const renderGraph = (props: {
         case "point":
             return <PointGraph graphState={state} dispatch={dispatch} />;
         case "circle":
-            throw new Error("the circle graph type is not yet implemented");
+            return <CircleGraph graphState={state} dispatch={dispatch} />;
         default:
             return new UnreachableCaseError(type);
     }
 };
+
+// Rather than be tightly bound to how data was structured in
+// the legacy interactive graph, this lets us store state
+// however we want and we just transform it before handing it off
+// the the parent InteractiveGraph
+function mafsStateToInteractiveGraph(state: MafsChange) {
+    if (state.graph.type === "circle") {
+        return {
+            ...state,
+            graph: {
+                ...state.graph,
+                radius: getRadius(state.graph),
+            },
+        };
+    }
+    return {
+        ...state,
+    };
+}
 
 export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
     (props, ref) => {
@@ -82,7 +112,18 @@ export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
             getUserInput: () => getGradableGraph(state, props.graph),
         }));
 
-        return <MafsGraph state={state} dispatch={dispatch} {...props} />;
+        function onChange(next: MafsChange) {
+            props.onChange(mafsStateToInteractiveGraph(next));
+        }
+
+        return (
+            <MafsGraph
+                {...props}
+                state={state}
+                dispatch={dispatch}
+                onChange={onChange}
+            />
+        );
     },
 );
 
@@ -135,6 +176,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
             }}
         >
             <View
+                className="mafs-graph"
                 style={{
                     width,
                     height,

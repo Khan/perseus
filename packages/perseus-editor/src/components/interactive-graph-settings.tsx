@@ -8,6 +8,7 @@ import {
     Changeable,
     Util,
 } from "@khanacademy/perseus";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -596,6 +597,13 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             style={styles.resetSpaceTop}
                         />
                     </View>
+                    {(this.props.showRuler || this.props.showProtractor) && (
+                        <Banner
+                            layout="floating"
+                            text="The ruler and protractor are not accessible. Please consider an alternate approach."
+                            kind="warning"
+                        />
+                    )}
                     {this.props.showRuler && (
                         <View style={styles.spaceTop}>
                             <LabeledRow
@@ -681,6 +689,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        marginBottom: spacing.xSmall_8,
     },
     rulerSection: {
         marginTop: spacing.xSmall_8,

@@ -154,7 +154,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const xCoordInput = screen.getByLabelText("x Coord");
+            const xCoordInput = screen.getByLabelText("x coord");
             await userEvent.clear(xCoordInput);
             await userEvent.type(xCoordInput, "1");
             await userEvent.tab();
@@ -187,7 +187,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const xCoordInput = screen.getByLabelText("y Coord");
+            const xCoordInput = screen.getByLabelText("y coord");
             await userEvent.clear(xCoordInput);
             await userEvent.type(xCoordInput, "1");
             await userEvent.tab();
@@ -221,14 +221,14 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Assert
             expect(screen.getByText("Point (0, 0)")).toBeInTheDocument();
-            expect(screen.getByText("x Coord")).toBeInTheDocument();
-            expect(screen.getByText("y Coord")).toBeInTheDocument();
+            expect(screen.getByText("x coord")).toBeInTheDocument();
+            expect(screen.getByText("y coord")).toBeInTheDocument();
             expect(
                 screen.getByRole("button", {
                     name: "Delete locked point at 0, 0",
                 }),
             ).toBeInTheDocument();
-            expect(screen.getByText("Color")).toBeInTheDocument();
+            expect(screen.getByText("color")).toBeInTheDocument();
         });
 
         test("Calls onChange when a locked point's color is changed", async () => {
@@ -248,7 +248,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const colorInput = screen.getByRole("button", {
-                name: "Color",
+                name: "color",
             });
             await userEvent.click(colorInput);
             const colorSelection = screen.getByText("purple");
@@ -282,8 +282,8 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const fillInput = screen.getByRole("checkbox", {
-                name: "Open point",
+            const fillInput = screen.getByRole("switch", {
+                name: "open point",
             });
             await userEvent.click(fillInput);
 
@@ -416,11 +416,11 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Assert
             expect(screen.getByText("Line (0, 0), (2, 2)")).toBeInTheDocument();
-            expect(screen.getByText("Kind")).toBeInTheDocument();
-            expect(screen.getByText("Color")).toBeInTheDocument();
-            expect(screen.getByText("Style")).toBeInTheDocument();
-            expect(screen.getByText("Start point (0, 0)")).toBeInTheDocument();
-            expect(screen.getByText("End point (2, 2)")).toBeInTheDocument();
+            expect(screen.getByText("kind")).toBeInTheDocument();
+            expect(screen.getByText("color")).toBeInTheDocument();
+            expect(screen.getByText("style")).toBeInTheDocument();
+            expect(screen.getByText("Point 1 (0, 0)")).toBeInTheDocument();
+            expect(screen.getByText("Point 2 (2, 2)")).toBeInTheDocument();
         });
 
         test("Calls onChange when a locked line's color is changed", async () => {
@@ -440,7 +440,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const colorInput = screen.getByRole("button", {
-                name: "Color",
+                name: "color",
             });
             await userEvent.click(colorInput);
             const colorSelection = screen.getByText("purple");
@@ -480,7 +480,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const styleInput = screen.getByRole("button", {
-                name: "Style",
+                name: "style",
             });
             await userEvent.click(styleInput);
             const styleSelection = screen.getByText("dashed");
@@ -499,7 +499,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked line's showArrows is changed", async () => {
+        test("Calls onChange when a locked line's point1 is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -515,50 +515,16 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const showArrowsInput = screen.getByRole("checkbox", {
-                name: "Show arrows",
-            });
-            await userEvent.click(showArrowsInput);
-
-            // Assert
-            expect(onChangeMock).toBeCalledWith(
-                expect.objectContaining({
-                    lockedFigures: [
-                        expect.objectContaining({
-                            ...defaultLine,
-                            showArrows: true,
-                        }),
-                    ],
-                }),
-            );
-        });
-
-        test("Calls onChange when a locked line's start point is changed", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Act
-            const startPointInput = screen.getAllByLabelText("x Coord")[0];
-            await userEvent.click(startPointInput);
-            await userEvent.clear(startPointInput);
-            await userEvent.type(startPointInput, "1");
+            const point1Input = screen.getAllByLabelText("x coord")[0];
+            await userEvent.click(point1Input);
+            await userEvent.clear(point1Input);
+            await userEvent.type(point1Input, "1");
             await userEvent.tab();
 
-            const endPointInput = screen.getAllByLabelText("y Coord")[0];
-            await userEvent.click(endPointInput);
-            await userEvent.clear(endPointInput);
-            await userEvent.type(endPointInput, "5");
+            const point2Input = screen.getAllByLabelText("y coord")[0];
+            await userEvent.click(point2Input);
+            await userEvent.clear(point2Input);
+            await userEvent.type(point2Input, "5");
             await userEvent.tab();
 
             // Assert
@@ -577,7 +543,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked line's end point is changed", async () => {
+        test("Calls onChange when a locked line's point2 is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -593,16 +559,16 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const startPointInput = screen.getAllByLabelText("x Coord")[1];
-            await userEvent.click(startPointInput);
-            await userEvent.clear(startPointInput);
-            await userEvent.type(startPointInput, "1");
+            const point1Input = screen.getAllByLabelText("x coord")[1];
+            await userEvent.click(point1Input);
+            await userEvent.clear(point1Input);
+            await userEvent.type(point1Input, "1");
             await userEvent.tab();
 
-            const endPointInput = screen.getAllByLabelText("y Coord")[1];
-            await userEvent.click(endPointInput);
-            await userEvent.clear(endPointInput);
-            await userEvent.type(endPointInput, "5");
+            const point2Input = screen.getAllByLabelText("y coord")[1];
+            await userEvent.click(point2Input);
+            await userEvent.clear(point2Input);
+            await userEvent.type(point2Input, "5");
             await userEvent.tab();
 
             // Assert
@@ -638,7 +604,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const kindInput = screen.getByRole("button", {
-                name: "Kind",
+                name: "kind",
             });
             await userEvent.click(kindInput);
             const kindSelection = screen.getByText("segment");
@@ -657,7 +623,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Call onChange when start point is toggled", async () => {
+        test("Call onChange when point1 is toggled", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -673,7 +639,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const toggle = screen.getAllByRole("switch")[0];
+            const toggle = screen.getAllByLabelText("show point on graph")[0];
             await userEvent.click(toggle);
 
             // Assert
@@ -682,14 +648,14 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             ...defaultLine,
-                            showStartPoint: true,
+                            showPoint1: true,
                         }),
                     ],
                 }),
             );
         });
 
-        test("Call onChange when end point is toggled", async () => {
+        test("Call onChange when point2 is toggled", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -705,7 +671,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const toggle = screen.getAllByRole("switch")[1];
+            const toggle = screen.getAllByLabelText("show point on graph")[1];
             await userEvent.click(toggle);
 
             // Assert
@@ -714,7 +680,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             ...defaultLine,
-                            showEndPoint: true,
+                            showPoint2: true,
                         }),
                     ],
                 }),

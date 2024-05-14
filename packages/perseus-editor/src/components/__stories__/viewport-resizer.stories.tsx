@@ -8,7 +8,7 @@ import type {Meta, StoryFn} from "@storybook/react";
 
 const meta: Meta<typeof ViewportResizer> = {
     component: ViewportResizer,
-    title: "Perseus/Editor/Components/Viewport Resizer",
+    title: "PerseusEditor/Components/Viewport Resizer",
 };
 
 export default meta;

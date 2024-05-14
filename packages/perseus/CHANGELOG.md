@@ -1,5 +1,55 @@
 # @khanacademy/perseus
 
+## 22.4.2
+
+### Patch Changes
+
+-   [#1251](https://github.com/Khan/perseus/pull/1251) [`917a6dafb`](https://github.com/Khan/perseus/commit/917a6dafb54cbff371d0d390384d001d11c15a9b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove useUniqueIdWithMock for label/id in Choice
+
+## 22.4.1
+
+### Patch Changes
+
+-   [#1240](https://github.com/Khan/perseus/pull/1240) [`4a59b85ab`](https://github.com/Khan/perseus/commit/4a59b85ab8d4d49e66bbd771c88e1f3d40c23a85) Thanks [@benchristel](https://github.com/benchristel)! - Change the tab order for movable line segments in interactive graphs. Previously, the order was `(whole segment, first point, second point)`. Now it's `(first point, whole segment, second point)`, which aligns better with the visual layout of the graph.
+
+*   [#1240](https://github.com/Khan/perseus/pull/1240) [`4a59b85ab`](https://github.com/Khan/perseus/commit/4a59b85ab8d4d49e66bbd771c88e1f3d40c23a85) Thanks [@benchristel](https://github.com/benchristel)! - Adjust spacing in locked point and locked line settings
+
+-   [#1235](https://github.com/Khan/perseus/pull/1235) [`87169b22b`](https://github.com/Khan/perseus/commit/87169b22b45c37d7cece4e3fc19acc8665f04c39) Thanks [@jeresig](https://github.com/jeresig)! - Update mathjax-renderer usage, locale is now required for createMathField.
+
+-   Updated dependencies [[`87169b22b`](https://github.com/Khan/perseus/commit/87169b22b45c37d7cece4e3fc19acc8665f04c39)]:
+    -   @khanacademy/math-input@19.0.0
+
+## 22.4.0
+
+### Minor Changes
+
+-   [#1229](https://github.com/Khan/perseus/pull/1229) [`3c1e398d5`](https://github.com/Khan/perseus/commit/3c1e398d5f6fd3fad256eedfec821264ba857f9a) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Show Arrowheads on Locked Lines in Interactive Graphs
+
+*   [#1237](https://github.com/Khan/perseus/pull/1237) [`54689a18f`](https://github.com/Khan/perseus/commit/54689a18f73bc29b6601c9309d5385bd47c101b9) Thanks [@handeyeco](https://github.com/handeyeco)! - Rough out new Circle Graph behind a feature flag
+
+### Patch Changes
+
+-   [#1222](https://github.com/Khan/perseus/pull/1222) [`44cf7348c`](https://github.com/Khan/perseus/commit/44cf7348c5f80726da8b93a71e0ce0121b90a4ba) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix @phosphor-icon paths in `explanation` widget
+
+*   [#1243](https://github.com/Khan/perseus/pull/1243) [`ee89a1b01`](https://github.com/Khan/perseus/commit/ee89a1b0169808c9c7fb14c14d2e78975e390ce9) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix dash style for locked lines when kind is 'ray'
+
+## 22.3.0
+
+### Minor Changes
+
+-   [#1210](https://github.com/Khan/perseus/pull/1210) [`2d3c3b49a`](https://github.com/Khan/perseus/commit/2d3c3b49a652020e5bf662b7b19682fa94212755) Thanks [@nishasy](https://github.com/nishasy)! - Limit color set for locked figures in Interactive Graph
+
+### Patch Changes
+
+-   [#1231](https://github.com/Khan/perseus/pull/1231) [`4fae0155d`](https://github.com/Khan/perseus/commit/4fae0155d358ca3c6bfaaac328631fec77d3fbe3) Thanks [@nishasy](https://github.com/nishasy)! - Adjust spacing in locked point and locked line settings
+
+*   [#1232](https://github.com/Khan/perseus/pull/1232) [`cf1dc61b0`](https://github.com/Khan/perseus/commit/cf1dc61b041bbb15bac4120490bfd0f1909f5507) Thanks [@nishasy](https://github.com/nishasy)! - Refactor: separate LockedFigureSettingsAccordion component to reduce redundancy
+
+-   [#1239](https://github.com/Khan/perseus/pull/1239) [`f757db589`](https://github.com/Khan/perseus/commit/f757db589c6500e0e1487e886fc3e92646492f1c) Thanks [@benchristel](https://github.com/benchristel)! - Fix sizing of interactive graph axis labels on mobile
+
+-   Updated dependencies [[`71e74ff64`](https://github.com/Khan/perseus/commit/71e74ff647264f0067d279cfa51e7c9dd8b45043), [`db041577d`](https://github.com/Khan/perseus/commit/db041577dda780e2a871ad9e63c295a1d3fbe185)]:
+    -   @khanacademy/math-input@18.1.0
+
 ## 22.2.0
 
 ### Minor Changes

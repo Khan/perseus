@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         width: "100%",
         flexDirection: "row",
         alignItems: "center",
+        marginTop: spacing.xxxSmall_4,
     },
     deleteButton: {
         // Line up the delete icon with the rest of the content.

@@ -141,6 +141,36 @@ export const MafsWithXAxisOffTop = (args: StoryArgs): React.ReactElement => (
     />
 );
 
+export const MafsInMobileContainer = (args: StoryArgs): React.ReactElement => (
+    <div className="framework-perseus perseus-mobile">
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder().build()}
+        />
+    </div>
+);
+
+export const MafsWithMultipleSegments = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder().withSegments(3).build()}
+    />
+);
+
+export const MafsCircleGraphWithNonsquareRange = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <div className="framework-perseus perseus-mobile">
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withCircle()
+                .withXRange(-10, 10)
+                .withYRange(-5, 5)
+                .build()}
+        />
+    </div>
+);
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
@@ -153,6 +183,7 @@ function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
                 flags: {
                     mafs: {
                         segment: true,
+                        circle: true,
                     },
                 },
             }}

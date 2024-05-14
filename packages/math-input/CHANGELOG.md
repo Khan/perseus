@@ -1,5 +1,21 @@
 # @khanacademy/math-input
 
+## 19.0.0
+
+### Major Changes
+
+-   [#1235](https://github.com/Khan/perseus/pull/1235) [`87169b22b`](https://github.com/Khan/perseus/commit/87169b22b45c37d7cece4e3fc19acc8665f04c39) Thanks [@jeresig](https://github.com/jeresig)! - Update mathjax-renderer usage, locale is now required for createMathField.
+
+## 18.1.0
+
+### Minor Changes
+
+-   [#1230](https://github.com/Khan/perseus/pull/1230) [`db041577d`](https://github.com/Khan/perseus/commit/db041577dda780e2a871ad9e63c295a1d3fbe185) Thanks [@benchristel](https://github.com/benchristel)! - Get `@khanacademy/mathjax-renderer` from NPM, to allow third-party clients of Perseus to install it
+
+### Patch Changes
+
+-   [#1205](https://github.com/Khan/perseus/pull/1205) [`71e74ff64`](https://github.com/Khan/perseus/commit/71e74ff647264f0067d279cfa51e7c9dd8b45043) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Fix storybook stories for keypad button
+
 ## 18.0.1
 
 ### Patch Changes

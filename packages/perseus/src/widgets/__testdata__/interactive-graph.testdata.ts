@@ -102,6 +102,47 @@ export const circleQuestion: PerseusRenderer = {
     },
 };
 
+export const circleQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Graph the circle $x^2+y^2+4x+8y+16=0$.**\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            type: "interactive-graph",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                step: [1, 1],
+                markings: "graph",
+                labels: ["x", "y"],
+                showProtractor: false,
+                showRuler: false,
+                rulerLabel: "",
+                rulerTicks: 10,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                gridStep: [1, 1],
+                snapStep: [1, 1],
+                graph: {
+                    type: "circle",
+                },
+                correct: {
+                    type: "circle",
+                    center: [0, 0],
+                    radius: 1,
+                },
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
 export const linearQuestion: PerseusRenderer = {
     content:
         "**Draw the line of reflection that will map $\\triangle{SIM}$ onto the other triangle below.**\n\n\n[[☃ interactive-graph 1]]",
@@ -225,19 +266,19 @@ export const linearQuestionWithLockedPoints: PerseusRenderer = {
                     {
                         type: "point",
                         coord: [5, 3],
-                        color: "blue",
+                        color: "green",
                         filled: true,
                     },
                     {
                         type: "point",
                         coord: [4, -4],
-                        color: "blue",
+                        color: "green",
                         filled: true,
                     },
                     {
                         type: "point",
                         coord: [7, -3],
-                        color: "blue",
+                        color: "green",
                         filled: true,
                     },
                 ],
@@ -769,7 +810,6 @@ export const polygonQuestionDefaultCorrect: PerseusRenderer = {
                         [2.5, 4],
                         [1.5, 2],
                     ],
-                    match: "congruent",
                     snapTo: "grid",
                 },
             },
@@ -968,13 +1008,13 @@ export const segmentWithLockedPointsQuestion: PerseusRenderer = {
                     {
                         type: "point",
                         coord: [-7, -7],
-                        color: "blue",
+                        color: "green",
                         filled: true,
                     },
                     {
                         type: "point",
                         coord: [2, -5],
-                        color: "blue",
+                        color: "green",
                         filled: false,
                     },
                 ],
@@ -1086,21 +1126,20 @@ export const segmentWithLockedLineQuestion: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -7],
-                                color: "purple",
+                                color: "green",
                                 filled: true,
                             },
                             {
                                 type: "point",
                                 coord: [2, -5],
-                                color: "purple",
+                                color: "green",
                                 filled: false,
                             },
                         ],
-                        color: "purple",
+                        color: "green",
                         lineStyle: "solid",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: true,
+                        showPoint1: true,
+                        showPoint2: true,
                     },
                     {
                         type: "line",
@@ -1109,21 +1148,20 @@ export const segmentWithLockedLineQuestion: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -6],
-                                color: "green",
+                                color: "grayH",
                                 filled: false,
                             },
                             {
                                 type: "point",
                                 coord: [2, -4],
-                                color: "green",
+                                color: "grayH",
                                 filled: true,
                             },
                         ],
-                        color: "green",
+                        color: "grayH",
                         lineStyle: "solid",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: true,
+                        showPoint1: true,
+                        showPoint2: true,
                     },
                     {
                         type: "line",
@@ -1144,9 +1182,119 @@ export const segmentWithLockedLineQuestion: PerseusRenderer = {
                         ],
                         color: "pink",
                         lineStyle: "solid",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: false,
+                        showPoint1: true,
+                        showPoint2: false,
+                    },
+                ],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const segmentWithLockedLineAndArrowheadsQuestion: PerseusRenderer = {
+    content:
+        "Line segment $\\overline{OG}$ is rotated $180^\\circ$ about the point $(-2,4)$.  \n\n**Draw the image of this rotation using the interactive graph.**\n\n*The direction of a rotation by a positive angle is counter-clockwise.* \n\n[[☃ interactive-graph 1]]\n\n",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [
+                            [-7, -7],
+                            [2, -5],
+                        ],
+                    ],
+                    type: "segment",
+                },
+                graph: {
+                    type: "segment",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+                lockedFigures: [
+                    {
+                        type: "line",
+                        kind: "line",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -7],
+                                color: "purple",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -5],
+                                color: "purple",
+                                filled: false,
+                            },
+                        ],
+                        color: "purple",
+                        lineStyle: "solid",
+                        showPoint1: true,
+                        showPoint2: true,
+                    },
+                    {
+                        type: "line",
+                        kind: "segment",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -6],
+                                color: "green",
+                                filled: false,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -4],
+                                color: "green",
+                                filled: true,
+                            },
+                        ],
+                        color: "green",
+                        lineStyle: "solid",
+                        showPoint1: true,
+                        showPoint2: true,
+                    },
+                    {
+                        type: "line",
+                        kind: "ray",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -8],
+                                color: "pink",
+                                filled: false,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -6],
+                                color: "pink",
+                                filled: true,
+                            },
+                        ],
+                        color: "pink",
+                        lineStyle: "solid",
+                        showPoint1: true,
+                        showPoint2: false,
                     },
                 ],
             },
@@ -1483,9 +1631,8 @@ export const segmentWithAllLockedLineSegmentVariations: PerseusRenderer = {
                         ],
                         color: "green",
                         lineStyle: "solid",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: true,
+                        showPoint1: true,
+                        showPoint2: true,
                     },
                     // Dashed line, one point shown
                     {
@@ -1495,21 +1642,20 @@ export const segmentWithAllLockedLineSegmentVariations: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -6],
-                                color: "blue",
+                                color: "grayH",
                                 filled: true,
                             },
                             {
                                 type: "point",
                                 coord: [2, -4],
-                                color: "purple",
+                                color: "grayH",
                                 filled: false,
                             },
                         ],
-                        color: "purple",
+                        color: "grayH",
                         lineStyle: "dashed",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: false,
+                        showPoint1: true,
+                        showPoint2: false,
                     },
                     // Show arrows
                     {
@@ -1519,21 +1665,20 @@ export const segmentWithAllLockedLineSegmentVariations: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -7],
-                                color: "blue",
+                                color: "pink",
                                 filled: true,
                             },
                             {
                                 type: "point",
                                 coord: [2, -5],
-                                color: "blue",
+                                color: "pink",
                                 filled: false,
                             },
                         ],
-                        color: "blue",
+                        color: "pink",
                         lineStyle: "solid",
-                        showArrows: true,
-                        showStartPoint: false,
-                        showEndPoint: false,
+                        showPoint1: false,
+                        showPoint2: false,
                     },
                 ],
             },
@@ -1599,9 +1744,8 @@ export const segmentWithAllLockedLineVariations: PerseusRenderer = {
                         ],
                         color: "green",
                         lineStyle: "solid",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: true,
+                        showPoint1: true,
+                        showPoint2: true,
                     },
                     // Dashed line, one point shown
                     {
@@ -1611,21 +1755,20 @@ export const segmentWithAllLockedLineVariations: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -6],
-                                color: "blue",
+                                color: "grayH",
                                 filled: true,
                             },
                             {
                                 type: "point",
                                 coord: [2, -4],
-                                color: "purple",
+                                color: "grayH",
                                 filled: false,
                             },
                         ],
-                        color: "purple",
+                        color: "grayH",
                         lineStyle: "dashed",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: false,
+                        showPoint1: true,
+                        showPoint2: false,
                     },
                     // Show arrows
                     {
@@ -1635,21 +1778,20 @@ export const segmentWithAllLockedLineVariations: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -7],
-                                color: "blue",
+                                color: "pink",
                                 filled: true,
                             },
                             {
                                 type: "point",
                                 coord: [2, -5],
-                                color: "blue",
+                                color: "pink",
                                 filled: false,
                             },
                         ],
-                        color: "blue",
+                        color: "pink",
                         lineStyle: "solid",
-                        showArrows: true,
-                        showStartPoint: false,
-                        showEndPoint: false,
+                        showPoint1: false,
+                        showPoint2: false,
                     },
                 ],
             },
@@ -1715,9 +1857,8 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer = {
                         ],
                         color: "green",
                         lineStyle: "solid",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: true,
+                        showPoint1: true,
+                        showPoint2: true,
                     },
                     // Dashed line, one point shown
                     {
@@ -1727,21 +1868,20 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -6],
-                                color: "purple",
+                                color: "grayH",
                                 filled: true,
                             },
                             {
                                 type: "point",
                                 coord: [2, -4],
-                                color: "purple",
+                                color: "grayH",
                                 filled: false,
                             },
                         ],
-                        color: "purple",
+                        color: "grayH",
                         lineStyle: "dashed",
-                        showArrows: false,
-                        showStartPoint: true,
-                        showEndPoint: false,
+                        showPoint1: true,
+                        showPoint2: false,
                     },
                     // Show arrows
                     {
@@ -1751,21 +1891,94 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer = {
                             {
                                 type: "point",
                                 coord: [-7, -7],
-                                color: "blue",
+                                color: "pink",
                                 filled: true,
                             },
                             {
                                 type: "point",
                                 coord: [2, -5],
-                                color: "blue",
+                                color: "pink",
                                 filled: false,
                             },
                         ],
-                        color: "blue",
+                        color: "pink",
                         lineStyle: "solid",
-                        showArrows: true,
-                        showStartPoint: false,
-                        showEndPoint: false,
+                        showPoint1: false,
+                        showPoint2: false,
+                    },
+                ],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const segmentWithLockedFigures: PerseusRenderer = {
+    content: "All locked lines\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [
+                            [-7, -7],
+                            [2, -5],
+                        ],
+                    ],
+                    type: "segment",
+                },
+                graph: {
+                    type: "segment",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+                lockedFigures: [
+                    // Just a point
+                    {
+                        type: "point",
+                        coord: [-7, -7],
+                        color: "green",
+                        filled: true,
+                    },
+                    // Point shown, one filled, one open
+                    {
+                        type: "line",
+                        kind: "line",
+                        points: [
+                            {
+                                type: "point",
+                                coord: [-7, -5],
+                                color: "green",
+                                filled: true,
+                            },
+                            {
+                                type: "point",
+                                coord: [2, -3],
+                                color: "green",
+                                filled: false,
+                            },
+                        ],
+                        color: "green",
+                        lineStyle: "solid",
+                        showPoint1: true,
+                        showPoint2: true,
                     },
                 ],
             },

@@ -61,6 +61,35 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
+    test("displays a11y warning banner when ruler enabled", () => {
+        // Arrange
+        render(
+            <InteractiveGraphSettings showRuler onChange={() => undefined} />,
+        );
+
+        // Act
+        const banner = screen.getByRole("alert");
+
+        // Assert
+        expect(banner).toHaveTextContent(
+            /The ruler and protractor are not accessible/,
+        );
+    });
+
+    test("hides a11y warning banner when ruler and protractor disabled", () => {
+        // Arrange
+        const {rerender} = render(
+            <InteractiveGraphSettings showRuler onChange={() => undefined} />,
+        );
+
+        // Act
+        rerender(<InteractiveGraphSettings onChange={() => undefined} />);
+
+        // Assert
+        const banner = screen.queryByRole("alert");
+        expect(banner).not.toBeInTheDocument();
+    });
+
     test("calls onChange when ruler label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
@@ -217,6 +246,41 @@ describe("InteractiveGraphSettings", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
+    test("displays a11y warning banner when ruler enabled", () => {
+        // Arrange
+        render(
+            <InteractiveGraphSettings
+                showProtractor
+                onChange={() => undefined}
+            />,
+        );
+
+        // Act
+        const banner = screen.getByRole("alert");
+
+        // Assert
+        expect(banner).toHaveTextContent(
+            /The ruler and protractor are not accessible/,
+        );
+    });
+
+    test("hides a11y warning banner when ruler and protractor disabled", () => {
+        // Arrange
+        const {rerender} = render(
+            <InteractiveGraphSettings
+                showProtractor
+                onChange={() => undefined}
+            />,
+        );
+
+        // Act
+        rerender(<InteractiveGraphSettings onChange={() => undefined} />);
+
+        // Assert
+        const banner = screen.queryByRole("alert");
+        expect(banner).not.toBeInTheDocument();
+    });
+
     test("calls onChange when protractor label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
@@ -237,6 +301,25 @@ describe("InteractiveGraphSettings", () => {
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({showProtractor: false}),
             undefined,
+        );
+    });
+
+    test("shows a11y warning banner when both ruler and protractor enabled", () => {
+        // Arrange
+        render(
+            <InteractiveGraphSettings
+                showRuler
+                showProtractor
+                onChange={() => undefined}
+            />,
+        );
+
+        // Act
+        const banner = screen.getByRole("alert");
+
+        // Assert
+        expect(banner).toHaveTextContent(
+            /The ruler and protractor are not accessible/,
         );
     });
 

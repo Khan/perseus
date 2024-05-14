@@ -139,6 +139,8 @@ export const MafsGraphTypeFlags = [
     "ray",
     /** Enables the `polygon` interactive-graph type.  */
     "polygon",
+    /** Enables the `circle` interactive-graph type.  */
+    "circle",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [

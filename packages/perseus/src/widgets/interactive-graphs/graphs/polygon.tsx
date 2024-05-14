@@ -20,21 +20,17 @@ export const PolygonGraph = (props: Props) => {
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep} = props.graphState;
 
+    // TODO(benchristel): can the default set of points be removed here? I don't
+    // think coords can be null.
     const points = coords ?? [[0, 0]];
 
-    const pointsSum = points.reduce(
-        (acc, point) => vec.add(acc, point),
-        [0, 0],
-    );
-    const midpoint =
-        pointsSum && vec.scale(pointsSum, 1 / (points.length ?? 1));
-
     const ref = React.useRef<SVGPolygonElement>(null);
+    const dragReferencePoint = points[0];
     const {dragging} = useMovable({
         gestureTarget: ref,
-        point: midpoint,
+        point: dragReferencePoint,
         onMove: (newPoint) => {
-            const delta = vec.sub(newPoint, midpoint);
+            const delta = vec.sub(newPoint, dragReferencePoint);
             dispatch(moveAll(delta));
         },
         constrain: (p) => snap(snapStep, p),

@@ -9,22 +9,24 @@ import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
 import {
+    circleQuestion,
+    circleQuestionWithDefaultCorrect,
+    linearQuestion,
+    linearQuestionWithDefaultCorrect,
+    linearSystemQuestion,
+    linearSystemQuestionWithDefaultCorrect,
+    pointQuestion,
+    pointQuestionWithDefaultCorrect,
+    polygonQuestion,
+    polygonQuestionDefaultCorrect,
     questionsAndAnswers,
+    rayQuestion,
+    rayQuestionWithDefaultCorrect,
+    segmentQuestion,
+    segmentQuestionDefaultCorrect,
+    segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
-    segmentQuestionDefaultCorrect,
-    linearQuestionWithDefaultCorrect,
-    linearSystemQuestionWithDefaultCorrect,
-    rayQuestionWithDefaultCorrect,
-    polygonQuestionDefaultCorrect,
-    pointQuestionWithDefaultCorrect,
-    segmentWithLockedLineQuestion,
-    segmentQuestion,
-    linearQuestion,
-    linearSystemQuestion,
-    rayQuestion,
-    polygonQuestion,
-    pointQuestion,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
@@ -129,7 +131,7 @@ describe("interactive-graph widget", function () {
     );
 });
 
-describe("mafs graphs", () => {
+describe("a mafs graph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -151,6 +153,7 @@ describe("mafs graphs", () => {
         ray: rayQuestion,
         polygon: polygonQuestion,
         point: pointQuestion,
+        circle: circleQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -162,6 +165,7 @@ describe("mafs graphs", () => {
         ray: rayQuestionWithDefaultCorrect,
         polygon: polygonQuestionDefaultCorrect,
         point: pointQuestionWithDefaultCorrect,
+        circle: circleQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
@@ -193,18 +197,12 @@ describe("mafs graphs", () => {
 
             it("rejects incorrect answer", async () => {
                 // Arrange
-                const {renderer, container} = renderQuestion(
-                    question,
-                    apiOptions,
-                );
+                const {renderer} = renderQuestion(question, apiOptions);
 
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                const movablePoints = container.querySelectorAll(
-                    "circle.movable-point-hitbox",
-                );
+                await userEvent.tab();
 
                 // Act
-                await userEvent.type(movablePoints[1], "{arrowup}");
+                await userEvent.keyboard("{arrowup}{arrowright}");
 
                 // Assert
                 await waitFor(() => {
@@ -213,18 +211,12 @@ describe("mafs graphs", () => {
             });
 
             it("accepts correct answer", async () => {
-                const {renderer, container} = renderQuestion(
-                    question,
-                    apiOptions,
-                );
+                const {renderer} = renderQuestion(question, apiOptions);
 
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-                const movablePoints = container.querySelectorAll(
-                    "circle.movable-point-hitbox",
-                );
+                await userEvent.tab();
 
                 // Act
-                await userEvent.type(movablePoints[0], "{arrowup}{arrowdown}");
+                await userEvent.keyboard("{arrowup}{arrowdown}");
 
                 // Assert
                 await waitFor(() => {
@@ -269,14 +261,110 @@ describe("mafs graphs", () => {
 
             // Assert
             expect(points[0]).toHaveStyle({
-                fill: lockedFigureColors.blue,
-                stroke: lockedFigureColors.blue,
+                fill: lockedFigureColors.green,
+                stroke: lockedFigureColors.green,
             });
             expect(points[1]).toHaveStyle({
                 fill: wbColor.white,
-                stroke: lockedFigureColors.blue,
+                stroke: lockedFigureColors.green,
             });
         });
+    });
+});
+
+describe("tabbing forward on a Mafs segment graph", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("focuses the first endpoint of a segment first", async () => {
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
+
+        await userEvent.tab();
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "[data-testid=movable-point__focusable-handle]",
+        );
+        expect(movablePoints[0]).toHaveFocus();
+    });
+
+    it("focuses the whole segment second", async () => {
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
+
+        await userEvent.tab();
+        await userEvent.tab();
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movableLine = container.querySelector(
+            "[data-testid=movable-line]",
+        );
+        expect(movableLine).toHaveFocus();
+    });
+
+    it("focuses the second point third", async () => {
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
+
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab();
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "[data-testid=movable-point__focusable-handle]",
+        );
+        expect(movablePoints[1]).toHaveFocus();
+    });
+});
+
+describe("tabbing backward on a Mafs segment graph", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("moves focus from the last point to the whole segment", async () => {
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
+
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab({shift: true});
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movableLine = container.querySelector(
+            "[data-testid=movable-line]",
+        );
+        expect(movableLine).toHaveFocus();
+    });
+
+    it("moves focus from the whole segment to the first point", async () => {
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {mafs: {segment: true}},
+        });
+
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab({shift: true});
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "[data-testid=movable-point__focusable-handle]",
+        );
+        expect(movablePoints[0]).toHaveFocus();
     });
 });
 
@@ -316,12 +404,12 @@ describe("locked layer", () => {
 
         // Assert
         expect(points[0]).toHaveStyle({
-            fill: lockedFigureColors.blue,
-            stroke: lockedFigureColors.blue,
+            fill: lockedFigureColors.green,
+            stroke: lockedFigureColors.green,
         });
         expect(points[1]).toHaveStyle({
             fill: wbColor.white,
-            stroke: lockedFigureColors.blue,
+            stroke: lockedFigureColors.green,
         });
     });
 
@@ -394,8 +482,8 @@ describe("locked layer", () => {
 
         // Assert
         expect(lines).toHaveLength(2);
-        expect(lines[0]).toHaveStyle({stroke: lockedFigureColors.purple});
-        expect(lines[1]).toHaveStyle({stroke: lockedFigureColors.green});
+        expect(lines[0]).toHaveStyle({stroke: lockedFigureColors.green});
+        expect(lines[1]).toHaveStyle({stroke: lockedFigureColors.grayH});
         expect(ray).toHaveStyle({stroke: lockedFigureColors.pink});
     });
 
@@ -419,20 +507,20 @@ describe("locked layer", () => {
         expect(linePoints).toHaveLength(4);
         // Two points for each line
         expect(linePoints[0]).toHaveStyle({
-            fill: lockedFigureColors.purple,
-            stroke: lockedFigureColors.purple,
+            fill: lockedFigureColors.green,
+            stroke: lockedFigureColors.green,
         });
         expect(linePoints[1]).toHaveStyle({
             fill: wbColor.white,
-            stroke: lockedFigureColors.purple,
+            stroke: lockedFigureColors.green,
         });
         expect(linePoints[2]).toHaveStyle({
             fill: wbColor.white,
-            stroke: lockedFigureColors.green,
+            stroke: lockedFigureColors.grayH,
         });
         expect(linePoints[3]).toHaveStyle({
-            fill: lockedFigureColors.green,
-            stroke: lockedFigureColors.green,
+            fill: lockedFigureColors.grayH,
+            stroke: lockedFigureColors.grayH,
         });
         expect(rayPoints[0]).toHaveStyle({
             fill: wbColor.white,

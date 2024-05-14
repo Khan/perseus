@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import ColorSwatch from "../color-swatch";
+import {getDefaultFigureForType} from "../util";
 
 import type {Meta} from "@storybook/react";
 
@@ -15,6 +16,6 @@ export const Default = (args): React.ReactElement => {
 
 // Set the default values in the control panel.
 Default.args = {
-    color: "blue",
+    color: getDefaultFigureForType("point").color,
     filled: true,
 };

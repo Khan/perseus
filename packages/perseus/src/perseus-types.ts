@@ -655,33 +655,21 @@ export type PerseusInteractiveGraphWidgetOptions = {
     lockedFigures?: ReadonlyArray<LockedFigure>;
 };
 
-// TODO: If/when these colors are added to Wonder Blocks, we should remove
-// them from here and use Wonder Blocks everywhere else instead.
 const lockedFigureColorNames = [
-    "blue",
     "green",
-    "gray",
     "grayH",
-    "grayI",
     "purple",
-    "purpleD",
     "pink",
-    "orange",
     "red",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
 
 export const lockedFigureColors: Record<LockedFigureColor, string> = {
-    blue: "#3D7586",
     green: "#447A53",
-    gray: "#5D5F66",
     grayH: "#3B3D45",
-    grayI: "#21242C",
     purple: "#594094",
-    purpleD: "#8351E8",
     pink: "#B25071",
-    orange: "#946700",
     red: "#D92916",
 } as const;
 
@@ -698,12 +686,11 @@ export type LockedPointType = {
 export type LockedLineType = {
     type: "line";
     kind: "line" | "ray" | "segment";
-    points: [startPoint: LockedPointType, endPoint: LockedPointType];
+    points: [point1: LockedPointType, point2: LockedPointType];
     color: LockedFigureColor;
     lineStyle: "solid" | "dashed";
-    showArrows: boolean;
-    showStartPoint: boolean;
-    showEndPoint: boolean;
+    showPoint1: boolean;
+    showPoint2: boolean;
 };
 
 export type PerseusGraphType =

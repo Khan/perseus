@@ -13,9 +13,13 @@ import {
     MOVE_POINT,
     CHANGE_SNAP_STEP,
     CHANGE_RANGE,
+    MOVE_CENTER,
+    MOVE_RADIUS_POINT,
     type MoveAll,
     type MoveControlPoint,
     type MoveLine,
+    type MoveCenter,
+    type MoveRadiusPoint,
     type MovePoint,
     type ChangeSnapStep,
     type ChangeRange,
@@ -37,6 +41,10 @@ export function interactiveGraphReducer(
             return doMoveAll(state, action);
         case MOVE_POINT:
             return doMovePoint(state, action);
+        case MOVE_CENTER:
+            return doMoveCenter(state, action);
+        case MOVE_RADIUS_POINT:
+            return doMoveRadiusPoint(state, action);
         case CHANGE_SNAP_STEP:
             return doChangeSnapStep(state, action);
         case CHANGE_RANGE:
@@ -198,6 +206,87 @@ function doMovePoint(
         default:
             throw new Error(
                 "The movePoint action is only for point and polygon graphs",
+            );
+    }
+}
+
+function doMoveCenter(
+    state: InteractiveGraphState,
+    action: MoveCenter,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "circle": {
+            // Constrain the center of the circle to the chart range
+            const constrainedCenter: vec.Vector2 = bound({
+                snapStep: state.snapStep,
+                range: state.range,
+                point: action.destination,
+            });
+
+            // Reposition the radius point based on the new center
+            // (spread to make sure we're not going to  mutate anything)
+            const newRadiusPoint: vec.Vector2 = [
+                ...vec.add(
+                    state.radiusPoint,
+                    vec.sub(constrainedCenter, state.center),
+                ),
+            ];
+
+            // Try to position the radius handle in a visible spot
+            // if it otherwise would be off the chart
+            // ex: if the handle is on the right and we move the center
+            // to the rightmost position, move the handle to the left
+            const [xMin, xMax] = state.range[0];
+            const [radX] = newRadiusPoint;
+            if (radX < xMin || radX > xMax) {
+                const xJumpDist = (radX - constrainedCenter[0]) * 2;
+                const possibleNewX = radX - xJumpDist;
+                if (possibleNewX >= xMin && possibleNewX <= xMax) {
+                    newRadiusPoint[0] = possibleNewX;
+                }
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                center: constrainedCenter,
+                radiusPoint: newRadiusPoint,
+            };
+        }
+        default:
+            throw new Error(
+                "The doMoveCenter action is only for circle graphs",
+            );
+    }
+}
+
+function doMoveRadiusPoint(
+    state: InteractiveGraphState,
+    action: MoveRadiusPoint,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "circle": {
+            const [xMin, xMax] = state.range[0];
+            const nextRadiusPoint: vec.Vector2 = [
+                // Constrain to graph range
+                // The +0 is to convert -0 to +0
+                Math.min(Math.max(xMin, action.destination[0] + 0), xMax),
+                state.center[1],
+            ];
+
+            if (_.isEqual(nextRadiusPoint, state.center)) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                radiusPoint: nextRadiusPoint,
+            };
+        }
+        default:
+            throw new Error(
+                "The doMoveRadiusPoint action is only for circle graphs",
             );
     }
 }

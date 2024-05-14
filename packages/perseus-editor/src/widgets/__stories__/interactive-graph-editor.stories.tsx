@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {flags} from "../../__stories__/flags-for-api-options";
+import {getDefaultFigureForType} from "../../components/util";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import InteractiveGraphEditorArgTypes from "./interactive-graph-editor.argtypes";
@@ -19,11 +20,7 @@ const mafsOptions = {
     },
 };
 
-const defaultPointProps = {
-    type: "point",
-    color: "blue",
-    filled: true,
-};
+const defaultPointProps = getDefaultFigureForType("point");
 
 export default {
     title: "PerseusEditor/Widgets/Interactive Graph Editor",
@@ -156,11 +153,10 @@ export const WithLockedLines: StoryComponentType = {
                         {...defaultPointProps, coord: [0, 2]},
                         {...defaultPointProps, coord: [2, 3]},
                     ],
-                    color: "blue",
+                    color: "green",
                     lineStyle: "solid",
-                    showArrows: false,
-                    showStartPoint: false,
-                    showEndPoint: false,
+                    showPoint1: false,
+                    showPoint2: false,
                 },
                 {
                     type: "line",
@@ -171,22 +167,20 @@ export const WithLockedLines: StoryComponentType = {
                     ],
                     color: "pink",
                     lineStyle: "solid",
-                    showArrows: true,
-                    showStartPoint: true,
-                    showEndPoint: false,
+                    showPoint1: true,
+                    showPoint2: false,
                 },
                 {
                     type: "line",
                     kind: "segment",
                     points: [
-                        {...defaultPointProps, color: "green", coord: [0, -2]},
-                        {...defaultPointProps, color: "green", coord: [4, 0]},
+                        {...defaultPointProps, color: "grayH", coord: [0, -2]},
+                        {...defaultPointProps, color: "grayH", coord: [4, 0]},
                     ],
-                    color: "green",
+                    color: "grayH",
                     lineStyle: "solid",
-                    showArrows: true,
-                    showStartPoint: true,
-                    showEndPoint: true,
+                    showPoint1: true,
+                    showPoint2: true,
                 },
             ],
         });

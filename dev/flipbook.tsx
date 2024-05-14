@@ -1,12 +1,23 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
+import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Link from "@khanacademy/wonder-blocks-link";
+import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import Toolbar from "@khanacademy/wonder-blocks-toolbar";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import cameraSlashIcon from "@phosphor-icons/core/regular/camera-slash.svg";
+import graphIcon from "@phosphor-icons/core/regular/graph.svg";
+import imageIcon from "@phosphor-icons/core/regular/image.svg";
 import * as React from "react";
-import {useEffect, useReducer, useRef} from "react";
+import {useEffect, useMemo, useReducer, useRef, useState} from "react";
 
 import {Renderer} from "../packages/perseus/src";
+import {SvgImage} from "../packages/perseus/src/components";
 import {mockStrings} from "../packages/perseus/src/strings";
 import {isCorrect} from "../packages/perseus/src/util";
 import {trueForAllMafsSupportedGraphTypes} from "../packages/perseus/src/widgets/interactive-graphs/mafs-supported-graph-types";
@@ -31,7 +42,10 @@ import type {
     APIOptions,
     PerseusRenderer,
     PerseusScore,
+    PerseusWidget,
 } from "../packages/perseus/src";
+import type {InteractiveGraphWidget} from "../packages/perseus/src/perseus-types";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
@@ -44,6 +58,16 @@ grep -rl '"type":"segment"' data/questions/ | xargs cat | pbcopy
 `.trim();
 
 const LS_QUESTIONS_KEY = "FLIPBOOK-QUESTIONS-JSON";
+
+function isInteractiveGraph(
+    widget: PerseusWidget,
+): widget is InteractiveGraphWidget {
+    return widget.type === "interactive-graph";
+}
+
+function isGraphieUrl(url: string) {
+    return url.startsWith("web+graphie://");
+}
 
 export function Flipbook() {
     const [state, dispatch] = useReducer(flipbookModelReducer, {
@@ -58,6 +82,15 @@ export function Flipbook() {
 
     const questionsState = state.questions.trim();
     const noTextEntered = questionsState === "";
+
+    const imageUrls = useMemo<ReadonlyArray<string>>(
+        () =>
+            Object.values(question?.widgets ?? {})
+                .filter(isInteractiveGraph)
+                .map((w) => w.options.backgroundImage?.url ?? "")
+                .filter((url) => url.length > 0),
+        [question],
+    );
 
     useEffect(() => {
         const localStorageQuestions =
@@ -92,30 +125,70 @@ export function Flipbook() {
                     value={state.questions}
                     onChange={(e) => dispatch(setQuestions(e.target.value))}
                 />
-                <View style={{flexDirection: "row", alignItems: "baseline"}}>
-                    <Button kind="secondary" onClick={() => dispatch(previous)}>
-                        Previous
-                    </Button>
-                    <Strut size={spacing.xxSmall_6} />
-                    <Button kind="secondary" onClick={() => dispatch(next)}>
-                        Next
-                    </Button>
-                    <Strut size={spacing.medium_16} />
-                    <Progress
-                        zeroBasedIndex={index}
-                        total={numQuestions}
-                        onIndexChanged={(input) =>
-                            dispatch(jumpToQuestion(input))
-                        }
-                    />
-                    <Strut size={spacing.medium_16} />
-                    <Button
-                        kind="tertiary"
-                        onClick={() => dispatch(removeCurrentQuestion)}
-                    >
-                        Discard question
-                    </Button>
-                </View>
+                <Toolbar
+                    leftContent={
+                        <>
+                            <Button
+                                kind="secondary"
+                                onClick={() => dispatch(previous)}
+                            >
+                                Previous
+                            </Button>
+                            <Strut size={spacing.xxSmall_6} />
+                            <Button
+                                kind="secondary"
+                                onClick={() => dispatch(next)}
+                            >
+                                Next
+                            </Button>
+                            <Strut size={spacing.medium_16} />
+                            <Progress
+                                zeroBasedIndex={index}
+                                total={numQuestions}
+                                onIndexChanged={(input) =>
+                                    dispatch(jumpToQuestion(input))
+                                }
+                            />
+                            <Strut size={spacing.medium_16} />
+                            <Button
+                                kind="tertiary"
+                                onClick={() => dispatch(removeCurrentQuestion)}
+                            >
+                                Discard question
+                            </Button>
+                        </>
+                    }
+                    rightContent={
+                        <View>
+                            {imageUrls?.map((url) => (
+                                <Tooltip
+                                    key={url}
+                                    placement="right"
+                                    content={<GraphiePreview url={url} />}
+                                >
+                                    <IconButton
+                                        icon={
+                                            isGraphieUrl(url)
+                                                ? graphIcon
+                                                : imageIcon
+                                        }
+                                    />
+                                </Tooltip>
+                            ))}
+                            {(imageUrls?.length ?? 0) === 0 && (
+                                <Tooltip
+                                    placement="right"
+                                    content={
+                                        "This graph does not specify a background image"
+                                    }
+                                >
+                                    <IconButton icon={cameraSlashIcon} />
+                                </Tooltip>
+                            )}
+                        </View>
+                    }
+                />
+
                 <Strut size={spacing.small_12} />
                 <div style={{display: noTextEntered ? "block" : "none"}}>
                     <h2>Instructions</h2>
@@ -192,6 +265,9 @@ function SideBySideQuestionRenderer({
 function GradableRenderer(props: QuestionRendererProps) {
     const {question, apiOptions} = props;
     const rendererRef = useRef<Renderer>(null);
+    const [score, setScore] = useState<PerseusScore>();
+
+    useTimeout(() => setScore(undefined), 2500, !!score);
 
     function describeScore(score: PerseusScore): string {
         switch (score.type) {
@@ -199,6 +275,23 @@ function GradableRenderer(props: QuestionRendererProps) {
                 return "You didn't answer the question.";
             case "points":
                 return isCorrect(score) ? "Correct!" : "Incorrect.";
+        }
+    }
+
+    function bannerKindFromScore(
+        score: PerseusScore,
+    ): PropsFor<typeof Banner>["kind"] {
+        switch (score.type) {
+            case "invalid":
+                return "critical";
+            case "points":
+                if (score.earned === score.total) {
+                    return "success";
+                } else {
+                    return "warning";
+                }
+            default:
+                throw new UnreachableCaseError(score);
         }
     }
 
@@ -220,15 +313,32 @@ function GradableRenderer(props: QuestionRendererProps) {
                 apiOptions={{...apiOptions}}
                 strings={mockStrings}
             />
-            <Button
-                onClick={() =>
-                    rendererRef.current &&
-                    // eslint-disable-next-line no-alert
-                    alert(describeScore(rendererRef.current.score()))
+            <Toolbar
+                leftContent={
+                    <Button
+                        onClick={() => setScore(rendererRef.current?.score())}
+                    >
+                        Check answer
+                    </Button>
                 }
-            >
-                Check answer
-            </Button>
+            />
+            {score && (
+                <View
+                    style={{
+                        position: "absolute",
+                        alignSelf: "center",
+                        width: "60%",
+                        top: "150px",
+                        zIndex: "1000",
+                    }}
+                >
+                    <Banner
+                        layout="full-width"
+                        text={describeScore(score)}
+                        kind={bannerKindFromScore(score)}
+                    />
+                </View>
+            )}
         </View>
     );
 }
@@ -251,5 +361,46 @@ function Progress(props: ProgressProps) {
             />
             &nbsp;of {total}
         </div>
+    );
+}
+
+type GraphiePreviewProps = {url: string};
+
+function GraphiePreview({url}: GraphiePreviewProps) {
+    return (
+        <>
+            <Toolbar
+                leftContent={
+                    <View style={{display: "flex", flexDirection: "row"}}>
+                        This question uses a
+                        {isGraphieUrl(url) ? (
+                            <Link
+                                href={`http://graphie-to-png.khanacademy.systems?preload=${encodeURIComponent(url)}`}
+                                target="_blank"
+                                style={{
+                                    marginLeft: spacing.xxSmall_6,
+                                    marginRight: spacing.xxSmall_6,
+                                }}
+                            >
+                                Graphie
+                            </Link>
+                        ) : (
+                            " regular image "
+                        )}
+                        background.
+                    </View>
+                }
+                rightContent={<></>}
+            />
+            <View
+                className="framework-perseus"
+                style={{margin: spacing.medium_16, border: "solid 1px grey"}}
+            >
+                <SvgImage
+                    alt={"The background image for this graph question"}
+                    src={url}
+                />
+            </View>
+        </>
     );
 }

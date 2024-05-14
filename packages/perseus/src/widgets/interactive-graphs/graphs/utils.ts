@@ -1,6 +1,10 @@
 import type {CollinearTuple} from "../../../perseus-types";
 import type {Interval, vec} from "mafs";
 
+export function calculateAngleInDegrees([x, y]: vec.Vector2) {
+    return (Math.atan2(y, x) * 180) / Math.PI;
+}
+
 /**
  * Given a ray and a rectangular box, find the point where the ray intersects
  * the edge of the box. Assumes the `initialPoint` is inside the box.
@@ -46,8 +50,9 @@ export const getIntersectionOfRayWithBox = (
     }
 };
 
-export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] =>
-    points.map((point, i) => {
+export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] => {
+    return points.map((point, i) => {
         const next = points[(i + 1) % points.length];
         return [point, next];
     });
+};

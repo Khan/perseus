@@ -67,4 +67,42 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
         expect(graph.options.step).toEqual([7, 8]);
     });
+
+    it("creates a segment graph with a specified number of segments", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withSegments(3)
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "segment",
+                    numSegments: 3,
+                },
+                correct: {
+                    type: "segment",
+                    numSegments: 3,
+                    coords: [
+                        expect.anything(),
+                        expect.anything(),
+                        expect.anything(),
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a circle graph", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withCircle()
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "circle"},
+                correct: {type: "circle", radius: 5, center: [0, 0]},
+            }),
+        );
+    });
 });

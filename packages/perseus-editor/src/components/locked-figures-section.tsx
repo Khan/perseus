@@ -4,8 +4,6 @@
  * the dropdown for adding figures as well as the settings for each figure.
  */
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import LockedFigureSelect from "./locked-figure-select";
@@ -69,7 +67,7 @@ const LockedFiguresSection = (props: Props) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View>
             {figures?.map((figure, index) => (
                 <LockedFigureSettings
                     key={`${uniqueId}-locked-${figure}-${index}`}
@@ -85,11 +83,5 @@ const LockedFiguresSection = (props: Props) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: spacing.large_24,
-    },
-});
 
 export default LockedFiguresSection;

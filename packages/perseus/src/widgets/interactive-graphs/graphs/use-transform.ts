@@ -26,6 +26,18 @@ export function vectorsToPixels(
     return vectors.map((p) => vec.transform(p, transformToPx));
 }
 
+export function dimensionsToPixels(
+    dimens: vec.Vector2[],
+    graphState: GraphDimensions,
+): vec.Vector2[] {
+    const {range, width, height} = graphState;
+    const [[xMin, xMax], [yMin, yMax]] = range;
+    const transformToPx = matrixBuilder()
+        .scale(width / (xMax - xMin), height / (yMax - yMin))
+        .get();
+    return dimens.map((d) => vec.transform(d, transformToPx));
+}
+
 // When converting points, we translate so the pixel point ends up in the right location.
 // This is because points are specific locations on graphs, unlike vectors.
 export function pointToPixel(point: vec.Vector2, graphState: GraphDimensions) {
@@ -37,4 +49,9 @@ export function pointToPixel(point: vec.Vector2, graphState: GraphDimensions) {
 export const useTransformVectorsToPixels = (...vectors: vec.Vector2[]) => {
     const graphState = useGraphConfig();
     return vectorsToPixels(vectors, graphState);
+};
+
+export const useTransformDimensionsToPixels = (...dimens: vec.Vector2[]) => {
+    const graphState = useGraphConfig();
+    return dimensionsToPixels(dimens, graphState);
 };
