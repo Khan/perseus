@@ -8,7 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import {setDependencies} from "../../dependencies";
 
 import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
-import {moveLine, movePoint} from "./reducer/interactive-graph-action";
+import {movePoint} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
 import type {Props as MafsGraphProps} from "./mafs-graph";
