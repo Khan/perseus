@@ -13,6 +13,7 @@ import {
 
 import type {LockedLineType} from "../../perseus-types";
 import type {Interval} from "mafs";
+import {useTransformVectorsToPixels} from "./graphs/use-transform";
 
 type Props = LockedLineType & {
     range: [Interval, Interval];
@@ -56,7 +57,12 @@ const LockedLine = (props: Props) => {
                       point2.coord,
                       range,
                   );
-        const direction = vec.sub(point2.coord, point1.coord);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const [tailPx, tipPx] = useTransformVectorsToPixels(
+            point2.coord,
+            point1.coord,
+        );
+        const direction = vec.sub(tailPx, tipPx);
         let angle = calculateAngleInDegrees(direction);
         const startArrowHead = kind !== "segment" && (
             <Arrowhead

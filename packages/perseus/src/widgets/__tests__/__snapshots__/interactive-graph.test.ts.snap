@@ -4093,7 +4093,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                   </g>
                   <g
                     class="interactive-graph-arrowhead"
-                    transform="translate(-200 0) rotate(-180)"
+                    transform="translate(-200 0) rotate(180)"
                   >
                     <g
                       transform="translate(-1.5)"
@@ -4125,7 +4125,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                   </g>
                   <g
                     class="interactive-graph-arrowhead"
-                    transform="translate(0 200) rotate(-270)"
+                    transform="translate(0 200) rotate(90)"
                   >
                     <g
                       transform="translate(-1.5)"
@@ -4141,7 +4141,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                   </g>
                   <g
                     class="interactive-graph-arrowhead"
-                    transform="translate(0 -200) rotate(-90)"
+                    transform="translate(0 -200) rotate(270)"
                   >
                     <g
                       transform="translate(-1.5)"
@@ -4185,7 +4185,7 @@ exports[`snapshots should render correctly with locked lines 1`] = `
                     />
                     <g
                       class="interactive-graph-arrowhead"
-                      transform="translate(-200 153.33333333333331) rotate(-192.52880770915152)"
+                      transform="translate(-200 153.33333333333331) rotate(167.47119229084848)"
                     >
                       <g
                         transform="translate(-1.5)"
@@ -5327,7 +5327,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                   </g>
                   <g
                     class="interactive-graph-arrowhead"
-                    transform="translate(-200 0) rotate(-180)"
+                    transform="translate(-200 0) rotate(180)"
                   >
                     <g
                       transform="translate(-1.5)"
@@ -5359,7 +5359,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                   </g>
                   <g
                     class="interactive-graph-arrowhead"
-                    transform="translate(0 200) rotate(-270)"
+                    transform="translate(0 200) rotate(90)"
                   >
                     <g
                       transform="translate(-1.5)"
@@ -5375,7 +5375,7 @@ exports[`snapshots should render correctly with locked points 1`] = `
                   </g>
                   <g
                     class="interactive-graph-arrowhead"
-                    transform="translate(0 -200) rotate(-90)"
+                    transform="translate(0 -200) rotate(270)"
                   >
                     <g
                       transform="translate(-1.5)"
