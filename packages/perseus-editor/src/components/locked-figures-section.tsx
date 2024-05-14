@@ -3,7 +3,11 @@
  * the user to add and remove locked figures from the graph. It includes
  * the dropdown for adding figures as well as the settings for each figure.
  */
+import Button from "@khanacademy/wonder-blocks-button";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import LockedFigureSelect from "./locked-figure-select";
@@ -19,6 +23,12 @@ type Props = {
 };
 
 const LockedFiguresSection = (props: Props) => {
+    // Keep track of all figures' accordions' expanded states for the
+    // expand/collapse all button. Set the whole array to false initially.
+    const [expanded, setExpanded] = React.useState(
+        Array(props.figures?.length).fill(false),
+    );
+
     const uniqueId = useUniqueIdWithMock().get("locked-figures-section");
     const {figures, onChange} = props;
 
@@ -66,22 +76,59 @@ const LockedFiguresSection = (props: Props) => {
         onChange(newFigures);
     }
 
+    function toggleExpanded(newValue: boolean) {
+        setExpanded(Array(expanded.length).fill(newValue));
+    }
+
+    const allCollapsed = expanded.every((value) => !value);
+    const buttonLabel = allCollapsed ? "Expand all" : "Collapse all";
+    const showExpandButton = !!figures?.length;
+
     return (
         <View>
             {figures?.map((figure, index) => (
                 <LockedFigureSettings
+                    expanded={expanded[index]}
+                    onToggle={(newValue) => {
+                        const newExpanded = [...expanded];
+                        newExpanded[index] = newValue;
+                        setExpanded(newExpanded);
+                    }}
                     key={`${uniqueId}-locked-${figure}-${index}`}
                     {...figure}
                     onChangeProps={(newProps) => changeProps(index, newProps)}
                     onRemove={() => removeLockedFigure(index)}
                 />
             ))}
-            <LockedFigureSelect
-                id={`${uniqueId}-select`}
-                onChange={addLockedFigure}
-            />
+            <View style={styles.buttonContainer}>
+                <LockedFigureSelect
+                    id={`${uniqueId}-select`}
+                    onChange={addLockedFigure}
+                />
+                <Strut size={spacing.small_12} />
+                {showExpandButton && (
+                    <Button
+                        kind="secondary"
+                        onClick={() => toggleExpanded(allCollapsed)}
+                        style={styles.button}
+                    >
+                        {buttonLabel}
+                    </Button>
+                )}
+            </View>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    button: {
+        marginTop: spacing.xSmall_8,
+        flexGrow: 1,
+    },
+});
 
 export default LockedFiguresSection;

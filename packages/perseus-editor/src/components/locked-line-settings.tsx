@@ -18,6 +18,7 @@ import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedPointSettings from "./locked-point-settings";
 
+import type {AccordionProps} from "./locked-figure-settings";
 import type {
     LockedFigure,
     LockedFigureColor,
@@ -25,10 +26,17 @@ import type {
     LockedPointType,
 } from "@khanacademy/perseus";
 
-export type Props = LockedLineType & {
-    onRemove: () => void;
-    onChangeProps: (newProps: Partial<LockedFigure>) => void;
-};
+export type Props = LockedLineType &
+    AccordionProps & {
+        /**
+         * Called when the delete button is pressed.
+         */
+        onRemove: () => void;
+        /**
+         * Called when the props (points, color, etc.) are updated.
+         */
+        onChangeProps: (newProps: Partial<LockedFigure>) => void;
+    };
 
 const LockedLineSettings = (props: Props) => {
     const {
@@ -87,6 +95,8 @@ const LockedLineSettings = (props: Props) => {
 
     return (
         <LockedFigureSettingsAccordion
+            expanded={props.expanded}
+            onToggle={props.onToggle}
             header={
                 <View style={styles.row}>
                     <LabelLarge>{lineLabel}</LabelLarge>
@@ -156,17 +166,21 @@ const LockedLineSettings = (props: Props) => {
             {/* Defining points settings */}
             <LockedPointSettings
                 label="Point 1"
-                toggled={showPoint1}
+                extrasToggled={showPoint1}
                 {...point1}
-                onToggle={(newValue) => onChangeProps({showPoint1: newValue})}
+                onExtrasToggle={(newValue) =>
+                    onChangeProps({showPoint1: newValue})
+                }
                 onChangeProps={(newProps) => handleChangePoint(newProps, 0)}
                 style={styles.lockedPointSettingsContainer}
             />
             <LockedPointSettings
                 label="Point 2"
-                toggled={showPoint2}
+                extrasToggled={showPoint2}
                 {...point2}
-                onToggle={(newValue) => onChangeProps({showPoint2: newValue})}
+                onExtrasToggle={(newValue) =>
+                    onChangeProps({showPoint2: newValue})
+                }
                 onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
                 style={styles.lockedPointSettingsContainer}
             />

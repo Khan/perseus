@@ -49,3 +49,60 @@ Controlled.parameters = {
         disableSnapshot: true,
     },
 };
+
+// Fully expanded view of the locked point settings to allow snapshot testing.
+export const Expanded: StoryComponentType = {
+    render: function Render() {
+        const [expanded, setExpanded] = React.useState(true);
+        const [props, setProps] = React.useState({
+            ...getDefaultFigureForType("line"),
+            onRemove: () => {},
+        });
+
+        const handlePropsUpdate = (newProps) => {
+            setProps({
+                ...props,
+                ...newProps,
+            });
+        };
+
+        return (
+            <LockedLineSettings
+                {...props}
+                expanded={expanded}
+                onToggle={setExpanded}
+                onChangeProps={handlePropsUpdate}
+            />
+        );
+    },
+};
+
+// Fully expanded view of the locked point settings to allow snapshot testing.
+export const ExpandedNondefaultProps: StoryComponentType = {
+    render: function Render() {
+        const [expanded, setExpanded] = React.useState(true);
+        const [props, setProps] = React.useState({
+            ...getDefaultFigureForType("line"),
+            onRemove: () => {},
+            kind: "segment" as const,
+            color: "green" as const,
+            lineStyle: "dashed" as const,
+        });
+
+        const handlePropsUpdate = (newProps) => {
+            setProps({
+                ...props,
+                ...newProps,
+            });
+        };
+
+        return (
+            <LockedLineSettings
+                {...props}
+                expanded={expanded}
+                onToggle={setExpanded}
+                onChangeProps={handlePropsUpdate}
+            />
+        );
+    },
+};

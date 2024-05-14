@@ -18,17 +18,38 @@ import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
+import type {AccordionProps} from "./locked-figure-settings";
 import type {LockedPointType} from "@khanacademy/perseus";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-export type Props = LockedPointType & {
-    label?: string;
-    toggled?: boolean;
-    style?: StyleType;
-    onRemove?: () => void;
-    onToggle?: (newValue) => void;
-    onChangeProps: (newProps: Partial<LockedPointType>) => void;
-};
+export type Props = AccordionProps &
+    LockedPointType & {
+        /**
+         * Optional label for the point to display in the header summary.
+         * Defaults to "Point".
+         */
+        label?: string;
+        /**
+         * Whether the extra point settings are toggled open.
+         */
+        extrasToggled?: boolean;
+        /**
+         * Optional style to apply to the container of the settings.
+         */
+        style?: StyleType;
+        /**
+         * Called when the delete button is pressed.
+         */
+        onRemove?: () => void;
+        /**
+         * Called when the extra settings toggle switch is changed.
+         */
+        onExtrasToggle?: (newValue) => void;
+        /**
+         * Called when the props (coords, color, etc.) are updated.
+         */
+        onChangeProps: (newProps: Partial<LockedPointType>) => void;
+    };
 
 const LockedPointSettings = (props: Props) => {
     const {
@@ -36,10 +57,10 @@ const LockedPointSettings = (props: Props) => {
         color: pointColor,
         filled = true,
         label,
-        toggled = "true",
+        extrasToggled = "true",
         style,
         onChangeProps,
-        onToggle,
+        onExtrasToggle,
         onRemove,
     } = props;
 
@@ -82,6 +103,8 @@ const LockedPointSettings = (props: Props) => {
 
     return (
         <LockedFigureSettingsAccordion
+            expanded={props.expanded}
+            onToggle={props.onToggle}
             containerStyle={style}
             panelStyle={!onRemove && styles.accordionPanelWithoutActions}
             header={
@@ -89,7 +112,7 @@ const LockedPointSettings = (props: Props) => {
                 <View style={styles.row}>
                     <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
                     <Strut size={spacing.xSmall_8} />
-                    {toggled && (
+                    {extrasToggled && (
                         <ColorSwatch color={pointColor} filled={filled} />
                     )}
                 </View>
@@ -129,17 +152,17 @@ const LockedPointSettings = (props: Props) => {
             </View>
 
             {/* Toggle switch */}
-            {onToggle && (
+            {onExtrasToggle && (
                 <LabeledSwitch
                     label="show point on graph"
-                    checked={!!toggled}
-                    style={toggled && styles.spaceUnder}
-                    onChange={onToggle}
+                    checked={!!extrasToggled}
+                    style={extrasToggled && styles.spaceUnder}
+                    onChange={onExtrasToggle}
                 />
             )}
 
             {/* Toggleable section */}
-            {toggled && (
+            {extrasToggled && (
                 <>
                     <ColorSelect
                         id={colorSelectId}

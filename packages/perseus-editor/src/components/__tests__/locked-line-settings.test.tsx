@@ -89,4 +89,21 @@ describe("LockedPointSettings", () => {
         // Assert
         expect(lineSwatch).toBeInTheDocument();
     });
+
+    test("calls onToggle when header is clicked", () => {
+        // Arrange
+        const onToggle = jest.fn();
+        render(<LockedLineSettings {...defaultProps} onToggle={onToggle} />, {
+            wrapper: RenderStateRoot,
+        });
+
+        // Act
+        const header = screen.getByRole("button", {
+            name: "Line (0, 0), (2, 2) grayH, solid",
+        });
+        header.click();
+
+        // Assert
+        expect(onToggle).toHaveBeenCalled();
+    });
 });

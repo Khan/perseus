@@ -27,14 +27,14 @@ describe("LockedPointSettings", () => {
         );
 
         const titleText = screen.getByText("Point (0, 0)");
-        const colorSwatch = screen.getByLabelText("Color: grayH, filled");
+        const colorSwatch = screen.getByLabelText("grayH, filled");
 
         // Assert
         expect(titleText).toBeInTheDocument();
         expect(colorSwatch).toBeInTheDocument();
     });
 
-    test("Should not show the color in summary if toggled off", () => {
+    test("Should not show the color in summary if extrasToggled off", () => {
         // Arrange
 
         // Act
@@ -42,8 +42,8 @@ describe("LockedPointSettings", () => {
             <LockedPointSettings
                 {...defaultProps}
                 onChangeProps={() => {}}
-                toggled={false}
-                onToggle={() => {}}
+                extrasToggled={false}
+                onExtrasToggle={() => {}}
             />,
             {wrapper: RenderStateRoot},
         );
@@ -58,7 +58,7 @@ describe("LockedPointSettings", () => {
         expect(colorSwatch).not.toBeInTheDocument();
     });
 
-    test("Should show toggle switch if onToggle is passed in", () => {
+    test("Should show toggle switch if onExtrasToggle is passed in", () => {
         // Arrange
 
         // Act
@@ -66,7 +66,7 @@ describe("LockedPointSettings", () => {
             <LockedPointSettings
                 {...defaultProps}
                 onChangeProps={() => {}}
-                onToggle={() => {}}
+                onExtrasToggle={() => {}}
             />,
             {wrapper: RenderStateRoot},
         );
@@ -77,7 +77,7 @@ describe("LockedPointSettings", () => {
         expect(toggleSwitch).toBeInTheDocument();
     });
 
-    test("Toggle switch should match toggled prop when true", () => {
+    test("Toggle switch should match extrasToggled prop when true", () => {
         // Arrange
 
         // Act
@@ -85,8 +85,8 @@ describe("LockedPointSettings", () => {
             <LockedPointSettings
                 {...defaultProps}
                 onChangeProps={() => {}}
-                toggled={true}
-                onToggle={() => {}}
+                extrasToggled={true}
+                onExtrasToggle={() => {}}
             />,
             {wrapper: RenderStateRoot},
         );
@@ -97,7 +97,7 @@ describe("LockedPointSettings", () => {
         expect(toggleSwitch).toBeChecked();
     });
 
-    test("Toggle switch should match toggled prop when false", () => {
+    test("Toggle switch should match extrasToggled prop when false", () => {
         // Arrange
 
         // Act
@@ -105,8 +105,8 @@ describe("LockedPointSettings", () => {
             <LockedPointSettings
                 {...defaultProps}
                 onChangeProps={() => {}}
-                toggled={false}
-                onToggle={() => {}}
+                extrasToggled={false}
+                onExtrasToggle={() => {}}
             />,
             {wrapper: RenderStateRoot},
         );
@@ -117,7 +117,7 @@ describe("LockedPointSettings", () => {
         expect(toggleSwitch).not.toBeChecked();
     });
 
-    test("Should show extra fields if toggled on", () => {
+    test("Should show extra fields if extrasToggled on", () => {
         // Arrange
 
         // Act
@@ -125,8 +125,8 @@ describe("LockedPointSettings", () => {
             <LockedPointSettings
                 {...defaultProps}
                 onChangeProps={() => {}}
-                toggled={true}
-                onToggle={() => {}}
+                extrasToggled={true}
+                onExtrasToggle={() => {}}
             />,
             {wrapper: RenderStateRoot},
         );
@@ -139,7 +139,7 @@ describe("LockedPointSettings", () => {
         expect(openCheckbox).toBeInTheDocument();
     });
 
-    test("Should not show extra fields if toggled off", () => {
+    test("Should not show extra fields if extrasToggled off", () => {
         // Arrange
 
         // Act
@@ -147,8 +147,8 @@ describe("LockedPointSettings", () => {
             <LockedPointSettings
                 {...defaultProps}
                 onChangeProps={() => {}}
-                toggled={false}
-                onToggle={() => {}}
+                extrasToggled={false}
+                onExtrasToggle={() => {}}
             />,
             {wrapper: RenderStateRoot},
         );
@@ -253,5 +253,24 @@ describe("LockedPointSettings", () => {
                 expect(coordField).toHaveValue(expectedValue);
             },
         );
+    });
+
+    test("Calls onToggle when header is clicked", async () => {
+        // Arrange
+        const onToggle = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={() => {}}
+                onToggle={onToggle}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        await userEvent.click(screen.getByText("Point (0, 0)"));
+
+        // Assert
+        expect(onToggle).toHaveBeenCalled();
     });
 });
