@@ -131,7 +131,6 @@ interface MafsGraphProps {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
-    range: InteractiveGraphProps["range"]; // FIXME: range is duplicated in state; remove it
     snapStep: InteractiveGraphProps["snapStep"]; // FIXME: snapStep is duplicated in state; remove it
     step: InteractiveGraphProps["step"];
     gridStep: InteractiveGraphProps["gridStep"];
@@ -164,7 +163,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     }, [dispatch, xSnap, ySnap]);
 
     // Destructuring first to keep useEffect from making excess calls
-    const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = props.range;
+    const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = state.range;
     useEffect(() => {
         dispatch(
             changeRange([
@@ -212,8 +211,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
-                            x: props.range[0],
-                            y: props.range[1],
+                            x: state.range[0],
+                            y: state.range[1],
                             padding: 0,
                         }}
                         pan={false}
@@ -228,7 +227,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         <Grid
                             tickStep={props.step}
                             gridStep={props.gridStep}
-                            range={props.range}
+                            range={state.range}
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
                         />
@@ -237,7 +236,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {props.lockedFigures && (
                             <GraphLockedLayer
                                 lockedFigures={props.lockedFigures}
-                                range={props.range}
+                                range={state.range}
                             />
                         )}
 
