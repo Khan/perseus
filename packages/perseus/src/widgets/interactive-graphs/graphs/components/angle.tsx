@@ -167,8 +167,8 @@ export const shouldDrawArcOutside = (
 ) => {
     // Create a ray from the midpoint (inside angle) to the edge of the range
     const rangeIntersectionPoint = getRangeIntersectionVertex(
-        vertex,
         midpoint,
+        vertex,
         range,
     );
 

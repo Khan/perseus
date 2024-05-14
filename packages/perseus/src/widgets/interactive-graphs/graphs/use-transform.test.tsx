@@ -1,10 +1,11 @@
 import {
+    dimensionsToPixels,
     type GraphDimensions,
     pointToPixel,
     vectorsToPixels,
 } from "./use-transform";
 
-describe("vectorToPixel", () => {
+describe("vectorsToPixels", () => {
     it("should correctly transform the origin", () => {
         const testContext: GraphDimensions = {
             range: [
@@ -39,6 +40,32 @@ describe("vectorToPixel", () => {
             height: 400,
         };
         expect(vectorsToPixels([[2, -2]], testContext)).toEqual([[40, 40]]);
+    });
+});
+
+describe("dimensionsToPixels", () => {
+    it("transforms (0, 0) to (0, 0)", () => {
+        const testContext: GraphDimensions = {
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            width: 400,
+            height: 400,
+        };
+        expect(dimensionsToPixels([[0, 0]], testContext)).toEqual([[0, 0]]);
+    });
+
+    it("scales the x and y dimensions", () => {
+        const testContext: GraphDimensions = {
+            range: [
+                [-5, 5],
+                [-10, 10],
+            ],
+            width: 100, // 10 px per graph unit in the x dimension
+            height: 100, // 5 px per graph unit in the y dimension
+        };
+        expect(dimensionsToPixels([[3, 7]], testContext)).toEqual([[30, 35]]);
     });
 });
 
