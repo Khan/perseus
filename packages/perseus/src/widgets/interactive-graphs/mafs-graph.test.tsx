@@ -10,7 +10,7 @@ import {setDependencies} from "../../dependencies";
 import {
     MafsGraph,
     StatefulMafsGraph,
-    StatefulMafsGraphProps
+    StatefulMafsGraphProps,
 } from "./mafs-graph";
 import {movePoint} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -36,8 +36,11 @@ function getBaseMafsGraphProps(): MafsGraphProps {
             coords: [],
             markings: "none",
             snapStep: [1, 1],
-            range: [[-10, 10], [-10, 10]],
-        }
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        },
     };
 }
 
@@ -47,14 +50,17 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
         step: [1, 1],
         snapStep: [1, 1],
         gridStep: [1, 1],
-        range: [[-10, 10], [-10, 10]],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
         markings: "graph",
         containerSizeClass: "small",
         onChange: () => {},
         showTooltips: false,
         labels: ["x", "y"],
         graph: {type: "segment"},
-    }
+    };
 }
 
 function createFakeStore<S, A>(reducer: (state: S, action: A) => S, state: S) {
