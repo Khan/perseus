@@ -17,7 +17,6 @@ import ColorSwatch from "./color-swatch";
 import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
-import {getValidNumberFromString} from "./util";
 
 import type {LockedPointType} from "@khanacademy/perseus";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
@@ -45,7 +44,7 @@ const LockedPointSettings = (props: Props) => {
     } = props;
 
     // Keep track of the coordinates via state as the user is editing them,
-    // before they are updated in the props on blur.
+    // before they are updated in the props as a valid number.
     const [coordState, setCoordState] = React.useState([
         // Using strings to make it easier to work with the text fields.
         coord[0].toString(),
@@ -59,22 +58,22 @@ const LockedPointSettings = (props: Props) => {
     const yCoordId = ids.get("y-coord");
     const colorSelectId = ids.get("point-color-select");
 
-    function handleBlur() {
-        const validCoord = [
-            getValidNumberFromString(coordState[0]),
-            getValidNumberFromString(coordState[1]),
-        ] as [number, number];
-
-        // Make the text field only show valid numbers after blur.
-        setCoordState([validCoord[0].toString(), validCoord[1].toString()]);
-        // Update the graph with the new coordinates.
-        onChangeProps({coord: validCoord});
-    }
-
     function handleCoordChange(newValue, coordIndex) {
-        const newCoord = [...coordState];
-        newCoord[coordIndex] = newValue;
-        setCoordState(newCoord);
+        // Update the local state (update the input field value).
+        const newCoordState = [...coordState];
+        newCoordState[coordIndex] = newValue;
+        setCoordState(newCoordState);
+
+        // If the new value is not a number, don't update the props.
+        // If it's empty, keep the props the same value instead of setting to 0.
+        if (isNaN(+newValue) || newValue === "") {
+            return;
+        }
+
+        // Update the props (update the graph).
+        const newCoords = [...coord] satisfies [number, number];
+        newCoords[coordIndex] = +newValue;
+        onChangeProps({coord: newCoords});
     }
 
     function handleColorChange(newValue) {
@@ -110,7 +109,6 @@ const LockedPointSettings = (props: Props) => {
                     type="number"
                     value={coordState[0]}
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
-                    onBlur={handleBlur}
                     style={styles.textField}
                 />
                 <Strut size={spacing.medium_16} />
@@ -126,7 +124,6 @@ const LockedPointSettings = (props: Props) => {
                     type="number"
                     value={coordState[1]}
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
-                    onBlur={handleBlur}
                     style={styles.textField}
                 />
             </View>
@@ -164,7 +161,7 @@ const LockedPointSettings = (props: Props) => {
             {onRemove && (
                 <LockedFigureSettingsActions
                     onRemove={onRemove}
-                    figureAriaLabel={`locked point at ${coordState[0]}, ${coordState[1]}`}
+                    figureAriaLabel={`locked point at ${coord[0]}, ${coord[1]}`}
                 />
             )}
         </LockedFigureSettingsAccordion>
