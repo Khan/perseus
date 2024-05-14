@@ -131,8 +131,8 @@ interface MafsGraphProps {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
-    range: InteractiveGraphProps["range"];
-    snapStep: InteractiveGraphProps["snapStep"];
+    range: InteractiveGraphProps["range"]; // FIXME: range is duplicated in state; remove it
+    snapStep: InteractiveGraphProps["snapStep"]; // FIXME: snapStep is duplicated in state; remove it
     step: InteractiveGraphProps["step"];
     gridStep: InteractiveGraphProps["gridStep"];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
