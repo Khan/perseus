@@ -182,13 +182,12 @@ describe("LockedPointSettings", () => {
 
     test("Clear the x coordinate field should update the field", async () => {
         // Arrange
-
-        // Act
         render(
             <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
             {wrapper: RenderStateRoot},
         );
 
+        // Act
         const xCoordField = screen.getByLabelText("x coord");
         await userEvent.clear(xCoordField);
 
@@ -198,13 +197,12 @@ describe("LockedPointSettings", () => {
 
     test("Clear the y coordinate field should update the field", async () => {
         // Arrange
-
-        // Act
         render(
             <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
             {wrapper: RenderStateRoot},
         );
 
+        // Act
         const yCoordField = screen.getByLabelText("y coord");
         await userEvent.clear(yCoordField);
 
@@ -216,49 +214,44 @@ describe("LockedPointSettings", () => {
     // (and it does, visually), the actual value on the HTML element is null
     // unless the input is a valid number. This is because the input has
     // type="number".
-    test.each`
-        Coordinate | inputValue | expectedValue
-        ${"x"}     | ${"-"}     | ${null}
-        ${"x"}     | ${"."}     | ${null}
-        ${"x"}     | ${"0"}     | ${0}
-        ${"x"}     | ${"1"}     | ${1}
-        ${"x"}     | ${"1.2"}   | ${1.2}
-        ${"x"}     | ${".2"}    | ${0.2}
-        ${"x"}     | ${"0.2"}   | ${0.2}
-        ${"x"}     | ${"-1"}    | ${-1}
-        ${"x"}     | ${"-1.2"}  | ${-1.2}
-        ${"x"}     | ${"-.2"}   | ${-0.2}
-        ${"y"}     | ${"-"}     | ${null}
-        ${"y"}     | ${"."}     | ${null}
-        ${"y"}     | ${"0"}     | ${0}
-        ${"y"}     | ${"1"}     | ${1}
-        ${"y"}     | ${"1.2"}   | ${1.2}
-        ${"y"}     | ${".2"}    | ${0.2}
-        ${"y"}     | ${"0.2"}   | ${0.2}
-        ${"y"}     | ${"-1"}    | ${-1}
-        ${"y"}     | ${"-1.2"}  | ${-1.2}
-        ${"y"}     | ${"-.2"}   | ${-0.2}
-    `(
-        "Typing in the $Coordinate coordinate field should update the field ($inputValue)",
-        async ({Coordinate, inputValue, expectedValue}) => {
-            // Arrange
+    describe.each`
+        Coordinate
+        ${"x"}
+        ${"y"}
+    `("Coordinate $Coordinate", ({Coordinate}) => {
+        test.each`
+            inputValue | expectedValue
+            ${"-"}     | ${null}
+            ${"."}     | ${null}
+            ${"0"}     | ${0}
+            ${"1"}     | ${1}
+            ${"1.2"}   | ${1.2}
+            ${".2"}    | ${0.2}
+            ${"0.2"}   | ${0.2}
+            ${"-1"}    | ${-1}
+            ${"-1.2"}  | ${-1.2}
+            ${"-.2"}   | ${-0.2}
+        `(
+            "Typing in the coord field should update the numeric field value ($inputValue)",
+            async ({inputValue, expectedValue}) => {
+                // Arrange
+                render(
+                    <LockedPointSettings
+                        {...defaultProps}
+                        onChangeProps={() => {}}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
 
-            // Act
-            render(
-                <LockedPointSettings
-                    {...defaultProps}
-                    onChangeProps={() => {}}
-                />,
-                {wrapper: RenderStateRoot},
-            );
+                // Act
+                const coordField = screen.getByLabelText(`${Coordinate} coord`);
+                await userEvent.clear(coordField);
+                await userEvent.type(coordField, inputValue);
+                await userEvent.tab();
 
-            const coordField = screen.getByLabelText(`${Coordinate} coord`);
-            await userEvent.clear(coordField);
-            await userEvent.type(coordField, inputValue);
-            await userEvent.tab();
-
-            // Assert
-            expect(coordField).toHaveValue(expectedValue);
-        },
-    );
+                // Assert
+                expect(coordField).toHaveValue(expectedValue);
+            },
+        );
+    });
 });
