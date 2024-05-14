@@ -88,6 +88,12 @@ export type PerseusWidgetsMap = {
     [key in `video ${number}`]: VideoWidget;
 };
 
+/**
+ * The PerseusItem is the main Perseus data structure for an exercise.  It
+ * forms a question (with interactive widgets), a set of hints, and answer area
+ * configuration (such as whether to make a calculator or periodic table
+ * available to the learner).
+ */
 export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
