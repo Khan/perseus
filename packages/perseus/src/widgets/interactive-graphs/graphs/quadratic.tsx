@@ -16,15 +16,24 @@ type QuadraticCoefficient = [number, number, number];
 export function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
+    const {coords, range, snapStep} = graphState;
+
+    // We are going to store the coordinates as a ref as we may need to use the prior value
+    // if the current value is invalid. This ensures that the graphed points don't jump around
+    // when the user is trying to move the points to a location that causes the graph to hit infinity.
     // The quadratic graph expects a list of 3 coordinates
     // [0] = start point
     // [1] = mid point
     // [2] = end point
-    const {coords, range, snapStep} = graphState;
+    const coordsRef = React.useRef<ReadonlyArray<Coord>>([
+        [0, 0],
+        [0, 0],
+        [0, 0],
+    ]);
 
     // The coefficients are used to calculate the quadratic equation, plot the graph, and
-    // to indicate to content creators the currently selected "correct answer". This is being
-    // stored as a ref as we may need to use the prior value if the current value is invalid.
+    // to indicate to content creators the currently selected "correct answer". ex: y = 0.200x^2 + 0.000x + 0.000
+    // This is being stored as a ref as we may need to use the prior value if the current value is invalid.
     const coeffRef = React.useRef<QuadraticCoefficient>([0, 0, 0]);
     const coeff = getQuadraticCoefficients(coords);
     const validCoeff = coeff !== undefined;
@@ -32,13 +41,14 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
         // If the coeff is not defined, it means we were hitting infinity
         // and are unable to calculate the quadratic coefficients
         coeffRef.current = coeff;
+        coordsRef.current = coords;
     }
 
     // We are going to destructure the coefficients here
     const [a, b, c] = coeffRef.current;
 
     // Get the coordinates of the 3 points
-    const [pointA, centerPoint, pointB] = coords;
+    const [pointA, centerPoint, pointB] = coordsRef.current;
 
     // Calculate the y value based on the x value
     const y = (x) => (a * x + b) * x + c;
@@ -51,16 +61,33 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
 
     // We want to ensure that we are only moving the point to a valid destination
     const handleOnMove = (destination: vec.Vector2, elementId: number) => {
-        const validDestination = getValidDestination(destination);
+        console.log("handleOnMove", destination, elementId);
+        const validDestination = getValidDestination(destination, elementId);
         dispatch(movePoint(elementId, validDestination));
     };
 
     // This is the function that will snap the point to the nearest VALID grid line
-    const getValidDestination = (destination: vec.Vector2): vec.Vector2 => {
-        const validDestination = validCoeff
+    const getValidDestination = (
+        destination: vec.Vector2,
+        elementId: number,
+    ): vec.Vector2 => {
+        const skipStep =
+            destination[0] > coords[elementId][0] ? snapStep[0] : -snapStep[0];
+        const newDestination = validCoeff
             ? destination
-            : ([destination[0] + snapStep[0], destination[1]] as vec.Vector2);
-        return validDestination;
+            : ([destination[0] + skipStep, destination[1]] as vec.Vector2);
+
+        const newCoords = [...coords];
+        newCoords[elementId] = newDestination;
+
+        if (!validCoeff) {
+            const confirmValidDestination = getQuadraticCoefficients(newCoords);
+            if (confirmValidDestination === undefined) {
+                getValidDestination(newDestination, elementId);
+            }
+        }
+
+        return newDestination;
     };
 
     return (
@@ -68,7 +95,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
             <Plot.Parametric xy={xy} t={t} color={color.blue} />
             <StyledMovablePoint
                 key={"pointA"}
-                point={[pointA[0], pointA[1]]}
+                point={pointA}
                 onMove={(destination) => handleOnMove(destination, 0)}
             />
             <StyledMovablePoint
@@ -82,12 +109,6 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
                 point={pointB}
                 onMove={(destination) => handleOnMove(destination, 2)}
             />
-            <text x={-170} y={195} style={{fill: "blue"}}>
-                COORDINATES: ----------{JSON.stringify(coords)}
-            </text>
-            <text x={-112} y={175} style={{fill: "blue"}}>
-                COEFFS: ----------[{JSON.stringify(coeff)}]
-            </text>
         </>
     );
 }
