@@ -30,11 +30,11 @@ export type Props = AccordionProps &
         /**
          * Whether the extra point settings are toggled open.
          */
-        extrasToggled?: boolean;
+        showPoint?: boolean;
         /**
          * Called when the extra settings toggle switch is changed.
          */
-        onExtrasToggle?: (newValue) => void;
+        onTogglePoint?: (newValue) => void;
         /**
          * Called when the props (coords, color, etc.) are updated.
          */
@@ -47,9 +47,9 @@ const DefiningPointSettings = (props: Props) => {
         color: pointColor,
         filled = true,
         label,
-        extrasToggled = "false",
+        showPoint = "false",
         onChangeProps,
-        onExtrasToggle,
+        onTogglePoint,
     } = props;
 
     function handleColorChange(newValue) {
@@ -67,7 +67,7 @@ const DefiningPointSettings = (props: Props) => {
                 <View style={styles.row}>
                     <LabelLarge>{`${label || "Point"} (${coord[0]}, ${coord[1]})`}</LabelLarge>
                     <Strut size={spacing.xSmall_8} />
-                    {extrasToggled && (
+                    {showPoint && (
                         <ColorSwatch color={pointColor} filled={filled} />
                     )}
                 </View>
@@ -77,17 +77,17 @@ const DefiningPointSettings = (props: Props) => {
             <CoordinatePairInput coord={coord} onChangeProps={onChangeProps} />
 
             {/* Toggle switch */}
-            {onExtrasToggle && (
+            {onTogglePoint && (
                 <LabeledSwitch
                     label="show point on graph"
-                    checked={!!extrasToggled}
-                    style={extrasToggled && styles.spaceUnder}
-                    onChange={onExtrasToggle}
+                    checked={!!showPoint}
+                    style={showPoint && styles.spaceUnder}
+                    onChange={onTogglePoint}
                 />
             )}
 
             {/* Toggleable section */}
-            {extrasToggled && (
+            {showPoint && (
                 <>
                     <ColorSelect
                         selectedValue={pointColor}

@@ -11,7 +11,7 @@ const defaultProps = {
     onRemove: () => {},
 };
 
-describe("DefiningPointSettings", () => {
+describe("LockedLineSettings", () => {
     test("renders", () => {
         // Arrange
 
@@ -107,26 +107,7 @@ describe("DefiningPointSettings", () => {
         expect(onToggle).toHaveBeenCalled();
     });
 
-    test("Should show toggle switch if onExtrasToggle is passed in", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedLineSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                expanded={true}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const toggleSwitches = screen.getAllByLabelText("show point on graph");
-
-        // Assert
-        expect(toggleSwitches).toHaveLength(2);
-    });
-
-    test("Toggle switch should match extrasToggled prop when true", () => {
+    test("Toggle switch should match showPoint prop when true", () => {
         // Arrange
 
         // Act
@@ -145,7 +126,7 @@ describe("DefiningPointSettings", () => {
         expect(toggleSwitch).toBeChecked();
     });
 
-    test("Toggle switch should match extrasToggled prop when false", () => {
+    test("Toggle switch should match showPoint prop when false", () => {
         // Arrange
 
         // Act

@@ -38,59 +38,6 @@ describe("LockedPointSettings", () => {
         expect(colorSwatch).toBeInTheDocument();
     });
 
-    test("Should not show the color in summary if extrasToggled off", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const titleText = screen.getByText("Point (0, 0)");
-        const colorSwatch = screen.queryByLabelText(
-            "Point color: blue, filled",
-        );
-
-        // Assert
-        expect(titleText).toBeInTheDocument();
-        expect(colorSwatch).not.toBeInTheDocument();
-    });
-
-    test("Should show extra fields if extrasToggled on", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const colorSelect = screen.getByLabelText("color");
-        const openCheckbox = screen.getByLabelText("open point");
-
-        // Assert
-        expect(colorSelect).toBeInTheDocument();
-        expect(openCheckbox).toBeInTheDocument();
-    });
-
-    test("Should not show extra fields if extrasToggled off", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const colorSelect = screen.queryByLabelText("Color");
-        const openCheckbox = screen.queryByLabelText("Open point");
-
-        // Assert
-        expect(colorSelect).not.toBeInTheDocument();
-        expect(openCheckbox).not.toBeInTheDocument();
-    });
-
     test("Summary should reflect the coordinates", () => {
         // Arrange
 

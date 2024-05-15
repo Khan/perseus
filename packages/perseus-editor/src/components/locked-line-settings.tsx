@@ -164,18 +164,18 @@ const LockedLineSettings = (props: Props) => {
             {/* Defining points settings */}
             <DefiningPointSettings
                 label="Point 1"
-                extrasToggled={showPoint1}
+                showPoint={showPoint1}
                 {...point1}
-                onExtrasToggle={(newValue) =>
+                onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
                 }
                 onChangeProps={(newProps) => handleChangePoint(newProps, 0)}
             />
             <DefiningPointSettings
                 label="Point 2"
-                extrasToggled={showPoint2}
+                showPoint={showPoint2}
                 {...point2}
-                onExtrasToggle={(newValue) =>
+                onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})
                 }
                 onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
