@@ -7,15 +7,11 @@ import invariant from "tiny-invariant";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {setDependencies} from "../../dependencies";
 
-import {
-    MafsGraph,
-    StatefulMafsGraph,
-    StatefulMafsGraphProps,
-} from "./mafs-graph";
+import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
 import {movePoint} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
-import type {MafsGraphProps} from "./mafs-graph";
+import type {MafsGraphProps, StatefulMafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
 import type {GraphRange} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
