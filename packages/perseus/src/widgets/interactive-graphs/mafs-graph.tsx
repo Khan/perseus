@@ -104,6 +104,8 @@ export const StatefulMafsGraph = React.forwardRef<
     Partial<Widget>,
     StatefulMafsGraphProps
 >((props, ref) => {
+    const {onChange} = props;
+
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
         props,
@@ -114,18 +116,14 @@ export const StatefulMafsGraph = React.forwardRef<
         getUserInput: () => getGradableGraph(state, props.graph),
     }));
 
-    function onChange(next: MafsChange) {
-        props.onChange(mafsStateToInteractiveGraph(next));
-    }
-
     const prevState = useRef<InteractiveGraphState>(state);
 
     useEffect(() => {
         if (prevState.current !== state) {
-            onChange({graph: state});
+            onChange(mafsStateToInteractiveGraph({graph: state}));
         }
         prevState.current = state;
-    }, [props, state]);
+    }, [onChange, state]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
