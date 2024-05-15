@@ -8,7 +8,11 @@ import {getDefaultFigureForType} from "../util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-const defaultProps = getDefaultFigureForType("point");
+const defaultProps = {
+    ...getDefaultFigureForType("point"),
+    onRemove: () => {},
+    onChangeProps: () => {},
+};
 
 describe("LockedPointSettings", () => {
     let userEvent: UserEvent;
@@ -39,12 +43,7 @@ describe("LockedPointSettings", () => {
 
         // Act
         render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={false}
-                onExtrasToggle={() => {}}
-            />,
+            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
             {wrapper: RenderStateRoot},
         );
 
@@ -58,76 +57,12 @@ describe("LockedPointSettings", () => {
         expect(colorSwatch).not.toBeInTheDocument();
     });
 
-    test("Should show toggle switch if onExtrasToggle is passed in", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const toggleSwitch = screen.getByLabelText("show point on graph");
-
-        // Assert
-        expect(toggleSwitch).toBeInTheDocument();
-    });
-
-    test("Toggle switch should match extrasToggled prop when true", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={true}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const toggleSwitch = screen.getByLabelText("show point on graph");
-
-        // Assert
-        expect(toggleSwitch).toBeChecked();
-    });
-
-    test("Toggle switch should match extrasToggled prop when false", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={false}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const toggleSwitch = screen.getByLabelText("show point on graph");
-
-        // Assert
-        expect(toggleSwitch).not.toBeChecked();
-    });
-
     test("Should show extra fields if extrasToggled on", () => {
         // Arrange
 
         // Act
         render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={true}
-                onExtrasToggle={() => {}}
-            />,
+            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
             {wrapper: RenderStateRoot},
         );
 
@@ -144,12 +79,7 @@ describe("LockedPointSettings", () => {
 
         // Act
         render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={false}
-                onExtrasToggle={() => {}}
-            />,
+            <LockedPointSettings {...defaultProps} onChangeProps={() => {}} />,
             {wrapper: RenderStateRoot},
         );
 

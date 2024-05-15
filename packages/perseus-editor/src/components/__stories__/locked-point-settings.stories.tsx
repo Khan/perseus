@@ -50,47 +50,6 @@ Controlled.parameters = {
     },
 };
 
-/**
- * In some cases, the locked point may be shown or hidden from the graph,
- * such as when the point is used to define a locked line.
- *
- * Use `onExtrasToggle` and `extrasToggled` to update the visibility of the locked point.
- * When `onextrasToggled` is passed in, a switch will be rendered to allow
- * toggling the point, which will then show/hide the relevant properties
- * for the locked point.
- */
-export const ExtrasToggleable: StoryComponentType = {
-    render: function Render() {
-        const [extrasToggled, setExtrasToggled] = React.useState(true);
-        const [props, setProps] = React.useState(
-            getDefaultFigureForType("point"),
-        );
-
-        const handlePropsUpdate = (newProps) => {
-            setProps({
-                ...props,
-                ...newProps,
-            });
-        };
-
-        return (
-            <LockedPointSettings
-                {...props}
-                onChangeProps={handlePropsUpdate}
-                extrasToggled={extrasToggled}
-                onToggle={setExtrasToggled}
-            />
-        );
-    },
-};
-
-ExtrasToggleable.parameters = {
-    chromatic: {
-        // Disabling because this doesn't test anything visual, just behavior.
-        disableSnapshot: true,
-    },
-};
-
 // Fully expanded view of the locked point settings to allow snapshot testing.
 export const Expanded: StoryComponentType = {
     render: function Render() {
