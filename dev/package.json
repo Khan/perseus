@@ -28,7 +28,7 @@
         "@khanacademy/wonder-blocks-search-field": "^2.2.9",
         "@khanacademy/wonder-blocks-timing": "^4.0.2",
         "@khanacademy/wonder-blocks-tokens": "^1.0.0",
-        "@khanacademy/wonder-blocks-toolbar": "^3.0.30",
+        "@khanacademy/wonder-blocks-toolbar": "^3.0.31",
         "@khanacademy/wonder-blocks-tooltip": "^2.2.1",
         "@khanacademy/wonder-stuff-core": "^1.5.2",
         "@phosphor-icons/core": "^2.0.2"
