@@ -36,7 +36,7 @@ import type {Widget} from "../../renderer";
 import "mafs/core.css";
 import "./mafs-styles.css";
 
-export interface StatefulMafsGraphProps {
+export type StatefulMafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: InteractiveGraphProps["graph"];
@@ -145,7 +145,7 @@ export const StatefulMafsGraph = React.forwardRef<
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
 });
 
-export interface MafsGraphProps {
+export type MafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
