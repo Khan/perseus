@@ -34,6 +34,10 @@
         "@phosphor-icons/core": "^2.0.2"
     },
     "devDependencies": {
+        "@khanacademy/wonder-blocks-toolbar": "^3.0.31",
         "vite": "^5.1.0"
+    },
+    "peerDependencies": {
+        "@khanacademy/wonder-blocks-toolbar": "^3.0.31"
     }
 }
