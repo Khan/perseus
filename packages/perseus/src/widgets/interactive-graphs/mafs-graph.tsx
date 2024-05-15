@@ -50,7 +50,7 @@ export type StatefulMafsGraphProps = {
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     labels: InteractiveGraphProps["labels"];
-}
+};
 
 type MafsChange = {
     graph: InteractiveGraphState;
@@ -157,7 +157,7 @@ export type MafsGraphProps = {
     labels: InteractiveGraphProps["labels"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
-}
+};
 
 export const MafsGraph = (props: MafsGraphProps) => {
     const {state, dispatch, labels} = props;
