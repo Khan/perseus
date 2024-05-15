@@ -35,7 +35,6 @@ export const Controlled = {
 
         return (
             <ColorSelect
-                id="color-select"
                 selectedValue={selectedValue}
                 onChange={handleColorChange}
             />
