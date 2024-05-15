@@ -12,6 +12,8 @@ import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import Renderer from "../renderer";
 
+import styleModules from "./explanation.module.css";
+
 import type {PerseusExplanationWidgetOptions} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
@@ -113,6 +115,8 @@ class Explanation extends React.Component<Props, State> {
             "white-space": "normal",
         };
 
+        const styles = true ? styleModules : styleAphrodite;
+
         const contentStyling = [
             styles.content,
             this.state.expanded
@@ -144,22 +148,30 @@ class Explanation extends React.Component<Props, State> {
                             {promptText}
                         </Button>
 
-                        <View
-                            id={ids.get("content")}
-                            style={contentStyling}
-                            aria-hidden={!this.state.expanded}
-                            testId="content-container"
-                        >
-                            <View style={styles.contentWrapper}>
-                                <Renderer
-                                    apiOptions={this.props.apiOptions}
-                                    content={this.props.explanation}
-                                    widgets={this.props.widgets}
-                                    linterContext={this.props.linterContext}
-                                    strings={this.context.strings}
-                                />
-                            </View>
-                        </View>
+                        {/*<View*/}
+                        {/*    id={ids.get("content")}*/}
+                        {/*    style={contentStyling}*/}
+                        {/*    aria-hidden={!this.state.expanded}*/}
+                        {/*    testId="content-container"*/}
+                        {/*>*/}
+                            <div
+                                id="css-modules-test"
+                                className={contentStyling.join(" ")}
+                                aria-hidden={!this.state.expanded}
+                            >
+                                <View style={styles.contentWrapper}>
+                                    <div id="css-modules-test" className={styles.contentWrapper}>
+                                        <Renderer
+                                            apiOptions={this.props.apiOptions}
+                                            content={this.props.explanation}
+                                            widgets={this.props.widgets}
+                                            linterContext={this.props.linterContext}
+                                            strings={this.context.strings}
+                                        />
+                                    </div>
+                                </View>
+                            </div>
+                        {/*</View>*/}
                     </>
                 )}
             </UniqueIDProvider>
@@ -173,13 +185,13 @@ class Explanation extends React.Component<Props, State> {
     simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
         return Explanation.validate(this.getUserInput(), rubric);
     };
-}
+    }
 
-const leftBorderSpacing = 23;
-const verticalContentPadding = 10;
+    const leftBorderSpacing = 23;
+    const verticalContentPadding = 10;
 const arrowHeight = 14;
 
-const styles = StyleSheet.create({
+const styleAphrodite = StyleSheet.create({
     content: {
         borderLeft: "0px solid #ccc",
         display: "inline-grid",

@@ -1,0 +1,40 @@
+.content {
+    border-left: 0 solid #ccc;
+    display: inline-grid;
+    position: relative;
+}
+
+.content-collapsed {
+    grid-template-columns: 0fr;
+    grid-template-rows: 0fr;
+    margin-bottom: 0;
+    margin-top: 0;
+    min-width: 0;
+    padding-bottom: 0;
+    visibility: hidden;
+}
+
+.content-expanded {
+    border-left-width: 5px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    margin: 14px 0 14px -23px;
+    min-width: 100%;
+    padding-left: 23px;
+    padding-bottom: 10px;
+    visibility: visible;
+}
+
+.content-wrapper {
+    overflow: hidden;
+}
+
+.transition-collapsed {
+    transition:
+            all 0.25s step-end, grid-template-rows 0.25s, margin-top 0.25s, margin-bottom 0.25s, padding-bottom 0.25s;
+}
+
+.transition-expanded {
+    transition:
+            grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s;
+}
