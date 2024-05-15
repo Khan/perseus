@@ -37,8 +37,6 @@ export interface InteractiveGraphStateCommon {
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
-    // TODO(benchristel): markings doesn't seem to be used. Remove it?
-    markings: InteractiveGraphProps["markings"];
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {

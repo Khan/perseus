@@ -25,18 +25,16 @@ export type InitializeGraphStateParam = {
     step: InteractiveGraphProps["step"];
     snapStep: InteractiveGraphProps["snapStep"];
     graph: InteractiveGraphProps["graph"];
-    markings: InteractiveGraphProps["markings"];
 };
 
 export function initializeGraphState(
     params: InitializeGraphStateParam,
 ): InteractiveGraphState {
-    const {graph, step, snapStep, range, markings} = params;
+    const {graph, step, snapStep, range} = params;
     const shared = {
         hasBeenInteractedWith: false,
         range,
         snapStep,
-        markings,
     };
     switch (graph.type) {
         case "segment":
