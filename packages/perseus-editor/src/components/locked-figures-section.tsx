@@ -41,6 +41,7 @@ const LockedFiguresSection = (props: Props) => {
             ],
         };
         onChange(newProps);
+        setExpandedStates([...expandedStates, true]);
     }
 
     function removeLockedFigure(index: number) {
@@ -53,6 +54,11 @@ const LockedFiguresSection = (props: Props) => {
                     ...lockedFigures.slice(index + 1),
                 ],
             });
+
+            // Update expanded states
+            const newExpandedStates = [...expandedStates];
+            newExpandedStates.splice(index, 1);
+            setExpandedStates(newExpandedStates);
         }
     }
 
