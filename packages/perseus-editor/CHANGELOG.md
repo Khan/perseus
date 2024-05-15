@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 6.4.0
+
+### Minor Changes
+
+-   [#1268](https://github.com/Khan/perseus/pull/1268) [`9d7f119d3`](https://github.com/Khan/perseus/commit/9d7f119d3e3121290a5e497f219555462e44d03c) Thanks [@nishasy](https://github.com/nishasy)! - Add expand/collapse all button for locked figures settings
+
+### Patch Changes
+
+-   [#1268](https://github.com/Khan/perseus/pull/1268) [`9d7f119d3`](https://github.com/Khan/perseus/commit/9d7f119d3e3121290a5e497f219555462e44d03c) Thanks [@nishasy](https://github.com/nishasy)! - Refactor: Split LockedPointSettings out into LockedPointSettings (for a regular standalone locked point) and DefiningPointSettings (for points that define other locked figures such as lines)
+
 ## 6.3.0
 
 ### Minor Changes
