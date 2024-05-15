@@ -225,4 +225,59 @@ describe("LockedLineSettings", () => {
         // Assert
         expect(toggleSwitch).not.toBeChecked();
     });
+
+    test("Shows error when the two points are the same", () => {
+        // Arrange
+
+        // Act
+        render(
+            <LockedLineSettings
+                {...defaultProps}
+                points={[
+                    {
+                        ...defaultProps.points[0],
+                        coord: [0, 0],
+                    },
+                    {
+                        ...defaultProps.points[1],
+                        coord: [0, 0],
+                    },
+                ]}
+                onChangeProps={() => {}}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Assert
+        const errors = screen.getAllByText("The line cannot have length 0.");
+        // Show error for both points
+        expect(errors).toHaveLength(2);
+    });
+
+    test("Does not show error when the two points are different", () => {
+        // Arrange
+
+        // Act
+        render(
+            <LockedLineSettings
+                {...defaultProps}
+                points={[
+                    {
+                        ...defaultProps.points[0],
+                        coord: [0, 0],
+                    },
+                    {
+                        ...defaultProps.points[1],
+                        coord: [0, 1],
+                    },
+                ]}
+                onChangeProps={() => {}}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Assert
+        const errors = screen.queryAllByText("The line cannot have length 0.");
+        expect(errors).toHaveLength(0);
+    });
 });

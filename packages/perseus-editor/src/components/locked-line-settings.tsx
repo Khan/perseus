@@ -92,6 +92,16 @@ const LockedLineSettings = (props: Props) => {
         });
     }
 
+    function isValid(): string | null {
+        if (
+            point1.coord[0] === point2.coord[0] &&
+            point1.coord[1] === point2.coord[1]
+        ) {
+            return "The line cannot have length 0.";
+        }
+        return null;
+    }
+
     return (
         <LockedFigureSettingsAccordion
             expanded={props.expanded}
@@ -165,6 +175,7 @@ const LockedLineSettings = (props: Props) => {
             <DefiningPointSettings
                 label="Point 1"
                 showPoint={showPoint1}
+                error={isValid()}
                 {...point1}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
@@ -174,6 +185,7 @@ const LockedLineSettings = (props: Props) => {
             <DefiningPointSettings
                 label="Point 2"
                 showPoint={showPoint2}
+                error={isValid()}
                 {...point2}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})
