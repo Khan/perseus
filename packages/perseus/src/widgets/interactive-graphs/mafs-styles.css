@@ -192,8 +192,6 @@
         format("woff");
 }
 
-/* Axis-related styling */
-
 .MafsView .axis-ticks text {
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
