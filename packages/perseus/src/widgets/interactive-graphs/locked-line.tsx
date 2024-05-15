@@ -19,15 +19,8 @@ type Props = LockedLineType & {
 };
 
 const LockedLine = (props: Props) => {
-    const {
-        color,
-        lineStyle,
-        kind,
-        points,
-        showStartPoint,
-        showEndPoint,
-        range,
-    } = props;
+    const {color, lineStyle, kind, points, showPoint1, showPoint2, range} =
+        props;
     const [point1, point2] = points;
 
     let line;
@@ -35,8 +28,8 @@ const LockedLine = (props: Props) => {
     if (kind === "ray") {
         // Rays extend to the end of the graph in one direction.
         const extendedPoint = getIntersectionOfRayWithBox(
-            point2.coord,
             point1.coord,
+            point2.coord,
             range,
         );
         line = (
@@ -59,8 +52,8 @@ const LockedLine = (props: Props) => {
             kind === "segment"
                 ? point2.coord
                 : getIntersectionOfRayWithBox(
-                      point2.coord,
                       point1.coord,
+                      point2.coord,
                       range,
                   );
         const direction = vec.sub(point2.coord, point1.coord);
@@ -77,8 +70,8 @@ const LockedLine = (props: Props) => {
             kind === "segment"
                 ? point1.coord
                 : getIntersectionOfRayWithBox(
-                      point1.coord,
                       point2.coord,
+                      point1.coord,
                       range,
                   );
         angle = angle > 180 ? angle - 180 : angle + 180;
@@ -107,7 +100,7 @@ const LockedLine = (props: Props) => {
     return (
         <g className={kind === "ray" ? "locked-ray" : "locked-line"}>
             {line}
-            {showStartPoint && (
+            {showPoint1 && (
                 <Point
                     x={point1.coord[0]}
                     y={point1.coord[1]}
@@ -122,7 +115,7 @@ const LockedLine = (props: Props) => {
                     }}
                 />
             )}
-            {showEndPoint && (
+            {showPoint2 && (
                 <Point
                     x={point2.coord[0]}
                     y={point2.coord[1]}

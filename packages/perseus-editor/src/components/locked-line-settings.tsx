@@ -13,7 +13,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ColorSelect from "./color-select";
-import ColorSwatch from "./color-swatch";
+import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedPointSettings from "./locked-point-settings";
@@ -36,12 +36,12 @@ const LockedLineSettings = (props: Props) => {
         points,
         color: lineColor,
         lineStyle = "solid",
-        showStartPoint,
-        showEndPoint,
+        showPoint1,
+        showPoint2,
         onChangeProps,
         onRemove,
     } = props;
-    const [startPoint, endPoint] = points;
+    const [point1, point2] = points;
 
     // Generate unique IDs so that the programmatic labels can be associated
     // with their respective text fields.
@@ -50,8 +50,9 @@ const LockedLineSettings = (props: Props) => {
     const colorSelectId = ids.get("line-color-select");
     const styleSelectId = ids.get("line-style-select");
 
-    const lineLabel = `Line (${startPoint.coord[0]}, ${startPoint.coord[1]}),
-        (${endPoint.coord[0]}, ${endPoint.coord[1]})`;
+    const capitalizeKind = kind.charAt(0).toUpperCase() + kind.slice(1);
+    const lineLabel = `${capitalizeKind} (${point1.coord[0]},
+        ${point1.coord[1]}), (${point2.coord[0]}, ${point2.coord[1]})`;
 
     function handleChangePoint(
         newPointProps: Partial<LockedPointType>,
@@ -73,11 +74,11 @@ const LockedLineSettings = (props: Props) => {
             // Keep the line's points' colors in sync with the line color.
             points: [
                 {
-                    ...startPoint,
+                    ...point1,
                     color: newColor,
                 },
                 {
-                    ...endPoint,
+                    ...point2,
                     color: newColor,
                 },
             ],
@@ -90,7 +91,7 @@ const LockedLineSettings = (props: Props) => {
                 <View style={styles.row}>
                     <LabelLarge>{lineLabel}</LabelLarge>
                     <Strut size={spacing.xSmall_8} />
-                    <ColorSwatch color={lineColor} />
+                    <LineSwatch color={lineColor} lineStyle={lineStyle} />
                 </View>
             }
         >
@@ -154,20 +155,18 @@ const LockedLineSettings = (props: Props) => {
 
             {/* Defining points settings */}
             <LockedPointSettings
-                label="Start point"
-                toggled={showStartPoint}
-                {...startPoint}
-                onToggle={(newValue) =>
-                    onChangeProps({showStartPoint: newValue})
-                }
+                label="Point 1"
+                toggled={showPoint1}
+                {...point1}
+                onToggle={(newValue) => onChangeProps({showPoint1: newValue})}
                 onChangeProps={(newProps) => handleChangePoint(newProps, 0)}
                 style={styles.lockedPointSettingsContainer}
             />
             <LockedPointSettings
-                label="End point"
-                toggled={showEndPoint}
-                {...endPoint}
-                onToggle={(newValue) => onChangeProps({showEndPoint: newValue})}
+                label="Point 2"
+                toggled={showPoint2}
+                {...point2}
+                onToggle={(newValue) => onChangeProps({showPoint2: newValue})}
                 onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
                 style={styles.lockedPointSettingsContainer}
             />
@@ -176,8 +175,8 @@ const LockedLineSettings = (props: Props) => {
             <LockedFigureSettingsActions
                 onRemove={onRemove}
                 figureAriaLabel={`locked line defined by
-                    ${startPoint.coord[0]}, ${startPoint.coord[1]} and
-                    ${endPoint.coord[0]}, ${endPoint.coord[1]}.`}
+                    ${point1.coord[0]}, ${point1.coord[1]} and
+                    ${point2.coord[0]}, ${point2.coord[1]}.`}
             />
         </LockedFigureSettingsAccordion>
     );

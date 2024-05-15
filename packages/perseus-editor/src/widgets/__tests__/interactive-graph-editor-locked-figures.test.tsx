@@ -298,6 +298,88 @@ describe("InteractiveGraphEditor locked figures", () => {
                 }),
             );
         });
+
+        test("Does not call onChange when x coord is cleared", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            render(
+                <InteractiveGraphEditor
+                    {...mafsProps}
+                    onChange={onChangeMock}
+                    lockedFigures={[defaultPoint]}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Act
+            const xCoordInput = screen.getByLabelText("x coord");
+            await userEvent.clear(xCoordInput);
+            await userEvent.tab();
+
+            // Assert
+            expect(onChangeMock).not.toBeCalled();
+        });
+
+        test("Does not call onChange when y coord is cleared", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            render(
+                <InteractiveGraphEditor
+                    {...mafsProps}
+                    onChange={onChangeMock}
+                    lockedFigures={[defaultPoint]}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Act
+            const yCoordInput = screen.getByLabelText("y coord");
+            await userEvent.clear(yCoordInput);
+            await userEvent.tab();
+
+            // Assert
+            expect(onChangeMock).not.toBeCalled();
+        });
+
+        test.each`
+            coord  | value
+            ${"x"} | ${"."}
+            ${"x"} | ${"-"}
+            ${"y"} | ${"."}
+            ${"y"} | ${"-"}
+        `(
+            "Does not call onChange when $coord coord is set to $value",
+            async ({coord, value}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                render(
+                    <InteractiveGraphEditor
+                        {...mafsProps}
+                        onChange={onChangeMock}
+                        lockedFigures={[defaultPoint]}
+                    />,
+                    {
+                        wrapper: RenderStateRoot,
+                    },
+                );
+
+                // Act
+                const coordInput = screen.getByLabelText(`${coord} coord`);
+                await userEvent.clear(coordInput);
+                await userEvent.type(coordInput, value);
+                await userEvent.tab();
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            },
+        );
     });
 
     describe("lines", () => {
@@ -419,8 +501,8 @@ describe("InteractiveGraphEditor locked figures", () => {
             expect(screen.getByText("kind")).toBeInTheDocument();
             expect(screen.getByText("color")).toBeInTheDocument();
             expect(screen.getByText("style")).toBeInTheDocument();
-            expect(screen.getByText("Start point (0, 0)")).toBeInTheDocument();
-            expect(screen.getByText("End point (2, 2)")).toBeInTheDocument();
+            expect(screen.getByText("Point 1 (0, 0)")).toBeInTheDocument();
+            expect(screen.getByText("Point 2 (2, 2)")).toBeInTheDocument();
         });
 
         test("Calls onChange when a locked line's color is changed", async () => {
@@ -499,7 +581,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked line's start point is changed", async () => {
+        test("Calls onChange when a locked line's point1 x is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -515,16 +597,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const startPointInput = screen.getAllByLabelText("x coord")[0];
-            await userEvent.click(startPointInput);
-            await userEvent.clear(startPointInput);
-            await userEvent.type(startPointInput, "1");
-            await userEvent.tab();
-
-            const endPointInput = screen.getAllByLabelText("y coord")[0];
-            await userEvent.click(endPointInput);
-            await userEvent.clear(endPointInput);
-            await userEvent.type(endPointInput, "5");
+            const point1Input = screen.getAllByLabelText("x coord")[0];
+            await userEvent.click(point1Input);
+            await userEvent.clear(point1Input);
+            await userEvent.type(point1Input, "1");
             await userEvent.tab();
 
             // Assert
@@ -534,7 +610,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                         expect.objectContaining({
                             ...defaultLine,
                             points: [
-                                expect.objectContaining({coord: [1, 5]}),
+                                expect.objectContaining({coord: [1, 0]}),
                                 expect.objectContaining({coord: [2, 2]}),
                             ],
                         }),
@@ -543,7 +619,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked line's end point is changed", async () => {
+        test("Calls onChange when a locked line's point1 y is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -559,16 +635,48 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
 
             // Act
-            const startPointInput = screen.getAllByLabelText("x coord")[1];
-            await userEvent.click(startPointInput);
-            await userEvent.clear(startPointInput);
-            await userEvent.type(startPointInput, "1");
+            const point2Input = screen.getAllByLabelText("y coord")[0];
+            await userEvent.click(point2Input);
+            await userEvent.clear(point2Input);
+            await userEvent.type(point2Input, "1");
             await userEvent.tab();
 
-            const endPointInput = screen.getAllByLabelText("y coord")[1];
-            await userEvent.click(endPointInput);
-            await userEvent.clear(endPointInput);
-            await userEvent.type(endPointInput, "5");
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            ...defaultLine,
+                            points: [
+                                expect.objectContaining({coord: [0, 1]}),
+                                expect.objectContaining({coord: [2, 2]}),
+                            ],
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a locked line's point2 x is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            render(
+                <InteractiveGraphEditor
+                    {...mafsProps}
+                    onChange={onChangeMock}
+                    lockedFigures={[defaultLine]}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Act
+            const point1Input = screen.getAllByLabelText("x coord")[1];
+            await userEvent.click(point1Input);
+            await userEvent.clear(point1Input);
+            await userEvent.type(point1Input, "1");
             await userEvent.tab();
 
             // Assert
@@ -579,7 +687,45 @@ describe("InteractiveGraphEditor locked figures", () => {
                             ...defaultLine,
                             points: [
                                 expect.objectContaining({coord: [0, 0]}),
-                                expect.objectContaining({coord: [1, 5]}),
+                                expect.objectContaining({coord: [1, 2]}),
+                            ],
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a locked line's point2 y is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            render(
+                <InteractiveGraphEditor
+                    {...mafsProps}
+                    onChange={onChangeMock}
+                    lockedFigures={[defaultLine]}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Act
+            const point1Input = screen.getAllByLabelText("y coord")[1];
+            await userEvent.click(point1Input);
+            await userEvent.clear(point1Input);
+            await userEvent.type(point1Input, "1");
+            await userEvent.tab();
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            ...defaultLine,
+                            points: [
+                                expect.objectContaining({coord: [0, 0]}),
+                                expect.objectContaining({coord: [2, 1]}),
                             ],
                         }),
                     ],
@@ -623,7 +769,7 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Call onChange when start point is toggled", async () => {
+        test("Call onChange when point1 is toggled", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -648,14 +794,14 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             ...defaultLine,
-                            showStartPoint: true,
+                            showPoint1: true,
                         }),
                     ],
                 }),
             );
         });
 
-        test("Call onChange when end point is toggled", async () => {
+        test("Call onChange when point2 is toggled", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -680,7 +826,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             ...defaultLine,
-                            showEndPoint: true,
+                            showPoint2: true,
                         }),
                     ],
                 }),

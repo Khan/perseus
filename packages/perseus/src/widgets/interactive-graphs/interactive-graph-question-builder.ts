@@ -88,6 +88,11 @@ class InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new SegmentGraphConfig(numSegments);
         return this;
     }
+
+    withCircle(): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new CircleGraphConfig();
+        return this;
+    }
 }
 
 interface InteractiveFigureConfig {
@@ -114,6 +119,16 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
 
     graph(): PerseusGraphType {
         return {type: "segment", numSegments: this.numSegments};
+    }
+}
+
+class CircleGraphConfig implements InteractiveFigureConfig {
+    correct(): PerseusGraphType {
+        return {type: "circle", radius: 5, center: [0, 0]};
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "circle"};
     }
 }
 

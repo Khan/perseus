@@ -157,6 +157,20 @@ export const MafsWithMultipleSegments = (
     />
 );
 
+export const MafsCircleGraphWithNonsquareRange = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <div className="framework-perseus perseus-mobile">
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withCircle()
+                .withXRange(-10, 10)
+                .withYRange(-5, 5)
+                .build()}
+        />
+    </div>
+);
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
@@ -169,6 +183,7 @@ function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
                 flags: {
                     mafs: {
                         segment: true,
+                        circle: true,
                     },
                 },
             }}

@@ -46,12 +46,6 @@ export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
     element.focus({preventScroll: true});
 }
 
-export function getValidNumberFromString(value: string) {
-    const parsed = parseFloat(value);
-    // If the value is not a number, return 0.
-    return isNaN(parsed) ? 0 : parsed;
-}
-
 const DEFAULT_COLOR = "grayH";
 
 export function getDefaultFigureForType(type: "point"): LockedPointType;
@@ -79,8 +73,8 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 ],
                 color: DEFAULT_COLOR,
                 lineStyle: "solid",
-                showStartPoint: false,
-                showEndPoint: false,
+                showPoint1: false,
+                showPoint2: false,
             };
         default:
             throw new UnreachableCaseError(type);
