@@ -79,9 +79,9 @@ export function initializeGraphState(
                 Math.round((min + max) / 2),
             );
             const defaultQuadraticCoords: Coord[] = [
-                [rangeCenterPoint[0] - 4, rangeCenterPoint[1] + 5],
+                [rangeCenterPoint[0] - 5, rangeCenterPoint[1] + 5],
                 [rangeCenterPoint[0], rangeCenterPoint[1] - 5],
-                [rangeCenterPoint[0] + 3, rangeCenterPoint[1] + 5],
+                [rangeCenterPoint[0] + 5, rangeCenterPoint[1] + 5],
             ];
             return {
                 ...shared,
