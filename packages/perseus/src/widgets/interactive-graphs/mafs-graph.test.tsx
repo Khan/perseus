@@ -362,7 +362,6 @@ describe("MafsGraph", () => {
     it("MovableLine moves up based on up keystroke ", async () => {
         const initialState: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -414,7 +413,6 @@ describe("MafsGraph", () => {
     it("MovableLine moves right based on right keystroke ", async () => {
         const initialState: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -466,7 +464,6 @@ describe("MafsGraph", () => {
     it("MovableLine moves left based on left keystroke ", async () => {
         const initialState: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
