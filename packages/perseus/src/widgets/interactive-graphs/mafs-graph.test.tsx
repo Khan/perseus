@@ -11,7 +11,7 @@ import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
 import {movePoint} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
-import type {Props as MafsGraphProps} from "./mafs-graph";
+import type {MafsGraphProps, StatefulMafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
 import type {GraphRange} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -21,17 +21,41 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         box: [400, 400],
         step: [1, 1],
         gridStep: [1, 1],
-        snapStep: [1, 1],
         markings: "graph",
+        containerSizeClass: "small",
+        showTooltips: false,
+        labels: ["x", "y"],
+        dispatch: () => {},
+        state: {
+            type: "segment",
+            hasBeenInteractedWith: false,
+            coords: [],
+            markings: "none",
+            snapStep: [1, 1],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        },
+    };
+}
+
+function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
+    return {
+        box: [400, 400],
+        step: [1, 1],
+        snapStep: [1, 1],
+        gridStep: [1, 1],
         range: [
             [-10, 10],
             [-10, 10],
         ],
-        graph: {type: "segment"},
+        markings: "graph",
         containerSizeClass: "small",
         onChange: () => {},
         showTooltips: false,
         labels: ["x", "y"],
+        graph: {type: "segment"},
     };
 }
 
@@ -58,7 +82,7 @@ describe("StatefulMafsGraph", () => {
 
     it("renders", () => {
         const {container} = render(
-            <StatefulMafsGraph {...getBaseMafsGraphProps()} />,
+            <StatefulMafsGraph {...getBaseStatefulMafsGraphProps()} />,
         );
 
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -74,7 +98,7 @@ describe("StatefulMafsGraph", () => {
 
         render(
             <StatefulMafsGraph
-                {...getBaseMafsGraphProps()}
+                {...getBaseStatefulMafsGraphProps()}
                 onChange={mockChangeHandler}
             />,
         );
@@ -140,9 +164,9 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -184,9 +208,9 @@ describe("MafsGraph", () => {
         // Act
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -223,9 +247,9 @@ describe("MafsGraph", () => {
         // Act
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
                 markings="none"
             />,
         );
@@ -259,9 +283,9 @@ describe("MafsGraph", () => {
 
         const {rerender} = render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -275,9 +299,9 @@ describe("MafsGraph", () => {
 
         rerender(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={updatedState}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -323,9 +347,9 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={getState()}
                 dispatch={dispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -375,9 +399,9 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={getState()}
                 dispatch={dispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -427,9 +451,9 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={getState()}
                 dispatch={dispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -479,9 +503,9 @@ describe("MafsGraph", () => {
 
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={getState()}
                 dispatch={dispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
