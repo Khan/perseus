@@ -58,11 +58,11 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
     // If the graph is zoomed in, we want to make sure the ticks are still visible
     // even if they are outside the graph's range.
     if (graphInfo.range[1][0] > 0) {
-        // If the graph is on the positive side of the x-axis, lock the ticks to the left side of the graph
+        // If the graph is on the positive side of the y-axis, lock the ticks to the top of the graph
         yPointOnAxis = graphInfo.range[1][0];
     }
     if (graphInfo.range[1][1] < 0) {
-        // If the graph is on the negative side of the x-axis, lock the ticks to the right side of the graph
+        // If the graph is on the negative side of the x-axis, lock the ticks to the bottom of the graph
         yPointOnAxis = graphInfo.range[1][1];
     }
 

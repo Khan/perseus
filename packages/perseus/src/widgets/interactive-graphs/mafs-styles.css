@@ -196,26 +196,25 @@
 }
 
 .y-axis-tick-labels {
-    width: 35px;
+    width: 1.75em;
     display: flex;
     flex-flow: column;
     transform: translateX(calc(-100% - 0.5em));
-
     position: absolute;
     text-align: right;
 }
 .y-axis-right-of-grid {
-    transform: translateX(calc(50% + 6px));
+    transform: translateX(calc(50% + 0.5em));
 }
 .x-axis-tick-labels {
     display: flex;
     flex-flow: row;
     flex-direction: row-reverse;
     position: absolute;
-    transform: translateY(calc(50% - 3px));
+    transform: translateY(calc(50% - 0.25em));
 }
 .x-axis-top-of-grid {
-    transform: translateY(calc(-100% + 3px));
+    transform: translateY(calc(-100% + 0.25em));
 }
 
 .x-axis-tick-labels span,

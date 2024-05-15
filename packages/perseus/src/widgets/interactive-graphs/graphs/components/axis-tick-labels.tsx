@@ -13,7 +13,7 @@ type ShowTickLabelProps = {
     tickStep: number;
     // The label for the axis tick
     label: number;
-    // The relevant edge of the graph (either the width for xLabels or height or yLabels)
+    // The relevant edge of the graph (either the width for xLabels or height for yLabels)
     graphEdge: number;
     // The relevant position of the tick label in pixels (either the x or y position)
     position: number;
