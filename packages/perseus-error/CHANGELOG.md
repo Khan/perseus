@@ -1,5 +1,12 @@
 # @khanacademy/perseus-error
 
+## 0.3.0
+
+### Minor Changes
+
+-   [#1259](https://github.com/Khan/perseus/pull/1259) [`c07644f63`](https://github.com/Khan/perseus/commit/c07644f63957ada78ba60c9b3ecd7b42e289f67b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update all Perseus peer dependencies to match webapp exactly (commit: 2bd290251a8)
+    -   @khanacademy/wonder-stuff-core v1.5.2
+
 ## 0.2.11
 
 ### Patch Changes
