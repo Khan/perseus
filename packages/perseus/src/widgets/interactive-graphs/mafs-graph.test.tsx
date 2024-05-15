@@ -260,7 +260,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [5, 15],
@@ -280,9 +279,9 @@ describe("MafsGraph", () => {
         // Act
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -301,7 +300,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-15, -5],
@@ -321,9 +319,9 @@ describe("MafsGraph", () => {
         // Act
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -343,7 +341,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [1, 20],
@@ -363,9 +360,9 @@ describe("MafsGraph", () => {
         // Act
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -383,7 +380,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-20, -1],
@@ -403,9 +399,9 @@ describe("MafsGraph", () => {
         // Act
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -423,7 +419,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [5, 15],
@@ -443,9 +438,9 @@ describe("MafsGraph", () => {
         // Act
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
@@ -460,7 +455,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-15, -5],
@@ -480,9 +474,9 @@ describe("MafsGraph", () => {
         // Act
         render(
             <MafsGraph
+                {...baseMafsGraphProps}
                 state={state}
                 dispatch={mockDispatch}
-                {...baseMafsGraphProps}
             />,
         );
 
