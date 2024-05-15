@@ -102,11 +102,11 @@ jobs:
                   limited: yarn lint {}
 
             - name: Typecheck
-              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+              if: (success() || failure())
               run: yarn typecheck
 
             - name: Build types
-              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+              if: (success() || failure())
               run: yarn build:types
 
             # Run tests for our target matrix
