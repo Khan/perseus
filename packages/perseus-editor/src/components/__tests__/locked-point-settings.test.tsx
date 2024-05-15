@@ -8,7 +8,11 @@ import {getDefaultFigureForType} from "../util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-const defaultProps = getDefaultFigureForType("point");
+const defaultProps = {
+    ...getDefaultFigureForType("point"),
+    onRemove: () => {},
+    onChangeProps: () => {},
+};
 
 describe("LockedPointSettings", () => {
     let userEvent: UserEvent;
@@ -32,133 +36,6 @@ describe("LockedPointSettings", () => {
         // Assert
         expect(titleText).toBeInTheDocument();
         expect(colorSwatch).toBeInTheDocument();
-    });
-
-    test("Should not show the color in summary if extrasToggled off", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={false}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const titleText = screen.getByText("Point (0, 0)");
-        const colorSwatch = screen.queryByLabelText(
-            "Point color: blue, filled",
-        );
-
-        // Assert
-        expect(titleText).toBeInTheDocument();
-        expect(colorSwatch).not.toBeInTheDocument();
-    });
-
-    test("Should show toggle switch if onExtrasToggle is passed in", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const toggleSwitch = screen.getByLabelText("show point on graph");
-
-        // Assert
-        expect(toggleSwitch).toBeInTheDocument();
-    });
-
-    test("Toggle switch should match extrasToggled prop when true", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={true}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const toggleSwitch = screen.getByLabelText("show point on graph");
-
-        // Assert
-        expect(toggleSwitch).toBeChecked();
-    });
-
-    test("Toggle switch should match extrasToggled prop when false", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={false}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const toggleSwitch = screen.getByLabelText("show point on graph");
-
-        // Assert
-        expect(toggleSwitch).not.toBeChecked();
-    });
-
-    test("Should show extra fields if extrasToggled on", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={true}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const colorSelect = screen.getByLabelText("color");
-        const openCheckbox = screen.getByLabelText("open point");
-
-        // Assert
-        expect(colorSelect).toBeInTheDocument();
-        expect(openCheckbox).toBeInTheDocument();
-    });
-
-    test("Should not show extra fields if extrasToggled off", () => {
-        // Arrange
-
-        // Act
-        render(
-            <LockedPointSettings
-                {...defaultProps}
-                onChangeProps={() => {}}
-                extrasToggled={false}
-                onExtrasToggle={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const colorSelect = screen.queryByLabelText("Color");
-        const openCheckbox = screen.queryByLabelText("Open point");
-
-        // Assert
-        expect(colorSelect).not.toBeInTheDocument();
-        expect(openCheckbox).not.toBeInTheDocument();
     });
 
     test("Summary should reflect the coordinates", () => {

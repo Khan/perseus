@@ -7,16 +7,16 @@
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import ColorSelect from "./color-select";
+import DefiningPointSettings from "./defining-point-settings";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
-import LockedPointSettings from "./locked-point-settings";
 
 import type {AccordionProps} from "./locked-figure-settings";
 import type {
@@ -55,7 +55,6 @@ const LockedLineSettings = (props: Props) => {
     // with their respective text fields.
     const ids = useUniqueIdWithMock();
     const kindSelectId = ids.get("line-kind-select");
-    const colorSelectId = ids.get("line-color-select");
     const styleSelectId = ids.get("line-style-select");
 
     const capitalizeKind = kind.charAt(0).toUpperCase() + kind.slice(1);
@@ -132,7 +131,6 @@ const LockedLineSettings = (props: Props) => {
             <View style={[styles.row, styles.spaceUnder]}>
                 {/* Line color settings */}
                 <ColorSelect
-                    id={colorSelectId}
                     selectedValue={lineColor}
                     onChange={handleColorChange}
                 />
@@ -164,25 +162,23 @@ const LockedLineSettings = (props: Props) => {
             </View>
 
             {/* Defining points settings */}
-            <LockedPointSettings
+            <DefiningPointSettings
                 label="Point 1"
-                extrasToggled={showPoint1}
+                showPoint={showPoint1}
                 {...point1}
-                onExtrasToggle={(newValue) =>
+                onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
                 }
                 onChangeProps={(newProps) => handleChangePoint(newProps, 0)}
-                style={styles.lockedPointSettingsContainer}
             />
-            <LockedPointSettings
+            <DefiningPointSettings
                 label="Point 2"
-                extrasToggled={showPoint2}
+                showPoint={showPoint2}
                 {...point2}
-                onExtrasToggle={(newValue) =>
+                onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})
                 }
                 onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
-                style={styles.lockedPointSettingsContainer}
             />
 
             {/* Actions */}
@@ -197,13 +193,6 @@ const LockedLineSettings = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-    lockedPointSettingsContainer: {
-        marginTop: spacing.xSmall_8,
-        marginBottom: 0,
-        marginLeft: -spacing.xxxSmall_4,
-        marginRight: -spacing.xxxSmall_4,
-        backgroundColor: wbColor.white,
-    },
     row: {
         flexDirection: "row",
         alignItems: "center",
