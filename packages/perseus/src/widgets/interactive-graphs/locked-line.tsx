@@ -6,6 +6,7 @@ import {lockedFigureColors} from "../../perseus-types";
 
 import {Arrowhead} from "./graphs/components/arrowhead";
 import {Vector} from "./graphs/components/vector";
+import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {
     calculateAngleInDegrees,
     getIntersectionOfRayWithBox,
@@ -13,7 +14,6 @@ import {
 
 import type {LockedLineType} from "../../perseus-types";
 import type {Interval} from "mafs";
-import {useTransformVectorsToPixels} from "./graphs/use-transform";
 
 type Props = LockedLineType & {
     range: [Interval, Interval];
