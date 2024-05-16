@@ -25,9 +25,12 @@ type Props = {
 const LockedFiguresSection = (props: Props) => {
     // Keep track of all figures' accordions' expanded states for the
     // expand/collapse all button. Set the whole array to false initially.
-    const [expandedStates, setExpandedStates] = React.useState(
-        Array(props.figures?.length).fill(false),
-    );
+    const collapsedStateArray =
+        props.figures?.length && props.figures.length > 0
+            ? Array(props.figures?.length).fill(false)
+            : [];
+    const [expandedStates, setExpandedStates] =
+        React.useState(collapsedStateArray);
 
     const uniqueId = useUniqueIdWithMock().get("locked-figures-section");
     const {figures, onChange} = props;
