@@ -2,13 +2,15 @@ import {screen, render} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {setDependencies} from "../../dependencies";
+import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {Plotter} from "../plotter";
 
 describe("plotter widget", () => {
     beforeEach(() => {
-        setDependencies(testDependencies);
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
     });
 
     it("should show drag text when not static", () => {
