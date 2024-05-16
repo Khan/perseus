@@ -9,6 +9,15 @@ import type {Config, SchemaGenerator} from "ts-json-schema-generator";
 
 const RefNameExtractorRegex = /#\/definitions\/(?<name>.*)/;
 
+const isRefObject = (obj) => {
+    return (
+        obj != null &&
+        typeof obj === "object" &&
+        !Array.isArray(obj) &&
+        "$ref" in obj
+    );
+};
+
 const getRefDefinitionName = (ref: string) => {
     const match = ref.match(RefNameExtractorRegex);
     if (match) {
@@ -17,24 +26,27 @@ const getRefDefinitionName = (ref: string) => {
 };
 
 function derefSchema(schema: ReturnType<SchemaGenerator["createSchema"]>) {
-    const derefIfRef = (level, key, obj) => {
+    const derefIfRef = (level, obj) => {
         try {
-            if (
-                obj != null &&
-                typeof obj === "object" &&
-                !Array.isArray(obj) &&
-                "$ref" in obj
-            ) {
+            if (isRefObject(obj)) {
                 const defName = getRefDefinitionName(obj["$ref"]);
 
                 if (defName != null) {
-                    return schema.definitions?.[defName];
+                    const def = derefIfRef(
+                        level + 1,
+                        schema.definitions?.[defName],
+                    );
+
+                    // Now clone the node
+                    return JSON.parse(JSON.stringify(def));
                 }
             }
         } catch (e) {
-            console.log(key, obj);
+            console.log(level, obj);
             throw e;
         }
+
+        return obj;
     };
 
     const processProps = (path: string[], props, level: number = 0) => {
@@ -45,24 +57,24 @@ function derefSchema(schema: ReturnType<SchemaGenerator["createSchema"]>) {
         if (Array.isArray(props)) {
             for (let i = 0; i < props.length; i++) {
                 const newPath = [...path, `[${i}]`];
-                const refTarget = derefIfRef(level, i, props[i]);
-                if (refTarget) {
-                    props[i] = refTarget;
-                }
+                props[i] = derefIfRef(level, props[i]);
 
                 processProps(newPath, props[i], level + 1);
             }
         } else if (typeof props === "object") {
             for (const [key, val] of Object.entries(props)) {
                 const newPath = [...path, key];
-                const refTarget = derefIfRef(level, key, val);
-                if (refTarget) {
-                    props[key] = refTarget;
-                }
+                props[key] = derefIfRef(level, val);
 
                 // Stop recursion of nested Renderers
-                if (key === "widgets" && path.indexOf("widgets") !== -1) {
+                if (
+                    (key === "widgets" &&
+                        path.find((item) => item === "widgets")?.length) ??
+                    0 > 3
+                ) {
+                    console.log(newPath.join("."));
                     delete props[key];
+                    // props[key] = newPath.join(".");
                     continue;
                 }
                 processProps(newPath, props[key], level + 1);
@@ -70,6 +82,7 @@ function derefSchema(schema: ReturnType<SchemaGenerator["createSchema"]>) {
         }
     };
 
+    processProps(["root"], schema.definitions);
     processProps(["root"], schema.properties);
     processProps(["root"], schema.additionalProperties);
 
