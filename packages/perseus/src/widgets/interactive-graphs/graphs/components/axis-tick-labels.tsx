@@ -93,11 +93,15 @@ const YGridAxis = (props: GridAxisProps): React.ReactElement => {
     const marginSpacing =
         yLowestTick >= 0 ? defaultSpacing * 2 : defaultSpacing;
 
+    // Determine the text alignment based on whether the y-axis is right of the grid
+    // We need to cast this as a const as it is used in the inline styles
+    const textAlign = yAxisRightOfGrid ? ("left" as const) : ("right" as const);
+
     const yAxisStyles = {
         left: `calc(${yLeftAdjustment}px - ${marginSpacing}em)`,
         top: `calc(${yTopPoint[1]}px - 0.5em)`,
-        height: height,
-        "text-align": yAxisRightOfGrid ? "left" : "right",
+        height,
+        textAlign,
         "--y-axis-label-height": yLabelHeight + "px",
     };
 
