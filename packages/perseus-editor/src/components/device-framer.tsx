@@ -68,7 +68,6 @@ const DeviceFramer = ({
             <div
                 key="screen"
                 style={{
-                    overflow: "scroll",
                     width:
                         SCREEN_SIZES[deviceType].framedWidth +
                         2 * constants.perseusFrameBorderWidth +
