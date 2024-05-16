@@ -7,7 +7,7 @@
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -25,6 +25,8 @@ import type {
     LockedLineType,
     LockedPointType,
 } from "@khanacademy/perseus";
+
+const lengthZeroStr = "The line cannot have length 0.";
 
 export type Props = LockedLineType &
     AccordionProps & {
@@ -61,6 +63,10 @@ const LockedLineSettings = (props: Props) => {
     const lineLabel = `${capitalizeKind} (${point1.coord[0]},
         ${point1.coord[1]}), (${point2.coord[0]}, ${point2.coord[1]})`;
 
+    const isInvalid =
+        point1.coord[0] === point2.coord[0] &&
+        point1.coord[1] === point2.coord[1];
+
     function handleChangePoint(
         newPointProps: Partial<LockedPointType>,
         index: 0 | 1,
@@ -90,16 +96,6 @@ const LockedLineSettings = (props: Props) => {
                 },
             ],
         });
-    }
-
-    function isValid(): string | null {
-        if (
-            point1.coord[0] === point2.coord[0] &&
-            point1.coord[1] === point2.coord[1]
-        ) {
-            return "The line cannot have length 0.";
-        }
-        return null;
     }
 
     return (
@@ -171,11 +167,18 @@ const LockedLineSettings = (props: Props) => {
                 </View>
             </View>
 
+            {/* Points errror message */}
+            {isInvalid && (
+                <LabelMedium style={styles.errorText}>
+                    {lengthZeroStr}
+                </LabelMedium>
+            )}
+
             {/* Defining points settings */}
             <DefiningPointSettings
                 label="Point 1"
                 showPoint={showPoint1}
-                error={isValid()}
+                error={isInvalid ? lengthZeroStr : null}
                 {...point1}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
@@ -185,7 +188,7 @@ const LockedLineSettings = (props: Props) => {
             <DefiningPointSettings
                 label="Point 2"
                 showPoint={showPoint2}
-                error={isValid()}
+                error={isInvalid ? lengthZeroStr : null}
                 {...point2}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})
@@ -218,6 +221,9 @@ const styles = StyleSheet.create({
     selectMarginOffset: {
         // Align with the point settings accordions.
         marginInlineEnd: -spacing.xxxSmall_4,
+    },
+    errorText: {
+        color: wbColor.red,
     },
 });
 

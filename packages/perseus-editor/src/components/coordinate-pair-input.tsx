@@ -10,7 +10,7 @@ import type {LockedPointType} from "@khanacademy/perseus";
 
 type Props = {
     coord: [number, number];
-    error?: string | null;
+    error?: boolean;
     onChangeProps: (newProps: Partial<LockedPointType>) => void;
 };
 
@@ -88,11 +88,6 @@ const CoordinatePairInput = (props: Props) => {
                     ]}
                 />
             </View>
-            {error && (
-                <LabelMedium style={[styles.error, styles.spaceUnder]}>
-                    {error}
-                </LabelMedium>
-            )}
         </View>
     );
 };
@@ -110,9 +105,6 @@ const styles = StyleSheet.create({
     },
     textField: {
         width: spacing.xxxLarge_64,
-    },
-    error: {
-        color: wbColor.red,
     },
     errorField: {
         borderColor: wbColor.red,
