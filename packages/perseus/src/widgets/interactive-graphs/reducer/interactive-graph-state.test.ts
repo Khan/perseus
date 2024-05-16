@@ -117,13 +117,27 @@ describe("initializeGraphState for linear-system graphs", () => {
             ...baseGraphData,
             graph: {
                 type: "linear-system",
-                coords: [[[1, 2], [3, 4]]],
+                coords: [
+                    [
+                        [1, 2],
+                        [3, 4],
+                    ],
+                ],
             },
         });
 
         invariant(state.type === "linear-system");
-        expect(state.coords).toEqual([[[-5, 5], [5, 5]], [[-5, -5], [5, -5]]])
-    })
+        expect(state.coords).toEqual([
+            [
+                [-5, 5],
+                [5, 5],
+            ],
+            [
+                [-5, -5],
+                [5, -5],
+            ],
+        ]);
+    });
 });
 
 describe("initializeGraphState for polygon graphs", () => {

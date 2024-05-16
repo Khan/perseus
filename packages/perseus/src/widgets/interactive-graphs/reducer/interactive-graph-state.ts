@@ -301,12 +301,12 @@ const getLineCoords = ({
         case "linear-system":
             return defaultLinearCoords.map((points) =>
                 normalizePoints(range, step, points),
-            )
+            );
         case "linear":
         case "ray":
-            return [normalizePoints(range, step, defaultLinearCoords[0])]
+            return [normalizePoints(range, step, defaultLinearCoords[0])];
         default:
-            throw new UnreachableCaseError(graph)
+            throw new UnreachableCaseError(graph);
     }
 };
 
