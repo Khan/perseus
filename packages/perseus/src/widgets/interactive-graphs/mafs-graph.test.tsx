@@ -5,7 +5,7 @@ import React from "react";
 import invariant from "tiny-invariant";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as dependencies from "../../dependencies";
+import * as Dependencies from "../../dependencies";
 
 import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
 import {movePoint} from "./reducer/interactive-graph-action";
@@ -73,7 +73,7 @@ function createFakeStore<S, A>(reducer: (state: S, action: A) => S, state: S) {
 describe("StatefulMafsGraph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
-        jest.spyOn(dependencies, "getDependencies").mockReturnValue(
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         userEvent = userEventLib.setup({
@@ -139,7 +139,7 @@ describe("MafsGraph", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-        jest.spyOn(dependencies, "getDependencies").mockReturnValue(
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

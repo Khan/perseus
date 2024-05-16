@@ -2,13 +2,13 @@ import {screen, render} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as dependencies from "../../dependencies";
+import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {Plotter} from "../plotter";
 
 describe("plotter widget", () => {
     beforeEach(() => {
-        jest.spyOn(dependencies, "getDependencies").mockReturnValue(
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

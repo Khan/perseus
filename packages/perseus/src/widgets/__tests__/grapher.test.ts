@@ -1,5 +1,5 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as dependencies from "../../dependencies";
+import * as Dependencies from "../../dependencies";
 import {
     linearQuestion,
     multipleAvailableTypesQuestion,
@@ -9,7 +9,7 @@ import {renderQuestion} from "./renderQuestion";
 
 describe("grapher widget", () => {
     beforeEach(() => {
-        jest.spyOn(dependencies, "getDependencies").mockReturnValue(
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });

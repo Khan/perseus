@@ -1,5 +1,5 @@
 import {testDependencies} from "../../../../testing/test-dependencies";
-import * as dependencies from "../dependencies";
+import * as Dependencies from "../dependencies";
 
 import {Errors, Log} from "./log";
 
@@ -7,7 +7,7 @@ describe("Perseus logging", () => {
     it("should proxy log() calls to the logger obtained from getDependencies", () => {
         // Arrange
         const logSpy = jest.fn();
-        jest.spyOn(dependencies, "getDependencies").mockReturnValue({
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             Log: {...testDependencies.Log, log: logSpy},
         });
@@ -22,7 +22,7 @@ describe("Perseus logging", () => {
     it("should proxy error() calls to the logger obtained from getDependencies", () => {
         // Arrange
         const errorSpy = jest.fn();
-        jest.spyOn(dependencies, "getDependencies").mockReturnValue({
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
             Log: {...testDependencies.Log, error: errorSpy},
         });

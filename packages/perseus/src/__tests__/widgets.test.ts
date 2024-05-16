@@ -1,5 +1,5 @@
 import {testDependencies} from "../../../../testing/test-dependencies";
-import * as dependencies from "../dependencies";
+import * as Dependencies from "../dependencies";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import * as Widgets from "../widgets";
 
@@ -75,7 +75,7 @@ describe("Widget API support", () => {
 
 describe("replaceWidget", () => {
     beforeEach(() => {
-        jest.spyOn(dependencies, "getDependencies").mockReturnValue(
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
         registerAllWidgetsForTesting();
