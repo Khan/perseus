@@ -189,7 +189,49 @@
         format("woff");
 }
 
-.MafsView .axis-ticks text {
+.axis-tick-labels {
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
+    line-height: 1.5em;
+}
+
+.y-axis-tick-labels {
+    width: 1.75em;
+    display: flex;
+    flex-flow: column;
+    transform: translateX(calc(-100% - 0.5em));
+    position: absolute;
+    text-align: right;
+}
+.y-axis-right-of-grid {
+    transform: translateX(calc(50% + 0.5em));
+}
+.x-axis-tick-labels {
+    display: flex;
+    flex-flow: row;
+    flex-direction: row-reverse;
+    position: absolute;
+    transform: translateY(calc(50% - 0.25em));
+}
+.x-axis-top-of-grid {
+    transform: translateY(calc(-100% + 0.25em));
+}
+
+.x-axis-tick-labels span,
+.y-axis-tick-labels span {
+    &::before {
+        content: attr(data-content);
+        position: absolute;
+        transform: translate(-100%);
+    }
+}
+
+.y-axis-tick-labels span {
+    display: inline-block;
+    height: var(--y-axis-label-height, 20px);
+}
+
+.x-axis-tick-labels span {
+    text-align: center;
+    width: var(--x-axis-label-width, 20px);
 }

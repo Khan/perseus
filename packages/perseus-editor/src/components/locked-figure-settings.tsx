@@ -13,8 +13,19 @@ import LockedPointSettings from "./locked-point-settings";
 import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 
+export type AccordionProps = {
+    /**
+     * Whether this accordion is expanded.
+     */
+    expanded?: boolean;
+    /**
+     * Called when the accordion is expanded or collapsed.
+     */
+    onToggle?: (expanded: boolean) => void;
+};
+
 // Union this type with other locked figure types when they are added.
-type Props = LockedPointProps | LockedLineProps;
+type Props = AccordionProps & (LockedPointProps | LockedLineProps);
 
 const LockedFigureSettings = (props: Props) => {
     switch (props.type) {
