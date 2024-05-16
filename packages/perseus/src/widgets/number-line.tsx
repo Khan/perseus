@@ -1,4 +1,5 @@
 import {number as knumber} from "@khanacademy/kmath";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -10,7 +11,6 @@ import SimpleKeypadInput from "../components/simple-keypad-input";
 import InteractiveUtil from "../interactive2/interactive-util";
 import * as Changeable from "../mixins/changeable";
 import {ApiOptions} from "../perseus-api";
-import KhanColors from "../util/colors";
 import KhanMath from "../util/math";
 
 import type {ChangeableProps} from "../mixins/changeable";
@@ -157,7 +157,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         graphie.style(
             props.isMobile
                 ? {
-                      color: KhanColors.BLUE_D,
+                      color: color.blue,
                   }
                 : {},
             () => _label(graphie, props.labelStyle, leftLabel, leftLabel, base),
@@ -168,7 +168,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         graphie.style(
             props.isMobile
                 ? {
-                      color: KhanColors.BLUE_D,
+                      color: color.blue,
                   }
                 : {},
             () =>
@@ -179,7 +179,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     // Render the labels' lines
     graphie.style(
         {
-            stroke: props.isMobile ? KhanColors.BLUE_D : KhanColors.DYNAMIC,
+            stroke: color.blue,
             strokeWidth: 3.5,
         },
         () => {
@@ -472,25 +472,25 @@ class NumberLine extends React.Component<Props, State> {
         // it can't be interacted with.
         let fill;
         if (isOpen) {
-            fill = KhanColors._BACKGROUND;
+            fill = "transparent";
         } else if (props.static) {
-            fill = KhanColors.DYNAMIC;
+            fill = color.blue;
         } else {
-            fill = KhanColors.INTERACTIVE;
+            fill = color.green;
         }
         const normalStyle = {
             fill: fill,
-            stroke: props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
+            stroke: props.static ? color.blue : color.green,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
-            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.INTERACTING,
+            fill: isOpen ? "transparent" : color.green,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
         const mobileDotStyle = props.isInequality
             ? {
-                  stroke: KhanColors.INTERACTIVE,
+                  stroke: color.green,
                   "fill-opacity": isOpen ? 0 : 1,
               }
             : {};
@@ -555,8 +555,8 @@ class NumberLine extends React.Component<Props, State> {
             const style = {
                 arrows: "->",
                 stroke: this.props.apiOptions.isMobile
-                    ? KhanColors.INTERACTIVE
-                    : KhanColors.DYNAMIC,
+                    ? color.green
+                    : color.blue,
                 strokeWidth: 3.5,
             } as const;
 
