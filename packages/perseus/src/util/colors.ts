@@ -6,11 +6,13 @@
  * khan-exercises submodule, as graphie-to-png still relies on the palette
  * provided on KhanUtil.
  */
+import {color} from "@khanacademy/wonder-blocks-tokens";
+
 const KhanColors = {
-    BLUE: "#6495ED",
+    BLUE: color.blue,
     ORANGE: "#FFA500",
     PINK: "#FF00AF",
-    GREEN: "#28AE7B",
+    GREEN: color.green,
     PURPLE: "#9D38BD",
     RED: "#DF0030",
     GRAY: "gray",
@@ -84,10 +86,10 @@ const KhanColors = {
     // Don't actually use _BACKGROUND! Make things transparent instead. The
     // background color used in exercises is subject to change at the whim
     // of any redesigns.
-    _BACKGROUND: "#FDFDFD", // TODO(eater): Get rid of this altogether.
-    INTERACTING: "#71B307", // KA_GREEN
-    INTERACTIVE: "#71B307", // KA_GREEN
-    DYNAMIC: "#6495ED", // BLUE
+    _BACKGROUND: "transparent",
+    INTERACTING: color.green,
+    INTERACTIVE: color.green,
+    DYNAMIC: color.blue,
 } as const;
 
 export default KhanColors;
