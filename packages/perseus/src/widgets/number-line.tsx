@@ -157,7 +157,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         graphie.style(
             props.isMobile
                 ? {
-                      color: KhanColors.BLUE_D,
+                      color: KhanColors.BLUE,
                   }
                 : {},
             () => _label(graphie, props.labelStyle, leftLabel, leftLabel, base),
@@ -168,7 +168,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         graphie.style(
             props.isMobile
                 ? {
-                      color: KhanColors.BLUE_D,
+                      color: KhanColors.BLUE,
                   }
                 : {},
             () =>
@@ -179,7 +179,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     // Render the labels' lines
     graphie.style(
         {
-            stroke: props.isMobile ? KhanColors.BLUE_D : KhanColors.DYNAMIC,
+            stroke: KhanColors.BLUE,
             strokeWidth: 3.5,
         },
         () => {
@@ -474,23 +474,23 @@ class NumberLine extends React.Component<Props, State> {
         if (isOpen) {
             fill = KhanColors._BACKGROUND;
         } else if (props.static) {
-            fill = KhanColors.DYNAMIC;
+            fill = KhanColors.BLUE;
         } else {
-            fill = KhanColors.INTERACTIVE;
+            fill = KhanColors.GREEN;
         }
         const normalStyle = {
             fill: fill,
-            stroke: props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
+            stroke: props.static ? KhanColors.BLUE : KhanColors.GREEN,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
-            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.INTERACTING,
+            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
         const mobileDotStyle = props.isInequality
             ? {
-                  stroke: KhanColors.INTERACTIVE,
+                  stroke: KhanColors.GREEN,
                   "fill-opacity": isOpen ? 0 : 1,
               }
             : {};
@@ -555,8 +555,8 @@ class NumberLine extends React.Component<Props, State> {
             const style = {
                 arrows: "->",
                 stroke: this.props.apiOptions.isMobile
-                    ? KhanColors.INTERACTIVE
-                    : KhanColors.DYNAMIC,
+                    ? KhanColors.GREEN
+                    : KhanColors.BLUE,
                 strokeWidth: 3.5,
             } as const;
 
