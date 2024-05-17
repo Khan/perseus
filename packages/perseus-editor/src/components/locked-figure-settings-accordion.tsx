@@ -9,12 +9,15 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 type Props = {
     children: React.ReactNode | React.ReactNode[];
     header: string | React.ReactElement;
+    expanded?: boolean;
     containerStyle?: StyleType;
     panelStyle?: StyleType;
+    onToggle?: (expanded: boolean) => void;
 };
 
 const LockedFigureSettingsAccordion = (props: Props) => {
-    const {children, header, containerStyle, panelStyle} = props;
+    const {children, header, expanded, containerStyle, panelStyle, onToggle} =
+        props;
 
     return (
         <View
@@ -24,6 +27,8 @@ const LockedFigureSettingsAccordion = (props: Props) => {
             className="locked-figure-accordion"
         >
             <AccordionSection
+                expanded={expanded}
+                onToggle={onToggle}
                 style={[styles.container, containerStyle]}
                 headerStyle={styles.accordionHeader}
                 header={header}

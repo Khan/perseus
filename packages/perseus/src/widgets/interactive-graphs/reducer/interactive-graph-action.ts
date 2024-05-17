@@ -1,5 +1,4 @@
-import type {Props as MafsGraphProps} from "../mafs-graph";
-import type {vec} from "mafs";
+import type {Interval, vec} from "mafs";
 
 export type InteractiveGraphAction =
     | MoveControlPoint
@@ -98,10 +97,10 @@ export function moveRadiusPoint(destination: vec.Vector2): MoveRadiusPoint {
 export const CHANGE_SNAP_STEP = "change-snap-step";
 export interface ChangeSnapStep {
     type: typeof CHANGE_SNAP_STEP;
-    snapStep: MafsGraphProps["snapStep"];
+    snapStep: [x: number, y: number];
 }
 export function changeSnapStep(
-    snapStep: MafsGraphProps["snapStep"],
+    snapStep: [x: number, y: number],
 ): ChangeSnapStep {
     return {
         type: CHANGE_SNAP_STEP,
@@ -112,9 +111,9 @@ export function changeSnapStep(
 export const CHANGE_RANGE = "change-range";
 export interface ChangeRange {
     type: typeof CHANGE_RANGE;
-    range: MafsGraphProps["range"];
+    range: [x: Interval, y: Interval];
 }
-export function changeRange(range: MafsGraphProps["range"]): ChangeRange {
+export function changeRange(range: [x: Interval, y: Interval]): ChangeRange {
     return {
         type: CHANGE_RANGE,
         range,
