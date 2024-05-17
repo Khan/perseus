@@ -4,7 +4,6 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
@@ -12,7 +11,7 @@ import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import Renderer from "../renderer";
 
-import styleModules from "./explanation.module.css";
+import styles from "./explanation.module.css";
 
 import type {PerseusExplanationWidgetOptions} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
@@ -115,8 +114,6 @@ class Explanation extends React.Component<Props, State> {
             "white-space": "normal",
         };
 
-        const styles = true ? styleModules : styleAphrodite;
-
         const contentStyling = [
             styles.content,
             this.state.expanded
@@ -134,7 +131,7 @@ class Explanation extends React.Component<Props, State> {
                 scope="explanation-widget"
             >
                 {(ids) => (
-                    <div className={styles.explanationWrapper}>
+                    <>
                         <Button
                             aria-expanded={this.state.expanded}
                             aria-controls={ids.get("content")}
@@ -148,12 +145,6 @@ class Explanation extends React.Component<Props, State> {
                             {promptText}
                         </Button>
 
-                        {/*<View*/}
-                        {/*    id={ids.get("content")}*/}
-                        {/*    style={contentStyling}*/}
-                        {/*    aria-hidden={!this.state.expanded}*/}
-                        {/*    testId="content-container"*/}
-                        {/*>*/}
                             <div
                                 id="css-modules-test"
                                 className={contentStyling.join(" ")}
@@ -171,8 +162,7 @@ class Explanation extends React.Component<Props, State> {
                                     </div>
                                 </View>
                             </div>
-                        {/*</View>*/}
-                    </div>
+                    </>
                 )}
             </UniqueIDProvider>
         );
@@ -190,54 +180,6 @@ class Explanation extends React.Component<Props, State> {
     const leftBorderSpacing = 23;
     const verticalContentPadding = 10;
 const arrowHeight = 14;
-
-const styleAphrodite = StyleSheet.create({
-    content: {
-        borderLeft: "0px solid #ccc",
-        display: "inline-grid",
-        position: "relative",
-    },
-
-    contentCollapsed: {
-        gridTemplateColumns: "0fr",
-        gridTemplateRows: "0fr",
-        marginBottom: 0,
-        marginTop: 0,
-        minWidth: "0",
-        paddingBottom: 0,
-        visibility: "hidden",
-    },
-
-    contentExpanded: {
-        borderLeftWidth: "5px",
-        gridTemplateColumns: "1fr",
-        gridTemplateRows: "1fr",
-        marginLeft: -leftBorderSpacing,
-        minWidth: "100%",
-        paddingLeft: leftBorderSpacing,
-        paddingBottom: verticalContentPadding,
-        visibility: "visible",
-
-        // Note: we still use arrow height as the vertical margin, even on
-        // desktop when there is no arrow, but it's good enough.
-        marginBottom: arrowHeight,
-        marginTop: arrowHeight,
-    },
-
-    contentWrapper: {
-        overflow: "hidden",
-    },
-
-    transitionCollapsed: {
-        transition:
-            "all 0.25s step-end, grid-template-rows 0.25s, margin-top 0.25s, margin-bottom 0.25s, padding-bottom 0.25s",
-    },
-
-    transitionExpanded: {
-        transition:
-            "grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s",
-    },
-});
 
 export default {
     name: "explanation",
