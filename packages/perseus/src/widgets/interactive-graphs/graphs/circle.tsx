@@ -1,5 +1,4 @@
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import {Circle, useMovable, vec} from "mafs";
+import {useMovable, vec} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
@@ -72,11 +71,12 @@ function MovableCircle(props: {
                 rx={radiiPx[0] + 3}
                 ry={radiiPx[1] + 3}
             />
-            <Circle
-                center={center}
-                radius={radius}
-                fillOpacity={0}
-                color={color.blue}
+            <ellipse
+                className="circle"
+                cx={centerPx[0]}
+                cy={centerPx[1]}
+                rx={radiiPx[0]}
+                ry={radiiPx[1]}
             />
             <DragHandle center={center} />
         </g>
