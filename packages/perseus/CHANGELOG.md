@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 22.5.1
+
+### Patch Changes
+
+-   [#1267](https://github.com/Khan/perseus/pull/1267) [`3977d361a`](https://github.com/Khan/perseus/commit/3977d361a91db647b79d499cc3f5b695af356f74) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove the `markings` property from the interactive graph state
+
+*   [#1266](https://github.com/Khan/perseus/pull/1266) [`478398ff7`](https://github.com/Khan/perseus/commit/478398ff79cdd558256d628edce16cf14efe6f72) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor the MafsGraph components to deduplicate data across props and state
+
 ## 22.5.0
 
 ### Minor Changes
