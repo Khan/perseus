@@ -152,6 +152,17 @@
     cursor: grab;
 }
 
+.MafsView .movable-circle .circle {
+    stroke: var(--mafs-blue);
+    stroke-width: 2px;
+    fill: transparent;
+}
+
+.MafsView .movable-circle:hover .circle {
+    fill: var(--mafs-blue);
+    fill-opacity: 0.16;
+}
+
 .MafsView .movable-circle.movable-circle--dragging {
     cursor: grabbing;
     outline: none;
