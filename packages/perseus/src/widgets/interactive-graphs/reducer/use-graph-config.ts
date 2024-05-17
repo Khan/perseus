@@ -2,8 +2,10 @@ import React, {createContext} from "react";
 
 import type {Interval, vec} from "mafs";
 
-type GraphConfig = {
+export type GraphConfig = {
     range: [Interval, Interval];
+    tickStep: vec.Vector2;
+    gridStep: vec.Vector2;
     snapStep: vec.Vector2;
     markings: "graph" | "grid" | "none";
     showTooltips: boolean;
@@ -18,6 +20,8 @@ const defaultGraphConfig: GraphConfig = {
         [0, 1],
         [0, 1],
     ],
+    tickStep: [1, 1],
+    gridStep: [1, 1],
     snapStep: [1, 1],
     markings: "none",
     showTooltips: false,

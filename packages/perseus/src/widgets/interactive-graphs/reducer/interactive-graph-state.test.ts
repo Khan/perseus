@@ -35,7 +35,6 @@ describe("initializeGraphState for segment graphs", () => {
             step: [1, 1],
             snapStep: [2, 3],
             graph: {type: "segment"},
-            markings: "graph",
         });
         expect(state.range).toEqual([
             [0, 10],
@@ -90,14 +89,43 @@ describe("initializeGraphState for segment graphs", () => {
     });
 });
 
-describe("initializeGraphState for line graphs", () => {
-    it("adds a default line", () => {
+describe("initializeGraphState for linear-system graphs", () => {
+    it("adds default lines if no coords are provided", () => {
         const state = initializeGraphState({
             ...baseGraphData,
             graph: {type: "linear-system"},
         });
 
         // Narrow the type of `graph` so TS knows it will have `coords`.
+        invariant(state.type === "linear-system");
+        expect(state.coords).toEqual([
+            [
+                [-5, 5],
+                [5, 5],
+            ],
+            [
+                [-5, -5],
+                [5, -5],
+            ],
+        ]);
+    });
+
+    it("ignores any provided coords", () => {
+        // This is a characterization test. I don't know if it's desired
+        // behavior, but it's the existing behavior.
+        const state = initializeGraphState({
+            ...baseGraphData,
+            graph: {
+                type: "linear-system",
+                coords: [
+                    [
+                        [1, 2],
+                        [3, 4],
+                    ],
+                ],
+            },
+        });
+
         invariant(state.type === "linear-system");
         expect(state.coords).toEqual([
             [
@@ -214,7 +242,6 @@ describe("getGradableGraph", () => {
                 [-10, 10],
             ],
             snapStep: [1, 1],
-            markings: "graph",
         };
         const initialGraph: PerseusGraphType = {
             type: "segment",

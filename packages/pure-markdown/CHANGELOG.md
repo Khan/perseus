@@ -1,5 +1,12 @@
 # @khanacademy/pure-markdown
 
+## 0.3.4
+
+### Patch Changes
+
+-   Updated dependencies [[`c07644f63`](https://github.com/Khan/perseus/commit/c07644f63957ada78ba60c9b3ecd7b42e289f67b)]:
+    -   @khanacademy/perseus-error@0.3.0
+
 ## 0.3.3
 
 ## 0.3.2
