@@ -23,7 +23,7 @@ const arrowPath = pathBuilder()
 
 export function Arrowhead(props: Props) {
     const [point] = useTransformVectorsToPixels(props.tip);
-    // temp comment
+
     return (
         <g
             className="interactive-graph-arrowhead"
