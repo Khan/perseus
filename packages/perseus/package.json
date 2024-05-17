@@ -46,7 +46,7 @@
         "@khanacademy/perseus-linter": "^0.4.0",
         "@khanacademy/pure-markdown": "^0.3.4",
         "@khanacademy/simple-markdown": "^0.11.4",
-        "mafs": "0.18.5"
+        "mafs": "0.18.6"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-banner": "3.0.42",
