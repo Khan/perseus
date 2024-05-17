@@ -9,6 +9,9 @@
     /* Grid lines */
     --mafs-line-color: rgba(33, 36, 44, 0.16); /* WB color.offBlack16*/
 
+    /* Axis lines */
+    --mafs-axis-stroke-width: 2px;
+
     --mafs-blue: #1865f2; /* WB color.blue */
     --mafs-red: #d92916; /* WB color.red */
     --mafs-green: #00a60e; /* WB color.green */
@@ -150,6 +153,17 @@
 
 .MafsView .movable-circle {
     cursor: grab;
+}
+
+.MafsView .movable-circle .circle {
+    stroke: var(--mafs-blue);
+    stroke-width: 2px;
+    fill: transparent;
+}
+
+.MafsView .movable-circle:hover .circle {
+    fill: var(--mafs-blue);
+    fill-opacity: 0.16;
 }
 
 .MafsView .movable-circle.movable-circle--dragging {

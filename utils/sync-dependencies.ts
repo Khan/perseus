@@ -18,7 +18,7 @@ function printHelp() {
     package.json file. Typically, this would be the package.json file from the
     hosting web application (ie. webapp).
 `);
-    console.log("usage: sync-peer-dependencies <package.json>");
+    console.log("usage: sync-dependencies <package.json>");
 }
 
 // Package version regexes that we don't want to sync in
@@ -102,6 +102,7 @@ function main(argv: string[]) {
 
         syncPackageDependencies(targetVersions, pkg.peerDependencies);
         syncPackageDependencies(targetVersions, pkg.devDependencies);
+        syncPackageDependencies(targetVersions, pkg.dependencies);
 
         // NOTE: We have to manually make sure there's a newline at end of file!
         fs.writeFileSync(f, JSON.stringify(pkg, undefined, 4) + "\n", {
