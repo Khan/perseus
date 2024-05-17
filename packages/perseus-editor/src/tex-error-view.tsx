@@ -1,8 +1,8 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import caretRight from "@phosphor-icons/core/bold/caret-right-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import ToggleableCaret from "./components/toggleable-caret";
 
 type Props = {
     errorList: ReadonlyArray<{math: string; message: string}>;
@@ -28,14 +28,10 @@ class TexErrorView extends React.Component<Props, State> {
         const {errorList} = this.props;
         const {showErrors} = this.state;
 
-        const iconStyle = showErrors
-            ? styles.iconExpanded
-            : styles.iconCollapsed;
-
         return (
             <View style={styles.errorContainer}>
                 <View style={styles.title} onClick={this.handleToggleTexErrors}>
-                    <PhosphorIcon icon={caretRight} style={iconStyle} />
+                    <ToggleableCaret isExpanded={showErrors} />
                     &nbsp; TeX Errors ({errorList.length})
                 </View>
                 {showErrors && (
@@ -77,13 +73,6 @@ const styles = StyleSheet.create({
     },
     error: {
         padding: "4px 10px",
-    },
-    iconCollapsed: {
-        transition: ".15s",
-    },
-    iconExpanded: {
-        transform: "rotate(90deg)",
-        transition: ".15s",
     },
 });
 

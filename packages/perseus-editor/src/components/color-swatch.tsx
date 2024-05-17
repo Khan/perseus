@@ -18,7 +18,7 @@ const ColorSwatch = (props: Props) => {
             aria-label={
                 // Don't include an aria label for decorative circles.
                 !decorative
-                    ? `Color: ${color}, ${filled ? "filled" : "open"}`
+                    ? `${color}, ${filled ? "filled" : "open"}`
                     : undefined
             }
             style={[

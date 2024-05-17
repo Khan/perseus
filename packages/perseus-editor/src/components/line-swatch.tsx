@@ -35,8 +35,6 @@ const styles = StyleSheet.create({
         borderRadius: spacing.xxxSmall_4,
     },
     lineSwatch: {
-        // Add a white outline so that the color swatch is visible when
-        // the dropdown option is highlighted with its blue background.
         width: 40,
     },
 });

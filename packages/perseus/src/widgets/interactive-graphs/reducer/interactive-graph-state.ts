@@ -25,18 +25,16 @@ export type InitializeGraphStateParam = {
     step: InteractiveGraphProps["step"];
     snapStep: InteractiveGraphProps["snapStep"];
     graph: InteractiveGraphProps["graph"];
-    markings: InteractiveGraphProps["markings"];
 };
 
 export function initializeGraphState(
     params: InitializeGraphStateParam,
 ): InteractiveGraphState {
-    const {graph, step, snapStep, range, markings} = params;
+    const {graph, step, snapStep, range} = params;
     const shared = {
         hasBeenInteractedWith: false,
         range,
         snapStep,
-        markings,
     };
     switch (graph.type) {
         case "segment":
@@ -297,13 +295,20 @@ const getLineCoords = ({
     graph,
     range,
     step,
-}: getLineCoordsArg): PairOfPoints[] =>
-    // Return two lines for a linear system, one for a ray or linear
-    graph.coords ?? graph.type === "linear-system"
-        ? defaultLinearCoords.map((collinear) =>
-              normalizePoints(range, step, collinear),
-          )
-        : [normalizePoints(range, step, defaultLinearCoords[0])];
+}: getLineCoordsArg): PairOfPoints[] => {
+    //  Return two lines for a linear system, one for a ray or linear
+    switch (graph.type) {
+        case "linear-system":
+            return defaultLinearCoords.map((points) =>
+                normalizePoints(range, step, points),
+            );
+        case "linear":
+        case "ray":
+            return [normalizePoints(range, step, defaultLinearCoords[0])];
+        default:
+            throw new UnreachableCaseError(graph);
+    }
+};
 
 type getPolygonCoordsArg = {
     graph: PerseusGraphTypePolygon;

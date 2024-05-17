@@ -833,4 +833,42 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
     });
+
+    describe("accordion states", () => {
+        test("should show expand all button if figure is deleted and others are collapsed", async () => {
+            // Arrange
+            jest.spyOn(window, "confirm").mockImplementation(
+                // Confirm button clicked
+                () => true,
+            );
+            render(
+                <InteractiveGraphEditor
+                    {...mafsProps}
+                    onChange={() => {}}
+                    lockedFigures={[defaultPoint, defaultLine]}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Act
+            // Open the accordion to delete the figure
+            const lineHeader = screen.getByRole("button", {
+                name: "Line (0, 0), (2, 2) grayH, solid",
+            });
+            await userEvent.click(lineHeader);
+
+            // Delete the figure
+            const deleteButton = screen.getByRole("button", {
+                name: "Delete locked line defined by 0, 0 and 2, 2.",
+            });
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(
+                screen.getByRole("button", {name: "Expand all"}),
+            ).toBeInTheDocument();
+        });
+    });
 });

@@ -195,7 +195,11 @@ jobs:
 
     upload_coverage:
         name: Upload Coverage
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
         needs: [cypress, coverage]
         steps:
             - uses: actions/checkout@v4

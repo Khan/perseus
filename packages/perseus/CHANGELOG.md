@@ -1,5 +1,60 @@
 # @khanacademy/perseus
 
+## 22.5.1
+
+### Patch Changes
+
+-   [#1267](https://github.com/Khan/perseus/pull/1267) [`3977d361a`](https://github.com/Khan/perseus/commit/3977d361a91db647b79d499cc3f5b695af356f74) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove the `markings` property from the interactive graph state
+
+*   [#1266](https://github.com/Khan/perseus/pull/1266) [`478398ff7`](https://github.com/Khan/perseus/commit/478398ff79cdd558256d628edce16cf14efe6f72) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor the MafsGraph components to deduplicate data across props and state
+
+## 22.5.0
+
+### Minor Changes
+
+-   [#1259](https://github.com/Khan/perseus/pull/1259) [`c07644f63`](https://github.com/Khan/perseus/commit/c07644f63957ada78ba60c9b3ecd7b42e289f67b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update all Perseus peer dependencies to match webapp exactly (commit: 2bd290251a8)
+    -   @khanacademy/wonder-blocks-banner v3.0.42
+    -   @khanacademy/wonder-blocks-button v6.3.1
+    -   @khanacademy/wonder-blocks-clickable v4.2.1
+    -   @khanacademy/wonder-blocks-core v6.4.0
+    -   @khanacademy/wonder-blocks-data v13.0.7
+    -   @khanacademy/wonder-blocks-dropdown v5.3.0
+    -   @khanacademy/wonder-blocks-form v4.5.1
+    -   @khanacademy/wonder-blocks-icon v4.1.0
+    -   @khanacademy/wonder-blocks-layout v2.0.32
+    -   @khanacademy/wonder-blocks-link v6.1.1
+    -   @khanacademy/wonder-blocks-pill v2.2.1
+    -   @khanacademy/wonder-blocks-popover v3.2.2
+    -   @khanacademy/wonder-blocks-progress-spinner v2.1.1
+    -   @khanacademy/wonder-blocks-switch v1.1.16
+    -   @khanacademy/wonder-blocks-tokens v1.3.0
+    -   @khanacademy/wonder-blocks-tooltip v2.3.1
+    -   @khanacademy/wonder-blocks-typography v2.1.11
+    -   @khanacademy/wonder-stuff-core v1.5.2
+    -   @popperjs/core v^2.10.2
+    -   classnames v1.1.4
+    -   create-react-class v15.6.3
+    -   katex v0.11.1
+    -   prop-types v15.6.1
+    -   react-popper v^2.2.5
+
+*   [#1261](https://github.com/Khan/perseus/pull/1261) [`f92c52412`](https://github.com/Khan/perseus/commit/f92c524129294c1940c95d5134477c1d0e6193b1) Thanks [@Myranae](https://github.com/Myranae)! - Fix bug where arrow keys did not move all line segments
+
+### Patch Changes
+
+-   [#1256](https://github.com/Khan/perseus/pull/1256) [`9e2f404bb`](https://github.com/Khan/perseus/commit/9e2f404bb52ab599c61a5c322bed492e4568b8ae) Thanks [@benchristel](https://github.com/benchristel)! - Update the styling of interactive circle graphs rendered with Mafs
+
+*   [#1263](https://github.com/Khan/perseus/pull/1263) [`1f03243ba`](https://github.com/Khan/perseus/commit/1f03243ba7ed5a9fe82b1b272bfce4ae4be68212) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in Mafs linear graphs where the arrows on the ends of the lines would sometimes disappear or flip around
+
+-   [#1260](https://github.com/Khan/perseus/pull/1260) [`896a159a6`](https://github.com/Khan/perseus/commit/896a159a6f602f2453a9e69af0ca73e7081dfc02) Thanks [@nishasy](https://github.com/nishasy)! - Rename "start point" and "end point" to "point 1" and "point 2" respectively in Interactive Graph locked line settings
+
+*   [#1250](https://github.com/Khan/perseus/pull/1250) [`3806759ea`](https://github.com/Khan/perseus/commit/3806759ea4f140724a820d619604d8ef221059f2) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor MovableLine component
+
+*   Updated dependencies [[`c07644f63`](https://github.com/Khan/perseus/commit/c07644f63957ada78ba60c9b3ecd7b42e289f67b), [`c07644f63`](https://github.com/Khan/perseus/commit/c07644f63957ada78ba60c9b3ecd7b42e289f67b)]:
+    -   @khanacademy/perseus-linter@0.4.0
+    -   @khanacademy/math-input@19.1.0
+    -   @khanacademy/pure-markdown@0.3.4
+
 ## 22.4.2
 
 ### Patch Changes

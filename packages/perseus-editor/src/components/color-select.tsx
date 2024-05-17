@@ -1,5 +1,5 @@
 import {lockedFigureColors} from "@khanacademy/perseus";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
@@ -14,15 +14,16 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 const possibleColors = Object.keys(lockedFigureColors) as LockedFigureColor[];
 
 type Props = {
-    // Required ID so that the label can be associated with the select.
-    id: string;
     selectedValue: LockedFigureColor;
     style?: StyleType;
     onChange: (newValue: string) => void;
 };
 
 const ColorSelect = (props: Props) => {
-    const {id, selectedValue, style, onChange} = props;
+    const {selectedValue, style, onChange} = props;
+
+    const ids = useUniqueIdWithMock();
+    const id = ids.get("color-select");
 
     return (
         <View style={[styles.row, style]}>
