@@ -137,10 +137,9 @@ type LineProps = {
 
 const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
-    const midpoint = vec.midpoint(start, end);
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
-    const {range, graphDimensionsInPixels} = useGraphConfig();
+    const {range, graphDimensionsInPixels, snapStep} = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
@@ -148,21 +147,21 @@ const Line = (props: LineProps) => {
     if (extend) {
         const trimmedRange = trimRange(range, graphDimensionsInPixels);
         startExtend = extend.start
-            ? getIntersectionOfRayWithBox(start, end, trimmedRange)
+            ? getIntersectionOfRayWithBox(end, start, trimmedRange)
             : undefined;
         endExtend = extend.end
-            ? getIntersectionOfRayWithBox(end, start, trimmedRange)
+            ? getIntersectionOfRayWithBox(start, end, trimmedRange)
             : undefined;
     }
 
     const line = useRef<SVGGElement>(null);
     const {dragging} = useMovable({
         gestureTarget: line,
-        point: midpoint,
+        point: start,
         onMove: (newPoint) => {
-            onMove(vec.sub(newPoint, midpoint));
+            onMove(vec.sub(newPoint, start));
         },
-        constrain: (p) => p,
+        constrain: (p) => snap(snapStep, p),
     });
 
     return (

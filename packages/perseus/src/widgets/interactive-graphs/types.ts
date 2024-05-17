@@ -37,7 +37,6 @@ export interface InteractiveGraphStateCommon {
     range: [xRange: Interval, yRange: Interval];
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
-    markings: InteractiveGraphProps["markings"];
 }
 
 export interface SegmentGraphState extends InteractiveGraphStateCommon {
@@ -74,3 +73,9 @@ export interface CircleGraphState extends InteractiveGraphStateCommon {
 }
 
 export type PairOfPoints = [Coord, Coord];
+
+export type GraphDimensions = {
+    range: [Interval, Interval];
+    width: number; // pixels
+    height: number; // pixels
+};

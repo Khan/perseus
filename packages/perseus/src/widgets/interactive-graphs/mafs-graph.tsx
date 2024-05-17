@@ -13,6 +13,7 @@ import {
     SegmentGraph,
     CircleGraph,
 } from "./graphs";
+import {AxisTickLabels} from "./graphs/components/axis-tick-labels";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
@@ -32,11 +33,12 @@ import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {Widget} from "../../renderer";
+import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
 
-export type Props = {
+export type StatefulMafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: InteractiveGraphProps["graph"];
@@ -100,50 +102,30 @@ function mafsStateToInteractiveGraph(state: MafsChange) {
     };
 }
 
-export const StatefulMafsGraph = React.forwardRef<Partial<Widget>, Props>(
-    (props, ref) => {
-        const [state, dispatch] = React.useReducer(
-            interactiveGraphReducer,
-            props,
-            initializeGraphState,
-        );
+export const StatefulMafsGraph = React.forwardRef<
+    Partial<Widget>,
+    StatefulMafsGraphProps
+>((props, ref) => {
+    const {onChange} = props;
 
-        useImperativeHandle(ref, () => ({
-            getUserInput: () => getGradableGraph(state, props.graph),
-        }));
+    const [state, dispatch] = React.useReducer(
+        interactiveGraphReducer,
+        props,
+        initializeGraphState,
+    );
 
-        function onChange(next: MafsChange) {
-            props.onChange(mafsStateToInteractiveGraph(next));
-        }
-
-        return (
-            <MafsGraph
-                {...props}
-                state={state}
-                dispatch={dispatch}
-                onChange={onChange}
-            />
-        );
-    },
-);
-
-type MafsGraphProps = Props & {
-    state: InteractiveGraphState;
-    dispatch: React.Dispatch<InteractiveGraphAction>;
-};
-
-export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch, labels} = props;
-    const [width, height] = props.box;
+    useImperativeHandle(ref, () => ({
+        getUserInput: () => getGradableGraph(state, props.graph),
+    }));
 
     const prevState = useRef<InteractiveGraphState>(state);
 
     useEffect(() => {
         if (prevState.current !== state) {
-            props.onChange({graph: state});
+            onChange(mafsStateToInteractiveGraph({graph: state}));
         }
         prevState.current = state;
-    }, [props, state]);
+    }, [onChange, state]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
@@ -162,12 +144,35 @@ export const MafsGraph = (props: MafsGraphProps) => {
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
+    return <MafsGraph {...props} state={state} dispatch={dispatch} />;
+});
+
+export type MafsGraphProps = {
+    box: [number, number];
+    backgroundImage?: InteractiveGraphProps["backgroundImage"];
+    lockedFigures?: InteractiveGraphProps["lockedFigures"];
+    step: InteractiveGraphProps["step"];
+    gridStep: InteractiveGraphProps["gridStep"];
+    containerSizeClass: InteractiveGraphProps["containerSizeClass"];
+    markings: InteractiveGraphProps["markings"];
+    showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    labels: InteractiveGraphProps["labels"];
+    state: InteractiveGraphState;
+    dispatch: React.Dispatch<InteractiveGraphAction>;
+};
+
+export const MafsGraph = (props: MafsGraphProps) => {
+    const {state, dispatch, labels} = props;
+    const [width, height] = props.box;
+    const tickStep = props.step as vec.Vector2;
     return (
         <GraphConfigContext.Provider
             value={{
                 range: state.range,
                 snapStep: state.snapStep,
                 markings: props.markings,
+                tickStep: tickStep,
+                gridStep: props.gridStep,
                 showTooltips: !!props.showTooltips,
                 graphDimensionsInPixels: props.box,
                 width,
@@ -183,6 +188,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     position: "relative",
                     padding: "25px 25px 0 0",
                     boxSizing: "content-box",
+                    marginLeft: "20px",
+                    marginBottom: "20px",
                 }}
             >
                 <LegacyGrid
@@ -196,12 +203,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         left: 0,
                     }}
                 >
-                    {props.markings === "graph" && <AxisLabels />}
+                    {props.markings === "graph" && (
+                        <>
+                            <AxisLabels />
+                            <AxisTickLabels />
+                        </>
+                    )}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
-                            x: props.range[0],
-                            y: props.range[1],
+                            x: state.range[0],
+                            y: state.range[1],
                             padding: 0,
                         }}
                         pan={false}
@@ -216,7 +228,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         <Grid
                             tickStep={props.step}
                             gridStep={props.gridStep}
-                            range={props.range}
+                            range={state.range}
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
                         />
@@ -225,7 +237,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {props.lockedFigures && (
                             <GraphLockedLayer
                                 lockedFigures={props.lockedFigures}
-                                range={props.range}
+                                range={state.range}
                             />
                         )}
 

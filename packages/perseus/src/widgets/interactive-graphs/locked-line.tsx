@@ -28,8 +28,8 @@ const LockedLine = (props: Props) => {
     if (kind === "ray") {
         // Rays extend to the end of the graph in one direction.
         const extendedPoint = getIntersectionOfRayWithBox(
-            point2.coord,
             point1.coord,
+            point2.coord,
             range,
         );
         line = (
@@ -52,8 +52,8 @@ const LockedLine = (props: Props) => {
             kind === "segment"
                 ? point2.coord
                 : getIntersectionOfRayWithBox(
-                      point2.coord,
                       point1.coord,
+                      point2.coord,
                       range,
                   );
         const direction = vec.sub(point2.coord, point1.coord);
@@ -70,8 +70,8 @@ const LockedLine = (props: Props) => {
             kind === "segment"
                 ? point1.coord
                 : getIntersectionOfRayWithBox(
-                      point1.coord,
                       point2.coord,
+                      point1.coord,
                       range,
                   );
         angle = angle > 180 ? angle - 180 : angle + 180;

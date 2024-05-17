@@ -3,7 +3,7 @@
     "description": "Custom PerseusError class",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.2.11",
+    "version": "0.3.0",
     "publishConfig": {
         "access": "public"
     },
@@ -28,10 +28,10 @@
         "@khanacademy/perseus-core": "1.4.2"
     },
     "devDependencies": {
-        "@khanacademy/wonder-stuff-core": "^1.5.1"
+        "@khanacademy/wonder-stuff-core": "1.5.2"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-stuff-core": "^1.5.1"
+        "@khanacademy/wonder-stuff-core": "1.5.2"
     },
     "keywords": []
 }
