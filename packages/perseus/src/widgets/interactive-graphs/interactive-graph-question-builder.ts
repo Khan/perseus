@@ -1,4 +1,10 @@
-import type {PerseusGraphType, PerseusRenderer} from "../../perseus-types";
+import type {
+    LockedFigure,
+    LockedLineType,
+    LockedPointType,
+    PerseusGraphType,
+    PerseusRenderer,
+} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
@@ -15,6 +21,7 @@ class InteractiveGraphQuestionBuilder {
     private tickStep: vec.Vector2 = [1, 1];
     private interactiveFigureConfig: InteractiveFigureConfig =
         new SegmentGraphConfig(1);
+    private lockedFigures: LockedFigure[] = [];
 
     build(): PerseusRenderer {
         return {
@@ -36,6 +43,7 @@ class InteractiveGraphQuestionBuilder {
                         showRuler: false,
                         snapStep: this.snapStep,
                         step: this.tickStep,
+                        lockedFigures: this.lockedFigures,
                     },
                     type: "interactive-graph",
                     version: {
@@ -92,6 +100,41 @@ class InteractiveGraphQuestionBuilder {
     withCircle(): InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new CircleGraphConfig();
         return this;
+    }
+
+    // TODO(benchristel): if we want other attributes of locked points to be
+    // configurable in the future, we can add an `options` param to this method.
+    addLockedPointAt(x: number, y: number): InteractiveGraphQuestionBuilder {
+        this.addLockedFigure(this.createLockedPoint(x, y));
+        return this;
+    }
+
+    addLockedLine(
+        point1: vec.Vector2,
+        point2: vec.Vector2,
+    ): InteractiveGraphQuestionBuilder {
+        const line: LockedLineType = {
+            type: "line",
+            kind: "line",
+            showPoint1: true,
+            showPoint2: true,
+            color: "green",
+            lineStyle: "solid",
+            points: [
+                this.createLockedPoint(...point1),
+                this.createLockedPoint(...point2),
+            ],
+        };
+        this.addLockedFigure(line);
+        return this;
+    }
+
+    private createLockedPoint(x: number, y: number): LockedPointType {
+        return {type: "point", coord: [x, y], color: "green", filled: true};
+    }
+
+    private addLockedFigure(figure: LockedFigure) {
+        this.lockedFigures = [...this.lockedFigures, figure];
     }
 }
 

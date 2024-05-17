@@ -171,6 +171,24 @@ export const MafsCircleGraphWithNonsquareRange = (
     </div>
 );
 
+export const MafsWithLockedPoints = (args: StoryArgs): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder()
+            .addLockedPointAt(3, 2)
+            .addLockedPointAt(-1, 1)
+            .addLockedPointAt(0, -4)
+            .build()}
+    />
+);
+
+export const MafsWithLockedLine = (args: StoryArgs): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder()
+            .addLockedLine([-1, 1], [2, 3])
+            .build()}
+    />
+);
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
