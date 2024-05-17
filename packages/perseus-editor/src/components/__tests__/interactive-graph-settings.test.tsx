@@ -29,7 +29,7 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("common graph settings by default", async () => {
+    test("common graph settings are shown, by default", async () => {
         // Arrange
         // Act
         render(<InteractiveGraphSettings onChange={() => {}} />);
@@ -49,7 +49,7 @@ describe("InteractiveGraphSettings", () => {
         expect(screen.queryByText("x Label")).not.toBeInTheDocument();
     });
 
-    test("hides common graph settings when heading clicked a second time", async () => {
+    test("shows common graph settings when heading clicked a second time", async () => {
         // Arrange
         render(<InteractiveGraphSettings onChange={() => {}} />);
         await userEvent.click(screen.getByText("Common Graph Settings"));
