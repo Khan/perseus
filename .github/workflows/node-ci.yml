@@ -48,7 +48,7 @@ jobs:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Verify changeset entries
-              uses: Khan/changeset-per-package@v1.0.1
+              uses: Khan/changeset-per-package@v1.0.2
               with:
                   changed_files: ${{ steps.match.outputs.filtered }}
 
