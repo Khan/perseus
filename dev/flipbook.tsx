@@ -5,7 +5,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
-import {useTimeout} from "@khanacademy/wonder-blocks-timing";
+import {SchedulePolicy, useTimeout} from "@khanacademy/wonder-blocks-timing";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import Toolbar from "@khanacademy/wonder-blocks-toolbar";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
@@ -25,16 +25,16 @@ import {trueForAllMafsSupportedGraphTypes} from "../packages/perseus/src/widgets
 import {EditableControlledInput} from "./editable-controlled-input";
 import {
     flipbookModelReducer,
+    jumpToQuestion,
+    loadQuestionsFromStorage,
     next,
     previous,
     removeCurrentQuestion,
-    selectCurrentQuestionIndex,
     selectCurrentQuestion,
-    setQuestions,
-    selectNumQuestions,
-    jumpToQuestion,
     selectCurrentQuestionAsJSON,
-    loadQuestionsFromStorage,
+    selectCurrentQuestionIndex,
+    selectNumQuestions,
+    setQuestions,
 } from "./flipbook-model";
 import {Header} from "./header";
 
@@ -267,7 +267,9 @@ function GradableRenderer(props: QuestionRendererProps) {
     const rendererRef = useRef<Renderer>(null);
     const [score, setScore] = useState<PerseusScore>();
 
-    useTimeout(() => setScore(undefined), 2500, !!score);
+    const clearScoreTimeout = useTimeout(() => setScore(undefined), 2500, {
+        schedulePolicy: SchedulePolicy.OnDemand,
+    });
 
     function describeScore(score: PerseusScore): string {
         switch (score.type) {
@@ -316,7 +318,10 @@ function GradableRenderer(props: QuestionRendererProps) {
             <Toolbar
                 leftContent={
                     <Button
-                        onClick={() => setScore(rendererRef.current?.score())}
+                        onClick={() => {
+                            setScore(rendererRef.current?.score());
+                            clearScoreTimeout.set();
+                        }}
                     >
                         Check answer
                     </Button>

@@ -129,8 +129,8 @@ const LockedLineSettings = (props: Props) => {
                     placeholder=""
                 >
                     <OptionItem value="line" label="line" />
-                    <OptionItem value="segment" label="segment" />
                     <OptionItem value="ray" label="ray" />
+                    <OptionItem value="segment" label="segment" />
                 </SingleSelect>
             </View>
 

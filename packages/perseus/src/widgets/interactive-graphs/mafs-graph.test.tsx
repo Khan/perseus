@@ -5,7 +5,7 @@ import React from "react";
 import invariant from "tiny-invariant";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {setDependencies} from "../../dependencies";
+import * as Dependencies from "../../dependencies";
 
 import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
 import {movePoint} from "./reducer/interactive-graph-action";
@@ -30,7 +30,6 @@ function getBaseMafsGraphProps(): MafsGraphProps {
             type: "segment",
             hasBeenInteractedWith: false,
             coords: [],
-            markings: "none",
             snapStep: [1, 1],
             range: [
                 [-10, 10],
@@ -74,7 +73,9 @@ function createFakeStore<S, A>(reducer: (state: S, action: A) => S, state: S) {
 describe("StatefulMafsGraph", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
-        setDependencies(testDependencies);
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
@@ -138,14 +139,15 @@ describe("MafsGraph", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-        setDependencies(testDependencies);
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
     });
 
     it("renders", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -188,7 +190,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -215,7 +216,7 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        const axisLabel = screen.queryAllByText("-2");
+        const axisLabel = screen.queryAllByText("2");
 
         // There are two axis labels, one for each axis
         expect(axisLabel[0]).toBeInTheDocument();
@@ -227,7 +228,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "segment",
-            markings: "none",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -255,8 +255,238 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        const axisLabel = screen.queryByText("-2");
+        const axisLabel = screen.queryByText("2");
         expect(axisLabel).not.toBeInTheDocument();
+    });
+
+    it("should render the y-axis tick labels to the left of the graph when the xMin > 0", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [5, 15],
+                [1, 20],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={state}
+                dispatch={mockDispatch}
+            />,
+        );
+
+        // Assert
+        const yAxis = screen.getByTestId("y-axis-tick-labels");
+        const axisLabelStyle = getComputedStyle(yAxis);
+        expect(yAxis).not.toHaveClass("y-axis-right-of-grid");
+        // The left position of the left-sided axis label calculates to 0px
+        expect(axisLabelStyle.getPropertyValue("left")).toEqual(
+            "calc(0px - 0em)",
+        );
+    });
+
+    it("should render the y-axis tick labels to the right of the graph when the xMax < 0", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-15, -5],
+                [1, 20],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={state}
+                dispatch={mockDispatch}
+            />,
+        );
+
+        // Assert
+        const yAxis = screen.getByTestId("y-axis-tick-labels");
+        const axisLabelStyle = getComputedStyle(yAxis);
+        expect(yAxis).toHaveClass("y-axis-right-of-grid");
+        // The left position of the right-sided axis label is the width
+        // of the graph minus the width of the label
+        expect(axisLabelStyle.getPropertyValue("left")).toEqual(
+            "calc(400px - 1em)",
+        );
+    });
+
+    it("should align x-axis labels below the graph when yMin > 0", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [1, 20],
+                [5, 15],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={state}
+                dispatch={mockDispatch}
+            />,
+        );
+
+        // Assert
+        const yAxis = screen.getByTestId("x-axis-tick-labels");
+        const axisLabelStyle = getComputedStyle(yAxis);
+        expect(yAxis).not.toHaveClass("x-axis-top-of-grid");
+        // The left position of the right-sided axis label is the width
+        // of the graph minus the width of the label
+        expect(axisLabelStyle.getPropertyValue("top")).toEqual("400px");
+    });
+
+    it("should align x-axis labels above the graph when yMax < 0", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-20, -1],
+                [-15, -5],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [-7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={state}
+                dispatch={mockDispatch}
+            />,
+        );
+
+        // Assert
+        const yAxis = screen.getByTestId("x-axis-tick-labels");
+        const axisLabelStyle = getComputedStyle(yAxis);
+        expect(yAxis).toHaveClass("x-axis-top-of-grid");
+        // The left position of the right-sided axis label is the width
+        // of the graph minus the width of the label
+        expect(axisLabelStyle.getPropertyValue("top")).toEqual("0px");
+    });
+
+    it("should render 0 label when the y-axis is to the left of the graph", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [5, 15],
+                [-5, 20],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={state}
+                dispatch={mockDispatch}
+            />,
+        );
+
+        // Assert
+        // Assert
+        const zeroLabel = screen.queryByText("0");
+        expect(zeroLabel).toBeInTheDocument();
+    });
+
+    it("should not render the 0 label when the y-axis is right of the graph", () => {
+        // Arrange
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "segment",
+            hasBeenInteractedWith: true,
+            range: [
+                [-15, -5],
+                [1, 20],
+            ],
+            snapStep: [0.5, 0.5],
+            coords: [
+                [
+                    [0, 0],
+                    [7, 0.5],
+                ],
+            ],
+        };
+
+        const baseMafsGraphProps = getBaseMafsGraphProps();
+
+        // Act
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={state}
+                dispatch={mockDispatch}
+            />,
+        );
+
+        // Assert
+        const zeroLabel = screen.queryByText("0");
+        expect(zeroLabel).not.toBeInTheDocument();
     });
 
     /**
@@ -269,7 +499,6 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "point",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -316,7 +545,6 @@ describe("MafsGraph", () => {
     it("MovableLine moves down based on down keystroke ", async () => {
         const initialState: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -368,7 +596,6 @@ describe("MafsGraph", () => {
     it("MovableLine moves up based on up keystroke ", async () => {
         const initialState: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -420,7 +647,6 @@ describe("MafsGraph", () => {
     it("MovableLine moves right based on right keystroke ", async () => {
         const initialState: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -472,7 +698,6 @@ describe("MafsGraph", () => {
     it("MovableLine moves left based on left keystroke ", async () => {
         const initialState: InteractiveGraphState = {
             type: "segment",
-            markings: "graph",
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
