@@ -340,6 +340,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
+              stroke-width="2px"
               style="stroke: var(--movable-line-stroke-color);"
             />
           </g>
@@ -366,6 +367,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
+              stroke-width="2px"
               style="stroke: var(--movable-line-stroke-color);"
             />
           </g>
