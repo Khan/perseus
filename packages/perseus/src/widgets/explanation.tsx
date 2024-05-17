@@ -134,7 +134,7 @@ class Explanation extends React.Component<Props, State> {
                 scope="explanation-widget"
             >
                 {(ids) => (
-                    <>
+                    <div className={styles.explanationWrapper}>
                         <Button
                             aria-expanded={this.state.expanded}
                             aria-controls={ids.get("content")}
@@ -172,7 +172,7 @@ class Explanation extends React.Component<Props, State> {
                                 </View>
                             </div>
                         {/*</View>*/}
-                    </>
+                    </div>
                 )}
             </UniqueIDProvider>
         );

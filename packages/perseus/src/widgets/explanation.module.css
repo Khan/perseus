@@ -4,6 +4,23 @@
     position: relative;
 }
 
+.content a {
+    color: green;
+}
+
+.content a[href^="http"]:after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background-image: url("/node_modules/@phosphor-icons/core/assets/regular/arrow-square-out.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-left: 4px;
+}
+
 .content-collapsed {
     grid-template-columns: 0fr;
     grid-template-rows: 0fr;
@@ -37,4 +54,18 @@
 .transition-expanded {
     transition:
             grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s;
+}
+
+/*button > div > span {*/
+/*    background-color: green !important;*/
+/*    width: 20px !important;*/
+/*    height: 20px !important;*/
+/*}*/
+
+@layer perseus {
+    button > div > span {
+        background-color: green !important;
+        width: 20px !important;
+        height: 20px !important;
+    }
 }
