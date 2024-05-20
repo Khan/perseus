@@ -155,6 +155,17 @@
     cursor: grab;
 }
 
+.MafsView .movable-circle .circle {
+    stroke: var(--mafs-blue);
+    stroke-width: 2px;
+    fill: transparent;
+}
+
+.MafsView .movable-circle:hover .circle {
+    fill: var(--mafs-blue);
+    fill-opacity: 0.16;
+}
+
 .MafsView .movable-circle.movable-circle--dragging {
     cursor: grabbing;
     outline: none;
@@ -196,6 +207,10 @@
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
     line-height: 1.5em;
+    /* Prevent labels from being selected, and from interfering with click and
+     * drag interactions on the graph. */
+    user-select: none;
+    pointer-events: none;
 }
 
 .y-axis-tick-labels {
