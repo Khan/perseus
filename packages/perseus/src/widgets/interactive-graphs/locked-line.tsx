@@ -6,6 +6,7 @@ import {lockedFigureColors} from "../../perseus-types";
 
 import {Arrowhead} from "./graphs/components/arrowhead";
 import {Vector} from "./graphs/components/vector";
+import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {
     calculateAngleInDegrees,
     getIntersectionOfRayWithBox,
@@ -56,7 +57,12 @@ const LockedLine = (props: Props) => {
                       point2.coord,
                       range,
                   );
-        const direction = vec.sub(point2.coord, point1.coord);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const [tailPx, tipPx] = useTransformVectorsToPixels(
+            point2.coord,
+            point1.coord,
+        );
+        const direction = vec.sub(tailPx, tipPx);
         let angle = calculateAngleInDegrees(direction);
         const startArrowHead = kind !== "segment" && (
             <Arrowhead

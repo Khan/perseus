@@ -27,7 +27,7 @@ export function Arrowhead(props: Props) {
     return (
         <g
             className="interactive-graph-arrowhead"
-            transform={`translate(${point[0]} ${point[1]}) rotate(${-props.angle})`}
+            transform={`translate(${point[0]} ${point[1]}) rotate(${props.angle})`}
         >
             <g transform="translate(-1.5)">
                 <path

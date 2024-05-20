@@ -17,7 +17,7 @@ type Props = {
 export function Vector(props: Props) {
     const {tail, tip, color, style} = props;
     const [tailPx, tipPx] = useTransformVectorsToPixels(tail, tip);
-    const direction = vec.sub(tip, tail);
+    const direction = vec.sub(tipPx, tailPx);
     const angle = calculateAngleInDegrees(direction);
 
     return (

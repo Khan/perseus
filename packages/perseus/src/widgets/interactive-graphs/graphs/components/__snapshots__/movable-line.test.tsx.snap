@@ -330,7 +330,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         />
         <g
           class="interactive-graph-arrowhead"
-          transform="translate(0 0) rotate(-45)"
+          transform="translate(0 0) rotate(0)"
         >
           <g
             transform="translate(-1.5)"
@@ -357,7 +357,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         />
         <g
           class="interactive-graph-arrowhead"
-          transform="translate(0 0) rotate(135)"
+          transform="translate(0 0) rotate(0)"
         >
           <g
             transform="translate(-1.5)"
