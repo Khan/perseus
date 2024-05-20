@@ -9,6 +9,8 @@ import {
     storybookDependenciesV2,
 } from "../testing/test-dependencies";
 
+import "./index.css";
+
 import type {Preview} from "@storybook/react";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.

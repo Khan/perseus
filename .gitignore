@@ -10,3 +10,7 @@ storybook-static
 *.tsbuildinfo
 /cypress/
 .idea
+
+## Panda
+styled-system
+styled-system-studio

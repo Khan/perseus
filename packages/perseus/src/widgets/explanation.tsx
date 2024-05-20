@@ -4,9 +4,9 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
+import { css } from '../../../../styled-system/css';
 
 import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
@@ -144,22 +144,27 @@ class Explanation extends React.Component<Props, State> {
                             {promptText}
                         </Button>
 
-                        <View
+                        <div
+                            data-css-test="panda-css"
                             id={ids.get("content")}
-                            style={contentStyling}
+                            className={css(contentStyling)}
                             aria-hidden={!this.state.expanded}
-                            testId="content-container"
                         >
                             <View style={styles.contentWrapper}>
-                                <Renderer
-                                    apiOptions={this.props.apiOptions}
-                                    content={this.props.explanation}
-                                    widgets={this.props.widgets}
-                                    linterContext={this.props.linterContext}
-                                    strings={this.context.strings}
-                                />
+                                <div
+                                    data-css-test="panda-css"
+                                    className={css(styles.contentWrapper)}
+                                >
+                                    <Renderer
+                                        apiOptions={this.props.apiOptions}
+                                        content={this.props.explanation}
+                                        widgets={this.props.widgets}
+                                        linterContext={this.props.linterContext}
+                                        strings={this.context.strings}
+                                    />
+                                </div>
                             </View>
-                        </View>
+                        </div>
                     </>
                 )}
             </UniqueIDProvider>
@@ -179,11 +184,28 @@ const leftBorderSpacing = 23;
 const verticalContentPadding = 10;
 const arrowHeight = 14;
 
-const styles = StyleSheet.create({
+const styles = {
     content: {
         borderLeft: "0px solid #ccc",
         display: "inline-grid",
         position: "relative",
+        "& a": {
+            color: "green",
+            // '&[href^="http"]': {
+                _after: {
+                    content: "",
+                    width: "18px",
+                    height: "18px",
+                    backgroundImage: 'url("/node_modules/@phosphor-icons/core/assets/regular/arrow-square-out.svg")',
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    display: "inline-block",
+                    verticalAlign: "text-bottom",
+                    paddingLeft: "4px",
+                },
+            // },
+        },
     },
 
     contentCollapsed: {
@@ -225,7 +247,7 @@ const styles = StyleSheet.create({
         transition:
             "grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s",
     },
-});
+};
 
 export default {
     name: "explanation",
