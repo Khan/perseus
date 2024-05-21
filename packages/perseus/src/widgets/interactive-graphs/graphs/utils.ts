@@ -42,10 +42,7 @@ export const getIntersectionOfRayWithBox = (
             return [xAtYExtreme, yExtreme];
 
         default:
-            // This default case is only reachable if the input is invalid
-            // (initialPoint is outside the graph bounds, or initialPoint and
-            // throughPoint are the same).
-            return [0, 0];
+            return [xExtreme, yExtreme];
     }
 };
 
