@@ -149,6 +149,85 @@ export const questionWithPassage: PerseusRenderer = {
     },
 };
 
+export const choicesWithImages: PerseusRenderer = {
+    content:
+        "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                displayCount: null,
+                choices: [
+                    {
+                        content:
+                            "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
+                        correct: false,
+                        clue: "The markdown only has single lines between each item, so they should be treated as one complete line.",
+                    },
+                    {
+                        content:
+                            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        correct: false,
+                        clue: "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+                    },
+                    {
+                        content:
+                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+                        correct: false,
+                        clue: "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
+                    },
+                    {
+                        content:
+                            "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
+                        correct: false,
+                        clue: "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
+                    },
+                    {
+                        content:
+                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        correct: false,
+                        clue: "The markdown only has an image (no text), so nothing should be adjusted.",
+                    },
+                    {
+                        content:
+                            "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
+                        correct: false,
+                        clue: "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
+                    },
+                ],
+                countChoices: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                randomize: false,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+        "passage 1": {
+            alignment: "default",
+            graded: true,
+            options: {
+                footnotes: "",
+                passageText:
+                    "Here's a passage about the positive square root. It contains a {{reference to something}}.",
+                passageTitle: "",
+                showLineNumbers: true,
+                static: false,
+            },
+            static: false,
+            type: "passage",
+            version: {major: 0, minor: 0},
+        } as PassageWidget,
+    },
+};
+
 export const multiChoiceQuestion: PerseusRenderer = {
     content:
         "**Select all input values for which $g(x)=2$.**\n\n[[\u2603 radio 1]]\n\n ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/4613e0d9c906b3053fb5523eed83d4f779fdf6bb)",
