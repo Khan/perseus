@@ -149,9 +149,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     labelXRef = React.createRef<HTMLInputElement>();
     labelYRef = React.createRef<HTMLInputElement>();
 
-    static stateFromProps(props: Props, state?: State) {
+    static stateFromProps(props: Props) {
         return {
-            isExpanded: state?.isExpanded ?? true,
             labelsTextbox: props.labels,
             gridStepTextbox: props.gridStep,
             snapStepTextbox: props.snapStep,
@@ -165,7 +164,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        this.state = InteractiveGraphSettings.stateFromProps(props);
+        this.state = {
+            isExpanded: true,
+            ...InteractiveGraphSettings.stateFromProps(props),
+        };
     }
 
     static defaultProps = {
@@ -210,9 +212,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             !_.isEqual(this.props.range, nextProps.range) ||
             !_.isEqual(this.props.backgroundImage, nextProps.backgroundImage)
         ) {
-            this.setState(
-                InteractiveGraphSettings.stateFromProps(nextProps, this.state),
-            );
+            this.setState(InteractiveGraphSettings.stateFromProps(nextProps));
         }
     }
 
