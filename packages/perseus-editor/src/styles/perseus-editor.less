@@ -2,6 +2,8 @@
 // (changes to the renderer will not work in production)
 //
 
+@import "./perseus-editor.css";
+
 // Variables
 // Should be consistent with webapp's variables.less
 
@@ -16,7 +18,7 @@
 @editorBorderWidth: 1px;
 @editorBorder: @editorBorderWidth solid @grayLighter;
 @editorBorderRadius: 3px;
-@editorPadding: 10px;
+@editorPadding: var(--editor-padding);
 
 @widgetBorderWidth: 1px;
 @widgetBorderColor: #ccc;
@@ -235,7 +237,7 @@
     border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
     display: flex;
     flex-wrap: wrap;
-    padding: @editorPadding / 2;
+    padding: calc(@editorPadding / 2);
 
     select {
         margin: 2px;
