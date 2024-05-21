@@ -1,5 +1,13 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.5.8
+
+### Patch Changes
+
+-   [#1291](https://github.com/Khan/perseus/pull/1291) [`cceca19c7`](https://github.com/Khan/perseus/commit/cceca19c77d493695f81c3990ebfd0998507db90) Thanks [@benchristel](https://github.com/benchristel)! - Update dependency versions
+
+*   [#1290](https://github.com/Khan/perseus/pull/1290) [`d41feb9be`](https://github.com/Khan/perseus/commit/d41feb9be7a22d8713fc911e2b47b7cc34241928) Thanks [@benchristel](https://github.com/benchristel)! - Internal: upgrade to @khanacademy/wonder-blocks-timing@5 in dev UI
+
 ## 1.5.7
 
 ### Patch Changes

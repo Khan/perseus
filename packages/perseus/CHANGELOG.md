@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 22.6.0
+
+### Minor Changes
+
+-   [#1293](https://github.com/Khan/perseus/pull/1293) [`e14a003be`](https://github.com/Khan/perseus/commit/e14a003beebf73185630416c0b3667ed75b230c2) Thanks [@benchristel](https://github.com/benchristel)! - Fill Mafs interactive circles with blue on hover
+
+*   [#1241](https://github.com/Khan/perseus/pull/1241) [`a0dfc66cc`](https://github.com/Khan/perseus/commit/a0dfc66ccb1d92d4f15e9f1be983217e051e2aaa) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - New Axis Tick Labels and Ticks that can render outside of graph bounds
+
+### Patch Changes
+
+-   [#1289](https://github.com/Khan/perseus/pull/1289) [`42c0c607f`](https://github.com/Khan/perseus/commit/42c0c607f8b4b1713edb578cfb1d8168d1edebd1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: replace some brittle SVG snapshot tests with less brittle visual snapshot tests
+
+*   [#1271](https://github.com/Khan/perseus/pull/1271) [`55039a430`](https://github.com/Khan/perseus/commit/55039a430ef298f3d8a28e27798481130b28ca24) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix: Arrowhead Rotation Was Incorrect on Some Graphs
+
+-   [#1295](https://github.com/Khan/perseus/pull/1295) [`f6be03dd8`](https://github.com/Khan/perseus/commit/f6be03dd85f0e394df16fb5e632684aea7486216) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where the arrow at the end of a line or ray would sometimes point to the origin and not the edge of the graph
+
+*   [#1294](https://github.com/Khan/perseus/pull/1294) [`fba227fe8`](https://github.com/Khan/perseus/commit/fba227fe8e2852d171197f7a02fed2b6b2f0d541) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where axis tick labels on Mafs interactive graphs could be selected and interfere with drag interactions
+
+-   [#1255](https://github.com/Khan/perseus/pull/1255) [`dc0adedeb`](https://github.com/Khan/perseus/commit/dc0adedebbae0c4a1940d67f64e19b0104ac85f4) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Ensure that axis lines and arrowheads have a 2px thickness in Interactive Graphs
+
+*   [#1264](https://github.com/Khan/perseus/pull/1264) [`d70fab6a7`](https://github.com/Khan/perseus/commit/d70fab6a797b04f9365ec1442e96fdddbb100a46) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Show Radio Widget Images on New Line
+
+-   [#1285](https://github.com/Khan/perseus/pull/1285) [`5b52a1569`](https://github.com/Khan/perseus/commit/5b52a156996d7e1debff3490db9fa798d5b95bd3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: refactor the code for initializing linear graph states
+
 ## 22.5.1
 
 ### Patch Changes
