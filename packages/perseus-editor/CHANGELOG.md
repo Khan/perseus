@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 6.5.0
+
+### Minor Changes
+
+-   [#1277](https://github.com/Khan/perseus/pull/1277) [`f8539c880`](https://github.com/Khan/perseus/commit/f8539c880f194bcf35174aa7ab8eef0c72889f53) Thanks [@nishasy](https://github.com/nishasy)! - Shows error in the editor if locked line has length 0
+
+*   [#1284](https://github.com/Khan/perseus/pull/1284) [`8534a9f01`](https://github.com/Khan/perseus/commit/8534a9f017a9a5404201c2459fabe91a83d6709f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add ToggleableCaret component and use in TexErrorView
+
+### Patch Changes
+
+-   [#1287](https://github.com/Khan/perseus/pull/1287) [`d9b51dcc0`](https://github.com/Khan/perseus/commit/d9b51dcc00a9280705483269c91c9d67b90351ec) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Interactive Graph Editor: Make the common graph settings a collapsable panel
+
+*   [#1278](https://github.com/Khan/perseus/pull/1278) [`fffd130db`](https://github.com/Khan/perseus/commit/fffd130db2eff64a06d3f6635f4588e110bdba5b) Thanks [@nishasy](https://github.com/nishasy)! - Nit: put the line kind dropdown options in alphabetical order
+
+-   [#1280](https://github.com/Khan/perseus/pull/1280) [`5b1e04abc`](https://github.com/Khan/perseus/commit/5b1e04abc4155edbcb16aa8d8ea3fdf7beb3068e) Thanks [@nishasy](https://github.com/nishasy)! - Fix the bug where the first added locked figure settings would be collapsed when it's supposed to be expanded on add
+
+-   Updated dependencies [[`e14a003be`](https://github.com/Khan/perseus/commit/e14a003beebf73185630416c0b3667ed75b230c2), [`42c0c607f`](https://github.com/Khan/perseus/commit/42c0c607f8b4b1713edb578cfb1d8168d1edebd1), [`55039a430`](https://github.com/Khan/perseus/commit/55039a430ef298f3d8a28e27798481130b28ca24), [`f6be03dd8`](https://github.com/Khan/perseus/commit/f6be03dd85f0e394df16fb5e632684aea7486216), [`fba227fe8`](https://github.com/Khan/perseus/commit/fba227fe8e2852d171197f7a02fed2b6b2f0d541), [`dc0adedeb`](https://github.com/Khan/perseus/commit/dc0adedebbae0c4a1940d67f64e19b0104ac85f4), [`a0dfc66cc`](https://github.com/Khan/perseus/commit/a0dfc66ccb1d92d4f15e9f1be983217e051e2aaa), [`d70fab6a7`](https://github.com/Khan/perseus/commit/d70fab6a797b04f9365ec1442e96fdddbb100a46), [`5b52a1569`](https://github.com/Khan/perseus/commit/5b52a156996d7e1debff3490db9fa798d5b95bd3)]:
+    -   @khanacademy/perseus@22.6.0
+
 ## 6.4.1
 
 ### Patch Changes
