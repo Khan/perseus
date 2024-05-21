@@ -30,7 +30,7 @@ jobs:
                   fetch-depth: 0
 
             - name: Force Node version
-              uses: actions/setup-node
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: yarn
