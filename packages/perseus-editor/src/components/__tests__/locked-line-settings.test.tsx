@@ -249,9 +249,9 @@ describe("LockedLineSettings", () => {
         );
 
         // Assert
-        const errors = screen.getAllByText("The line cannot have length 0.");
+        const errors = screen.getByText("The line cannot have length 0.");
         // Show error for both points
-        expect(errors).toHaveLength(2);
+        expect(errors).toBeInTheDocument();
     });
 
     test("Does not show error when the two points are different", () => {
