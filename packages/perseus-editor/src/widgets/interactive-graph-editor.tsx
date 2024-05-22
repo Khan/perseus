@@ -22,6 +22,7 @@ import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import LabeledRow from "../components/labeled-row";
 import LockedFiguresSection from "../components/locked-figures-section";
 import SegmentCountSelector from "../components/segment-count-selector";
+import {lockedPointsEqual} from "../components/util";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -661,6 +662,24 @@ class InteractiveGraphEditor extends React.Component<Props> {
         // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
         return json;
     }
+
+    getSaveWarnings = () => {
+        const issues: Array<any | string> = [];
+
+        // A locked line on the graph cannot have length 0.
+        if (this.props.lockedFigures) {
+            _.each(this.props.lockedFigures, (figure) => {
+                if (
+                    figure.type === "line" &&
+                    lockedPointsEqual(figure.points[0], figure.points[1])
+                ) {
+                    issues.push("The line cannot have length 0.");
+                }
+            });
+        }
+
+        return issues;
+    };
 }
 
 const styles = StyleSheet.create({

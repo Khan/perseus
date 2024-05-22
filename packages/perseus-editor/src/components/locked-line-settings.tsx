@@ -17,6 +17,7 @@ import DefiningPointSettings from "./defining-point-settings";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import {lockedPointsEqual} from "./util";
 
 import type {AccordionProps} from "./locked-figure-settings";
 import type {
@@ -63,9 +64,8 @@ const LockedLineSettings = (props: Props) => {
     const lineLabel = `${capitalizeKind} (${point1.coord[0]},
         ${point1.coord[1]}), (${point2.coord[0]}, ${point2.coord[1]})`;
 
-    const isInvalid =
-        point1.coord[0] === point2.coord[0] &&
-        point1.coord[1] === point2.coord[1];
+    // Check if the line has length 0.
+    const isInvalid = lockedPointsEqual(point1, point2);
 
     function handleChangePoint(
         newPointProps: Partial<LockedPointType>,
@@ -167,7 +167,7 @@ const LockedLineSettings = (props: Props) => {
                 </View>
             </View>
 
-            {/* Points errror message */}
+            {/* Points error message */}
             {isInvalid && (
                 <LabelMedium style={styles.errorText}>
                     {lengthZeroStr}

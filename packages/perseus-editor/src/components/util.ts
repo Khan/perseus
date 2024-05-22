@@ -80,3 +80,13 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             throw new UnreachableCaseError(type);
     }
 }
+
+export function lockedPointsEqual(
+    point1: LockedPointType,
+    point2: LockedPointType,
+) {
+    return (
+        point1.coord[0] === point2.coord[0] &&
+        point1.coord[1] === point2.coord[1]
+    );
+}
