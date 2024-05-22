@@ -20,7 +20,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
 
     // We are going to store the coordinates as a ref as we may need to use the prior value
     // if the current value is invalid. This ensures that the graphed points don't jump around
-    // when the user is trying to move the points to a location that causes the graph to hit infinity.
+    // when the user is trying to move the points to a location that causes the quadratic equation to hit infinity.
     // The quadratic graph expects a list of 3 coordinates
     // [0] = start point
     // [1] = mid point
@@ -31,59 +31,66 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
         [0, 0],
     ]);
 
-    // The coefficients are used to calculate the quadratic equation, plot the graph, and
-    // to indicate to content creators the currently selected "correct answer". ex: y = 0.200x^2 + 0.000x + 0.000
+    // The coefficients are used to calculate the quadratic equation, plot the graph, and to indicate
+    // to content creators the currently selected "correct answer". ex: y = 0.200x^2 + 0.000x + 0.000
     // This is being stored as a ref as we may need to use the prior value if the current value is invalid.
-    const coeffRef = React.useRef<QuadraticCoefficient>([0, 0, 0]);
-    const coeff = getQuadraticCoefficients(coords);
-    const validCoeff = coeff !== undefined;
+    const coeffRef = React.useRef<QuadraticCoefficient>([0, 0, 0]); // The previous (validated) coefficients
+    const newCoeff = getQuadraticCoefficients(coords); // The new coefficients based on the current coords (which may be invalid)
+    const validCoeff = newCoeff !== undefined;
     if (validCoeff) {
-        // If the coeff is not defined, it means we were hitting infinity
-        // and are unable to calculate the quadratic coefficients
-        coeffRef.current = coeff;
+        // If the coefficients are valid, we want to update the refs accordingly
+        coeffRef.current = newCoeff;
         coordsRef.current = coords;
     }
 
-    // We are going to destructure the coefficients here
+    // Destructure the coefficients for calculating the quadratic equation
     const [a, b, c] = coeffRef.current;
 
-    // Calculate the y value based on the x value
+    // Calculate the y value based on the current x value
     const y = (x) => (a * x + b) * x + c;
 
-    // This is where we actually set the xy values for the plot
+    // Set the xy values for the Parametric plot
     const xy = (x: number) => [x, y(x)] as vec.Vector2;
 
-    // This is the range/domain of the plot
+    // Determine the range / domain of the graph
     const t: vec.Vector2 = [range[0][0], range[0][1]] as vec.Vector2;
 
-    // We want to ensure that we are only moving the point to a valid destination
-    const handleOnMove = (destination: vec.Vector2, elementId: number) => {
-        const validDestination = getValidDestination(destination, elementId);
-        dispatch(movePoint(elementId, validDestination));
-    };
-
-    // This is the function that will snap the point to the nearest VALID grid line
+    // Ensure that we are only snapping to coordinates that result in a valid quadratic equation
     const getValidDestination = (
         destination: vec.Vector2,
         elementId: number,
     ): vec.Vector2 => {
+        // If the destination results in a valid quadratic, we simply want to return the destination
+        if (validCoeff) {
+            return destination;
+        }
+
+        // Otherwise, when the initial destination is invalid, find the next closest x-axis snap step
         const skipStep =
             destination[0] > coords[elementId][0] ? snapStep[0] : -snapStep[0];
-        const newDestination = validCoeff
-            ? destination
-            : ([destination[0] + skipStep, destination[1]] as vec.Vector2);
+        const newDestination = [
+            destination[0] + skipStep,
+            destination[1],
+        ] as vec.Vector2;
 
+        // Set up coords to reflect the new destination so that we can check if the new destination is valid
         const newCoords = [...coords];
         newCoords[elementId] = newDestination;
+        const confirmValidDestination = getQuadraticCoefficients(newCoords);
 
-        if (!validCoeff) {
-            const confirmValidDestination = getQuadraticCoefficients(newCoords);
-            if (confirmValidDestination === undefined) {
-                getValidDestination(newDestination, elementId);
-            }
+        // If the new destination still results in an invalid quadratic equation,
+        // we want to repeat the previous steps until we manage to get a valid destination
+        if (confirmValidDestination === undefined) {
+            getValidDestination(newDestination, elementId);
         }
 
         return newDestination;
+    };
+
+    const handleOnMove = (destination: vec.Vector2, elementId: number) => {
+        // Ensure that the destination is valid before moving the point
+        const validDestination = getValidDestination(destination, elementId);
+        dispatch(movePoint(elementId, validDestination));
     };
 
     return (
@@ -100,7 +107,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     );
 }
 
-// Get the quadratic coefficients from the 3 points
+// Get the quadratic coefficients from the 3 control points
 const getQuadraticCoefficients = (
     coords: ReadonlyArray<Coord>,
 ): QuadraticCoefficient | undefined => {
@@ -109,7 +116,7 @@ const getQuadraticCoefficients = (
     const p3 = coords[2];
 
     // If the denominator is 0, we are going to return undefined as we are
-    // unable to calculate the quadratic coefficients as they hit infinity
+    // unable to calculate the quadratic coefficients when they hit infinity
     const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
     if (denom === 0) {
         return;
