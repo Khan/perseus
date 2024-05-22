@@ -61,7 +61,6 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
 
     // We want to ensure that we are only moving the point to a valid destination
     const handleOnMove = (destination: vec.Vector2, elementId: number) => {
-        console.log("handleOnMove", destination, elementId);
         const validDestination = getValidDestination(destination, elementId);
         dispatch(movePoint(elementId, validDestination));
     };
