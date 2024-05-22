@@ -5,6 +5,7 @@ import _ from "underscore";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import ContentRenderer from "./content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 
 import type {
@@ -12,6 +13,7 @@ import type {
     ImageUploader,
     ChangeHandler,
     DeviceType,
+    PerseusRenderer,
 } from "@khanacademy/perseus";
 
 const ITEM_DATA_VERSION = itemDataVersion;
@@ -22,7 +24,7 @@ type Props = {
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
-    question?: any;
+    question?: PerseusRenderer;
     answerArea?: any;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
@@ -88,9 +90,6 @@ class ItemEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const isMobile =
-            this.props.deviceType === "phone" ||
-            this.props.deviceType === "tablet";
         return (
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
@@ -119,13 +118,9 @@ class ItemEditor extends React.Component<Props> {
                                 deviceType={this.props.deviceType}
                                 nochrome={true}
                             >
-                                <IframeContentRenderer
-                                    ref={this.frame}
-                                    key={this.props.deviceType}
-                                    datasetKey="mobile"
-                                    datasetValue={isMobile}
-                                    seamless={true}
-                                    url={this.props.previewURL}
+                                <ContentRenderer
+                                    apiOptions={this.props.apiOptions}
+                                    question={this.props.question}
                                 />
                             </DeviceFramer>
                             <div
