@@ -12,13 +12,12 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import CollapsibleHeading from "./collapsible-heading";
 import LabeledRow from "./labeled-row";
-import ToggleableCaret from "./toggleable-caret";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
 
@@ -32,38 +31,6 @@ const defaultBackgroundImage = {
 
 function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
-}
-
-function Heading({
-    title,
-    isOpen,
-    onToggle,
-}: {
-    title: string;
-    isOpen: boolean;
-    onToggle?: (isOpen: boolean) => void;
-}) {
-    return (
-        <View
-            style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                backgroundColor: color.offBlack8,
-                padding: spacing.xSmall_8,
-                marginTop: spacing.small_12,
-                // NOTE(jeremy): This is the inverse of the @editorPadding CSS
-                // variable found in perseus-editor.less. For now, it must
-                // match otherwise there's a gap from this header to the edge
-                // of the editor borders.
-                marginInline: -10,
-                cursor: "pointer",
-            }}
-            onClick={() => onToggle?.(!isOpen)}
-        >
-            <LabelSmall>{title}</LabelSmall>
-            <ToggleableCaret isExpanded={isOpen} />
-        </View>
-    );
 }
 
 type Range = [min: number, max: number];
@@ -494,8 +461,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
     render() {
         return (
-            <>
-                <Heading
+            <View style={styles.container}>
+                <CollapsibleHeading
                     title="Common Graph Settings"
                     isOpen={this.state.isExpanded}
                     onToggle={() =>
@@ -751,12 +718,15 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                         </View>
                     </View>
                 )}
-            </>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        paddingTop: spacing.small_12,
+    },
     resetSpaceTop: {
         marginTop: 0,
     },
