@@ -191,9 +191,9 @@ const styles = {
         position: "relative",
         "& a": {
             color: "green",
-            // '&[href^="http"]': {
+            '&[href^="http"]': {
                 _after: {
-                    content: "",
+                    content: '""',
                     width: "18px",
                     height: "18px",
                     backgroundImage: 'url("/node_modules/@phosphor-icons/core/assets/regular/arrow-square-out.svg")',
@@ -204,7 +204,7 @@ const styles = {
                     verticalAlign: "text-bottom",
                     paddingLeft: "4px",
                 },
-            // },
+            },
         },
     },
 
