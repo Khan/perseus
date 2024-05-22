@@ -6,8 +6,8 @@ import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import * as React from "react";
 import _ from "underscore";
-import { css } from '../../../../styled-system/css';
 
+import {css} from "../../../../styled-system/css";
 import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 import Renderer from "../renderer";
