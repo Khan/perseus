@@ -203,6 +203,9 @@
         format("woff");
 }
 
+.MafsView pattern g {
+    stroke: #909296;
+}
 .axis-tick-labels {
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
@@ -239,10 +242,14 @@
 
 .x-axis-tick-labels span,
 .y-axis-tick-labels span {
+    /* The negative sign is rendered as a pseudo-element to
+        ensure that we are positioning all labels correctly */
     &::before {
         content: attr(data-content);
         position: absolute;
-        transform: translate(-100%);
+        /* We're translating the symbol up by 1px to ensure it's legible around gridlines. */
+        transform: translate(-100%, -1px);
+        font-weight: 600; /* This helps get the symbol to render crisply */
     }
 }
 
