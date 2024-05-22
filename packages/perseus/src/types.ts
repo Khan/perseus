@@ -255,8 +255,6 @@ export type APIOptions = Readonly<{
      * Defaults to `false`.
      */
     canScrollPage?: boolean;
-    /** Whether or not we are rendering content inside of a modal. */
-    inModal?: boolean;
     /**
      * Whether to enable the cross-out feature on multiple-choice radio
      * widgets. This allows users to note which answers they believe to
@@ -429,7 +427,6 @@ export type APIOptionsWithDefaults = Readonly<
         crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
         groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
-        inModal: NonNullable<APIOptions["inModal"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;

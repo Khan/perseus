@@ -119,9 +119,6 @@ export const ApiOptions = {
         // Defaults to `false`.
         canScrollPage: PropTypes.bool,
 
-        // Whether or not we are rendering content inside of a modal.
-        inModal: PropTypes.bool,
-
         // Whether to enable the cross-out feature on multiple-choice radio
         // widgets. This allows users to note which answers they believe to
         // be incorrect, to find the answer by process of elimination.
@@ -163,7 +160,6 @@ export const ApiOptions = {
         setDrawingAreaAvailable: function () {},
         useDraftEditor: false,
         canScrollPage: false,
-        inModal: false,
         crossOutEnabled: false,
         editorChangeDelay: 0,
     } as APIOptionsWithDefaults,
