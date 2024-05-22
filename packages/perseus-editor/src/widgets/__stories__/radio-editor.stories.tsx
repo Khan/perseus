@@ -10,7 +10,6 @@ import type {
     APIOptions,
 } from "@khanacademy/perseus";
 
-
 type StoryArgs = Record<any, any>;
 
 type Story = {
