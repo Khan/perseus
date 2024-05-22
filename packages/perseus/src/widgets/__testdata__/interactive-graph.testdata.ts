@@ -2002,6 +2002,7 @@ export const quadraticQuestion: PerseusRenderer = {
                     coords: [
                         [0, 0],
                         [3, 8],
+                        [6, 0],
                     ],
                     type: "quadratic",
                 },
@@ -2040,9 +2041,9 @@ export const quadraticQuestionWithDefaultCorrect: PerseusRenderer = {
             options: {
                 correct: {
                     coords: [
-                        [-1, 0],
-                        [1, 0],
-                        [0, -1],
+                        [-5, 5],
+                        [0, -5],
+                        [5, 5],
                     ],
                     type: "quadratic",
                 },
@@ -2060,7 +2061,7 @@ export const quadraticQuestionWithDefaultCorrect: PerseusRenderer = {
                 rulerTicks: 10,
                 showProtractor: false,
                 showRuler: false,
-                snapStep: [0.5, 0.5],
+                snapStep: [1, 1],
                 step: [1, 1],
             },
             type: "interactive-graph",

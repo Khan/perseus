@@ -47,9 +47,6 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     // We are going to destructure the coefficients here
     const [a, b, c] = coeffRef.current;
 
-    // Get the coordinates of the 3 points
-    const [pointA, centerPoint, pointB] = coordsRef.current;
-
     // Calculate the y value based on the x value
     const y = (x) => (a * x + b) * x + c;
 
@@ -92,22 +89,13 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     return (
         <>
             <Plot.Parametric xy={xy} t={t} color={color.blue} />
-            <StyledMovablePoint
-                key={"pointA"}
-                point={pointA}
-                onMove={(destination) => handleOnMove(destination, 0)}
-            />
-            <StyledMovablePoint
-                key={"centerPoint"}
-                point={centerPoint}
-                onMove={(destination) => handleOnMove(destination, 1)}
-            />
-
-            <StyledMovablePoint
-                key={"pointB"}
-                point={pointB}
-                onMove={(destination) => handleOnMove(destination, 2)}
-            />
+            {coordsRef.current.map((coord, i) => (
+                <StyledMovablePoint
+                    key={"point-" + i}
+                    point={coord}
+                    onMove={(destination) => handleOnMove(destination, i)}
+                />
+            ))}
         </>
     );
 }

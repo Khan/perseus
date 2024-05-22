@@ -235,6 +235,13 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "quadratic" && initialGraph.type === "quadratic") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
     throw new Error(
         "Mafs is not yet implemented for graph type: " + initialGraph.type,
     );
