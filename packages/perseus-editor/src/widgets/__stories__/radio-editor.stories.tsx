@@ -9,12 +9,11 @@ import type {
     PerseusRenderer,
     APIOptions,
 } from "@khanacademy/perseus";
+import type {Meta, StoryObj} from "@storybook/react";
 
-type StoryArgs = Record<any, any>;
+type StoryArgs = StoryObj<RadioEditor>;
 
-type Story = {
-    title: string;
-};
+type Story = Meta<RadioEditor>;
 
 export default {
     title: "PerseusEditor/Widgets/Radio Editor",
