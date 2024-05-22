@@ -60,7 +60,7 @@ const DeviceFramer = ({
     );
 
     if (nochrome) {
-        // Render content inside a variable height iframe.  Used on the
+        // Render content inside a variable height div.  Used on the
         // "edit" table of the content editor. In this mode, PerseusFrame
         // will draw the border and reserve space on the right for
         // lint indicators.
