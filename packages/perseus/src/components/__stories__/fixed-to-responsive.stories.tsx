@@ -3,11 +3,11 @@ import * as React from "react";
 import {getDependencies} from "../../dependencies";
 import FixedToResponsive from "../fixed-to-responsive";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
+type StoryArgs = StoryObj<FixedToResponsive>;
+
+type Story = Meta<FixedToResponsive>;
 
 const svgUrl = "https://www.khanacademy.org/images/ohnoes-concerned.svg";
 const imgUrl = "https://www.khanacademy.org/images/hand-tree.new.png";

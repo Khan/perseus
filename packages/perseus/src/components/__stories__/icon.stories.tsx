@@ -3,6 +3,8 @@ import * as React from "react";
 import * as IconPaths from "../../icon-paths";
 import IconComponent from "../icon";
 
+import type {StoryObj, Meta} from "@storybook/react";
+
 type StorybookStoryArgs = {
     options?: ReadonlyArray<string>;
     mapping?: {
@@ -12,27 +14,9 @@ type StorybookStoryArgs = {
     control?: string;
 };
 
-type StoryArgs = {
-    color?: string;
-    size?: number;
-    title?: string;
-    icon?: typeof IconPaths.iconCheck;
-};
+type StoryArgs = StoryObj<IconComponent>;
 
-type SetValueType<T, V> = {
-    [Property in keyof T]: V;
-};
-
-type StoryArgTypes = SetValueType<
-    StoryArgs,
-    StorybookStoryArgs | null | undefined
->;
-
-type Story = {
-    title: string;
-    args?: StoryArgs;
-    argTypes: StoryArgTypes;
-};
+type Story = Meta<IconComponent>;
 
 export default {
     title: "Perseus/Components",

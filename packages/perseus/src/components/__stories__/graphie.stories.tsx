@@ -4,11 +4,11 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import {itemWithPieChart} from "../../__testdata__/graphie.testdata";
 import Graphie from "../graphie";
 
-type StoryArgs = Record<any, any>;
+import type {StoryObj, Meta} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
+type StoryArgs = StoryObj<Graphie>;
+
+type Story = Meta<Graphie>;
 
 const size = 200;
 

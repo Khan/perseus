@@ -2,11 +2,11 @@ import * as React from "react";
 
 import Hud from "../hud";
 
-type StoryArgs = Record<any, any>;
+import type {StoryObj, Meta} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
+type StoryArgs = StoryObj<typeof Hud>;
+
+type Story = Meta<typeof Hud>;
 
 export default {
     title: "Perseus/Components/HUD",
