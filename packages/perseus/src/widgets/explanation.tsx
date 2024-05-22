@@ -15,9 +15,6 @@ import Renderer from "../renderer";
 import type {PerseusExplanationWidgetOptions} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
-// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-type Empty = Record<never, never>;
-
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 
 type Rubric = PerseusExplanationWidgetOptions;
