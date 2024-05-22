@@ -242,8 +242,6 @@ export type APIOptions = Readonly<{
      * Previously handled by `Khan.scratchpad.enable/disable`
      */
     setDrawingAreaAvailable?: (arg1: boolean) => unknown;
-    /** Whether to use the Draft.js editor or the legacy textarea */
-    useDraftEditor?: boolean;
     /** The color used for the hint progress indicator (eg. 1 / 3) */
     hintProgressColor?: string;
     /**
@@ -436,7 +434,6 @@ export type APIOptionsWithDefaults = Readonly<
             APIOptions["setDrawingAreaAvailable"]
         >;
         showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
-        useDraftEditor: NonNullable<APIOptions["useDraftEditor"]>;
     }
 >;
 
