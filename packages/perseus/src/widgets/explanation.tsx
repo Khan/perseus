@@ -147,6 +147,7 @@ class Explanation extends React.Component<Props, State> {
 
                         <div
                             data-css-test="css-modules"
+                            id={ids.get("content")}
                             className={contentStyling.join(" ")}
                             aria-hidden={!this.state.expanded}
                         >
