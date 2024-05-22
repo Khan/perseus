@@ -1,4 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {action} from "@storybook/addon-actions";
@@ -183,6 +184,7 @@ export const WithSaveWarnings = (): React.ReactElement => {
             />
             <View style={styles.errorContainer}>
                 <LabelLarge>Save Warnings:</LabelLarge>
+                <Strut size={spacing.small_12} />
                 {saveWarnings.map((warning, index) => (
                     <Body key={index} style={styles.errorMessage}>
                         {warning}
