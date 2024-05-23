@@ -15,6 +15,7 @@ import {BodyMonospace, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
+import {vector as kvector} from "@khanacademy/kmath";
 
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphTypeSelector from "../components/graph-type-selector";
@@ -22,7 +23,6 @@ import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import LabeledRow from "../components/labeled-row";
 import LockedFiguresSection from "../components/locked-figures-section";
 import SegmentCountSelector from "../components/segment-count-selector";
-import {lockedPointsEqual} from "../components/util";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -667,15 +667,13 @@ class InteractiveGraphEditor extends React.Component<Props> {
         const issues: Array<any | string> = [];
 
         // A locked line on the graph cannot have length 0.
-        if (this.props.lockedFigures) {
-            _.each(this.props.lockedFigures, (figure) => {
-                if (
-                    figure.type === "line" &&
-                    lockedPointsEqual(figure.points[0], figure.points[1])
-                ) {
-                    issues.push("The line cannot have length 0.");
-                }
-            });
+        for (let figure of this.props.lockedFigures ?? []) {
+            if (
+                figure.type === "line" &&
+                kvector.equal(figure.points[0].coord, figure.points[1].coord)
+            ) {
+                issues.push("The line cannot have length 0.");
+            }
         }
 
         return issues;

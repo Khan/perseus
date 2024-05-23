@@ -17,7 +17,7 @@ import DefiningPointSettings from "./defining-point-settings";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
-import {lockedPointsEqual} from "./util";
+import {vector as kvector} from "@khanacademy/kmath";
 
 import type {AccordionProps} from "./locked-figure-settings";
 import type {
@@ -65,7 +65,7 @@ const LockedLineSettings = (props: Props) => {
         ${point1.coord[1]}), (${point2.coord[0]}, ${point2.coord[1]})`;
 
     // Check if the line has length 0.
-    const isInvalid = lockedPointsEqual(point1, point2);
+    const isInvalid = kvector.equal(point1.coord, point2.coord);
 
     function handleChangePoint(
         newPointProps: Partial<LockedPointType>,
