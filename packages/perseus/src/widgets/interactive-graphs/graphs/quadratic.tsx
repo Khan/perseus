@@ -39,27 +39,13 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     // Determine the range / domain of the graph
     const t: vec.Vector2 = [range[0][0], range[0][1]] as vec.Vector2;
 
-    // Ensure that we are only snapping to coordinates that result in a valid quadratic equation
-    const isValidDestination = (
-        destination: vec.Vector2,
-        elementId: number,
-    ): boolean => {
-        // Set up the new coords and check if the quadratic coefficients are valid
-        const newCoords: QuadraticCoords = [...coords];
-        newCoords[elementId] = destination;
-        const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
-
-        // If the new destination results in an invalid quadratic equation, we don't want to move the point
-        if (QuadraticCoefficients === undefined) {
-            return false;
-        }
-
-        return true;
-    };
-
     const handleOnMove = (destination: vec.Vector2, elementId: number) => {
         // If the destination is invalid, we want do not want to move the point
-        const validDestination = isValidDestination(destination, elementId);
+        const validDestination = isValidDestination(
+            destination,
+            elementId,
+            coords,
+        );
         if (validDestination === false) {
             return;
         }
@@ -81,8 +67,27 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     );
 }
 
+// Ensure that we are only snapping to coordinates that result in a valid quadratic equation
+export const isValidDestination = (
+    destination: vec.Vector2,
+    elementId: number,
+    coords: QuadraticCoords,
+): boolean => {
+    // Set up the new coords and check if the quadratic coefficients are valid
+    const newCoords: QuadraticCoords = [...coords];
+    newCoords[elementId] = destination;
+    const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
+
+    // If the new destination results in an invalid quadratic equation, we don't want to move the point
+    if (QuadraticCoefficients === undefined) {
+        return false;
+    }
+
+    return true;
+};
+
 // Get the quadratic coefficients from the 3 control points
-const getQuadraticCoefficients = (
+export const getQuadraticCoefficients = (
     coords: QuadraticCoords,
 ): QuadraticCoefficient | undefined => {
     const p1 = coords[0];
