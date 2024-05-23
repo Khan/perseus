@@ -10,6 +10,7 @@ import type {
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
     PerseusGraphTypePolygon,
+    PerseusGraphTypeQuadratic,
 } from "../../../perseus-types";
 import type {
     CircleGraphState,
@@ -78,11 +79,12 @@ export function initializeGraphState(
             const rangeCenterPoint = range.map(([min, max]) =>
                 Math.round((min + max) / 2),
             );
-            const defaultQuadraticCoords: Coord[] = [
-                [rangeCenterPoint[0] - 5, rangeCenterPoint[1] + 5],
-                [rangeCenterPoint[0], rangeCenterPoint[1] - 5],
-                [rangeCenterPoint[0] + 5, rangeCenterPoint[1] + 5],
-            ];
+            const defaultQuadraticCoords: PerseusGraphTypeQuadratic["coords"] =
+                [
+                    [rangeCenterPoint[0] - 5, rangeCenterPoint[1] + 5],
+                    [rangeCenterPoint[0], rangeCenterPoint[1] - 5],
+                    [rangeCenterPoint[0] + 5, rangeCenterPoint[1] + 5],
+                ];
             return {
                 ...shared,
                 type: graph.type,

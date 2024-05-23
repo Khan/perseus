@@ -187,9 +187,26 @@ function doMovePoint(
     action: MovePoint,
 ): InteractiveGraphState {
     switch (state.type) {
-        case "quadratic":
-        case "point":
-        case "polygon": {
+        case "polygon":
+        case "point": {
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: snap(
+                        state.snapStep,
+                        bound({
+                            snapStep: state.snapStep,
+                            range: state.range,
+                            point: action.destination,
+                        }),
+                    ),
+                }),
+            };
+        }
+        case "quadratic": {
             return {
                 ...state,
                 hasBeenInteractedWith: true,
