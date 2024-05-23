@@ -1,11 +1,16 @@
+import { dirname, join } from "path";
 import turbosnap from "vite-plugin-turbosnap";
 import viteConfig from "../dev/vite.config";
 import {mergeConfig} from "vite";
 
 import type {StorybookConfig} from "@storybook/react-vite";
 
+function getAbsolutePath(value: string): any {
+    return dirname(require.resolve(join(value, "package.json")));
+}
+
 const config: StorybookConfig = {
-    framework: "@storybook/react-vite",
+    framework: getAbsolutePath("@storybook/react-vite"),
 
     stories: [
         // NOTE(jeremy): This glob is extremely finicky! I would have written
@@ -21,9 +26,10 @@ const config: StorybookConfig = {
     ],
 
     addons: [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
-        "@storybook/addon-a11y",
+        getAbsolutePath("@storybook/addon-links"),
+        getAbsolutePath("@storybook/addon-essentials"),
+        getAbsolutePath("@storybook/addon-a11y"),
+        "@chromatic-com/storybook"
     ],
 
     // NOTE(kevinb): We customize the padding a bit so that so that stories
@@ -66,9 +72,11 @@ const config: StorybookConfig = {
         });
     },
 
-    docs: {
-        autodocs: true,
-    },
+    docs: {},
+
+    typescript: {
+        reactDocgen: "react-docgen-typescript"
+    }
 };
 
 export default config;

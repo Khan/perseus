@@ -28,6 +28,7 @@ const preview: Preview = {
             </RenderStateRoot>
         ),
     ],
+
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.
     parameters: {
@@ -60,6 +61,8 @@ const preview: Preview = {
             })),
         },
     },
+
+    tags: ["autodocs"]
 };
 
 export default preview;
