@@ -195,6 +195,15 @@ export const WithSaveWarnings = (): React.ReactElement => {
     );
 };
 
+WithSaveWarnings.parameters = {
+    chromatic: {
+        // Disabling because this isn't testing anything visually on the
+        // editor page. It's testing the error message, which don't
+        // even show up on the initial load.
+        disable: true,
+    },
+};
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
