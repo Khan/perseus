@@ -76,19 +76,10 @@ export function initializeGraphState(
                 radiusPoint: [1, 0],
             };
         case "quadratic":
-            const rangeCenterPoint = range.map(([min, max]) =>
-                Math.round((min + max) / 2),
-            );
-            const defaultQuadraticCoords: PerseusGraphTypeQuadratic["coords"] =
-                [
-                    [rangeCenterPoint[0] - 5, rangeCenterPoint[1] + 5],
-                    [rangeCenterPoint[0], rangeCenterPoint[1] - 5],
-                    [rangeCenterPoint[0] + 5, rangeCenterPoint[1] + 5],
-                ];
             return {
                 ...shared,
                 type: graph.type,
-                coords: defaultQuadraticCoords,
+                coords: getQuadraticCoords(graph, range, step),
             };
         case "angle":
         case "sinusoid":
@@ -374,6 +365,22 @@ const getPolygonCoords = ({
 
     const snapToGrid = !["angles", "sides"].includes(graph.snapTo || "");
     coords = normalizePoints(range, step, coords, /* noSnap */ !snapToGrid);
+
+    return coords;
+};
+
+const getQuadraticCoords = (
+    graph: PerseusGraphTypeQuadratic,
+    range: InitializeGraphStateParam["range"],
+    step: InitializeGraphStateParam["step"],
+): [Coord, Coord, Coord] => {
+    let coords: [Coord, Coord, Coord] = [
+        [0.25, 0.75],
+        [0.5, 0.25],
+        [0.75, 0.75],
+    ];
+
+    coords = normalizePoints(range, step, coords, true);
 
     return coords;
 };

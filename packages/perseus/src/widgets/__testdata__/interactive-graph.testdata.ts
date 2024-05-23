@@ -2008,6 +2008,11 @@ export const quadraticQuestion: PerseusRenderer = {
                 },
                 graph: {
                     type: "quadratic",
+                    coords: [
+                        [-5, 5],
+                        [0, -5],
+                        [5, 5],
+                    ],
                 },
                 gridStep: [1, 1],
                 labels: ["t", "d"],
@@ -2049,6 +2054,11 @@ export const quadraticQuestionWithDefaultCorrect: PerseusRenderer = {
                 },
                 graph: {
                     type: "quadratic",
+                    coords: [
+                        [-5, 5],
+                        [0, -5],
+                        [5, 5],
+                    ],
                 },
                 gridStep: [1, 1],
                 labels: ["t", "d"],
