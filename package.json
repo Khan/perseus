@@ -122,7 +122,6 @@
     "typescript": "^5.4.2",
     "typescript-coverage-report": "^0.7.0",
     "vite-plugin-istanbul": "^5.0.0",
-    "vite-plugin-turbosnap": "^1.0.3",
     "winston": "^3.7.2"
   },
   "resolutions": {

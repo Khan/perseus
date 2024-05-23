@@ -38,15 +38,6 @@ const preview: Preview = {
                 includeNames: true,
             },
         },
-        // TODO(somewhatabstract): This actions configuration does not appear to be
-        // working as expected. That's probably OK since the new framework I'm
-        // putting in place doesn't need it as we'll have an explicit log call that
-        // ties into the actions API; however, the non-framework stories need it to
-        // work so we might want to look more into that. I tried a bunch of things
-        // to get this working, but nothing seems to do the trick. I suspect we
-        // need to specify this in a different place or the name of the field has
-        // changed (RANT: just another reason I hate export-based APIs).
-        actions: {argTypesRegex: "^on[A-Z].*"},
         controls: {
             matchers: {
                 color: /(background|color)$/i,

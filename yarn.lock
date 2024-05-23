@@ -16601,11 +16601,6 @@ vite-plugin-istanbul@^5.0.0:
     picocolors "^1.0.0"
     test-exclude "^6.0.0"
 
-vite-plugin-turbosnap@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/vite-plugin-turbosnap/-/vite-plugin-turbosnap-1.0.3.tgz#5519bc7b5f8e9c589e8d11fb6b053ec086f41f0a"
-  integrity sha512-p4D8CFVhZS412SyQX125qxyzOgIFouwOcvjZWk6bQbNPR1wtaEzFT6jZxAjf1dejlGqa6fqHcuCvQea6EWUkUA==
-
 vite@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/vite/-/vite-5.1.0.tgz#4510394f48b942ecc6843025f4b926ba99a2fb8c"
