@@ -92,13 +92,11 @@ function doMoveControlPoint(
                 coords: newCoords,
             };
         }
-        case "quadratic": {
-            throw new Error("FIXME implement quadratic reducer");
-        }
         case "circle":
             throw new Error("FIXME implement circle reducer");
         case "point":
         case "polygon":
+        case "quadratic":
             throw new Error(
                 `Don't use moveControlPoint for ${state.type} graphs. Use movePoint instead!`,
             );
