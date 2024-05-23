@@ -4,6 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import {vector as kvector} from "@khanacademy/kmath";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -63,9 +64,8 @@ const LockedLineSettings = (props: Props) => {
     const lineLabel = `${capitalizeKind} (${point1.coord[0]},
         ${point1.coord[1]}), (${point2.coord[0]}, ${point2.coord[1]})`;
 
-    const isInvalid =
-        point1.coord[0] === point2.coord[0] &&
-        point1.coord[1] === point2.coord[1];
+    // Check if the line has length 0.
+    const isInvalid = kvector.equal(point1.coord, point2.coord);
 
     function handleChangePoint(
         newPointProps: Partial<LockedPointType>,
@@ -167,7 +167,7 @@ const LockedLineSettings = (props: Props) => {
                 </View>
             </View>
 
-            {/* Points errror message */}
+            {/* Points error message */}
             {isInvalid && (
                 <LabelMedium style={styles.errorText}>
                     {lengthZeroStr}

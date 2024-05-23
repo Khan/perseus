@@ -6,6 +6,7 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {flags} from "../../__stories__/flags-for-api-options";
+import {getDefaultFigureForType} from "../../components/util";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
@@ -531,5 +532,70 @@ describe("InteractiveGraphEditor", () => {
             />,
         );
         expect(await screen.findAllByTestId("movable-line")).toHaveLength(4);
+    });
+
+    test("getSaveWarnings returns an error when the graph is invalid", async () => {
+        // Arrange
+        jest.spyOn(React, "useRef").mockReturnValue({
+            current: null,
+        });
+        const ref = React.useRef<InteractiveGraphEditor>(null);
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...baseProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+                lockedFigures={[
+                    {
+                        ...getDefaultFigureForType("line"),
+                        points: [
+                            // Line has length 0
+                            getDefaultFigureForType("point"),
+                            getDefaultFigureForType("point"),
+                        ],
+                    },
+                ]}
+                ref={ref}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(ref.current?.getSaveWarnings()).toEqual([
+            "The line cannot have length 0.",
+        ]);
+    });
+
+    test("getSaveWarnings is empty if there are no errors", async () => {
+        // Arrange
+        jest.spyOn(React, "useRef").mockReturnValue({
+            current: null,
+        });
+        const ref = React.useRef<InteractiveGraphEditor>(null);
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...baseProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+                lockedFigures={[
+                    {
+                        ...getDefaultFigureForType("line"),
+                    },
+                ]}
+                ref={ref}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(ref.current?.getSaveWarnings()).toEqual([]);
     });
 });
