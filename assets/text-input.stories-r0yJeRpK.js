@@ -1,9 +1,0 @@
-import{j as s}from"./jsx-runtime-BGVbfQ2Z.js";import{T as o}from"./text-input-GIma_XqC.js";import"./index-qhcEwEpg.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./index-KktidPha.js";import"./index-awljIyHI.js";import"./index-4c2J3ov1.js";import"./index-h47zdzUa.js";import"./index-lUErx3pE.js";import"./index-2Es7CZJJ.js";import"./index-_15Y2y0p.js";import"./index-E09jvG0x.js";const L={title:"Perseus/Components/Text Input"},c={onChange:()=>{}},e=n=>s(o,{...c}),r=n=>s(o,{...c,value:"Test value"}),t=n=>s(o,{...c,labelText:"Test label"}),a=n=>s(o,{...c,disabled:!0});var p,u,m;e.parameters={...e.parameters,docs:{...(p=e.parameters)==null?void 0:p.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <TextInput {...defaultObject} />;
-}`,...(m=(u=e.parameters)==null?void 0:u.docs)==null?void 0:m.source}}};var l,d,i;r.parameters={...r.parameters,docs:{...(l=r.parameters)==null?void 0:l.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <TextInput {...defaultObject} value="Test value" />;
-}`,...(i=(d=r.parameters)==null?void 0:d.docs)==null?void 0:i.source}}};var b,g,T;t.parameters={...t.parameters,docs:{...(b=t.parameters)==null?void 0:b.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <TextInput {...defaultObject} labelText="Test label" />;
-}`,...(T=(g=t.parameters)==null?void 0:g.docs)==null?void 0:T.source}}};var x,j,f;a.parameters={...a.parameters,docs:{...(x=a.parameters)==null?void 0:x.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <TextInput {...defaultObject} disabled={true} />;
-}`,...(f=(j=a.parameters)==null?void 0:j.docs)==null?void 0:f.source}}};const V=["EmptyPropsObject","TestValueProvided","AriaLabelTextProvided","Disabled"];export{t as AriaLabelTextProvided,a as Disabled,e as EmptyPropsObject,r as TestValueProvided,V as __namedExportsOrder,L as default};
