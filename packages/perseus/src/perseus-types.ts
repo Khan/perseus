@@ -11,9 +11,6 @@ export type Size = [number, number];
 export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
-// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-type Empty = Record<never, never>;
-
 export type PerseusWidgetsMap = {
     [key in `categorizer ${number}`]: CategorizerWidget;
 } & {

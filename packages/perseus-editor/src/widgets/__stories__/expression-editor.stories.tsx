@@ -20,9 +20,6 @@ export default {
     title: "PerseusEditor/Widgets/Expression Editor",
 } as Story;
 
-// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-type Empty = Record<string, never>;
-
 type State = PerseusExpressionWidgetOptions;
 
 class WithDebug extends React.Component<Empty, State> {
