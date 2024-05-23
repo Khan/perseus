@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 22.7.0
+
+### Minor Changes
+
+-   [#1303](https://github.com/Khan/perseus/pull/1303) [`49baacd04`](https://github.com/Khan/perseus/commit/49baacd04b981eaa46d1b42af8952ff899152f1d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure there's enough contrast on the grid lines by switching to offBlack50
+
+### Patch Changes
+
+-   [#1300](https://github.com/Khan/perseus/pull/1300) [`9426dee46`](https://github.com/Khan/perseus/commit/9426dee4608b43f8b6b9ea189b0bc81105b73fa7) Thanks [@benchristel](https://github.com/benchristel)! - Revert Mafs to 0.18.5 to fix a tooling incompatibility with webapp. The latest Mafs needs node 20.11 or higher, while we use 20.5 in some places.
+
+*   [#1299](https://github.com/Khan/perseus/pull/1299) [`364e67884`](https://github.com/Khan/perseus/commit/364e678845a0a02e271f7666e204b12a46f81fa7) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure axis tick labels render below interactive elements.
+
 ## 22.6.0
 
 ### Minor Changes
