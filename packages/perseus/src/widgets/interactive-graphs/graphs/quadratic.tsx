@@ -6,8 +6,8 @@ import {movePoint} from "../reducer/interactive-graph-action";
 
 import {StyledMovablePoint} from "./components/movable-point";
 
+import type {Coord} from "../../../interactive2/types";
 import type {QuadraticGraphState, MafsGraphProps} from "../types";
-import type {Coord} from "@khanacademy/perseus";
 import type {vec} from "mafs";
 
 type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
@@ -16,31 +16,15 @@ type QuadraticCoefficient = [number, number, number];
 export function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
-    const {coords, range, snapStep} = graphState;
-
-    // We are going to store the coordinates as a ref as we may need to use the prior value
-    // if the current value is invalid. This ensures that the graphed points don't jump around
-    // when the user is trying to move the points to a location that causes the quadratic equation to hit infinity.
-    // The quadratic graph expects a list of 3 coordinates
-    // [0] = start point
-    // [1] = mid point
-    // [2] = end point
-    const coordsRef = React.useRef<ReadonlyArray<Coord>>([
-        [0, 0],
-        [0, 0],
-        [0, 0],
-    ]);
+    const {coords, range} = graphState;
 
     // The coefficients are used to calculate the quadratic equation, plot the graph, and to indicate
     // to content creators the currently selected "correct answer". ex: y = 0.200x^2 + 0.000x + 0.000
-    // This is being stored as a ref as we may need to use the prior value if the current value is invalid.
-    const coeffRef = React.useRef<QuadraticCoefficient>([0, 0, 0]); // The previous (validated) coefficients
-    const newCoeff = getQuadraticCoefficients(coords); // The new coefficients based on the current coords (which may be invalid)
-    const validCoeff = newCoeff !== undefined;
-    if (validCoeff) {
-        // If the coefficients are valid, we want to update the refs accordingly
-        coeffRef.current = newCoeff;
-        coordsRef.current = coords;
+    // While we should technically never have invalid coordinates, we want to ensure that we have a fallback
+    const coeffRef = React.useRef<QuadraticCoefficient>([0, 0, 0]);
+    const coeffs = getQuadraticCoefficients(coords);
+    if (coeffs !== undefined) {
+        coeffRef.current = coeffs;
     }
 
     // Destructure the coefficients for calculating the quadratic equation
@@ -56,47 +40,38 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     const t: vec.Vector2 = [range[0][0], range[0][1]] as vec.Vector2;
 
     // Ensure that we are only snapping to coordinates that result in a valid quadratic equation
-    const getValidDestination = (
+    const isValidDestination = (
         destination: vec.Vector2,
         elementId: number,
-    ): vec.Vector2 => {
-        // If the destination results in a valid quadratic, we simply want to return the destination
-        if (validCoeff) {
-            return destination;
-        }
-
-        // Otherwise, when the initial destination is invalid, find the next closest x-axis snap step
-        const skipStep =
-            destination[0] > coords[elementId][0] ? snapStep[0] : -snapStep[0];
-        const newDestination = [
-            destination[0] + skipStep,
-            destination[1],
-        ] as vec.Vector2;
-
-        // Set up coords to reflect the new destination so that we can check if the new destination is valid
+    ): boolean => {
+        // Set up the new coords to reflect the new destination so that
+        // we can check if the new destination is valid
         const newCoords = [...coords];
-        newCoords[elementId] = newDestination;
-        const confirmValidDestination = getQuadraticCoefficients(newCoords);
+        newCoords[elementId] = destination;
+        const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
 
-        // If the new destination still results in an invalid quadratic equation,
-        // we want to repeat the previous steps until we manage to get a valid destination
-        if (confirmValidDestination === undefined) {
-            getValidDestination(newDestination, elementId);
+        // If the new destination results in an invalid quadratic equation, we don't want to move the point
+        if (QuadraticCoefficients === undefined) {
+            return false;
         }
 
-        return newDestination;
+        return true;
     };
 
     const handleOnMove = (destination: vec.Vector2, elementId: number) => {
-        // Ensure that the destination is valid before moving the point
-        const validDestination = getValidDestination(destination, elementId);
-        dispatch(movePoint(elementId, validDestination));
+        // If the destination is invalid, we want do not want to move the point
+        const validDestination = isValidDestination(destination, elementId);
+        if (validDestination === false) {
+            return;
+        }
+
+        dispatch(movePoint(elementId, destination));
     };
 
     return (
         <>
             <Plot.Parametric xy={xy} t={t} color={color.blue} />
-            {coordsRef.current.map((coord, i) => (
+            {coords.map((coord, i) => (
                 <StyledMovablePoint
                     key={"point-" + i}
                     point={coord}
