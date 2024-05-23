@@ -75,7 +75,7 @@ export interface CircleGraphState extends InteractiveGraphStateCommon {
 
 export interface QuadraticGraphState extends InteractiveGraphStateCommon {
     type: "quadratic";
-    coords: Coord[];
+    coords: [Coord, Coord, Coord];
 }
 
 export type PairOfPoints = [Coord, Coord];

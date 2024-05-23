@@ -6,11 +6,11 @@ import {movePoint} from "../reducer/interactive-graph-action";
 
 import {StyledMovablePoint} from "./components/movable-point";
 
-import type {Coord} from "../../../interactive2/types";
 import type {QuadraticGraphState, MafsGraphProps} from "../types";
 import type {vec} from "mafs";
 
 type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
+type QuadraticCoords = QuadraticGraphState["coords"];
 type QuadraticCoefficient = [number, number, number];
 
 export function QuadraticGraph(props: QuadraticGraphProps) {
@@ -46,7 +46,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     ): boolean => {
         // Set up the new coords to reflect the new destination so that
         // we can check if the new destination is valid
-        const newCoords = [...coords];
+        const newCoords: QuadraticCoords = [...coords];
         newCoords[elementId] = destination;
         const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
 
@@ -84,7 +84,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
 
 // Get the quadratic coefficients from the 3 control points
 const getQuadraticCoefficients = (
-    coords: ReadonlyArray<Coord>,
+    coords: QuadraticCoords,
 ): QuadraticCoefficient | undefined => {
     const p1 = coords[0];
     const p2 = coords[1];
