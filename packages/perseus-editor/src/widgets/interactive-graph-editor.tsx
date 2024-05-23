@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unsafe */
 /* eslint-disable react/sort-comp */
+import {vector as kvector} from "@khanacademy/kmath";
 import {
     components,
     interactiveSizes,
@@ -15,7 +16,6 @@ import {BodyMonospace, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
-import {vector as kvector} from "@khanacademy/kmath";
 
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphTypeSelector from "../components/graph-type-selector";
@@ -667,7 +667,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         const issues: Array<any | string> = [];
 
         // A locked line on the graph cannot have length 0.
-        for (let figure of this.props.lockedFigures ?? []) {
+        for (const figure of this.props.lockedFigures ?? []) {
             if (
                 figure.type === "line" &&
                 kvector.equal(figure.points[0].coord, figure.points[1].coord)

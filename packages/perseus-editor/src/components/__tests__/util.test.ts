@@ -1,7 +1,5 @@
 import {getDefaultFigureForType} from "../util";
 
-import type {LockedPointType} from "@khanacademy/perseus";
-
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {
         const figure = getDefaultFigureForType("point");

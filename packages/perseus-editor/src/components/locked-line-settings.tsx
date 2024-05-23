@@ -4,6 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import {vector as kvector} from "@khanacademy/kmath";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -17,7 +18,6 @@ import DefiningPointSettings from "./defining-point-settings";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
-import {vector as kvector} from "@khanacademy/kmath";
 
 import type {AccordionProps} from "./locked-figure-settings";
 import type {

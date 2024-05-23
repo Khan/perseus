@@ -6,11 +6,11 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {flags} from "../../__stories__/flags-for-api-options";
+import {getDefaultFigureForType} from "../../components/util";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import {getDefaultFigureForType} from "../../components/util";
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
@@ -536,7 +536,6 @@ describe("InteractiveGraphEditor", () => {
 
     test("getSaveWarnings returns an error when the graph is invalid", async () => {
         // Arrange
-        const getSaveWarningsSpy = jest.fn();
         jest.spyOn(React, "useRef").mockReturnValue({
             current: null,
         });
@@ -573,7 +572,6 @@ describe("InteractiveGraphEditor", () => {
 
     test("getSaveWarnings is empty if there are no errors", async () => {
         // Arrange
-        const getSaveWarningsSpy = jest.fn();
         jest.spyOn(React, "useRef").mockReturnValue({
             current: null,
         });
