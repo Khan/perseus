@@ -44,8 +44,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
         destination: vec.Vector2,
         elementId: number,
     ): boolean => {
-        // Set up the new coords to reflect the new destination so that
-        // we can check if the new destination is valid
+        // Set up the new coords and check if the quadratic coefficients are valid
         const newCoords: QuadraticCoords = [...coords];
         newCoords[elementId] = destination;
         const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
