@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.12.0
+
+### Minor Changes
+
+-   [#1283](https://github.com/Khan/perseus/pull/1283) [`3b85777c7`](https://github.com/Khan/perseus/commit/3b85777c7b2b970121a9c5242d34a2f9cdd2319b) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Make horizontal divider invisible to screen reader
+
 ## 0.11.4
 
 ### Patch Changes
