@@ -20,11 +20,17 @@ function ComponentRenderer({
     apiOptions?: APIOptions;
 }) {
     return (
-        <View>
+        <View style={{marginRight: "40px"}}>
             <StatefulKeypadContextProvider>
                 <Renderer
                     strings={mockStrings}
                     apiOptions={apiOptions}
+                    linterContext={{
+                        contentType: "exercise",
+                        highlightLint: true,
+                        paths: [],
+                        stack: [],
+                    }}
                     {...question}
                 />
                 <KeypadContext.Consumer>
