@@ -34,6 +34,7 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
 
+import type {QuadraticGraphState} from "./interactive-graphs/types";
 import type {Coord} from "../interactive2/types";
 import type {
     PerseusGraphType,
@@ -2216,7 +2217,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         return InteractiveGraph.getQuadraticCoefficients(coords);
     }
 
-    static defaultQuadraticCoords(props: Props): ReadonlyArray<Coord> {
+    static defaultQuadraticCoords(props: Props): QuadraticGraphState["coords"] {
         const coords = [
             [0.25, 0.75],
             [0.5, 0.25],

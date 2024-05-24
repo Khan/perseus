@@ -4187,9 +4187,9 @@ describe("simple markdown", function () {
         });
 
         it("should output hrs", function () {
-            assertParsesToReact("-----\n\n", "<hr/>");
-            assertParsesToReact(" * * * \n\n", "<hr/>");
-            assertParsesToReact("___\n\n", "<hr/>");
+            assertParsesToReact("-----\n\n", '<hr aria-hidden="true"/>');
+            assertParsesToReact(" * * * \n\n", '<hr aria-hidden="true"/>');
+            assertParsesToReact("___\n\n", '<hr aria-hidden="true"/>');
         });
 
         it("should output codeblocks", function () {
@@ -4516,9 +4516,9 @@ describe("simple markdown", function () {
         });
 
         it("should output hrs", function () {
-            assertParsesToHtml("-----\n\n", "<hr>");
-            assertParsesToHtml(" * * * \n\n", "<hr>");
-            assertParsesToHtml("___\n\n", "<hr>");
+            assertParsesToHtml("-----\n\n", '<hr aria-hidden="true">');
+            assertParsesToHtml(" * * * \n\n", '<hr aria-hidden="true">');
+            assertParsesToHtml("___\n\n", '<hr aria-hidden="true">');
         });
 
         it("should output codeblocks", function () {

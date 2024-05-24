@@ -19,6 +19,8 @@ import {
     pointQuestionWithDefaultCorrect,
     polygonQuestion,
     polygonQuestionDefaultCorrect,
+    quadraticQuestion,
+    quadraticQuestionWithDefaultCorrect,
     questionsAndAnswers,
     rayQuestion,
     rayQuestionWithDefaultCorrect,
@@ -155,6 +157,7 @@ describe("a mafs graph", () => {
         polygon: polygonQuestion,
         point: pointQuestion,
         circle: circleQuestion,
+        quadratic: quadraticQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -167,6 +170,7 @@ describe("a mafs graph", () => {
         polygon: polygonQuestionDefaultCorrect,
         point: pointQuestionWithDefaultCorrect,
         circle: circleQuestionWithDefaultCorrect,
+        quadratic: quadraticQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
