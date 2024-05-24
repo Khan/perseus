@@ -210,9 +210,6 @@ const AxisTickLabel = ({
     const pointOnAxis: vec.Vector2 = axis === "x" ? [label, 0] : [0, label];
     const pixelPoint = pointToPixel(pointOnAxis, graphConfig);
 
-    // Remove the negative sign from the label string as it is handled in the data-content attribute
-    const labelString = Math.abs(label).toString();
-
     // Determine the relevant edge of the graph based on the axis type
     const graphEdge = axis === "x" ? graphConfig.width : graphConfig.height;
 
@@ -229,14 +226,9 @@ const AxisTickLabel = ({
         tickStep: tickStep[vectorIndex],
     });
 
-    // Determine whether or not to render a negative symbol for the tick label
-    // as the negative sign is handled in the data-content attribute in order to
-    // maintain the correct spacing between the labels
-    const dataContent = label < 0 && shouldShowLabel ? "−" : null;
-
     return (
-        <span className={`${axis}-axis-tick-label`} data-content={dataContent}>
-            {shouldShowLabel && labelString}
+        <span className={`${axis}-axis-tick-label`}>
+            {shouldShowLabel && label}
         </span>
     );
 };
