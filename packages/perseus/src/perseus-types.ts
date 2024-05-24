@@ -682,7 +682,7 @@ export type LockedPointType = {
 
 export type LockedLineType = {
     type: "line";
-    kind: "line" | "ray" | "segment";
+    kind: "line" | "ray" | "vector" | "segment";
     points: [point1: LockedPointType, point2: LockedPointType];
     color: LockedFigureColor;
     lineStyle: "solid" | "dashed";

@@ -122,7 +122,7 @@ const LockedLineSettings = (props: Props) => {
                 <SingleSelect
                     id={kindSelectId}
                     selectedValue={kind}
-                    onChange={(value: "line" | "segment" | "ray") =>
+                    onChange={(value: "line" | "segment" | "ray" | "vector") =>
                         onChangeProps({kind: value})
                     }
                     // Placeholder is required, but never gets used.
@@ -130,6 +130,7 @@ const LockedLineSettings = (props: Props) => {
                 >
                     <OptionItem value="line" label="line" />
                     <OptionItem value="ray" label="ray" />
+                    <OptionItem value="vector" label="vector" />
                     <OptionItem value="segment" label="segment" />
                 </SingleSelect>
             </View>

@@ -26,17 +26,20 @@ const LockedLine = (props: Props) => {
 
     let line;
 
-    if (kind === "ray") {
-        // Rays extend to the end of the graph in one direction.
-        const extendedPoint = getIntersectionOfRayWithBox(
-            point1.coord,
-            point2.coord,
-            range,
-        );
+    if (kind === "ray" || kind === "vector") {
+        const tipPoint =
+            kind === "vector"
+                ? point2.coord
+                : getIntersectionOfRayWithBox(
+                      // Rays extend to the end of the graph in one direction.
+                      point1.coord,
+                      point2.coord,
+                      range,
+                  );
         line = (
             <Vector
                 tail={point1.coord}
-                tip={extendedPoint}
+                tip={tipPoint}
                 color={lockedFigureColors[color]}
                 style={{
                     strokeDasharray:
