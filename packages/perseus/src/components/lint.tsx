@@ -1,17 +1,10 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
-
+import ExclamationIcon from "@phosphor-icons/core/regular/warning-circle.svg";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import * as constants from "../styles/constants";
-
-import InlineIcon from "./inline-icon";
 import {color, font} from "@khanacademy/wonder-blocks-tokens";
-
-const exclamationIcon = {
-    path: "M6 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-9a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z",
-    height: 12,
-    width: 12,
-} as const;
 
 enum Severity {
     Error = 1,
@@ -107,7 +100,7 @@ class Lint extends React.Component<Props> {
                 >
                     <span className={css(styles.indicator, severityStyle)}>
                         {this.props.severity === 1 && (
-                            <InlineIcon {...exclamationIcon} />
+                            <PhosphorIcon icon={ExclamationIcon} />
                         )}
                     </span>
                 </a>
