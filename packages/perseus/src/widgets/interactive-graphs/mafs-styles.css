@@ -211,8 +211,6 @@
      * drag interactions on the graph. */
     user-select: none;
     pointer-events: none;
-    /* Prevent labels from covering up interaction points. */
-    z-index: -1;
 }
 
 .y-axis-tick-labels {
