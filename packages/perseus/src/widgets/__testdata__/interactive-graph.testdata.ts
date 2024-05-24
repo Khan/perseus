@@ -1996,14 +1996,14 @@ export const segmentWithLockedFigures: PerseusRenderer = {
 export const segmentWithLockedCircles: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedCircle([0, 0], 5)
-        .addLockedCircle([5, 5], 2, {
-            color: "green",
-            fillOpacity: 0.4,
-            strokeStyle: "dashed",
-        })
         .addLockedCircle([-5, 5], 2, {
             color: "green",
-            fillOpacity: 0.4,
+            fillStyle: "solid",
+            strokeStyle: "solid",
+        })
+        .addLockedCircle([5, 5], 2, {
+            color: "green",
+            fillStyle: "translucent",
             strokeStyle: "dashed",
         })
         .build();

@@ -189,7 +189,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 center: [1, 2],
                 radius: 3,
                 color: "grayH",
-                fillOpacity: 0,
+                fillStyle: "none",
                 strokeStyle: "solid",
             },
         ]);
@@ -199,7 +199,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedCircle([1, 2], 3, {
                 color: "green",
-                fillOpacity: 0.5,
+                fillStyle: "solid",
                 strokeStyle: "dashed",
             })
             .build();
@@ -211,7 +211,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 center: [1, 2],
                 radius: 3,
                 color: "green",
-                fillOpacity: 0.5,
+                fillStyle: "solid",
                 strokeStyle: "dashed",
             },
         ]);

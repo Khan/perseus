@@ -550,7 +550,7 @@ describe("locked layer", () => {
             stroke: lockedFigureColors["grayH"],
         });
         expect(circles[1]).toHaveStyle({
-            "fill-opacity": "0.4",
+            "fill-opacity": "1",
             stroke: lockedFigureColors["green"],
         });
         expect(circles[2]).toHaveStyle({

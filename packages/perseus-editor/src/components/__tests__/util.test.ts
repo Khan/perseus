@@ -44,7 +44,7 @@ describe("getDefaultFigureForType", () => {
             center: [0, 0],
             radius: 1,
             color: "grayH",
-            fillOpacity: 0,
+            fillStyle: "none",
             strokeStyle: "solid",
         });
     });

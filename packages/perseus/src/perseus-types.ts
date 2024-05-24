@@ -695,7 +695,7 @@ export type LockedCircleType = {
     center: Coord;
     radius: number;
     color: LockedFigureColor;
-    fillOpacity: number;
+    fillStyle: "none" | "solid" | "translucent";
     strokeStyle: "solid" | "dashed";
 };
 

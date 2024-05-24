@@ -82,7 +82,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 center: [0, 0],
                 radius: 1,
                 color: DEFAULT_COLOR,
-                fillOpacity: 0,
+                fillStyle: "none",
                 strokeStyle: "solid",
             };
         default:
