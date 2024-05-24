@@ -33,12 +33,6 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     // Calculate the y value based on the current x value
     const y = (x) => (a * x + b) * x + c;
 
-    // Set the xy values for the Parametric plot
-    const xy = (x: number) => [x, y(x)] as vec.Vector2;
-
-    // Determine the range / domain of the graph
-    const t: vec.Vector2 = [range[0][0], range[0][1]] as vec.Vector2;
-
     const handleOnMove = (destination: vec.Vector2, elementId: number) => {
         // If the destination is invalid, we want do not want to move the point
         const validDestination = isValidDestination(
@@ -55,7 +49,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
 
     return (
         <>
-            <Plot.Parametric xy={xy} t={t} color={color.blue} />
+            <Plot.OfX y={y} color={color.blue} />
             {coords.map((coord, i) => (
                 <StyledMovablePoint
                     key={"point-" + i}
