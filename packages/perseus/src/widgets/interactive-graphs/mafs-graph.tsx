@@ -13,7 +13,6 @@ import {
     SegmentGraph,
     CircleGraph,
 } from "./graphs";
-import {AxisTickLabels} from "./graphs/components/axis-tick-labels";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
@@ -33,7 +32,6 @@ import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {Widget} from "../../renderer";
-import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
@@ -164,15 +162,13 @@ export type MafsGraphProps = {
 export const MafsGraph = (props: MafsGraphProps) => {
     const {state, dispatch, labels} = props;
     const [width, height] = props.box;
-    const tickStep = props.step as vec.Vector2;
+
     return (
         <GraphConfigContext.Provider
             value={{
                 range: state.range,
                 snapStep: state.snapStep,
                 markings: props.markings,
-                tickStep: tickStep,
-                gridStep: props.gridStep,
                 showTooltips: !!props.showTooltips,
                 graphDimensionsInPixels: props.box,
                 width,
@@ -188,8 +184,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     position: "relative",
                     padding: "25px 25px 0 0",
                     boxSizing: "content-box",
-                    marginLeft: "20px",
-                    marginBottom: "20px",
                 }}
             >
                 <LegacyGrid
@@ -203,12 +197,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         left: 0,
                     }}
                 >
-                    {props.markings === "graph" && (
-                        <>
-                            <AxisLabels />
-                            <AxisTickLabels />
-                        </>
-                    )}
+                    {props.markings === "graph" && <AxisLabels />}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{

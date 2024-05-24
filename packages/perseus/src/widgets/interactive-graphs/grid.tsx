@@ -70,7 +70,11 @@ export const Grid = (props: GridProps) => {
                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
                 props.markings === "graph" && (
                     <>
-                        <AxisTicks />
+                        <AxisTicks
+                            range={props.range}
+                            tickStep={props.tickStep}
+                            gridStep={props.gridStep}
+                        />
                         <AxisArrows />
                     </>
                 )

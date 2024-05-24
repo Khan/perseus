@@ -73,9 +73,3 @@ export interface CircleGraphState extends InteractiveGraphStateCommon {
 }
 
 export type PairOfPoints = [Coord, Coord];
-
-export type GraphDimensions = {
-    range: [Interval, Interval];
-    width: number; // pixels
-    height: number; // pixels
-};
