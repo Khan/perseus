@@ -207,10 +207,6 @@
     font-size: 14px;
     font-family: "Mafs-MJXTEX";
     line-height: 1.5em;
-    /* Prevent labels from being selected, and from interfering with click and
-     * drag interactions on the graph. */
-    user-select: none;
-    pointer-events: none;
 }
 
 .y-axis-tick-labels {
