@@ -16,7 +16,7 @@ type QuadraticCoefficient = [number, number, number];
 export function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
-    const {coords, range} = graphState;
+    const {coords} = graphState;
 
     // The coefficients are used to calculate the quadratic equation, plot the graph, and to indicate
     // to content creators the currently selected "correct answer". ex: y = 0.200x^2 + 0.000x + 0.000
@@ -81,6 +81,9 @@ export const isValidDestination = (
 };
 
 // Get the quadratic coefficients from the 3 control points
+// These equations were originally set up in 2013 and may require some
+// additional comments to help clarify the quadratic formula manipulations
+// Origin: https://phabricator.khanacademy.org/D2413
 export const getQuadraticCoefficients = (
     coords: QuadraticCoords,
 ): QuadraticCoefficient | undefined => {
