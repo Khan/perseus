@@ -18,6 +18,9 @@ import type {Props as InteractiveGraphEditorProps} from "../widgets/interactive-
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
 
 type Props = {
+    // Whether to show the M2 features in the locked figure settings.
+    // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
+    showM2Features?: boolean;
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
@@ -102,6 +105,7 @@ const LockedFiguresSection = (props: Props) => {
 
                 return (
                     <LockedFigureSettings
+                        showM2Features={props.showM2Features}
                         expanded={expandedStates[index]}
                         onToggle={(newValue) => {
                             const newExpanded = [...expandedStates];
