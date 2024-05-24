@@ -594,15 +594,7 @@ class SvgImage extends React.Component<Props, State> {
         const imageProps: ImageProps = {
             alt: this.props.alt,
             title: this.props.title,
-            tabIndex: "0",
         };
-        // If alt text is present, AND overrideAriaHidden is true,
-        // include aria-hidden to avoid screen reader from crawling texts
-        // both from the div meant for screen readers (see svg-image.jsx)
-        // and alt attribute.
-        if (this.props.alt && this.props.overrideAriaHidden) {
-            imageProps["aria-hidden"] = true;
-        }
 
         const width = this.props.width && this.props.width * this.props.scale;
         const height =
