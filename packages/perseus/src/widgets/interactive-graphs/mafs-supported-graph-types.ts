@@ -6,6 +6,7 @@ export const mafsSupportedGraphTypes = [
     "polygon",
     "point",
     "circle",
+    "quadratic",
 ] as const;
 
 export type MafsSupportedGraphType = (typeof mafsSupportedGraphTypes)[number];

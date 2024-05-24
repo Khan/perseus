@@ -96,6 +96,7 @@ function doMoveControlPoint(
             throw new Error("FIXME implement circle reducer");
         case "point":
         case "polygon":
+        case "quadratic":
             throw new Error(
                 `Don't use moveControlPoint for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -184,8 +185,26 @@ function doMovePoint(
     action: MovePoint,
 ): InteractiveGraphState {
     switch (state.type) {
-        case "point":
-        case "polygon": {
+        case "polygon":
+        case "point": {
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: snap(
+                        state.snapStep,
+                        bound({
+                            snapStep: state.snapStep,
+                            range: state.range,
+                            point: action.destination,
+                        }),
+                    ),
+                }),
+            };
+        }
+        case "quadratic": {
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -205,7 +224,7 @@ function doMovePoint(
         }
         default:
             throw new Error(
-                "The movePoint action is only for point and polygon graphs",
+                "The movePoint action is only for point, quadratic, and polygon graphs",
             );
     }
 }

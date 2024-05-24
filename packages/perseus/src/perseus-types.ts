@@ -767,7 +767,7 @@ export type PerseusGraphTypePolygon = {
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
     // expects a list of 3 coords
-    coords?: ReadonlyArray<Coord>;
+    coords?: [Coord, Coord, Coord];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSegment = {
