@@ -176,4 +176,44 @@ describe("InteractiveGraphQuestionBuilder", () => {
             },
         ]);
     });
+
+    it("adds a locked circle", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedCircle([1, 2], 3)
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "circle",
+                center: [1, 2],
+                radius: 3,
+                color: "grayH",
+                fillOpacity: 0,
+                strokeStyle: "solid",
+            },
+        ]);
+    });
+
+    it("adds a locked circle with options", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedCircle([1, 2], 3, {
+                color: "green",
+                fillOpacity: 0.5,
+                strokeStyle: "dashed",
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "circle",
+                center: [1, 2],
+                radius: 3,
+                color: "green",
+                fillOpacity: 0.5,
+                strokeStyle: "dashed",
+            },
+        ]);
+    });
 });

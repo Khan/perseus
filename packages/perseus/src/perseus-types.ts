@@ -670,7 +670,7 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     red: "#D92916",
 } as const;
 
-export type LockedFigure = LockedPointType | LockedLineType;
+export type LockedFigure = LockedPointType | LockedLineType | LockedCircleType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -688,6 +688,15 @@ export type LockedLineType = {
     lineStyle: "solid" | "dashed";
     showPoint1: boolean;
     showPoint2: boolean;
+};
+
+export type LockedCircleType = {
+    type: "circle";
+    center: Coord;
+    radius: number;
+    color: LockedFigureColor;
+    fillOpacity: number;
+    strokeStyle: "solid" | "dashed";
 };
 
 export type PerseusGraphType =

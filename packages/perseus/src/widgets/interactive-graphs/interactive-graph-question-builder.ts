@@ -1,5 +1,7 @@
 import type {
+    LockedCircleType,
     LockedFigure,
+    LockedFigureColor,
     LockedLineType,
     LockedPointType,
     PerseusGraphType,
@@ -126,6 +128,29 @@ class InteractiveGraphQuestionBuilder {
             ],
         };
         this.addLockedFigure(line);
+        return this;
+    }
+
+    addLockedCircle(
+        center: vec.Vector2,
+        radius: number,
+        options?: {
+            color?: LockedFigureColor;
+            fillOpacity?: number;
+            strokeStyle?: "solid" | "dashed";
+        },
+    ): InteractiveGraphQuestionBuilder {
+        const circle: LockedCircleType = {
+            type: "circle",
+            center: center,
+            radius: radius,
+            color: "grayH",
+            fillOpacity: 0,
+            strokeStyle: "solid",
+            ...options,
+        };
+
+        this.addLockedFigure(circle);
         return this;
     }
 

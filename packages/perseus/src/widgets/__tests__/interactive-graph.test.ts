@@ -24,6 +24,7 @@ import {
     rayQuestionWithDefaultCorrect,
     segmentQuestion,
     segmentQuestionDefaultCorrect,
+    segmentWithLockedCircles,
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
@@ -525,6 +526,36 @@ describe("locked layer", () => {
         expect(rayPoints[0]).toHaveStyle({
             fill: wbColor.white,
             stroke: lockedFigureColors.pink,
+        });
+    });
+
+    test("should render locked circles", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedCircles, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const circles = container.querySelectorAll("ellipse");
+
+        // Assert
+        expect(circles).toHaveLength(3);
+        expect(circles[0]).toHaveStyle({
+            "fill-opacity": "0",
+            stroke: lockedFigureColors["grayH"],
+        });
+        expect(circles[1]).toHaveStyle({
+            "fill-opacity": "0.4",
+            stroke: lockedFigureColors["green"],
+        });
+        expect(circles[2]).toHaveStyle({
+            "fill-opacity": "0.4",
+            stroke: lockedFigureColors["green"],
         });
     });
 });
