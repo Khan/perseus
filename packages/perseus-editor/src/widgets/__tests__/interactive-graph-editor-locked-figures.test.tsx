@@ -32,6 +32,14 @@ const mafsProps = {
     graph: {type: "segment"} as PerseusGraphType,
 };
 
+// Breaking this out into its own function, because the RenderStateRoot
+// wrapper was making it take up a lot of space.
+const renderEditor = (props) => {
+    render(<InteractiveGraphEditor {...mafsProps} {...props} />, {
+        wrapper: RenderStateRoot,
+    });
+};
+
 describe("InteractiveGraphEditor locked figures", () => {
     let userEvent;
     beforeEach(() => {
@@ -43,38 +51,34 @@ describe("InteractiveGraphEditor locked figures", () => {
             testDependencies,
         );
     });
-    describe("points", () => {
-        test("Calls onChange when a locked point is added", async () => {
+
+    // Basic functionality
+    describe.each`
+        figureType | figureName
+        ${"point"} | ${"Point"}
+        ${"line"}  | ${"Line"}
+    `(`$figureType basics`, ({figureType, figureName}) => {
+        test("Calls onChange when a locked $figureType is added", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({onChange: onChangeMock});
 
             // Act
             const addLockedFigureButton = screen.getByRole("button", {
                 name: "Add locked figure",
             });
             await userEvent.click(addLockedFigureButton);
-            const addPointButton = screen.getByText("Point");
+            const addPointButton = screen.getByText(figureName);
             await userEvent.click(addPointButton);
 
             // Assert
-            expect(onChangeMock).toBeCalledWith(
-                expect.objectContaining({
-                    lockedFigures: [defaultPoint],
-                }),
-            );
+            expect(onChangeMock).toBeCalledWith({
+                lockedFigures: [getDefaultFigureForType(figureType)],
+            });
         });
 
-        test("Calls onChange when a locked point is removed", async () => {
+        test("Calls onChange when a locked $figureType is removed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
             const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
@@ -82,20 +86,14 @@ describe("InteractiveGraphEditor locked figures", () => {
                 () => true,
             );
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType(figureType)],
+            });
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: "Delete locked point at 0, 0",
+                name: /Delete*/,
             });
             await userEvent.click(deleteButton);
 
@@ -116,20 +114,14 @@ describe("InteractiveGraphEditor locked figures", () => {
                 () => false,
             );
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType(figureType)],
+            });
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: "Delete locked point at 0, 0",
+                name: /Delete*/,
             });
             await userEvent.click(deleteButton);
 
@@ -138,20 +130,66 @@ describe("InteractiveGraphEditor locked figures", () => {
             expect(onChangeMock).not.toBeCalled();
         });
 
+        test("Shows settings accordion when a locked $figureType is passed in", async () => {
+            // Arrange
+            renderEditor({
+                lockedFigures: [getDefaultFigureForType(figureType)],
+            });
+
+            // Act
+            // There may be accordions within the settings, such as the
+            // defining point accordions within the line settings.
+            const accordionHeading = screen.getAllByRole("heading", {
+                level: 2,
+            })[0];
+            const capitalizedFigureType =
+                figureType.charAt(0).toUpperCase() + figureType.slice(1);
+
+            // Assert
+            expect(accordionHeading).toBeInTheDocument();
+            expect(accordionHeading).toHaveTextContent(capitalizedFigureType);
+        });
+
+        test("Calls onChange when a locked $figureType's color is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType(figureType)],
+            });
+
+            // Act
+            const colorInput = screen.getByRole("button", {
+                name: "color",
+            });
+            await userEvent.click(colorInput);
+            const colorSelection = screen.getByText("purple");
+            await userEvent.click(colorSelection);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: figureType,
+                            color: "purple",
+                        }),
+                    ],
+                }),
+            );
+        });
+    });
+
+    describe("points", () => {
         test("Calls onChange when a locked point's x coordinate is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPoint],
+            });
 
             // Act
             const xCoordInput = screen.getByLabelText("x coord");
@@ -175,16 +213,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPoint],
+            });
 
             // Act
             const xCoordInput = screen.getByLabelText("y coord");
@@ -204,82 +236,14 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Shows the locked point settings when a locked point is passed in", async () => {
-            // Arrange
-
-            // Act
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={() => {}}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Assert
-            expect(screen.getByText("Point (0, 0)")).toBeInTheDocument();
-            expect(screen.getByText("x coord")).toBeInTheDocument();
-            expect(screen.getByText("y coord")).toBeInTheDocument();
-            expect(
-                screen.getByRole("button", {
-                    name: "Delete locked point at 0, 0",
-                }),
-            ).toBeInTheDocument();
-            expect(screen.getByText("color")).toBeInTheDocument();
-        });
-
-        test("Calls onChange when a locked point's color is changed", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Act
-            const colorInput = screen.getByRole("button", {
-                name: "color",
-            });
-            await userEvent.click(colorInput);
-            const colorSelection = screen.getByText("purple");
-            await userEvent.click(colorSelection);
-
-            // Assert
-            expect(onChangeMock).toBeCalledWith(
-                expect.objectContaining({
-                    lockedFigures: [
-                        expect.objectContaining({
-                            color: "purple",
-                        }),
-                    ],
-                }),
-            );
-        });
-
         test("Calls onChange when a locked point's `filled` is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPoint],
+            });
 
             // Act
             const fillInput = screen.getByRole("switch", {
@@ -303,16 +267,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPoint],
+            });
 
             // Act
             const xCoordInput = screen.getByLabelText("x coord");
@@ -327,16 +285,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultPoint]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPoint],
+            });
 
             // Act
             const yCoordInput = screen.getByLabelText("y coord");
@@ -359,16 +311,10 @@ describe("InteractiveGraphEditor locked figures", () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
-                render(
-                    <InteractiveGraphEditor
-                        {...mafsProps}
-                        onChange={onChangeMock}
-                        lockedFigures={[defaultPoint]}
-                    />,
-                    {
-                        wrapper: RenderStateRoot,
-                    },
-                );
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [defaultPoint],
+                });
 
                 // Act
                 const coordInput = screen.getByLabelText(`${coord} coord`);
@@ -383,182 +329,14 @@ describe("InteractiveGraphEditor locked figures", () => {
     });
 
     describe("lines", () => {
-        test("Calls onChange when a locked line is added", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Act
-            const addLockedFigureButton = screen.getByRole("button", {
-                name: "Add locked figure",
-            });
-            await userEvent.click(addLockedFigureButton);
-            const addLineButton = screen.getByText("Line");
-            await userEvent.click(addLineButton);
-
-            // Assert
-            expect(onChangeMock).toBeCalledWith(
-                expect.objectContaining({
-                    lockedFigures: [
-                        expect.objectContaining({
-                            ...defaultLine,
-                        }),
-                    ],
-                }),
-            );
-        });
-
-        test("Calls onChange when a locked line is removed", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
-                // Confirm button clicked
-                () => true,
-            );
-
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Act
-            const deleteButton = screen.getByRole("button", {
-                name: "Delete locked line defined by 0, 0 and 2, 2.",
-            });
-            await userEvent.click(deleteButton);
-
-            // Assert
-            expect(confirmSpy).toBeCalled();
-            expect(onChangeMock).toBeCalledWith(
-                expect.objectContaining({
-                    lockedFigures: [],
-                }),
-            );
-        });
-
-        test("Does not call onChange when the delete is canceled", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-            const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
-                // Cancel button clicked
-                () => false,
-            );
-
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Act
-            const deleteButton = screen.getByRole("button", {
-                name: "Delete locked line defined by 0, 0 and 2, 2.",
-            });
-            await userEvent.click(deleteButton);
-
-            // Assert
-            expect(confirmSpy).toBeCalled();
-            expect(onChangeMock).not.toBeCalled();
-        });
-
-        test("Shows the locked line settings when a locked line is passed in", async () => {
-            // Arrange
-
-            // Act
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={() => {}}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Assert
-            expect(screen.getByText("Line (0, 0), (2, 2)")).toBeInTheDocument();
-            expect(screen.getByText("kind")).toBeInTheDocument();
-            expect(screen.getByText("color")).toBeInTheDocument();
-            expect(screen.getByText("style")).toBeInTheDocument();
-            expect(screen.getByText("Point 1 (0, 0)")).toBeInTheDocument();
-            expect(screen.getByText("Point 2 (2, 2)")).toBeInTheDocument();
-        });
-
-        test("Calls onChange when a locked line's color is changed", async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Act
-            const colorInput = screen.getByRole("button", {
-                name: "color",
-            });
-            await userEvent.click(colorInput);
-            const colorSelection = screen.getByText("purple");
-            await userEvent.click(colorSelection);
-
-            // Assert
-            expect(onChangeMock).toBeCalledWith(
-                expect.objectContaining({
-                    lockedFigures: [
-                        expect.objectContaining({
-                            ...defaultLine,
-                            color: "purple",
-                            points: [
-                                expect.objectContaining({color: "purple"}),
-                                expect.objectContaining({color: "purple"}),
-                            ],
-                        }),
-                    ],
-                }),
-            );
-        });
-
         test("Calls onChange when a locked line's style is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+            });
 
             // Act
             const styleInput = screen.getByRole("button", {
@@ -585,16 +363,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+            });
 
             // Act
             const point1Input = screen.getAllByLabelText("x coord")[0];
@@ -623,16 +395,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+            });
 
             // Act
             const point2Input = screen.getAllByLabelText("y coord")[0];
@@ -661,16 +427,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+            });
 
             // Act
             const point1Input = screen.getAllByLabelText("x coord")[1];
@@ -699,16 +459,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+            });
 
             // Act
             const point1Input = screen.getAllByLabelText("y coord")[1];
@@ -737,16 +491,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+            });
 
             // Act
             const kindInput = screen.getByRole("button", {
@@ -773,16 +521,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+            });
 
             // Act
             const toggle = screen.getAllByLabelText("show point on graph")[0];
@@ -805,16 +547,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             // Arrange
             const onChangeMock = jest.fn();
 
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={onChangeMock}
-                    lockedFigures={[defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+            });
 
             // Act
             const toggle = screen.getAllByLabelText("show point on graph")[1];
@@ -841,16 +577,11 @@ describe("InteractiveGraphEditor locked figures", () => {
                 // Confirm button clicked
                 () => true,
             );
-            render(
-                <InteractiveGraphEditor
-                    {...mafsProps}
-                    onChange={() => {}}
-                    lockedFigures={[defaultPoint, defaultLine]}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
+
+            renderEditor({
+                onChange: () => {},
+                lockedFigures: [defaultPoint, defaultLine],
+            });
 
             // Act
             // Open the accordion to delete the figure
