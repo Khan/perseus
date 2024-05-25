@@ -200,18 +200,50 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     backgroundImage={props.backgroundImage}
                 />
                 <View
+                    className="mafs-grid"
                     style={{
                         position: "absolute",
                         bottom: 0,
                         left: 0,
                     }}
                 >
+                    <Mafs
+                        preserveAspectRatio={false}
+                        viewBox={{
+                            x: state.range[0],
+                            y: state.range[1],
+                            padding: 0,
+                        }}
+                        pan={false}
+                        zoom={false}
+                        width={width}
+                        height={height}
+                    >
+                        {/* Background layer */}
+                        <Grid
+                            tickStep={props.step}
+                            gridStep={props.gridStep}
+                            range={state.range}
+                            containerSizeClass={props.containerSizeClass}
+                            markings={props.markings}
+                        />
+                    </Mafs>
+
                     {props.markings === "graph" && (
                         <>
                             <AxisLabels />
                             <AxisTickLabels />
                         </>
                     )}
+                </View>
+                <View
+                    className="actual-graph"
+                    style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                    }}
+                >
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
@@ -226,15 +258,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     >
                         {/* Svg definitions to render only once */}
                         <SvgDefs />
-
-                        {/* Background layer */}
-                        <Grid
-                            tickStep={props.step}
-                            gridStep={props.gridStep}
-                            range={state.range}
-                            containerSizeClass={props.containerSizeClass}
-                            markings={props.markings}
-                        />
 
                         {/* Locked layer */}
                         {props.lockedFigures && (

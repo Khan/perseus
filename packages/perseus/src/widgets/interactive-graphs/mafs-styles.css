@@ -214,15 +214,13 @@
      * drag interactions on the graph. */
     user-select: none;
     pointer-events: none;
-    /* Prevent labels from covering up interaction points. */
-    z-index: -1;
 }
 
 .y-axis-tick-labels {
     width: 1.75em;
     display: flex;
     flex-flow: column;
-    transform: translateX(calc(-100% - 0.5em));
+    transform: translateX(calc(-100%));
     position: absolute;
     text-align: right;
 }
@@ -248,4 +246,19 @@
 .x-axis-tick-labels span {
     text-align: center;
     width: var(--x-axis-label-width, 20px);
+}
+.axis-tick-labels svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+}
+.axis-tick-labels svg text {
+    /* we want to add a white stroke to the text */
+    stroke: white;
+    stroke-width: 8px;
+    stroke-linecap: round;
+    fill: black;
+    /* we want to make sure the stroke  is rendered before the fill */
+    paint-order: stroke fill;
 }

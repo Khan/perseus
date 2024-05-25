@@ -26,6 +26,7 @@ type GridLabel = {
     graphConfig: GraphConfig;
     axisOutOfBounds: boolean;
     axis: "x" | "y";
+    xLabelWidth?: number;
 };
 
 type GridAxisProps = {
@@ -191,6 +192,7 @@ const XGridAxis = (props: GridAxisProps): React.ReactElement => {
                         key={`x-grid-tick-${label}`}
                         graphConfig={graphConfig}
                         axisOutOfBounds={xAxisOutOfBounds}
+                        xLabelWidth={xLabelWidth}
                     />
                 );
             })}
@@ -204,6 +206,7 @@ const AxisTickLabel = ({
     graphConfig,
     axisOutOfBounds,
     axis,
+    xLabelWidth,
 }: GridLabel) => {
     const {gridStep, tickStep} = graphConfig;
     // Determine the point on the axis based on the axis type
@@ -228,8 +231,18 @@ const AxisTickLabel = ({
 
     return (
         <span className={`${axis}-axis-tick-label`}>
-            {shouldShowLabel && label}
+            {shouldShowLabel && labelSVG(label, xLabelWidth || 20)}
         </span>
+    );
+};
+
+const labelSVG = (label: number, xLabelWidth: number) => {
+    return (
+        <svg height={"25px"} width={xLabelWidth}>
+            <text x={xLabelWidth / 2 + "px"} y={10} textAnchor="middle">
+                {label}
+            </text>
+        </svg>
     );
 };
 
