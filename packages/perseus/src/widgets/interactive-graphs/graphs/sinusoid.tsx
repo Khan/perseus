@@ -22,6 +22,9 @@ export type SineCoefficient = [
 export function SinusoidGraph(props: SinusoidGraphProps) {
     const {dispatch, graphState} = props;
 
+    // Destructure the coordinates from the graph state
+    // Note: The order of the coordinates is important:
+    // The coords[0] is the root and the coords[1] is the first peak
     const {coords} = graphState;
 
     // Destructure the coefficients for calculating the quadratic equation
