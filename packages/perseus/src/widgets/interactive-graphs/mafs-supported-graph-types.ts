@@ -7,6 +7,7 @@ export const mafsSupportedGraphTypes = [
     "point",
     "circle",
     "quadratic",
+    "sinusoid",
 ] as const;
 
 export type MafsSupportedGraphType = (typeof mafsSupportedGraphTypes)[number];

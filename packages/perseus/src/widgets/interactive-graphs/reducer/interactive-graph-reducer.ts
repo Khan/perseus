@@ -97,6 +97,7 @@ function doMoveControlPoint(
         case "point":
         case "polygon":
         case "quadratic":
+        case "sinusoid":
             throw new Error(
                 `Don't use moveControlPoint for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -186,6 +187,7 @@ function doMovePoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "polygon":
+        case "sinusoid":
         case "point": {
             return {
                 ...state,
