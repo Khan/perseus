@@ -8,7 +8,6 @@ import {StyledMovablePoint} from "./components/movable-point";
 
 import type {Coord} from "../../../interactive2/types";
 import type {SinusoidGraphState, MafsGraphProps} from "../types";
-import type {vec} from "mafs";
 
 type SinusoidGraphProps = MafsGraphProps<SinusoidGraphState>;
 
@@ -30,11 +29,6 @@ export function SinusoidGraph(props: SinusoidGraphProps) {
     // Get the coefficients for calculating the quadratic equation
     const coeffs: SineCoefficient = getSinusoidCoefficients(coords);
 
-    // Move a point to a new destination
-    const handleOnMove = (destination: vec.Vector2, elementId: number) => {
-        dispatch(movePoint(elementId, destination));
-    };
-
     return (
         <>
             <Plot.OfX y={(x) => computeSine(x, coeffs)} color={color.blue} />
@@ -42,7 +36,9 @@ export function SinusoidGraph(props: SinusoidGraphProps) {
                 <StyledMovablePoint
                     key={"point-" + i}
                     point={coord}
-                    onMove={(destination) => handleOnMove(destination, i)}
+                    onMove={(destination) =>
+                        dispatch(movePoint(i, destination))
+                    }
                 />
             ))}
         </>
