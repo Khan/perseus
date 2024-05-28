@@ -93,7 +93,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: /Delete*/,
+                name: /Delete/,
             });
             await userEvent.click(deleteButton);
 
@@ -121,7 +121,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: /Delete*/,
+                name: /Delete/,
             });
             await userEvent.click(deleteButton);
 
@@ -142,12 +142,10 @@ describe("InteractiveGraphEditor locked figures", () => {
             const accordionHeading = screen.getAllByRole("heading", {
                 level: 2,
             })[0];
-            const capitalizedFigureType =
-                figureType.charAt(0).toUpperCase() + figureType.slice(1);
 
             // Assert
             expect(accordionHeading).toBeInTheDocument();
-            expect(accordionHeading).toHaveTextContent(capitalizedFigureType);
+            expect(accordionHeading).toHaveTextContent(figureName);
         });
 
         test("Calls onChange when a locked $figureType's color is changed", async () => {
