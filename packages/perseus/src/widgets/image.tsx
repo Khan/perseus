@@ -97,7 +97,7 @@ class ImageWidget extends React.Component<Props> {
 
         const backgroundImage = this.props.backgroundImage;
 
-        if (this.props.caption == this.props.alt) {
+        if (this.props.caption === this.props.alt) {
             alt = "";
         } else {
             alt = this.props.alt;
