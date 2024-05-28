@@ -81,7 +81,7 @@ export interface QuadraticGraphState extends InteractiveGraphStateCommon {
 
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     type: "sinusoid";
-    coords: vec.Vector2[];
+    coords: [vec.Vector2, vec.Vector2];
 }
 
 export type PairOfPoints = [Coord, Coord];

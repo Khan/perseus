@@ -386,8 +386,8 @@ const getSinusoidCoords = (
     graph: PerseusGraphTypeSinusoid,
     range: InitializeGraphStateParam["range"],
     step: InitializeGraphStateParam["step"],
-): Coord[] => {
-    let coords: Coord[] = [
+): [Coord, Coord] => {
+    let coords: [Coord, Coord] = [
         [0.5, 0.5],
         [0.65, 0.6],
     ];
