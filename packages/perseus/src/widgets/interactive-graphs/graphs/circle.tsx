@@ -30,6 +30,7 @@ export function CircleGraph(props: CircleGraphProps) {
             />
             <StyledMovablePoint
                 point={radiusPoint}
+                cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
                     dispatch(moveRadiusPoint(newRadiusPoint));
                 }}

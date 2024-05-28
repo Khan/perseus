@@ -8,12 +8,14 @@ import {useTransformVectorsToPixels} from "../use-transform";
 
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
+import {CSSCursor} from "./css-cursor";
 
 type Props = {
     point: vec.Vector2;
     color?: string | undefined;
     dragging: boolean;
     focusBehavior: FocusBehaviorConfig;
+    cursor?: CSSCursor | undefined;
 };
 
 type FocusBehaviorConfig =
@@ -36,7 +38,7 @@ const hitboxSizePx = 48;
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
         const {range, markings, showTooltips} = useGraphConfig();
-        const {point, color = WBColor.blue, dragging, focusBehavior} = props;
+        const {point, color = WBColor.blue, dragging, focusBehavior, cursor} = props;
 
         // WB Tooltip requires a color name for the background color.
         // Since the color in props is a hex value, a reverse lookup is needed.
@@ -80,7 +82,7 @@ export const MovablePointView = forwardRef(
             <g
                 ref={hitboxRef}
                 className={pointClasses}
-                style={{"--movable-point-color": color} as any}
+                style={{"--movable-point-color": color, cursor} as any}
                 data-testid="movable-point"
                 tabIndex={tabIndex(focusBehavior)}
             >
