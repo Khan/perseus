@@ -110,9 +110,7 @@ class ImageWidget extends React.Component<Props> {
                     {({setAssetStatus}) => (
                         <SvgImage
                             src={url}
-                            alt={
-                                alt
-                            }
+                            alt={alt}
                             width={backgroundImage.width}
                             height={backgroundImage.height}
                             preloader={apiOptions.imagePreloader}
