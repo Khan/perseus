@@ -92,7 +92,7 @@ class ImageWidget extends React.Component<Props> {
 
     render(): React.ReactNode {
         let image;
-        let alt = this.props.caption === this.props.alt ? "" : this.props.alt;
+        const alt = this.props.caption === this.props.alt ? "" : this.props.alt;
         const {apiOptions} = this.props;
 
         const backgroundImage = this.props.backgroundImage;
