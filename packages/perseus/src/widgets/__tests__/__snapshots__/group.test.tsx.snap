@@ -1163,24 +1163,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </div>
                               </span>
                             </div>
-                            <span
-                              class="perseus-sr-only"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
                           </figure>
                         </div>
                       </div>
