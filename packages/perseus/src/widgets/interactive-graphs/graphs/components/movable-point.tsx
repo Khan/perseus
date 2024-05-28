@@ -8,8 +8,8 @@ import {snap} from "../../utils";
 
 import {MovablePointView} from "./movable-point-view";
 
+import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
-import {CSSCursor} from "./css-cursor";
 
 type Props = {
     point: vec.Vector2;

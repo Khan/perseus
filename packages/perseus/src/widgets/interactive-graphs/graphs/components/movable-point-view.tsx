@@ -6,9 +6,9 @@ import {forwardRef} from "react";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
+import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
-import {CSSCursor} from "./css-cursor";
 
 type Props = {
     point: vec.Vector2;
@@ -38,7 +38,13 @@ const hitboxSizePx = 48;
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
         const {range, markings, showTooltips} = useGraphConfig();
-        const {point, color = WBColor.blue, dragging, focusBehavior, cursor} = props;
+        const {
+            point,
+            color = WBColor.blue,
+            dragging,
+            focusBehavior,
+            cursor,
+        } = props;
 
         // WB Tooltip requires a color name for the background color.
         // Since the color in props is a hex value, a reverse lookup is needed.
