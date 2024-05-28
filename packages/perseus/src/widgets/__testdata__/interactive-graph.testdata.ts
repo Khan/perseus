@@ -1,3 +1,5 @@
+import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
+
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 
@@ -1990,6 +1992,21 @@ export const segmentWithLockedFigures: PerseusRenderer = {
         },
     },
 };
+
+export const segmentWithLockedCircles: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedCircle([0, 0], 5)
+        .addLockedCircle([-5, 5], 2, {
+            color: "green",
+            fillStyle: "solid",
+            strokeStyle: "solid",
+        })
+        .addLockedCircle([5, 5], 2, {
+            color: "green",
+            fillStyle: "translucent",
+            strokeStyle: "dashed",
+        })
+        .build();
 
 export const quadraticQuestion: PerseusRenderer = {
     content: "All locked lines\n\n[[☃ interactive-graph 1]]",

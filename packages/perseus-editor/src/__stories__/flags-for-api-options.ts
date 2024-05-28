@@ -6,6 +6,7 @@ export const flags = {
         circle: true,
         quadratic: true,
         "interactive-graph-locked-features-m1": true,
+        "interactive-graph-locked-features-m2": true,
     },
 } satisfies APIOptions["flags"];
 
