@@ -58,7 +58,6 @@ function doMoveControlPoint(
     state: InteractiveGraphState,
     action: MoveControlPoint,
 ): InteractiveGraphState {
-    const {snapStep, range} = state;
     switch (state.type) {
         case "segment":
         case "linear":
@@ -71,11 +70,7 @@ function doMoveControlPoint(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: boundAndSnapToGrid({
-                            snapStep,
-                            range,
-                            point: action.destination,
-                        }),
+                        newValue: boundAndSnapToGrid(action.destination, state),
                     }),
             });
 
@@ -191,11 +186,7 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundAndSnapToGrid({
-                        snapStep: state.snapStep,
-                        range: state.range,
-                        point: action.destination,
-                    }),
+                    newValue: boundAndSnapToGrid(action.destination, state),
                 }),
             };
         }
@@ -214,11 +205,7 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundAndSnapToGrid({
-                        snapStep: state.snapStep,
-                        range: state.range,
-                        point: destination,
-                    }),
+                    newValue: boundAndSnapToGrid(destination, state),
                 }),
             };
         }
@@ -229,11 +216,7 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundAndSnapToGrid({
-                        snapStep: state.snapStep,
-                        range: state.range,
-                        point: action.destination,
-                    }),
+                    newValue: boundAndSnapToGrid(action.destination, state),
                 }),
             };
         }
@@ -386,7 +369,10 @@ interface ConstraintArgs {
     point: vec.Vector2;
 }
 
-function boundAndSnapToGrid({snapStep, range, point}: ConstraintArgs) {
+function boundAndSnapToGrid(
+    point: vec.Vector2,
+    {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
+) {
     return snap(snapStep, bound({snapStep, range, point}));
 }
 
