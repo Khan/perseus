@@ -8,18 +8,20 @@ import {snap} from "../../utils";
 
 import {MovablePointView} from "./movable-point-view";
 
+import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 
 type Props = {
     point: vec.Vector2;
     onMove: (newPoint: vec.Vector2) => unknown;
     color?: string;
+    cursor?: CSSCursor | undefined;
 };
 
 export const StyledMovablePoint = (props: Props) => {
     const {snapStep} = useGraphConfig();
     const elementRef = useRef<SVGGElement>(null);
-    const {point, onMove, color = WBColor.blue} = props;
+    const {point, onMove, cursor, color = WBColor.blue} = props;
 
     const {dragging} = useMovable({
         gestureTarget: elementRef,
@@ -35,6 +37,7 @@ export const StyledMovablePoint = (props: Props) => {
             color={color}
             dragging={dragging}
             focusBehavior={{type: "uncontrolled", tabIndex: 0}}
+            cursor={cursor}
         />
     );
 };
