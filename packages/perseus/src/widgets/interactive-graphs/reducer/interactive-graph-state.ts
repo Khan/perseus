@@ -11,6 +11,7 @@ import type {
     PerseusGraphTypeLinearSystem,
     PerseusGraphTypePolygon,
     PerseusGraphTypeQuadratic,
+    PerseusGraphTypeSinusoid,
 } from "../../../perseus-types";
 import type {
     CircleGraphState,
@@ -81,8 +82,13 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getQuadraticCoords(graph, range, step),
             };
-        case "angle":
         case "sinusoid":
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getSinusoidCoords(graph, range, step),
+            };
+        case "angle":
             throw new Error(
                 "Mafs not yet implemented for graph type: " + graph.type,
             );
@@ -235,6 +241,13 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "sinusoid" && initialGraph.type === "sinusoid") {
+        return {
+            ...initialGraph,
+            coords: state.coords,
+        };
+    }
+
     throw new Error(
         "Mafs is not yet implemented for graph type: " + initialGraph.type,
     );
@@ -365,6 +378,21 @@ const getPolygonCoords = ({
 
     const snapToGrid = !["angles", "sides"].includes(graph.snapTo || "");
     coords = normalizePoints(range, step, coords, /* noSnap */ !snapToGrid);
+
+    return coords;
+};
+
+const getSinusoidCoords = (
+    graph: PerseusGraphTypeSinusoid,
+    range: InitializeGraphStateParam["range"],
+    step: InitializeGraphStateParam["step"],
+): [Coord, Coord] => {
+    let coords: [Coord, Coord] = [
+        [0.5, 0.5],
+        [0.65, 0.6],
+    ];
+
+    coords = normalizePoints(range, step, coords, true);
 
     return coords;
 };

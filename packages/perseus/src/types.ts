@@ -140,6 +140,8 @@ export const MafsGraphTypeFlags = [
     "circle",
     /** Enables the `quadratic` interactive-graph type.  */
     "quadratic",
+    /** Enables the `sinusoid` interactive-graph type.  */
+    "sinusoid",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [

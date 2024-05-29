@@ -8,6 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
+import {sinusoidQuestion} from "../__testdata__/grapher.testdata";
 import {
     circleQuestion,
     circleQuestionWithDefaultCorrect,
@@ -30,6 +31,7 @@ import {
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
+    sinusoidQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
@@ -158,6 +160,7 @@ describe("a mafs graph", () => {
         point: pointQuestion,
         circle: circleQuestion,
         quadratic: quadraticQuestion,
+        sinusoid: sinusoidQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -171,6 +174,7 @@ describe("a mafs graph", () => {
         point: pointQuestionWithDefaultCorrect,
         circle: circleQuestionWithDefaultCorrect,
         quadratic: quadraticQuestionWithDefaultCorrect,
+        sinusoid: sinusoidQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(

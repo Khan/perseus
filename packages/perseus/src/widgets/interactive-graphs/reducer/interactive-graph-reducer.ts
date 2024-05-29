@@ -97,6 +97,7 @@ function doMoveControlPoint(
         case "point":
         case "polygon":
         case "quadratic":
+        case "sinusoid":
             throw new Error(
                 `Don't use moveControlPoint for ${state.type} graphs. Use movePoint instead!`,
             );
@@ -199,6 +200,32 @@ function doMovePoint(
                             snapStep: state.snapStep,
                             range: state.range,
                             point: action.destination,
+                        }),
+                    ),
+                }),
+            };
+        }
+        case "sinusoid": {
+            // First, we need to verify that the new coordinates are not on the same vertical line
+            // If they are, we don't want to move the point
+            const destination = action.destination;
+            const newCoords: vec.Vector2[] = [...state.coords];
+            newCoords[action.index] = action.destination;
+            if (newCoords[0][0] === newCoords[1][0]) {
+                return state;
+            }
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: snap(
+                        state.snapStep,
+                        bound({
+                            snapStep: state.snapStep,
+                            range: state.range,
+                            point: destination,
                         }),
                     ),
                 }),
