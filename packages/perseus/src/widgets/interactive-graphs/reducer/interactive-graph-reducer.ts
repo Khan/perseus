@@ -27,6 +27,7 @@ import {
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Interval} from "mafs";
+import {polygonSidesIntersect} from "../../../util/geometry";
 
 export function interactiveGraphReducer(
     state: InteractiveGraphState,
@@ -179,6 +180,22 @@ function doMovePoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "polygon":
+            const newCoords = setAtIndex({
+                array: state.coords,
+                index: action.index,
+                newValue: boundAndSnapToGrid(action.destination, state),
+            });
+
+            // Reject the move if it would cause the sides of the polygon to cross
+            if (polygonSidesIntersect(newCoords)) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
         case "point": {
             return {
                 ...state,
