@@ -105,4 +105,115 @@ describe("InteractiveGraphQuestionBuilder", () => {
             }),
         );
     });
+
+    it("adds a locked point", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedPointAt(3, 5)
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "point",
+                coord: [3, 5],
+                color: "green",
+                filled: true,
+            },
+        ]);
+    });
+
+    it("adds multiple locked points", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedPointAt(3, 5)
+            .addLockedPointAt(6, 7)
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "point",
+                coord: [3, 5],
+                color: "green",
+                filled: true,
+            },
+            {
+                type: "point",
+                coord: [6, 7],
+                color: "green",
+                filled: true,
+            },
+        ]);
+    });
+
+    it("adds a locked line", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedLine([1, 2], [3, 4])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "line",
+                kind: "line",
+                points: [
+                    {
+                        type: "point",
+                        coord: [1, 2],
+                        color: "green",
+                        filled: true,
+                    },
+                    {
+                        type: "point",
+                        coord: [3, 4],
+                        color: "green",
+                        filled: true,
+                    },
+                ],
+                color: "green",
+                lineStyle: "solid",
+                showPoint1: true,
+                showPoint2: true,
+            },
+        ]);
+    });
+
+    it("adds a locked circle", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedCircle([1, 2], 3)
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "circle",
+                center: [1, 2],
+                radius: 3,
+                color: "grayH",
+                fillStyle: "none",
+                strokeStyle: "solid",
+            },
+        ]);
+    });
+
+    it("adds a locked circle with options", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedCircle([1, 2], 3, {
+                color: "green",
+                fillStyle: "solid",
+                strokeStyle: "dashed",
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "circle",
+                center: [1, 2],
+                radius: 3,
+                color: "green",
+                fillStyle: "solid",
+                strokeStyle: "dashed",
+            },
+        ]);
+    });
 });

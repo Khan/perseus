@@ -11,9 +11,6 @@ export type Size = [number, number];
 export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
-// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-type Empty = Record<never, never>;
-
 export type PerseusWidgetsMap = {
     [key in `categorizer ${number}`]: CategorizerWidget;
 } & {
@@ -673,7 +670,7 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     red: "#D92916",
 } as const;
 
-export type LockedFigure = LockedPointType | LockedLineType;
+export type LockedFigure = LockedPointType | LockedLineType | LockedCircleType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -691,6 +688,15 @@ export type LockedLineType = {
     lineStyle: "solid" | "dashed";
     showPoint1: boolean;
     showPoint2: boolean;
+};
+
+export type LockedCircleType = {
+    type: "circle";
+    center: Coord;
+    radius: number;
+    color: LockedFigureColor;
+    fillStyle: "none" | "solid" | "translucent";
+    strokeStyle: "solid" | "dashed";
 };
 
 export type PerseusGraphType =
@@ -770,7 +776,7 @@ export type PerseusGraphTypePolygon = {
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
     // expects a list of 3 coords
-    coords?: ReadonlyArray<Coord>;
+    coords?: [Coord, Coord, Coord];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSegment = {

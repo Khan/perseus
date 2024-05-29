@@ -1,5 +1,77 @@
 # @khanacademy/perseus
 
+## 23.1.0
+
+### Minor Changes
+
+-   [#1315](https://github.com/Khan/perseus/pull/1315) [`73e5828a5`](https://github.com/Khan/perseus/commit/73e5828a5ee219435187402f4942dab32fefc2c4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of the new Mafs-based Sinusoid Graph
+
+*   [#1309](https://github.com/Khan/perseus/pull/1309) [`c8422cd99`](https://github.com/Khan/perseus/commit/c8422cd99bf3c09b66b602c77240262d1ca68533) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Render locked circles on interactive graphs
+
+### Patch Changes
+
+-   [#1316](https://github.com/Khan/perseus/pull/1316) [`57e72b8d5`](https://github.com/Khan/perseus/commit/57e72b8d5bdb146de52b0bb9f3a206ce7d2fa8a5) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing accessibility bug in image widget.
+
+## 23.0.0
+
+### Major Changes
+
+-   [#1301](https://github.com/Khan/perseus/pull/1301) [`1ca5a12aa`](https://github.com/Khan/perseus/commit/1ca5a12aaea6ec2cd06f778981303e2da7b5889f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused/deprecated APIOptions: useDraftEditor and inModal
+
+### Minor Changes
+
+-   [#1283](https://github.com/Khan/perseus/pull/1283) [`3b85777c7`](https://github.com/Khan/perseus/commit/3b85777c7b2b970121a9c5242d34a2f9cdd2319b) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Make horizontal divider invisible to screen reader
+
+*   [#1305](https://github.com/Khan/perseus/pull/1305) [`ec600a11e`](https://github.com/Khan/perseus/commit/ec600a11e22420005fbf35157a46e890e6b0d488) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of the new Mafs-based Quadratic Graph for the Interactive Graph Widget
+
+-   [#1310](https://github.com/Khan/perseus/pull/1310) [`e6fc912bf`](https://github.com/Khan/perseus/commit/e6fc912bf907477efeb4c5989fb17b5b1e2a99e8) Thanks [@benchristel](https://github.com/benchristel)! - Upgrade to Mafs 0.18.7, which lets us draw graph axes with thicker lines.
+
+### Patch Changes
+
+-   [#1312](https://github.com/Khan/perseus/pull/1312) [`925f4ee03`](https://github.com/Khan/perseus/commit/925f4ee037e7130b73b471c211050adfd7d44d00) Thanks [@benchristel](https://github.com/benchristel)! - Fix Safari-specific bug where axis tick numbers did not appear
+
+*   [#1301](https://github.com/Khan/perseus/pull/1301) [`1ca5a12aa`](https://github.com/Khan/perseus/commit/1ca5a12aaea6ec2cd06f778981303e2da7b5889f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove duplicate `Empty` type
+
+*   Updated dependencies [[`3b85777c7`](https://github.com/Khan/perseus/commit/3b85777c7b2b970121a9c5242d34a2f9cdd2319b)]:
+    -   @khanacademy/simple-markdown@0.12.0
+    -   @khanacademy/pure-markdown@0.3.5
+
+## 22.7.0
+
+### Minor Changes
+
+-   [#1303](https://github.com/Khan/perseus/pull/1303) [`49baacd04`](https://github.com/Khan/perseus/commit/49baacd04b981eaa46d1b42af8952ff899152f1d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure there's enough contrast on the grid lines by switching to offBlack50
+
+### Patch Changes
+
+-   [#1300](https://github.com/Khan/perseus/pull/1300) [`9426dee46`](https://github.com/Khan/perseus/commit/9426dee4608b43f8b6b9ea189b0bc81105b73fa7) Thanks [@benchristel](https://github.com/benchristel)! - Revert Mafs to 0.18.5 to fix a tooling incompatibility with webapp. The latest Mafs needs node 20.11 or higher, while we use 20.5 in some places.
+
+*   [#1299](https://github.com/Khan/perseus/pull/1299) [`364e67884`](https://github.com/Khan/perseus/commit/364e678845a0a02e271f7666e204b12a46f81fa7) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure axis tick labels render below interactive elements.
+
+## 22.6.0
+
+### Minor Changes
+
+-   [#1293](https://github.com/Khan/perseus/pull/1293) [`e14a003be`](https://github.com/Khan/perseus/commit/e14a003beebf73185630416c0b3667ed75b230c2) Thanks [@benchristel](https://github.com/benchristel)! - Fill Mafs interactive circles with blue on hover
+
+*   [#1241](https://github.com/Khan/perseus/pull/1241) [`a0dfc66cc`](https://github.com/Khan/perseus/commit/a0dfc66ccb1d92d4f15e9f1be983217e051e2aaa) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - New Axis Tick Labels and Ticks that can render outside of graph bounds
+
+### Patch Changes
+
+-   [#1289](https://github.com/Khan/perseus/pull/1289) [`42c0c607f`](https://github.com/Khan/perseus/commit/42c0c607f8b4b1713edb578cfb1d8168d1edebd1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: replace some brittle SVG snapshot tests with less brittle visual snapshot tests
+
+*   [#1271](https://github.com/Khan/perseus/pull/1271) [`55039a430`](https://github.com/Khan/perseus/commit/55039a430ef298f3d8a28e27798481130b28ca24) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix: Arrowhead Rotation Was Incorrect on Some Graphs
+
+-   [#1295](https://github.com/Khan/perseus/pull/1295) [`f6be03dd8`](https://github.com/Khan/perseus/commit/f6be03dd85f0e394df16fb5e632684aea7486216) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where the arrow at the end of a line or ray would sometimes point to the origin and not the edge of the graph
+
+*   [#1294](https://github.com/Khan/perseus/pull/1294) [`fba227fe8`](https://github.com/Khan/perseus/commit/fba227fe8e2852d171197f7a02fed2b6b2f0d541) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where axis tick labels on Mafs interactive graphs could be selected and interfere with drag interactions
+
+-   [#1255](https://github.com/Khan/perseus/pull/1255) [`dc0adedeb`](https://github.com/Khan/perseus/commit/dc0adedebbae0c4a1940d67f64e19b0104ac85f4) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Ensure that axis lines and arrowheads have a 2px thickness in Interactive Graphs
+
+*   [#1264](https://github.com/Khan/perseus/pull/1264) [`d70fab6a7`](https://github.com/Khan/perseus/commit/d70fab6a797b04f9365ec1442e96fdddbb100a46) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Show Radio Widget Images on New Line
+
+-   [#1285](https://github.com/Khan/perseus/pull/1285) [`5b52a1569`](https://github.com/Khan/perseus/commit/5b52a156996d7e1debff3490db9fa798d5b95bd3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: refactor the code for initializing linear graph states
+
 ## 22.5.1
 
 ### Patch Changes

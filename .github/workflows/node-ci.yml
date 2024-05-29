@@ -29,6 +29,12 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Force Node version
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: yarn
+
             - name: Get changed files
               uses: Khan/actions@get-changed-files-v2
               id: changed
@@ -48,7 +54,7 @@ jobs:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Verify changeset entries
-              uses: Khan/changeset-per-package@v1.0.1
+              uses: Khan/changeset-per-package@v1.0.3
               with:
                   changed_files: ${{ steps.match.outputs.filtered }}
 
@@ -195,7 +201,11 @@ jobs:
 
     upload_coverage:
         name: Upload Coverage
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
         needs: [cypress, coverage]
         steps:
             - uses: actions/checkout@v4

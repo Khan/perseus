@@ -1,3 +1,5 @@
+import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
+
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 
@@ -1410,6 +1412,58 @@ export const sinusoidQuestion: PerseusRenderer = {
     },
 };
 
+export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Graph $h(x)=3\\sin(2x-\\pi)+2$ in the interactive widget.**  \n*Note that one moveable point always defines an extremum point in the graph and the other point always defines a neighbouring intersection with the midline.*\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            type: "interactive-graph",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                step: [1, 1],
+                backgroundImage: {
+                    url: "https://ka-perseus-graphie.s3.amazonaws.com/ba6cf7327a7aaed2386ca00d48b6d554a357ac57.png",
+                    scale: 1,
+                    bottom: 0,
+                    left: 0,
+                    width: 425,
+                    height: 425,
+                },
+                markings: "none",
+                labels: ["x", "y"],
+                showProtractor: false,
+                showRuler: false,
+                showTooltips: false,
+                rulerLabel: "",
+                rulerTicks: 10,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                gridStep: [1, 1],
+                snapStep: [0.5, 0.5],
+                graph: {
+                    type: "sinusoid",
+                },
+                correct: {
+                    type: "sinusoid",
+                    coords: [
+                        [0, 0],
+                        [3, 2],
+                    ],
+                },
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
 export const questionsAndAnswers: ReadonlyArray<
     [
         PerseusRenderer, // Correct answer
@@ -1981,6 +2035,113 @@ export const segmentWithLockedFigures: PerseusRenderer = {
                         showPoint2: true,
                     },
                 ],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const segmentWithLockedCircles: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedCircle([0, 0], 5)
+        .addLockedCircle([-5, 5], 2, {
+            color: "green",
+            fillStyle: "solid",
+            strokeStyle: "solid",
+        })
+        .addLockedCircle([5, 5], 2, {
+            color: "green",
+            fillStyle: "translucent",
+            strokeStyle: "dashed",
+        })
+        .build();
+
+export const quadraticQuestion: PerseusRenderer = {
+    content: "All locked lines\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [0, 0],
+                        [3, 8],
+                        [6, 0],
+                    ],
+                    type: "quadratic",
+                },
+                graph: {
+                    type: "quadratic",
+                    coords: [
+                        [-5, 5],
+                        [0, -5],
+                        [5, 5],
+                    ],
+                },
+                gridStep: [1, 1],
+                labels: ["t", "d"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const quadraticQuestionWithDefaultCorrect: PerseusRenderer = {
+    content: "All locked lines\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                correct: {
+                    coords: [
+                        [-5, 5],
+                        [0, -5],
+                        [5, 5],
+                    ],
+                    type: "quadratic",
+                },
+                graph: {
+                    type: "quadratic",
+                    coords: [
+                        [-5, 5],
+                        [0, -5],
+                        [5, 5],
+                    ],
+                },
+                gridStep: [1, 1],
+                labels: ["t", "d"],
+                markings: "graph",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [1, 1],
+                step: [1, 1],
             },
             type: "interactive-graph",
             version: {

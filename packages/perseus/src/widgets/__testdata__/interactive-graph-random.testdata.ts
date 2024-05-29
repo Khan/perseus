@@ -100,7 +100,9 @@ const randomGraphTypePolygon = (): PerseusGraphTypePolygon => {
 const randomGraphTypeQuadratic = (): PerseusGraphTypeQuadratic => {
     return {
         type: "quadratic",
-        coords: arrayOfLength(3).map(randomCoord),
+        coords: arrayOfLength(3).map(
+            randomCoord,
+        ) as PerseusGraphTypeQuadratic["coords"],
     };
 };
 

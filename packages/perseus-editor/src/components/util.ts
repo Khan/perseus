@@ -76,6 +76,15 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 showPoint1: false,
                 showPoint2: false,
             };
+        case "circle":
+            return {
+                type: "circle",
+                center: [0, 0],
+                radius: 1,
+                color: DEFAULT_COLOR,
+                fillStyle: "none",
+                strokeStyle: "solid",
+            };
         default:
             throw new UnreachableCaseError(type);
     }

@@ -14,6 +14,9 @@ import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 
 export type AccordionProps = {
+    // Whether to show the M2 features in the locked figure settings.
+    // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
+    showM2Features?: boolean;
     /**
      * Whether this accordion is expanded.
      */

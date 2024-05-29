@@ -92,7 +92,7 @@ class ImageWidget extends React.Component<Props> {
 
     render(): React.ReactNode {
         let image;
-        let alt;
+        const alt = this.props.caption === this.props.alt ? "" : this.props.alt;
         const {apiOptions} = this.props;
 
         const backgroundImage = this.props.backgroundImage;
@@ -104,30 +104,7 @@ class ImageWidget extends React.Component<Props> {
                     {({setAssetStatus}) => (
                         <SvgImage
                             src={url}
-                            alt={
-                                /* alt text is formatted in a sr-only
-                               div next to the image in addition to
-                               the alt attribute.
-                               If there is no alt text at all,
-                               we don't put an alt attribute on
-                               the image, so that screen readers
-                               know there's something they can't
-                               read there :(.
-                               NOTE: React <=0.13 (maybe later)
-                               has a bug where it won't ever
-                               remove an attribute, so if this
-                               alt node is ever defined it's
-                               not removed. This is sort of
-                               dangerous, but we usually re-key
-                               new renderers so that they're
-                               rendered from scratch anyways,
-                               so this shouldn't be a problem
-                               in practice right now, although
-                               it will exhibit weird behaviour
-                               while editing. */
-                                this.props.alt
-                            }
-                            overrideAriaHidden={true}
+                            alt={alt}
                             width={backgroundImage.width}
                             height={backgroundImage.height}
                             preloader={apiOptions.imagePreloader}
@@ -144,19 +121,6 @@ class ImageWidget extends React.Component<Props> {
                         />
                     )}
                 </AssetContext.Consumer>
-            );
-        }
-
-        if (this.props.alt) {
-            alt = (
-                <span className="perseus-sr-only">
-                    <Renderer
-                        content={this.props.alt}
-                        apiOptions={apiOptions}
-                        linterContext={this.props.linterContext}
-                        strings={this.context.strings}
-                    />
-                </span>
             );
         }
 
@@ -240,7 +204,6 @@ class ImageWidget extends React.Component<Props> {
                     }}
                 >
                     {image}
-                    {alt}
                     {titleAndCaption}
                 </figure>
             );
@@ -288,7 +251,6 @@ class ImageWidget extends React.Component<Props> {
             >
                 {title}
                 {image}
-                {alt}
                 {caption}
             </figure>
         );

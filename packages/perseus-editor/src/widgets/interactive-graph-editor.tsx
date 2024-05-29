@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unsafe */
 /* eslint-disable react/sort-comp */
+import {vector as kvector} from "@khanacademy/kmath";
 import {
     components,
     interactiveSizes,
@@ -593,6 +594,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
+                                showM2Features={
+                                    this.props.apiOptions?.flags?.mafs?.[
+                                        "interactive-graph-locked-features-m2"
+                                    ]
+                                }
                                 figures={this.props.lockedFigures}
                                 onChange={this.props.onChange}
                             />
@@ -661,6 +667,22 @@ class InteractiveGraphEditor extends React.Component<Props> {
         // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
         return json;
     }
+
+    getSaveWarnings = () => {
+        const issues: Array<any | string> = [];
+
+        // A locked line on the graph cannot have length 0.
+        for (const figure of this.props.lockedFigures ?? []) {
+            if (
+                figure.type === "line" &&
+                kvector.equal(figure.points[0].coord, figure.points[1].coord)
+            ) {
+                issues.push("The line cannot have length 0.");
+            }
+        }
+
+        return issues;
+    };
 }
 
 const styles = StyleSheet.create({

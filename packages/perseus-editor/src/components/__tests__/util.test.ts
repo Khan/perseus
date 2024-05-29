@@ -36,4 +36,16 @@ describe("getDefaultFigureForType", () => {
             showPoint2: false,
         });
     });
+
+    test("should return a circle with default values", () => {
+        const figure = getDefaultFigureForType("circle");
+        expect(figure).toEqual({
+            type: "circle",
+            center: [0, 0],
+            radius: 1,
+            color: "grayH",
+            fillStyle: "none",
+            strokeStyle: "solid",
+        });
+    });
 });

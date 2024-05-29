@@ -992,10 +992,10 @@ var defaultRules: DefaultRules = {
         match: blockRegex(/^( *[-*_]){3,} *(?:\n *)+\n/),
         parse: ignoreCapture,
         react: function (node, output, state) {
-            return reactElement("hr", state.key, EMPTY_PROPS);
+            return reactElement("hr", state.key, {"aria-hidden": true});
         },
         html: function (node, output, state) {
-            return "<hr>";
+            return '<hr aria-hidden="true">';
         },
     },
     codeBlock: {

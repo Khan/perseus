@@ -29,9 +29,40 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("displays graph, snap, image, and measure settings", () => {
+    test("common graph settings are shown, by default", async () => {
         // Arrange
+        // Act
+        render(<InteractiveGraphSettings onChange={() => {}} />);
 
+        // Assert
+        expect(screen.getByText("x Label")).toBeVisible();
+    });
+
+    test("hides common graph settings when heading clicked", async () => {
+        // Arrange
+        render(<InteractiveGraphSettings onChange={() => {}} />);
+
+        // Act
+        await userEvent.click(screen.getByText("Common Graph Settings"));
+
+        // Assert
+        expect(screen.queryByText("x Label")).not.toBeInTheDocument();
+    });
+
+    test("shows common graph settings when heading clicked a second time", async () => {
+        // Arrange
+        render(<InteractiveGraphSettings onChange={() => {}} />);
+        await userEvent.click(screen.getByText("Common Graph Settings"));
+
+        // Act
+        await userEvent.click(screen.getByText("Common Graph Settings"));
+
+        // Assert
+        expect(screen.getByText("x Label")).toBeVisible();
+    });
+
+    test("displays graph, snap, image, and measure settings when common settings shown", async () => {
+        // Arrange
         // Act
         render(<InteractiveGraphSettings onChange={() => {}} />);
 

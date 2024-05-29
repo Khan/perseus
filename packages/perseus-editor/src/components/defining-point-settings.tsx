@@ -32,6 +32,10 @@ export type Props = AccordionProps &
          */
         showPoint?: boolean;
         /**
+         * Optional error message to display.
+         */
+        error?: string | null;
+        /**
          * Called when the extra settings toggle switch is changed.
          */
         onTogglePoint?: (newValue) => void;
@@ -48,6 +52,7 @@ const DefiningPointSettings = (props: Props) => {
         filled = true,
         label,
         showPoint = "false",
+        error,
         onChangeProps,
         onTogglePoint,
     } = props;
@@ -74,7 +79,11 @@ const DefiningPointSettings = (props: Props) => {
             }
         >
             {/* Coordinates */}
-            <CoordinatePairInput coord={coord} onChangeProps={onChangeProps} />
+            <CoordinatePairInput
+                coord={coord}
+                error={!!error}
+                onChangeProps={onChangeProps}
+            />
 
             {/* Toggle switch */}
             {onTogglePoint && (

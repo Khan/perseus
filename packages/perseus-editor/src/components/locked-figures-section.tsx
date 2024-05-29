@@ -18,6 +18,9 @@ import type {Props as InteractiveGraphEditorProps} from "../widgets/interactive-
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
 
 type Props = {
+    // Whether to show the M2 features in the locked figure settings.
+    // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
+    showM2Features?: boolean;
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
@@ -25,9 +28,9 @@ type Props = {
 const LockedFiguresSection = (props: Props) => {
     // Keep track of all figures' accordions' expanded states for the
     // expand/collapse all button. Set the whole array to false initially.
-    const [expandedStates, setExpandedStates] = React.useState(
-        Array(props.figures?.length).fill(false),
-    );
+    const collapsedStateArray = Array((props.figures ?? []).length).fill(false);
+    const [expandedStates, setExpandedStates] =
+        React.useState(collapsedStateArray);
 
     const uniqueId = useUniqueIdWithMock().get("locked-figures-section");
     const {figures, onChange} = props;
@@ -92,20 +95,32 @@ const LockedFiguresSection = (props: Props) => {
 
     return (
         <View>
-            {figures?.map((figure, index) => (
-                <LockedFigureSettings
-                    expanded={expandedStates[index]}
-                    onToggle={(newValue) => {
-                        const newExpanded = [...expandedStates];
-                        newExpanded[index] = newValue;
-                        setExpandedStates(newExpanded);
-                    }}
-                    key={`${uniqueId}-locked-${figure}-${index}`}
-                    {...figure}
-                    onChangeProps={(newProps) => changeProps(index, newProps)}
-                    onRemove={() => removeLockedFigure(index)}
-                />
-            ))}
+            {figures?.map((figure, index) => {
+                if (figure.type === "circle") {
+                    // TODO(LEMS-1941): Implement circle locked figure settings.
+                    // Remove this block once circle locked figure settings are
+                    // implemented.
+                    return;
+                }
+
+                return (
+                    <LockedFigureSettings
+                        showM2Features={props.showM2Features}
+                        expanded={expandedStates[index]}
+                        onToggle={(newValue) => {
+                            const newExpanded = [...expandedStates];
+                            newExpanded[index] = newValue;
+                            setExpandedStates(newExpanded);
+                        }}
+                        key={`${uniqueId}-locked-${figure}-${index}`}
+                        {...figure}
+                        onChangeProps={(newProps) =>
+                            changeProps(index, newProps)
+                        }
+                        onRemove={() => removeLockedFigure(index)}
+                    />
+                );
+            })}
             <View style={styles.buttonContainer}>
                 <LockedFigureSelect
                     id={`${uniqueId}-select`}

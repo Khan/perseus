@@ -8,6 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
+import {sinusoidQuestion} from "../__testdata__/grapher.testdata";
 import {
     circleQuestion,
     circleQuestionWithDefaultCorrect,
@@ -19,14 +20,18 @@ import {
     pointQuestionWithDefaultCorrect,
     polygonQuestion,
     polygonQuestionDefaultCorrect,
+    quadraticQuestion,
+    quadraticQuestionWithDefaultCorrect,
     questionsAndAnswers,
     rayQuestion,
     rayQuestionWithDefaultCorrect,
     segmentQuestion,
     segmentQuestionDefaultCorrect,
+    segmentWithLockedCircles,
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
+    sinusoidQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
@@ -154,6 +159,8 @@ describe("a mafs graph", () => {
         polygon: polygonQuestion,
         point: pointQuestion,
         circle: circleQuestion,
+        quadratic: quadraticQuestion,
+        sinusoid: sinusoidQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -166,6 +173,8 @@ describe("a mafs graph", () => {
         polygon: polygonQuestionDefaultCorrect,
         point: pointQuestionWithDefaultCorrect,
         circle: circleQuestionWithDefaultCorrect,
+        quadratic: quadraticQuestionWithDefaultCorrect,
+        sinusoid: sinusoidQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
@@ -527,11 +536,10 @@ describe("locked layer", () => {
             stroke: lockedFigureColors.pink,
         });
     });
-});
 
-describe("snapshots", () => {
-    test("should render correctly", () => {
-        const {container} = renderQuestion(segmentQuestionDefaultCorrect, {
+    test("should render locked circles", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedCircles, {
             flags: {
                 mafs: {
                     segment: true,
@@ -539,30 +547,23 @@ describe("snapshots", () => {
             },
         });
 
-        expect(container).toMatchSnapshot();
-    });
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const circles = container.querySelectorAll("ellipse");
 
-    test("should render correctly with locked points", () => {
-        const {container} = renderQuestion(segmentWithLockedPointsQuestion, {
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
+        // Assert
+        expect(circles).toHaveLength(3);
+        expect(circles[0]).toHaveStyle({
+            "fill-opacity": "0",
+            stroke: lockedFigureColors["grayH"],
         });
-
-        expect(container).toMatchSnapshot();
-    });
-
-    test("should render correctly with locked lines", () => {
-        const {container} = renderQuestion(segmentWithLockedLineQuestion, {
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
+        expect(circles[1]).toHaveStyle({
+            "fill-opacity": "1",
+            stroke: lockedFigureColors["green"],
         });
-
-        expect(container).toMatchSnapshot();
+        expect(circles[2]).toHaveStyle({
+            "fill-opacity": "0.4",
+            stroke: lockedFigureColors["green"],
+        });
     });
 });
