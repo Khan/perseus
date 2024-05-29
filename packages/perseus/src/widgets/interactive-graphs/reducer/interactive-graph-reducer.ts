@@ -71,14 +71,11 @@ function doMoveControlPoint(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: snap(
+                        newValue: boundAndSnapToGrid({
                             snapStep,
-                            bound({
-                                snapStep,
-                                range,
-                                point: action.destination,
-                            }),
-                        ),
+                            range,
+                            point: action.destination,
+                        }),
                     }),
             });
 
@@ -194,14 +191,11 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap(
-                        state.snapStep,
-                        bound({
-                            snapStep: state.snapStep,
-                            range: state.range,
-                            point: action.destination,
-                        }),
-                    ),
+                    newValue: boundAndSnapToGrid({
+                        snapStep: state.snapStep,
+                        range: state.range,
+                        point: action.destination,
+                    }),
                 }),
             };
         }
@@ -220,14 +214,11 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap(
-                        state.snapStep,
-                        bound({
-                            snapStep: state.snapStep,
-                            range: state.range,
-                            point: destination,
-                        }),
-                    ),
+                    newValue: boundAndSnapToGrid({
+                        snapStep: state.snapStep,
+                        range: state.range,
+                        point: destination,
+                    }),
                 }),
             };
         }
@@ -238,14 +229,11 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap(
-                        state.snapStep,
-                        bound({
-                            snapStep: state.snapStep,
-                            range: state.range,
-                            point: action.destination,
-                        }),
-                    ),
+                    newValue: boundAndSnapToGrid({
+                        snapStep: state.snapStep,
+                        range: state.range,
+                        point: action.destination,
+                    }),
                 }),
             };
         }
@@ -396,6 +384,10 @@ interface ConstraintArgs {
     snapStep: vec.Vector2;
     range: [Interval, Interval];
     point: vec.Vector2;
+}
+
+function boundAndSnapToGrid({snapStep, range, point}: ConstraintArgs) {
+    return snap(snapStep, bound({snapStep, range, point}));
 }
 
 // Returns the closest point to the given `point` that is within the graph
