@@ -92,20 +92,31 @@ const LockedFiguresSection = (props: Props) => {
 
     return (
         <View>
-            {figures?.map((figure, index) => (
-                <LockedFigureSettings
-                    expanded={expandedStates[index]}
-                    onToggle={(newValue) => {
-                        const newExpanded = [...expandedStates];
-                        newExpanded[index] = newValue;
-                        setExpandedStates(newExpanded);
-                    }}
-                    key={`${uniqueId}-locked-${figure}-${index}`}
-                    {...figure}
-                    onChangeProps={(newProps) => changeProps(index, newProps)}
-                    onRemove={() => removeLockedFigure(index)}
-                />
-            ))}
+            {figures?.map((figure, index) => {
+                if (figure.type === "vector") {
+                    // TODO(LEMS-1950): Add locked vector settings.
+                    // Remove this block once vector locked figure settings are
+                    // implemented.
+                    return;
+                }
+
+                return (
+                    <LockedFigureSettings
+                        expanded={expandedStates[index]}
+                        onToggle={(newValue) => {
+                            const newExpanded = [...expandedStates];
+                            newExpanded[index] = newValue;
+                            setExpandedStates(newExpanded);
+                        }}
+                        key={`${uniqueId}-locked-${figure}-${index}`}
+                        {...figure}
+                        onChangeProps={(newProps) =>
+                            changeProps(index, newProps)
+                        }
+                        onRemove={() => removeLockedFigure(index)}
+                    />
+                );
+            })}
             <View style={styles.buttonContainer}>
                 <LockedFigureSelect
                     id={`${uniqueId}-select`}

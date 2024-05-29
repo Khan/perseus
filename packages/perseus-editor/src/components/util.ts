@@ -5,6 +5,7 @@ import type {
     LockedFigureType,
     LockedPointType,
     LockedLineType,
+    LockedVectorType,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
@@ -50,6 +51,7 @@ const DEFAULT_COLOR = "grayH";
 
 export function getDefaultFigureForType(type: "point"): LockedPointType;
 export function getDefaultFigureForType(type: "line"): LockedLineType;
+export function getDefaultFigureForType(type: "vector"): LockedVectorType;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
     switch (type) {
@@ -75,6 +77,15 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+            };
+        case "vector":
+            return {
+                type: "vector",
+                points: [
+                    [0, 0],
+                    [2, 2],
+                ],
+                color: DEFAULT_COLOR,
             };
         default:
             throw new UnreachableCaseError(type);
