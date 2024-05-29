@@ -670,7 +670,7 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     red: "#D92916",
 } as const;
 
-export type LockedFigure = LockedPointType | LockedLineType | LockedVectorType;
+export type LockedFigure = LockedPointType | LockedLineType | LockedCircleType | LockedVectorType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -688,6 +688,15 @@ export type LockedLineType = {
     lineStyle: "solid" | "dashed";
     showPoint1: boolean;
     showPoint2: boolean;
+};
+
+export type LockedCircleType = {
+    type: "circle";
+    center: Coord;
+    radius: number;
+    color: LockedFigureColor;
+    fillStyle: "none" | "solid" | "translucent";
+    strokeStyle: "solid" | "dashed";
 };
 
 export type LockedVectorType = {
@@ -773,7 +782,7 @@ export type PerseusGraphTypePolygon = {
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
     // expects a list of 3 coords
-    coords?: ReadonlyArray<Coord>;
+    coords?: [Coord, Coord, Coord];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSegment = {

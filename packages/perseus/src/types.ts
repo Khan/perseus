@@ -138,6 +138,10 @@ export const MafsGraphTypeFlags = [
     "polygon",
     /** Enables the `circle` interactive-graph type.  */
     "circle",
+    /** Enables the `quadratic` interactive-graph type.  */
+    "quadratic",
+    /** Enables the `sinusoid` interactive-graph type.  */
+    "sinusoid",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [
@@ -146,6 +150,12 @@ export const InteractiveGraphLockedFeaturesFlags = [
      * interactive-graph widget (points and lines).
      */
     "interactive-graph-locked-features-m1",
+    /**
+     * Enables/Disables Milestone 2 locked features in the new Mafs
+     * interactive-graph widget (the rest of the figure types:
+     * circles, vectors, polygons, functions, labels).
+     */
+    "interactive-graph-locked-features-m2",
 ] as const;
 
 /**

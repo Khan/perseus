@@ -29,7 +29,7 @@
         "@khanacademy/perseus-error": "^0.3.0"
     },
     "devDependencies": {
-        "@khanacademy/pure-markdown": "^0.3.4",
+        "@khanacademy/pure-markdown": "^0.3.5",
         "prop-types": "15.6.1"
     },
     "peerDependencies": {

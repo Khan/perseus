@@ -48,6 +48,20 @@ const baseCircleGraphState: InteractiveGraphState = {
     radiusPoint: [2, 0],
 };
 
+const baseSinusoidGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "sinusoid",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [1, 1],
+    ],
+};
+
 describe("moveControlPoint", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
@@ -110,6 +124,25 @@ describe("moveControlPoint", () => {
         invariant(updated.type === "segment");
         // Assert: the move was canceled
         expect(updated.coords[0]).toEqual([
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
+    it("does not allow moving the endpoints of a sinusoid to the same x location", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [1, 1],
+                [2, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [2, 1]));
+
+        invariant(updated.type === "sinusoid");
+        // Assert: the move was canceled
+        expect(updated.coords).toEqual([
             [1, 1],
             [2, 2],
         ]);

@@ -1,5 +1,41 @@
 # @khanacademy/perseus
 
+## 23.1.0
+
+### Minor Changes
+
+-   [#1315](https://github.com/Khan/perseus/pull/1315) [`73e5828a5`](https://github.com/Khan/perseus/commit/73e5828a5ee219435187402f4942dab32fefc2c4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of the new Mafs-based Sinusoid Graph
+
+*   [#1309](https://github.com/Khan/perseus/pull/1309) [`c8422cd99`](https://github.com/Khan/perseus/commit/c8422cd99bf3c09b66b602c77240262d1ca68533) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Render locked circles on interactive graphs
+
+### Patch Changes
+
+-   [#1316](https://github.com/Khan/perseus/pull/1316) [`57e72b8d5`](https://github.com/Khan/perseus/commit/57e72b8d5bdb146de52b0bb9f3a206ce7d2fa8a5) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing accessibility bug in image widget.
+
+## 23.0.0
+
+### Major Changes
+
+-   [#1301](https://github.com/Khan/perseus/pull/1301) [`1ca5a12aa`](https://github.com/Khan/perseus/commit/1ca5a12aaea6ec2cd06f778981303e2da7b5889f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused/deprecated APIOptions: useDraftEditor and inModal
+
+### Minor Changes
+
+-   [#1283](https://github.com/Khan/perseus/pull/1283) [`3b85777c7`](https://github.com/Khan/perseus/commit/3b85777c7b2b970121a9c5242d34a2f9cdd2319b) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Make horizontal divider invisible to screen reader
+
+*   [#1305](https://github.com/Khan/perseus/pull/1305) [`ec600a11e`](https://github.com/Khan/perseus/commit/ec600a11e22420005fbf35157a46e890e6b0d488) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of the new Mafs-based Quadratic Graph for the Interactive Graph Widget
+
+-   [#1310](https://github.com/Khan/perseus/pull/1310) [`e6fc912bf`](https://github.com/Khan/perseus/commit/e6fc912bf907477efeb4c5989fb17b5b1e2a99e8) Thanks [@benchristel](https://github.com/benchristel)! - Upgrade to Mafs 0.18.7, which lets us draw graph axes with thicker lines.
+
+### Patch Changes
+
+-   [#1312](https://github.com/Khan/perseus/pull/1312) [`925f4ee03`](https://github.com/Khan/perseus/commit/925f4ee037e7130b73b471c211050adfd7d44d00) Thanks [@benchristel](https://github.com/benchristel)! - Fix Safari-specific bug where axis tick numbers did not appear
+
+*   [#1301](https://github.com/Khan/perseus/pull/1301) [`1ca5a12aa`](https://github.com/Khan/perseus/commit/1ca5a12aaea6ec2cd06f778981303e2da7b5889f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove duplicate `Empty` type
+
+*   Updated dependencies [[`3b85777c7`](https://github.com/Khan/perseus/commit/3b85777c7b2b970121a9c5242d34a2f9cdd2319b)]:
+    -   @khanacademy/simple-markdown@0.12.0
+    -   @khanacademy/pure-markdown@0.3.5
+
 ## 22.7.0
 
 ### Minor Changes

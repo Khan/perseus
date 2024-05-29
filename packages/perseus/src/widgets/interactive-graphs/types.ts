@@ -29,7 +29,9 @@ export type InteractiveGraphState =
     | RayGraphState
     | PolygonGraphState
     | PointGraphState
-    | CircleGraphState;
+    | CircleGraphState
+    | QuadraticGraphState
+    | SinusoidGraphState;
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
@@ -70,6 +72,16 @@ export interface CircleGraphState extends InteractiveGraphStateCommon {
     type: "circle";
     center: Coord;
     radiusPoint: Coord;
+}
+
+export interface QuadraticGraphState extends InteractiveGraphStateCommon {
+    type: "quadratic";
+    coords: [Coord, Coord, Coord];
+}
+
+export interface SinusoidGraphState extends InteractiveGraphStateCommon {
+    type: "sinusoid";
+    coords: [vec.Vector2, vec.Vector2];
 }
 
 export type PairOfPoints = [Coord, Coord];
