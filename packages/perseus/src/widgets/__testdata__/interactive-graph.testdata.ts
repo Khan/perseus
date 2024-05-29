@@ -2060,6 +2060,12 @@ export const segmentWithLockedCircles: PerseusRenderer =
         })
         .build();
 
+export const segmentWithLockedVectors: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedVector([0, 0], [2, 2])
+        .addLockedVector([2, 2], [-2, 4], "green")
+        .build();
+
 export const quadraticQuestion: PerseusRenderer = {
     content: "All locked lines\n\n[[☃ interactive-graph 1]]",
     images: {},
