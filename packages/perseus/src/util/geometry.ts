@@ -95,10 +95,10 @@ export function polygonSidesIntersect(vertices: Coord[]): boolean {
 
             const side1: Line = [vertices[i], vertices[iNext]];
             const side2: Line = [vertices[k], vertices[kNext]];
-            if (intersects(side1, side2)) return true
+            if (intersects(side1, side2)) return true;
         }
     }
-    return false
+    return false;
 }
 
 export function vector(a, b) {

@@ -76,18 +76,44 @@ describe("clockwise", () => {
 
 describe("polygonSidesIntersect", () => {
     it("is false given an ordinary triangle", () => {
-        expect(polygonSidesIntersect([[0, 0], [1, 0], [0, 1]])).toBe(false)
-    })
+        expect(
+            polygonSidesIntersect([
+                [0, 0],
+                [1, 0],
+                [0, 1],
+            ]),
+        ).toBe(false);
+    });
 
     it("is true given a 'triangle' with two vertices the same", () => {
-        expect(polygonSidesIntersect([[0, 0], [1, 0], [1, 0]])).toBe(true)
-    })
+        expect(
+            polygonSidesIntersect([
+                [0, 0],
+                [1, 0],
+                [1, 0],
+            ]),
+        ).toBe(true);
+    });
 
     it("is true given a quadrilateral with intersecting sides", () => {
-        expect(polygonSidesIntersect([[0, 0], [2, 2], [0, 2], [2, 0]])).toBe(true)
-    })
+        expect(
+            polygonSidesIntersect([
+                [0, 0],
+                [2, 2],
+                [0, 2],
+                [2, 0],
+            ]),
+        ).toBe(true);
+    });
 
     it("is false given a quadrilateral with non-intersecting sides", () => {
-        expect(polygonSidesIntersect([[0, 0], [2, 0], [2, 2], [0, 2]])).toBe(false)
-    })
-})
+        expect(
+            polygonSidesIntersect([
+                [0, 0],
+                [2, 0],
+                [2, 2],
+                [0, 2],
+            ]),
+        ).toBe(false);
+    });
+});
