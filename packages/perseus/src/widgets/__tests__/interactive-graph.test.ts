@@ -31,6 +31,7 @@ import {
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
+    segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
@@ -565,5 +566,53 @@ describe("locked layer", () => {
             "fill-opacity": "0.4",
             stroke: lockedFigureColors["green"],
         });
+    });
+
+    test("should render locked vectors", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedVectors, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const vectors = container.querySelectorAll(".locked-vector");
+
+        // Assert
+        expect(vectors).toHaveLength(2);
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        let vector = vectors[0].children[0];
+        expect(vector).toHaveStyle({
+            "stroke-width": "2",
+            stroke: lockedFigureColors["grayH"],
+        });
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        let arrowheads = vector.querySelectorAll(
+            ".interactive-graph-arrowhead",
+        );
+        expect(arrowheads).toHaveLength(1);
+        // Arrowhead should be at the end (tip) of the vector, and rotated
+        expect(arrowheads[0]).toHaveAttribute(
+            "transform",
+            "translate(40 -40) rotate(-45)",
+        );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        vector = vectors[1].children[0];
+        expect(vector).toHaveStyle({
+            "stroke-width": "2",
+            stroke: lockedFigureColors["green"],
+        });
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        arrowheads = vector.querySelectorAll(".interactive-graph-arrowhead");
+        expect(arrowheads).toHaveLength(1);
+        expect(arrowheads[0]).toHaveAttribute(
+            "transform",
+            "translate(-40 -80) rotate(-153.43494882292202)",
+        );
     });
 });

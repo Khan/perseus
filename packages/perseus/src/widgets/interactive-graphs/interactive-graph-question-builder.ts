@@ -4,6 +4,7 @@ import type {
     LockedFigureColor,
     LockedLineType,
     LockedPointType,
+    LockedVectorType,
     PerseusGraphType,
     PerseusRenderer,
 } from "../../perseus-types";
@@ -151,6 +152,20 @@ class InteractiveGraphQuestionBuilder {
         };
 
         this.addLockedFigure(circle);
+        return this;
+    }
+
+    addLockedVector(
+        tail: vec.Vector2,
+        tip: vec.Vector2,
+        color?: LockedFigureColor,
+    ): InteractiveGraphQuestionBuilder {
+        const vector: LockedVectorType = {
+            type: "vector",
+            color: color ?? "grayH",
+            points: [tail, tip],
+        };
+        this.addLockedFigure(vector);
         return this;
     }
 

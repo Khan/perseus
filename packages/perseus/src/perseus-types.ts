@@ -670,7 +670,11 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     red: "#D92916",
 } as const;
 
-export type LockedFigure = LockedPointType | LockedLineType | LockedCircleType;
+export type LockedFigure =
+    | LockedPointType
+    | LockedLineType
+    | LockedCircleType
+    | LockedVectorType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -697,6 +701,12 @@ export type LockedCircleType = {
     color: LockedFigureColor;
     fillStyle: "none" | "solid" | "translucent";
     strokeStyle: "solid" | "dashed";
+};
+
+export type LockedVectorType = {
+    type: "vector";
+    points: [tail: Coord, tip: Coord];
+    color: LockedFigureColor;
 };
 
 export type PerseusGraphType =
