@@ -3,6 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {polygonSidesIntersect} from "../../../util/geometry";
 import {snap} from "../utils";
 
 import {
@@ -27,7 +28,6 @@ import {
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Interval} from "mafs";
-import {polygonSidesIntersect} from "../../../util/geometry";
 
 export function interactiveGraphReducer(
     state: InteractiveGraphState,
