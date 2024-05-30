@@ -5,7 +5,6 @@ import type {
     LockedFigureType,
     LockedPointType,
     LockedLineType,
-    LockedVectorType,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
