@@ -84,18 +84,24 @@ export function polygonSidesIntersect(vertices: Coord[]): boolean {
     for (let i = 0; i < vertices.length; i++) {
         for (let k = i + 1; k < vertices.length; k++) {
             // If any two vertices are the same point, sides overlap
-            if (kpoint.equal(vertices[i], vertices[k])) return true;
+            if (kpoint.equal(vertices[i], vertices[k])) {
+                return true;
+            }
 
             // Find the other end of the sides starting at vertices i and k
             const iNext = (i + 1) % vertices.length;
             const kNext = (k + 1) % vertices.length;
 
             // Adjacent sides always intersect (at the vertex); skip those
-            if (iNext === k || kNext === i) continue;
+            if (iNext === k || kNext === i) {
+                continue;
+            }
 
             const side1: Line = [vertices[i], vertices[iNext]];
             const side2: Line = [vertices[k], vertices[kNext]];
-            if (intersects(side1, side2)) return true;
+            if (intersects(side1, side2)) {
+                return true;
+            }
         }
     }
     return false;
