@@ -25,7 +25,7 @@ export type AccordionProps = {
     /**
      * The range of the graph. Used to restrict locked figure coordinates.
      */
-    range?: [Range, Range];
+    range: [Range, Range];
     /**
      * Called when the accordion is expanded or collapsed.
      */

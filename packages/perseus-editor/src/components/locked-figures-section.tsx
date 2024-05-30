@@ -22,7 +22,7 @@ type Props = {
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
     showM2Features?: boolean;
     figures?: Array<LockedFigure>;
-    range?: [Range, Range];
+    range: [Range, Range];
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
 

@@ -26,7 +26,7 @@ export type Props = AccordionProps &
         /**
          * The range of the graph. Used to restrict the coordinates.
          */
-        range?: [Range, Range];
+        range: [Range, Range];
         /**
          * Called when the delete button is pressed.
          */
