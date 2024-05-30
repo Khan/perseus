@@ -25,12 +25,17 @@ import type {
     LockedFigureColor,
     LockedLineType,
     LockedPointType,
+    Range,
 } from "@khanacademy/perseus";
 
 const lengthZeroStr = "The line cannot have length 0.";
 
 export type Props = LockedLineType &
     AccordionProps & {
+        /**
+         * The range of the graph. Used to restrict the coordinates.
+         */
+        range?: [Range, Range];
         /**
          * Called when the delete button is pressed.
          */
@@ -49,6 +54,7 @@ const LockedLineSettings = (props: Props) => {
         lineStyle = "solid",
         showPoint1,
         showPoint2,
+        range,
         onChangeProps,
         onRemove,
     } = props;
@@ -179,6 +185,7 @@ const LockedLineSettings = (props: Props) => {
                 label="Point 1"
                 showPoint={showPoint1}
                 error={isInvalid ? lengthZeroStr : null}
+                range={range}
                 {...point1}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
@@ -189,6 +196,7 @@ const LockedLineSettings = (props: Props) => {
                 label="Point 2"
                 showPoint={showPoint2}
                 error={isInvalid ? lengthZeroStr : null}
+                range={range}
                 {...point2}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})

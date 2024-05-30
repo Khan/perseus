@@ -600,6 +600,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     ]
                                 }
                                 figures={this.props.lockedFigures}
+                                range={this.props.range}
                                 onChange={this.props.onChange}
                             />
                         )

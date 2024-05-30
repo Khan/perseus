@@ -18,7 +18,7 @@ import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 
 import type {AccordionProps} from "./locked-figure-settings";
-import type {LockedPointType} from "@khanacademy/perseus";
+import type {LockedPointType, Range} from "@khanacademy/perseus";
 
 export type Props = AccordionProps &
     LockedPointType & {
@@ -35,6 +35,10 @@ export type Props = AccordionProps &
          * Optional error message to display.
          */
         error?: string | null;
+        /**
+         * The range of the graph. Used to restrict the coordinates.
+         */
+        range?: [Range, Range];
         /**
          * Called when the extra settings toggle switch is changed.
          */
@@ -53,6 +57,7 @@ const DefiningPointSettings = (props: Props) => {
         label,
         showPoint = "false",
         error,
+        range,
         onChangeProps,
         onTogglePoint,
     } = props;
@@ -82,6 +87,7 @@ const DefiningPointSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={coord}
                 error={!!error}
+                range={range}
                 onChangeProps={onChangeProps}
             />
 

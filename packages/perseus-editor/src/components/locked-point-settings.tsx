@@ -19,10 +19,14 @@ import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {AccordionProps} from "./locked-figure-settings";
-import type {LockedPointType} from "@khanacademy/perseus";
+import type {LockedPointType, Range} from "@khanacademy/perseus";
 
 export type Props = AccordionProps &
     LockedPointType & {
+        /**
+         * The range of the graph. Used to restrict the coordinates.
+         */
+        range?: [Range, Range];
         /**
          * Called when the delete button is pressed.
          */
@@ -38,6 +42,7 @@ const LockedPointSettings = (props: Props) => {
         coord,
         color: pointColor,
         filled = true,
+        range,
         onChangeProps,
         onRemove,
     } = props;
@@ -59,7 +64,11 @@ const LockedPointSettings = (props: Props) => {
                 </View>
             }
         >
-            <CoordinatePairInput coord={coord} onChangeProps={onChangeProps} />
+            <CoordinatePairInput
+                coord={coord}
+                range={range}
+                onChangeProps={onChangeProps}
+            />
 
             <ColorSelect
                 selectedValue={pointColor}

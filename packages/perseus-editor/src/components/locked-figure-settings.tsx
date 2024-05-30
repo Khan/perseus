@@ -12,6 +12,7 @@ import LockedPointSettings from "./locked-point-settings";
 
 import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
+import type {Range} from "@khanacademy/perseus";
 
 export type AccordionProps = {
     // Whether to show the M2 features in the locked figure settings.
@@ -21,6 +22,10 @@ export type AccordionProps = {
      * Whether this accordion is expanded.
      */
     expanded?: boolean;
+    /**
+     * The range of the graph. Used to restrict locked figure coordinates.
+     */
+    range?: [Range, Range];
     /**
      * Called when the accordion is expanded or collapsed.
      */

@@ -324,6 +324,30 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect(onChangeMock).not.toBeCalled();
             },
         );
+
+        test("Range is restricted to the graph", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPoint],
+                range: [
+                    [-11, 20],
+                    [-15, 5],
+                ],
+            });
+
+            // Act
+            const xCoordInput = screen.getAllByRole("spinbutton")[0];
+            const yCoordInput = screen.getAllByRole("spinbutton")[1];
+
+            // Assert
+            expect(xCoordInput).toHaveAttribute("min", "-11");
+            expect(xCoordInput).toHaveAttribute("max", "20");
+            expect(yCoordInput).toHaveAttribute("min", "-15");
+            expect(yCoordInput).toHaveAttribute("max", "5");
+        });
     });
 
     describe("lines", () => {
@@ -565,6 +589,37 @@ describe("InteractiveGraphEditor locked figures", () => {
                     ],
                 }),
             );
+        });
+
+        test("Range is restricted to the graph", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+                range: [
+                    [-11, 20],
+                    [-15, 5],
+                ],
+            });
+
+            // Act
+            const point1XCoordInput = screen.getAllByRole("spinbutton")[0];
+            const point1YCoordInput = screen.getAllByRole("spinbutton")[1];
+            const point2XCoordInput = screen.getAllByRole("spinbutton")[2];
+            const point2YCoordInput = screen.getAllByRole("spinbutton")[3];
+
+            // Assert
+            expect(point1XCoordInput).toHaveAttribute("min", "-11");
+            expect(point1XCoordInput).toHaveAttribute("max", "20");
+            expect(point1YCoordInput).toHaveAttribute("min", "-15");
+            expect(point1YCoordInput).toHaveAttribute("max", "5");
+
+            expect(point2XCoordInput).toHaveAttribute("min", "-11");
+            expect(point2XCoordInput).toHaveAttribute("max", "20");
+            expect(point2YCoordInput).toHaveAttribute("min", "-15");
+            expect(point2YCoordInput).toHaveAttribute("max", "5");
         });
     });
 
