@@ -156,14 +156,14 @@ class InteractiveGraphQuestionBuilder {
     }
 
     addLockedVector(
-        point1: vec.Vector2,
-        point2: vec.Vector2,
+        tail: vec.Vector2,
+        tip: vec.Vector2,
         color?: LockedFigureColor,
     ): InteractiveGraphQuestionBuilder {
         const vector: LockedVectorType = {
             type: "vector",
             color: color ?? "grayH",
-            points: [point1, point2],
+            points: [tail, tip],
         };
         this.addLockedFigure(vector);
         return this;

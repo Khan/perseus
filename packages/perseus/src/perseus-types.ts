@@ -705,7 +705,7 @@ export type LockedCircleType = {
 
 export type LockedVectorType = {
     type: "vector";
-    points: [point1: Coord, point2: Coord];
+    points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
 };
 

@@ -8,15 +8,11 @@ import type {LockedVectorType} from "../../perseus-types";
 
 const LockedVector = (props: LockedVectorType) => {
     const {color, points} = props;
-    const [point1, point2] = points;
+    const [tail, tip] = points;
 
     return (
         <g className="locked-vector">
-            <Vector
-                tail={point1}
-                tip={point2}
-                color={lockedFigureColors[color]}
-            />
+            <Vector tail={tail} tip={tip} color={lockedFigureColors[color]} />
         </g>
     );
 };
