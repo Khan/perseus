@@ -54,9 +54,10 @@ describe("InteractiveGraphEditor locked figures", () => {
 
     // Basic functionality
     describe.each`
-        figureType | figureName
-        ${"point"} | ${"Point"}
-        ${"line"}  | ${"Line"}
+        figureType  | figureName
+        ${"point"}  | ${"Point"}
+        ${"line"}   | ${"Line"}
+        ${"circle"} | ${"Circle"}
     `(`$figureType basics`, ({figureType, figureName}) => {
         test("Calls onChange when a locked $figureType is added", async () => {
             // Arrange
@@ -69,8 +70,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 name: "Add locked figure",
             });
             await userEvent.click(addLockedFigureButton);
-            const addPointButton = screen.getByText(figureName);
-            await userEvent.click(addPointButton);
+            const addFigureButton = screen.getByText(figureType);
+            await userEvent.click(addFigureButton);
 
             // Assert
             expect(onChangeMock).toBeCalledWith({
@@ -561,6 +562,152 @@ describe("InteractiveGraphEditor locked figures", () => {
                         expect.objectContaining({
                             ...defaultLine,
                             showPoint2: true,
+                        }),
+                    ],
+                }),
+            );
+        });
+    });
+
+    describe("circles", () => {
+        test("Calls onChange when a locked circle's center x is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType("circle")],
+            });
+
+            // Act
+            const xCoordInput = screen.getByLabelText("x coord");
+            await userEvent.clear(xCoordInput);
+            await userEvent.type(xCoordInput, "5");
+            await userEvent.tab();
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "circle",
+                            center: [5, 0],
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a locked circle's center y is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType("circle")],
+            });
+
+            // Act
+            const yCoordInput = screen.getByLabelText("y coord");
+            await userEvent.clear(yCoordInput);
+            await userEvent.type(yCoordInput, "5");
+            await userEvent.tab();
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "circle",
+                            center: [0, 5],
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a locked circle's radius is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType("circle")],
+            });
+
+            // Act
+            const radiusInput = screen.getByLabelText("radius");
+            await userEvent.clear(radiusInput);
+            await userEvent.type(radiusInput, "5");
+            await userEvent.tab();
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "circle",
+                            radius: 5,
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when locked circle's stroke style is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType("circle")],
+            });
+
+            // Act
+            const strokeInput = screen.getByRole("button", {
+                name: "stroke",
+            });
+            await userEvent.click(strokeInput);
+            const strokeSelection = screen.getByText("dashed");
+            await userEvent.click(strokeSelection);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "circle",
+                            strokeStyle: "dashed",
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a locked circle's fill style is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType("circle")],
+            });
+
+            // Act
+            const fillInput = screen.getByRole("button", {
+                name: "fill",
+            });
+            await userEvent.click(fillInput);
+            const fillSelection = screen.getByText("translucent");
+            await userEvent.click(fillSelection);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "circle",
+                            fillStyle: "translucent",
                         }),
                     ],
                 }),

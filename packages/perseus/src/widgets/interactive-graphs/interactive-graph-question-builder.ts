@@ -1,4 +1,5 @@
 import type {
+    LockedCircleFillType,
     LockedCircleType,
     LockedFigure,
     LockedFigureColor,
@@ -137,7 +138,7 @@ class InteractiveGraphQuestionBuilder {
         radius: number,
         options?: {
             color?: LockedFigureColor;
-            fillStyle?: "none" | "solid" | "translucent";
+            fillStyle?: LockedCircleFillType;
             strokeStyle?: "solid" | "dashed";
         },
     ): InteractiveGraphQuestionBuilder {

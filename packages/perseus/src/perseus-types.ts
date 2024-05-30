@@ -694,12 +694,19 @@ export type LockedLineType = {
     showPoint2: boolean;
 };
 
+export type LockedCircleFillType = "none" | "solid" | "translucent";
+export const lockedCircleFillStyles: Record<LockedCircleFillType, number> = {
+    none: 0,
+    solid: 1,
+    translucent: 0.4,
+} as const;
+
 export type LockedCircleType = {
     type: "circle";
     center: Coord;
     radius: number;
     color: LockedFigureColor;
-    fillStyle: "none" | "solid" | "translucent";
+    fillStyle: LockedCircleFillType;
     strokeStyle: "solid" | "dashed";
 };
 

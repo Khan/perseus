@@ -19,28 +19,23 @@ type Props = {
 const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
+    const figureTypes = ["point", "line", "circle"];
+
     return (
         <View style={styles.container}>
             <ActionMenu
                 menuText="Add locked figure"
                 style={styles.addElementSelect}
             >
-                {[
+                {figureTypes.map((figureType) => (
                     <ActionItem
-                        key={`${id}-point`}
-                        label="Point"
-                        onClick={() => onChange("point")}
+                        key={`${id}-${figureType}`}
+                        label={figureType}
+                        onClick={() => onChange(figureType)}
                     >
-                        Point
-                    </ActionItem>,
-                    <ActionItem
-                        key={`${id}-line`}
-                        label="Line"
-                        onClick={() => onChange("line")}
-                    >
-                        Line
-                    </ActionItem>,
-                ]}
+                        {figureType}
+                    </ActionItem>
+                ))}
             </ActionMenu>
         </View>
     );
