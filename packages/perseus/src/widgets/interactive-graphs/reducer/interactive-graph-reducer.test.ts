@@ -62,6 +62,23 @@ const baseSinusoidGraphState: InteractiveGraphState = {
     ],
 };
 
+const basePolygonGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "polygon",
+    showAngles: false,
+    showSides: false,
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+    ],
+};
+
 describe("moveControlPoint", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
@@ -276,7 +293,7 @@ describe("moveSegment", () => {
     });
 });
 
-describe("movePoint", () => {
+describe("movePoint on a point graph", () => {
     it("moves the point with the given index", () => {
         const state: InteractiveGraphState = {
             ...basePointGraphState,
@@ -329,6 +346,42 @@ describe("movePoint", () => {
         const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
 
         expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+});
+
+describe("movePoint on a polygon graph", () => {
+    it("moves a point", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [0, 1]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0, 1]);
+    });
+
+    it("rejects the move if it would cause sides of the polygon to intersect", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0, 0]);
     });
 });
 

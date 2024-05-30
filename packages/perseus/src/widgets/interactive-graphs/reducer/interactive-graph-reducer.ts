@@ -3,6 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import {polygonSidesIntersect} from "../../../util/geometry";
 import {snap} from "../utils";
 
 import {
@@ -58,7 +59,6 @@ function doMoveControlPoint(
     state: InteractiveGraphState,
     action: MoveControlPoint,
 ): InteractiveGraphState {
-    const {snapStep, range} = state;
     switch (state.type) {
         case "segment":
         case "linear":
@@ -71,14 +71,7 @@ function doMoveControlPoint(
                     setAtIndex({
                         array: tuple,
                         index: action.pointIndex,
-                        newValue: snap(
-                            snapStep,
-                            bound({
-                                snapStep,
-                                range,
-                                point: action.destination,
-                            }),
-                        ),
+                        newValue: boundAndSnapToGrid(action.destination, state),
                     }),
             });
 
@@ -187,6 +180,22 @@ function doMovePoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "polygon":
+            const newCoords = setAtIndex({
+                array: state.coords,
+                index: action.index,
+                newValue: boundAndSnapToGrid(action.destination, state),
+            });
+
+            // Reject the move if it would cause the sides of the polygon to cross
+            if (polygonSidesIntersect(newCoords)) {
+                return state;
+            }
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
         case "point": {
             return {
                 ...state,
@@ -194,14 +203,7 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap(
-                        state.snapStep,
-                        bound({
-                            snapStep: state.snapStep,
-                            range: state.range,
-                            point: action.destination,
-                        }),
-                    ),
+                    newValue: boundAndSnapToGrid(action.destination, state),
                 }),
             };
         }
@@ -220,14 +222,7 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap(
-                        state.snapStep,
-                        bound({
-                            snapStep: state.snapStep,
-                            range: state.range,
-                            point: destination,
-                        }),
-                    ),
+                    newValue: boundAndSnapToGrid(destination, state),
                 }),
             };
         }
@@ -238,14 +233,7 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: snap(
-                        state.snapStep,
-                        bound({
-                            snapStep: state.snapStep,
-                            range: state.range,
-                            point: action.destination,
-                        }),
-                    ),
+                    newValue: boundAndSnapToGrid(action.destination, state),
                 }),
             };
         }
@@ -396,6 +384,13 @@ interface ConstraintArgs {
     snapStep: vec.Vector2;
     range: [Interval, Interval];
     point: vec.Vector2;
+}
+
+function boundAndSnapToGrid(
+    point: vec.Vector2,
+    {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
+) {
+    return snap(snapStep, bound({snapStep, range, point}));
 }
 
 // Returns the closest point to the given `point` that is within the graph
