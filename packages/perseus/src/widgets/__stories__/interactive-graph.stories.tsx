@@ -123,7 +123,7 @@ export const LockedCircle = (args: StoryArgs): React.ReactElement => (
 
 export const LockedVector = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI {...mafsOptions} question={segmentWithLockedVectors} />
-)
+);
 
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={sinusoidQuestion} />

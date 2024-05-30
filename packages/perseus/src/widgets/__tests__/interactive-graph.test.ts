@@ -30,7 +30,8 @@ import {
     segmentWithLockedCircles,
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
-    segmentWithLockedPointsWithColorQuestion, segmentWithLockedVectors,
+    segmentWithLockedPointsWithColorQuestion,
+    segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
@@ -588,10 +589,15 @@ describe("locked layer", () => {
             "stroke-width": "2",
             stroke: lockedFigureColors["grayH"],
         });
-        let arrowheads = vector.querySelectorAll(".interactive-graph-arrowhead");
+        let arrowheads = vector.querySelectorAll(
+            ".interactive-graph-arrowhead",
+        );
         expect(arrowheads).toHaveLength(1);
         // Arrowhead should be at the end (tip) of the vector, and rotated
-        expect(arrowheads[0]).toHaveAttribute("transform", "translate(40 -40) rotate(-45)");
+        expect(arrowheads[0]).toHaveAttribute(
+            "transform",
+            "translate(40 -40) rotate(-45)",
+        );
 
         vector = vectors[1].children[0];
         expect(vector).toHaveStyle({
@@ -600,6 +606,9 @@ describe("locked layer", () => {
         });
         arrowheads = vector.querySelectorAll(".interactive-graph-arrowhead");
         expect(arrowheads).toHaveLength(1);
-        expect(arrowheads[0]).toHaveAttribute("transform", "translate(-40 -80) rotate(-153.43494882292202)");
+        expect(arrowheads[0]).toHaveAttribute(
+            "transform",
+            "translate(-40 -80) rotate(-153.43494882292202)",
+        );
     });
 });

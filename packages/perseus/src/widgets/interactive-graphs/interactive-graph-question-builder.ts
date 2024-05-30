@@ -3,7 +3,8 @@ import type {
     LockedFigure,
     LockedFigureColor,
     LockedLineType,
-    LockedPointType, LockedVectorType,
+    LockedPointType,
+    LockedVectorType,
     PerseusGraphType,
     PerseusRenderer,
 } from "../../perseus-types";

@@ -670,7 +670,11 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     red: "#D92916",
 } as const;
 
-export type LockedFigure = LockedPointType | LockedLineType | LockedCircleType | LockedVectorType;
+export type LockedFigure =
+    | LockedPointType
+    | LockedLineType
+    | LockedCircleType
+    | LockedVectorType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {

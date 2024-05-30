@@ -226,7 +226,10 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options.lockedFigures).toEqual([
             {
                 type: "vector",
-                points: [[1, 2], [3, 4]],
+                points: [
+                    [1, 2],
+                    [3, 4],
+                ],
                 color: "grayH",
             },
         ]);
@@ -241,7 +244,10 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options.lockedFigures).toEqual([
             {
                 type: "vector",
-                points: [[1, 2], [3, 4]],
+                points: [
+                    [1, 2],
+                    [3, 4],
+                ],
                 color: "green",
             },
         ]);

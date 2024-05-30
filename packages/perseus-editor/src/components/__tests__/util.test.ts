@@ -53,7 +53,10 @@ describe("getDefaultFigureForType", () => {
         const figure = getDefaultFigureForType("vector");
         expect(figure).toEqual({
             type: "vector",
-            points: [[0, 0], [2, 2]],
+            points: [
+                [0, 0],
+                [2, 2],
+            ],
             color: "grayH",
         });
     });
