@@ -6,7 +6,13 @@ import * as React from "react";
 import LockedFiguresSection from "../locked-figures-section";
 import {getDefaultFigureForType} from "../util";
 
+import type {Range} from "@khanacademy/perseus";
 import type {Meta, StoryObj} from "@storybook/react";
+
+const defaultRange = [
+    [-10, 10],
+    [-10, 10],
+] satisfies [Range, Range];
 
 export default {
     title: "PerseusEditor/Components/Locked Figures Section",
@@ -33,6 +39,7 @@ export const Controlled: StoryComponentType = {
         return (
             <LockedFiguresSection
                 figures={figures}
+                range={defaultRange}
                 onChange={handlePropsUpdate}
             />
         );
@@ -54,6 +61,7 @@ export const WithProdWidth: StoryComponentType = {
             <View style={styles.prodSizeContainer}>
                 <LockedFiguresSection
                     figures={figures}
+                    range={defaultRange}
                     onChange={handlePropsUpdate}
                 />
             </View>

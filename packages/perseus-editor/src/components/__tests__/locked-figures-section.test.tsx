@@ -6,7 +6,13 @@ import * as React from "react";
 import LockedFiguresSection from "../locked-figures-section";
 import {getDefaultFigureForType} from "../util";
 
+import type {Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
+
+const defaultRange = [
+    [-10, 10],
+    [-10, 10],
+] satisfies [Range, Range];
 
 describe("LockedFiguresSection", () => {
     let userEvent: UserEvent;
@@ -18,9 +24,12 @@ describe("LockedFiguresSection", () => {
 
     test("renders", () => {
         // Arrange, Act
-        render(<LockedFiguresSection onChange={jest.fn()} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedFiguresSection range={defaultRange} onChange={jest.fn()} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Assert
         expect(screen.getByText("Add locked figure")).toBeInTheDocument();
@@ -28,9 +37,12 @@ describe("LockedFiguresSection", () => {
 
     test("renders no expand/collapse button when there are no figures", () => {
         // Arrange, Act
-        render(<LockedFiguresSection onChange={jest.fn()} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedFiguresSection range={defaultRange} onChange={jest.fn()} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Assert
         expect(screen.queryByRole("button", {name: "Expand all"})).toBeNull();
@@ -41,6 +53,7 @@ describe("LockedFiguresSection", () => {
         // Arrange, Act
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={[
                     getDefaultFigureForType("point"),
                     getDefaultFigureForType("line"),
@@ -64,6 +77,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={[
                     getDefaultFigureForType("point"),
                     getDefaultFigureForType("line"),
@@ -92,6 +106,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={[
                     getDefaultFigureForType("point"),
                     getDefaultFigureForType("line"),
@@ -126,6 +141,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={[
                     getDefaultFigureForType("point"),
                     getDefaultFigureForType("line"),
@@ -165,6 +181,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={[
                     getDefaultFigureForType("point"),
                     getDefaultFigureForType("line"),
@@ -193,6 +210,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={[
                     getDefaultFigureForType("point"),
                     {...getDefaultFigureForType("point"), coord: [1, 1]},
