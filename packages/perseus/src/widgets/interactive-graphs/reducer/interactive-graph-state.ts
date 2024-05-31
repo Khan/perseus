@@ -1,4 +1,5 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import {vec} from "mafs";
 
 import {normalizeCoords, normalizePoints} from "../utils";
 
@@ -11,7 +12,8 @@ import type {
     PerseusGraphTypeLinearSystem,
     PerseusGraphTypePolygon,
     PerseusGraphTypeQuadratic,
-    PerseusGraphTypeSinusoid, PerseusGraphTypeCircle,
+    PerseusGraphTypeSinusoid,
+    PerseusGraphTypeCircle,
 } from "../../../perseus-types";
 import type {
     CircleGraphState,
@@ -21,7 +23,6 @@ import type {
 } from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
-import {vec} from "mafs";
 
 export type InitializeGraphStateParam = {
     range: InteractiveGraphProps["range"];
@@ -321,9 +322,7 @@ const defaultLinearCoords: [Coord, Coord][] = [
 ];
 
 type getLineCoordsArg = {
-    graph:
-        | PerseusGraphTypeRay
-        | PerseusGraphTypeLinear
+    graph: PerseusGraphTypeRay | PerseusGraphTypeLinear;
     range: InitializeGraphStateParam["range"];
     step: InitializeGraphStateParam["step"];
 };
@@ -334,7 +333,7 @@ const getLineCoords = ({
     step,
 }: getLineCoordsArg): PairOfPoints[] => {
     if (graph.coords) {
-        return [graph.coords]
+        return [graph.coords];
     }
 
     return [normalizePoints(range, step, defaultLinearCoords[0])];
@@ -447,18 +446,18 @@ const getCircleCoords = (
     graph: PerseusGraphTypeCircle,
     range: InitializeGraphStateParam["range"],
     step: InitializeGraphStateParam["step"],
-): {center: Coord, radiusPoint: Coord} => {
+): {center: Coord; radiusPoint: Coord} => {
     if (graph.center != null && graph.radius != null) {
         return {
             center: graph.center,
-            radiusPoint: vec.add(graph.center,[graph.radius, 0])
-        }
+            radiusPoint: vec.add(graph.center, [graph.radius, 0]),
+        };
     }
     return {
         center: [0, 0],
         radiusPoint: [1, 0],
-    }
-}
+    };
+};
 
 /**
  * determine radius of a circle graph

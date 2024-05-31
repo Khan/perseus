@@ -42,13 +42,26 @@ describe("initializeGraphState for segment graphs", () => {
     });
 
     it("uses the given segment coordinates, if present", () => {
-        const state = initializeGraphState(({
+        const state = initializeGraphState({
             ...baseGraphData,
-            graph: {type: "segment", coords: [[[0, 1], [2, 3]]]}
-        }))
+            graph: {
+                type: "segment",
+                coords: [
+                    [
+                        [0, 1],
+                        [2, 3],
+                    ],
+                ],
+            },
+        });
 
-        invariant(state.type === "segment")
-        expect(state.coords).toEqual([[[0,1], [2,3]]])
+        invariant(state.type === "segment");
+        expect(state.coords).toEqual([
+            [
+                [0, 1],
+                [2, 3],
+            ],
+        ]);
     });
 
     it("adds a default segment", () => {
@@ -99,23 +112,39 @@ describe("initializeGraphState for segment graphs", () => {
 
 describe("initializeGraphState for linear graphs", () => {
     it("uses the given coordinates, if present", () => {
-        const state = initializeGraphState(({
+        const state = initializeGraphState({
             ...baseGraphData,
-            graph: {type: "linear", coords: [[0, 1], [2, 3]]}
-        }))
+            graph: {
+                type: "linear",
+                coords: [
+                    [0, 1],
+                    [2, 3],
+                ],
+            },
+        });
 
-        invariant(state.type === "linear")
-        expect(state.coords).toEqual([[[0,1], [2,3]]])
+        invariant(state.type === "linear");
+        expect(state.coords).toEqual([
+            [
+                [0, 1],
+                [2, 3],
+            ],
+        ]);
     });
 
     it("uses default coordinates if none are given", () => {
-        const state = initializeGraphState(({
+        const state = initializeGraphState({
             ...baseGraphData,
-            graph: {type: "linear"}
-        }))
+            graph: {type: "linear"},
+        });
 
-        invariant(state.type === "linear")
-        expect(state.coords).toEqual([[[-5,5], [5,5]]])
+        invariant(state.type === "linear");
+        expect(state.coords).toEqual([
+            [
+                [-5, 5],
+                [5, 5],
+            ],
+        ]);
     });
 
     it("puts the segments in the same place regardless of graph scale", () => {
@@ -317,11 +346,22 @@ describe("initializeGraphState for quadratic graphs", () => {
     it("uses the given coords, if present", () => {
         const graph = initializeGraphState({
             ...baseGraphData,
-            graph: {type: "quadratic", coords: [[0, 1], [2, 3], [4, 5]]},
+            graph: {
+                type: "quadratic",
+                coords: [
+                    [0, 1],
+                    [2, 3],
+                    [4, 5],
+                ],
+            },
         });
 
         invariant(graph.type === "quadratic");
-        expect(graph.coords).toEqual([[0, 1], [2, 3], [4, 5]]);
+        expect(graph.coords).toEqual([
+            [0, 1],
+            [2, 3],
+            [4, 5],
+        ]);
     });
 
     it("uses default coords if none are given, and does NOT snap", () => {
@@ -337,18 +377,27 @@ describe("initializeGraphState for quadratic graphs", () => {
             [0, -5],
             [5, 5],
         ]);
-    })
+    });
 });
 
 describe("initializeGraphState for sinusoid graphs", () => {
     it("uses the given coords, if present", () => {
         const graph = initializeGraphState({
             ...baseGraphData,
-            graph: {type: "sinusoid", coords: [[0, 1], [2, 3]]},
+            graph: {
+                type: "sinusoid",
+                coords: [
+                    [0, 1],
+                    [2, 3],
+                ],
+            },
         });
 
         invariant(graph.type === "sinusoid");
-        expect(graph.coords).toEqual([[0, 1], [2, 3]]);
+        expect(graph.coords).toEqual([
+            [0, 1],
+            [2, 3],
+        ]);
     });
 
     it("uses default coords if none are given", () => {
@@ -358,8 +407,11 @@ describe("initializeGraphState for sinusoid graphs", () => {
         });
 
         invariant(graph.type === "sinusoid");
-        expect(graph.coords).toEqual([[0, 0], [3, 2]]);
-    })
+        expect(graph.coords).toEqual([
+            [0, 0],
+            [3, 2],
+        ]);
+    });
 });
 
 describe("getGradableGraph", () => {
