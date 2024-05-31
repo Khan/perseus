@@ -1,39 +1,30 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import type {Interval} from "mafs";
 import {vec} from "mafs";
 
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {
-    PerseusGraphTypePoint,
     PerseusGraphType,
-    PerseusGraphTypeSegment,
-    PerseusGraphTypeRay,
+    PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
+    PerseusGraphTypePoint,
     PerseusGraphTypePolygon,
     PerseusGraphTypeQuadratic,
+    PerseusGraphTypeRay,
+    PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
-    PerseusGraphTypeCircle,
 } from "../../../perseus-types";
-import type {
-    CircleGraphState,
-    InteractiveGraphProps,
-    InteractiveGraphState,
-    PairOfPoints,
-} from "../types";
+import type {InteractiveGraphState, PairOfPoints,} from "../types";
 import type {Coord} from "@khanacademy/perseus";
-import type {Interval} from "mafs";
 
-export type InitializeGraphStateParam = {
-    range: InteractiveGraphProps["range"];
-    step: InteractiveGraphProps["step"];
-    snapStep: InteractiveGraphProps["snapStep"];
+export function initializeGraphState(params: {
+    range: [x: Interval, y: Interval];
+    step: [x: number, y: number];
+    snapStep: [x: number, y: number];
     graph: PerseusGraphType;
-};
-
-export function initializeGraphState(
-    params: InitializeGraphStateParam,
-): InteractiveGraphState {
+}): InteractiveGraphState {
     const {graph, step, snapStep, range} = params;
     const shared = {
         hasBeenInteractedWith: false,
@@ -183,8 +174,8 @@ const getDefaultPoints = ({
 
 type getDefaultSegmentsArg = {
     graph: PerseusGraphTypeSegment;
-    range: InitializeGraphStateParam["range"];
-    step: InitializeGraphStateParam["step"];
+    range: [x: Interval, y: Interval];
+    step: [x: number, y: number];
 };
 
 const getSegmentCoords = ({
@@ -242,8 +233,8 @@ const defaultLinearCoords: [Coord, Coord][] = [
 
 type getLineCoordsArg = {
     graph: PerseusGraphTypeRay | PerseusGraphTypeLinear;
-    range: InitializeGraphStateParam["range"];
-    step: InitializeGraphStateParam["step"];
+    range: [x: Interval, y: Interval];
+    step: [x: number, y: number];
 };
 
 const getLineCoords = ({
@@ -259,8 +250,8 @@ const getLineCoords = ({
 
 type getLinearSystemCoordsArg = {
     graph: PerseusGraphTypeLinearSystem;
-    range: InitializeGraphStateParam["range"];
-    step: InitializeGraphStateParam["step"];
+    range: [x: Interval, y: Interval];
+    step: [x: number, y: number];
 };
 
 const getLinearSystemCoords = ({
@@ -279,8 +270,8 @@ const getLinearSystemCoords = ({
 
 type getPolygonCoordsArg = {
     graph: PerseusGraphTypePolygon;
-    range: InitializeGraphStateParam["range"];
-    step: InitializeGraphStateParam["step"];
+    range: [x: Interval, y: Interval];
+    step: [x: number, y: number];
 };
 
 const getPolygonCoords = ({
@@ -325,8 +316,8 @@ const getPolygonCoords = ({
 
 const getSinusoidCoords = (
     graph: PerseusGraphTypeSinusoid,
-    range: InitializeGraphStateParam["range"],
-    step: InitializeGraphStateParam["step"],
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
 ): [Coord, Coord] => {
     if (graph.coords) {
         return [graph.coords[0], graph.coords[1]];
@@ -344,8 +335,8 @@ const getSinusoidCoords = (
 
 const getQuadraticCoords = (
     graph: PerseusGraphTypeQuadratic,
-    range: InitializeGraphStateParam["range"],
-    step: InitializeGraphStateParam["step"],
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
 ): [Coord, Coord, Coord] => {
     if (graph.coords) {
         return graph.coords;
@@ -362,8 +353,8 @@ const getQuadraticCoords = (
 
 const getCircleCoords = (
     graph: PerseusGraphTypeCircle,
-    range: InitializeGraphStateParam["range"],
-    step: InitializeGraphStateParam["step"],
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
 ): {center: Coord; radiusPoint: Coord} => {
     if (graph.center != null && graph.radius != null) {
         return {
