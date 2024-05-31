@@ -411,6 +411,10 @@ const getSinusoidCoords = (
     range: InitializeGraphStateParam["range"],
     step: InitializeGraphStateParam["step"],
 ): [Coord, Coord] => {
+    if (graph.coords) {
+        return graph.coords;
+    }
+
     let coords: [Coord, Coord] = [
         [0.5, 0.5],
         [0.65, 0.6],

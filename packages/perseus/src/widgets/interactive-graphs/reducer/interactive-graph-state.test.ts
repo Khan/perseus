@@ -340,6 +340,28 @@ describe("initializeGraphState for quadratic graphs", () => {
     })
 });
 
+describe("initializeGraphState for sinusoid graphs", () => {
+    it("uses the given coords, if present", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "sinusoid", coords: [[0, 1], [2, 3]]},
+        });
+
+        invariant(graph.type === "sinusoid");
+        expect(graph.coords).toEqual([[0, 1], [2, 3]]);
+    });
+
+    it("uses default coords if none are given", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "sinusoid"},
+        });
+
+        invariant(graph.type === "sinusoid");
+        expect(graph.coords).toEqual([[0, 0], [3, 2]]);
+    })
+});
+
 describe("getGradableGraph", () => {
     /**
      * Originally `getGradableGraph` was returning a PerseusGraphType with just a
