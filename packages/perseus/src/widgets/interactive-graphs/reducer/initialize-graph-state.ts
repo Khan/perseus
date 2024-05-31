@@ -69,13 +69,13 @@ export function initializeGraphState(params: {
             return {
                 ...shared,
                 type: graph.type,
-                coords: getDefaultPoints(graph, range, step),
+                coords: getPointCoords(graph, range, step),
             };
         case "circle":
             return {
                 ...shared,
                 type: graph.type,
-                ...getCircleCoords(graph, range, step),
+                ...getCircleCoords(graph),
             };
         case "quadratic":
             return {
@@ -98,17 +98,18 @@ export function initializeGraphState(params: {
     }
 }
 
-const getDefaultPoints = (
+const getPointCoords = (
     graph: PerseusGraphTypePoint,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
 ): Coord[] => {
     const numPoints = graph.numPoints || 1;
-    let coords = graph.coords?.slice();
 
+    let coords = graph.coords?.slice();
     if (coords) {
         return coords;
     }
+
     switch (numPoints) {
         case 1:
             // Back in the day, one point's coords were in graph.coord
@@ -325,8 +326,6 @@ const getQuadraticCoords = (
 
 const getCircleCoords = (
     graph: PerseusGraphTypeCircle,
-    range: [x: Interval, y: Interval],
-    step: [x: number, y: number],
 ): {center: Coord; radiusPoint: Coord} => {
     if (graph.center != null && graph.radius != null) {
         return {
