@@ -36,25 +36,25 @@ export function initializeGraphState(params: {
             return {
                 ...shared,
                 type: "segment",
-                coords: getSegmentCoords({graph, step, range}),
+                coords: getSegmentCoords(graph, range, step),
             };
         case "linear":
             return {
                 ...shared,
                 type: graph.type,
-                coords: getLineCoords({graph, range, step}),
+                coords: getLineCoords(graph, range, step),
             };
         case "ray":
             return {
                 ...shared,
                 type: graph.type,
-                coords: getLineCoords({graph, range, step}),
+                coords: getLineCoords(graph, range, step),
             };
         case "linear-system":
             return {
                 ...shared,
                 type: graph.type,
-                coords: getLinearSystemCoords({graph, range, step}),
+                coords: getLinearSystemCoords(graph, range, step),
             };
         case "polygon":
             return {
@@ -62,14 +62,14 @@ export function initializeGraphState(params: {
                 type: "polygon",
                 showAngles: Boolean(graph.showAngles),
                 showSides: Boolean(graph.showSides),
-                coords: getPolygonCoords({graph, range, step}),
+                coords: getPolygonCoords(graph, range, step),
                 snapTo: graph.snapTo ?? "grid",
             };
         case "point":
             return {
                 ...shared,
                 type: graph.type,
-                coords: getDefaultPoints({graph, step, range}),
+                coords: getDefaultPoints(graph, range, step),
             };
         case "circle":
             return {
@@ -98,15 +98,11 @@ export function initializeGraphState(params: {
     }
 }
 
-const getDefaultPoints = ({
-    graph,
-    range,
-    step,
-}: {
-    graph: PerseusGraphTypePoint;
-    range: [Interval, Interval];
-    step: Coord;
-}): Coord[] => {
+const getDefaultPoints = (
+    graph: PerseusGraphTypePoint,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): Coord[] => {
     const numPoints = graph.numPoints || 1;
     let coords = graph.coords?.slice();
 
@@ -172,17 +168,11 @@ const getDefaultPoints = ({
     return normalizePoints(range, step, newCoords);
 };
 
-type getDefaultSegmentsArg = {
-    graph: PerseusGraphTypeSegment;
-    range: [x: Interval, y: Interval];
-    step: [x: number, y: number];
-};
-
-const getSegmentCoords = ({
-    graph,
-    range,
-    step,
-}: getDefaultSegmentsArg): PairOfPoints[] => {
+const getSegmentCoords = (
+    graph: PerseusGraphTypeSegment,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): PairOfPoints[] => {
     if (graph.coords) {
         return graph.coords;
     }
@@ -231,34 +221,22 @@ const defaultLinearCoords: [Coord, Coord][] = [
     ],
 ];
 
-type getLineCoordsArg = {
-    graph: PerseusGraphTypeRay | PerseusGraphTypeLinear;
-    range: [x: Interval, y: Interval];
-    step: [x: number, y: number];
-};
-
-const getLineCoords = ({
-    graph,
-    range,
-    step,
-}: getLineCoordsArg): PairOfPoints => {
+const getLineCoords = (
+    graph: PerseusGraphTypeRay | PerseusGraphTypeLinear,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): PairOfPoints => {
     if (graph.coords) {
         return graph.coords;
     }
     return normalizePoints(range, step, defaultLinearCoords[0]);
 };
 
-type getLinearSystemCoordsArg = {
-    graph: PerseusGraphTypeLinearSystem;
-    range: [x: Interval, y: Interval];
-    step: [x: number, y: number];
-};
-
-const getLinearSystemCoords = ({
-    graph,
-    range,
-    step,
-}: getLinearSystemCoordsArg): PairOfPoints[] => {
+const getLinearSystemCoords = (
+    graph: PerseusGraphTypeLinearSystem,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): PairOfPoints[] => {
     if (graph.coords) {
         return graph.coords;
     }
@@ -268,17 +246,11 @@ const getLinearSystemCoords = ({
     );
 };
 
-type getPolygonCoordsArg = {
-    graph: PerseusGraphTypePolygon;
-    range: [x: Interval, y: Interval];
-    step: [x: number, y: number];
-};
-
-const getPolygonCoords = ({
-    graph,
-    range,
-    step,
-}: getPolygonCoordsArg): Coord[] => {
+const getPolygonCoords = (
+    graph: PerseusGraphTypePolygon,
+    range: [x: Interval, y: Interval],
+    step: [x: number, y: number],
+): Coord[] => {
     let coords = graph.coords?.slice();
     if (coords) {
         return coords;
