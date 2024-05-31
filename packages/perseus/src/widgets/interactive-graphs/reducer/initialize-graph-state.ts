@@ -98,11 +98,11 @@ export function initializeGraphState(params: {
     }
 }
 
-const getPointCoords = (
+function getPointCoords(
     graph: PerseusGraphTypePoint,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
-): Coord[] => {
+): Coord[] {
     const numPoints = graph.numPoints || 1;
 
     let coords = graph.coords?.slice();
@@ -167,13 +167,13 @@ const getPointCoords = (
     ]);
 
     return normalizePoints(range, step, newCoords);
-};
+}
 
-const getSegmentCoords = (
+function getSegmentCoords(
     graph: PerseusGraphTypeSegment,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
-): PairOfPoints[] => {
+): PairOfPoints[] {
     if (graph.coords) {
         return graph.coords;
     }
@@ -209,7 +209,7 @@ const getSegmentCoords = (
         endpoints = normalizePoints(range, step, endpoints);
         return endpoints;
     });
-};
+}
 
 const defaultLinearCoords: [Coord, Coord][] = [
     [
@@ -222,22 +222,23 @@ const defaultLinearCoords: [Coord, Coord][] = [
     ],
 ];
 
-const getLineCoords = (
+function getLineCoords(
     graph: PerseusGraphTypeRay | PerseusGraphTypeLinear,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
-): PairOfPoints => {
+): PairOfPoints {
     if (graph.coords) {
         return graph.coords;
     }
-    return normalizePoints(range, step, defaultLinearCoords[0]);
-};
 
-const getLinearSystemCoords = (
+    return normalizePoints(range, step, defaultLinearCoords[0]);
+}
+
+function getLinearSystemCoords(
     graph: PerseusGraphTypeLinearSystem,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
-): PairOfPoints[] => {
+): PairOfPoints[] {
     if (graph.coords) {
         return graph.coords;
     }
@@ -245,13 +246,13 @@ const getLinearSystemCoords = (
     return defaultLinearCoords.map((points) =>
         normalizePoints(range, step, points),
     );
-};
+}
 
-const getPolygonCoords = (
+function getPolygonCoords(
     graph: PerseusGraphTypePolygon,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
-): Coord[] => {
+): Coord[] {
     let coords = graph.coords?.slice();
     if (coords) {
         return coords;
@@ -285,13 +286,13 @@ const getPolygonCoords = (
     coords = normalizePoints(range, step, coords, /* noSnap */ !snapToGrid);
 
     return coords;
-};
+}
 
-const getSinusoidCoords = (
+function getSinusoidCoords(
     graph: PerseusGraphTypeSinusoid,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
-): [Coord, Coord] => {
+): [Coord, Coord] {
     if (graph.coords) {
         return [graph.coords[0], graph.coords[1]];
     }
@@ -304,13 +305,13 @@ const getSinusoidCoords = (
     coords = normalizePoints(range, step, coords, true);
 
     return coords;
-};
+}
 
-const getQuadraticCoords = (
+function getQuadraticCoords(
     graph: PerseusGraphTypeQuadratic,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
-): [Coord, Coord, Coord] => {
+): [Coord, Coord, Coord] {
     if (graph.coords) {
         return graph.coords;
     }
@@ -322,11 +323,11 @@ const getQuadraticCoords = (
     ];
 
     return normalizePoints(range, step, defaultCoords, true);
-};
+}
 
-const getCircleCoords = (
+function getCircleCoords(
     graph: PerseusGraphTypeCircle,
-): {center: Coord; radiusPoint: Coord} => {
+): {center: Coord; radiusPoint: Coord} {
     if (graph.center != null && graph.radius != null) {
         return {
             center: graph.center,
@@ -337,4 +338,4 @@ const getCircleCoords = (
         center: [0, 0],
         radiusPoint: [1, 0],
     };
-};
+}
