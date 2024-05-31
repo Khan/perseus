@@ -3,7 +3,7 @@ import * as React from "react";
 import {useRef} from "react";
 
 import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
-import {getRadius} from "../reducer/interactive-graph-state";
+import {getRadius} from "../reducer/initialize-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 import {snap} from "../utils";
 

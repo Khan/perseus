@@ -31,7 +31,7 @@ import {
     getGradableGraph,
     getRadius,
     initializeGraphState,
-} from "./reducer/interactive-graph-state";
+} from "./reducer/initialize-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";

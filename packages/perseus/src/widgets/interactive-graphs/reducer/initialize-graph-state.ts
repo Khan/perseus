@@ -459,6 +459,7 @@ const getCircleCoords = (
     };
 };
 
+// FIXME move this
 /**
  * determine radius of a circle graph
  *

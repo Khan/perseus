@@ -3,7 +3,7 @@ import invariant from "tiny-invariant";
 import {
     getGradableGraph,
     initializeGraphState,
-} from "./interactive-graph-state";
+} from "./initialize-graph-state";
 
 import type {PerseusGraphType} from "../../../perseus-types";
 import type {InteractiveGraphProps, InteractiveGraphState} from "../types";
@@ -408,6 +408,7 @@ describe("initializeGraphState for sinusoid graphs", () => {
     });
 });
 
+// FIXME: move this
 describe("getGradableGraph", () => {
     /**
      * Originally `getGradableGraph` was returning a PerseusGraphType with just a
