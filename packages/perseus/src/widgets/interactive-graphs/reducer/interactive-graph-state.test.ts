@@ -313,6 +313,33 @@ describe("initializeGraphState for circle graphs", () => {
     });
 });
 
+describe("initializeGraphState for quadratic graphs", () => {
+    it("uses the given coords, if present", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "quadratic", coords: [[0, 1], [2, 3], [4, 5]]},
+        });
+
+        invariant(graph.type === "quadratic");
+        expect(graph.coords).toEqual([[0, 1], [2, 3], [4, 5]]);
+    });
+
+    it("uses default coords if none are given, and does NOT snap", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            snapStep: [10, 10],
+            graph: {type: "quadratic"},
+        });
+
+        invariant(graph.type === "quadratic");
+        expect(graph.coords).toEqual([
+            [-5, 5],
+            [0, -5],
+            [5, 5],
+        ]);
+    })
+});
+
 describe("getGradableGraph", () => {
     /**
      * Originally `getGradableGraph` was returning a PerseusGraphType with just a

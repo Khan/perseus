@@ -426,15 +426,17 @@ const getQuadraticCoords = (
     range: InitializeGraphStateParam["range"],
     step: InitializeGraphStateParam["step"],
 ): [Coord, Coord, Coord] => {
-    let coords: [Coord, Coord, Coord] = [
+    if (graph.coords) {
+        return graph.coords;
+    }
+
+    const defaultCoords: [Coord, Coord, Coord] = [
         [0.25, 0.75],
         [0.5, 0.25],
         [0.75, 0.75],
     ];
 
-    coords = normalizePoints(range, step, coords, true);
-
-    return coords;
+    return normalizePoints(range, step, defaultCoords, true);
 };
 
 const getCircleCoords = (
