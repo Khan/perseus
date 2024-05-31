@@ -289,6 +289,30 @@ describe("initializeGraphState for point graphs", () => {
     );
 });
 
+describe("initializeGraphState for circle graphs", () => {
+    it("uses the given circle specs, if present", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "circle", center: [1, 2], radius: 5},
+        });
+
+        invariant(graph.type === "circle");
+        expect(graph.center).toEqual([1, 2]);
+        expect(graph.radiusPoint).toEqual([6, 2]);
+    });
+
+    it("uses defaults if no circle is given", () => {
+        const graph = initializeGraphState({
+            ...baseGraphData,
+            graph: {type: "circle"},
+        });
+
+        invariant(graph.type === "circle");
+        expect(graph.center).toEqual([0, 0]);
+        expect(graph.radiusPoint).toEqual([1, 0]);
+    });
+});
+
 describe("getGradableGraph", () => {
     /**
      * Originally `getGradableGraph` was returning a PerseusGraphType with just a

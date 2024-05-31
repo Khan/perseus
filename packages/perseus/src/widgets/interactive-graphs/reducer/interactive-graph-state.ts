@@ -11,7 +11,7 @@ import type {
     PerseusGraphTypeLinearSystem,
     PerseusGraphTypePolygon,
     PerseusGraphTypeQuadratic,
-    PerseusGraphTypeSinusoid,
+    PerseusGraphTypeSinusoid, PerseusGraphTypeCircle,
 } from "../../../perseus-types";
 import type {
     CircleGraphState,
@@ -21,6 +21,7 @@ import type {
 } from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
+import {vec} from "mafs";
 
 export type InitializeGraphStateParam = {
     range: InteractiveGraphProps["range"];
@@ -81,8 +82,7 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: graph.type,
-                center: [0, 0],
-                radiusPoint: [1, 0],
+                ...getCircleCoords(graph, range, step),
             };
         case "quadratic":
             return {
@@ -436,6 +436,23 @@ const getQuadraticCoords = (
 
     return coords;
 };
+
+const getCircleCoords = (
+    graph: PerseusGraphTypeCircle,
+    range: InitializeGraphStateParam["range"],
+    step: InitializeGraphStateParam["step"],
+): {center: Coord, radiusPoint: Coord} => {
+    if (graph.center != null && graph.radius != null) {
+        return {
+            center: graph.center,
+            radiusPoint: vec.add(graph.center,[graph.radius, 0])
+        }
+    }
+    return {
+        center: [0, 0],
+        radiusPoint: [1, 0],
+    }
+}
 
 /**
  * determine radius of a circle graph
