@@ -8,7 +8,7 @@ import type {Interval, vec} from "mafs";
 // and exported from the package, so we need to keep it around.
 export type Range = Interval;
 export type Size = [number, number];
-export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
+export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
 export type PerseusWidgetsMap = {
@@ -758,7 +758,7 @@ export type PerseusGraphTypeLinear = {
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
     // expects 2 sets of 2 coords
-    coords?: ReadonlyArray<CollinearTuple>;
+    coords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypePoint = {
@@ -794,7 +794,7 @@ export type PerseusGraphTypeSegment = {
     // The number of segments if a "segment" type. default: 1.  Max: 6
     numSegments?: number;
     // Expects a list of Coord tuples. Length should match the `numSegments` value.
-    coords?: ReadonlyArray<CollinearTuple>;
+    coords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSinusoid = {

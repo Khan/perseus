@@ -26,7 +26,7 @@ export type InitializeGraphStateParam = {
     range: InteractiveGraphProps["range"];
     step: InteractiveGraphProps["step"];
     snapStep: InteractiveGraphProps["snapStep"];
-    graph: InteractiveGraphProps["graph"];
+    graph: PerseusGraphType;
 };
 
 export function initializeGraphState(
@@ -43,17 +43,25 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: "segment",
-                coords: getDefaultSegments({graph, step, range}),
+                coords: getSegmentCoords({graph, step, range}),
             };
         case "linear":
-        case "linear-system":
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getLineCoords({graph, range, step}),
+            };
         case "ray":
             return {
                 ...shared,
                 type: graph.type,
-                // Linear and ray graphs have a single tuple of points, while a
-                // linear system has two tuples of points.
                 coords: getLineCoords({graph, range, step}),
+            };
+        case "linear-system":
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getLinearSystemCoords({graph, range, step}),
             };
         case "polygon":
             return {
@@ -259,11 +267,15 @@ type getDefaultSegmentsArg = {
     step: InitializeGraphStateParam["step"];
 };
 
-const getDefaultSegments = ({
+const getSegmentCoords = ({
     graph,
     range,
     step,
 }: getDefaultSegmentsArg): PairOfPoints[] => {
+    if (graph.coords) {
+        return graph.coords;
+    }
+
     const ys = (n?: number) => {
         switch (n) {
             case 2:
@@ -312,7 +324,6 @@ type getLineCoordsArg = {
     graph:
         | PerseusGraphTypeRay
         | PerseusGraphTypeLinear
-        | PerseusGraphTypeLinearSystem;
     range: InitializeGraphStateParam["range"];
     step: InitializeGraphStateParam["step"];
 };
@@ -322,18 +333,31 @@ const getLineCoords = ({
     range,
     step,
 }: getLineCoordsArg): PairOfPoints[] => {
-    //  Return two lines for a linear system, one for a ray or linear
-    switch (graph.type) {
-        case "linear-system":
-            return defaultLinearCoords.map((points) =>
-                normalizePoints(range, step, points),
-            );
-        case "linear":
-        case "ray":
-            return [normalizePoints(range, step, defaultLinearCoords[0])];
-        default:
-            throw new UnreachableCaseError(graph);
+    if (graph.coords) {
+        return [graph.coords]
     }
+
+    return [normalizePoints(range, step, defaultLinearCoords[0])];
+};
+
+type getLinearSystemCoordsArg = {
+    graph: PerseusGraphTypeLinearSystem;
+    range: InitializeGraphStateParam["range"];
+    step: InitializeGraphStateParam["step"];
+};
+
+const getLinearSystemCoords = ({
+    graph,
+    range,
+    step,
+}: getLinearSystemCoordsArg): PairOfPoints[] => {
+    if (graph.coords) {
+        return graph.coords;
+    }
+
+    return defaultLinearCoords.map((points) =>
+        normalizePoints(range, step, points),
+    );
 };
 
 type getPolygonCoordsArg = {
