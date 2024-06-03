@@ -64,16 +64,9 @@ describe("LockedCircleSettings", () => {
         // Arrange
 
         // Act
-        render(
-            <LockedCircleSettings
-                {...defaultProps}
-                color="green"
-                filled={false}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
+        render(<LockedCircleSettings {...defaultProps} color="green" />, {
+            wrapper: RenderStateRoot,
+        });
 
         const swatch = screen.getByLabelText("green, stroke solid, fill none");
 
