@@ -121,7 +121,6 @@ const LockedCircleSettings = (props: Props) => {
                     id={radiusInputId}
                     type="number"
                     value={radiusInput}
-                    min={0}
                     onChange={handleRadiusChange}
                     style={{maxWidth: 72}}
                 />
