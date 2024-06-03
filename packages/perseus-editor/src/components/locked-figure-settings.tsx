@@ -30,7 +30,8 @@ export type AccordionProps = {
 };
 
 // Union this type with other locked figure types when they are added.
-type Props = AccordionProps & (LockedPointProps | LockedLineProps | LockedVectorProps);
+type Props = AccordionProps &
+    (LockedPointProps | LockedLineProps | LockedVectorProps);
 
 const LockedFigureSettings = (props: Props) => {
     switch (props.type) {
