@@ -1,4 +1,5 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import {vec} from "mafs";
 
 import {normalizeCoords, normalizePoints} from "../utils";
 
@@ -12,6 +13,7 @@ import type {
     PerseusGraphTypePolygon,
     PerseusGraphTypeQuadratic,
     PerseusGraphTypeSinusoid,
+    PerseusGraphTypeCircle,
 } from "../../../perseus-types";
 import type {
     CircleGraphState,
@@ -26,7 +28,7 @@ export type InitializeGraphStateParam = {
     range: InteractiveGraphProps["range"];
     step: InteractiveGraphProps["step"];
     snapStep: InteractiveGraphProps["snapStep"];
-    graph: InteractiveGraphProps["graph"];
+    graph: PerseusGraphType;
 };
 
 export function initializeGraphState(
@@ -43,17 +45,25 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: "segment",
-                coords: getDefaultSegments({graph, step, range}),
+                coords: getSegmentCoords({graph, step, range}),
             };
         case "linear":
-        case "linear-system":
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getLineCoords({graph, range, step}),
+            };
         case "ray":
             return {
                 ...shared,
                 type: graph.type,
-                // Linear and ray graphs have a single tuple of points, while a
-                // linear system has two tuples of points.
                 coords: getLineCoords({graph, range, step}),
+            };
+        case "linear-system":
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getLinearSystemCoords({graph, range, step}),
             };
         case "polygon":
             return {
@@ -73,8 +83,7 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: graph.type,
-                center: [0, 0],
-                radiusPoint: [1, 0],
+                ...getCircleCoords(graph, range, step),
             };
         case "quadratic":
             return {
@@ -259,11 +268,15 @@ type getDefaultSegmentsArg = {
     step: InitializeGraphStateParam["step"];
 };
 
-const getDefaultSegments = ({
+const getSegmentCoords = ({
     graph,
     range,
     step,
 }: getDefaultSegmentsArg): PairOfPoints[] => {
+    if (graph.coords) {
+        return graph.coords;
+    }
+
     const ys = (n?: number) => {
         switch (n) {
             case 2:
@@ -309,10 +322,7 @@ const defaultLinearCoords: [Coord, Coord][] = [
 ];
 
 type getLineCoordsArg = {
-    graph:
-        | PerseusGraphTypeRay
-        | PerseusGraphTypeLinear
-        | PerseusGraphTypeLinearSystem;
+    graph: PerseusGraphTypeRay | PerseusGraphTypeLinear;
     range: InitializeGraphStateParam["range"];
     step: InitializeGraphStateParam["step"];
 };
@@ -322,18 +332,31 @@ const getLineCoords = ({
     range,
     step,
 }: getLineCoordsArg): PairOfPoints[] => {
-    //  Return two lines for a linear system, one for a ray or linear
-    switch (graph.type) {
-        case "linear-system":
-            return defaultLinearCoords.map((points) =>
-                normalizePoints(range, step, points),
-            );
-        case "linear":
-        case "ray":
-            return [normalizePoints(range, step, defaultLinearCoords[0])];
-        default:
-            throw new UnreachableCaseError(graph);
+    if (graph.coords) {
+        return [graph.coords];
     }
+
+    return [normalizePoints(range, step, defaultLinearCoords[0])];
+};
+
+type getLinearSystemCoordsArg = {
+    graph: PerseusGraphTypeLinearSystem;
+    range: InitializeGraphStateParam["range"];
+    step: InitializeGraphStateParam["step"];
+};
+
+const getLinearSystemCoords = ({
+    graph,
+    range,
+    step,
+}: getLinearSystemCoordsArg): PairOfPoints[] => {
+    if (graph.coords) {
+        return graph.coords;
+    }
+
+    return defaultLinearCoords.map((points) =>
+        normalizePoints(range, step, points),
+    );
 };
 
 type getPolygonCoordsArg = {
@@ -387,6 +410,10 @@ const getSinusoidCoords = (
     range: InitializeGraphStateParam["range"],
     step: InitializeGraphStateParam["step"],
 ): [Coord, Coord] => {
+    if (graph.coords) {
+        return [graph.coords[0], graph.coords[1]];
+    }
+
     let coords: [Coord, Coord] = [
         [0.5, 0.5],
         [0.65, 0.6],
@@ -402,15 +429,34 @@ const getQuadraticCoords = (
     range: InitializeGraphStateParam["range"],
     step: InitializeGraphStateParam["step"],
 ): [Coord, Coord, Coord] => {
-    let coords: [Coord, Coord, Coord] = [
+    if (graph.coords) {
+        return graph.coords;
+    }
+
+    const defaultCoords: [Coord, Coord, Coord] = [
         [0.25, 0.75],
         [0.5, 0.25],
         [0.75, 0.75],
     ];
 
-    coords = normalizePoints(range, step, coords, true);
+    return normalizePoints(range, step, defaultCoords, true);
+};
 
-    return coords;
+const getCircleCoords = (
+    graph: PerseusGraphTypeCircle,
+    range: InitializeGraphStateParam["range"],
+    step: InitializeGraphStateParam["step"],
+): {center: Coord; radiusPoint: Coord} => {
+    if (graph.center != null && graph.radius != null) {
+        return {
+            center: graph.center,
+            radiusPoint: vec.add(graph.center, [graph.radius, 0]),
+        };
+    }
+    return {
+        center: [0, 0],
+        radiusPoint: [1, 0],
+    };
 };
 
 /**
