@@ -18,6 +18,7 @@ import type {AccordionProps} from "./locked-figure-settings";
 import type {
     LockedCircleFillType,
     LockedCircleType,
+    LockedFigureColor,
 } from "@khanacademy/perseus";
 
 const {InfoTip} = components;
@@ -76,7 +77,7 @@ const LockedCircleSettings = (props: Props) => {
         onChangeProps({radius: +newValue});
     }
 
-    function handleColorChange(newValue) {
+    function handleColorChange(newValue: LockedFigureColor) {
         onChangeProps({color: newValue});
     }
 
