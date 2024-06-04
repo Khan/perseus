@@ -54,10 +54,6 @@ const LockedCircleSettings = (props: Props) => {
     const strokeSelectId = ids.get("stroke-style-select");
     const fillSelectId = ids.get("fill-style-select");
 
-    function handleCenterChange(newCenter) {
-        onChangeProps({center: newCenter.coord});
-    }
-
     function handleRadiusChange(newValue) {
         // Update the local state (update the input field value).
         setRadiusInput(newValue);
@@ -97,9 +93,8 @@ const LockedCircleSettings = (props: Props) => {
             <View style={styles.row}>
                 <CoordinatePairInput
                     coord={center}
-                    onChangeProps={(newCenter) =>
-                        handleCenterChange(newCenter as [number, number])
-                    }
+                    onChangeProps={onChangeProps}
+                    changedProp="center"
                 />
                 <View style={styles.spaceUnder}>
                     <InfoTip>
