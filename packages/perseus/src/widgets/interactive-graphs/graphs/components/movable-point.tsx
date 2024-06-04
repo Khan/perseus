@@ -16,18 +16,19 @@ type Props = {
     onMove: (newPoint: vec.Vector2) => unknown;
     color?: string;
     cursor?: CSSCursor | undefined;
+    snapTo?: "grid" | "angles" | "sides";
 };
 
 export const StyledMovablePoint = (props: Props) => {
     const {snapStep} = useGraphConfig();
     const elementRef = useRef<SVGGElement>(null);
-    const {point, onMove, cursor, color = WBColor.blue} = props;
+    const {point, onMove, cursor, color = WBColor.blue, snapTo} = props;
 
     const {dragging} = useMovable({
         gestureTarget: elementRef,
         point,
         onMove,
-        constrain: (p) => snap(snapStep, p),
+        constrain: (p) => (snapTo === "grid" ? snap(snapStep, p) : p),
     });
 
     return (
