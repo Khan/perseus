@@ -965,11 +965,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
             throw makeInvalidTypeError("createPointForPolygonType", "polygon");
         }
 
-        // TODO(alex): check against "grid" instead, use constants
-        const snapToGrid = !_.contains(
-            ["angles", "sides"],
-            this.props.graph.snapTo,
-        );
+        const snapToGrid = this.props.graph.snapTo === "grid";
 
         // Index relative to current point -> absolute index
         // NOTE: This does not work when isClickToAddPoints() == true,
