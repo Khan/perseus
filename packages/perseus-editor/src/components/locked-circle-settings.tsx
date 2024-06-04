@@ -58,8 +58,16 @@ const LockedCircleSettings = (props: Props) => {
         // Update the local state (update the input field value).
         setRadiusInput(newValue);
 
-        // If the new value is not a number, don't update the props.
-        // If it's empty, keep the props the same value instead of setting to 0.
+        // Personal preference: Stop the previous graph from disappearing
+        // before the user finishes typing a new valid number.
+        //
+        // If the new value is not a number (e.g. "." while starting to type
+        // a decimal value), don't update the props.
+        // If it's empty (e.g. erased the previous value before starting to
+        // type a new value), keep the props the same value instead of
+        // setting to 0.
+        // Without this check, the input would assume a 0 value and make the
+        // figure disappear before the user finishes typing the new value.
         if (isNaN(+newValue) || newValue === "") {
             return;
         }
