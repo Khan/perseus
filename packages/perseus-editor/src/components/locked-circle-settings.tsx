@@ -1,4 +1,4 @@
-import {components} from "@khanacademy/perseus";
+import {components, lockedCircleFillStyles} from "@khanacademy/perseus";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
@@ -181,15 +181,11 @@ const LockedCircleSettings = (props: Props) => {
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
-                    <OptionItem value="none" label="none">
-                        none
-                    </OptionItem>
-                    <OptionItem value="solid" label="solid">
-                        solid
-                    </OptionItem>
-                    <OptionItem value="translucent" label="translucent">
-                        translucent
-                    </OptionItem>
+                    {Object.keys(lockedCircleFillStyles).map((option) => (
+                        <OptionItem key={option} value={option} label={option}>
+                            {option}
+                        </OptionItem>
+                    ))}
                 </SingleSelect>
             </View>
 
