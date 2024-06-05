@@ -6,7 +6,7 @@
 
 -   [#1315](https://github.com/Khan/perseus/pull/1315) [`73e5828a5`](https://github.com/Khan/perseus/commit/73e5828a5ee219435187402f4942dab32fefc2c4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of the new Mafs-based Sinusoid Graph
 
-*   [#1309](https://github.com/Khan/perseus/pull/1309) [`c8422cd99`](https://github.com/Khan/perseus/commit/c8422cd99bf3c09b66b602c77240262d1ca68533) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Render locked circles on interactive graphs
+*   [#1309](https://github.com/Khan/perseus/pull/1309) [`c8422cd99`](https://github.com/Khan/perseus/commit/c8422cd99bf3c09b66b602c77240262d1ca68533) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Render locked ellipses on interactive graphs
 
 ### Patch Changes
 

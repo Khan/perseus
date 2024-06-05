@@ -1,24 +1,24 @@
 import * as React from "react";
 
-import LockedCircleSettings from "../locked-circle-settings";
+import LockedEllipseSettings from "../locked-ellipse-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
 export default {
-    title: "PerseusEditor/Components/Locked Circle Settings",
-    component: LockedCircleSettings,
-} as Meta<typeof LockedCircleSettings>;
+    title: "PerseusEditor/Components/Locked Ellipse Settings",
+    component: LockedEllipseSettings,
+} as Meta<typeof LockedEllipseSettings>;
 
 export const Default = (args): React.ReactElement => {
-    return <LockedCircleSettings {...args} />;
+    return <LockedEllipseSettings {...args} />;
 };
 
-type StoryComponentType = StoryObj<typeof LockedCircleSettings>;
+type StoryComponentType = StoryObj<typeof LockedEllipseSettings>;
 
 // Set the default values in the control panel.
 Default.args = {
-    ...getDefaultFigureForType("circle"),
+    ...getDefaultFigureForType("ellipse"),
     onChangeProps: () => {},
     onRemove: () => {},
 };
@@ -26,7 +26,7 @@ Default.args = {
 export const Controlled: StoryComponentType = {
     render: function Render() {
         const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("circle"),
+            ...getDefaultFigureForType("ellipse"),
             onRemove: () => {},
         });
 
@@ -38,7 +38,7 @@ export const Controlled: StoryComponentType = {
         };
 
         return (
-            <LockedCircleSettings
+            <LockedEllipseSettings
                 {...props}
                 onChangeProps={handlePropsUpdate}
             />
@@ -53,12 +53,12 @@ Controlled.parameters = {
     },
 };
 
-// Fully expanded view of the locked circle settings to allow snapshot testing.
+// Fully expanded view of the locked ellipse settings to allow snapshot testing.
 export const Expanded: StoryComponentType = {
     render: function Render() {
         const [expanded, setExpanded] = React.useState(true);
         const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("circle"),
+            ...getDefaultFigureForType("ellipse"),
             onRemove: () => {},
         });
 
@@ -70,7 +70,7 @@ export const Expanded: StoryComponentType = {
         };
 
         return (
-            <LockedCircleSettings
+            <LockedEllipseSettings
                 {...props}
                 expanded={expanded}
                 onToggle={setExpanded}

@@ -19,7 +19,7 @@ type Props = {
 const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
-    const figureTypes = ["point", "line", "circle", "vector"];
+    const figureTypes = ["point", "line", "ellipse", "vector"];
 
     return (
         <View style={styles.container}>

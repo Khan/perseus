@@ -1,4 +1,4 @@
-import {components, lockedCircleFillStyles} from "@khanacademy/perseus";
+import {components, lockedEllipseFillStyles} from "@khanacademy/perseus";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
@@ -8,24 +8,24 @@ import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CircleSwatch from "./circle-swatch";
 import ColorSelect from "./color-select";
 import CoordinatePairInput from "./coordinate-pair-input";
+import EllipseSwatch from "./ellipse-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {AccordionProps} from "./locked-figure-settings";
 import type {
     Coord,
-    LockedCircleFillType,
-    LockedCircleType,
+    LockedEllipseFillType,
+    LockedEllipseType,
     LockedFigureColor,
 } from "@khanacademy/perseus";
 
 const {InfoTip} = components;
 
 export type Props = AccordionProps &
-    LockedCircleType & {
+    LockedEllipseType & {
         /**
          * Called when the delete button is pressed.
          */
@@ -33,10 +33,10 @@ export type Props = AccordionProps &
         /**
          * Called when the props (coords, color, etc.) are updated.
          */
-        onChangeProps: (newProps: Partial<LockedCircleType>) => void;
+        onChangeProps: (newProps: Partial<LockedEllipseType>) => void;
     };
 
-const LockedCircleSettings = (props: Props) => {
+const LockedEllipseSettings = (props: Props) => {
     const {
         center,
         radius,
@@ -87,11 +87,11 @@ const LockedCircleSettings = (props: Props) => {
             expanded={expanded}
             onToggle={onToggle}
             header={
-                // Summary: Circle, center, radius, color (opacity, dashed)
+                // Summary: Ellipse, center, radius, color (opacity, dashed)
                 <View style={styles.row}>
-                    <LabelLarge>{`Circle (${center[0]}, ${center[1]}), radius ${radius}`}</LabelLarge>
+                    <LabelLarge>{`Ellipse (${center[0]}, ${center[1]}), radius ${radius}`}</LabelLarge>
                     <Strut size={spacing.xSmall_8} />
-                    <CircleSwatch
+                    <EllipseSwatch
                         color={props.color}
                         fillStyle={fillStyle}
                         strokeStyle={strokeStyle}
@@ -109,7 +109,7 @@ const LockedCircleSettings = (props: Props) => {
                 />
                 <View style={styles.spaceUnder}>
                     <InfoTip>
-                        The coordinates for the center of the circle
+                        The coordinates for the center of the ellipse.
                     </InfoTip>
                 </View>
             </View>
@@ -177,13 +177,13 @@ const LockedCircleSettings = (props: Props) => {
                 <SingleSelect
                     id={fillSelectId}
                     selectedValue={fillStyle}
-                    onChange={(value: LockedCircleFillType) =>
+                    onChange={(value: LockedEllipseFillType) =>
                         onChangeProps({fillStyle: value})
                     }
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
-                    {Object.keys(lockedCircleFillStyles).map((option) => (
+                    {Object.keys(lockedEllipseFillStyles).map((option) => (
                         <OptionItem key={option} value={option} label={option}>
                             {option}
                         </OptionItem>
@@ -194,7 +194,7 @@ const LockedCircleSettings = (props: Props) => {
             {/* Actions */}
             <LockedFigureSettingsActions
                 onRemove={onRemove}
-                figureAriaLabel={`locked circle at ${center[0]}, ${center[1]}`}
+                figureAriaLabel={`locked ellipse at ${center[0]}, ${center[1]}`}
             />
         </LockedFigureSettingsAccordion>
     );
@@ -213,4 +213,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LockedCircleSettings;
+export default LockedEllipseSettings;

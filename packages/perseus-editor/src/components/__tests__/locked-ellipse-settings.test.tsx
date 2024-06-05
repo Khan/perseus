@@ -3,18 +3,18 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import LockedCircleSettings from "../locked-circle-settings";
+import LockedEllipseSettings from "../locked-ellipse-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
-    ...getDefaultFigureForType("circle"),
+    ...getDefaultFigureForType("ellipse"),
     onChangeProps: () => {},
     onRemove: () => {},
 };
 
-describe("LockedCircleSettings", () => {
+describe("LockedEllipseSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -25,12 +25,12 @@ describe("LockedCircleSettings", () => {
         // Arrange
 
         // Act
-        render(<LockedCircleSettings {...defaultProps} />, {
+        render(<LockedEllipseSettings {...defaultProps} />, {
             wrapper: RenderStateRoot,
         });
 
         // Assert
-        const titleText = screen.getByText("Circle (0, 0), radius 1");
+        const titleText = screen.getByText("Ellipse (0, 0), radius 1");
         expect(titleText).toBeInTheDocument();
     });
 
@@ -38,12 +38,12 @@ describe("LockedCircleSettings", () => {
         // Arrange
 
         // Act
-        render(<LockedCircleSettings {...defaultProps} radius={5} />, {
+        render(<LockedEllipseSettings {...defaultProps} radius={5} />, {
             wrapper: RenderStateRoot,
         });
 
         // Assert
-        const titleText = screen.getByText("Circle (0, 0), radius 5");
+        const titleText = screen.getByText("Ellipse (0, 0), radius 5");
         expect(titleText).toBeInTheDocument();
     });
 
@@ -51,12 +51,12 @@ describe("LockedCircleSettings", () => {
         // Arrange
 
         // Act
-        render(<LockedCircleSettings {...defaultProps} center={[3, 5]} />, {
+        render(<LockedEllipseSettings {...defaultProps} center={[3, 5]} />, {
             wrapper: RenderStateRoot,
         });
 
         // Assert
-        const titleText = screen.getByText("Circle (3, 5), radius 1");
+        const titleText = screen.getByText("Ellipse (3, 5), radius 1");
         expect(titleText).toBeInTheDocument();
     });
 
@@ -64,7 +64,7 @@ describe("LockedCircleSettings", () => {
         // Arrange
 
         // Act
-        render(<LockedCircleSettings {...defaultProps} color="green" />, {
+        render(<LockedEllipseSettings {...defaultProps} color="green" />, {
             wrapper: RenderStateRoot,
         });
 
@@ -79,7 +79,7 @@ describe("LockedCircleSettings", () => {
 
         // Act
         render(
-            <LockedCircleSettings
+            <LockedEllipseSettings
                 {...defaultProps}
                 color="green"
                 strokeStyle="dashed"
@@ -100,7 +100,7 @@ describe("LockedCircleSettings", () => {
 
         // Act
         render(
-            <LockedCircleSettings
+            <LockedEllipseSettings
                 {...defaultProps}
                 color="green"
                 fillStyle="translucent"
@@ -121,13 +121,16 @@ describe("LockedCircleSettings", () => {
     test("calls onToggle when header is clicked", async () => {
         // Arrange
         const onToggle = jest.fn();
-        render(<LockedCircleSettings {...defaultProps} onToggle={onToggle} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedEllipseSettings {...defaultProps} onToggle={onToggle} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Act
         const header = screen.getByRole("button", {
-            name: "Circle (0, 0), radius 1 grayH, stroke solid, fill none",
+            name: "Ellipse (0, 0), radius 1 grayH, stroke solid, fill none",
         });
         await userEvent.click(header);
 
