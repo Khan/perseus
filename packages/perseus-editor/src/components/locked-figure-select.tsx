@@ -40,6 +40,13 @@ const LockedFigureSelect = (props: Props) => {
                     >
                         Line
                     </ActionItem>,
+                    <ActionItem
+                        key={`${id}-vector`}
+                        label="Vector"
+                        onClick={() => onChange("vector")}
+                    >
+                        Vector
+                    </ActionItem>,
                 ]}
             </ActionMenu>
         </View>
