@@ -96,13 +96,6 @@ const LockedFiguresSection = (props: Props) => {
     return (
         <View>
             {figures?.map((figure, index) => {
-                if (figure.type === "vector") {
-                    // TODO(LEMS-1950): Add locked vector settings.
-                    // Remove this block once vector locked figure settings are
-                    // implemented.
-                    return;
-                }
-
                 return (
                     <LockedFigureSettings
                         key={`${uniqueId}-locked-${figure}-${index}`}
