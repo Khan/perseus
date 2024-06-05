@@ -12,6 +12,8 @@ import {
     RayGraph,
     SegmentGraph,
     CircleGraph,
+    QuadraticGraph,
+    SinusoidGraph,
 } from "./graphs";
 import {AxisTickLabels} from "./graphs/components/axis-tick-labels";
 import {SvgDefs} from "./graphs/components/text-label";
@@ -78,6 +80,10 @@ const renderGraph = (props: {
             return <PointGraph graphState={state} dispatch={dispatch} />;
         case "circle":
             return <CircleGraph graphState={state} dispatch={dispatch} />;
+        case "quadratic":
+            return <QuadraticGraph graphState={state} dispatch={dispatch} />;
+        case "sinusoid":
+            return <SinusoidGraph graphState={state} dispatch={dispatch} />;
         default:
             return new UnreachableCaseError(type);
     }

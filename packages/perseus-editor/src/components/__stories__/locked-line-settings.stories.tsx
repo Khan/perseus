@@ -50,6 +50,39 @@ Controlled.parameters = {
     },
 };
 
+/**
+ * If the two points defining the line are the same, the line is invalid
+ * as that would give it a length of 0. An error message is displayed
+ * in this case.
+ */
+export const WithInvalidPoints: StoryComponentType = {
+    render: function Render() {
+        const [props, setProps] = React.useState({
+            ...getDefaultFigureForType("line"),
+            onRemove: () => {},
+        });
+
+        const handlePropsUpdate = (newProps) => {
+            setProps({
+                ...props,
+                ...newProps,
+            });
+        };
+
+        return (
+            <LockedLineSettings
+                {...props}
+                points={[
+                    getDefaultFigureForType("point"),
+                    getDefaultFigureForType("point"),
+                ]}
+                expanded={true}
+                onChangeProps={handlePropsUpdate}
+            />
+        );
+    },
+};
+
 // Fully expanded view of the locked point settings to allow snapshot testing.
 export const Expanded: StoryComponentType = {
     render: function Render() {

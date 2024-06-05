@@ -17,9 +17,6 @@ import type * as React from "react";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
-// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-type Empty = Record<never, never>;
-
 export type Dimensions = {
     width?: number;
     height?: number;
@@ -141,6 +138,10 @@ export const MafsGraphTypeFlags = [
     "polygon",
     /** Enables the `circle` interactive-graph type.  */
     "circle",
+    /** Enables the `quadratic` interactive-graph type.  */
+    "quadratic",
+    /** Enables the `sinusoid` interactive-graph type.  */
+    "sinusoid",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [
@@ -149,6 +150,12 @@ export const InteractiveGraphLockedFeaturesFlags = [
      * interactive-graph widget (points and lines).
      */
     "interactive-graph-locked-features-m1",
+    /**
+     * Enables/Disables Milestone 2 locked features in the new Mafs
+     * interactive-graph widget (the rest of the figure types:
+     * circles, vectors, polygons, functions, labels).
+     */
+    "interactive-graph-locked-features-m2",
 ] as const;
 
 /**
@@ -242,8 +249,6 @@ export type APIOptions = Readonly<{
      * Previously handled by `Khan.scratchpad.enable/disable`
      */
     setDrawingAreaAvailable?: (arg1: boolean) => unknown;
-    /** Whether to use the Draft.js editor or the legacy textarea */
-    useDraftEditor?: boolean;
     /** The color used for the hint progress indicator (eg. 1 / 3) */
     hintProgressColor?: string;
     /**
@@ -255,8 +260,6 @@ export type APIOptions = Readonly<{
      * Defaults to `false`.
      */
     canScrollPage?: boolean;
-    /** Whether or not we are rendering content inside of a modal. */
-    inModal?: boolean;
     /**
      * Whether to enable the cross-out feature on multiple-choice radio
      * widgets. This allows users to note which answers they believe to
@@ -429,7 +432,6 @@ export type APIOptionsWithDefaults = Readonly<
         crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
         groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
-        inModal: NonNullable<APIOptions["inModal"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
@@ -439,7 +441,6 @@ export type APIOptionsWithDefaults = Readonly<
             APIOptions["setDrawingAreaAvailable"]
         >;
         showAlignmentOptions: NonNullable<APIOptions["showAlignmentOptions"]>;
-        useDraftEditor: NonNullable<APIOptions["useDraftEditor"]>;
     }
 >;
 

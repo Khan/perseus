@@ -1,5 +1,57 @@
 # @khanacademy/perseus-editor
 
+## 6.7.0
+
+### Minor Changes
+
+-   [#1315](https://github.com/Khan/perseus/pull/1315) [`73e5828a5`](https://github.com/Khan/perseus/commit/73e5828a5ee219435187402f4942dab32fefc2c4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of the new Mafs-based Sinusoid Graph
+
+### Patch Changes
+
+-   Updated dependencies [[`57e72b8d5`](https://github.com/Khan/perseus/commit/57e72b8d5bdb146de52b0bb9f3a206ce7d2fa8a5), [`73e5828a5`](https://github.com/Khan/perseus/commit/73e5828a5ee219435187402f4942dab32fefc2c4), [`c8422cd99`](https://github.com/Khan/perseus/commit/c8422cd99bf3c09b66b602c77240262d1ca68533)]:
+    -   @khanacademy/perseus@23.1.0
+
+## 6.6.0
+
+### Minor Changes
+
+-   [#1298](https://github.com/Khan/perseus/pull/1298) [`b84e4a981`](https://github.com/Khan/perseus/commit/b84e4a981202efd4394d75e50fa48b90f92ebd31) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Setting a locked line's length to 0 (equal points) will stop the exercise from saving via getSaveWarnings()
+
+*   [#1305](https://github.com/Khan/perseus/pull/1305) [`ec600a11e`](https://github.com/Khan/perseus/commit/ec600a11e22420005fbf35157a46e890e6b0d488) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of the new Mafs-based Quadratic Graph for the Interactive Graph Widget
+
+### Patch Changes
+
+-   [#1301](https://github.com/Khan/perseus/pull/1301) [`1ca5a12aa`](https://github.com/Khan/perseus/commit/1ca5a12aaea6ec2cd06f778981303e2da7b5889f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove duplicate `Empty` type
+
+-   Updated dependencies [[`1ca5a12aa`](https://github.com/Khan/perseus/commit/1ca5a12aaea6ec2cd06f778981303e2da7b5889f), [`3b85777c7`](https://github.com/Khan/perseus/commit/3b85777c7b2b970121a9c5242d34a2f9cdd2319b), [`ec600a11e`](https://github.com/Khan/perseus/commit/ec600a11e22420005fbf35157a46e890e6b0d488), [`925f4ee03`](https://github.com/Khan/perseus/commit/925f4ee037e7130b73b471c211050adfd7d44d00), [`1ca5a12aa`](https://github.com/Khan/perseus/commit/1ca5a12aaea6ec2cd06f778981303e2da7b5889f), [`e6fc912bf`](https://github.com/Khan/perseus/commit/e6fc912bf907477efeb4c5989fb17b5b1e2a99e8)]:
+    -   @khanacademy/perseus@23.0.0
+
+## 6.5.1
+
+### Patch Changes
+
+-   Updated dependencies [[`9426dee46`](https://github.com/Khan/perseus/commit/9426dee4608b43f8b6b9ea189b0bc81105b73fa7), [`49baacd04`](https://github.com/Khan/perseus/commit/49baacd04b981eaa46d1b42af8952ff899152f1d), [`364e67884`](https://github.com/Khan/perseus/commit/364e678845a0a02e271f7666e204b12a46f81fa7)]:
+    -   @khanacademy/perseus@22.7.0
+
+## 6.5.0
+
+### Minor Changes
+
+-   [#1277](https://github.com/Khan/perseus/pull/1277) [`f8539c880`](https://github.com/Khan/perseus/commit/f8539c880f194bcf35174aa7ab8eef0c72889f53) Thanks [@nishasy](https://github.com/nishasy)! - Shows error in the editor if locked line has length 0
+
+*   [#1284](https://github.com/Khan/perseus/pull/1284) [`8534a9f01`](https://github.com/Khan/perseus/commit/8534a9f017a9a5404201c2459fabe91a83d6709f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add ToggleableCaret component and use in TexErrorView
+
+### Patch Changes
+
+-   [#1287](https://github.com/Khan/perseus/pull/1287) [`d9b51dcc0`](https://github.com/Khan/perseus/commit/d9b51dcc00a9280705483269c91c9d67b90351ec) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Interactive Graph Editor: Make the common graph settings a collapsable panel
+
+*   [#1278](https://github.com/Khan/perseus/pull/1278) [`fffd130db`](https://github.com/Khan/perseus/commit/fffd130db2eff64a06d3f6635f4588e110bdba5b) Thanks [@nishasy](https://github.com/nishasy)! - Nit: put the line kind dropdown options in alphabetical order
+
+-   [#1280](https://github.com/Khan/perseus/pull/1280) [`5b1e04abc`](https://github.com/Khan/perseus/commit/5b1e04abc4155edbcb16aa8d8ea3fdf7beb3068e) Thanks [@nishasy](https://github.com/nishasy)! - Fix the bug where the first added locked figure settings would be collapsed when it's supposed to be expanded on add
+
+-   Updated dependencies [[`e14a003be`](https://github.com/Khan/perseus/commit/e14a003beebf73185630416c0b3667ed75b230c2), [`42c0c607f`](https://github.com/Khan/perseus/commit/42c0c607f8b4b1713edb578cfb1d8168d1edebd1), [`55039a430`](https://github.com/Khan/perseus/commit/55039a430ef298f3d8a28e27798481130b28ca24), [`f6be03dd8`](https://github.com/Khan/perseus/commit/f6be03dd85f0e394df16fb5e632684aea7486216), [`fba227fe8`](https://github.com/Khan/perseus/commit/fba227fe8e2852d171197f7a02fed2b6b2f0d541), [`dc0adedeb`](https://github.com/Khan/perseus/commit/dc0adedebbae0c4a1940d67f64e19b0104ac85f4), [`a0dfc66cc`](https://github.com/Khan/perseus/commit/a0dfc66ccb1d92d4f15e9f1be983217e051e2aaa), [`d70fab6a7`](https://github.com/Khan/perseus/commit/d70fab6a797b04f9365ec1442e96fdddbb100a46), [`5b52a1569`](https://github.com/Khan/perseus/commit/5b52a156996d7e1debff3490db9fa798d5b95bd3)]:
+    -   @khanacademy/perseus@22.6.0
+
 ## 6.4.1
 
 ### Patch Changes

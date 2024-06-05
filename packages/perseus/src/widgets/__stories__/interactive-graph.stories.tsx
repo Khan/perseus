@@ -18,10 +18,22 @@ import {
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
     sinusoidQuestion,
+    segmentWithLockedCircles,
+    segmentWithLockedVectors,
 } from "../__testdata__/interactive-graph.testdata";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph",
+};
+
+const mafsOptions = {
+    apiOptions: {
+        flags: {
+            mafs: {
+                segment: true,
+            },
+        },
+    },
 };
 
 type StoryArgs = Record<any, any>;
@@ -70,13 +82,7 @@ export const SegmentWithMafsAndLockedPoints = (
     args: StoryArgs,
 ): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
-        }}
+        {...mafsOptions}
         question={segmentWithLockedPointsQuestion}
     />
 );
@@ -85,54 +91,38 @@ export const SegmentWithMafsAndLockedLines = (
     args: StoryArgs,
 ): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
-        }}
+        {...mafsOptions}
         question={segmentWithLockedLineQuestion}
     />
 );
 
 export const AllLockedLineSegments = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
-        }}
+        {...mafsOptions}
         question={segmentWithAllLockedLineSegmentVariations}
     />
 );
 
 export const AllLockedLines = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
-        }}
+        {...mafsOptions}
         question={segmentWithAllLockedLineVariations}
     />
 );
 
 export const AllLockedRays = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        apiOptions={{
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
-        }}
+        {...mafsOptions}
         question={segmentWithAllLockedRayVariations}
     />
+);
+
+export const LockedCircle = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI {...mafsOptions} question={segmentWithLockedCircles} />
+);
+
+export const LockedVector = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI {...mafsOptions} question={segmentWithLockedVectors} />
 );
 
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (

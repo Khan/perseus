@@ -6,9 +6,6 @@ import LabelImageEditor from "../label-image-editor";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
-// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-type Empty = Record<string, never>;
-
 type StoryArgs = Record<any, any>;
 
 type Story = {
