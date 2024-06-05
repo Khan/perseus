@@ -105,8 +105,8 @@ const LockedVectorSettings = (props: Props) => {
                 <CoordinatePairInput
                     coord={tail}
                     error={isInvalid}
-                    onChangeProps={(newProps) => {
-                        handleChangePoint(newProps.coord, 0);
+                    onChange={(newProps) => {
+                        handleChangePoint(newProps, 0);
                     }}
                 />
             </LockedFigureSettingsAccordion>
@@ -124,8 +124,8 @@ const LockedVectorSettings = (props: Props) => {
                 <CoordinatePairInput
                     coord={tip}
                     error={isInvalid}
-                    onChangeProps={(newProps) => {
-                        handleChangePoint(newProps.coord, 1);
+                    onChange={(newProps) => {
+                        handleChangePoint(newProps, 1);
                     }}
                 />
             </LockedFigureSettingsAccordion>

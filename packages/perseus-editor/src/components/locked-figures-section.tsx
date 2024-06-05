@@ -96,15 +96,9 @@ const LockedFiguresSection = (props: Props) => {
     return (
         <View>
             {figures?.map((figure, index) => {
-                if (figure.type === "circle") {
-                    // TODO(LEMS-1941): Implement circle locked figure settings.
-                    // Remove this block once circle locked figure settings are
-                    // implemented.
-                    return;
-                }
-
                 return (
                     <LockedFigureSettings
+                        key={`${uniqueId}-locked-${figure}-${index}`}
                         showM2Features={props.showM2Features}
                         expanded={expandedStates[index]}
                         onToggle={(newValue) => {
@@ -112,7 +106,6 @@ const LockedFiguresSection = (props: Props) => {
                             newExpanded[index] = newValue;
                             setExpandedStates(newExpanded);
                         }}
-                        key={`${uniqueId}-locked-${figure}-${index}`}
                         {...figure}
                         onChangeProps={(newProps) =>
                             changeProps(index, newProps)

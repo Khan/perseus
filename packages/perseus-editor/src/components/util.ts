@@ -5,6 +5,7 @@ import type {
     LockedFigureType,
     LockedPointType,
     LockedLineType,
+    LockedCircleType,
     LockedVectorType,
 } from "@khanacademy/perseus";
 
@@ -51,6 +52,7 @@ const DEFAULT_COLOR = "grayH";
 
 export function getDefaultFigureForType(type: "point"): LockedPointType;
 export function getDefaultFigureForType(type: "line"): LockedLineType;
+export function getDefaultFigureForType(type: "circle"): LockedCircleType;
 export function getDefaultFigureForType(type: "vector"): LockedVectorType;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {

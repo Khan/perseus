@@ -7,10 +7,12 @@
 
 import * as React from "react";
 
+import LockedCircleSettings from "./locked-circle-settings";
 import LockedLineSettings from "./locked-line-settings";
 import LockedPointSettings from "./locked-point-settings";
 import LockedVectorSettings from "./locked-vector-settings";
 
+import type {Props as LockedCircleProps} from "./locked-circle-settings";
 import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
@@ -31,7 +33,12 @@ export type AccordionProps = {
 
 // Union this type with other locked figure types when they are added.
 type Props = AccordionProps &
-    (LockedPointProps | LockedLineProps | LockedVectorProps);
+    (
+        | LockedPointProps
+        | LockedLineProps
+        | LockedCircleProps
+        | LockedVectorProps
+    );
 
 const LockedFigureSettings = (props: Props) => {
     switch (props.type) {
@@ -39,6 +46,8 @@ const LockedFigureSettings = (props: Props) => {
             return <LockedPointSettings {...props} />;
         case "line":
             return <LockedLineSettings {...props} />;
+        case "circle":
+            return <LockedCircleSettings {...props} />;
         case "vector":
             return <LockedVectorSettings {...props} />;
     }

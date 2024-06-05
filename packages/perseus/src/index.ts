@@ -65,6 +65,7 @@ export {
     plotterPlotTypes,
     ItemExtras,
     lockedFigureColors,
+    lockedCircleFillStyles,
 } from "./perseus-types";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
@@ -163,6 +164,7 @@ export type {
     LockedPointType,
     LockedLineType,
     LockedCircleType,
+    LockedCircleFillType,
     LockedVectorType,
     PerseusGraphType,
     PerseusAnswerArea,
