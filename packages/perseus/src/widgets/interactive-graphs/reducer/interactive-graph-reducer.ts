@@ -3,7 +3,17 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import {polygonSidesIntersect} from "../../../util/geometry";
+import Util from "../../../util";
+import {
+    angleMeasures,
+    ccw,
+    magnitude,
+    polygonSidesIntersect,
+    sign,
+    vector,
+} from "../../../util/geometry";
+import GraphUtils from "../../../util/graph-utils";
+import {polar} from "../../../util/graphie";
 import {snap} from "../utils";
 
 import {
@@ -27,6 +37,7 @@ import {
 } from "./interactive-graph-action";
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
+import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
 
 export function interactiveGraphReducer(
@@ -183,7 +194,14 @@ function doMovePoint(
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.index,
-                newValue: boundAndSnapToGrid(action.destination, state),
+                newValue:
+                    state.snapTo === "grid"
+                        ? boundAndSnapToGrid(action.destination, state)
+                        : boundAndSnapToAngle(
+                              action.destination,
+                              state,
+                              action.index,
+                          ),
             });
 
             // Reject the move if it would cause the sides of the polygon to cross
@@ -393,6 +411,85 @@ function boundAndSnapToGrid(
     return snap(snapStep, bound({snapStep, range, point}));
 }
 
+function boundAndSnapToAngle(
+    destinationPoint: vec.Vector2,
+    {
+        range,
+        coords,
+    }: {snapStep: vec.Vector2; range: [Interval, Interval]; coords: Coord[]},
+    index: number,
+) {
+    const startingPoint = coords[index];
+
+    // Takes the destination point and makes sure it is within the bounds of the graph
+    coords[index] = noSnapBound({range, point: destinationPoint});
+
+    // Gets the radian angles between the coords and maps them to degrees
+    const angles = angleMeasures(coords).map(
+        (angle) => (angle * 180) / Math.PI,
+    );
+
+    // Gets the relative index of a point
+    const rel = (j): number => {
+        return (index + j + coords.length) % coords.length;
+    };
+
+    // Round the angles to left and right of the current point
+    _.each([-1, 1], function (j) {
+        angles[rel(j)] = Math.round(angles[rel(j)]);
+    });
+
+    const getAngle = function (a: number, vertex, b: number) {
+        const angle = GraphUtils.findAngle(
+            coords[rel(a)],
+            coords[rel(b)],
+            coords[rel(vertex)],
+        );
+        return (angle + 360) % 360;
+    };
+
+    const innerAngles = [
+        angles[rel(-1)] - getAngle(-2, -1, 1),
+        angles[rel(1)] - getAngle(-1, 1, 2),
+    ];
+    innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
+
+    const eq = Util.eq;
+
+    // Less than or approximately equal
+    function leq(a: any, b) {
+        return a < b || eq(a, b);
+    }
+
+    // Avoid degenerate triangles
+    if (
+        innerAngles.some(function (angle) {
+            return leq(angle, 1);
+        })
+    ) {
+        return startingPoint;
+    }
+
+    const knownSide = magnitude(
+        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
+        vector(coords[rel(-1)], coords[rel(1)]),
+    );
+
+    const onLeft =
+        sign(ccw(coords[rel(-1)], coords[rel(1)], coords[index])) === 1;
+
+    // Solve for side by using the law of sines
+    const side =
+        (Math.sin((innerAngles[1] * Math.PI) / 180) /
+            Math.sin((innerAngles[2] * Math.PI) / 180)) *
+        knownSide;
+
+    const outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
+
+    const offset = polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
+    return kvector.add(coords[rel(-1)], offset);
+}
+
 // Returns the closest point to the given `point` that is within the graph
 // bounds given in `state`.
 function bound({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
@@ -403,6 +500,13 @@ function bound({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
         clamp(requestedX, minX + snapX, maxX - snapX),
         clamp(requestedY, minY + snapY, maxY - snapY),
     ];
+}
+
+// Required for graphs that snap to angles or sides
+function noSnapBound({range, point}): vec.Vector2 {
+    const [requestedX, requestedY] = point;
+    const [[minX, maxX], [minY, maxY]] = range;
+    return [clamp(requestedX, minX, maxX), clamp(requestedY, minY, maxY)];
 }
 
 // Returns the vector from the given point to the top-right corner of the graph
