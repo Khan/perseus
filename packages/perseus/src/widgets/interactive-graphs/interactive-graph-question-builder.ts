@@ -135,8 +135,9 @@ class InteractiveGraphQuestionBuilder {
 
     addLockedEllipse(
         center: vec.Vector2,
-        radius: number,
+        radius: [x: number, y: number],
         options?: {
+            angle?: number;
             color?: LockedFigureColor;
             fillStyle?: LockedEllipseFillType;
             strokeStyle?: "solid" | "dashed";
@@ -146,6 +147,7 @@ class InteractiveGraphQuestionBuilder {
             type: "ellipse",
             center: center,
             radius: radius,
+            angle: 0,
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",

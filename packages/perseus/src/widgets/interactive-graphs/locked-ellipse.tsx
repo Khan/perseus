@@ -1,4 +1,4 @@
-import {Circle} from "mafs";
+import {Ellipse} from "mafs";
 import * as React from "react";
 
 import {
@@ -8,12 +8,13 @@ import {
 } from "../../perseus-types";
 
 const LockedEllipse = (props: LockedEllipseType) => {
-    const {center, radius, color, fillStyle, strokeStyle} = props;
+    const {center, radius, angle, color, fillStyle, strokeStyle} = props;
 
     return (
-        <Circle
+        <Ellipse
             center={center}
             radius={radius}
+            angle={angle}
             fillOpacity={lockedEllipseFillStyles[fillStyle]}
             strokeStyle={strokeStyle}
             color={lockedFigureColors[color]}
