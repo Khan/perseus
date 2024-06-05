@@ -16,6 +16,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {AccordionProps} from "./locked-figure-settings";
 import type {
+    Coord,
     LockedCircleFillType,
     LockedCircleType,
     LockedFigureColor,
@@ -102,8 +103,9 @@ const LockedCircleSettings = (props: Props) => {
             <View style={styles.row}>
                 <CoordinatePairInput
                     coord={center}
-                    onChangeProps={onChangeProps}
-                    changedProp="center"
+                    onChange={(newCoords: Coord) =>
+                        onChangeProps({center: newCoords})
+                    }
                 />
                 <View style={styles.spaceUnder}>
                     <InfoTip>

@@ -6,22 +6,16 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {LockedCircleType, LockedPointType} from "@khanacademy/perseus";
+import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
     coord: [number, number];
     error?: boolean;
-    // Most of the time, the prop to updated when this coordinate pair input
-    // is updated is is `coord`. For circles, it's `center`.
-    // This prop allows you to specify which prop to update.
-    changedProp?: "coord" | "center";
-    onChangeProps: (
-        newProps: Partial<LockedPointType> | Partial<LockedCircleType>,
-    ) => void;
+    onChange: (newCoord: Coord) => void;
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, error, changedProp = "coord", onChangeProps} = props;
+    const {coord, error, onChange} = props;
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -52,11 +46,7 @@ const CoordinatePairInput = (props: Props) => {
         // Update the props (update the graph).
         const newCoords = [...coord] satisfies [number, number];
         newCoords[coordIndex] = +newValue;
-
-        const newProp = {};
-        // Either update the `center` or the `coord` prop.
-        newProp[changedProp] = newCoords;
-        onChangeProps(newProp);
+        onChange(newCoords);
     }
 
     return (
