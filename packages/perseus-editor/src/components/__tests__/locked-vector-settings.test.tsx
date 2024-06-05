@@ -80,29 +80,6 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onToggle).toHaveBeenCalled();
         });
-
-        test("expands coordinate points when point headers are clicked", async () => {
-            // Arrange
-            render(<LockedVectorSettings {...defaultProps} />, {
-                wrapper: RenderStateRoot,
-            });
-
-            // Verify initial state
-            const tailHeader = screen.getByRole("button", {
-                name: "Tail (0, 0)",
-            });
-            expect(tailHeader).toHaveAttribute("aria-expanded", "false");
-            const tipHeader = screen.getByRole("button", {
-                name: "Tip (2, 2)",
-            });
-            expect(tipHeader).toHaveAttribute("aria-expanded", "false");
-
-            // Act
-            await userEvent.click(tailHeader);
-            expect(tailHeader).toHaveAttribute("aria-expanded", "true");
-            await userEvent.click(tipHeader);
-            expect(tipHeader).toHaveAttribute("aria-expanded", "true");
-        });
     });
 
     describe("Settings interactions", () => {

@@ -42,8 +42,6 @@ export type Props = LockedVectorType &
     };
 
 const LockedVectorSettings = (props: Props) => {
-    const [tailCoordExpanded, setTailCoordExpanded] = useState(false);
-    const [tipCoordExpanded, setTipCoordExpanded] = useState(false);
     const {points, color: lineColor, onChangeProps, onRemove} = props;
     const [tail, tip] = points;
     const lineLabel = `Vector (${tail[0]}, ${tail[1]}), (${tip[0]}, ${tip[1]})`;
@@ -53,7 +51,7 @@ const LockedVectorSettings = (props: Props) => {
 
     function handleChangePoint(newCoord: Coord | undefined, index: 0 | 1) {
         if (typeof newCoord !== "undefined") {
-            const newPoints = [...points] as [Coord, Coord];
+            const newPoints = [...points] satisfies [tail: Coord, tip: Coord];
             newPoints[index] = [...newCoord];
             onChangeProps({
                 points: newPoints,
@@ -94,13 +92,12 @@ const LockedVectorSettings = (props: Props) => {
                 </LabelMedium>
             )}
 
+            {/* Coordinates */}
             <LockedFigureSettingsAccordion
-                expanded={tailCoordExpanded}
-                onToggle={() => setTailCoordExpanded(!tailCoordExpanded)}
+                expanded={true} // Initial state is expanded
                 containerStyle={styles.container}
                 panelStyle={styles.accordionPanel}
                 header={
-                    // Summary: Point, coords, color (filled/open)
                     <View style={styles.row}>
                         <LabelLarge>{`Tail (${tail[0]}, ${tail[1]})`}</LabelLarge>
                     </View>
@@ -116,12 +113,10 @@ const LockedVectorSettings = (props: Props) => {
             </LockedFigureSettingsAccordion>
 
             <LockedFigureSettingsAccordion
-                expanded={tipCoordExpanded}
-                onToggle={() => setTipCoordExpanded(!tipCoordExpanded)}
+                expanded={true} // Initial state is expanded
                 containerStyle={styles.container}
                 panelStyle={styles.accordionPanel}
                 header={
-                    // Summary: Point, coords, color (filled/open)
                     <View style={styles.row}>
                         <LabelLarge>{`Tip (${tip[0]}, ${tip[1]})`}</LabelLarge>
                     </View>
@@ -160,6 +155,7 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: wbColor.red,
+        marginTop: spacing.xSmall_8,
     },
     row: {
         flexDirection: "row",
