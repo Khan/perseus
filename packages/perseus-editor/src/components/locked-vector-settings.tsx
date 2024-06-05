@@ -11,7 +11,6 @@ import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import {useState} from "react";
 
 import ColorSelect from "./color-select";
 import CoordinatePairInput from "./coordinate-pair-input";
