@@ -472,7 +472,7 @@ class NumberLine extends React.Component<Props, State> {
         // it can't be interacted with.
         let fill;
         if (isOpen) {
-            fill = KhanColors._BACKGROUND;
+            fill = "transparent";
         } else if (props.static) {
             fill = KhanColors.BLUE;
         } else {
@@ -484,7 +484,7 @@ class NumberLine extends React.Component<Props, State> {
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
-            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
+            fill: isOpen ? "transparent" : KhanColors.GREEN,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
