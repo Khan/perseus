@@ -5,7 +5,7 @@ import type {
     LockedFigureType,
     LockedPointType,
     LockedLineType,
-    LockedCircleType,
+    LockedEllipseType,
     LockedVectorType,
 } from "@khanacademy/perseus";
 
@@ -52,7 +52,7 @@ const DEFAULT_COLOR = "grayH";
 
 export function getDefaultFigureForType(type: "point"): LockedPointType;
 export function getDefaultFigureForType(type: "line"): LockedLineType;
-export function getDefaultFigureForType(type: "circle"): LockedCircleType;
+export function getDefaultFigureForType(type: "ellipse"): LockedEllipseType;
 export function getDefaultFigureForType(type: "vector"): LockedVectorType;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
@@ -80,9 +80,9 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 showPoint1: false,
                 showPoint2: false,
             };
-        case "circle":
+        case "ellipse":
             return {
-                type: "circle",
+                type: "ellipse",
                 center: [0, 0],
                 radius: 1,
                 color: DEFAULT_COLOR,

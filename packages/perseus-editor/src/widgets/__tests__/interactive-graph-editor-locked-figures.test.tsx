@@ -54,10 +54,10 @@ describe("InteractiveGraphEditor locked figures", () => {
 
     // Basic functionality
     describe.each`
-        figureType  | figureName
-        ${"point"}  | ${"Point"}
-        ${"line"}   | ${"Line"}
-        ${"circle"} | ${"Circle"}
+        figureType   | figureName
+        ${"point"}   | ${"Point"}
+        ${"line"}    | ${"Line"}
+        ${"ellipse"} | ${"Ellipse"}
     `(`$figureType basics`, ({figureType, figureName}) => {
         test("Calls onChange when a locked $figureType is added", async () => {
             // Arrange
@@ -569,14 +569,14 @@ describe("InteractiveGraphEditor locked figures", () => {
         });
     });
 
-    describe("circles", () => {
-        test("Calls onChange when a locked circle's center x is changed", async () => {
+    describe("ellipses", () => {
+        test("Calls onChange when a locked ellipse's center x is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
             renderEditor({
                 onChange: onChangeMock,
-                lockedFigures: [getDefaultFigureForType("circle")],
+                lockedFigures: [getDefaultFigureForType("ellipse")],
             });
 
             // Act
@@ -590,7 +590,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
-                            type: "circle",
+                            type: "ellipse",
                             center: [5, 0],
                         }),
                     ],
@@ -598,13 +598,13 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked circle's center y is changed", async () => {
+        test("Calls onChange when a locked ellipse's center y is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
             renderEditor({
                 onChange: onChangeMock,
-                lockedFigures: [getDefaultFigureForType("circle")],
+                lockedFigures: [getDefaultFigureForType("ellipse")],
             });
 
             // Act
@@ -618,7 +618,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
-                            type: "circle",
+                            type: "ellipse",
                             center: [0, 5],
                         }),
                     ],
@@ -626,13 +626,13 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked circle's radius is changed", async () => {
+        test("Calls onChange when a locked ellipse's radius is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
             renderEditor({
                 onChange: onChangeMock,
-                lockedFigures: [getDefaultFigureForType("circle")],
+                lockedFigures: [getDefaultFigureForType("ellipse")],
             });
 
             // Act
@@ -646,7 +646,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
-                            type: "circle",
+                            type: "ellipse",
                             radius: 5,
                         }),
                     ],
@@ -654,13 +654,13 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when locked circle's stroke style is changed", async () => {
+        test("Calls onChange when locked ellipse's stroke style is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
             renderEditor({
                 onChange: onChangeMock,
-                lockedFigures: [getDefaultFigureForType("circle")],
+                lockedFigures: [getDefaultFigureForType("ellipse")],
             });
 
             // Act
@@ -676,7 +676,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
-                            type: "circle",
+                            type: "ellipse",
                             strokeStyle: "dashed",
                         }),
                     ],
@@ -684,13 +684,13 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked circle's fill style is changed", async () => {
+        test("Calls onChange when a locked ellipse's fill style is changed", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
             renderEditor({
                 onChange: onChangeMock,
-                lockedFigures: [getDefaultFigureForType("circle")],
+                lockedFigures: [getDefaultFigureForType("ellipse")],
             });
 
             // Act
@@ -706,7 +706,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect.objectContaining({
                     lockedFigures: [
                         expect.objectContaining({
-                            type: "circle",
+                            type: "ellipse",
                             fillStyle: "translucent",
                         }),
                     ],
