@@ -752,7 +752,7 @@ export type PerseusGraphTypeCircle = {
 export type PerseusGraphTypeLinear = {
     type: "linear";
     // expects 2 coords
-    coords?: CollinearTuple;
+    coords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinearSystem = {
@@ -806,7 +806,7 @@ export type PerseusGraphTypeSinusoid = {
 export type PerseusGraphTypeRay = {
     type: "ray";
     // Expects a list of 2 Coords
-    coords?: CollinearTuple;
+    coords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
 
 export type PerseusLabelImageWidgetOptions = {
