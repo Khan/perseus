@@ -164,15 +164,36 @@ function doMoveAll(
     const {snapStep, range} = state;
     switch (state.type) {
         case "polygon": {
-            const change = getChange(state.coords, action.delta, {
-                snapStep,
-                range,
-            });
+            let newCoords: vec.Vector2[];
+            switch (state.snapTo) {
+                // TODO(LEMS-1902): Implement sides snapping for polygons
+                case "grid":
+                case undefined:
+                case "sides": {
+                    const change = getChange(state.coords, action.delta, {
+                        snapStep,
+                        range,
+                    });
 
-            const newCoords = state.coords.map((point: vec.Vector2) =>
-                snap(snapStep, vec.add(point, change)),
-            );
+                    newCoords = state.coords.map((point: vec.Vector2) =>
+                        snap(snapStep, vec.add(point, change)),
+                    );
 
+                    break;
+                }
+                case "angles": {
+                    const change = getNoSnapChange(state.coords, action.delta, {
+                        range,
+                    });
+
+                    newCoords = state.coords.map((point: vec.Vector2) =>
+                        vec.add(point, change),
+                    );
+                    break;
+                }
+                default:
+                    throw new Error(`Unknown snapTo: ${state.snapTo}`);
+            }
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -377,24 +398,48 @@ function doChangeRange(
     };
 }
 
-const getChange = (
-    coords: readonly vec.Vector2[],
+const getDeltaVertex = (
+    maxMoves: vec.Vector2[],
+    minMoves: vec.Vector2[],
     delta: vec.Vector2,
-    constraintOpts: Omit<ConstraintArgs, "point">,
 ): vec.Vector2 => {
     const [deltaX, deltaY] = delta;
-    const maxMoves = coords.map((point: vec.Vector2) =>
-        maxMove({...constraintOpts, point}),
-    );
-    const minMoves = coords.map((point: vec.Vector2) =>
-        minMove({...constraintOpts, point}),
-    );
     const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
     const maxYMove = Math.min(...maxMoves.map((move) => move[1]));
     const minXMove = Math.max(...minMoves.map((move) => move[0]));
     const minYMove = Math.max(...minMoves.map((move) => move[1]));
     const dx = clamp(deltaX, minXMove, maxXMove);
     const dy = clamp(deltaY, minYMove, maxYMove);
+    return [dx, dy];
+};
+
+const getChange = (
+    coords: readonly vec.Vector2[],
+    delta: vec.Vector2,
+    constraintOpts: Omit<ConstraintArgs, "point">,
+): vec.Vector2 => {
+    const maxMoves = coords.map((point: vec.Vector2) =>
+        maxMove({...constraintOpts, point}),
+    );
+    const minMoves = coords.map((point: vec.Vector2) =>
+        minMove({...constraintOpts, point}),
+    );
+    const [dx, dy] = getDeltaVertex(maxMoves, minMoves, delta);
+    return [dx, dy];
+};
+
+const getNoSnapChange = (
+    coords: readonly vec.Vector2[],
+    delta: vec.Vector2,
+    constraintOpts: Omit<ConstraintArgs, "point" | "snapStep">,
+): vec.Vector2 => {
+    const maxMoves = coords.map((point: vec.Vector2) =>
+        maxNoSnapMove({...constraintOpts, point}),
+    );
+    const minMoves = coords.map((point: vec.Vector2) =>
+        minNoSnapMove({...constraintOpts, point}),
+    );
+    const [dx, dy] = getDeltaVertex(maxMoves, minMoves, delta);
     return [dx, dy];
 };
 
@@ -509,16 +554,34 @@ function noSnapBound({range, point}): vec.Vector2 {
     return [clamp(requestedX, minX, maxX), clamp(requestedY, minY, maxY)];
 }
 
-// Returns the vector from the given point to the top-right corner of the graph
+// Returns the vector from the given point to the top-right corner of the graph when snapped to the grid
 function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const topRight = bound({snapStep, range, point: [Infinity, Infinity]});
     return vec.sub(topRight, point);
 }
 
-// Returns the vector from the given point to the bottom-left corner of the
-// graph
+// Returns the vector from the given point to the bottom-left corner of the graph when snapped to the grid
 function minMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const bottomLeft = bound({snapStep, range, point: [-Infinity, -Infinity]});
+    return vec.sub(bottomLeft, point);
+}
+
+// Returns the vector from the given point to the top-right corner of the graph when snapped to angles or sides
+function maxNoSnapMove({
+    range,
+    point,
+}: Omit<ConstraintArgs, "snapStep">): vec.Vector2 {
+    const topRight = noSnapBound({range, point: [Infinity, Infinity]});
+    return vec.sub(topRight, point);
+}
+
+// Returns the vector from the given point to the bottom-left corner of the
+// graph when snapped to angles or sides
+function minNoSnapMove({
+    range,
+    point,
+}: Omit<ConstraintArgs, "snapStep">): vec.Vector2 {
+    const bottomLeft = noSnapBound({range, point: [-Infinity, -Infinity]});
     return vec.sub(bottomLeft, point);
 }
 
