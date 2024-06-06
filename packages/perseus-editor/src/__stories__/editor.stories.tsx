@@ -67,10 +67,8 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                 graph: {
                     type: "linear",
                     coords: [
-                        [
-                            [1, 1],
-                            [5, 5],
-                        ],
+                        [1, 1],
+                        [5, 5],
                     ],
                 },
                 correct: {
