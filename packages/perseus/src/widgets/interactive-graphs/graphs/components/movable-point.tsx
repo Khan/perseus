@@ -28,7 +28,8 @@ export const StyledMovablePoint = (props: Props) => {
         gestureTarget: elementRef,
         point,
         onMove,
-        constrain: (p) => (snapTo === "grid" ? snap(snapStep, p) : p),
+        constrain: (p) =>
+            snapTo === "angles" || snapTo === "sides" ? p : snap(snapStep, p),
     });
 
     return (
