@@ -839,8 +839,10 @@ export const rayQuestion: PerseusRenderer = {
                 },
                 correct: {
                     coords: [
-                        [5, 3],
-                        [-5, -5],
+                        [
+                            [5, 3],
+                            [-5, -5],
+                        ],
                     ],
                     type: "ray",
                 },
@@ -890,8 +892,10 @@ export const rayQuestionWithDefaultCorrect: PerseusRenderer = {
                 },
                 correct: {
                     coords: [
-                        [-5, 5],
-                        [5, 5],
+                        [
+                            [-5, 5],
+                            [5, 5],
+                        ],
                     ],
                     type: "ray",
                 },
