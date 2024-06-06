@@ -128,10 +128,8 @@ describe("initializeGraphState for linear graphs", () => {
         invariant(state.type === "linear");
         expect(state.coords).toEqual([
             [
-                [
-                    [0, 1],
-                    [2, 3],
-                ],
+                [0, 1],
+                [2, 3],
             ],
         ]);
     });

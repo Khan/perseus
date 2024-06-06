@@ -333,7 +333,7 @@ const getLineCoords = ({
     step,
 }: getLineCoordsArg): PairOfPoints[] => {
     if (graph.coords) {
-        return [graph.coords];
+        return graph.coords;
     }
     return [normalizePoints(range, step, defaultLinearCoords[0])];
 };
