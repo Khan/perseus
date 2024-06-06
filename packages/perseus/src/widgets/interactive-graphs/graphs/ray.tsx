@@ -17,6 +17,7 @@ export const RayGraph = (props: Props) => {
     const handleMovePoint = (pointIndex: number, newPoint: vec.Vector2) =>
         dispatch(moveControlPoint(pointIndex, newPoint, 0));
 
+    // Ray graphs only have one line
     return (
         <MovableLine
             points={line}
