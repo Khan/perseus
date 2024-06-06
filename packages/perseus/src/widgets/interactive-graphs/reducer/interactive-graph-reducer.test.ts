@@ -402,45 +402,28 @@ describe("movePoint on a polygon graph", () => {
 
 describe("movePoint on a quadratic graph", () => {
     it("moves a point", () => {
-        const state: InteractiveGraphState = {
-            ...baseQuadraticGraphState,
-            coords: [
-                [0, 0],
-                [0, 2],
-                [2, 2],
-            ],
-        };
+        const state: InteractiveGraphState = baseQuadraticGraphState;
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [0, 1]));
+        const updated = interactiveGraphReducer(state, movePoint(0, [-2, 4]));
 
         invariant(updated.type === "quadratic");
-        expect(updated.coords[0]).toEqual([0, 1]);
+        expect(updated.coords[0]).toEqual([-2, 4]);
     });
 
     it("rejects the move if when new coordinates would invalidate the graph", () => {
-        // const coords: QuadraticGraphState["coords"] = [
-        //     [-5, 5],
-        //     [0, -5],
-        //     [5, 5],
-        // ];
-        // const destination: vec.Vector2 = [0, 0];
-        // const elementId = 0;
-        // const isValid = isValidDestination(destination, elementId, coords);
-        // expect(isValid).toBe(false);
-
         const state: InteractiveGraphState = {
             ...baseQuadraticGraphState,
             coords: [
-                [0, 0],
-                [0, 2],
-                [2, 2],
+                [-5, 5],
+                [0, -5],
+                [5, 5],
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+        const updated = interactiveGraphReducer(state, movePoint(0, [0, 0]));
 
         invariant(updated.type === "quadratic");
-        expect(updated.coords[0]).toEqual([0, 0]);
+        expect(updated.coords[0]).toEqual([-5, 5]);
     });
 });
 
