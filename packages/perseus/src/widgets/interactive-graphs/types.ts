@@ -1,8 +1,5 @@
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
-import type {
-    PerseusGraphType,
-    PerseusInteractiveGraphWidgetOptions,
-} from "../../perseus-types";
+import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {WidgetProps} from "../../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
@@ -16,12 +13,6 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
     graphState: T;
     dispatch: (action: InteractiveGraphAction) => unknown;
 };
-
-export interface InitializeGraphStateParams<T extends PerseusGraphType> {
-    graph: T;
-    range: [Interval, Interval];
-    step: vec.Vector2;
-}
 
 export type InteractiveGraphState =
     | SegmentGraphState

@@ -27,7 +27,7 @@ import {
     rayQuestionWithDefaultCorrect,
     segmentQuestion,
     segmentQuestionDefaultCorrect,
-    segmentWithLockedCircles,
+    segmentWithLockedEllipses,
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
@@ -538,9 +538,9 @@ describe("locked layer", () => {
         });
     });
 
-    test("should render locked circles", async () => {
+    test("should render locked ellipses", async () => {
         // Arrange
-        const {container} = renderQuestion(segmentWithLockedCircles, {
+        const {container} = renderQuestion(segmentWithLockedEllipses, {
             flags: {
                 mafs: {
                     segment: true,

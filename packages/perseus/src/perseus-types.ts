@@ -8,7 +8,7 @@ import type {Interval, vec} from "mafs";
 // and exported from the package, so we need to keep it around.
 export type Range = Interval;
 export type Size = [number, number];
-export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
+export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
 export type PerseusWidgetsMap = {
@@ -673,7 +673,7 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
 export type LockedFigure =
     | LockedPointType
     | LockedLineType
-    | LockedCircleType
+    | LockedEllipseType
     | LockedVectorType;
 export type LockedFigureType = LockedFigure["type"];
 
@@ -694,12 +694,19 @@ export type LockedLineType = {
     showPoint2: boolean;
 };
 
-export type LockedCircleType = {
-    type: "circle";
+export type LockedEllipseFillType = "none" | "solid" | "translucent";
+export const lockedEllipseFillStyles: Record<LockedEllipseFillType, number> = {
+    none: 0,
+    solid: 1,
+    translucent: 0.4,
+} as const;
+
+export type LockedEllipseType = {
+    type: "ellipse";
     center: Coord;
     radius: number;
     color: LockedFigureColor;
-    fillStyle: "none" | "solid" | "translucent";
+    fillStyle: LockedEllipseFillType;
     strokeStyle: "solid" | "dashed";
 };
 
@@ -758,7 +765,7 @@ export type PerseusGraphTypeLinear = {
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
     // expects 2 sets of 2 coords
-    coords?: ReadonlyArray<CollinearTuple>;
+    coords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypePoint = {
@@ -794,7 +801,7 @@ export type PerseusGraphTypeSegment = {
     // The number of segments if a "segment" type. default: 1.  Max: 6
     numSegments?: number;
     // Expects a list of Coord tuples. Length should match the `numSegments` value.
-    coords?: ReadonlyArray<CollinearTuple>;
+    coords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSinusoid = {

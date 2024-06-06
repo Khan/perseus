@@ -177,15 +177,15 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
-    it("adds a locked circle", () => {
+    it("adds a locked ellipse", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .addLockedCircle([1, 2], 3)
+            .addLockedEllipse([1, 2], 3)
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
         expect(graph.options.lockedFigures).toEqual([
             {
-                type: "circle",
+                type: "ellipse",
                 center: [1, 2],
                 radius: 3,
                 color: "grayH",
@@ -195,9 +195,9 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
-    it("adds a locked circle with options", () => {
+    it("adds a locked ellipse with options", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .addLockedCircle([1, 2], 3, {
+            .addLockedEllipse([1, 2], 3, {
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
@@ -207,7 +207,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
         expect(graph.options.lockedFigures).toEqual([
             {
-                type: "circle",
+                type: "ellipse",
                 center: [1, 2],
                 radius: 3,
                 color: "green",
