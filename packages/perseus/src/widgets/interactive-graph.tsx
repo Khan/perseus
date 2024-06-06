@@ -2197,8 +2197,11 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getLinearEquationString(props: Props): string {
+        // Currently, Interactive Graph only supports a single interactive Linear Equation, but
+        // the API allows for multiple equations to be defined in the future. If we want to fully
+        // support multiple equations, then this function will need to be updated to handle that case.
+        // See the original LEMS-2038 ticket for more details.
         const coords = InteractiveGraph.getLineCoords(props.graph, props);
-
         const coord1 = coords[0][0];
         const coord2 = coords[0][1];
 
@@ -2337,10 +2340,13 @@ class InteractiveGraph extends React.Component<Props, State> {
             throw makeInvalidTypeError("createPointForPolygonType", "ray");
         }
 
+        // Currently, Interactive Graph only supports a single interactive ray element, but
+        // the API allows for multiple rays to be defined in the future. If we want to fully
+        // support multiple rays, then this function will need to be updated to handle that case.
+        // See the original LEMS-2038 ticket for more details.
         const coords = InteractiveGraph.getLineCoords(props.graph, props);
-
-        const a = Array.isArray(coords[0][0]) ? coords[0][0] : coords[0];
-        const b = Array.isArray(coords[0][0]) ? coords[0][1] : coords[1];
+        const a = coords[0][0];
+        const b = coords[0][1];
 
         let eq = InteractiveGraph.getLinearEquationString(props);
 
