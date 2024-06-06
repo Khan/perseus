@@ -28,6 +28,7 @@ import {
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Interval} from "mafs";
+import { QuadraticCoords, getQuadraticCoefficients } from "../graphs/quadratic";
 
 export function interactiveGraphReducer(
     state: InteractiveGraphState,
@@ -146,6 +147,8 @@ function doMoveLine(
     }
 }
 
+
+
 function doMoveAll(
     state: InteractiveGraphState,
     action: MoveAll,
@@ -227,6 +230,16 @@ function doMovePoint(
             };
         }
         case "quadratic": {
+            // Set up the new coords and check if the quadratic coefficients are valid
+            const newCoords: QuadraticCoords = [...state.coords];
+            newCoords[action.index] = action.destination;
+            const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
+
+            // If the new destination results in an invalid quadratic equation, we don't want to move the point
+            if (QuadraticCoefficients === undefined) {
+                return state;
+            }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,

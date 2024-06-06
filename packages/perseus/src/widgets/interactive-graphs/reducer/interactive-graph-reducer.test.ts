@@ -62,6 +62,21 @@ const baseSinusoidGraphState: InteractiveGraphState = {
     ],
 };
 
+const baseQuadraticGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "quadratic",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [-1, 1],
+        [0, 0],
+        [1, 1],
+    ],
+};
+
 const basePolygonGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "polygon",
@@ -381,6 +396,50 @@ describe("movePoint on a polygon graph", () => {
         const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
 
         invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0, 0]);
+    });
+});
+
+describe("movePoint on a quadratic graph", () => {
+    it("moves a point", () => {
+        const state: InteractiveGraphState = {
+            ...baseQuadraticGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [0, 1]));
+
+        invariant(updated.type === "quadratic");
+        expect(updated.coords[0]).toEqual([0, 1]);
+    });
+
+    it("rejects the move if when new coordinates would invalidate the graph", () => {
+        // const coords: QuadraticGraphState["coords"] = [
+        //     [-5, 5],
+        //     [0, -5],
+        //     [5, 5],
+        // ];
+        // const destination: vec.Vector2 = [0, 0];
+        // const elementId = 0;
+        // const isValid = isValidDestination(destination, elementId, coords);
+        // expect(isValid).toBe(false);
+
+        const state: InteractiveGraphState = {
+            ...baseQuadraticGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+
+        invariant(updated.type === "quadratic");
         expect(updated.coords[0]).toEqual([0, 0]);
     });
 });
