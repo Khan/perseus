@@ -117,20 +117,16 @@ describe("initializeGraphState for linear graphs", () => {
             graph: {
                 type: "linear",
                 coords: [
-                    [
-                        [0, 1],
-                        [2, 3],
-                    ],
+                    [0, 1],
+                    [2, 3],
                 ],
             },
         });
 
         invariant(state.type === "linear");
         expect(state.coords).toEqual([
-            [
-                [0, 1],
-                [2, 3],
-            ],
+            [0, 1],
+            [2, 3],
         ]);
     });
 
@@ -142,10 +138,8 @@ describe("initializeGraphState for linear graphs", () => {
 
         invariant(state.type === "linear");
         expect(state.coords).toEqual([
-            [
-                [-5, 5],
-                [5, 5],
-            ],
+            [-5, 5],
+            [5, 5],
         ]);
     });
 
@@ -171,10 +165,8 @@ describe("initializeGraphState for linear graphs", () => {
         // Narrow the type of `graph` so TS knows it will have `coords`.
         invariant(state.type === "linear");
         expect(state.coords).toEqual([
-            [
-                [-500, 500],
-                [500, 500],
-            ],
+            [-500, 500],
+            [500, 500],
         ]);
     });
 });

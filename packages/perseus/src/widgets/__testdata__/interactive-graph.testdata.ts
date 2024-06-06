@@ -163,10 +163,8 @@ export const linearQuestion: PerseusRenderer = {
                 },
                 correct: {
                     coords: [
-                        [
-                            [-1, 1],
-                            [0, -2],
-                        ],
+                        [-1, 1],
+                        [0, -2],
                     ],
                     type: "linear",
                 },
@@ -214,10 +212,8 @@ export const linearQuestionWithDefaultCorrect: PerseusRenderer = {
                 },
                 correct: {
                     coords: [
-                        [
-                            [-5, 5],
-                            [5, 5],
-                        ],
+                        [-5, 5],
+                        [5, 5],
                     ],
                     type: "linear",
                 },
@@ -257,10 +253,8 @@ export const linearQuestionWithLockedPoints: PerseusRenderer = {
             options: {
                 correct: {
                     coords: [
-                        [
-                            [-1, 1],
-                            [0, -2],
-                        ],
+                        [-1, 1],
+                        [0, -2],
                     ],
                     type: "linear",
                 },
@@ -845,10 +839,8 @@ export const rayQuestion: PerseusRenderer = {
                 },
                 correct: {
                     coords: [
-                        [
-                            [5, 3],
-                            [-5, -5],
-                        ],
+                        [5, 3],
+                        [-5, -5],
                     ],
                     type: "ray",
                 },
@@ -898,10 +890,8 @@ export const rayQuestionWithDefaultCorrect: PerseusRenderer = {
                 },
                 correct: {
                     coords: [
-                        [
-                            [-5, 5],
-                            [5, 5],
-                        ],
+                        [-5, 5],
+                        [5, 5],
                     ],
                     type: "ray",
                 },
