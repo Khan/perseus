@@ -8,8 +8,30 @@ import {getDefaultFigureForType} from "../util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+const defaultFigures = [
+    getDefaultFigureForType("point"),
+    getDefaultFigureForType("line"),
+    getDefaultFigureForType("vector"),
+];
+
 describe("LockedFiguresSection", () => {
     let userEvent: UserEvent;
+    const getDefaultFigureHeader = (type: "point" | "line" | "vector") => {
+        switch (type) {
+            case "point":
+                return screen.getByRole("button", {
+                    name: "Point (0, 0) grayH, filled",
+                });
+            case "line":
+                return screen.getByRole("button", {
+                    name: "Line (0, 0), (2, 2) grayH, solid",
+                });
+            case "vector":
+                return screen.getByRole("button", {
+                    name: "Vector (0, 0), (2, 2) grayH, solid",
+                });
+        }
+    };
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -41,10 +63,7 @@ describe("LockedFiguresSection", () => {
         // Arrange, Act
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
                 onChange={jest.fn()}
             />,
             {
@@ -55,6 +74,7 @@ describe("LockedFiguresSection", () => {
         // Assert
         expect(screen.getByText("Point (0, 0)")).toBeInTheDocument();
         expect(screen.getByText("Line (0, 0), (2, 2)")).toBeInTheDocument();
+        expect(screen.getByText("Vector (0, 0), (2, 2)")).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Expand all"}),
         ).toBeInTheDocument();
@@ -64,10 +84,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
                 onChange={jest.fn()}
             />,
             {
@@ -76,26 +93,21 @@ describe("LockedFiguresSection", () => {
         );
 
         // Act
-        const pointHeader = screen.getByRole("button", {
-            name: "Point (0, 0) grayH, filled",
-        });
-        const lineHeader = screen.getByRole("button", {
-            name: "Line (0, 0), (2, 2) grayH, solid",
-        });
+        const pointHeader = getDefaultFigureHeader("point");
+        const lineHeader = getDefaultFigureHeader("line");
+        const vectorHeader = getDefaultFigureHeader("vector");
 
         // Assert
         expect(pointHeader.getAttribute("aria-expanded")).toBe("false");
         expect(lineHeader.getAttribute("aria-expanded")).toBe("false");
+        expect(vectorHeader.getAttribute("aria-expanded")).toBe("false");
     });
 
     test("renders all expanded when expand all button is clicked", async () => {
         // Arrange
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
                 onChange={jest.fn()}
             />,
             {
@@ -107,12 +119,9 @@ describe("LockedFiguresSection", () => {
             name: "Expand all",
         });
 
-        const pointHeader = screen.getByRole("button", {
-            name: "Point (0, 0) grayH, filled",
-        });
-        const lineHeader = screen.getByRole("button", {
-            name: "Line (0, 0), (2, 2) grayH, solid",
-        });
+        const pointHeader = getDefaultFigureHeader("point");
+        const lineHeader = getDefaultFigureHeader("line");
+        const vectorHeader = getDefaultFigureHeader("vector");
 
         // Act
         await userEvent.click(expandAllButton);
@@ -120,16 +129,14 @@ describe("LockedFiguresSection", () => {
         // Assert
         expect(pointHeader.getAttribute("aria-expanded")).toBe("true");
         expect(lineHeader.getAttribute("aria-expanded")).toBe("true");
+        expect(vectorHeader.getAttribute("aria-expanded")).toBe("true");
     });
 
     test("renders all collapsed when collapse all button is clicked", async () => {
         // Arrange
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
                 onChange={jest.fn()}
             />,
             {
@@ -141,12 +148,9 @@ describe("LockedFiguresSection", () => {
             name: "Expand all",
         });
 
-        const pointHeader = screen.getByRole("button", {
-            name: "Point (0, 0) grayH, filled",
-        });
-        const lineHeader = screen.getByRole("button", {
-            name: "Line (0, 0), (2, 2) grayH, solid",
-        });
+        const pointHeader = getDefaultFigureHeader("point");
+        const lineHeader = getDefaultFigureHeader("line");
+        const vectorHeader = getDefaultFigureHeader("vector");
 
         // Act
         await userEvent.click(expandAllButton);
@@ -159,16 +163,14 @@ describe("LockedFiguresSection", () => {
         // Assert
         expect(pointHeader.getAttribute("aria-expanded")).toBe("false");
         expect(lineHeader.getAttribute("aria-expanded")).toBe("false");
+        expect(vectorHeader.getAttribute("aria-expanded")).toBe("false");
     });
 
     test("render collapse button when some figures are expanded", async () => {
         // Arrange
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
                 onChange={jest.fn()}
             />,
             {

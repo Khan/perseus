@@ -673,7 +673,7 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
 export type LockedFigure =
     | LockedPointType
     | LockedLineType
-    | LockedCircleType
+    | LockedEllipseType
     | LockedVectorType;
 export type LockedFigureType = LockedFigure["type"];
 
@@ -694,12 +694,19 @@ export type LockedLineType = {
     showPoint2: boolean;
 };
 
-export type LockedCircleType = {
-    type: "circle";
+export type LockedEllipseFillType = "none" | "solid" | "translucent";
+export const lockedEllipseFillStyles: Record<LockedEllipseFillType, number> = {
+    none: 0,
+    solid: 1,
+    translucent: 0.4,
+} as const;
+
+export type LockedEllipseType = {
+    type: "ellipse";
     center: Coord;
     radius: number;
     color: LockedFigureColor;
-    fillStyle: "none" | "solid" | "translucent";
+    fillStyle: LockedEllipseFillType;
     strokeStyle: "solid" | "dashed";
 };
 

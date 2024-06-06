@@ -37,10 +37,10 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
-    test("should return a circle with default values", () => {
-        const figure = getDefaultFigureForType("circle");
+    test("should return an ellipse with default values", () => {
+        const figure = getDefaultFigureForType("ellipse");
         expect(figure).toEqual({
-            type: "circle",
+            type: "ellipse",
             center: [0, 0],
             radius: 1,
             color: "grayH",

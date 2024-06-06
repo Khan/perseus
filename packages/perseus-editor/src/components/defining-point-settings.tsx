@@ -82,7 +82,9 @@ const DefiningPointSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={coord}
                 error={!!error}
-                onChangeProps={onChangeProps}
+                onChange={(newCoords) => {
+                    onChangeProps({coord: newCoords});
+                }}
             />
 
             {/* Toggle switch */}

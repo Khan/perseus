@@ -1,5 +1,6 @@
 import type {
-    LockedCircleType,
+    LockedEllipseFillType,
+    LockedEllipseType,
     LockedFigure,
     LockedFigureColor,
     LockedLineType,
@@ -132,17 +133,17 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    addLockedCircle(
+    addLockedEllipse(
         center: vec.Vector2,
         radius: number,
         options?: {
             color?: LockedFigureColor;
-            fillStyle?: "none" | "solid" | "translucent";
+            fillStyle?: LockedEllipseFillType;
             strokeStyle?: "solid" | "dashed";
         },
     ): InteractiveGraphQuestionBuilder {
-        const circle: LockedCircleType = {
-            type: "circle",
+        const ellipse: LockedEllipseType = {
+            type: "ellipse",
             center: center,
             radius: radius,
             color: "grayH",
@@ -151,7 +152,7 @@ class InteractiveGraphQuestionBuilder {
             ...options,
         };
 
-        this.addLockedFigure(circle);
+        this.addLockedFigure(ellipse);
         return this;
     }
 
