@@ -62,6 +62,7 @@ export function initializeGraphState(
                 showAngles: Boolean(graph.showAngles),
                 showSides: Boolean(graph.showSides),
                 coords: getPolygonCoords({graph, range, step}),
+                snapTo: graph.snapTo ?? "grid",
             };
         case "point":
             return {

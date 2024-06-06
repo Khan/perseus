@@ -67,6 +67,7 @@ const basePolygonGraphState: InteractiveGraphState = {
     type: "polygon",
     showAngles: false,
     showSides: false,
+    snapTo: "grid",
     range: [
         [-10, 10],
         [-10, 10],
