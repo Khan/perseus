@@ -776,7 +776,7 @@ export type PerseusGraphTypePolygon = {
     showAngles?: boolean;
     // Whether to show side measurements. default: false
     showSides?: boolean;
-    // How to snap points.  e.g. "grid", "angles", or "sides"
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
     snapTo?: "grid" | "angles" | "sides";
     // How to match the answer. If missing, defaults to exact matching.
     match?: "similar" | "congruent" | "approx";
