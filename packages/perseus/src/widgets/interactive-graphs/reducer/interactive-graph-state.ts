@@ -57,7 +57,7 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: graph.type,
-                coords: getRayCoords({graph, range, step}),
+                coords: getLineCoords({graph, range, step}),
             };
         case "linear-system":
             return {
@@ -332,19 +332,6 @@ const getLineCoords = ({
     range,
     step,
 }: getLineCoordsArg): PairOfPoints => {
-    if (graph.coords) {
-        return graph.coords;
-    }
-    return normalizePoints(range, step, defaultLinearCoords[0]);
-};
-
-type getRayCoordsArg = {
-    graph: PerseusGraphTypeRay;
-    range: InitializeGraphStateParam["range"];
-    step: InitializeGraphStateParam["step"];
-};
-
-const getRayCoords = ({graph, range, step}: getRayCoordsArg): PairOfPoints => {
     if (graph.coords) {
         return graph.coords;
     }

@@ -1911,25 +1911,6 @@ class InteractiveGraph extends React.Component<Props, State> {
      * @param {object} graph Like props.graph or props.correct
      * @param {object} props of an InteractiveGraph instance
      */
-    static getLinearCoords(
-        graph: PerseusGraphType,
-        props: Props,
-    ): ReadonlyArray<Coord> {
-        return (
-            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
-            graph.coords || [
-                InteractiveGraph.pointsFromNormalized(props, [
-                    [0.25, 0.75],
-                    [0.75, 0.75],
-                ]),
-            ]
-        );
-    }
-
-    /**
-     * @param {object} graph Like props.graph or props.correct
-     * @param {object} props of an InteractiveGraph instance
-     */
     static getPointCoords(
         graph: PerseusGraphTypePoint,
         props: Props,
