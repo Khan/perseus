@@ -1,9 +1,11 @@
 import type {
-    LockedCircleType,
+    LockedEllipseFillType,
+    LockedEllipseType,
     LockedFigure,
     LockedFigureColor,
     LockedLineType,
     LockedPointType,
+    LockedVectorType,
     PerseusGraphType,
     PerseusRenderer,
 } from "../../perseus-types";
@@ -131,17 +133,17 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    addLockedCircle(
+    addLockedEllipse(
         center: vec.Vector2,
         radius: number,
         options?: {
             color?: LockedFigureColor;
-            fillStyle?: "none" | "solid" | "translucent";
+            fillStyle?: LockedEllipseFillType;
             strokeStyle?: "solid" | "dashed";
         },
     ): InteractiveGraphQuestionBuilder {
-        const circle: LockedCircleType = {
-            type: "circle",
+        const ellipse: LockedEllipseType = {
+            type: "ellipse",
             center: center,
             radius: radius,
             color: "grayH",
@@ -150,7 +152,21 @@ class InteractiveGraphQuestionBuilder {
             ...options,
         };
 
-        this.addLockedFigure(circle);
+        this.addLockedFigure(ellipse);
+        return this;
+    }
+
+    addLockedVector(
+        tail: vec.Vector2,
+        tip: vec.Vector2,
+        color?: LockedFigureColor,
+    ): InteractiveGraphQuestionBuilder {
+        const vector: LockedVectorType = {
+            type: "vector",
+            color: color ?? "grayH",
+            points: [tail, tip],
+        };
+        this.addLockedFigure(vector);
         return this;
     }
 

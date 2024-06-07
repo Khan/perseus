@@ -67,7 +67,9 @@ const LockedPointSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={coord}
                 range={range}
-                onChangeProps={onChangeProps}
+                onChange={(newCoord) => {
+                    onChangeProps({coord: newCoord});
+                }}
             />
 
             <ColorSelect

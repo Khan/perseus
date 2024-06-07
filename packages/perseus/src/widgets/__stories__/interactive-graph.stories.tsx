@@ -18,7 +18,8 @@ import {
     segmentWithAllLockedLineVariations,
     segmentWithAllLockedRayVariations,
     sinusoidQuestion,
-    segmentWithLockedCircles,
+    segmentWithLockedEllipses,
+    segmentWithLockedVectors,
 } from "../__testdata__/interactive-graph.testdata";
 
 export default {
@@ -116,8 +117,15 @@ export const AllLockedRays = (args: StoryArgs): React.ReactElement => (
     />
 );
 
-export const LockedCircle = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI {...mafsOptions} question={segmentWithLockedCircles} />
+export const LockedEllipse = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        {...mafsOptions}
+        question={segmentWithLockedEllipses}
+    />
+);
+
+export const LockedVector = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI {...mafsOptions} question={segmentWithLockedVectors} />
 );
 
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (

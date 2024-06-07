@@ -6,17 +6,17 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {LockedPointType, Range} from "@khanacademy/perseus";
+import type {Range, Coord} from "@khanacademy/perseus";
 
 type Props = {
     coord: [number, number];
     range?: [Range, Range];
     error?: boolean;
-    onChangeProps: (newProps: Partial<LockedPointType>) => void;
+    onChange: (newCoord: Coord) => void;
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, error, range, onChangeProps} = props;
+    const {coord, error, range, onChange} = props;
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -47,7 +47,7 @@ const CoordinatePairInput = (props: Props) => {
         // Update the props (update the graph).
         const newCoords = [...coord] satisfies [number, number];
         newCoords[coordIndex] = +newValue;
-        onChangeProps({coord: newCoords});
+        onChange(newCoords);
     }
 
     return (

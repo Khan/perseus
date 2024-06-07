@@ -1,9 +1,10 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
-import LockedCircle from "./locked-circle";
+import LockedEllipse from "./locked-ellipse";
 import LockedLine from "./locked-line";
 import LockedPoint from "./locked-point";
+import LockedVector from "./locked-vector";
 
 import type {LockedFigure} from "../../perseus-types";
 import type {Interval} from "mafs";
@@ -31,9 +32,16 @@ const GraphLockedLayer = (props: Props) => {
                                 {...figure}
                             />
                         );
-                    case "circle":
+                    case "ellipse":
                         return (
-                            <LockedCircle key={`circle-${index}`} {...figure} />
+                            <LockedEllipse
+                                key={`ellipse-${index}`}
+                                {...figure}
+                            />
+                        );
+                    case "vector":
+                        return (
+                            <LockedVector key={`vector-${index}`} {...figure} />
                         );
                     default:
                         /**

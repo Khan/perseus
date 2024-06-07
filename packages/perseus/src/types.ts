@@ -153,7 +153,7 @@ export const InteractiveGraphLockedFeaturesFlags = [
     /**
      * Enables/Disables Milestone 2 locked features in the new Mafs
      * interactive-graph widget (the rest of the figure types:
-     * circles, vectors, polygons, functions, labels).
+     * ellipses, vectors, polygons, functions, labels).
      */
     "interactive-graph-locked-features-m2",
 ] as const;

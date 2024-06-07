@@ -1971,93 +1971,32 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer = {
     },
 };
 
-export const segmentWithLockedFigures: PerseusRenderer = {
-    content: "All locked lines\n\n[[☃ interactive-graph 1]]",
-    images: {},
-    widgets: {
-        "interactive-graph 1": {
-            graded: true,
-            options: {
-                correct: {
-                    coords: [
-                        [
-                            [-7, -7],
-                            [2, -5],
-                        ],
-                    ],
-                    type: "segment",
-                },
-                graph: {
-                    type: "segment",
-                },
-                gridStep: [1, 1],
-                labels: ["x", "y"],
-                markings: "graph",
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-                rulerLabel: "",
-                rulerTicks: 10,
-                showProtractor: false,
-                showRuler: false,
-                snapStep: [0.5, 0.5],
-                step: [1, 1],
-                lockedFigures: [
-                    // Just a point
-                    {
-                        type: "point",
-                        coord: [-7, -7],
-                        color: "green",
-                        filled: true,
-                    },
-                    // Point shown, one filled, one open
-                    {
-                        type: "line",
-                        kind: "line",
-                        points: [
-                            {
-                                type: "point",
-                                coord: [-7, -5],
-                                color: "green",
-                                filled: true,
-                            },
-                            {
-                                type: "point",
-                                coord: [2, -3],
-                                color: "green",
-                                filled: false,
-                            },
-                        ],
-                        color: "green",
-                        lineStyle: "solid",
-                        showPoint1: true,
-                        showPoint2: true,
-                    },
-                ],
-            },
-            type: "interactive-graph",
-            version: {
-                major: 0,
-                minor: 0,
-            },
-        },
-    },
-};
-
-export const segmentWithLockedCircles: PerseusRenderer =
+export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedCircle([0, 0], 5)
-        .addLockedCircle([-5, 5], 2, {
+        .addLockedPointAt(-7, -7)
+        .addLockedLine([-7, -5], [2, -3])
+        .addLockedEllipse([0, 5], 2)
+        .build();
+
+export const segmentWithLockedEllipses: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedEllipse([0, 0], 5)
+        .addLockedEllipse([-5, 5], 2, {
             color: "green",
             fillStyle: "solid",
             strokeStyle: "solid",
         })
-        .addLockedCircle([5, 5], 2, {
+        .addLockedEllipse([5, 5], 2, {
             color: "green",
             fillStyle: "translucent",
             strokeStyle: "dashed",
         })
+        .build();
+
+export const segmentWithLockedVectors: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedVector([0, 0], [2, 2])
+        .addLockedVector([2, 2], [-2, 4], "green")
         .build();
 
 export const quadraticQuestion: PerseusRenderer = {
