@@ -17,37 +17,39 @@ import CoordinatePairInput from "./coordinate-pair-input";
 import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {LockedPointType, Range} from "@khanacademy/perseus";
 
-export type Props = AccordionProps &
-    LockedPointType & {
-        /**
-         * Optional label for the point to display in the header summary.
-         * Defaults to "Point".
-         */
-        label: string;
-        /**
-         * Whether the extra point settings are toggled open.
-         */
-        showPoint?: boolean;
-        /**
-         * Optional error message to display.
-         */
-        error?: string | null;
-        /**
-         * The range of the graph. Used to restrict the coordinates.
-         */
-        range?: [Range, Range];
-        /**
-         * Called when the extra settings toggle switch is changed.
-         */
-        onTogglePoint?: (newValue) => void;
-        /**
-         * Called when the props (coords, color, etc.) are updated.
-         */
-        onChangeProps: (newProps: Partial<LockedPointType>) => void;
-    };
+export type Props =
+    // Omit `onRemove` because defining points are not removable.
+    Omit<LockedFigureSettingsCommonProps, "onRemove"> &
+        LockedPointType & {
+            /**
+             * Optional label for the point to display in the header summary.
+             * Defaults to "Point".
+             */
+            label: string;
+            /**
+             * Whether the extra point settings are toggled open.
+             */
+            showPoint?: boolean;
+            /**
+             * Optional error message to display.
+             */
+            error?: string | null;
+            /**
+             * The range of the graph. Used to restrict the coordinates.
+             */
+            range?: [Range, Range];
+            /**
+             * Called when the extra settings toggle switch is changed.
+             */
+            onTogglePoint?: (newValue) => void;
+            /**
+             * Called when the props (coords, color, etc.) are updated.
+             */
+            onChangeProps: (newProps: Partial<LockedPointType>) => void;
+        };
 
 const DefiningPointSettings = (props: Props) => {
     const {

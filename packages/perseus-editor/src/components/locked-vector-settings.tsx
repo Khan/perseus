@@ -18,32 +18,16 @@ import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
     Coord,
-    LockedFigure,
     LockedFigureColor,
     LockedVectorType,
 } from "@khanacademy/perseus";
 
 const lengthErrorMessage = "The vector cannot have length 0.";
 
-export type Props = LockedVectorType &
-    AccordionProps & {
-        /**
-         * The range of the graph. Used to restrict the coordinates.
-         */
-        range: [Range, Range];
-        /**
-        /**
-         * Called when the delete button is pressed.
-         */
-        onRemove: () => void;
-        /**
-         * Called when the props (points, color, etc.) are updated.
-         */
-        onChangeProps: (newProps: Partial<LockedFigure>) => void;
-    };
+export type Props = LockedVectorType & LockedFigureSettingsCommonProps;
 
 const LockedVectorSettings = (props: Props) => {
     const {points, color: lineColor, range, onChangeProps, onRemove} = props;

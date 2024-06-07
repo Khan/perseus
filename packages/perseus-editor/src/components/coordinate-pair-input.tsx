@@ -18,8 +18,6 @@ type Props = {
 const CoordinatePairInput = (props: Props) => {
     const {coord, error, range, onChange} = props;
 
-    console.log("range", range);
-
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
     const [coordState, setCoordState] = React.useState([

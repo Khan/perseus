@@ -18,24 +18,10 @@ import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {AccordionProps} from "./locked-figure-settings";
-import type {LockedPointType, Range} from "@khanacademy/perseus";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {LockedPointType} from "@khanacademy/perseus";
 
-export type Props = AccordionProps &
-    LockedPointType & {
-        /**
-         * The range of the graph. Used to restrict the coordinates.
-         */
-        range: [Range, Range];
-        /**
-         * Called when the delete button is pressed.
-         */
-        onRemove: () => void;
-        /**
-         * Called when the props (coords, color, etc.) are updated.
-         */
-        onChangeProps: (newProps: Partial<LockedPointType>) => void;
-    };
+export type Props = LockedFigureSettingsCommonProps & LockedPointType;
 
 const LockedPointSettings = (props: Props) => {
     const {
