@@ -20,12 +20,17 @@ import type {
     LockedEllipseFillType,
     LockedEllipseType,
     LockedFigureColor,
+    Range,
 } from "@khanacademy/perseus";
 
 const {InfoTip} = components;
 
 export type Props = AccordionProps &
     LockedEllipseType & {
+        /**
+         * The range of the graph. Used to restrict the coordinates.
+         */
+        range: [Range, Range];
         /**
          * Called when the delete button is pressed.
          */
@@ -44,6 +49,7 @@ const LockedEllipseSettings = (props: Props) => {
         fillStyle,
         strokeStyle,
         expanded,
+        range,
         onToggle,
         onChangeProps,
         onRemove,
@@ -82,6 +88,13 @@ const LockedEllipseSettings = (props: Props) => {
         onChangeProps({color: newValue});
     }
 
+    // Allow the center of the circle to be moved outside the graph as
+    // long as the circle is still visible.
+    const offsetRange = [
+        [range[0][0] - radius, range[0][1] + radius],
+        [range[1][0] - radius, range[1][1] + radius],
+    ] satisfies [Range, Range];
+
     return (
         <LockedFigureSettingsAccordion
             expanded={expanded}
@@ -103,6 +116,7 @@ const LockedEllipseSettings = (props: Props) => {
             <View style={styles.row}>
                 <CoordinatePairInput
                     coord={center}
+                    range={offsetRange}
                     onChange={(newCoords: Coord) =>
                         onChangeProps({center: newCoords})
                     }

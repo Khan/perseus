@@ -6,10 +6,15 @@ import * as React from "react";
 import LockedEllipseSettings from "../locked-ellipse-settings";
 import {getDefaultFigureForType} from "../util";
 
+import type {Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
     ...getDefaultFigureForType("ellipse"),
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ] satisfies [Range, Range],
     onChangeProps: () => {},
     onRemove: () => {},
 };

@@ -31,6 +31,11 @@ const lengthErrorMessage = "The vector cannot have length 0.";
 export type Props = LockedVectorType &
     AccordionProps & {
         /**
+         * The range of the graph. Used to restrict the coordinates.
+         */
+        range: [Range, Range];
+        /**
+        /**
          * Called when the delete button is pressed.
          */
         onRemove: () => void;
@@ -41,7 +46,7 @@ export type Props = LockedVectorType &
     };
 
 const LockedVectorSettings = (props: Props) => {
-    const {points, color: lineColor, onChangeProps, onRemove} = props;
+    const {points, color: lineColor, range, onChangeProps, onRemove} = props;
     const [tail, tip] = points;
     const lineLabel = `Vector (${tail[0]}, ${tail[1]}), (${tip[0]}, ${tip[1]})`;
 
@@ -104,6 +109,7 @@ const LockedVectorSettings = (props: Props) => {
             >
                 <CoordinatePairInput
                     coord={tail}
+                    range={range}
                     error={isInvalid}
                     onChange={(newProps) => {
                         handleChangePoint(newProps, 0);
@@ -123,6 +129,7 @@ const LockedVectorSettings = (props: Props) => {
             >
                 <CoordinatePairInput
                     coord={tip}
+                    range={range}
                     error={isInvalid}
                     onChange={(newProps) => {
                         handleChangePoint(newProps, 1);
