@@ -24,7 +24,7 @@ const {HUD} = components;
 type Props = {
     apiOptions?: APIOptions;
     answerArea?: any; // related to the question,
-    // TODO(CP-4838): Should this be a required prop?
+    // TODO(CP-4838): Should this be a required prop
     contentPaths?: ReadonlyArray<string>;
     // "Power user" mode. Shows the raw JSON of the question.
     developerMode: boolean;
