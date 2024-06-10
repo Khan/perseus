@@ -49,7 +49,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
 
     return (
         <>
-            <Plot.OfX y={y} color={color.blue} />
+            <Plot.OfX y={y} color={color.red} />
             {coords.map((coord, i) => (
                 <StyledMovablePoint
                     key={"point-" + i}

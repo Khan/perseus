@@ -21,7 +21,7 @@ type Props = {
 export const StyledMovablePoint = (props: Props) => {
     const {snapStep} = useGraphConfig();
     const elementRef = useRef<SVGGElement>(null);
-    const {point, onMove, cursor, color = WBColor.blue} = props;
+    const {point, onMove, cursor, color = WBColor.red} = props;
 
     const {dragging} = useMovable({
         gestureTarget: elementRef,

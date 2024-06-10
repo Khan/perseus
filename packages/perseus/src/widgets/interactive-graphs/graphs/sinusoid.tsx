@@ -31,7 +31,7 @@ export function SinusoidGraph(props: SinusoidGraphProps) {
 
     return (
         <>
-            <Plot.OfX y={(x) => computeSine(x, coeffs)} color={color.blue} />
+            <Plot.OfX y={(x) => computeSine(x, coeffs)} color={color.red} />
             {coords.map((coord, i) => (
                 <StyledMovablePoint
                     key={"point-" + i}

@@ -40,7 +40,7 @@ export const MovablePointView = forwardRef(
         const {range, markings, showTooltips} = useGraphConfig();
         const {
             point,
-            color = WBColor.blue,
+            color = WBColor.red,
             dragging,
             focusBehavior,
             cursor,
@@ -50,7 +50,7 @@ export const MovablePointView = forwardRef(
         // Since the color in props is a hex value, a reverse lookup is needed.
         const wbColorName = (Object.entries(WBColor).find(
             ([_, value]) => value === color,
-        )?.[0] ?? "blue") as keyof typeof WBColor;
+        )?.[0] ?? "red") as keyof typeof WBColor;
 
         const pointClasses = `movable-point ${dragging ? "movable-point--dragging" : ""} ${focusClass(focusBehavior)}`;
 
