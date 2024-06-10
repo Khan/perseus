@@ -20,7 +20,7 @@ export const LinearSystemGraph = (props: LinearSystemGraphProps) => {
             {lines?.map((line, i) => (
                 <MovableLine
                     key={i}
-                    points={lines[i]}
+                    points={line}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i, delta));
                     }}

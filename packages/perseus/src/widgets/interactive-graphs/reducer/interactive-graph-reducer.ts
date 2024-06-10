@@ -111,6 +111,8 @@ function doMoveControlPoint(
     }
 }
 
+// (LEMS-2050): Update the reducer so that we have a separate action for moving one line
+// and another action for moving multiple lines
 function doMoveLine(
     state: InteractiveGraphState,
     action: MoveLine,

@@ -14,12 +14,14 @@ export const LinearGraph = (props: LinearGraphProps, key: number) => {
     const {coords: line} = props.graphState;
 
     // Linear graphs only have one line
+    // (LEMS-2050): Update the reducer so that we have a separate action for moving one line
+    // and another action for moving multiple lines
     return (
         <MovableLine
-            key={key}
+            key={0}
             points={line}
             onMoveLine={(delta: vec.Vector2) => {
-                dispatch(moveLine(key, delta));
+                dispatch(moveLine(0, delta));
             }}
             extend={{
                 start: true,
