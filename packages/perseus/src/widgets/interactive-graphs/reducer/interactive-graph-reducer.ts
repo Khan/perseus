@@ -458,10 +458,7 @@ function boundAndSnapToGrid(
 
 function boundAndSnapToAngle(
     destinationPoint: vec.Vector2,
-    {
-        range,
-        coords,
-    }: {snapStep: vec.Vector2; range: [Interval, Interval]; coords: Coord[]},
+    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
     index: number,
 ) {
     const startingPoint = coords[index];
