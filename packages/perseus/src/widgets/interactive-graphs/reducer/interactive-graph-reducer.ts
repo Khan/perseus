@@ -28,6 +28,7 @@ import {
 
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Interval} from "mafs";
+
 import {QuadraticCoords, getQuadraticCoefficients} from "../graphs/quadratic";
 
 export function interactiveGraphReducer(
