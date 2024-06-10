@@ -308,7 +308,22 @@ function doMoveRadiusPoint(
                 state.center[1],
             ];
 
-            if (_.isEqual(nextRadiusPoint, state.center)) {
+            // Needs to be updated to anything less than 1 radius get state returned
+            const xDifference = Math.pow(
+                state.center[0] - nextRadiusPoint[0],
+                2,
+            );
+            const yDifference = Math.pow(
+                state.center[1] - nextRadiusPoint[1],
+                2,
+            );
+
+            const distance = Math.sqrt(xDifference + yDifference);
+
+            if (
+                _.isEqual(nextRadiusPoint, state.center) ||
+                Math.abs(distance) < 1
+            ) {
                 return state;
             }
 
