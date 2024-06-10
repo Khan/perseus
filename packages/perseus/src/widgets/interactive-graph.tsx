@@ -2197,7 +2197,6 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getLinearEquationString(props: Props): string {
         const coords = InteractiveGraph.getLineCoords(props.graph, props);
-
         if (eq(coords[0][0], coords[1][0])) {
             return "x = " + coords[0][0].toFixed(3);
         }
@@ -2334,10 +2333,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         }
 
         const coords = InteractiveGraph.getLineCoords(props.graph, props);
-
         const a = coords[0];
         const b = coords[1];
-
         let eq = InteractiveGraph.getLinearEquationString(props);
 
         if (a[0] > b[0]) {
