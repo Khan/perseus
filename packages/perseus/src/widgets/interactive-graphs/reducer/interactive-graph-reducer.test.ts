@@ -369,7 +369,7 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([0, 1]);
     });
 
-    it("does not snap to grid when snapTo is angles", async () => {
+    it("does not snap to grid when snapTo is angles", () => {
         const state: InteractiveGraphState = {
             ...basePolygonGraphState,
             snapTo: "angles",
@@ -388,9 +388,27 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([0.3, 0]);
     });
 
-    it("rejects the move if it would cause sides of the polygon to intersect", () => {
+    it("rejects the move if it would cause sides of the polygon to intersect with grid snapping", () => {
         const state: InteractiveGraphState = {
             ...basePolygonGraphState,
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0, 0]);
+    });
+
+    it("rejects the move if it would cause sides of the polygon to intersect with angles snapping", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            snapTo: "angles",
             coords: [
                 [0, 0],
                 [0, 2],
