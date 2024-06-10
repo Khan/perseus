@@ -4,6 +4,7 @@ import {vec} from "mafs";
 import _ from "underscore";
 
 import {polygonSidesIntersect} from "../../../util/geometry";
+import {getQuadraticCoefficients} from "../graphs/quadratic";
 import {snap} from "../utils";
 
 import {
@@ -26,10 +27,9 @@ import {
     type ChangeRange,
 } from "./interactive-graph-action";
 
+import type {QuadraticCoords} from "../graphs/quadratic";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Interval} from "mafs";
-
-import {QuadraticCoords, getQuadraticCoefficients} from "../graphs/quadratic";
 
 export function interactiveGraphReducer(
     state: InteractiveGraphState,
