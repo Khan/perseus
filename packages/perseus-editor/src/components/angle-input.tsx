@@ -24,11 +24,9 @@ const AngleInput = (props: Props) => {
     const {angle, onChange} = props;
 
     const [angleInput, setAngleInput] = React.useState(angle.toString());
-    const [angleType, setAngleType] = React.useState<"degrees" | "radians">(
-        "radians",
-    );
+    const [isInDegrees, setIsInDegrees] = React.useState(false);
 
-    function handleAngleChange(newValue) {
+    function handleAngleChange(newValue, useDegrees = isInDegrees) {
         // Update the local state (update the input field value).
         setAngleInput(newValue);
 
@@ -37,7 +35,7 @@ const AngleInput = (props: Props) => {
             // Save the angle in radians.
             const evaluatedAngle = KAS.parse(newValue).expr.eval();
 
-            if (angleType === "degrees") {
+            if (useDegrees) {
                 onChange(degreeToRadian(evaluatedAngle));
             } else {
                 onChange(evaluatedAngle);
@@ -50,19 +48,11 @@ const AngleInput = (props: Props) => {
     }
 
     function handleAngleTypeChange() {
+        // Change the angle based on the new angle type.
+        handleAngleChange(angleInput, !isInDegrees);
+
         // Update the angle to the new type.
-        const evaluatedAngle = KAS.parse(angleInput).expr.eval();
-
-        if (angleType === "degrees") {
-            // Changed to radians, send the new value (already radian)
-            // to the graph.
-            onChange(evaluatedAngle);
-        } else {
-            // Changed to degrees, send the new radian value to on the graph.
-            onChange(degreeToRadian(evaluatedAngle));
-        }
-
-        setAngleType(angleType === "degrees" ? "radians" : "degrees");
+        setIsInDegrees((usingDegrees) => !usingDegrees);
     }
 
     return (
@@ -86,7 +76,7 @@ const AngleInput = (props: Props) => {
                 <View style={styles.switch}>
                     <Switch
                         onChange={handleAngleTypeChange}
-                        checked={angleType === "degrees"}
+                        checked={isInDegrees}
                     />
                 </View>
                 <LabelSmall>degrees</LabelSmall>
