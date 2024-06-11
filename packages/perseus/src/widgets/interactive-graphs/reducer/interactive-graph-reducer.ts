@@ -214,7 +214,8 @@ function doMoveAll(
                     break;
                 }
                 case "angles": {
-                    const change = getNoSnapChange(state.coords, action.delta, {
+                    const change = getChange(state.coords, action.delta, {
+                        snapStep: [0, 0],
                         range,
                     });
 
@@ -460,21 +461,6 @@ const getChange = (
     return [dx, dy];
 };
 
-const getNoSnapChange = (
-    coords: readonly vec.Vector2[],
-    delta: vec.Vector2,
-    constraintOpts: Omit<ConstraintArgs, "point" | "snapStep">,
-): vec.Vector2 => {
-    const maxMoves = coords.map((point: vec.Vector2) =>
-        maxNoSnapMove({...constraintOpts, point}),
-    );
-    const minMoves = coords.map((point: vec.Vector2) =>
-        minNoSnapMove({...constraintOpts, point}),
-    );
-    const [dx, dy] = getDeltaVertex(maxMoves, minMoves, delta);
-    return [dx, dy];
-};
-
 interface ConstraintArgs {
     snapStep: vec.Vector2;
     range: [Interval, Interval];
@@ -496,7 +482,8 @@ function boundAndSnapToAngle(
     const startingPoint = coords[index];
 
     // Takes the destination point and makes sure it is within the bounds of the graph
-    coords[index] = noSnapBound({range, point: destinationPoint});
+    // SnapStep is [0, 0] because we don't want to snap to the grid
+    coords[index] = bound({snapStep: [0, 0], range, point: destinationPoint});
 
     // Gets the radian angles between the coords and maps them to degrees
     const angles = angleMeasures(coords).map(
@@ -592,25 +579,6 @@ function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
 // Returns the vector from the given point to the bottom-left corner of the graph when snapped to the grid
 function minMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const bottomLeft = bound({snapStep, range, point: [-Infinity, -Infinity]});
-    return vec.sub(bottomLeft, point);
-}
-
-// Returns the vector from the given point to the top-right corner of the graph when snapped to angles or sides
-function maxNoSnapMove({
-    range,
-    point,
-}: Omit<ConstraintArgs, "snapStep">): vec.Vector2 {
-    const topRight = noSnapBound({range, point: [Infinity, Infinity]});
-    return vec.sub(topRight, point);
-}
-
-// Returns the vector from the given point to the bottom-left corner of the
-// graph when snapped to angles or sides
-function minNoSnapMove({
-    range,
-    point,
-}: Omit<ConstraintArgs, "snapStep">): vec.Vector2 {
-    const bottomLeft = noSnapBound({range, point: [-Infinity, -Infinity]});
     return vec.sub(bottomLeft, point);
 }
 
