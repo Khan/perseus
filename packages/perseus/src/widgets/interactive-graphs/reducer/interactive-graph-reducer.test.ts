@@ -404,7 +404,7 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([0, 0]);
     });
 
-    it("does not snap to grid when snapTo is angles", () => {
+    it("does not snap to grid when snapTo is angles using moveAll", () => {
         const state: InteractiveGraphState = {
             ...basePolygonGraphState,
             snapTo: "angles",
@@ -418,9 +418,33 @@ describe("movePoint on a polygon graph", () => {
 
         // Move all points less than a snapStep to show they are not snapping
         const updated = interactiveGraphReducer(state, moveAll([0.3, 0]));
-        console.log(updated);
+
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0.3, 0]);
+    });
+
+    // Since the graph is snapping to angles, example points to move must be very specific
+    it("does not snap to grid when snapTo is angles using movePoint", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            snapTo: "angles",
+            coords: [
+                [3.1788177497461882, -2.95030212474619],
+                [2.828427124746188, 2.828427124746188],
+                [-2.82842712474619, 2.828427124746188],
+                [-2.8284271247461916, -2.82842712474619],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            movePoint(0, [3.130341262927298, -2.932437813845241]),
+        );
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([
+            3.130341262927298, -2.932437813845241,
+        ]);
     });
 });
 
