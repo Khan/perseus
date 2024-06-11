@@ -23,13 +23,13 @@ export const StyledMovablePoint = (props: Props) => {
     const {snapStep} = useGraphConfig();
     const elementRef = useRef<SVGGElement>(null);
     const {point, onMove, cursor, color = WBColor.blue, snapTo} = props;
-
+    const snapToValue = snapTo ?? "grid";
     const {dragging} = useMovable({
         gestureTarget: elementRef,
         point,
         onMove,
         constrain: (p) =>
-            snapTo === "angles" || snapTo === "sides" ? p : snap(snapStep, p),
+            ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
     });
 
     return (
