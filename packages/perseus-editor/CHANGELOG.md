@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 6.9.0
+
+### Minor Changes
+
+-   [#1333](https://github.com/Khan/perseus/pull/1333) [`7ccb70c12`](https://github.com/Khan/perseus/commit/7ccb70c126a3ab54e5a4dc1264793ccb2577c913) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Remove m1 flag from the code, and put locked vector and locked ellipse UI behind the m2 flag.
+
+### Patch Changes
+
+-   Updated dependencies [[`7ccb70c12`](https://github.com/Khan/perseus/commit/7ccb70c126a3ab54e5a4dc1264793ccb2577c913)]:
+    -   @khanacademy/perseus@23.3.0
+
 ## 6.8.0
 
 ### Minor Changes
