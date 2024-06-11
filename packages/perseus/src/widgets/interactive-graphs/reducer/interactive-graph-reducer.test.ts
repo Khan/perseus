@@ -436,14 +436,11 @@ describe("movePoint on a polygon graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(
-            state,
-            movePoint(0, [3.130341262927298, -2.932437813845241]),
-        );
+        const updated = interactiveGraphReducer(state, movePoint(0, [3, -2]));
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([
-            3.130341262927298, -2.932437813845241,
+            2.997376981064699, -2.009663752902908,
         ]);
     });
 });
