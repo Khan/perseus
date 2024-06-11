@@ -188,3 +188,32 @@ export const WithLockedLines: StoryComponentType = {
         return <InteractiveGraphEditor {...state} onChange={dispatch} />;
     },
 };
+
+export const WithLockedEllipses: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            // Use locked figures with mafs only.
+            ...mafsOptions,
+            lockedFigures: [
+                {
+                    type: "ellipse",
+                    center: [0, 0],
+                    radius: [5, 2],
+                    angle: 0,
+                    color: "green",
+                    fillStyle: "translucent",
+                    strokeStyle: "solid",
+                },
+            ],
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
