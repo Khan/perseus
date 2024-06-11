@@ -16,6 +16,7 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
 
 export type InteractiveGraphState =
     | SegmentGraphState
+    | LinearSystemGraphState
     | LinearGraphState
     | RayGraphState
     | PolygonGraphState
@@ -38,7 +39,12 @@ export interface SegmentGraphState extends InteractiveGraphStateCommon {
 }
 
 export interface LinearGraphState extends InteractiveGraphStateCommon {
-    type: "linear" | "linear-system";
+    type: "linear";
+    coords: PairOfPoints;
+}
+
+export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
+    type: "linear-system";
     coords: PairOfPoints[];
 }
 
@@ -49,7 +55,7 @@ export interface PointGraphState extends InteractiveGraphStateCommon {
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
     type: "ray";
-    coords: PairOfPoints[];
+    coords: PairOfPoints;
 }
 
 export interface PolygonGraphState extends InteractiveGraphStateCommon {
