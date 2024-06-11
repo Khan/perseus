@@ -48,12 +48,12 @@ export const MovableLine = (props: Props) => {
     //   tab order for the entire page, which is not what we want.
     const {visiblePoint: visiblePoint1} = useControlPoint(
         start,
-        WBColor.red,
+        WBColor.blue,
         (p) => onMovePoint(0, p),
     );
     const {visiblePoint: visiblePoint2} = useControlPoint(
         end,
-        WBColor.red,
+        WBColor.blue,
         (p) => onMovePoint(1, p),
     );
 
