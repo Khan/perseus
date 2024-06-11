@@ -57,30 +57,33 @@ const AngleInput = (props: Props) => {
 
     return (
         <View style={[styles.row, styles.spaceUnder]}>
-            {/* Angle */}
+            {/* Label */}
             <LabelMedium tag="label">
                 <View style={styles.row}>
                     angle
                     <Strut size={spacing.xxSmall_6} />
                     <TextField
-                        id=""
                         value={angleInput}
                         onChange={handleAngleChange}
                         style={styles.textField}
                     />
                 </View>
             </LabelMedium>
+
+            {/* Spacing */}
             <Strut size={spacing.xxSmall_6} />
-            <View style={styles.row}>
-                <LabelSmall>radians</LabelSmall>
-                <View style={styles.switch}>
-                    <Switch
-                        onChange={handleAngleTypeChange}
-                        checked={isInDegrees}
-                    />
-                </View>
-                <LabelSmall>degrees</LabelSmall>
+
+            {/* Radian/Degree Toggle */}
+            <LabelSmall>radians</LabelSmall>
+            <View style={styles.switch}>
+                <Switch
+                    onChange={handleAngleTypeChange}
+                    checked={isInDegrees}
+                />
             </View>
+            <LabelSmall>degrees</LabelSmall>
+
+            {/* Info Tooltip */}
             <InfoTip>
                 <p>
                     The angle of rotation for the ellipse (if the x radius and y

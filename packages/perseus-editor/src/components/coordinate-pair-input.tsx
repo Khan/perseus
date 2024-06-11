@@ -1,4 +1,4 @@
-import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -26,12 +26,6 @@ const CoordinatePairInput = (props: Props) => {
         coord[1].toString(),
     ]);
 
-    // Generate unique IDs so that the programmatic labels can be associated
-    // with their respective text fields.
-    const ids = useUniqueIdWithMock();
-    const xCoordId = ids.get("x-coord");
-    const yCoordId = ids.get("y-coord");
-
     function handleCoordChange(newValue, coordIndex) {
         // Update the local state (update the input field value).
         const newCoordState = [...coordState];
@@ -53,41 +47,45 @@ const CoordinatePairInput = (props: Props) => {
     return (
         <View>
             <View style={[styles.row, styles.spaceUnder]}>
-                <LabelMedium
-                    htmlFor={xCoordId}
-                    style={styles.label}
-                    tag="label"
-                >
-                    {labels ? labels[0] : "x coord"}
+                <LabelMedium tag="label">
+                    <View style={styles.row}>
+                        {labels ? labels[0] : "x coord"}
+
+                        <Strut size={spacing.xxSmall_6} />
+                        <TextField
+                            type="number"
+                            value={coordState[0]}
+                            onChange={(newValue) =>
+                                handleCoordChange(newValue, 0)
+                            }
+                            style={[
+                                styles.textField,
+                                error ? styles.errorField : undefined,
+                            ]}
+                        />
+                    </View>
                 </LabelMedium>
-                <TextField
-                    id={xCoordId}
-                    type="number"
-                    value={coordState[0]}
-                    onChange={(newValue) => handleCoordChange(newValue, 0)}
-                    style={[
-                        styles.textField,
-                        error ? styles.errorField : undefined,
-                    ]}
-                />
+
                 <Strut size={spacing.medium_16} />
-                <LabelMedium
-                    htmlFor={yCoordId}
-                    style={styles.label}
-                    tag="label"
-                >
-                    {labels ? labels[1] : "y coord"}
+
+                <LabelMedium tag="label">
+                    <View style={styles.row}>
+                        {labels ? labels[1] : "y coord"}
+
+                        <Strut size={spacing.xxSmall_6} />
+                        <TextField
+                            type="number"
+                            value={coordState[1]}
+                            onChange={(newValue) =>
+                                handleCoordChange(newValue, 1)
+                            }
+                            style={[
+                                styles.textField,
+                                error ? styles.errorField : undefined,
+                            ]}
+                        />
+                    </View>
                 </LabelMedium>
-                <TextField
-                    id={yCoordId}
-                    type="number"
-                    value={coordState[1]}
-                    onChange={(newValue) => handleCoordChange(newValue, 1)}
-                    style={[
-                        styles.textField,
-                        error ? styles.errorField : undefined,
-                    ]}
-                />
             </View>
         </View>
     );
@@ -100,9 +98,6 @@ const styles = StyleSheet.create({
     },
     spaceUnder: {
         marginBottom: spacing.xSmall_8,
-    },
-    label: {
-        marginInlineEnd: spacing.xxSmall_6,
     },
     textField: {
         width: spacing.xxxLarge_64,
