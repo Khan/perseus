@@ -3,10 +3,28 @@ import * as React from "react";
 
 import NumericInputEditor from "../numeric-input-editor";
 
+
 type StoryArgs = Record<any, any>;
 
 type Story = {
     title: string;
+};
+type MathFormat =
+    | "integer"
+    | "mixed"
+    | "improper"
+    | "proper"
+    | "decimal"
+    | "percent"
+    | "pi";
+type PerseusNumericInputAnswer = {
+    message: string;
+    value: number;
+    status: string;
+    answerForms?: ReadonlyArray<MathFormat>;
+    strict: boolean;
+    maxError: number | null | undefined;
+    simplify: string | null | undefined;
 };
 
 export default {
@@ -15,4 +33,18 @@ export default {
 
 export const Default = (args: StoryArgs): React.ReactElement => {
     return <NumericInputEditor onChange={action("onChange")} />;
+};
+
+
+export const ControlledInputs = (args: StoryArgs): React.ReactElement => {
+    const [answers, setAnswers] = React.useState();
+
+    function handleChange(value) {
+        console.log(value);
+        if (value.answers) {
+            setAnswers(value.answers);
+        }
+    }
+
+    return <NumericInputEditor answers={answers} onChange={handleChange} />;
 };
