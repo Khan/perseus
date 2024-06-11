@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 23.2.0
+
+### Minor Changes
+
+-   [#1318](https://github.com/Khan/perseus/pull/1318) [`e5afe4b27`](https://github.com/Khan/perseus/commit/e5afe4b27be0d83c22b7129dfc566ae0998eac38) Thanks [@benchristel](https://github.com/benchristel)! - Change the cursor to a left-right arrow when the user hovers over the resize point of a circle on a Mafs interactive graph
+
+*   [#1320](https://github.com/Khan/perseus/pull/1320) [`676f6f400`](https://github.com/Khan/perseus/commit/676f6f4001b13001083827cc75a36d28a4b5fb3a) Thanks [@benchristel](https://github.com/benchristel)! - Prevent the sides of polygons on Mafs interactive graphs from crossing
+
+-   [#1321](https://github.com/Khan/perseus/pull/1321) [`6d9b9cbb3`](https://github.com/Khan/perseus/commit/6d9b9cbb3e59ac4185dc5fe78265c117a61d3851) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add ability to view a locked vector in Interactive Graph
+
+*   [#1326](https://github.com/Khan/perseus/pull/1326) [`322e7eaf7`](https://github.com/Khan/perseus/commit/322e7eaf769574e8fb046a81696b7e580d2ad0af) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Implement "Add locked ellipse" UI
+
+-   [#1332](https://github.com/Khan/perseus/pull/1332) [`f94d98468`](https://github.com/Khan/perseus/commit/f94d98468d2ee94cf6a83f43a39ed563249beee3) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Switch from locked circles to locked ellipses
+
+### Patch Changes
+
+-   [#1329](https://github.com/Khan/perseus/pull/1329) [`aaa3026ef`](https://github.com/Khan/perseus/commit/aaa3026ef3ba58d0adb059c1e9043af30c3e1b8b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensuring that Ray and Linear graphs have consistent types to solve bug crashing content editor.
+
+*   [#1324](https://github.com/Khan/perseus/pull/1324) [`f153e2924`](https://github.com/Khan/perseus/commit/f153e2924b057e1b6238bc41b83da5c7d1bb3d74) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where, after a page refresh, the interactive graph widget editor displayed the default interactive elements instead of the correct answer to the graph.
+
 ## 23.1.0
 
 ### Minor Changes

@@ -1,5 +1,26 @@
 # @khanacademy/perseus-editor
 
+## 6.8.0
+
+### Minor Changes
+
+-   [#1326](https://github.com/Khan/perseus/pull/1326) [`322e7eaf7`](https://github.com/Khan/perseus/commit/322e7eaf769574e8fb046a81696b7e580d2ad0af) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Implement "Add locked ellipse" UI
+
+*   [#1332](https://github.com/Khan/perseus/pull/1332) [`f94d98468`](https://github.com/Khan/perseus/commit/f94d98468d2ee94cf6a83f43a39ed563249beee3) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Switch from locked circles to locked ellipses
+
+### Patch Changes
+
+-   [#1329](https://github.com/Khan/perseus/pull/1329) [`aaa3026ef`](https://github.com/Khan/perseus/commit/aaa3026ef3ba58d0adb059c1e9043af30c3e1b8b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensuring that Ray and Linear graphs have consistent types to solve bug crashing content editor.
+
+*   [#1322](https://github.com/Khan/perseus/pull/1322) [`de6e421d9`](https://github.com/Khan/perseus/commit/de6e421d9e41a86c394fa836ec068f554af085d4) Thanks [@nishasy](https://github.com/nishasy)! - [Perseus Editor package] udpate Wonder Blocks Form dependency
+
+-   [#1321](https://github.com/Khan/perseus/pull/1321) [`6d9b9cbb3`](https://github.com/Khan/perseus/commit/6d9b9cbb3e59ac4185dc5fe78265c117a61d3851) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add ability to view a locked vector in Interactive Graph
+
+*   [#1327](https://github.com/Khan/perseus/pull/1327) [`bb8def7ab`](https://github.com/Khan/perseus/commit/bb8def7abe7009e37fd5d3f53d61a3ca23de903a) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add/Edit Locked Vector for Interactive Graph
+
+*   Updated dependencies [[`e5afe4b27`](https://github.com/Khan/perseus/commit/e5afe4b27be0d83c22b7129dfc566ae0998eac38), [`aaa3026ef`](https://github.com/Khan/perseus/commit/aaa3026ef3ba58d0adb059c1e9043af30c3e1b8b), [`676f6f400`](https://github.com/Khan/perseus/commit/676f6f4001b13001083827cc75a36d28a4b5fb3a), [`6d9b9cbb3`](https://github.com/Khan/perseus/commit/6d9b9cbb3e59ac4185dc5fe78265c117a61d3851), [`f153e2924`](https://github.com/Khan/perseus/commit/f153e2924b057e1b6238bc41b83da5c7d1bb3d74), [`322e7eaf7`](https://github.com/Khan/perseus/commit/322e7eaf769574e8fb046a81696b7e580d2ad0af), [`f94d98468`](https://github.com/Khan/perseus/commit/f94d98468d2ee94cf6a83f43a39ed563249beee3)]:
+    -   @khanacademy/perseus@23.2.0
+
 ## 6.7.0
 
 ### Minor Changes
