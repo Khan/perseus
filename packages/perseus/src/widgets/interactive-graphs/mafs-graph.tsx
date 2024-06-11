@@ -21,16 +21,14 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
+import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
     changeSnapStep,
     type InteractiveGraphAction,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
-import {
-    initializeGraphState,
-} from "./reducer/initialize-graph-state";
-import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state"
+import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";

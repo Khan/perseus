@@ -1,5 +1,4 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import type {Interval} from "mafs";
 import {vec} from "mafs";
 
 import {normalizeCoords, normalizePoints} from "../utils";
@@ -16,8 +15,9 @@ import type {
     PerseusGraphTypeSegment,
     PerseusGraphTypeSinusoid,
 } from "../../../perseus-types";
-import type {InteractiveGraphState, PairOfPoints,} from "../types";
+import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
+import type {Interval} from "mafs";
 
 export function initializeGraphState(params: {
     range: [x: Interval, y: Interval];
@@ -325,9 +325,10 @@ function getQuadraticCoords(
     return normalizePoints(range, step, defaultCoords, true);
 }
 
-function getCircleCoords(
-    graph: PerseusGraphTypeCircle,
-): {center: Coord; radiusPoint: Coord} {
+function getCircleCoords(graph: PerseusGraphTypeCircle): {
+    center: Coord;
+    radiusPoint: Coord;
+} {
     if (graph.center != null && graph.radius != null) {
         return {
             center: graph.center,

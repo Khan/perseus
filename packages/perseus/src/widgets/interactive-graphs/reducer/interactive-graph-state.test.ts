@@ -1,6 +1,7 @@
-import {InteractiveGraphState} from "../types";
-import {PerseusGraphType} from "@khanacademy/perseus";
 import {getGradableGraph} from "./interactive-graph-state";
+
+import type {InteractiveGraphState} from "../types";
+import type {PerseusGraphType} from "@khanacademy/perseus";
 
 describe("getGradableGraph", () => {
     /**

@@ -1,7 +1,7 @@
 // TS v4 doesn't narrow return types, while v5 does.
 // Instead of updating to v5, using generic type to relate input and output types.
-import {CircleGraphState, InteractiveGraphState} from "../types";
-import {PerseusGraphType} from "@khanacademy/perseus";
+import type {CircleGraphState, InteractiveGraphState} from "../types";
+import type {PerseusGraphType} from "@khanacademy/perseus";
 
 export function getGradableGraph(
     state: InteractiveGraphState,

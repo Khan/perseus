@@ -1,11 +1,8 @@
 import invariant from "tiny-invariant";
 
-import {
-    initializeGraphState,
-} from "./initialize-graph-state";
+import {initializeGraphState} from "./initialize-graph-state";
 
-import type {PerseusGraphType} from "../../../perseus-types";
-import type {InteractiveGraphProps, InteractiveGraphState} from "../types";
+import type {InteractiveGraphProps} from "../types";
 
 type BaseGraphData = {
     range: InteractiveGraphProps["range"];
