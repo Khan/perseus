@@ -12,6 +12,7 @@ import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
 
 import type {Interval} from "mafs";
+import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;
@@ -45,10 +46,16 @@ export const MovableLine = (props: Props) => {
     // - There isn't a browser-native way to customize tab order, other than
     //   setting tabindex > 0. But that bumps elements to the front of the
     //   tab order for the entire page, which is not what we want.
-    const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
-        useControlPoint(start, color, (p) => onMovePoint(0, p));
-    const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
-        useControlPoint(end, color, (p) => onMovePoint(1, p));
+    const {visiblePoint: visiblePoint1} = useControlPoint(
+        start,
+        WBColor.red,
+        (p) => onMovePoint(0, p),
+    );
+    const {visiblePoint: visiblePoint2} = useControlPoint(
+        end,
+        WBColor.red,
+        (p) => onMovePoint(1, p),
+    );
 
     const line = (
         <Line
@@ -62,10 +69,8 @@ export const MovableLine = (props: Props) => {
 
     return (
         <>
-            {focusableHandle1}
-            {line}
-            {focusableHandle2}
             {visiblePoint1}
+            {line}
             {visiblePoint2}
         </>
     );
@@ -94,27 +99,26 @@ function useControlPoint(
         constrain: (p) => snap(snapStep, p),
     });
 
-    const focusableHandle = (
+    // This fixes the blue dot thing in firefox, however it is messing with the focus of the element.
+    const visiblePoint = (
         <g
             data-testid="movable-point__focusable-handle"
             tabIndex={0}
             ref={keyboardHandleRef}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-        />
-    );
-    const visiblePoint = (
-        <MovablePointView
-            point={point}
-            dragging={dragging}
-            color={color}
-            ref={visiblePointRef}
-            focusBehavior={{type: "controlled", showFocusRing: focused}}
-        />
+        >
+            <MovablePointView
+                point={point}
+                dragging={dragging}
+                color={color}
+                ref={visiblePointRef}
+                focusBehavior={{type: "controlled", showFocusRing: focused}}
+            />
+        </g>
     );
 
     return {
-        focusableHandle,
         visiblePoint,
     };
 }
