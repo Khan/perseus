@@ -36,11 +36,10 @@ export const Default = (args: StoryArgs): React.ReactElement => {
 };
 
 
-export const ControlledInputs = (args: StoryArgs): React.ReactElement => {
+export const ControlledInputs = (): React.ReactElement => {
     const [answers, setAnswers] = React.useState();
 
     function handleChange(value) {
-        console.log(value);
         if (value.answers) {
             setAnswers(value.answers);
         }
