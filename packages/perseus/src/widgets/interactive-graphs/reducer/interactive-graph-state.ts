@@ -211,14 +211,14 @@ export function getGradableGraph(
     if (state.type === "linear" && initialGraph.type === "linear") {
         return {
             ...initialGraph,
-            coords: state.coords[0],
+            coords: state.coords,
         };
     }
 
     if (state.type === "ray" && initialGraph.type === "ray") {
         return {
             ...initialGraph,
-            coords: state.coords[0],
+            coords: state.coords,
         };
     }
 
@@ -332,12 +332,11 @@ const getLineCoords = ({
     graph,
     range,
     step,
-}: getLineCoordsArg): PairOfPoints[] => {
+}: getLineCoordsArg): PairOfPoints => {
     if (graph.coords) {
-        return [graph.coords];
+        return graph.coords;
     }
-
-    return [normalizePoints(range, step, defaultLinearCoords[0])];
+    return normalizePoints(range, step, defaultLinearCoords[0]);
 };
 
 type getLinearSystemCoordsArg = {

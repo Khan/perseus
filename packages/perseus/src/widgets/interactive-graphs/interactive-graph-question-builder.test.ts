@@ -204,7 +204,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
     it("adds a locked ellipse", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .addLockedEllipse([1, 2], 3)
+            .addLockedEllipse([1, 2], [3, 3])
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
@@ -212,7 +212,8 @@ describe("InteractiveGraphQuestionBuilder", () => {
             {
                 type: "ellipse",
                 center: [1, 2],
-                radius: 3,
+                radius: [3, 3],
+                angle: 0,
                 color: "grayH",
                 fillStyle: "none",
                 strokeStyle: "solid",
@@ -222,7 +223,8 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
     it("adds a locked ellipse with options", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .addLockedEllipse([1, 2], 3, {
+            .addLockedEllipse([1, 2], [3, 4], {
+                angle: Math.PI / 2,
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
@@ -234,7 +236,8 @@ describe("InteractiveGraphQuestionBuilder", () => {
             {
                 type: "ellipse",
                 center: [1, 2],
-                radius: 3,
+                radius: [3, 4],
+                angle: Math.PI / 2,
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",

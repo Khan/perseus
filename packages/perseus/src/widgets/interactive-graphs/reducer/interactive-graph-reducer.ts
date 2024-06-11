@@ -72,9 +72,7 @@ function doMoveControlPoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "segment":
-        case "linear":
-        case "linear-system":
-        case "ray": {
+        case "linear-system": {
             const newCoords = updateAtIndex({
                 array: state.coords,
                 index: action.itemIndex,
@@ -96,6 +94,20 @@ function doMoveControlPoint(
                 coords: newCoords,
             };
         }
+        case "linear":
+        case "ray": {
+            const newCoords = setAtIndex({
+                array: state.coords,
+                index: action.pointIndex,
+                newValue: boundAndSnapToGrid(action.destination, state),
+            });
+
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: newCoords,
+            };
+        }
         case "circle":
             throw new Error("FIXME implement circle reducer");
         case "point":
@@ -110,6 +122,8 @@ function doMoveControlPoint(
     }
 }
 
+// (LEMS-2050): Update the reducer so that we have a separate action for moving one line
+// and another action for moving multiple lines
 function doMoveLine(
     state: InteractiveGraphState,
     action: MoveLine,
@@ -117,9 +131,7 @@ function doMoveLine(
     const {snapStep, range} = state;
     switch (state.type) {
         case "segment":
-        case "linear":
-        case "linear-system":
-        case "ray": {
+        case "linear-system": {
             if (action.itemIndex === undefined) {
                 throw new Error("Please provide index of line to move");
             }
@@ -148,6 +160,26 @@ function doMoveLine(
                 type: state.type,
                 hasBeenInteractedWith: true,
                 coords: newCoords,
+            };
+        }
+        case "linear":
+        case "ray": {
+            const currentLine = state.coords;
+            const change = getChange(currentLine, action.delta, {
+                snapStep,
+                range,
+            });
+
+            const newLine: PairOfPoints = [
+                snap(snapStep, vec.add(currentLine[0], change)),
+                snap(snapStep, vec.add(currentLine[1], change)),
+            ];
+
+            return {
+                ...state,
+                type: state.type,
+                hasBeenInteractedWith: true,
+                coords: newLine,
             };
         }
         default:

@@ -2033,18 +2033,20 @@ export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7)
         .addLockedLine([-7, -5], [2, -3])
-        .addLockedEllipse([0, 5], 2)
+        .addLockedEllipse([0, 5], [2, 2])
         .build();
 
 export const segmentWithLockedEllipses: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedEllipse([0, 0], 5)
-        .addLockedEllipse([-5, 5], 2, {
+        .addLockedEllipse([0, 0], [5, 5])
+        .addLockedEllipse([-5, 5], [2, 3], {
+            angle: (3 * Math.PI) / 4,
             color: "green",
             fillStyle: "solid",
             strokeStyle: "solid",
         })
-        .addLockedEllipse([5, 5], 2, {
+        .addLockedEllipse([5, 5], [2, 3], {
+            angle: Math.PI / 4,
             color: "green",
             fillStyle: "translucent",
             strokeStyle: "dashed",
