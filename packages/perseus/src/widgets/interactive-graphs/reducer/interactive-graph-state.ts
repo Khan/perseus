@@ -1,5 +1,3 @@
-// TS v4 doesn't narrow return types, while v5 does.
-// Instead of updating to v5, using generic type to relate input and output types.
 import type {CircleGraphState, InteractiveGraphState} from "../types";
 import type {PerseusGraphType} from "@khanacademy/perseus";
 
