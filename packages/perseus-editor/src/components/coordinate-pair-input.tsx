@@ -55,15 +55,16 @@ const CoordinatePairInput = (props: Props) => {
                     <TextField
                         type="number"
                         value={coordState[0]}
-                        min={range ? range[0][0] : undefined}
-                        max={range ? range[0][1] : undefined}
-                        onChange={(newValue) => handleCoordChange(newValue, 0)}
+                        onChange={(newValue) =>
+                            handleCoordChange(newValue, 0)
+                        }
                         style={[
                             styles.textField,
                             error ? styles.errorField : undefined,
                         ]}
                     />
                 </LabelMedium>
+
                 <Strut size={spacing.medium_16} />
 
                 <LabelMedium tag="label" style={styles.row}>
@@ -73,9 +74,9 @@ const CoordinatePairInput = (props: Props) => {
                     <TextField
                         type="number"
                         value={coordState[1]}
-                        min={range ? range[1][0] : undefined}
-                        max={range ? range[1][1] : undefined}
-                        onChange={(newValue) => handleCoordChange(newValue, 1)}
+                        onChange={(newValue) =>
+                            handleCoordChange(newValue, 1)
+                        }
                         style={[
                             styles.textField,
                             error ? styles.errorField : undefined,
