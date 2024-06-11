@@ -32,6 +32,7 @@ export const Controlled: StoryComponentType = {
 
         return (
             <LockedFiguresSection
+                showM2Features={true}
                 figures={figures}
                 onChange={handlePropsUpdate}
             />
@@ -53,6 +54,7 @@ export const WithProdWidth: StoryComponentType = {
         return (
             <View style={styles.prodSizeContainer}>
                 <LockedFiguresSection
+                    showM2Features={true}
                     figures={figures}
                     onChange={handlePropsUpdate}
                 />
