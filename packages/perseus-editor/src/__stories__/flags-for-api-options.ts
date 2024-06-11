@@ -9,7 +9,6 @@ export const flags = {
         linear: true,
         "linear-system": true,
         ray: true,
-        "interactive-graph-locked-features-m1": true,
         "interactive-graph-locked-features-m2": true,
     },
 } satisfies APIOptions["flags"];
