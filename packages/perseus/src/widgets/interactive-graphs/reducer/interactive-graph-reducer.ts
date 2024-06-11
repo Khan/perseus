@@ -563,13 +563,6 @@ function bound({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     ];
 }
 
-// Required for graphs that snap to angles or sides
-function noSnapBound({range, point}): vec.Vector2 {
-    const [requestedX, requestedY] = point;
-    const [[minX, maxX], [minY, maxY]] = range;
-    return [clamp(requestedX, minX, maxX), clamp(requestedY, minY, maxY)];
-}
-
 // Returns the vector from the given point to the top-right corner of the graph when snapped to the grid
 function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const topRight = bound({snapStep, range, point: [Infinity, Infinity]});
