@@ -17,6 +17,7 @@ interface Props {
     active: boolean;
     range: [Interval, Interval];
     showAngles: boolean;
+    snapTo: "grid" | "angles" | "sides";
 }
 
 export const Angle = ({
@@ -25,6 +26,7 @@ export const Angle = ({
     range,
     polygonLines,
     showAngles,
+    snapTo,
 }: Props) => {
     const [centerX, centerY] = centerPoint;
     const areClockwise = clockwise([centerPoint, ...endPoints]);
@@ -82,7 +84,9 @@ export const Angle = ({
         angleInDegrees = 360 - angleInDegrees;
     }
 
-    const angleLabelNumber = parseFloat(angleInDegrees.toFixed(1));
+    const angleLabelNumber = parseFloat(
+        angleInDegrees.toFixed(snapTo === "angles" ? 0 : 1),
+    );
     const angleLabel = Number.isInteger(angleLabelNumber)
         ? angleLabelNumber
         : "≈ " + angleLabelNumber;

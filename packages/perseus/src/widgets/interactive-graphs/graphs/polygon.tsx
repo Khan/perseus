@@ -69,6 +69,7 @@ export const PolygonGraph = (props: Props) => {
                         range={range}
                         polygonLines={lines}
                         showAngles={!!showAngles}
+                        snapTo={snapToValue}
                     />
                 );
             })}
