@@ -69,11 +69,13 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+            - name: Install node_modules (without cache)
+              run: yarn install --frozen-lockfile
+            # - name: Install & cache node_modules
+            #   uses: ./.github/actions/shared-node-cache
+            #   with:
+            #       node-version: ${{ matrix.node-version }}
+            #       ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Get All Changed Files
               uses: Khan/actions@get-changed-files-v2
