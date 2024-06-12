@@ -106,6 +106,31 @@ describe("InteractiveGraphQuestionBuilder", () => {
         );
     });
 
+    it("creates a polygon graph", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withPolygon("grid")
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "polygon", snapTo: "grid"},
+                correct: {
+                    type: "polygon",
+                    numSides: 4,
+                    showAngles: true,
+                    showSides: true,
+                    snapTo: "grid",
+                    coords: [
+                        [-1, 2],
+                        [3, 4],
+                        [1, -2],
+                        [-3, 0],
+                    ],
+                },
+            }),
+        );
+    });
+
     it("adds a locked point", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedPointAt(3, 5)

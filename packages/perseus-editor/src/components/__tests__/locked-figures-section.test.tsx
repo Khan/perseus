@@ -6,8 +6,13 @@ import * as React from "react";
 import LockedFiguresSection from "../locked-figures-section";
 import {getDefaultFigureForType} from "../util";
 
+import type {Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
 
+const defaultRange = [
+    [-10, 10],
+    [-10, 10],
+] satisfies [Range, Range];
 const defaultFigures = [
     getDefaultFigureForType("point"),
     getDefaultFigureForType("line"),
@@ -41,7 +46,11 @@ describe("LockedFiguresSection", () => {
     test("renders", () => {
         // Arrange, Act
         render(
-            <LockedFiguresSection showM2Features={true} onChange={jest.fn()} />,
+            <LockedFiguresSection
+                showM2Features={true}
+                range={defaultRange}
+                onChange={jest.fn()}
+            />,
             {
                 wrapper: RenderStateRoot,
             },
@@ -54,7 +63,11 @@ describe("LockedFiguresSection", () => {
     test("renders no expand/collapse button when there are no figures", () => {
         // Arrange, Act
         render(
-            <LockedFiguresSection showM2Features={true} onChange={jest.fn()} />,
+            <LockedFiguresSection
+                showM2Features={true}
+                range={defaultRange}
+                onChange={jest.fn()}
+            />,
             {
                 wrapper: RenderStateRoot,
             },
@@ -69,6 +82,7 @@ describe("LockedFiguresSection", () => {
         // Arrange, Act
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={defaultFigures}
                 showM2Features={true}
                 onChange={jest.fn()}
@@ -91,6 +105,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={defaultFigures}
                 showM2Features={true}
                 onChange={jest.fn()}
@@ -115,6 +130,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={defaultFigures}
                 showM2Features={true}
                 onChange={jest.fn()}
@@ -145,6 +161,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 figures={defaultFigures}
                 showM2Features={true}
                 onChange={jest.fn()}
@@ -181,6 +198,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 showM2Features={true}
+                range={defaultRange}
                 figures={defaultFigures}
                 onChange={jest.fn()}
             />,
@@ -206,6 +224,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                range={defaultRange}
                 showM2Features={true}
                 figures={[
                     getDefaultFigureForType("point"),

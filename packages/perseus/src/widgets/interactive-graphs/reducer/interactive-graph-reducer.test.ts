@@ -8,6 +8,7 @@ import {
     changeRange,
     moveCenter,
     moveRadiusPoint,
+    moveAll,
 } from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
@@ -62,11 +63,27 @@ const baseSinusoidGraphState: InteractiveGraphState = {
     ],
 };
 
+const baseQuadraticGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "quadratic",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [-1, 1],
+        [0, 0],
+        [1, 1],
+    ],
+};
+
 const basePolygonGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "polygon",
     showAngles: false,
     showSides: false,
+    snapTo: "grid",
     range: [
         [-10, 10],
         [-10, 10],
@@ -367,7 +384,7 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([0, 1]);
     });
 
-    it("rejects the move if it would cause sides of the polygon to intersect", () => {
+    it("rejects the move if it would cause sides of the polygon to intersect with grid snapping", () => {
         const state: InteractiveGraphState = {
             ...basePolygonGraphState,
             coords: [
@@ -382,6 +399,94 @@ describe("movePoint on a polygon graph", () => {
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0, 0]);
+    });
+
+    it("rejects the move if it would cause sides of the polygon to intersect with angles snapping", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            snapTo: "angles",
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0, 0]);
+    });
+
+    it("does not snap to grid when snapTo is angles using moveAll", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            snapTo: "angles",
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        // Move all points less than a snapStep to show they are not snapping
+        const updated = interactiveGraphReducer(state, moveAll([0.3, 0]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0.3, 0]);
+    });
+
+    // Since the graph is snapping to angles, example points to move must be very specific
+    it("does not snap to grid when snapTo is angles using movePoint", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            snapTo: "angles",
+            coords: [
+                [3.1788177497461882, -2.95030212474619],
+                [2.828427124746188, 2.828427124746188],
+                [-2.82842712474619, 2.828427124746188],
+                [-2.8284271247461916, -2.82842712474619],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [3, -2]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([
+            2.997376981064699, -2.009663752902908,
+        ]);
+    });
+});
+
+describe("movePoint on a quadratic graph", () => {
+    it("moves a point", () => {
+        const state: InteractiveGraphState = baseQuadraticGraphState;
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [-2, 4]));
+
+        invariant(updated.type === "quadratic");
+        expect(updated.coords[0]).toEqual([-2, 4]);
+    });
+
+    it("rejects the move if when new coordinates would invalidate the graph", () => {
+        const state: InteractiveGraphState = {
+            ...baseQuadraticGraphState,
+            coords: [
+                [-5, 5],
+                [0, -5],
+                [5, 5],
+            ],
+        };
+
+        // An invalid graph happens when the denominator is 0 and are unable to calculate
+        // quadratic coefficients as they hit infinity.
+        // For more details see the getQuadraticCoefficients function that performs this calculation.
+        const updated = interactiveGraphReducer(state, movePoint(0, [0, 0]));
+
+        invariant(updated.type === "quadratic");
+        expect(updated.coords[0]).toEqual([-5, 5]);
     });
 });
 

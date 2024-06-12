@@ -6,6 +6,7 @@ export const flags = {
         circle: true,
         quadratic: true,
         sinusoid: true,
+        polygon: true,
         linear: true,
         "linear-system": true,
         ray: true,

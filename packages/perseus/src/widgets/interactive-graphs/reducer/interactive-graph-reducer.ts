@@ -3,7 +3,18 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import {polygonSidesIntersect} from "../../../util/geometry";
+import Util from "../../../util";
+import {
+    angleMeasures,
+    ccw,
+    magnitude,
+    polygonSidesIntersect,
+    sign,
+    vector,
+} from "../../../util/geometry";
+import GraphUtils from "../../../util/graph-utils";
+import {polar} from "../../../util/graphie";
+import {getQuadraticCoefficients} from "../graphs/quadratic";
 import {snap} from "../utils";
 
 import {
@@ -26,7 +37,9 @@ import {
     type ChangeRange,
 } from "./interactive-graph-action";
 
+import type {QuadraticCoords} from "../graphs/quadratic";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
+import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
 
 export function interactiveGraphReducer(
@@ -185,15 +198,37 @@ function doMoveAll(
     const {snapStep, range} = state;
     switch (state.type) {
         case "polygon": {
-            const change = getChange(state.coords, action.delta, {
-                snapStep,
-                range,
-            });
+            let newCoords: vec.Vector2[];
+            switch (state.snapTo) {
+                // TODO(LEMS-1902): Implement sides snapping for polygons
+                case "grid":
+                case undefined:
+                case "sides": {
+                    const change = getChange(state.coords, action.delta, {
+                        snapStep,
+                        range,
+                    });
 
-            const newCoords = state.coords.map((point: vec.Vector2) =>
-                snap(snapStep, vec.add(point, change)),
-            );
+                    newCoords = state.coords.map((point: vec.Vector2) =>
+                        snap(snapStep, vec.add(point, change)),
+                    );
 
+                    break;
+                }
+                case "angles": {
+                    const change = getChange(state.coords, action.delta, {
+                        snapStep: [0, 0],
+                        range,
+                    });
+
+                    newCoords = state.coords.map((point: vec.Vector2) =>
+                        vec.add(point, change),
+                    );
+                    break;
+                }
+                default:
+                    throw new Error(`Unknown snapTo: ${state.snapTo}`);
+            }
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -215,7 +250,14 @@ function doMovePoint(
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.index,
-                newValue: boundAndSnapToGrid(action.destination, state),
+                newValue:
+                    state.snapTo === "grid"
+                        ? boundAndSnapToGrid(action.destination, state)
+                        : boundAndSnapToAngle(
+                              action.destination,
+                              state,
+                              action.index,
+                          ),
             });
 
             // Reject the move if it would cause the sides of the polygon to cross
@@ -259,6 +301,16 @@ function doMovePoint(
             };
         }
         case "quadratic": {
+            // Set up the new coords and check if the quadratic coefficients are valid
+            const newCoords: QuadraticCoords = [...state.coords];
+            newCoords[action.index] = action.destination;
+            const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
+
+            // If the new destination results in an invalid quadratic equation, we don't want to move the point
+            if (QuadraticCoefficients === undefined) {
+                return state;
+            }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
@@ -391,24 +443,33 @@ function doChangeRange(
     };
 }
 
-const getChange = (
-    coords: readonly vec.Vector2[],
+const getDeltaVertex = (
+    maxMoves: vec.Vector2[],
+    minMoves: vec.Vector2[],
     delta: vec.Vector2,
-    constraintOpts: Omit<ConstraintArgs, "point">,
 ): vec.Vector2 => {
     const [deltaX, deltaY] = delta;
-    const maxMoves = coords.map((point: vec.Vector2) =>
-        maxMove({...constraintOpts, point}),
-    );
-    const minMoves = coords.map((point: vec.Vector2) =>
-        minMove({...constraintOpts, point}),
-    );
     const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
     const maxYMove = Math.min(...maxMoves.map((move) => move[1]));
     const minXMove = Math.max(...minMoves.map((move) => move[0]));
     const minYMove = Math.max(...minMoves.map((move) => move[1]));
     const dx = clamp(deltaX, minXMove, maxXMove);
     const dy = clamp(deltaY, minYMove, maxYMove);
+    return [dx, dy];
+};
+
+const getChange = (
+    coords: readonly vec.Vector2[],
+    delta: vec.Vector2,
+    constraintOpts: Omit<ConstraintArgs, "point">,
+): vec.Vector2 => {
+    const maxMoves = coords.map((point: vec.Vector2) =>
+        maxMove({...constraintOpts, point}),
+    );
+    const minMoves = coords.map((point: vec.Vector2) =>
+        minMove({...constraintOpts, point}),
+    );
+    const [dx, dy] = getDeltaVertex(maxMoves, minMoves, delta);
     return [dx, dy];
 };
 
@@ -425,6 +486,83 @@ function boundAndSnapToGrid(
     return snap(snapStep, bound({snapStep, range, point}));
 }
 
+function boundAndSnapToAngle(
+    destinationPoint: vec.Vector2,
+    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
+    index: number,
+) {
+    const startingPoint = coords[index];
+
+    // Takes the destination point and makes sure it is within the bounds of the graph
+    // SnapStep is [0, 0] because we don't want to snap to the grid
+    coords[index] = bound({snapStep: [0, 0], range, point: destinationPoint});
+
+    // Gets the radian angles between the coords and maps them to degrees
+    const angles = angleMeasures(coords).map(
+        (angle) => (angle * 180) / Math.PI,
+    );
+
+    // Gets the relative index of a point
+    const rel = (j): number => {
+        return (index + j + coords.length) % coords.length;
+    };
+
+    // Round the angles to left and right of the current point
+    _.each([-1, 1], function (j) {
+        angles[rel(j)] = Math.round(angles[rel(j)]);
+    });
+
+    const getAngle = function (a: number, vertex, b: number) {
+        const angle = GraphUtils.findAngle(
+            coords[rel(a)],
+            coords[rel(b)],
+            coords[rel(vertex)],
+        );
+        return (angle + 360) % 360;
+    };
+
+    const innerAngles = [
+        angles[rel(-1)] - getAngle(-2, -1, 1),
+        angles[rel(1)] - getAngle(-1, 1, 2),
+    ];
+    innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
+
+    const eq = Util.eq;
+
+    // Less than or approximately equal
+    function leq(a: any, b) {
+        return a < b || eq(a, b);
+    }
+
+    // Avoid degenerate triangles
+    if (
+        innerAngles.some(function (angle) {
+            return leq(angle, 1);
+        })
+    ) {
+        return startingPoint;
+    }
+
+    const knownSide = magnitude(
+        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
+        vector(coords[rel(-1)], coords[rel(1)]),
+    );
+
+    const onLeft =
+        sign(ccw(coords[rel(-1)], coords[rel(1)], coords[index])) === 1;
+
+    // Solve for side by using the law of sines
+    const side =
+        (Math.sin((innerAngles[1] * Math.PI) / 180) /
+            Math.sin((innerAngles[2] * Math.PI) / 180)) *
+        knownSide;
+
+    const outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
+
+    const offset = polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
+    return kvector.add(coords[rel(-1)], offset);
+}
+
 // Returns the closest point to the given `point` that is within the graph
 // bounds given in `state`.
 function bound({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
@@ -437,14 +575,13 @@ function bound({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     ];
 }
 
-// Returns the vector from the given point to the top-right corner of the graph
+// Returns the vector from the given point to the top-right corner of the graph when snapped to the grid
 function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const topRight = bound({snapStep, range, point: [Infinity, Infinity]});
     return vec.sub(topRight, point);
 }
 
-// Returns the vector from the given point to the bottom-left corner of the
-// graph
+// Returns the vector from the given point to the bottom-left corner of the graph when snapped to the grid
 function minMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const bottomLeft = bound({snapStep, range, point: [-Infinity, -Infinity]});
     return vec.sub(bottomLeft, point);

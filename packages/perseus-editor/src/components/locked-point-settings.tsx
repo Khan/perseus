@@ -18,26 +18,17 @@ import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {LockedPointType} from "@khanacademy/perseus";
 
-export type Props = AccordionProps &
-    LockedPointType & {
-        /**
-         * Called when the delete button is pressed.
-         */
-        onRemove: () => void;
-        /**
-         * Called when the props (coords, color, etc.) are updated.
-         */
-        onChangeProps: (newProps: Partial<LockedPointType>) => void;
-    };
+export type Props = LockedFigureSettingsCommonProps & LockedPointType;
 
 const LockedPointSettings = (props: Props) => {
     const {
         coord,
         color: pointColor,
         filled = true,
+        range,
         onChangeProps,
         onRemove,
     } = props;
@@ -61,6 +52,7 @@ const LockedPointSettings = (props: Props) => {
         >
             <CoordinatePairInput
                 coord={coord}
+                range={range}
                 onChange={(newCoord) => {
                     onChangeProps({coord: newCoord});
                 }}
