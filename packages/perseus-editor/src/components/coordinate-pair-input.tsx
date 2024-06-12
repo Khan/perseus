@@ -47,8 +47,8 @@ const CoordinatePairInput = (props: Props) => {
         const xOutOfRange = coord[0] < range[0][0] || coord[0] > range[0][1];
         const yOutOfRange = coord[1] < range[1][0] || coord[1] > range[1][1];
 
-        const xRangeError = `${labels[0]} out of range ${range[0][0]} to ${range[0][1]}`;
-        const yRangeError = `${labels[1]} out of range ${range[1][0]} to ${range[1][1]}`;
+        const xRangeError = `${labels[0]} out of range (${range[0][0]} to ${range[0][1]})`;
+        const yRangeError = `${labels[1]} out of range (${range[1][0]} to ${range[1][1]})`;
 
         setXRangeError(xOutOfRange ? xRangeError : null);
         setYRangeError(yOutOfRange ? yRangeError : null);

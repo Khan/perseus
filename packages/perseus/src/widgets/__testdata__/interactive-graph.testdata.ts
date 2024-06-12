@@ -2034,6 +2034,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
         .addLockedPointAt(-7, -7)
         .addLockedLine([-7, -5], [2, -3])
         .addLockedEllipse([0, 5], [2, 2])
+        .addLockedVector([0, 0], [8, 2], "pink")
         .build();
 
 export const segmentWithLockedEllipses: PerseusRenderer =
