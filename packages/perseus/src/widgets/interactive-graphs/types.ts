@@ -62,6 +62,7 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     type: "polygon";
     showAngles: boolean;
     showSides: boolean;
+    snapTo: "grid" | "angles" | "sides";
     coords: Coord[];
 }
 
