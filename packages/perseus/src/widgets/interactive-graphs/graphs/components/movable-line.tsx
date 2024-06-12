@@ -69,8 +69,8 @@ export const MovableLine = (props: Props) => {
 
     return (
         <>
-            {visiblePoint1}
             {line}
+            {visiblePoint1}
             {visiblePoint2}
         </>
     );
@@ -82,7 +82,6 @@ function useControlPoint(
     onMovePoint: (newPoint: vec.Vector2) => unknown,
 ) {
     const {snapStep} = useGraphConfig();
-    const [focused, setFocused] = useState(false);
     const keyboardHandleRef = useRef<SVGGElement>(null);
     useMovable({
         gestureTarget: keyboardHandleRef,
@@ -101,21 +100,13 @@ function useControlPoint(
 
     // This fixes the blue dot thing in firefox, however it is messing with the focus of the element.
     const visiblePoint = (
-        <g
-            data-testid="movable-point__focusable-handle"
-            tabIndex={0}
-            ref={keyboardHandleRef}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-        >
-            <MovablePointView
-                point={point}
-                dragging={dragging}
-                color={color}
-                ref={visiblePointRef}
-                focusBehavior={{type: "controlled", showFocusRing: focused}}
-            />
-        </g>
+        <MovablePointView
+            point={point}
+            dragging={dragging}
+            color={color}
+            ref={visiblePointRef}
+            focusBehavior={{type: "uncontrolled", tabIndex: 0}}
+        />
     );
 
     return {
