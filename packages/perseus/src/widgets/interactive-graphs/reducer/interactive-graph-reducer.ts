@@ -3,6 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
+import Util from "../../../util";
 import {
     angleMeasures,
     ccw,
@@ -488,6 +489,13 @@ interface ConstraintArgs {
     point: vec.Vector2;
 }
 
+const eq = Util.eq;
+
+// Less than or approximately equal
+function leq(a: any, b) {
+    return a < b || eq(a, b);
+}
+
 function boundAndSnapToGrid(
     point: vec.Vector2,
     {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
@@ -500,6 +508,7 @@ function boundAndSnapToAngle(
     {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
     index: number,
 ) {
+    const startingPoint = coords[index];
     const coordsCopy = [...coords];
 
     // Takes the destination point and makes sure it is within the bounds of the graph
@@ -540,6 +549,15 @@ function boundAndSnapToAngle(
     ];
     innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
 
+    // Avoid degenerate triangles
+    if (
+        innerAngles.some(function (angle) {
+            return leq(angle, 1);
+        })
+    ) {
+        return startingPoint;
+    }
+
     const knownSide = magnitude(
         // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
         vector(coordsCopy[rel(-1)], coordsCopy[rel(1)]),
@@ -570,6 +588,7 @@ function boundAndSnapToSides(
     {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
     index: number,
 ) {
+    const startingPoint = coords[index];
     const coordsCopy = [...coords];
 
     // Takes the destination point and makes sure it is within the bounds of the graph
@@ -599,6 +618,15 @@ function boundAndSnapToSides(
     _.each([0, 1], function (j) {
         sides[j] = Math.round(sides[j]);
     });
+
+    // Avoid degenerate triangles
+    if (
+        leq(sides[1] + sides[2], sides[0]) ||
+        leq(sides[0] + sides[2], sides[1]) ||
+        leq(sides[0] + sides[1], sides[2])
+    ) {
+        return startingPoint;
+    }
 
     // Solve for angle by using the law of cosines
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
