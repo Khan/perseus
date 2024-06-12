@@ -45,6 +45,9 @@ const LockedEllipseSettings = (props: Props) => {
         onChangeProps({color: newValue});
     }
 
+    const maxXRadius = range[0][1] - range[0][0];
+    const maxYRadius = range[1][1] - range[1][0];
+
     return (
         <LockedFigureSettingsAccordion
             expanded={expanded}
@@ -82,6 +85,12 @@ const LockedEllipseSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={radius}
                 labels={["x radius", "y radius"]}
+                // Don't allow the radius to be so big that the ellipse is
+                // no longer visible on the graph.
+                range={[
+                    [0, maxXRadius],
+                    [0, maxYRadius],
+                ]}
                 onChange={(newCoords: Coord) =>
                     onChangeProps({radius: newCoords})
                 }

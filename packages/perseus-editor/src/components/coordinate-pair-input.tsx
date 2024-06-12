@@ -17,18 +17,18 @@ type Props = {
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, error, range, onChange} = props;
-    const labels = [
-        props.labels ? props.labels[0] : "x coord",
-        props.labels ? props.labels[1] : "y coord",
-    ];
+    const {
+        coord,
+        labels = ["x coord", "y coord"],
+        error,
+        range,
+        onChange,
+    } = props;
 
-    const [rangeError, setRangeError] = React.useState<Array<string | null>>([
-        null,
-        null,
-    ]);
+    const [xRangeError, setXRangeError] = React.useState<string | null>(null);
+    const [yRangeError, setYRangeError] = React.useState<string | null>(null);
 
-    const hasError = [error || rangeError[0], error || rangeError[1]];
+    const hasError = [error || xRangeError, error || yRangeError];
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -50,13 +50,9 @@ const CoordinatePairInput = (props: Props) => {
         const xRangeError = `${labels[0]} out of range ${range[0][0]} to ${range[0][1]}`;
         const yRangeError = `${labels[1]} out of range ${range[1][0]} to ${range[1][1]}`;
 
-        // Set an error if the coords are out of range.
-        const newRangeError = [
-            (xOutOfRange ? xRangeError : null),
-            (yOutOfRange ? yRangeError : null),
-        ];
-        setRangeError(newRangeError);
-    }, [range, coord]);
+        setXRangeError(xOutOfRange ? xRangeError : null);
+        setYRangeError(yOutOfRange ? yRangeError : null);
+    }, [coord, labels, range]);
 
     function handleCoordChange(newValue, coordIndex) {
         // Update the local state (update the input field value).
@@ -78,22 +74,19 @@ const CoordinatePairInput = (props: Props) => {
 
     return (
         <View>
-            {(rangeError[0] || rangeError[1]) && (
-                <View style={styles.spaceUnder}>
-                    {rangeError.map((error, index) => {
-                        if (error) {
-                            return (
-                                <LabelMedium
-                                    key={index}
-                                    style={styles.errorText}
-                                >
-                                    {error}
-                                </LabelMedium>
-                            );
-                        }
-                    })}
-                </View>
+            {/* Errors */}
+            {xRangeError && (
+                <LabelMedium style={styles.errorText}>
+                    {xRangeError}
+                </LabelMedium>
             )}
+            {yRangeError && (
+                <LabelMedium style={styles.errorText}>
+                    {yRangeError}
+                </LabelMedium>
+            )}
+
+            {/* Coordinate input fields */}
             <View style={[styles.row, styles.spaceUnder]}>
                 <LabelMedium tag="label" style={styles.row}>
                     {labels[0]}
@@ -153,7 +146,7 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: wbColor.red,
-        marginTop: spacing.xxSmall_6,
+        marginBottom: spacing.xSmall_8,
     },
     errorField: {
         borderColor: wbColor.red,
