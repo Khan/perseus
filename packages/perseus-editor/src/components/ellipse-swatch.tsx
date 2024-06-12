@@ -50,14 +50,14 @@ const styles = StyleSheet.create({
         // the dropdown option is highlighted with its blue background.
         outline: `2px solid ${wbColor.offWhite}`,
         borderRadius: "50%",
-        width: spacing.large_24,
+        width: spacing.xLarge_32,
         height: spacing.large_24,
         backgroundColor: wbColor.white,
         alignItems: "center",
         justifyContent: "center",
     },
     innerCircle: {
-        width: 20,
+        width: 28,
         height: 20,
         borderRadius: "50%",
     },

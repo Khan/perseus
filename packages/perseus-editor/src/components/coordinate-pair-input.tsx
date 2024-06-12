@@ -6,16 +6,18 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {Coord} from "@khanacademy/perseus";
+import type {Range, Coord} from "@khanacademy/perseus";
 
 type Props = {
     coord: [number, number];
+    labels?: [string, string];
+    range?: [Range, Range];
     error?: boolean;
     onChange: (newCoord: Coord) => void;
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, error, onChange} = props;
+    const {coord, labels, error, range, onChange} = props;
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -57,12 +59,14 @@ const CoordinatePairInput = (props: Props) => {
                     style={styles.label}
                     tag="label"
                 >
-                    x coord
+                    {labels ? labels[0] : "x coord"}
                 </LabelMedium>
                 <TextField
                     id={xCoordId}
                     type="number"
                     value={coordState[0]}
+                    min={range ? range[0][0] : undefined}
+                    max={range ? range[0][1] : undefined}
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
                     style={[
                         styles.textField,
@@ -75,12 +79,14 @@ const CoordinatePairInput = (props: Props) => {
                     style={styles.label}
                     tag="label"
                 >
-                    y coord
+                    {labels ? labels[1] : "y coord"}
                 </LabelMedium>
                 <TextField
                     id={yCoordId}
                     type="number"
                     value={coordState[1]}
+                    min={range ? range[1][0] : undefined}
+                    max={range ? range[1][1] : undefined}
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
                     style={[
                         styles.textField,

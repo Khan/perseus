@@ -325,6 +325,30 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect(onChangeMock).not.toBeCalled();
             },
         );
+
+        test("Range is restricted to the graph", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPoint],
+                range: [
+                    [-11, 20],
+                    [-15, 5],
+                ],
+            });
+
+            // Act
+            const xCoordInput = screen.getAllByRole("spinbutton")[0];
+            const yCoordInput = screen.getAllByRole("spinbutton")[1];
+
+            // Assert
+            expect(xCoordInput).toHaveAttribute("min", "-11");
+            expect(xCoordInput).toHaveAttribute("max", "20");
+            expect(yCoordInput).toHaveAttribute("min", "-15");
+            expect(yCoordInput).toHaveAttribute("max", "5");
+        });
     });
 
     describe("lines", () => {
@@ -567,6 +591,37 @@ describe("InteractiveGraphEditor locked figures", () => {
                 }),
             );
         });
+
+        test("Range is restricted to the graph", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultLine],
+                range: [
+                    [-11, 20],
+                    [-15, 5],
+                ],
+            });
+
+            // Act
+            const point1XCoordInput = screen.getAllByRole("spinbutton")[0];
+            const point1YCoordInput = screen.getAllByRole("spinbutton")[1];
+            const point2XCoordInput = screen.getAllByRole("spinbutton")[2];
+            const point2YCoordInput = screen.getAllByRole("spinbutton")[3];
+
+            // Assert
+            expect(point1XCoordInput).toHaveAttribute("min", "-11");
+            expect(point1XCoordInput).toHaveAttribute("max", "20");
+            expect(point1YCoordInput).toHaveAttribute("min", "-15");
+            expect(point1YCoordInput).toHaveAttribute("max", "5");
+
+            expect(point2XCoordInput).toHaveAttribute("min", "-11");
+            expect(point2XCoordInput).toHaveAttribute("max", "20");
+            expect(point2YCoordInput).toHaveAttribute("min", "-15");
+            expect(point2YCoordInput).toHaveAttribute("max", "5");
+        });
     });
 
     describe("ellipses", () => {
@@ -626,7 +681,43 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked ellipse's radius is changed", async () => {
+        // Test both x and y radius changes
+        test.each`
+            coord
+            ${"x"}
+            ${"y"}
+        `(
+            "Calls onChange when a locked ellipse's $coord radius is changed",
+            async ({coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [getDefaultFigureForType("ellipse")],
+                });
+
+                // Act
+                const radiusInput = screen.getByLabelText(`${coord} radius`);
+                await userEvent.clear(radiusInput);
+                await userEvent.type(radiusInput, "5");
+                await userEvent.tab();
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [
+                            expect.objectContaining({
+                                type: "ellipse",
+                                radius: coord === "x" ? [5, 1] : [1, 5],
+                            }),
+                        ],
+                    }),
+                );
+            },
+        );
+
+        test("Calls onChange when a locked ellipse's angle is changed (radians)", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -636,9 +727,9 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const radiusInput = screen.getByLabelText("radius");
-            await userEvent.clear(radiusInput);
-            await userEvent.type(radiusInput, "5");
+            const angleInput = screen.getByLabelText("angle");
+            await userEvent.clear(angleInput);
+            await userEvent.type(angleInput, "1");
             await userEvent.tab();
 
             // Assert
@@ -647,7 +738,39 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             type: "ellipse",
-                            radius: 5,
+                            angle: 1,
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a locked ellipse's angle is changed (degrees)", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType("ellipse")],
+            });
+
+            // Act
+            // Switch to degrees first
+            const angleUnitsSwitch = screen.getByRole("switch");
+            await userEvent.click(angleUnitsSwitch);
+
+            const angleInput = screen.getByLabelText("angle");
+            await userEvent.clear(angleInput);
+            await userEvent.type(angleInput, "90");
+            await userEvent.tab();
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "ellipse",
+                            angle: Math.PI / 2,
                         }),
                     ],
                 }),

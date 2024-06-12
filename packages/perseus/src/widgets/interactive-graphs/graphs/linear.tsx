@@ -9,36 +9,28 @@ import type {vec} from "mafs";
 
 type LinearGraphProps = MafsGraphProps<LinearGraphState>;
 
-export const LinearGraph = (props: LinearGraphProps) => {
+export const LinearGraph = (props: LinearGraphProps, key: number) => {
     const {dispatch} = props;
-    const {coords: lines} = props.graphState;
+    const {coords: line} = props.graphState;
 
-    const colors = ["var(--movable-line-stroke-color)", "var(--mafs-violet)"];
-
+    // Linear graphs only have one line
+    // (LEMS-2050): Update the reducer so that we have a separate action for moving one line
+    // and another action for moving multiple lines
     return (
-        <>
-            {lines?.map((line, i) => (
-                <MovableLine
-                    key={i}
-                    points={line}
-                    onMoveLine={(delta: vec.Vector2) => {
-                        dispatch(moveLine(i, delta));
-                    }}
-                    extend={{
-                        start: true,
-                        end: true,
-                    }}
-                    onMovePoint={(
-                        endpointIndex: number,
-                        destination: vec.Vector2,
-                    ) =>
-                        dispatch(
-                            moveControlPoint(endpointIndex, destination, i),
-                        )
-                    }
-                    color={colors[i]}
-                />
-            ))}
-        </>
+        <MovableLine
+            key={0}
+            points={line}
+            onMoveLine={(delta: vec.Vector2) => {
+                dispatch(moveLine(0, delta));
+            }}
+            extend={{
+                start: true,
+                end: true,
+            }}
+            onMovePoint={(endpointIndex: number, destination: vec.Vector2) =>
+                dispatch(moveControlPoint(endpointIndex, destination, 0))
+            }
+            color="var(--movable-line-stroke-color)"
+        />
     );
 };

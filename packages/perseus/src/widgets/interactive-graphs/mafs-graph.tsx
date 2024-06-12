@@ -8,6 +8,7 @@ import AxisLabels from "./axis-labels";
 import GraphLockedLayer from "./graph-locked-layer";
 import {
     LinearGraph,
+    LinearSystemGraph,
     PolygonGraph,
     RayGraph,
     SegmentGraph,
@@ -20,17 +21,14 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
+import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
     changeSnapStep,
     type InteractiveGraphAction,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
-import {
-    getGradableGraph,
-    getRadius,
-    initializeGraphState,
-} from "./reducer/interactive-graph-state";
+import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
@@ -69,8 +67,9 @@ const renderGraph = (props: {
     switch (type) {
         case "segment":
             return <SegmentGraph graphState={state} dispatch={dispatch} />;
-        case "linear":
         case "linear-system":
+            return <LinearSystemGraph graphState={state} dispatch={dispatch} />;
+        case "linear":
             return <LinearGraph graphState={state} dispatch={dispatch} />;
         case "ray":
             return <RayGraph graphState={state} dispatch={dispatch} />;

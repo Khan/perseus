@@ -3,6 +3,7 @@ import * as React from "react";
 import LockedVectorSettings from "../locked-vector-settings";
 import {getDefaultFigureForType} from "../util";
 
+import type {Range} from "@khanacademy/perseus";
 import type {Meta, StoryObj} from "@storybook/react";
 
 export default {
@@ -27,6 +28,10 @@ export const Expanded: StoryComponentType = {
     render: function Render() {
         const [props, setProps] = React.useState({
             ...getDefaultFigureForType("vector"),
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ] satisfies [Range, Range],
             onRemove: () => {},
         });
 
@@ -56,6 +61,10 @@ export const WithInvalidPoints: StoryComponentType = {
     render: function Render() {
         const [props, setProps] = React.useState({
             ...getDefaultFigureForType("vector"),
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ] satisfies [Range, Range],
             onRemove: () => {},
         });
 

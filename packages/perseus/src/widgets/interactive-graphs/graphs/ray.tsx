@@ -11,16 +11,16 @@ type Props = MafsGraphProps<RayGraphState>;
 
 export const RayGraph = (props: Props) => {
     const {dispatch} = props;
-    const {coords: lines} = props.graphState;
+    const {coords: line} = props.graphState;
 
     const handleMoveLine = (delta: vec.Vector2) => dispatch(moveLine(0, delta));
     const handleMovePoint = (pointIndex: number, newPoint: vec.Vector2) =>
         dispatch(moveControlPoint(pointIndex, newPoint, 0));
 
+    // Ray graphs only have one line
     return (
         <MovableLine
-            // a ray only has one line
-            points={lines[0]}
+            points={line}
             onMoveLine={handleMoveLine}
             onMovePoint={handleMovePoint}
             extend={{

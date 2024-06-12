@@ -84,7 +84,8 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             return {
                 type: "ellipse",
                 center: [0, 0],
-                radius: 1,
+                radius: [1, 1],
+                angle: 0,
                 color: DEFAULT_COLOR,
                 fillStyle: "none",
                 strokeStyle: "solid",
