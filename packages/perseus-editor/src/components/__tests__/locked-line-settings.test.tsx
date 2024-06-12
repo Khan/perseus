@@ -6,10 +6,15 @@ import * as React from "react";
 import LockedLineSettings from "../locked-line-settings";
 import {getDefaultFigureForType} from "../util";
 
+import type {Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
     ...getDefaultFigureForType("line"),
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ] satisfies [Range, Range],
     onChangeProps: () => {},
     onRemove: () => {},
 };

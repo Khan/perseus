@@ -63,6 +63,21 @@ const baseSinusoidGraphState: InteractiveGraphState = {
     ],
 };
 
+const baseQuadraticGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "quadratic",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [-1, 1],
+        [0, 0],
+        [1, 1],
+    ],
+};
+
 const basePolygonGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "polygon",
@@ -500,6 +515,36 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([
             3.1344697042830383, -2.1621978801515374,
         ]);
+    });
+});
+
+describe("movePoint on a quadratic graph", () => {
+    it("moves a point", () => {
+        const state: InteractiveGraphState = baseQuadraticGraphState;
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [-2, 4]));
+
+        invariant(updated.type === "quadratic");
+        expect(updated.coords[0]).toEqual([-2, 4]);
+    });
+
+    it("rejects the move if when new coordinates would invalidate the graph", () => {
+        const state: InteractiveGraphState = {
+            ...baseQuadraticGraphState,
+            coords: [
+                [-5, 5],
+                [0, -5],
+                [5, 5],
+            ],
+        };
+
+        // An invalid graph happens when the denominator is 0 and are unable to calculate
+        // quadratic coefficients as they hit infinity.
+        // For more details see the getQuadraticCoefficients function that performs this calculation.
+        const updated = interactiveGraphReducer(state, movePoint(0, [0, 0]));
+
+        invariant(updated.type === "quadratic");
+        expect(updated.coords[0]).toEqual([-5, 5]);
     });
 });
 

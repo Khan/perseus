@@ -14,6 +14,7 @@ import {
 } from "../../../util/geometry";
 import GraphUtils from "../../../util/graph-utils";
 import {polar} from "../../../util/graphie";
+import {getQuadraticCoefficients} from "../graphs/quadratic";
 import {snap} from "../utils";
 
 import {
@@ -36,6 +37,7 @@ import {
     type ChangeRange,
 } from "./interactive-graph-action";
 
+import type {QuadraticCoords} from "../graphs/quadratic";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
@@ -308,6 +310,16 @@ function doMovePoint(
             };
         }
         case "quadratic": {
+            // Set up the new coords and check if the quadratic coefficients are valid
+            const newCoords: QuadraticCoords = [...state.coords];
+            newCoords[action.index] = action.destination;
+            const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
+
+            // If the new destination results in an invalid quadratic equation, we don't want to move the point
+            if (QuadraticCoefficients === undefined) {
+                return state;
+            }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
