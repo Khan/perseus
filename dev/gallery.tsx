@@ -34,6 +34,7 @@ const questions: [PerseusRenderer, number][] = pairWithIndices([
     interactiveGraph.polygonWithAnglesQuestion,
     interactiveGraph.polygonWithAnglesAndManySidesQuestion,
     interactiveGraph.polygonWithAnglesAndFourSidesQuestion,
+    interactiveGraph.polygonWithFourSidesQuestion,
     interactiveGraph.polygonWithAnglesAndAnglesSnapToQuestion,
     interactiveGraph.rayQuestion,
     interactiveGraph.sinusoidQuestion,
