@@ -488,20 +488,24 @@ function boundAndSnapToAngle(
     {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
     index: number,
 ) {
-    const startingPoint = coords[index];
+    const coordsCopy = [...coords];
 
     // Takes the destination point and makes sure it is within the bounds of the graph
     // SnapStep is [0, 0] because we don't want to snap to the grid
-    coords[index] = bound({snapStep: [0, 0], range, point: destinationPoint});
+    coordsCopy[index] = bound({
+        snapStep: [0, 0],
+        range,
+        point: destinationPoint,
+    });
 
     // Gets the radian angles between the coords and maps them to degrees
-    const angles = angleMeasures(coords).map(
+    const angles = angleMeasures(coordsCopy).map(
         (angle) => (angle * 180) / Math.PI,
     );
 
     // Gets the relative index of a point
     const rel = (j): number => {
-        return (index + j + coords.length) % coords.length;
+        return (index + j + coordsCopy.length) % coordsCopy.length;
     };
 
     // Round the angles to left and right of the current point
@@ -511,9 +515,9 @@ function boundAndSnapToAngle(
 
     const getAngle = function (a: number, vertex, b: number) {
         const angle = GraphUtils.findAngle(
-            coords[rel(a)],
-            coords[rel(b)],
-            coords[rel(vertex)],
+            coordsCopy[rel(a)],
+            coordsCopy[rel(b)],
+            coordsCopy[rel(vertex)],
         );
         return (angle + 360) % 360;
     };
@@ -526,11 +530,13 @@ function boundAndSnapToAngle(
 
     const knownSide = magnitude(
         // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
-        vector(coords[rel(-1)], coords[rel(1)]),
+        vector(coordsCopy[rel(-1)], coordsCopy[rel(1)]),
     );
 
     const onLeft =
-        sign(ccw(coords[rel(-1)], coords[rel(1)], coords[index])) === 1;
+        sign(
+            ccw(coordsCopy[rel(-1)], coordsCopy[rel(1)], coordsCopy[index]),
+        ) === 1;
 
     // Solve for side by using the law of sines
     const side =
@@ -538,10 +544,15 @@ function boundAndSnapToAngle(
             Math.sin((innerAngles[2] * Math.PI) / 180)) *
         knownSide;
 
-    const outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
+    const outerAngle = GraphUtils.findAngle(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
 
     const offset = polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
-    return kvector.add(coords[rel(-1)], offset);
+    return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
+}
+
 function boundAndSnapToSides(
     destinationPoint: vec.Vector2,
     {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
