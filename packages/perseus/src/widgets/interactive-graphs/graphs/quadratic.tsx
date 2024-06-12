@@ -33,10 +33,6 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     // Calculate the y value based on the current x value
     const y = (x) => (a * x + b) * x + c;
 
-    const handleOnMove = (destination: vec.Vector2, elementId: number) => {
-        dispatch(movePoint(elementId, destination));
-    };
-
     return (
         <>
             <Plot.OfX y={y} color={color.blue} />
@@ -44,7 +40,9 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
                 <StyledMovablePoint
                     key={"point-" + i}
                     point={coord}
-                    onMove={(destination) => handleOnMove(destination, i)}
+                    onMove={(destination) =>
+                        dispatch(movePoint(i, destination))
+                    }
                 />
             ))}
         </>

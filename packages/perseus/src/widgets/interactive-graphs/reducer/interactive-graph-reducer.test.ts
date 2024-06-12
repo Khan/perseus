@@ -420,6 +420,9 @@ describe("movePoint on a quadratic graph", () => {
             ],
         };
 
+        // An invalid graph happens when the denominator is 0 and are unable to calculate
+        // quadratic coefficients as they hit infinity.
+        // For more details see the getQuadraticCoefficients function that performs this calculation.
         const updated = interactiveGraphReducer(state, movePoint(0, [0, 0]));
 
         invariant(updated.type === "quadratic");
