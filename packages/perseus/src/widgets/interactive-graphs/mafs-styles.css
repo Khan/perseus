@@ -145,6 +145,14 @@
     );
 }
 
+/**
+ * This is needed because empty elements with focus will still have the focus outline
+ * when navigating via keyboard, causing weird blue dots to appear in Firefox.
+ */
+.MafsView .movable-point__focusable-handle:focus-visible {
+    outline: none;
+}
+
 .MafsView
     .movable-point:is(:focus-visible, .movable-point--focus)
     .movable-point-focus-outline {
