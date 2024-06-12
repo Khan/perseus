@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: wbColor.red,
+        marginTop: spacing.xSmall_8,
     },
 });
 

@@ -17,7 +17,16 @@ type Props = {
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, labels, error, range, onChange} = props;
+    const {coord, error, range, onChange} = props;
+    const [rangeError, setRangeError] = React.useState<Array<string | null>>([
+        null,
+        null,
+    ]);
+
+    const labels = [
+        props.labels ? props.labels[0] : "x coord",
+        props.labels ? props.labels[1] : "y coord",
+    ];
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -45,16 +54,49 @@ const CoordinatePairInput = (props: Props) => {
         onChange(newCoords);
     }
 
+    function validateRange(value, index) {
+        if (range && (+value < range[index][0] || +value > range[index][1])) {
+            return `${labels[index]} outside of range ${range[index][0]} to ${range[index][1]}`;
+        }
+        return null;
+    }
+
+    function onValidate(error, index) {
+        const newRangeError = [...rangeError];
+        newRangeError[index] = error;
+        setRangeError(newRangeError);
+    }
+
     return (
         <View>
+            {(rangeError[0] || rangeError[1]) && (
+                <View style={styles.spaceUnder}>
+                    {rangeError.map((error, index) => {
+                        if (error) {
+                            return (
+                                <LabelMedium
+                                    key={index}
+                                    style={styles.errorText}
+                                >
+                                    {error}
+                                </LabelMedium>
+                            );
+                        }
+                    })}
+                </View>
+            )}
             <View style={[styles.row, styles.spaceUnder]}>
                 <LabelMedium tag="label" style={styles.row}>
-                    {labels ? labels[0] : "x coord"}
+                    {labels[0]}
 
                     <Strut size={spacing.xxSmall_6} />
                     <TextField
                         type="number"
                         value={coordState[0]}
+                        min={range ? range[0][0] : undefined}
+                        max={range ? range[0][1] : undefined}
+                        validate={(value) => validateRange(value, 0)}
+                        onValidate={(error) => onValidate(error, 0)}
                         onChange={(newValue) =>
                             handleCoordChange(newValue, 0)
                         }
@@ -68,12 +110,16 @@ const CoordinatePairInput = (props: Props) => {
                 <Strut size={spacing.medium_16} />
 
                 <LabelMedium tag="label" style={styles.row}>
-                    {labels ? labels[1] : "y coord"}
+                    {labels[1]}
 
                     <Strut size={spacing.xxSmall_6} />
                     <TextField
                         type="number"
                         value={coordState[1]}
+                        min={range ? range[1][0] : undefined}
+                        max={range ? range[1][1] : undefined}
+                        validate={(value) => validateRange(value, 1)}
+                        onValidate={(error) => onValidate(error, 1)}
                         onChange={(newValue) =>
                             handleCoordChange(newValue, 1)
                         }
@@ -99,6 +145,10 @@ const styles = StyleSheet.create({
     },
     textField: {
         width: spacing.xxxLarge_64,
+    },
+    errorText: {
+        color: wbColor.red,
+        marginTop: spacing.xxSmall_6,
     },
     errorField: {
         borderColor: wbColor.red,
