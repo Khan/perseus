@@ -47,9 +47,15 @@ const LockedFigureSettings = (props: Props) => {
         case "line":
             return <LockedLineSettings {...props} />;
         case "ellipse":
-            return <LockedEllipseSettings {...props} />;
+            if (props.showM2Features) {
+                return <LockedEllipseSettings {...props} />;
+            }
+            break;
         case "vector":
-            return <LockedVectorSettings {...props} />;
+            if (props.showM2Features) {
+                return <LockedVectorSettings {...props} />;
+            }
+            break;
     }
 
     return null;

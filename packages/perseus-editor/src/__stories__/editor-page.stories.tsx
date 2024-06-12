@@ -75,7 +75,60 @@ export const Demo = (): React.ReactElement => {
     );
 };
 
-export const MafsWithLockedFigures = (): React.ReactElement => {
+export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
+    const [previewDevice, setPreviewDevice] =
+        React.useState<DeviceType>("phone");
+    const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
+    const [answerArea, setAnswerArea] = React.useState<
+        PerseusAnswerArea | undefined | null
+    >();
+    const [question, setQuestion] = React.useState<PerseusRenderer | undefined>(
+        segmentWithLockedFigures,
+    );
+    const [hints, setHints] = React.useState<ReadonlyArray<Hint> | undefined>();
+
+    return (
+        <EditorPage
+            apiOptions={{
+                isMobile: false,
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-m2": false,
+                    },
+                },
+            }}
+            previewDevice={previewDevice}
+            onPreviewDeviceChange={(newDevice) => setPreviewDevice(newDevice)}
+            developerMode={true}
+            jsonMode={jsonMode}
+            answerArea={answerArea}
+            question={question}
+            hints={hints}
+            frameSource="about:blank"
+            previewURL="about:blank"
+            itemId="1"
+            onChange={(props) => {
+                onChangeAction(props);
+
+                if ("jsonMode" in props) {
+                    setJsonMode(props.jsonMode);
+                }
+                if ("answerArea" in props) {
+                    setAnswerArea(props.answerArea);
+                }
+                if ("question" in props) {
+                    setQuestion(props.question);
+                }
+                if ("hints" in props) {
+                    setHints(props.hints);
+                }
+            }}
+        />
+    );
+};
+
+export const MafsWithLockedFiguresM2Flag = (): React.ReactElement => {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
     const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
