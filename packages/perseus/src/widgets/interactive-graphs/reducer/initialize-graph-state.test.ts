@@ -328,7 +328,7 @@ describe("initializeGraphState for circle graphs", () => {
 
         invariant(graph.type === "circle");
         expect(graph.center).toEqual([0, 0]);
-        expect(graph.radiusPoint).toEqual([1, 0]);
+        expect(graph.radiusPoint).toEqual([2, 0]);
     });
 });
 
