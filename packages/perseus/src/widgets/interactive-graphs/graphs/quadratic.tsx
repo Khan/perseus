@@ -7,7 +7,6 @@ import {movePoint} from "../reducer/interactive-graph-action";
 import {StyledMovablePoint} from "./components/movable-point";
 
 import type {QuadraticGraphState, MafsGraphProps} from "../types";
-import type {vec} from "mafs";
 
 type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 type QuadraticCoefficient = [number, number, number];
