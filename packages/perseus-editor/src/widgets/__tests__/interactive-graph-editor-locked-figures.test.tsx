@@ -681,7 +681,43 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked ellipse's radius is changed", async () => {
+        // Test both x and y radius changes
+        test.each`
+            coord
+            ${"x"}
+            ${"y"}
+        `(
+            "Calls onChange when a locked ellipse's $coord radius is changed",
+            async ({coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [getDefaultFigureForType("ellipse")],
+                });
+
+                // Act
+                const radiusInput = screen.getByLabelText(`${coord} radius`);
+                await userEvent.clear(radiusInput);
+                await userEvent.type(radiusInput, "5");
+                await userEvent.tab();
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [
+                            expect.objectContaining({
+                                type: "ellipse",
+                                radius: coord === "x" ? [5, 1] : [1, 5],
+                            }),
+                        ],
+                    }),
+                );
+            },
+        );
+
+        test("Calls onChange when a locked ellipse's angle is changed (radians)", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -691,9 +727,9 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const radiusInput = screen.getByLabelText("radius");
-            await userEvent.clear(radiusInput);
-            await userEvent.type(radiusInput, "5");
+            const angleInput = screen.getByLabelText("angle");
+            await userEvent.clear(angleInput);
+            await userEvent.type(angleInput, "1");
             await userEvent.tab();
 
             // Assert
@@ -702,7 +738,39 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             type: "ellipse",
-                            radius: 5,
+                            angle: 1,
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a locked ellipse's angle is changed (degrees)", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [getDefaultFigureForType("ellipse")],
+            });
+
+            // Act
+            // Switch to degrees first
+            const angleUnitsSwitch = screen.getByRole("switch");
+            await userEvent.click(angleUnitsSwitch);
+
+            const angleInput = screen.getByLabelText("angle");
+            await userEvent.clear(angleInput);
+            await userEvent.type(angleInput, "90");
+            await userEvent.tab();
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "ellipse",
+                            angle: Math.PI / 2,
                         }),
                     ],
                 }),

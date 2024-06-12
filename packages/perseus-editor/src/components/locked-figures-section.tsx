@@ -21,7 +21,7 @@ import type {Interval} from "mafs";
 type Props = {
     // Whether to show the M2 features in the locked figure settings.
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
-    showM2Features?: boolean;
+    showM2Features: boolean;
     figures?: Array<LockedFigure>;
     range: [Interval, Interval];
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
@@ -119,6 +119,7 @@ const LockedFiguresSection = (props: Props) => {
             })}
             <View style={styles.buttonContainer}>
                 <LockedFigureSelect
+                    showM2Features={props.showM2Features}
                     id={`${uniqueId}-select`}
                     onChange={addLockedFigure}
                 />

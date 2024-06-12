@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-[Interactive Graph Editor] Implement "Add locked ellipse" UI
+Implement the "angles" snapTo type for Polygon interactive graphs

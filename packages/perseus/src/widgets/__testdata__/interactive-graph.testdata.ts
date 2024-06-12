@@ -643,6 +643,64 @@ export const polygonWithAnglesQuestion: PerseusRenderer = {
     },
 };
 
+export const polygonWithAnglesAndAnglesSnapToQuestion: PerseusRenderer = {
+    content:
+        "**Example of snapTo set to `angles`.** \n Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$. \n[[\u2603 interactive-graph 1]] \n",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            version: {
+                major: 0,
+                minor: 0,
+            },
+            static: false,
+            type: "interactive-graph",
+            options: {
+                rulerTicks: 10,
+                showProtractor: false,
+                graph: {
+                    showAngles: true,
+                    snapTo: "angles",
+                    type: "polygon",
+                },
+                snapStep: [0.25, 0.25],
+                labels: ["x", "y"],
+                step: [0.5, 0.5],
+                gridStep: [0.5, 0.5],
+                backgroundImage: {
+                    scale: 1,
+                    bottom: 0,
+                    url: "",
+                    height: 0,
+                    width: 0,
+                    left: 0,
+                },
+                range: [
+                    [-1, 6],
+                    [-1, 6],
+                ],
+                showRuler: false,
+                markings: "none",
+                showTooltips: false,
+                rulerLabel: "",
+                correct: {
+                    showSides: true,
+                    type: "polygon",
+                    coords: [
+                        [3.5, 2],
+                        [3.5, 5],
+                        [-0.5, 2],
+                    ],
+                    match: "congruent",
+                    snapTo: "grid",
+                },
+            },
+            alignment: "default",
+        },
+    },
+};
+
 export const polygonWithAnglesAndManySidesQuestion: PerseusRenderer = {
     content:
         "**Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$.** \n[[\u2603 interactive-graph 1]] \n",
@@ -1975,18 +2033,20 @@ export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7)
         .addLockedLine([-7, -5], [2, -3])
-        .addLockedEllipse([0, 5], 2)
+        .addLockedEllipse([0, 5], [2, 2])
         .build();
 
 export const segmentWithLockedEllipses: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedEllipse([0, 0], 5)
-        .addLockedEllipse([-5, 5], 2, {
+        .addLockedEllipse([0, 0], [5, 5])
+        .addLockedEllipse([-5, 5], [2, 3], {
+            angle: (3 * Math.PI) / 4,
             color: "green",
             fillStyle: "solid",
             strokeStyle: "solid",
         })
-        .addLockedEllipse([5, 5], 2, {
+        .addLockedEllipse([5, 5], [2, 3], {
+            angle: Math.PI / 4,
             color: "green",
             fillStyle: "translucent",
             strokeStyle: "dashed",

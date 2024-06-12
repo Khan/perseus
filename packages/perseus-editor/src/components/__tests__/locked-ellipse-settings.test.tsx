@@ -35,7 +35,7 @@ describe("LockedEllipseSettings", () => {
         });
 
         // Assert
-        const titleText = screen.getByText("Ellipse (0, 0), radius 1");
+        const titleText = screen.getByText("Ellipse (0, 0), radius 1, 1");
         expect(titleText).toBeInTheDocument();
     });
 
@@ -43,12 +43,12 @@ describe("LockedEllipseSettings", () => {
         // Arrange
 
         // Act
-        render(<LockedEllipseSettings {...defaultProps} radius={5} />, {
+        render(<LockedEllipseSettings {...defaultProps} radius={[5, 5]} />, {
             wrapper: RenderStateRoot,
         });
 
         // Assert
-        const titleText = screen.getByText("Ellipse (0, 0), radius 5");
+        const titleText = screen.getByText("Ellipse (0, 0), radius 5, 5");
         expect(titleText).toBeInTheDocument();
     });
 
@@ -61,7 +61,7 @@ describe("LockedEllipseSettings", () => {
         });
 
         // Assert
-        const titleText = screen.getByText("Ellipse (3, 5), radius 1");
+        const titleText = screen.getByText("Ellipse (3, 5), radius 1, 1");
         expect(titleText).toBeInTheDocument();
     });
 
@@ -135,7 +135,7 @@ describe("LockedEllipseSettings", () => {
 
         // Act
         const header = screen.getByRole("button", {
-            name: "Ellipse (0, 0), radius 1 grayH, stroke solid, fill none",
+            name: "Ellipse (0, 0), radius 1, 1 grayH, stroke solid, fill none",
         });
         await userEvent.click(header);
 

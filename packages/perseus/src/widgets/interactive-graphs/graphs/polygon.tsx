@@ -18,7 +18,8 @@ export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, showAngles, showSides, range, snapStep} = props.graphState;
+    const {coords, showAngles, showSides, range, snapStep, snapTo} =
+        props.graphState;
 
     // TODO(benchristel): can the default set of points be removed here? I don't
     // think coords can be null.
@@ -26,6 +27,7 @@ export const PolygonGraph = (props: Props) => {
 
     const ref = React.useRef<SVGPolygonElement>(null);
     const dragReferencePoint = points[0];
+    const snapToValue = snapTo ?? "grid";
     const {dragging} = useMovable({
         gestureTarget: ref,
         point: dragReferencePoint,
@@ -33,7 +35,8 @@ export const PolygonGraph = (props: Props) => {
             const delta = vec.sub(newPoint, dragReferencePoint);
             dispatch(moveAll(delta));
         },
-        constrain: (p) => snap(snapStep, p),
+        constrain: (p) =>
+            ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
     });
 
     const active = hovered || focused || dragging;
@@ -104,6 +107,7 @@ export const PolygonGraph = (props: Props) => {
             {points.map((point, i) => (
                 <StyledMovablePoint
                     key={"point-" + i}
+                    snapTo={snapTo}
                     point={point}
                     onMove={(destination: vec.Vector2) =>
                         dispatch(movePoint(i, destination))

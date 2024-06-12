@@ -7,11 +7,10 @@ import {movePoint} from "../reducer/interactive-graph-action";
 import {StyledMovablePoint} from "./components/movable-point";
 
 import type {QuadraticGraphState, MafsGraphProps} from "../types";
-import type {vec} from "mafs";
 
 type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
-type QuadraticCoords = QuadraticGraphState["coords"];
 type QuadraticCoefficient = [number, number, number];
+export type QuadraticCoords = QuadraticGraphState["coords"];
 
 export function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
@@ -33,20 +32,6 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
     // Calculate the y value based on the current x value
     const y = (x) => (a * x + b) * x + c;
 
-    const handleOnMove = (destination: vec.Vector2, elementId: number) => {
-        // If the destination is invalid, we want do not want to move the point
-        const validDestination = isValidDestination(
-            destination,
-            elementId,
-            coords,
-        );
-        if (validDestination === false) {
-            return;
-        }
-
-        dispatch(movePoint(elementId, destination));
-    };
-
     return (
         <>
             <Plot.OfX y={y} color={color.blue} />
@@ -54,31 +39,14 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
                 <StyledMovablePoint
                     key={"point-" + i}
                     point={coord}
-                    onMove={(destination) => handleOnMove(destination, i)}
+                    onMove={(destination) =>
+                        dispatch(movePoint(i, destination))
+                    }
                 />
             ))}
         </>
     );
 }
-
-// Ensure that we are only snapping to coordinates that result in a valid quadratic equation
-export const isValidDestination = (
-    destination: vec.Vector2,
-    elementId: number,
-    coords: QuadraticCoords,
-): boolean => {
-    // Set up the new coords and check if the quadratic coefficients are valid
-    const newCoords: QuadraticCoords = [...coords];
-    newCoords[elementId] = destination;
-    const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
-
-    // If the new destination results in an invalid quadratic equation, we don't want to move the point
-    if (QuadraticCoefficients === undefined) {
-        return false;
-    }
-
-    return true;
-};
 
 // Get the quadratic coefficients from the 3 control points
 // These equations were originally set up in 2013 and may require some

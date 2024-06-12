@@ -588,9 +588,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     // is using Mafs.
                     this.props.graph &&
                         this.props.apiOptions?.flags?.mafs?.[
-                            "interactive-graph-locked-features-m1"
-                        ] &&
-                        this.props.apiOptions?.flags?.mafs?.[
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
