@@ -524,22 +524,6 @@ function boundAndSnapToAngle(
     ];
     innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
 
-    const eq = Util.eq;
-
-    // Less than or approximately equal
-    function leq(a: any, b) {
-        return a < b || eq(a, b);
-    }
-
-    // Avoid degenerate triangles
-    if (
-        innerAngles.some(function (angle) {
-            return leq(angle, 1);
-        })
-    ) {
-        return startingPoint;
-    }
-
     const knownSide = magnitude(
         // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
         vector(coords[rel(-1)], coords[rel(1)]),
