@@ -8,6 +8,7 @@ import AxisLabels from "./axis-labels";
 import GraphLockedLayer from "./graph-locked-layer";
 import {
     LinearGraph,
+    LinearSystemGraph,
     PolygonGraph,
     RayGraph,
     SegmentGraph,
@@ -69,8 +70,9 @@ const renderGraph = (props: {
     switch (type) {
         case "segment":
             return <SegmentGraph graphState={state} dispatch={dispatch} />;
-        case "linear":
         case "linear-system":
+            return <LinearSystemGraph graphState={state} dispatch={dispatch} />;
+        case "linear":
             return <LinearGraph graphState={state} dispatch={dispatch} />;
         case "ray":
             return <RayGraph graphState={state} dispatch={dispatch} />;

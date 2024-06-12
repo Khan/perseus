@@ -704,7 +704,8 @@ export const lockedEllipseFillStyles: Record<LockedEllipseFillType, number> = {
 export type LockedEllipseType = {
     type: "ellipse";
     center: Coord;
-    radius: number;
+    radius: [x: number, y: number];
+    angle: number;
     color: LockedFigureColor;
     fillStyle: LockedEllipseFillType;
     strokeStyle: "solid" | "dashed";
@@ -783,8 +784,8 @@ export type PerseusGraphTypePolygon = {
     showAngles?: boolean;
     // Whether to show side measurements. default: false
     showSides?: boolean;
-    // How to snap points.  e.g. "grid", "angles", or "sides"
-    snapTo?: string;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
     // How to match the answer. If missing, defaults to exact matching.
     match?: "similar" | "congruent" | "approx";
     coords?: ReadonlyArray<Coord>;

@@ -1,13 +1,13 @@
 import {components, lockedEllipseFillStyles} from "@khanacademy/perseus";
 import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import AngleInput from "./angle-input";
 import ColorSelect from "./color-select";
 import CoordinatePairInput from "./coordinate-pair-input";
 import EllipseSwatch from "./ellipse-swatch";
@@ -40,6 +40,7 @@ const LockedEllipseSettings = (props: Props) => {
     const {
         center,
         radius,
+        angle,
         color,
         fillStyle,
         strokeStyle,
@@ -49,34 +50,9 @@ const LockedEllipseSettings = (props: Props) => {
         onRemove,
     } = props;
 
-    const [radiusInput, setRadiusInput] = React.useState(radius.toString());
-
     const ids = useUniqueIdWithMock();
-    const radiusInputId = ids.get("radius-input");
     const strokeSelectId = ids.get("stroke-style-select");
     const fillSelectId = ids.get("fill-style-select");
-
-    function handleRadiusChange(newValue) {
-        // Update the local state (update the input field value).
-        setRadiusInput(newValue);
-
-        // Personal preference: Stop the previous graph from disappearing
-        // before the user finishes typing a new valid number.
-        //
-        // If the new value is not a number (e.g. "." while starting to type
-        // a decimal value), don't update the props.
-        // If it's empty (e.g. erased the previous value before starting to
-        // type a new value), keep the props the same value instead of
-        // setting to 0.
-        // Without this check, the input would assume a 0 value and make the
-        // figure disappear before the user finishes typing the new value.
-        if (isNaN(+newValue) || newValue === "") {
-            return;
-        }
-
-        // Update the props (update the graph).
-        onChangeProps({radius: +newValue});
-    }
 
     function handleColorChange(newValue: LockedFigureColor) {
         onChangeProps({color: newValue});
@@ -89,7 +65,7 @@ const LockedEllipseSettings = (props: Props) => {
             header={
                 // Summary: Ellipse, center, radius, color (opacity, dashed)
                 <View style={styles.row}>
-                    <LabelLarge>{`Ellipse (${center[0]}, ${center[1]}), radius ${radius}`}</LabelLarge>
+                    <LabelLarge>{`Ellipse (${center[0]}, ${center[1]}), radius ${radius[0]}, ${radius[1]}`}</LabelLarge>
                     <Strut size={spacing.xSmall_8} />
                     <EllipseSwatch
                         color={props.color}
@@ -115,48 +91,22 @@ const LockedEllipseSettings = (props: Props) => {
             </View>
 
             {/* Radius */}
-            <View style={[styles.row, styles.spaceUnder]}>
-                <LabelMedium
-                    htmlFor={radiusInputId}
-                    style={styles.label}
-                    tag="label"
-                >
-                    radius
-                </LabelMedium>
-                <TextField
-                    id={radiusInputId}
-                    type="number"
-                    value={radiusInput}
-                    onChange={handleRadiusChange}
-                    style={{maxWidth: 72}}
-                />
-                <Strut size={spacing.medium_16} />
+            <CoordinatePairInput
+                coord={radius}
+                labels={["x radius", "y radius"]}
+                onChange={(newCoords: Coord) =>
+                    onChangeProps({radius: newCoords})
+                }
+            />
 
-                {/* Stroke style */}
-                <LabelMedium
-                    tag="label"
-                    htmlFor={strokeSelectId}
-                    style={styles.label}
-                >
-                    stroke
-                </LabelMedium>
-                <SingleSelect
-                    id={strokeSelectId}
-                    selectedValue={strokeStyle}
-                    onChange={(value: "solid" | "dashed") =>
-                        onChangeProps({strokeStyle: value})
-                    }
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
-                >
-                    <OptionItem value="solid" label="solid">
-                        solid
-                    </OptionItem>
-                    <OptionItem value="dashed" label="dashed">
-                        dashed
-                    </OptionItem>
-                </SingleSelect>
-            </View>
+            {/* Angle */}
+            <AngleInput
+                angle={angle}
+                onChange={(newAngle: number) =>
+                    onChangeProps({angle: newAngle})
+                }
+            />
+            <Strut size={spacing.xSmall_8} />
 
             <View style={[styles.row, styles.spaceUnder]}>
                 {/* Color */}
@@ -188,6 +138,33 @@ const LockedEllipseSettings = (props: Props) => {
                             {option}
                         </OptionItem>
                     ))}
+                </SingleSelect>
+            </View>
+
+            {/* Stroke style */}
+            <View style={styles.row}>
+                <LabelMedium
+                    tag="label"
+                    htmlFor={strokeSelectId}
+                    style={styles.label}
+                >
+                    stroke
+                </LabelMedium>
+                <SingleSelect
+                    id={strokeSelectId}
+                    selectedValue={strokeStyle}
+                    onChange={(value: "solid" | "dashed") =>
+                        onChangeProps({strokeStyle: value})
+                    }
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    <OptionItem value="solid" label="solid">
+                        solid
+                    </OptionItem>
+                    <OptionItem value="dashed" label="dashed">
+                        dashed
+                    </OptionItem>
                 </SingleSelect>
             </View>
 

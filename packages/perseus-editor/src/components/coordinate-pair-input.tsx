@@ -10,12 +10,13 @@ import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
     coord: [number, number];
+    labels?: [string, string];
     error?: boolean;
     onChange: (newCoord: Coord) => void;
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, error, onChange} = props;
+    const {coord, labels, error, onChange} = props;
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -57,7 +58,7 @@ const CoordinatePairInput = (props: Props) => {
                     style={styles.label}
                     tag="label"
                 >
-                    x coord
+                    {labels ? labels[0] : "x coord"}
                 </LabelMedium>
                 <TextField
                     id={xCoordId}
@@ -75,7 +76,7 @@ const CoordinatePairInput = (props: Props) => {
                     style={styles.label}
                     tag="label"
                 >
-                    y coord
+                    {labels ? labels[1] : "y coord"}
                 </LabelMedium>
                 <TextField
                     id={yCoordId}

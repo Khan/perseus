@@ -1,5 +1,6 @@
 export {SegmentGraph} from "./segment";
 export {LinearGraph} from "./linear";
+export {LinearSystemGraph} from "./linear-system";
 export {RayGraph} from "./ray";
 export {PolygonGraph} from "./polygon";
 export {CircleGraph} from "./circle";

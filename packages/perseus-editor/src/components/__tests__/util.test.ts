@@ -42,7 +42,8 @@ describe("getDefaultFigureForType", () => {
         expect(figure).toEqual({
             type: "ellipse",
             center: [0, 0],
-            radius: 1,
+            radius: [1, 1],
+            angle: 0,
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",

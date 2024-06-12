@@ -146,11 +146,6 @@ export const MafsGraphTypeFlags = [
 
 export const InteractiveGraphLockedFeaturesFlags = [
     /**
-     * Enables/Disables Milestone 1 locked features in the new Mafs
-     * interactive-graph widget (points and lines).
-     */
-    "interactive-graph-locked-features-m1",
-    /**
      * Enables/Disables Milestone 2 locked features in the new Mafs
      * interactive-graph widget (the rest of the figure types:
      * ellipses, vectors, polygons, functions, labels).

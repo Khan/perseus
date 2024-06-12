@@ -40,9 +40,12 @@ describe("LockedFiguresSection", () => {
 
     test("renders", () => {
         // Arrange, Act
-        render(<LockedFiguresSection onChange={jest.fn()} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedFiguresSection showM2Features={true} onChange={jest.fn()} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Assert
         expect(screen.getByText("Add locked figure")).toBeInTheDocument();
@@ -50,9 +53,12 @@ describe("LockedFiguresSection", () => {
 
     test("renders no expand/collapse button when there are no figures", () => {
         // Arrange, Act
-        render(<LockedFiguresSection onChange={jest.fn()} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedFiguresSection showM2Features={true} onChange={jest.fn()} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Assert
         expect(screen.queryByRole("button", {name: "Expand all"})).toBeNull();
@@ -64,6 +70,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
+                showM2Features={true}
                 onChange={jest.fn()}
             />,
             {
@@ -85,6 +92,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
+                showM2Features={true}
                 onChange={jest.fn()}
             />,
             {
@@ -108,6 +116,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
+                showM2Features={true}
                 onChange={jest.fn()}
             />,
             {
@@ -137,6 +146,7 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
+                showM2Features={true}
                 onChange={jest.fn()}
             />,
             {
@@ -170,6 +180,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                showM2Features={true}
                 figures={defaultFigures}
                 onChange={jest.fn()}
             />,
@@ -195,6 +206,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                showM2Features={true}
                 figures={[
                     getDefaultFigureForType("point"),
                     {...getDefaultFigureForType("point"), coord: [1, 1]},

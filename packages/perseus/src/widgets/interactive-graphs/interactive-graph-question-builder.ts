@@ -106,6 +106,13 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withPolygon(
+        snapTo: "grid" | "angles" | "sides",
+    ): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new PolygonGraphConfig(snapTo);
+        return this;
+    }
+
     // TODO(benchristel): if we want other attributes of locked points to be
     // configurable in the future, we can add an `options` param to this method.
     addLockedPointAt(x: number, y: number): InteractiveGraphQuestionBuilder {
@@ -135,8 +142,9 @@ class InteractiveGraphQuestionBuilder {
 
     addLockedEllipse(
         center: vec.Vector2,
-        radius: number,
+        radius: [x: number, y: number],
         options?: {
+            angle?: number;
             color?: LockedFigureColor;
             fillStyle?: LockedEllipseFillType;
             strokeStyle?: "solid" | "dashed";
@@ -146,6 +154,7 @@ class InteractiveGraphQuestionBuilder {
             type: "ellipse",
             center: center,
             radius: radius,
+            angle: 0,
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",
@@ -213,6 +222,35 @@ class CircleGraphConfig implements InteractiveFigureConfig {
 
     graph(): PerseusGraphType {
         return {type: "circle"};
+    }
+}
+
+class PolygonGraphConfig implements InteractiveFigureConfig {
+    private snapTo: "grid" | "angles" | "sides";
+    constructor(snapTo: "grid" | "angles" | "sides") {
+        this.snapTo = snapTo;
+    }
+    correct(): PerseusGraphType {
+        return {
+            type: "polygon",
+            numSides: 4,
+            showAngles: true,
+            showSides: true,
+            snapTo: "grid",
+            coords: [
+                [-1, 2],
+                [3, 4],
+                [1, -2],
+                [-3, 0],
+            ],
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {
+            type: "polygon",
+            snapTo: this.snapTo,
+        };
     }
 }
 
