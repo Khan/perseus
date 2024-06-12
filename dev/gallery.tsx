@@ -22,7 +22,6 @@ import {Header} from "./header";
 import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
-import {polygonWithSidesSnappingQuestion} from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 
 const questions: [PerseusRenderer, number][] = pairWithIndices([
     interactiveGraph.segmentQuestion,
