@@ -3,10 +3,10 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import Util from "../../../util";
 import {
     angleMeasures,
     ccw,
+    lawOfCosines,
     magnitude,
     polygonSidesIntersect,
     sign,
@@ -198,10 +198,8 @@ function doMoveAll(
         case "polygon": {
             let newCoords: vec.Vector2[];
             switch (state.snapTo) {
-                // TODO(LEMS-1902): Implement sides snapping for polygons
                 case "grid":
-                case undefined:
-                case "sides": {
+                case undefined: {
                     const change = getChange(state.coords, action.delta, {
                         snapStep,
                         range,
@@ -213,7 +211,8 @@ function doMoveAll(
 
                     break;
                 }
-                case "angles": {
+                case "angles":
+                case "sides": {
                     const change = getChange(state.coords, action.delta, {
                         snapStep: [0, 0],
                         range,
@@ -245,17 +244,27 @@ function doMovePoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "polygon":
+            let newValue: vec.Vector2;
+            if (state.snapTo === "sides") {
+                newValue = boundAndSnapToSides(
+                    action.destination,
+                    state,
+                    action.index,
+                );
+            } else if (state.snapTo === "angles") {
+                newValue = boundAndSnapToAngle(
+                    action.destination,
+                    state,
+                    action.index,
+                );
+            } else {
+                newValue = boundAndSnapToGrid(action.destination, state);
+            }
+
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.index,
-                newValue:
-                    state.snapTo === "grid"
-                        ? boundAndSnapToGrid(action.destination, state)
-                        : boundAndSnapToAngle(
-                              action.destination,
-                              state,
-                              action.index,
-                          ),
+                newValue: newValue,
             });
 
             // Reject the move if it would cause the sides of the polygon to cross
@@ -549,6 +558,57 @@ function boundAndSnapToAngle(
 
     const offset = polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
     return kvector.add(coords[rel(-1)], offset);
+function boundAndSnapToSides(
+    destinationPoint: vec.Vector2,
+    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
+    index: number,
+) {
+    const coordsCopy = [...coords];
+
+    // Takes the destination point and makes sure it is within the bounds of the graph
+    // SnapStep is [0, 0] because we don't want to snap to the grid
+    coordsCopy[index] = bound({
+        snapStep: [0, 0],
+        range,
+        point: destinationPoint,
+    });
+
+    // Gets the relative index of a point
+    const rel = (j): number => {
+        return (index + j + coordsCopy.length) % coordsCopy.length;
+    };
+    const sides = _.map(
+        [
+            [coordsCopy[rel(-1)], coordsCopy[index]],
+            [coordsCopy[index], coordsCopy[rel(1)]],
+            [coordsCopy[rel(-1)], coordsCopy[rel(1)]],
+        ],
+        function (coordsCopy) {
+            // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            return magnitude(vector(...coordsCopy));
+        },
+    );
+
+    _.each([0, 1], function (j) {
+        sides[j] = Math.round(sides[j]);
+    });
+
+    // Solve for angle by using the law of cosines
+    const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
+
+    const outerAngle = GraphUtils.findAngle(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
+
+    const onLeft =
+        sign(
+            ccw(coordsCopy[rel(-1)], coordsCopy[rel(1)], coordsCopy[index]),
+        ) === 1;
+
+    const offset = polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
+
+    return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
 }
 
 // Returns the closest point to the given `point` that is within the graph
