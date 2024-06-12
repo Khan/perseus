@@ -76,7 +76,11 @@ export const PolygonGraph = (props: Props) => {
             {showSides &&
                 lines.map(([start, end], i) => {
                     const [x, y] = vec.midpoint(start, end);
-                    const length = parseFloat(vec.dist(start, end).toFixed(1));
+                    const length = parseFloat(
+                        vec
+                            .dist(start, end)
+                            .toFixed(snapTo === "sides" ? 0 : 1),
+                    );
                     return (
                         <TextLabel key={"side-" + i} x={x} y={y}>
                             {!Number.isInteger(length) && "≈ "}
