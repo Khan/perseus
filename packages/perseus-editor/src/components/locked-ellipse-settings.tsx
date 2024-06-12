@@ -105,55 +105,49 @@ const LockedEllipseSettings = (props: Props) => {
                 <Strut size={spacing.medium_16} />
 
                 {/* Fill opacity */}
-                <LabelMedium tag="label">
-                    <View style={styles.row}>
-                        fill
-                        <Strut size={spacing.xxSmall_6} />
-                        <SingleSelect
-                            selectedValue={fillStyle}
-                            onChange={(value: LockedEllipseFillType) =>
-                                onChangeProps({fillStyle: value})
-                            }
-                            // Placeholder is required, but never gets used.
-                            placeholder=""
-                        >
-                            {Object.keys(lockedEllipseFillStyles).map(
-                                (option) => (
-                                    <OptionItem
-                                        key={option}
-                                        value={option}
-                                        label={option}
-                                    >
-                                        {option}
-                                    </OptionItem>
-                                ),
-                            )}
-                        </SingleSelect>
-                    </View>
-                </LabelMedium>
-            </View>
-
-            {/* Stroke style */}
-            <LabelMedium tag="label">
-                <View style={styles.row}>
-                    stroke
+                <LabelMedium tag="label" style={styles.row}>
+                    fill
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
-                        selectedValue={strokeStyle}
-                        onChange={(value: "solid" | "dashed") =>
-                            onChangeProps({strokeStyle: value})
+                        selectedValue={fillStyle}
+                        onChange={(value: LockedEllipseFillType) =>
+                            onChangeProps({fillStyle: value})
                         }
                         // Placeholder is required, but never gets used.
                         placeholder=""
                     >
-                        <OptionItem value="solid" label="solid">
-                            solid
-                        </OptionItem>
-                        <OptionItem value="dashed" label="dashed">
-                            dashed
-                        </OptionItem>
+                        {Object.keys(lockedEllipseFillStyles).map((option) => (
+                            <OptionItem
+                                key={option}
+                                value={option}
+                                label={option}
+                            >
+                                {option}
+                            </OptionItem>
+                        ))}
                     </SingleSelect>
-                </View>
+                </LabelMedium>
+            </View>
+
+            {/* Stroke style */}
+            <LabelMedium tag="label" style={styles.row}>
+                stroke
+                <Strut size={spacing.xxSmall_6} />
+                <SingleSelect
+                    selectedValue={strokeStyle}
+                    onChange={(value: "solid" | "dashed") =>
+                        onChangeProps({strokeStyle: value})
+                    }
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    <OptionItem value="solid" label="solid">
+                        solid
+                    </OptionItem>
+                    <OptionItem value="dashed" label="dashed">
+                        dashed
+                    </OptionItem>
+                </SingleSelect>
             </LabelMedium>
 
             {/* Actions */}
@@ -167,6 +161,7 @@ const LockedEllipseSettings = (props: Props) => {
 
 const styles = StyleSheet.create({
     row: {
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
     },

@@ -25,33 +25,31 @@ const ColorSelect = (props: Props) => {
 
     return (
         <View style={[styles.row, style]}>
-            <LabelMedium tag="label">
-                <View style={styles.row}>
-                    color
-                    <Strut size={spacing.xxSmall_6} />
-                    <SingleSelect
-                        selectedValue={selectedValue}
-                        onChange={onChange}
-                        // Placeholder is required, but never gets used.
-                        placeholder=""
-                    >
-                        {possibleColors.map((colorName) => (
-                            <OptionItem
-                                key={colorName}
-                                value={colorName}
-                                label={colorName}
-                                leftAccessory={
-                                    <ColorSwatch
-                                        color={colorName}
-                                        decorative={true}
-                                    />
-                                }
-                            >
-                                {colorName}
-                            </OptionItem>
-                        ))}
-                    </SingleSelect>
-                </View>
+            <LabelMedium tag="label" style={styles.row}>
+                color
+                <Strut size={spacing.xxSmall_6} />
+                <SingleSelect
+                    selectedValue={selectedValue}
+                    onChange={onChange}
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    {possibleColors.map((colorName) => (
+                        <OptionItem
+                            key={colorName}
+                            value={colorName}
+                            label={colorName}
+                            leftAccessory={
+                                <ColorSwatch
+                                    color={colorName}
+                                    decorative={true}
+                                />
+                            }
+                        >
+                            {colorName}
+                        </OptionItem>
+                    ))}
+                </SingleSelect>
             </LabelMedium>
         </View>
     );
@@ -59,6 +57,7 @@ const ColorSelect = (props: Props) => {
 
 const styles = StyleSheet.create({
     row: {
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
     },

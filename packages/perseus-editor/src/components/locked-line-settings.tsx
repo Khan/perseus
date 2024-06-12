@@ -95,23 +95,21 @@ const LockedLineSettings = (props: Props) => {
             }
         >
             {/* Line kind settings */}
-            <LabelMedium tag="label" style={styles.spaceUnder}>
-                <View style={styles.row}>
-                    kind
-                    <Strut size={spacing.xxxSmall_4} />
-                    <SingleSelect
-                        selectedValue={kind}
-                        onChange={(value: "line" | "segment" | "ray") =>
-                            onChangeProps({kind: value})
-                        }
-                        // Placeholder is required, but never gets used.
-                        placeholder=""
-                    >
-                        <OptionItem value="line" label="line" />
-                        <OptionItem value="ray" label="ray" />
-                        <OptionItem value="segment" label="segment" />
-                    </SingleSelect>
-                </View>
+            <LabelMedium tag="label" style={[styles.row, styles.spaceUnder]}>
+                kind
+                <Strut size={spacing.xxxSmall_4} />
+                <SingleSelect
+                    selectedValue={kind}
+                    onChange={(value: "line" | "segment" | "ray") =>
+                        onChangeProps({kind: value})
+                    }
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    <OptionItem value="line" label="line" />
+                    <OptionItem value="ray" label="ray" />
+                    <OptionItem value="segment" label="segment" />
+                </SingleSelect>
             </LabelMedium>
 
             <View style={styles.row}>
@@ -123,23 +121,21 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
-                <LabelMedium tag="label">
-                    <View style={styles.row}>
-                        style
-                        <Strut size={spacing.xxxSmall_4} />
-                        <SingleSelect
-                            selectedValue={lineStyle}
-                            onChange={(value: "solid" | "dashed") =>
-                                onChangeProps({lineStyle: value})
-                            }
-                            // Placeholder is required, but never gets used.
-                            placeholder=""
-                            style={styles.selectMarginOffset}
-                        >
-                            <OptionItem value="solid" label="solid" />
-                            <OptionItem value="dashed" label="dashed" />
-                        </SingleSelect>
-                    </View>
+                <LabelMedium tag="label" style={styles.row}>
+                    style
+                    <Strut size={spacing.xxxSmall_4} />
+                    <SingleSelect
+                        selectedValue={lineStyle}
+                        onChange={(value: "solid" | "dashed") =>
+                            onChangeProps({lineStyle: value})
+                        }
+                        // Placeholder is required, but never gets used.
+                        placeholder=""
+                        style={styles.selectMarginOffset}
+                    >
+                        <OptionItem value="solid" label="solid" />
+                        <OptionItem value="dashed" label="dashed" />
+                    </SingleSelect>
                 </LabelMedium>
             </View>
 

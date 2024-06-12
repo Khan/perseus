@@ -58,16 +58,14 @@ const AngleInput = (props: Props) => {
     return (
         <View style={[styles.row, styles.spaceUnder]}>
             {/* Label */}
-            <LabelMedium tag="label">
-                <View style={styles.row}>
-                    angle
-                    <Strut size={spacing.xxSmall_6} />
-                    <TextField
-                        value={angleInput}
-                        onChange={handleAngleChange}
-                        style={styles.textField}
-                    />
-                </View>
+            <LabelMedium tag="label" style={styles.row}>
+                angle
+                <Strut size={spacing.xxSmall_6} />
+                <TextField
+                    value={angleInput}
+                    onChange={handleAngleChange}
+                    style={styles.textField}
+                />
             </LabelMedium>
 
             {/* Spacing */}
@@ -97,6 +95,7 @@ const AngleInput = (props: Props) => {
 
 const styles = StyleSheet.create({
     row: {
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
     },
