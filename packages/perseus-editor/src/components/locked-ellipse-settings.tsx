@@ -20,7 +20,6 @@ import type {
     LockedEllipseFillType,
     LockedEllipseType,
     LockedFigureColor,
-    Range,
 } from "@khanacademy/perseus";
 
 const {InfoTip} = components;
