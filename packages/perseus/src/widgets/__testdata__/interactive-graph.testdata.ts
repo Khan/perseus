@@ -821,7 +821,7 @@ export const polygonWithAnglesAndFourSidesQuestion: PerseusRenderer = {
     },
 };
 
-export const polygonWithFourSidesQuestion: PerseusRenderer = {
+export const polygonWithFourSidesSnappingQuestion: PerseusRenderer = {
     content:
         "**Example of snapping to sides** Drag the vertices of the triangle below to draw a right triangle with side lengths $3$, $4$, and $5$. \n[[\u2603 interactive-graph 1]] \n",
     images: {},
