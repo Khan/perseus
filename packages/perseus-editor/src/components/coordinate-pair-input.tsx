@@ -18,15 +18,17 @@ type Props = {
 
 const CoordinatePairInput = (props: Props) => {
     const {coord, error, range, onChange} = props;
+    const labels = [
+        props.labels ? props.labels[0] : "x coord",
+        props.labels ? props.labels[1] : "y coord",
+    ];
+
     const [rangeError, setRangeError] = React.useState<Array<string | null>>([
         null,
         null,
     ]);
 
-    const labels = [
-        props.labels ? props.labels[0] : "x coord",
-        props.labels ? props.labels[1] : "y coord",
-    ];
+    const hasError = [error || rangeError[0], error || rangeError[1]];
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -35,6 +37,26 @@ const CoordinatePairInput = (props: Props) => {
         coord[0].toString(),
         coord[1].toString(),
     ]);
+
+    // Use effect to make sure that the error stays updated with the range prop
+    React.useEffect(() => {
+        if (!range) {
+            return;
+        }
+
+        const xOutOfRange = coord[0] < range[0][0] || coord[0] > range[0][1];
+        const yOutOfRange = coord[1] < range[1][0] || coord[1] > range[1][1];
+
+        const xRangeError = `${labels[0]} out of range ${range[0][0]} to ${range[0][1]}`;
+        const yRangeError = `${labels[1]} out of range ${range[1][0]} to ${range[1][1]}`;
+
+        // Set an error if the coords are out of range.
+        const newRangeError = [
+            (xOutOfRange ? xRangeError : null),
+            (yOutOfRange ? yRangeError : null),
+        ];
+        setRangeError(newRangeError);
+    }, [range, coord]);
 
     function handleCoordChange(newValue, coordIndex) {
         // Update the local state (update the input field value).
@@ -52,19 +74,6 @@ const CoordinatePairInput = (props: Props) => {
         const newCoords = [...coord] satisfies [number, number];
         newCoords[coordIndex] = +newValue;
         onChange(newCoords);
-    }
-
-    function validateRange(value, index) {
-        if (range && (+value < range[index][0] || +value > range[index][1])) {
-            return `${labels[index]} outside of range ${range[index][0]} to ${range[index][1]}`;
-        }
-        return null;
-    }
-
-    function onValidate(error, index) {
-        const newRangeError = [...rangeError];
-        newRangeError[index] = error;
-        setRangeError(newRangeError);
     }
 
     return (
@@ -95,14 +104,12 @@ const CoordinatePairInput = (props: Props) => {
                         value={coordState[0]}
                         min={range ? range[0][0] : undefined}
                         max={range ? range[0][1] : undefined}
-                        validate={(value) => validateRange(value, 0)}
-                        onValidate={(error) => onValidate(error, 0)}
                         onChange={(newValue) =>
                             handleCoordChange(newValue, 0)
                         }
                         style={[
                             styles.textField,
-                            error ? styles.errorField : undefined,
+                            hasError[0] ? styles.errorField : undefined,
                         ]}
                     />
                 </LabelMedium>
@@ -118,14 +125,12 @@ const CoordinatePairInput = (props: Props) => {
                         value={coordState[1]}
                         min={range ? range[1][0] : undefined}
                         max={range ? range[1][1] : undefined}
-                        validate={(value) => validateRange(value, 1)}
-                        onValidate={(error) => onValidate(error, 1)}
                         onChange={(newValue) =>
                             handleCoordChange(newValue, 1)
                         }
                         style={[
                             styles.textField,
-                            error ? styles.errorField : undefined,
+                            hasError[1] ? styles.errorField : undefined,
                         ]}
                     />
                 </LabelMedium>
