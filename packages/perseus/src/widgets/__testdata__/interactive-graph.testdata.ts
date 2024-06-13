@@ -2113,12 +2113,12 @@ export const segmentWithLockedVectors: PerseusRenderer =
         .build();
 
 export const segmentWithLockedFigures: PerseusRenderer =
-interactiveGraphQuestionBuilder()
-    .addLockedPointAt(-7, -7)
-    .addLockedLine([-7, -5], [2, -3])
-    .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4})
-    .addLockedVector([0, 0], [8, 2], "purple")
-    .build();
+    interactiveGraphQuestionBuilder()
+        .addLockedPointAt(-7, -7)
+        .addLockedLine([-7, -5], [2, -3])
+        .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4})
+        .addLockedVector([0, 0], [8, 2], "purple")
+        .build();
 
 export const quadraticQuestion: PerseusRenderer = {
     content: "All locked lines\n\n[[☃ interactive-graph 1]]",
