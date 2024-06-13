@@ -994,6 +994,7 @@ export class Graphie {
                     const width = span.scrollWidth;
                     const height = span.scrollHeight;
                     setLabelMargins(span, [width, height]);
+                    // eslint-disable-next-line
                     console.log(`   Set with 'processMath' - size: `, [
                         width,
                         height,
@@ -1007,6 +1008,7 @@ export class Graphie {
                 const width = span.scrollWidth;
                 const height = span.scrollHeight;
                 setLabelMargins(span, [width, height]);
+                // eslint-disable-next-line
                 console.log(`   Set with 'processText' - size: `, [
                     width,
                     height,
@@ -1689,9 +1691,13 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginTop: Math.round(height * multipliers[1]),
         };
         $span.css(margins);
+        // eslint-disable-next-line
         console.log(`Label: `, $span.text());
+        // eslint-disable-next-line
         console.log(`   Direction: `, direction);
+        // eslint-disable-next-line
         console.log(`   Multipliers: `, multipliers);
+        // eslint-disable-next-line
         console.log(`   Margin Left: `, margins.marginLeft);
     }
 };
