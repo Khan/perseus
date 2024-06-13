@@ -1,4 +1,4 @@
-import {View} from "@khanacademy/wonder-blocks-core";
+import {useLatestRef, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
@@ -33,8 +33,8 @@ import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
-import type {Widget} from "../../renderer";
 import type {PerseusGraphType} from "../../perseus-types";
+import type {Widget} from "../../renderer";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -152,9 +152,10 @@ export const StatefulMafsGraph = React.forwardRef<
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
     const numSegments = graph.type === "segment" ? graph.numSegments : null;
+    const latestPropsRef = useLatestRef(props);
     useEffect(() => {
-        dispatch(reinitialize(props));
-    }, [graph.type, numSegments]);
+        dispatch(reinitialize(latestPropsRef.current));
+    }, [graph.type, numSegments, latestPropsRef]);
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
 });

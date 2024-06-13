@@ -24,7 +24,7 @@ export type InitializeGraphStateParams = {
     step: [x: number, y: number];
     snapStep: [x: number, y: number];
     graph: PerseusGraphType;
-}
+};
 
 export function initializeGraphState(
     params: InitializeGraphStateParams,

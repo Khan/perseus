@@ -1,6 +1,5 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import type {Interval} from "mafs";
 import {vec} from "mafs";
 import _ from "underscore";
 
@@ -16,10 +15,10 @@ import {
 } from "../../../util/geometry";
 import GraphUtils from "../../../util/graph-utils";
 import {polar} from "../../../util/graphie";
-import type {QuadraticCoords} from "../graphs/quadratic";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
 import {snap} from "../utils";
 
+import {initializeGraphState} from "./initialize-graph-state";
 import {
     CHANGE_RANGE,
     CHANGE_SNAP_STEP,
@@ -37,12 +36,14 @@ import {
     type MoveControlPoint,
     type MoveLine,
     type MovePoint,
-    type MoveRadiusPoint, Reinitialize,
+    type MoveRadiusPoint,
     REINITIALIZE,
 } from "./interactive-graph-action";
+
+import type {QuadraticCoords} from "../graphs/quadratic";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
-import {initializeGraphState} from "./initialize-graph-state";
+import type {Interval} from "mafs";
 
 export function interactiveGraphReducer(
     state: InteractiveGraphState,
