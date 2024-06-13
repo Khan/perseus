@@ -19,8 +19,9 @@ import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {AccordionProps} from "./locked-figure-settings";
 import type {
+    LockedFigure,
     LockedFigureColor,
     LockedLineType,
     LockedPointType,
@@ -28,7 +29,17 @@ import type {
 
 const lengthZeroStr = "The line cannot have length 0.";
 
-export type Props = LockedLineType & LockedFigureSettingsCommonProps;
+export type Props = LockedLineType &
+    AccordionProps & {
+        /**
+         * Called when the delete button is pressed.
+         */
+        onRemove: () => void;
+        /**
+         * Called when the props (points, color, etc.) are updated.
+         */
+        onChangeProps: (newProps: Partial<LockedFigure>) => void;
+    };
 
 const LockedLineSettings = (props: Props) => {
     const {
@@ -38,7 +49,6 @@ const LockedLineSettings = (props: Props) => {
         lineStyle = "solid",
         showPoint1,
         showPoint2,
-        range,
         onChangeProps,
         onRemove,
     } = props;
@@ -151,7 +161,6 @@ const LockedLineSettings = (props: Props) => {
                 label="Point 1"
                 showPoint={showPoint1}
                 error={isInvalid ? lengthZeroStr : null}
-                range={range}
                 {...point1}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
@@ -162,7 +171,6 @@ const LockedLineSettings = (props: Props) => {
                 label="Point 2"
                 showPoint={showPoint2}
                 error={isInvalid ? lengthZeroStr : null}
-                range={range}
                 {...point2}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})
