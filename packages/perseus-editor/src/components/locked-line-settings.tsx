@@ -5,7 +5,7 @@
  * Used in the interactive graph editor's locked figures section.
  */
 import {vector as kvector} from "@khanacademy/kmath";
-import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -19,9 +19,8 @@ import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
-    LockedFigure,
     LockedFigureColor,
     LockedLineType,
     LockedPointType,
@@ -29,17 +28,7 @@ import type {
 
 const lengthZeroStr = "The line cannot have length 0.";
 
-export type Props = LockedLineType &
-    AccordionProps & {
-        /**
-         * Called when the delete button is pressed.
-         */
-        onRemove: () => void;
-        /**
-         * Called when the props (points, color, etc.) are updated.
-         */
-        onChangeProps: (newProps: Partial<LockedFigure>) => void;
-    };
+export type Props = LockedLineType & LockedFigureSettingsCommonProps;
 
 const LockedLineSettings = (props: Props) => {
     const {
@@ -49,16 +38,11 @@ const LockedLineSettings = (props: Props) => {
         lineStyle = "solid",
         showPoint1,
         showPoint2,
+        range,
         onChangeProps,
         onRemove,
     } = props;
     const [point1, point2] = points;
-
-    // Generate unique IDs so that the programmatic labels can be associated
-    // with their respective text fields.
-    const ids = useUniqueIdWithMock();
-    const kindSelectId = ids.get("line-kind-select");
-    const styleSelectId = ids.get("line-style-select");
 
     const capitalizeKind = kind.charAt(0).toUpperCase() + kind.slice(1);
     const lineLabel = `${capitalizeKind} (${point1.coord[0]},
@@ -111,16 +95,10 @@ const LockedLineSettings = (props: Props) => {
             }
         >
             {/* Line kind settings */}
-            <View style={[styles.row, styles.spaceUnder]}>
-                <LabelMedium
-                    htmlFor={kindSelectId}
-                    style={styles.label}
-                    tag="label"
-                >
-                    kind
-                </LabelMedium>
+            <LabelMedium tag="label" style={[styles.row, styles.spaceUnder]}>
+                kind
+                <Strut size={spacing.xxxSmall_4} />
                 <SingleSelect
-                    id={kindSelectId}
                     selectedValue={kind}
                     onChange={(value: "line" | "segment" | "ray") =>
                         onChangeProps({kind: value})
@@ -132,9 +110,9 @@ const LockedLineSettings = (props: Props) => {
                     <OptionItem value="ray" label="ray" />
                     <OptionItem value="segment" label="segment" />
                 </SingleSelect>
-            </View>
+            </LabelMedium>
 
-            <View style={[styles.row, styles.spaceUnder]}>
+            <View style={styles.row}>
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
@@ -143,16 +121,10 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
-                <View style={styles.row}>
-                    <LabelMedium
-                        htmlFor={styleSelectId}
-                        style={styles.label}
-                        tag="label"
-                    >
-                        style
-                    </LabelMedium>
+                <LabelMedium tag="label" style={styles.row}>
+                    style
+                    <Strut size={spacing.xxxSmall_4} />
                     <SingleSelect
-                        id={styleSelectId}
                         selectedValue={lineStyle}
                         onChange={(value: "solid" | "dashed") =>
                             onChangeProps({lineStyle: value})
@@ -164,7 +136,7 @@ const LockedLineSettings = (props: Props) => {
                         <OptionItem value="solid" label="solid" />
                         <OptionItem value="dashed" label="dashed" />
                     </SingleSelect>
-                </View>
+                </LabelMedium>
             </View>
 
             {/* Points error message */}
@@ -179,6 +151,7 @@ const LockedLineSettings = (props: Props) => {
                 label="Point 1"
                 showPoint={showPoint1}
                 error={isInvalid ? lengthZeroStr : null}
+                range={range}
                 {...point1}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint1: newValue})
@@ -189,6 +162,7 @@ const LockedLineSettings = (props: Props) => {
                 label="Point 2"
                 showPoint={showPoint2}
                 error={isInvalid ? lengthZeroStr : null}
+                range={range}
                 {...point2}
                 onTogglePoint={(newValue) =>
                     onChangeProps({showPoint2: newValue})
@@ -214,9 +188,6 @@ const styles = StyleSheet.create({
     },
     spaceUnder: {
         marginBottom: spacing.xSmall_8,
-    },
-    label: {
-        marginInlineEnd: spacing.xxxSmall_4,
     },
     selectMarginOffset: {
         // Align with the point settings accordions.

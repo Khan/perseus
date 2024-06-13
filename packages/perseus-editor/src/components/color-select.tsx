@@ -1,6 +1,7 @@
 import {lockedFigureColors} from "@khanacademy/perseus";
-import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
@@ -22,45 +23,43 @@ type Props = {
 const ColorSelect = (props: Props) => {
     const {selectedValue, style, onChange} = props;
 
-    const ids = useUniqueIdWithMock();
-    const id = ids.get("color-select");
-
     return (
         <View style={[styles.row, style]}>
-            <LabelMedium htmlFor={id} style={styles.label} tag="label">
+            <LabelMedium tag="label" style={styles.row}>
                 color
+                <Strut size={spacing.xxSmall_6} />
+                <SingleSelect
+                    selectedValue={selectedValue}
+                    onChange={onChange}
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    {possibleColors.map((colorName) => (
+                        <OptionItem
+                            key={colorName}
+                            value={colorName}
+                            label={colorName}
+                            leftAccessory={
+                                <ColorSwatch
+                                    color={colorName}
+                                    decorative={true}
+                                />
+                            }
+                        >
+                            {colorName}
+                        </OptionItem>
+                    ))}
+                </SingleSelect>
             </LabelMedium>
-            <SingleSelect
-                id={id}
-                selectedValue={selectedValue}
-                onChange={onChange}
-                // Placeholder is required, but never gets used.
-                placeholder=""
-            >
-                {possibleColors.map((colorName) => (
-                    <OptionItem
-                        key={colorName}
-                        value={colorName}
-                        label={colorName}
-                        leftAccessory={
-                            <ColorSwatch color={colorName} decorative={true} />
-                        }
-                    >
-                        {colorName}
-                    </OptionItem>
-                ))}
-            </SingleSelect>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     row: {
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
-    },
-    label: {
-        marginInlineEnd: spacing.xxxSmall_4,
     },
 });
 

@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "6.7.0",
+    "version": "6.9.0",
     "publishConfig": {
         "access": "public"
     },
@@ -28,7 +28,7 @@
         "@khanacademy/kas": "^0.3.9",
         "@khanacademy/kmath": "^0.1.12",
         "@khanacademy/math-input": "^19.1.0",
-        "@khanacademy/perseus": "^23.1.0",
+        "@khanacademy/perseus": "^23.3.0",
         "@khanacademy/perseus-core": "1.4.2"
     },
     "devDependencies": {
@@ -66,7 +66,7 @@
         "@khanacademy/wonder-blocks-clickable": "4.2.1",
         "@khanacademy/wonder-blocks-core": "6.4.0",
         "@khanacademy/wonder-blocks-dropdown": "5.3.0",
-        "@khanacademy/wonder-blocks-form": "^4.6.2",
+        "@khanacademy/wonder-blocks-form": "^4.7.1",
         "@khanacademy/wonder-blocks-icon": "4.1.0",
         "@khanacademy/wonder-blocks-icon-button": "5.2.1",
         "@khanacademy/wonder-blocks-switch": "1.1.16",
