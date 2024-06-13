@@ -35,8 +35,21 @@ export const Default = (args: StoryArgs): React.ReactElement => {
     return <NumericInputEditor onChange={action("onChange")} />;
 };
 
-
 export const ControlledInputs = (): React.ReactElement => {
+    const controlledInput: PerseusNumericInputAnswer[] = [
+        {
+            message: "",
+            value: 10/100,
+            status: "correct",
+            strict: true,
+            maxError: null,
+            simplify: "required",
+        },
+    ];
+    return <NumericInputEditor answers={controlledInput} onChange={action("onChange")} />;
+};
+
+export const UncontrolledInputs = (): React.ReactElement => {
     const [answers, setAnswers] = React.useState();
 
     function handleChange(value) {
