@@ -653,21 +653,25 @@ export type PerseusInteractiveGraphWidgetOptions = {
 };
 
 const lockedFigureColorNames = [
+    "blue",
     "green",
     "grayH",
     "purple",
     "pink",
+    "orange",
     "red",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
 
 export const lockedFigureColors: Record<LockedFigureColor, string> = {
+    blue: "#3D7586",
     green: "#447A53",
     grayH: "#3B3D45",
     purple: "#594094",
     pink: "#B25071",
     red: "#D92916",
+    orange: "#946700",
 } as const;
 
 export type LockedFigure =
