@@ -312,7 +312,7 @@ class NumericInputEditor extends React.Component<Props, State> {
             answers.map((answer, i) => {
                 const editor = (
                     <Editor
-                        apiOptions={()=>{}}//this.props.apiOptions}
+                        apiOptions={this.props.apiOptions}
                         content={answer.message || ""}
                         placeholder={
                             "Why is this answer " +
