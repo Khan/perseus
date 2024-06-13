@@ -84,6 +84,7 @@ export const Angle = ({
         angleInDegrees = 360 - angleInDegrees;
     }
 
+    // Only want to show whole numbers when in angles mode
     const angleLabelNumber = parseFloat(
         angleInDegrees.toFixed(snapTo === "angles" ? 0 : 1),
     );

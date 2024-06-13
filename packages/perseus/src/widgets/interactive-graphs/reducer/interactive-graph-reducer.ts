@@ -499,6 +499,9 @@ function boundAndSnapToAngle(
     index: number,
 ) {
     const startingPoint = coords[index];
+
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
     const coordsCopy = [...coords];
 
     // Takes the destination point and makes sure it is within the bounds of the graph
@@ -553,6 +556,12 @@ function boundAndSnapToAngle(
         vector(coordsCopy[rel(-1)], coordsCopy[rel(1)]),
     );
 
+    // Returns true if the points form a counter-clockwise turn;
+    // a.k.a if the point is on the left or right of the polygon.
+    // This is used to determine how to adjust the point: if the point is on the left,
+    // we want to add the inner angle to the outer angle, and if it's on the right,
+    // we want to subtract the inner angle from the outer angle. The angle solved
+    // for is then used in the polar function to determine the new point.
     const onLeft =
         sign(
             ccw(coordsCopy[rel(-1)], coordsCopy[rel(1)], coordsCopy[index]),
@@ -564,11 +573,15 @@ function boundAndSnapToAngle(
             Math.sin((innerAngles[2] * Math.PI) / 180)) *
         knownSide;
 
+    // Angle at the second vertex of the polygon
     const outerAngle = GraphUtils.findAngle(
         coordsCopy[rel(1)],
         coordsCopy[rel(-1)],
     );
 
+    // Uses the length of the side of the polygon (radial coordinate)
+    // and the angle between the first and second sides of the
+    // polygon (angular coordinate) to determine how to adjust the point
     const offset = polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
     return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
 }
@@ -579,6 +592,9 @@ function boundAndSnapToSides(
     index: number,
 ) {
     const startingPoint = coords[index];
+
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
     const coordsCopy = [...coords];
 
     // Takes the destination point and makes sure it is within the bounds of the graph
@@ -605,6 +621,7 @@ function boundAndSnapToSides(
         },
     );
 
+    // Round the sides to left and right of the current point
     _.each([0, 1], function (j) {
         sides[j] = Math.round(sides[j]);
     });
@@ -619,18 +636,29 @@ function boundAndSnapToSides(
     }
 
     // Solve for angle by using the law of cosines
+    // Angle at the first vertex of the polygon
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
+    // Angle at the second vertex of the polygon
     const outerAngle = GraphUtils.findAngle(
         coordsCopy[rel(1)],
         coordsCopy[rel(-1)],
     );
 
+    // Returns true if the points form a counter-clockwise turn;
+    // a.k.a if the point is on the left or right of the polygon.
+    // This is used to determine how to adjust the point: if the point is on the left,
+    // we want to add the inner angle to the outer angle, and if it's on the right,
+    // we want to subtract the inner angle from the outer angle. The angle solved
+    // for is then used in the polar function to determine the new point.
     const onLeft =
         sign(
             ccw(coordsCopy[rel(-1)], coordsCopy[rel(1)], coordsCopy[index]),
         ) === 1;
 
+    // Uses the length of the first side of the polygon (radial coordinate)
+    // and the angle between the first and second sides of the
+    // polygon (angular coordinate) to determine how to adjust the point
     const offset = polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
 
     return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
