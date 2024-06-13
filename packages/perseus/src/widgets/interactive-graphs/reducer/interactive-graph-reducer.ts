@@ -200,34 +200,24 @@ function doMoveAll(
     switch (state.type) {
         case "polygon": {
             let newCoords: vec.Vector2[];
-            switch (state.snapTo) {
-                case "grid":
-                case undefined: {
-                    const change = getChange(state.coords, action.delta, {
-                        snapStep,
-                        range,
-                    });
+            if (state.snapTo === "sides" || state.snapTo === "angles") {
+                const change = getChange(state.coords, action.delta, {
+                    snapStep: [0, 0],
+                    range,
+                });
 
-                    newCoords = state.coords.map((point: vec.Vector2) =>
-                        snap(snapStep, vec.add(point, change)),
-                    );
+                newCoords = state.coords.map((point: vec.Vector2) =>
+                    vec.add(point, change),
+                );
+            } else {
+                const change = getChange(state.coords, action.delta, {
+                    snapStep,
+                    range,
+                });
 
-                    break;
-                }
-                case "angles":
-                case "sides": {
-                    const change = getChange(state.coords, action.delta, {
-                        snapStep: [0, 0],
-                        range,
-                    });
-
-                    newCoords = state.coords.map((point: vec.Vector2) =>
-                        vec.add(point, change),
-                    );
-                    break;
-                }
-                default:
-                    throw new Error(`Unknown snapTo: ${state.snapTo}`);
+                newCoords = state.coords.map((point: vec.Vector2) =>
+                    snap(snapStep, vec.add(point, change)),
+                );
             }
             return {
                 ...state,
