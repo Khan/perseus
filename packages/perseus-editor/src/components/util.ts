@@ -103,3 +103,13 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             throw new UnreachableCaseError(type);
     }
 }
+
+export function pairOutOfRange(
+    value: [number, number],
+    range: [[number, number], [number, number]],
+): boolean {
+    const [xRange, yRange] = range;
+    const [x, y] = value;
+
+    return x < xRange[0] || x > xRange[1] || y < yRange[0] || y > yRange[1];
+}

@@ -23,6 +23,7 @@ import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import LabeledRow from "../components/labeled-row";
 import LockedFiguresSection from "../components/locked-figures-section";
 import SegmentCountSelector from "../components/segment-count-selector";
+import {pairOutOfRange} from "../components/util";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -671,11 +672,75 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         // A locked line on the graph cannot have length 0.
         for (const figure of this.props.lockedFigures ?? []) {
-            if (
-                figure.type === "line" &&
-                kvector.equal(figure.points[0].coord, figure.points[1].coord)
-            ) {
-                issues.push("The line cannot have length 0.");
+            switch (figure.type) {
+                case "point":
+                    // Check for range
+                    if (pairOutOfRange(figure.coord, this.props.range)) {
+                        issues.push(
+                            "The locked point must be within the graph's range.",
+                        );
+                    }
+                    break;
+                case "line":
+                    // Check for length 0
+                    if (
+                        kvector.equal(
+                            figure.points[0].coord,
+                            figure.points[1].coord,
+                        )
+                    ) {
+                        issues.push("The locked line cannot have length 0.");
+                    }
+
+                    // Check for range
+                    for (const point of figure.points) {
+                        if (pairOutOfRange(point.coord, this.props.range)) {
+                            issues.push(
+                                "The locked line must be within the graph's range.",
+                            );
+                        }
+                    }
+                    break;
+                case "ellipse":
+                    // Check for centerpoint range
+                    if (pairOutOfRange(figure.center, this.props.range)) {
+                        issues.push(
+                            "The locked ellipse must be within the graph's range.",
+                        );
+                    }
+
+                    // Check for radius range
+                    const xMax =
+                        this.props.range[0][1] - this.props.range[0][0];
+                    const yMax =
+                        this.props.range[1][1] - this.props.range[1][0];
+                    if (
+                        pairOutOfRange(figure.center, this.props.range) ||
+                        pairOutOfRange(figure.radius, [
+                            [0, xMax],
+                            [0, yMax],
+                        ])
+                    ) {
+                        issues.push(
+                            "The locked ellipse must be within the graph's range.",
+                        );
+                    }
+                    break;
+                case "vector":
+                    // Check for length 0
+                    if (kvector.equal(figure.points[0], figure.points[1])) {
+                        issues.push("The locked vector cannot have length 0.");
+                    }
+
+                    // Check for range
+                    for (const point of figure.points) {
+                        if (pairOutOfRange(point, this.props.range)) {
+                            issues.push(
+                                "The locked vector must be within the graph's range.",
+                            );
+                        }
+                    }
+                    break;
             }
         }
 

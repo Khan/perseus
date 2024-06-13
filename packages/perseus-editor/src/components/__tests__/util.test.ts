@@ -1,4 +1,4 @@
-import {getDefaultFigureForType} from "../util";
+import {getDefaultFigureForType, pairOutOfRange} from "../util";
 
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {
@@ -60,5 +60,43 @@ describe("getDefaultFigureForType", () => {
             ],
             color: "grayH",
         });
+    });
+});
+
+describe("pairOutOfRange", () => {
+    test("should return true if the x value is out of range", () => {
+        const value = [-12, 6] satisfies [number, number];
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [[number, number], [number, number]];
+        expect(pairOutOfRange(value, range)).toBe(true);
+    });
+
+    test("should return true if the y value is out of range", () => {
+        const value = [6, -12] satisfies [number, number];
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [[number, number], [number, number]];
+        expect(pairOutOfRange(value, range)).toBe(true);
+    });
+
+    test("should return true if both values are out of range", () => {
+        const value = [-12, 24] satisfies [number, number];
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [[number, number], [number, number]];
+        expect(pairOutOfRange(value, range)).toBe(true);
+    });
+
+    test("should return false if the values are within the range", () => {
+        const value = [6, 6] satisfies [number, number];
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [[number, number], [number, number]];
+        expect(pairOutOfRange(value, range)).toBe(false);
     });
 });
