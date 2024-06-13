@@ -994,7 +994,10 @@ export class Graphie {
                     const width = span.scrollWidth;
                     const height = span.scrollHeight;
                     setLabelMargins(span, [width, height]);
-                    console.log(`   Set with 'processMath' - size: `, [width, height]);
+                    console.log(`   Set with 'processMath' - size: `, [
+                        width,
+                        height,
+                    ]);
                 });
             };
 
@@ -1004,7 +1007,10 @@ export class Graphie {
                 const width = span.scrollWidth;
                 const height = span.scrollHeight;
                 setLabelMargins(span, [width, height]);
-                console.log(`   Set with 'processText' - size: `, [width, height]);
+                console.log(`   Set with 'processText' - size: `, [
+                    width,
+                    height,
+                ]);
             };
 
             if (latex) {
@@ -1681,7 +1687,7 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         const margins = {
             marginLeft: Math.round(width * multipliers[0]),
             marginTop: Math.round(height * multipliers[1]),
-        }
+        };
         $span.css(margins);
         console.log(`Label: `, $span.text());
         console.log(`   Direction: `, direction);
