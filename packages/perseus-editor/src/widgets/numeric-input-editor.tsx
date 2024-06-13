@@ -312,7 +312,7 @@ class NumericInputEditor extends React.Component<Props, State> {
             answers.map((answer, i) => {
                 const editor = (
                     <Editor
-                        apiOptions={this.props.apiOptions}
+                        apiOptions={()=>{}}//this.props.apiOptions}
                         content={answer.message || ""}
                         placeholder={
                             "Why is this answer " +
@@ -343,6 +343,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 className="numeric-input-value"
                                 placeholder="answer"
                                 format={_.last(answer.answerForms || [])}
+                                data-testid={`numeric-input-answer`}
                                 onFormatChange={(newValue, format) => {
                                     // NOTE(charlie): The mobile web expression
                                     // editor relies on this automatic answer
@@ -552,7 +553,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         }
 
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
-        this.props.onChange({answers: answers});
+        // this.props.onChange({answers: answers});
     };
 
     addAnswer = () => {
