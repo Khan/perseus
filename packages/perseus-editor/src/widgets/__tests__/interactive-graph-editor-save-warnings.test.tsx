@@ -99,7 +99,7 @@ describe("InteractiveGraphEditor getSaveWarnings", () => {
 
             // Assert
             expect(ref.current?.getSaveWarnings()).toEqual([
-                "The locked point must be within the graph's range.",
+                "The locked point's x coordinate must be within the graph's range.",
             ]);
         });
     });

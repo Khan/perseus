@@ -23,7 +23,7 @@ import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import LabeledRow from "../components/labeled-row";
 import LockedFiguresSection from "../components/locked-figures-section";
 import SegmentCountSelector from "../components/segment-count-selector";
-import {pairOutOfRange} from "../components/util";
+import {outOfRange} from "../components/util";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -675,9 +675,14 @@ class InteractiveGraphEditor extends React.Component<Props> {
             switch (figure.type) {
                 case "point":
                     // Check for range
-                    if (pairOutOfRange(figure.coord, this.props.range)) {
+                    if (outOfRange(figure.coord[0], this.props.range[0])) {
                         issues.push(
-                            "The locked point must be within the graph's range.",
+                            "The locked point's x coordinate must be within the graph's range.",
+                        );
+                    }
+                    if (outOfRange(figure.coord[1], this.props.range[1])) {
+                        issues.push(
+                            "The locked point's y coordinate must be within the graph's range.",
                         );
                     }
                     break;
@@ -693,19 +698,29 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     }
 
                     // Check for range
-                    for (const point of figure.points) {
-                        if (pairOutOfRange(point.coord, this.props.range)) {
+                    for (let i = 0; i < figure.points.length; i++) {
+                        if (outOfRange(figure.points[i].coord[0], this.props.range[0])) {
                             issues.push(
-                                "The locked line must be within the graph's range.",
+                                `The locked line's point ${i}'s x coordinate must be within the graph's range.`,
+                            );
+                        }
+                        if (outOfRange(figure.points[i].coord[1], this.props.range[1])) {
+                            issues.push(
+                                `The locked line's point ${i}'s y coordinate must be within the graph's range.`,
                             );
                         }
                     }
                     break;
                 case "ellipse":
                     // Check for centerpoint range
-                    if (pairOutOfRange(figure.center, this.props.range)) {
+                    if (outOfRange(figure.center[0], this.props.range[0])) {
                         issues.push(
-                            "The locked ellipse must be within the graph's range.",
+                            "The locked ellipse's center x coordinate must be within the graph's range.",
+                        );
+                    }
+                    if (outOfRange(figure.center[1], this.props.range[1])) {
+                        issues.push(
+                            "The locked ellipse's center y coordinate must be within the graph's range.",
                         );
                     }
 
@@ -714,15 +729,15 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         this.props.range[0][1] - this.props.range[0][0];
                     const yMax =
                         this.props.range[1][1] - this.props.range[1][0];
-                    if (
-                        pairOutOfRange(figure.center, this.props.range) ||
-                        pairOutOfRange(figure.radius, [
-                            [0, xMax],
-                            [0, yMax],
-                        ])
-                    ) {
+
+                    if (outOfRange(figure.radius[0], [0, xMax])) {
                         issues.push(
-                            "The locked ellipse must be within the graph's range.",
+                            "The locked ellipse's x radius must be within the graph's range.",
+                        );
+                    }
+                    if (outOfRange(figure.radius[1], [0, yMax])) {
+                        issues.push(
+                            "The locked ellipse's y radius must be within the graph's range.",
                         );
                     }
                     break;
@@ -733,12 +748,15 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     }
 
                     // Check for range
-                    for (const point of figure.points) {
-                        if (pairOutOfRange(point, this.props.range)) {
-                            issues.push(
-                                "The locked vector must be within the graph's range.",
-                            );
-                        }
+                    if (outOfRange(figure.points[0][0], this.props.range[0])) {
+                        issues.push(
+                            "The locked vector's tail must be within the graph's range.",
+                        );
+                    }
+                    if (outOfRange(figure.points[0][1], this.props.range[1])) {
+                        issues.push(
+                            "The locked vector's tip must be within the graph's range.",
+                        );
                     }
                     break;
             }

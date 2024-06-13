@@ -104,12 +104,9 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
     }
 }
 
-export function pairOutOfRange(
-    value: [number, number],
-    range: [[number, number], [number, number]],
+export function outOfRange(
+    value: number,
+    range: [number, number],
 ): boolean {
-    const [xRange, yRange] = range;
-    const [x, y] = value;
-
-    return x < xRange[0] || x > xRange[1] || y < yRange[0] || y > yRange[1];
+    return value < range[0] || value > range[1];
 }
