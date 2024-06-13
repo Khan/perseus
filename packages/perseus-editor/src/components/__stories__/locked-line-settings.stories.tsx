@@ -3,13 +3,7 @@ import * as React from "react";
 import LockedLineSettings from "../locked-line-settings";
 import {getDefaultFigureForType} from "../util";
 
-import type {Range} from "@khanacademy/perseus";
 import type {Meta, StoryObj} from "@storybook/react";
-
-const defaultRange = [
-    [-10, 10],
-    [-10, 10],
-] satisfies [Range, Range];
 
 export default {
     title: "PerseusEditor/Components/Locked Line Settings",
@@ -44,11 +38,7 @@ export const Controlled: StoryComponentType = {
         };
 
         return (
-            <LockedLineSettings
-                {...props}
-                range={defaultRange}
-                onChangeProps={handlePropsUpdate}
-            />
+            <LockedLineSettings {...props} onChangeProps={handlePropsUpdate} />
         );
     },
 };
@@ -86,7 +76,6 @@ export const WithInvalidPoints: StoryComponentType = {
                     getDefaultFigureForType("point"),
                     getDefaultFigureForType("point"),
                 ]}
-                range={defaultRange}
                 expanded={true}
                 onChangeProps={handlePropsUpdate}
             />
@@ -113,7 +102,6 @@ export const Expanded: StoryComponentType = {
         return (
             <LockedLineSettings
                 {...props}
-                range={defaultRange}
                 expanded={expanded}
                 onToggle={setExpanded}
                 onChangeProps={handlePropsUpdate}
@@ -144,7 +132,6 @@ export const ExpandedNondefaultProps: StoryComponentType = {
         return (
             <LockedLineSettings
                 {...props}
-                range={defaultRange}
                 expanded={expanded}
                 onToggle={setExpanded}
                 onChangeProps={handlePropsUpdate}

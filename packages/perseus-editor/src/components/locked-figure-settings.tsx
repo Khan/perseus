@@ -16,22 +16,11 @@ import type {Props as LockedEllipseProps} from "./locked-ellipse-settings";
 import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
-import type {LockedFigure} from "@khanacademy/perseus";
-import type {Interval} from "mafs";
 
-export type LockedFigureSettingsCommonProps = {
+export type AccordionProps = {
     // Whether to show the M2 features in the locked figure settings.
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
     showM2Features?: boolean;
-    range: [Interval, Interval];
-    /**
-     * Called when the delete button is pressed.
-     */
-    onRemove: () => void;
-    /**
-     * Called when the props (points, color, etc.) are updated.
-     */
-    onChangeProps: (newProps: Partial<LockedFigure>) => void;
     /**
      * Whether this accordion is expanded.
      */
@@ -43,7 +32,7 @@ export type LockedFigureSettingsCommonProps = {
 };
 
 // Union this type with other locked figure types when they are added.
-type Props = LockedFigureSettingsCommonProps &
+type Props = AccordionProps &
     (
         | LockedPointProps
         | LockedLineProps
