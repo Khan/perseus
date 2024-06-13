@@ -152,9 +152,16 @@ export const StatefulMafsGraph = React.forwardRef<
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
     const numSegments = graph.type === "segment" ? graph.numSegments : null;
+    const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
     useEffect(() => {
-        dispatch(reinitialize(latestPropsRef.current));
+        // This conditional prevents the state from being "reinitialized" right
+        // after the first render. This is an optimization, but also prevents
+        // a bug where the graph would be marked "incorrect" during grading
+        // even if the user never interacted with it.
+        if (latestPropsRef.current !== originalPropsRef.current) {
+            dispatch(reinitialize(latestPropsRef.current));
+        }
     }, [graph.type, numSegments, latestPropsRef]);
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
