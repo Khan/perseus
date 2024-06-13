@@ -25,6 +25,7 @@ import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
     changeSnapStep,
+    reinitialize,
     type InteractiveGraphAction,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -33,6 +34,7 @@ import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {Widget} from "../../renderer";
+import type {PerseusGraphType} from "../../perseus-types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -41,7 +43,7 @@ import "./mafs-styles.css";
 export type StatefulMafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
-    graph: InteractiveGraphProps["graph"];
+    graph: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
     snapStep: InteractiveGraphProps["snapStep"];
@@ -111,7 +113,7 @@ export const StatefulMafsGraph = React.forwardRef<
     Partial<Widget>,
     StatefulMafsGraphProps
 >((props, ref) => {
-    const {onChange} = props;
+    const {onChange, graph} = props;
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
@@ -120,7 +122,7 @@ export const StatefulMafsGraph = React.forwardRef<
     );
 
     useImperativeHandle(ref, () => ({
-        getUserInput: () => getGradableGraph(state, props.graph),
+        getUserInput: () => getGradableGraph(state, graph),
     }));
 
     const prevState = useRef<InteractiveGraphState>(state);
@@ -148,6 +150,11 @@ export const StatefulMafsGraph = React.forwardRef<
             ]),
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
+
+    const numSegments = graph.type === "segment" ? graph.numSegments : null;
+    useEffect(() => {
+        dispatch(reinitialize(props));
+    }, [graph.type, numSegments]);
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
 });

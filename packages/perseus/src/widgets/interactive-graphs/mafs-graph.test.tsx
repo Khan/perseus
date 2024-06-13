@@ -109,6 +109,47 @@ describe("StatefulMafsGraph", () => {
 
         expect(mockChangeHandler).toHaveBeenCalled();
     });
+
+    it("re-renders when the graph type changes", () => {
+        // Arrange: render a segment graph
+        const segmentGraphProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "segment"}
+        };
+        const {rerender} = render(<StatefulMafsGraph{...segmentGraphProps} />);
+
+        // Act: rerender with a quadratic graph
+        const quadraticGraphProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "quadratic"}
+        }
+        rerender(<StatefulMafsGraph {...quadraticGraphProps} />);
+
+        // Assert: there should be 3 movable points (which define the quadratic
+        // function). If there are 2 points, it means we are still rendering
+        // the segment graph.
+        expect(screen.getAllByTestId("movable-point").length).toBe(3);
+    });
+
+    it("re-renders when the number of line segments on a segment graph changes", () => {
+        // Arrange: render a segment graph with one segment
+        const oneSegmentProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "segment", numSegments: 1}
+        };
+        const {rerender} = render(<StatefulMafsGraph{...oneSegmentProps} />);
+
+        // Act: rerender with two segments
+        const twoSegmentProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "segment", numSegments: 2}
+        }
+        rerender(<StatefulMafsGraph {...twoSegmentProps} />);
+
+        // Assert: there should be 4 movable points. If there are 2 points, it
+        // means we are still rendering a single segment.
+        expect(screen.getAllByTestId("movable-point").length).toBe(4);
+    })
 });
 
 function graphToPixel(

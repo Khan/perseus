@@ -1,6 +1,8 @@
 import type {Interval, vec} from "mafs";
+import {InitializeGraphStateParams} from "./initialize-graph-state";
 
 export type InteractiveGraphAction =
+    | Reinitialize
     | MoveControlPoint
     | MoveLine
     | MoveAll
@@ -9,6 +11,18 @@ export type InteractiveGraphAction =
     | MoveRadiusPoint
     | ChangeSnapStep
     | ChangeRange;
+
+export const REINITIALIZE = "reinitialize";
+export interface Reinitialize {
+    type: typeof REINITIALIZE;
+    params: InitializeGraphStateParams;
+}
+export function reinitialize(params: InitializeGraphStateParams): Reinitialize {
+    return {
+        type: REINITIALIZE,
+        params,
+    }
+}
 
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPoint {
