@@ -3,13 +3,7 @@ import * as React from "react";
 import LockedPointSettings from "../locked-point-settings";
 import {getDefaultFigureForType} from "../util";
 
-import type {Range} from "@khanacademy/perseus";
 import type {Meta, StoryObj} from "@storybook/react";
-
-const defaultRange = [
-    [-10, 10],
-    [-10, 10],
-] satisfies [Range, Range];
 
 export default {
     title: "PerseusEditor/Components/Locked Point Settings",
@@ -44,11 +38,7 @@ export const Controlled: StoryComponentType = {
         };
 
         return (
-            <LockedPointSettings
-                {...props}
-                range={defaultRange}
-                onChangeProps={handlePropsUpdate}
-            />
+            <LockedPointSettings {...props} onChangeProps={handlePropsUpdate} />
         );
     },
 };
@@ -79,7 +69,6 @@ export const Expanded: StoryComponentType = {
         return (
             <LockedPointSettings
                 {...props}
-                range={defaultRange}
                 expanded={expanded}
                 onToggle={setExpanded}
                 onChangeProps={handlePropsUpdate}
@@ -109,7 +98,6 @@ export const ExpandedNondefaultProps: StoryComponentType = {
         return (
             <LockedPointSettings
                 {...props}
-                range={defaultRange}
                 expanded={expanded}
                 onToggle={setExpanded}
                 onChangeProps={handlePropsUpdate}

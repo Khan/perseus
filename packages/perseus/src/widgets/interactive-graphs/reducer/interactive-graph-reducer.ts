@@ -7,6 +7,7 @@ import Util from "../../../util";
 import {
     angleMeasures,
     ccw,
+    lawOfCosines,
     magnitude,
     polygonSidesIntersect,
     sign,
@@ -199,35 +200,24 @@ function doMoveAll(
     switch (state.type) {
         case "polygon": {
             let newCoords: vec.Vector2[];
-            switch (state.snapTo) {
-                // TODO(LEMS-1902): Implement sides snapping for polygons
-                case "grid":
-                case undefined:
-                case "sides": {
-                    const change = getChange(state.coords, action.delta, {
-                        snapStep,
-                        range,
-                    });
+            if (state.snapTo === "sides" || state.snapTo === "angles") {
+                const change = getChange(state.coords, action.delta, {
+                    snapStep: [0, 0],
+                    range,
+                });
 
-                    newCoords = state.coords.map((point: vec.Vector2) =>
-                        snap(snapStep, vec.add(point, change)),
-                    );
+                newCoords = state.coords.map((point: vec.Vector2) =>
+                    vec.add(point, change),
+                );
+            } else {
+                const change = getChange(state.coords, action.delta, {
+                    snapStep,
+                    range,
+                });
 
-                    break;
-                }
-                case "angles": {
-                    const change = getChange(state.coords, action.delta, {
-                        snapStep: [0, 0],
-                        range,
-                    });
-
-                    newCoords = state.coords.map((point: vec.Vector2) =>
-                        vec.add(point, change),
-                    );
-                    break;
-                }
-                default:
-                    throw new Error(`Unknown snapTo: ${state.snapTo}`);
+                newCoords = state.coords.map((point: vec.Vector2) =>
+                    snap(snapStep, vec.add(point, change)),
+                );
             }
             return {
                 ...state,
@@ -247,17 +237,27 @@ function doMovePoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "polygon":
+            let newValue: vec.Vector2;
+            if (state.snapTo === "sides") {
+                newValue = boundAndSnapToSides(
+                    action.destination,
+                    state,
+                    action.index,
+                );
+            } else if (state.snapTo === "angles") {
+                newValue = boundAndSnapToAngle(
+                    action.destination,
+                    state,
+                    action.index,
+                );
+            } else {
+                newValue = boundAndSnapToGrid(action.destination, state);
+            }
+
             const newCoords = setAtIndex({
                 array: state.coords,
                 index: action.index,
-                newValue:
-                    state.snapTo === "grid"
-                        ? boundAndSnapToGrid(action.destination, state)
-                        : boundAndSnapToAngle(
-                              action.destination,
-                              state,
-                              action.index,
-                          ),
+                newValue: newValue,
             });
 
             // Reject the move if it would cause the sides of the polygon to cross
@@ -479,6 +479,13 @@ interface ConstraintArgs {
     point: vec.Vector2;
 }
 
+const eq = Util.eq;
+
+// Less than or approximately equal
+function leq(a: any, b) {
+    return a < b || eq(a, b);
+}
+
 function boundAndSnapToGrid(
     point: vec.Vector2,
     {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
@@ -493,18 +500,26 @@ function boundAndSnapToAngle(
 ) {
     const startingPoint = coords[index];
 
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
+    const coordsCopy = [...coords];
+
     // Takes the destination point and makes sure it is within the bounds of the graph
     // SnapStep is [0, 0] because we don't want to snap to the grid
-    coords[index] = bound({snapStep: [0, 0], range, point: destinationPoint});
+    coordsCopy[index] = bound({
+        snapStep: [0, 0],
+        range,
+        point: destinationPoint,
+    });
 
     // Gets the radian angles between the coords and maps them to degrees
-    const angles = angleMeasures(coords).map(
+    const angles = angleMeasures(coordsCopy).map(
         (angle) => (angle * 180) / Math.PI,
     );
 
     // Gets the relative index of a point
     const rel = (j): number => {
-        return (index + j + coords.length) % coords.length;
+        return (index + j + coordsCopy.length) % coordsCopy.length;
     };
 
     // Round the angles to left and right of the current point
@@ -514,9 +529,9 @@ function boundAndSnapToAngle(
 
     const getAngle = function (a: number, vertex, b: number) {
         const angle = GraphUtils.findAngle(
-            coords[rel(a)],
-            coords[rel(b)],
-            coords[rel(vertex)],
+            coordsCopy[rel(a)],
+            coordsCopy[rel(b)],
+            coordsCopy[rel(vertex)],
         );
         return (angle + 360) % 360;
     };
@@ -526,13 +541,6 @@ function boundAndSnapToAngle(
         angles[rel(1)] - getAngle(-1, 1, 2),
     ];
     innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
-
-    const eq = Util.eq;
-
-    // Less than or approximately equal
-    function leq(a: any, b) {
-        return a < b || eq(a, b);
-    }
 
     // Avoid degenerate triangles
     if (
@@ -545,11 +553,19 @@ function boundAndSnapToAngle(
 
     const knownSide = magnitude(
         // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
-        vector(coords[rel(-1)], coords[rel(1)]),
+        vector(coordsCopy[rel(-1)], coordsCopy[rel(1)]),
     );
 
+    // Returns true if the points form a counter-clockwise turn;
+    // a.k.a if the point is on the left or right of the polygon.
+    // This is used to determine how to adjust the point: if the point is on the left,
+    // we want to add the inner angle to the outer angle, and if it's on the right,
+    // we want to subtract the inner angle from the outer angle. The angle solved
+    // for is then used in the polar function to determine the new point.
     const onLeft =
-        sign(ccw(coords[rel(-1)], coords[rel(1)], coords[index])) === 1;
+        sign(
+            ccw(coordsCopy[rel(-1)], coordsCopy[rel(1)], coordsCopy[index]),
+        ) === 1;
 
     // Solve for side by using the law of sines
     const side =
@@ -557,10 +573,95 @@ function boundAndSnapToAngle(
             Math.sin((innerAngles[2] * Math.PI) / 180)) *
         knownSide;
 
-    const outerAngle = GraphUtils.findAngle(coords[rel(1)], coords[rel(-1)]);
+    // Angle at the second vertex of the polygon
+    const outerAngle = GraphUtils.findAngle(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
 
+    // Uses the length of the side of the polygon (radial coordinate)
+    // and the angle between the first and second sides of the
+    // polygon (angular coordinate) to determine how to adjust the point
     const offset = polar(side, outerAngle + (onLeft ? 1 : -1) * innerAngles[0]);
-    return kvector.add(coords[rel(-1)], offset);
+    return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
+}
+
+function boundAndSnapToSides(
+    destinationPoint: vec.Vector2,
+    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
+    index: number,
+) {
+    const startingPoint = coords[index];
+
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
+    const coordsCopy = [...coords];
+
+    // Takes the destination point and makes sure it is within the bounds of the graph
+    // SnapStep is [0, 0] because we don't want to snap to the grid
+    coordsCopy[index] = bound({
+        snapStep: [0, 0],
+        range,
+        point: destinationPoint,
+    });
+
+    // Gets the relative index of a point
+    const rel = (j): number => {
+        return (index + j + coordsCopy.length) % coordsCopy.length;
+    };
+    const sides = _.map(
+        [
+            [coordsCopy[rel(-1)], coordsCopy[index]],
+            [coordsCopy[index], coordsCopy[rel(1)]],
+            [coordsCopy[rel(-1)], coordsCopy[rel(1)]],
+        ],
+        function (coordsCopy) {
+            // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            return magnitude(vector(...coordsCopy));
+        },
+    );
+
+    // Round the sides to left and right of the current point
+    _.each([0, 1], function (j) {
+        sides[j] = Math.round(sides[j]);
+    });
+
+    // Avoid degenerate triangles
+    if (
+        leq(sides[1] + sides[2], sides[0]) ||
+        leq(sides[0] + sides[2], sides[1]) ||
+        leq(sides[0] + sides[1], sides[2])
+    ) {
+        return startingPoint;
+    }
+
+    // Solve for angle by using the law of cosines
+    // Angle at the first vertex of the polygon
+    const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
+
+    // Angle at the second vertex of the polygon
+    const outerAngle = GraphUtils.findAngle(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
+
+    // Returns true if the points form a counter-clockwise turn;
+    // a.k.a if the point is on the left or right of the polygon.
+    // This is used to determine how to adjust the point: if the point is on the left,
+    // we want to add the inner angle to the outer angle, and if it's on the right,
+    // we want to subtract the inner angle from the outer angle. The angle solved
+    // for is then used in the polar function to determine the new point.
+    const onLeft =
+        sign(
+            ccw(coordsCopy[rel(-1)], coordsCopy[rel(1)], coordsCopy[index]),
+        ) === 1;
+
+    // Uses the length of the first side of the polygon (radial coordinate)
+    // and the angle between the first and second sides of the
+    // polygon (angular coordinate) to determine how to adjust the point
+    const offset = polar(sides[0], outerAngle + (onLeft ? 1 : -1) * innerAngle);
+
+    return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
 }
 
 // Returns the closest point to the given `point` that is within the graph
