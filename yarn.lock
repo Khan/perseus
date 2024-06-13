@@ -2559,7 +2559,7 @@
     "@khanacademy/wonder-blocks-tokens" "^1.3.0"
     "@khanacademy/wonder-blocks-typography" "^2.1.11"
 
-"@khanacademy/wonder-blocks-form@4.5.1", "@khanacademy/wonder-blocks-form@^4.5.1":
+"@khanacademy/wonder-blocks-form@^4.5.1":
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-form/-/wonder-blocks-form-4.5.1.tgz#3664859cdb5ef29cca1cb1625d5fec14f89c844b"
   integrity sha512-exwtVmbLR+CvUOJDrNEFztLdbbV/+BCwCJ4AiLMVmY/gmDZhKrxu7tV5UqirXWdo7tv52/loGqOnvtiwDODcpg==
@@ -2572,7 +2572,7 @@
     "@khanacademy/wonder-blocks-tokens" "^1.3.0"
     "@khanacademy/wonder-blocks-typography" "^2.1.11"
 
-"@khanacademy/wonder-blocks-form@^4.6.2":
+"@khanacademy/wonder-blocks-form@^4.7.1":
   version "4.7.1"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-form/-/wonder-blocks-form-4.7.1.tgz#8fd8dbda7e52ce0940124c474fb324dc80f8eb15"
   integrity sha512-bVSLKbD/X+HDDQ4uUvgzG1j4CX7KEr35syvTVrjio+AR6cS1F8rZINuoFa3PV9gSlPfryA7C36i6PHhyz+s4Dg==

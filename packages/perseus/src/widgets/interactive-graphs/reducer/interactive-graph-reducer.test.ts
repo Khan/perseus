@@ -419,10 +419,47 @@ describe("movePoint on a polygon graph", () => {
         expect(updated.coords[0]).toEqual([0, 0]);
     });
 
+    it("rejects the move if it would cause sides of the polygon to intersect with sides snapping", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            snapTo: "sides",
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0, 0]);
+    });
+
     it("does not snap to grid when snapTo is angles using moveAll", () => {
         const state: InteractiveGraphState = {
             ...basePolygonGraphState,
             snapTo: "angles",
+            coords: [
+                [0, 0],
+                [0, 2],
+                [2, 2],
+                [2, 0],
+            ],
+        };
+
+        // Move all points less than a snapStep to show they are not snapping
+        const updated = interactiveGraphReducer(state, moveAll([0.3, 0]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([0.3, 0]);
+    });
+
+    it("does not snap to grid when snapTo is sides using moveAll", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            snapTo: "sides",
             coords: [
                 [0, 0],
                 [0, 2],
@@ -456,6 +493,27 @@ describe("movePoint on a polygon graph", () => {
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([
             2.997376981064699, -2.009663752902908,
+        ]);
+    });
+
+    // Since the graph is not snapping to grid, example points to move must be very specific
+    it("does not snap to grid when snapTo is sides using movePoint", () => {
+        const state: InteractiveGraphState = {
+            ...basePolygonGraphState,
+            snapTo: "sides",
+            coords: [
+                [3.1788177497461882, -2.95030212474619],
+                [2.828427124746188, 2.828427124746188],
+                [-2.82842712474619, 2.828427124746188],
+                [-2.8284271247461916, -2.82842712474619],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [3, -2]));
+
+        invariant(updated.type === "polygon");
+        expect(updated.coords[0]).toEqual([
+            3.1344697042830383, -2.1621978801515374,
         ]);
     });
 });
