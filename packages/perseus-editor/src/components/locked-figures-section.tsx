@@ -16,14 +16,12 @@ import {getDefaultFigureForType} from "./util";
 
 import type {Props as InteractiveGraphEditorProps} from "../widgets/interactive-graph-editor";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
-import type {Interval} from "mafs";
 
 type Props = {
     // Whether to show the M2 features in the locked figure settings.
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
     showM2Features: boolean;
     figures?: Array<LockedFigure>;
-    range: [Interval, Interval];
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
 
@@ -103,7 +101,6 @@ const LockedFiguresSection = (props: Props) => {
                         key={`${uniqueId}-locked-${figure}-${index}`}
                         showM2Features={props.showM2Features}
                         expanded={expandedStates[index]}
-                        range={props.range satisfies [Interval, Interval]}
                         onToggle={(newValue) => {
                             const newExpanded = [...expandedStates];
                             newExpanded[index] = newValue;
