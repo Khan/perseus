@@ -128,6 +128,14 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
     );
 };
 
+MafsWithLockedFiguresCurrent.parameters = {
+    chromatic: {
+        // Disabling because this isn't visually testing anything on the
+        // initial load of the editor page.
+        disable: true,
+    },
+};
+
 export const MafsWithLockedFiguresM2Flag = (): React.ReactElement => {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
@@ -174,6 +182,14 @@ export const MafsWithLockedFiguresM2Flag = (): React.ReactElement => {
             }}
         />
     );
+};
+
+MafsWithLockedFiguresM2Flag.parameters = {
+    chromatic: {
+        // Disabling because this isn't visually testing anything on the
+        // initial load of the editor page.
+        disable: true,
+    },
 };
 
 export const WithSaveWarnings = (): React.ReactElement => {

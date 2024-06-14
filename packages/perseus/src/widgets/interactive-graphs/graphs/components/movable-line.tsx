@@ -97,6 +97,7 @@ function useControlPoint(
     const focusableHandle = (
         <g
             data-testid="movable-point__focusable-handle"
+            className="movable-point__focusable-handle"
             tabIndex={0}
             ref={keyboardHandleRef}
             onFocus={() => setFocused(true)}

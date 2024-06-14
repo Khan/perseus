@@ -1,5 +1,5 @@
 import {components, lockedEllipseFillStyles} from "@khanacademy/perseus";
-import {View, useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -14,7 +14,7 @@ import EllipseSwatch from "./ellipse-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {AccordionProps} from "./locked-figure-settings";
 import type {
     Coord,
     LockedEllipseFillType,
@@ -24,7 +24,17 @@ import type {
 
 const {InfoTip} = components;
 
-export type Props = LockedFigureSettingsCommonProps & LockedEllipseType;
+export type Props = AccordionProps &
+    LockedEllipseType & {
+        /**
+         * Called when the delete button is pressed.
+         */
+        onRemove: () => void;
+        /**
+         * Called when the props (coords, color, etc.) are updated.
+         */
+        onChangeProps: (newProps: Partial<LockedEllipseType>) => void;
+    };
 
 const LockedEllipseSettings = (props: Props) => {
     const {
@@ -35,15 +45,10 @@ const LockedEllipseSettings = (props: Props) => {
         fillStyle,
         strokeStyle,
         expanded,
-        range,
         onToggle,
         onChangeProps,
         onRemove,
     } = props;
-
-    const ids = useUniqueIdWithMock();
-    const strokeSelectId = ids.get("stroke-style-select");
-    const fillSelectId = ids.get("fill-style-select");
 
     function handleColorChange(newValue: LockedFigureColor) {
         onChangeProps({color: newValue});
@@ -70,7 +75,6 @@ const LockedEllipseSettings = (props: Props) => {
             <View style={styles.row}>
                 <CoordinatePairInput
                     coord={center}
-                    range={range}
                     onChange={(newCoords: Coord) =>
                         onChangeProps({center: newCoords})
                     }
@@ -109,41 +113,35 @@ const LockedEllipseSettings = (props: Props) => {
                 <Strut size={spacing.medium_16} />
 
                 {/* Fill opacity */}
-                <LabelMedium
-                    tag="label"
-                    htmlFor={fillSelectId}
-                    style={styles.label}
-                >
+                <LabelMedium tag="label" style={styles.row}>
                     fill
+                    <Strut size={spacing.xxSmall_6} />
+                    <SingleSelect
+                        selectedValue={fillStyle}
+                        onChange={(value: LockedEllipseFillType) =>
+                            onChangeProps({fillStyle: value})
+                        }
+                        // Placeholder is required, but never gets used.
+                        placeholder=""
+                    >
+                        {Object.keys(lockedEllipseFillStyles).map((option) => (
+                            <OptionItem
+                                key={option}
+                                value={option}
+                                label={option}
+                            >
+                                {option}
+                            </OptionItem>
+                        ))}
+                    </SingleSelect>
                 </LabelMedium>
-                <SingleSelect
-                    id={fillSelectId}
-                    selectedValue={fillStyle}
-                    onChange={(value: LockedEllipseFillType) =>
-                        onChangeProps({fillStyle: value})
-                    }
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
-                >
-                    {Object.keys(lockedEllipseFillStyles).map((option) => (
-                        <OptionItem key={option} value={option} label={option}>
-                            {option}
-                        </OptionItem>
-                    ))}
-                </SingleSelect>
             </View>
 
             {/* Stroke style */}
-            <View style={styles.row}>
-                <LabelMedium
-                    tag="label"
-                    htmlFor={strokeSelectId}
-                    style={styles.label}
-                >
-                    stroke
-                </LabelMedium>
+            <LabelMedium tag="label" style={styles.row}>
+                stroke
+                <Strut size={spacing.xxSmall_6} />
                 <SingleSelect
-                    id={strokeSelectId}
                     selectedValue={strokeStyle}
                     onChange={(value: "solid" | "dashed") =>
                         onChangeProps({strokeStyle: value})
@@ -158,7 +156,7 @@ const LockedEllipseSettings = (props: Props) => {
                         dashed
                     </OptionItem>
                 </SingleSelect>
-            </View>
+            </LabelMedium>
 
             {/* Actions */}
             <LockedFigureSettingsActions
@@ -171,11 +169,9 @@ const LockedEllipseSettings = (props: Props) => {
 
 const styles = StyleSheet.create({
     row: {
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
-    },
-    label: {
-        marginInlineEnd: spacing.xxSmall_6,
     },
     spaceUnder: {
         marginBottom: spacing.xSmall_8,

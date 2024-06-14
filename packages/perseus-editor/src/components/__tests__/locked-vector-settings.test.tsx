@@ -7,15 +7,10 @@ import LockedVectorSettings from "../locked-vector-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Props} from "../locked-vector-settings";
-import type {Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
     ...getDefaultFigureForType("vector"),
-    range: [
-        [-10, 10],
-        [-10, 10],
-    ] satisfies [Range, Range],
     onChangeProps: () => {},
     onRemove: () => {},
 } as Props;

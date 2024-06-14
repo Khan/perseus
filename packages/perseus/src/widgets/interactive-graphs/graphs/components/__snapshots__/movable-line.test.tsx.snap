@@ -15,6 +15,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
       width="200"
     >
       <g
+        class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
         tabindex="0"
       />
@@ -56,6 +57,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         />
       </g>
       <g
+        class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
         tabindex="0"
       />
@@ -147,6 +149,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
       width="200"
     >
       <g
+        class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
         tabindex="0"
       />
@@ -188,6 +191,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         />
       </g>
       <g
+        class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
         tabindex="0"
       />
@@ -279,6 +283,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
       width="200"
     >
       <g
+        class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
         tabindex="0"
       />
@@ -374,6 +379,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         </g>
       </g>
       <g
+        class="movable-point__focusable-handle"
         data-testid="movable-point__focusable-handle"
         tabindex="0"
       />

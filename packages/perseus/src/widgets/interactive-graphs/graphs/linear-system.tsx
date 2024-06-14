@@ -13,8 +13,6 @@ export const LinearSystemGraph = (props: LinearSystemGraphProps) => {
     const {dispatch} = props;
     const {coords: lines} = props.graphState;
 
-    const colors = ["var(--movable-line-stroke-color)", "var(--mafs-violet)"];
-
     return (
         <>
             {lines?.map((line, i) => (
@@ -36,7 +34,7 @@ export const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                             moveControlPoint(endpointIndex, destination, i),
                         )
                     }
-                    color={colors[i]}
+                    color="var(--movable-line-stroke-color)"
                 />
             ))}
             ;
