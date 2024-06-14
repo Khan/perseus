@@ -337,6 +337,6 @@ function getCircleCoords(graph: PerseusGraphTypeCircle): {
     }
     return {
         center: [0, 0],
-        radiusPoint: [1, 0],
+        radiusPoint: [2, 0],
     };
 }
