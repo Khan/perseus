@@ -12,6 +12,8 @@ import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
 import {sinusoidQuestion} from "../__testdata__/grapher.testdata";
 import {
+    angleQuestion,
+    angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
     linearQuestion,
@@ -157,6 +159,7 @@ describe("a mafs graph", () => {
     const graphQuestionRenderers: {
         [K in (typeof mafsSupportedGraphTypes)[number]]: PerseusRenderer;
     } = {
+        angle: angleQuestion,
         segment: segmentQuestion,
         linear: linearQuestion,
         "linear-system": linearSystemQuestion,
@@ -171,6 +174,7 @@ describe("a mafs graph", () => {
     const graphQuestionRenderersCorrect: {
         [K in (typeof mafsSupportedGraphTypes)[number]]: PerseusRenderer;
     } = {
+        angle: angleQuestionWithDefaultCorrect,
         segment: segmentQuestionDefaultCorrect,
         linear: linearQuestionWithDefaultCorrect,
         "linear-system": linearSystemQuestionWithDefaultCorrect,

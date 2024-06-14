@@ -15,6 +15,7 @@ import {
     CircleGraph,
     QuadraticGraph,
     SinusoidGraph,
+    AngleGraph,
 } from "./graphs";
 import {AxisTickLabels} from "./graphs/components/axis-tick-labels";
 import {SvgDefs} from "./graphs/components/text-label";
@@ -70,6 +71,8 @@ const renderGraph = (props: {
     const {state, dispatch} = props;
     const {type} = state;
     switch (type) {
+        case "angle":
+            return <AngleGraph graphState={state} dispatch={dispatch} />;
         case "segment":
             return <SegmentGraph graphState={state} dispatch={dispatch} />;
         case "linear-system":

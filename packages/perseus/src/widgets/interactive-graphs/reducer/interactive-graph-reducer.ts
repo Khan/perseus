@@ -116,6 +116,27 @@ function doMoveControlPoint(
                 coords: newCoords,
             };
         }
+        case "angle": {
+            // STOPSHIP: This seems a little hacky. I might want to build a better
+            // angle state for handling the center points and end points
+            const index = action.pointIndex === 0 ? 0 : action.itemIndex;
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: index,
+                    newValue: snap(
+                        state.snapStep,
+                        bound({
+                            snapStep: state.snapStep,
+                            range: state.range,
+                            point: action.destination,
+                        }),
+                    ),
+                }),
+            };
+        }
         case "circle":
             throw new Error("FIXME implement circle reducer");
         case "point":

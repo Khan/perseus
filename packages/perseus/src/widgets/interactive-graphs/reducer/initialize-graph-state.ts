@@ -5,6 +5,7 @@ import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {
     PerseusGraphType,
+    PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
@@ -94,9 +95,13 @@ export function initializeGraphState(
                 coords: getSinusoidCoords(graph, range, step),
             };
         case "angle":
-            throw new Error(
-                "Mafs not yet implemented for graph type: " + graph.type,
-            );
+            return {
+                ...shared,
+                type: graph.type,
+                coords: getAngleCoords({graph, range, step}),
+                angleOffsetDeg: Number(graph.showAngles),
+                snapDegrees: Number(graph.snapDegrees),
+            };
         default:
             throw new UnreachableCaseError(graph);
     }
@@ -344,3 +349,24 @@ function getCircleCoords(graph: PerseusGraphTypeCircle): {
         radiusPoint: [2, 0],
     };
 }
+
+const getAngleCoords = (params: {
+    graph: PerseusGraphTypeAngle;
+    range: [x: Interval, y: Interval];
+    step: [x: number, y: number];
+}): [Coord, Coord, Coord] => {
+    const {graph, range, step} = params;
+    if (graph.coords) {
+        return graph.coords;
+    }
+
+    let coords: [Coord, Coord, Coord] = [
+        [0.5, 0.5],
+        [0.8, 0.65],
+        [0.8, 0.5],
+    ];
+
+    coords = normalizePoints(range, step, coords, true);
+
+    return coords;
+};
