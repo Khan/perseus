@@ -31,6 +31,7 @@ import {
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
+    segmentWithLockedPolygons,
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
@@ -538,36 +539,6 @@ describe("locked layer", () => {
         });
     });
 
-    test("should render locked ellipses", async () => {
-        // Arrange
-        const {container} = renderQuestion(segmentWithLockedEllipses, {
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
-        });
-
-        // Act
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const circles = container.querySelectorAll("ellipse");
-
-        // Assert
-        expect(circles).toHaveLength(3);
-        expect(circles[0]).toHaveStyle({
-            "fill-opacity": "0",
-            stroke: lockedFigureColors["grayH"],
-        });
-        expect(circles[1]).toHaveStyle({
-            "fill-opacity": "1",
-            stroke: lockedFigureColors["green"],
-        });
-        expect(circles[2]).toHaveStyle({
-            "fill-opacity": "0.4",
-            stroke: lockedFigureColors["green"],
-        });
-    });
-
     test("should render locked vectors", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedVectors, {
@@ -614,5 +585,100 @@ describe("locked layer", () => {
             "transform",
             "translate(-40 -80) rotate(-153.43494882292202)",
         );
+    });
+
+    test("should render locked ellipses", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedEllipses, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const circles = container.querySelectorAll("ellipse");
+
+        // Assert
+        expect(circles).toHaveLength(3);
+        expect(circles[0]).toHaveStyle({
+            "fill-opacity": "0",
+            stroke: lockedFigureColors["grayH"],
+        });
+        expect(circles[1]).toHaveStyle({
+            "fill-opacity": "1",
+            stroke: lockedFigureColors["green"],
+        });
+        expect(circles[2]).toHaveStyle({
+            "fill-opacity": "0.4",
+            stroke: lockedFigureColors["green"],
+        });
+    });
+
+    test("should render locked polygons with style", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedPolygons, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const polygons = container.querySelectorAll(".locked-polygon polygon");
+
+        // Assert
+        expect(polygons).toHaveLength(3);
+        expect(polygons[0]).toHaveStyle({
+            "fill-opacity": "0",
+            stroke: lockedFigureColors["grayH"],
+        });
+        expect(polygons[1]).toHaveStyle({
+            "fill-opacity": "0.4",
+            stroke: lockedFigureColors["green"],
+        });
+        expect(polygons[2]).toHaveStyle({
+            "fill-opacity": "1",
+            stroke: lockedFigureColors["purple"],
+        });
+    });
+
+    test("should render vertices of locked polygons with showVertices", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedPolygons, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const polygonVertices = container.querySelectorAll(
+            ".locked-polygon circle",
+        );
+
+        // Assert
+        // There should be 4 vertices on the square polygon
+        expect(polygonVertices).toHaveLength(4);
+
+        // The square polygon is green
+        expect(polygonVertices[0]).toHaveStyle({
+            fill: lockedFigureColors["green"],
+        });
+        expect(polygonVertices[1]).toHaveStyle({
+            fill: lockedFigureColors["green"],
+        });
+        expect(polygonVertices[2]).toHaveStyle({
+            fill: lockedFigureColors["green"],
+        });
+        expect(polygonVertices[3]).toHaveStyle({
+            fill: lockedFigureColors["green"],
+        });
     });
 });

@@ -677,8 +677,9 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
 export type LockedFigure =
     | LockedPointType
     | LockedLineType
+    | LockedVectorType
     | LockedEllipseType
-    | LockedVectorType;
+    | LockedPolygonType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -698,8 +699,14 @@ export type LockedLineType = {
     showPoint2: boolean;
 };
 
-export type LockedEllipseFillType = "none" | "solid" | "translucent";
-export const lockedEllipseFillStyles: Record<LockedEllipseFillType, number> = {
+export type LockedVectorType = {
+    type: "vector";
+    points: [tail: Coord, tip: Coord];
+    color: LockedFigureColor;
+};
+
+export type LockedFigureFillType = "none" | "solid" | "translucent";
+export const lockedFigureFillStyles: Record<LockedFigureFillType, number> = {
     none: 0,
     solid: 1,
     translucent: 0.4,
@@ -711,14 +718,17 @@ export type LockedEllipseType = {
     radius: [x: number, y: number];
     angle: number;
     color: LockedFigureColor;
-    fillStyle: LockedEllipseFillType;
+    fillStyle: LockedFigureFillType;
     strokeStyle: "solid" | "dashed";
 };
 
-export type LockedVectorType = {
-    type: "vector";
-    points: [tail: Coord, tip: Coord];
+export type LockedPolygonType = {
+    type: "polygon";
+    points: ReadonlyArray<Coord>;
     color: LockedFigureColor;
+    showVertices: boolean;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: "solid" | "dashed";
 };
 
 export type PerseusGraphType =

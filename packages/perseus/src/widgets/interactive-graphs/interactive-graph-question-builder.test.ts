@@ -202,6 +202,42 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
+    it("adds a locked vector", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedVector([1, 2], [3, 4])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "vector",
+                points: [
+                    [1, 2],
+                    [3, 4],
+                ],
+                color: "grayH",
+            },
+        ]);
+    });
+
+    it("adds a locked vector with a specified color", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedVector([1, 2], [3, 4], "green")
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "vector",
+                points: [
+                    [1, 2],
+                    [3, 4],
+                ],
+                color: "green",
+            },
+        ]);
+    });
+
     it("adds a locked ellipse", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedEllipse([1, 2], [3, 3])
@@ -245,38 +281,62 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
-    it("adds a locked vector", () => {
+    it("adds a locked polygon", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .addLockedVector([1, 2], [3, 4])
+            .addLockedPolygon([
+                [1, 2],
+                [3, 4],
+                [5, 6],
+            ])
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
         expect(graph.options.lockedFigures).toEqual([
             {
-                type: "vector",
+                type: "polygon",
                 points: [
                     [1, 2],
                     [3, 4],
+                    [5, 6],
                 ],
                 color: "grayH",
+                showVertices: false,
+                fillStyle: "none",
+                strokeStyle: "solid",
             },
         ]);
     });
 
-    it("adds a locked vector with a specified color", () => {
+    it("adds a locked polygon with options", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .addLockedVector([1, 2], [3, 4], "green")
+            .addLockedPolygon(
+                [
+                    [1, 2],
+                    [3, 4],
+                    [5, 6],
+                ],
+                {
+                    color: "green",
+                    showVertices: true,
+                    fillStyle: "translucent",
+                    strokeStyle: "dashed",
+                },
+            )
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
         expect(graph.options.lockedFigures).toEqual([
             {
-                type: "vector",
+                type: "polygon",
                 points: [
                     [1, 2],
                     [3, 4],
+                    [5, 6],
                 ],
                 color: "green",
+                showVertices: true,
+                fillStyle: "translucent",
+                strokeStyle: "dashed",
             },
         ]);
     });

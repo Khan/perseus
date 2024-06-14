@@ -20,6 +20,7 @@ import {
     sinusoidQuestion,
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
+    segmentWithLockedPolygons,
 } from "../__testdata__/interactive-graph.testdata";
 
 export default {
@@ -117,6 +118,10 @@ export const AllLockedRays = (args: StoryArgs): React.ReactElement => (
     />
 );
 
+export const LockedVector = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI {...mafsOptions} question={segmentWithLockedVectors} />
+);
+
 export const LockedEllipse = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
         {...mafsOptions}
@@ -124,8 +129,11 @@ export const LockedEllipse = (args: StoryArgs): React.ReactElement => (
     />
 );
 
-export const LockedVector = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI {...mafsOptions} question={segmentWithLockedVectors} />
+export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        {...mafsOptions}
+        question={segmentWithLockedPolygons}
+    />
 );
 
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (

@@ -4,6 +4,7 @@ import * as React from "react";
 import LockedEllipse from "./locked-ellipse";
 import LockedLine from "./locked-line";
 import LockedPoint from "./locked-point";
+import LockedPolygon from "./locked-polygon";
 import LockedVector from "./locked-vector";
 
 import type {LockedFigure} from "../../perseus-types";
@@ -32,6 +33,10 @@ const GraphLockedLayer = (props: Props) => {
                                 {...figure}
                             />
                         );
+                    case "vector":
+                        return (
+                            <LockedVector key={`vector-${index}`} {...figure} />
+                        );
                     case "ellipse":
                         return (
                             <LockedEllipse
@@ -39,9 +44,12 @@ const GraphLockedLayer = (props: Props) => {
                                 {...figure}
                             />
                         );
-                    case "vector":
+                    case "polygon":
                         return (
-                            <LockedVector key={`vector-${index}`} {...figure} />
+                            <LockedPolygon
+                                key={`polygon-${index}`}
+                                {...figure}
+                            />
                         );
                     default:
                         /**

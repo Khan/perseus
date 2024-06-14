@@ -7,6 +7,7 @@ import type {
     LockedLineType,
     LockedEllipseType,
     LockedVectorType,
+    LockedPolygonType,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
@@ -52,8 +53,9 @@ const DEFAULT_COLOR = "grayH";
 
 export function getDefaultFigureForType(type: "point"): LockedPointType;
 export function getDefaultFigureForType(type: "line"): LockedLineType;
-export function getDefaultFigureForType(type: "ellipse"): LockedEllipseType;
 export function getDefaultFigureForType(type: "vector"): LockedVectorType;
+export function getDefaultFigureForType(type: "ellipse"): LockedEllipseType;
+export function getDefaultFigureForType(type: "polygon"): LockedPolygonType;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
     switch (type) {
@@ -80,6 +82,15 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 showPoint1: false,
                 showPoint2: false,
             };
+        case "vector":
+            return {
+                type: "vector",
+                points: [
+                    [0, 0],
+                    [2, 2],
+                ],
+                color: DEFAULT_COLOR,
+            };
         case "ellipse":
             return {
                 type: "ellipse",
@@ -90,14 +101,18 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 fillStyle: "none",
                 strokeStyle: "solid",
             };
-        case "vector":
+        case "polygon":
             return {
-                type: "vector",
+                type: "polygon",
                 points: [
-                    [0, 0],
-                    [2, 2],
+                    [0, 2],
+                    [-1, 0],
+                    [1, 0],
                 ],
                 color: DEFAULT_COLOR,
+                showVertices: false,
+                fillStyle: "none",
+                strokeStyle: "solid",
             };
         default:
             throw new UnreachableCaseError(type);
