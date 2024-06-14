@@ -991,14 +991,21 @@ export class Graphie {
             // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
             $span.processMath = function (math, force) {
                 processMath(span, math, force, function () {
-                    const width = span.scrollWidth;
+                    const width = span.clientWidth;
+                    // const width = span.scrollWidth;
+                    // const width = getRealLabelWidth(span);
                     const height = span.scrollHeight;
                     setLabelMargins(span, [width, height]);
                     // eslint-disable-next-line
-                    console.log(`   Set with 'processMath' - size: `, [
-                        width,
-                        height,
-                    ]);
+                    console.log(`   Set with 'processMath'`);
+                    // eslint-disable-next-line
+                    console.log(`      Size: `, [width, height]);
+                    // eslint-disable-next-line
+                    console.log(`      Math: `, math);
+                    // eslint-disable-next-line
+                    console.log(`      Force: `, force);
+                    // eslint-disable-next-line
+                    console.log(`      Element: `, span);
                 });
             };
 
@@ -1694,6 +1701,8 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // eslint-disable-next-line
         console.log(`Label: `, $span.text());
         // eslint-disable-next-line
+        console.log(`   Split Values: `, $span.text().split("\u200d"));
+        // eslint-disable-next-line
         console.log(`   Direction: `, direction);
         // eslint-disable-next-line
         console.log(`   Multipliers: `, multipliers);
@@ -1701,6 +1710,18 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         console.log(`   Margin Left: `, margins.marginLeft);
     }
 };
+
+// const getRealLabelWidth = function (span: HTMLElement): number {
+//     const realLabelText = $(span).text().split("\u200D")[0];
+//     // eslint-disable-next-line
+//     console.log(`Original Label Text: `, $(span).text());
+//     // eslint-disable-next-line
+//     console.log(`   Split Label Text: `, $(span).text().split("\u200D"));
+//     // eslint-disable-next-line
+//     console.log(`   Real Label Text: `, realLabelText);
+//     const $realLabel = $("<span>").html(realLabelText);
+//     return $realLabel[0].scrollWidth;
+// };
 
 const GraphUtils = {
     Graphie,
