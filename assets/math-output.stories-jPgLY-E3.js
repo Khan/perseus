@@ -1,0 +1,7 @@
+import{j as a}from"./jsx-runtime-BGVbfQ2Z.js";import{M as s}from"./math-output-xqbS761x.js";import"./index-qhcEwEpg.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./jquery-5v7aFUvu.js";import"./index-E09jvG0x.js";import"./index-default-4_ZsnO94.js";import"./dependencies-fnqF3NiV.js";import"./perseus-api-BF68z3pH.js";import"./index-tvtfaFq4.js";import"./stub-tag-editor-CaJYfBue.js";import"./text-list-editor-bJphcq85.js";const A={title:"Perseus/Components/Math Ouput"},r=o=>a(s,{}),t=o=>a(s,{value:"Test string value"}),e=o=>a(s,{value:1234567890});var u,p,m;r.parameters={...r.parameters,docs:{...(u=r.parameters)==null?void 0:u.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  return <MathOutput />;
+}`,...(m=(p=r.parameters)==null?void 0:p.docs)==null?void 0:m.source}}};var c,n,i;t.parameters={...t.parameters,docs:{...(c=t.parameters)==null?void 0:c.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  return <MathOutput value="Test string value" />;
+}`,...(i=(n=t.parameters)==null?void 0:n.docs)==null?void 0:i.source}}};var l,g,d;e.parameters={...e.parameters,docs:{...(l=e.parameters)==null?void 0:l.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  return <MathOutput value={1234567890} />;
+}`,...(d=(g=e.parameters)==null?void 0:g.docs)==null?void 0:d.source}}};const P=["EmptyPropsObject","StringValue","NumericValue"];export{r as EmptyPropsObject,e as NumericValue,t as StringValue,P as __namedExportsOrder,A as default};
