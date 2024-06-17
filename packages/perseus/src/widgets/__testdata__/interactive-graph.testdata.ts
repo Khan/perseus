@@ -2089,13 +2089,6 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer = {
     },
 };
 
-export const segmentWithLockedFigures: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .addLockedPointAt(-7, -7)
-        .addLockedLine([-7, -5], [2, -3])
-        .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4})
-        .build();
-
 export const segmentWithLockedEllipses: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedEllipse([0, 0], [5, 5])
@@ -2117,6 +2110,14 @@ export const segmentWithLockedVectors: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedVector([0, 0], [2, 2])
         .addLockedVector([2, 2], [-2, 4], "green")
+        .build();
+
+export const segmentWithLockedFigures: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedPointAt(-7, -7)
+        .addLockedLine([-7, -5], [2, -3])
+        .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4})
+        .addLockedVector([0, 0], [8, 2], "purple")
         .build();
 
 export const quadraticQuestion: PerseusRenderer = {
