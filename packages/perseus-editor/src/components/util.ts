@@ -103,3 +103,10 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             throw new UnreachableCaseError(type);
     }
 }
+
+export function degreeToRadian(degrees: number) {
+    return (degrees / 180) * Math.PI;
+}
+export function radianToDegree(radians: number) {
+    return (radians / Math.PI) * 180;
+}

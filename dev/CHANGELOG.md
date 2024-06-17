@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.6.0
+
+### Minor Changes
+
+-   [#1338](https://github.com/Khan/perseus/pull/1338) [`7a530de8d`](https://github.com/Khan/perseus/commit/7a530de8df3d7edf709b4c4e42843b295f8e73bc) Thanks [@Myranae](https://github.com/Myranae)! - Implement the "sides" snapTo type for Polygon interactive graphs
+
 ## 1.5.9
 
 ### Patch Changes

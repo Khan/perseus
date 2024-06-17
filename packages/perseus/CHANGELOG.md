@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 23.4.0
+
+### Minor Changes
+
+-   [#1330](https://github.com/Khan/perseus/pull/1330) [`1df3824ab`](https://github.com/Khan/perseus/commit/1df3824ab72b121bdebe4d67ca667e5349f0e843) Thanks [@Myranae](https://github.com/Myranae)! - Implement the "angles" snapTo type for Polygon interactive graphs
+
+*   [#1338](https://github.com/Khan/perseus/pull/1338) [`7a530de8d`](https://github.com/Khan/perseus/commit/7a530de8df3d7edf709b4c4e42843b295f8e73bc) Thanks [@Myranae](https://github.com/Myranae)! - Implement the "sides" snapTo type for Polygon interactive graphs
+
+### Patch Changes
+
+-   [#1341](https://github.com/Khan/perseus/pull/1341) [`50c8233ee`](https://github.com/Khan/perseus/commit/50c8233eec4faf3c001a6ce73b3053fa28135961) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Increase default circle radius from 1 to 2.
+
+*   [#1349](https://github.com/Khan/perseus/pull/1349) [`56b2b9f58`](https://github.com/Khan/perseus/commit/56b2b9f58ee44fd2fd297cb53b9ad1495972bf55) Thanks [@nishasy](https://github.com/nishasy)! - Update to Wonder Blocks Form 4.7.1
+
+-   [#1331](https://github.com/Khan/perseus/pull/1331) [`509542a3b`](https://github.com/Khan/perseus/commit/509542a3bb155f3828bd9596858b0a7c46a98319) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Cleaning up internal usage of isValidLocation function.
+
+*   [#1340](https://github.com/Khan/perseus/pull/1340) [`bfb294453`](https://github.com/Khan/perseus/commit/bfb2944530a47fb4ae8d13a5ee218feebec023d9) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating for all Linear Systems to have the same color line.
+
+-   [#1337](https://github.com/Khan/perseus/pull/1337) [`4910b2ec3`](https://github.com/Khan/perseus/commit/4910b2ec3385c7d96bab5172a697722ce31f9339) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing blue dot issue in firefox for interactive graph
+
+*   [#1325](https://github.com/Khan/perseus/pull/1325) [`970f94119`](https://github.com/Khan/perseus/commit/970f941197bea8f9eabfe31020160dc3cbfb204d) Thanks [@benchristel](https://github.com/benchristel)! - Refactor the interactive graph state initialization code
+
 ## 23.3.0
 
 ### Minor Changes

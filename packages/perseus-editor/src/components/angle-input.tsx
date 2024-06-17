@@ -5,12 +5,7 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-const degreeToRadian = (degrees: number) => {
-    return (degrees / 180) * Math.PI;
-};
-const radianToDegree = (radians: number) => {
-    return (radians / Math.PI) * 180;
-};
+import {degreeToRadian, radianToDegree} from "./util";
 
 type Props = {
     angle: number;
