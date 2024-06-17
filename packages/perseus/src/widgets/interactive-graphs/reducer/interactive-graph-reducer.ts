@@ -18,24 +18,26 @@ import {polar} from "../../../util/graphie";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
 import {snap} from "../utils";
 
+import {initializeGraphState} from "./initialize-graph-state";
 import {
+    CHANGE_RANGE,
+    CHANGE_SNAP_STEP,
+    type ChangeRange,
+    type ChangeSnapStep,
     type InteractiveGraphAction,
     MOVE_ALL,
+    MOVE_CENTER,
     MOVE_CONTROL_POINT,
     MOVE_LINE,
     MOVE_POINT,
-    CHANGE_SNAP_STEP,
-    CHANGE_RANGE,
-    MOVE_CENTER,
     MOVE_RADIUS_POINT,
     type MoveAll,
+    type MoveCenter,
     type MoveControlPoint,
     type MoveLine,
-    type MoveCenter,
-    type MoveRadiusPoint,
     type MovePoint,
-    type ChangeSnapStep,
-    type ChangeRange,
+    type MoveRadiusPoint,
+    REINITIALIZE,
 } from "./interactive-graph-action";
 
 import type {QuadraticCoords} from "../graphs/quadratic";
@@ -48,6 +50,8 @@ export function interactiveGraphReducer(
     action: InteractiveGraphAction,
 ): InteractiveGraphState {
     switch (action.type) {
+        case REINITIALIZE:
+            return initializeGraphState(action.params);
         case MOVE_CONTROL_POINT:
             return doMoveControlPoint(state, action);
         case MOVE_LINE:

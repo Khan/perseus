@@ -1,4 +1,4 @@
-import {View} from "@khanacademy/wonder-blocks-core";
+import {useLatestRef, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
@@ -25,6 +25,7 @@ import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
     changeSnapStep,
+    reinitialize,
     type InteractiveGraphAction,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
@@ -32,6 +33,7 @@ import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
+import type {PerseusGraphType} from "../../perseus-types";
 import type {Widget} from "../../renderer";
 import type {vec} from "mafs";
 
@@ -41,7 +43,7 @@ import "./mafs-styles.css";
 export type StatefulMafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
-    graph: InteractiveGraphProps["graph"];
+    graph: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
     snapStep: InteractiveGraphProps["snapStep"];
@@ -111,7 +113,7 @@ export const StatefulMafsGraph = React.forwardRef<
     Partial<Widget>,
     StatefulMafsGraphProps
 >((props, ref) => {
-    const {onChange} = props;
+    const {onChange, graph} = props;
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
@@ -120,7 +122,7 @@ export const StatefulMafsGraph = React.forwardRef<
     );
 
     useImperativeHandle(ref, () => ({
-        getUserInput: () => getGradableGraph(state, props.graph),
+        getUserInput: () => getGradableGraph(state, graph),
     }));
 
     const prevState = useRef<InteractiveGraphState>(state);
@@ -148,6 +150,19 @@ export const StatefulMafsGraph = React.forwardRef<
             ]),
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
+
+    const numSegments = graph.type === "segment" ? graph.numSegments : null;
+    const originalPropsRef = useRef(props);
+    const latestPropsRef = useLatestRef(props);
+    useEffect(() => {
+        // This conditional prevents the state from being "reinitialized" right
+        // after the first render. This is an optimization, but also prevents
+        // a bug where the graph would be marked "incorrect" during grading
+        // even if the user never interacted with it.
+        if (latestPropsRef.current !== originalPropsRef.current) {
+            dispatch(reinitialize(latestPropsRef.current));
+        }
+    }, [graph.type, numSegments, latestPropsRef]);
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
 });

@@ -19,12 +19,16 @@ import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
 
-export function initializeGraphState(params: {
+export type InitializeGraphStateParams = {
     range: [x: Interval, y: Interval];
     step: [x: number, y: number];
     snapStep: [x: number, y: number];
     graph: PerseusGraphType;
-}): InteractiveGraphState {
+};
+
+export function initializeGraphState(
+    params: InitializeGraphStateParams,
+): InteractiveGraphState {
     const {graph, step, snapStep, range} = params;
     const shared = {
         hasBeenInteractedWith: false,
