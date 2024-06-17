@@ -15,24 +15,22 @@ describe("AngleInput", () => {
         });
     });
 
-    test("calls onChange with new angle (radians)", async () => {
+    test("displays angle in degrees", () => {
         // Arrange
-        const onChangeProps = jest.fn();
-        render(<AngleInput angle={0} onChange={onChangeProps} />, {
+        render(<AngleInput angle={Math.PI / 4} onChange={() => {}} />, {
             wrapper: RenderStateRoot,
         });
 
         // Act
-        const angleInput = screen.getByLabelText("angle");
-        await userEvent.type(angleInput, "2pi");
+        const angleInput = screen.getByRole("spinbutton", {
+            name: "angle (degrees)",
+        });
 
         // Assert
-        expect(onChangeProps).toHaveBeenLastCalledWith(2 * Math.PI);
-        // Called with "2" and "2pi", not with "2p".
-        expect(onChangeProps).toHaveBeenCalledTimes(2);
+        expect(angleInput).toHaveValue(45);
     });
 
-    test("calls onChange with new angle (degrees)", async () => {
+    test("calls onChange with new angle in radians", async () => {
         // Arrange
         const onChangeProps = jest.fn();
         render(<AngleInput angle={0} onChange={onChangeProps} />, {
@@ -40,15 +38,13 @@ describe("AngleInput", () => {
         });
 
         // Act
-        const angleSwitch = screen.getByRole("switch");
-        await userEvent.click(angleSwitch);
-        const angleInput = screen.getByLabelText("angle");
-        await userEvent.type(angleInput, "180");
+        const angleInput = screen.getByRole("spinbutton", {
+            name: "angle (degrees)",
+        });
+        await userEvent.type(angleInput, "90");
 
         // Assert
-        expect(onChangeProps).toHaveBeenLastCalledWith(Math.PI);
-        // Called with the switch, then with "1", "18", and "180".
-        expect(onChangeProps).toHaveBeenCalledTimes(4);
+        expect(onChangeProps).toHaveBeenLastCalledWith(Math.PI / 2);
     });
 
     test("does not call onChange with invalid expression", async () => {
@@ -59,47 +55,12 @@ describe("AngleInput", () => {
         });
 
         // Act
-        const angleInput = screen.getByLabelText("angle");
-        await userEvent.type(angleInput, "2pi +");
-
-        // Assert
-        // Called with "2", "2pi", and "2pi ", but
-        // not with "2p" or "2pi +".
-        expect(onChangeProps).toHaveBeenCalledTimes(3);
-        expect(onChangeProps).toHaveBeenLastCalledWith(2 * Math.PI);
-    });
-
-    test("calls onChange in radians when switched to degrees", async () => {
-        // Arrange
-        const onChangeProps = jest.fn();
-        render(<AngleInput angle={0} onChange={onChangeProps} />, {
-            wrapper: RenderStateRoot,
+        const angleInput = screen.getByRole("spinbutton", {
+            name: "angle (degrees)",
         });
-
-        // Act
-        const angleInput = screen.getByLabelText("angle");
-        await userEvent.type(angleInput, "180");
-        const angleSwitch = screen.getByRole("switch");
-        await userEvent.click(angleSwitch);
+        await userEvent.type(angleInput, "-");
 
         // Assert
-        expect(onChangeProps).toHaveBeenLastCalledWith(Math.PI);
-    });
-
-    test("calls onChange in radians when switched to from degrees to radians", async () => {
-        // Arrange
-        const onChangeProps = jest.fn();
-        render(<AngleInput angle={0} onChange={onChangeProps} />, {
-            wrapper: RenderStateRoot,
-        });
-
-        // Act
-        const angleInput = screen.getByLabelText("angle");
-        await userEvent.type(angleInput, "360");
-        const angleSwitch = screen.getByRole("switch");
-        await userEvent.click(angleSwitch);
-
-        // Assert
-        expect(onChangeProps).toHaveBeenLastCalledWith(2 * Math.PI);
+        expect(onChangeProps).not.toHaveBeenCalled();
     });
 });

@@ -1,19 +1,11 @@
-import * as KAS from "@khanacademy/kas";
-import {components} from "@khanacademy/perseus";
-import {View} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium, LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-const {InfoTip} = components;
-
-const degreeToRadian = (degrees: number) => {
-    return (degrees / 180) * Math.PI;
-};
+import {degreeToRadian, radianToDegree} from "./util";
 
 type Props = {
     angle: number;
@@ -23,73 +15,36 @@ type Props = {
 const AngleInput = (props: Props) => {
     const {angle, onChange} = props;
 
-    const [angleInput, setAngleInput] = React.useState(angle.toString());
-    const [isInDegrees, setIsInDegrees] = React.useState(false);
+    const [angleInput, setAngleInput] = React.useState(
+        radianToDegree(angle).toString(),
+    );
 
-    function handleAngleChange(newValue, useDegrees = isInDegrees) {
+    function handleAngleChange(newValue) {
         // Update the local state (update the input field value).
         setAngleInput(newValue);
 
-        try {
-            // If the new value is a valid expression, update the props.
-            // Save the angle in radians.
-            const evaluatedAngle = KAS.parse(newValue).expr.eval();
-
-            if (useDegrees) {
-                onChange(degreeToRadian(evaluatedAngle));
-            } else {
-                onChange(evaluatedAngle);
-            }
-        } catch (e) {
-            // The user likely has not finished typing the expression.
-            // Do nothing.
+        // If the new value is not a number, don't update the props.
+        // If it's empty, keep the props the same value instead of setting to 0.
+        if (isNaN(+newValue) || newValue === "") {
             return;
         }
-    }
 
-    function handleAngleTypeChange() {
-        // Change the angle based on the new angle type.
-        handleAngleChange(angleInput, !isInDegrees);
-
-        // Update the angle to the new type.
-        setIsInDegrees((usingDegrees) => !usingDegrees);
+        // Update the graph.
+        onChange(degreeToRadian(newValue));
     }
 
     return (
-        <View style={[styles.row, styles.spaceUnder]}>
-            {/* Label */}
-            <LabelMedium tag="label" style={styles.row}>
-                angle
-                <Strut size={spacing.xxSmall_6} />
-                <TextField
-                    value={angleInput}
-                    onChange={handleAngleChange}
-                    style={styles.textField}
-                />
-            </LabelMedium>
-
-            {/* Spacing */}
+        <LabelMedium tag="label" style={styles.row}>
+            angle (degrees)
             <Strut size={spacing.xxSmall_6} />
-
-            {/* Radian/Degree Toggle */}
-            <LabelSmall>radians</LabelSmall>
-            <View style={styles.switch}>
-                <Switch
-                    onChange={handleAngleTypeChange}
-                    checked={isInDegrees}
-                />
-            </View>
-            <LabelSmall>degrees</LabelSmall>
-
-            {/* Info Tooltip */}
-            <InfoTip>
-                <p>
-                    The angle of rotation for the ellipse (if the x radius and y
-                    radius are different).
-                </p>
-                <p>Expressions will be evaluted (e.g. "pi/2" or "5pi/4").</p>
-            </InfoTip>
-        </View>
+            <TextField
+                type="number"
+                value={angleInput}
+                onChange={handleAngleChange}
+                style={styles.textField}
+            />
+            <Strut size={spacing.xxSmall_6} />
+        </LabelMedium>
     );
 };
 
@@ -99,12 +54,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
     },
-    switch: {
-        marginLeft: spacing.xxSmall_6,
-        marginRight: spacing.xxSmall_6,
-    },
     textField: {
-        maxWidth: spacing.xxxLarge_64,
+        width: spacing.xxxLarge_64,
     },
 });
 
