@@ -199,7 +199,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         DeprecationMixin.UNSAFE_componentWillMount.call(this);
     }
 
-    buildGraphKey(correct: PerseusGraphType) {
+    static buildGraphKey(correct: PerseusGraphType) {
         const testGraphKey: any[] = [];
         for (const key in correct) {
             if (correct[key]) {
