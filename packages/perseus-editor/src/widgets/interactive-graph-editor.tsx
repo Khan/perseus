@@ -212,6 +212,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         }
         return testGraphKey.join(":");
     }
+
     render() {
         let graph;
         let equationString;
