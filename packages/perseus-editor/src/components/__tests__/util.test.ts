@@ -37,6 +37,18 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
+    test("should return a vector with default values", () => {
+        const figure = getDefaultFigureForType("vector");
+        expect(figure).toEqual({
+            type: "vector",
+            points: [
+                [0, 0],
+                [2, 2],
+            ],
+            color: "grayH",
+        });
+    });
+
     test("should return an ellipse with default values", () => {
         const figure = getDefaultFigureForType("ellipse");
         expect(figure).toEqual({
@@ -50,15 +62,19 @@ describe("getDefaultFigureForType", () => {
         });
     });
 
-    test("should return a vector with default values", () => {
-        const figure = getDefaultFigureForType("vector");
+    test("should return a polygon with default values", () => {
+        const figure = getDefaultFigureForType("polygon");
         expect(figure).toEqual({
-            type: "vector",
+            type: "polygon",
             points: [
-                [0, 0],
-                [2, 2],
+                [0, 2],
+                [-1, 0],
+                [1, 0],
             ],
             color: "grayH",
+            showVertices: false,
+            fillStyle: "none",
+            strokeStyle: "solid",
         });
     });
 });

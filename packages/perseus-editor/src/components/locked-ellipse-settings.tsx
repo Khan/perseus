@@ -1,4 +1,4 @@
-import {components, lockedEllipseFillStyles} from "@khanacademy/perseus";
+import {components, lockedFigureFillStyles} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -17,7 +17,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import type {AccordionProps} from "./locked-figure-settings";
 import type {
     Coord,
-    LockedEllipseFillType,
+    LockedFigureFillType,
     LockedEllipseType,
     LockedFigureColor,
 } from "@khanacademy/perseus";
@@ -118,13 +118,13 @@ const LockedEllipseSettings = (props: Props) => {
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
                         selectedValue={fillStyle}
-                        onChange={(value: LockedEllipseFillType) =>
+                        onChange={(value: LockedFigureFillType) =>
                             onChangeProps({fillStyle: value})
                         }
                         // Placeholder is required, but never gets used.
                         placeholder=""
                     >
-                        {Object.keys(lockedEllipseFillStyles).map((option) => (
+                        {Object.keys(lockedFigureFillStyles).map((option) => (
                             <OptionItem
                                 key={option}
                                 value={option}

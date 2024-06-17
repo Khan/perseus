@@ -1,7 +1,4 @@
-import {
-    lockedFigureColors,
-    lockedEllipseFillStyles,
-} from "@khanacademy/perseus";
+import {lockedFigureColors, lockedFigureFillStyles} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -9,12 +6,12 @@ import * as React from "react";
 
 import type {
     LockedFigureColor,
-    LockedEllipseFillType,
+    LockedFigureFillType,
 } from "@khanacademy/perseus";
 
 type Props = {
     color: LockedFigureColor;
-    fillStyle: LockedEllipseFillType;
+    fillStyle: LockedFigureFillType;
     strokeStyle: "solid" | "dashed";
 };
 
@@ -36,7 +33,7 @@ const EllipseSwatch = (props: Props) => {
                     styles.innerCircle,
                     {
                         backgroundColor: lockedFigureColors[color],
-                        opacity: lockedEllipseFillStyles[fillStyle],
+                        opacity: lockedFigureFillStyles[fillStyle],
                     },
                 ]}
             />

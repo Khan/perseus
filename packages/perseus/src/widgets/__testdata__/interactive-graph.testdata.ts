@@ -2089,6 +2089,12 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer = {
     },
 };
 
+export const segmentWithLockedVectors: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedVector([0, 0], [2, 2])
+        .addLockedVector([2, 2], [-2, 4], "green")
+        .build();
+
 export const segmentWithLockedEllipses: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedEllipse([0, 0], [5, 5])
@@ -2106,10 +2112,42 @@ export const segmentWithLockedEllipses: PerseusRenderer =
         })
         .build();
 
-export const segmentWithLockedVectors: PerseusRenderer =
+export const segmentWithLockedPolygons: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedVector([0, 0], [2, 2])
-        .addLockedVector([2, 2], [-2, 4], "green")
+        .addLockedPolygon([
+            [-3, 4],
+            [-5, 1],
+            [-1, 1],
+        ])
+        .addLockedPolygon(
+            [
+                [1, 4],
+                [4, 4],
+                [4, 1],
+                [1, 1],
+            ],
+            {
+                color: "green",
+                showVertices: true,
+                fillStyle: "translucent",
+                strokeStyle: "dashed",
+            },
+        )
+        .addLockedPolygon(
+            [
+                [0, -1],
+                [-2, -3],
+                [-1, -5],
+                [1, -5],
+                [2, -3],
+            ],
+            {
+                color: "purple",
+                showVertices: false,
+                fillStyle: "solid",
+                strokeStyle: "solid",
+            },
+        )
         .build();
 
 export const segmentWithLockedFigures: PerseusRenderer =

@@ -1,5 +1,5 @@
 import type {
-    LockedEllipseFillType,
+    LockedFigureFillType,
     LockedEllipseType,
     LockedFigure,
     LockedFigureColor,
@@ -8,6 +8,7 @@ import type {
     LockedVectorType,
     PerseusGraphType,
     PerseusRenderer,
+    LockedPolygonType,
 } from "../../perseus-types";
 import type {Interval, vec} from "mafs";
 
@@ -140,13 +141,27 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    addLockedVector(
+        tail: vec.Vector2,
+        tip: vec.Vector2,
+        color?: LockedFigureColor,
+    ): InteractiveGraphQuestionBuilder {
+        const vector: LockedVectorType = {
+            type: "vector",
+            color: color ?? "grayH",
+            points: [tail, tip],
+        };
+        this.addLockedFigure(vector);
+        return this;
+    }
+
     addLockedEllipse(
         center: vec.Vector2,
         radius: [x: number, y: number],
         options?: {
             angle?: number;
             color?: LockedFigureColor;
-            fillStyle?: LockedEllipseFillType;
+            fillStyle?: LockedFigureFillType;
             strokeStyle?: "solid" | "dashed";
         },
     ): InteractiveGraphQuestionBuilder {
@@ -165,17 +180,26 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    addLockedVector(
-        tail: vec.Vector2,
-        tip: vec.Vector2,
-        color?: LockedFigureColor,
+    addLockedPolygon(
+        points: vec.Vector2[],
+        options?: {
+            color?: LockedFigureColor;
+            showVertices?: boolean;
+            fillStyle?: LockedFigureFillType;
+            strokeStyle?: "solid" | "dashed";
+        },
     ): InteractiveGraphQuestionBuilder {
-        const vector: LockedVectorType = {
-            type: "vector",
-            color: color ?? "grayH",
-            points: [tail, tip],
+        const polygon: LockedPolygonType = {
+            type: "polygon",
+            points: points,
+            color: "grayH",
+            showVertices: false,
+            fillStyle: "none",
+            strokeStyle: "solid",
+            ...options,
         };
-        this.addLockedFigure(vector);
+
+        this.addLockedFigure(polygon);
         return this;
     }
 
