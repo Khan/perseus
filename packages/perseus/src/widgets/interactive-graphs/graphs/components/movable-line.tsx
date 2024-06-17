@@ -19,6 +19,8 @@ type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;
     onMovePoint?: (endpointIndex: number, destination: vec.Vector2) => unknown;
     onMoveLine?: (delta: vec.Vector2) => unknown;
+    snapTo?: "grid" | "angles" | "sides";
+
     color?: string;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
@@ -34,6 +36,7 @@ export const MovableLine = (props: Props) => {
         color,
         points: [start, end],
         extend,
+        snapTo,
     } = props;
 
     // We use separate focusableHandle elements, instead of letting the movable
@@ -48,9 +51,9 @@ export const MovableLine = (props: Props) => {
     //   setting tabindex > 0. But that bumps elements to the front of the
     //   tab order for the entire page, which is not what we want.
     const {visiblePoint: visiblePoint1, focusableHandle: focusableHandle1} =
-        useControlPoint(start, color, (p) => onMovePoint(0, p));
+        useControlPoint(start, color, (p) => onMovePoint(0, p), snapTo);
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
-        useControlPoint(end, color, (p) => onMovePoint(1, p));
+        useControlPoint(end, color, (p) => onMovePoint(1, p), snapTo);
 
     const line = (
         <Line
@@ -77,6 +80,7 @@ function useControlPoint(
     point: vec.Vector2,
     color: string | undefined,
     onMovePoint: (newPoint: vec.Vector2) => unknown,
+    snapTo?: "grid" | "angles" | "sides",
 ) {
     const {snapStep} = useGraphConfig();
     const [focused, setFocused] = useState(false);
@@ -85,7 +89,8 @@ function useControlPoint(
         gestureTarget: keyboardHandleRef,
         point,
         onMove: onMovePoint,
-        constrain: (p) => snap(snapStep, p),
+        constrain: (p) =>
+            ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
     });
 
     const visiblePointRef = useRef<SVGGElement>(null);
@@ -93,7 +98,8 @@ function useControlPoint(
         gestureTarget: visiblePointRef,
         point,
         onMove: onMovePoint,
-        constrain: (p) => snap(snapStep, p),
+        constrain: (p) =>
+            ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
     });
 
     const focusableHandle = (

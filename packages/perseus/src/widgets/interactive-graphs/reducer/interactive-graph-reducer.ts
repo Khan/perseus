@@ -126,13 +126,10 @@ function doMoveControlPoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: index,
-                    newValue: snap(
-                        state.snapStep,
-                        bound({
-                            snapStep: state.snapStep,
-                            range: state.range,
-                            point: action.destination,
-                        }),
+                    newValue: boundAndSnapToAngle(
+                        action.destination,
+                        state,
+                        index,
                     ),
                 }),
             };
@@ -531,7 +528,17 @@ function boundAndSnapToGrid(
 
 function boundAndSnapToAngle(
     destinationPoint: vec.Vector2,
-    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
+    {
+        range,
+        coords,
+        snapDegrees,
+        snapOffset = 0,
+    }: {
+        range: [Interval, Interval];
+        coords: Coord[];
+        snapDegrees?: number;
+        snapOffset?: number;
+    },
     index: number,
 ) {
     const startingPoint = coords[index];
@@ -576,6 +583,16 @@ function boundAndSnapToAngle(
         angles[rel(-1)] - getAngle(-2, -1, 1),
         angles[rel(1)] - getAngle(-1, 1, 2),
     ];
+    // Make sure to snap the inner angles to the snapDegrees if provided
+    if (snapDegrees) {
+        for (let i = 0; i < innerAngles.length; i++) {
+            innerAngles[i] =
+                Math.round((innerAngles[i] - snapOffset) / snapDegrees) *
+                    snapDegrees +
+                snapOffset;
+        }
+    }
+
     innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
 
     // Avoid degenerate triangles

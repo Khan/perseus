@@ -1,6 +1,7 @@
 import {vec} from "mafs";
 import * as React from "react";
 
+import {clockwise} from "../../../../util/geometry";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
@@ -24,23 +25,33 @@ export const Angle = ({
     coords,
     showAngles,
     allowReflexAngles,
-    angleOffsetDeg,
-    snapDegrees,
     range,
 }: Props) => {
+    const areClockwise = clockwise([...coords, vertex]);
+    // Start with getting the current angle
+    const clockwiseCoords = areClockwise ? coords : coords.reverse();
+    let angle = findAngle(...coords, vertex);
+
+    // Check if the angle is reflexive and if we should allow it
+    let isReflexive = angle > 180;
+
+    // If the angle is reflexive and we shouldn't allow it, convert it to a non-reflexive angle
+    if (isReflexive && !allowReflexAngles) {
+        angle = getNonReflexiveAngle(angle);
+        isReflexive = false;
+    }
+
     const [centerX, centerY] = vertex;
 
-    const [point1, point2] = coords;
+    const [point1, point2] = clockwiseCoords;
     const [startX, startY] = point1;
     const [endX, endY] = point2;
 
     const radius = 2;
     const strokeWidth = 0.1;
 
-    // Law of cosines
-    const angle = findAngle(point1, point2, vertex);
-
     const a = vec.dist(vertex, point1);
+
     const b = vec.dist(vertex, point2);
 
     const y1 = centerY + ((startY - centerY) / a) * radius;
@@ -66,14 +77,13 @@ export const Angle = ({
     }
 
     // Midpoint betwen ends of arc
-    const isReflexive = angle > 180;
     const isOutside = shouldDrawArcOutside([x3, y3], vertex, range, [
         [vertex, point1],
         [vertex, point2],
     ]);
 
-    const largeArcFlag = isReflexive ? 1 : 0;
-    const sweepFlag = isOutside ? 1 : 0;
+    const largeArcFlag = isOutside || isReflexive ? 1 : 0;
+    const sweepFlag = isOutside || isReflexive ? 1 : 0;
 
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
 
@@ -146,7 +156,11 @@ const findAngle = (
         }
         return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
     }
-    return findAngle(point1, vertex) - findAngle(point2, vertex);
+    return Math.abs(findAngle(point1, vertex) - findAngle(point2, vertex));
+};
+
+const getNonReflexiveAngle = (angle: number) => {
+    return 360 - ((angle + 360) % 360);
 };
 
 /**

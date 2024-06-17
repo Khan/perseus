@@ -100,6 +100,7 @@ export function initializeGraphState(
                 type: graph.type,
                 coords: getAngleCoords({graph, range, step}),
                 angleOffsetDeg: Number(graph.showAngles),
+                allowReflexAngles: Boolean(graph.allowReflexAngles),
                 snapDegrees: Number(graph.snapDegrees),
             };
         default:

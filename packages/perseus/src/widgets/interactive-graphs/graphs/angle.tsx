@@ -43,7 +43,7 @@ export function AngleGraph(props: AngleGraphProps) {
     const centerPoint = coords[0];
     const endPoints = coords.slice(1, 3) as [vec.Vector2, vec.Vector2];
 
-    const polygonLines = [
+    const angleLines = [
         [centerPoint, endPoints[0]],
         [centerPoint, endPoints[1]],
     ] as CollinearTuple[];
@@ -51,20 +51,21 @@ export function AngleGraph(props: AngleGraphProps) {
     const angleParams: AngleProps = {
         vertex: centerPoint,
         coords: endPoints,
-        allowReflexAngles: allowReflexAngles || false,
-        angleOffsetDeg: angleOffsetDeg || 0,
-        snapDegrees: snapDegrees || 1,
+        allowReflexAngles: allowReflexAngles || false, // Whether to allow reflex angles or not
+        angleOffsetDeg: angleOffsetDeg || 0, // The angle offset from the x-axis
+        snapDegrees: snapDegrees || 1, // The multiple of degrees to snap to
         range: range,
-        showAngles: showAngles || true,
+        showAngles: showAngles || true, // Whether to show the angle or not
     };
 
     return (
         <>
             <Angle {...angleParams} />
-            {polygonLines.map((coord, i) => (
+            {angleLines.map((coord, i) => (
                 <MovableLine
                     key={"line-" + (i + 1)}
                     points={coord}
+                    snapTo="angles"
                     extend={{start: false, end: true}}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(moveLine(i + 1, delta));
