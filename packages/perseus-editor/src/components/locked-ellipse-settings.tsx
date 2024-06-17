@@ -75,6 +75,7 @@ const LockedEllipseSettings = (props: Props) => {
             <View style={styles.row}>
                 <CoordinatePairInput
                     coord={center}
+                    style={styles.spaceUnder}
                     onChange={(newCoords: Coord) =>
                         onChangeProps({center: newCoords})
                     }
@@ -90,6 +91,7 @@ const LockedEllipseSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={radius}
                 labels={["x radius", "y radius"]}
+                style={styles.spaceUnder}
                 onChange={(newCoords: Coord) =>
                     onChangeProps({radius: newCoords})
                 }

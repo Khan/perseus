@@ -22,7 +22,7 @@ const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
     const figureTypes = props.showM2Features
-        ? ["point", "line", "ellipse", "vector"]
+        ? ["point", "line", "vector", "ellipse", "polygon"]
         : ["point", "line"];
 
     return (

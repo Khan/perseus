@@ -13,6 +13,7 @@ import type {PerseusGraphType} from "@khanacademy/perseus";
 
 const defaultPoint = getDefaultFigureForType("point");
 const defaultLine = getDefaultFigureForType("line");
+const defaultPolygon = getDefaultFigureForType("polygon");
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
@@ -57,7 +58,9 @@ describe("InteractiveGraphEditor locked figures", () => {
         figureType   | figureName
         ${"point"}   | ${"Point"}
         ${"line"}    | ${"Line"}
+        ${"vector"}  | ${"Vector"}
         ${"ellipse"} | ${"Ellipse"}
+        ${"polygon"} | ${"Polygon"}
     `(`$figureType basics`, ({figureType, figureName}) => {
         test("Calls onChange when a locked $figureType is added", async () => {
             // Arrange
@@ -746,6 +749,224 @@ describe("InteractiveGraphEditor locked figures", () => {
                         expect.objectContaining({
                             type: "ellipse",
                             fillStyle: "translucent",
+                        }),
+                    ],
+                }),
+            );
+        });
+    });
+
+    describe("polygons", () => {
+        test("Calls onChange when fill is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const fillInput = screen.getByRole("button", {
+                name: "fill",
+            });
+            await userEvent.click(fillInput);
+            const fillSelection = screen.getByText("translucent");
+            await userEvent.click(fillSelection);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            fillStyle: "translucent",
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when stroke is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const strokeInput = screen.getByRole("button", {
+                name: "stroke",
+            });
+            await userEvent.click(strokeInput);
+            const strokeSelection = screen.getByText("dashed");
+            await userEvent.click(strokeSelection);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            strokeStyle: "dashed",
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when show vertices is toggled", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const toggle = screen.getByLabelText("show vertices");
+            await userEvent.click(toggle);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            showVertices: true,
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a point is added", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const addPointButton = screen.getByRole("button", {
+                name: "Add point",
+            });
+            await userEvent.click(addPointButton);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            points: [...defaultPolygon.points, [0, 0]],
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a point is removed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            const squarePolygonPoints = [
+                [-9, 4],
+                [-6, 4],
+                [-6, 1],
+                [-9, 1],
+            ];
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [
+                    {
+                        ...defaultPolygon,
+                        points: squarePolygonPoints,
+                    },
+                ],
+            });
+
+            // Act
+            const deleteButton = screen.getByLabelText(
+                "Delete polygon point A",
+            );
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            points: squarePolygonPoints.slice(1),
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a point's x coordinate is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const xCoordInput = screen.getAllByLabelText("x")[0];
+            await userEvent.clear(xCoordInput);
+            await userEvent.type(xCoordInput, "7");
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            points: [
+                                [7, 2],
+                                [-1, 0],
+                                [1, 0],
+                            ],
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a point's y coordinate is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const yCoordInput = screen.getAllByLabelText("y")[0];
+            await userEvent.clear(yCoordInput);
+            await userEvent.type(yCoordInput, "7");
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            points: [
+                                [0, 7],
+                                [-1, 0],
+                                [1, 0],
+                            ],
                         }),
                     ],
                 }),

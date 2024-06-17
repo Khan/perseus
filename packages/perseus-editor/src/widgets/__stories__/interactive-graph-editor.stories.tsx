@@ -217,3 +217,35 @@ export const WithLockedEllipses: StoryComponentType = {
         return <InteractiveGraphEditor {...state} onChange={dispatch} />;
     },
 };
+
+export const WithLockedPolygons: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            // Use locked figures with mafs only.
+            ...mafsOptions,
+            lockedFigures: [
+                {
+                    type: "polygon",
+                    points: [
+                        [-9, 4],
+                        [-6, 4],
+                        [-6, 1],
+                        [-9, 1],
+                    ],
+                    color: "green",
+                    fillStyle: "translucent",
+                    strokeStyle: "solid",
+                },
+            ],
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};

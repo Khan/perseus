@@ -61,6 +61,7 @@ const LockedPointSettings = (props: Props) => {
         >
             <CoordinatePairInput
                 coord={coord}
+                style={styles.spaceUnder}
                 onChange={(newCoord) => {
                     onChangeProps({coord: newCoord});
                 }}

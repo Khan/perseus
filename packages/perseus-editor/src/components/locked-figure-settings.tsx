@@ -10,11 +10,13 @@ import * as React from "react";
 import LockedEllipseSettings from "./locked-ellipse-settings";
 import LockedLineSettings from "./locked-line-settings";
 import LockedPointSettings from "./locked-point-settings";
+import LockedPolygonSettings from "./locked-polygon-settings";
 import LockedVectorSettings from "./locked-vector-settings";
 
 import type {Props as LockedEllipseProps} from "./locked-ellipse-settings";
 import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
+import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
 
 export type AccordionProps = {
@@ -38,6 +40,7 @@ type Props = AccordionProps &
         | LockedLineProps
         | LockedEllipseProps
         | LockedVectorProps
+        | LockedPolygonProps
     );
 
 const LockedFigureSettings = (props: Props) => {
@@ -46,16 +49,20 @@ const LockedFigureSettings = (props: Props) => {
             return <LockedPointSettings {...props} />;
         case "line":
             return <LockedLineSettings {...props} />;
-        case "ellipse":
-            if (props.showM2Features) {
-                return <LockedEllipseSettings {...props} />;
-            }
-            break;
         case "vector":
             if (props.showM2Features) {
                 return <LockedVectorSettings {...props} />;
             }
             break;
+        case "ellipse":
+            if (props.showM2Features) {
+                return <LockedEllipseSettings {...props} />;
+            }
+            break;
+        case "polygon":
+            if (props.showM2Features) {
+                return <LockedPolygonSettings {...props} />;
+            }
     }
 
     return null;
