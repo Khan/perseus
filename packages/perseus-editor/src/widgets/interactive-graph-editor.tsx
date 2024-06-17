@@ -264,7 +264,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             } as const;
             // This is used to force a remount of the graph component
             // when there's a significant change
-            const graphKey = this.buildGraphKey(correct);
+            const graphKey = InteractiveGraphEditor.buildGraphKey(correct);
 
             graph = (
                 // There are a bunch of props that renderer.jsx passes to widgets via
