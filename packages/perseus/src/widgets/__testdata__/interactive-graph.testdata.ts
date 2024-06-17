@@ -134,7 +134,7 @@ export const circleQuestionWithDefaultCorrect: PerseusRenderer = {
                 correct: {
                     type: "circle",
                     center: [0, 0],
-                    radius: 1,
+                    radius: 2,
                 },
             },
             version: {
