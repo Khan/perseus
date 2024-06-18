@@ -14,21 +14,21 @@ export const Default = (args): React.ReactElement => {
     return <LockedLineSettings {...args} />;
 };
 
-type StoryComponentType = StoryObj<typeof LockedLineSettings>;
-
-// Set the default values in the control panel.
-Default.args = {
+const defaultProps = {
     ...getDefaultFigureForType("line"),
     onChangeProps: () => {},
+    onMove: () => {},
     onRemove: () => {},
 };
 
+type StoryComponentType = StoryObj<typeof LockedLineSettings>;
+
+// Set the default values in the control panel.
+Default.args = defaultProps;
+
 export const Controlled: StoryComponentType = {
     render: function Render() {
-        const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("line"),
-            onRemove: () => {},
-        });
+        const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
             setProps({
@@ -57,10 +57,7 @@ Controlled.parameters = {
  */
 export const WithInvalidPoints: StoryComponentType = {
     render: function Render() {
-        const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("line"),
-            onRemove: () => {},
-        });
+        const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
             setProps({
@@ -87,10 +84,7 @@ export const WithInvalidPoints: StoryComponentType = {
 export const Expanded: StoryComponentType = {
     render: function Render() {
         const [expanded, setExpanded] = React.useState(true);
-        const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("line"),
-            onRemove: () => {},
-        });
+        const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
             setProps({
@@ -115,8 +109,7 @@ export const ExpandedNondefaultProps: StoryComponentType = {
     render: function Render() {
         const [expanded, setExpanded] = React.useState(true);
         const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("line"),
-            onRemove: () => {},
+            ...defaultProps,
             kind: "segment" as const,
             color: "green" as const,
             lineStyle: "dashed" as const,

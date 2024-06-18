@@ -14,7 +14,7 @@ import EllipseSwatch from "./ellipse-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
     Coord,
     LockedFigureFillType,
@@ -24,12 +24,8 @@ import type {
 
 const {InfoTip} = components;
 
-export type Props = AccordionProps &
+export type Props = LockedFigureSettingsCommonProps &
     LockedEllipseType & {
-        /**
-         * Called when the delete button is pressed.
-         */
-        onRemove: () => void;
         /**
          * Called when the props (coords, color, etc.) are updated.
          */
@@ -47,6 +43,7 @@ const LockedEllipseSettings = (props: Props) => {
         expanded,
         onToggle,
         onChangeProps,
+        onMove,
         onRemove,
     } = props;
 
@@ -162,8 +159,9 @@ const LockedEllipseSettings = (props: Props) => {
 
             {/* Actions */}
             <LockedFigureSettingsActions
+                figureType={props.type}
+                onMove={onMove}
                 onRemove={onRemove}
-                figureAriaLabel={`locked ellipse at ${center[0]}, ${center[1]}`}
             />
         </LockedFigureSettingsAccordion>
     );

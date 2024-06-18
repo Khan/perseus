@@ -14,6 +14,7 @@ import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
 import {getDefaultFigureForType} from "./util";
 
+import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../widgets/interactive-graph-editor";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
 
@@ -45,6 +46,46 @@ const LockedFiguresSection = (props: Props) => {
         };
         onChange(newProps);
         setExpandedStates([...expandedStates, true]);
+    }
+
+    function moveLockedFigure(
+        index: number,
+        movement: LockedFigureSettingsMovementType,
+    ) {
+        // Don't allow moving the first figure up or the last figure down.
+        if (index === 0 && (movement === "top" || movement === "up")) {
+            return;
+        }
+        if (
+            figures &&
+            index === figures.length - 1 &&
+            (movement === "down" || movement === "bottom")
+        ) {
+            return;
+        }
+
+        const lockedFigures = figures || [];
+        const newFigures = [...lockedFigures];
+
+        // First, remove the figure from its current position.
+        const [removedFigure] = newFigures.splice(index, 1);
+
+        // Then, add it back in the new position.
+        switch (movement) {
+            case "top":
+                newFigures.unshift(removedFigure);
+                break;
+            case "up":
+                newFigures.splice(index - 1, 0, removedFigure);
+                break;
+            case "down":
+                newFigures.splice(index + 1, 0, removedFigure);
+                break;
+            case "bottom":
+                newFigures.push(removedFigure);
+                break;
+        }
+        onChange({lockedFigures: newFigures});
     }
 
     function removeLockedFigure(index: number) {
@@ -110,6 +151,7 @@ const LockedFiguresSection = (props: Props) => {
                         onChangeProps={(newProps) =>
                             changeProps(index, newProps)
                         }
+                        onMove={(movement) => moveLockedFigure(index, movement)}
                         onRemove={() => removeLockedFigure(index)}
                     />
                 );

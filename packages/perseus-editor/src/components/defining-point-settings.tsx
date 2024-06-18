@@ -17,10 +17,13 @@ import CoordinatePairInput from "./coordinate-pair-input";
 import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {LockedPointType} from "@khanacademy/perseus";
 
-export type Props = AccordionProps &
+export type Props = Omit<
+    LockedFigureSettingsCommonProps,
+    "onMove" | "onRemove"
+> &
     LockedPointType & {
         /**
          * Optional label for the point to display in the header summary.

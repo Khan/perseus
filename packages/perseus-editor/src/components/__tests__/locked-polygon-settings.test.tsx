@@ -11,6 +11,7 @@ import type {UserEvent} from "@testing-library/user-event";
 const defaultProps = {
     ...getDefaultFigureForType("polygon"),
     onChangeProps: () => {},
+    onMove: () => {},
     onRemove: () => {},
 };
 

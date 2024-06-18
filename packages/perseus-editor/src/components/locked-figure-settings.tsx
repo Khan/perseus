@@ -14,15 +14,28 @@ import LockedPolygonSettings from "./locked-polygon-settings";
 import LockedVectorSettings from "./locked-vector-settings";
 
 import type {Props as LockedEllipseProps} from "./locked-ellipse-settings";
+import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
 
-export type AccordionProps = {
+export type LockedFigureSettingsCommonProps = {
     // Whether to show the M2 features in the locked figure settings.
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
     showM2Features?: boolean;
+
+    // Movement props
+    /**
+     * Called when a movement button (top, up, down, bottom) is pressed.
+     */
+    onMove: (movement: LockedFigureSettingsMovementType) => void;
+    /**
+     * Called when the delete button is pressed.
+     */
+    onRemove: () => void;
+
+    // Accordion props
     /**
      * Whether this accordion is expanded.
      */
@@ -34,7 +47,7 @@ export type AccordionProps = {
 };
 
 // Union this type with other locked figure types when they are added.
-type Props = AccordionProps &
+type Props = LockedFigureSettingsCommonProps &
     (
         | LockedPointProps
         | LockedLineProps

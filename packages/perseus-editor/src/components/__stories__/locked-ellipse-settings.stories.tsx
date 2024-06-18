@@ -14,21 +14,21 @@ export const Default = (args): React.ReactElement => {
     return <LockedEllipseSettings {...args} />;
 };
 
-type StoryComponentType = StoryObj<typeof LockedEllipseSettings>;
-
-// Set the default values in the control panel.
-Default.args = {
+const defaultProps = {
     ...getDefaultFigureForType("ellipse"),
     onChangeProps: () => {},
+    onMove: () => {},
     onRemove: () => {},
 };
 
+type StoryComponentType = StoryObj<typeof LockedEllipseSettings>;
+
+// Set the default values in the control panel.
+Default.args = defaultProps;
+
 export const Controlled: StoryComponentType = {
     render: function Render() {
-        const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("ellipse"),
-            onRemove: () => {},
-        });
+        const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
             setProps({
@@ -57,10 +57,7 @@ Controlled.parameters = {
 export const Expanded: StoryComponentType = {
     render: function Render() {
         const [expanded, setExpanded] = React.useState(true);
-        const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("ellipse"),
-            onRemove: () => {},
-        });
+        const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
             setProps({

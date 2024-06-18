@@ -24,14 +24,10 @@ import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import PolygonSwatch from "./polygon-swatch";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 
-export type Props = AccordionProps &
+export type Props = LockedFigureSettingsCommonProps &
     LockedPolygonType & {
-        /**
-         * Called when the delete button is pressed.
-         */
-        onRemove: () => void;
         /**
          * Called when the props (coords, color, etc.) are updated.
          */
@@ -48,6 +44,8 @@ const LockedPolygonSettings = (props: Props) => {
         expanded,
         onToggle,
         onChangeProps,
+        onMove,
+        onRemove,
     } = props;
 
     function handleColorChange(newValue: LockedFigureColor) {
@@ -199,8 +197,9 @@ const LockedPolygonSettings = (props: Props) => {
 
             {/* Actions */}
             <LockedFigureSettingsActions
-                onRemove={props.onRemove}
-                figureAriaLabel={`locked polygon with ${points.length} points`}
+                figureType={props.type}
+                onMove={onMove}
+                onRemove={onRemove}
             />
         </LockedFigureSettingsAccordion>
     );

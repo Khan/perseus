@@ -14,21 +14,21 @@ export const Default = (args): React.ReactElement => {
     return <LockedVectorSettings {...args} />;
 };
 
-type StoryComponentType = StoryObj<typeof LockedVectorSettings>;
-
-// Set the default values in the control panel.
-Default.args = {
+const defaultProps = {
     ...getDefaultFigureForType("vector"),
     onChangeProps: () => {},
+    onMove: () => {},
     onRemove: () => {},
 };
 
+type StoryComponentType = StoryObj<typeof LockedVectorSettings>;
+
+// Set the default values in the control panel.
+Default.args = defaultProps;
+
 export const Expanded: StoryComponentType = {
     render: function Render() {
-        const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("vector"),
-            onRemove: () => {},
-        });
+        const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
             setProps({
@@ -54,10 +54,7 @@ export const Expanded: StoryComponentType = {
  */
 export const WithInvalidPoints: StoryComponentType = {
     render: function Render() {
-        const [props, setProps] = React.useState({
-            ...getDefaultFigureForType("vector"),
-            onRemove: () => {},
-        });
+        const [props, setProps] = React.useState(defaultProps);
 
         const handlePropsUpdate = (newProps) => {
             setProps({

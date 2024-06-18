@@ -12,6 +12,7 @@ import type {UserEvent} from "@testing-library/user-event";
 const defaultProps = {
     ...getDefaultFigureForType("vector"),
     onChangeProps: () => {},
+    onMove: () => {},
     onRemove: () => {},
 } as Props;
 

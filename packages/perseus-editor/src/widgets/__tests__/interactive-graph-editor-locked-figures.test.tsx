@@ -97,7 +97,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: /Delete/,
+                name: `Delete locked ${figureType}`,
             });
             await userEvent.click(deleteButton);
 
@@ -125,13 +125,196 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: /Delete/,
+                name: `Delete locked ${figureType}`,
             });
             await userEvent.click(deleteButton);
 
             // Assert
             expect(confirmSpy).toBeCalled();
             expect(onChangeMock).not.toBeCalled();
+        });
+
+        describe("movement", () => {
+            const first = {
+                ...getDefaultFigureForType(figureType),
+                color: "blue",
+            };
+            const second = {
+                ...getDefaultFigureForType(figureType),
+                color: "green",
+            };
+            const third = {
+                ...getDefaultFigureForType(figureType),
+                color: "red",
+            };
+
+            test(`Calls onChange when a locked ${figureType} is moved top`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the top`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [third, first, second],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved up`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} up`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [first, third, second],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved down`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} down`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [second, first, third],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved bottom`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the bottom`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [second, third, first],
+                    }),
+                );
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved top and is already at the top`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the top`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved up and is already at the top`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} up`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved down and is already at the bottom`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} down`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved bottom and is already at the bottom`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the bottom`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
         });
 
         test("Shows settings accordion when a locked $figureType is passed in", async () => {
@@ -996,7 +1179,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Delete the figure
             const deleteButton = screen.getByRole("button", {
-                name: "Delete locked line defined by 0, 0 and 2, 2.",
+                name: "Delete locked line",
             });
             await userEvent.click(deleteButton);
 
