@@ -3,9 +3,11 @@ import {useRef, useState} from "react";
 import {useMovable, vec} from "mafs";
 import {Protractor} from "./protractor";
 import useGraphConfig from "./reducer/use-graph-config";
+import {bound} from "./utils";
 
 export function StatefulProtractor() {
-    const {range: [[xMin, xMax], [yMin, yMax]]} = useGraphConfig()
+    const {range, snapStep} = useGraphConfig()
+    const [[xMin, xMax], [yMin, yMax]] = range;
     const initialCenter: vec.Vector2 = [
         lerp(xMin, xMax, 0.5),
         lerp(yMin, yMax, 0.05),
@@ -17,7 +19,7 @@ export function StatefulProtractor() {
         gestureTarget: draggableRef,
         onMove: setCenter,
         point: center,
-        constrain: (p) => p,
+        constrain: (point) => bound({snapStep, range, point}),
     })
 
     return <g ref={draggableRef}><Protractor center={center} /></g>
