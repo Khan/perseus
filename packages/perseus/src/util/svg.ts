@@ -15,7 +15,32 @@ export class PathBuilder {
 
     // add a move (M) command to the path
     move(x: number, y: number): PathBuilder {
-        this.path.push({action: "M", coords: [x, y]});
+        this.path.push({action: "M", args: [x, y]});
+        return this;
+    }
+
+    line(x: number, y: number): PathBuilder {
+        this.path.push({action: "L", args: [x, y]});
+        return this;
+    }
+
+    circularArc(
+        radius: number,
+        toX: number,
+        toY: number,
+        {sweep = false, largeArc = false}: {sweep?: boolean, largeArc?: boolean},
+    ): PathBuilder {
+        this.path.push({
+            action: "A",
+            args: [
+                radius,
+                radius,
+                0 /* rotation */,
+                largeArc ? 1 : 0,
+                sweep ? 1 : 0,
+                toX,
+                toY,
+            ]});
         return this;
     }
 
@@ -30,7 +55,7 @@ export class PathBuilder {
     ): PathBuilder {
         this.path.push({
             action: "C",
-            coords: [control1X, control1Y, control2X, control2Y, endX, endY],
+            args: [control1X, control1Y, control2X, control2Y, endX, endY],
         });
         return this;
     }
@@ -42,15 +67,15 @@ export class PathBuilder {
     }
 }
 
-type Command = {action: "M" | "C"; coords: number[]};
+type Command = {action: "M" | "L" | "C" | "A"; args: number[]};
 
 function commandToString(command: Command): string {
-    return `${command.action}${command.coords.join(" ")}`;
+    return `${command.action}${command.args.join(" ")}`;
 }
 
 function scaleCommandBy(scaleFactor: number): (command: Command) => Command {
     return (command) => ({
         ...command,
-        coords: command.coords.map((c) => c * scaleFactor),
+        args: command.args.map((c) => c * scaleFactor),
     });
 }
