@@ -172,6 +172,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     widgets: PerseusRenderer["widgets"];
     // Skip adding paragraph class
     inline?: boolean;
+    readOnly?: boolean;
     isPrinterView?: boolean;
     parentGroups?: {id: string; groupType: string}[];
 };
@@ -630,6 +631,7 @@ class Renderer extends React.Component<Props, State> {
             },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: id === this.state.lastUsedWidgetId,
+            readOnly: this.props.readOnly,
             isPrinterView: this.props.isPrinterView,
             ...(this.props.parentGroups
                 ? {parentGroups: this.props.parentGroups}
