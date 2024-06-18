@@ -39,6 +39,7 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {StatefulProtractor} from "./stateful-protractor";
 
 export type StatefulMafsGraphProps = {
     box: [number, number];
@@ -53,6 +54,7 @@ export type StatefulMafsGraphProps = {
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
 };
 
@@ -189,6 +191,7 @@ export type MafsGraphProps = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
@@ -272,6 +275,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 lockedFigures={props.lockedFigures}
                                 range={state.range}
                             />
+                        )}
+
+                        /* Protractor */
+                        {props.showProtractor && (
+                            <StatefulProtractor />
                         )}
 
                         {/* Interactive layer */}
