@@ -182,6 +182,25 @@ describe("moveControlPoint", () => {
         ]);
     });
 
+    it("does not allow moving an endpoint of a sinusoid if the bounding logic would result in an invalid graph", () => {
+        const state: InteractiveGraphState = {
+            ...baseSinusoidGraphState,
+            coords: [
+                [9, 1],
+                [10, 2],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [15, 1]));
+
+        invariant(updated.type === "sinusoid");
+        // Assert: the move was canceled
+        expect(updated.coords).toEqual([
+            [9, 1],
+            [10, 2],
+        ]);
+    });
+
     it("snaps points to the snap grid", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
