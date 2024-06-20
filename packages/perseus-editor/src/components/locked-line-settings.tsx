@@ -19,7 +19,7 @@ import LineSwatch from "./line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
     LockedFigure,
     LockedFigureColor,
@@ -30,11 +30,7 @@ import type {
 const lengthZeroStr = "The line cannot have length 0.";
 
 export type Props = LockedLineType &
-    AccordionProps & {
-        /**
-         * Called when the delete button is pressed.
-         */
-        onRemove: () => void;
+    LockedFigureSettingsCommonProps & {
         /**
          * Called when the props (points, color, etc.) are updated.
          */
@@ -50,6 +46,7 @@ const LockedLineSettings = (props: Props) => {
         showPoint1,
         showPoint2,
         onChangeProps,
+        onMove,
         onRemove,
     } = props;
     const [point1, point2] = points;
@@ -180,10 +177,9 @@ const LockedLineSettings = (props: Props) => {
 
             {/* Actions */}
             <LockedFigureSettingsActions
+                figureType={props.type}
+                onMove={onMove}
                 onRemove={onRemove}
-                figureAriaLabel={`locked line defined by
-                    ${point1.coord[0]}, ${point1.coord[1]} and
-                    ${point2.coord[0]}, ${point2.coord[1]}.`}
             />
         </LockedFigureSettingsAccordion>
     );

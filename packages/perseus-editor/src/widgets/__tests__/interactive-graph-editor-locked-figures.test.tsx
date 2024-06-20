@@ -97,7 +97,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: /Delete/,
+                name: `Delete locked ${figureType}`,
             });
             await userEvent.click(deleteButton);
 
@@ -125,13 +125,196 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: /Delete/,
+                name: `Delete locked ${figureType}`,
             });
             await userEvent.click(deleteButton);
 
             // Assert
             expect(confirmSpy).toBeCalled();
             expect(onChangeMock).not.toBeCalled();
+        });
+
+        describe("movement", () => {
+            const first = {
+                ...getDefaultFigureForType(figureType),
+                color: "blue",
+            };
+            const second = {
+                ...getDefaultFigureForType(figureType),
+                color: "green",
+            };
+            const third = {
+                ...getDefaultFigureForType(figureType),
+                color: "red",
+            };
+
+            test(`Calls onChange when a locked ${figureType} is moved back`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the back`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [third, first, second],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved backward`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} backward`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [first, third, second],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved forward`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} forward`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [second, first, third],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved front`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the front`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [second, third, first],
+                    }),
+                );
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved to the back and is already in the back`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the back`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved backward and is already in the back`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} backward`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved forward and is already in the front`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} forward`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved to the front and is already in the front`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the front`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
         });
 
         test("Shows settings accordion when a locked $figureType is passed in", async () => {
@@ -996,7 +1179,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Delete the figure
             const deleteButton = screen.getByRole("button", {
-                name: "Delete locked line defined by 0, 0 and 2, 2.",
+                name: "Delete locked line",
             });
             await userEvent.click(deleteButton);
 
