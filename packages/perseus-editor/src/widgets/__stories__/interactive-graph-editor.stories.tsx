@@ -92,6 +92,35 @@ export const WithMafs: StoryComponentType = {
 };
 
 /**
+ * Example of what the InteractiveGraphEditor experience is when using
+ * a Mafs-based InteractiveGraph to create Polygons.
+ */
+export const WithMafsPolygon: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            ...mafsOptions,
+            graph: {type: "polygon"},
+            correct: {
+                type: "polygon",
+                numSides: 4,
+                showAngles: true,
+                showSides: true,
+                snapTo: "angles",
+            },
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
+
+/**
  * This InteractiveGraphEditor has locked points.
  *
  * Locked figures are graph elements such as points, lines, line segements,

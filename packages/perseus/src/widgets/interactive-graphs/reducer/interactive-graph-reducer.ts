@@ -286,28 +286,38 @@ function doMovePoint(
             };
         }
         case "sinusoid": {
-            // First, we need to verify that the new coordinates are not on the same vertical line
-            // If they are, we don't want to move the point
+            // First, we need to make sure to bound the new coordinates to the graph range
             const destination = action.destination;
+            const boundDestination = boundAndSnapToGrid(destination, state);
+
+            // Then, we need to verify that the new coordinates are not on the same
+            // vertical line. If they are, then we don't want to move the point
             const newCoords: vec.Vector2[] = [...state.coords];
-            newCoords[action.index] = action.destination;
+            newCoords[action.index] = boundDestination;
             if (newCoords[0][0] === newCoords[1][0]) {
                 return state;
             }
+
             return {
                 ...state,
                 hasBeenInteractedWith: true,
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundAndSnapToGrid(destination, state),
+                    newValue: boundDestination,
                 }),
             };
         }
         case "quadratic": {
             // Set up the new coords and check if the quadratic coefficients are valid
             const newCoords: QuadraticCoords = [...state.coords];
-            newCoords[action.index] = action.destination;
+
+            // Bind the new destination to the graph range/snapStep and then get the quadratic coefficients
+            const boundDestination = boundAndSnapToGrid(
+                action.destination,
+                state,
+            );
+            newCoords[action.index] = boundDestination;
             const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
 
             // If the new destination results in an invalid quadratic equation, we don't want to move the point
@@ -321,7 +331,7 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundAndSnapToGrid(action.destination, state),
+                    newValue: boundDestination,
                 }),
             };
         }

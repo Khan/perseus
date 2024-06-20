@@ -32,6 +32,7 @@ const mafsOptions = {
         flags: {
             mafs: {
                 segment: true,
+                polygon: true,
             },
         },
     },
@@ -69,6 +70,10 @@ export const Point = (args: StoryArgs): React.ReactElement => (
 
 export const Polygon = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={polygonQuestion} />
+);
+
+export const PolygonWithMafs = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI {...mafsOptions} question={polygonQuestion} />
 );
 
 export const Ray = (args: StoryArgs): React.ReactElement => (

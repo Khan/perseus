@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 23.5.0
+
+### Minor Changes
+
+-   [#1348](https://github.com/Khan/perseus/pull/1348) [`73ba4f7c9`](https://github.com/Khan/perseus/commit/73ba4f7c9d502e0598617cc4c1710df5c10b086b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Update the locked ellipse settings so they only take degrees as input.
+
+*   [#1353](https://github.com/Khan/perseus/pull/1353) [`e528c5b2b`](https://github.com/Khan/perseus/commit/e528c5b2b763e6a2ad8fbef31cd98f1f991a354d) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] View a locked polygon
+
+-   [#1351](https://github.com/Khan/perseus/pull/1351) [`9a6517ca2`](https://github.com/Khan/perseus/commit/9a6517ca22857921acdbf206c7c21d989cccdf86) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Add blue and gold to locked figures colorset
+
+### Patch Changes
+
+-   [#1350](https://github.com/Khan/perseus/pull/1350) [`1e877c6d4`](https://github.com/Khan/perseus/commit/1e877c6d44a0de351bfbfa5716391b6522bebbeb) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Add locked vector to storybook story for all locked figures
+
+*   [#1345](https://github.com/Khan/perseus/pull/1345) [`92990f15f`](https://github.com/Khan/perseus/commit/92990f15f4eb020cd079b0eaa607cc8e086acec9) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in the exercise editor where the preview did not update after a change to the graph type or number of line segments.
+
 ## 23.4.0
 
 ### Minor Changes

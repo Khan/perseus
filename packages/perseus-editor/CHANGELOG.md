@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 6.11.0
+
+### Minor Changes
+
+-   [#1348](https://github.com/Khan/perseus/pull/1348) [`73ba4f7c9`](https://github.com/Khan/perseus/commit/73ba4f7c9d502e0598617cc4c1710df5c10b086b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Update the locked ellipse settings so they only take degrees as input.
+
+*   [#1353](https://github.com/Khan/perseus/pull/1353) [`e528c5b2b`](https://github.com/Khan/perseus/commit/e528c5b2b763e6a2ad8fbef31cd98f1f991a354d) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] View a locked polygon
+
+-   [#1351](https://github.com/Khan/perseus/pull/1351) [`9a6517ca2`](https://github.com/Khan/perseus/commit/9a6517ca22857921acdbf206c7c21d989cccdf86) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Add blue and gold to locked figures colorset
+
+*   [#1354](https://github.com/Khan/perseus/pull/1354) [`e73373f48`](https://github.com/Khan/perseus/commit/e73373f48a4cc65dedf5f7c591fcfc6cce8f08c7) Thanks [@Myranae](https://github.com/Myranae)! - Fix interactive graph editor in storybook to display and persist options
+
+### Patch Changes
+
+-   [#1350](https://github.com/Khan/perseus/pull/1350) [`1e877c6d4`](https://github.com/Khan/perseus/commit/1e877c6d44a0de351bfbfa5716391b6522bebbeb) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Add locked vector to storybook story for all locked figures
+
+-   Updated dependencies [[`1e877c6d4`](https://github.com/Khan/perseus/commit/1e877c6d44a0de351bfbfa5716391b6522bebbeb), [`92990f15f`](https://github.com/Khan/perseus/commit/92990f15f4eb020cd079b0eaa607cc8e086acec9), [`73ba4f7c9`](https://github.com/Khan/perseus/commit/73ba4f7c9d502e0598617cc4c1710df5c10b086b), [`e528c5b2b`](https://github.com/Khan/perseus/commit/e528c5b2b763e6a2ad8fbef31cd98f1f991a354d), [`9a6517ca2`](https://github.com/Khan/perseus/commit/9a6517ca22857921acdbf206c7c21d989cccdf86)]:
+    -   @khanacademy/perseus@23.5.0
+
 ## 6.10.0
 
 ### Minor Changes
