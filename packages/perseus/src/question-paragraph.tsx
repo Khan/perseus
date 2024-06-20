@@ -24,6 +24,7 @@ class QuestionParagraph extends React.Component<Props> {
                 }
                 data-perseus-component-index={this.props.translationIndex}
                 data-perseus-paragraph-index={this.props.paragraphIndex}
+                style={{ margin: "22px 0px" }}
             >
                 {this.props.children}
             </div>
