@@ -14,6 +14,8 @@ import * as React from "react";
 type Props = {
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
     showM2Features: boolean;
+    // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
+    showM2bFeatures: boolean;
     id: string;
     onChange: (value: string) => void;
 };

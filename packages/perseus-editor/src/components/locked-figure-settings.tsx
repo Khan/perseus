@@ -24,6 +24,9 @@ export type LockedFigureSettingsCommonProps = {
     // Whether to show the M2 features in the locked figure settings.
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
     showM2Features?: boolean;
+    // Whether to show the M2b features in the locked figure settings.
+    // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
+    showM2bFeatures?: boolean;
 
     // Movement props
     /**
