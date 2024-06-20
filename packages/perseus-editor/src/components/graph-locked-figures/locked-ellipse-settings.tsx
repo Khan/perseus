@@ -7,7 +7,8 @@ import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import AngleInput from "./angle-input";
+import AngleInput from "../angle-input";
+
 import ColorSelect from "./color-select";
 import CoordinatePairInput from "./coordinate-pair-input";
 import EllipseSwatch from "./ellipse-swatch";

@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import LockedPointSettings from "../locked-point-settings";
+import LockedPointSettings from "../graph-locked-figures/locked-point-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {UserEvent} from "@testing-library/user-event";

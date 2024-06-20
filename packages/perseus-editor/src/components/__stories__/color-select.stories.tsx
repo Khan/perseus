@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ColorSelect from "../color-select";
+import ColorSelect from "../graph-locked-figures/color-select";
 import {getDefaultFigureForType} from "../util";
 
 import type {LockedFigureColor} from "@khanacademy/perseus";

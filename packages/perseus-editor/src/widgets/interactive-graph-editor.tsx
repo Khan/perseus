@@ -17,11 +17,11 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import LabeledRow from "../components/graph-locked-figures/labeled-row";
+import LockedFiguresSection from "../components/graph-locked-figures/locked-figures-section";
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphTypeSelector from "../components/graph-type-selector";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
-import LabeledRow from "../components/labeled-row";
-import LockedFiguresSection from "../components/locked-figures-section";
 import SegmentCountSelector from "../components/segment-count-selector";
 import {parsePointCount} from "../util/points";
 
