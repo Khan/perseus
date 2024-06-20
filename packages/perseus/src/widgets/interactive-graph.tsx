@@ -1815,6 +1815,18 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     render() {
+        if (
+            this.props.graph.type === "polygon" &&
+            this.props.graph.numSides === "unlimited"
+        ) {
+            return (
+                <LegacyInteractiveGraph
+                    ref={this.legacyGraphRef}
+                    {...this.props}
+                />
+            );
+        }
+
         // Mafs shim
         if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
             const box = getInteractiveBoxFromSizeClass(
