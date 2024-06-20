@@ -5,7 +5,7 @@ import {
     lockedFigureFillStyles,
     lockedFigureColors,
     type LockedEllipseType,
-} from "../../perseus-types";
+} from "../../../perseus-types";
 
 const LockedEllipse = (props: LockedEllipseType) => {
     const {center, radius, angle, color, fillStyle, strokeStyle} = props;

@@ -3,10 +3,10 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import LockedVectorSettings from "../locked-vector-settings";
+import LockedVectorSettings from "../graph-locked-figures/locked-vector-settings";
 import {getDefaultFigureForType} from "../util";
 
-import type {Props} from "../locked-vector-settings";
+import type {Props} from "../graph-locked-figures/locked-vector-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import LockedEllipseSettings from "../locked-ellipse-settings";
+import LockedEllipseSettings from "../graph-locked-figures/locked-ellipse-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";

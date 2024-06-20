@@ -14,8 +14,8 @@ import * as React from "react";
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
 import CoordinatePairInput from "./coordinate-pair-input";
+import LockedFigureSettingsAccordion from "./graph-locked-figures/locked-figure-settings-accordion";
 import LabeledSwitch from "./labeled-switch";
-import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 
 import type {LockedPointType} from "@khanacademy/perseus";
 

@@ -12,9 +12,9 @@ import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import ColorSelect from "./color-select";
-import CoordinatePairInput from "./coordinate-pair-input";
-import LineSwatch from "./line-swatch";
+import ColorSelect from "../color-select";
+import CoordinatePairInput from "../coordinate-pair-input";
+import LineSwatch from "../line-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 

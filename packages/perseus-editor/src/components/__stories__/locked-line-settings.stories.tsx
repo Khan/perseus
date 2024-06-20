@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import LockedLineSettings from "../locked-line-settings";
+import LockedLineSettings from "../graph-locked-figures/locked-line-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";

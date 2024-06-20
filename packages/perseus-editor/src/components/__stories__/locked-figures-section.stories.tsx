@@ -3,7 +3,7 @@ import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import LockedFiguresSection from "../locked-figures-section";
+import LockedFiguresSection from "../graph-locked-figures/locked-figures-section";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";
