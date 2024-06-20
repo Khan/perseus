@@ -8,8 +8,6 @@ import Renderer from "../renderer";
 import Util from "../util";
 
 import {PerseusI18nContext} from "./i18n-context";
-import MathInput from "./math-input";
-import MathOutput from "./math-output";
 import TextInput from "./text-input";
 import Tooltip, {HorizontalDirection, VerticalDirection} from "./tooltip";
 
@@ -19,7 +17,6 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 const {captureScratchpadTouchStart} = Util;
 
 type Props = {
-    type: "math" | "text" | "tex";
     value: string;
     onChange: any;
     className: string;
@@ -38,7 +35,6 @@ type Props = {
 };
 
 type DefaultProps = {
-    type: Props["type"];
     shouldShowExamples: Props["shouldShowExamples"];
     onFocus: Props["onFocus"];
     onBlur: Props["onBlur"];
@@ -57,7 +53,6 @@ class InputWithExamples extends React.Component<Props, State> {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        type: "text",
         shouldShowExamples: true,
         onFocus: function () {},
         onBlur: function () {},
@@ -76,12 +71,6 @@ class InputWithExamples extends React.Component<Props, State> {
     };
 
     _getInputClassName: () => string = () => {
-        // <MathOutput> is a special component that manages its own class and
-        // state, as it's a <span> that wants to act like an <input>.
-        if (this.props.type === "tex") {
-            return this.props.className;
-        }
-
         // Otherwise, we need to add these INPUT and FOCUSED tags here.
         let className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
@@ -109,55 +98,24 @@ class InputWithExamples extends React.Component<Props, State> {
             style: this.props.style,
         } as const;
 
-        if (this.props.type === "tex") {
-            return inputProps;
-        }
-
-        // Add useful props required for MATH and TEXT modes
         _.extend(inputProps, {
             onChange: this.props.onChange,
             onTouchStart: captureScratchpadTouchStart,
         });
 
-        // And add final props that are MATH- and TEXT-specific
-        if (this.props.type === "math") {
-            return _.extend(
-                {
-                    buttonSet: this.props.buttonSet,
-                    buttonsVisible: this.props.buttonsVisible,
-                    convertDotToTimes: this.props.convertDotToTimes,
-                },
-                inputProps,
-            );
-        }
-        if (this.props.type === "text") {
-            return _.extend(
-                {
-                    autoCapitalize: "off",
-                    autoComplete: "off",
-                    autoCorrect: "off",
-                    spellCheck: "false",
-                },
-                inputProps,
-            );
-        }
+        return _.extend(
+            {
+                autoCapitalize: "off",
+                autoComplete: "off",
+                autoCorrect: "off",
+                spellCheck: "false",
+            },
+            inputProps,
+        );
     };
 
     _getComponentForInputType: () => any = () => {
-        switch (this.props.type) {
-            case "tex":
-                return MathOutput;
-
-            case "math":
-                return MathInput;
-
-            case "text":
-                return TextInput;
-
-            default:
-                this.props.type as never;
-                return null;
-        }
+        return TextInput;
     };
 
     _renderInput: () => any = () => {
@@ -169,13 +127,6 @@ class InputWithExamples extends React.Component<Props, State> {
     render(): React.ReactNode {
         const input = this._renderInput();
 
-        // Static rendering, which doesn't include the 'tooltip' logic that the
-        // other types require, and is hence handled separately.
-        if (this.props.type === "tex") {
-            return input;
-        }
-
-        // Else, we need to be able to show examples
         const examplesContent = _.map(this.props.examples, (example) => {
             return "- " + example;
         }).join("\n");

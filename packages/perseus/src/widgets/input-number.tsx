@@ -185,7 +185,6 @@ class InputNumber extends React.Component<Props> {
                 value={this.props.currentValue}
                 onChange={this.handleChange}
                 style={inputStyles}
-                type="text"
                 examples={this.examples()}
                 shouldShowExamples={this.shouldShowExamples()}
                 onFocus={this._handleFocus}
