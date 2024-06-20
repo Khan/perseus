@@ -611,6 +611,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         "interactive-graph-locked-features-m2"
                                     ]
                                 }
+                                showM2bFeatures={
+                                    this.props.apiOptions?.flags?.mafs?.[
+                                        "interactive-graph-locked-features-m2b"
+                                    ]
+                                }
                                 figures={this.props.lockedFigures}
                                 onChange={this.props.onChange}
                             />

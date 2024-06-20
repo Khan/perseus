@@ -11,6 +11,7 @@ export const flags = {
         "linear-system": true,
         ray: true,
         "interactive-graph-locked-features-m2": true,
+        "interactive-graph-locked-features-m2b": true,
     },
 } satisfies APIOptions["flags"];
 
