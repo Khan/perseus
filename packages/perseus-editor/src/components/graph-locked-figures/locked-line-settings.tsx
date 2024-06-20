@@ -16,6 +16,7 @@ import * as React from "react";
 import ColorSelect from "../color-select";
 import DefiningPointSettings from "../defining-point-settings";
 import LineSwatch from "../line-swatch";
+
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 

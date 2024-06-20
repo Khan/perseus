@@ -10,9 +10,10 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import {getDefaultFigureForType} from "../util";
+
 import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
-import {getDefaultFigureForType} from "../util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../../widgets/interactive-graph-editor";
