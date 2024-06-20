@@ -18,7 +18,11 @@ import * as React from "react";
 
 import type {LockedFigureType} from "@khanacademy/perseus";
 
-export type LockedFigureSettingsMovementType = "top" | "up" | "down" | "bottom";
+export type LockedFigureSettingsMovementType =
+    | "back"
+    | "backward"
+    | "forward"
+    | "front";
 
 type Props = {
     figureType: LockedFigureType;
@@ -46,29 +50,29 @@ const LockedFigureSettingsActions = (props: Props) => {
             <IconButton
                 icon={caretDoubleUpIcon}
                 size="small"
-                aria-label={`Move locked ${figureType} to the top`}
-                onClick={() => onMove("top")}
+                aria-label={`Move locked ${figureType} to the back`}
+                onClick={() => onMove("back")}
                 style={styles.iconButton}
             />
             <IconButton
                 icon={caretUpIcon}
                 size="small"
-                aria-label={`Move locked ${figureType} up`}
-                onClick={() => onMove("up")}
+                aria-label={`Move locked ${figureType} backward`}
+                onClick={() => onMove("backward")}
                 style={styles.iconButton}
             />
             <IconButton
                 icon={caretDownIcon}
                 size="small"
-                aria-label={`Move locked ${figureType} down`}
-                onClick={() => onMove("down")}
+                aria-label={`Move locked ${figureType} forward`}
+                onClick={() => onMove("forward")}
                 style={styles.iconButton}
             />
             <IconButton
                 icon={caretDoubleDownIcon}
                 size="small"
-                aria-label={`Move locked ${figureType} to the bottom`}
-                onClick={() => onMove("bottom")}
+                aria-label={`Move locked ${figureType} to the front`}
+                onClick={() => onMove("front")}
                 style={styles.iconButton}
             />
         </View>

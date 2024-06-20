@@ -148,7 +148,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 color: "red",
             };
 
-            test(`Calls onChange when a locked ${figureType} is moved top`, async () => {
+            test(`Calls onChange when a locked ${figureType} is moved back`, async () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -159,7 +159,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
                 // Act
                 const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} to the top`,
+                    name: `Move locked ${figureType} to the back`,
                 });
                 await userEvent.click(moveButton[2]);
 
@@ -171,7 +171,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 );
             });
 
-            test(`Calls onChange when a locked ${figureType} is moved up`, async () => {
+            test(`Calls onChange when a locked ${figureType} is moved backward`, async () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -182,7 +182,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
                 // Act
                 const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} up`,
+                    name: `Move locked ${figureType} backward`,
                 });
                 await userEvent.click(moveButton[2]);
 
@@ -194,7 +194,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 );
             });
 
-            test(`Calls onChange when a locked ${figureType} is moved down`, async () => {
+            test(`Calls onChange when a locked ${figureType} is moved forward`, async () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -205,7 +205,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
                 // Act
                 const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} down`,
+                    name: `Move locked ${figureType} forward`,
                 });
                 await userEvent.click(moveButton[0]);
 
@@ -217,7 +217,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 );
             });
 
-            test(`Calls onChange when a locked ${figureType} is moved bottom`, async () => {
+            test(`Calls onChange when a locked ${figureType} is moved front`, async () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -228,7 +228,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
                 // Act
                 const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} to the bottom`,
+                    name: `Move locked ${figureType} to the front`,
                 });
                 await userEvent.click(moveButton[0]);
 
@@ -240,7 +240,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 );
             });
 
-            test(`Does not call onChange when a locked ${figureType} is moved top and is already at the top`, async () => {
+            test(`Does not call onChange when a locked ${figureType} is moved to the back and is already in the back`, async () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -251,7 +251,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
                 // Act
                 const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} to the top`,
+                    name: `Move locked ${figureType} to the back`,
                 });
                 await userEvent.click(moveButton[0]);
 
@@ -259,7 +259,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect(onChangeMock).not.toBeCalled();
             });
 
-            test(`Does not call onChange when a locked ${figureType} is moved up and is already at the top`, async () => {
+            test(`Does not call onChange when a locked ${figureType} is moved backward and is already in the back`, async () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -270,7 +270,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
                 // Act
                 const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} up`,
+                    name: `Move locked ${figureType} backward`,
                 });
                 await userEvent.click(moveButton[0]);
 
@@ -278,7 +278,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect(onChangeMock).not.toBeCalled();
             });
 
-            test(`Does not call onChange when a locked ${figureType} is moved down and is already at the bottom`, async () => {
+            test(`Does not call onChange when a locked ${figureType} is moved forward and is already in the front`, async () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -289,7 +289,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
                 // Act
                 const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} down`,
+                    name: `Move locked ${figureType} forward`,
                 });
                 await userEvent.click(moveButton[2]);
 
@@ -297,7 +297,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 expect(onChangeMock).not.toBeCalled();
             });
 
-            test(`Does not call onChange when a locked ${figureType} is moved bottom and is already at the bottom`, async () => {
+            test(`Does not call onChange when a locked ${figureType} is moved to the front and is already in the front`, async () => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -308,7 +308,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
                 // Act
                 const moveButton = screen.getAllByRole("button", {
-                    name: `Move locked ${figureType} to the bottom`,
+                    name: `Move locked ${figureType} to the front`,
                 });
                 await userEvent.click(moveButton[2]);
 

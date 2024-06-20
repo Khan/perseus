@@ -53,39 +53,49 @@ const LockedFiguresSection = (props: Props) => {
         movement: LockedFigureSettingsMovementType,
     ) {
         // Don't allow moving the first figure up or the last figure down.
-        if (index === 0 && (movement === "top" || movement === "up")) {
+        if (index === 0 && (movement === "back" || movement === "backward")) {
             return;
         }
         if (
             figures &&
             index === figures.length - 1 &&
-            (movement === "down" || movement === "bottom")
+            (movement === "front" || movement === "forward")
         ) {
             return;
         }
 
         const lockedFigures = figures || [];
         const newFigures = [...lockedFigures];
+        const newExpandedStates = [...expandedStates];
 
-        // First, remove the figure from its current position.
+        // First, remove the figure from its current position
+        // in the figures array and the expanded states array.
         const [removedFigure] = newFigures.splice(index, 1);
+        newExpandedStates.splice(index, 1);
 
-        // Then, add it back in the new position.
+        // Then, add it back in the new position. Add "true" to the
+        // expanded states array for the new position (it must already
+        // be open since the button to move it is being pressed from there).
         switch (movement) {
-            case "top":
+            case "back":
                 newFigures.unshift(removedFigure);
+                newExpandedStates.unshift(true);
                 break;
-            case "up":
+            case "backward":
                 newFigures.splice(index - 1, 0, removedFigure);
+                newExpandedStates.splice(index - 1, 0, true);
                 break;
-            case "down":
+            case "forward":
                 newFigures.splice(index + 1, 0, removedFigure);
+                newExpandedStates.splice(index + 1, 0, true);
                 break;
-            case "bottom":
+            case "front":
                 newFigures.push(removedFigure);
+                newExpandedStates.push(true);
                 break;
         }
         onChange({lockedFigures: newFigures});
+        setExpandedStates(newExpandedStates);
     }
 
     function removeLockedFigure(index: number) {
