@@ -8,13 +8,13 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {snap} from "../utils";
 
 import {StyledMovablePoint} from "./components/movable-point";
+import {useDraggable} from "./use-draggable";
 import {
     useTransformDimensionsToPixels,
     useTransformVectorsToPixels,
 } from "./use-transform";
 
 import type {CircleGraphState, MafsGraphProps} from "../types";
-import {useDraggable} from "./use-draggable";
 
 type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 

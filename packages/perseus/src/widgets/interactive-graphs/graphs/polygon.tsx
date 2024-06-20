@@ -7,10 +7,10 @@ import {TARGET_SIZE, snap} from "../utils";
 import {Angle} from "./components/angle";
 import {StyledMovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
+import {useDraggable} from "./use-draggable";
 import {getLines} from "./utils";
 
 import type {MafsGraphProps, PolygonGraphState} from "../types";
-import {useDraggable} from "./use-draggable";
 
 type Props = MafsGraphProps<PolygonGraphState>;
 

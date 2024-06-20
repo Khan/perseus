@@ -1,7 +1,8 @@
 import {render} from "@testing-library/react";
 import {Mafs} from "mafs";
-import * as UseDraggableModule from "../use-draggable";
 import React from "react";
+
+import * as UseDraggableModule from "../use-draggable";
 
 import {MovableLine, trimRange} from "./movable-line";
 

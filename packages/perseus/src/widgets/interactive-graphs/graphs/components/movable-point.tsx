@@ -4,12 +4,12 @@ import {useRef} from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
 import {snap} from "../../utils";
+import {useDraggable} from "../use-draggable";
 
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
-import {useDraggable} from "../use-draggable";
 
 type Props = {
     point: vec.Vector2;

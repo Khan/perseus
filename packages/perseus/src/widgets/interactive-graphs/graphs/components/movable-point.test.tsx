@@ -1,10 +1,10 @@
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {render} from "@testing-library/react";
 import {Mafs} from "mafs";
-import * as UseDraggableModule from "../use-draggable";
 import React from "react";
 
 import * as ReducerGraphConfig from "../../reducer/use-graph-config";
+import * as UseDraggableModule from "../use-draggable";
 
 import {StyledMovablePoint} from "./movable-point";
 

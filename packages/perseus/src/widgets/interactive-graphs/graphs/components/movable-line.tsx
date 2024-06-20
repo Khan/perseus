@@ -4,6 +4,7 @@ import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
 import {snap, TARGET_SIZE} from "../../utils";
+import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
 
@@ -12,7 +13,6 @@ import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
 
 import type {Interval} from "mafs";
-import {useDraggable} from "../use-draggable";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;
