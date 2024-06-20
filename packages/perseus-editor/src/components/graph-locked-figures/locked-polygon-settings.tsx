@@ -17,13 +17,12 @@ import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import ColorSelect from "../color-select";
-import CoordinatePairInput from "../coordinate-pair-input";
-import LabeledSwitch from "../labeled-switch";
-import PolygonSwatch from "../polygon-swatch";
-
+import ColorSelect from "./color-select";
+import CoordinatePairInput from "./coordinate-pair-input";
+import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import PolygonSwatch from "./polygon-swatch";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 
