@@ -1,5 +1,4 @@
 import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
-import {useMovable} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
@@ -10,6 +9,7 @@ import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
+import {useDraggable} from "../use-draggable";
 
 type Props = {
     point: vec.Vector2;
@@ -24,7 +24,7 @@ export const StyledMovablePoint = (props: Props) => {
     const elementRef = useRef<SVGGElement>(null);
     const {point, onMove, cursor, color = WBColor.blue, snapTo} = props;
     const snapToValue = snapTo ?? "grid";
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: elementRef,
         point,
         onMove,

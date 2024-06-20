@@ -1,19 +1,11 @@
 import {render} from "@testing-library/react";
-import * as MafsLibrary from "mafs";
+import {Mafs} from "mafs";
+import * as UseDraggableModule from "../use-draggable";
 import React from "react";
 
 import {MovableLine, trimRange} from "./movable-line";
 
 import type {Interval, vec} from "mafs";
-
-jest.mock("mafs", () => {
-    const originalModule = jest.requireActual("mafs");
-    return {
-        __esModule: true,
-        ...originalModule,
-        useMovable: jest.fn(),
-    };
-});
 
 describe("trimRange", () => {
     it("does not trim smaller than [[0, 0], [0, 0]]", () => {
@@ -78,12 +70,11 @@ describe("trimRange", () => {
 });
 
 describe("Rendering", () => {
-    let useMovableMock: jest.SpyInstance;
-    const Mafs = MafsLibrary.Mafs;
+    let useDraggable: jest.SpyInstance;
 
     beforeEach(() => {
-        useMovableMock = jest
-            .spyOn(MafsLibrary, "useMovable")
+        useDraggable = jest
+            .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
     });
 
@@ -159,7 +150,7 @@ describe("Rendering", () => {
         expect(line?.classList).not.toContain("movable-dragging");
 
         // Verify dragging state
-        useMovableMock.mockReturnValue({dragging: true});
+        useDraggable.mockReturnValue({dragging: true});
         container = render(
             <Mafs width={200} height={200}>
                 <MovableLine

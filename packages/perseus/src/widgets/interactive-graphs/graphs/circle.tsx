@@ -1,4 +1,4 @@
-import {useMovable, vec} from "mafs";
+import {vec} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
@@ -14,6 +14,7 @@ import {
 } from "./use-transform";
 
 import type {CircleGraphState, MafsGraphProps} from "../types";
+import {useDraggable} from "./use-draggable";
 
 type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 
@@ -49,7 +50,7 @@ function MovableCircle(props: {
 
     const draggableRef = useRef<SVGGElement>(null);
 
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: draggableRef,
         point: center,
         onMove,
