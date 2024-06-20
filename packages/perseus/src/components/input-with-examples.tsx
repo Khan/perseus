@@ -82,8 +82,7 @@ class InputWithExamples extends React.Component<Props, State> {
         return className;
     };
 
-    _getPropsForInputType: () => any = () => {
-        // Minimal set of props, used by each input type
+    _renderInput: () => any = () => {
         const id = this._getUniqueId();
         const inputProps = {
             id: id,
@@ -96,32 +95,14 @@ class InputWithExamples extends React.Component<Props, State> {
             onBlur: this._handleBlur,
             disabled: this.props.disabled,
             style: this.props.style,
-        } as const;
-
-        _.extend(inputProps, {
             onChange: this.props.onChange,
             onTouchStart: captureScratchpadTouchStart,
-        });
-
-        return _.extend(
-            {
-                autoCapitalize: "off",
-                autoComplete: "off",
-                autoCorrect: "off",
-                spellCheck: "false",
-            },
-            inputProps,
-        );
-    };
-
-    _getComponentForInputType: () => any = () => {
-        return TextInput;
-    };
-
-    _renderInput: () => any = () => {
-        const inputProps = this._getPropsForInputType();
-        const InputComponent = this._getComponentForInputType();
-        return <InputComponent {...inputProps} />;
+            autoCapitalize: "off",
+            autoComplete: "off",
+            autoCorrect: "off",
+            spellCheck: "false",
+        };
+        return <TextInput {...inputProps} />;
     };
 
     render(): React.ReactNode {
