@@ -96,13 +96,6 @@ const LockedFiguresSection = (props: Props) => {
     return (
         <View>
             {figures?.map((figure, index) => {
-                if (figure.type === "polygon") {
-                    // TODO(LEMS-1943): Implement locked polygon settings.
-                    // Remove this block once locked polygon settings are
-                    // implemented.
-                    return;
-                }
-
                 return (
                     <LockedFigureSettings
                         key={`${uniqueId}-locked-${figure}-${index}`}
