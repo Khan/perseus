@@ -153,6 +153,10 @@ export const StatefulMafsGraph = React.forwardRef<
 
     const numSegments = graph.type === "segment" ? graph.numSegments : null;
     const numSides = graph.type === "polygon" ? graph.numSides : null;
+    const snapTo = graph.type === "polygon" ? graph.snapTo : null;
+    const showAngles = graph.type === "polygon" ? graph.showAngles : null;
+    const showSides = graph.type === "polygon" ? graph.showSides : null;
+
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
     useEffect(() => {
@@ -163,7 +167,15 @@ export const StatefulMafsGraph = React.forwardRef<
         if (latestPropsRef.current !== originalPropsRef.current) {
             dispatch(reinitialize(latestPropsRef.current));
         }
-    }, [graph.type, numSegments, numSides, latestPropsRef]);
+    }, [
+        graph.type,
+        numSegments,
+        numSides,
+        snapTo,
+        showAngles,
+        showSides,
+        latestPropsRef,
+    ]);
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
 });
