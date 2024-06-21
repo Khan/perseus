@@ -147,7 +147,7 @@ export const Interactive = () => {
                         <button onClick={() => setDebug(!debug)}>
                             {debug
                                 ? "Use ServerItemRenderer"
-                                : "ServerItemRendererWithDebugUI"}
+                                : "Use ServerItemRendererWithDebugUI"}
                         </button>
                     </div>
                 )}
