@@ -93,6 +93,209 @@ describe("InteractiveGraphQuestionBuilder", () => {
         );
     });
 
+    it("creates a segment graph with start coords", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withSegments(1, [
+                [
+                    [0, 0],
+                    [2, 2],
+                ],
+            ])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "segment",
+                    numSegments: 1,
+                    coords: [
+                        [
+                            [0, 0],
+                            [2, 2],
+                        ],
+                    ],
+                },
+                correct: {
+                    type: "segment",
+                    numSegments: 1,
+                    coords: [
+                        [
+                            [-7, 7],
+                            [2, 5],
+                        ],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a linear graph", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withLinear()
+            .build();
+
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "linear"},
+                correct: {
+                    type: "linear",
+                    coords: [
+                        [-10, -5],
+                        [10, 5],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a linear graph with start coords", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withLinear([
+                [3, 0],
+                [3, 3],
+            ])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "linear",
+                    coords: [
+                        [3, 0],
+                        [3, 3],
+                    ],
+                },
+                correct: {
+                    type: "linear",
+                    coords: [
+                        [-10, -5],
+                        [10, 5],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a linear system graph", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withLinearSystem()
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "linear-system"},
+                correct: {
+                    type: "linear-system",
+                    coords: [
+                        [
+                            [-10, -5],
+                            [10, 5],
+                        ],
+                        [
+                            [-10, 5],
+                            [10, -5],
+                        ],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a linear system graph with start coords", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withLinearSystem([
+                [
+                    [-3, 0],
+                    [-3, 3],
+                ],
+                [
+                    [3, 0],
+                    [3, 3],
+                ],
+            ])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "linear-system",
+                    coords: [
+                        [
+                            [-3, 0],
+                            [-3, 3],
+                        ],
+                        [
+                            [3, 0],
+                            [3, 3],
+                        ],
+                    ],
+                },
+                correct: {
+                    type: "linear-system",
+                    coords: [
+                        [
+                            [-10, -5],
+                            [10, 5],
+                        ],
+                        [
+                            [-10, 5],
+                            [10, -5],
+                        ],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a ray graph", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withRay()
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "ray"},
+                correct: {
+                    type: "ray",
+                    coords: [
+                        [-10, -5],
+                        [10, 5],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a ray graph with start coords", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withRay([
+                [3, 0],
+                [3, 3],
+            ])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "ray",
+                    coords: [
+                        [3, 0],
+                        [3, 3],
+                    ],
+                },
+                correct: {
+                    type: "ray",
+                    coords: [
+                        [-10, -5],
+                        [10, 5],
+                    ],
+                },
+            }),
+        );
+    });
+
     it("creates a circle graph", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .withCircle()
@@ -102,6 +305,117 @@ describe("InteractiveGraphQuestionBuilder", () => {
             expect.objectContaining({
                 graph: {type: "circle"},
                 correct: {type: "circle", radius: 5, center: [0, 0]},
+            }),
+        );
+    });
+
+    it("creates a circle graph with start coords", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withCircle([9, 9])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "circle", center: [9, 9], radius: 5},
+                correct: {type: "circle", radius: 5, center: [0, 0]},
+            }),
+        );
+    });
+
+    it("creates a quadratic graph", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withQuadratic()
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "quadratic"},
+                correct: {
+                    type: "quadratic",
+                    coords: [
+                        [-10, 5],
+                        [10, 5],
+                        [0, -5],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a quadratic graph with start coords", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withQuadratic([
+                [-1, -1],
+                [0, 0],
+                [1, -1],
+            ])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "quadratic",
+                    coords: [
+                        [-1, -1],
+                        [0, 0],
+                        [1, -1],
+                    ],
+                },
+                correct: {
+                    type: "quadratic",
+                    coords: [
+                        [-10, 5],
+                        [10, 5],
+                        [0, -5],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a sinusoid graph", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withSinusoid()
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "sinusoid"},
+                correct: {
+                    type: "sinusoid",
+                    coords: [
+                        [-10, 5],
+                        [10, 5],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a sinusoid graph with start coords", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withSinusoid([
+                [0, 0],
+                [1, -1],
+            ])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "sinusoid",
+                    coords: [
+                        [0, 0],
+                        [1, -1],
+                    ],
+                },
+                correct: {
+                    type: "sinusoid",
+                    coords: [
+                        [-10, 5],
+                        [10, 5],
+                    ],
+                },
             }),
         );
     });

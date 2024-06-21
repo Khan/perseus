@@ -7,7 +7,17 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {EditorPage} from "..";
-import {segmentWithLockedFigures} from "../../../perseus/src/widgets/__testdata__/interactive-graph.testdata";
+import {
+    circleWithStartingCoordsQuestion,
+    linearSystemWithStartingCoordsQuestion,
+    linearWithStartingCoordsQuestion,
+    quadraticWithStartingCoordsQuestion,
+    rayWithStartingCoordsQuestion,
+    segmentWithLockedFigures,
+    segmentWithStartingCoordsQuestion,
+    segmentsWithStartingCoordsQuestion,
+    sinusoidWithStartingCoordsQuestion,
+} from "../../../perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
@@ -31,6 +41,77 @@ const onChangeAction = action("onChange");
 export const Demo = (): React.ReactElement => {
     return <EditorPageWithStorybookPreview />;
 };
+
+export const InteractiveGraphSegmentWithStartingCoords =
+    (): React.ReactElement => {
+        return (
+            <EditorPageWithStorybookPreview
+                question={segmentWithStartingCoordsQuestion}
+            />
+        );
+    };
+
+export const InteractiveGraphSegmentsWithStartingCoords =
+    (): React.ReactElement => {
+        return (
+            <EditorPageWithStorybookPreview
+                question={segmentsWithStartingCoordsQuestion}
+            />
+        );
+    };
+
+export const InteractiveGraphLinearWithStartingCoords =
+    (): React.ReactElement => {
+        return (
+            <EditorPageWithStorybookPreview
+                question={linearWithStartingCoordsQuestion}
+            />
+        );
+    };
+
+export const InteractiveGraphLinearSystemWithStartingCoords =
+    (): React.ReactElement => {
+        return (
+            <EditorPageWithStorybookPreview
+                question={linearSystemWithStartingCoordsQuestion}
+            />
+        );
+    };
+
+export const InteractiveGraphRayWithStartingCoords = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={rayWithStartingCoordsQuestion}
+        />
+    );
+};
+
+export const InteractiveGraphCircleWithStartingCoords =
+    (): React.ReactElement => {
+        return (
+            <EditorPageWithStorybookPreview
+                question={circleWithStartingCoordsQuestion}
+            />
+        );
+    };
+
+export const InteractiveGraphQuadraticWithStartingCoords =
+    (): React.ReactElement => {
+        return (
+            <EditorPageWithStorybookPreview
+                question={quadraticWithStartingCoordsQuestion}
+            />
+        );
+    };
+
+export const InteractiveGraphSinusoidWithStartingCoords =
+    (): React.ReactElement => {
+        return (
+            <EditorPageWithStorybookPreview
+                question={sinusoidWithStartingCoordsQuestion}
+            />
+        );
+    };
 
 export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
     return (
