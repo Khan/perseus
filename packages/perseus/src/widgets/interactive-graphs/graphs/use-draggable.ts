@@ -1,9 +1,11 @@
-import * as React from "react";
+import {useDrag} from "@use-gesture/react";
 import {useTransformContext, vec} from "mafs";
-import type {RefObject} from "react";
-import { useDrag } from "@use-gesture/react"
-import useGraphConfig from "../reducer/use-graph-config";
+import * as React from "react";
 import invariant from "tiny-invariant";
+
+import useGraphConfig from "../reducer/use-graph-config";
+
+import type {RefObject} from "react";
 
 /**
  * Code in this file is derived from
@@ -23,7 +25,7 @@ import invariant from "tiny-invariant";
  * all copies or substantial portions of the Software.
  */
 
-type Params = {
+export type Params = {
     gestureTarget: RefObject<Element>;
     onMove: (point: vec.Vector2) => unknown;
     point: vec.Vector2;
@@ -35,98 +37,136 @@ type DragState = {
 };
 
 export function useDraggable(args: Params): DragState {
-    const { gestureTarget: target, onMove, point, constrain } = args
-    const [dragging, setDragging] = React.useState(false)
-    const { xSpan, ySpan } = useSpanContext()
-    const { viewTransform, userTransform } = useTransformContext()
+    const {gestureTarget: target, onMove, point, constrain} = args;
+    const [dragging, setDragging] = React.useState(false);
+    const {xSpan, ySpan} = useSpanContext();
+    const {viewTransform, userTransform} = useTransformContext();
 
-    const inverseViewTransform = vec.matrixInvert(viewTransform)
-    invariant(inverseViewTransform, "The view transform must be invertible.")
+    const inverseViewTransform = vec.matrixInvert(viewTransform);
+    invariant(inverseViewTransform, "The view transform must be invertible.");
 
-    const inverseTransform = React.useMemo(() => getInverseTransform(userTransform), [userTransform])
+    const inverseTransform = React.useMemo(
+        () => getInverseTransform(userTransform),
+        [userTransform],
+    );
 
-    const pickup = React.useRef<vec.Vector2>([0, 0])
+    const pickup = React.useRef<vec.Vector2>([0, 0]);
 
     useDrag(
         (state) => {
-            const { type, event } = state
-            event?.stopPropagation()
+            const {type, event} = state;
+            event?.stopPropagation();
 
-            const isKeyboard = type.includes("key")
+            const isKeyboard = type.includes("key");
             if (isKeyboard) {
-                event?.preventDefault()
-                const { direction: yDownDirection, altKey, metaKey, shiftKey } = state
+                event?.preventDefault();
+                const {
+                    direction: yDownDirection,
+                    altKey,
+                    metaKey,
+                    shiftKey,
+                } = state;
 
-                const direction = [yDownDirection[0], -yDownDirection[1]] as vec.Vector2
-                const span = Math.abs(direction[0]) ? xSpan : ySpan
+                const direction = [
+                    yDownDirection[0],
+                    -yDownDirection[1],
+                ] as vec.Vector2;
+                const span = Math.abs(direction[0]) ? xSpan : ySpan;
 
-                let divisions = 50
-                if (altKey || metaKey) divisions = 200
-                if (shiftKey) divisions = 10
+                let divisions = 50;
+                if (altKey || metaKey) {
+                    divisions = 200;
+                }
+                if (shiftKey) {
+                    divisions = 10;
+                }
 
-                const min = span / (divisions * 2)
-                const tests = range(span / divisions, span / 2, span / divisions)
+                const min = span / (divisions * 2);
+                const tests = range(
+                    span / divisions,
+                    span / 2,
+                    span / divisions,
+                );
 
                 for (const dx of tests) {
                     // Transform the test back into the point's coordinate system
-                    const testMovement = vec.scale(direction, dx)
+                    const testMovement = vec.scale(direction, dx);
                     const testPoint = constrain(
                         vec.transform(
-                            vec.add(vec.transform(point, userTransform), testMovement),
+                            vec.add(
+                                vec.transform(point, userTransform),
+                                testMovement,
+                            ),
                             inverseTransform,
                         ),
-                    )
+                    );
 
                     if (vec.dist(testPoint, point) > min) {
-                        onMove(testPoint)
-                        break
+                        onMove(testPoint);
+                        break;
                     }
                 }
             } else {
-                const { last, movement: pixelMovement, first } = state
+                const {last, movement: pixelMovement, first} = state;
 
-                setDragging(!last)
+                setDragging(!last);
 
-                if (first) pickup.current = vec.transform(point, userTransform)
-                if (vec.mag(pixelMovement) === 0) return
+                if (first) {
+                    pickup.current = vec.transform(point, userTransform);
+                }
+                if (vec.mag(pixelMovement) === 0) {
+                    return;
+                }
 
-                const movement = vec.transform(pixelMovement, inverseViewTransform)
-                onMove(constrain(vec.transform(vec.add(pickup.current, movement), inverseTransform)))
+                const movement = vec.transform(
+                    pixelMovement,
+                    inverseViewTransform,
+                );
+                onMove(
+                    constrain(
+                        vec.transform(
+                            vec.add(pickup.current, movement),
+                            inverseTransform,
+                        ),
+                    ),
+                );
             }
         },
-        { target, eventOptions: { passive: false } },
-    )
-    return { dragging }
+        {target, eventOptions: {passive: false}},
+    );
+    return {dragging};
 }
 
 function getInverseTransform(transform: vec.Matrix) {
-    const invert = vec.matrixInvert(transform)
+    const invert = vec.matrixInvert(transform);
     invariant(
         invert !== null,
         "Could not invert transform matrix. A parent transformation matrix might be degenerative (mapping 2D space to a line).",
-    )
-    return invert
+    );
+    return invert;
 }
 
 function useSpanContext() {
-    const { range: [[xMin, xMax], [yMin, yMax]] } = useGraphConfig()
-    const xSpan = xMax - xMin
-    const ySpan = yMax - yMin
+    const {
+        range: [[xMin, xMax], [yMin, yMax]],
+    } = useGraphConfig();
+    const xSpan = xMax - xMin;
+    const ySpan = yMax - yMin;
     return {xSpan, ySpan};
 }
 
 function range(min: number, max: number, step = 1): number[] {
-    const result: number[] = []
+    const result: number[] = [];
     for (let i = min; i < max - step / 2; i += step) {
-        result.push(i)
+        result.push(i);
     }
 
-    const computedMax = result[result.length - 1] + step
+    const computedMax = result[result.length - 1] + step;
     if (Math.abs(max - computedMax) < step / 1e-6) {
-        result.push(max)
+        result.push(max);
     } else {
-        result.push(computedMax)
+        result.push(computedMax);
     }
 
-    return result
+    return result;
 }
