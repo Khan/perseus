@@ -1,20 +1,12 @@
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {render} from "@testing-library/react";
-import * as MafsLibrary from "mafs";
+import {Mafs} from "mafs";
 import React from "react";
 
 import * as ReducerGraphConfig from "../../reducer/use-graph-config";
+import * as UseDraggableModule from "../use-draggable";
 
 import {StyledMovablePoint} from "./movable-point";
-
-jest.mock("mafs", () => {
-    const originalModule = jest.requireActual("mafs");
-    return {
-        __esModule: true,
-        ...originalModule,
-        useMovable: jest.fn(),
-    };
-});
 
 jest.mock("@khanacademy/wonder-blocks-tooltip", () => {
     const originalModule = jest.requireActual(
@@ -33,8 +25,7 @@ const TooltipMock = ({children}) => {
 
 describe("StyledMovablePoint", () => {
     let useGraphConfigMock: jest.SpyInstance;
-    let useMovableMock: jest.SpyInstance;
-    const Mafs = MafsLibrary.Mafs;
+    let useDraggableMock: jest.SpyInstance;
     const baseGraphConfigContext = {
         snapStep: 1,
         range: [
@@ -47,8 +38,8 @@ describe("StyledMovablePoint", () => {
 
     beforeEach(() => {
         useGraphConfigMock = jest.spyOn(ReducerGraphConfig, "default");
-        useMovableMock = jest
-            .spyOn(MafsLibrary, "useMovable")
+        useDraggableMock = jest
+            .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
     });
 
@@ -142,7 +133,7 @@ describe("StyledMovablePoint", () => {
     describe("Hairlines", () => {
         it("Shows hairlines when dragging and 'markings' are NOT set to 'none'", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
-            useMovableMock.mockReturnValue({dragging: true});
+            useDraggableMock.mockReturnValue({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
                     <StyledMovablePoint point={[0, 0]} onMove={() => {}} />,
@@ -174,7 +165,7 @@ describe("StyledMovablePoint", () => {
             const graphStateContext = {...baseGraphConfigContext};
             graphStateContext.markings = "none";
             useGraphConfigMock.mockReturnValue(graphStateContext);
-            useMovableMock.mockReturnValue({dragging: true});
+            useDraggableMock.mockReturnValue({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
                     <StyledMovablePoint point={[0, 0]} onMove={() => {}} />,

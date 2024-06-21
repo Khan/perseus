@@ -1,9 +1,10 @@
-import {useMovable, vec} from "mafs";
+import {vec} from "mafs";
 import {useRef, useState} from "react";
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
 import {snap, TARGET_SIZE} from "../../utils";
+import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
 
@@ -79,7 +80,7 @@ function useControlPoint(
     const {snapStep} = useGraphConfig();
     const [focused, setFocused] = useState(false);
     const keyboardHandleRef = useRef<SVGGElement>(null);
-    useMovable({
+    useDraggable({
         gestureTarget: keyboardHandleRef,
         point,
         onMove: onMovePoint,
@@ -87,7 +88,7 @@ function useControlPoint(
     });
 
     const visiblePointRef = useRef<SVGGElement>(null);
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: visiblePointRef,
         point,
         onMove: onMovePoint,
@@ -156,7 +157,7 @@ const Line = (props: LineProps) => {
     }
 
     const line = useRef<SVGGElement>(null);
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: line,
         point: start,
         onMove: (newPoint) => {
