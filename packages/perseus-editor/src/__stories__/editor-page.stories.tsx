@@ -10,7 +10,7 @@ import {EditorPage} from "..";
 import {segmentWithLockedFigures} from "../../../perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-import EditorPageUtil from "./editor-page-util";
+import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
 import {flags} from "./flags-for-api-options";
 
 import type {
@@ -29,12 +29,12 @@ export default {
 const onChangeAction = action("onChange");
 
 export const Demo = (): React.ReactElement => {
-    return <EditorPageUtil />;
+    return <EditorPageWithStorybookPreview />;
 };
 
 export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
     return (
-        <EditorPageUtil
+        <EditorPageWithStorybookPreview
             apiOptions={{
                 isMobile: false,
                 flags: {
@@ -60,7 +60,7 @@ MafsWithLockedFiguresCurrent.parameters = {
 
 export const MafsWithLockedFiguresM2Flag = (): React.ReactElement => {
     return (
-        <EditorPageUtil
+        <EditorPageWithStorybookPreview
             apiOptions={{
                 isMobile: false,
                 flags: {
@@ -85,7 +85,9 @@ MafsWithLockedFiguresM2Flag.parameters = {
 };
 
 export const MafsWithLockedFiguresM2bFlag = (): React.ReactElement => {
-    return <EditorPageUtil question={segmentWithLockedFigures} />;
+    return (
+        <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
+    );
 };
 
 MafsWithLockedFiguresM2bFlag.parameters = {

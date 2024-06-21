@@ -31,7 +31,7 @@ type Props = {
 
 const onChangeAction = action("onChange");
 
-function EditorPageUtil(props: Props) {
+function EditorPageWithStorybookPreview(props: Props) {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
     const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
@@ -165,4 +165,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default EditorPageUtil;
+export default EditorPageWithStorybookPreview;
