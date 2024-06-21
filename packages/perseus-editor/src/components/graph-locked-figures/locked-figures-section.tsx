@@ -10,17 +10,22 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import {getDefaultFigureForType} from "../util";
+
 import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
-import {getDefaultFigureForType} from "./util";
 
-import type {Props as InteractiveGraphEditorProps} from "../widgets/interactive-graph-editor";
+import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
+import type {Props as InteractiveGraphEditorProps} from "../../widgets/interactive-graph-editor";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
 
 type Props = {
     // Whether to show the M2 features in the locked figure settings.
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
     showM2Features: boolean;
+    // Whether to show the M2b features in the locked figure settings.
+    // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
+    showM2bFeatures: boolean;
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
@@ -45,6 +50,56 @@ const LockedFiguresSection = (props: Props) => {
         };
         onChange(newProps);
         setExpandedStates([...expandedStates, true]);
+    }
+
+    function moveLockedFigure(
+        index: number,
+        movement: LockedFigureSettingsMovementType,
+    ) {
+        // Don't allow moving the first figure up or the last figure down.
+        if (index === 0 && (movement === "back" || movement === "backward")) {
+            return;
+        }
+        if (
+            figures &&
+            index === figures.length - 1 &&
+            (movement === "front" || movement === "forward")
+        ) {
+            return;
+        }
+
+        const lockedFigures = figures || [];
+        const newFigures = [...lockedFigures];
+        const newExpandedStates = [...expandedStates];
+
+        // First, remove the figure from its current position
+        // in the figures array and the expanded states array.
+        const [removedFigure] = newFigures.splice(index, 1);
+        newExpandedStates.splice(index, 1);
+
+        // Then, add it back in the new position. Add "true" to the
+        // expanded states array for the new position (it must already
+        // be open since the button to move it is being pressed from there).
+        switch (movement) {
+            case "back":
+                newFigures.unshift(removedFigure);
+                newExpandedStates.unshift(true);
+                break;
+            case "backward":
+                newFigures.splice(index - 1, 0, removedFigure);
+                newExpandedStates.splice(index - 1, 0, true);
+                break;
+            case "forward":
+                newFigures.splice(index + 1, 0, removedFigure);
+                newExpandedStates.splice(index + 1, 0, true);
+                break;
+            case "front":
+                newFigures.push(removedFigure);
+                newExpandedStates.push(true);
+                break;
+        }
+        onChange({lockedFigures: newFigures});
+        setExpandedStates(newExpandedStates);
     }
 
     function removeLockedFigure(index: number) {
@@ -96,17 +151,11 @@ const LockedFiguresSection = (props: Props) => {
     return (
         <View>
             {figures?.map((figure, index) => {
-                if (figure.type === "polygon") {
-                    // TODO(LEMS-1943): Implement locked polygon settings.
-                    // Remove this block once locked polygon settings are
-                    // implemented.
-                    return;
-                }
-
                 return (
                     <LockedFigureSettings
                         key={`${uniqueId}-locked-${figure}-${index}`}
                         showM2Features={props.showM2Features}
+                        showM2bFeatures={props.showM2bFeatures}
                         expanded={expandedStates[index]}
                         onToggle={(newValue) => {
                             const newExpanded = [...expandedStates];
@@ -117,6 +166,7 @@ const LockedFiguresSection = (props: Props) => {
                         onChangeProps={(newProps) =>
                             changeProps(index, newProps)
                         }
+                        onMove={(movement) => moveLockedFigure(index, movement)}
                         onRemove={() => removeLockedFigure(index)}
                     />
                 );
@@ -124,6 +174,7 @@ const LockedFiguresSection = (props: Props) => {
             <View style={styles.buttonContainer}>
                 <LockedFigureSelect
                     showM2Features={props.showM2Features}
+                    showM2bFeatures={props.showM2bFeatures}
                     id={`${uniqueId}-select`}
                     onChange={addLockedFigure}
                 />

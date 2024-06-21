@@ -17,33 +17,41 @@ import CoordinatePairInput from "./coordinate-pair-input";
 import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 
-import type {AccordionProps} from "./locked-figure-settings";
 import type {LockedPointType} from "@khanacademy/perseus";
 
-export type Props = AccordionProps &
-    LockedPointType & {
-        /**
-         * Optional label for the point to display in the header summary.
-         * Defaults to "Point".
-         */
-        label: string;
-        /**
-         * Whether the extra point settings are toggled open.
-         */
-        showPoint?: boolean;
-        /**
-         * Optional error message to display.
-         */
-        error?: string | null;
-        /**
-         * Called when the extra settings toggle switch is changed.
-         */
-        onTogglePoint?: (newValue) => void;
-        /**
-         * Called when the props (coords, color, etc.) are updated.
-         */
-        onChangeProps: (newProps: Partial<LockedPointType>) => void;
-    };
+export type Props = LockedPointType & {
+    /**
+     * Optional label for the point to display in the header summary.
+     * Defaults to "Point".
+     */
+    label: string;
+    /**
+     * Whether the extra point settings are toggled open.
+     */
+    showPoint?: boolean;
+    /**
+     * Optional error message to display.
+     */
+    error?: string | null;
+    /**
+     * Called when the extra settings toggle switch is changed.
+     */
+    onTogglePoint?: (newValue) => void;
+    /**
+     * Called when the props (coords, color, etc.) are updated.
+     */
+    onChangeProps: (newProps: Partial<LockedPointType>) => void;
+
+    // Accordion props
+    /**
+     * Whether this accordion is expanded.
+     */
+    expanded?: boolean;
+    /**
+     * Called when the accordion is expanded or collapsed.
+     */
+    onToggle?: (expanded: boolean) => void;
+};
 
 const DefiningPointSettings = (props: Props) => {
     const {
@@ -55,6 +63,8 @@ const DefiningPointSettings = (props: Props) => {
         error,
         onChangeProps,
         onTogglePoint,
+        expanded,
+        onToggle,
     } = props;
 
     function handleColorChange(newValue) {
@@ -63,8 +73,8 @@ const DefiningPointSettings = (props: Props) => {
 
     return (
         <LockedFigureSettingsAccordion
-            expanded={props.expanded}
-            onToggle={props.onToggle}
+            expanded={expanded}
+            onToggle={onToggle}
             containerStyle={styles.container}
             panelStyle={styles.accordionPanel}
             header={
@@ -82,6 +92,7 @@ const DefiningPointSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={coord}
                 error={!!error}
+                style={styles.spaceUnder}
                 onChange={(newCoords) => {
                     onChangeProps({coord: newCoords});
                 }}

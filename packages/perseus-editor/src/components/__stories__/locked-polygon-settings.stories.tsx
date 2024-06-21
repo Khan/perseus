@@ -1,27 +1,27 @@
 import * as React from "react";
 
-import LockedEllipseSettings from "../graph-locked-figures/locked-ellipse-settings";
+import LockedPolygonSettings from "../graph-locked-figures/locked-polygon-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
 export default {
-    title: "PerseusEditor/Components/Locked Ellipse Settings",
-    component: LockedEllipseSettings,
-} as Meta<typeof LockedEllipseSettings>;
+    title: "PerseusEditor/Components/Locked Polygon Settings",
+    component: LockedPolygonSettings,
+} as Meta<typeof LockedPolygonSettings>;
 
 export const Default = (args): React.ReactElement => {
-    return <LockedEllipseSettings {...args} />;
+    return <LockedPolygonSettings {...args} />;
 };
 
 const defaultProps = {
-    ...getDefaultFigureForType("ellipse"),
+    ...getDefaultFigureForType("polygon"),
     onChangeProps: () => {},
     onMove: () => {},
     onRemove: () => {},
 };
 
-type StoryComponentType = StoryObj<typeof LockedEllipseSettings>;
+type StoryComponentType = StoryObj<typeof LockedPolygonSettings>;
 
 // Set the default values in the control panel.
 Default.args = defaultProps;
@@ -38,7 +38,7 @@ export const Controlled: StoryComponentType = {
         };
 
         return (
-            <LockedEllipseSettings
+            <LockedPolygonSettings
                 {...props}
                 onChangeProps={handlePropsUpdate}
             />
@@ -67,7 +67,7 @@ export const Expanded: StoryComponentType = {
         };
 
         return (
-            <LockedEllipseSettings
+            <LockedPolygonSettings
                 {...props}
                 expanded={expanded}
                 onToggle={setExpanded}

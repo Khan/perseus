@@ -2,7 +2,7 @@ import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point} from "mafs";
 import * as React from "react";
 
-import {lockedFigureColors, type LockedPointType} from "../../perseus-types";
+import {lockedFigureColors, type LockedPointType} from "../../../perseus-types";
 
 const LockedPoint = (props: LockedPointType) => {
     const {color, coord, filled} = props;

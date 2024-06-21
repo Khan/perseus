@@ -2,17 +2,16 @@ import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Line, vec} from "mafs";
 import * as React from "react";
 
-import {lockedFigureColors} from "../../perseus-types";
-
-import {Arrowhead} from "./graphs/components/arrowhead";
-import {Vector} from "./graphs/components/vector";
-import {useTransformVectorsToPixels} from "./graphs/use-transform";
+import {lockedFigureColors} from "../../../perseus-types";
+import {Arrowhead} from "../graphs/components/arrowhead";
+import {Vector} from "../graphs/components/vector";
+import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {
     calculateAngleInDegrees,
     getIntersectionOfRayWithBox,
-} from "./graphs/utils";
+} from "../graphs/utils";
 
-import type {LockedLineType} from "../../perseus-types";
+import type {LockedLineType} from "../../../perseus-types";
 import type {Interval} from "mafs";
 
 type Props = LockedLineType & {

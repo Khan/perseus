@@ -7,14 +7,15 @@ import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import AngleInput from "./angle-input";
+import AngleInput from "../angle-input";
+
 import ColorSelect from "./color-select";
 import CoordinatePairInput from "./coordinate-pair-input";
 import EllipseSwatch from "./ellipse-swatch";
 import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {AccordionProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
     Coord,
     LockedFigureFillType,
@@ -24,12 +25,8 @@ import type {
 
 const {InfoTip} = components;
 
-export type Props = AccordionProps &
+export type Props = LockedFigureSettingsCommonProps &
     LockedEllipseType & {
-        /**
-         * Called when the delete button is pressed.
-         */
-        onRemove: () => void;
         /**
          * Called when the props (coords, color, etc.) are updated.
          */
@@ -47,6 +44,7 @@ const LockedEllipseSettings = (props: Props) => {
         expanded,
         onToggle,
         onChangeProps,
+        onMove,
         onRemove,
     } = props;
 
@@ -75,6 +73,7 @@ const LockedEllipseSettings = (props: Props) => {
             <View style={styles.row}>
                 <CoordinatePairInput
                     coord={center}
+                    style={styles.spaceUnder}
                     onChange={(newCoords: Coord) =>
                         onChangeProps({center: newCoords})
                     }
@@ -90,6 +89,7 @@ const LockedEllipseSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={radius}
                 labels={["x radius", "y radius"]}
+                style={styles.spaceUnder}
                 onChange={(newCoords: Coord) =>
                     onChangeProps({radius: newCoords})
                 }
@@ -160,8 +160,10 @@ const LockedEllipseSettings = (props: Props) => {
 
             {/* Actions */}
             <LockedFigureSettingsActions
+                showM2Features={props.showM2Features}
+                figureType={props.type}
+                onMove={onMove}
                 onRemove={onRemove}
-                figureAriaLabel={`locked ellipse at ${center[0]}, ${center[1]}`}
             />
         </LockedFigureSettingsAccordion>
     );
