@@ -1,9 +1,11 @@
 import * as React from "react";
 import {useRef, useState} from "react";
-import {useMovable, vec} from "mafs";
+import {vec} from "mafs";
 import {Protractor} from "./protractor";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound} from "./utils";
+import {useDraggable} from "./graphs/use-draggable";
+import {useTransformVectorsToPixels} from "./graphs/use-transform";
 
 export function StatefulProtractor() {
     const {range, snapStep} = useGraphConfig()
@@ -13,16 +15,31 @@ export function StatefulProtractor() {
         lerp(yMin, yMax, 0.05),
     ]
     const [center, setCenter] = useState<vec.Vector2>(initialCenter)
+    const [rotationHandleOffset, setRotationHandleOffset] = useState<vec.Vector2>([-175, 0])
 
     const draggableRef = useRef<SVGGElement>(null);
-    useMovable({
+    useDraggable({
         gestureTarget: draggableRef,
         onMove: setCenter,
         point: center,
         constrain: (point) => bound({snapStep, range, point}),
     })
 
-    return <g ref={draggableRef}><Protractor center={center} /></g>
+    console.log(rotationHandleOffset)
+    const [centerPx] = useTransformVectorsToPixels(center)
+
+    const rotationHandleRef = useRef<SVGGElement>(null);
+    useDraggable({
+        gestureTarget: rotationHandleRef,
+        onDrag: ({deltaPx}) => setRotationHandleOffset((offset) => constrainToCircle(vec.add(offset, deltaPx))),
+        point: rotationHandleOffset,
+    })
+
+    return <g ref={draggableRef}><Protractor rotationHandleRef={rotationHandleRef} rotationHandleOffset={rotationHandleOffset} center={center} /></g>
+}
+
+function constrainToCircle(edgePoint: vec.Vector2) {
+    return vec.withMag(edgePoint, 175)
 }
 
 // [L]inear Int[erp]olation: gets the weighted average of two values `a` and

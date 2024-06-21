@@ -2,9 +2,13 @@ import * as React from "react";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {vec} from "mafs";
 import {pathBuilder} from "../../util/svg";
+import {RefObject} from "react";
+import {calculateAngleInDegrees} from "./graphs/utils";
 
 type Props = {
     center: vec.Vector2
+    rotationHandleOffset: vec.Vector2
+    rotationHandleRef: RefObject<SVGGElement>
 }
 
 const protractorImage = "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png"
@@ -13,13 +17,17 @@ const protractorImage = "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8
 const centerToTopLeft: vec.Vector2 = [-180, -170]
 
 export function Protractor(props: Props) {
-    const {center} = props;
+    const {center, rotationHandleRef, rotationHandleOffset} = props;
     const [centerPx] = useTransformVectorsToPixels(center)
     const topLeftPx = vec.add(centerPx, centerToTopLeft)
+    const angle = calculateAngleInDegrees(rotationHandleOffset) - 180
 
-    return <g>
-        <image x={topLeftPx[0]} y={topLeftPx[1]} href={protractorImage} />
-        <g transform={`translate(${centerPx[0] - 175}, ${centerPx[1]})`}>
+    return <g
+        transform={`translate(${topLeftPx[0]}, ${topLeftPx[1]}), rotate(${angle})`}
+        style={{transformOrigin: "180px 170px"}}
+    >
+        <image href={protractorImage} />
+        <g transform={`translate(5, 170)`} ref={rotationHandleRef}>
             <RotationArrow />
         </g>
     </g>
