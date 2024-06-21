@@ -2,6 +2,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
+import GraphUtils from "../../../../util/graph-utils";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
@@ -29,17 +30,17 @@ export const Angle = ({
 }: Props) => {
     const areClockwise = clockwise([...coords, vertex]);
     // Start with getting the current angle
-    const clockwiseCoords = areClockwise ? coords : coords.reverse();
-    let angle = findAngle(...coords, vertex);
+    const clockwiseCoords =
+        areClockwise || allowReflexAngles ? coords : coords.reverse();
+
+    const startAngle = GraphUtils.findAngle(clockwiseCoords[0], vertex);
+
+    const endAngle = GraphUtils.findAngle(clockwiseCoords[1], vertex);
+
+    const angle = (startAngle + 360 - endAngle) % 360;
 
     // Check if the angle is reflexive and if we should allow it
-    let isReflexive = angle > 180;
-
-    // If the angle is reflexive and we shouldn't allow it, convert it to a non-reflexive angle
-    if (isReflexive && !allowReflexAngles) {
-        angle = getNonReflexiveAngle(angle);
-        isReflexive = false;
-    }
+    const isReflexive = angle > 180;
 
     const [centerX, centerY] = vertex;
 
@@ -83,7 +84,7 @@ export const Angle = ({
     ]);
 
     const largeArcFlag = isOutside || isReflexive ? 1 : 0;
-    const sweepFlag = isOutside || isReflexive ? 1 : 0;
+    const sweepFlag = isOutside && isReflexive ? 1 : 0;
 
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
 

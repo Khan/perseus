@@ -40,6 +40,8 @@ export function AngleGraph(props: AngleGraphProps) {
         dispatch(moveControlPoint(elementId, destination, itemIndex));
     };
 
+    console.log(coords);
+
     const centerPoint = coords[0];
     const endPoints = coords.slice(1, 3) as [vec.Vector2, vec.Vector2];
 

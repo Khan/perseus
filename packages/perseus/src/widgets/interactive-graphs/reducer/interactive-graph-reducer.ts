@@ -126,7 +126,7 @@ function doMoveControlPoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: index,
-                    newValue: boundAndSnapToAngle(
+                    newValue: boundAndSnapAngleGraphs(
                         action.destination,
                         state,
                         index,
@@ -524,6 +524,50 @@ function boundAndSnapToGrid(
     {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
 ) {
     return snap(snapStep, bound({snapStep, range, point}));
+}
+
+function boundAndSnapAngleGraphs(
+    destinationPoint: vec.Vector2,
+    {
+        range,
+        coords,
+        snapDegrees,
+        snapOffset = 0,
+        allowReflexAngles,
+    }: {
+        range: [Interval, Interval];
+        coords: Coord[];
+        snapDegrees?: number;
+        snapOffset?: number;
+        allowReflexAngles?: boolean;
+    },
+    index: number,
+) {
+    // pull out the vertex and the two points that make up the angle
+
+    const startingPoint = coords[index];
+    const vertex = coords[0];
+
+    const coordsCopy = [...coords];
+    coordsCopy[index] = destinationPoint;
+
+    let angle = GraphUtils.findAngle(coordsCopy[index], vertex);
+
+    // If the angle is reflex and we don't want reflex angles, we should snap to the smaller angle
+    /*   if (!allowReflexAngles && angle > 180) {
+        angle = 360 - ((angle + 360) % 360);
+    } */
+
+    // Snap the angle to the nearest multiple of snapDegrees
+    if (snapDegrees) {
+        angle =
+            Math.round((angle - snapOffset) / snapDegrees) * snapDegrees +
+            snapOffset;
+        const distance = GraphUtils.getDistance(coordsCopy[index], vertex);
+        return kvector.add(vertex, polar(distance, angle));
+    }
+
+    return destinationPoint;
 }
 
 function boundAndSnapToAngle(
