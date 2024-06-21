@@ -83,7 +83,7 @@ describe("Perseus' MathInput", () => {
         jest.runOnlyPendingTimers();
 
         // Act
-        screen.getByRole("switch").click();
+        screen.getByRole("button").click();
         await userEvent.click(screen.getByRole("button", {name: "1"}));
         await userEvent.click(screen.getByRole("button", {name: "Plus"}));
         await userEvent.click(screen.getByRole("button", {name: "2"}));
@@ -111,7 +111,7 @@ describe("Perseus' MathInput", () => {
 
         // Act
         // focusing the input triggers the popover
-        screen.getByRole("switch").click();
+        screen.getByRole("button").click();
         await userEvent.click(screen.getByRole("button", {name: "1"}));
         await userEvent.click(screen.getByRole("button", {name: "Plus"}));
         await userEvent.click(screen.getByRole("button", {name: "2"}));
@@ -138,7 +138,7 @@ describe("Perseus' MathInput", () => {
 
         // Act
         // focusing the input triggers the popover
-        screen.getByRole("switch").click();
+        screen.getByRole("button").click();
         await userEvent.click(screen.getByRole("button", {name: "1"}));
 
         // Assert
@@ -160,7 +160,7 @@ describe("Perseus' MathInput", () => {
 
         // Act
         // focusing the input triggers the popover
-        screen.getByRole("switch").click();
+        screen.getByRole("button").click();
         await userEvent.tab(); // to "123" tab
         await userEvent.tab(); // to extra keys tab
         await userEvent.tab(); // to whole keypad
