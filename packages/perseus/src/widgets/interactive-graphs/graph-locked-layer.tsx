@@ -1,11 +1,11 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
-import LockedEllipse from "./locked-ellipse";
-import LockedLine from "./locked-line";
-import LockedPoint from "./locked-point";
-import LockedPolygon from "./locked-polygon";
-import LockedVector from "./locked-vector";
+import LockedEllipse from "./locked-figures/locked-ellipse";
+import LockedLine from "./locked-figures/locked-line";
+import LockedPoint from "./locked-figures/locked-point";
+import LockedPolygon from "./locked-figures/locked-polygon";
+import LockedVector from "./locked-figures/locked-vector";
 
 import type {LockedFigure} from "../../perseus-types";
 import type {Interval} from "mafs";

@@ -14,6 +14,8 @@ import * as React from "react";
 type Props = {
     // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
     showM2Features: boolean;
+    // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
+    showM2bFeatures: boolean;
     id: string;
     onChange: (value: string) => void;
 };
@@ -22,7 +24,7 @@ const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
     const figureTypes = props.showM2Features
-        ? ["point", "line", "ellipse", "vector"]
+        ? ["point", "line", "vector", "ellipse", "polygon"]
         : ["point", "line"];
 
     return (

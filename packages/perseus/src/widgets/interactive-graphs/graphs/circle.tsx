@@ -1,4 +1,4 @@
-import {useMovable, vec} from "mafs";
+import {vec} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
@@ -8,6 +8,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {snap} from "../utils";
 
 import {StyledMovablePoint} from "./components/movable-point";
+import {useDraggable} from "./use-draggable";
 import {
     useTransformDimensionsToPixels,
     useTransformVectorsToPixels,
@@ -49,7 +50,7 @@ function MovableCircle(props: {
 
     const draggableRef = useRef<SVGGElement>(null);
 
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: draggableRef,
         point: center,
         onMove,

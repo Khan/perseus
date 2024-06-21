@@ -7,16 +7,18 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {Coord} from "@khanacademy/perseus";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     coord: [number, number];
     labels?: [string, string];
     error?: boolean;
+    style?: StyleType;
     onChange: (newCoord: Coord) => void;
 };
 
 const CoordinatePairInput = (props: Props) => {
-    const {coord, labels, error, onChange} = props;
+    const {coord, labels, error, style, onChange} = props;
 
     // Keep track of the coordinates via state as the user is editing them,
     // before they are updated in the props as a valid number.
@@ -45,39 +47,37 @@ const CoordinatePairInput = (props: Props) => {
     }
 
     return (
-        <View>
-            <View style={[styles.row, styles.spaceUnder]}>
-                <LabelMedium tag="label" style={styles.row}>
-                    {labels ? labels[0] : "x coord"}
+        <View style={[styles.row, style]}>
+            <LabelMedium tag="label" style={styles.row}>
+                {labels ? labels[0] : "x coord"}
 
-                    <Strut size={spacing.xxSmall_6} />
-                    <TextField
-                        type="number"
-                        value={coordState[0]}
-                        onChange={(newValue) => handleCoordChange(newValue, 0)}
-                        style={[
-                            styles.textField,
-                            error ? styles.errorField : undefined,
-                        ]}
-                    />
-                </LabelMedium>
-                <Strut size={spacing.medium_16} />
+                <Strut size={spacing.xxSmall_6} />
+                <TextField
+                    type="number"
+                    value={coordState[0]}
+                    onChange={(newValue) => handleCoordChange(newValue, 0)}
+                    style={[
+                        styles.textField,
+                        error ? styles.errorField : undefined,
+                    ]}
+                />
+            </LabelMedium>
+            <Strut size={spacing.medium_16} />
 
-                <LabelMedium tag="label" style={styles.row}>
-                    {labels ? labels[1] : "y coord"}
+            <LabelMedium tag="label" style={styles.row}>
+                {labels ? labels[1] : "y coord"}
 
-                    <Strut size={spacing.xxSmall_6} />
-                    <TextField
-                        type="number"
-                        value={coordState[1]}
-                        onChange={(newValue) => handleCoordChange(newValue, 1)}
-                        style={[
-                            styles.textField,
-                            error ? styles.errorField : undefined,
-                        ]}
-                    />
-                </LabelMedium>
-            </View>
+                <Strut size={spacing.xxSmall_6} />
+                <TextField
+                    type="number"
+                    value={coordState[1]}
+                    onChange={(newValue) => handleCoordChange(newValue, 1)}
+                    style={[
+                        styles.textField,
+                        error ? styles.errorField : undefined,
+                    ]}
+                />
+            </LabelMedium>
         </View>
     );
 };
@@ -87,9 +87,6 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-    },
-    spaceUnder: {
-        marginBottom: spacing.xSmall_8,
     },
     textField: {
         width: spacing.xxxLarge_64,
