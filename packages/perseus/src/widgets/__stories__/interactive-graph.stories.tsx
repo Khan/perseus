@@ -21,6 +21,7 @@ import {
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
+    segmentWithLockedFunction,
 } from "../__testdata__/interactive-graph.testdata";
 
 export default {
@@ -138,6 +139,16 @@ export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
         {...mafsOptions}
         question={segmentWithLockedPolygons}
+    />
+);
+
+export const LockedFunction = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        {...mafsOptions}
+        question={segmentWithLockedFunction("x^2", {
+            color: "green",
+            strokeStyle: "dashed",
+        })}
     />
 );
 

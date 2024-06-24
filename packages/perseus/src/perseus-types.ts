@@ -7,6 +7,10 @@ import type {Interval, vec} from "mafs";
 // Range is replaced within this file with Interval, but it is used elsewhere
 // and exported from the package, so we need to keep it around.
 export type Range = Interval;
+export type Domain = {
+    min?: number;
+    max?: number;
+}
 export type Size = [number, number];
 export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
@@ -679,7 +683,8 @@ export type LockedFigure =
     | LockedLineType
     | LockedVectorType
     | LockedEllipseType
-    | LockedPolygonType;
+    | LockedPolygonType
+    | LockedFunctionType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -729,6 +734,16 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: "solid" | "dashed";
+};
+
+export type LockedFunctionType = {
+    type: "function";
+    color: LockedFigureColor;
+    strokeStyle: "solid" | "dashed";
+    equation: string;
+    equationParsed: string;
+    directionalAxis: "x" | "y";
+    domain?: Domain;
 };
 
 export type PerseusGraphType =

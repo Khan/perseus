@@ -1,4 +1,7 @@
-import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
+import {
+    interactiveGraphQuestionBuilder,
+    LockedFunctionOptions,
+} from "../interactive-graphs/interactive-graph-question-builder";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
@@ -2149,6 +2152,15 @@ export const segmentWithLockedPolygons: PerseusRenderer =
             },
         )
         .build();
+
+export const segmentWithLockedFunction = (
+    equation: string = "x^2",
+    options?: LockedFunctionOptions,
+): PerseusRenderer => {
+    return interactiveGraphQuestionBuilder()
+        .addLockedFunction(equation, options)
+        .build();
+};
 
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
