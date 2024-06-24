@@ -1092,6 +1092,80 @@ export const segmentQuestion: PerseusRenderer = {
     },
 };
 
+export const segmentWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withSegments([
+            [
+                [0, 0],
+                [2, 2],
+            ],
+        ])
+        .build();
+
+export const segmentsWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withSegments([
+            [
+                [0, 0],
+                [2, 2],
+            ],
+            [
+                [0, 2],
+                [2, 0],
+            ],
+        ])
+        .build();
+
+export const linearWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withLinear([
+            [3, 0],
+            [3, 3],
+        ])
+        .build();
+
+export const linearSystemWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withLinearSystem([
+            [
+                [-3, 0],
+                [-3, 3],
+            ],
+            [
+                [3, 0],
+                [3, 3],
+            ],
+        ])
+        .build();
+
+export const rayWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withRay([
+            [3, 0],
+            [3, 3],
+        ])
+        .build();
+
+export const circleWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder().withCircle([9, 9]).build();
+
+export const quadraticWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withQuadratic([
+            [-1, -1],
+            [0, 0],
+            [1, -1],
+        ])
+        .build();
+
+export const sinusoidWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withSinusoid([
+            [0, 0],
+            [1, -1],
+        ])
+        .build();
+
 export const segmentWithLockedPointsQuestion: PerseusRenderer = {
     content:
         "Line segment $\\overline{OG}$ is rotated $180^\\circ$ about the point $(-2,4)$.  \n\n**Draw the image of this rotation using the interactive graph.**\n\n*The direction of a rotation by a positive angle is counter-clockwise.* \n\n[[☃ interactive-graph 1]]\n\n",

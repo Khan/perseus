@@ -9,7 +9,9 @@ import type {
     PerseusGraphType,
     PerseusRenderer,
     LockedPolygonType,
+    CollinearTuple,
 } from "../../perseus-types";
+import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
@@ -97,13 +99,54 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    withSegments(numSegments: number): InteractiveGraphQuestionBuilder {
+    withSegments(
+        startCoords: CollinearTuple[],
+    ): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new SegmentGraphConfig(
+            startCoords.length,
+            startCoords,
+        );
+        return this;
+    }
+
+    withNumSegments(numSegments: number): InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new SegmentGraphConfig(numSegments);
         return this;
     }
 
-    withCircle(): InteractiveGraphQuestionBuilder {
-        this.interactiveFigureConfig = new CircleGraphConfig();
+    withLinear(startCoords?: CollinearTuple): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new LinearConfig(startCoords);
+        return this;
+    }
+
+    withLinearSystem(
+        startCoords?: CollinearTuple[],
+    ): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new LinearSystemConfig(startCoords);
+        return this;
+    }
+
+    withRay(startCoords?: CollinearTuple): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new RayConfig(startCoords);
+        return this;
+    }
+
+    withCircle(startCoords?: Coord): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new CircleGraphConfig(startCoords);
+        return this;
+    }
+
+    withQuadratic(
+        startCoords?: [Coord, Coord, Coord],
+    ): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new QuadraticConfig(startCoords);
+        return this;
+    }
+
+    withSinusoid(
+        startCoords?: [Coord, Coord],
+    ): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new SinusoidGraphConfig(startCoords);
         return this;
     }
 
@@ -219,8 +262,11 @@ interface InteractiveFigureConfig {
 
 class SegmentGraphConfig implements InteractiveFigureConfig {
     private numSegments: number;
-    constructor(numSegments: number) {
+    private startCoords?: CollinearTuple[];
+
+    constructor(numSegments: number, startCoords?: CollinearTuple[]) {
         this.numSegments = numSegments;
+        this.startCoords = startCoords;
     }
 
     correct(): PerseusGraphType {
@@ -235,17 +281,148 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
     }
 
     graph(): PerseusGraphType {
-        return {type: "segment", numSegments: this.numSegments};
+        return {
+            type: "segment",
+            numSegments: this.numSegments,
+            coords: this.startCoords,
+        };
+    }
+}
+
+class LinearConfig implements InteractiveFigureConfig {
+    private startCoords?: CollinearTuple;
+
+    constructor(startCoords?: CollinearTuple) {
+        this.startCoords = startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "linear",
+            coords: [
+                [-10, -5],
+                [10, 5],
+            ],
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "linear", coords: this.startCoords};
+    }
+}
+
+class LinearSystemConfig implements InteractiveFigureConfig {
+    private startCoords?: CollinearTuple[];
+
+    constructor(startCoords?: CollinearTuple[]) {
+        this.startCoords = startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "linear-system",
+            coords: [
+                [
+                    [-10, -5],
+                    [10, 5],
+                ],
+                [
+                    [-10, 5],
+                    [10, -5],
+                ],
+            ],
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "linear-system", coords: this.startCoords};
+    }
+}
+
+class RayConfig implements InteractiveFigureConfig {
+    private startCoords?: CollinearTuple;
+
+    constructor(startCoords?: CollinearTuple) {
+        this.startCoords = startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "ray",
+            coords: [
+                [-10, -5],
+                [10, 5],
+            ],
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "ray", coords: this.startCoords};
     }
 }
 
 class CircleGraphConfig implements InteractiveFigureConfig {
+    private startCoords?: Coord;
+
+    constructor(startCoords?: Coord) {
+        this.startCoords = startCoords;
+    }
+
     correct(): PerseusGraphType {
         return {type: "circle", radius: 5, center: [0, 0]};
     }
 
     graph(): PerseusGraphType {
+        if (this.startCoords) {
+            return {type: "circle", center: this.startCoords, radius: 5};
+        }
+
         return {type: "circle"};
+    }
+}
+
+class QuadraticConfig implements InteractiveFigureConfig {
+    private startCoords?: [Coord, Coord, Coord];
+
+    constructor(startCoords?: [Coord, Coord, Coord]) {
+        this.startCoords = startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "quadratic",
+            coords: [
+                [-10, 5],
+                [10, 5],
+                [0, -5],
+            ],
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "quadratic", coords: this.startCoords};
+    }
+}
+
+class SinusoidGraphConfig implements InteractiveFigureConfig {
+    private startCoords?: [Coord, Coord];
+
+    constructor(startCoords?: [Coord, Coord]) {
+        this.startCoords = startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "sinusoid",
+            coords: [
+                [-10, 5],
+                [10, 5],
+            ],
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "sinusoid", coords: this.startCoords};
     }
 }
 

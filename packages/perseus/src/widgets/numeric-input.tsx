@@ -445,7 +445,6 @@ export class NumericInput extends React.Component<Props, State> {
                     value={this.props.currentValue}
                     onChange={this.handleChange}
                     labelText={labelText}
-                    type="text"
                     examples={this.examples()}
                     shouldShowExamples={this.shouldShowExamples()}
                     onFocus={this._handleFocus}
