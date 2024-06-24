@@ -68,9 +68,9 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options.step).toEqual([7, 8]);
     });
 
-    it("creates a segment graph with a specified number of segments", () => {
+    it("creates a default segment graph with a specified number of segments", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withSegments(3)
+            .withNumSegments(3)
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
@@ -95,7 +95,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
     it("creates a segment graph with start coords", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withSegments(1, [
+            .withSegments([
                 [
                     [0, 0],
                     [2, 2],
@@ -120,6 +120,55 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     type: "segment",
                     numSegments: 1,
                     coords: [
+                        [
+                            [-7, 7],
+                            [2, 5],
+                        ],
+                    ],
+                },
+            }),
+        );
+    });
+
+    it("creates a graph with multiple segments with start coords", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withSegments([
+                [
+                    [0, 0],
+                    [2, 2],
+                ],
+                [
+                    [3, 3],
+                    [5, 5],
+                ],
+            ])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {
+                    type: "segment",
+                    numSegments: 2,
+                    coords: [
+                        [
+                            [0, 0],
+                            [2, 2],
+                        ],
+                        [
+                            [3, 3],
+                            [5, 5],
+                        ],
+                    ],
+                },
+                correct: {
+                    type: "segment",
+                    numSegments: 2,
+                    coords: [
+                        [
+                            [-7, 7],
+                            [2, 5],
+                        ],
                         [
                             [-7, 7],
                             [2, 5],

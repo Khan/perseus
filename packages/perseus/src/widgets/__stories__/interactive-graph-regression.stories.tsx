@@ -153,7 +153,7 @@ export const MafsWithMultipleSegments = (
     args: StoryArgs,
 ): React.ReactElement => (
     <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withSegments(3).build()}
+        question={interactiveGraphQuestionBuilder().withNumSegments(3).build()}
     />
 );
 

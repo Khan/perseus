@@ -1093,7 +1093,7 @@ export const segmentQuestion: PerseusRenderer = {
 
 export const segmentWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .withSegments(1, [
+        .withSegments([
             [
                 [0, 0],
                 [2, 2],
@@ -1103,7 +1103,7 @@ export const segmentWithStartingCoordsQuestion: PerseusRenderer =
 
 export const segmentsWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .withSegments(2, [
+        .withSegments([
             [
                 [0, 0],
                 [2, 2],
