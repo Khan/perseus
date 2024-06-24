@@ -1,5 +1,26 @@
 # @khanacademy/perseus-editor
 
+## 6.12.0
+
+### Minor Changes
+
+-   [#1360](https://github.com/Khan/perseus/pull/1360) [`753d6eafe`](https://github.com/Khan/perseus/commit/753d6eafe9f18dd1ae00b4a092e765972a514370) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Add the ability to reorder locked figure settings
+
+*   [#1357](https://github.com/Khan/perseus/pull/1357) [`a60809858`](https://github.com/Khan/perseus/commit/a60809858f88ec6403c442e434aac98ecc6b6056) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] UI for adding/editing/deleting a locked polygon
+
+### Patch Changes
+
+-   [#1365](https://github.com/Khan/perseus/pull/1365) [`33adc625e`](https://github.com/Khan/perseus/commit/33adc625edae89540be22939cc0eea1cd573a46a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Put the action buttons behind the m2 flag
+
+*   [#1368](https://github.com/Khan/perseus/pull/1368) [`86f94e126`](https://github.com/Khan/perseus/commit/86f94e126cedfc9d6c61735054c0d2bb619bc633) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Organize locked figures within Interactive Graph into their own folders for better organization
+
+-   [#1366](https://github.com/Khan/perseus/pull/1366) [`1351ca38b`](https://github.com/Khan/perseus/commit/1351ca38b46901d1571d1c06a8234546560acc39) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Add the M2b flag in preparation for locked graphs, labels, and polygon markings.
+
+*   [#1372](https://github.com/Khan/perseus/pull/1372) [`8cbfeba12`](https://github.com/Khan/perseus/commit/8cbfeba12afea524d442a881e46ec8b76a62c134) Thanks [@nishasy](https://github.com/nishasy)! - [Storybook: Editor Page] Add a storybook-only preview for the questions and hints in the EditorPage component
+
+*   Updated dependencies [[`e5a2dd874`](https://github.com/Khan/perseus/commit/e5a2dd8747f3d2691161874923dbac9b4366d654), [`86f94e126`](https://github.com/Khan/perseus/commit/86f94e126cedfc9d6c61735054c0d2bb619bc633), [`753d6eafe`](https://github.com/Khan/perseus/commit/753d6eafe9f18dd1ae00b4a092e765972a514370), [`4bb2b8742`](https://github.com/Khan/perseus/commit/4bb2b8742c7396d212734aee34b5d64320ae1b18), [`e5a54d805`](https://github.com/Khan/perseus/commit/e5a54d805e8ec09b4641fbee8bc120e173a14ba6), [`c6c5064da`](https://github.com/Khan/perseus/commit/c6c5064da1f9e6a18c4cc49be073a198bcfb3be8), [`1351ca38b`](https://github.com/Khan/perseus/commit/1351ca38b46901d1571d1c06a8234546560acc39), [`a60809858`](https://github.com/Khan/perseus/commit/a60809858f88ec6403c442e434aac98ecc6b6056)]:
+    -   @khanacademy/perseus@23.6.0
+
 ## 6.11.0
 
 ### Minor Changes
