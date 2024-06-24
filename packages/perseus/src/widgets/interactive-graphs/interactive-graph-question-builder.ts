@@ -101,6 +101,7 @@ class InteractiveGraphQuestionBuilder {
 
     withSegments(
         numSegments: number,
+        // This should be the same length as numSegments.
         startCoords?: CollinearTuple[],
     ): InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new SegmentGraphConfig(
