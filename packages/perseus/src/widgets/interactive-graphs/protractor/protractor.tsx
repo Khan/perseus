@@ -9,6 +9,7 @@ import {calculateAngleInDegrees} from "../graphs/utils";
 import type {RefObject} from "react";
 
 import "./protractor.css";
+import {TARGET_SIZE} from "../utils";
 
 type Props = {
     center: vec.Vector2;
@@ -57,6 +58,7 @@ function RotationArrow() {
 
     const arrowhead = pathBuilder().move(-8, 0).line(0, 10).line(8, 0).build();
 
+    const targetRadius = TARGET_SIZE / 2;
     return (
         <g className="protractor-rotation-handle">
             <path className="protractor-rotation-handle-arrow-arc"
@@ -71,7 +73,7 @@ function RotationArrow() {
             />
             {/* this invisible ellipse ensures that the click target for the
               * handle is at least 48x48 pixels */}
-            <ellipse cx="0px" cy="-15px" rx="24px" ry="24px" fill="none"></ellipse>
+            <ellipse cx="0px" cy="-15px" rx={targetRadius} ry={targetRadius} fill="none"></ellipse>
         </g>
     );
 }
