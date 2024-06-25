@@ -9,3 +9,19 @@
 .MafsView .protractor-rotation-handle:hover {
     transform: scale(1.3);
 }
+
+.MafsView .protractor-rotation-handle-arrow-arc {
+    fill: none;
+    stroke: var(--mafs-blue);
+    stroke-width: 8;
+    /* `strokeLinecap: square` prevents a hairline crack from appearing
+     * between the arc and the arrowheads, by making the arc extend a bit
+     * beyond its start and end coordinates.
+     */
+    stroke-linecap: square;
+}
+
+.MafsView .protractor-rotation-handle-arrowhead {
+    fill: var(--mafs-blue);
+    stroke: none;
+}

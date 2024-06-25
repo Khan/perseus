@@ -21,7 +21,8 @@ const protractorImage =
 // The vector from the center of the protractor to the top left corner of the
 // protractor image, in pixels. Used for positioning.
 const centerToTopLeft: vec.Vector2 = [-180, -170];
-// The vector from the center of the protractor to the rotation handle.
+// The vector from the center of the protractor to the center of the rotation
+// handle.
 export const centerToRotationHandle: vec.Vector2 = [-176, -15];
 
 export function Protractor(props: Props) {
@@ -58,26 +59,15 @@ function RotationArrow() {
 
     return (
         <g className="protractor-rotation-handle">
-            {/* `strokeLinecap: square` prevents a hairline crack from appearing
-             * between the arc and the arrowheads
-             */}
-            <path
+            <path className="protractor-rotation-handle-arrow-arc"
                 d={rotationArrow}
-                style={{
-                    stroke: "var(--mafs-blue)",
-                    fill: "none",
-                    strokeWidth: 8,
-                    strokeLinecap: "square",
-                }}
             />
-            <path
+            <path className="protractor-rotation-handle-arrowhead"
                 d={arrowhead}
-                style={{fill: "var(--mafs-blue)", stroke: "none"}}
             />
-            <path
+            <path className="protractor-rotation-handle-arrowhead"
                 d={arrowhead}
                 transform={`translate(${endX}, ${endY}), rotate(${180 + angleDeg})`}
-                style={{fill: "var(--mafs-blue)", stroke: "none"}}
             />
             {/* this invisible ellipse ensures that the click target for the
               * handle is at least 48x48 pixels */}
