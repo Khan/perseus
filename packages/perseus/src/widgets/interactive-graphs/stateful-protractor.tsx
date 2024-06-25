@@ -30,7 +30,7 @@ export function StatefulProtractor() {
     useDraggable({
         gestureTarget: rotationHandleRef,
         onDrag: ({deltaPx}) =>
-            setRotationHandleOffset((offset) => vec.add(offset, deltaPx)),
+            setRotationHandleOffset(constrainToCircle(deltaPx)),
         point: rotationHandleOffset,
     });
 
@@ -38,7 +38,7 @@ export function StatefulProtractor() {
         <g ref={draggableRef}>
             <Protractor
                 rotationHandleRef={rotationHandleRef}
-                rotationHandleOffset={constrainToCircle(rotationHandleOffset)}
+                rotationHandleOffset={rotationHandleOffset}
                 center={center}
             />
         </g>

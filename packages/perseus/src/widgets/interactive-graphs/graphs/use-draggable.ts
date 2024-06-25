@@ -62,6 +62,7 @@ export function useDraggable(args: Params): DragState {
     );
 
     const pickup = React.useRef<vec.Vector2>([0, 0]);
+    const pickupPx = React.useRef<vec.Vector2>([0, 0]);
 
     useDrag(
         (state) => {
@@ -123,12 +124,15 @@ export function useDraggable(args: Params): DragState {
                 setDragging(!last);
 
                 if (first) {
+                    pickupPx.current = point;
                     pickup.current = vec.transform(point, userTransform);
                 }
                 if (vec.mag(pixelMovement) === 0) {
                     return;
                 }
 
+                // `movement` is the change in position for the entire drag so
+                // far, in graph coordinates.
                 const movement = vec.transform(
                     pixelMovement,
                     inverseViewTransform,
@@ -141,7 +145,10 @@ export function useDraggable(args: Params): DragState {
                         ),
                     ),
                 );
-                onDrag?.({deltaPx: delta});
+                console.log("movement", movement)
+                // FIXME: rename deltaPx, or, better yet, don't useDraggable at
+                // all. This is tightly coupled to usage
+                onDrag?.({deltaPx: vec.add(pickupPx.current, pixelMovement)});
             }
         },
         {target, eventOptions: {passive: false}},
