@@ -1,7 +1,6 @@
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
-import type {vec} from "mafs";
-import {Interval} from "mafs";
+import type {Interval, vec} from "mafs";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG
@@ -57,7 +56,15 @@ export function snap(snapStep: vec.Vector2, point: vec.Vector2): vec.Vector2 {
 
 // Returns the closest point to the given `point` that is within the graph
 // bounds given in `state`.
-export function bound({snapStep, range, point}: {snapStep: vec.Vector2, range: [Interval, Interval], point: vec.Vector2}): vec.Vector2 {
+export function bound({
+    snapStep,
+    range,
+    point,
+}: {
+    snapStep: vec.Vector2;
+    range: [Interval, Interval];
+    point: vec.Vector2;
+}): vec.Vector2 {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = snapStep;
     const [[minX, maxX], [minY, maxY]] = range;

@@ -31,6 +31,7 @@ import {
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
+import {StatefulProtractor} from "./stateful-protractor";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
@@ -39,7 +40,6 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {StatefulProtractor} from "./stateful-protractor";
 
 export type StatefulMafsGraphProps = {
     box: [number, number];
@@ -259,7 +259,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     >
                         {/* Svg definitions to render only once */}
                         <SvgDefs />
-
                         {/* Background layer */}
                         <Grid
                             tickStep={props.step}
@@ -268,7 +267,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
                         />
-
                         {/* Locked layer */}
                         {props.lockedFigures && (
                             <GraphLockedLayer
@@ -276,12 +274,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 range={state.range}
                             />
                         )}
-
                         /* Protractor */
-                        {props.showProtractor && (
-                            <StatefulProtractor />
-                        )}
-
+                        {props.showProtractor && <StatefulProtractor />}
                         {/* Interactive layer */}
                         {renderGraph({
                             state,

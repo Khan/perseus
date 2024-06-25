@@ -34,15 +34,21 @@ export type Params = {
 };
 
 type OnDragParams = {
-    deltaPx: vec.Vector2
-}
+    deltaPx: vec.Vector2;
+};
 
 type DragState = {
     dragging: boolean;
 };
 
 export function useDraggable(args: Params): DragState {
-    const {gestureTarget: target, onMove, onDrag, point, constrain = unconstrained} = args;
+    const {
+        gestureTarget: target,
+        onMove,
+        onDrag,
+        point,
+        constrain = unconstrained,
+    } = args;
     const [dragging, setDragging] = React.useState(false);
     const {xSpan, ySpan} = useSpanContext();
     const {viewTransform, userTransform} = useTransformContext();

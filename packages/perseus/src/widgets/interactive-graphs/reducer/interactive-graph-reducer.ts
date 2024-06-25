@@ -475,7 +475,7 @@ const getDeltaVertex = (
 const getChange = (
     coords: readonly vec.Vector2[],
     delta: vec.Vector2,
-    constraintOpts: {snapStep: vec.Vector2, range: [Interval, Interval]},
+    constraintOpts: {snapStep: vec.Vector2; range: [Interval, Interval]},
 ): vec.Vector2 => {
     const maxMoves = coords.map((point: vec.Vector2) =>
         maxMove({...constraintOpts, point}),
