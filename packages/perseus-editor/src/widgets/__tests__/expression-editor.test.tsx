@@ -253,7 +253,7 @@ describe("expression-editor", () => {
         jest.runOnlyPendingTimers();
 
         await userEvent.click(
-            screen.getByRole("switch", {
+            screen.getByRole("button", {
                 name: "open math keypad",
             }),
         );
