@@ -1,0 +1,11 @@
+.MafsView .protractor-rotation-handle {
+    cursor: grab;
+    /* `pointer-events: all` is needed to make the hit target the size of the
+     * entire <g> element and not just its visible subelements */
+    pointer-events: all;
+    transition: transform 0.1s ease-out;
+}
+
+.MafsView .protractor-rotation-handle:hover {
+    transform: scale(1.3);
+}

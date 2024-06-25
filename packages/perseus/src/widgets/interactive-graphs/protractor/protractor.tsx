@@ -8,6 +8,8 @@ import {calculateAngleInDegrees} from "../graphs/utils";
 
 import type {RefObject} from "react";
 
+import "./protractor.css";
+
 type Props = {
     center: vec.Vector2;
     rotationHandleOffset: vec.Vector2;
