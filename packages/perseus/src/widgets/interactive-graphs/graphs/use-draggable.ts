@@ -27,14 +27,9 @@ import type {RefObject} from "react";
 
 export type Params = {
     gestureTarget: RefObject<Element>;
-    onMove?: (point: vec.Vector2) => unknown;
-    onDrag?: (params: OnDragParams) => unknown;
+    onMove: (point: vec.Vector2) => unknown;
     point: vec.Vector2;
-    constrain?: (point: vec.Vector2) => vec.Vector2;
-};
-
-type OnDragParams = {
-    deltaPx: vec.Vector2;
+    constrain: (point: vec.Vector2) => vec.Vector2;
 };
 
 type DragState = {
@@ -42,13 +37,7 @@ type DragState = {
 };
 
 export function useDraggable(args: Params): DragState {
-    const {
-        gestureTarget: target,
-        onMove,
-        onDrag,
-        point,
-        constrain = unconstrained,
-    } = args;
+    const {gestureTarget: target, onMove, point, constrain} = args;
     const [dragging, setDragging] = React.useState(false);
     const {xSpan, ySpan} = useSpanContext();
     const {viewTransform, userTransform} = useTransformContext();
@@ -62,7 +51,6 @@ export function useDraggable(args: Params): DragState {
     );
 
     const pickup = React.useRef<vec.Vector2>([0, 0]);
-    const pickupPx = React.useRef<vec.Vector2>([0, 0]);
 
     useDrag(
         (state) => {
@@ -114,30 +102,27 @@ export function useDraggable(args: Params): DragState {
                     );
 
                     if (vec.dist(testPoint, point) > min) {
-                        onMove?.(testPoint);
+                        onMove(testPoint);
                         break;
                     }
                 }
             } else {
-                const {last, movement: pixelMovement, delta, first} = state;
+                const {last, movement: pixelMovement, first} = state;
 
                 setDragging(!last);
 
                 if (first) {
-                    pickupPx.current = point;
                     pickup.current = vec.transform(point, userTransform);
                 }
                 if (vec.mag(pixelMovement) === 0) {
                     return;
                 }
 
-                // `movement` is the change in position for the entire drag so
-                // far, in graph coordinates.
                 const movement = vec.transform(
                     pixelMovement,
                     inverseViewTransform,
                 );
-                onMove?.(
+                onMove(
                     constrain(
                         vec.transform(
                             vec.add(pickup.current, movement),
@@ -145,19 +130,11 @@ export function useDraggable(args: Params): DragState {
                         ),
                     ),
                 );
-                console.log("movement", movement)
-                // FIXME: rename deltaPx, or, better yet, don't useDraggable at
-                // all. This is tightly coupled to usage
-                onDrag?.({deltaPx: vec.add(pickupPx.current, pixelMovement)});
             }
         },
         {target, eventOptions: {passive: false}},
     );
     return {dragging};
-}
-
-function unconstrained(point: vec.Vector2): vec.Vector2 {
-    return point;
 }
 
 function getInverseTransform(transform: vec.Matrix) {
