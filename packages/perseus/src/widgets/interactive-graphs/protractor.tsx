@@ -55,7 +55,7 @@ function RotationArrow() {
     const arrowhead = pathBuilder().move(-8, 0).line(0, 10).line(8, 0).build();
 
     return (
-        <g>
+        <g className="protractor-rotation-handle">
             {/* `strokeLinecap: square` prevents a hairline crack from appearing
              * between the arc and the arrowheads
              */}
@@ -77,6 +77,9 @@ function RotationArrow() {
                 transform={`translate(${endX}, ${endY}), rotate(${180 + angleDeg})`}
                 style={{fill: "var(--mafs-blue)", stroke: "none"}}
             />
+            {/* this invisible ellipse ensures that the click target for the
+              * handle is at least 48x48 pixels */}
+            <ellipse cx="0px" cy="-15px" rx="24px" ry="24px" fill="none"></ellipse>
         </g>
     );
 }
