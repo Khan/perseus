@@ -47,7 +47,7 @@ export function StatefulProtractor() {
     const rotationHandleRef = useRef<SVGGElement>(null);
     useDraggablePx({
         gestureTarget: rotationHandleRef,
-        onMove: (pointPx) => setRotationHandleOffset(pointPx),
+        onMove: setRotationHandleOffset,
         point: rotationHandleOffset,
         constrain: constrainToCircle,
     });
@@ -60,10 +60,10 @@ export function StatefulProtractor() {
         <g
             ref={draggableRef}
             transform={`translate(${topLeftPx[0]}, ${topLeftPx[1]}), rotate(${angle})`}
-            style={{transformOrigin: "180px 170px"}}
+            style={{transformOrigin: `${-centerToTopLeft[0]}px ${-centerToTopLeft[1]}px`}}
         >
             <image href={protractorImage} />
-            <g transform={`translate(5, 170)`} ref={rotationHandleRef}>
+            <g transform={`translate(5, ${-centerToTopLeft[1]})`} ref={rotationHandleRef}>
                 <RotationArrow />
             </g>
         </g>
