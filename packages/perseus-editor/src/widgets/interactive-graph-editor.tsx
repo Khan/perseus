@@ -317,6 +317,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         type: "point",
                                         numPoints: points,
                                     },
+                                    graph: {
+                                        type: "point",
+                                        numPoints: points,
+                                    },
                                 });
                             }}
                         />
@@ -344,7 +348,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         snapTo: "grid",
                                     };
 
-                                    this.props.onChange({correct: graph});
+                                    this.props.onChange({
+                                        correct: graph,
+                                        graph: graph,
+                                    });
                                 }}
                                 style={styles.singleSelectShort}
                             >
@@ -416,13 +423,23 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     !!this.props.correct?.showAngles
                                 }
                                 onChange={() => {
-                                    this.props.onChange({
-                                        correct: {
-                                            ...this.props.correct,
-                                            showAngles:
-                                                !this.props.correct.showAngles,
-                                        },
-                                    });
+                                    if (this.props.graph?.type === "polygon") {
+                                        this.props.onChange({
+                                            correct: {
+                                                ...this.props.correct,
+                                                showAngles:
+                                                    !this.props.correct
+                                                        .showAngles,
+                                            },
+                                            graph: {
+                                                ...this.props.graph,
+                                                type: "polygon",
+                                                showAngles:
+                                                    !this.props.graph
+                                                        .showAngles,
+                                            },
+                                        });
+                                    }
                                 }}
                             />
                             <InfoTip>
@@ -439,13 +456,22 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     !!this.props.correct?.showSides
                                 }
                                 onChange={() => {
-                                    this.props.onChange({
-                                        correct: {
-                                            ...this.props.correct,
-                                            showSides:
-                                                !this.props.correct.showSides,
-                                        },
-                                    });
+                                    if (this.props.graph?.type === "polygon") {
+                                        this.props.onChange({
+                                            correct: {
+                                                ...this.props.correct,
+                                                showSides:
+                                                    !this.props.correct
+                                                        .showSides,
+                                            },
+                                            graph: {
+                                                ...this.props.graph,
+                                                showSides:
+                                                    !this.props.correct
+                                                        .showSides,
+                                            },
+                                        });
+                                    }
                                 }}
                             />
                             <InfoTip>
@@ -464,6 +490,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         type: "segment",
                                         numSegments: sides,
                                         coords: null,
+                                    },
+                                    graph: {
+                                        type: "segment",
+                                        numSegments: sides,
                                     },
                                 });
                             }}
