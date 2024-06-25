@@ -12,16 +12,16 @@ function TestDraggable(props: {
     point: vec.Vector2;
     constrain: (point: vec.Vector2) => vec.Vector2;
 }) {
-    const gestureTarget = useRef<HTMLParagraphElement>(null);
+    const gestureTarget = useRef<HTMLButtonElement>(null);
     const {dragging} = useDraggable({
         ...props,
         gestureTarget,
         onMove: () => {},
     });
     return (
-        <p role="button" ref={gestureTarget}>
+        <button ref={gestureTarget}>
             dragging: {String(dragging)}
-        </p>
+        </button>
     );
 }
 
