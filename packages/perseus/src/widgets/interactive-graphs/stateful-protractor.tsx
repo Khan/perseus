@@ -3,8 +3,7 @@ import * as React from "react";
 import {useRef, useState} from "react";
 
 import {useDraggable} from "./graphs/use-draggable";
-import {useTransformVectorsToPixels} from "./graphs/use-transform";
-import {Protractor} from "./protractor";
+import {centerToRotationHandle, Protractor} from "./protractor";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound} from "./utils";
 
@@ -17,7 +16,7 @@ export function StatefulProtractor() {
     ];
     const [center, setCenter] = useState<vec.Vector2>(initialCenter);
     const [rotationHandleOffset, setRotationHandleOffset] =
-        useState<vec.Vector2>([-180, 0]);
+        useState<vec.Vector2>(centerToRotationHandle);
 
     const draggableRef = useRef<SVGGElement>(null);
     useDraggable({
@@ -26,8 +25,6 @@ export function StatefulProtractor() {
         point: center,
         constrain: (point) => bound({snapStep, range, point}),
     });
-
-    const [centerPx] = useTransformVectorsToPixels(center);
 
     const rotationHandleRef = useRef<SVGGElement>(null);
     useDraggable({
@@ -48,8 +45,9 @@ export function StatefulProtractor() {
     );
 }
 
+const protractorRadius = vec.mag(centerToRotationHandle)
 function constrainToCircle(edgePoint: vec.Vector2) {
-    return vec.withMag(edgePoint, 175);
+    return vec.withMag(edgePoint, protractorRadius);
 }
 
 // [L]inear Int[erp]olation: gets the weighted average of two values `a` and

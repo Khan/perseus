@@ -1,11 +1,12 @@
 import {vec} from "mafs";
 import * as React from "react";
-import {useTransformVectorsToPixels} from "./graphs/use-transform";
+
 import {pathBuilder} from "../../util/svg";
 
-import type {RefObject} from "react";
-
+import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {calculateAngleInDegrees} from "./graphs/utils";
+
+import type {RefObject} from "react";
 
 type Props = {
     center: vec.Vector2;
@@ -18,12 +19,14 @@ const protractorImage =
 // The vector from the center of the protractor to the top left corner of the
 // protractor image, in pixels. Used for positioning.
 const centerToTopLeft: vec.Vector2 = [-180, -170];
+// The vector from the center of the protractor to the rotation handle.
+export const centerToRotationHandle: vec.Vector2 = [-176, -15];
 
 export function Protractor(props: Props) {
     const {center, rotationHandleRef, rotationHandleOffset} = props;
     const [centerPx] = useTransformVectorsToPixels(center);
     const topLeftPx = vec.add(centerPx, centerToTopLeft);
-    const angle = calculateAngleInDegrees(rotationHandleOffset) - 180;
+    const angle = calculateAngleInDegrees(rotationHandleOffset) - calculateAngleInDegrees(centerToRotationHandle);
 
     return (
         <g
