@@ -31,7 +31,7 @@ import {
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
-import {StatefulProtractor} from "./protractor/stateful-protractor";
+import {Protractor} from "./protractor";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
@@ -275,7 +275,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             />
                         )}
                         /* Protractor */
-                        {props.showProtractor && <StatefulProtractor />}
+                        {props.showProtractor && <Protractor />}
                         {/* Interactive layer */}
                         {renderGraph({
                             state,

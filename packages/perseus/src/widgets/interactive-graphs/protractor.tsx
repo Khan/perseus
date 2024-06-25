@@ -2,13 +2,13 @@ import {vec} from "mafs";
 import * as React from "react";
 import {RefObject, useRef, useState} from "react";
 
-import {useDraggable} from "../graphs/use-draggable";
-import useGraphConfig from "../reducer/use-graph-config";
-import {bound, TARGET_SIZE} from "../utils";
+import {useDraggable} from "./graphs/use-draggable";
+import useGraphConfig from "./reducer/use-graph-config";
+import {bound, TARGET_SIZE} from "./utils";
 import {useDrag} from "@use-gesture/react";
-import {useTransformVectorsToPixels} from "../graphs/use-transform";
-import {calculateAngleInDegrees} from "../graphs/utils";
-import {pathBuilder} from "../../../util/svg";
+import {useTransformVectorsToPixels} from "./graphs/use-transform";
+import {calculateAngleInDegrees} from "./graphs/utils";
+import {pathBuilder} from "../../util/svg";
 
 import "./protractor.css";
 
@@ -23,7 +23,7 @@ const centerToTopLeft: vec.Vector2 = [-180, -170];
 // handle.
 export const centerToRotationHandle: vec.Vector2 = [-176, -15];
 
-export function StatefulProtractor() {
+export function Protractor() {
     const {range, snapStep} = useGraphConfig();
     const [[xMin, xMax], [yMin, yMax]] = range;
     // Position the protractor in the center of the graph (horizontally), and
