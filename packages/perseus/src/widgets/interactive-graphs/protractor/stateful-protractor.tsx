@@ -2,10 +2,10 @@ import {useTransformContext, vec} from "mafs";
 import * as React from "react";
 import {RefObject, useRef, useState} from "react";
 
-import {useDraggable} from "./graphs/use-draggable";
+import {useDraggable} from "../graphs/use-draggable";
 import {centerToRotationHandle, Protractor} from "./protractor";
-import useGraphConfig from "./reducer/use-graph-config";
-import {bound} from "./utils";
+import useGraphConfig from "../reducer/use-graph-config";
+import {bound} from "../utils";
 import {useDrag} from "@use-gesture/react";
 
 export function StatefulProtractor() {

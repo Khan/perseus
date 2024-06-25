@@ -1,10 +1,10 @@
 import {vec} from "mafs";
 import * as React from "react";
 
-import {pathBuilder} from "../../util/svg";
+import {pathBuilder} from "../../../util/svg";
 
-import {useTransformVectorsToPixels} from "./graphs/use-transform";
-import {calculateAngleInDegrees} from "./graphs/utils";
+import {useTransformVectorsToPixels} from "../graphs/use-transform";
+import {calculateAngleInDegrees} from "../graphs/utils";
 
 import type {RefObject} from "react";
 
