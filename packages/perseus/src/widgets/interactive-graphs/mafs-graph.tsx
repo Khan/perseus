@@ -21,6 +21,7 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
+import {Protractor} from "./protractor";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
@@ -31,7 +32,6 @@ import {
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 import {GraphConfigContext} from "./reducer/use-graph-config";
-import {Protractor} from "./protractor";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";

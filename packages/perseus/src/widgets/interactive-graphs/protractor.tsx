@@ -1,14 +1,17 @@
+import {useDrag} from "@use-gesture/react";
 import {vec} from "mafs";
 import * as React from "react";
-import {RefObject, useRef, useState} from "react";
+import {useRef, useState} from "react";
+
+import {pathBuilder} from "../../util/svg";
 
 import {useDraggable} from "./graphs/use-draggable";
-import useGraphConfig from "./reducer/use-graph-config";
-import {bound, TARGET_SIZE} from "./utils";
-import {useDrag} from "@use-gesture/react";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {calculateAngleInDegrees} from "./graphs/utils";
-import {pathBuilder} from "../../util/svg";
+import useGraphConfig from "./reducer/use-graph-config";
+import {bound, TARGET_SIZE} from "./utils";
+
+import type {RefObject} from "react";
 
 import "./protractor.css";
 
@@ -54,16 +57,23 @@ export function Protractor() {
 
     const [centerPx] = useTransformVectorsToPixels(center);
     const topLeftPx = vec.add(centerPx, centerToTopLeft);
-    const angle = calculateAngleInDegrees(rotationHandleOffset) - calculateAngleInDegrees(centerToRotationHandle);
+    const angle =
+        calculateAngleInDegrees(rotationHandleOffset) -
+        calculateAngleInDegrees(centerToRotationHandle);
 
     return (
         <g
             ref={draggableRef}
             transform={`translate(${topLeftPx[0]}, ${topLeftPx[1]}), rotate(${angle})`}
-            style={{transformOrigin: `${-centerToTopLeft[0]}px ${-centerToTopLeft[1]}px`}}
+            style={{
+                transformOrigin: `${-centerToTopLeft[0]}px ${-centerToTopLeft[1]}px`,
+            }}
         >
             <image href={protractorImage} />
-            <g transform={`translate(5, ${-centerToTopLeft[1]})`} ref={rotationHandleRef}>
+            <g
+                transform={`translate(5, ${-centerToTopLeft[1]})`}
+                ref={rotationHandleRef}
+            >
                 <RotationArrow />
             </g>
         </g>
@@ -86,24 +96,33 @@ function RotationArrow() {
     const targetRadius = TARGET_SIZE / 2;
     return (
         <g className="protractor-rotation-handle">
-            <path className="protractor-rotation-handle-arrow-arc"
-                  d={rotationArrow}
+            <path
+                className="protractor-rotation-handle-arrow-arc"
+                d={rotationArrow}
             />
-            <path className="protractor-rotation-handle-arrowhead"
-                  d={arrowhead}
+            <path
+                className="protractor-rotation-handle-arrowhead"
+                d={arrowhead}
             />
-            <path className="protractor-rotation-handle-arrowhead"
-                  d={arrowhead}
-                  transform={`translate(${endX}, ${endY}), rotate(${180 + angleDeg})`}
+            <path
+                className="protractor-rotation-handle-arrowhead"
+                d={arrowhead}
+                transform={`translate(${endX}, ${endY}), rotate(${180 + angleDeg})`}
             />
             {/* this invisible ellipse ensures that the click target for the
-              * handle is at least 48x48 pixels */}
-            <ellipse cx="0px" cy="-15px" rx={targetRadius} ry={targetRadius} fill="none"></ellipse>
+             * handle is at least 48x48 pixels */}
+            <ellipse
+                cx="0px"
+                cy="-15px"
+                rx={targetRadius}
+                ry={targetRadius}
+                fill="none"
+            />
         </g>
     );
 }
 
-const protractorRadius = vec.mag(centerToRotationHandle)
+const protractorRadius = vec.mag(centerToRotationHandle);
 function constrainToCircle(edgePoint: vec.Vector2) {
     return vec.withMag(edgePoint, protractorRadius);
 }
@@ -130,12 +149,7 @@ function useDraggablePx(args: {
     point: vec.Vector2;
     constrain?: (point: vec.Vector2) => vec.Vector2;
 }): void {
-    const {
-        gestureTarget: target,
-        onMove,
-        point,
-        constrain = (p) => p,
-    } = args;
+    const {gestureTarget: target, onMove, point, constrain = (p) => p} = args;
 
     const pickupPx = React.useRef<vec.Vector2>([0, 0]);
 
