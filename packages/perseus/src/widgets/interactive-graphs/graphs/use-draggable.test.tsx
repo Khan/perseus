@@ -21,7 +21,11 @@ function TestDraggable(props: {
         constrain,
         gestureTarget,
     });
-    return <button ref={gestureTarget}>dragging: {String(dragging)}</button>;
+    return (
+        <button ref={gestureTarget} tabIndex={0}>
+            dragging: {String(dragging)}
+        </button>
+    );
 }
 
 describe("useDraggable", () => {
@@ -176,6 +180,45 @@ describe("useDraggable", () => {
         // - (21, 19), the inverse user transform was not applied to the move.
         // - (11, 9), neither userTransform nor the inverse was applied.
         expect(onMoveSpy).toHaveBeenCalledWith([10.5, 9.5]);
+    });
+
+    it("moves a draggable element with the keyboard", async () => {
+        // Arrange: a 200x200px graph with a 20-unit range in each dimension.
+        // One graph unit = 10px.
+        const mafsProps = {
+            width: 200,
+            height: 200,
+            viewBox: {
+                x: [-10, 10] as Interval,
+                y: [-10, 10] as Interval,
+                padding: 0,
+            },
+        };
+        const onMoveSpy = jest.fn();
+        render(
+            <Mafs {...mafsProps}>
+                <TestDraggable
+                    point={[0, 0]}
+                    onMove={onMoveSpy}
+                    constrain={(point) => [
+                        Math.round(point[0]),
+                        Math.round(point[1]),
+                    ]}
+                />
+            </Mafs>,
+        );
+        // focus the draggable element
+        await userEvent.tab();
+        await userEvent.tab();
+
+        // Pre-assert: the draggable element is actually focused
+        expect(screen.getByRole("button")).toHaveFocus();
+
+        // Act:
+        await userEvent.keyboard("{arrowright>1}{arrowup>1}");
+
+        // Assert: the element moved one step to the right and then one step up
+        expect(onMoveSpy.mock.calls).toEqual([[[1, 0]], [[0, 1]]]);
     });
 });
 
