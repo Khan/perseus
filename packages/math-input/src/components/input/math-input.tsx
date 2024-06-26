@@ -1044,7 +1044,6 @@ const inputMaxWidth = 128;
 const numeralHeightPx = 20;
 const totalDesiredPadding = 12;
 const minHeightPx = numeralHeightPx + totalDesiredPadding * 2;
-const minWidthPx = 64;
 
 const styles = StyleSheet.create({
     input: {
@@ -1068,7 +1067,7 @@ const inlineStyles = {
     innerContainer: {
         backgroundColor: "white",
         minHeight: minHeightPx,
-        minWidth: minWidthPx,
+        width: "100%",
         maxWidth: inputMaxWidth,
         boxSizing: "border-box",
         position: "relative",

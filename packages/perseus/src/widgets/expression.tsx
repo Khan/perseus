@@ -5,6 +5,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import classNames from "classnames";
 import * as React from "react";
+import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../components/i18n-context";
@@ -540,28 +541,50 @@ export class Expression extends React.Component<Props, ExpressionState> {
         | React.ReactNode
         | React.ReactElement<React.ComponentProps<"div">> {
         if (this.props.apiOptions.customKeypad) {
+            const inputId = `expression-input_${Date.now()}`;
+            const labelId = `expression-label_${Date.now()}`;
+            if (this.refs.input) {
+                const root = ReactDOM.findDOMNode(this.refs.input) as Element;
+                const textarea = root.querySelector(
+                    '[aria-label="Math input box:"]',
+                );
+                textarea?.setAttribute("id", inputId);
+                textarea?.setAttribute("aria-labelledby", labelId);
+            }
             return (
-                <KeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
-                    value={this.props.value}
-                    keypadElement={this.props.keypadElement}
-                    onChange={this.changeAndTrack}
-                    onFocus={() => {
-                        // this.props.keypadElement should always be set
-                        // when apiOptions.customKeypad is set, but how
-                        // to convince TypeScript of this?
-                        this.props.keypadElement?.configure(
-                            this.props.keypadConfiguration,
-                            () => {
-                                if (this._isMounted) {
-                                    this._handleFocus();
-                                }
-                            },
-                        );
-                    }}
-                    onBlur={this._handleBlur}
-                />
+                <View style={{padding: "15px 4px 0"}}>
+                    <label
+                        style={{
+                            fontSize: "12px",
+                            lineHeight: "10px",
+                        }}
+                        htmlFor={inputId}
+                        id={labelId}
+                    >
+                        Hello universe
+                    </label>
+                    <KeypadInput
+                        // eslint-disable-next-line react/no-string-refs
+                        ref="input"
+                        value={this.props.value}
+                        keypadElement={this.props.keypadElement}
+                        onChange={this.changeAndTrack}
+                        onFocus={() => {
+                            // this.props.keypadElement should always be set
+                            // when apiOptions.customKeypad is set, but how
+                            // to convince TypeScript of this?
+                            this.props.keypadElement?.configure(
+                                this.props.keypadConfiguration,
+                                () => {
+                                    if (this._isMounted) {
+                                        this._handleFocus();
+                                    }
+                                },
+                            );
+                        }}
+                        onBlur={this._handleBlur}
+                    />
+                </View>
             );
         }
 
