@@ -28,7 +28,7 @@ export class PathBuilder {
         radius: number,
         toX: number,
         toY: number,
-        {sweep = false, largeArc = false}: {sweep?: boolean, largeArc?: boolean},
+        {sweep = false, largeArc = false}: {sweep?: boolean, largeArc?: boolean} = {},
     ): PathBuilder {
         this.path.push({
             action: "A",
@@ -74,8 +74,29 @@ function commandToString(command: Command): string {
 }
 
 function scaleCommandBy(scaleFactor: number): (command: Command) => Command {
-    return (command) => ({
-        ...command,
-        args: command.args.map((c) => c * scaleFactor),
-    });
+    return (command) => {
+        switch (command.action) {
+            case "A":
+                // TODO(benchristel): do we want to refactor this switch to
+                // use polymorphism?
+                // Arc command
+                return {
+                    ...command,
+                    args: [
+                        command.args[0] * scaleFactor, // x radius
+                        command.args[1] * scaleFactor, // y radius
+                        command.args[2], // rotation
+                        command.args[3], // largeArc flag
+                        command.args[4], // sweep flag
+                        command.args[5] * scaleFactor, // end x
+                        command.args[6] * scaleFactor, // end y
+                    ]
+                }
+            default:
+                return {
+                    ...command,
+                    args: command.args.map((c) => c * scaleFactor),
+                }
+        }
+    };
 }
