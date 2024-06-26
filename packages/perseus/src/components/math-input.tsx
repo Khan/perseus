@@ -280,7 +280,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     render(): React.ReactNode {
         let className = classNames({
             "perseus-math-input": true,
-
             // mathquill usually adds these itself but react removes them when
             // updating the component.
             "mq-editable-field": true,

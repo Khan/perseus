@@ -63,7 +63,7 @@ const rules = {
                 return table;
             }
 
-            return React.cloneElement(table, {tabIndex: 0});
+            return React.cloneElement(table);
         },
     },
     // This is pretty much horrible, but we have a regex here to capture an
