@@ -24,6 +24,7 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         markings: "graph",
         containerSizeClass: "small",
         showTooltips: false,
+        showProtractor: false,
         labels: ["x", "y"],
         dispatch: () => {},
         state: {
@@ -53,6 +54,7 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
         containerSizeClass: "small",
         onChange: () => {},
         showTooltips: false,
+        showProtractor: false,
         labels: ["x", "y"],
         graph: {type: "segment"},
     };

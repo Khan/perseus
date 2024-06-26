@@ -21,6 +21,7 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
+import {Protractor} from "./protractor";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
@@ -53,6 +54,7 @@ export type StatefulMafsGraphProps = {
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
 };
 
@@ -189,6 +191,7 @@ export type MafsGraphProps = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
@@ -256,7 +259,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     >
                         {/* Svg definitions to render only once */}
                         <SvgDefs />
-
                         {/* Background layer */}
                         <Grid
                             tickStep={props.step}
@@ -265,7 +267,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
                         />
-
                         {/* Locked layer */}
                         {props.lockedFigures && (
                             <GraphLockedLayer
@@ -273,7 +274,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 range={state.range}
                             />
                         )}
-
+                        /* Protractor */
+                        {props.showProtractor && <Protractor />}
                         {/* Interactive layer */}
                         {renderGraph({
                             state,

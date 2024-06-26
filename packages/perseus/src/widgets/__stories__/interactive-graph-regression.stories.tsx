@@ -201,6 +201,12 @@ export const MafsWithLockedLine = (args: StoryArgs): React.ReactElement => (
     />
 );
 
+export const MafsWithProtractor = (args: StoryArgs): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder().withProtractor().build()}
+    />
+);
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
