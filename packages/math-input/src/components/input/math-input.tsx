@@ -684,12 +684,12 @@ class MathInput extends React.Component<Props, State> {
 
         // If we're already focused, but the keypad isn't active, activate it.
         if (this.state.focused && !keypadActive) {
-            setKeypadActive(true);
+            //setKeypadActive(true);
         }
 
         // Trigger a focus event, if we're not already focused.
         if (!this.state.focused) {
-            this.focus(setKeypadActive);
+            //this.focus(setKeypadActive);
         }
 
         // If the user clicked on the input using a mouse or tap gesture,
@@ -697,7 +697,7 @@ class MathInput extends React.Component<Props, State> {
         // event will be triggered when the user types on the keyboard.
         // This is necessary to support Chromebooks as they use mobile user
         // agents, do not simulate touch events, and have physical keyboards.
-        this.inputRef?.focus();
+        //this.inputRef?.focus();
     };
 
     handleTouchMove: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
@@ -998,7 +998,7 @@ class MathInput extends React.Component<Props, State> {
                                 this.inputRef = node;
                             }}
                             onFocus={() => {
-                                this.focus(setKeypadActive);
+                                //this.focus(setKeypadActive);
                             }}
                             onBlur={this.blur}
                             onKeyUp={this.handleKeyUp}

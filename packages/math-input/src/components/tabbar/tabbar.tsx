@@ -33,8 +33,8 @@ function Tabbar(props: Props): React.ReactElement {
     const {items, onClickClose, selectedItem, onSelectItem, style} = props;
 
     return (
-        <View style={[styles.tabbar, style]} role="tablist">
-            <View style={[styles.pages]}>
+        <View style={[styles.tabbar, style]}>
+            <View style={[styles.pages]} role="tablist">
                 {items.map((item) => (
                     <TabbarItem
                         key={`tabbar-item-${item}`}
