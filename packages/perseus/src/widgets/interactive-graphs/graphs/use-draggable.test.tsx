@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {render, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs} from "mafs";
 import * as React from "react";
@@ -6,23 +6,22 @@ import {useRef} from "react";
 
 import {useDraggable} from "./use-draggable";
 
-import type {vec} from "mafs";
+import type {vec, Interval} from "mafs";
 
 function TestDraggable(props: {
     point: vec.Vector2;
-    constrain: (point: vec.Vector2) => vec.Vector2;
+    constrain?: (point: vec.Vector2) => vec.Vector2;
+    onMove?: (point: vec.Vector2) => unknown;
 }) {
+    const {onMove = () => {}, constrain = (p) => p} = props;
     const gestureTarget = useRef<HTMLButtonElement>(null);
     const {dragging} = useDraggable({
         ...props,
+        onMove,
+        constrain,
         gestureTarget,
-        onMove: () => {},
     });
-    return (
-        <button ref={gestureTarget}>
-            dragging: {String(dragging)}
-        </button>
-    );
+    return <button ref={gestureTarget}>dragging: {String(dragging)}</button>;
 }
 
 describe("useDraggable", () => {
@@ -36,7 +35,7 @@ describe("useDraggable", () => {
     it("initially returns {dragging: false}", () => {
         render(
             <Mafs width={200} height={200}>
-                <TestDraggable point={[0, 0]} constrain={(p) => p} />
+                <TestDraggable point={[0, 0]} />
             </Mafs>,
         );
 
@@ -46,7 +45,7 @@ describe("useDraggable", () => {
     it("returns {dragging: true} when the mouse button is held down", async () => {
         render(
             <Mafs width={200} height={200}>
-                <TestDraggable point={[0, 0]} constrain={(p) => p} />
+                <TestDraggable point={[0, 0]} />
             </Mafs>,
         );
         const dragHandle = screen.getByRole("button");
@@ -61,7 +60,7 @@ describe("useDraggable", () => {
     it("returns {dragging: false} when the mouse button is released", async () => {
         render(
             <Mafs width={200} height={200}>
-                <TestDraggable point={[0, 0]} constrain={(p) => p} />
+                <TestDraggable point={[0, 0]} />
             </Mafs>,
         );
         const dragHandle = screen.getByRole("button");
@@ -75,4 +74,94 @@ describe("useDraggable", () => {
         // Assert
         expect(screen.getByText("dragging: false")).toBeInTheDocument();
     });
+
+    it("calls onMove with the destination point when the user drags", async () => {
+        // Arrange: a 200x200px graph with a 20-unit range in each dimension.
+        // One graph unit = 10px.
+        const mafsProps = {
+            width: 200,
+            height: 200,
+            viewBox: {
+                x: [-10, 10] as Interval,
+                y: [-10, 10] as Interval,
+                padding: 0,
+            },
+        };
+        const onMoveSpy = jest.fn();
+        render(
+            <Mafs {...mafsProps}>
+                <TestDraggable point={[0, 0]} onMove={onMoveSpy} />
+            </Mafs>,
+        );
+        const dragHandle = screen.getByRole("button");
+
+        // Act: click and hold the drag handle...
+        mouseDownAt(dragHandle, 0, 0);
+        // ...and then drag 10px right and 10px down
+        moveMouseTo(dragHandle, 10, 10);
+
+        // Assert: the draggable element was moved to (1, -1)
+        expect(onMoveSpy).toHaveBeenCalledWith([1, -1]);
+    });
+
+    it("constrains the destination point using the given constrain function", async () => {
+        // Arrange: a 200x200px graph with a 20-unit range in each dimension.
+        // One graph unit = 10px.
+        const mafsProps = {
+            width: 200,
+            height: 200,
+            viewBox: {
+                x: [-10, 10] as Interval,
+                y: [-10, 10] as Interval,
+                padding: 0,
+            },
+        };
+        const onMoveSpy = jest.fn();
+        render(
+            <Mafs {...mafsProps}>
+                <TestDraggable
+                    point={[0, 0]}
+                    onMove={onMoveSpy}
+                    constrain={(p) => [Math.round(p[0]), Math.round(p[1])]}
+                />
+            </Mafs>,
+        );
+        const dragHandle = screen.getByRole("button");
+
+        // Act: click and hold the drag handle...
+        mouseDownAt(dragHandle, 0, 0);
+        // ...and then drag 12px right and 13px down
+        moveMouseTo(dragHandle, 12, 13);
+
+        // Assert: the draggable element was moved to (1, -1) due to the
+        // constrain function. If you see (1.2, -1.3) instead, that means the
+        // constraint is not being applied.
+        expect(onMoveSpy).toHaveBeenCalledWith([1, -1]);
+    });
 });
+
+function mouseDownAt(element: Element, clientX: number, clientY: number) {
+    // NOTE(benchristel): I could not figure out how to write these tests in
+    // terms of userEvent. The tests for @use-gesture/react use fireEvent, so
+    // I went with that approach.
+    // eslint-disable-next-line testing-library/prefer-user-event
+    fireEvent.mouseDown(element, {
+        pointerId: 1,
+        buttons: 1,
+        clientX,
+        clientY,
+    });
+}
+
+function moveMouseTo(element: Element, clientX: number, clientY: number) {
+    // NOTE(benchristel): I could not figure out how to write these tests in
+    // terms of userEvent. The tests for @use-gesture/react use fireEvent, so
+    // I went with that approach.
+    // eslint-disable-next-line testing-library/prefer-user-event
+    fireEvent.mouseMove(element, {
+        pointerId: 1,
+        buttons: 1,
+        clientX,
+        clientY,
+    });
+}
