@@ -26,6 +26,7 @@ class InteractiveGraphQuestionBuilder {
     private yRange: Interval = [-10, 10];
     private snapStep: vec.Vector2 = [0.5, 0.5];
     private tickStep: vec.Vector2 = [1, 1];
+    private showProtractor: boolean = false;
     private interactiveFigureConfig: InteractiveFigureConfig =
         new SegmentGraphConfig(1);
     private lockedFigures: LockedFigure[] = [];
@@ -46,7 +47,7 @@ class InteractiveGraphQuestionBuilder {
                         range: [this.xRange, this.yRange],
                         rulerLabel: "",
                         rulerTicks: 10,
-                        showProtractor: false,
+                        showProtractor: this.showProtractor,
                         showRuler: false,
                         snapStep: this.snapStep,
                         step: this.tickStep,
@@ -96,6 +97,11 @@ class InteractiveGraphQuestionBuilder {
 
     withTickStep(x: number, y: number): InteractiveGraphQuestionBuilder {
         this.tickStep = [x, y];
+        return this;
+    }
+
+    withProtractor(): InteractiveGraphQuestionBuilder {
+        this.showProtractor = true;
         return this;
     }
 
