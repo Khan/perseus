@@ -1,7 +1,9 @@
 import {parse, compare} from "./kas/src";
 import {init, Widgets, Renderer, Dependencies} from "./perseus/src";
+import Interactive2 from "./perseus/src/interactive2";
 import KhanUtils from "./perseus/src/util";
 import KhanAnswerTypesUtils from "./perseus/src/util/answer-types";
+import {similar} from "./perseus/src/util/geometry";
 import GraphUtils from "./perseus/src/util/graphie";
 import KhanMath from "./perseus/src/util/math";
 
@@ -20,6 +22,8 @@ export interface PerseusCore {
     KhanUtils: typeof KhanUtils;
     KhanAnswerTypesUtils: typeof KhanAnswerTypesUtils;
     KhanMath: typeof KhanMath;
+    Interactive2: typeof Interactive2;
+    similar: typeof similar;
     parseTex: (
         tex: string,
         options?: TexOptions,
@@ -47,6 +51,8 @@ export {
     KhanUtils,
     KhanAnswerTypesUtils,
     KhanMath,
+    Interactive2,
+    similar as similarCoords,
 };
 
 export type {WidgetExports} from "./perseus/src";

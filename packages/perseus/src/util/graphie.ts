@@ -1303,16 +1303,17 @@ GraphUtils.createGraphie = function (el: any) {
             unityLabels = [unityLabels, unityLabels];
         }
 
-        if (smartLabelPositioning) {
-            const minusIgnorer = function (lf: any) {
-                return function (a) {
-                    return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
-                };
-            };
+        // comment for 讓座標軸上的數字可以不用以 latex 呈現
+        // if (smartLabelPositioning) {
+        //     const minusIgnorer = function (lf: any) {
+        //         return function (a) {
+        //             return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
+        //         };
+        //     };
 
-            xLabelFormat = minusIgnorer(xLabelFormat);
-            yLabelFormat = minusIgnorer(yLabelFormat);
-        }
+        //     xLabelFormat = minusIgnorer(xLabelFormat);
+        //     yLabelFormat = minusIgnorer(yLabelFormat);
+        // }
 
         this.init({
             range: realRange,
@@ -1550,6 +1551,7 @@ GraphUtils.createGraphie = function (el: any) {
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
                                 xAxisPosition,
+                                false,
                             );
                         }
                     }
@@ -1566,6 +1568,7 @@ GraphUtils.createGraphie = function (el: any) {
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
                                 xAxisPosition,
+                                false,
                             );
                         }
                     }
@@ -1586,6 +1589,7 @@ GraphUtils.createGraphie = function (el: any) {
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
                                 yAxisPosition,
+                                false,
                             );
                         }
                     }
@@ -1602,6 +1606,7 @@ GraphUtils.createGraphie = function (el: any) {
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
                                 yAxisPosition,
+                                false,
                             );
                         }
                     }
