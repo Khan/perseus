@@ -291,96 +291,117 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             className = className + " " + this.props.className;
         }
 
-        return (
-            <View
-                style={[
-                    styles.outerWrapper,
-                    this.state.focused && styles.wrapperFocused,
-                    this.props.hasError && styles.wrapperError,
-                ]}
-            >
-                <div
-                    style={{
-                        display: "flex",
-                        padding: 1,
-                    }}
-                    onClick={(e) => {
-                        // Prevent the click into the input from registering
-                        // so that the keypad popover doesn't close when
-                        // switching focus to the input.
-                        e.stopPropagation();
+        const textareaId = `math-input_${Date.now()}`;
+        if (this.__mathFieldWrapperRef) {
+            const textarea =
+                this.__mathFieldWrapperRef.getElementsByTagName("textarea");
+            textarea[0].setAttribute("id", textareaId);
+        }
 
-                        const mathField = this.mathField();
-                        if (!mathField) {
-                            return;
-                        }
-                        this.setState({
-                            cursorContext: getCursorContext(mathField),
-                        });
+        return (
+            <View style={{padding: "15px 4px 0"}}>
+                <label
+                    htmlFor={textareaId}
+                    style={{
+                        fontSize: "12px",
+                        lineHeight: "10px",
                     }}
                 >
-                    <span
-                        className={className}
-                        ref={(ref) => (this.__mathFieldWrapperRef = ref)}
-                        aria-label={this.props.labelText}
-                        onFocus={() => this.focus()}
-                        onBlur={() => this.blur()}
-                    />
-                    <Popover
-                        opened={this.state.keypadOpen}
-                        onClose={() => this.closeKeypad()}
-                        dismissEnabled
-                        content={() => (
-                            <PopoverContentCore
-                                closeButtonVisible
-                                style={styles.popoverContent}
-                            >
-                                <DesktopKeypad
-                                    onAnalyticsEvent={
-                                        this.props.analytics.onAnalyticsEvent
-                                    }
-                                    extraKeys={this.props.extraKeys}
-                                    onClickKey={this.handleKeypadPress}
-                                    cursorContext={this.state.cursorContext}
-                                    convertDotToTimes={
-                                        this.props.convertDotToTimes
-                                    }
-                                    {...(this.props.keypadButtonSets ??
-                                        mapButtonSets(this.props?.buttonSets))}
-                                />
-                            </PopoverContentCore>
-                        )}
+                    Hello world
+                </label>
+                <View
+                    style={[
+                        styles.outerWrapper,
+                        this.state.focused && styles.wrapperFocused,
+                        this.props.hasError && styles.wrapperError,
+                    ]}
+                >
+                    <div
+                        style={{
+                            display: "flex",
+                            padding: 1,
+                        }}
+                        onClick={(e) => {
+                            // Prevent the click into the input from registering
+                            // so that the keypad popover doesn't close when
+                            // switching focus to the input.
+                            e.stopPropagation();
+
+                            const mathField = this.mathField();
+                            if (!mathField) {
+                                return;
+                            }
+                            this.setState({
+                                cursorContext: getCursorContext(mathField),
+                            });
+                        }}
                     >
-                        {this.props.buttonsVisible === "never" ? (
-                            <MathInputIcon
-                                hovered={false}
-                                focused={false}
-                                active={false}
-                            />
-                        ) : (
-                            <Clickable
-                                aria-label={
-                                    this.state.keypadOpen
-                                        ? this.context.strings.closeKeypad
-                                        : this.context.strings.openKeypad
-                                }
-                                role="button"
-                                onClick={() =>
-                                    this.state.keypadOpen
-                                        ? this.closeKeypad()
-                                        : this.openKeypad()
-                                }
-                            >
-                                {(props) => (
-                                    <MathInputIcon
-                                        active={this.state.keypadOpen}
-                                        {...props}
+                        <span
+                            className={className}
+                            ref={(ref) => (this.__mathFieldWrapperRef = ref)}
+                            aria-label={this.props.labelText}
+                            onFocus={() => this.focus()}
+                            onBlur={() => this.blur()}
+                        />
+                        <Popover
+                            opened={this.state.keypadOpen}
+                            onClose={() => this.closeKeypad()}
+                            dismissEnabled
+                            content={() => (
+                                <PopoverContentCore
+                                    closeButtonVisible
+                                    style={styles.popoverContent}
+                                >
+                                    <DesktopKeypad
+                                        onAnalyticsEvent={
+                                            this.props.analytics
+                                                .onAnalyticsEvent
+                                        }
+                                        extraKeys={this.props.extraKeys}
+                                        onClickKey={this.handleKeypadPress}
+                                        cursorContext={this.state.cursorContext}
+                                        convertDotToTimes={
+                                            this.props.convertDotToTimes
+                                        }
+                                        {...(this.props.keypadButtonSets ??
+                                            mapButtonSets(
+                                                this.props?.buttonSets,
+                                            ))}
                                     />
-                                )}
-                            </Clickable>
-                        )}
-                    </Popover>
-                </div>
+                                </PopoverContentCore>
+                            )}
+                        >
+                            {this.props.buttonsVisible === "never" ? (
+                                <MathInputIcon
+                                    hovered={false}
+                                    focused={false}
+                                    active={false}
+                                />
+                            ) : (
+                                <Clickable
+                                    aria-label={
+                                        this.state.keypadOpen
+                                            ? this.context.strings.closeKeypad
+                                            : this.context.strings.openKeypad
+                                    }
+                                    role="button"
+                                    onClick={() =>
+                                        this.state.keypadOpen
+                                            ? this.closeKeypad()
+                                            : this.openKeypad()
+                                    }
+                                >
+                                    {(props) => (
+                                        <MathInputIcon
+                                            active={this.state.keypadOpen}
+                                            {...props}
+                                        />
+                                    )}
+                                </Clickable>
+                            )}
+                        </Popover>
+                    </div>
+                </View>
             </View>
         );
     }
