@@ -23,7 +23,7 @@ export interface PerseusCore {
     KhanAnswerTypesUtils: typeof KhanAnswerTypesUtils;
     KhanMath: typeof KhanMath;
     Interactive2: typeof Interactive2;
-    similar: typeof similar;
+    similarCoords: typeof similar;
     parseTex: (
         tex: string,
         options?: TexOptions,
