@@ -433,7 +433,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                             },
                                             graph: {
                                                 ...this.props.graph,
-                                                type: "polygon",
                                                 showAngles:
                                                     !this.props.graph
                                                         .showAngles,
@@ -467,8 +466,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                             graph: {
                                                 ...this.props.graph,
                                                 showSides:
-                                                    !this.props.correct
-                                                        .showSides,
+                                                    !this.props.graph.showSides,
                                             },
                                         });
                                     }
