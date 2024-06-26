@@ -1,6 +1,6 @@
 import {render, screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import {Mafs} from "mafs";
+import {Mafs, Transform} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
@@ -137,6 +137,45 @@ describe("useDraggable", () => {
         // constrain function. If you see (1.2, -1.3) instead, that means the
         // constraint is not being applied.
         expect(onMoveSpy).toHaveBeenCalledWith([1, -1]);
+    });
+
+    it("accounts for the user transform when measuring drag distance", async () => {
+        // See: https://mafs.dev/guides/custom-components/contexts
+
+        // Arrange: a 200x200px graph with a 20-unit range in each dimension.
+        // One graph unit = 10px.
+        const mafsProps = {
+            width: 200,
+            height: 200,
+            viewBox: {
+                x: [-10, 10] as Interval,
+                y: [-10, 10] as Interval,
+                padding: 0,
+            },
+        };
+        const onMoveSpy = jest.fn();
+        render(
+            <Mafs {...mafsProps}>
+                <Transform scale={2}>
+                    <TestDraggable point={[10, 10]} onMove={onMoveSpy} />
+                </Transform>
+            </Mafs>,
+        );
+        const dragHandle = screen.getByRole("button");
+
+        // Act: click and hold the drag handle...
+        mouseDownAt(dragHandle, 0, 0);
+        // ...and then drag 10px right and 10px down. Because of the
+        // <Transform scale={2}>, this movement actually represents the vector
+        // [0.5, -0.5] in graph coordinates.
+        moveMouseTo(dragHandle, 10, 10);
+
+        // Assert: the draggable element moved to (10.5, 9.5).
+        // If you see...
+        // - (5.5, 4.5), the userTransform was not applied to the pickupPoint.
+        // - (21, 19), the inverse user transform was not applied to the move.
+        // - (11, 9), neither userTransform nor the inverse was applied.
+        expect(onMoveSpy).toHaveBeenCalledWith([10.5, 9.5]);
     });
 });
 
