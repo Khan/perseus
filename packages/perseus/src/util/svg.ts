@@ -28,7 +28,10 @@ export class PathBuilder {
         radius: number,
         toX: number,
         toY: number,
-        {sweep = false, largeArc = false}: {sweep?: boolean, largeArc?: boolean} = {},
+        {
+            sweep = false,
+            largeArc = false,
+        }: {sweep?: boolean; largeArc?: boolean} = {},
     ): PathBuilder {
         this.path.push({
             action: "A",
@@ -40,7 +43,8 @@ export class PathBuilder {
                 sweep ? 1 : 0,
                 toX,
                 toY,
-            ]});
+            ],
+        });
         return this;
     }
 
@@ -90,13 +94,13 @@ function scaleCommandBy(scaleFactor: number): (command: Command) => Command {
                         command.args[4], // sweep flag
                         command.args[5] * scaleFactor, // end x
                         command.args[6] * scaleFactor, // end y
-                    ]
-                }
+                    ],
+                };
             default:
                 return {
                     ...command,
                     args: command.args.map((c) => c * scaleFactor),
-                }
+                };
         }
     };
 }

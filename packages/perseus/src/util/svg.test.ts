@@ -47,9 +47,7 @@ describe("pathBuilder", () => {
 
     it("creates an arc command, setting the sweep flag", () => {
         // See: https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths#arcs
-        const path = pathBuilder()
-            .circularArc(1, 2, 3, {sweep: true})
-            .build();
+        const path = pathBuilder().circularArc(1, 2, 3, {sweep: true}).build();
         expect(path).toBe("A1 1 0 0 1 2 3");
     });
 
