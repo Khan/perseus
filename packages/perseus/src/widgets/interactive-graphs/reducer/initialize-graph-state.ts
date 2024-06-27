@@ -226,7 +226,7 @@ const defaultLinearCoords: [Coord, Coord][] = [
     ],
 ];
 
-function getLineCoords(
+export function getLineCoords(
     graph: PerseusGraphTypeRay | PerseusGraphTypeLinear,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],

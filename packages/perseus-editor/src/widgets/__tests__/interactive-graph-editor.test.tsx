@@ -634,4 +634,67 @@ describe("InteractiveGraphEditor", () => {
         // Assert
         expect(key).toEqual("polygon:4:grid:true:true");
     });
+
+    describe.each`
+        type
+        ${"linear"}
+        ${"ray"}
+    `(`Graphs with CollinearTuple coords`, ({type}) => {
+        test(`shows the start coordinates UI for ${type}`, () => {
+            // Arrange
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    graph={{type: type}}
+                    correct={{type: type}}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Point 1")).toBeInTheDocument();
+            expect(screen.getByText("Point 2")).toBeInTheDocument();
+        });
+
+        test(`calls onChange when coords are changed for type ${type}`, async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    graph={{type: type}}
+                    correct={{type: type}}
+                    onChange={onChangeMock}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            const input = screen.getAllByRole("spinbutton", {
+                name: "x coord",
+            })[0];
+            await userEvent.clear(input);
+            await userEvent.type(input, "101");
+
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    graph: expect.objectContaining({
+                        coords: [
+                            [101, 5],
+                            [5, 5],
+                        ],
+                    }),
+                }),
+            );
+        });
+    });
 });

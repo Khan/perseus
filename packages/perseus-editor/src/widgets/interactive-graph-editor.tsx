@@ -23,6 +23,7 @@ import GraphPointsCountSelector from "../components/graph-points-count-selector"
 import GraphTypeSelector from "../components/graph-type-selector";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import SegmentCountSelector from "../components/segment-count-selector";
+import StartCoordSettings from "../components/start-coord-settings";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -498,6 +499,16 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         />
                     </LabeledRow>
                 )}
+                {(this.props.graph?.type === "linear" ||
+                    this.props.graph?.type === "ray") &&
+                    this.props.apiOptions.flags?.mafs?.["start-coords-ui"] && (
+                        <StartCoordSettings
+                            {...this.props.graph}
+                            range={this.props.range}
+                            step={this.props.step}
+                            onChange={this.changeStartCoords}
+                        />
+                    )}
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
@@ -659,6 +670,21 @@ class InteractiveGraphEditor extends React.Component<Props> {
             match: newValue,
         };
         this.props.onChange({correct: correct});
+    };
+
+    changeStartCoords = (coords) => {
+        if (
+            this.props.graph?.type !== "linear" &&
+            this.props.graph?.type !== "ray"
+        ) {
+            return;
+        }
+
+        const graph = {
+            ...this.props.graph,
+            coords: coords,
+        };
+        this.props.onChange({graph: graph});
     };
 
     serialize(): PerseusInteractiveGraphWidgetOptions {
