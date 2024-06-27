@@ -8,11 +8,11 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import AngleInput from "../angle-input";
+import CoordinatePairInput from "../coordinate-pair-input";
+import PerseusEditorAccordion from "../perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
-import CoordinatePairInput from "./coordinate-pair-input";
 import EllipseSwatch from "./ellipse-swatch";
-import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -53,7 +53,7 @@ const LockedEllipseSettings = (props: Props) => {
     }
 
     return (
-        <LockedFigureSettingsAccordion
+        <PerseusEditorAccordion
             expanded={expanded}
             onToggle={onToggle}
             header={
@@ -165,7 +165,7 @@ const LockedEllipseSettings = (props: Props) => {
                 onMove={onMove}
                 onRemove={onRemove}
             />
-        </LockedFigureSettingsAccordion>
+        </PerseusEditorAccordion>
     );
 };
 

@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 24.0.0
+
+### Major Changes
+
+-   [#1371](https://github.com/Khan/perseus/pull/1371) [`ba5f33460`](https://github.com/Khan/perseus/commit/ba5f33460d6d5131f95955abae135c9ee138c858) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - update attributes for expression widget button
+
+### Patch Changes
+
+-   [#1364](https://github.com/Khan/perseus/pull/1364) [`35651e097`](https://github.com/Khan/perseus/commit/35651e09710f47d978be03270ba4011ff2dbe591) Thanks [@Myranae](https://github.com/Myranae)! - Fix a bug in the exercise editor where the preview did not update after a change to the number of sides in polygon graphs
+
+*   [#1373](https://github.com/Khan/perseus/pull/1373) [`961510673`](https://github.com/Khan/perseus/commit/96151067381fbfbb9ec325ac6b921ba2830cc344) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Update the interactive graph builder with all currently migrated graph types
+
 ## 23.6.0
 
 ### Minor Changes

@@ -899,6 +899,7 @@ export const polygonQuestionDefaultCorrect: PerseusRenderer = {
                 showProtractor: false,
                 graph: {
                     showSides: true,
+                    showAngles: false,
                     snapTo: "grid",
                     type: "polygon",
                 },

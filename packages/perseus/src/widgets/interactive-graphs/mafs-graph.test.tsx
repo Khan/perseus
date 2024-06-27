@@ -24,6 +24,7 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         markings: "graph",
         containerSizeClass: "small",
         showTooltips: false,
+        showProtractor: false,
         labels: ["x", "y"],
         dispatch: () => {},
         state: {
@@ -53,6 +54,7 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
         containerSizeClass: "small",
         onChange: () => {},
         showTooltips: false,
+        showProtractor: false,
         labels: ["x", "y"],
         graph: {type: "segment"},
     };
@@ -148,6 +150,26 @@ describe("StatefulMafsGraph", () => {
 
         // Assert: there should be 4 movable points. If there are 2 points, it
         // means we are still rendering a single segment.
+        expect(screen.getAllByTestId("movable-point").length).toBe(4);
+    });
+
+    it("re-renders when the number of sides on a polygon graph changes", () => {
+        // Arrange: render a polygon graph with three sides
+        const threeSidesProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "polygon", numSides: 3},
+        };
+        const {rerender} = render(<StatefulMafsGraph {...threeSidesProps} />);
+
+        // Act: rerender with four sides
+        const fourSidesProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            graph: {type: "polygon", numSides: 4},
+        };
+        rerender(<StatefulMafsGraph {...fourSidesProps} />);
+
+        // Assert: there should be 4 movable points. If there are 3 points, it
+        // means we are still rendering only 3 sides.
         expect(screen.getAllByTestId("movable-point").length).toBe(4);
     });
 });
