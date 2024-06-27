@@ -13,20 +13,25 @@ import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 import Util from "../util";
 import KhanColors from "../util/colors";
+import type {
+    QuadraticCoefficient,
+    Range,
+    SineCoefficient,
+} from "../util/geometry";
 import {
     angleMeasures,
+    canonicalSineCoefficients,
     ccw,
     collinear,
+    getLineEquation,
+    getLineIntersection,
     intersects,
     lawOfCosines,
     magnitude,
     rotate,
-    vector,
     sign,
-    getLineEquation,
-    getLineIntersection,
-    canonicalSineCoefficients,
     similar,
+    vector,
 } from "../util/geometry";
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
@@ -51,11 +56,6 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../types";
-import type {
-    QuadraticCoefficient,
-    SineCoefficient,
-    Range,
-} from "../util/geometry";
 
 const {DeprecationMixin} = Util;
 
@@ -1815,20 +1815,8 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     render() {
-        if (
-            this.props.graph.type === "polygon" &&
-            this.props.graph.numSides === "unlimited"
-        ) {
-            return (
-                <LegacyInteractiveGraph
-                    ref={this.legacyGraphRef}
-                    {...this.props}
-                />
-            );
-        }
-
         // Mafs shim
-        if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
+        if (shouldUseMafs(this.props.apiOptions?.flags?.["mafs"], this.props.graph)) {
             const box = getInteractiveBoxFromSizeClass(
                 this.props.containerSizeClass,
             );
@@ -2672,6 +2660,37 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getUserInputFromProps(props: Props): PerseusGraphType {
         return props.graph;
+    }
+}
+
+// exported for testing
+export function shouldUseMafs(
+    mafsFlags: Record<string, boolean> | undefined | boolean,
+    graph: PerseusGraphType,
+): boolean {
+    if (typeof mafsFlags === "boolean" || typeof mafsFlags === "undefined") {
+        return false;
+    }
+
+    switch (graph.type) {
+        case "point":
+            if (graph.numPoints === UNLIMITED) {
+                // TODO(benchristel): add a feature flag for the "unlimited"
+                // case once we've implemented point graphs with unlimited
+                // points
+                return false
+            }
+            return Boolean(mafsFlags["point-fixed"]);
+        case "polygon":
+            if (graph.numSides === UNLIMITED) {
+                // TODO(benchristel): add a feature flag for the "unlimited"
+                // case once we've implemented polygon graphs with unlimited
+                // sides
+                return false;
+            }
+            return Boolean(mafsFlags["polygon"]);
+        default:
+            return Boolean(mafsFlags[graph.type]);
     }
 }
 
