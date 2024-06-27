@@ -15,19 +15,16 @@ const LockedFunction = (props: LockedFunctionType) => {
     };
     const equation = props.equationParsed || KAS.parse(props.equation).expr;
 
-    if (directionalAxis === "x") {
-        return (
-            <g className="locked-function">
+    return (
+        <g className="locked-function">
+            {directionalAxis === "x" && (
                 <Plot.OfX y={(x) => equation.eval({x})} {...plotProps} />
-            </g>
-        );
-    } else {
-        return (
-            <g className="locked-function">
+            )}
+            {directionalAxis === "y" && (
                 <Plot.OfY x={(y) => equation.eval({y})} {...plotProps} />
-            </g>
-        );
-    }
+            )}
+        </g>
+    );
 };
 
 export default LockedFunction;

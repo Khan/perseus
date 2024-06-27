@@ -1,6 +1,5 @@
 import type {
     CollinearTuple,
-    Domain,
     LockedEllipseType,
     LockedFigure,
     LockedFigureColor,
@@ -16,13 +15,10 @@ import type {
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
-export type LockedFunctionOptions = {
-    color?: LockedFigureColor;
-    strokeStyle?: "solid" | "dashed";
-    directionalAxis?: "x" | "y";
-    domain?: Domain;
-    equationParsed?: any; // KAS doesn't have any types
-};
+export type LockedFunctionOptions = Omit<
+    Partial<LockedFunctionType>,
+    "type" | "equation"
+>;
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
     return new InteractiveGraphQuestionBuilder();
@@ -260,7 +256,7 @@ class InteractiveGraphQuestionBuilder {
         const lockedFunction: LockedFunctionType = {
             type: "function",
             equation,
-            equationParsed: "",
+            equationParsed: {},
             color: "grayH",
             strokeStyle: "solid",
             directionalAxis: "x",

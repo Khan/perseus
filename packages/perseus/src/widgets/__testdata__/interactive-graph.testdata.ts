@@ -1,10 +1,8 @@
-import {
-    interactiveGraphQuestionBuilder,
-    LockedFunctionOptions,
-} from "../interactive-graphs/interactive-graph-question-builder";
+import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
+import type {LockedFunctionOptions} from "../interactive-graphs/interactive-graph-question-builder";
 
 // Data for the interactive graph widget
 

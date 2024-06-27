@@ -703,10 +703,13 @@ describe("locked layer", () => {
 
         // Act
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const functionPlot = container.querySelector(".locked-function path");
+        const functionPlots = container.querySelectorAll(
+            ".locked-function path",
+        );
 
         // Assert
-        expect(functionPlot).toHaveStyle({
+        expect(functionPlots).toHaveLength(1);
+        expect(functionPlots[0]).toHaveStyle({
             "stroke-dasharray": "var(--mafs-line-stroke-dash-style)",
             stroke: lockedFigureColors["green"],
         });
@@ -756,6 +759,44 @@ describe("locked layer", () => {
     });
 
     it("plots the supplied equation on the axis specified", () => {
+        // Arrange
+        const apiOptions = {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        };
+        const PlotOfXMock = jest.spyOn(Plot, "OfX").mockReturnValue(null);
+        const PlotOfYMock = jest.spyOn(Plot, "OfY").mockReturnValue(null);
+        const equationFnMock = jest.fn();
 
+        // Act - Render f(x)
+        renderQuestion(segmentWithLockedFunction("x^2"), apiOptions);
+
+        // Assert
+        expect(PlotOfXMock).toHaveBeenCalledTimes(1);
+        expect(PlotOfYMock).toHaveBeenCalledTimes(0);
+
+        // Arrange - reset mocks
+        PlotOfXMock.mockReset();
+
+        // Act - Render f(y)
+        renderQuestion(
+            segmentWithLockedFunction("x^2", {
+                directionalAxis: "y",
+                equationParsed: {
+                    eval: equationFnMock,
+                },
+            }),
+            apiOptions,
+        );
+
+        // Assert
+        expect(PlotOfXMock).toHaveBeenCalledTimes(0);
+        expect(PlotOfYMock).toHaveBeenCalledTimes(1);
+        PlotOfYMock.mock.calls[0][0]["x"](1.21); // Execute the plot function
+        expect(equationFnMock).toHaveBeenCalledTimes(1);
+        expect(equationFnMock).toHaveBeenCalledWith({y: 1.21});
     });
 });

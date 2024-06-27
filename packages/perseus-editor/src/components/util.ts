@@ -122,7 +122,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 color: DEFAULT_COLOR,
                 strokeStyle: "solid",
                 equation: "x^2",
-                equationParsed: "",
+                equationParsed: {},
                 directionalAxis: "x",
             };
         default:

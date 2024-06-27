@@ -10,7 +10,7 @@ export type Range = Interval;
 export type Domain = {
     min?: number;
     max?: number;
-}
+};
 export type Size = [number, number];
 export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
@@ -741,7 +741,10 @@ export type LockedFunctionType = {
     color: LockedFigureColor;
     strokeStyle: "solid" | "dashed";
     equation: string;
-    equationParsed: string;
+    equationParsed: {
+        // KAS doesn't have any types, so making this generic
+        [k: string]: any;
+    };
     directionalAxis: "x" | "y";
     domain?: Domain;
 };

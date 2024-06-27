@@ -21,7 +21,6 @@ import {
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
-    segmentWithLockedFunction,
 } from "../__testdata__/interactive-graph.testdata";
 
 export default {
