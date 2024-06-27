@@ -13,11 +13,6 @@ import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 import Util from "../util";
 import KhanColors from "../util/colors";
-import type {
-    QuadraticCoefficient,
-    Range,
-    SineCoefficient,
-} from "../util/geometry";
 import {
     angleMeasures,
     canonicalSineCoefficients,
@@ -56,6 +51,11 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../types";
+import type {
+    QuadraticCoefficient,
+    Range,
+    SineCoefficient,
+} from "../util/geometry";
 
 const {DeprecationMixin} = Util;
 
@@ -1816,7 +1816,8 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     render() {
         // Mafs shim
-        if (shouldUseMafs(this.props.apiOptions?.flags?.["mafs"], this.props.graph)) {
+        const mafsFlags = this.props.apiOptions?.flags?.["mafs"];
+        if (shouldUseMafs(mafsFlags, this.props.graph)) {
             const box = getInteractiveBoxFromSizeClass(
                 this.props.containerSizeClass,
             );
@@ -2678,7 +2679,7 @@ export function shouldUseMafs(
                 // TODO(benchristel): add a feature flag for the "unlimited"
                 // case once we've implemented point graphs with unlimited
                 // points
-                return false
+                return false;
             }
             return Boolean(mafsFlags["point-fixed"]);
         case "polygon":
