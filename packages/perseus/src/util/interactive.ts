@@ -627,6 +627,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             },
             options,
         );
+
         const initialX = movablePoint.coord[0];
         let isInitial = true;
 
@@ -670,17 +671,9 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             // snap coordinates to grid
             if (movablePoint.snapX !== 0) {
-                // 讓座標是根據移動起始點去計算，而非從 0
                 coordX =
-                    Math.round(
-                        (coordX - movablePoint.start) / movablePoint.snapX,
-                    ) *
-                        movablePoint.snapX +
-                    movablePoint.start;
-
-                coordX = coordX > movablePoint.end ? movablePoint.end : coordX;
-                coordX =
-                    coordX < movablePoint.start ? movablePoint.start : coordX;
+                    Math.round(coordX / movablePoint.snapX) *
+                    movablePoint.snapX;
 
                 // 即便點的初始位置不在可以拖動的路徑上，仍先可以放置於上面，避免使用者困惑，拖動後就只能放置在安排好的位置
                 if (isInitial) {
