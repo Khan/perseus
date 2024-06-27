@@ -44,7 +44,7 @@ const randomGraphTypeAngle = (): PerseusGraphTypeAngle => {
 const randomGraphTypeCircle = (): PerseusGraphTypeCircle => {
     return {
         type: "circle",
-        center: randomCoord(),
+        coords: randomCoord(),
         radius: randomInteger(1, 20),
     };
 };

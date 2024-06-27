@@ -360,7 +360,7 @@ function doMoveCenter(
             const newRadiusPoint: vec.Vector2 = [
                 ...vec.add(
                     state.radiusPoint,
-                    vec.sub(constrainedCenter, state.center),
+                    vec.sub(constrainedCenter, state.coords),
                 ),
             ];
 
@@ -381,7 +381,7 @@ function doMoveCenter(
             return {
                 ...state,
                 hasBeenInteractedWith: true,
-                center: constrainedCenter,
+                coords: constrainedCenter,
                 radiusPoint: newRadiusPoint,
             };
         }
@@ -403,10 +403,10 @@ function doMoveRadiusPoint(
                 // Constrain to graph range
                 // The +0 is to convert -0 to +0
                 Math.min(Math.max(xMin, action.destination[0] + 0), xMax),
-                state.center[1],
+                state.coords[1],
             ];
 
-            if (_.isEqual(nextRadiusPoint, state.center)) {
+            if (_.isEqual(nextRadiusPoint, state.coords)) {
                 return state;
             }
 

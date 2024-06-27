@@ -369,12 +369,12 @@ class CircleGraphConfig implements InteractiveFigureConfig {
     }
 
     correct(): PerseusGraphType {
-        return {type: "circle", radius: 5, center: [0, 0]};
+        return {type: "circle", radius: 5, coords: [0, 0]};
     }
 
     graph(): PerseusGraphType {
         if (this.startCoords) {
-            return {type: "circle", center: this.startCoords, radius: 5};
+            return {type: "circle", coords: this.startCoords, radius: 5};
         }
 
         return {type: "circle"};

@@ -767,7 +767,8 @@ export type PerseusGraphTypeAngle = {
 
 export type PerseusGraphTypeCircle = {
     type: "circle";
-    center?: Coord;
+    // The center of the circle.
+    coords?: Coord;
     radius?: number;
 } & PerseusGraphTypeCommon;
 

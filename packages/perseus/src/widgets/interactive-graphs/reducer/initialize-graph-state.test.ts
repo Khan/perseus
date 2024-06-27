@@ -312,11 +312,11 @@ describe("initializeGraphState for circle graphs", () => {
     it("uses the given circle specs, if present", () => {
         const graph = initializeGraphState({
             ...baseGraphData,
-            graph: {type: "circle", center: [1, 2], radius: 5},
+            graph: {type: "circle", coords: [1, 2], radius: 5},
         });
 
         invariant(graph.type === "circle");
-        expect(graph.center).toEqual([1, 2]);
+        expect(graph.coords).toEqual([1, 2]);
         expect(graph.radiusPoint).toEqual([6, 2]);
     });
 
@@ -327,7 +327,7 @@ describe("initializeGraphState for circle graphs", () => {
         });
 
         invariant(graph.type === "circle");
-        expect(graph.center).toEqual([0, 0]);
+        expect(graph.coords).toEqual([0, 0]);
         expect(graph.radiusPoint).toEqual([2, 0]);
     });
 });

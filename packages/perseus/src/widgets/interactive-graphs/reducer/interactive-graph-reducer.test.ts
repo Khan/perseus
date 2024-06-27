@@ -45,7 +45,7 @@ const baseCircleGraphState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    center: [0, 0],
+    coords: [0, 0],
     radiusPoint: [2, 0],
 };
 
@@ -638,7 +638,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        expect((updated as CircleGraphState).center).toEqual([1, 1]);
+        expect((updated as CircleGraphState).coords).toEqual([1, 1]);
     });
 
     it("sets hasBeenInteractedWith", () => {
@@ -660,7 +660,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        expect((updated as CircleGraphState).center).toEqual([9, 9]);
+        expect((updated as CircleGraphState).coords).toEqual([9, 9]);
     });
 
     it("updates the radius", () => {

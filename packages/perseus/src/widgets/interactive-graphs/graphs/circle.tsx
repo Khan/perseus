@@ -20,7 +20,7 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, radiusPoint} = graphState;
+    const {coords: center, radiusPoint} = graphState;
 
     return (
         <>

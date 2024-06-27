@@ -353,7 +353,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options).toEqual(
             expect.objectContaining({
                 graph: {type: "circle"},
-                correct: {type: "circle", radius: 5, center: [0, 0]},
+                correct: {type: "circle", radius: 5, coords: [0, 0]},
             }),
         );
     });
@@ -365,8 +365,8 @@ describe("InteractiveGraphQuestionBuilder", () => {
         const graph = question.widgets["interactive-graph 1"];
         expect(graph.options).toEqual(
             expect.objectContaining({
-                graph: {type: "circle", center: [9, 9], radius: 5},
-                correct: {type: "circle", radius: 5, center: [0, 0]},
+                graph: {type: "circle", coords: [9, 9], radius: 5},
+                correct: {type: "circle", radius: 5, coords: [0, 0]},
             }),
         );
     });

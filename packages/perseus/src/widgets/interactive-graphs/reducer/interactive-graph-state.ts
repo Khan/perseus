@@ -57,7 +57,7 @@ export function getGradableGraph(
     if (state.type === "circle" && initialGraph.type === "circle") {
         return {
             ...initialGraph,
-            center: state.center,
+            coords: state.coords,
             radius: getRadius(state),
         };
     }
@@ -88,7 +88,7 @@ export function getGradableGraph(
  * @returns the radius of the circle
  */
 export function getRadius(graph: CircleGraphState): number {
-    const [centerX, centerY] = graph.center;
+    const [centerX, centerY] = graph.coords;
     const [edgeX, edgeY] = graph.radiusPoint;
     return Math.sqrt(
         Math.pow(edgeX - centerX, 2) + Math.pow(edgeY - centerY, 2),

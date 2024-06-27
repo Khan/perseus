@@ -150,10 +150,8 @@ function getAnswersFromWidgets(
                 // Answer is a list of points that should be on the graph
                 // E.g. 'There should be point(s) on [(-1, 1), (1, 1)]'
                 const grapher = widget;
-                // @ts-expect-error - TS2339 - Property 'coords' does not exist on type '{ type: "absolute_value"; coords: [Coord, Coord]; } | { type: "exponential"; asymptote: [Coord, Coord]; coords: [Coord, Coord]; } | { type: "linear"; coords: [...]; } | ... 4 more ... | PerseusGraphType'.
                 if (grapher.options?.correct?.coords) {
                     answers.push(
-                        // @ts-expect-error - TS2339 - Property 'coords' does not exist on type '{ type: "absolute_value"; coords: [Coord, Coord]; } | { type: "exponential"; asymptote: [Coord, Coord]; coords: [Coord, Coord]; } | { type: "linear"; coords: [...]; } | ... 4 more ... | PerseusGraphType'.
                         `There should be point(s) on [${grapher.options.correct?.coords.join(
                             "], [",
                         )}]`,

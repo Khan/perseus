@@ -92,7 +92,7 @@ export const circleQuestion: PerseusRenderer = {
                 },
                 correct: {
                     type: "circle",
-                    center: [-2, -4],
+                    coords: [-2, -4],
                     radius: 2,
                 },
             },
@@ -133,7 +133,7 @@ export const circleQuestionWithDefaultCorrect: PerseusRenderer = {
                 },
                 correct: {
                     type: "circle",
-                    center: [0, 0],
+                    coords: [0, 0],
                     radius: 2,
                 },
             },

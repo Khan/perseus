@@ -330,17 +330,17 @@ function getQuadraticCoords(
 }
 
 function getCircleCoords(graph: PerseusGraphTypeCircle): {
-    center: Coord;
+    coords: Coord;
     radiusPoint: Coord;
 } {
-    if (graph.center != null && graph.radius != null) {
+    if (graph.coords != null && graph.radius != null) {
         return {
-            center: graph.center,
-            radiusPoint: vec.add(graph.center, [graph.radius, 0]),
+            coords: graph.coords,
+            radiusPoint: vec.add(graph.coords, [graph.radius, 0]),
         };
     }
     return {
-        center: [0, 0],
+        coords: [0, 0],
         radiusPoint: [2, 0],
     };
 }

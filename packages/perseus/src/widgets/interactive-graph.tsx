@@ -103,7 +103,6 @@ const deprecatedProps = {
 const _getShouldShowInstructions: (arg1: Props) => boolean = (props) => {
     return (
         _isClickToAddPoints(props) &&
-        // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
         (props.graph.coords == null || props.graph.coords.length === 0)
     );
 };
@@ -262,7 +261,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         props = props || this.props;
         return (
             this.isClickToAddPoints(props) &&
-            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             (props.graph.coords == null || props.graph.coords.length === 0)
         );
     };
@@ -1909,8 +1907,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         graph: PerseusGraphType,
         props: Props,
     ): ReadonlyArray<Coord> {
+        // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
         return (
-            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
             InteractiveGraph.pointsFromNormalized(props, [
                 [0.25, 0.75],
@@ -2002,9 +2000,9 @@ class InteractiveGraph extends React.Component<Props, State> {
         graph: PerseusGraphType,
         props: Props,
     ): ReadonlyArray<ReadonlyArray<Coord>> {
+        // The callers assume that we're return an array of points
+        // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
         return (
-            // The callers assume that we're return an array of points
-            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
             _.map(
                 [
@@ -2223,9 +2221,9 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getCurrentQuadraticCoefficients(props: Props): QuadraticCoefficient {
         // TODO(alpert): Don't duplicate
         const coords =
-            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.graph.coords ||
             InteractiveGraph.defaultQuadraticCoords(props);
+        // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
         return InteractiveGraph.getQuadraticCoefficients(coords);
     }
 
@@ -2253,8 +2251,8 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getCurrentSinusoidCoefficients(props: Props): SineCoefficient {
         const coords =
-            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.graph.coords || InteractiveGraph.defaultSinusoidCoords(props);
+        // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
         return InteractiveGraph.getSinusoidCoefficients(coords);
     }
 
@@ -2283,9 +2281,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getCircleEquationString(props: Props): string {
         const graph = props.graph;
-        // TODO(alpert): Don't duplicate
-        // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'.
-        const center = graph.center || [0, 0];
+        const center = graph.coords || [0, 0];
         // @ts-expect-error - TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
         const radius = graph.radius || 2;
         return (
@@ -2396,7 +2392,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         // circle's center/radius fields. When those fields are absent, skip
         // all these checks; just go mark the answer as empty.
         const hasValue = Boolean(
-            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             userInput.coords ||
                 // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
                 (userInput.center && userInput.radius),
@@ -2505,7 +2500,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 rubric.correct.type === "circle"
             ) {
                 if (
-                    deepEq(userInput.center, rubric.correct.center) &&
+                    deepEq(userInput.coords, rubric.correct.coords) &&
                     eq(userInput.radius, rubric.correct.radius)
                 ) {
                     return {

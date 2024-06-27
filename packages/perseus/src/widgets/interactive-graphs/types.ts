@@ -68,7 +68,8 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
 
 export interface CircleGraphState extends InteractiveGraphStateCommon {
     type: "circle";
-    center: Coord;
+    // The center of the circle
+    coords: Coord;
     radiusPoint: Coord;
 }
 
