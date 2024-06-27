@@ -7,15 +7,11 @@ import {lockedFigureColors} from "../../../perseus-types";
 import type {LockedFunctionType} from "../../../perseus-types";
 
 const LockedFunction = (props: LockedFunctionType) => {
-    const {color, strokeStyle, directionalAxis} = props;
-    // const domain = [
-    //     props.domain?.min ?? -Infinity,
-    //     props.domain?.max ?? Infinity,
-    // ];
+    const {color, strokeStyle, directionalAxis, domain} = props;
     const plotProps = {
         color: lockedFigureColors[color],
         style: strokeStyle,
-        // t: domain,
+        domain,
     };
     const equation = props.equationParsed || KAS.parse(props.equation).expr;
 

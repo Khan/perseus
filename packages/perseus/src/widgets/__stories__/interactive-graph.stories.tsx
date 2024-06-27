@@ -142,16 +142,6 @@ export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
     />
 );
 
-export const LockedFunction = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...mafsOptions}
-        question={segmentWithLockedFunction("x^2", {
-            color: "green",
-            strokeStyle: "dashed",
-        })}
-    />
-);
-
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={sinusoidQuestion} />
 );

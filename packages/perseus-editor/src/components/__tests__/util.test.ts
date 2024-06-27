@@ -77,6 +77,18 @@ describe("getDefaultFigureForType", () => {
             strokeStyle: "solid",
         });
     });
+
+    test("should return a 'function' with default values", () => {
+        const figure = getDefaultFigureForType("function");
+        expect(figure).toEqual({
+            type: "function",
+            color: "grayH",
+            strokeStyle: "solid",
+            equation: "x^2",
+            equationParsed: "",
+            directionalAxis: "x",
+        });
+    });
 });
 
 describe("degreeToRadian", () => {

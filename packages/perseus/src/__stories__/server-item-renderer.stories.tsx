@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useState} from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
@@ -81,5 +82,102 @@ export const MultiWidgetWithInteractionCallback = (
                 },
             }}
         />
+    );
+};
+
+export const Interactive = () => {
+    const [value, setValue] = useState("");
+    const [debug, setDebug] = useState(true);
+
+    function findItemData(input) {
+        const parsed = JSON.parse(input);
+        const itemData =
+            parsed?.data?.assessmentItem?.item?.itemData ||
+            parsed?.assessmentItem?.item?.itemData ||
+            parsed?.item?.itemData ||
+            parsed?.itemData;
+        if (itemData) {
+            return JSON.parse(itemData);
+        } else if (parsed.question && parsed.hints) {
+            return parsed;
+        }
+    }
+
+    function extractItemData() {
+        const itemData = findItemData(value);
+        setValue(JSON.stringify(itemData, null, 2));
+    }
+
+    let content = null;
+    let parsingError = false;
+    try {
+        if (value) {
+            content = findItemData(value);
+        }
+    } catch (e) {
+        parsingError = true;
+        // eslint-disable-next-line no-console
+        console.error(e);
+    }
+
+    return (
+        <div>
+            <div
+                style={{
+                    padding: "2rem",
+                }}
+            >
+                <label>
+                    Dump Perseus data here
+                    <textarea
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                        style={{
+                            display: "block",
+                            width: "100%",
+                            height: "20rem",
+                        }}
+                    />
+                </label>
+                {content && (
+                    <div>
+                        <button onClick={extractItemData}>
+                            Extract item data
+                        </button>
+                        <button onClick={() => setDebug(!debug)}>
+                            {debug
+                                ? "Use ServerItemRenderer"
+                                : "Use ServerItemRendererWithDebugUI"}
+                        </button>
+                    </div>
+                )}
+            </div>
+            <div
+                style={{
+                    padding: "2rem",
+                }}
+            >
+                {parsingError && <p>There was a problem parsing the JSON</p>}
+                {content && (
+                    <>
+                        {debug ? (
+                            <ServerItemRendererWithDebugUI item={content} />
+                        ) : (
+                            <ServerItemRenderer
+                                problemNum={0}
+                                item={content}
+                                dependencies={storybookDependenciesV2}
+                                linterContext={{
+                                    contentType: "",
+                                    highlightLint: true,
+                                    paths: [],
+                                    stack: [],
+                                }}
+                            />
+                        )}
+                    </>
+                )}
+            </div>
+        </div>
     );
 };

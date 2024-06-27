@@ -1,7 +1,9 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import * as KAS from "@khanacademy/kas";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
+import {Plot} from "mafs";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -28,6 +30,7 @@ import {
     segmentQuestion,
     segmentQuestionDefaultCorrect,
     segmentWithLockedEllipses,
+    segmentWithLockedFunction,
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
@@ -257,7 +260,7 @@ describe("a mafs graph", () => {
             expect(points).toHaveLength(2);
         });
 
-        test("should render locked points with styles", async () => {
+        it("should render locked points with styles", async () => {
             // Arrange
             const {container} = renderQuestion(
                 segmentWithLockedPointsQuestion,
@@ -400,7 +403,7 @@ describe("locked layer", () => {
         expect(points).toHaveLength(2);
     });
 
-    test("should render locked points with styles when color is not specified", async () => {
+    it("should render locked points with styles when color is not specified", async () => {
         // Arrange
         const {container} = renderQuestion(
             segmentWithLockedPointsQuestion,
@@ -424,7 +427,7 @@ describe("locked layer", () => {
         });
     });
 
-    test("should render locked points with styles when color is specified", async () => {
+    it("should render locked points with styles when color is specified", async () => {
         // Arrange
         const {container} = renderQuestion(
             segmentWithLockedPointsWithColorQuestion,
@@ -454,7 +457,7 @@ describe("locked layer", () => {
         });
     });
 
-    test("should render locked lines", () => {
+    it("should render locked lines", () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedLineQuestion, {
             flags: {
@@ -475,7 +478,7 @@ describe("locked layer", () => {
         expect(rays).toHaveLength(1);
     });
 
-    test("should render locked lines with styles", () => {
+    it("should render locked lines with styles", () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedLineQuestion, {
             flags: {
@@ -498,7 +501,7 @@ describe("locked layer", () => {
         expect(ray).toHaveStyle({stroke: lockedFigureColors.pink});
     });
 
-    test("should render locked lines with shown points", async () => {
+    it("should render locked lines with shown points", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedLineQuestion, {
             flags: {
@@ -539,7 +542,7 @@ describe("locked layer", () => {
         });
     });
 
-    test("should render locked vectors", async () => {
+    it("should render locked vectors", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedVectors, {
             flags: {
@@ -587,7 +590,7 @@ describe("locked layer", () => {
         );
     });
 
-    test("should render locked ellipses", async () => {
+    it("should render locked ellipses", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedEllipses, {
             flags: {
@@ -617,7 +620,7 @@ describe("locked layer", () => {
         });
     });
 
-    test("should render locked polygons with style", async () => {
+    it("should render locked polygons with style", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedPolygons, {
             flags: {
@@ -647,7 +650,7 @@ describe("locked layer", () => {
         });
     });
 
-    test("should render vertices of locked polygons with showVertices", async () => {
+    it("should render vertices of locked polygons with showVertices", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedPolygons, {
             flags: {
@@ -680,5 +683,79 @@ describe("locked layer", () => {
         expect(polygonVertices[3]).toHaveStyle({
             fill: lockedFigureColors["green"],
         });
+    });
+
+    it("should render locked function with style", () => {
+        // Arrange
+        const {container} = renderQuestion(
+            segmentWithLockedFunction("x^2", {
+                color: "green",
+                strokeStyle: "dashed",
+            }),
+            {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+        );
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const functionPlot = container.querySelector(".locked-function path");
+
+        // Assert
+        expect(functionPlot).toHaveStyle({
+            "stroke-dasharray": "var(--mafs-line-stroke-dash-style)",
+            stroke: lockedFigureColors["green"],
+        });
+    });
+
+    it("parses equation only when needed for a locked function", () => {
+        const PARSED = "equation needed parsing";
+        const PREPARSED = "equation was pre-parsed";
+        // Arrange - equation needs parsing
+        const KasParseMock = jest
+            .spyOn(KAS, "parse")
+            .mockReturnValue({expr: {eval: () => PARSED}});
+        const PlotMock = jest.spyOn(Plot, "OfX").mockImplementation();
+        renderQuestion(segmentWithLockedFunction("x^2"), {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+        let plotFn = PlotMock.mock.calls[0][0]["y"];
+
+        // Assert
+        expect(KasParseMock).toHaveBeenCalledTimes(1);
+        expect(plotFn(0)).toEqual(PARSED);
+
+        // Arrange - equation does NOT need parsing
+        KasParseMock.mockReset();
+        PlotMock.mockReset();
+        renderQuestion(
+            segmentWithLockedFunction("x^2", {
+                equationParsed: {eval: () => PREPARSED},
+            }),
+            {
+                flags: {
+                    mafs: {
+                        segment: true,
+                    },
+                },
+            },
+        );
+        plotFn = PlotMock.mock.calls[0][0]["y"];
+
+        // Assert
+        expect(KasParseMock).toHaveBeenCalledTimes(0);
+        expect(plotFn(0)).toEqual(PREPARSED);
+    });
+
+    it("plots the supplied equation on the axis specified", () => {
+
     });
 });

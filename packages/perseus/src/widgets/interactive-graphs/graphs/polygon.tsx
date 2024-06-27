@@ -1,4 +1,4 @@
-import {Polygon, useMovable, vec} from "mafs";
+import {Polygon, vec} from "mafs";
 import * as React from "react";
 
 import {moveAll, movePoint} from "../reducer/interactive-graph-action";
@@ -7,6 +7,7 @@ import {TARGET_SIZE, snap} from "../utils";
 import {Angle} from "./components/angle";
 import {StyledMovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
+import {useDraggable} from "./use-draggable";
 import {getLines} from "./utils";
 
 import type {MafsGraphProps, PolygonGraphState} from "../types";
@@ -28,7 +29,7 @@ export const PolygonGraph = (props: Props) => {
     const ref = React.useRef<SVGPolygonElement>(null);
     const dragReferencePoint = points[0];
     const snapToValue = snapTo ?? "grid";
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: ref,
         point: dragReferencePoint,
         onMove: (newPoint) => {
