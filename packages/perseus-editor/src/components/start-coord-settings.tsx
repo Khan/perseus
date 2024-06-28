@@ -26,7 +26,7 @@ const StartCoordSettingsInner = (props: Props) => {
     // Check if coords is of type CollinearTuple
     if (props.type === "linear" || props.type === "ray") {
         const startCoords =
-            props.coords ?? getLineCoords({type: props.type}, range, step);
+            props.startCoords ?? getLineCoords({type: props.type}, range, step);
 
         return (
             <>

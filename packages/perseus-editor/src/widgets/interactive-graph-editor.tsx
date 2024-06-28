@@ -688,7 +688,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         const graph = {
             ...this.props.graph,
-            coords: coords,
+            startCoords: coords,
         };
         this.props.onChange({graph: graph});
     };

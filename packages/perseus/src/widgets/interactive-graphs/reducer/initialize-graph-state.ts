@@ -114,6 +114,11 @@ function getPointCoords(
         return coords;
     }
 
+    const startCoords = graph.startCoords?.slice();
+    if (startCoords) {
+        return startCoords;
+    }
+
     switch (numPoints) {
         case 1:
             // Back in the day, one point's coords were in graph.coord
@@ -182,6 +187,10 @@ function getSegmentCoords(
         return graph.coords;
     }
 
+    if (graph.startCoords) {
+        return graph.startCoords;
+    }
+
     const ys = (n?: number) => {
         switch (n) {
             case 2:
@@ -235,6 +244,10 @@ export function getLineCoords(
         return graph.coords;
     }
 
+    if (graph.startCoords) {
+        return graph.startCoords;
+    }
+
     return normalizePoints(range, step, defaultLinearCoords[0]);
 }
 
@@ -245,6 +258,10 @@ function getLinearSystemCoords(
 ): PairOfPoints[] {
     if (graph.coords) {
         return graph.coords;
+    }
+
+    if (graph.startCoords) {
+        return graph.startCoords;
     }
 
     return defaultLinearCoords.map((points) =>
@@ -260,6 +277,11 @@ function getPolygonCoords(
     let coords = graph.coords?.slice();
     if (coords) {
         return coords;
+    }
+
+    const startCoords = graph.startCoords?.slice();
+    if (startCoords) {
+        return startCoords;
     }
 
     const n = graph.numSides || 3;
@@ -301,6 +323,10 @@ function getSinusoidCoords(
         return [graph.coords[0], graph.coords[1]];
     }
 
+    if (graph.startCoords) {
+        return [graph.startCoords[0], graph.startCoords[1]];
+    }
+
     let coords: [Coord, Coord] = [
         [0.5, 0.5],
         [0.65, 0.6],
@@ -318,6 +344,10 @@ function getQuadraticCoords(
 ): [Coord, Coord, Coord] {
     if (graph.coords) {
         return graph.coords;
+    }
+
+    if (graph.startCoords) {
+        return graph.startCoords;
     }
 
     const defaultCoords: [Coord, Coord, Coord] = [
@@ -339,6 +369,14 @@ function getCircleCoords(graph: PerseusGraphTypeCircle): {
             radiusPoint: vec.add(graph.center, [graph.radius, 0]),
         };
     }
+
+    if (graph.startCoords) {
+        return {
+            center: graph.startCoords,
+            radiusPoint: vec.add(graph.startCoords, [2, 0]),
+        };
+    }
+
     return {
         center: [0, 0],
         radiusPoint: [2, 0],
