@@ -69,6 +69,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                 previewURL="about:blank"
                 itemId="1"
                 onChange={(props) => {
+                    console.log("onChange in storybook");
                     onChangeAction(props);
 
                     if ("jsonMode" in props) {

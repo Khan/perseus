@@ -255,12 +255,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     let correct = this.props.correct;
                     // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     if (correct.type === newProps.graph.type) {
-                        correct = _.extend({}, correct, newProps.graph);
+                        correct = {
+                            ...correct,
+                            ...newProps.graph,
+                        };
                     } else {
                         // Clear options from previous graph
                         correct = newProps.graph;
                     }
-                    this.props.onChange({correct: correct});
+                    this.props.onChange({
+                        correct: correct,
+                        graph: this.props.graph,
+                    });
                 },
             } as const;
             // This is used to force a remount of the graph component
