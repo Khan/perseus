@@ -228,7 +228,7 @@ describe("shouldUseMafs", () => {
             numPoints: 42,
         };
         const mafsFlags = {
-            "point": true,
+            point: true,
         };
 
         expect(shouldUseMafs(mafsFlags, graph)).toBe(true);
@@ -240,7 +240,7 @@ describe("shouldUseMafs", () => {
             numPoints: "unlimited",
         };
         const mafsFlags = {
-            "point": true,
+            point: true,
         };
 
         expect(shouldUseMafs(mafsFlags, graph)).toBe(false);
@@ -252,7 +252,7 @@ describe("shouldUseMafs", () => {
             type: "point",
         };
         const mafsFlags = {
-            "point": true,
+            point: true,
         };
 
         expect(shouldUseMafs(mafsFlags, graph)).toBe(true);
