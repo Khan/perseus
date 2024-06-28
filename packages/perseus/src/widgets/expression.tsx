@@ -539,9 +539,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     render():
         | React.ReactNode
         | React.ReactElement<React.ComponentProps<"div">> {
-        console.log("render Expression");
         if (this.props.apiOptions.customKeypad) {
-            console.log("custom keypad");
             return (
                 <KeypadInput
                     // eslint-disable-next-line react/no-string-refs
@@ -553,14 +551,14 @@ export class Expression extends React.Component<Props, ExpressionState> {
                         // this.props.keypadElement should always be set
                         // when apiOptions.customKeypad is set, but how
                         // to convince TypeScript of this?
-                        // this.props.keypadElement?.configure(
-                        //     this.props.keypadConfiguration,
-                        //     () => {
-                        //         if (this._isMounted) {
-                        //             this._handleFocus();
-                        //         }
-                        //     },
-                        // );
+                        this.props.keypadElement?.configure(
+                            this.props.keypadConfiguration,
+                            () => {
+                                if (this._isMounted) {
+                                    this._handleFocus();
+                                }
+                            },
+                        );
                     }}
                     onBlur={this._handleBlur}
                 />
@@ -574,7 +572,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
-        console.log("render MathInput");
         return (
             <div
                 className={className}
@@ -613,7 +610,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                         onChange={this.changeAndTrack}
                         convertDotToTimes={this.props.times}
                         buttonSets={this.props.buttonSets}
-                        //onFocus={this._handleFocus}
+                        onFocus={this._handleFocus}
                         onBlur={this._handleBlur}
                         hasError={this.state.showErrorStyle}
                         extraKeys={this.props.keypadConfiguration?.extraKeys}
