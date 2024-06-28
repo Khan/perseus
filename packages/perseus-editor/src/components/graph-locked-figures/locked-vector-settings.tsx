@@ -12,10 +12,11 @@ import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import CoordinatePairInput from "../coordinate-pair-input";
+import PerseusEditorAccordion from "../perseus-editor-accordion";
+
 import ColorSelect from "./color-select";
-import CoordinatePairInput from "./coordinate-pair-input";
 import LineSwatch from "./line-swatch";
-import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -61,7 +62,7 @@ const LockedVectorSettings = (props: Props) => {
     }
 
     return (
-        <LockedFigureSettingsAccordion
+        <PerseusEditorAccordion
             expanded={props.expanded}
             onToggle={props.onToggle}
             header={
@@ -88,7 +89,7 @@ const LockedVectorSettings = (props: Props) => {
             )}
 
             {/* Coordinates */}
-            <LockedFigureSettingsAccordion
+            <PerseusEditorAccordion
                 expanded={true} // Initial state is expanded
                 containerStyle={styles.container}
                 panelStyle={styles.accordionPanel}
@@ -105,9 +106,9 @@ const LockedVectorSettings = (props: Props) => {
                         handleChangePoint(newProps, 0);
                     }}
                 />
-            </LockedFigureSettingsAccordion>
+            </PerseusEditorAccordion>
 
-            <LockedFigureSettingsAccordion
+            <PerseusEditorAccordion
                 expanded={true} // Initial state is expanded
                 containerStyle={styles.container}
                 panelStyle={styles.accordionPanel}
@@ -124,7 +125,7 @@ const LockedVectorSettings = (props: Props) => {
                         handleChangePoint(newProps, 1);
                     }}
                 />
-            </LockedFigureSettingsAccordion>
+            </PerseusEditorAccordion>
 
             {/* Actions */}
             <LockedFigureSettingsActions
@@ -133,7 +134,7 @@ const LockedVectorSettings = (props: Props) => {
                 onMove={onMove}
                 onRemove={onRemove}
             />
-        </LockedFigureSettingsAccordion>
+        </PerseusEditorAccordion>
     );
 };
 

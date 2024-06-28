@@ -246,6 +246,7 @@ describe("InteractiveGraphEditor", () => {
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
                 correct: {type: "point", numPoints: 5},
+                graph: {type: "point", numPoints: 5},
             }),
         );
     });
@@ -278,6 +279,12 @@ describe("InteractiveGraphEditor", () => {
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
                 correct: {
+                    type: "polygon",
+                    numSides: 5,
+                    coords: null,
+                    snapTo: "grid",
+                },
+                graph: {
                     type: "polygon",
                     numSides: 5,
                     coords: null,
@@ -356,6 +363,10 @@ describe("InteractiveGraphEditor", () => {
                     type: "polygon",
                     showAngles: true,
                 },
+                graph: {
+                    type: "polygon",
+                    showAngles: true,
+                },
             }),
         );
     });
@@ -388,6 +399,10 @@ describe("InteractiveGraphEditor", () => {
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
                 correct: {
+                    type: "polygon",
+                    showSides: true,
+                },
+                graph: {
                     type: "polygon",
                     showSides: true,
                 },
@@ -428,6 +443,10 @@ describe("InteractiveGraphEditor", () => {
                     type: "segment",
                     numSegments: 5,
                     coords: null,
+                },
+                graph: {
+                    type: "segment",
+                    numSegments: 5,
                 },
             }),
         );

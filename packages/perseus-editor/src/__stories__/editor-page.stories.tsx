@@ -11,6 +11,7 @@ import {
     circleWithStartingCoordsQuestion,
     linearSystemWithStartingCoordsQuestion,
     linearWithStartingCoordsQuestion,
+    polygonQuestion,
     quadraticWithStartingCoordsQuestion,
     rayWithStartingCoordsQuestion,
     segmentWithLockedFigures,
@@ -112,6 +113,10 @@ export const InteractiveGraphSinusoidWithStartingCoords =
             />
         );
     };
+
+export const InteractiveGraphPolygon = (): React.ReactElement => {
+    return <EditorPageWithStorybookPreview question={polygonQuestion} />;
+};
 
 export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
     return (

@@ -16,7 +16,7 @@ import {
 import GraphUtils from "../../../util/graph-utils";
 import {polar} from "../../../util/graphie";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {snap} from "../utils";
+import {snap, bound, clamp} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -475,7 +475,7 @@ const getDeltaVertex = (
 const getChange = (
     coords: readonly vec.Vector2[],
     delta: vec.Vector2,
-    constraintOpts: Omit<ConstraintArgs, "point">,
+    constraintOpts: {snapStep: vec.Vector2; range: [Interval, Interval]},
 ): vec.Vector2 => {
     const maxMoves = coords.map((point: vec.Vector2) =>
         maxMove({...constraintOpts, point}),
@@ -678,18 +678,6 @@ function boundAndSnapToSides(
     return kvector.add(coordsCopy[rel(-1)], offset) as vec.Vector2;
 }
 
-// Returns the closest point to the given `point` that is within the graph
-// bounds given in `state`.
-function bound({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
-    const [requestedX, requestedY] = point;
-    const [snapX, snapY] = snapStep;
-    const [[minX, maxX], [minY, maxY]] = range;
-    return [
-        clamp(requestedX, minX + snapX, maxX - snapX),
-        clamp(requestedY, minY + snapY, maxY - snapY),
-    ];
-}
-
 // Returns the vector from the given point to the top-right corner of the graph when snapped to the grid
 function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const topRight = bound({snapStep, range, point: [Infinity, Infinity]});
@@ -700,16 +688,6 @@ function maxMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
 function minMove({snapStep, range, point}: ConstraintArgs): vec.Vector2 {
     const bottomLeft = bound({snapStep, range, point: [-Infinity, -Infinity]});
     return vec.sub(bottomLeft, point);
-}
-
-function clamp(value: number, min: number, max: number) {
-    if (value < min) {
-        return min;
-    }
-    if (value > max) {
-        return max;
-    }
-    return value;
 }
 
 const coordsOverlap = (coords: readonly vec.Vector2[]): boolean =>
