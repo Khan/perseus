@@ -494,6 +494,14 @@ describe("InteractiveGraphQuestionBuilder", () => {
         );
     });
 
+    it("shows the protractor", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withProtractor()
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options.showProtractor).toBe(true);
+    });
+
     it("adds a locked point", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedPointAt(3, 5)
