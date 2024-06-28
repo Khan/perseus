@@ -2681,7 +2681,7 @@ export function shouldUseMafs(
                 // points
                 return false;
             }
-            return Boolean(mafsFlags["point-fixed"]);
+            return Boolean(mafsFlags["point"]);
         case "polygon":
             if (graph.numSides === UNLIMITED) {
                 // TODO(benchristel): add a feature flag for the "unlimited"

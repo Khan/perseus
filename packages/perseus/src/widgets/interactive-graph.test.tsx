@@ -222,13 +222,13 @@ describe("shouldUseMafs", () => {
         expect(shouldUseMafs(mafsFlags, graph)).toBe(false);
     });
 
-    it("is true for a point graph when the `point-fixed` feature flag is on", () => {
+    it("is true for a point graph when the `point` feature flag is on", () => {
         const graph: PerseusGraphTypePoint = {
             type: "point",
             numPoints: 42,
         };
         const mafsFlags = {
-            "point-fixed": true,
+            "point": true,
         };
 
         expect(shouldUseMafs(mafsFlags, graph)).toBe(true);
@@ -240,7 +240,7 @@ describe("shouldUseMafs", () => {
             numPoints: "unlimited",
         };
         const mafsFlags = {
-            "point-fixed": true,
+            "point": true,
         };
 
         expect(shouldUseMafs(mafsFlags, graph)).toBe(false);
@@ -252,7 +252,7 @@ describe("shouldUseMafs", () => {
             type: "point",
         };
         const mafsFlags = {
-            "point-fixed": true,
+            "point": true,
         };
 
         expect(shouldUseMafs(mafsFlags, graph)).toBe(true);
