@@ -364,8 +364,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                         ? this.context.strings.closeKeypad
                                         : this.context.strings.openKeypad
                                 }
-                                aria-checked={this.state.keypadOpen}
-                                role="switch"
+                                role="button"
                                 onClick={() =>
                                     this.state.keypadOpen
                                         ? this.closeKeypad()

@@ -15,7 +15,7 @@ type Props = {
     onToggle?: (expanded: boolean) => void;
 };
 
-const LockedFigureSettingsAccordion = (props: Props) => {
+const PerseusEditorAccordion = (props: Props) => {
     const {children, header, expanded, containerStyle, panelStyle, onToggle} =
         props;
 
@@ -24,7 +24,7 @@ const LockedFigureSettingsAccordion = (props: Props) => {
             // More specificity so that we can override the default
             // .heading > h2 > .header styles from the articles.less
             // file (which is imported in perseus-renderer.less).
-            className="locked-figure-accordion"
+            className="perseus-editor-accordion"
         >
             <AccordionSection
                 expanded={expanded}
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LockedFigureSettingsAccordion;
+export default PerseusEditorAccordion;

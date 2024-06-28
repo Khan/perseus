@@ -17,10 +17,11 @@ import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import CoordinatePairInput from "../coordinate-pair-input";
+import PerseusEditorAccordion from "../perseus-editor-accordion";
+
 import ColorSelect from "./color-select";
-import CoordinatePairInput from "./coordinate-pair-input";
 import LabeledSwitch from "./labeled-switch";
-import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import PolygonSwatch from "./polygon-swatch";
 
@@ -53,7 +54,7 @@ const LockedPolygonSettings = (props: Props) => {
     }
 
     return (
-        <LockedFigureSettingsAccordion
+        <PerseusEditorAccordion
             expanded={expanded}
             onToggle={onToggle}
             header={
@@ -133,7 +134,7 @@ const LockedPolygonSettings = (props: Props) => {
                 style={styles.spaceUnder}
             />
 
-            <LockedFigureSettingsAccordion
+            <PerseusEditorAccordion
                 header={<LabelLarge>Points</LabelLarge>}
                 expanded={true}
                 containerStyle={styles.pointAccordionContainer}
@@ -193,7 +194,7 @@ const LockedPolygonSettings = (props: Props) => {
                 >
                     Add point
                 </Button>
-            </LockedFigureSettingsAccordion>
+            </PerseusEditorAccordion>
 
             {/* Actions */}
             <LockedFigureSettingsActions
@@ -202,7 +203,7 @@ const LockedPolygonSettings = (props: Props) => {
                 onMove={onMove}
                 onRemove={onRemove}
             />
-        </LockedFigureSettingsAccordion>
+        </PerseusEditorAccordion>
     );
 };
 

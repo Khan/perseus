@@ -174,6 +174,7 @@ export type {
     // Utility types
     Range,
     Size,
+    CollinearTuple,
     MathFormat,
     InputNumberWidget, // TODO(jeremy): remove?
     // Widget configuration types

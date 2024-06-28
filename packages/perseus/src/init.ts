@@ -5,6 +5,8 @@ import * as Widgets from "./widgets";
 declare const MathJax: any;
 
 export type PerseusOptions = {
+    // TODO(LEMS-1608): remove skipMathJax once we have completely removed the
+    // legacy MathJax 2 renderer from webapp.
     skipMathJax: boolean;
 };
 

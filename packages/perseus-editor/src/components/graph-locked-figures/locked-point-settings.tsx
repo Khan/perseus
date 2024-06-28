@@ -11,11 +11,12 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import CoordinatePairInput from "../coordinate-pair-input";
+import PerseusEditorAccordion from "../perseus-editor-accordion";
+
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
-import CoordinatePairInput from "./coordinate-pair-input";
 import LabeledSwitch from "./labeled-switch";
-import LockedFigureSettingsAccordion from "./locked-figure-settings-accordion";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -44,7 +45,7 @@ const LockedPointSettings = (props: Props) => {
     }
 
     return (
-        <LockedFigureSettingsAccordion
+        <PerseusEditorAccordion
             expanded={props.expanded}
             onToggle={props.onToggle}
             header={
@@ -84,7 +85,7 @@ const LockedPointSettings = (props: Props) => {
                 onMove={onMove}
                 onRemove={onRemove}
             />
-        </LockedFigureSettingsAccordion>
+        </PerseusEditorAccordion>
     );
 };
 
