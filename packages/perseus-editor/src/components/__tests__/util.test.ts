@@ -85,7 +85,6 @@ describe("getDefaultFigureForType", () => {
             color: "grayH",
             strokeStyle: "solid",
             equation: "x^2",
-            equationParsed: {},
             directionalAxis: "x",
         });
     });

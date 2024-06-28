@@ -741,7 +741,7 @@ export type LockedFunctionType = {
     color: LockedFigureColor;
     strokeStyle: "solid" | "dashed";
     equation: string;
-    equationParsed: {
+    equationParsed?: {
         // KAS doesn't have any types, so making this generic
         [k: string]: any;
     };

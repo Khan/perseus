@@ -262,7 +262,6 @@ class InteractiveGraphQuestionBuilder {
         const lockedFunction: LockedFunctionType = {
             type: "function",
             equation,
-            equationParsed: {},
             color: "grayH",
             strokeStyle: "solid",
             directionalAxis: "x",
