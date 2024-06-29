@@ -84,25 +84,27 @@ const StartCoordSettings = (props: Props) => {
 
             {/* Start coordinates main UI */}
             {isOpen && (
-                <StartCoordSettingsInner
-                    type={type}
-                    startCoords={props.startCoords ?? defaultStartCoords}
-                    onChange={onChange}
-                />
-            )}
+                <>
+                    <StartCoordSettingsInner
+                        type={type}
+                        startCoords={props.startCoords ?? defaultStartCoords}
+                        onChange={onChange}
+                    />
 
-            {/* Button to reset to default */}
-            <Strut size={spacing.small_12} />
-            <Button
-                startIcon={arrowCounterClockwise}
-                kind="tertiary"
-                size="small"
-                onClick={() => {
-                    onChange(defaultStartCoords);
-                }}
-            >
-                Use default start coords
-            </Button>
+                    {/* Button to reset to default */}
+                    <Strut size={spacing.small_12} />
+                    <Button
+                        startIcon={arrowCounterClockwise}
+                        kind="tertiary"
+                        size="small"
+                        onClick={() => {
+                            onChange(defaultStartCoords);
+                        }}
+                    >
+                        Use default start coords
+                    </Button>
+                </>
+            )}
         </View>
     );
 };
