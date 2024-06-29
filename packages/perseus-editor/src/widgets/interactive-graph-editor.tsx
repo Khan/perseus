@@ -717,7 +717,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
             // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
             const correct = graph && graph.getUserInput();
             _.extend(json, {
-                graph: {type: correct.type},
+                graph: {
+                    type: correct.type,
+                    startCoords: this.props.graph?.startCoords,
+                },
                 correct: correct,
             });
 
@@ -741,6 +744,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 },
             );
         }
+
         // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
         return json;
     }
