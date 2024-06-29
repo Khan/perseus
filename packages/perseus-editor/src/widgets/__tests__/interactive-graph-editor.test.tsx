@@ -646,7 +646,7 @@ describe("InteractiveGraphEditor", () => {
             // Act
             render(
                 <InteractiveGraphEditor
-                    {...baseProps}
+                    {...mafsProps}
                     graph={{type: type}}
                     correct={{type: type}}
                 />,
@@ -655,10 +655,15 @@ describe("InteractiveGraphEditor", () => {
                 },
             );
 
+            const resetButton = screen.getByRole("button", {
+                name: "Use default start coords",
+            });
+
             // Assert
             expect(screen.getByText("Start coordinates")).toBeInTheDocument();
             expect(screen.getByText("Point 1")).toBeInTheDocument();
             expect(screen.getByText("Point 2")).toBeInTheDocument();
+            expect(resetButton).toBeInTheDocument();
         });
 
         test(`calls onChange when coords are changed for type ${type}`, async () => {
@@ -668,7 +673,7 @@ describe("InteractiveGraphEditor", () => {
             // Act
             render(
                 <InteractiveGraphEditor
-                    {...baseProps}
+                    {...mafsProps}
                     graph={{type: type}}
                     correct={{type: type}}
                     onChange={onChangeMock}
@@ -688,8 +693,49 @@ describe("InteractiveGraphEditor", () => {
             expect(onChangeMock).toHaveBeenLastCalledWith(
                 expect.objectContaining({
                     graph: expect.objectContaining({
-                        coords: [
+                        startCoords: [
                             [101, 5],
+                            [5, 5],
+                        ],
+                    }),
+                }),
+            );
+        });
+
+        test(`calls onChange when reset button is clicked for type ${type}`, async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...mafsProps}
+                    graph={{
+                        type: type,
+                        startCoords: [
+                            [-15, 15],
+                            [15, 15],
+                        ],
+                    }}
+                    correct={{type: type}}
+                    onChange={onChangeMock}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            const resetButton = screen.getByRole("button", {
+                name: "Use default start coords",
+            });
+            await userEvent.click(resetButton);
+
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    graph: expect.objectContaining({
+                        startCoords: [
+                            [-5, 5],
                             [5, 5],
                         ],
                     }),
