@@ -744,7 +744,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 },
             );
         }
-
         // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
         return json;
     }
