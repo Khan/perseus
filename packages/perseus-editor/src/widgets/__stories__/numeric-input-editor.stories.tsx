@@ -8,6 +8,23 @@ type StoryArgs = Record<any, any>;
 type Story = {
     title: string;
 };
+type MathFormat =
+    | "integer"
+    | "mixed"
+    | "improper"
+    | "proper"
+    | "decimal"
+    | "percent"
+    | "pi";
+type PerseusNumericInputAnswer = {
+    message: string;
+    value: number;
+    status: string;
+    answerForms?: ReadonlyArray<MathFormat>;
+    strict: boolean;
+    maxError: number | null | undefined;
+    simplify: string | null | undefined;
+};
 
 export default {
     title: "PerseusEditor/Widgets/NumericInput Editor",
@@ -15,4 +32,35 @@ export default {
 
 export const Default = (args: StoryArgs): React.ReactElement => {
     return <NumericInputEditor onChange={action("onChange")} />;
+};
+
+export const ControlledInputs = (): React.ReactElement => {
+    const controlledInput: PerseusNumericInputAnswer[] = [
+        {
+            message: "",
+            value: 10 / 100,
+            status: "correct",
+            strict: true,
+            maxError: null,
+            simplify: "required",
+        },
+    ];
+    return (
+        <NumericInputEditor
+            answers={controlledInput}
+            onChange={action("onChange")}
+        />
+    );
+};
+
+export const UncontrolledInputs = (): React.ReactElement => {
+    const [answers, setAnswers] = React.useState();
+
+    function handleChange(value) {
+        if (value.answers) {
+            setAnswers(value.answers);
+        }
+    }
+
+    return <NumericInputEditor answers={answers} onChange={handleChange} />;
 };
