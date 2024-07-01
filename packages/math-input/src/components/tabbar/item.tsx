@@ -7,7 +7,7 @@ import * as React from "react";
 import IconAsset from "./icons";
 
 import type {KeypadPageType} from "../../types";
-import {useCallback, useEffect, useRef} from "react";
+import {useEffect, useRef} from "react";
 
 const styles = StyleSheet.create({
     base: {
@@ -81,8 +81,6 @@ type ArrowKeyTabItemProps = {
     itemState: ItemState;
     itemType: KeypadPageType;
     focus: boolean;
-    setFocus: React.Dispatch<React.SetStateAction<number>>;
-    index: number;
 };
 
 type TabItemProps = {
@@ -94,17 +92,16 @@ type TabItemProps = {
 export function ArrowKeyTabbarItem(
     props: ArrowKeyTabItemProps,
 ): React.ReactElement {
-    const {onClick, itemType, itemState, focus, setFocus, index} = props;
+    const {onClick, itemType, itemState, focus} = props;
 
-    const ref = useRef(null);
+    const tabRef = useRef<typeof Clickable>(null);
 
     useEffect(() => {
-        if (focus) {
+        if (focus && tabRef?.current) {
             // Move element into view when it is focused
-            // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
-            ref.current?.focus();
+            tabRef?.current.focus();
         }
-    }, [focus, ref.current]);
+    }, [focus, tabRef.current]);
 
     return (
         <Clickable
@@ -113,9 +110,9 @@ export function ArrowKeyTabbarItem(
             aria-label={itemType}
             style={styles.clickable}
             aria-selected={itemState === "active"}
-            tabIndex={itemState === "active" ? 0 : -1}
+            tabIndex={focus ? 0 : -1}
             role="tab"
-            ref={ref}
+            ref={tabRef}
         >
             {({hovered, focused, pressed}) => {
                 const tintColor = imageTintColor(
@@ -172,7 +169,7 @@ function TabbarItem(props: TabItemProps): React.ReactElement {
             style={styles.clickable}
             aria-selected={itemState === "active"}
             tabIndex={0}
-            role="tab"
+            role="button"
         >
             {({hovered, focused, pressed}) => {
                 const tintColor = imageTintColor(
