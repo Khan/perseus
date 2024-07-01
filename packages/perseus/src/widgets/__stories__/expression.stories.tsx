@@ -4,6 +4,7 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {
+    complexExpressionWidget,
     expressionItem2,
     expressionItem3,
 } from "../__testdata__/expression.testdata";
@@ -113,7 +114,7 @@ export const Mobile = (args: StoryArgs): React.ReactElement => {
                 to use the custom keypad.
             </p>
             <WrappedKeypadContext
-                item={expressionItem3}
+                item={complexExpressionWidget}
                 customKeypad
                 isMobile
             />
