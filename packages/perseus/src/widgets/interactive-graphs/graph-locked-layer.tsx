@@ -2,6 +2,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import LockedEllipse from "./locked-figures/locked-ellipse";
+import LockedFunction from "./locked-figures/locked-function";
 import LockedLine from "./locked-figures/locked-line";
 import LockedPoint from "./locked-figures/locked-point";
 import LockedPolygon from "./locked-figures/locked-polygon";
@@ -48,6 +49,13 @@ const GraphLockedLayer = (props: Props) => {
                         return (
                             <LockedPolygon
                                 key={`polygon-${index}`}
+                                {...figure}
+                            />
+                        );
+                    case "function":
+                        return (
+                            <LockedFunction
+                                key={`function-${index}`}
                                 {...figure}
                             />
                         );

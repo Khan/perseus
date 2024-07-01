@@ -711,4 +711,44 @@ describe("InteractiveGraphQuestionBuilder", () => {
             },
         ]);
     });
+
+    it("adds a locked function", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedFunction("x^2")
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "function",
+                equation: "x^2",
+                color: "grayH",
+                strokeStyle: "solid",
+                directionalAxis: "x",
+            },
+        ]);
+    });
+
+    it("adds a locked function with options", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedFunction("x^2", {
+                color: "green",
+                strokeStyle: "dashed",
+                directionalAxis: "y",
+                domain: {min: -5, max: 5},
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "function",
+                equation: "x^2",
+                color: "green",
+                strokeStyle: "dashed",
+                directionalAxis: "y",
+                domain: {min: -5, max: 5},
+            },
+        ]);
+    });
 });
