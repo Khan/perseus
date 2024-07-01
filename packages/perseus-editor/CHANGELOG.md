@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 7.0.2
+
+### Patch Changes
+
+-   [#1385](https://github.com/Khan/perseus/pull/1385) [`30f898c44`](https://github.com/Khan/perseus/commit/30f898c44954cf6f1d3d99038f476bd2038cb7c4) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Remove the use of graphKey for remounting
+
+-   Updated dependencies [[`5fdbeb980`](https://github.com/Khan/perseus/commit/5fdbeb980880f9239696633934c2bd95b4931db6), [`94067d752`](https://github.com/Khan/perseus/commit/94067d7522a2ffcb04d213e1ebdb4a96cc0414bc)]:
+    -   @khanacademy/perseus@24.2.0
+
 ## 7.0.1
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 24.2.0
+
+### Minor Changes
+
+-   [#1386](https://github.com/Khan/perseus/pull/1386) [`5fdbeb980`](https://github.com/Khan/perseus/commit/5fdbeb980880f9239696633934c2bd95b4931db6) Thanks [@benchristel](https://github.com/benchristel)! - Add `mafs.point` flag to ApiOptions type
+
+### Patch Changes
+
+-   [#1388](https://github.com/Khan/perseus/pull/1388) [`94067d752`](https://github.com/Khan/perseus/commit/94067d7522a2ffcb04d213e1ebdb4a96cc0414bc) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph: Circle] Add a key prop to the circle drag handle
+
 ## 24.1.0
 
 ### Minor Changes
