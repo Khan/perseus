@@ -31,7 +31,6 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
     APIOptionsWithDefaults,
     LockedFigure,
-    PerseusGraphType,
 } from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -200,20 +199,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
         DeprecationMixin.UNSAFE_componentWillMount.call(this);
     }
 
-    static buildGraphKey(correct: PerseusGraphType) {
-        const testGraphKey: any[] = [];
-        for (const key in correct) {
-            if (correct[key]) {
-                typeof correct[key] === "number" ||
-                typeof correct[key] === "string" ||
-                typeof correct[key] === "boolean"
-                    ? testGraphKey.push(correct[key])
-                    : testGraphKey.push(0);
-            }
-        }
-        return testGraphKey.join(":");
-    }
-
     render() {
         let graph;
         let equationString;
@@ -269,9 +254,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     });
                 },
             } as const;
-            // This is used to force a remount of the graph component
-            // when there's a significant change
-            const graphKey = InteractiveGraphEditor.buildGraphKey(correct);
 
             graph = (
                 // There are a bunch of props that renderer.jsx passes to widgets via
@@ -280,7 +262,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // @ts-expect-error - TS2769 - No overload matches this call.
                 <InteractiveGraph
                     {...graphProps}
-                    key={graphKey}
                     containerSizeClass={sizeClass}
                     apiOptions={{
                         ...this.props.apiOptions,
