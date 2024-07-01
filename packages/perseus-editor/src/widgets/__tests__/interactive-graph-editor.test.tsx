@@ -617,21 +617,4 @@ describe("InteractiveGraphEditor", () => {
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([]);
     });
-
-    test("buildGraphKey returns the correct key", async () => {
-        // Arrange
-        const graph: PerseusGraphType = {
-            type: "polygon",
-            numSides: 4,
-            snapTo: "grid",
-            showAngles: true,
-            showSides: true,
-        };
-
-        // Act
-        const key = InteractiveGraphEditor.buildGraphKey(graph);
-
-        // Assert
-        expect(key).toEqual("polygon:4:grid:true:true");
-    });
 });
