@@ -7,6 +7,7 @@ import * as React from "react";
 import IconAsset from "./icons";
 
 import type {KeypadPageType} from "../../types";
+import {useEffect, useRef} from "react";
 
 const styles = StyleSheet.create({
     base: {
@@ -75,70 +76,143 @@ function imageTintColor(
     return color.offBlack64;
 }
 export type ItemState = "active" | "inactive" | "disabled";
-type Props = {
+type ArrowKeyTabItemProps = {
+    onClick: () => void;
+    itemState: ItemState;
+    itemType: KeypadPageType;
+    focus: boolean;
+};
+
+type TabItemProps = {
     onClick: () => void;
     itemState: ItemState;
     itemType: KeypadPageType;
 };
 
-class TabbarItem extends React.Component<Props> {
-    render(): React.ReactNode {
-        const {onClick, itemType, itemState} = this.props;
-        return (
-            <Clickable
-                onClick={onClick}
-                disabled={itemState === "disabled"}
-                aria-label={itemType}
-                style={styles.clickable}
-                aria-selected={itemState === "active"}
-                role="tab"
-            >
-                {({hovered, focused, pressed}) => {
-                    const tintColor = imageTintColor(
-                        itemState,
-                        hovered,
-                        focused,
-                        pressed,
-                    );
+export function ArrowKeyTabbarItem(
+    props: ArrowKeyTabItemProps,
+): React.ReactElement {
+    const {onClick, itemType, itemState, focus} = props;
 
-                    return (
+    const tabRef = useRef<typeof Clickable>(null);
+
+    useEffect(() => {
+        if (focus && tabRef?.current) {
+            // Move element into view when it is focused
+            tabRef?.current.focus();
+        }
+    }, [focus, tabRef.current]);
+
+    return (
+        <Clickable
+            onClick={onClick}
+            disabled={itemState === "disabled"}
+            aria-label={itemType}
+            style={styles.clickable}
+            aria-selected={itemState === "active"}
+            tabIndex={focus ? 0 : -1}
+            role="tab"
+            ref={tabRef}
+        >
+            {({hovered, focused, pressed}) => {
+                const tintColor = imageTintColor(
+                    itemState,
+                    hovered,
+                    focused,
+                    pressed,
+                );
+
+                return (
+                    <View
+                        style={[
+                            styles.base,
+                            itemState !== "disabled" &&
+                                hovered &&
+                                styles.hovered,
+                            focused && styles.focused,
+                            pressed && styles.pressed,
+                        ]}
+                    >
                         <View
                             style={[
-                                styles.base,
-                                itemState !== "disabled" &&
-                                    hovered &&
-                                    styles.hovered,
-                                focused && styles.focused,
-                                pressed && styles.pressed,
+                                styles.innerBox,
+                                pressed && styles.innerBoxPressed,
                             ]}
                         >
+                            <IconAsset type={itemType} tintColor={tintColor} />
+                        </View>
+                        {itemState === "active" && (
                             <View
                                 style={[
-                                    styles.innerBox,
-                                    pressed && styles.innerBoxPressed,
+                                    styles.activeIndicator,
+                                    {
+                                        backgroundColor: tintColor,
+                                    },
                                 ]}
-                            >
-                                <IconAsset
-                                    type={itemType}
-                                    tintColor={tintColor}
-                                />
-                            </View>
-                            {itemState === "active" && (
-                                <View
-                                    style={[
-                                        styles.activeIndicator,
-                                        {
-                                            backgroundColor: tintColor,
-                                        },
-                                    ]}
-                                />
-                            )}
+                            />
+                        )}
+                    </View>
+                );
+            }}
+        </Clickable>
+    );
+}
+
+function TabbarItem(props: TabItemProps): React.ReactElement {
+    const {onClick, itemType, itemState} = props;
+
+    return (
+        <Clickable
+            onClick={onClick}
+            disabled={itemState === "disabled"}
+            aria-label={itemType}
+            style={styles.clickable}
+            aria-selected={itemState === "active"}
+            tabIndex={0}
+            role="button"
+        >
+            {({hovered, focused, pressed}) => {
+                const tintColor = imageTintColor(
+                    itemState,
+                    hovered,
+                    focused,
+                    pressed,
+                );
+
+                return (
+                    <View
+                        style={[
+                            styles.base,
+                            itemState !== "disabled" &&
+                                hovered &&
+                                styles.hovered,
+                            focused && styles.focused,
+                            pressed && styles.pressed,
+                        ]}
+                    >
+                        <View
+                            style={[
+                                styles.innerBox,
+                                pressed && styles.innerBoxPressed,
+                            ]}
+                        >
+                            <IconAsset type={itemType} tintColor={tintColor} />
                         </View>
-                    );
-                }}
-            </Clickable>
-        );
-    }
+                        {itemState === "active" && (
+                            <View
+                                style={[
+                                    styles.activeIndicator,
+                                    {
+                                        backgroundColor: tintColor,
+                                    },
+                                ]}
+                            />
+                        )}
+                    </View>
+                );
+            }}
+        </Clickable>
+    );
 }
 
 export const TabbarItemForTesting = TabbarItem;

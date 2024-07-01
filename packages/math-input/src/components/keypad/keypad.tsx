@@ -151,7 +151,6 @@ export default function Keypad(props: Props) {
                 <View style={styles.keypadInnerContainer}>
                     <View
                         style={[styles.keypadGrid, gridStyle]}
-                        tabIndex={0}
                         aria-label="Keypad"
                     >
                         {selectedPage === "Fractions" && (
