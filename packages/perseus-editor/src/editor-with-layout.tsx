@@ -1,13 +1,16 @@
 import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
+import DeviceFramer from "./components/device-framer";
 import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
+import IframeContentRenderer from "./iframe-content-renderer";
 import ItemEditor from "./item-editor";
+import ItemExtrasEditor from "./item-extras-editor";
 
-import type {SerializeOptions} from "./types";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -19,6 +22,7 @@ import type {
     PerseusItem,
 } from "@khanacademy/perseus";
 import type {KEScore} from "@khanacademy/perseus-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {HUD} = components;
 
@@ -27,8 +31,6 @@ type Props = {
     answerArea?: any; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
     contentPaths?: ReadonlyArray<string>;
-    // "Power user" mode. Shows the raw JSON of the question.
-    developerMode: boolean;
     // Source HTML for the iframe to render
     frameSource: string;
     hints?: ReadonlyArray<Hint>; // related to the question,
@@ -53,21 +55,85 @@ type Props = {
     question?: any;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+
+    children: (components: {
+        /**
+         * A rendered component that allows users to flip between the
+         * standard content editors or the raw JSON view. This view should be
+         * gated behind a permission check and only "Developer" level folks
+         * should be able to access this mode.
+         */
+        jsonModeEditor: React.ReactNode;
+
+        /**
+         * A React Component that renders the JSON view of the current
+         * item being edited. Note that this is a "Power User" editor and can
+         * easily break an item if not used carefully.
+         */
+        JsonEditor: React.ComponentType<{style: StyleType}>;
+
+        /**
+         * A rendered component that flips the preview component
+         * between different viewport sizes (ie. phone, tablet, desktop).
+         */
+        viewportResizerElement: React.ReactNode;
+
+        /**
+         * A rendered component of a button to toggle lint
+         * warnings on and off in the other editors.
+         */
+        hudElement: React.ReactNode;
+
+        /**
+         * A rendered component that provides the item editing experience.
+         * TODO: Inline this component into EditorWithLayout for more layout
+         * control.
+         */
+        itemEditor: React.ReactNode;
+
+        /**
+         * A rendered component that previews the current item. It is updated
+         * any time the question, hints, or answerArea changes. It is also
+         * updaed when the `jsonModeEditor` is toggled on and the `JsonEditor`
+         * is changed.
+         */
+        itemPreview: React.ReactNode;
+
+        /**
+         * A rendered component that provides the hints editing experience.
+         * TODO: Inline this component into EditorWithLayout for more layout
+         * control.
+         */
+        hintsEditor: React.ReactNode;
+
+        /**
+         * A rendered component that provides an editor to toggle question
+         * extras for this item (such as calculator, periodic table, etc).
+         */
+        questionExtras: React.ReactNode;
+    }) => React.ReactNode;
 };
 
 type State = {
-    json: PerseusItem;
+    json?: PerseusItem;
+    question?: any;
+    answerArea: any;
+    hints: any;
+    itemDataVersion?: Version;
+
     gradeMessage: string;
     wasAnswered: boolean;
     highlightLint: boolean;
 };
 
-class EditorPage extends React.Component<Props, State> {
+class EditorWithLayout extends React.Component<Props, State> {
     _isMounted: boolean;
     renderer: any;
 
     itemEditor = React.createRef<ItemEditor>();
     hintsEditor = React.createRef<CombinedHintsEditor>();
+    itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+    previewRenderer = React.createRef<IframeContentRenderer>();
 
     static defaultProps: {
         developerMode: boolean;
@@ -83,14 +149,11 @@ class EditorPage extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
-            json: _.pick(
-                this.props,
-                "question",
-                "answerArea",
-                "hints",
-                "itemDataVersion",
-            ),
+            question: this.props.question,
+            answerArea: this.props.answerArea,
+            hints: this.props.hints,
+            itemDataVersion: this.props.itemDataVersion,
+
             gradeMessage: "",
             wasAnswered: false,
             highlightLint: true,
@@ -141,7 +204,7 @@ class EditorPage extends React.Component<Props, State> {
         // Some widgets (namely the image widget) like to call onChange before
         // anything has actually been mounted, which causes problems here. We
         // just ensure don't update until we've mounted
-        const hasEditor = !this.props.developerMode || !this.props.jsonMode;
+        const hasEditor = !this.props.jsonMode;
         if (!this._isMounted || !hasEditor) {
             return;
         }
@@ -194,7 +257,9 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
-    serialize(options?: SerializeOptions): PerseusItem {
+    serialize(options?: {
+        keepDeletedWidgets?: boolean;
+    }): PerseusItem | undefined {
         if (this.props.jsonMode) {
             return this.state.json;
         }
@@ -240,87 +305,106 @@ class EditorPage extends React.Component<Props, State> {
             className += " " + ClassNames.MOBILE;
         }
 
+        const jsonModeEditor = (
+            <Checkbox
+                label="Developer JSON Mode"
+                checked={this.props.jsonMode}
+                onChange={this.toggleJsonMode}
+            />
+        );
+
         return (
             <div id="perseus" className={className}>
-                <div style={{marginBottom: 10}}>
-                    {this.props.developerMode && (
-                        <span>
-                            <label>
-                                {" "}
-                                Developer JSON Mode:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.props.jsonMode}
-                                    onChange={this.toggleJsonMode}
-                                />
-                            </label>{" "}
-                        </span>
-                    )}
-
-                    {!this.props.jsonMode && (
+                {this.props.children({
+                    jsonModeEditor: jsonModeEditor,
+                    JsonEditor: ({style}: {style: StyleType}) => (
+                        <JsonEditor
+                            value={this.state.json}
+                            onChange={this.changeJSON}
+                            style={style}
+                        />
+                    ),
+                    viewportResizerElement: (
                         <ViewportResizer
                             deviceType={this.props.previewDevice}
                             onViewportSizeChanged={
                                 this.props.onPreviewDeviceChange
                             }
                         />
-                    )}
-
-                    {!this.props.jsonMode && (
+                    ),
+                    hudElement: (
                         <HUD
                             message="Style warnings"
                             enabled={this.state.highlightLint}
+                            fixedPosition={false}
                             onClick={() => {
                                 this.setState({
                                     highlightLint: !this.state.highlightLint,
                                 });
                             }}
                         />
-                    )}
-                </div>
-
-                {this.props.developerMode && this.props.jsonMode && (
-                    <div>
-                        <JsonEditor
-                            multiLine={true}
-                            value={this.state.json}
-                            onChange={this.changeJSON}
+                    ),
+                    itemEditor: !this.props.jsonMode && (
+                        <ItemEditor
+                            ref={this.itemEditor}
+                            itemId={this.props.itemId}
+                            question={this.props.question}
+                            answerArea={this.props.answerArea}
+                            imageUploader={this.props.imageUploader}
+                            onChange={this.handleChange}
+                            wasAnswered={this.state.wasAnswered}
+                            gradeMessage={this.state.gradeMessage}
+                            deviceType={this.props.previewDevice}
+                            apiOptions={deviceBasedApiOptions}
+                            previewURL={this.props.previewURL}
                         />
-                    </div>
-                )}
-
-                {(!this.props.developerMode || !this.props.jsonMode) && (
-                    <ItemEditor
-                        ref={this.itemEditor}
-                        itemId={this.props.itemId}
-                        question={this.props.question}
-                        answerArea={this.props.answerArea}
-                        imageUploader={this.props.imageUploader}
-                        onChange={this.handleChange}
-                        wasAnswered={this.state.wasAnswered}
-                        gradeMessage={this.state.gradeMessage}
-                        deviceType={this.props.previewDevice}
-                        apiOptions={deviceBasedApiOptions}
-                        previewURL={this.props.previewURL}
-                    />
-                )}
-
-                {(!this.props.developerMode || !this.props.jsonMode) && (
-                    <CombinedHintsEditor
-                        ref={this.hintsEditor}
-                        itemId={this.props.itemId}
-                        hints={this.props.hints}
-                        imageUploader={this.props.imageUploader}
-                        onChange={this.handleChange}
-                        deviceType={this.props.previewDevice}
-                        apiOptions={deviceBasedApiOptions}
-                        previewURL={this.props.previewURL}
-                        highlightLint={this.state.highlightLint}
-                    />
-                )}
+                    ),
+                    itemPreview: (
+                        <DeviceFramer
+                            deviceType={this.props.previewDevice}
+                            nochrome={true}
+                        >
+                            <IframeContentRenderer
+                                ref={this.previewRenderer}
+                                key={this.props.previewDevice}
+                                datasetKey="mobile"
+                                datasetValue={touch}
+                                seamless={true}
+                                url={this.props.previewURL}
+                            />
+                        </DeviceFramer>
+                    ),
+                    hintsEditor: !this.props.jsonMode && (
+                        <CombinedHintsEditor
+                            ref={this.hintsEditor}
+                            itemId={this.props.itemId}
+                            hints={this.props.hints}
+                            imageUploader={this.props.imageUploader}
+                            onChange={this.handleChange}
+                            deviceType={this.props.previewDevice}
+                            apiOptions={deviceBasedApiOptions}
+                            previewURL={this.props.previewURL}
+                            highlightLint={this.state.highlightLint}
+                        />
+                    ),
+                    questionExtras: (
+                        <ItemExtrasEditor
+                            ref={this.itemExtrasEditor}
+                            onChange={(answerArea) =>
+                                this.handleChange({
+                                    answerArea: {
+                                        ...this.props.answerArea,
+                                        ...answerArea,
+                                    },
+                                })
+                            }
+                            {...this.props.answerArea}
+                        />
+                    ),
+                })}
             </div>
         );
     }
 }
 
-export default EditorPage;
+export default EditorWithLayout;

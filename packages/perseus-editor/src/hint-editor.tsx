@@ -12,6 +12,7 @@ import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 
+import type {SerializeOptions} from "./types";
 import type {
     APIOptions,
     WidgetDict,
@@ -90,7 +91,7 @@ export class HintEditor extends React.Component<HintEditorProps> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize: (options?: any) => any = (options: any) => {
+    serialize: (options?: SerializeOptions) => any = (options) => {
         return this.editor.current?.serialize(options);
     };
 
@@ -222,7 +223,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize = (options: any) => {
+    serialize = (options: SerializeOptions) => {
         return this.editor.current?.serialize(options);
     };
 
@@ -390,7 +391,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .value();
     };
 
-    serialize: (options?: any) => ReadonlyArray<string> = (options: any) => {
+    serialize: (options?: SerializeOptions) => ReadonlyArray<string> = (
+        options,
+    ) => {
         return this.props.hints.map((hint, i) => {
             return this.serializeHint(i, options);
         });
@@ -407,44 +410,32 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
 
     render(): React.ReactNode {
         const {itemId, hints} = this.props;
-        const hintElems = _.map(
-            hints,
-            function (hint, i) {
-                return (
-                    <CombinedHintEditor
-                        ref={"hintEditor" + i}
-                        key={"hintEditor" + i}
-                        isFirst={i === 0}
-                        isLast={i + 1 === hints.length}
-                        itemId={itemId}
-                        hint={hint}
-                        pos={i}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        imageUploader={this.props.imageUploader}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onChange={this.handleHintChange.bind(this, i)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onRemove={this.handleHintRemove.bind(this, i)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMove={this.handleHintMove.bind(this, i)}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        deviceType={this.props.deviceType}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        apiOptions={this.props.apiOptions}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        highlightLint={this.props.highlightLint}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        previewURL={this.props.previewURL}
-                        // TODO(CP-4838): what should be passed here?
-                        contentPaths={[]}
-                    />
-                );
-            },
-            this,
-        );
+        const hintElems = hints.map((hint, i) => {
+            return (
+                <CombinedHintEditor
+                    ref={"hintEditor" + i}
+                    key={"hintEditor" + i}
+                    isFirst={i === 0}
+                    isLast={i + 1 === hints.length}
+                    itemId={itemId}
+                    hint={hint}
+                    pos={i}
+                    imageUploader={this.props.imageUploader}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onChange={this.handleHintChange.bind(this, i)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onRemove={this.handleHintRemove.bind(this, i)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onMove={this.handleHintMove.bind(this, i)}
+                    deviceType={this.props.deviceType}
+                    apiOptions={this.props.apiOptions}
+                    highlightLint={this.props.highlightLint}
+                    previewURL={this.props.previewURL}
+                    // TODO(CP-4838): what should be passed here?
+                    contentPaths={[]}
+                />
+            );
+        });
 
         return (
             <div className="perseus-hints-editor perseus-editor-table">
