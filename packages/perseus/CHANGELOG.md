@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 24.1.0
+
+### Minor Changes
+
+-   [#1376](https://github.com/Khan/perseus/pull/1376) [`3ee100add`](https://github.com/Khan/perseus/commit/3ee100add8e25da442edccfbde458f270c282112) Thanks [@benchristel](https://github.com/benchristel)! - Implement the protractor for Mafs interactive graphs
+
+*   [#1381](https://github.com/Khan/perseus/pull/1381) [`26dceb8d7`](https://github.com/Khan/perseus/commit/26dceb8d7ada9b6f3c47893d8dfaccdbeb3df980) Thanks [@benchristel](https://github.com/benchristel)! - Make the `mafs.point` flag control whether point graphs with fixed numbers of points should use Mafs. Previously, turning on the `mafs.point` flag would enable Mafs for point graphs with unlimited points as well.
+
+### Patch Changes
+
+-   [#1358](https://github.com/Khan/perseus/pull/1358) [`93eeda1e2`](https://github.com/Khan/perseus/commit/93eeda1e2e45345a622f9866bcfd31a27d717e3f) Thanks [@benchristel](https://github.com/benchristel)! - Add TODO comment
+
+*   [#1379](https://github.com/Khan/perseus/pull/1379) [`685fa9048`](https://github.com/Khan/perseus/commit/685fa904815926cfd75105476df63ce76d4f00ae) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Moving around/renaming components so they make more sense for the upcoming hint mode work
+
+-   [#1370](https://github.com/Khan/perseus/pull/1370) [`48e879ace`](https://github.com/Khan/perseus/commit/48e879acee304cac48d67bb0030ac2fc8dc00a50) Thanks [@benchristel](https://github.com/benchristel)! - Internal: copy Mafs' implementation of useMovable into our own useDraggable hook.
+
 ## 24.0.0
 
 ### Major Changes
