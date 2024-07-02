@@ -1,6 +1,7 @@
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
+import {clamp} from "./math";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG
@@ -74,12 +75,3 @@ export function bound({
     ];
 }
 
-export function clamp(value: number, min: number, max: number) {
-    if (value < min) {
-        return min;
-    }
-    if (value > max) {
-        return max;
-    }
-    return value;
-}
