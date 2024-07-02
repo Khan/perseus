@@ -2,11 +2,11 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import TabbarItem, {ArrowKeyTabbarItem} from "./item";
+import TabbarItem from "./item";
 
 import type {KeypadPageType} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 
 const styles = StyleSheet.create({
     tabbar: {
@@ -33,13 +33,36 @@ type Props = {
 function Tabbar(props: Props): React.ReactElement {
     const {items, onClickClose, selectedItem, onSelectItem, style} = props;
 
-    const [focus, setFocus] = useArrowKeyFocus(items.length);
+    const selectedIndex = items.findIndex((item: KeypadPageType) => {
+        return item === selectedItem;
+    });
+
+    const [focus, setFocus] = useState(
+        selectedIndex === -1 ? 0 : selectedIndex,
+    );
+
+    // Custom function to handle arrow key navigation for the TabBar for each TabItem.
+    const useArrowKeyFocus = (e) => {
+        if (e.keyCode === 39) {
+            // Right arrow
+            setFocus(focus === items.length - 1 ? items.length - 1 : focus + 1);
+        } else if (e.keyCode === 37) {
+            // Left arrow
+            setFocus(focus === 0 ? 0 : focus - 1);
+        }
+        console.log(focus);
+    };
 
     return (
-        <View style={[styles.tabbar, style]} role="tablist">
-            <View style={[styles.pages]}>
+        <View style={[styles.tabbar, style]}>
+            <View
+                style={[styles.pages]}
+                role="tablist"
+                onKeyDown={useArrowKeyFocus}
+            >
                 {items.map((item, index) => (
-                    <ArrowKeyTabbarItem
+                    <TabbarItem
+                        role="tab"
                         key={`tabbar-item-${item}`}
                         itemState={
                             item === selectedItem ? "active" : "inactive"
@@ -56,6 +79,7 @@ function Tabbar(props: Props): React.ReactElement {
             <View>
                 {onClickClose && (
                     <TabbarItem
+                        role="button"
                         itemState="inactive"
                         itemType="Dismiss"
                         onClick={onClickClose}
@@ -64,47 +88,6 @@ function Tabbar(props: Props): React.ReactElement {
             </View>
         </View>
     );
-}
-
-// Custom focus hook to handle arrow key navigation for the TabBar for each ArrowKeyTabItem.
-function useArrowKeyFocus(size: number) {
-    const [currentFocus, setCurrentFocus] = useState(0);
-
-    useEffect(() => {
-        function handleKeyDown(e) {
-            let arrowEvent = false;
-
-            // Extra condition to ensure you can't arrow key navigate outside a
-            // tabbar component. Would love to know of a more effective notation of this
-            // As there are concerns around whether this will cause issues
-            // where multiple keypads are open....
-            if (document.activeElement?.role === "tab") {
-                if (e.keyCode === 39) {
-                    // Right arrow
-                    e.preventDefault();
-                    setCurrentFocus(
-                        currentFocus === size - 1 ? size - 1 : currentFocus + 1,
-                    );
-                    arrowEvent = true;
-                } else if (e.keyCode === 37) {
-                    // Left arrow
-                    e.preventDefault();
-                    setCurrentFocus(currentFocus === 0 ? 0 : currentFocus - 1);
-                    arrowEvent = true;
-                }
-            }
-            if (arrowEvent) {
-                e.stopPropagation();
-                e.preventDefault();
-            }
-        }
-        document.addEventListener("keydown", handleKeyDown, false);
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown, false);
-        };
-    });
-
-    return [currentFocus, setCurrentFocus];
 }
 
 export default Tabbar;
