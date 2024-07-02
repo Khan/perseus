@@ -20,17 +20,17 @@ import type {
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
-    onChange: (coords: CollinearTuple) => void;
+    onChange: (startCoords: CollinearTuple) => void;
 };
 
 type PropsInner = {
     type: PerseusGraphType["type"];
-    coords: CollinearTuple;
-    onChange: (coords: CollinearTuple) => void;
+    startCoords: CollinearTuple;
+    onChange: (startCoords: CollinearTuple) => void;
 };
 
 const StartCoordSettingsInner = (props: PropsInner) => {
-    const {type, coords, onChange} = props;
+    const {type, startCoords, onChange} = props;
 
     // Check if coords is of type CollinearTuple
     switch (type) {
@@ -41,15 +41,19 @@ const StartCoordSettingsInner = (props: PropsInner) => {
                     <View style={styles.tile}>
                         <LabelLarge>Point 1</LabelLarge>
                         <CoordinatePairInput
-                            coord={coords[0]}
-                            onChange={(value) => onChange([value, coords[1]])}
+                            coord={startCoords[0]}
+                            onChange={(value) =>
+                                onChange([value, startCoords[1]])
+                            }
                         />
                     </View>
                     <View style={styles.tile}>
                         <LabelLarge>Point 2</LabelLarge>
                         <CoordinatePairInput
-                            coord={coords[1]}
-                            onChange={(value) => onChange([coords[0], value])}
+                            coord={startCoords[1]}
+                            onChange={(value) =>
+                                onChange([startCoords[0], value])
+                            }
                         />
                     </View>
                 </>
@@ -83,7 +87,7 @@ const StartCoordSettings = (props: Props) => {
                 <>
                     <StartCoordSettingsInner
                         type={type}
-                        coords={props.coords ?? defaultStartCoords}
+                        startCoords={props.startCoords ?? defaultStartCoords}
                         onChange={onChange}
                     />
 
