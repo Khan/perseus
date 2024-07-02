@@ -48,8 +48,10 @@ var validateParse = function (parsed, expected) {
  * @returns {string}
  */
 var reactToHtml = function (reactElements) {
+    reactElements; //?
     const {container} = render(reactElements);
     var rawHtml = container.outerHTML;
+    rawHtml; // ?
     var innerHtml = rawHtml.replace(/^<div>/, "").replace(/<\/div>$/, "");
     var simplifiedHtml = innerHtml
         .replace(/>\n*/g, ">")
@@ -4186,9 +4188,9 @@ describe("simple markdown", function () {
         });
 
         it("should output hrs", function () {
-            assertParsesToReact("-----\n\n", '<hr aria-hidden="true"/>');
-            assertParsesToReact(" * * * \n\n", '<hr aria-hidden="true"/>');
-            assertParsesToReact("___\n\n", '<hr aria-hidden="true"/>');
+            assertParsesToReact("-----\n\n", '<hr aria-hidden="true">');
+            assertParsesToReact(" * * * \n\n", '<hr aria-hidden="true">');
+            assertParsesToReact("___\n\n", '<hr aria-hidden="true">');
         });
 
         it("should output codeblocks", function () {
