@@ -122,8 +122,8 @@ export const Angle = ({
                 y={y3}
                 attach={y3 - centerY > 0 ? "s" : "n"}
                 attachDistance={
-                    Math.abs(y3) - Math.abs(centerY) < 0.6 ||
-                    vec.dist([x3, y3], vertex) < 0.6
+                    Math.abs(y3 - centerY) < 0.6 ||
+                    Math.abs(vec.dist([x3, y3], vertex)) < 0.6
                         ? 25
                         : 10
                 }
