@@ -144,7 +144,7 @@ type LineProps = {
           };
 };
 
-const Line = (props: LineProps) => {
+export const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);

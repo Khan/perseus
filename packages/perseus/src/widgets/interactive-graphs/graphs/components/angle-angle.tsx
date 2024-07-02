@@ -2,7 +2,6 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
-import GraphUtils from "../../../../util/graph-utils";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
@@ -33,9 +32,9 @@ export const Angle = ({
     const clockwiseCoords =
         areClockwise || allowReflexAngles ? coords : coords.reverse();
 
-    const startAngle = GraphUtils.findAngle(clockwiseCoords[0], vertex);
+    const startAngle = findAngle(clockwiseCoords[0], vertex);
 
-    const endAngle = GraphUtils.findAngle(clockwiseCoords[1], vertex);
+    const endAngle = findAngle(clockwiseCoords[1], vertex);
 
     const angle = (startAngle + 360 - endAngle) % 360;
 
@@ -48,8 +47,9 @@ export const Angle = ({
     const [startX, startY] = point1;
     const [endX, endY] = point2;
 
+    const graphScale = range[0][1] - range[0][0];
     const radius = 2;
-    const strokeWidth = 0.1;
+    const strokeWidth = 0.3 * graphScale;
 
     const a = vec.dist(vertex, point1);
 
@@ -66,16 +66,6 @@ export const Angle = ({
         vertex,
         vec.add(vec.sub([x1, y1], vertex), vec.sub([x2, y2], vertex)),
     );
-
-    if (!showAngles) {
-        return isRightAngle(angle) ? (
-            <RightAngleSquare
-                start={[x1, y1]}
-                vertex={[x2, y2]}
-                end={[x3, y3]}
-            />
-        ) : null;
-    }
 
     // Midpoint betwen ends of arc
     const isOutside = shouldDrawArcOutside([x3, y3], vertex, range, [
@@ -110,7 +100,7 @@ export const Angle = ({
                 </filter>
             </defs>
 
-            {!isReflexive && isRightAngle(angle) ? (
+            {!isReflexive && isRightAngle(angleInDegrees) ? (
                 <RightAngleSquare
                     start={[x1, y1]}
                     vertex={[x2, y2]}
@@ -120,7 +110,7 @@ export const Angle = ({
                 <MafsCssTransformWrapper>
                     <path
                         d={arc}
-                        strokeWidth={strokeWidth}
+                        strokeWidth="2000"
                         fill="none"
                         className={"angle-arc"}
                     />
@@ -132,9 +122,9 @@ export const Angle = ({
                 y={y3}
                 attach={y3 - centerY > 0 ? "s" : "n"}
                 attachDistance={
-                    Math.abs(y3 - centerY) < 0.2 ||
-                    vec.dist([x3, y3], vertex) < 0.3
-                        ? 20
+                    Math.abs(y3) - Math.abs(centerY) < 0.6 ||
+                    vec.dist([x3, y3], vertex) < 0.6
+                        ? 25
                         : 10
                 }
             >
@@ -157,11 +147,7 @@ const findAngle = (
         }
         return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
     }
-    return Math.abs(findAngle(point1, vertex) - findAngle(point2, vertex));
-};
-
-const getNonReflexiveAngle = (angle: number) => {
-    return 360 - ((angle + 360) % 360);
+    return findAngle(point1, vertex) - findAngle(point2, vertex);
 };
 
 /**
@@ -183,7 +169,7 @@ const RightAngleSquare = ({
     </MafsCssTransformWrapper>
 );
 
-const isRightAngle = (angle: number) => Math.abs(angle - Math.PI / 2) < 0.01;
+const isRightAngle = (angle: number) => Math.round(angle) === 90;
 
 /**
  * Determines if an angle is an inside (false) or outside (true) angle.

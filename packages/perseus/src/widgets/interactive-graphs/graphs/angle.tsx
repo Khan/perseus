@@ -1,13 +1,19 @@
 import * as React from "react";
 
-import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
+import {movePoint} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 
 import {Angle} from "./components/angle-angle";
-import {MovableLine} from "./components/movable-line";
+import {trimRange} from "./components/movable-line";
+import {StyledMovablePoint} from "./components/movable-point";
+import {SVGLine} from "./components/svg-line";
+import {Vector} from "./components/vector";
+import {useTransformVectorsToPixels} from "./use-transform";
+import {getIntersectionOfRayWithBox} from "./utils";
 
 import type {CollinearTuple} from "../../../perseus-types";
 import type {AngleGraphState, MafsGraphProps} from "../types";
-import type {Interval, vec} from "mafs";
+import type {vec, Interval} from "mafs";
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
 type AngleProps = {
@@ -22,6 +28,7 @@ type AngleProps = {
 
 export function AngleGraph(props: AngleGraphProps) {
     const {dispatch, graphState} = props;
+    const {graphDimensionsInPixels} = useGraphConfig();
 
     const {
         coords,
@@ -32,23 +39,51 @@ export function AngleGraph(props: AngleGraphProps) {
         snapDegrees,
     } = graphState;
 
-    const handleOnMove = (
-        elementId: number,
-        itemIndex: number,
-        destination: vec.Vector2,
-    ) => {
-        dispatch(moveControlPoint(elementId, destination, itemIndex));
+    const handleOnMove = (itemIndex: number, destination: vec.Vector2) => {
+        dispatch(movePoint(itemIndex, destination));
     };
 
-    console.log(coords);
+    const endPoints = [coords[0], coords[2]] as [vec.Vector2, vec.Vector2];
+    const centerPoint = coords[1];
 
-    const centerPoint = coords[0];
-    const endPoints = coords.slice(1, 3) as [vec.Vector2, vec.Vector2];
-
+    // Convert the vectors to pixels for rendering
     const angleLines = [
         [centerPoint, endPoints[0]],
         [centerPoint, endPoints[1]],
     ] as CollinearTuple[];
+
+    const linePixelCoords = [
+        useTransformVectorsToPixels(centerPoint, endPoints[0]),
+        useTransformVectorsToPixels(centerPoint, endPoints[1]),
+    ] as CollinearTuple[];
+
+    // Create the SVG lines
+    const svgLines = linePixelCoords.map(([startPtPx, endPtPx], i) => {
+        const trimmedRange = trimRange(range, graphDimensionsInPixels);
+        const endExtend = getIntersectionOfRayWithBox(
+            angleLines[i][0],
+            angleLines[i][1],
+            trimmedRange,
+        );
+
+        return (
+            <g key={`line-${i}`}>
+                <SVGLine
+                    start={startPtPx}
+                    end={endPtPx}
+                    style={{
+                        stroke: "var(--movable-line-stroke-color)",
+                        strokeWidth: "var(--movable-line-stroke-weight)",
+                    }}
+                />
+                <Vector
+                    tail={angleLines[i][1]}
+                    tip={endExtend}
+                    color={"var(--movable-line-stroke-color)"}
+                />
+            </g>
+        );
+    });
 
     const angleParams: AngleProps = {
         vertex: centerPoint,
@@ -60,20 +95,18 @@ export function AngleGraph(props: AngleGraphProps) {
         showAngles: showAngles || true, // Whether to show the angle or not
     };
 
+    // Render the lines, angle, and movable points
     return (
         <>
+            {svgLines}
             <Angle {...angleParams} />
-            {angleLines.map((coord, i) => (
-                <MovableLine
-                    key={"line-" + (i + 1)}
-                    points={coord}
-                    snapTo="angles"
-                    extend={{start: false, end: true}}
-                    onMoveLine={(delta: vec.Vector2) => {
-                        dispatch(moveLine(i + 1, delta));
-                    }}
-                    onMovePoint={(endpointIndex, destination) =>
-                        handleOnMove(endpointIndex, i + 1, destination)
+            {coords.map((point, i) => (
+                <StyledMovablePoint
+                    key={"point-" + i}
+                    snapTo={"angles"}
+                    point={point}
+                    onMove={(destination: vec.Vector2) =>
+                        handleOnMove(i, destination)
                     }
                 />
             ))}

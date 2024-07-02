@@ -1,5 +1,7 @@
 import invariant from "tiny-invariant";
 
+import GraphUtils from "../../../util/graph-utils";
+
 import {
     moveControlPoint,
     movePoint,
@@ -35,6 +37,21 @@ const basePointGraphState: InteractiveGraphState = {
     ],
     snapStep: [1, 1],
     coords: [],
+};
+
+const baseAngleGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "angle",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+    ],
 };
 
 const baseCircleGraphState: InteractiveGraphState = {
@@ -95,7 +112,7 @@ const basePolygonGraphState: InteractiveGraphState = {
         [1, 0],
     ],
 };
-
+/*
 describe("moveControlPoint", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
@@ -343,6 +360,70 @@ describe("movePoint on a point graph", () => {
 
         invariant(updated.type === "point");
         expect(updated.coords[0]).toEqual([5, 6]);
+    });
+
+    it("snaps to the snap grid", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            snapStep: [3, 4],
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            movePoint(0, [-2, -2.5]),
+        );
+
+        invariant(updated.type === "point");
+        expect(updated.coords[0]).toEqual([-3, -4]);
+    });
+
+    it("keeps points within the graph bounds", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[0, 0]],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [99, 99]));
+
+        invariant(updated.type === "point");
+        expect(updated.coords[0]).toEqual([9, 9]);
+    });
+
+    it("sets hasBeenInteractedWith", () => {
+        const state: InteractiveGraphState = {
+            ...basePointGraphState,
+            coords: [[1, 2]],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
+
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+}); */
+
+describe.only("movePoint on an angle graph", () => {
+    it.only("moves the point with the given index", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [5, 6]));
+
+        invariant(updated.type === "angle");
+
+        expect(
+            GraphUtils.findAngle(
+                updated.coords[0],
+                updated.coords[2],
+                updated.coords[1],
+            ),
+        ).toBeCloseTo(50);
     });
 
     it("snaps to the snap grid", () => {

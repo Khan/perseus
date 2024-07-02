@@ -1,6 +1,7 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
+import {magnitude, vector} from "../../../util/geometry";
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {
@@ -361,13 +362,37 @@ const getAngleCoords = (params: {
         return graph.coords;
     }
 
-    let coords: [Coord, Coord, Coord] = [
-        [0.5, 0.5],
-        [0.8, 0.65],
+    const {snapDegrees, angleOffsetDeg} = graph;
+    const snap = snapDegrees || 1;
+    let angle = snap;
+    while (angle < 20) {
+        angle += snap;
+    }
+    angle = (angle * Math.PI) / 180;
+    const offset = ((angleOffsetDeg || 0) * Math.PI) / 180;
+
+    let defaultCoords: [Coord, Coord] = [
         [0.8, 0.5],
+        [0.5, 0.5],
     ];
 
-    coords = normalizePoints(range, step, coords, true);
+    defaultCoords = normalizePoints(range, step, defaultCoords, true);
 
+    // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+    const radius = magnitude(vector(...defaultCoords));
+
+    const coords: [Coord, Coord, Coord] = [...defaultCoords, [0, 0]];
+
+    // Adjust the lower point by angleOffsetDeg degrees
+    coords[0] = [
+        coords[1][0] + radius * Math.cos(offset),
+        coords[1][1] + radius * Math.sin(offset),
+    ];
+    // Position the upper point angle radians from the
+    // lower point
+    coords[2] = [
+        coords[1][0] + radius * Math.cos(angle + offset),
+        coords[1][1] + radius * Math.sin(angle + offset),
+    ];
     return coords;
 };

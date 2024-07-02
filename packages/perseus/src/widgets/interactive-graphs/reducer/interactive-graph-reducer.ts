@@ -10,6 +10,7 @@ import {
     lawOfCosines,
     magnitude,
     polygonSidesIntersect,
+    reverseVector,
     sign,
     vector,
 } from "../../../util/geometry";
@@ -116,24 +117,7 @@ function doMoveControlPoint(
                 coords: newCoords,
             };
         }
-        case "angle": {
-            // STOPSHIP: This seems a little hacky. I might want to build a better
-            // angle state for handling the center points and end points
-            const index = action.pointIndex === 0 ? 0 : action.itemIndex;
-            return {
-                ...state,
-                hasBeenInteractedWith: true,
-                coords: setAtIndex({
-                    array: state.coords,
-                    index: index,
-                    newValue: boundAndSnapAngleGraphs(
-                        action.destination,
-                        state,
-                        index,
-                    ),
-                }),
-            };
-        }
+        case "angle":
         case "circle":
             throw new Error("FIXME implement circle reducer");
         case "point":
@@ -259,6 +243,31 @@ function doMovePoint(
     action: MovePoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "angle":
+            // If the index is 1, we are moving the vertex of the angle,
+            // which will move the other two points as well
+            if (action.index === 1) {
+                const updatedCoords = boundAndSnapAngleVertex(state, action);
+
+                return {
+                    ...state,
+                    hasBeenInteractedWith: true,
+                    coords: updatedCoords,
+                };
+            }
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundAndSnapAngleEndPoints(
+                        action.destination,
+                        state,
+                        action.index,
+                    ),
+                }),
+            };
         case "polygon":
             let newValue: vec.Vector2;
             if (state.snapTo === "sides") {
@@ -268,7 +277,7 @@ function doMovePoint(
                     action.index,
                 );
             } else if (state.snapTo === "angles") {
-                newValue = boundAndSnapToAngle(
+                newValue = boundAndSnapToPolygonAngle(
                     action.destination,
                     state,
                     action.index,
@@ -526,12 +535,117 @@ function boundAndSnapToGrid(
     return snap(snapStep, bound({snapStep, range, point}));
 }
 
-function boundAndSnapAngleGraphs(
-    destinationPoint: vec.Vector2,
+function tooClose(
+    point1: vec.Vector2,
+    point2: vec.Vector2,
+    range: [Interval, Interval],
+) {
+    const safeDistance = 2;
+    const distance = vec.dist(point1, point2);
+
+    return distance < safeDistance;
+}
+
+function boundAndSnapAngleVertex(
     {
         range,
         coords,
         snapDegrees,
+        snapStep,
+        snapOffset = 0,
+        allowReflexAngles,
+    }: {
+        range: [Interval, Interval];
+        coords: [Coord, Coord, Coord];
+        snapStep: vec.Vector2;
+        snapDegrees?: number;
+        snapOffset?: number;
+        allowReflexAngles?: boolean;
+    },
+    {destination, index}: {destination: vec.Vector2; index: number},
+) {
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
+    const coordsCopy: [Coord, Coord, Coord] = [...coords];
+
+    const startingVertex = coordsCopy[1];
+    const newVertex = snap(snapStep, destination);
+    const delta = kvector.add(newVertex, reverseVector(startingVertex));
+
+    let valid = true;
+    const newPoints: Record<string, any> = {};
+
+    _.each([0, 2], function (i) {
+        const oldPoint = coordsCopy[i];
+        let newPoint = kvector.add(oldPoint, delta);
+
+        let angle = GraphUtils.findAngle(newVertex, newPoint);
+        angle *= Math.PI / 180;
+        newPoint = constrainToBoundsOnAngle(newPoint, 10, angle, range);
+
+        newPoints[i] = newPoint;
+
+        // Check if the new point is too close to the vertex
+        if (tooClose(newVertex, newPoint, range)) {
+            valid = false;
+        }
+    });
+
+    // Update the vertex after snapping to the snapStep
+    newPoints[1] = newVertex;
+    // Only move points if all new positions are valid
+    if (valid) {
+        _.each(newPoints, function (newPoint, i) {
+            coordsCopy[i] = newPoint;
+        });
+    }
+    return coordsCopy;
+}
+
+function constrainToBoundsOnAngle(
+    point: vec.Vector2,
+    padding: number,
+    angle: number,
+    range: [Interval, Interval],
+): vec.Vector2 {
+    const lower: vec.Vector2 = [range[0][0], range[1][0]];
+    const upper: vec.Vector2 = [range[0][1], range[1][1]];
+
+    let result = point;
+
+    if (result[0] < lower[0]) {
+        result = [
+            lower[0],
+            result[1] + (lower[0] - result[0]) * Math.tan(angle),
+        ];
+    } else if (result[0] > upper[0]) {
+        result = [
+            upper[0],
+            result[1] - (result[0] - upper[0]) * Math.tan(angle),
+        ];
+    }
+
+    if (result[1] < lower[1]) {
+        result = [
+            result[0] + (lower[1] - result[1]) / Math.tan(angle),
+            lower[1],
+        ];
+    } else if (result[1] > upper[1]) {
+        result = [
+            result[0] - (result[1] - upper[1]) / Math.tan(angle),
+            upper[1],
+        ];
+    }
+
+    return result;
+}
+
+function boundAndSnapAngleEndPoints(
+    destinationPoint: vec.Vector2,
+    {
+        range,
+        coords,
+        snapDegrees = 0,
         snapOffset = 0,
         allowReflexAngles,
     }: {
@@ -543,45 +657,43 @@ function boundAndSnapAngleGraphs(
     },
     index: number,
 ) {
-    // pull out the vertex and the two points that make up the angle
+    const snap = snapDegrees || 1;
+    const offsetDegrees = snapOffset || 0;
 
-    const startingPoint = coords[index];
-    const vertex = coords[0];
-
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
     const coordsCopy = [...coords];
-    coordsCopy[index] = destinationPoint;
 
+    // Takes the destination point and makes sure it is within the bounds of the graph
+    // SnapStep is [0, 0] because we don't want to snap to the grid
+    const boundPoint = bound({
+        snapStep: [0, 0],
+        range,
+        point: destinationPoint,
+    });
+    coordsCopy[index] = boundPoint;
+
+    // Get the vertex of the angle
+    const vertex = coords[1];
+
+    // Gets the angle between the coords and the vertex
     let angle = GraphUtils.findAngle(coordsCopy[index], vertex);
 
-    // If the angle is reflex and we don't want reflex angles, we should snap to the smaller angle
-    /*   if (!allowReflexAngles && angle > 180) {
-        angle = 360 - ((angle + 360) % 360);
-    } */
-
-    // Snap the angle to the nearest multiple of snapDegrees
-    if (snapDegrees) {
-        angle =
-            Math.round((angle - snapOffset) / snapDegrees) * snapDegrees +
-            snapOffset;
-        const distance = GraphUtils.getDistance(coordsCopy[index], vertex);
-        return kvector.add(vertex, polar(distance, angle));
-    }
-
-    return destinationPoint;
+    // Snap the angle to the nearest multiple of snapDegrees (if provided)
+    angle = Math.round((angle - offsetDegrees) / snap) * snap + offsetDegrees;
+    const distance = GraphUtils.getDistance(coordsCopy[index], vertex);
+    const snappedValue = kvector.add(vertex, polar(distance, angle));
+    return snappedValue;
 }
 
-function boundAndSnapToAngle(
+function boundAndSnapToPolygonAngle(
     destinationPoint: vec.Vector2,
     {
         range,
         coords,
-        snapDegrees,
-        snapOffset = 0,
     }: {
         range: [Interval, Interval];
         coords: Coord[];
-        snapDegrees?: number;
-        snapOffset?: number;
     },
     index: number,
 ) {
@@ -627,15 +739,6 @@ function boundAndSnapToAngle(
         angles[rel(-1)] - getAngle(-2, -1, 1),
         angles[rel(1)] - getAngle(-1, 1, 2),
     ];
-    // Make sure to snap the inner angles to the snapDegrees if provided
-    if (snapDegrees) {
-        for (let i = 0; i < innerAngles.length; i++) {
-            innerAngles[i] =
-                Math.round((innerAngles[i] - snapOffset) / snapDegrees) *
-                    snapDegrees +
-                snapOffset;
-        }
-    }
 
     innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
 
