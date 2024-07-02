@@ -226,7 +226,7 @@ const defaultLinearCoords: [Coord, Coord][] = [
     ],
 ];
 
-function getLineCoords(
+export function getLineCoords(
     graph: PerseusGraphTypeRay | PerseusGraphTypeLinear,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
@@ -339,6 +339,7 @@ function getCircleCoords(graph: PerseusGraphTypeCircle): {
             radiusPoint: vec.add(graph.center, [graph.radius, 0]),
         };
     }
+
     return {
         center: [0, 0],
         radiusPoint: [2, 0],

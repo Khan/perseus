@@ -28,6 +28,12 @@ const CoordinatePairInput = (props: Props) => {
         coord[1].toString(),
     ]);
 
+    // Update the local state when the props change. (Such as when the graph
+    // type is changed, and the coordinates are reset.)
+    React.useEffect(() => {
+        setCoordState([coord[0].toString(), coord[1].toString()]);
+    }, [coord]);
+
     function handleCoordChange(newValue, coordIndex) {
         // Update the local state (update the input field value).
         const newCoordState = [...coordState];
