@@ -2,6 +2,7 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
 import {clamp} from "./math";
+import {clampToBox, inset} from "./math/box";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG
@@ -57,12 +58,7 @@ export function bound({
     range: [Interval, Interval];
     point: vec.Vector2;
 }): vec.Vector2 {
-    const [requestedX, requestedY] = point;
-    const [snapX, snapY] = snapStep;
-    const [[minX, maxX], [minY, maxY]] = range;
-    return [
-        clamp(requestedX, minX + snapX, maxX - snapX),
-        clamp(requestedY, minY + snapY, maxY - snapY),
-    ];
+    const boundingBox = inset(snapStep, range)
+    return clampToBox(boundingBox, point);
 }
 
