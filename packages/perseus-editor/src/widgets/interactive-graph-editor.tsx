@@ -674,6 +674,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({graph: graph});
     };
 
+    // serialize() is what makes copy/paste work. All the properties included
+    // in the serialization json are included when, for example, a graph
+    // is copied from the question editor and pasted into the hint editor
+    // (double brackets in the markdown).
     serialize(): PerseusInteractiveGraphWidgetOptions {
         const json = _.pick(
             this.props,
