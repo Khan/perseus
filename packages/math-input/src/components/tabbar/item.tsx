@@ -3,11 +3,11 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useEffect, useRef} from "react";
 
 import IconAsset from "./icons";
 
 import type {KeypadPageType} from "../../types";
-import {useEffect, useRef} from "react";
 
 const styles = StyleSheet.create({
     base: {
@@ -93,7 +93,7 @@ function TabbarItem(props: TabItemProps): React.ReactElement {
             // Move element into view when it is focused
             tabRef?.current.focus();
         }
-    }, [focus, tabRef.current]);
+    }, [role, focus, tabRef]);
 
     return (
         <Clickable
