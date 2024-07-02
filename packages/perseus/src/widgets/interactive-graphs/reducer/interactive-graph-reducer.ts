@@ -16,8 +16,8 @@ import {
 import GraphUtils from "../../../util/graph-utils";
 import {polar} from "../../../util/graphie";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {snap, bound} from "../utils";
-import {clamp} from "../math";
+import {bound} from "../utils";
+import {clamp, snap} from "../math";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {

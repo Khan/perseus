@@ -3,7 +3,7 @@ import * as React from "react";
 import {useRef} from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
-import {snap} from "../../utils";
+import {snap} from "../../math";
 import {useDraggable} from "../use-draggable";
 
 import {MovablePointView} from "./movable-point-view";

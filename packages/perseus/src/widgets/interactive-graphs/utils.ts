@@ -46,15 +46,6 @@ export const normalizeCoords = <A extends Coord[]>(
             }) as Coord,
     ) as any;
 
-export function snap(snapStep: vec.Vector2, point: vec.Vector2): vec.Vector2 {
-    const [requestedX, requestedY] = point;
-    const [snapX, snapY] = snapStep;
-    return [
-        Math.round(requestedX / snapX) * snapX,
-        Math.round(requestedY / snapY) * snapY,
-    ];
-}
-
 // Returns the closest point to the given `point` that is within the graph
 // bounds given in `state`.
 export function bound({

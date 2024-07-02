@@ -5,7 +5,7 @@ import {useRef} from "react";
 import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
-import {snap} from "../utils";
+import {snap} from "../math";
 
 import {StyledMovablePoint} from "./components/movable-point";
 import {useDraggable} from "./use-draggable";

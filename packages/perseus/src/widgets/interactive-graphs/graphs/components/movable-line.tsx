@@ -3,7 +3,8 @@ import {useRef, useState} from "react";
 import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
-import {snap, TARGET_SIZE} from "../../utils";
+import {TARGET_SIZE} from "../../utils";
+import {snap} from "../../math";
 import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";

@@ -1,5 +1,4 @@
-import {normalizePoints, normalizeCoords, snap} from "./utils";
-
+import {normalizePoints, normalizeCoords} from "./utils";
 import type {Coord} from "../../interactive2/types";
 import type {GraphRange} from "../../perseus-types";
 
@@ -63,19 +62,5 @@ describe("normalizeCoords", () => {
         const result = normalizeCoords(coordsList, ranges);
 
         expect(result).toEqual(expected);
-    });
-});
-
-describe("snap", () => {
-    it("snaps to next position when over halfway to it", () => {
-        const result = snap([2, 2], [1.1, 1.1]);
-
-        expect(result).toEqual([2, 2]);
-    });
-
-    it("does not snap to next position when less than halfway to it", () => {
-        const result = snap([2, 2], [0.9, 0.9]);
-
-        expect(result).toEqual([0, 0]);
     });
 });

@@ -1,10 +1,2 @@
-// restricts `value` to be between `min` and `max`.
-export function clamp(value: number, min: number, max: number) {
-    if (value < min) {
-        return min;
-    }
-    if (value > max) {
-        return max;
-    }
-    return value;
-}
+export {clamp} from "./clamp";
+export {snap} from "./snap";
