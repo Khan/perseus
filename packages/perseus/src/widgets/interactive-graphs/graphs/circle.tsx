@@ -108,6 +108,7 @@ function DragHandle(props: {center: [x: number, y: number]}) {
                 const [xPx, yPx] = vec.add(offsetPx, centerPx);
                 return (
                     <circle
+                        key={`circle-${xPx}-${yPx}`}
                         className="movable-circle-handle-dot"
                         cx={xPx}
                         cy={yPx}
