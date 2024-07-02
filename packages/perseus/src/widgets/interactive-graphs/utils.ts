@@ -1,8 +1,7 @@
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
-import {clamp} from "./math";
-import {clampToBox, inset} from "./math/box";
+import {clampToBox, inset} from "./math";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG
