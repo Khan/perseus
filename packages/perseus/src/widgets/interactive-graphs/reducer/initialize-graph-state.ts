@@ -101,7 +101,7 @@ export function initializeGraphState(
                 type: graph.type,
                 showAngles: Boolean(graph.showAngles),
                 coords: getAngleCoords({graph, range, step}),
-                angleOffsetDeg: Number(graph.showAngles),
+                angleOffsetDeg: Number(graph.angleOffsetDeg),
                 allowReflexAngles: Boolean(graph.allowReflexAngles),
                 snapDegrees: Number(graph.snapDegrees),
             };
