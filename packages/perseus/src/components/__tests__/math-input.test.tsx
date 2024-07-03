@@ -162,8 +162,6 @@ describe("Perseus' MathInput", () => {
         // focusing the input triggers the popover
         screen.getByRole("button").click();
         await userEvent.tab(); // to "123" tab
-        await userEvent.tab(); // to extra keys tab
-        await userEvent.tab(); // to whole keypad
         await userEvent.tab(); // to "1" button
         await userEvent.keyboard("{enter}");
         jest.runOnlyPendingTimers();

@@ -139,7 +139,7 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        await userEvent.click(screen.getByRole("tab", {name: "Dismiss"}));
+        await userEvent.click(screen.getByRole("button", {name: "Dismiss"}));
 
         // wait for the keypad to close
         await waitFor(() =>
