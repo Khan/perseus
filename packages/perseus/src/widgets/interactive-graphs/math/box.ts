@@ -1,6 +1,7 @@
 import {Interval, vec} from "mafs";
 import {clamp} from "./clamp";
-import {x, y} from "./coordinates";
+import {X, Y} from "./coordinates";
+import {MAX, MIN} from "./interval";
 
 export type Box = [x: Interval, y: Interval];
 
@@ -8,8 +9,8 @@ export type Box = [x: Interval, y: Interval];
 // corresponding interval.
 export function clampToBox(box: Box, point: vec.Vector2): vec.Vector2 {
     return [
-        clamp(x(point), ...x(box)),
-        clamp(y(point), ...y(box))
+        clamp(point[X], ...box[X]),
+        clamp(point[Y], ...box[Y])
     ]
 }
 
@@ -18,8 +19,8 @@ export function clampToBox(box: Box, point: vec.Vector2): vec.Vector2 {
 // that dimension instead.
 export function inset(amount: vec.Vector2, box: Box): Box {
     return ensureValid([
-        [x(box)[0] + x(amount), x(box)[1] - x(amount)],
-        [y(box)[0] + y(amount), y(box)[1] - y(amount)],
+        [box[X][MIN] + amount[X], box[X][MAX] - amount[X]],
+        [box[Y][MIN] + amount[Y], box[Y][MAX] - amount[Y]],
     ]);
 }
 

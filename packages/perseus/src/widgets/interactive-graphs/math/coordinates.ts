@@ -1,7 +1,4 @@
-export function x<T>(coord: [x: T, y: T]): T {
-    return coord[0]
-}
-
-export function y<T>(coord: [x: T, y: T]): T {
-    return coord[1]
-}
+// Use X and Y to index into arrays that represent coordinate pairs.
+// e.g. point[X]
+export const X = 0;
+export const Y = 1;
