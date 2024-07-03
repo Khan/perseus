@@ -1,3 +1,3 @@
 export {clamp} from "./clamp";
 export {snap} from "./snap";
-export * from "./box";
+export {inset, clampToBox} from "./box";
