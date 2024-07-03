@@ -1,4 +1,4 @@
-import {shouldDrawArcOutside} from "./angle-indicators";
+import {findAngle, shouldDrawArcOutside} from "./angle-indicators";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {vec, Interval} from "mafs";
@@ -90,5 +90,12 @@ describe("shouldDrawArcOutside", () => {
                 ],
             ),
         ).toBe(true);
+    });
+
+    it("should correctly calculate the angle for the given coordinates", () => {
+        const point1 = [2, 2] as vec.Vector2;
+        const point2 = [2, 0] as vec.Vector2;
+        const vertex = [0, 0] as vec.Vector2;
+        expect(findAngle(point1, point2, vertex)).toBe(45);
     });
 });

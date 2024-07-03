@@ -373,7 +373,7 @@ const getAngleCoords = (params: {
     const offset = ((angleOffsetDeg || 0) * Math.PI) / 180;
 
     let defaultCoords: [Coord, Coord] = [
-        [0.8, 0.5],
+        [0.85, 0.5],
         [0.5, 0.5],
     ];
 

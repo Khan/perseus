@@ -83,19 +83,19 @@ export const angleQuestionWithDefaultCorrect: PerseusRenderer = {
                 },
                 correct: {
                     allowReflexAngles: false,
-                    angleOffsetDeg: 1,
+                    angleOffsetDeg: 0,
                     coords: [
-                        [2.2059851900220853, 2.2059851900220853],
-                        [-2, -2],
-                        [-4.973144353700384, 5.004289159600586],
-                    ],
-                    snapDegrees: 4,
+                        [6.994907182610915, 0],
+                        [0, 0],
+                        [6.5778483455013586, 2.394141003279681],
+                    ], // Note these values are largely affected by the angle snapping when moving the graph
+                    snapDegrees: 1,
                     type: "angle",
                 },
                 graph: {
                     allowReflexAngles: false,
-                    angleOffsetDeg: 1,
-                    snapDegrees: 4,
+                    angleOffsetDeg: 0,
+                    snapDegrees: 1,
                     type: "angle",
                 },
                 gridStep: [1, 1],

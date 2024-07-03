@@ -39,14 +39,11 @@ export function AngleGraph(props: AngleGraphProps) {
         snapDegrees,
     } = graphState;
 
-    const handleOnMove = (itemIndex: number, destination: vec.Vector2) => {
-        dispatch(movePoint(itemIndex, destination));
-    };
-
+    // Break the coords into the two end points and the center point
     const endPoints = [coords[0], coords[2]] as [vec.Vector2, vec.Vector2];
     const centerPoint = coords[1];
 
-    // Convert the vectors to pixels for rendering
+    // Convert the vectors to pixels for rendering the svg lines
     const angleLines = [
         [centerPoint, endPoints[0]],
         [centerPoint, endPoints[1]],
@@ -57,7 +54,7 @@ export function AngleGraph(props: AngleGraphProps) {
         useTransformVectorsToPixels(centerPoint, endPoints[1]),
     ] as CollinearTuple[];
 
-    // Create the SVG lines
+    // Create the SVG lines for the angle
     const svgLines = linePixelCoords.map(([startPtPx, endPtPx], i) => {
         const trimmedRange = trimRange(range, graphDimensionsInPixels);
         const endExtend = getIntersectionOfRayWithBox(
@@ -85,6 +82,7 @@ export function AngleGraph(props: AngleGraphProps) {
         );
     });
 
+    // Create the angle indicator parameters
     const angleParams: AngleProps = {
         vertex: centerPoint,
         coords: endPoints,
@@ -95,7 +93,7 @@ export function AngleGraph(props: AngleGraphProps) {
         showAngles: showAngles || false, // Whether to show the angle or not
     };
 
-    // Render the lines, angle, and movable points
+    // Render the lines, angle, and then movable points
     return (
         <>
             {svgLines}
@@ -106,7 +104,7 @@ export function AngleGraph(props: AngleGraphProps) {
                     snapTo={"angles"}
                     point={point}
                     onMove={(destination: vec.Vector2) =>
-                        handleOnMove(i, destination)
+                        dispatch(movePoint(i, destination))
                     }
                 />
             ))}

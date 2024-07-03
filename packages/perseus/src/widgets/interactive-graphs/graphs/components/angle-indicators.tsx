@@ -326,7 +326,8 @@ const linesIntersect = (
 
 const isEven = (n: number) => n % 2 === 0;
 
-const findAngle = (
+// Exported for testing
+export const findAngle = (
     point1: vec.Vector2,
     point2: vec.Vector2,
     vertex?: vec.Vector2,
