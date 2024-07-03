@@ -14,6 +14,7 @@ import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
 
 import type {Interval} from "mafs";
+import {size} from "../../math/interval";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;
@@ -229,8 +230,4 @@ export function trimRange(
     const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX;
     const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY;
     return inset([graphUnitsToTrimX, graphUnitsToTrimY], range);
-}
-
-function size(interval: Interval): number {
-    return interval[1] - interval[0];
 }
