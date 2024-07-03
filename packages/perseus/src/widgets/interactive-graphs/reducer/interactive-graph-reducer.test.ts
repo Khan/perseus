@@ -112,7 +112,6 @@ const basePolygonGraphState: InteractiveGraphState = {
         [1, 0],
     ],
 };
-/*
 describe("moveControlPoint", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
@@ -400,10 +399,10 @@ describe("movePoint on a point graph", () => {
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
-}); */
+});
 
-describe.only("movePoint on an angle graph", () => {
-    it.only("moves the point with the given index", () => {
+describe("movePoint on an angle graph", () => {
+    it("moves the point with the given index", () => {
         const state: InteractiveGraphState = {
             ...baseAngleGraphState,
             coords: [
@@ -428,38 +427,48 @@ describe.only("movePoint on an angle graph", () => {
 
     it("snaps to the snap grid", () => {
         const state: InteractiveGraphState = {
-            ...basePointGraphState,
-            snapStep: [3, 4],
-            coords: [[0, 0]],
+            ...baseAngleGraphState,
+            coords: [
+                [5, 5],
+                [0, 0],
+                [0, 5],
+            ],
+            snapDegrees: 5,
         };
 
-        const updated = interactiveGraphReducer(
-            state,
-            movePoint(0, [-2, -2.5]),
-        );
+        const updated = interactiveGraphReducer(state, movePoint(0, [5, 3]));
 
-        invariant(updated.type === "point");
-        expect(updated.coords[0]).toEqual([-3, -4]);
+        invariant(updated.type === "angle");
+        expect(updated.coords[0]).toEqual([5.04975246918104, 2.91547594742265]); // This position results in a snapped angle of 30 degrees
     });
 
     it("keeps points within the graph bounds", () => {
         const state: InteractiveGraphState = {
-            ...basePointGraphState,
-            coords: [[0, 0]],
+            ...baseAngleGraphState,
+            coords: [
+                [5, 5],
+                [0, 0],
+                [0, 5],
+            ],
         };
 
         const updated = interactiveGraphReducer(state, movePoint(0, [99, 99]));
 
-        invariant(updated.type === "point");
-        expect(updated.coords[0]).toEqual([9, 9]);
+        invariant(updated.type === "angle");
+
+        // The point will get snapped to the nearest whole degree
+        expect(updated.coords[0]).toEqual([9, 8.999999999999998]);
     });
 
     it("sets hasBeenInteractedWith", () => {
         const state: InteractiveGraphState = {
-            ...basePointGraphState,
-            coords: [[1, 2]],
+            ...baseAngleGraphState,
+            coords: [
+                [5, 5],
+                [0, 0],
+                [0, 5],
+            ],
         };
-
         const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
 
         expect(updated.hasBeenInteractedWith).toBe(true);

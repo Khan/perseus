@@ -2617,12 +2617,9 @@ class InteractiveGraph extends React.Component<Props, State> {
                         );
                         return (angle + 360) % 360;
                     });
-                    console.log("angles", angles);
                     // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                     match = eq(...angles);
                 } else {
-                    console.log("guess", guess);
-                    console.log("correct", correct);
                     /* exact */
                     match = // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                         deepEq(guess[1], correct[1]) &&

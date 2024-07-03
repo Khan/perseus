@@ -550,26 +550,20 @@ function boundAndSnapAngleVertex(
     {
         range,
         coords,
-        snapDegrees,
         snapStep,
-        snapOffset = 0,
-        allowReflexAngles,
     }: {
         range: [Interval, Interval];
         coords: [Coord, Coord, Coord];
         snapStep: vec.Vector2;
-        snapDegrees?: number;
-        snapOffset?: number;
-        allowReflexAngles?: boolean;
     },
-    {destination, index}: {destination: vec.Vector2; index: number},
+    {destination}: {destination: vec.Vector2},
 ) {
     // Needed to prevent updating the original coords before the checks for
     // degenerate triangles and overlapping sides
     const coordsCopy: [Coord, Coord, Coord] = [...coords];
 
     const startingVertex = coordsCopy[1];
-    const newVertex = snap(snapStep, destination);
+    const newVertex = bound({snapStep, range, point: destination});
     const delta = kvector.add(newVertex, reverseVector(startingVertex));
 
     let valid = true;
@@ -581,8 +575,8 @@ function boundAndSnapAngleVertex(
 
         let angle = GraphUtils.findAngle(newVertex, newPoint);
         angle *= Math.PI / 180;
-        newPoint = constrainToBoundsOnAngle(newPoint, 10, angle, range);
 
+        newPoint = constrainToBoundsOnAngle(newPoint, angle, range, snapStep);
         newPoints[i] = newPoint;
 
         // Check if the new point is too close to the vertex
@@ -604,12 +598,20 @@ function boundAndSnapAngleVertex(
 
 function constrainToBoundsOnAngle(
     point: vec.Vector2,
-    padding: number,
     angle: number,
     range: [Interval, Interval],
+    snapStep: vec.Vector2,
 ): vec.Vector2 {
-    const lower: vec.Vector2 = [range[0][0], range[1][0]];
-    const upper: vec.Vector2 = [range[0][1], range[1][1]];
+    // We're subtracting the snapStep from the lower bound and adding it to the upper bound
+    // to ensure that the point is within the bounds of the graph even after snapping to the nearest degree
+    const lower: vec.Vector2 = [
+        range[0][0] + snapStep[0],
+        range[1][0] + snapStep[0],
+    ];
+    const upper: vec.Vector2 = [
+        range[0][1] - snapStep[1],
+        range[1][1] - snapStep[1],
+    ];
 
     let result = point;
 
@@ -647,13 +649,13 @@ function boundAndSnapAngleEndPoints(
         coords,
         snapDegrees,
         angleOffsetDeg,
-        allowReflexAngles,
+        snapStep,
     }: {
         range: [Interval, Interval];
         coords: Coord[];
         snapDegrees?: number;
         angleOffsetDeg?: number;
-        allowReflexAngles?: boolean;
+        snapStep: vec.Vector2;
     },
     index: number,
 ) {
@@ -664,11 +666,19 @@ function boundAndSnapAngleEndPoints(
     // degenerate triangles and overlapping sides
     const coordsCopy = [...coords];
 
+    // We want to subtract or add the snapStep to the lower and upper bounds
+    // respectively to ensure that the point is within the bounds of the graph
+    // even after snapping to the nearest degree
+    const angleRange = [
+        [range[0][0] + snapStep[0], range[0][1] - snapStep[0]],
+        [range[1][0] + snapStep[1], range[1][1] - snapStep[1]],
+    ] as [Interval, Interval];
+
     // Takes the destination point and makes sure it is within the bounds of the graph
-    // SnapStep is [0, 0] because we don't want to snap to the grid
+    // SnapStep is [0, 0] because we don't want to snap these points to the grid at all
     const boundPoint = bound({
         snapStep: [0, 0],
-        range,
+        range: angleRange,
         point: destinationPoint,
     });
     coordsCopy[index] = boundPoint;
