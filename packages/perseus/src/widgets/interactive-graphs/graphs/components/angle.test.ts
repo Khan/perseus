@@ -1,4 +1,4 @@
-import {shouldDrawArcOutside} from "./angle";
+import {shouldDrawArcOutside} from "./angle-indicators";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {vec, Interval} from "mafs";

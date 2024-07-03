@@ -3,7 +3,7 @@ import * as React from "react";
 import {movePoint} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {Angle} from "./components/angle-angle";
+import {Angle} from "./components/angle-indicators";
 import {trimRange} from "./components/movable-line";
 import {StyledMovablePoint} from "./components/movable-point";
 import {SVGLine} from "./components/svg-line";
