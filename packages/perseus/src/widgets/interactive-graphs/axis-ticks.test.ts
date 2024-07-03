@@ -1,4 +1,4 @@
-import {generateTickLocations} from "../axis-ticks";
+import {generateTickLocations} from "./axis-ticks";
 
 describe("generateTickLocations", () => {
     it("should generate ticks from the origin", () => {
