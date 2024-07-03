@@ -47,6 +47,7 @@ describe("<TabbarItem />", () => {
 
     it("can set focus when focus is enabled", async () => {
         // Arrange
+        jest.useFakeTimers();
         render(
             <TabbarItem
                 itemType="Numbers"
@@ -56,6 +57,7 @@ describe("<TabbarItem />", () => {
                 onClick={() => {}}
             />,
         );
+        jest.runAllTimers();
 
         // Assert
         expect(screen.getByRole("tab", {name: "Numbers"})).toHaveFocus();
