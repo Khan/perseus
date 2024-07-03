@@ -7,8 +7,13 @@ import {pathBuilder} from "../../util/svg";
 
 import {useDraggable} from "./graphs/use-draggable";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
-import {calculateAngleInDegrees} from "./graphs/utils";
-import {X, Y} from "./math";
+import {
+    calculateAngleInDegrees,
+    convertDegreesToRadians,
+    lerp,
+    X,
+    Y
+} from "./math";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
 
@@ -84,7 +89,7 @@ export function Protractor() {
 function RotationArrow() {
     const radius = 175;
     const angleDeg = 10;
-    const angleRad = degreesToRadians(angleDeg);
+    const angleRad = convertDegreesToRadians(angleDeg);
     const endX = radius * (1 - Math.cos(angleRad));
     const endY = radius * -Math.sin(angleRad);
     const rotationArrow = pathBuilder()
@@ -170,17 +175,4 @@ function useDraggablePx(args: {
         },
         {target, eventOptions: {passive: false}},
     );
-}
-
-// [L]inear Int[erp]olation: gets the weighted average of two values `a` and
-// `b`, with the given `fraction` specifying how much weight `a` and `b` get:
-// - if `fraction` is 0, `lerp` returns `a`.
-// - if `fraction` is 0.5, `lerp` returns the average of `a` and `b`.
-// - if `fraction` is 1, `lerp` returns `b`.
-function lerp(a: number, b: number, fraction: number): number {
-    return (b - a) * fraction + a;
-}
-
-function degreesToRadians(degrees) {
-    return (degrees / 180) * Math.PI;
 }

@@ -1,6 +1,15 @@
 import type {vec} from "mafs";
 
 // This file contains helper functions for working with angles.
+
+export function convertDegreesToRadians(degrees: number): number {
+    return (degrees / 180) * Math.PI;
+}
+
+export function calculateAngleInDegrees([x, y]: vec.Vector2) {
+    return (Math.atan2(y, x) * 180) / Math.PI;
+}
+
 export function polar(r: number | vec.Vector2, th: number): vec.Vector2 {
     if (typeof r === "number") {
         r = [r, r];

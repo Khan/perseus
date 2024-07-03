@@ -2,7 +2,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {useTransformVectorsToPixels} from "../use-transform";
-import {calculateAngleInDegrees} from "../utils";
+import {calculateAngleInDegrees} from "../../math";
 
 import {Arrowhead} from "./arrowhead";
 import {SVGLine} from "./svg-line";

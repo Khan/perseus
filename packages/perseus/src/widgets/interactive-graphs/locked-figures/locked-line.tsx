@@ -7,10 +7,9 @@ import {Arrowhead} from "../graphs/components/arrowhead";
 import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {
-    calculateAngleInDegrees,
     getIntersectionOfRayWithBox,
 } from "../graphs/utils";
-import {X, Y} from "../math";
+import {X, Y, calculateAngleInDegrees} from "../math";
 
 import type {LockedLineType} from "../../../perseus-types";
 import type {Interval} from "mafs";
