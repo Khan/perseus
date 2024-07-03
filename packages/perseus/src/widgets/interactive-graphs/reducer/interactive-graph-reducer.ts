@@ -403,7 +403,7 @@ function doMoveRadiusPoint(
             const nextRadiusPoint: vec.Vector2 = [
                 // Constrain to graph range
                 // The +0 is to convert -0 to +0
-                Math.min(Math.max(xMin, action.destination[0] + 0), xMax),
+                clamp(action.destination[0] + 0, xMin, xMax),
                 state.center[1],
             ];
 
