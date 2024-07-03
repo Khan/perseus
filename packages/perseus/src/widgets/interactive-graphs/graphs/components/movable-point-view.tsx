@@ -3,6 +3,7 @@ import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
 
+import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
@@ -56,8 +57,9 @@ export const MovablePointView = forwardRef(
 
         const [[x, y]] = useTransformVectorsToPixels(point);
 
-        const [xMin, xMax] = range[0];
-        const [yMin, yMax] = range[1];
+        // TODO(benchristel): destructure range in one line
+        const [xMin, xMax] = range[X];
+        const [yMin, yMax] = range[Y];
 
         const [[verticalStartX]] = useTransformVectorsToPixels([xMin, 0]);
         const [[verticalEndX]] = useTransformVectorsToPixels([xMax, 0]);
@@ -119,7 +121,7 @@ export const MovablePointView = forwardRef(
                     <Tooltip
                         autoUpdate={true}
                         backgroundColor={wbColorName}
-                        content={`(${point[0]}, ${point[1]})`}
+                        content={`(${point[X]}, ${point[Y]})`}
                         contentStyle={{color: "white"}}
                     >
                         {svgForPoint}

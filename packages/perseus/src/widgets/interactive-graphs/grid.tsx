@@ -3,6 +3,7 @@ import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
 import {AxisTicks} from "./axis-ticks";
+import {X, Y} from "./math";
 
 import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
@@ -63,8 +64,8 @@ export const Grid = (props: GridProps) => {
     return props.markings === "none" ? null : (
         <>
             <Coordinates.Cartesian
-                xAxis={axisOptions(props, 0)}
-                yAxis={axisOptions(props, 1)}
+                xAxis={axisOptions(props, X)}
+                yAxis={axisOptions(props, Y)}
             />
             {
                 // Only render the axis ticks and arrows if the markings are set to a full "graph"

@@ -21,6 +21,7 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
+import {X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
@@ -248,8 +249,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
-                            x: state.range[0],
-                            y: state.range[1],
+                            x: state.range[X],
+                            y: state.range[Y],
                             padding: 0,
                         }}
                         pan={false}

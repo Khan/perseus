@@ -3,6 +3,7 @@ import {useTransformContext, vec} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
+import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import type {RefObject} from "react";
@@ -68,10 +69,10 @@ export function useDraggable(args: Params): DragState {
                 } = state;
 
                 const direction = [
-                    yDownDirection[0],
-                    -yDownDirection[1],
+                    yDownDirection[X],
+                    -yDownDirection[Y],
                 ] as vec.Vector2;
-                const span = Math.abs(direction[0]) ? xSpan : ySpan;
+                const span = Math.abs(direction[X]) ? xSpan : ySpan;
 
                 let divisions = 50;
                 if (altKey || metaKey) {

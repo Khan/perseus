@@ -2,8 +2,8 @@ import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {useRef} from "react";
 
+import {snap} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
-import {snap} from "../../utils";
 import {useDraggable} from "../use-draggable";
 
 import {MovablePointView} from "./movable-point-view";

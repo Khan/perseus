@@ -8,6 +8,7 @@ import {pathBuilder} from "../../util/svg";
 import {useDraggable} from "./graphs/use-draggable";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {calculateAngleInDegrees} from "./graphs/utils";
+import {X, Y} from "./math";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
 
@@ -64,9 +65,9 @@ export function Protractor() {
     return (
         <g
             ref={draggableRef}
-            transform={`translate(${topLeftPx[0]}, ${topLeftPx[1]}), rotate(${angle})`}
+            transform={`translate(${topLeftPx[X]}, ${topLeftPx[Y]}), rotate(${angle})`}
             style={{
-                transformOrigin: `${-centerToTopLeft[0]}px ${-centerToTopLeft[1]}px`,
+                transformOrigin: `${-centerToTopLeft[X]}px ${-centerToTopLeft[Y]}px`,
             }}
         >
             <image href={protractorImage} />

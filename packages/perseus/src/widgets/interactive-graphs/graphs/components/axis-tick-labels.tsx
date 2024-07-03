@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {pointToPixel} from "../use-transform";
 
@@ -41,11 +42,12 @@ export const AxisTickLabels = () => {
     const graphConfig = useGraphConfig();
     const {tickStep, range} = graphConfig;
 
-    const [xMin, xMax] = range[0];
-    const [yMin, yMax] = range[1];
+    // TODO(benchristel): use destructuring here
+    const [xMin, xMax] = range[X];
+    const [yMin, yMax] = range[Y];
 
-    const yTickStep = tickStep[1];
-    const xTickStep = tickStep[0];
+    const yTickStep = tickStep[Y];
+    const xTickStep = tickStep[X];
 
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
