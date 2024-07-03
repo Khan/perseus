@@ -1,4 +1,4 @@
-import {ensureValid, inset} from "./box";
+import {inset} from "./box";
 
 import type {Box} from "./box";
 
@@ -70,7 +70,7 @@ describe("inset", () => {
         ]);
     });
 
-    it("does not create an invalid box", () => {
+    it("does not create an invalid box if the amount is too big", () => {
         const box: Box = [
             [0, 1],
             [0, 1],
@@ -78,42 +78,6 @@ describe("inset", () => {
         expect(inset([9, 9], box)).toEqual([
             [0.5, 0.5],
             [0.5, 0.5],
-        ]);
-    });
-});
-
-describe("ensureValid", () => {
-    it("does nothing given a valid box", () => {
-        const box: Box = [
-            [0, 1],
-            [2, 3],
-        ];
-        expect(ensureValid(box)).toEqual([
-            [0, 1],
-            [2, 3],
-        ]);
-    });
-
-    it("fixes a box where the min values are greater than the max", () => {
-        const box: Box = [
-            [4, 0],
-            [10, 1],
-        ];
-        expect(ensureValid(box)).toEqual([
-            [2, 2],
-            [5.5, 5.5],
-        ]);
-    });
-
-    it("does not mutate the given box", () => {
-        const box: Box = [
-            [4, 0],
-            [10, 1],
-        ];
-        ensureValid(box);
-        expect(box).toEqual([
-            [4, 0],
-            [10, 1],
         ]);
     });
 });

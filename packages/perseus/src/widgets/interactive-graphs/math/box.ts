@@ -1,6 +1,6 @@
 import {clamp} from "./clamp";
 import {X, Y} from "./coordinates";
-import {MAX, MIN} from "./interval";
+import {trim} from "./interval";
 
 import type {Interval, vec} from "mafs";
 
@@ -16,26 +16,5 @@ export function clampToBox(box: Box, point: vec.Vector2): vec.Vector2 {
 // `amount`. If a component of `amount` is negative, the box is expanded in
 // that dimension instead.
 export function inset(amount: vec.Vector2, box: Box): Box {
-    return ensureValid([
-        [box[X][MIN] + amount[X], box[X][MAX] - amount[X]],
-        [box[Y][MIN] + amount[Y], box[Y][MAX] - amount[Y]],
-    ]);
-}
-
-export function ensureValid(box: Box): Box {
-    let [[xMin, xMax], [yMin, yMax]] = box;
-    if (xMin > xMax) {
-        xMin = xMax = average(xMin, xMax);
-    }
-    if (yMin > yMax) {
-        yMin = yMax = average(yMin, yMax);
-    }
-    return [
-        [xMin, xMax],
-        [yMin, yMax],
-    ];
-}
-
-function average(a: number, b: number): number {
-    return (a + b) / 2;
+    return [trim(amount[X], box[X]), trim(amount[Y], box[Y])];
 }
