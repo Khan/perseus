@@ -32,10 +32,7 @@ type Props = {
 
 function Tabbar(props: Props): React.ReactElement {
     const {items, onClickClose, selectedItem, onSelectItem, style} = props;
-
-    const selectedIndex = items.findIndex((item: KeypadPageType) => {
-        return item === selectedItem;
-    });
+    const selectedIndex = items.indexOf(selectedItem);
 
     const [focus, setFocus] = useState(
         selectedIndex === -1 ? 0 : selectedIndex,

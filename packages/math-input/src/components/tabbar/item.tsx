@@ -86,7 +86,7 @@ type TabItemProps = {
 
 function TabbarItem(props: TabItemProps): React.ReactElement {
     const {onClick, itemType, itemState, focus, role} = props;
-    const tabRef = useRef<typeof Clickable>(null);
+    const tabRef = useRef<{focus: () => void}>(null);
 
     useEffect(() => {
         if (role === "tab" && focus && tabRef?.current) {
