@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import GraphUtils from "../../../util/graph-utils";
+import {findAngle} from "../graphs/components/angle-indicators";
 
 import {
     moveControlPoint,
@@ -417,11 +417,7 @@ describe("movePoint on an angle graph", () => {
         invariant(updated.type === "angle");
 
         expect(
-            GraphUtils.findAngle(
-                updated.coords[0],
-                updated.coords[2],
-                updated.coords[1],
-            ),
+            findAngle(updated.coords[0], updated.coords[2], updated.coords[1]),
         ).toBeCloseTo(50);
     });
 
@@ -431,7 +427,7 @@ describe("movePoint on an angle graph", () => {
             coords: [
                 [5, 5],
                 [0, 0],
-                [0, 5],
+                [5, 0],
             ],
             snapDegrees: 5,
         };
@@ -439,7 +435,12 @@ describe("movePoint on an angle graph", () => {
         const updated = interactiveGraphReducer(state, movePoint(0, [5, 3]));
 
         invariant(updated.type === "angle");
-        expect(updated.coords[0]).toEqual([5.04975246918104, 2.91547594742265]); // This position results in a snapped angle of 30 degrees
+
+        // The point will get snapped to the nearest 5 degrees, which should be 30 degrees
+        expect(updated.coords[0]).toEqual([5.04975246918104, 2.91547594742265]);
+        expect(
+            findAngle(updated.coords[0], updated.coords[2], updated.coords[1]),
+        ).toBeCloseTo(30);
     });
 
     it("keeps points within the graph bounds", () => {
