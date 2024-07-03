@@ -60,26 +60,28 @@ function Tabbar(props: Props): React.ReactElement {
 
     return (
         <View style={[styles.tabbar, style]}>
-            <View
-                style={[styles.pages]}
-                role="tablist"
-                onKeyDown={onArrowKeyFocus}
-            >
-                {items.map((item, index) => (
-                    <TabbarItem
-                        role="tab"
-                        key={`tabbar-item-${item}`}
-                        itemState={
-                            item === selectedItem ? "active" : "inactive"
-                        }
-                        itemType={item}
-                        focus={focus === index}
-                        onClick={() => {
-                            onSelectItem(item);
-                        }}
-                    />
-                ))}
-            </View>
+            {items.length > 0 && (
+                <View
+                    style={[styles.pages]}
+                    role="tablist"
+                    onKeyDown={onArrowKeyFocus}
+                >
+                    {items.map((item, index) => (
+                        <TabbarItem
+                            role="tab"
+                            key={`tabbar-item-${item}`}
+                            itemState={
+                                item === selectedItem ? "active" : "inactive"
+                            }
+                            itemType={item}
+                            focus={focus === index}
+                            onClick={() => {
+                                onSelectItem(item);
+                            }}
+                        />
+                    ))}
+                </View>
+            )}
 
             <View>
                 {onClickClose && (

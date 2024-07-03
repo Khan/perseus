@@ -23,10 +23,6 @@ exports[`mobile keypad should render keypad when active 1`] = `
           class="default_xu2jcg-o_O-tabbar_721koc"
         >
           <div
-            class="default_xu2jcg-o_O-pages_cjo0m2"
-            role="tablist"
-          />
-          <div
             class="default_xu2jcg"
           >
             <button
