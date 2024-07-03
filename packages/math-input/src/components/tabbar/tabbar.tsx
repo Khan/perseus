@@ -44,6 +44,8 @@ function Tabbar(props: Props): React.ReactElement {
      * Custom function to handle arrow key navigation for the TabBar for each TabItem.
      * This implementation also circular in that if the user goes past the end of
      * the list they will go back to the beginning and vise versa.
+     * This is the recommended pattern per WCAG implementation:
+     * https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-manual/
      * @param e - onKeyDown event data.
      */
     const onArrowKeyFocus = (e) => {
