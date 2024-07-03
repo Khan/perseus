@@ -5,6 +5,7 @@ import useGraphConfig from "./reducer/use-graph-config";
 
 import type {GraphDimensions} from "./types";
 import type {vec} from "mafs";
+import {MAX, MIN, X, Y} from "./math";
 
 const tickSize = 10;
 
@@ -18,13 +19,13 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
 
     // If the graph is zoomed in, we want to make sure the ticks are still visible
     // even if they are outside the graph's range.
-    if (graphInfo.range[0][0] > 0) {
+    if (graphInfo.range[X][MIN] > 0) {
         // If the graph is on the positive side of the x-axis, lock the ticks to the left side of the graph
-        xPointOnAxis = graphInfo.range[0][0];
+        xPointOnAxis = graphInfo.range[X][MIN];
     }
-    if (graphInfo.range[0][1] < 0) {
+    if (graphInfo.range[X][MAX] < 0) {
         // If the graph is on the negative side of the x-axis, lock the ticks to the right side of the graph
-        xPointOnAxis = graphInfo.range[0][1];
+        xPointOnAxis = graphInfo.range[X][MAX];
     }
 
     const pointOnAxis: vec.Vector2 = [xPointOnAxis, y];
@@ -57,13 +58,13 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
     let yPointOnAxis = 0;
     // If the graph is zoomed in, we want to make sure the ticks are still visible
     // even if they are outside the graph's range.
-    if (graphInfo.range[1][0] > 0) {
+    if (graphInfo.range[Y][MIN] > 0) {
         // If the graph is on the positive side of the y-axis, lock the ticks to the top of the graph
-        yPointOnAxis = graphInfo.range[1][0];
+        yPointOnAxis = graphInfo.range[Y][MIN];
     }
-    if (graphInfo.range[1][1] < 0) {
+    if (graphInfo.range[Y][MAX] < 0) {
         // If the graph is on the negative side of the x-axis, lock the ticks to the bottom of the graph
-        yPointOnAxis = graphInfo.range[1][1];
+        yPointOnAxis = graphInfo.range[Y][MAX];
     }
 
     const pointOnAxis: vec.Vector2 = [x, yPointOnAxis];
@@ -119,11 +120,12 @@ export const AxisTicks = () => {
         height,
     };
 
-    const [xMin, xMax] = range[0];
-    const [yMin, yMax] = range[1];
+    // TODO(benchristel): destructure these in one line
+    const [xMin, xMax] = range[X];
+    const [yMin, yMax] = range[Y];
 
-    const yTickStep = tickStep[1];
-    const xTickStep = tickStep[0];
+    const yTickStep = tickStep[Y];
+    const xTickStep = tickStep[X];
 
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);

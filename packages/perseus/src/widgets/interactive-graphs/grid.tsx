@@ -7,6 +7,7 @@ import {AxisTicks} from "./axis-ticks";
 import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
 import type {vec} from "mafs";
+import {X, Y} from "./math";
 
 interface GridProps {
     tickStep: vec.Vector2;
@@ -63,8 +64,8 @@ export const Grid = (props: GridProps) => {
     return props.markings === "none" ? null : (
         <>
             <Coordinates.Cartesian
-                xAxis={axisOptions(props, 0)}
-                yAxis={axisOptions(props, 1)}
+                xAxis={axisOptions(props, X)}
+                yAxis={axisOptions(props, Y)}
             />
             {
                 // Only render the axis ticks and arrows if the markings are set to a full "graph"

@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {pathBuilder} from "../../../../util/svg";
 import {useTransformVectorsToPixels} from "../use-transform";
+import {X, Y} from "../../math";
 
 type Props = {
     tip: vec.Vector2;
@@ -27,7 +28,7 @@ export function Arrowhead(props: Props) {
     return (
         <g
             className="interactive-graph-arrowhead"
-            transform={`translate(${point[0]} ${point[1]}) rotate(${props.angle})`}
+            transform={`translate(${point[X]} ${point[Y]}) rotate(${props.angle})`}
         >
             <g transform="translate(-1.5)">
                 <path

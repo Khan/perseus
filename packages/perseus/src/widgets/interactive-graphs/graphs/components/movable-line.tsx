@@ -14,7 +14,7 @@ import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
 
 import type {Interval} from "mafs";
-import {size} from "../../math/interval";
+import {size} from "../../math";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;

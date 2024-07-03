@@ -1,8 +1,8 @@
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
-import {clampToBox, inset} from "./math";
-import {size} from "./math/interval";
+import {clampToBox, inset, MIN} from "./math";
+import {size} from "./math";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG
@@ -23,12 +23,12 @@ export const normalizePoints = <A extends Coord[]>(
             coords.map((coord, i) => {
                 const axisRange = range[i];
                 if (noSnap) {
-                    return axisRange[0] + size(axisRange) * coord;
+                    return axisRange[MIN] + size(axisRange) * coord;
                 }
                 const axisStep = step[i];
                 const nSteps = Math.floor(size(axisRange) / axisStep);
                 const tick = Math.round(coord * nSteps);
-                return axisRange[0] + axisStep * tick;
+                return axisRange[MIN] + axisStep * tick;
             }) as Coord,
     ) as any;
 

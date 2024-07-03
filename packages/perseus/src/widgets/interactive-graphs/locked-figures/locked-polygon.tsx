@@ -7,6 +7,7 @@ import {
 } from "../../../perseus-types";
 
 import type {LockedPolygonType} from "../../../perseus-types";
+import {X, Y} from "../math";
 
 const LockedPolygon = (props: LockedPolygonType) => {
     const {points, color, showVertices, fillStyle, strokeStyle} = props;
@@ -23,8 +24,8 @@ const LockedPolygon = (props: LockedPolygonType) => {
                 points.map((point, index) => (
                     <Point
                         key={`locked-polygon-point-${index}`}
-                        x={point[0]}
-                        y={point[1]}
+                        x={point[X]}
+                        y={point[Y]}
                         color={lockedFigureColors[color]}
                     />
                 ))}

@@ -5,7 +5,7 @@ import {useRef} from "react";
 import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
-import {snap} from "../math";
+import {snap, X, Y} from "../math";
 
 import {StyledMovablePoint} from "./components/movable-point";
 import {useDraggable} from "./use-draggable";
@@ -68,17 +68,17 @@ function MovableCircle(props: {
         >
             <ellipse
                 className="focus-ring"
-                cx={centerPx[0]}
-                cy={centerPx[1]}
-                rx={radiiPx[0] + 3}
-                ry={radiiPx[1] + 3}
+                cx={centerPx[X]}
+                cy={centerPx[Y]}
+                rx={radiiPx[X] + 3}
+                ry={radiiPx[Y] + 3}
             />
             <ellipse
                 className="circle"
-                cx={centerPx[0]}
-                cy={centerPx[1]}
-                rx={radiiPx[0]}
-                ry={radiiPx[1]}
+                cx={centerPx[X]}
+                cy={centerPx[Y]}
+                rx={radiiPx[X]}
+                ry={radiiPx[Y]}
             />
             <DragHandle center={center} />
         </g>
@@ -97,10 +97,10 @@ function DragHandle(props: {center: [x: number, y: number]}) {
         <>
             <rect
                 className="movable-circle-handle"
-                x={topLeft[0]}
-                y={topLeft[1]}
-                width={dragHandleDimensions[0]}
-                height={dragHandleDimensions[1]}
+                x={topLeft[X]}
+                y={topLeft[Y]}
+                width={dragHandleDimensions[X]}
+                height={dragHandleDimensions[Y]}
                 rx={cornerRadius}
                 ry={cornerRadius}
             />

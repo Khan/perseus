@@ -7,12 +7,13 @@ import {pointToPixel} from "./graphs/use-transform";
 import useGraphConfig from "./reducer/use-graph-config";
 
 import type {GraphDimensions} from "./types";
+import {MAX, X, Y} from "./math";
 
 export default function AxisLabels() {
     const {range, labels, width, height} = useGraphConfig();
 
-    const yAxisLabelLocation: vec.Vector2 = [0, range[1][1]];
-    const xAxisLabelLocation: vec.Vector2 = [range[0][1], 0];
+    const yAxisLabelLocation: vec.Vector2 = [0, range[Y][MAX]];
+    const xAxisLabelLocation: vec.Vector2 = [range[X][MAX], 0];
 
     const [xAxisLabelText, yAxisLabelText] = labels;
     const graphInfo: GraphDimensions = {

@@ -17,7 +17,7 @@ import GraphUtils from "../../../util/graph-utils";
 import {polar} from "../../../util/graphie";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
 import {bound} from "../utils";
-import {clamp, snap} from "../math";
+import {clamp, snap, X, Y} from "../math";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -295,7 +295,7 @@ function doMovePoint(
             // vertical line. If they are, then we don't want to move the point
             const newCoords: vec.Vector2[] = [...state.coords];
             newCoords[action.index] = boundDestination;
-            if (newCoords[0][0] === newCoords[1][0]) {
+            if (newCoords[0][X] === newCoords[1][X]) {
                 return state;
             }
 
@@ -369,13 +369,13 @@ function doMoveCenter(
             // if it otherwise would be off the chart
             // ex: if the handle is on the right and we move the center
             // to the rightmost position, move the handle to the left
-            const [xMin, xMax] = state.range[0];
+            const [xMin, xMax] = state.range[X];
             const [radX] = newRadiusPoint;
             if (radX < xMin || radX > xMax) {
-                const xJumpDist = (radX - constrainedCenter[0]) * 2;
+                const xJumpDist = (radX - constrainedCenter[X]) * 2;
                 const possibleNewX = radX - xJumpDist;
                 if (possibleNewX >= xMin && possibleNewX <= xMax) {
-                    newRadiusPoint[0] = possibleNewX;
+                    newRadiusPoint[X] = possibleNewX;
                 }
             }
 
@@ -399,11 +399,11 @@ function doMoveRadiusPoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "circle": {
-            const [xMin, xMax] = state.range[0];
+            const [xMin, xMax] = state.range[X];
             const nextRadiusPoint: vec.Vector2 = [
                 // Constrain to graph range
                 // The +0 is to convert -0 to +0
-                clamp(action.destination[0] + 0, xMin, xMax),
+                clamp(action.destination[X] + 0, xMin, xMax),
                 state.center[1],
             ];
 
@@ -464,10 +464,10 @@ const getDeltaVertex = (
     delta: vec.Vector2,
 ): vec.Vector2 => {
     const [deltaX, deltaY] = delta;
-    const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
-    const maxYMove = Math.min(...maxMoves.map((move) => move[1]));
-    const minXMove = Math.max(...minMoves.map((move) => move[0]));
-    const minYMove = Math.max(...minMoves.map((move) => move[1]));
+    const maxXMove = Math.min(...maxMoves.map((move) => move[X]));
+    const maxYMove = Math.min(...maxMoves.map((move) => move[Y]));
+    const minXMove = Math.max(...minMoves.map((move) => move[X]));
+    const minYMove = Math.max(...minMoves.map((move) => move[Y]));
     const dx = clamp(deltaX, minXMove, maxXMove);
     const dy = clamp(deltaY, minYMove, maxYMove);
     return [dx, dy];

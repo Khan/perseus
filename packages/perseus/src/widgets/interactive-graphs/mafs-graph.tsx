@@ -40,6 +40,7 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {X, Y} from "./math";
 
 export type StatefulMafsGraphProps = {
     box: [number, number];
@@ -248,8 +249,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
-                            x: state.range[0],
-                            y: state.range[1],
+                            x: state.range[X],
+                            y: state.range[Y],
                             padding: 0,
                         }}
                         pan={false}

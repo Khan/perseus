@@ -14,6 +14,7 @@ import {bound, TARGET_SIZE} from "./utils";
 import type {RefObject} from "react";
 
 import "./protractor.css";
+import {X, Y} from "./math";
 
 const protractorImage =
     "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png";
@@ -64,9 +65,9 @@ export function Protractor() {
     return (
         <g
             ref={draggableRef}
-            transform={`translate(${topLeftPx[0]}, ${topLeftPx[1]}), rotate(${angle})`}
+            transform={`translate(${topLeftPx[X]}, ${topLeftPx[Y]}), rotate(${angle})`}
             style={{
-                transformOrigin: `${-centerToTopLeft[0]}px ${-centerToTopLeft[1]}px`,
+                transformOrigin: `${-centerToTopLeft[X]}px ${-centerToTopLeft[Y]}px`,
             }}
         >
             <image href={protractorImage} />

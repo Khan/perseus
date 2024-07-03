@@ -8,6 +8,7 @@ import {StyledMovablePoint} from "./components/movable-point";
 
 import type {Coord} from "../../../interactive2/types";
 import type {SinusoidGraphState, MafsGraphProps} from "../types";
+import {X, Y} from "../math";
 
 type SinusoidGraphProps = MafsGraphProps<SinusoidGraphState>;
 
@@ -86,15 +87,15 @@ export const getSinusoidCoefficients = (
     const p2 = coords[1];
 
     // If the x-coordinates are the same, we are unable to calculate the coefficients
-    if (p2[0] === p1[0]) {
+    if (p2[X] === p1[X]) {
         return;
     }
 
     // Resulting coefficients are canonical for this sine curve
-    const amplitude = p2[1] - p1[1];
-    const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-    const phase = p1[0] * angularFrequency;
-    const verticalOffset = p1[1];
+    const amplitude = p2[Y] - p1[Y];
+    const angularFrequency = Math.PI / (2 * (p2[X] - p1[X]));
+    const phase = p1[X] * angularFrequency;
+    const verticalOffset = p1[Y];
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };
