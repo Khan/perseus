@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 7.0.2
+
+### Patch Changes
+
+-   [#1385](https://github.com/Khan/perseus/pull/1385) [`30f898c44`](https://github.com/Khan/perseus/commit/30f898c44954cf6f1d3d99038f476bd2038cb7c4) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Remove the use of graphKey for remounting
+
+-   Updated dependencies [[`5fdbeb980`](https://github.com/Khan/perseus/commit/5fdbeb980880f9239696633934c2bd95b4931db6), [`94067d752`](https://github.com/Khan/perseus/commit/94067d7522a2ffcb04d213e1ebdb4a96cc0414bc)]:
+    -   @khanacademy/perseus@24.2.0
+
+## 7.0.1
+
+### Patch Changes
+
+-   [#1375](https://github.com/Khan/perseus/pull/1375) [`a8b3aa9c0`](https://github.com/Khan/perseus/commit/a8b3aa9c0098e515d304ee5e4eb5d6b01ba96fcd) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Fix the broken storybook preview for segments, points, and polygons
+
+*   [#1379](https://github.com/Khan/perseus/pull/1379) [`685fa9048`](https://github.com/Khan/perseus/commit/685fa904815926cfd75105476df63ce76d4f00ae) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Moving around/renaming components so they make more sense for the upcoming hint mode work
+
+*   Updated dependencies [[`3ee100add`](https://github.com/Khan/perseus/commit/3ee100add8e25da442edccfbde458f270c282112), [`93eeda1e2`](https://github.com/Khan/perseus/commit/93eeda1e2e45345a622f9866bcfd31a27d717e3f), [`685fa9048`](https://github.com/Khan/perseus/commit/685fa904815926cfd75105476df63ce76d4f00ae), [`48e879ace`](https://github.com/Khan/perseus/commit/48e879acee304cac48d67bb0030ac2fc8dc00a50), [`26dceb8d7`](https://github.com/Khan/perseus/commit/26dceb8d7ada9b6f3c47893d8dfaccdbeb3df980)]:
+    -   @khanacademy/perseus@24.1.0
+
 ## 7.0.0
 
 ### Major Changes

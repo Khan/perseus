@@ -134,7 +134,7 @@ export const MafsGraphTypeFlags = [
     "linear-system",
     /** Enables the `ray` interactive-graph type.  */
     "ray",
-    /** Enables the `polygon` interactive-graph type.  */
+    /** Enables the `polygon` interactive-graph type a fixed number of sides. */
     "polygon",
     /** Enables the `circle` interactive-graph type.  */
     "circle",
@@ -142,6 +142,8 @@ export const MafsGraphTypeFlags = [
     "quadratic",
     /** Enables the `sinusoid` interactive-graph type.  */
     "sinusoid",
+    /** Enables the `point` interactive-graph type with a fixed number of points. */
+    "point",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [
