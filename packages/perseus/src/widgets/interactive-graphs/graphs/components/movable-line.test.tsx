@@ -9,7 +9,7 @@ import {MovableLine, trimRange} from "./movable-line";
 import type {Interval, vec} from "mafs";
 
 describe("trimRange", () => {
-    it("does not trim smaller than [[0, 0], [0, 0]]", () => {
+    it("does not trim ranges below a size of 0", () => {
         const graphDimensionsInPixels: vec.Vector2 = [1, 1];
         const range: [Interval, Interval] = [
             [0, 1],
@@ -19,8 +19,8 @@ describe("trimRange", () => {
         const trimmed = trimRange(range, graphDimensionsInPixels);
 
         expect(trimmed).toEqual([
-            [0, 0],
-            [0, 0],
+            [0.5, 0.5],
+            [0.5, 0.5],
         ]);
     });
 
