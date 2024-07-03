@@ -645,20 +645,20 @@ function boundAndSnapAngleEndPoints(
     {
         range,
         coords,
-        snapDegrees = 0,
-        snapOffset = 0,
+        snapDegrees,
+        angleOffsetDeg,
         allowReflexAngles,
     }: {
         range: [Interval, Interval];
         coords: Coord[];
         snapDegrees?: number;
-        snapOffset?: number;
+        angleOffsetDeg?: number;
         allowReflexAngles?: boolean;
     },
     index: number,
 ) {
     const snap = snapDegrees || 1;
-    const offsetDegrees = snapOffset || 0;
+    const offsetDegrees = angleOffsetDeg || 0;
 
     // Needed to prevent updating the original coords before the checks for
     // degenerate triangles and overlapping sides
@@ -683,6 +683,7 @@ function boundAndSnapAngleEndPoints(
     angle = Math.round((angle - offsetDegrees) / snap) * snap + offsetDegrees;
     const distance = GraphUtils.getDistance(coordsCopy[index], vertex);
     const snappedValue = kvector.add(vertex, polar(distance, angle));
+
     return snappedValue;
 }
 

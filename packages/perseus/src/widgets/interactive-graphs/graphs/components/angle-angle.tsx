@@ -30,7 +30,7 @@ export const Angle = ({
     const areClockwise = clockwise([...coords, vertex]);
     // Start with getting the current angle
     const clockwiseCoords =
-        areClockwise || allowReflexAngles ? coords : coords.reverse();
+        areClockwise && !allowReflexAngles ? coords : coords.reverse();
 
     const startAngle = findAngle(clockwiseCoords[0], vertex);
 
@@ -47,9 +47,7 @@ export const Angle = ({
     const [startX, startY] = point1;
     const [endX, endY] = point2;
 
-    const graphScale = range[0][1] - range[0][0];
     const radius = 2;
-    const strokeWidth = 0.3 * graphScale;
 
     const a = vec.dist(vertex, point1);
 
@@ -116,20 +114,21 @@ export const Angle = ({
                     />
                 </MafsCssTransformWrapper>
             )}
-
-            <TextLabel
-                x={x3}
-                y={y3}
-                attach={y3 - centerY > 0 ? "s" : "n"}
-                attachDistance={
-                    Math.abs(y3 - centerY) < 0.6 ||
-                    Math.abs(vec.dist([x3, y3], vertex)) < 0.6
-                        ? 25
-                        : 10
-                }
-            >
-                {angleLabel}°
-            </TextLabel>
+            {showAngles && (
+                <TextLabel
+                    x={x3}
+                    y={y3}
+                    attach={y3 - centerY > 0 ? "s" : "n"}
+                    attachDistance={
+                        Math.abs(y3 - centerY) < 0.6 ||
+                        Math.abs(vec.dist([x3, y3], vertex)) < 0.6
+                            ? 25
+                            : 10
+                    }
+                >
+                    {angleLabel}°
+                </TextLabel>
+            )}
         </>
     );
 };

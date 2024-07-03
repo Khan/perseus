@@ -99,6 +99,7 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: graph.type,
+                showAngles: Boolean(graph.showAngles),
                 coords: getAngleCoords({graph, range, step}),
                 angleOffsetDeg: Number(graph.showAngles),
                 allowReflexAngles: Boolean(graph.allowReflexAngles),

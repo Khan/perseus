@@ -92,7 +92,7 @@ export function AngleGraph(props: AngleGraphProps) {
         angleOffsetDeg: angleOffsetDeg || 0, // The angle offset from the x-axis
         snapDegrees: snapDegrees || 1, // The multiple of degrees to snap to
         range: range,
-        showAngles: showAngles || true, // Whether to show the angle or not
+        showAngles: showAngles || false, // Whether to show the angle or not
     };
 
     // Render the lines, angle, and movable points
