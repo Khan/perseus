@@ -2,8 +2,8 @@ import {type vec} from "mafs";
 import * as React from "react";
 
 import {pathBuilder} from "../../../../util/svg";
-import {useTransformVectorsToPixels} from "../use-transform";
 import {X, Y} from "../../math";
+import {useTransformVectorsToPixels} from "../use-transform";
 
 type Props = {
     tip: vec.Vector2;

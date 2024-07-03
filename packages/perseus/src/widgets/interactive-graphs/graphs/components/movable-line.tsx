@@ -2,9 +2,9 @@ import {vec} from "mafs";
 import {useRef, useState} from "react";
 import * as React from "react";
 
+import {inset, snap, size} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
-import {inset, snap} from "../../math";
 import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
@@ -14,7 +14,6 @@ import {SVGLine} from "./svg-line";
 import {Vector} from "./vector";
 
 import type {Interval} from "mafs";
-import {size} from "../../math";
 
 type Props = {
     points: Readonly<[vec.Vector2, vec.Vector2]>;

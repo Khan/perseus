@@ -3,11 +3,11 @@ import * as React from "react";
 
 import AxisArrows from "./axis-arrows";
 import {AxisTicks} from "./axis-ticks";
+import {X, Y} from "./math";
 
 import type {GraphRange} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
 import type {vec} from "mafs";
-import {X, Y} from "./math";
 
 interface GridProps {
     tickStep: vec.Vector2;

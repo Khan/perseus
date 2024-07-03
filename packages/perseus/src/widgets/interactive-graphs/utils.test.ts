@@ -1,4 +1,5 @@
 import {normalizePoints, normalizeCoords} from "./utils";
+
 import type {Coord} from "../../interactive2/types";
 import type {GraphRange} from "../../perseus-types";
 

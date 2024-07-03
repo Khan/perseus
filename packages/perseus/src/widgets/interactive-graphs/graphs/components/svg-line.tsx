@@ -1,8 +1,9 @@
 import * as React from "react";
 
+import {X, Y} from "../../math";
+
 import type {vec} from "mafs";
 import type {SVGProps} from "react";
-import {X, Y} from "../../math";
 
 export type Props = {
     start: vec.Vector2;

@@ -1,11 +1,11 @@
 import * as React from "react";
 
+import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {pointToPixel} from "../use-transform";
 
 import type {GraphConfig} from "../../reducer/use-graph-config";
 import type {vec} from "mafs";
-import {X, Y} from "../../math";
 
 type ShowTickLabelProps = {
     // The gridStep is the number of units between each grid line

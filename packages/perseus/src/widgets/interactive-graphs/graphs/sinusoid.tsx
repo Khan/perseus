@@ -2,13 +2,13 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Plot} from "mafs";
 import * as React from "react";
 
+import {X, Y} from "../math";
 import {movePoint} from "../reducer/interactive-graph-action";
 
 import {StyledMovablePoint} from "./components/movable-point";
 
 import type {Coord} from "../../../interactive2/types";
 import type {SinusoidGraphState, MafsGraphProps} from "../types";
-import {X, Y} from "../math";
 
 type SinusoidGraphProps = MafsGraphProps<SinusoidGraphState>;
 

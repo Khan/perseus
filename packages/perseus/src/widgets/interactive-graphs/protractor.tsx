@@ -8,13 +8,13 @@ import {pathBuilder} from "../../util/svg";
 import {useDraggable} from "./graphs/use-draggable";
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
 import {calculateAngleInDegrees} from "./graphs/utils";
+import {X, Y} from "./math";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
 
 import type {RefObject} from "react";
 
 import "./protractor.css";
-import {X, Y} from "./math";
 
 const protractorImage =
     "https://ka-perseus-graphie.s3.amazonaws.com/e9d032f2ab8b95979f674fbfa67056442ba1ff6a.png";

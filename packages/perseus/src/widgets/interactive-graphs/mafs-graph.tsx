@@ -21,6 +21,7 @@ import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
 import {Grid} from "./grid";
 import {LegacyGrid} from "./legacy-grid";
+import {X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
@@ -40,7 +41,6 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {X, Y} from "./math";
 
 export type StatefulMafsGraphProps = {
     box: [number, number];

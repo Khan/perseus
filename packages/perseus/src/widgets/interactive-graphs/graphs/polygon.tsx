@@ -1,9 +1,9 @@
 import {Polygon, vec} from "mafs";
 import * as React from "react";
 
+import {snap} from "../math";
 import {moveAll, movePoint} from "../reducer/interactive-graph-action";
 import {TARGET_SIZE} from "../utils";
-import {snap} from "../math"
 
 import {Angle} from "./components/angle";
 import {StyledMovablePoint} from "./components/movable-point";

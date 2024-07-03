@@ -2,10 +2,10 @@ import {vec} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
+import {snap, X, Y} from "../math";
 import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
-import {snap, X, Y} from "../math";
 
 import {StyledMovablePoint} from "./components/movable-point";
 import {useDraggable} from "./use-draggable";

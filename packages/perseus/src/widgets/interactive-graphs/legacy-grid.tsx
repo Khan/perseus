@@ -5,8 +5,9 @@ import AssetContext from "../../asset-context";
 import {SvgImage} from "../../components";
 import {interactiveSizes} from "../../styles/constants";
 
-import type {PerseusImageBackground} from "../../perseus-types";
 import {X} from "./math";
+
+import type {PerseusImageBackground} from "../../perseus-types";
 
 interface Props {
     box: [number, number];

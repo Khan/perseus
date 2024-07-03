@@ -10,10 +10,10 @@ import {
     calculateAngleInDegrees,
     getIntersectionOfRayWithBox,
 } from "../graphs/utils";
+import {X, Y} from "../math";
 
 import type {LockedLineType} from "../../../perseus-types";
 import type {Interval} from "mafs";
-import {X, Y} from "../math";
 
 type Props = LockedLineType & {
     range: [Interval, Interval];

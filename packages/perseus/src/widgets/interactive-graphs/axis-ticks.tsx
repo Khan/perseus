@@ -1,11 +1,11 @@
 import * as React from "react";
 
 import {useTransformVectorsToPixels} from "./graphs/use-transform";
+import {MAX, MIN, X, Y} from "./math";
 import useGraphConfig from "./reducer/use-graph-config";
 
 import type {GraphDimensions} from "./types";
 import type {vec} from "mafs";
-import {MAX, MIN, X, Y} from "./math";
 
 const tickSize = 10;
 
