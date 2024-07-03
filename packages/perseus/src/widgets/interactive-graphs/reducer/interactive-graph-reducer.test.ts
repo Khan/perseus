@@ -425,7 +425,7 @@ describe("movePoint on an angle graph", () => {
         ).toBeCloseTo(50);
     });
 
-    it("snaps to the snap grid", () => {
+    it("snaps to the nearest snapDegrees", () => {
         const state: InteractiveGraphState = {
             ...baseAngleGraphState,
             coords: [
