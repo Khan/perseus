@@ -40,15 +40,19 @@ function Tabbar(props: Props): React.ReactElement {
     const [focus, setFocus] = useState(
         selectedIndex === -1 ? 0 : selectedIndex,
     );
-
-    // Custom function to handle arrow key navigation for the TabBar for each TabItem.
-    const useArrowKeyFocus = (e) => {
+    /**
+     * Custom function to handle arrow key navigation for the TabBar for each TabItem.
+     * This implementation also circular in that if the user goes past the end of
+     * the list they will go back to the beginning and vise versa.
+     * @param e - onKeyDown event data.
+     */
+    const onArrowKeyFocus = (e) => {
         if (e.keyCode === 39) {
             // Right arrow
-            setFocus(focus === items.length - 1 ? items.length - 1 : focus + 1);
+            setFocus(focus === items.length - 1 ? 0 : focus + 1);
         } else if (e.keyCode === 37) {
             // Left arrow
-            setFocus(focus === 0 ? 0 : focus - 1);
+            setFocus(focus === 0 ? items.length - 1 : focus - 1);
         }
     };
 
@@ -57,7 +61,7 @@ function Tabbar(props: Props): React.ReactElement {
             <View
                 style={[styles.pages]}
                 role="tablist"
-                onKeyDown={useArrowKeyFocus}
+                onKeyDown={onArrowKeyFocus}
             >
                 {items.map((item, index) => (
                     <TabbarItem
