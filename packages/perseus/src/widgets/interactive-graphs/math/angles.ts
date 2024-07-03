@@ -6,7 +6,9 @@ export function convertDegreesToRadians(degrees: number): number {
     return (degrees / 180) * Math.PI;
 }
 
-export function calculateAngleInDegrees([x, y]: vec.Vector2) {
+// Returns a value between -180 and 180, inclusive. The angle is measured
+// between the positive x-axis and the given vector.
+export function calculateAngleInDegrees([x, y]: vec.Vector2): number {
     return (Math.atan2(y, x) * 180) / Math.PI;
 }
 
