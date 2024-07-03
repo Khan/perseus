@@ -4,7 +4,7 @@ import * as React from "react";
 
 import useGraphConfig from "../../reducer/use-graph-config";
 import {TARGET_SIZE} from "../../utils";
-import {snap} from "../../math";
+import {inset, snap} from "../../math";
 import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
@@ -228,14 +228,7 @@ export function trimRange(
     const graphUnitsPerPixelY = size(yRange) / pixelsTall;
     const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX;
     const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY;
-    return [trim(xRange, graphUnitsToTrimX), trim(yRange, graphUnitsToTrimY)];
-}
-
-function trim(interval: Interval, amount: number): Interval {
-    if (size(interval) < amount * 2) {
-        return [0, 0];
-    }
-    return [interval[0] + amount, interval[1] - amount];
+    return inset([graphUnitsToTrimX, graphUnitsToTrimY], range);
 }
 
 function size(interval: Interval): number {
