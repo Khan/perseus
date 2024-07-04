@@ -1,7 +1,8 @@
-import {findAngle, shouldDrawArcOutside} from "./angle-indicators";
+import {shouldDrawArcOutside} from "./angle-indicators";
 
 import type {CollinearTuple} from "../../../../perseus-types";
 import type {vec, Interval} from "mafs";
+import {findAngle} from "../../math";
 
 describe("shouldDrawArcOutside", () => {
     const range = [

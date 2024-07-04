@@ -1,7 +1,9 @@
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
+import {findAngle} from "../../math";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
@@ -114,9 +116,7 @@ export const PolygonAngle = ({
                     end={[x3, y3]}
                 />
             ) : (
-                <MafsCssTransformWrapper>
-                    <path d={arc} strokeWidth={0.02} fill="none" />
-                </MafsCssTransformWrapper>
+                <Arc arc={arc} />
             )}
 
             <TextLabel
@@ -165,7 +165,7 @@ export const Angle = ({
     const endAngle = findAngle(clockwiseCoords[1], vertex);
     const angle = (startAngle + 360 - endAngle) % 360;
 
-    // Check if the angle is reflexive and if we should allow it
+    // Check if the angle is reflexive
     const isReflexive = angle > 180;
 
     // Break out the necessary points for the arc calculation
@@ -216,6 +216,7 @@ export const Angle = ({
         point2,
         vertex,
         isReflexive,
+        radius,
     );
 
     return (
@@ -233,24 +234,18 @@ export const Angle = ({
                 </filter>
             </defs>
 
-            {!isReflexive && isRightAngle(angle) ? (
+            {isRightAngle(angle) ? (
                 <RightAngleSquare
                     start={[x1, y1]}
                     vertex={[x2, y2]}
                     end={[x3, y3]}
+                    className={"arc-right-angle"}
                 />
             ) : (
-                <MafsCssTransformWrapper>
-                    <path
-                        d={arc}
-                        strokeWidth="2000"
-                        fill="none"
-                        className={"angle-arc"}
-                    />
-                </MafsCssTransformWrapper>
+                <Arc arc={arc} className={"angle-arc"} />
             )}
             {showAngles && (
-                <TextLabel x={textX} y={textY}>
+                <TextLabel x={textX} y={textY} color={color.blue}>
                     {angleLabel}°
                 </TextLabel>
             )}
@@ -266,18 +261,41 @@ const RightAngleSquare = ({
     start: [x1, y1],
     vertex: [x2, y2],
     end: [x3, y3],
+    className,
+}: {
+    start: vec.Vector2;
+    vertex: vec.Vector2;
+    end: vec.Vector2;
+    className?: string;
 }) => (
     <MafsCssTransformWrapper>
         <path
             d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
             strokeWidth={0.02}
             fill="none"
+            className={className}
         />
     </MafsCssTransformWrapper>
 );
 
+// We're conditionally adding the class name here so that we can style the arc differently
+// based on whether it's an angle or a polygon angle
+const Arc = ({arc, className}: {arc: string; className?: string}) => {
+    return (
+        <MafsCssTransformWrapper>
+            <path
+                d={arc}
+                strokeWidth={0.02}
+                fill="none"
+                className={className}
+            />
+        </MafsCssTransformWrapper>
+    );
+};
+
 const isRightPolygonAngle = (angle: number) =>
     Math.abs(angle - Math.PI / 2) < 0.01;
+
 const isRightAngle = (angle: number) => Math.round(angle) === 90;
 
 /**
@@ -331,24 +349,7 @@ const linesIntersect = (
 
 const isEven = (n: number) => n % 2 === 0;
 
-// Exported for testing
-export const findAngle = (
-    point1: vec.Vector2,
-    point2: vec.Vector2,
-    vertex?: vec.Vector2,
-): number => {
-    if (vertex === undefined) {
-        const x = point1[0] - point2[0];
-        const y = point1[1] - point2[1];
-        if (!x && !y) {
-            return 0;
-        }
-        return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
-    }
-    return findAngle(point1, vertex) - findAngle(point2, vertex);
-};
-
-function calculateBisectorPoint(point1, point2, vertex, isReflex) {
+function calculateBisectorPoint(point1, point2, vertex, isReflex, arcRadius) {
     const [originX, originY] = vertex;
     const [x1, y1] = point1;
     const [x2, y2] = point2;
@@ -391,8 +392,8 @@ function calculateBisectorPoint(point1, point2, vertex, isReflex) {
         bisectorDirection.x ** 2 + bisectorDirection.y ** 2,
     );
 
-    // Determine the minimum radius to ensure the point is at least 2 units away in any direction
-    const requiredDistance = 3;
+    // Determine the minimum radius to ensure that the text is always outside the arc
+    const requiredDistance = arcRadius * 1.75;
     let radius = requiredDistance / initialDistance;
 
     // Apply radius only if the initial distance is less than required

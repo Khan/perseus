@@ -382,6 +382,8 @@ const getAngleCoords = (params: {
     // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
     const radius = magnitude(vector(...defaultCoords));
 
+    // We're adding a placeholder for the third point to appease ts and so that we
+    // can calculate it after we've adjusted the first point by the angleOffsetDeg
     const coords: [Coord, Coord, Coord] = [...defaultCoords, [0, 0]];
 
     // Adjust the lower point by angleOffsetDeg degrees

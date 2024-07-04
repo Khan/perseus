@@ -13,18 +13,9 @@ import {getIntersectionOfRayWithBox} from "./utils";
 
 import type {CollinearTuple} from "../../../perseus-types";
 import type {AngleGraphState, MafsGraphProps} from "../types";
-import type {vec, Interval} from "mafs";
+import type {vec} from "mafs";
 
 type AngleGraphProps = MafsGraphProps<AngleGraphState>;
-type AngleProps = {
-    vertex: vec.Vector2;
-    coords: [vec.Vector2, vec.Vector2];
-    showAngles: boolean;
-    allowReflexAngles: boolean;
-    angleOffsetDeg: number;
-    snapDegrees: number;
-    range: [Interval, Interval];
-};
 
 export function AngleGraph(props: AngleGraphProps) {
     const {dispatch, graphState} = props;
@@ -40,14 +31,17 @@ export function AngleGraph(props: AngleGraphProps) {
     } = graphState;
 
     // Break the coords into the two end points and the center point
-    const endPoints = [coords[0], coords[2]] as [vec.Vector2, vec.Vector2];
+    const endPoints = [coords[0], coords[2]] satisfies [
+        vec.Vector2,
+        vec.Vector2,
+    ];
     const centerPoint = coords[1];
 
     // Convert the vectors to pixels for rendering the svg lines
     const angleLines = [
         [centerPoint, endPoints[0]],
         [centerPoint, endPoints[1]],
-    ] as CollinearTuple[];
+    ] satisfies CollinearTuple[];
 
     const linePixelCoords = [
         useTransformVectorsToPixels(centerPoint, endPoints[0]),
@@ -83,7 +77,7 @@ export function AngleGraph(props: AngleGraphProps) {
     });
 
     // Create the angle indicator parameters
-    const angleParams: AngleProps = {
+    const angleParams = {
         vertex: centerPoint,
         coords: endPoints,
         allowReflexAngles: allowReflexAngles || false, // Whether to allow reflex angles or not

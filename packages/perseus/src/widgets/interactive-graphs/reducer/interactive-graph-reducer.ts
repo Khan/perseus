@@ -14,10 +14,8 @@ import {
     sign,
     vector,
 } from "../../../util/geometry";
-import GraphUtils from "../../../util/graph-utils";
-import {polar} from "../../../util/graphie";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {clamp, snap, X, Y} from "../math";
+import {clamp, findAngle, polar, snap, X, Y} from "../math";
 import {bound} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
@@ -535,17 +533,6 @@ function boundAndSnapToGrid(
     return snap(snapStep, bound({snapStep, range, point}));
 }
 
-function tooClose(
-    point1: vec.Vector2,
-    point2: vec.Vector2,
-    range: [Interval, Interval],
-) {
-    const safeDistance = 2;
-    const distance = vec.dist(point1, point2);
-
-    return distance < safeDistance;
-}
-
 function boundAndSnapAngleVertex(
     {
         range,
@@ -562,22 +549,25 @@ function boundAndSnapAngleVertex(
     // degenerate triangles and overlapping sides
     const coordsCopy: [Coord, Coord, Coord] = [...coords];
 
+    // Get the current and upcoming positions of the vertex
     const startingVertex = coordsCopy[1];
     const newVertex = bound({
         snapStep,
         range,
         point: snap(snapStep, destination),
     });
-    const delta = kvector.add(newVertex, reverseVector(startingVertex));
 
+    // Get the vector from the starting vertex to the new vertex
+    const delta = vec.add(newVertex, reverseVector(startingVertex));
+
+    // Apply the delta to each of the other two points so that the angle is maintained
     let valid = true;
     const newPoints: Record<string, any> = {};
-
-    _.each([0, 2], function (i) {
+    for (const i of [0, 2]) {
         const oldPoint = coordsCopy[i];
-        let newPoint = kvector.add(oldPoint, delta);
+        let newPoint = vec.add(oldPoint, delta);
 
-        let angle = GraphUtils.findAngle(newVertex, newPoint);
+        let angle = findAngle(newVertex, newPoint);
         angle *= Math.PI / 180;
 
         newPoint = constrainToBoundsOnAngle(newPoint, angle, range, snapStep);
@@ -587,17 +577,29 @@ function boundAndSnapAngleVertex(
         if (tooClose(newVertex, newPoint, range)) {
             valid = false;
         }
-    });
+    }
 
     // Update the vertex after snapping to the snapStep
     newPoints[1] = newVertex;
     // Only move points if all new positions are valid
     if (valid) {
-        _.each(newPoints, function (newPoint, i) {
+        Object.entries(newPoints).forEach(([i, newPoint]) => {
             coordsCopy[i] = newPoint;
         });
     }
     return coordsCopy;
+}
+
+// This function is used to ensure that the vertex of
+// an angle is not too close to the other points
+function tooClose(
+    point1: vec.Vector2,
+    point2: vec.Vector2,
+    range: [Interval, Interval],
+) {
+    const safeDistance = 2;
+    const distance = vec.dist(point1, point2);
+    return distance < safeDistance;
 }
 
 function constrainToBoundsOnAngle(
@@ -691,12 +693,12 @@ function boundAndSnapAngleEndPoints(
     const vertex = coords[1];
 
     // Gets the angle between the coords and the vertex
-    let angle = GraphUtils.findAngle(coordsCopy[index], vertex);
+    let angle = findAngle(coordsCopy[index], vertex);
 
     // Snap the angle to the nearest multiple of snapDegrees (if provided)
     angle = Math.round((angle - offsetDegrees) / snap) * snap + offsetDegrees;
-    const distance = GraphUtils.getDistance(coordsCopy[index], vertex);
-    const snappedValue = kvector.add(vertex, polar(distance, angle));
+    const distance = vec.dist(coordsCopy[index], vertex);
+    const snappedValue = vec.add(vertex, polar(distance, angle));
 
     return snappedValue;
 }
@@ -742,7 +744,7 @@ function boundAndSnapToPolygonAngle(
     });
 
     const getAngle = function (a: number, vertex, b: number) {
-        const angle = GraphUtils.findAngle(
+        const angle = findAngle(
             coordsCopy[rel(a)],
             coordsCopy[rel(b)],
             coordsCopy[rel(vertex)],
@@ -789,10 +791,7 @@ function boundAndSnapToPolygonAngle(
         knownSide;
 
     // Angle at the second vertex of the polygon
-    const outerAngle = GraphUtils.findAngle(
-        coordsCopy[rel(1)],
-        coordsCopy[rel(-1)],
-    );
+    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
 
     // Uses the length of the side of the polygon (radial coordinate)
     // and the angle between the first and second sides of the
@@ -855,10 +854,7 @@ function boundAndSnapToSides(
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
     // Angle at the second vertex of the polygon
-    const outerAngle = GraphUtils.findAngle(
-        coordsCopy[rel(1)],
-        coordsCopy[rel(-1)],
-    );
+    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
 
     // Returns true if the points form a counter-clockwise turn;
     // a.k.a if the point is on the left or right of the polygon.
