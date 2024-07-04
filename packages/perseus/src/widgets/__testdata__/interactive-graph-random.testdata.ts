@@ -37,9 +37,7 @@ const randomGraphTypeAngle = (): PerseusGraphTypeAngle => {
         snapDegrees: randomInteger(1, 90),
         match: "congruent",
         // must be 3 coords for an angle graph
-        coords: arrayOfLength(3).map(
-            randomCoord,
-        ) as PerseusGraphTypeAngle["coords"],
+        coords: [randomCoord(), randomCoord(), randomCoord()],
     };
 };
 

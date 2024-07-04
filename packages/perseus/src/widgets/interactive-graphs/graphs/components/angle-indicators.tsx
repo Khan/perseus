@@ -164,8 +164,6 @@ export const Angle = ({
     const startAngle = findAngle(clockwiseCoords[0], vertex);
     const endAngle = findAngle(clockwiseCoords[1], vertex);
     const angle = (startAngle + 360 - endAngle) % 360;
-    const halfAngle = (endAngle + angle / 2) % 360;
-    const angleLabel = parseFloat(angle.toFixed(0)); // Only want to show whole angles
 
     // Check if the angle is reflexive and if we should allow it
     const isReflexive = angle > 180;
@@ -208,9 +206,11 @@ export const Angle = ({
     // Create the SVG path for the arc
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
 
+    // We only ever want to show whole angles
+    const angleLabel = parseFloat(angle.toFixed(0)); // Only want to show whole angles
+
     // Calculate the text position based on the angle and whether we allow reflex angles
     // Let's try the angle bisector method to find the midpoint of the arc
-
     const [textX, textY] = calculateBisectorPoint(
         point1,
         point2,
@@ -348,24 +348,6 @@ export const findAngle = (
     return findAngle(point1, vertex) - findAngle(point2, vertex);
 };
 
-function scaledPolarRad(radius: number, radians: number): vec.Vector2 {
-    return [
-        radius * Math.cos(radians),
-        radius * Math.sin(radians) * -1, // SVG flips y axis
-    ];
-}
-
-function scaledPolarDeg(radius: number, degrees): vec.Vector2 {
-    const radians = (degrees * Math.PI) / 180;
-    return scaledPolarRad(radius, radians);
-}
-function scaledDistanceFromAngle(angle: number) {
-    const a = 3.51470560176242 * 5;
-    const b = 0.5687298702748785 * 5;
-    const c = -0.037587715462826674;
-    return (a - b) * Math.exp(c * angle) + b;
-}
-
 function calculateBisectorPoint(point1, point2, vertex, isReflex) {
     const [originX, originY] = vertex;
     const [x1, y1] = point1;
@@ -424,5 +406,7 @@ function calculateBisectorPoint(point1, point2, vertex, isReflex) {
         bisectorDirection.y * radius,
     ] as vec.Vector2;
 
+    // Add the vertex to the bisector point to get the final position
+    // to ensure that the angle label moves with the interactive element
     return vec.add(bisectorPoint, vertex);
 }
