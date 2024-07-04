@@ -563,7 +563,11 @@ function boundAndSnapAngleVertex(
     const coordsCopy: [Coord, Coord, Coord] = [...coords];
 
     const startingVertex = coordsCopy[1];
-    const newVertex = bound({snapStep, range, point: destination});
+    const newVertex = bound({
+        snapStep,
+        range,
+        point: snap(snapStep, destination),
+    });
     const delta = kvector.add(newVertex, reverseVector(startingVertex));
 
     let valid = true;

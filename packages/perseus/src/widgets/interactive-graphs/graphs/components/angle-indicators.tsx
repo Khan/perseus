@@ -154,16 +154,17 @@ export const Angle = ({
     range,
 }: AngleProps) => {
     // Check if the points are clockwise or not, depending on whether we allow reflex angles
-    const areClockwise = clockwise([...coords, vertex]) && !allowReflexAngles;
+    const areClockwise = clockwise([...coords, vertex]);
+    const shouldReverseCoords = areClockwise && !allowReflexAngles;
 
     // Reverse the coordinates accordingly to ensure the angle is calculated correctly
-    const clockwiseCoords = areClockwise ? coords : coords.reverse();
+    const clockwiseCoords = shouldReverseCoords ? coords : coords.reverse();
 
     // Calculate the angles between the two points
     const startAngle = findAngle(clockwiseCoords[0], vertex);
     const endAngle = findAngle(clockwiseCoords[1], vertex);
     const angle = (startAngle + 360 - endAngle) % 360;
-    const halfAngle = (angle / 2) % 360;
+    const halfAngle = (endAngle + angle / 2) % 360;
     const angleLabel = parseFloat(angle.toFixed(0)); // Only want to show whole angles
 
     // Check if the angle is reflexive and if we should allow it
@@ -207,11 +208,15 @@ export const Angle = ({
     // Create the SVG path for the arc
     const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
 
-    // Calculate the text position based on the angle and depending on whether it is reflexive, and if it is allowed to be reflexive
-    // We want to scale the current radius to ensure the text is outside the arc, and we're multiplying the angle by -1 to ensure the
-    // text moves in the correct direction.
-    const offset = scaledPolarDeg(radius * 1.5, -1 * halfAngle);
-    const [textX, textY] = vec.add(vertex, offset);
+    // Calculate the text position based on the angle and whether we allow reflex angles
+    // Let's try the angle bisector method to find the midpoint of the arc
+
+    const [textX, textY] = calculateBisectorPoint(
+        point1,
+        point2,
+        vertex,
+        isReflexive,
+    );
 
     return (
         <>
@@ -245,7 +250,7 @@ export const Angle = ({
                 </MafsCssTransformWrapper>
             )}
             {showAngles && (
-                <TextLabel x={textX} y={areClockwise ? -textY : textY}>
+                <TextLabel x={textX} y={textY}>
                     {angleLabel}°
                 </TextLabel>
             )}
@@ -353,4 +358,71 @@ function scaledPolarRad(radius: number, radians: number): vec.Vector2 {
 function scaledPolarDeg(radius: number, degrees): vec.Vector2 {
     const radians = (degrees * Math.PI) / 180;
     return scaledPolarRad(radius, radians);
+}
+function scaledDistanceFromAngle(angle: number) {
+    const a = 3.51470560176242 * 5;
+    const b = 0.5687298702748785 * 5;
+    const c = -0.037587715462826674;
+    return (a - b) * Math.exp(c * angle) + b;
+}
+
+function calculateBisectorPoint(point1, point2, vertex, isReflex) {
+    const [originX, originY] = vertex;
+    const [x1, y1] = point1;
+    const [x2, y2] = point2;
+
+    // Calculate vectors from the origin to each point
+    const vectorA = {x: x1 - originX, y: y1 - originY};
+    const vectorB = {x: x2 - originX, y: y2 - originY};
+
+    // Normalize the vectors
+    const magnitudeA = Math.sqrt(vectorA.x ** 2 + vectorA.y ** 2);
+    const magnitudeB = Math.sqrt(vectorB.x ** 2 + vectorB.y ** 2);
+    const normalizedA = {x: vectorA.x / magnitudeA, y: vectorA.y / magnitudeA};
+    const normalizedB = {x: vectorB.x / magnitudeB, y: vectorB.y / magnitudeB};
+
+    // Sum the normalized vectors to find the bisector direction
+    let sum;
+    if (isReflex) {
+        // For reflex angles, subtract the vectors to point in the correct direction
+        sum = {
+            x: normalizedA.x - normalizedB.x,
+            y: normalizedA.y - normalizedB.y,
+        };
+    } else {
+        // For non-reflex angles, add the vectors
+        sum = {
+            x: normalizedA.x + normalizedB.x,
+            y: normalizedA.y + normalizedB.y,
+        };
+    }
+
+    // Calculate the magnitude of the sum to normalize it
+    const sumMagnitude = Math.sqrt(sum.x ** 2 + sum.y ** 2);
+    const bisectorDirection = {
+        x: sum.x / sumMagnitude,
+        y: sum.y / sumMagnitude,
+    };
+
+    // Calculate the initial distance of the bisector direction from the origin
+    const initialDistance = Math.sqrt(
+        bisectorDirection.x ** 2 + bisectorDirection.y ** 2,
+    );
+
+    // Determine the minimum radius to ensure the point is at least 2 units away in any direction
+    const requiredDistance = 3;
+    let radius = requiredDistance / initialDistance;
+
+    // Apply radius only if the initial distance is less than required
+    if (initialDistance >= requiredDistance) {
+        radius = 1; // Use the unit vector as is
+    }
+
+    // Scale the bisector direction by the radius
+    const bisectorPoint = [
+        bisectorDirection.x * radius,
+        bisectorDirection.y * radius,
+    ] as vec.Vector2;
+
+    return vec.add(bisectorPoint, vertex);
 }
