@@ -216,6 +216,7 @@ export const Angle = ({
         point2,
         vertex,
         isReflexive,
+        allowReflexAngles,
         radius,
     );
 
@@ -358,6 +359,7 @@ function calculateBisectorPoint(
     point2: vec.Vector2,
     vertex: vec.Vector2,
     isReflex: boolean,
+    allowReflex: boolean,
     arcRadius: number,
 ): vec.Vector2 {
     const [originX, originY] = vertex;
@@ -368,39 +370,36 @@ function calculateBisectorPoint(
     const vectorA = [x1 - originX, y1 - originY];
     const vectorB = [x2 - originX, y2 - originY];
 
-    // Normalize these vectors so that they share the same magnitude
-    const magnitudeA = Math.sqrt(vectorA[0] ** 2 + vectorA[1] ** 2);
-    const magnitudeB = Math.sqrt(vectorB[0] ** 2 + vectorB[1] ** 2);
-    const normalizedA = [vectorA[0] / magnitudeA, vectorA[1] / magnitudeA];
-    const normalizedB = [vectorB[0] / magnitudeB, vectorB[1] / magnitudeB];
+    // Calculate the average angle of the vectors
+    // so that we can point the bisector in the correct direction using polar coordinates
+    const angleA = Math.atan2(vectorA[1], vectorA[0]);
+    const angleB = Math.atan2(vectorB[1], vectorB[0]);
 
-    // Sum the normalized vectors to find the bisector direction
-    let sum;
+    // Calculate the average of these two angles
+    let averageAngle = (angleA + angleB) / 2;
+    const angleRadians = Math.abs(angleA - angleB);
 
-    if (isReflex) {
-        // If the angle is reflex, calculate the average angle of the vectors
-        // so that we can point the bisector in the correct direction using polar coordinates
-        const angleA = Math.atan2(vectorA[1], vectorA[0]);
-        const angleB = Math.atan2(vectorB[1], vectorB[0]);
-
-        // Calculate the average of these two angles
-        let averageAngle = (angleA + angleB) / 2;
-
-        // If the resulting angles are less than 180 degrees, adjust
-        // to get reflex angle, as we already know that the angle is reflex
-        if (Math.abs(angleA - angleB) <= Math.PI) {
+    // Adjust the average angle to point in the correct direction
+    // and to account for reflex angles and a bug with 180 degrees
+    // that occurs due to our angleOffsetDegrees option in the graph
+    if (allowReflex) {
+        // If the resulting angles are less than 180 degrees,
+        // or if the user has flipped the points on the interactive element
+        // ensure that we have the correct direction for the reflex angle
+        if ((angleRadians <= Math.PI && isReflex) || angleB > angleA) {
             averageAngle += Math.PI; // Add 180 degrees
         }
-
-        // Convert the average angles back to cartesian coordinates
-        sum = [Math.cos(averageAngle), Math.sin(averageAngle)];
     } else {
-        // For non-reflex angles, we can simply add the vectors
-        sum = [
-            normalizedA[0] + normalizedB[0],
-            normalizedA[1] + normalizedB[1],
-        ];
+        // If the resulting angles are greater than 180 degrees, adjust
+        // to get the correct angle, as we already know that the angle is not reflexive
+        // This fixes a bug that occurs at 180 degrees due to our angleOffsetDegrees option in the graph
+        if (angleRadians > Math.PI) {
+            averageAngle -= Math.PI; // Subract 180 degrees
+        }
     }
+
+    // Convert the average angle back to Cartesian coordinates
+    const sum = [Math.cos(averageAngle), Math.sin(averageAngle)];
 
     // Calculate the magnitude of the sum to normalize it
     const sumMagnitude = Math.sqrt(sum[0] ** 2 + sum[1] ** 2);
@@ -428,5 +427,6 @@ function calculateBisectorPoint(
 
     // Add the vertex to the bisector point to get the final position
     // to ensure that the angle label moves with the interactive element
-    return vec.add(bisectorPoint, vertex);
+    const scaledBisector = vec.add(bisectorPoint, vertex);
+    return scaledBisector;
 }
