@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 7.0.3
+
+### Patch Changes
+
+-   [#1383](https://github.com/Khan/perseus/pull/1383) [`4b56e10de`](https://github.com/Khan/perseus/commit/4b56e10dedc9b1ddc82bf7e7406ffdaecdef7462) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - View Locked Functions in the Interactive Graph
+
+*   [#1390](https://github.com/Khan/perseus/pull/1390) [`7e6ccf38d`](https://github.com/Khan/perseus/commit/7e6ccf38da2f385cbd7a1db4cf81f858997ffba8) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Move graphing-agnostic, mathy functions in the interactive graph code to a math/ folder.
+
+-   [#1392](https://github.com/Khan/perseus/pull/1392) [`b710d07db`](https://github.com/Khan/perseus/commit/b710d07db18579b36a5bfd448c2d0aa9144d5ac4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Creation of new angle graph for Mafs interactive graph widget
+
+-   Updated dependencies [[`4b56e10de`](https://github.com/Khan/perseus/commit/4b56e10dedc9b1ddc82bf7e7406ffdaecdef7462), [`7e6ccf38d`](https://github.com/Khan/perseus/commit/7e6ccf38da2f385cbd7a1db4cf81f858997ffba8), [`5de483386`](https://github.com/Khan/perseus/commit/5de483386693884ccdef22b9740582e6098a5baa), [`b710d07db`](https://github.com/Khan/perseus/commit/b710d07db18579b36a5bfd448c2d0aa9144d5ac4)]:
+    -   @khanacademy/perseus@24.3.0
+    -   @khanacademy/math-input@19.2.0
+
 ## 7.0.2
 
 ### Patch Changes
