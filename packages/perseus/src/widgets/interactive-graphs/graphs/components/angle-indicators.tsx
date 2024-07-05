@@ -364,12 +364,11 @@ function calculateBisectorPoint(
     const [x1, y1] = point1;
     const [x2, y2] = point2;
 
-    // Calculate vectors from the origin to each point
-    // Using X and Y here to avoid confusion with the bisector calculations
+    // Convert the Cartesian Coordinates to vectors
     const vectorA = [x1 - originX, y1 - originY];
     const vectorB = [x2 - originX, y2 - originY];
 
-    // Normalize the vectors
+    // Normalize these vectors so that they share the same magnitude
     const magnitudeA = Math.sqrt(vectorA[0] ** 2 + vectorA[1] ** 2);
     const magnitudeB = Math.sqrt(vectorB[0] ** 2 + vectorB[1] ** 2);
     const normalizedA = [vectorA[0] / magnitudeA, vectorA[1] / magnitudeA];
@@ -384,16 +383,19 @@ function calculateBisectorPoint(
         const angleA = Math.atan2(vectorA[1], vectorA[0]);
         const angleB = Math.atan2(vectorB[1], vectorB[0]);
 
-        // Calculate the average angle
+        // Calculate the average of these two angles
         let averageAngle = (angleA + angleB) / 2;
+
+        // If the resulting angles are less than 180 degrees, adjust
+        // to get reflex angle, as we already know that the angle is reflex
         if (Math.abs(angleA - angleB) < Math.PI) {
-            averageAngle += Math.PI; // Adjust for reflex angle
+            averageAngle += Math.PI; // Add 180 degrees
         }
 
         // Convert the average angles back to cartesian coordinates
         sum = [Math.cos(averageAngle), Math.sin(averageAngle)];
     } else {
-        // For non-reflex angles, simply add the vectors
+        // For non-reflex angles, we can simply add the vectors
         sum = [
             normalizedA[0] + normalizedB[0],
             normalizedA[1] + normalizedB[1],
