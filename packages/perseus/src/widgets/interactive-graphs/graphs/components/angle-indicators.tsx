@@ -388,7 +388,7 @@ function calculateBisectorPoint(
 
         // If the resulting angles are less than 180 degrees, adjust
         // to get reflex angle, as we already know that the angle is reflex
-        if (Math.abs(angleA - angleB) < Math.PI) {
+        if (Math.abs(angleA - angleB) <= Math.PI) {
             averageAngle += Math.PI; // Add 180 degrees
         }
 
