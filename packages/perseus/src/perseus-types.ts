@@ -784,7 +784,7 @@ export type PerseusGraphTypeAngle = {
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
     // must have 3 coords - ie [Coord, Coord, Coord]
-    coords?: ReadonlyArray<Coord>;
+    coords?: [Coord, Coord, Coord];
 };
 
 export type PerseusGraphTypeCircle = {

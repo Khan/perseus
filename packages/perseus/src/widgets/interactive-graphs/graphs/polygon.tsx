@@ -5,7 +5,7 @@ import {snap} from "../math";
 import {moveAll, movePoint} from "../reducer/interactive-graph-action";
 import {TARGET_SIZE} from "../utils";
 
-import {Angle} from "./components/angle";
+import {PolygonAngle} from "./components/angle-indicators";
 import {StyledMovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
@@ -63,7 +63,7 @@ export const PolygonGraph = (props: Props) => {
                     return null;
                 }
                 return (
-                    <Angle
+                    <PolygonAngle
                         key={"angle-" + i}
                         centerPoint={point}
                         endPoints={[pt1, pt2]}

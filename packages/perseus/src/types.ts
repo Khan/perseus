@@ -126,6 +126,8 @@ type TrackInteractionArgs = {
     Partial<TrackingSequenceExtraArguments>;
 
 export const MafsGraphTypeFlags = [
+    /** Enables the `angle` interactive-graph type.  */
+    "angle",
     /** Enables the `segment` interactive-graph type.  */
     "segment",
     /** Enables the `linear` interactive-graph type.  */

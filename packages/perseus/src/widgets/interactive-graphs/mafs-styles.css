@@ -257,3 +257,10 @@
     text-align: center;
     width: var(--x-axis-label-width, 20px);
 }
+
+.MafsView .angle-arc,
+.MafsView .arc-right-angle {
+    stroke: var(--mafs-blue);
+
+    stroke-width: 0.1px;
+}

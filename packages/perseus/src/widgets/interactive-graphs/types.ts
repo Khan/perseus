@@ -15,6 +15,7 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
 };
 
 export type InteractiveGraphState =
+    | AngleGraphState
     | SegmentGraphState
     | LinearSystemGraphState
     | LinearGraphState
@@ -80,6 +81,20 @@ export interface QuadraticGraphState extends InteractiveGraphStateCommon {
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     type: "sinusoid";
     coords: [vec.Vector2, vec.Vector2];
+}
+
+export interface AngleGraphState extends InteractiveGraphStateCommon {
+    type: "angle";
+    // Whether to show the angle measurements.  default: false
+    showAngles?: boolean;
+    // Allow Reflex Angles if an "angle" type.  default: true
+    allowReflexAngles?: boolean;
+    // The angle offset in degrees if an "angle" type. default: 0
+    angleOffsetDeg?: number;
+    // Snap to degree increments if an "angle" type. default: 1
+    snapDegrees?: number;
+    // must have 3 coords - ie [Coord, Coord, Coord]
+    coords: [Coord, Coord, Coord];
 }
 
 export type PairOfPoints = [Coord, Coord];

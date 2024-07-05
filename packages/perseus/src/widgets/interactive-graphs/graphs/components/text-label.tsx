@@ -5,7 +5,7 @@ import type {TextProps} from "mafs";
 import type {PropsWithChildren} from "react";
 
 type Props = PropsWithChildren<
-    Pick<TextProps, "x" | "y" | "attach" | "attachDistance">
+    Pick<TextProps, "x" | "y" | "attach" | "attachDistance" | "color">
 >;
 
 export const TextLabel = ({children, ...rest}: Props) => (

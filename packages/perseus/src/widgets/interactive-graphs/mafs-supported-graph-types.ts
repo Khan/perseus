@@ -1,4 +1,5 @@
 export const mafsSupportedGraphTypes = [
+    "angle",
     "segment",
     "linear",
     "linear-system",

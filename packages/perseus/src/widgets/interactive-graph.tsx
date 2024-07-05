@@ -2118,7 +2118,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getAngleCoords(
         graph: PerseusGraphTypeAngle,
         props: Props,
-    ): ReadonlyArray<Coord> {
+    ): [Coord, Coord, Coord] {
         let coords = graph.coords;
         if (coords) {
             return coords;
@@ -2135,20 +2135,18 @@ class InteractiveGraph extends React.Component<Props, State> {
         coords = InteractiveGraph.pointsFromNormalized(props, [
             [0.85, 0.5],
             [0.5, 0.5],
-        ]);
+        ]) as [Coord, Coord, Coord];
 
         // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         const radius = magnitude(vector(...coords));
 
         // Adjust the lower point by angleOffsetDeg degrees
-        // @ts-expect-error - TS2542 - Index signature in type 'readonly Coord[]' only permits reading.
         coords[0] = [
             coords[1][0] + radius * Math.cos(offset),
             coords[1][1] + radius * Math.sin(offset),
         ];
         // Position the upper point angle radians from the
         // lower point
-        // @ts-expect-error - TS2542 - Index signature in type 'readonly Coord[]' only permits reading.
         coords[2] = [
             coords[1][0] + radius * Math.cos(angle + offset),
             coords[1][1] + radius * Math.sin(angle + offset),

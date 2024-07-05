@@ -1,5 +1,7 @@
 import invariant from "tiny-invariant";
 
+import {findAngle} from "../math/angles";
+
 import {
     moveControlPoint,
     movePoint,
@@ -35,6 +37,21 @@ const basePointGraphState: InteractiveGraphState = {
     ],
     snapStep: [1, 1],
     coords: [],
+};
+
+const baseAngleGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "angle",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+    ],
 };
 
 const baseCircleGraphState: InteractiveGraphState = {
@@ -95,7 +112,6 @@ const basePolygonGraphState: InteractiveGraphState = {
         [1, 0],
     ],
 };
-
 describe("moveControlPoint", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
@@ -379,6 +395,81 @@ describe("movePoint on a point graph", () => {
             coords: [[1, 2]],
         };
 
+        const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
+
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
+});
+
+describe("movePoint on an angle graph", () => {
+    it("moves the point with the given index", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [0, 5],
+                [0, 0],
+                [5, 0],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [5, 6]));
+
+        invariant(updated.type === "angle");
+
+        expect(
+            findAngle(updated.coords[0], updated.coords[2], updated.coords[1]),
+        ).toBeCloseTo(50);
+    });
+
+    it("snaps to the nearest snapDegrees", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [5, 5],
+                [0, 0],
+                [5, 0],
+            ],
+            snapDegrees: 5,
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [5, 3]));
+
+        invariant(updated.type === "angle");
+
+        // The point will get snapped to the nearest 5 degrees, which should be 30 degrees
+        expect(updated.coords[0]).toEqual([5.04975246918104, 2.91547594742265]);
+        expect(
+            findAngle(updated.coords[0], updated.coords[2], updated.coords[1]),
+        ).toBeCloseTo(30);
+    });
+
+    it("keeps points within the graph bounds", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [5, 5],
+                [0, 0],
+                [0, 5],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, movePoint(0, [99, 99]));
+
+        invariant(updated.type === "angle");
+
+        // The point will get snapped to the nearest whole degree
+        expect(updated.coords[0]).toEqual([9, 8.999999999999998]);
+    });
+
+    it("sets hasBeenInteractedWith", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [5, 5],
+                [0, 0],
+                [0, 5],
+            ],
+        };
         const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
 
         expect(updated.hasBeenInteractedWith).toBe(true);

@@ -64,6 +64,64 @@ export const angleQuestion: PerseusRenderer = {
     },
 };
 
+export const angleQuestionWithDefaultCorrect: PerseusRenderer = {
+    content:
+        "**Drag the vertex of the angle to place the vertex at point $\\text{A}$.**  \n\n**Drag another point on the angle to make one of the rays go through point $\\text{B}$.**\n\n**Make the other ray go through one of the unlabeled black points to create an acute angle.**  \n*The arc symbol near the vertex indicates the angle being measured.*\n\n[[☃ interactive-graph 1]]",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            alignment: "default",
+            graded: true,
+            options: {
+                backgroundImage: {
+                    bottom: 0,
+                    height: 400,
+                    left: 0,
+                    scale: 1,
+                    url: "https://ka-perseus-graphie.s3.amazonaws.com/807ea77cf7031c1b9a45694083f05b5e09b01946.png",
+                    width: 400,
+                },
+                correct: {
+                    allowReflexAngles: false,
+                    angleOffsetDeg: 0,
+                    coords: [
+                        [6.994907182610915, 0],
+                        [0, 0],
+                        [6.5778483455013586, 2.394141003279681],
+                    ], // Note these values are largely affected by the angle snapping when moving the graph
+                    snapDegrees: 1,
+                    type: "angle",
+                },
+                graph: {
+                    allowReflexAngles: false,
+                    angleOffsetDeg: 0,
+                    snapDegrees: 1,
+                    type: "angle",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "none",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+            },
+            static: false,
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
 export const circleQuestion: PerseusRenderer = {
     content:
         "**Graph the circle $x^2+y^2+4x+8y+16=0$.**\n\n[[☃ interactive-graph 1]]",
