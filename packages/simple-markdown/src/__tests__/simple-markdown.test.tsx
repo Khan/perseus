@@ -48,10 +48,8 @@ var validateParse = function (parsed, expected) {
  * @returns {string}
  */
 var reactToHtml = function (reactElements) {
-    reactElements; //?
     const {container} = render(reactElements);
     var rawHtml = container.outerHTML;
-    rawHtml; // ?
     var innerHtml = rawHtml.replace(/^<div>/, "").replace(/<\/div>$/, "");
     var simplifiedHtml = innerHtml
         .replace(/>\n*/g, ">")
