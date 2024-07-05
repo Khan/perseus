@@ -4,6 +4,7 @@ import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
+import * as React from "react";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -771,8 +772,12 @@ describe("locked layer", () => {
                 },
             },
         };
-        const PlotOfXMock = jest.spyOn(Plot, "OfX").mockReturnValue(null);
-        const PlotOfYMock = jest.spyOn(Plot, "OfY").mockReturnValue(null);
+        const PlotOfXMock = jest
+            .spyOn(Plot, "OfX")
+            .mockReturnValue(<div>OfX</div>);
+        const PlotOfYMock = jest
+            .spyOn(Plot, "OfY")
+            .mockReturnValue(<div>OfY</div>);
         const equationFnMock = jest.fn();
 
         // Act - Render f(x)
