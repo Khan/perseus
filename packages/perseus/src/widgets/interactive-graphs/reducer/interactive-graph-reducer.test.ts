@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import {findAngle} from "../graphs/components/angle-indicators";
+import {findAngle} from "../math/angles";
 
 import {
     moveControlPoint,
