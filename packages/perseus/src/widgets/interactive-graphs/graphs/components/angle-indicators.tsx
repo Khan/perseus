@@ -349,47 +349,64 @@ const linesIntersect = (
 
 const isEven = (n: number) => n % 2 === 0;
 
-function calculateBisectorPoint(point1, point2, vertex, isReflex, arcRadius) {
+// This function calculates the bisector point of an angle formed by two points
+// and a vertex. It is used to position the angle label so that it is always
+// outside the arc at the exact midpoint of the angle.
+// Reflex angles make use of polar coordinates to determine the correct direction
+function calculateBisectorPoint(
+    point1: vec.Vector2,
+    point2: vec.Vector2,
+    vertex: vec.Vector2,
+    isReflex: boolean,
+    arcRadius: number,
+): vec.Vector2 {
     const [originX, originY] = vertex;
     const [x1, y1] = point1;
     const [x2, y2] = point2;
 
     // Calculate vectors from the origin to each point
-    const vectorA = {x: x1 - originX, y: y1 - originY};
-    const vectorB = {x: x2 - originX, y: y2 - originY};
+    // Using X and Y here to avoid confusion with the bisector calculations
+    const vectorA = [x1 - originX, y1 - originY];
+    const vectorB = [x2 - originX, y2 - originY];
 
     // Normalize the vectors
-    const magnitudeA = Math.sqrt(vectorA.x ** 2 + vectorA.y ** 2);
-    const magnitudeB = Math.sqrt(vectorB.x ** 2 + vectorB.y ** 2);
-    const normalizedA = {x: vectorA.x / magnitudeA, y: vectorA.y / magnitudeA};
-    const normalizedB = {x: vectorB.x / magnitudeB, y: vectorB.y / magnitudeB};
+    const magnitudeA = Math.sqrt(vectorA[0] ** 2 + vectorA[1] ** 2);
+    const magnitudeB = Math.sqrt(vectorB[0] ** 2 + vectorB[1] ** 2);
+    const normalizedA = [vectorA[0] / magnitudeA, vectorA[1] / magnitudeA];
+    const normalizedB = [vectorB[0] / magnitudeB, vectorB[1] / magnitudeB];
 
     // Sum the normalized vectors to find the bisector direction
     let sum;
+
     if (isReflex) {
-        // For reflex angles, subtract the vectors to point in the correct direction
-        sum = {
-            x: normalizedA.x - normalizedB.x,
-            y: normalizedA.y - normalizedB.y,
-        };
+        // If the angle is reflex, calculate the average angle of the vectors
+        // so that we can point the bisector in the correct direction using polar coordinates
+        const angleA = Math.atan2(vectorA[1], vectorA[0]);
+        const angleB = Math.atan2(vectorB[1], vectorB[0]);
+
+        // Calculate the average angle
+        let averageAngle = (angleA + angleB) / 2;
+        if (Math.abs(angleA - angleB) < Math.PI) {
+            averageAngle += Math.PI; // Adjust for reflex angle
+        }
+
+        // Convert the average angles back to cartesian coordinates
+        sum = [Math.cos(averageAngle), Math.sin(averageAngle)];
     } else {
-        // For non-reflex angles, add the vectors
-        sum = {
-            x: normalizedA.x + normalizedB.x,
-            y: normalizedA.y + normalizedB.y,
-        };
+        // For non-reflex angles, simply add the vectors
+        sum = [
+            normalizedA[0] + normalizedB[0],
+            normalizedA[1] + normalizedB[1],
+        ];
     }
 
     // Calculate the magnitude of the sum to normalize it
-    const sumMagnitude = Math.sqrt(sum.x ** 2 + sum.y ** 2);
-    const bisectorDirection = {
-        x: sum.x / sumMagnitude,
-        y: sum.y / sumMagnitude,
-    };
+    const sumMagnitude = Math.sqrt(sum[0] ** 2 + sum[1] ** 2);
+    const bisectorDirection = [sum[0] / sumMagnitude, sum[1] / sumMagnitude];
 
     // Calculate the initial distance of the bisector direction from the origin
     const initialDistance = Math.sqrt(
-        bisectorDirection.x ** 2 + bisectorDirection.y ** 2,
+        bisectorDirection[0] ** 2 + bisectorDirection[1] ** 2,
     );
 
     // Determine the minimum radius to ensure that the text is always outside the arc
@@ -403,9 +420,9 @@ function calculateBisectorPoint(point1, point2, vertex, isReflex, arcRadius) {
 
     // Scale the bisector direction by the radius
     const bisectorPoint = [
-        bisectorDirection.x * radius,
-        bisectorDirection.y * radius,
-    ] as vec.Vector2;
+        bisectorDirection[0] * radius,
+        bisectorDirection[1] * radius,
+    ] satisfies vec.Vector2;
 
     // Add the vertex to the bisector point to get the final position
     // to ensure that the angle label moves with the interactive element
