@@ -2,8 +2,9 @@ import {vec} from "mafs";
 import {useRef, useState} from "react";
 import * as React from "react";
 
+import {inset, snap, size} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
-import {snap, TARGET_SIZE} from "../../utils";
+import {TARGET_SIZE} from "../../utils";
 import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
@@ -137,7 +138,7 @@ type LineProps = {
           };
 };
 
-const Line = (props: LineProps) => {
+export const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
@@ -227,16 +228,5 @@ export function trimRange(
     const graphUnitsPerPixelY = size(yRange) / pixelsTall;
     const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX;
     const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY;
-    return [trim(xRange, graphUnitsToTrimX), trim(yRange, graphUnitsToTrimY)];
-}
-
-function trim(interval: Interval, amount: number): Interval {
-    if (size(interval) < amount * 2) {
-        return [0, 0];
-    }
-    return [interval[0] + amount, interval[1] - amount];
-}
-
-function size(interval: Interval): number {
-    return interval[1] - interval[0];
+    return inset([graphUnitsToTrimX, graphUnitsToTrimY], range);
 }

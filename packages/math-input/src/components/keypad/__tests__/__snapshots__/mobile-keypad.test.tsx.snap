@@ -21,11 +21,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
       >
         <div
           class="default_xu2jcg-o_O-tabbar_721koc"
-          role="tablist"
         >
-          <div
-            class="default_xu2jcg-o_O-pages_cjo0m2"
-          />
           <div
             class="default_xu2jcg"
           >
@@ -34,7 +30,8 @@ exports[`mobile keypad should render keypad when active 1`] = `
               aria-label="Dismiss"
               aria-selected="false"
               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
-              role="tab"
+              role="button"
+              tabindex="0"
               type="button"
             >
               <div
@@ -68,7 +65,6 @@ exports[`mobile keypad should render keypad when active 1`] = `
           <div
             aria-label="Keypad"
             class="default_xu2jcg-o_O-keypadGrid_ztxlrb-o_O-fractionsGrid_1aelnry"
-            tabindex="0"
           >
             <div
               class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"

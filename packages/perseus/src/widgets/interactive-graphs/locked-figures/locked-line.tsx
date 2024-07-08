@@ -6,10 +6,8 @@ import {lockedFigureColors} from "../../../perseus-types";
 import {Arrowhead} from "../graphs/components/arrowhead";
 import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
-import {
-    calculateAngleInDegrees,
-    getIntersectionOfRayWithBox,
-} from "../graphs/utils";
+import {getIntersectionOfRayWithBox} from "../graphs/utils";
+import {X, Y, calculateAngleInDegrees} from "../math";
 
 import type {LockedLineType} from "../../../perseus-types";
 import type {Interval} from "mafs";
@@ -107,8 +105,8 @@ const LockedLine = (props: Props) => {
             {line}
             {showPoint1 && (
                 <Point
-                    x={point1.coord[0]}
-                    y={point1.coord[1]}
+                    x={point1.coord[X]}
+                    y={point1.coord[Y]}
                     svgCircleProps={{
                         style: {
                             fill: point1.filled
@@ -122,8 +120,8 @@ const LockedLine = (props: Props) => {
             )}
             {showPoint2 && (
                 <Point
-                    x={point2.coord[0]}
-                    y={point2.coord[1]}
+                    x={point2.coord[X]}
+                    y={point2.coord[Y]}
                     svgCircleProps={{
                         style: {
                             fill: point2.filled

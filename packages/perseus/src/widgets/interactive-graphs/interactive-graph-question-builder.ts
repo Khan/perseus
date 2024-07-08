@@ -1,18 +1,24 @@
 import type {
-    LockedFigureFillType,
+    CollinearTuple,
     LockedEllipseType,
     LockedFigure,
     LockedFigureColor,
+    LockedFigureFillType,
+    LockedFunctionType,
     LockedLineType,
     LockedPointType,
+    LockedPolygonType,
     LockedVectorType,
     PerseusGraphType,
     PerseusRenderer,
-    LockedPolygonType,
-    CollinearTuple,
 } from "../../perseus-types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
+
+export type LockedFunctionOptions = Omit<
+    Partial<LockedFunctionType>,
+    "type" | "equation"
+>;
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
     return new InteractiveGraphQuestionBuilder();
@@ -249,6 +255,20 @@ class InteractiveGraphQuestionBuilder {
         };
 
         this.addLockedFigure(polygon);
+        return this;
+    }
+
+    addLockedFunction(equation: string, options?: LockedFunctionOptions) {
+        const lockedFunction: LockedFunctionType = {
+            type: "function",
+            equation,
+            color: "grayH",
+            strokeStyle: "solid",
+            directionalAxis: "x",
+            ...options,
+        };
+
+        this.addLockedFigure(lockedFunction);
         return this;
     }
 

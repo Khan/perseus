@@ -56,7 +56,7 @@ describe("mobile keypad", () => {
         );
 
         // Assert
-        expect(screen.queryAllByRole("tab")).not.toHaveLength(0);
+        expect(screen.queryAllByRole("button")).not.toHaveLength(0);
     });
 
     it("should fire an 'opened' event when activated", () => {

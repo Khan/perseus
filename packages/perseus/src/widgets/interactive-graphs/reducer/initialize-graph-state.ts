@@ -1,10 +1,12 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
+import {magnitude, vector} from "../../../util/geometry";
 import {normalizeCoords, normalizePoints} from "../utils";
 
 import type {
     PerseusGraphType,
+    PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
@@ -94,9 +96,15 @@ export function initializeGraphState(
                 coords: getSinusoidCoords(graph, range, step),
             };
         case "angle":
-            throw new Error(
-                "Mafs not yet implemented for graph type: " + graph.type,
-            );
+            return {
+                ...shared,
+                type: graph.type,
+                showAngles: Boolean(graph.showAngles),
+                coords: getAngleCoords({graph, range, step}),
+                angleOffsetDeg: Number(graph.angleOffsetDeg),
+                allowReflexAngles: Boolean(graph.allowReflexAngles),
+                snapDegrees: Number(graph.snapDegrees),
+            };
         default:
             throw new UnreachableCaseError(graph);
     }
@@ -382,3 +390,50 @@ function getCircleCoords(graph: PerseusGraphTypeCircle): {
         radiusPoint: [2, 0],
     };
 }
+
+const getAngleCoords = (params: {
+    graph: PerseusGraphTypeAngle;
+    range: [x: Interval, y: Interval];
+    step: [x: number, y: number];
+}): [Coord, Coord, Coord] => {
+    const {graph, range, step} = params;
+    if (graph.coords) {
+        return graph.coords;
+    }
+
+    const {snapDegrees, angleOffsetDeg} = graph;
+    const snap = snapDegrees || 1;
+    let angle = snap;
+    while (angle < 20) {
+        angle += snap;
+    }
+    angle = (angle * Math.PI) / 180;
+    const offset = ((angleOffsetDeg || 0) * Math.PI) / 180;
+
+    let defaultCoords: [Coord, Coord] = [
+        [0.85, 0.5],
+        [0.5, 0.5],
+    ];
+
+    defaultCoords = normalizePoints(range, step, defaultCoords, true);
+
+    // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+    const radius = magnitude(vector(...defaultCoords));
+
+    // We're adding a placeholder for the third point to appease ts and so that we
+    // can calculate it after we've adjusted the first point by the angleOffsetDeg
+    const coords: [Coord, Coord, Coord] = [...defaultCoords, [0, 0]];
+
+    // Adjust the lower point by angleOffsetDeg degrees
+    coords[0] = [
+        coords[1][0] + radius * Math.cos(offset),
+        coords[1][1] + radius * Math.sin(offset),
+    ];
+    // Position the upper point angle radians from the
+    // lower point
+    coords[2] = [
+        coords[1][0] + radius * Math.cos(angle + offset),
+        coords[1][1] + radius * Math.sin(angle + offset),
+    ];
+    return coords;
+};

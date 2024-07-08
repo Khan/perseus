@@ -7,6 +7,10 @@ import type {Interval, vec} from "mafs";
 // Range is replaced within this file with Interval, but it is used elsewhere
 // and exported from the package, so we need to keep it around.
 export type Range = Interval;
+export type Domain = {
+    min?: number;
+    max?: number;
+};
 export type Size = [number, number];
 export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
@@ -679,7 +683,8 @@ export type LockedFigure =
     | LockedLineType
     | LockedVectorType
     | LockedEllipseType
-    | LockedPolygonType;
+    | LockedPolygonType
+    | LockedFunctionType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -731,6 +736,23 @@ export type LockedPolygonType = {
     strokeStyle: "solid" | "dashed";
 };
 
+export type LockedFunctionType = {
+    type: "function";
+    color: LockedFigureColor;
+    strokeStyle: "solid" | "dashed";
+    equation: string; // This is the user-defined equation (as it was typed)
+    equationParsed?: {
+        // This is the parsed (tokenized) version of the equation.
+        // Since the function that is passed to Mafs is executed many times,
+        //    it would be expensive to have KAS parse the equation each time.
+        // This is parsed version is included to aid in performance.
+        // KAS doesn't have any types, so making this generic
+        [k: string]: any;
+    };
+    directionalAxis: "x" | "y";
+    domain?: Domain;
+};
+
 export type PerseusGraphType =
     | PerseusGraphTypeAngle
     | PerseusGraphTypeCircle
@@ -762,9 +784,9 @@ export type PerseusGraphTypeAngle = {
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
     // must have 3 coords - ie [Coord, Coord, Coord]
-    coords?: ReadonlyArray<Coord>;
+    coords?: [Coord, Coord, Coord];
     // The initial coordinates the graph renders with.
-    startCoords?: ReadonlyArray<Coord>;
+    startCoords?: [Coord, Coord, Coord];
 };
 
 export type PerseusGraphTypeCircle = {

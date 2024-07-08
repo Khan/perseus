@@ -2,6 +2,7 @@ import {type vec} from "mafs";
 import * as React from "react";
 
 import {pathBuilder} from "../../../../util/svg";
+import {X, Y} from "../../math";
 import {useTransformVectorsToPixels} from "../use-transform";
 
 type Props = {
@@ -27,7 +28,7 @@ export function Arrowhead(props: Props) {
     return (
         <g
             className="interactive-graph-arrowhead"
-            transform={`translate(${point[0]} ${point[1]}) rotate(${props.angle})`}
+            transform={`translate(${point[X]} ${point[Y]}) rotate(${props.angle})`}
         >
             <g transform="translate(-1.5)">
                 <path

@@ -10,13 +10,13 @@ import {
     lawOfCosines,
     magnitude,
     polygonSidesIntersect,
+    reverseVector,
     sign,
     vector,
 } from "../../../util/geometry";
-import GraphUtils from "../../../util/graph-utils";
-import {polar} from "../../../util/graphie";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {snap, bound, clamp} from "../utils";
+import {clamp, findAngle, polar, snap, X, Y} from "../math";
+import {bound} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -115,6 +115,7 @@ function doMoveControlPoint(
                 coords: newCoords,
             };
         }
+        case "angle":
         case "circle":
             throw new Error("FIXME implement circle reducer");
         case "point":
@@ -240,6 +241,31 @@ function doMovePoint(
     action: MovePoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "angle":
+            // If the index is 1, we are moving the vertex of the angle,
+            // which will move the other two points as well
+            if (action.index === 1) {
+                const updatedCoords = boundAndSnapAngleVertex(state, action);
+
+                return {
+                    ...state,
+                    hasBeenInteractedWith: true,
+                    coords: updatedCoords,
+                };
+            }
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                coords: setAtIndex({
+                    array: state.coords,
+                    index: action.index,
+                    newValue: boundAndSnapAngleEndPoints(
+                        action.destination,
+                        state,
+                        action.index,
+                    ),
+                }),
+            };
         case "polygon":
             let newValue: vec.Vector2;
             if (state.snapTo === "sides") {
@@ -249,7 +275,7 @@ function doMovePoint(
                     action.index,
                 );
             } else if (state.snapTo === "angles") {
-                newValue = boundAndSnapToAngle(
+                newValue = boundAndSnapToPolygonAngle(
                     action.destination,
                     state,
                     action.index,
@@ -294,7 +320,7 @@ function doMovePoint(
             // vertical line. If they are, then we don't want to move the point
             const newCoords: vec.Vector2[] = [...state.coords];
             newCoords[action.index] = boundDestination;
-            if (newCoords[0][0] === newCoords[1][0]) {
+            if (newCoords[0][X] === newCoords[1][X]) {
                 return state;
             }
 
@@ -368,13 +394,13 @@ function doMoveCenter(
             // if it otherwise would be off the chart
             // ex: if the handle is on the right and we move the center
             // to the rightmost position, move the handle to the left
-            const [xMin, xMax] = state.range[0];
+            const [xMin, xMax] = state.range[X];
             const [radX] = newRadiusPoint;
             if (radX < xMin || radX > xMax) {
-                const xJumpDist = (radX - constrainedCenter[0]) * 2;
+                const xJumpDist = (radX - constrainedCenter[X]) * 2;
                 const possibleNewX = radX - xJumpDist;
                 if (possibleNewX >= xMin && possibleNewX <= xMax) {
-                    newRadiusPoint[0] = possibleNewX;
+                    newRadiusPoint[X] = possibleNewX;
                 }
             }
 
@@ -398,11 +424,11 @@ function doMoveRadiusPoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "circle": {
-            const [xMin, xMax] = state.range[0];
+            const [xMin, xMax] = state.range[X];
             const nextRadiusPoint: vec.Vector2 = [
                 // Constrain to graph range
                 // The +0 is to convert -0 to +0
-                Math.min(Math.max(xMin, action.destination[0] + 0), xMax),
+                clamp(action.destination[X] + 0, xMin, xMax),
                 state.center[1],
             ];
 
@@ -463,10 +489,10 @@ const getDeltaVertex = (
     delta: vec.Vector2,
 ): vec.Vector2 => {
     const [deltaX, deltaY] = delta;
-    const maxXMove = Math.min(...maxMoves.map((move) => move[0]));
-    const maxYMove = Math.min(...maxMoves.map((move) => move[1]));
-    const minXMove = Math.max(...minMoves.map((move) => move[0]));
-    const minYMove = Math.max(...minMoves.map((move) => move[1]));
+    const maxXMove = Math.min(...maxMoves.map((move) => move[X]));
+    const maxYMove = Math.min(...maxMoves.map((move) => move[Y]));
+    const minXMove = Math.max(...minMoves.map((move) => move[X]));
+    const minYMove = Math.max(...minMoves.map((move) => move[Y]));
     const dx = clamp(deltaX, minXMove, maxXMove);
     const dy = clamp(deltaY, minYMove, maxYMove);
     return [dx, dy];
@@ -507,9 +533,185 @@ function boundAndSnapToGrid(
     return snap(snapStep, bound({snapStep, range, point}));
 }
 
-function boundAndSnapToAngle(
+function boundAndSnapAngleVertex(
+    {
+        range,
+        coords,
+        snapStep,
+    }: {
+        range: [Interval, Interval];
+        coords: [Coord, Coord, Coord];
+        snapStep: vec.Vector2;
+    },
+    {destination}: {destination: vec.Vector2},
+) {
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
+    const coordsCopy: [Coord, Coord, Coord] = [...coords];
+
+    // Get the current and upcoming positions of the vertex
+    const startingVertex = coordsCopy[1];
+    const newVertex = bound({
+        snapStep,
+        range,
+        point: snap(snapStep, destination),
+    });
+
+    // Get the vector from the starting vertex to the new vertex
+    const delta = vec.add(newVertex, reverseVector(startingVertex));
+
+    // Apply the delta to each of the other two points so that the angle is maintained
+    let valid = true;
+    const newPoints: Record<string, any> = {};
+    for (const i of [0, 2]) {
+        const oldPoint = coordsCopy[i];
+        let newPoint = vec.add(oldPoint, delta);
+
+        let angle = findAngle(newVertex, newPoint);
+        angle *= Math.PI / 180;
+
+        newPoint = constrainToBoundsOnAngle(newPoint, angle, range, snapStep);
+        newPoints[i] = newPoint;
+
+        // Check if the new point is too close to the vertex
+        if (tooClose(newVertex, newPoint, range)) {
+            valid = false;
+        }
+    }
+
+    // Update the vertex after snapping to the snapStep
+    newPoints[1] = newVertex;
+    // Only move points if all new positions are valid
+    if (valid) {
+        Object.entries(newPoints).forEach(([i, newPoint]) => {
+            coordsCopy[i] = newPoint;
+        });
+    }
+    return coordsCopy;
+}
+
+// This function is used to ensure that the vertex of
+// an angle is not too close to the other points
+function tooClose(
+    point1: vec.Vector2,
+    point2: vec.Vector2,
+    range: [Interval, Interval],
+) {
+    const safeDistance = 2;
+    const distance = vec.dist(point1, point2);
+    return distance < safeDistance;
+}
+
+function constrainToBoundsOnAngle(
+    point: vec.Vector2,
+    angle: number,
+    range: [Interval, Interval],
+    snapStep: vec.Vector2,
+): vec.Vector2 {
+    // We're subtracting the snapStep from the lower bound and adding it to the upper bound
+    // to ensure that the point is within the bounds of the graph even after snapping to the nearest degree
+    const lower: vec.Vector2 = [
+        range[0][0] + snapStep[0],
+        range[1][0] + snapStep[0],
+    ];
+    const upper: vec.Vector2 = [
+        range[0][1] - snapStep[1],
+        range[1][1] - snapStep[1],
+    ];
+
+    let result = point;
+
+    if (result[0] < lower[0]) {
+        result = [
+            lower[0],
+            result[1] + (lower[0] - result[0]) * Math.tan(angle),
+        ];
+    } else if (result[0] > upper[0]) {
+        result = [
+            upper[0],
+            result[1] - (result[0] - upper[0]) * Math.tan(angle),
+        ];
+    }
+
+    if (result[1] < lower[1]) {
+        result = [
+            result[0] + (lower[1] - result[1]) / Math.tan(angle),
+            lower[1],
+        ];
+    } else if (result[1] > upper[1]) {
+        result = [
+            result[0] - (result[1] - upper[1]) / Math.tan(angle),
+            upper[1],
+        ];
+    }
+
+    return result;
+}
+
+function boundAndSnapAngleEndPoints(
     destinationPoint: vec.Vector2,
-    {range, coords}: {range: [Interval, Interval]; coords: Coord[]},
+    {
+        range,
+        coords,
+        snapDegrees,
+        angleOffsetDeg,
+        snapStep,
+    }: {
+        range: [Interval, Interval];
+        coords: Coord[];
+        snapDegrees?: number;
+        angleOffsetDeg?: number;
+        snapStep: vec.Vector2;
+    },
+    index: number,
+) {
+    const snap = snapDegrees || 1;
+    const offsetDegrees = angleOffsetDeg || 0;
+
+    // Needed to prevent updating the original coords before the checks for
+    // degenerate triangles and overlapping sides
+    const coordsCopy = [...coords];
+
+    // We want to subtract or add the snapStep to the lower and upper bounds
+    // respectively to ensure that the point is within the bounds of the graph
+    // even after snapping to the nearest degree
+    const angleRange = [
+        [range[0][0] + snapStep[0], range[0][1] - snapStep[0]],
+        [range[1][0] + snapStep[1], range[1][1] - snapStep[1]],
+    ] as [Interval, Interval];
+
+    // Takes the destination point and makes sure it is within the bounds of the graph
+    // SnapStep is [0, 0] because we don't want to snap these points to the grid at all
+    const boundPoint = bound({
+        snapStep: [0, 0],
+        range: angleRange,
+        point: destinationPoint,
+    });
+    coordsCopy[index] = boundPoint;
+
+    // Get the vertex of the angle
+    const vertex = coords[1];
+
+    // Gets the angle between the coords and the vertex
+    let angle = findAngle(coordsCopy[index], vertex);
+
+    // Snap the angle to the nearest multiple of snapDegrees (if provided)
+    angle = Math.round((angle - offsetDegrees) / snap) * snap + offsetDegrees;
+    const distance = vec.dist(coordsCopy[index], vertex);
+    const snappedValue = vec.add(vertex, polar(distance, angle));
+
+    return snappedValue;
+}
+
+function boundAndSnapToPolygonAngle(
+    destinationPoint: vec.Vector2,
+    {
+        range,
+        coords,
+    }: {
+        range: [Interval, Interval];
+        coords: Coord[];
+    },
     index: number,
 ) {
     const startingPoint = coords[index];
@@ -542,7 +744,7 @@ function boundAndSnapToAngle(
     });
 
     const getAngle = function (a: number, vertex, b: number) {
-        const angle = GraphUtils.findAngle(
+        const angle = findAngle(
             coordsCopy[rel(a)],
             coordsCopy[rel(b)],
             coordsCopy[rel(vertex)],
@@ -554,6 +756,7 @@ function boundAndSnapToAngle(
         angles[rel(-1)] - getAngle(-2, -1, 1),
         angles[rel(1)] - getAngle(-1, 1, 2),
     ];
+
     innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
 
     // Avoid degenerate triangles
@@ -588,10 +791,7 @@ function boundAndSnapToAngle(
         knownSide;
 
     // Angle at the second vertex of the polygon
-    const outerAngle = GraphUtils.findAngle(
-        coordsCopy[rel(1)],
-        coordsCopy[rel(-1)],
-    );
+    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
 
     // Uses the length of the side of the polygon (radial coordinate)
     // and the angle between the first and second sides of the
@@ -654,10 +854,7 @@ function boundAndSnapToSides(
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
     // Angle at the second vertex of the polygon
-    const outerAngle = GraphUtils.findAngle(
-        coordsCopy[rel(1)],
-        coordsCopy[rel(-1)],
-    );
+    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
 
     // Returns true if the points form a counter-clockwise turn;
     // a.k.a if the point is on the left or right of the polygon.

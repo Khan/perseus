@@ -110,7 +110,7 @@ describe("keypad", () => {
 
         // Assert
         expect(
-            screen.getByRole("tab", {
+            screen.getByRole("button", {
                 name: "Dismiss",
             }),
         ).toBeInTheDocument();
@@ -125,7 +125,7 @@ describe("keypad", () => {
 
         // Assert
         expect(
-            screen.queryByRole("tab", {
+            screen.queryByRole("button", {
                 name: "Dismiss",
             }),
         ).not.toBeInTheDocument();

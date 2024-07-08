@@ -8,6 +8,7 @@ import type {
     LockedEllipseType,
     LockedVectorType,
     LockedPolygonType,
+    LockedFunctionType,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
@@ -56,6 +57,7 @@ export function getDefaultFigureForType(type: "line"): LockedLineType;
 export function getDefaultFigureForType(type: "vector"): LockedVectorType;
 export function getDefaultFigureForType(type: "ellipse"): LockedEllipseType;
 export function getDefaultFigureForType(type: "polygon"): LockedPolygonType;
+export function getDefaultFigureForType(type: "function"): LockedFunctionType;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
     switch (type) {
@@ -113,6 +115,14 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 showVertices: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
+            };
+        case "function":
+            return {
+                type: "function",
+                color: DEFAULT_COLOR,
+                strokeStyle: "solid",
+                equation: "x^2",
+                directionalAxis: "x",
             };
         default:
             throw new UnreachableCaseError(type);

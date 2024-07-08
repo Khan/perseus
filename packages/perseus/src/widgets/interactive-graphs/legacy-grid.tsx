@@ -5,6 +5,8 @@ import AssetContext from "../../asset-context";
 import {SvgImage} from "../../components";
 import {interactiveSizes} from "../../styles/constants";
 
+import {X} from "./math";
+
 import type {PerseusImageBackground} from "../../perseus-types";
 
 interface Props {
@@ -19,7 +21,7 @@ interface Props {
 export const LegacyGrid = ({box, backgroundImage}: Props) => {
     const {url, width, height} = backgroundImage ?? {};
     if (url && typeof url === "string") {
-        const scale = box[0] / interactiveSizes.defaultBoxSize;
+        const scale = box[X] / interactiveSizes.defaultBoxSize;
         return (
             <View
                 style={{

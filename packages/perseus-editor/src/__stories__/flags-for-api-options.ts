@@ -2,6 +2,7 @@ import {ApiOptions, type APIOptions} from "@khanacademy/perseus";
 
 export const flags = {
     mafs: {
+        angle: true,
         segment: true,
         circle: true,
         quadratic: true,
