@@ -60,7 +60,7 @@ describe("StartCoordSettings", () => {
         type
         ${"linear"}
         ${"ray"}
-    `(`graphs with CollinearTuple startCoords`, ({type}) => {
+    `(`graphs with CollinearTuple coords`, ({type}) => {
         test(`shows the start coordinates UI for ${type}`, () => {
             // Arrange
 
@@ -131,7 +131,7 @@ describe("StartCoordSettings", () => {
             render(
                 <StartCoordSettings
                     {...defaultProps}
-                    startCoords={[
+                    coords={[
                         [-15, 15],
                         [15, 15],
                     ]}
