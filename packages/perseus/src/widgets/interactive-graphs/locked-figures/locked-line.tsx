@@ -6,9 +6,7 @@ import {lockedFigureColors} from "../../../perseus-types";
 import {Arrowhead} from "../graphs/components/arrowhead";
 import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
-import {
-    getIntersectionOfRayWithBox,
-} from "../graphs/utils";
+import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y, calculateAngleInDegrees} from "../math";
 
 import type {LockedLineType} from "../../../perseus-types";

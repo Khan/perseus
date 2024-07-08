@@ -12,7 +12,7 @@ import {
     convertDegreesToRadians,
     lerp,
     X,
-    Y
+    Y,
 } from "./math";
 import useGraphConfig from "./reducer/use-graph-config";
 import {bound, TARGET_SIZE} from "./utils";
