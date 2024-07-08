@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interactive-graph widget question Shoud render predictably: after interaction 1`] = `
+exports[`interactive-graph widget question Should render predictably: after interaction 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -13,45 +13,45 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
         class="paragraph"
       >
         <strong>
-          Drag the vertices of the triangle below to draw a right triangle with side lengths 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              3
-            </span>
-            <span />
-          </span>
-          , 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              4
-            </span>
-            <span />
-          </span>
-          , and 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              5
-            </span>
-            <span />
-          </span>
-          .
+          Sides shown
         </strong>
-         
+         Drag the vertices of the triangle below to draw a right triangle with side lengths 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            3
+          </span>
+          <span />
+        </span>
+        , 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            4
+          </span>
+          <span />
+        </span>
+        , and 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            5
+          </span>
+          <span />
+        </span>
+        . 
 
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
@@ -84,7 +84,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M371.42857142857144,228.57142857142858L142.85714285714286,57.142857142857146L142.85714285714286,228.57142857142858Z"
+                    d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
                     fill="#000000"
                     opacity="0"
                     stroke="#000000"
@@ -107,33 +107,19 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M371.42857142857144,228.57142857142858L142.85714285714286,57.142857142857146L142.85714285714286,228.57142857142858Z"
+                    d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
                     fill="#71b307"
                     fill-opacity="0"
                     stroke="#71b307"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
-                  <path
-                    d="M156.23200184286875,228.57142857142858L156.23200184286875,215.1965695857027"
-                    fill="none"
-                    stroke="#6495ed"
-                    stroke-width="1"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
-                  />
-                  <path
-                    d="M142.85714285714286,215.1965695857027L156.23200184286875,215.1965695857027"
-                    fill="none"
-                    stroke="#6495ed"
-                    stroke-width="1"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
-                  />
                 </svg>
                 <div
                   style="position: absolute; left: 0px; top: 0px;"
                 >
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 358.42857142857144px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 244.14285714285717px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -164,7 +150,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 44.142857142857146px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 101.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -231,7 +217,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 >
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 347.42857142857144px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 233.14285714285717px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -262,7 +248,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 33.142857142857146px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 90.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -352,8 +338,8 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 </span>
                 <span
                   class="graphie-label"
-                  data-math-formula="5.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 269.14285714285717px; top: 126.85714285714285px; fill: none; stroke: #6495ED;"
+                  data-math-formula="\\approx 2.2"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -361,8 +347,8 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 </span>
                 <span
                   class="graphie-label"
-                  data-math-formula="3.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 122.85714285714286px; top: 142.85714285714286px; fill: none; stroke: #6495ED;"
+                  data-math-formula="\\approx 2.2"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -370,8 +356,8 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 </span>
                 <span
                   class="graphie-label"
-                  data-math-formula="4.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 257.14285714285717px; top: 248.57142857142856px; fill: none; stroke: #6495ED;"
+                  data-math-formula="2.0"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 248.57142857142856px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -388,7 +374,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
 </div>
 `;
 
-exports[`interactive-graph widget question Shoud render predictably: after interaction 2`] = `
+exports[`interactive-graph widget question Should render predictably: after interaction 2`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -781,7 +767,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
 </div>
 `;
 
-exports[`interactive-graph widget question Shoud render predictably: after interaction 3`] = `
+exports[`interactive-graph widget question Should render predictably: after interaction 3`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1154,7 +1140,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
 </div>
 `;
 
-exports[`interactive-graph widget question Shoud render predictably: after interaction 4`] = `
+exports[`interactive-graph widget question Should render predictably: after interaction 4`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1304,19 +1290,6 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   <defs
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
-                  <rect
-                    fill="#000000"
-                    height="400"
-                    opacity="0"
-                    r="0"
-                    rx="0"
-                    ry="0"
-                    stroke="#000"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
-                    width="400"
-                    x="0"
-                    y="0"
-                  />
                   <path
                     d="M116.66666666666667,266.6666666666667L266.6666666666667,16.666666666666668L266.6666666666667,266.6666666666667L216.66666666666669,216.66666666666669Z"
                     fill="#000000"
@@ -1340,16 +1313,6 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   <defs
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
-                  <image
-                    height="40"
-                    href="https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png"
-                    opacity="0.5"
-                    preserveAspectRatio="none"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
-                    width="40"
-                    x="360"
-                    y="360"
-                  />
                   <path
                     d="M116.66666666666667,266.6666666666667L266.6666666666667,16.666666666666668L266.6666666666667,266.6666666666667L216.66666666666669,216.66666666666669Z"
                     fill="#71b307"
@@ -1359,15 +1322,6 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
                 </svg>
-                <div
-                  style="font-style: italic; font-weight: bold; font-size: 32px; width: 100%; height: 100%; text-align: center; background-color: white; position: absolute; z-index: 1; transition: opacity .25s ease-in-out; opacity: 0.5;"
-                >
-                  <span
-                    style="position: relative; top: 25%;"
-                  >
-                    Click to add vertices
-                  </span>
-                </div>
                 <div
                   style="position: absolute; left: 0px; top: 0px;"
                 >
@@ -1706,7 +1660,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
 </div>
 `;
 
-exports[`interactive-graph widget question Shoud render predictably: first render 1`] = `
+exports[`interactive-graph widget question Should render predictably: first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -1719,45 +1673,45 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
         class="paragraph"
       >
         <strong>
-          Drag the vertices of the triangle below to draw a right triangle with side lengths 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              3
-            </span>
-            <span />
-          </span>
-          , 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              4
-            </span>
-            <span />
-          </span>
-          , and 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              5
-            </span>
-            <span />
-          </span>
-          .
+          Sides shown
         </strong>
-         
+         Drag the vertices of the triangle below to draw a right triangle with side lengths 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            3
+          </span>
+          <span />
+        </span>
+        , 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            4
+          </span>
+          <span />
+        </span>
+        , and 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            5
+          </span>
+          <span />
+        </span>
+        . 
 
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
@@ -2080,7 +2034,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
 </div>
 `;
 
-exports[`interactive-graph widget question Shoud render predictably: first render 2`] = `
+exports[`interactive-graph widget question Should render predictably: first render 2`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2473,7 +2427,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
 </div>
 `;
 
-exports[`interactive-graph widget question Shoud render predictably: first render 3`] = `
+exports[`interactive-graph widget question Should render predictably: first render 3`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2658,7 +2612,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
 </div>
 `;
 
-exports[`interactive-graph widget question Shoud render predictably: first render 4`] = `
+exports[`interactive-graph widget question Should render predictably: first render 4`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -2808,21 +2762,8 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   <defs
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
-                  <rect
-                    fill="#000000"
-                    height="400"
-                    opacity="0"
-                    r="0"
-                    rx="0"
-                    ry="0"
-                    stroke="#000"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
-                    width="400"
-                    x="0"
-                    y="0"
-                  />
                   <path
-                    d="M0,0"
+                    d="M266.6666666666667,233.33333333333334L200,133.33333333333334L133.33333333333334,233.33333333333334Z"
                     fill="#000000"
                     opacity="0"
                     stroke="#000000"
@@ -2844,18 +2785,8 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   <defs
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
-                  <image
-                    height="40"
-                    href="https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png"
-                    opacity="0.5"
-                    preserveAspectRatio="none"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
-                    width="40"
-                    x="360"
-                    y="360"
-                  />
                   <path
-                    d="M0,0"
+                    d="M266.6666666666667,233.33333333333334L200,133.33333333333334L133.33333333333334,233.33333333333334Z"
                     fill="#71b307"
                     fill-opacity="0"
                     stroke="#71b307"
@@ -2864,20 +2795,253 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   />
                 </svg>
                 <div
-                  style="font-style: italic; font-weight: bold; font-size: 32px; width: 100%; height: 100%; text-align: center; background-color: white; position: absolute; z-index: 1; transition: opacity .25s ease-in-out; opacity: 0.5;"
+                  style="position: absolute; left: 0px; top: 0px;"
                 >
-                  <span
-                    style="position: relative; top: 25%;"
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 253.66666666666669px; top: 220.33333333333334px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    Click to add vertices
-                  </span>
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#71b307"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#71b307"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 120.33333333333334px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#71b307"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#71b307"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    style="position: absolute; width: 26px; height: 26px; left: 120.33333333333334px; top: 220.33333333333334px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="26"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="26"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="NaN"
+                        cy="NaN"
+                        fill="#71b307"
+                        r="NaN"
+                        rx="4"
+                        ry="4"
+                        stroke="#71b307"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        transform=""
+                      />
+                    </svg>
+                  </div>
                 </div>
                 <div
-                  style="position: absolute; left: 0px; top: 0px;"
-                />
-                <div
                   style="position: absolute; left: 0px; top: 0px; z-index: 2;"
-                />
+                >
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 242.66666666666669px; top: 209.33333333333334px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 109.33333333333334px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    data-interactive-kind-for-testing="movable-point"
+                    style="position: absolute; width: 48px; height: 48px; left: 109.33333333333334px; top: 209.33333333333334px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  >
+                    <svg
+                      height="48"
+                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      version="1.1"
+                      width="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <desc
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      >
+                        Created with Raphaël
+                      </desc>
+                      <defs
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                      />
+                      <ellipse
+                        cx="24"
+                        cy="24"
+                        fill="#000000"
+                        opacity="0"
+                        rx="24"
+                        ry="24"
+                        stroke="#000"
+                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula=""
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
               </div>
             </div>
           </div>
