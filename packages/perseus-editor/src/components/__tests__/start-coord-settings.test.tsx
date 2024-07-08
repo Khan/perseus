@@ -127,7 +127,6 @@ describe("StartCoordSettings", () => {
             const onChangeMock = jest.fn();
 
             // Act
-
             render(
                 <StartCoordSettings
                     {...defaultProps}
