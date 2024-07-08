@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 19.2.0
+
+### Minor Changes
+
+-   [#1384](https://github.com/Khan/perseus/pull/1384) [`5de483386`](https://github.com/Khan/perseus/commit/5de483386693884ccdef22b9740582e6098a5baa) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating TabBar experience in to use arrow-key navigation to access the other TabItems. This will ensure the Expression Widget in perseus has proper keyboard navigation for users.
+
 ## 19.1.0
 
 ### Minor Changes
