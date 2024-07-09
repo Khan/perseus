@@ -57,9 +57,7 @@ export const MovablePointView = forwardRef(
 
         const [[x, y]] = useTransformVectorsToPixels(point);
 
-        // TODO(benchristel): destructure range in one line
-        const [xMin, xMax] = range[X];
-        const [yMin, yMax] = range[Y];
+        const [[xMin, xMax], [yMin, yMax]] = range;
 
         const [[verticalStartX]] = useTransformVectorsToPixels([xMin, 0]);
         const [[verticalEndX]] = useTransformVectorsToPixels([xMax, 0]);
