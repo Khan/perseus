@@ -1,4 +1,3 @@
-import type {CollinearTuple} from "../../../perseus-types";
 import type {Interval, vec} from "mafs";
 
 /**
@@ -40,13 +39,6 @@ export const getIntersectionOfRayWithBox = (
         default:
             return [xExtreme, yExtreme];
     }
-};
-
-export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] => {
-    return points.map((point, i) => {
-        const next = points[(i + 1) % points.length];
-        return [point, next];
-    });
 };
 
 function isBetween(x: number, low: number, high: number) {
