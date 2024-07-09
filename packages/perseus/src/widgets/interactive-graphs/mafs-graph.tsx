@@ -64,38 +64,6 @@ type MafsChange = {
     graph: InteractiveGraphState;
 };
 
-const renderGraph = (props: {
-    state: InteractiveGraphState;
-    dispatch: (action: InteractiveGraphAction) => unknown;
-}) => {
-    const {state, dispatch} = props;
-    const {type} = state;
-    switch (type) {
-        case "angle":
-            return <AngleGraph graphState={state} dispatch={dispatch} />;
-        case "segment":
-            return <SegmentGraph graphState={state} dispatch={dispatch} />;
-        case "linear-system":
-            return <LinearSystemGraph graphState={state} dispatch={dispatch} />;
-        case "linear":
-            return <LinearGraph graphState={state} dispatch={dispatch} />;
-        case "ray":
-            return <RayGraph graphState={state} dispatch={dispatch} />;
-        case "polygon":
-            return <PolygonGraph graphState={state} dispatch={dispatch} />;
-        case "point":
-            return <PointGraph graphState={state} dispatch={dispatch} />;
-        case "circle":
-            return <CircleGraph graphState={state} dispatch={dispatch} />;
-        case "quadratic":
-            return <QuadraticGraph graphState={state} dispatch={dispatch} />;
-        case "sinusoid":
-            return <SinusoidGraph graphState={state} dispatch={dispatch} />;
-        default:
-            return new UnreachableCaseError(type);
-    }
-};
-
 // Rather than be tightly bound to how data was structured in
 // the legacy interactive graph, this lets us store state
 // however we want and we just transform it before handing it off
@@ -290,4 +258,36 @@ export const MafsGraph = (props: MafsGraphProps) => {
             </View>
         </GraphConfigContext.Provider>
     );
+};
+
+const renderGraph = (props: {
+    state: InteractiveGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+}) => {
+    const {state, dispatch} = props;
+    const {type} = state;
+    switch (type) {
+        case "angle":
+            return <AngleGraph graphState={state} dispatch={dispatch} />;
+        case "segment":
+            return <SegmentGraph graphState={state} dispatch={dispatch} />;
+        case "linear-system":
+            return <LinearSystemGraph graphState={state} dispatch={dispatch} />;
+        case "linear":
+            return <LinearGraph graphState={state} dispatch={dispatch} />;
+        case "ray":
+            return <RayGraph graphState={state} dispatch={dispatch} />;
+        case "polygon":
+            return <PolygonGraph graphState={state} dispatch={dispatch} />;
+        case "point":
+            return <PointGraph graphState={state} dispatch={dispatch} />;
+        case "circle":
+            return <CircleGraph graphState={state} dispatch={dispatch} />;
+        case "quadratic":
+            return <QuadraticGraph graphState={state} dispatch={dispatch} />;
+        case "sinusoid":
+            return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+        default:
+            return new UnreachableCaseError(type);
+    }
 };
