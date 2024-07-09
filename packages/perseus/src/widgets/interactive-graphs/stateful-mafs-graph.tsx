@@ -33,15 +33,11 @@ export type StatefulMafsGraphProps = {
     labels: InteractiveGraphProps["labels"];
 };
 
-type MafsChange = {
-    graph: InteractiveGraphState;
-};
-
 // Rather than be tightly bound to how data was structured in
 // the legacy interactive graph, this lets us store state
 // however we want and we just transform it before handing it off
 // the the parent InteractiveGraph
-function mafsStateToInteractiveGraph(state: MafsChange) {
+function mafsStateToInteractiveGraph(state: {graph: InteractiveGraphState}) {
     if (state.graph.type === "circle") {
         return {
             ...state,
