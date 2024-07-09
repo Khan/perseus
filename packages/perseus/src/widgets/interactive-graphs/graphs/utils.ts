@@ -42,13 +42,6 @@ export const getIntersectionOfRayWithBox = (
     }
 };
 
-export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] => {
-    return points.map((point, i) => {
-        const next = points[(i + 1) % points.length];
-        return [point, next];
-    });
-};
-
 function isBetween(x: number, low: number, high: number) {
     return x >= low && x <= high;
 }
