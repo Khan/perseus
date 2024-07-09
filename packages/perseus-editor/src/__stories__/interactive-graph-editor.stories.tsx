@@ -34,7 +34,7 @@ import type {
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
-    title: "PerseusEditor/Interactive Graph",
+    title: "PerseusEditor/Widgets/Interactive Graph",
 };
 
 const onChangeAction = action("onChange");
