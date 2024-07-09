@@ -3,7 +3,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
-import {findAngle} from "../../math";
+import {findAngle, segmentsIntersect} from "../../math";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
@@ -324,28 +324,12 @@ export const shouldDrawArcOutside = (
 
     polygonLines.forEach(
         (line) =>
-            linesIntersect([vertex, rangeIntersectionPoint], line) &&
+            segmentsIntersect([vertex, rangeIntersectionPoint], line) &&
             lineIntersectionCount++,
     );
 
     // If the number of intersections is even, the angle is inside the polygon
     return !isEven(lineIntersectionCount);
-};
-
-// https://stackoverflow.com/a/24392281/7347484
-// The "intersects" function in geometry doesn't seem to work for this use case
-const linesIntersect = (
-    [[a, b], [c, d]]: CollinearTuple,
-    [[p, q], [r, s]]: CollinearTuple,
-) => {
-    const determinant = (c - a) * (s - q) - (r - p) * (d - b);
-    if (determinant === 0) {
-        return false;
-    } else {
-        const lambda = ((s - q) * (r - a) + (p - r) * (s - b)) / determinant;
-        const gamma = ((b - d) * (r - a) + (c - a) * (s - b)) / determinant;
-        return 0 < lambda && lambda < 1 && 0 < gamma && gamma < 1;
-    }
 };
 
 const isEven = (n: number) => n % 2 === 0;
@@ -420,10 +404,10 @@ function calculateBisectorPoint(
     }
 
     // Scale the bisector direction by the radius
-    const bisectorPoint = [
+    const bisectorPoint: vec.Vector2 = [
         bisectorDirection[0] * radius,
         bisectorDirection[1] * radius,
-    ] satisfies vec.Vector2;
+    ];
 
     // Add the vertex to the bisector point to get the final position
     // to ensure that the angle label moves with the interactive element
