@@ -1,4 +1,3 @@
-import type {CollinearTuple} from "../../../perseus-types";
 import type {Interval, vec} from "mafs";
 
 /**
