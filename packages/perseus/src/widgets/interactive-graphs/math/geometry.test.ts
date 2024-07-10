@@ -16,7 +16,7 @@ describe("segmentsIntersect", () => {
     });
 
     it("returns false when segments are the same", () => {
-        // TODO(benchristel): is this desired behavior?
+        // intersecting segments must have a SINGLE intersection point.
         const segment1: Segment = [
             [0, 0],
             [1, 1],
@@ -29,7 +29,7 @@ describe("segmentsIntersect", () => {
     });
 
     it("returns false when an endpoint touches the other segment (lambda = 1)", () => {
-        // TODO(benchristel): is this desired behavior?
+        // We treat segments as open (exclusive of their endpoints).
         const segment1: Segment = [
             [0, 0],
             [1, 1],
@@ -42,7 +42,7 @@ describe("segmentsIntersect", () => {
     });
 
     it("returns false when an endpoint touches the other segment (lambda = 0)", () => {
-        // TODO(benchristel): is this desired behavior?
+        // We treat segments as open (exclusive of their endpoints).
         const segment1: Segment = [
             [0, 0],
             [1, 1],
@@ -55,7 +55,7 @@ describe("segmentsIntersect", () => {
     });
 
     it("returns false when endpoints touch (gamma = 0)", () => {
-        // TODO(benchristel): is this desired behavior?
+        // We treat segments as open (exclusive of their endpoints).
         const segment1: Segment = [
             [0, 0],
             [1, 1],
@@ -68,7 +68,7 @@ describe("segmentsIntersect", () => {
     });
 
     it("returns false when endpoints touch (gamma = 1)", () => {
-        // TODO(benchristel): is this desired behavior?
+        // We treat segments as open (exclusive of their endpoints).
         const segment1: Segment = [
             [0, 0],
             [1, 1],
