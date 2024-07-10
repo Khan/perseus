@@ -427,6 +427,8 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
+    visibleLabel?: string;
+    ariaLabel?: string;
     // Controls when buttons for special characters are visible when using a
     // desktop browser.  Defaults to "focused".
     // NOTE: This isn't listed in perseus-format.js or perseus_data.go, but

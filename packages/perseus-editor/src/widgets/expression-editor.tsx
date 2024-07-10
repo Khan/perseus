@@ -17,7 +17,7 @@ import SortableArea from "../components/sortable";
 
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
 
-const {InfoTip, PropCheckBox} = components;
+const {InfoTip, PropCheckBox, TextInput} = components;
 
 type Props = {
     widgetId?: any;
@@ -174,6 +174,37 @@ class ExpressionEditor extends React.Component<Props> {
         return (
             <div className="perseus-widget-expression-editor">
                 <h3 className="expression-editor-h3">Global Options</h3>
+
+                <div className="perseus-widget-row">
+                    <label>
+                        Visible label:{" "}
+                        <TextInput
+                            value={this.props.visibleLabel}
+                            onChange={this.change("visibleLabel")}
+                        />
+                    </label>
+                    <InfoTip>
+                        <p>
+                            Optional visible text; strongly encouraged to help
+                            learners using dictation software, but can be
+                            omitted if the surrounding content provides enough
+                            context.
+                        </p>
+                    </InfoTip>
+                </div>
+
+                <div className="perseus-widget-row">
+                    <label>
+                        Aria label:{" "}
+                        <TextInput
+                            value={this.props.ariaLabel}
+                            onChange={this.change("ariaLabel")}
+                        />
+                    </label>
+                    <InfoTip>
+                        <p>Label text that's read by screenreaders.</p>
+                    </InfoTip>
+                </div>
 
                 <div>
                     <PropCheckBox

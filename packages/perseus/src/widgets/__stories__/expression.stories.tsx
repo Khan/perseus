@@ -83,6 +83,8 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
             <expressionExport.widget
                 alignment={null}
                 value=""
+                visibleLabel=""
+                ariaLabel=""
                 containerSizeClass="small"
                 findWidgets={(callback) => []}
                 isLastUsedWidget={false}
