@@ -1,3 +1,4 @@
+import {act} from "@testing-library/react";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -80,15 +81,17 @@ describe("matcher widget", () => {
         // Act
         const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
 
-        matcher.moveRightOptionToIndex(
-            "Rapid escalation of greenhouse gas emissions",
-            0,
-        );
+        act(() => {
+            matcher.moveRightOptionToIndex(
+                "Rapid escalation of greenhouse gas emissions",
+                0,
+            );
 
-        matcher.moveLeftOptionToIndex(
-            "Average global temperatures will rise ",
-            0,
-        );
+            matcher.moveLeftOptionToIndex(
+                "Average global temperatures will rise ",
+                0,
+            );
+        });
 
         // Assert
         expect(container).toMatchSnapshot("moved items");
@@ -113,7 +116,7 @@ describe("matcher widget", () => {
             "Rapid escalation of greenhouse gas emissions",
             "The current trajectory of the Milky Way galaxy and those in its immediate proximity",
         ].forEach((option, index) => {
-            matcher.moveRightOptionToIndex(option, 4);
+            act(() => matcher.moveRightOptionToIndex(option, 4));
         });
 
         // Act

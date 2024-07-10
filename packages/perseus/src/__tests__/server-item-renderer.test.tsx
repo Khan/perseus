@@ -1,5 +1,5 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen} from "@testing-library/react";
+import {within, render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -178,7 +178,7 @@ describe("server item renderer", () => {
         const {renderer} = renderQuestion(itemWithInput);
 
         // Act
-        renderer.setInputValue(["input-number 1"], "99", focus);
+        act(() => renderer.setInputValue(["input-number 1"], "99", focus));
 
         // Assert
         expect(
@@ -413,10 +413,10 @@ describe("server item renderer", () => {
             const {renderer} = renderQuestion(itemWithInput, {
                 onFocusChange,
             });
-            renderer.focus();
+            act(() => renderer.focus());
 
             // Act
-            renderer.blur();
+            act(() => renderer.blur());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -458,10 +458,10 @@ describe("server item renderer", () => {
                 {onFocusChange, isMobile: true},
                 {keypadElement},
             );
-            renderer.focus();
+            act(() => renderer.focus());
 
             // Act
-            renderer.blur();
+            act(() => renderer.blur());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -485,7 +485,7 @@ describe("server item renderer", () => {
             });
 
             // Act
-            renderer.focusPath(["input-number 1"]);
+            act(() => renderer.focusPath(["input-number 1"]));
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -543,20 +543,22 @@ describe("server item renderer", () => {
             const {renderer} = renderQuestion(itemWithInput);
 
             // Act
-            renderer.restoreSerializedState(
-                {
-                    hints: [{}, {}, {}],
-                    question: {
-                        "input-number 1": {
-                            answerType: "number",
-                            currentValue: "-42",
-                            rightAlign: undefined,
-                            simplify: "required",
-                            size: "normal",
+            act(() =>
+                renderer.restoreSerializedState(
+                    {
+                        hints: [{}, {}, {}],
+                        question: {
+                            "input-number 1": {
+                                answerType: "number",
+                                currentValue: "-42",
+                                rightAlign: undefined,
+                                simplify: "required",
+                                size: "normal",
+                            },
                         },
                     },
-                },
-                callback,
+                    callback,
+                ),
             );
             jest.runOnlyPendingTimers();
 

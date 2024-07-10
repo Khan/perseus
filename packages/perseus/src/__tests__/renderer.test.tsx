@@ -1,5 +1,5 @@
 import {describe, beforeAll, beforeEach, it} from "@jest/globals";
-import {screen, waitFor, within} from "@testing-library/react";
+import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -328,12 +328,12 @@ describe("renderer", () => {
             if (imageIndex != null) {
                 const img = images[imageIndex];
                 if (img?.onload) {
-                    img.onload();
+                    act(() => img.onload());
                 }
             } else {
                 images.forEach((i) => {
                     if (i?.onload) {
-                        i.onload();
+                        act(() => i.onload());
                     }
                 });
             }
@@ -990,11 +990,11 @@ describe("renderer", () => {
                 },
                 {onFocusChange},
             );
-            renderer.focusPath(["input-number 1"]);
+            act(() => renderer.focusPath(["input-number 1"]));
             onFocusChange.mockClear();
 
             // Act
-            renderer.focusPath(["input-number 2"]);
+            act(() => renderer.focusPath(["input-number 2"]));
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -1024,7 +1024,7 @@ describe("renderer", () => {
             onFocusChange.mockClear();
 
             // Act
-            renderer.blurPath(["input-number 1"]);
+            act(() => renderer.blurPath(["input-number 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1047,11 +1047,11 @@ describe("renderer", () => {
                 {onFocusChange},
             );
             // Focus _second_ input number widget
-            screen.getAllByRole("textbox")[1].focus();
+            act(() => screen.getAllByRole("textbox")[1].focus());
             onFocusChange.mockClear();
 
             // Act
-            renderer.blur();
+            act(() => renderer.blur());
             jest.runOnlyPendingTimers(); // There's a _.defer() in this code path
 
             // Assert
@@ -1147,9 +1147,15 @@ describe("renderer", () => {
             const restorationCallback = jest.fn();
 
             // Act
-            renderer.restoreSerializedState(
-                {"mock-widget 1": {}, "mock-widget 2": {}, "mock-widget 3": {}},
-                restorationCallback,
+            act(() =>
+                renderer.restoreSerializedState(
+                    {
+                        "mock-widget 1": {},
+                        "mock-widget 2": {},
+                        "mock-widget 3": {},
+                    },
+                    restorationCallback,
+                ),
             );
             jest.runOnlyPendingTimers();
 
@@ -1648,7 +1654,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            renderer.setInputValue(["input-number 2"], "1000", cb);
+            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
 
             // Assert
             expect(screen.getAllByRole("textbox")[0]).toHaveValue("");
@@ -1673,7 +1679,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            renderer.setInputValue(["input-number 2"], "1000", cb);
+            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
             jest.runOnlyPendingTimers();
 
             // Assert

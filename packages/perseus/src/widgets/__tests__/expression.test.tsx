@@ -1,5 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
@@ -30,7 +30,7 @@ const renderAndAnswer = async (
     jest.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     await userEvent.type(screen.getByRole("textbox"), input);
-    jest.runOnlyPendingTimers();
+    act(() => jest.runOnlyPendingTimers());
 
     return renderer;
 };
@@ -485,7 +485,7 @@ describe("interaction", () => {
         jest.runOnlyPendingTimers();
 
         // act
-        renderer.setInputValue(["expression 1"], "123-x", () => {});
+        act(() => renderer.setInputValue(["expression 1"], "123-x", () => {}));
         jest.runOnlyPendingTimers();
         const score = renderer.guessAndScore()[1];
 
@@ -501,9 +501,12 @@ describe("interaction", () => {
         // arrange
         const {renderer} = renderQuestion(expressionItem2.question);
         jest.runOnlyPendingTimers();
-        const expression = renderer.findWidgets("expression 1")[0];
-        expression.insert("x+1");
-        jest.runOnlyPendingTimers();
+
+        act(() => {
+            const expression = renderer.findWidgets("expression 1")[0];
+            expression.insert("x+1");
+            jest.runOnlyPendingTimers();
+        });
 
         // act
         const score = renderer.score();
@@ -530,9 +533,13 @@ describe("error tooltip", () => {
         const expression = renderer.findWidgets("expression 1")[0];
 
         // Act
-        expression.insert("x&&&&&^1");
-        jest.runOnlyPendingTimers();
-        screen.getByRole("textbox").blur();
+        // Note(jeremy): You might think you could collapse all of these calls
+        // inside a single act() block, but that didn't work. The only way this
+        // test passes is with each statement in its own act() call. :/
+        act(() => expression.insert("x&&&&&^1"));
+        act(() => jest.runOnlyPendingTimers());
+        act(() => screen.getByRole("textbox").blur());
+        act(() => jest.runOnlyPendingTimers());
         renderer.guessAndScore();
 
         // Assert

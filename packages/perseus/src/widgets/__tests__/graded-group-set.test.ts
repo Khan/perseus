@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -181,10 +181,12 @@ describe("graded group widget", () => {
         const cb = jest.fn();
 
         // Act
-        renderer.setInputValue(
-            ["graded-group-set 1", "numeric-input 1"],
-            "999",
-            cb,
+        act(() =>
+            renderer.setInputValue(
+                ["graded-group-set 1", "numeric-input 1"],
+                "999",
+                cb,
+            ),
         );
 
         // Assert

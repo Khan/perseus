@@ -1,6 +1,6 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {cleanup, render, screen} from "@testing-library/react";
+import {act, cleanup, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -90,7 +90,7 @@ describe("group widget", () => {
             onFocusChange.mockClear();
 
             // Act
-            renderer.blur();
+            act(() => renderer.blur());
             // There's two levels of <Renderer /> here (our main one and one inside
             // the group widget) so we have to wait twice for all the focus
             // management timers to resolve.
@@ -121,7 +121,7 @@ describe("group widget", () => {
             const {renderer} = renderQuestion(question1);
             const textbox = screen.getAllByRole("textbox")[1];
 
-            textbox.focus();
+            act(() => textbox.focus());
             jest.runOnlyPendingTimers();
             jest.runOnlyPendingTimers();
 
@@ -358,7 +358,7 @@ describe("group widget", () => {
         const {renderer: renderer1} = renderQuestion(question1);
 
         // Act
-        renderer1.restoreSerializedState(state);
+        act(() => renderer1.restoreSerializedState(state));
 
         // Assert
         expect(screen.getAllByRole("radio")[4]).toBeChecked();
@@ -443,7 +443,9 @@ describe("group widget", () => {
         const cb = jest.fn();
 
         // Act
-        renderer.setInputValue(["group 2", "numeric-input 2"], "2021", cb);
+        act(() =>
+            renderer.setInputValue(["group 2", "numeric-input 2"], "2021", cb),
+        );
         jest.runOnlyPendingTimers(); // callback occurs after the next render
 
         // Assert
@@ -457,7 +459,7 @@ describe("group widget", () => {
         await userEvent.click(screen.getAllByRole("radio")[2]); // Incorrect!
 
         // Act
-        renderer.showRationalesForCurrentlySelectedChoices();
+        act(() => renderer.showRationalesForCurrentlySelectedChoices());
 
         // Assert
         expect(

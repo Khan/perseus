@@ -1,5 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -88,7 +88,7 @@ describe("passage widget", () => {
 
             // Act
             const {container} = renderQuestion(question1, apiOptions);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -105,7 +105,7 @@ describe("passage widget", () => {
 
             // Act
             const {container} = renderQuestion(question2, apiOptions);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot();

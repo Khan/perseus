@@ -150,7 +150,7 @@ describe("single-choice question", () => {
                 // Since this is a single-select setup, just select the first
                 // incorrect choice.
                 await selectOption(userEvent, incorrect[0]);
-                renderer.deselectIncorrectSelectedChoices();
+                act(() => renderer.deselectIncorrectSelectedChoices());
 
                 // Assert
                 screen.getAllByRole("radio").forEach((r) => {
@@ -334,7 +334,7 @@ describe("single-choice question", () => {
 
         // Act
         await selectOption(userEvent, incorrect[0]);
-        renderer.showRationalesForCurrentlySelectedChoices();
+        act(() => renderer.showRationalesForCurrentlySelectedChoices());
 
         // Assert
         expect(

@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -527,8 +527,8 @@ describe("Numeric input widget", () => {
 
         // Act
         const input = screen.getByRole("textbox", {hidden: true});
-        input.focus();
-        renderer.blur();
+        act(() => input.focus());
+        act(() => renderer.blur());
 
         // Assert
         // eslint-disable-next-line testing-library/no-node-access
