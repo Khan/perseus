@@ -515,11 +515,8 @@ describe("Numeric input widget", () => {
         const gotFocus = await act(() => renderer.focus());
 
         // Assert
-        expect(gotFocus).toBeTrue();
-        // eslint-disable-next-line testing-library/no-node-access
-        expect(document.activeElement).toBe(
-            screen.getByRole("textbox", {hidden: true}),
-        );
+        expect(gotFocus).toBe(true);
+        expect(screen.getByRole("textbox", {hidden: true})).toHaveFocus();
     });
 
     it("can be blurred", () => {
@@ -550,24 +547,23 @@ describe("unionAnswerForms utility function", () => {
         const forms = [
             [
                 {
-                    simplify: "required",
+                    simplify: "required" as const,
                     name: "integer",
-                },
+                } as const,
             ],
             [
                 {
-                    simplify: "required",
+                    simplify: "required" as const,
                     name: "integer",
-                },
+                } as const,
             ],
         ];
 
         // act
-        // @ts-expect-error - TS2345 - Argument of type '{ simplify: string; name: string; }[][]' is not assignable to parameter of type 'readonly (readonly PerseusNumericInputAnswerForm[])[]'.
         const result = unionAnswerForms(forms);
 
         // assert
-        expect(result).toBeArrayOfSize(1);
+        expect(result).toHaveLength(1);
     });
 });
 
