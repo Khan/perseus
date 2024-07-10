@@ -1,5 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {act, screen} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
@@ -497,14 +497,16 @@ describe("interaction", () => {
         expect(score.earned).toBe(score.total);
     });
 
-    it("has a developer facility for inserting", () => {
+    it("has a developer facility for inserting", async () => {
         // arrange
         const {renderer} = renderQuestion(expressionItem2.question);
         act(() => jest.runOnlyPendingTimers());
 
         const expression = renderer.findWidgets("expression 1")[0];
-        act(() => expression.insert("x+1"));
-        act(() => jest.runOnlyPendingTimers());
+        act(() => {
+            expression.insert("x+1");
+            jest.runOnlyPendingTimers();
+        });
 
         // act
         const score = renderer.score();
@@ -541,10 +543,11 @@ describe("error tooltip", () => {
         renderer.guessAndScore();
 
         // Assert
-        expect(screen.getByText("Oops!")).toBeVisible();
-        expect(
-            screen.getByText("Sorry, I don't understand that!"),
-        ).toBeVisible();
+        await waitFor(() =>
+            expect(
+                screen.getByText("Oops! Sorry, I don't understand that!"),
+            ).toBeVisible(),
+        );
     });
 
     it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {

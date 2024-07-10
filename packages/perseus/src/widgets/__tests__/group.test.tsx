@@ -1,6 +1,6 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {act, cleanup, render, screen} from "@testing-library/react";
+import {act, cleanup, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -65,7 +65,6 @@ describe("group widget", () => {
 
             // Act
             act(() => renderer.focus());
-            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -74,7 +73,7 @@ describe("group widget", () => {
             );
         });
 
-        it("should map blur event to onFocusChange", () => {
+        it("should map blur event to onFocusChange", async () => {
             // Arrange
             const onFocusChange = jest.fn();
 
@@ -82,25 +81,20 @@ describe("group widget", () => {
                 onFocusChange,
             });
 
-            act(() => screen.getAllByRole("textbox")[1].focus());
+            await userEvent.click(screen.getAllByRole("textbox")[1]);
 
             // This flushes the onFocusChange call resulting from the focus()
-            act(() => jest.runOnlyPendingTimers());
-            act(() => jest.runOnlyPendingTimers());
             onFocusChange.mockClear();
 
             // Act
             act(() => renderer.blur());
-            // There's two levels of <Renderer /> here (our main one and one inside
-            // the group widget) so we have to wait twice for all the focus
-            // management timers to resolve.
-            act(() => jest.runOnlyPendingTimers());
-            act(() => jest.runOnlyPendingTimers());
 
             // Assert
-            expect(onFocusChange).toHaveBeenCalledWith(
-                null, // New focus
-                ["group 2", "numeric-input 2"], // Old focus
+            await waitFor(() =>
+                expect(onFocusChange).toHaveBeenCalledWith(
+                    null, // New focus
+                    ["group 2", "numeric-input 2"], // Old focus
+                ),
             );
         });
 
@@ -116,14 +110,12 @@ describe("group widget", () => {
             expect(screen.getAllByRole("textbox")[1]).toHaveFocus();
         });
 
-        it("should forward blurInputPath calls to Renderer", () => {
+        it("should forward blurInputPath calls to Renderer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question1);
             const textbox = screen.getAllByRole("textbox")[1];
 
-            act(() => textbox.focus());
-            act(() => jest.runOnlyPendingTimers());
-            act(() => jest.runOnlyPendingTimers());
+            await userEvent.click(textbox);
 
             // Act
             // blurPath() calls blurInputPath() on the focused widget
@@ -154,8 +146,6 @@ describe("group widget", () => {
 
         // Act
         await userEvent.type(screen.getAllByRole("textbox")[0], "99");
-        act(() => jest.runOnlyPendingTimers());
-        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         // NOTE: The numeric-input that we typed into is in the second group.
@@ -437,7 +427,7 @@ describe("group widget", () => {
         `);
     });
 
-    it("should set value and call callback for input path", () => {
+    it("should set value and call callback for input path", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         const cb = jest.fn();
@@ -446,10 +436,11 @@ describe("group widget", () => {
         act(() =>
             renderer.setInputValue(["group 2", "numeric-input 2"], "2021", cb),
         );
-        act(() => jest.runOnlyPendingTimers()); // callback occurs after the next render
 
         // Assert
-        expect(screen.getAllByRole("textbox")[1]).toHaveValue("2021");
+        await waitFor(() => {
+            expect(screen.getAllByRole("textbox")[1]).toHaveValue("2021");
+        });
         expect(cb).toHaveBeenCalled();
     });
 
