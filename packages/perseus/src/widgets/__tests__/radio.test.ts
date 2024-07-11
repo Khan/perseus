@@ -1,14 +1,12 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import $ from "jquery";
 import _ from "underscore";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {
-    passageWidget,
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
 } from "../__testdata__/radio.testdata";
@@ -16,7 +14,7 @@ import PassageWidget from "../passage";
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {PerseusRadioChoice, PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
 const selectOption = async (
