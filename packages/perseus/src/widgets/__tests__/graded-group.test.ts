@@ -1,5 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";

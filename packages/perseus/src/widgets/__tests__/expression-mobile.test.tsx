@@ -6,6 +6,7 @@ import {
 } from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
+    act,
     fireEvent,
     render,
     screen,
