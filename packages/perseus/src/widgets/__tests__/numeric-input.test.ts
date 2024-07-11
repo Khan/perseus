@@ -508,11 +508,11 @@ describe("Numeric input widget", () => {
         expect(container).toMatchSnapshot("mobile render");
     });
 
-    it("can be focused", () => {
+    it("can be focused", async () => {
         const {renderer} = renderQuestion(question1);
 
         // Act
-        const gotFocus = renderer.focus();
+        const gotFocus = await act(() => renderer.focus());
 
         // Assert
         expect(gotFocus).toBeTrue();

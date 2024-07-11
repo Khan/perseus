@@ -569,7 +569,7 @@ describe("multi-item renderer", () => {
                     callback,
                 ),
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(callback).toHaveBeenCalled();

@@ -171,7 +171,7 @@ describe("Perseus API", function () {
 
             // Act - focus
             await userEvent.click(input);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(1);
@@ -183,7 +183,7 @@ describe("Perseus API", function () {
             // Act - blur
             onFocusChange.mockReset();
             await userEvent.tab();
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(1);
@@ -200,12 +200,12 @@ describe("Perseus API", function () {
             const input1 = inputs[0];
             const input2 = inputs[1];
             await userEvent.click(input1);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act - move focus to new input
             onFocusChange.mockReset();
             await userEvent.click(input2);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             expect(onFocusChange).toHaveBeenCalledTimes(1);
             expect(onFocusChange).toHaveBeenCalledWith(

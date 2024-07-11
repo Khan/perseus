@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -70,7 +70,9 @@ describe("<KeypadButton />", () => {
         );
 
         // Act
-        screen.getByRole("button", {name: "Right parenthesis"}).focus();
+        act(() =>
+            screen.getByRole("button", {name: "Right parenthesis"}).focus(),
+        );
         await userEvent.keyboard("{enter}");
 
         // Assert

@@ -64,8 +64,8 @@ describe("group widget", () => {
             });
 
             // Act
-            renderer.focus();
-            jest.runOnlyPendingTimers();
+            act(() => renderer.focus());
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -82,11 +82,11 @@ describe("group widget", () => {
                 onFocusChange,
             });
 
-            screen.getAllByRole("textbox")[1].focus();
+            act(() => screen.getAllByRole("textbox")[1].focus());
 
             // This flushes the onFocusChange call resulting from the focus()
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
+            act(() => jest.runOnlyPendingTimers());
             onFocusChange.mockClear();
 
             // Act
@@ -94,8 +94,8 @@ describe("group widget", () => {
             // There's two levels of <Renderer /> here (our main one and one inside
             // the group widget) so we have to wait twice for all the focus
             // management timers to resolve.
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -110,7 +110,7 @@ describe("group widget", () => {
 
             // Act
             // focusPath() calls focusInputPath() on the focused widget
-            renderer.focusPath(["group 2", "numeric-input 2"]);
+            act(() => renderer.focusPath(["group 2", "numeric-input 2"]));
 
             // Assert
             expect(screen.getAllByRole("textbox")[1]).toHaveFocus();
@@ -122,12 +122,12 @@ describe("group widget", () => {
             const textbox = screen.getAllByRole("textbox")[1];
 
             act(() => textbox.focus());
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             // blurPath() calls blurInputPath() on the focused widget
-            renderer.blurPath(["group 2", "numeric-input 2"]);
+            act(() => renderer.blurPath(["group 2", "numeric-input 2"]));
 
             // Assert
             expect(textbox).not.toHaveFocus();
@@ -154,8 +154,8 @@ describe("group widget", () => {
 
         // Act
         await userEvent.type(screen.getAllByRole("textbox")[0], "99");
-        jest.runOnlyPendingTimers();
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         // NOTE: The numeric-input that we typed into is in the second group.
@@ -446,7 +446,7 @@ describe("group widget", () => {
         act(() =>
             renderer.setInputValue(["group 2", "numeric-input 2"], "2021", cb),
         );
-        jest.runOnlyPendingTimers(); // callback occurs after the next render
+        act(() => jest.runOnlyPendingTimers()); // callback occurs after the next render
 
         // Assert
         expect(screen.getAllByRole("textbox")[1]).toHaveValue("2021");

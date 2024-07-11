@@ -134,7 +134,7 @@ describe("single-choice question", () => {
                 });
 
                 // Act
-                const gotFocus = renderer.focus();
+                const gotFocus = await act(() => renderer.focus());
 
                 // Assert
                 expect(gotFocus).toBe(true);
@@ -316,7 +316,7 @@ describe("single-choice question", () => {
         // Act
         renderQuestion(questionWithPassage, apiOptions);
         // Passage refs use `_.defer()` to update their reference ranges.
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         // By using a `passage-ref` in a choice, we should now have the

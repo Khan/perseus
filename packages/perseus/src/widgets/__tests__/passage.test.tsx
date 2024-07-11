@@ -118,7 +118,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Act
         const score = renderer.score();
@@ -140,7 +140,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // @ts-expect-error - TS2503 - Cannot find namespace 'PassageWidgetExport'
         const [passage1]: [PassageWidgetExport.widget] =
@@ -164,7 +164,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // @ts-expect-error - TS2503 - Cannot find namespace 'PassageWidgetExport'
         const [passage1]: [PassageWidgetExport.widget] =
