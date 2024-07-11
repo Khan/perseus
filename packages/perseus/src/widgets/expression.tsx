@@ -5,6 +5,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import classNames from "classnames";
 import * as React from "react";
+import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../components/i18n-context";
@@ -540,32 +541,57 @@ export class Expression extends React.Component<Props, ExpressionState> {
         );
     };
 
-    render():
-        | React.ReactNode
-        | React.ReactElement<React.ComponentProps<"div">> {
+    render() {
+        const textareaId = `expression_textarea_${Date.now()}`;
+
         if (this.props.apiOptions.customKeypad) {
+            // HACK: imperatively add an ID onto the Mathquill input
+            // (which in mobile is a span)
+            // in order to associate a visual label with it
+            if (this.refs.input) {
+                const container = ReactDOM.findDOMNode(this.refs.input);
+                const inputSpan = (container as Element).querySelector(
+                    ".mq-textarea > span",
+                );
+                inputSpan?.setAttribute("id", textareaId);
+            }
+
             return (
-                <KeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
-                    value={this.props.value}
-                    keypadElement={this.props.keypadElement}
-                    onChange={this.changeAndTrack}
-                    onFocus={() => {
-                        // this.props.keypadElement should always be set
-                        // when apiOptions.customKeypad is set, but how
-                        // to convince TypeScript of this?
-                        this.props.keypadElement?.configure(
-                            this.props.keypadConfiguration,
-                            () => {
-                                if (this._isMounted) {
-                                    this._handleFocus();
-                                }
-                            },
-                        );
-                    }}
-                    onBlur={this._handleBlur}
-                />
+                <View style={{padding: "15px 4px 0"}}>
+                    {!!this.props.visibleLabel && (
+                        <label
+                            style={{
+                                fontSize: "12px",
+                                lineHeight: "10px",
+                            }}
+                            htmlFor={textareaId}
+                        >
+                            {this.props.visibleLabel}
+                        </label>
+                    )}
+                    <KeypadInput
+                        // eslint-disable-next-line react/no-string-refs
+                        ref="input"
+                        ariaLabel={this.props.ariaLabel || "Expression input"}
+                        value={this.props.value}
+                        keypadElement={this.props.keypadElement}
+                        onChange={this.changeAndTrack}
+                        onFocus={() => {
+                            // this.props.keypadElement should always be set
+                            // when apiOptions.customKeypad is set, but how
+                            // to convince TypeScript of this?
+                            this.props.keypadElement?.configure(
+                                this.props.keypadConfiguration,
+                                () => {
+                                    if (this._isMounted) {
+                                        this._handleFocus();
+                                    }
+                                },
+                            );
+                        }}
+                        onBlur={this._handleBlur}
+                    />
+                </View>
             );
         }
 
@@ -576,10 +602,22 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
+        // HACK: imperatively add an ID onto the Mathquill textarea
+        // in order to associate a visual label with it
+        if (this.refs.input) {
+            const container = ReactDOM.findDOMNode(this.refs.input);
+            const textarea = (container as Element).getElementsByTagName(
+                "textarea",
+            );
+            textarea[0].setAttribute("id", textareaId);
+        }
+
         return (
             <View>
                 {!!this.props.visibleLabel && (
-                    <label>{this.props.visibleLabel}</label>
+                    <label htmlFor={textareaId}>
+                        {this.props.visibleLabel}
+                    </label>
                 )}
                 <div
                     className={className}
@@ -621,6 +659,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
                             onFocus={this._handleFocus}
                             onBlur={this._handleBlur}
                             hasError={this.state.showErrorStyle}
+                            labelText={
+                                this.props.ariaLabel || "Expression input"
+                            }
                             extraKeys={
                                 this.props.keypadConfiguration?.extraKeys
                             }

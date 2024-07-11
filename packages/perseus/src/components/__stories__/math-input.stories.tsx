@@ -25,6 +25,7 @@ const defaultObject = {
     value: "",
     onChange: () => {},
     analytics: {onAnalyticsEvent: () => Promise.resolve()},
+    labelText: "Math input",
 } as const;
 
 export const DefaultWithBasicButtonSet = (

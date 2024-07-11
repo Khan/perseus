@@ -84,6 +84,7 @@ const Basic = ({keypadElement, setKeypadElement}) => {
                 onBlur={() => {
                     keypadElement?.dismiss();
                 }}
+                ariaLabel="Mobile input"
             />
 
             <MobileKeypad

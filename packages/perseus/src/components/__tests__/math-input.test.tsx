@@ -55,6 +55,7 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
+                labelText="Math input"
                 value=""
             />,
         );
@@ -77,6 +78,7 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
+                labelText="Math input"
                 value=""
             />,
         );
@@ -104,6 +106,7 @@ describe("Perseus' MathInput", () => {
                 buttonSets={["basic+div"]}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
+                labelText="Math input"
                 value=""
             />,
         );
@@ -131,6 +134,7 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
+                labelText="Math input"
                 value=""
             />,
         );
@@ -153,6 +157,7 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
+                labelText="Math input"
                 value=""
             />,
         );
@@ -178,6 +183,7 @@ describe("Perseus' MathInput", () => {
                 buttonsVisible="always"
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
+                labelText="Math input"
                 value=""
             />,
         );

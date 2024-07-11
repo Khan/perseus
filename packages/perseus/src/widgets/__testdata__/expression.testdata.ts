@@ -117,6 +117,8 @@ export const expressionItem3Options: PerseusExpressionWidgetOptions = {
     buttonSets: ["basic"],
     functions: ["f", "g", "h"],
     buttonsVisible: "focused",
+    visibleLabel: "number of cm",
+    ariaLabel: "number of centimeters",
 };
 
 export const expressionItem3: PerseusItem = createItemJson(
