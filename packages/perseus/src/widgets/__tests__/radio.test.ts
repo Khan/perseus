@@ -828,13 +828,15 @@ describe("multi-choice question", () => {
 
     it.each(invalid)(
         "should reject an invalid answer - test #%#",
-        (...choices) => {
+        async (...choices) => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
             const option = screen.getAllByRole("checkbox");
-            choices.forEach(async (i) => await userEvent.click(option[i]));
+            for (const i of choices) {
+                await userEvent.click(option[i])
+            }
 
             // Assert
             expect(renderer).toHaveInvalidInput();
