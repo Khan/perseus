@@ -503,10 +503,8 @@ describe("interaction", () => {
         act(() => jest.runOnlyPendingTimers());
 
         const expression = renderer.findWidgets("expression 1")[0];
-        act(() => {
-            expression.insert("x+1");
-            act(() => jest.runOnlyPendingTimers());
-        });
+        act(() => expression.insert("x+1"));
+        act(() => jest.runOnlyPendingTimers());
 
         // act
         const score = renderer.score();
