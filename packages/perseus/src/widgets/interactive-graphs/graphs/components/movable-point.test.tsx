@@ -7,6 +7,7 @@ import * as ReducerGraphConfig from "../../reducer/use-graph-config";
 import * as UseDraggableModule from "../use-draggable";
 
 import {StyledMovablePoint} from "./movable-point";
+import {GraphConfig} from "../../reducer/use-graph-config";
 
 jest.mock("@khanacademy/wonder-blocks-tooltip", () => {
     const originalModule = jest.requireActual(
@@ -26,14 +27,20 @@ const TooltipMock = ({children}) => {
 describe("StyledMovablePoint", () => {
     let useGraphConfigMock: jest.SpyInstance;
     let useDraggableMock: jest.SpyInstance;
-    const baseGraphConfigContext = {
-        snapStep: 1,
+    const baseGraphConfigContext: GraphConfig = {
         range: [
-            [0, 0],
-            [1, 1],
+            [0, 1],
+            [0, 1],
         ],
+        tickStep: [1, 1],
+        gridStep: [1, 1],
+        snapStep: [1, 1],
         markings: "graph",
         showTooltips: false,
+        graphDimensionsInPixels: [200, 200],
+        width: 200,
+        height: 200,
+        labels: [],
     };
 
     beforeEach(() => {
