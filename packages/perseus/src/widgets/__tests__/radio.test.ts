@@ -409,9 +409,6 @@ describe("single-choice question", () => {
                     name: /Open menu for Choice B/,
                 }),
             );
-            await act(async () => {
-                await jest.runAllTimers();
-            });
 
             // Assert
             expect(
@@ -429,9 +426,6 @@ describe("single-choice question", () => {
 
             // Act
             await userEvent.keyboard(" ");
-            await act(async () => {
-                await jest.runAllTimers();
-            });
 
             // Assert
             expect(
