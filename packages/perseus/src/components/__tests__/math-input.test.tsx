@@ -43,7 +43,7 @@ describe("Perseus' MathInput", () => {
         jest.runOnlyPendingTimers();
 
         // Assert
-        expect(screen.getByLabelText("test")).toBeInTheDocument();
+        expect(screen.getByLabelText("test:")).toBeInTheDocument();
     });
 
     it("is possible to type in the input", async () => {
