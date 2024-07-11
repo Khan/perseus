@@ -339,6 +339,10 @@ describe("group widget", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         await userEvent.click(screen.getAllByRole("radio")[4]);
+        // Note(jeremy): If we don't tab away from the radio button in this
+        // test, it seems like the userEvent typing doesn't land in the first
+        // text field.
+        await userEvent.tab();
         await userEvent.type(screen.getAllByRole("textbox")[0], "1000");
         await userEvent.type(screen.getAllByRole("textbox")[1], "9999");
 
@@ -361,6 +365,10 @@ describe("group widget", () => {
         const {renderer} = renderQuestion(question1);
         // Answer all widgets correctly
         await userEvent.click(screen.getAllByRole("radio")[4]);
+        // Note(jeremy): If we don't tab away from the radio button in this
+        // test, it seems like the userEvent typing doesn't land in the first
+        // text field.
+        await userEvent.tab();
         await userEvent.type(screen.getAllByRole("textbox")[0], "230");
         await userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
