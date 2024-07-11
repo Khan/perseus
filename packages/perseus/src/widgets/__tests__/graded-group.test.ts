@@ -251,7 +251,9 @@ describe("graded-group", () => {
             act(() => jest.runOnlyPendingTimers());
 
             // Assert
-            expect(screen.getByRole("button", {name: "Check"})).toBeVisible();
+            expect(
+                screen.getByRole("button", {name: "Try again"}),
+            ).toBeVisible();
         });
 
         it("should be able to reveal the hint", async () => {

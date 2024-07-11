@@ -14,7 +14,7 @@ import {question1} from "../__testdata__/group.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 describe("group widget", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -81,7 +81,11 @@ describe("group widget", () => {
                 onFocusChange,
             });
 
-            await userEvent.click(screen.getAllByRole("textbox")[1]);
+            await userEvent.click(
+                screen.getByRole("textbox", {
+                    name: "value rounded to the nearest hundred",
+                }),
+            );
 
             // This flushes the onFocusChange call resulting from the focus()
             onFocusChange.mockClear();
@@ -145,7 +149,12 @@ describe("group widget", () => {
         );
 
         // Act
-        await userEvent.type(screen.getAllByRole("textbox")[0], "99");
+        await userEvent.type(
+            screen.getByRole("textbox", {
+                name: "value rounded to the nearest ten",
+            }),
+            "99",
+        );
 
         // Assert
         // NOTE: The numeric-input that we typed into is in the second group.
@@ -343,8 +352,18 @@ describe("group widget", () => {
         // test, it seems like the userEvent typing doesn't land in the first
         // text field.
         await userEvent.tab();
-        await userEvent.type(screen.getAllByRole("textbox")[0], "1000");
-        await userEvent.type(screen.getAllByRole("textbox")[1], "9999");
+        await userEvent.type(
+            screen.getByRole("textbox", {
+                name: /value rounded to the nearest ten/,
+            }),
+            "1000",
+        );
+        await userEvent.type(
+            screen.getByRole("textbox", {
+                name: /value rounded to the nearest hundred/,
+            }),
+            "9999",
+        );
 
         const state = renderer.getSerializedState();
         cleanup(); // Resets the DOM
@@ -355,9 +374,23 @@ describe("group widget", () => {
         act(() => renderer1.restoreSerializedState(state));
 
         // Assert
-        expect(screen.getAllByRole("radio")[4]).toBeChecked();
-        expect(screen.getAllByRole("textbox")[0]).toHaveValue("1000");
-        expect(screen.getAllByRole("textbox")[1]).toHaveValue("9999");
+        await waitFor(() =>
+            expect(screen.getAllByRole("radio")[4]).toBeChecked(),
+        );
+        await waitFor(() =>
+            expect(
+                screen.getByRole("textbox", {
+                    name: /value rounded to the nearest ten/,
+                }),
+            ).toHaveValue("1000"),
+        );
+        await waitFor(() =>
+            expect(
+                screen.getByRole("textbox", {
+                    name: /value rounded to the nearest hundred/,
+                }),
+            ).toHaveValue("9999"),
+        );
     });
 
     it("should return score from contained Renderer", async () => {
@@ -369,9 +402,14 @@ describe("group widget", () => {
         // test, it seems like the userEvent typing doesn't land in the first
         // text field.
         await userEvent.tab();
-        await userEvent.type(screen.getAllByRole("textbox")[0], "230");
-        await userEvent.type(screen.getAllByRole("textbox")[1], "200");
-
+        await userEvent.type(
+            screen.getByRole("textbox", {name: /nearest ten/}),
+            "230",
+        );
+        await userEvent.type(
+            screen.getByRole("textbox", {name: /nearest hundred/}),
+            "200",
+        );
         const guessAndScore = renderer.guessAndScore();
 
         // Assert
