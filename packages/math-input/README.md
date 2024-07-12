@@ -1,6 +1,6 @@
 # @khanacademy/math-input
 
-Khan Academy's expression editor for the mobile web. Used in the [Perseus](https://github.com/khan/perseus) exercise framework to power math input and expression editing on small screens.
+Khan Academy's expression editor for the web. Used in the [Perseus](https://github.com/khan/perseus) exercise framework to power math input and expression editing on all screens.
 
 Built with [React](https://github.com/facebook/react), [MathQuill](https://github.com/mathquill/mathquill), [Aphrodite](https://github.com/khan/aphrodite), and more.
 
