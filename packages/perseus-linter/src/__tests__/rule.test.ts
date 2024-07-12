@@ -23,12 +23,6 @@ This paragraph contains an unescaped $ sign.
 Only capitalize the first word of headings.`,
         },
         {
-            name: "profanity",
-            pattern: "/poop|crap/i",
-            message: `Profanity:
-this is a family website!`,
-        },
-        {
             name: "unescaped-dollar",
             selector: "unescapedDollar",
             message: `Unescaped '$':

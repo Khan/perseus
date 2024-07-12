@@ -26,7 +26,6 @@ import mathStartsWithSpaceRule from "../rules/math-starts-with-space";
 import mathTextEmptyRule from "../rules/math-text-empty";
 import mathWithoutDollarsRule from "../rules/math-without-dollars";
 import nestedListsRule from "../rules/nested-lists";
-import profanityRule from "../rules/profanity";
 import tableMissingCellsRule from "../rules/table-missing-cells";
 import unbalancedCodeDelimitersRule from "../rules/unbalanced-code-delimiters";
 import unescapedDollarRule from "../rules/unescaped-dollar";
@@ -385,18 +384,6 @@ describe("Individual lint rules tests", () => {
     ]);
     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
     expectPass(mathFontSizeRule, ["$\\sqrt{x}$", "inline $\\sqrt{x}$ math"]);
-
-    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-    expectWarning(profanityRule, [
-        "Shit",
-        "taking a piss",
-        "He said 'Fuck that!'",
-        "cunt",
-        "cocksucker",
-        "motherfucker",
-    ]);
-    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-    expectPass(profanityRule, ["spit", "miss", "duck"]);
 
     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
     expectWarning(mathWithoutDollarsRule, [
