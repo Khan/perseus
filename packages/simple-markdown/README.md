@@ -1,11 +1,9 @@
-simple-markdown
-===============
+# @khanacademy/simple-markdown
 
 simple-markdown is a markdown-like parser designed for simplicity
 and extensibility.
 
-Philosophy
-----------
+## Philosophy
 
 Most markdown-like parsers aim for [speed][marked] or
 [edge case handling][CommonMark].
@@ -31,8 +29,7 @@ simple-markdown is [MIT licensed][LICENSE].
 
 [LICENSE]: https://github.com/Khan/perseus/blob/master/LICENSE
 
-Getting started
----------------
+## Getting started
 
 First, let's parse and output some generic markdown using
 simple-markdown.
@@ -107,8 +104,7 @@ call `mdOutput`:
 ```
 
 
-Adding a simple extension
--------------------------
+## Adding a simple extension
 
 Let's add an underline extension! To do this, we'll need to create
 a new rule and then make a new parser/outputter. The next section
@@ -223,8 +219,7 @@ markdown with underlines!
 ```
 
 
-Basic parsing/output API
-------------------------
+## Basic parsing/output API
 
 #### `SimpleMarkdown.defaultBlockParse(source)`
 
@@ -250,8 +245,7 @@ Returns React-renderable output for `syntaxTree`.
 *Note: raw html output will be coming soon*
 
 
-Extension Overview
-------------------
+## Extension Overview
 
 Elements in simple-markdown are generally created from rules.
 For parsing, rules must specify `match` and `parse` methods.
@@ -367,8 +361,7 @@ The simple-markdown API contains several helper methods for
 creating rules, as well as methods for creating parsers and
 outputters from rules.
 
-Extension API
--------------
+## Extension API
 
 simple-markdown includes access to the default list of rules,
 as well as several functions to allow you to create parsers and
@@ -443,11 +436,5 @@ var blockParseAndOutput = function(source) {
 };
 ```
 
-Extension rules helper functions
---------------------------------
-
-*Coming soon*
-
-LICENSE
--------
+## LICENSE
 MIT. See the LICENSE file for text.

@@ -1,4 +1,4 @@
-# math-input
+# @khanacademy/math-input
 
 Khan Academy's expression editor for the mobile web. Used in the [Perseus](https://github.com/khan/perseus) exercise framework to power math input and expression editing on small screens.
 

@@ -1,7 +1,6 @@
-<h1 align="center">
-    <img alt="kmath" src="logo.svg" width="50" /> <br />
-    kmath - Javascript Numeric Math Utilities
-</h1>
+# @khanacademy/kmath
+
+Javascript Numeric Math Utilities
 
 ## Overview
 
