@@ -1,7 +1,6 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {act, screen, fireEvent} from "@testing-library/react";
+import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import _ from "underscore";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -835,7 +834,7 @@ describe("multi-choice question", () => {
             // Act
             const option = screen.getAllByRole("checkbox");
             for (const i of choices) {
-                await userEvent.click(option[i])
+                await userEvent.click(option[i]);
             }
 
             // Assert
