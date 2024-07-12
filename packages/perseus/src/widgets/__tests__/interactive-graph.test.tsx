@@ -1,7 +1,7 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import * as KAS from "@khanacademy/kas";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {waitFor} from "@testing-library/react";
+import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
@@ -86,10 +86,12 @@ describe("interactive-graph widget", function () {
                 // drag & drop behavior.
                 // We'll want to use cypress tests or similar to ensure this widget
                 // works as expected.
-                updateWidgetState(
-                    renderer,
-                    "interactive-graph 1",
-                    (state) => (state.graph.coords = correct),
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = correct),
+                    ),
                 );
 
                 // Assert
@@ -105,10 +107,12 @@ describe("interactive-graph widget", function () {
                 expect(container).toMatchSnapshot("first render");
 
                 // Act
-                updateWidgetState(
-                    renderer,
-                    "interactive-graph 1",
-                    (state) => (state.graph.coords = correct),
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = correct),
+                    ),
                 );
 
                 // Assert
@@ -131,10 +135,12 @@ describe("interactive-graph widget", function () {
                 const {renderer} = renderQuestion(question, blankOptions);
 
                 // Act
-                updateWidgetState(
-                    renderer,
-                    "interactive-graph 1",
-                    (state) => (state.graph.coords = incorrect),
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = incorrect),
+                    ),
                 );
 
                 // Assert

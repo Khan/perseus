@@ -134,7 +134,7 @@ describe("single-choice question", () => {
                 });
 
                 // Act
-                const gotFocus = renderer.focus();
+                const gotFocus = await act(() => renderer.focus());
 
                 // Assert
                 expect(gotFocus).toBe(true);
@@ -150,7 +150,7 @@ describe("single-choice question", () => {
                 // Since this is a single-select setup, just select the first
                 // incorrect choice.
                 await selectOption(userEvent, incorrect[0]);
-                renderer.deselectIncorrectSelectedChoices();
+                act(() => renderer.deselectIncorrectSelectedChoices());
 
                 // Assert
                 screen.getAllByRole("radio").forEach((r) => {
@@ -316,7 +316,7 @@ describe("single-choice question", () => {
         // Act
         renderQuestion(questionWithPassage, apiOptions);
         // Passage refs use `_.defer()` to update their reference ranges.
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         // By using a `passage-ref` in a choice, we should now have the
@@ -334,7 +334,7 @@ describe("single-choice question", () => {
 
         // Act
         await selectOption(userEvent, incorrect[0]);
-        renderer.showRationalesForCurrentlySelectedChoices();
+        act(() => renderer.showRationalesForCurrentlySelectedChoices());
 
         // Assert
         expect(

@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -181,10 +181,12 @@ describe("graded group widget", () => {
         const cb = jest.fn();
 
         // Act
-        renderer.setInputValue(
-            ["graded-group-set 1", "numeric-input 1"],
-            "999",
-            cb,
+        act(() =>
+            renderer.setInputValue(
+                ["graded-group-set 1", "numeric-input 1"],
+                "999",
+                cb,
+            ),
         );
 
         // Assert
@@ -197,7 +199,7 @@ describe("graded group widget", () => {
 
         // Act
         // The first "focusable" widget receives focus...
-        renderer.focus();
+        act(() => renderer.focus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -208,7 +210,9 @@ describe("graded group widget", () => {
         const {renderer} = renderQuestion(article1);
 
         // Act
-        renderer.focusPath(["graded-group-set 1", "numeric-input 1"]);
+        act(() =>
+            renderer.focusPath(["graded-group-set 1", "numeric-input 1"]),
+        );
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -220,7 +224,7 @@ describe("graded group widget", () => {
         await userEvent.click(screen.getByRole("textbox"));
 
         // Act
-        renderer.blurPath(["graded-group-set 1", "numeric-input 1"]);
+        act(() => renderer.blurPath(["graded-group-set 1", "numeric-input 1"]));
 
         // Assert
         expect(screen.getByRole("textbox")).not.toHaveFocus();

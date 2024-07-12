@@ -1,3 +1,5 @@
+import {act} from "@testing-library/react";
+
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {question2} from "../__testdata__/orderer.testdata";
@@ -48,7 +50,7 @@ describe("orderer widget", () => {
         const [orderer] = renderer.findWidgets("orderer 1");
 
         // Act
-        orderer.setListValues(["1", "2", "3"]);
+        act(() => orderer.setListValues(["1", "2", "3"]));
 
         // assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -63,7 +65,7 @@ describe("orderer widget", () => {
         const [orderer] = renderer.findWidgets("orderer 1");
 
         // Act
-        orderer.setListValues(["3", "2", "1"]);
+        act(() => orderer.setListValues(["3", "2", "1"]));
 
         // assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();

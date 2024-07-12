@@ -123,7 +123,6 @@ describe("Editor", () => {
         await userEvent.clear(captionInput);
         await userEvent.type(captionInput, "A picture of kittens");
         await userEvent.tab(); // blurring the input triggers onChange to be called
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(changeFn).toHaveBeenCalledWith(

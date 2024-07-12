@@ -1,5 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import $ from "jquery";
 import * as React from "react";
@@ -43,7 +43,7 @@ describe("Perseus API", function () {
             const {renderer} = renderQuestion(inputNumber1Item.question);
 
             // Act
-            renderer.setInputValue(["input-number 1"], "5", () => undefined);
+            act(() => renderer.setInputValue(["input-number 1"], "5"));
 
             // Assert
             expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -54,7 +54,7 @@ describe("Perseus API", function () {
             const {renderer} = renderQuestion(inputNumber1Item.question);
 
             // Act
-            renderer.setInputValue(["input-number 1"], "3");
+            act(() => renderer.setInputValue(["input-number 1"], "3"));
 
             // Assert
             expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -64,20 +64,22 @@ describe("Perseus API", function () {
             // Arrange
             const {renderer} = renderQuestion(inputNumber1Item.question);
 
-            renderer.setInputValue(["input-number 1"], "3");
+            act(() => renderer.setInputValue(["input-number 1"], "3"));
             expect(renderer).toHaveBeenAnsweredIncorrectly();
 
-            renderer.setInputValue(["input-number 1"], "");
+            act(() => renderer.setInputValue(["input-number 1"], ""));
             expect(renderer).toHaveInvalidInput();
         });
 
         it("should be able to accept a callback", function (done) {
             const {renderer} = renderQuestion(inputNumber1Item.question);
-            renderer.setInputValue(["input-number 1"], "3", function () {
-                const guess = renderer.getUserInput()[0];
-                expect(guess.currentValue).toBe("3");
-                done();
-            });
+            act(() =>
+                renderer.setInputValue(["input-number 1"], "3", function () {
+                    const guess = renderer.getUserInput()[0];
+                    expect(guess.currentValue).toBe("3");
+                    done();
+                }),
+            );
             jest.runAllTimers();
         });
     });
@@ -169,7 +171,7 @@ describe("Perseus API", function () {
 
             // Act - focus
             await userEvent.click(input);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(1);
@@ -181,7 +183,7 @@ describe("Perseus API", function () {
             // Act - blur
             onFocusChange.mockReset();
             await userEvent.tab();
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(1);
@@ -198,12 +200,12 @@ describe("Perseus API", function () {
             const input1 = inputs[0];
             const input2 = inputs[1];
             await userEvent.click(input1);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act - move focus to new input
             onFocusChange.mockReset();
             await userEvent.click(input2);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             expect(onFocusChange).toHaveBeenCalledTimes(1);
             expect(onFocusChange).toHaveBeenCalledWith(

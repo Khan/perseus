@@ -1,5 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -28,7 +28,7 @@ const mockSize = (
 const renderAndWaitToSettle = (component: React.ReactElement) => {
     const result = render(component);
 
-    jest.runAllTimers();
+    act(() => jest.runAllTimers());
 
     return result;
 };
@@ -99,11 +99,11 @@ describe("Zoomable", () => {
         );
 
         await userEvent.click(screen.getByText("Some zoomable text"));
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Act
         await userEvent.click(screen.getByText("Some zoomable text"));
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(container).toMatchInlineSnapshot(`
@@ -158,7 +158,7 @@ describe("Zoomable", () => {
 
         // Act
         // The measure action uses a setState and setTimeout(0)
-        jest.runAllTimers();
+        act(() => jest.runAllTimers());
 
         // Assert
         expect(container).toMatchInlineSnapshot(`
@@ -194,7 +194,7 @@ describe("Zoomable", () => {
         });
 
         // Act
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(container).toMatchInlineSnapshot(`
@@ -228,11 +228,11 @@ describe("Zoomable", () => {
             </Zoomable>,
         );
         // We need two cycles to get everything rendered and visible
-        jest.runOnlyPendingTimers();
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
+        act(() => jest.runOnlyPendingTimers());
 
         // Act
-        resizeWindowTo(500, 500);
+        act(() => resizeWindowTo(500, 500));
 
         // Assert
         // The children are initially displayed with an opacity of 0 to give
@@ -297,7 +297,7 @@ describe("Zoomable", () => {
 
             // Act
             eventFirer(screen.getByText("Some zoomable text"));
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(props[propName]).not.toHaveBeenCalled();
@@ -315,7 +315,7 @@ describe("Zoomable", () => {
             );
 
             await userEvent.click(screen.getByText("Some zoomable text"));
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             eventFirer(screen.getByText("Some zoomable text"));
@@ -351,7 +351,7 @@ describe("Zoomable", () => {
             const rootNode = container.firstElementChild as HTMLElement;
             mockSize(rootNode, {width: 200, height: 200});
 
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
         });
 
         it("should update measurements", async () => {
@@ -406,7 +406,7 @@ describe("Zoomable", () => {
             // Arrange
             // We default to "zoomed", so this "unzooms"
             await userEvent.click(screen.getByText("Some zoomable text"));
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             screen.getByText("Some zoomable text").innerHTML =

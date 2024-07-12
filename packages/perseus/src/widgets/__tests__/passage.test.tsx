@@ -1,5 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -88,7 +88,7 @@ describe("passage widget", () => {
 
             // Act
             const {container} = renderQuestion(question1, apiOptions);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -105,7 +105,7 @@ describe("passage widget", () => {
 
             // Act
             const {container} = renderQuestion(question2, apiOptions);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -118,7 +118,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Act
         const score = renderer.score();
@@ -140,7 +140,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // @ts-expect-error - TS2503 - Cannot find namespace 'PassageWidgetExport'
         const [passage1]: [PassageWidgetExport.widget] =
@@ -164,7 +164,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // @ts-expect-error - TS2503 - Cannot find namespace 'PassageWidgetExport'
         const [passage1]: [PassageWidgetExport.widget] =
