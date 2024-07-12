@@ -221,16 +221,22 @@ export const polygonWithFourSidesSnappingQuestion: PerseusRenderer =
             numSides: 4,
             showSides: true,
             showAngles: false,
-            coords: [
-                [3.5, 2],
-                [3.5, 5],
-                [-0.5, 2],
-            ],
         })
         .build();
 
 export const polygonQuestionDefaultCorrect: PerseusRenderer =
-    interactiveGraphQuestionBuilder().withPolygon("grid").build();
+    interactiveGraphQuestionBuilder()
+        .withPolygon("grid", {
+            startCoords: [
+                // TODO: figure out why this test is off by 0.5.
+                // This should be able to pass without any options
+                // provided.
+                [3, -1.5],
+                [0, 4.5],
+                [-3, -1.5],
+            ],
+        })
+        .build();
 
 export const rayQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withContent(

@@ -593,6 +593,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             expect.objectContaining({
                 graph: {
                     type: "polygon",
+                    numSides: 4,
                     showAngles: true,
                     showSides: true,
                     snapTo: "angles",

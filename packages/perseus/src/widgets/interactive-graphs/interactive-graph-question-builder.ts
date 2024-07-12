@@ -215,6 +215,7 @@ class InteractiveGraphQuestionBuilder {
             showAngles?: boolean;
             showSides?: boolean;
             coords?: Coord[];
+            startCoords?: Coord[];
         },
     ): InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new PolygonGraphConfig(snapTo, options);
@@ -621,6 +622,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     private showAngles: boolean;
     private showSides: boolean;
     private coords: Coord[];
+    private startCoords?: Coord[];
 
     constructor(
         snapTo: "grid" | "angles" | "sides",
@@ -630,6 +632,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
             showAngles?: boolean;
             showSides?: boolean;
             coords?: Coord[];
+            startCoords?: Coord[];
         },
     ) {
         this.snapTo = snapTo;
@@ -642,6 +645,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
             [0, 4],
             [-3, -2],
         ];
+        this.startCoords = options?.startCoords;
     }
     correct(): PerseusGraphType {
         return {
@@ -658,9 +662,11 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     graph(): PerseusGraphType {
         return {
             type: "polygon",
+            numSides: this.numSides,
             showAngles: this.showAngles,
             showSides: this.showSides,
             snapTo: this.snapTo,
+            coords: this.startCoords,
         };
     }
 }
