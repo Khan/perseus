@@ -2,16 +2,7 @@ import invariant from "tiny-invariant";
 
 import {findAngle} from "../math/angles";
 
-import {
-    moveControlPoint,
-    movePoint,
-    moveLine,
-    changeSnapStep,
-    changeRange,
-    moveCenter,
-    moveRadiusPoint,
-    moveAll,
-} from "./interactive-graph-action";
+import {changeSnapStep, changeRange, actions} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {GraphRange} from "../../../perseus-types";
@@ -126,7 +117,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, [5, 6], 0),
+            actions.segment.moveControlPoint(0, [5, 6], 0),
         );
 
         invariant(updated.type === "segment");
@@ -149,7 +140,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, [5, 6], 0),
+            actions.segment.moveControlPoint(0, [5, 6], 0),
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
@@ -168,7 +159,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, [2, 2], 0),
+            actions.segment.moveControlPoint(0, [2, 2], 0),
         );
 
         invariant(updated.type === "segment");
@@ -188,7 +179,10 @@ describe("moveControlPoint", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [2, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(0, [2, 1]),
+        );
 
         invariant(updated.type === "sinusoid");
         // Assert: the move was canceled
@@ -207,7 +201,10 @@ describe("moveControlPoint", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [15, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.sinusoid.movePoint(0, [15, 1]),
+        );
 
         invariant(updated.type === "sinusoid");
         // Assert: the move was canceled
@@ -231,7 +228,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, [1.5, 6.6], 0),
+            actions.segment.moveControlPoint(0, [1.5, 6.6], 0),
         );
 
         // Assert
@@ -259,7 +256,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveControlPoint(0, [99, 99], 0),
+            actions.segment.moveControlPoint(0, [99, 99], 0),
         );
 
         invariant(updated.type === "segment");
@@ -279,7 +276,10 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, moveLine(0, [5, -3]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.moveLine(0, [5, -3]),
+        );
 
         invariant(updated.type === "segment");
         expect(updated.coords[0]).toEqual([
@@ -299,7 +299,10 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, moveLine(0, [0.5, 0.5]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.moveLine(0, [0.5, 0.5]),
+        );
 
         invariant(updated.type === "segment");
         expect(updated.coords[0]).toEqual([
@@ -319,7 +322,10 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, moveLine(0, [99, 99]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.moveLine(0, [99, 99]),
+        );
 
         invariant(updated.type === "segment");
         expect(updated.coords[0]).toEqual([
@@ -339,7 +345,10 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, moveLine(0, [1, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.segment.moveLine(0, [1, 1]),
+        );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
@@ -355,7 +364,10 @@ describe("movePoint on a point graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [5, 6]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [5, 6]),
+        );
 
         invariant(updated.type === "point");
         expect(updated.coords[0]).toEqual([5, 6]);
@@ -370,7 +382,7 @@ describe("movePoint on a point graph", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            movePoint(0, [-2, -2.5]),
+            actions.pointGraph.movePoint(0, [-2, -2.5]),
         );
 
         invariant(updated.type === "point");
@@ -383,7 +395,10 @@ describe("movePoint on a point graph", () => {
             coords: [[0, 0]],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [99, 99]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [99, 99]),
+        );
 
         invariant(updated.type === "point");
         expect(updated.coords[0]).toEqual([9, 9]);
@@ -395,7 +410,10 @@ describe("movePoint on a point graph", () => {
             coords: [[1, 2]],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.pointGraph.movePoint(0, [1, 1]),
+        );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
@@ -412,7 +430,10 @@ describe("movePoint on an angle graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [5, 6]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [5, 6]),
+        );
 
         invariant(updated.type === "angle");
 
@@ -432,7 +453,10 @@ describe("movePoint on an angle graph", () => {
             snapDegrees: 5,
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [5, 3]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [5, 3]),
+        );
 
         invariant(updated.type === "angle");
 
@@ -453,7 +477,10 @@ describe("movePoint on an angle graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [99, 99]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [99, 99]),
+        );
 
         invariant(updated.type === "angle");
 
@@ -470,7 +497,10 @@ describe("movePoint on an angle graph", () => {
                 [0, 5],
             ],
         };
-        const updated = interactiveGraphReducer(state, movePoint(0, [1, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [1, 1]),
+        );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
@@ -488,7 +518,10 @@ describe("movePoint on a polygon graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [0, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [0, 1]),
+        );
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0, 1]);
@@ -505,7 +538,10 @@ describe("movePoint on a polygon graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [1, 3]),
+        );
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0, 0]);
@@ -523,7 +559,10 @@ describe("movePoint on a polygon graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [1, 3]),
+        );
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0, 0]);
@@ -541,7 +580,10 @@ describe("movePoint on a polygon graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [1, 3]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [1, 3]),
+        );
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0, 0]);
@@ -560,7 +602,10 @@ describe("movePoint on a polygon graph", () => {
         };
 
         // Move all points less than a snapStep to show they are not snapping
-        const updated = interactiveGraphReducer(state, moveAll([0.3, 0]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.moveAll([0.3, 0]),
+        );
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0.3, 0]);
@@ -579,7 +624,10 @@ describe("movePoint on a polygon graph", () => {
         };
 
         // Move all points less than a snapStep to show they are not snapping
-        const updated = interactiveGraphReducer(state, moveAll([0.3, 0]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.moveAll([0.3, 0]),
+        );
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([0.3, 0]);
@@ -598,7 +646,10 @@ describe("movePoint on a polygon graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [3, -2]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [3, -2]),
+        );
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([
@@ -619,7 +670,10 @@ describe("movePoint on a polygon graph", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [3, -2]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.polygon.movePoint(0, [3, -2]),
+        );
 
         invariant(updated.type === "polygon");
         expect(updated.coords[0]).toEqual([
@@ -632,7 +686,10 @@ describe("movePoint on a quadratic graph", () => {
     it("moves a point", () => {
         const state: InteractiveGraphState = baseQuadraticGraphState;
 
-        const updated = interactiveGraphReducer(state, movePoint(0, [-2, 4]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.quadratic.movePoint(0, [-2, 4]),
+        );
 
         invariant(updated.type === "quadratic");
         expect(updated.coords[0]).toEqual([-2, 4]);
@@ -651,7 +708,10 @@ describe("movePoint on a quadratic graph", () => {
         // An invalid graph happens when the denominator is 0 and are unable to calculate
         // quadratic coefficients as they hit infinity.
         // For more details see the getQuadraticCoefficients function that performs this calculation.
-        const updated = interactiveGraphReducer(state, movePoint(0, [0, 0]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.quadratic.movePoint(0, [0, 0]),
+        );
 
         invariant(updated.type === "quadratic");
         expect(updated.coords[0]).toEqual([-5, 5]);
@@ -725,7 +785,10 @@ describe("moveCenter", () => {
             ...baseCircleGraphState,
         };
 
-        const updated = interactiveGraphReducer(state, moveCenter([1, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 1]),
+        );
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
@@ -737,7 +800,10 @@ describe("moveCenter", () => {
             ...baseCircleGraphState,
         };
 
-        const updated = interactiveGraphReducer(state, moveCenter([1, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 1]),
+        );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
@@ -747,7 +813,10 @@ describe("moveCenter", () => {
             ...baseCircleGraphState,
         };
 
-        const updated = interactiveGraphReducer(state, moveCenter([11, 11]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([11, 11]),
+        );
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
@@ -759,7 +828,10 @@ describe("moveCenter", () => {
             ...baseCircleGraphState,
         };
 
-        const updated = interactiveGraphReducer(state, moveCenter([1, 1]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([1, 1]),
+        );
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
@@ -771,7 +843,10 @@ describe("moveCenter", () => {
             ...baseCircleGraphState,
         };
 
-        const updated = interactiveGraphReducer(state, moveCenter([9, 0]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveCenter([9, 0]),
+        );
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
@@ -784,7 +859,7 @@ describe("moveCenter", () => {
         };
 
         expect(() =>
-            interactiveGraphReducer(state, moveCenter([1, 1])),
+            interactiveGraphReducer(state, actions.circle.moveCenter([1, 1])),
         ).toThrow();
     });
 });
@@ -795,7 +870,10 @@ describe("doMoveRadiusPoint", () => {
             ...baseCircleGraphState,
         };
 
-        const updated = interactiveGraphReducer(state, moveRadiusPoint([5, 0]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveRadiusPoint([5, 0]),
+        );
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
@@ -807,7 +885,10 @@ describe("doMoveRadiusPoint", () => {
             ...baseCircleGraphState,
         };
 
-        const updated = interactiveGraphReducer(state, moveRadiusPoint([4, 0]));
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveRadiusPoint([4, 0]),
+        );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
@@ -819,7 +900,7 @@ describe("doMoveRadiusPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveRadiusPoint([20, 0]),
+            actions.circle.moveRadiusPoint([20, 0]),
         );
 
         // make sure the state object is different
@@ -834,7 +915,7 @@ describe("doMoveRadiusPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            moveRadiusPoint([2, 20]),
+            actions.circle.moveRadiusPoint([2, 20]),
         );
 
         // make sure the state object is different
@@ -848,7 +929,10 @@ describe("doMoveRadiusPoint", () => {
         };
 
         expect(() =>
-            interactiveGraphReducer(state, moveRadiusPoint([5, 0])),
+            interactiveGraphReducer(
+                state,
+                actions.circle.moveRadiusPoint([5, 0]),
+            ),
         ).toThrow();
     });
 });

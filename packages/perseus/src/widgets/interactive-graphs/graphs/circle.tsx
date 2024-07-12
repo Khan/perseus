@@ -3,7 +3,7 @@ import * as React from "react";
 import {useRef} from "react";
 
 import {snap, X, Y} from "../math";
-import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
+import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -27,13 +27,13 @@ export function CircleGraph(props: CircleGraphProps) {
             <MovableCircle
                 center={center}
                 radius={getRadius(graphState)}
-                onMove={(newCenter) => dispatch(moveCenter(newCenter))}
+                onMove={(c) => dispatch(actions.circle.moveCenter(c))}
             />
             <StyledMovablePoint
                 point={radiusPoint}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
-                    dispatch(moveRadiusPoint(newRadiusPoint));
+                    dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
             />
         </>

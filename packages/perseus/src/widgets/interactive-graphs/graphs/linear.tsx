@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
+import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
 
@@ -21,14 +21,16 @@ export const LinearGraph = (props: LinearGraphProps, key: number) => {
             key={0}
             points={line}
             onMoveLine={(delta: vec.Vector2) => {
-                dispatch(moveLine(0, delta));
+                dispatch(actions.linear.moveLine(delta));
             }}
             extend={{
                 start: true,
                 end: true,
             }}
             onMovePoint={(endpointIndex: number, destination: vec.Vector2) =>
-                dispatch(moveControlPoint(endpointIndex, destination, 0))
+                dispatch(
+                    actions.linear.movePoint(endpointIndex, destination, 0),
+                )
             }
             color="var(--movable-line-stroke-color)"
         />

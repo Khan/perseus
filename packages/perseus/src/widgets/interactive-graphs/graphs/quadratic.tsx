@@ -2,7 +2,7 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Plot} from "mafs";
 import * as React from "react";
 
-import {movePoint} from "../reducer/interactive-graph-action";
+import {actions} from "../reducer/interactive-graph-action";
 
 import {StyledMovablePoint} from "./components/movable-point";
 
@@ -40,7 +40,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
                     key={"point-" + i}
                     point={coord}
                     onMove={(destination) =>
-                        dispatch(movePoint(i, destination))
+                        dispatch(actions.quadratic.movePoint(i, destination))
                     }
                 />
             ))}
