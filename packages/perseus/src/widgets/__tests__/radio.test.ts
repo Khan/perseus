@@ -1,7 +1,6 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {act, screen, fireEvent} from "@testing-library/react";
+import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import _ from "underscore";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -409,9 +408,6 @@ describe("single-choice question", () => {
                     name: /Open menu for Choice B/,
                 }),
             );
-            await act(async () => {
-                await jest.runAllTimers();
-            });
 
             // Assert
             expect(
@@ -429,9 +425,6 @@ describe("single-choice question", () => {
 
             // Act
             await userEvent.keyboard(" ");
-            await act(async () => {
-                await jest.runAllTimers();
-            });
 
             // Assert
             expect(
@@ -834,13 +827,15 @@ describe("multi-choice question", () => {
 
     it.each(invalid)(
         "should reject an invalid answer - test #%#",
-        (...choices) => {
+        async (...choices) => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
             const option = screen.getAllByRole("checkbox");
-            choices.forEach(async (i) => await userEvent.click(option[i]));
+            for (const i of choices) {
+                await userEvent.click(option[i]);
+            }
 
             // Assert
             expect(renderer).toHaveInvalidInput();
