@@ -35,8 +35,8 @@ First, let's parse and output some generic markdown using
 simple-markdown.
 
 If you want to run these examples in
-node, you should run `npm install` in the simple-markdown
-folder or `npm install simple-markdown` in your project's
+node, you should run `yarn` in the simple-markdown
+folder or `yarn add simple-markdown` in your project's
 folder. Then you can acquire the `SimpleMarkdown` variable
 with:
 

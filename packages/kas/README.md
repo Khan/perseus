@@ -76,14 +76,14 @@ expr.simplify().print();
 ```
 
 ## How to build the library
-    npm install
-    npm run build
+    yarn
+    yarn build
 
 ## How to build the parser
 First, make any changes in `src/parser-generator.js`
 
-    npm install
-    npm run build:parser
+    yarn
+    yarn build:parser
 
 ## License
 [MIT License](http://opensource.org/licenses/MIT)
