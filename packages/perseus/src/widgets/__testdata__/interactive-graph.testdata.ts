@@ -263,7 +263,35 @@ export const segmentQuestion: PerseusRenderer =
         )
         .addLockedPointAt(-2, 4, {color: "green"})
         .addLockedLine([-6, 3], [3, 1], {kind: "segment", color: "blue"})
-        .withSegments()
+        .withSegments({
+            coords: [
+                [
+                    [-7, 7],
+                    [2, 5],
+                ],
+            ],
+        })
+        .build();
+
+export const segmentQuestionDefaultCorrect: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withSegments({
+            startCoords: [
+                [
+                    // TODO: figure out why this test is off by 0.5.
+                    // This should be able to pass without any options
+                    // provided. (i.e. We should be able to use [-5, 5] here.)
+                    [-5, 5.5],
+                    [5, 5],
+                ],
+            ],
+            coords: [
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+            ],
+        })
         .build();
 
 export const segmentWithStartingCoordsQuestion: PerseusRenderer =
@@ -394,27 +422,6 @@ export const segmentWithLockedLineQuestion: PerseusRenderer =
             showPoint2: true,
         })
         .withSegments()
-        .build();
-
-export const segmentQuestionDefaultCorrect: PerseusRenderer =
-    interactiveGraphQuestionBuilder()
-        .withSegments({
-            startCoords: [
-                [
-                    // TODO: figure out why this test is off by 0.5.
-                    // This should be able to pass without any options
-                    // provided. (i.e. We should be able to use [-5, 5] here.)
-                    [-5, 5.5],
-                    [5, 5],
-                ],
-            ],
-            coords: [
-                [
-                    [-5, 5],
-                    [5, 5],
-                ],
-            ],
-        })
         .build();
 
 export const sinusoidQuestion: PerseusRenderer =
