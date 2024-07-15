@@ -214,8 +214,10 @@ describe("Zoomable", () => {
         // Arrange
         // Simulate window resize event
         const resizeWindowTo = (width: number, height: number) => {
-            const resizeEvent = document.createEvent("Event");
-            resizeEvent.initEvent("resize", true, true);
+            const resizeEvent = new Event("resize", {
+                bubbles: true,
+                cancelable: true,
+            });
 
             window.innerWidth = width;
             window.innerHeight = height;
@@ -354,13 +356,25 @@ describe("Zoomable", () => {
             act(() => jest.runOnlyPendingTimers());
         });
 
+        // A helper function that uses RTL to wait until the given styling has
+        // been applied to the zoomable container element. Zoomable uses
+        // setState() internally and when Perseus was ported to React 18, this
+        // was the only reliable way to wait until the setState() re-renders
+        // had completed.
+        async function waitForStyle(style: Partial<CSSStyleDeclaration>) {
+            await waitFor(() => {
+                // eslint-disable-next-line testing-library/no-node-access
+                expect(componentContainer.firstChild.style).toMatchObject(
+                    style,
+                );
+            });
+        }
+
         it("should update measurements", async () => {
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(() => {
-                screen.queryByText("Some more zoomable text");
-            });
+            await waitForStyle({height: "1001px"});
 
             // Assert
             expect(computeChildBounds).toHaveBeenCalledTimes(2);
@@ -383,9 +397,7 @@ describe("Zoomable", () => {
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(() => {
-                screen.queryByText("Some more zoomable text");
-            });
+            await waitForStyle({height: "1001px"});
 
             // Assert
             expect(computeChildBounds).toHaveBeenCalledTimes(2);
@@ -411,8 +423,9 @@ describe("Zoomable", () => {
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(() => {
-                screen.queryByText("Some more zoomable text");
+            await waitForStyle({
+                height: "200px",
+                transform: "scale(0.1998001998001998, 0.1998001998001998)",
             });
 
             // Assert

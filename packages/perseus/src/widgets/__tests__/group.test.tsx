@@ -1,6 +1,6 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {act, cleanup, render, screen} from "@testing-library/react";
+import {act, cleanup, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -14,7 +14,7 @@ import {question1} from "../__testdata__/group.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 describe("group widget", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -65,7 +65,6 @@ describe("group widget", () => {
 
             // Act
             act(() => renderer.focus());
-            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -74,7 +73,7 @@ describe("group widget", () => {
             );
         });
 
-        it("should map blur event to onFocusChange", () => {
+        it("should map blur event to onFocusChange", async () => {
             // Arrange
             const onFocusChange = jest.fn();
 
@@ -82,25 +81,24 @@ describe("group widget", () => {
                 onFocusChange,
             });
 
-            act(() => screen.getAllByRole("textbox")[1].focus());
+            await userEvent.click(
+                screen.getByRole("textbox", {
+                    name: "value rounded to the nearest hundred",
+                }),
+            );
 
             // This flushes the onFocusChange call resulting from the focus()
-            act(() => jest.runOnlyPendingTimers());
-            act(() => jest.runOnlyPendingTimers());
             onFocusChange.mockClear();
 
             // Act
             act(() => renderer.blur());
-            // There's two levels of <Renderer /> here (our main one and one inside
-            // the group widget) so we have to wait twice for all the focus
-            // management timers to resolve.
-            act(() => jest.runOnlyPendingTimers());
-            act(() => jest.runOnlyPendingTimers());
 
             // Assert
-            expect(onFocusChange).toHaveBeenCalledWith(
-                null, // New focus
-                ["group 2", "numeric-input 2"], // Old focus
+            await waitFor(() =>
+                expect(onFocusChange).toHaveBeenCalledWith(
+                    null, // New focus
+                    ["group 2", "numeric-input 2"], // Old focus
+                ),
             );
         });
 
@@ -116,14 +114,12 @@ describe("group widget", () => {
             expect(screen.getAllByRole("textbox")[1]).toHaveFocus();
         });
 
-        it("should forward blurInputPath calls to Renderer", () => {
+        it("should forward blurInputPath calls to Renderer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question1);
             const textbox = screen.getAllByRole("textbox")[1];
 
-            act(() => textbox.focus());
-            act(() => jest.runOnlyPendingTimers());
-            act(() => jest.runOnlyPendingTimers());
+            await userEvent.click(textbox);
 
             // Act
             // blurPath() calls blurInputPath() on the focused widget
@@ -153,9 +149,12 @@ describe("group widget", () => {
         );
 
         // Act
-        await userEvent.type(screen.getAllByRole("textbox")[0], "99");
-        act(() => jest.runOnlyPendingTimers());
-        act(() => jest.runOnlyPendingTimers());
+        await userEvent.type(
+            screen.getByRole("textbox", {
+                name: "value rounded to the nearest ten",
+            }),
+            "99",
+        );
 
         // Assert
         // NOTE: The numeric-input that we typed into is in the second group.
@@ -349,8 +348,22 @@ describe("group widget", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         await userEvent.click(screen.getAllByRole("radio")[4]);
-        await userEvent.type(screen.getAllByRole("textbox")[0], "1000");
-        await userEvent.type(screen.getAllByRole("textbox")[1], "9999");
+        // Note(jeremy): If we don't tab away from the radio button in this
+        // test, it seems like the userEvent typing doesn't land in the first
+        // text field.
+        await userEvent.tab();
+        await userEvent.type(
+            screen.getByRole("textbox", {
+                name: /value rounded to the nearest ten/,
+            }),
+            "1000",
+        );
+        await userEvent.type(
+            screen.getByRole("textbox", {
+                name: /value rounded to the nearest hundred/,
+            }),
+            "9999",
+        );
 
         const state = renderer.getSerializedState();
         cleanup(); // Resets the DOM
@@ -361,9 +374,23 @@ describe("group widget", () => {
         act(() => renderer1.restoreSerializedState(state));
 
         // Assert
-        expect(screen.getAllByRole("radio")[4]).toBeChecked();
-        expect(screen.getAllByRole("textbox")[0]).toHaveValue("1000");
-        expect(screen.getAllByRole("textbox")[1]).toHaveValue("9999");
+        await waitFor(() =>
+            expect(screen.getAllByRole("radio")[4]).toBeChecked(),
+        );
+        await waitFor(() =>
+            expect(
+                screen.getByRole("textbox", {
+                    name: /value rounded to the nearest ten/,
+                }),
+            ).toHaveValue("1000"),
+        );
+        await waitFor(() =>
+            expect(
+                screen.getByRole("textbox", {
+                    name: /value rounded to the nearest hundred/,
+                }),
+            ).toHaveValue("9999"),
+        );
     });
 
     it("should return score from contained Renderer", async () => {
@@ -371,9 +398,18 @@ describe("group widget", () => {
         const {renderer} = renderQuestion(question1);
         // Answer all widgets correctly
         await userEvent.click(screen.getAllByRole("radio")[4]);
-        await userEvent.type(screen.getAllByRole("textbox")[0], "230");
-        await userEvent.type(screen.getAllByRole("textbox")[1], "200");
-
+        // Note(jeremy): If we don't tab away from the radio button in this
+        // test, it seems like the userEvent typing doesn't land in the first
+        // text field.
+        await userEvent.tab();
+        await userEvent.type(
+            screen.getByRole("textbox", {name: /nearest ten/}),
+            "230",
+        );
+        await userEvent.type(
+            screen.getByRole("textbox", {name: /nearest hundred/}),
+            "200",
+        );
         const guessAndScore = renderer.guessAndScore();
 
         // Assert
@@ -437,7 +473,7 @@ describe("group widget", () => {
         `);
     });
 
-    it("should set value and call callback for input path", () => {
+    it("should set value and call callback for input path", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         const cb = jest.fn();
@@ -446,10 +482,11 @@ describe("group widget", () => {
         act(() =>
             renderer.setInputValue(["group 2", "numeric-input 2"], "2021", cb),
         );
-        act(() => jest.runOnlyPendingTimers()); // callback occurs after the next render
 
         // Assert
-        expect(screen.getAllByRole("textbox")[1]).toHaveValue("2021");
+        await waitFor(() => {
+            expect(screen.getAllByRole("textbox")[1]).toHaveValue("2021");
+        });
         expect(cb).toHaveBeenCalled();
     });
 
