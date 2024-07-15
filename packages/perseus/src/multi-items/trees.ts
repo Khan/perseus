@@ -45,7 +45,7 @@
  * signatures specified here.
  */
 
-import {Errors, PerseusError} from "@khanacademy/perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import type {
     Shape,

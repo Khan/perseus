@@ -11,7 +11,6 @@
         {"path": "./packages/perseus/tsconfig-build.json"},
         {"path": "./packages/perseus-core/tsconfig-build.json"},
         {"path": "./packages/perseus-editor/tsconfig-build.json"},
-        {"path": "./packages/perseus-error/tsconfig-build.json"},
         {"path": "./packages/perseus-linter/tsconfig-build.json"},
         {"path": "./packages/pure-markdown/tsconfig-build.json"},
         {"path": "./packages/simple-markdown/tsconfig-build.json"},

@@ -86,7 +86,7 @@
  * traversal.
  */
 
-import {Errors, PerseusError} from "@khanacademy/perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import type {TreeNode, TraversalState} from "./tree-transformer";
 

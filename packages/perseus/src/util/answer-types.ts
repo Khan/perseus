@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 import * as KAS from "@khanacademy/kas";
-import {Errors, PerseusError} from "@khanacademy/perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import _ from "underscore";
 

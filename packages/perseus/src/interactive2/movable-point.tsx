@@ -50,7 +50,7 @@
  *     removes the point from graphie
  */
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
-import {Errors, PerseusError} from "@khanacademy/perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
