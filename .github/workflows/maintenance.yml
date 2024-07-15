@@ -1,8 +1,19 @@
 name: Weekly maintenance/update tasks
 on:
+    # workflow_dispatch allows for manual triggering of the workflow
+    # Useful for testing that it works without waiting on the cron schedule.
     workflow_dispatch:
     schedule:
-        - cron: "30 1 * * 1" # Run on Mondays @ 7:30am UTC (3:30am EDT, 12:30 am PDT)
+        # https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#schedule
+        #       ┌─────────── minute (0 - 59)
+        #       │  ┌───────── hour (0 - 23)
+        #       │  │ ┌─────── day of the month (1 - 31)
+        #       │  │ │ ┌───── month (1 - 12 or JAN-DEC)
+        #       │  │ │ │ ┌─── day of the week (0 - 6 or SUN-SAT)
+        #       v  v v v v
+        - cron: 30 1 * * 1
+        #       Run on Mondays @ 7:30am UTC (3:30am EDT, 12:30 am PDT)
+
 jobs:
     update-browserslist:
         name: Update the browserslist database (used by caniuse-lite)
@@ -30,4 +41,20 @@ jobs:
                   team-reviewers: Perseus
                   commit-message: "chore: update browserslist"
                   title: Update browserslist
-                  body: Update browserslist and caniuse-lite packages
+                  body: |
+                     # Summary
+
+                     Updates the `browserslist` and `caniuse-lite` npm packages
+
+                     ## Reviewing notes:
+
+                     There should only be changes to the `yarn.lock` file in
+                     this PR. Check that there is only 1 `caniuse-lite` package
+                     reference in the `yarn.lock` file (the intent of this
+                     update is to ensure that `caniuse-lite` is on the latest
+                     version and that there aren't multiple, conflicting
+                     versions that different tools might see).
+
+                     If everything looks fine, please approve this PR and then
+                     land it (either with the Big Green Merge Button ™️ or by
+                     using `git land <this pr #>` in a terminal.
