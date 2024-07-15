@@ -1,0 +1,32 @@
+name: Weekly maintenance/update tasks
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "30 1 * * 1" # Run on Mondays @ 7:30am UTC (3:30am EDT, 12:30 am PDT)
+jobs:
+    update-browserslist:
+        name: Update the browserslist database (used by caniuse-lite)
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
+        steps:
+            - uses: actions/checkout@v4
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+
+            - name: Update browserslist DB
+              run: npx update-browserslist@latest
+
+            - name: Create Pull Request
+              uses: peter-evans/create-pull-request@v6
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  team-reviewers: Perseus
+                  commit-message: "chore: update browserslist"
+                  title: Update browserslist
+                  body: Update browserslist and caniuse-lite packages
