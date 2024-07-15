@@ -4,11 +4,12 @@ export type {
     KeypadContextRendererInterface,
     RendererInterface,
 } from "./types";
+export type {ErrorKind} from "./error/errors";
 
 // Careful, `version.ts` uses this function so it _must_ be imported above it
 export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
 
 export {libVersion} from "./version";
 
-export {Errors, ErrorKind} from "./error/errors";
+export {Errors} from "./error/errors";
 export {PerseusError} from "./error/perseus-error";
