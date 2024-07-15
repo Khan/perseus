@@ -344,7 +344,7 @@ describe("focus state", () => {
         const gotFocus = renderer.focus();
 
         // Assert
-        expect(gotFocus).toBeTrue();
+        expect(gotFocus).toBe(true);
     });
 
     it("supports blurring", () => {
@@ -356,6 +356,6 @@ describe("focus state", () => {
         renderer.blur();
 
         // Assert
-        expect(gotFocus).toBeTrue();
+        expect(gotFocus).toBe(true);
     });
 });

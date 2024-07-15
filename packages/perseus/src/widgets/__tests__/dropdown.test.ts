@@ -96,7 +96,7 @@ describe("Dropdown widget", () => {
         const focused = renderer.focus();
 
         // Assert
-        expect(focused).toBeTrue();
+        expect(focused).toBe(true);
         // TODO(LP-10797): we don't check that the document.activeElement is
         // actually set because the dropdown widget focuses a <div> (it's root
         // element), which is not actually focusable because it doesn't have a
