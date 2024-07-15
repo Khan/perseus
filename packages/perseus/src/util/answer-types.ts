@@ -1,10 +1,8 @@
 /* eslint-disable no-useless-escape */
 import * as KAS from "@khanacademy/kas";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import _ from "underscore";
-
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 
 import KhanMath from "./math";
 

@@ -7,8 +7,7 @@
  * renderer tree or a score tree or, well, a multi-item), see trees.js.
  */
 
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import shapes from "./shapes";
 import {buildMapper} from "./trees";

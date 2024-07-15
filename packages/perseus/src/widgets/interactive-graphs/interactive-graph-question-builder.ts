@@ -436,7 +436,7 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
         return {
             type: "segment",
             numSegments: this.numSegments,
-            coords: this.startCoords,
+            startCoords: this.startCoords,
         };
     }
 }
@@ -464,7 +464,7 @@ class LinearGraphConfig implements InteractiveFigureConfig {
     }
 
     graph(): PerseusGraphType {
-        return {type: "linear", coords: this.startCoords};
+        return {type: "linear", startCoords: this.startCoords};
     }
 }
 
@@ -497,7 +497,7 @@ class LinearSystemGraphConfig implements InteractiveFigureConfig {
     }
 
     graph(): PerseusGraphType {
-        return {type: "linear-system", coords: this.startCoords};
+        return {type: "linear-system", startCoords: this.startCoords};
     }
 }
 
@@ -524,7 +524,7 @@ class RayGraphConfig implements InteractiveFigureConfig {
     }
 
     graph(): PerseusGraphType {
-        return {type: "ray", coords: this.startCoords};
+        return {type: "ray", startCoords: this.startCoords};
     }
 }
 
@@ -553,7 +553,7 @@ class CircleGraphConfig implements InteractiveFigureConfig {
 
     graph(): PerseusGraphType {
         if (this.startCoords) {
-            return {type: "circle", center: this.startCoords, radius: 5};
+            return {type: "circle", startCoords: this.startCoords, radius: 5};
         }
 
         return {type: "circle"};
@@ -584,7 +584,7 @@ class QuadraticGraphConfig implements InteractiveFigureConfig {
     }
 
     graph(): PerseusGraphType {
-        return {type: "quadratic", coords: this.startCoords};
+        return {type: "quadratic", startCoords: this.startCoords};
     }
 }
 
@@ -611,7 +611,7 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
     }
 
     graph(): PerseusGraphType {
-        return {type: "sinusoid", coords: this.startCoords};
+        return {type: "sinusoid", startCoords: this.startCoords};
     }
 }
 
@@ -666,7 +666,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
             showAngles: this.showAngles,
             showSides: this.showSides,
             snapTo: this.snapTo,
-            coords: this.startCoords,
+            startCoords: this.startCoords,
         };
     }
 }
@@ -700,7 +700,7 @@ class PointGraphConfig implements InteractiveFigureConfig {
         return {
             type: "point",
             numPoints: this.numPoints,
-            coords: this.startCoords,
+            startCoords: this.startCoords,
         };
     }
 }
@@ -752,7 +752,7 @@ class AngleGraphConfig implements InteractiveFigureConfig {
     graph(): PerseusGraphType {
         return {
             type: "angle",
-            coords: this.startCoords,
+            startCoords: this.startCoords,
             showAngles: this.showAngles,
             allowReflexAngles: this.allowReflexAngles,
             angleOffsetDeg: this.angleOffsetDeg,

@@ -1,4 +1,4 @@
-import type {ErrorKind} from "./logging/log";
+import type {ErrorKind} from "./errors";
 import type {Metadata} from "@khanacademy/wonder-stuff-core";
 
 type Options = {

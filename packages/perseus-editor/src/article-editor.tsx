@@ -4,13 +4,8 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {
-    components,
-    icons,
-    ApiOptions,
-    Errors,
-    PerseusError,
-} from "@khanacademy/perseus";
+import {components, icons, ApiOptions} from "@khanacademy/perseus";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 

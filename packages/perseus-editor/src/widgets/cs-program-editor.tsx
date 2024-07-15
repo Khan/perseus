@@ -8,9 +8,9 @@ import {
     Changeable,
     Dependencies,
     EditorJsonify,
-    Errors,
     Log,
 } from "@khanacademy/perseus";
+import {Errors} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";

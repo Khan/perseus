@@ -53,8 +53,7 @@ export * as globalStyles from "./styles/global-styles";
 export * as globalConstants from "./styles/global-constants";
 export * as icons from "./icon-paths";
 export * as Dependencies from "./dependencies";
-export {Errors, Log} from "./logging/log";
-export {PerseusError} from "./perseus-error";
+export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as KhanMath} from "./util/math";
 export {default as LoadingContext} from "./loading-context";
@@ -119,6 +118,7 @@ export {
 } from "./widget-type-utils";
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
 export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
+export {getLineCoords} from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**
  * Mixins
@@ -132,7 +132,7 @@ export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
  * Types
  */
 export type {PerseusOptions} from "./init";
-export type {ILogger, LogErrorOptions, ErrorKind} from "./logging/log";
+export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
     Alignment,

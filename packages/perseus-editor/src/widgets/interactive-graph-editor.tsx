@@ -23,6 +23,7 @@ import GraphPointsCountSelector from "../components/graph-points-count-selector"
 import GraphTypeSelector from "../components/graph-type-selector";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import SegmentCountSelector from "../components/segment-count-selector";
+import StartCoordSettings from "../components/start-coord-settings";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -239,12 +240,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     let correct = this.props.correct;
                     // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     if (correct.type === newProps.graph.type) {
-                        correct = _.extend({}, correct, newProps.graph);
+                        correct = {
+                            ...correct,
+                            ...newProps.graph,
+                        };
                     } else {
                         // Clear options from previous graph
                         correct = newProps.graph;
                     }
-                    this.props.onChange({correct: correct});
+                    this.props.onChange({
+                        correct: correct,
+                        graph: this.props.graph,
+                    });
                 },
             } as const;
 
@@ -479,6 +486,16 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         />
                     </LabeledRow>
                 )}
+                {(this.props.graph?.type === "linear" ||
+                    this.props.graph?.type === "ray") &&
+                    this.props.apiOptions.flags?.mafs?.["start-coords-ui"] && (
+                        <StartCoordSettings
+                            {...this.props.graph}
+                            range={this.props.range}
+                            step={this.props.step}
+                            onChange={this.changeStartCoords}
+                        />
+                    )}
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
@@ -642,6 +659,25 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({correct: correct});
     };
 
+    changeStartCoords = (coords) => {
+        if (
+            this.props.graph?.type !== "linear" &&
+            this.props.graph?.type !== "ray"
+        ) {
+            return;
+        }
+
+        const graph = {
+            ...this.props.graph,
+            startCoords: coords,
+        };
+        this.props.onChange({graph: graph});
+    };
+
+    // serialize() is what makes copy/paste work. All the properties included
+    // in the serialization json are included when, for example, a graph
+    // is copied from the question editor and pasted into the hint editor
+    // (double brackets in the markdown).
     serialize(): PerseusInteractiveGraphWidgetOptions {
         const json = _.pick(
             this.props,
@@ -666,7 +702,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
             // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
             const correct = graph && graph.getUserInput();
             _.extend(json, {
-                graph: {type: correct.type},
+                graph: {
+                    type: correct.type,
+                    startCoords: this.props.graph?.startCoords,
+                },
                 correct: correct,
             });
 

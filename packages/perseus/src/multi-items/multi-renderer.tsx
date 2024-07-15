@@ -36,6 +36,7 @@
  *       }
  *   </MultiRenderer>
  */
+import {Errors} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite"; // eslint-disable-line import/no-extraneous-dependencies
 import lens from "hubble"; // eslint-disable-line import/no-extraneous-dependencies
 import * as React from "react";
@@ -43,7 +44,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../components/i18n-context";
 import {DependenciesContext} from "../dependencies";
 import HintsRenderer from "../hints-renderer";
-import {Errors, Log} from "../logging/log";
+import {Log} from "../logging/log";
 import Renderer from "../renderer";
 import Util from "../util";
 
