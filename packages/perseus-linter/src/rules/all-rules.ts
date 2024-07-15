@@ -30,7 +30,6 @@ import MathStartsWithSpace from "./math-starts-with-space";
 import MathTextEmpty from "./math-text-empty";
 import MathWithoutDollars from "./math-without-dollars";
 import NestedLists from "./nested-lists";
-import Profanity from "./profanity";
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
@@ -63,7 +62,6 @@ export default [
     TableMissingCells,
     UnescapedDollar,
     WidgetInTable,
-    Profanity,
     MathWithoutDollars,
     UnbalancedCodeDelimiters,
     ImageSpacesAroundUrls,

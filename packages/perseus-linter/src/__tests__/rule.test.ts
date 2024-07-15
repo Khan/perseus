@@ -7,8 +7,6 @@ describe("PerseusLinter lint Rules class", () => {
     const markdown = `
 ## This Heading is in Title Case
 
-This paragraph contains forbidden words. Poop!
-
 This paragraph contains an unescaped $ sign.
 
 #### This heading skipped a level
@@ -21,12 +19,6 @@ This paragraph contains an unescaped $ sign.
             pattern: "\\s[A-Z][a-z]",
             message: `Title case in heading:
 Only capitalize the first word of headings.`,
-        },
-        {
-            name: "profanity",
-            pattern: "/poop|crap/i",
-            message: `Profanity:
-this is a family website!`,
         },
         {
             name: "unescaped-dollar",
@@ -93,18 +85,14 @@ the previous heading was level ${previousHeading.level}`;
             });
         });
 
-        expect(warnings).toHaveLength(4);
+        expect(warnings).toHaveLength(3);
+
         expect(warnings[0].rule).toEqual(ruleDescriptions[0].name);
         expect(warnings[0].message).toEqual(ruleDescriptions[0].message);
 
         expect(warnings[1].rule).toEqual(ruleDescriptions[1].name);
         expect(warnings[1].message).toEqual(ruleDescriptions[1].message);
-        expect(warnings[1].start).toEqual(2);
-        expect(warnings[1].end).toEqual(6);
 
         expect(warnings[2].rule).toEqual(ruleDescriptions[2].name);
-        expect(warnings[2].message).toEqual(ruleDescriptions[2].message);
-
-        expect(warnings[3].rule).toEqual(ruleDescriptions[3].name);
     });
 });
