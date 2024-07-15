@@ -109,7 +109,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 graph: {
                     type: "segment",
                     numSegments: 1,
-                    coords: [
+                    startCoords: [
                         [
                             [0, 0],
                             [2, 2],
@@ -150,7 +150,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 graph: {
                     type: "segment",
                     numSegments: 2,
-                    coords: [
+                    startCoords: [
                         [
                             [0, 0],
                             [2, 2],
@@ -211,7 +211,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             expect.objectContaining({
                 graph: {
                     type: "linear",
-                    coords: [
+                    startCoords: [
                         [3, 0],
                         [3, 3],
                     ],
@@ -270,7 +270,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             expect.objectContaining({
                 graph: {
                     type: "linear-system",
-                    coords: [
+                    startCoords: [
                         [
                             [-3, 0],
                             [-3, 3],
@@ -329,7 +329,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             expect.objectContaining({
                 graph: {
                     type: "ray",
-                    coords: [
+                    startCoords: [
                         [3, 0],
                         [3, 3],
                     ],
@@ -365,7 +365,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         const graph = question.widgets["interactive-graph 1"];
         expect(graph.options).toEqual(
             expect.objectContaining({
-                graph: {type: "circle", center: [9, 9], radius: 5},
+                graph: {type: "circle", startCoords: [9, 9], radius: 5},
                 correct: {type: "circle", radius: 5, center: [0, 0]},
             }),
         );
@@ -404,7 +404,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             expect.objectContaining({
                 graph: {
                     type: "quadratic",
-                    coords: [
+                    startCoords: [
                         [-1, -1],
                         [0, 0],
                         [1, -1],
@@ -453,7 +453,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             expect.objectContaining({
                 graph: {
                     type: "sinusoid",
-                    coords: [
+                    startCoords: [
                         [0, 0],
                         [1, -1],
                     ],
