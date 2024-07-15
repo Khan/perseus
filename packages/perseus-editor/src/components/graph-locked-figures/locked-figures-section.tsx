@@ -10,6 +10,7 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import Heading from "../heading";
 import {getDefaultFigureForType} from "../util";
 
 import LockedFigureSelect from "./locked-figure-select";
@@ -36,6 +37,8 @@ const LockedFiguresSection = (props: Props) => {
     const collapsedStateArray = Array((props.figures ?? []).length).fill(false);
     const [expandedStates, setExpandedStates] =
         React.useState(collapsedStateArray);
+
+    const [isExpanded, setIsExpanded] = React.useState(true);
 
     const uniqueId = useUniqueIdWithMock().get("locked-figures-section");
     const {figures, onChange} = props;
@@ -149,53 +152,64 @@ const LockedFiguresSection = (props: Props) => {
     const showExpandButton = !!figures?.length;
 
     return (
-        <View>
-            {figures?.map((figure, index) => {
-                if (figure.type === "function") {
-                    // TODO(LEMS-1947): Add locked function settings.
-                    // Remove this block once function locked figure settings are
-                    // implemented.
-                    return;
-                }
-                return (
-                    <LockedFigureSettings
-                        key={`${uniqueId}-locked-${figure}-${index}`}
-                        showM2Features={props.showM2Features}
-                        showM2bFeatures={props.showM2bFeatures}
-                        expanded={expandedStates[index]}
-                        onToggle={(newValue) => {
-                            const newExpanded = [...expandedStates];
-                            newExpanded[index] = newValue;
-                            setExpandedStates(newExpanded);
-                        }}
-                        {...figure}
-                        onChangeProps={(newProps) =>
-                            changeProps(index, newProps)
+        <>
+            <Heading
+                title="Locked Figures"
+                isOpen={isExpanded}
+                onToggle={() => setIsExpanded(!isExpanded)}
+            />
+            {isExpanded && (
+                <View>
+                    {figures?.map((figure, index) => {
+                        if (figure.type === "function") {
+                            // TODO(LEMS-1947): Add locked function settings.
+                            // Remove this block once function locked figure settings are
+                            // implemented.
+                            return;
                         }
-                        onMove={(movement) => moveLockedFigure(index, movement)}
-                        onRemove={() => removeLockedFigure(index)}
-                    />
-                );
-            })}
-            <View style={styles.buttonContainer}>
-                <LockedFigureSelect
-                    showM2Features={props.showM2Features}
-                    showM2bFeatures={props.showM2bFeatures}
-                    id={`${uniqueId}-select`}
-                    onChange={addLockedFigure}
-                />
-                <Strut size={spacing.small_12} />
-                {showExpandButton && (
-                    <Button
-                        kind="secondary"
-                        onClick={() => toggleExpanded(allCollapsed)}
-                        style={styles.button}
-                    >
-                        {buttonLabel}
-                    </Button>
-                )}
-            </View>
-        </View>
+                        return (
+                            <LockedFigureSettings
+                                key={`${uniqueId}-locked-${figure}-${index}`}
+                                showM2Features={props.showM2Features}
+                                showM2bFeatures={props.showM2bFeatures}
+                                expanded={expandedStates[index]}
+                                onToggle={(newValue) => {
+                                    const newExpanded = [...expandedStates];
+                                    newExpanded[index] = newValue;
+                                    setExpandedStates(newExpanded);
+                                }}
+                                {...figure}
+                                onChangeProps={(newProps) =>
+                                    changeProps(index, newProps)
+                                }
+                                onMove={(movement) =>
+                                    moveLockedFigure(index, movement)
+                                }
+                                onRemove={() => removeLockedFigure(index)}
+                            />
+                        );
+                    })}
+                    <View style={styles.buttonContainer}>
+                        <LockedFigureSelect
+                            showM2Features={props.showM2Features}
+                            showM2bFeatures={props.showM2bFeatures}
+                            id={`${uniqueId}-select`}
+                            onChange={addLockedFigure}
+                        />
+                        <Strut size={spacing.small_12} />
+                        {showExpandButton && (
+                            <Button
+                                kind="secondary"
+                                onClick={() => toggleExpanded(allCollapsed)}
+                                style={styles.button}
+                            >
+                                {buttonLabel}
+                            </Button>
+                        )}
+                    </View>
+                </View>
+            )}
+        </>
     );
 };
 
