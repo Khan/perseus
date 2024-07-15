@@ -26,7 +26,6 @@
     },
     "dependencies": {
         "@khanacademy/perseus-core": "1.4.2",
-        "@khanacademy/perseus-error": "^0.3.0",
         "@khanacademy/simple-markdown": "^0.12.0"
     },
     "devDependencies": {},
