@@ -6,10 +6,8 @@
  */
 /* instanbul ignore file */
 
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
-
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 
 import type {Shape} from "./shape-types";
 

@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 8.0.0
+
+### Major Changes
+
+-   [#1411](https://github.com/Khan/perseus/pull/1411) [`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617) Thanks [@handeyeco](https://github.com/handeyeco)! - Consolidate PerseusError code and move it into perseus-core (deletes the perseus-error package)
+
+### Patch Changes
+
+-   [#1405](https://github.com/Khan/perseus/pull/1405) [`a430de4c1`](https://github.com/Khan/perseus/commit/a430de4c1727afc9a71ff5a6f976579e8b17b754) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Fix console errors and warnings printed in tests
+
+-   Updated dependencies [[`a430de4c1`](https://github.com/Khan/perseus/commit/a430de4c1727afc9a71ff5a6f976579e8b17b754), [`fa19dbc97`](https://github.com/Khan/perseus/commit/fa19dbc9791e95143f6c7c784bc78332ab5cd5b0), [`be7f14153`](https://github.com/Khan/perseus/commit/be7f141536b6ed69bba8a4378a1ddae51fd5307e), [`147ab0442`](https://github.com/Khan/perseus/commit/147ab0442cc31a86553edc8535e228b5893a0acc), [`8ae3d18f1`](https://github.com/Khan/perseus/commit/8ae3d18f102c0bfc13c41c77c1ca4083e00f1dc7), [`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617), [`f5711a331`](https://github.com/Khan/perseus/commit/f5711a331f6fce02d8c5f753e752fd8665b90344), [`3108f933e`](https://github.com/Khan/perseus/commit/3108f933eb527b37dc4d02f3cab189c047548a11), [`e6424d5e7`](https://github.com/Khan/perseus/commit/e6424d5e72c37a9c4c3b595855071a2d0af43d35)]:
+    -   @khanacademy/perseus@25.0.0
+    -   @khanacademy/kas@0.3.10
+    -   @khanacademy/kmath@0.1.13
+    -   @khanacademy/math-input@19.2.1
+    -   @khanacademy/perseus-core@1.5.0
+
 ## 7.0.3
 
 ### Patch Changes

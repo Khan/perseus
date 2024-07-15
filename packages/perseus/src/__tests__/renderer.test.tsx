@@ -1,4 +1,5 @@
 import {describe, beforeAll, beforeEach, it} from "@jest/globals";
+import {Errors} from "@khanacademy/perseus-core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -16,7 +17,6 @@ import {
     mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
-import {Errors} from "../logging/log";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__tests__/renderQuestion";
 import InputNumberExport from "../widgets/input-number";

@@ -1,6 +1,7 @@
+import {Errors} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {Errors, Log} from "./logging/log";
+import {Log} from "./logging/log";
 
 type Props = {
     children: React.ReactNode;
