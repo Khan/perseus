@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 8.1.0
+
+### Minor Changes
+
+-   [#1382](https://github.com/Khan/perseus/pull/1382) [`f392dcfba`](https://github.com/Khan/perseus/commit/f392dcfba515ac27ccaa465c2ca89bef63330837) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Implement UI to edit start coordinates for linear and ray graphs
+
+### Patch Changes
+
+-   Updated dependencies [[`f392dcfba`](https://github.com/Khan/perseus/commit/f392dcfba515ac27ccaa465c2ca89bef63330837)]:
+    -   @khanacademy/perseus@25.1.0
+
 ## 8.0.0
 
 ### Major Changes
