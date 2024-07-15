@@ -1,5 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import classNames from "classnames";
 import $ from "jquery";
@@ -7,8 +8,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
-import {Errors, Log} from "../logging/log";
-import {PerseusError} from "../perseus-error";
+import {Log} from "../logging/log";
 import Util from "../util";
 import * as Zoom from "../zoom";
 

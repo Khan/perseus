@@ -1,4 +1,4 @@
-import {showTickLabel} from "../graphs/components/axis-tick-labels";
+import {showTickLabel} from "./graphs/components/axis-tick-labels";
 
 it("should hide the first negative axis tick label if the gridStep > tickStep", () => {
     const gridStep = 2;

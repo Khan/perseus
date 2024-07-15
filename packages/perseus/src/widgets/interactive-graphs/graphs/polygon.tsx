@@ -9,9 +9,9 @@ import {PolygonAngle} from "./components/angle-indicators";
 import {StyledMovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
-import {getLines} from "./utils";
 
 import type {MafsGraphProps, PolygonGraphState} from "../types";
+import type {CollinearTuple} from "@khanacademy/perseus";
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
@@ -124,3 +124,10 @@ export const PolygonGraph = (props: Props) => {
         </>
     );
 };
+
+function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
+    return points.map((point, i) => {
+        const next = points[(i + 1) % points.length];
+        return [point, next];
+    });
+}

@@ -1,5 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
@@ -19,9 +20,8 @@ import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
 import Objective from "./interactive2/objective_";
 import JiptParagraphs from "./jipt-paragraphs";
-import {Errors, Log} from "./logging/log";
+import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
-import {PerseusError} from "./perseus-error";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";

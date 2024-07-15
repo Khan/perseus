@@ -1,5 +1,14 @@
 # @khanacademy/simple-markdown
 
+## 0.12.1
+
+### Patch Changes
+
+-   [#1407](https://github.com/Khan/perseus/pull/1407) [`be7f14153`](https://github.com/Khan/perseus/commit/be7f141536b6ed69bba8a4378a1ddae51fd5307e) Thanks [@handeyeco](https://github.com/handeyeco)! - Updates to README files
+
+-   Updated dependencies [[`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617)]:
+    -   @khanacademy/perseus-core@1.5.0
+
 ## 0.12.0
 
 ### Minor Changes

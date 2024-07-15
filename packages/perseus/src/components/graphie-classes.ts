@@ -1,8 +1,8 @@
 /* eslint-disable @babel/no-invalid-this */
+
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 import Util from "../util";
 
 const nestedMap = Util.nestedMap;
