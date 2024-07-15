@@ -733,7 +733,7 @@ describe("locked layer", () => {
         const KasParseMock = jest
             .spyOn(KAS, "parse")
             .mockReturnValue({expr: {eval: () => PARSED}});
-        const PlotMock = jest.spyOn(Plot, "OfX").mockReturnValue(null);
+        const PlotMock = jest.spyOn(Plot, "OfX");
         renderQuestion(segmentWithLockedFunction("x^2"), {
             flags: {
                 mafs: {
