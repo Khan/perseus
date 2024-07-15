@@ -1,11 +1,9 @@
-KAS
-===
+# @khanacademy/kas
 
 A lightweight JavaScript CAS (Computer Algebra System) for comparing expressions and equations.
 It is used throughout [Khan Academy](https://khanacademy.org)'s interactive exercises.
 
-What can it do?
----------------
+## What can it do?
 
 It can parse plain text math, LaTeX, or a mix of both:
 
@@ -77,18 +75,15 @@ expr.simplify().print();
 // "(-1+3*p)^(-1)*(3*n+-1*m+2*p)"
 ```
 
-How to build the library
-------------------------
-    npm install
-    npm run build
+## How to build the library
+    yarn
+    yarn build
 
-How to build the parser
------------------------
+## How to build the parser
 First, make any changes in `src/parser-generator.js`
 
-    npm install
-    npm run build:parser
+    yarn
+    yarn build:parser
 
-License
--------
+## License
 [MIT License](http://opensource.org/licenses/MIT)

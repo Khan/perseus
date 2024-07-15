@@ -1,7 +1,6 @@
-<h1 align="center">
-    <img alt="kmath" src="logo.svg" width="50" /> <br />
-    kmath - Javascript Numeric Math Utilities
-</h1>
+# @khanacademy/kmath
+
+Javascript Numeric Math Utilities
 
 ## Overview
 
@@ -34,7 +33,7 @@ pure and allocates a new array for the return value.
 ## Getting started
 
 After cloning or downloading kmath, you can install it by running
-`npm install` or `make install`.
+`yarn` or `make install`.
 
 To play around with the available interfaces, you can load kmath
 into a Node repl:

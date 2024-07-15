@@ -1,6 +1,6 @@
-# math-input
+# @khanacademy/math-input
 
-Khan Academy's expression editor for the mobile web. Used in the [Perseus](https://github.com/khan/perseus) exercise framework to power math input and expression editing on small screens.
+Khan Academy's expression editor for the web. Used in the [Perseus](https://github.com/khan/perseus) exercise framework to power math input and expression editing on all screens.
 
 Built with [React](https://github.com/facebook/react), [MathQuill](https://github.com/mathquill/mathquill), [Aphrodite](https://github.com/khan/aphrodite), and more.
 
@@ -11,7 +11,7 @@ Try it yourself on [Khan Academy](https://www.khanacademy.org/math/algebra-basic
 ## Getting started
 
 - Clone the project: `git clone git@github.com:Khan/math-input.git`
-- Install dependencies: `yarn install`
+- Install dependencies: `yarn`
 - Start the development server: `yarn start`
 
 When you start the project you'll need to be on a device that supports touch or touch emulation to see the keyboard. The easiest way to get started is open the developer tools on Google Chrome.
