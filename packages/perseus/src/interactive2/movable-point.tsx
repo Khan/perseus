@@ -50,13 +50,12 @@
  *     removes the point from graphie
  */
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-error";
 import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 import KhanColors from "../util/colors";
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";

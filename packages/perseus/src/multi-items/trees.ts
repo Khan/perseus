@@ -45,8 +45,7 @@
  * signatures specified here.
  */
 
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-error";
 
 import type {
     Shape,

@@ -1,5 +1,6 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import {number as knumber, point as kpoint} from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-error";
 import $ from "jquery";
 import debounce from "lodash.debounce";
 import * as React from "react";
@@ -9,8 +10,6 @@ import Graph from "../components/graph";
 import {PerseusI18nContext} from "../components/i18n-context";
 import Interactive2 from "../interactive2";
 import WrappedLine from "../interactive2/wrapped-line";
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 import Util from "../util";
 import KhanColors from "../util/colors";
 import {

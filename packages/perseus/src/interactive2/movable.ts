@@ -10,11 +10,9 @@
  * take appropriate action in onMoveStart, onMove, onMoveEnd
  */
 import {point as kpoint} from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-error";
 import $ from "jquery";
 import _ from "underscore";
-
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 
 import InteractiveUtil from "./interactive-util";
 

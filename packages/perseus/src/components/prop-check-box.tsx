@@ -1,5 +1,6 @@
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable react/sort-comp */
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
@@ -7,9 +8,6 @@ import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
-
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 
 /* A checkbox that syncs its value to props using the
  * renderer's onChange method, and gets the prop name

@@ -2,8 +2,7 @@
  * Utility functions for manipulating highlights.
  */
 
-import {Errors} from "../../logging/log";
-import {PerseusError} from "../../perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 import {
     findFirstAndLastWordIndexes,

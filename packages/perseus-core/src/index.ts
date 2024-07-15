@@ -9,3 +9,6 @@ export type {
 export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
 
 export {libVersion} from "./version";
+
+export {Errors, ErrorKind} from "./error/errors";
+export {PerseusError} from "./error/perseus-error";
