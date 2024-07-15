@@ -8,10 +8,8 @@
  */
 
 import {point as kpoint} from "@khanacademy/kmath";
+import {PerseusError, Errors} from "@khanacademy/perseus-core";
 import _ from "underscore";
-
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 
 /* Local helper methods. */
 

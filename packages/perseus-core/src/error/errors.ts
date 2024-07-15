@@ -1,7 +1,3 @@
-import type {Metadata} from "@khanacademy/wonder-stuff-core";
-
-export {libVersion} from "./version";
-
 /**
  * @typedef {Object} Errors utility for referencing the Perseus error taxonomy.
  */
@@ -44,21 +40,3 @@ export const Errors = Object.freeze({
  * @type {ErrorKind} The kind of error being reported
  */
 export type ErrorKind = (typeof Errors)[keyof typeof Errors];
-
-/**
- * Optional extra information passed to the `PerseusError` constructor.
- */
-type Options = {
-    metadata?: Metadata | null | undefined;
-};
-
-export class PerseusError extends Error {
-    kind: ErrorKind;
-    metadata: Metadata | null | undefined;
-
-    constructor(message: string, kind: ErrorKind, options?: Options) {
-        super(message);
-        this.kind = kind;
-        this.metadata = options?.metadata;
-    }
-}

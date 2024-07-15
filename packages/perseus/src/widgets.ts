@@ -1,7 +1,7 @@
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {Errors, Log} from "./logging/log";
-import {PerseusError} from "./perseus-error";
+import {Log} from "./logging/log";
 
 import type {PerseusWidget} from "./perseus-types";
 import type {PerseusStrings} from "./strings";

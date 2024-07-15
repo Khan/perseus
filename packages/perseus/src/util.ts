@@ -1,8 +1,7 @@
 /* eslint-disable @babel/no-invalid-this, getter-return, one-var */
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {Errors} from "./logging/log";
-import {PerseusError} from "./perseus-error";
 import KhanAnswerTypes from "./util/answer-types";
 import * as GraphieUtil from "./util.graphie";
 
