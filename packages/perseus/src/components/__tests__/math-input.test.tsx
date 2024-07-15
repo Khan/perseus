@@ -83,7 +83,9 @@ describe("Perseus' MathInput", () => {
         act(() => jest.runOnlyPendingTimers());
 
         // Act
-        screen.getByRole("button").click();
+        await userEvent.click(
+            screen.getByRole("button", {name: /open math keypad/}),
+        );
         await userEvent.click(screen.getByRole("button", {name: "1"}));
         await userEvent.click(screen.getByRole("button", {name: "Plus"}));
         await userEvent.click(screen.getByRole("button", {name: "2"}));
@@ -111,7 +113,9 @@ describe("Perseus' MathInput", () => {
 
         // Act
         // focusing the input triggers the popover
-        screen.getByRole("button").click();
+        await userEvent.click(
+            screen.getByRole("button", {name: /open math keypad/}),
+        );
         await userEvent.click(screen.getByRole("button", {name: "1"}));
         await userEvent.click(screen.getByRole("button", {name: "Plus"}));
         await userEvent.click(screen.getByRole("button", {name: "2"}));
@@ -138,7 +142,9 @@ describe("Perseus' MathInput", () => {
 
         // Act
         // focusing the input triggers the popover
-        screen.getByRole("button").click();
+        await userEvent.click(
+            screen.getByRole("button", {name: /open math keypad/}),
+        );
         await userEvent.click(screen.getByRole("button", {name: "1"}));
 
         // Assert
@@ -160,7 +166,9 @@ describe("Perseus' MathInput", () => {
 
         // Act
         // focusing the input triggers the popover
-        screen.getByRole("button").click();
+        await userEvent.click(
+            screen.getByRole("button", {name: /open math keypad/}),
+        );
         await userEvent.tab(); // to "123" tab
         await userEvent.tab(); // to "1" button
         await userEvent.keyboard("{enter}");
@@ -170,7 +178,7 @@ describe("Perseus' MathInput", () => {
         expect(screen.getByRole("textbox")).not.toHaveFocus();
     });
 
-    it("does not focus on the keypad button when it is clicked with the mouse", () => {
+    it("does not focus on the keypad button when it is clicked with the mouse", async () => {
         // Assemble
         render(
             <MathInput
@@ -183,8 +191,7 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
-        const button = screen.getByRole("button", {name: "1"});
-        button.click();
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
 
         // Assert
         expect(screen.getByRole("button", {name: "1"})).not.toHaveFocus();
