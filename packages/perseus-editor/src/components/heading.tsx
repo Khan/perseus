@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import ToggleableCaret from "./toggleable-caret";
@@ -31,7 +31,14 @@ function Heading({
             }}
             onClick={() => onToggle?.(!isOpen)}
         >
-            <HeadingXSmall>{title}</HeadingXSmall>
+            <LabelLarge
+                style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                }}
+            >
+                {title}
+            </LabelLarge>
             <ToggleableCaret isExpanded={isOpen} />
         </View>
     );
