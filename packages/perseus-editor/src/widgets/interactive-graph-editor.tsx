@@ -669,7 +669,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         const graph = {
             ...this.props.graph,
-            coords: coords,
+            startCoords: coords,
         };
         this.props.onChange({graph: graph});
     };
@@ -704,10 +704,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             _.extend(json, {
                 graph: {
                     type: correct.type,
-                    coords:
-                        this.props.graph?.type === "circle"
-                            ? this.props.graph.center
-                            : this.props.graph?.coords,
+                    startCoords: this.props.graph?.startCoords,
                 },
                 correct: correct,
             });
