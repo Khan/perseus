@@ -10,7 +10,7 @@ import {
     MathInputI18nContext,
 } from "@khanacademy/math-input";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleType, View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -26,6 +26,7 @@ import {PerseusI18nContext} from "./i18n-context";
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+import { HeadingMedium } from "@khanacademy/wonder-blocks-typography";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -277,6 +278,17 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         }
     };
 
+    srOnly = {
+        border: 0,
+        clip: "rect(0,0,0,0)",
+        height: "1px",
+        margin: -1,
+        overflow: "hidden",
+        padding: 0,
+        position: "absolute",
+        width: 1,
+    } as const satisfies StyleType;
+
     render(): React.ReactNode {
         let className = classNames({
             "perseus-math-input": true,
@@ -330,7 +342,10 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
+                        id="popover"
                         content={() => (
+                            <>
+                            <HeadingMedium id="popover-content" style={this.srOnly}>Sample text that would describe the navigation of the expression widget</HeadingMedium>
                             <PopoverContentCore
                                 closeButtonVisible
                                 style={styles.popoverContent}
@@ -338,17 +353,18 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 <DesktopKeypad
                                     onAnalyticsEvent={
                                         this.props.analytics.onAnalyticsEvent
-                                    }
+                                 }
                                     extraKeys={this.props.extraKeys}
                                     onClickKey={this.handleKeypadPress}
                                     cursorContext={this.state.cursorContext}
                                     convertDotToTimes={
                                         this.props.convertDotToTimes
-                                    }
-                                    {...(this.props.keypadButtonSets ??
-                                        mapButtonSets(this.props?.buttonSets))}
-                                />
+                                     }
+                                     {...(this.props.keypadButtonSets ??
+                                         mapButtonSets(this.props?.buttonSets))}
+                                 />
                             </PopoverContentCore>
+                            </>
                         )}
                     >
                         {this.props.buttonsVisible === "never" ? (
