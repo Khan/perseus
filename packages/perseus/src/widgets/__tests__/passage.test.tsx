@@ -76,6 +76,20 @@ describe("passage widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        // Our simple-markdown renderer (used by Passage) doesn't always add
+        // keys to children in a list. Just suppress it for now.
+        // eslint-disable-next-line no-console
+        const originalError = console.error;
+        jest.spyOn(console, "error").mockImplementation((...args) => {
+            if (
+                !args[0].startsWith(
+                    'Warning: Each child in a list should have a unique "key" prop.',
+                )
+            ) {
+                originalError(...args);
+            }
+        });
     });
 
     it.each([true, false])(

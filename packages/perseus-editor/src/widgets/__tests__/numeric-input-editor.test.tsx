@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -16,12 +16,21 @@ describe("numeric-input-editor", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        // The editor uses `javascript:void(0)` in some <a /> elements that act
+        // like a button to avoid navigating. This is a legacy pattern that
+        // React complains about. Suppress it for now.
+        jest.spyOn(console, "error").mockImplementation();
     });
 
     it("should render", async () => {
         render(<NumericInputEditor onChange={() => undefined} />);
 
-        expect(screen.getByText(/Add new answer/)).toBeInTheDocument();
+        await waitFor(async () =>
+            expect(
+                await screen.findByText(/Add new answer/),
+            ).toBeInTheDocument(),
+        );
     });
 
     it("should be possible to select normal width", async () => {

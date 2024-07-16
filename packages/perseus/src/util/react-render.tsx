@@ -11,6 +11,14 @@ import * as ReactDOMClient from "react-dom/client";
 // memory leak (by retaining elements after they're released everywhere else).
 const reactRootCache = new WeakMap<HTMLElement, ReactDOMClient.Root>();
 
+/**
+ * Renders the given ReactNode inside the given container.
+ * @param element The JSX to render
+ * @param container The HTML elemetn to render into
+ *
+ * @deprecated this function is legacy and exists to support ancient code
+ * paths. Do not use in new code.
+ */
 export default function render(
     element: React.ReactNode,
     container: HTMLElement,

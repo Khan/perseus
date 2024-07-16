@@ -1,3 +1,5 @@
+import {waitFor} from "@testing-library/react";
+
 // TODO(somewhatabstract): Replace with wonder-stuff-testing version
 if (typeof jest === "undefined") {
     /**
@@ -91,3 +93,11 @@ const FRAME_DURATION = 17;
  */
 export const waitForAnimationFrame: () => Promise<void> = () =>
     wait({delay: FRAME_DURATION});
+
+/**
+ *
+ * @returns a Promise<void> that resolves after the
+ */
+export async function waitForDeferredRenders() {
+    return waitFor(() => {});
+}
