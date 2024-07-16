@@ -22,7 +22,8 @@ export const actions = {
     },
     linear: {
         moveLine: (delta: vec.Vector2) => moveLine(0, delta),
-        movePoint: (pointIndex, destination) => movePointInFigure(0, pointIndex, destination),
+        movePoint: (pointIndex, destination) =>
+            movePointInFigure(0, pointIndex, destination),
     },
     linearSystem: {
         moveLine,
@@ -40,7 +41,8 @@ export const actions = {
     },
     ray: {
         moveRay: (delta: vec.Vector2) => moveLine(0, delta),
-        movePoint: (pointIndex, destination) => movePointInFigure(0, pointIndex, destination)
+        movePoint: (pointIndex, destination) =>
+            movePointInFigure(0, pointIndex, destination),
     },
     segment: {
         movePointInFigure,
