@@ -30,8 +30,8 @@ describe("StyledMovablePoint", () => {
     let useDraggableMock: jest.SpyInstance;
     const baseGraphConfigContext: GraphConfig = {
         range: [
-            [0, 1], // x range
-            [0, 1], // y range
+            [0, 1],
+            [0, 1],
         ],
         tickStep: [1, 1],
         gridStep: [1, 1],
