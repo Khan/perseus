@@ -51,7 +51,11 @@ describe("InteractiveGraphEditor", () => {
         });
 
         // Assert
-        expect(await screen.findByText("Correct answer:")).toBeInTheDocument();
+        expect(
+            await screen.findByText(
+                "Graph the correct answer in the graph below and ensure the equation or point coordinates displayed represent the correct answer.",
+            ),
+        ).toBeInTheDocument();
     });
 
     test("changing the graph should call onChange", async () => {
