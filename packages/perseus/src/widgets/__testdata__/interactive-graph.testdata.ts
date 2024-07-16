@@ -228,7 +228,7 @@ export const polygonQuestionDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withPolygon("grid", {
             startCoords: [
-                // TODO: figure out why this test is off by 0.5.
+                // TODO(LEMS-2186): figure out why this test is off by 0.5.
                 // This should be able to pass without any options
                 // provided.
                 [3, -1.5],
@@ -278,7 +278,7 @@ export const segmentQuestionDefaultCorrect: PerseusRenderer =
         .withSegments({
             startCoords: [
                 [
-                    // TODO: figure out why this test is off by 0.5.
+                    // TODO(LEMS-2186): figure out why this test is off by 0.5.
                     // This should be able to pass without any options
                     // provided. (i.e. We should be able to use [-5, 5] here.)
                     [-5, 5.5],

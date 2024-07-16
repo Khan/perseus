@@ -246,8 +246,6 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    // TODO(benchristel): if we want other attributes of locked points to be
-    // configurable in the future, we can add an `options` param to this method.
     addLockedPointAt(
         x: number,
         y: number,
