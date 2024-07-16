@@ -122,6 +122,7 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
+                        "start-coords-ui": false,
                         "interactive-graph-locked-features-m2": false,
                         "interactive-graph-locked-features-m2b": false,
                     },
@@ -148,6 +149,7 @@ export const MafsWithLockedFiguresM2Flag = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
+                        "start-coords-ui": false,
                         "interactive-graph-locked-features-m2": true,
                         "interactive-graph-locked-features-m2b": false,
                     },

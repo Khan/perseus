@@ -2,7 +2,7 @@ import {Polygon, vec} from "mafs";
 import * as React from "react";
 
 import {snap} from "../math";
-import {moveAll, movePoint} from "../reducer/interactive-graph-action";
+import {actions} from "../reducer/interactive-graph-action";
 import {TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
@@ -35,7 +35,7 @@ export const PolygonGraph = (props: Props) => {
         point: dragReferencePoint,
         onMove: (newPoint) => {
             const delta = vec.sub(newPoint, dragReferencePoint);
-            dispatch(moveAll(delta));
+            dispatch(actions.polygon.moveAll(delta));
         },
         constrain: (p) =>
             ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
@@ -117,7 +117,7 @@ export const PolygonGraph = (props: Props) => {
                     snapTo={snapTo}
                     point={point}
                     onMove={(destination: vec.Vector2) =>
-                        dispatch(movePoint(i, destination))
+                        dispatch(actions.polygon.movePoint(i, destination))
                     }
                 />
             ))}
