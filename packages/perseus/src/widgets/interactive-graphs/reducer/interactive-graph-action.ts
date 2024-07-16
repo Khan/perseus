@@ -94,18 +94,18 @@ function movePoint(index: number, destination: vec.Vector2): MovePoint {
 export const MOVE_CONTROL_POINT = "move-control-point";
 export interface MoveControlPoint {
     type: typeof MOVE_CONTROL_POINT;
-    itemIndex: number;
+    figureIndex: number;
     pointIndex: number;
     destination: vec.Vector2;
 }
 function moveControlPoint(
-    itemIndex: number,
+    figureIndex: number,
     pointIndex: number,
     destination: vec.Vector2,
 ): MoveControlPoint {
     return {
         type: MOVE_CONTROL_POINT,
-        itemIndex,
+        figureIndex,
         pointIndex,
         destination,
     };

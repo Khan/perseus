@@ -82,7 +82,7 @@ function doMoveControlPoint(
         case "linear-system": {
             const newCoords = updateAtIndex({
                 array: state.coords,
-                index: action.itemIndex,
+                index: action.figureIndex,
                 update: (tuple) =>
                     setAtIndex({
                         array: tuple,
@@ -91,7 +91,7 @@ function doMoveControlPoint(
                     }),
             });
 
-            const coordsToCheck = newCoords[action.itemIndex];
+            const coordsToCheck = newCoords[action.figureIndex];
             if (coordsOverlap(coordsToCheck)) {
                 return state;
             }
