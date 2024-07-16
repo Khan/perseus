@@ -32,9 +32,9 @@ export const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                     ) =>
                         dispatch(
                             actions.linearSystem.moveControlPoint(
+                                i,
                                 endpointIndex,
                                 destination,
-                                i,
                             ),
                         )
                     }

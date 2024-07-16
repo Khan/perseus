@@ -28,9 +28,9 @@ export const SegmentGraph = (props: SegmentProps) => {
                     ) => {
                         dispatch(
                             actions.segment.moveControlPoint(
+                                i,
                                 endpointIndex,
                                 destination,
-                                i,
                             ),
                         );
                     }}

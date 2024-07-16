@@ -16,7 +16,7 @@ export const RayGraph = (props: Props) => {
     const handleMoveLine = (delta: vec.Vector2) =>
         dispatch(actions.ray.moveRay(delta));
     const handleMovePoint = (pointIndex: number, newPoint: vec.Vector2) =>
-        dispatch(actions.ray.moveControlPoint(pointIndex, newPoint, 0));
+        dispatch(actions.ray.moveControlPoint(0, pointIndex, newPoint));
 
     // Ray graphs only have one line
     return (

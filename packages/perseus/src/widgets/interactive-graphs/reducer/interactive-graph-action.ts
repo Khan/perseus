@@ -22,7 +22,7 @@ export const actions = {
     },
     linear: {
         moveLine: (delta: vec.Vector2) => moveLine(0, delta),
-        movePoint: moveControlPoint,
+        movePoint: (pointIndex, destination) => moveControlPoint(0, pointIndex, destination),
     },
     linearSystem: {
         moveLine,
@@ -99,9 +99,9 @@ export interface MoveControlPoint {
     destination: vec.Vector2;
 }
 function moveControlPoint(
+    itemIndex: number,
     pointIndex: number,
     destination: vec.Vector2,
-    itemIndex: number,
 ): MoveControlPoint {
     return {
         type: MOVE_CONTROL_POINT,
