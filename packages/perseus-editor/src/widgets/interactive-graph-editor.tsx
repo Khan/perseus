@@ -296,6 +296,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         }}
                     />
                 </LabeledRow>
+                <InteractiveGraphCorrectAnswer equationString={equationString}>
+                    {graph}
+                </InteractiveGraphCorrectAnswer>
                 {this.props.correct?.type === "point" && (
                     <LabeledRow label="Number of Points:">
                         <GraphPointsCountSelector
@@ -626,9 +629,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             />
                         )
                 }
-                <InteractiveGraphCorrectAnswer equationString={equationString}>
-                    {graph}
-                </InteractiveGraphCorrectAnswer>
             </View>
         );
     }

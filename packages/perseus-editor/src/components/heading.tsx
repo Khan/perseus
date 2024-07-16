@@ -8,10 +8,12 @@ import ToggleableCaret from "./toggleable-caret";
 function Heading({
     title,
     isOpen,
+    isCollapsible,
     onToggle,
 }: {
     title: string;
     isOpen: boolean;
+    isCollapsible: boolean;
     onToggle?: (isOpen: boolean) => void;
 }) {
     return (
@@ -27,9 +29,10 @@ function Heading({
                 // match otherwise there's a gap from this header to the edge
                 // of the editor borders.
                 marginInline: -10,
-                cursor: "pointer",
+                cursor: isCollapsible ? "pointer" : "default",
+                userSelect: "none",
             }}
-            onClick={() => onToggle?.(!isOpen)}
+            onClick={() => isCollapsible && onToggle?.(!isOpen)}
         >
             <LabelLarge
                 style={{
@@ -39,7 +42,7 @@ function Heading({
             >
                 {title}
             </LabelLarge>
-            <ToggleableCaret isExpanded={isOpen} />
+            {isCollapsible && <ToggleableCaret isExpanded={isOpen} />}
         </View>
     );
 }

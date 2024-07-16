@@ -465,6 +465,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 <Heading
                     title="Common Graph Settings"
                     isOpen={this.state.isExpanded}
+                    isCollapsible={true}
                     onToggle={() =>
                         this.setState({isExpanded: !this.state.isExpanded})
                     }

@@ -157,6 +157,7 @@ const LockedFiguresSection = (props: Props) => {
                 title="Locked Figures"
                 isOpen={isExpanded}
                 onToggle={() => setIsExpanded(!isExpanded)}
+                isCollapsible={true}
             />
             {isExpanded && (
                 <View>
