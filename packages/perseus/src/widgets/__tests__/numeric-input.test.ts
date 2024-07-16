@@ -515,7 +515,7 @@ describe("Numeric input widget", () => {
         const gotFocus = renderer.focus();
 
         // Assert
-        expect(gotFocus).toBeTrue();
+        expect(gotFocus).toBe(true);
         // eslint-disable-next-line testing-library/no-node-access
         expect(document.activeElement).toBe(
             screen.getByRole("textbox", {hidden: true}),
@@ -567,7 +567,7 @@ describe("unionAnswerForms utility function", () => {
         const result = unionAnswerForms(forms);
 
         // assert
-        expect(result).toBeArrayOfSize(1);
+        expect(result).toHaveLength(1);
     });
 });
 
