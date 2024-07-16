@@ -3,7 +3,7 @@ import type {Interval, vec} from "mafs";
 
 export type InteractiveGraphAction =
     | Reinitialize
-    | MoveControlPoint
+    | MovePointInFigure
     | MoveLine
     | MoveAll
     | MovePoint
@@ -22,11 +22,12 @@ export const actions = {
     },
     linear: {
         moveLine: (delta: vec.Vector2) => moveLine(0, delta),
-        movePoint: moveControlPoint,
+        movePoint: (pointIndex, destination) =>
+            movePointInFigure(0, pointIndex, destination),
     },
     linearSystem: {
         moveLine,
-        moveControlPoint,
+        movePointInFigure,
     },
     pointGraph: {
         movePoint,
@@ -40,10 +41,11 @@ export const actions = {
     },
     ray: {
         moveRay: (delta: vec.Vector2) => moveLine(0, delta),
-        moveControlPoint,
+        movePoint: (pointIndex, destination) =>
+            movePointInFigure(0, pointIndex, destination),
     },
     segment: {
-        moveControlPoint,
+        movePointInFigure,
         moveLine,
     },
     sinusoid: {
@@ -91,21 +93,21 @@ function movePoint(index: number, destination: vec.Vector2): MovePoint {
     };
 }
 
-export const MOVE_CONTROL_POINT = "move-control-point";
-export interface MoveControlPoint {
-    type: typeof MOVE_CONTROL_POINT;
-    itemIndex: number;
+export const MOVE_POINT_IN_FIGURE = "move-point-in-figure";
+export interface MovePointInFigure {
+    type: typeof MOVE_POINT_IN_FIGURE;
+    figureIndex: number;
     pointIndex: number;
     destination: vec.Vector2;
 }
-function moveControlPoint(
+function movePointInFigure(
+    figureIndex: number,
     pointIndex: number,
     destination: vec.Vector2,
-    itemIndex: number,
-): MoveControlPoint {
+): MovePointInFigure {
     return {
-        type: MOVE_CONTROL_POINT,
-        itemIndex,
+        type: MOVE_POINT_IN_FIGURE,
+        figureIndex,
         pointIndex,
         destination,
     };

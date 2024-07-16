@@ -103,7 +103,7 @@ const basePolygonGraphState: InteractiveGraphState = {
         [1, 0],
     ],
 };
-describe("moveControlPoint", () => {
+describe("movePointInFigure", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
             ...baseSegmentGraphState,
@@ -117,7 +117,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveControlPoint(0, [5, 6], 0),
+            actions.segment.movePointInFigure(0, 0, [5, 6]),
         );
 
         invariant(updated.type === "segment");
@@ -140,7 +140,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveControlPoint(0, [5, 6], 0),
+            actions.segment.movePointInFigure(0, 0, [5, 6]),
         );
 
         expect(updated.hasBeenInteractedWith).toBe(true);
@@ -159,7 +159,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveControlPoint(0, [2, 2], 0),
+            actions.segment.movePointInFigure(0, 0, [2, 2]),
         );
 
         invariant(updated.type === "segment");
@@ -228,7 +228,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveControlPoint(0, [1.5, 6.6], 0),
+            actions.segment.movePointInFigure(0, 0, [1.5, 6.6]),
         );
 
         // Assert
@@ -256,7 +256,7 @@ describe("moveControlPoint", () => {
 
         const updated = interactiveGraphReducer(
             state,
-            actions.segment.moveControlPoint(0, [99, 99], 0),
+            actions.segment.movePointInFigure(0, 0, [99, 99]),
         );
 
         invariant(updated.type === "segment");

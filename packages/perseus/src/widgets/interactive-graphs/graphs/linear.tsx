@@ -28,9 +28,7 @@ export const LinearGraph = (props: LinearGraphProps, key: number) => {
                 end: true,
             }}
             onMovePoint={(endpointIndex: number, destination: vec.Vector2) =>
-                dispatch(
-                    actions.linear.movePoint(endpointIndex, destination, 0),
-                )
+                dispatch(actions.linear.movePoint(endpointIndex, destination))
             }
             color="var(--movable-line-stroke-color)"
         />

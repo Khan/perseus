@@ -27,10 +27,10 @@ export const SegmentGraph = (props: SegmentProps) => {
                         destination: vec.Vector2,
                     ) => {
                         dispatch(
-                            actions.segment.moveControlPoint(
+                            actions.segment.movePointInFigure(
+                                i,
                                 endpointIndex,
                                 destination,
-                                i,
                             ),
                         );
                     }}
