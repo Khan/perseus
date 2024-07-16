@@ -1,13 +1,12 @@
 import {vec} from "mafs";
 import React from "react";
 
-import {getDependencies} from "../../dependencies";
+import {getDependencies} from "../../../dependencies";
+import {pointToPixel} from "../graphs/use-transform";
+import {MAX, X, Y} from "../math";
+import useGraphConfig from "../reducer/use-graph-config";
 
-import {pointToPixel} from "./graphs/use-transform";
-import {MAX, X, Y} from "./math";
-import useGraphConfig from "./reducer/use-graph-config";
-
-import type {GraphDimensions} from "./types";
+import type {GraphDimensions} from "../types";
 
 export default function AxisLabels() {
     const {range, labels, width, height} = useGraphConfig();

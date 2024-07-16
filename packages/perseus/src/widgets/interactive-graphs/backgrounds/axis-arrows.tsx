@@ -1,7 +1,7 @@
 import React from "react";
 
-import {Arrowhead} from "./graphs/components/arrowhead";
-import useGraphConfig from "./reducer/use-graph-config";
+import {Arrowhead} from "../graphs/components/arrowhead";
+import useGraphConfig from "../reducer/use-graph-config";
 
 export default function AxisArrows() {
     const {
