@@ -40,7 +40,7 @@ export const actions = {
     },
     ray: {
         moveRay: (delta: vec.Vector2) => moveLine(0, delta),
-        moveControlPoint,
+        movePoint: (pointIndex, destination) => moveControlPoint(0, pointIndex, destination)
     },
     segment: {
         moveControlPoint,
