@@ -42,19 +42,19 @@ jobs:
                   commit-message: "chore: update browserslist"
                   title: Update browserslist
                   body: |
-                     # Summary
+                      # Summary
 
-                     Updates the `browserslist` and `caniuse-lite` npm packages
+                      Updates the `browserslist` and `caniuse-lite` npm packages
 
-                     ## Reviewing notes:
+                      ## Reviewing notes:
 
-                     There should only be changes to the `yarn.lock` file in
-                     this PR. Check that there is only 1 `caniuse-lite` package
-                     reference in the `yarn.lock` file (the intent of this
-                     update is to ensure that `caniuse-lite` is on the latest
-                     version and that there aren't multiple, conflicting
-                     versions that different tools might see).
+                      There should only be changes to the `yarn.lock` file in
+                      this PR. Check that there is only 1 `caniuse-lite` package
+                      reference in the `yarn.lock` file (the intent of this
+                      update is to ensure that `caniuse-lite` is on the latest
+                      version and that there aren't multiple, conflicting
+                      versions that different tools might see).
 
-                     If everything looks fine, please approve this PR and then
-                     land it (either with the Big Green Merge Button ™️ or by
-                     using `git land <this pr #>` in a terminal.
+                      If everything looks fine, please approve this PR and then
+                      land it (either with the Big Green Merge Button ™️ or by
+                      using `git land <this pr #>` in a terminal.
