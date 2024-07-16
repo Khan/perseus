@@ -8,7 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
 import {MafsGraph} from "./mafs-graph";
-import {movePoint} from "./reducer/interactive-graph-action";
+import {actions} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
 import type {MafsGraphProps} from "./mafs-graph";
@@ -462,7 +462,7 @@ describe("MafsGraph", () => {
         const group = screen.getByTestId("movable-point");
         group.focus();
         await userEvent.keyboard("[ArrowRight]");
-        const action = movePoint(0, [4, 2]);
+        const action = actions.pointGraph.movePoint(0, [4, 2]);
         expect(mockDispatch).toHaveBeenCalledWith(action);
 
         const updatedState = interactiveGraphReducer(state, action);
