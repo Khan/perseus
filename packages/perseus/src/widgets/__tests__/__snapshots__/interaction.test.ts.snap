@@ -178,11 +178,11 @@ exports[`interaction widget should render 1`] = `
                     <ellipse
                       cx="NaN"
                       cy="NaN"
-                      fill="#71b307"
+                      fill="#00a60e"
                       r="NaN"
                       rx="4"
                       ry="4"
-                      stroke="#71b307"
+                      stroke="#00a60e"
                       style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                       transform=""
                     />
