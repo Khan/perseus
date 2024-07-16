@@ -16,11 +16,6 @@ describe("numeric-input-editor", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-
-        // The editor uses `javascript:void(0)` in some <a /> elements that act
-        // like a button to avoid navigating. This is a legacy pattern that
-        // React complains about. Suppress it for now.
-        jest.spyOn(console, "error").mockImplementation();
     });
 
     it("should render", async () => {
