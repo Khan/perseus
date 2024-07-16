@@ -27,13 +27,13 @@ import {
     type InteractiveGraphAction,
     MOVE_ALL,
     MOVE_CENTER,
-    MOVE_CONTROL_POINT,
+    MOVE_POINT_IN_FIGURE,
     MOVE_LINE,
     MOVE_POINT,
     MOVE_RADIUS_POINT,
     type MoveAll,
     type MoveCenter,
-    type MoveControlPoint,
+    type MovePointInFigure,
     type MoveLine,
     type MovePoint,
     type MoveRadiusPoint,
@@ -52,8 +52,8 @@ export function interactiveGraphReducer(
     switch (action.type) {
         case REINITIALIZE:
             return initializeGraphState(action.params);
-        case MOVE_CONTROL_POINT:
-            return doMoveControlPoint(state, action);
+        case MOVE_POINT_IN_FIGURE:
+            return doMovePointInFigure(state, action);
         case MOVE_LINE:
             return doMoveLine(state, action);
         case MOVE_ALL:
@@ -73,9 +73,9 @@ export function interactiveGraphReducer(
     }
 }
 
-function doMoveControlPoint(
+function doMovePointInFigure(
     state: InteractiveGraphState,
-    action: MoveControlPoint,
+    action: MovePointInFigure,
 ): InteractiveGraphState {
     switch (state.type) {
         case "segment":
@@ -123,7 +123,7 @@ function doMoveControlPoint(
         case "quadratic":
         case "sinusoid":
             throw new Error(
-                `Don't use moveControlPoint for ${state.type} graphs. Use movePoint instead!`,
+                `Don't use movePointInFigure for ${state.type} graphs. Use movePoint instead!`,
             );
         default:
             throw new UnreachableCaseError(state);

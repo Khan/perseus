@@ -31,7 +31,7 @@ export const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                         destination: vec.Vector2,
                     ) =>
                         dispatch(
-                            actions.linearSystem.moveControlPoint(
+                            actions.linearSystem.movePointInFigure(
                                 i,
                                 endpointIndex,
                                 destination,
