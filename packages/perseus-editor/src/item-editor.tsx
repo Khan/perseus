@@ -7,7 +7,6 @@ import Editor from "./editor";
 import ItemExtrasEditor from "./item-extras-editor";
 import ContentRenderer from "./preview/content-renderer";
 
-import type IframeContentRenderer from "./preview/iframe-content-renderer";
 import type {
     APIOptions,
     ImageUploader,
@@ -45,7 +44,6 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
 
-    frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -54,10 +52,6 @@ class ItemEditor extends React.Component<Props> {
         const props = _(this.props).pick("question", "answerArea");
 
         this.props.onChange(_(props).extend(newProps), cb, silent);
-    };
-
-    triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
-        this.frame.current?.sendNewData(newData);
     };
 
     handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
