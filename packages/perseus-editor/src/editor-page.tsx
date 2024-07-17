@@ -62,7 +62,6 @@ type State = {
 };
 
 class EditorPage extends React.Component<Props, State> {
-    _isMounted: boolean;
     renderer: any;
 
     itemEditor = React.createRef<ItemEditor>();
@@ -94,33 +93,6 @@ class EditorPage extends React.Component<Props, State> {
             wasAnswered: false,
             highlightLint: true,
         };
-
-        this._isMounted = false;
-    }
-
-    componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
-        // this.isMounted() but is still considered an anti-pattern.
-        this._isMounted = true;
-
-        this.updateRenderer();
-    }
-
-    componentDidUpdate() {
-        // NOTE: It is required to delay the preview update until after the
-        // current frame, to allow for ItemEditor to render its widgets.
-        // This then enables to serialize the widgets properties correctly,
-        // in order to send data to the preview iframe (IframeContentRenderer).
-        // Otherwise, widgets will render in an "empty" state in the preview.
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
-        setTimeout(() => {
-            this.updateRenderer();
-        });
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
     }
 
     toggleJsonMode: () => void = () => {
@@ -135,50 +107,6 @@ class EditorPage extends React.Component<Props, State> {
             },
         );
     };
-
-    updateRenderer() {
-        // Some widgets (namely the image widget) like to call onChange before
-        // anything has actually been mounted, which causes problems here. We
-        // just ensure don't update until we've mounted
-        const hasEditor = !this.props.developerMode || !this.props.jsonMode;
-        if (!this._isMounted || !hasEditor) {
-            return;
-        }
-
-        const touch =
-            this.props.previewDevice === "phone" ||
-            this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
-
-        this.itemEditor.current?.triggerPreviewUpdate({
-            type: "question",
-            data: _({
-                item: this.serialize(),
-                apiOptions: deviceBasedApiOptions,
-                initialHintsVisible: 0,
-                device: this.props.previewDevice,
-                linterContext: {
-                    contentType: "exercise",
-                    highlightLint: this.state.highlightLint,
-                    // TODO(CP-4838): is it okay to use [] as a default?
-                    paths: this.props.contentPaths || [],
-                },
-                reviewMode: true,
-                legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
-            }).extend(
-                _(this.props).pick(
-                    "workAreaSelector",
-                    "solutionAreaSelector",
-                    "hintsAreaSelector",
-                    "problemNum",
-                ),
-            ),
-        });
-    }
 
     getApiOptions(): APIOptionsWithDefaults {
         return {
