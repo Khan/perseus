@@ -96,7 +96,8 @@ export const waitForAnimationFrame: () => Promise<void> = () =>
 
 /**
  *
- * @returns a Promise<void> that resolves after the
+ * @returns a Promise<void> that resolves after the next DOM mutation has
+ * completed.
  */
 export async function waitForDeferredRenders() {
     return waitFor(() => {});
