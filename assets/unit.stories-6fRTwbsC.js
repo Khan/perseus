@@ -1,0 +1,7 @@
+import{j as n}from"./jsx-runtime-BGVbfQ2Z.js";import{A as s}from"./perseus-api-BF68z3pH.js";import{O as i}from"./unit-3mV5sRes.js";import"./index-qhcEwEpg.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./index-tvtfaFq4.js";import"./stub-tag-editor-CaJYfBue.js";import"./text-list-editor-bJphcq85.js";import"./jquery-5v7aFUvu.js";import"./index-E09jvG0x.js";import"./index-default-4_ZsnO94.js";import"./compare-VLxlEkSV.js";import"./version-akiLXZts.js";import"./i18n-context-9-s9cJ--.js";import"./strings-YJ61eiUN.js";import"./perseus-error-l3K_anoI.js";const h={title:"Perseus/Widgets/Unit"},t=p=>n(i,{apiOptions:{...s.defaults},value:"2 tbsp",onFocus:()=>{},onBlur:()=>{},onChange:({value:a})=>{}});var r,o,e;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  return <OldUnitInput apiOptions={{
+    ...ApiOptions.defaults
+  }} value="2 tbsp" onFocus={() => {}} onBlur={() => {}} onChange={({
+    value
+  }) => {}} />;
+}`,...(e=(o=t.parameters)==null?void 0:o.docs)==null?void 0:e.source}}};const j=["NonStaticRender"];export{t as NonStaticRender,j as __namedExportsOrder,h as default};
