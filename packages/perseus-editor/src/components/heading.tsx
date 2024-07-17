@@ -1,3 +1,4 @@
+import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
@@ -15,25 +16,27 @@ function Heading({
     onToggle?: (isOpen: boolean) => void;
 }) {
     return (
-        <View
-            style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                backgroundColor: color.offBlack8,
-                padding: spacing.xSmall_8,
-                marginTop: spacing.small_12,
-                // NOTE(jeremy): This is the inverse of the @editorPadding CSS
-                // variable found in perseus-editor.less. For now, it must
-                // match otherwise there's a gap from this header to the edge
-                // of the editor borders.
-                marginInline: -10,
-                cursor: "pointer",
-            }}
-            onClick={() => onToggle?.(!isOpen)}
-        >
-            <LabelSmall>{title}</LabelSmall>
-            <ToggleableCaret isExpanded={isOpen} />
-        </View>
+        <Clickable onClick={() => onToggle?.(!isOpen)}>
+            {() => (
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        backgroundColor: color.offBlack8,
+                        padding: spacing.xSmall_8,
+                        marginTop: spacing.small_12,
+                        // NOTE(jeremy): This is the inverse of the @editorPadding CSS
+                        // variable found in perseus-editor.less. For now, it must
+                        // match otherwise there's a gap from this header to the edge
+                        // of the editor borders.
+                        marginInline: -10,
+                    }}
+                >
+                    <LabelSmall>{title}</LabelSmall>
+                    <ToggleableCaret isExpanded={isOpen} />
+                </View>
+            )}
+        </Clickable>
     );
 }
 

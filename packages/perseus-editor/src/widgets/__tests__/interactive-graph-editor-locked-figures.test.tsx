@@ -323,6 +323,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [getDefaultFigureForType(figureType)],
             });
 
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
+
             // Act
             // There may be accordions within the settings, such as the
             // defining point accordions within the line settings.
@@ -376,6 +383,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultPoint],
             });
 
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
+
             // Act
             const xCoordInput = screen.getByLabelText("x coord");
             await userEvent.clear(xCoordInput);
@@ -402,6 +416,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultPoint],
             });
+
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
 
             // Act
             const xCoordInput = screen.getByLabelText("y coord");
@@ -430,6 +451,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultPoint],
             });
 
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
+
             // Act
             const fillInput = screen.getByRole("switch", {
                 name: "open point",
@@ -457,6 +485,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultPoint],
             });
 
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
+
             // Act
             const xCoordInput = screen.getByLabelText("x coord");
             await userEvent.clear(xCoordInput);
@@ -474,6 +509,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultPoint],
             });
+
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
 
             // Act
             const yCoordInput = screen.getByLabelText("y coord");
@@ -501,6 +543,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [defaultPoint],
                 });
 
+                // Close the "Start coordinates" section first to remove
+                // other accordions from the DOM.
+                const startCoordinatesHeading = screen.getByRole("button", {
+                    name: "Start coordinates",
+                });
+                await userEvent.click(startCoordinatesHeading);
+
                 // Act
                 const coordInput = screen.getByLabelText(`${coord} coord`);
                 await userEvent.clear(coordInput);
@@ -522,6 +571,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultLine],
             });
+
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
 
             // Act
             const styleInput = screen.getByRole("button", {
@@ -552,6 +608,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultLine],
             });
+
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
 
             // Act
             const point1Input = screen.getAllByLabelText("x coord")[0];
@@ -585,6 +648,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultLine],
             });
 
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
+
             // Act
             const point2Input = screen.getAllByLabelText("y coord")[0];
             await userEvent.click(point2Input);
@@ -617,6 +687,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultLine],
             });
 
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
+
             // Act
             const point1Input = screen.getAllByLabelText("x coord")[1];
             await userEvent.click(point1Input);
@@ -648,6 +725,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultLine],
             });
+
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
 
             // Act
             const point1Input = screen.getAllByLabelText("y coord")[1];
@@ -765,6 +849,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [getDefaultFigureForType("ellipse")],
             });
 
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
+
             // Act
             const xCoordInput = screen.getByLabelText("x coord");
             await userEvent.clear(xCoordInput);
@@ -792,6 +883,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [getDefaultFigureForType("ellipse")],
             });
+
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
 
             // Act
             const yCoordInput = screen.getByLabelText("y coord");

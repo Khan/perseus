@@ -1,4 +1,8 @@
-import {getLineCoords} from "@khanacademy/perseus";
+import {
+    getLineCoords,
+    getLinearSystemCoords,
+    getSegmentCoords,
+} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -10,6 +14,7 @@ import * as React from "react";
 
 import CoordinatePairInput from "./coordinate-pair-input";
 import Heading from "./heading";
+import PerseusEditorAccordion from "./perseus-editor-accordion";
 
 import type {
     PerseusGraphType,
@@ -20,42 +25,82 @@ import type {
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
-    onChange: (startCoords: CollinearTuple) => void;
+    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 
-type PropsInner = {
-    type: PerseusGraphType["type"];
-    startCoords: CollinearTuple;
-    onChange: (startCoords: CollinearTuple) => void;
-};
+const StartCoordSettingsInner = (props: Props) => {
+    const {type, range, step, startCoords, onChange} = props;
 
-const StartCoordSettingsInner = (props: PropsInner) => {
-    const {type, startCoords, onChange} = props;
-
-    // Check if coords is of type CollinearTuple
     switch (type) {
+        // coords with type CollinearTuple
         case "linear":
         case "ray":
+            const linearCoords =
+                startCoords ?? getLineCoords(props, range, step);
             return (
                 <>
                     <View style={styles.tile}>
                         <LabelLarge>Point 1</LabelLarge>
                         <CoordinatePairInput
-                            coord={startCoords[0]}
+                            coord={linearCoords[0]}
                             onChange={(value) =>
-                                onChange([value, startCoords[1]])
+                                onChange([value, linearCoords[1]])
                             }
                         />
                     </View>
                     <View style={styles.tile}>
                         <LabelLarge>Point 2</LabelLarge>
                         <CoordinatePairInput
-                            coord={startCoords[1]}
+                            coord={linearCoords[1]}
                             onChange={(value) =>
-                                onChange([startCoords[0], value])
+                                onChange([linearCoords[0], value])
                             }
                         />
                     </View>
+                </>
+            );
+        // coords with type CollinearTuple[]
+        case "linear-system":
+        case "segment":
+            const multiLineCoords: CollinearTuple[] =
+                startCoords ??
+                (type === "segment"
+                    ? getSegmentCoords(props, range, step)
+                    : getLinearSystemCoords(props, range, step));
+            return (
+                <>
+                    {multiLineCoords.map((coordPair, i) => (
+                        <PerseusEditorAccordion
+                            key={`segment-${i}-start-coords`}
+                            header={
+                                <LabelLarge>{`Segment ${i + 1}`}</LabelLarge>
+                            }
+                            expanded={true}
+                        >
+                            <View style={styles.nestedTile}>
+                                <LabelLarge>Point 1</LabelLarge>
+                                <CoordinatePairInput
+                                    coord={coordPair[0]}
+                                    onChange={(value) => {
+                                        const newCoords = [...multiLineCoords];
+                                        newCoords[i] = [value, coordPair[1]];
+                                        onChange(newCoords);
+                                    }}
+                                />
+                            </View>
+                            <View style={styles.nestedTile}>
+                                <LabelLarge>Point 2</LabelLarge>
+                                <CoordinatePairInput
+                                    coord={coordPair[1]}
+                                    onChange={(value) => {
+                                        const newCoords = [...multiLineCoords];
+                                        newCoords[i] = [coordPair[0], value];
+                                        onChange(newCoords);
+                                    }}
+                                />
+                            </View>
+                        </PerseusEditorAccordion>
+                    ))}
                 </>
             );
         default:
@@ -67,11 +112,43 @@ const StartCoordSettings = (props: Props) => {
     const {type, range, step, onChange} = props;
     const [isOpen, setIsOpen] = React.useState(true);
 
-    if (type !== "linear" && type !== "ray") {
+    if (
+        type !== "linear" &&
+        type !== "ray" &&
+        type !== "segment" &&
+        type !== "linear-system"
+    ) {
         return null;
     }
 
-    const defaultStartCoords = getLineCoords({type: type}, range, step);
+    let defaultStartCoords: PerseusGraphType["startCoords"];
+    // Passing in undefined start coords to get default coords
+    switch (type) {
+        case "linear":
+        case "ray":
+            defaultStartCoords = getLineCoords(
+                {...props, startCoords: undefined},
+                range,
+                step,
+            );
+            break;
+        case "segment":
+            defaultStartCoords = getSegmentCoords(
+                {...props, startCoords: undefined},
+                range,
+                step,
+            );
+            break;
+        case "linear-system":
+            defaultStartCoords = getLinearSystemCoords(
+                {...props, startCoords: undefined},
+                range,
+                step,
+            );
+            break;
+        default:
+            return null;
+    }
 
     return (
         <View style={styles.container}>
@@ -85,11 +162,7 @@ const StartCoordSettings = (props: Props) => {
             {/* Start coordinates main UI */}
             {isOpen && (
                 <>
-                    <StartCoordSettingsInner
-                        type={type}
-                        startCoords={props.startCoords ?? defaultStartCoords}
-                        onChange={onChange}
-                    />
+                    <StartCoordSettingsInner {...props} />
 
                     {/* Button to reset to default */}
                     <Strut size={spacing.small_12} />
@@ -115,6 +188,9 @@ const styles = StyleSheet.create({
         marginTop: spacing.xSmall_8,
         padding: spacing.small_12,
         borderRadius: spacing.xSmall_8,
+    },
+    nestedTile: {
+        paddingBottom: spacing.small_12,
     },
 });
 
