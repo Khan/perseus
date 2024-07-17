@@ -85,7 +85,7 @@ export const pointQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withTickStep(1, 1)
     .withXRange(-4, 4)
     .withYRange(-4, 4)
-    .withPoint("unlimited", {
+    .withPoints("unlimited", {
         coords: [
             [0, 0],
             [-2.5, 0],
@@ -95,7 +95,7 @@ export const pointQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .build();
 
 export const pointQuestionWithDefaultCorrect: PerseusRenderer =
-    interactiveGraphQuestionBuilder().withPoint(1).build();
+    interactiveGraphQuestionBuilder().withPoints(1).build();
 
 export const polygonQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()

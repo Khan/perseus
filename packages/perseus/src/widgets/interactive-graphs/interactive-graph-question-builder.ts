@@ -222,14 +222,17 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    withPoint(
+    withPoints(
         numPoints: number | "unlimited",
         options?: {
             coords?: Coord[];
             startCoords?: Coord[];
         },
     ): InteractiveGraphQuestionBuilder {
-        this.interactiveFigureConfig = new PointGraphConfig(numPoints, options);
+        this.interactiveFigureConfig = new PointsGraphConfig(
+            numPoints,
+            options,
+        );
         return this;
     }
 
@@ -669,7 +672,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     }
 }
 
-class PointGraphConfig implements InteractiveFigureConfig {
+class PointsGraphConfig implements InteractiveFigureConfig {
     private numPoints: number | "unlimited";
     private coords: Coord[];
     private startCoords?: Coord[];

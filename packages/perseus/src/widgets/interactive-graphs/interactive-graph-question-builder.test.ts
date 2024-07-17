@@ -618,7 +618,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
     it("creates a point graph", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withPoint("unlimited")
+            .withPoints("unlimited")
             .build();
         const graph = question.widgets["interactive-graph 1"];
         expect(graph.options).toEqual(
@@ -635,7 +635,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
     it("creates a point graph with options", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withPoint(2, {
+            .withPoints(2, {
                 coords: [
                     [1, 1],
                     [2, 2],
