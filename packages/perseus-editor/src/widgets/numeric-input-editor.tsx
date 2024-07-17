@@ -292,9 +292,14 @@ class NumericInputEditor extends React.Component<Props, State> {
         const addAnswerButton = (
             <div>
                 <a
-                    href="javascript:void(0)"
+                    href="#"
                     className="simple-button orange"
-                    onClick={() => this.addAnswer()}
+                    onClick={(e) => {
+                        // preventDefault ensures that href="#"
+                        // doesn't scroll to the top of the page
+                        e.preventDefault();
+                        this.addAnswer();
+                    }}
                     onKeyDown={(e) => this.onSpace(e, this.addAnswer)}
                 >
                     <span>Add new answer</span>
@@ -425,9 +430,14 @@ class NumericInputEditor extends React.Component<Props, State> {
                             ) : null}
                             <div className="value-divider" />
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className={"answer-status " + answer.status}
-                                onClick={() => this.onStatusChange(i)}
+                                onClick={(e) => {
+                                    // preventDefault ensures that href="#"
+                                    // doesn't scroll to the top of the page
+                                    e.preventDefault();
+                                    this.onStatusChange(i);
+                                }}
                                 onKeyDown={(e) =>
                                     this.onSpace(e, this.onStatusChange)
                                 }
@@ -435,10 +445,15 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 {answer.status}
                             </a>
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className="answer-trash"
                                 aria-label="Delete answer"
-                                onClick={() => this.onTrashAnswer(i)}
+                                onClick={(e) => {
+                                    // preventDefault ensures that href="#"
+                                    // doesn't scroll to the top of the page
+                                    e.preventDefault();
+                                    this.onTrashAnswer(i);
+                                }}
                                 onKeyDown={(e) =>
                                     this.onSpace(e, this.onTrashAnswer)
                                 }
@@ -446,10 +461,15 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 <InlineIcon {...iconTrash} />
                             </a>
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className="options-toggle"
                                 aria-label="Toggle options"
-                                onClick={() => this.onToggleOptions(i)}
+                                onClick={(e) => {
+                                    // preventDefault ensures that href="#"
+                                    // doesn't scroll to the top of the page
+                                    e.preventDefault();
+                                    this.onToggleOptions(i);
+                                }}
                                 onKeyDown={(e) =>
                                     this.onSpace(e, this.onToggleOptions)
                                 }

@@ -8,11 +8,10 @@
  * group or sequence widgets.
  */
 
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {Errors} from "./logging/log";
 import MultiItems from "./multi-items";
-import {PerseusError} from "./perseus-error";
 import {traverse} from "./traversal";
 import * as Widgets from "./widgets";
 

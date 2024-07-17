@@ -56,7 +56,7 @@
  * methods are available to the traversal callback.
  **/
 
-import {Errors, PerseusError} from "@khanacademy/perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 // TreeNode is the type of a node in a parse tree. The only real requirement is
 // that every node has a string-valued `type` property

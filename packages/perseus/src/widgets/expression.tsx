@@ -1,5 +1,6 @@
 import * as KAS from "@khanacademy/kas";
 import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
+import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
@@ -11,7 +12,7 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../components/i18n-context";
 import MathInput from "../components/math-input";
 import {useDependencies} from "../dependencies";
-import {Errors as PerseusErrors, Log} from "../logging/log";
+import {Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
 import a11y from "../util/a11y";
@@ -199,7 +200,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 /* c8 ignore next */
                 Log.error(
                     "Unable to parse solution answer for expression",
-                    PerseusErrors.InvalidInput,
+                    Errors.InvalidInput,
                     {loggedMetadata: {rubric: JSON.stringify(rubric)}},
                 );
                 return null;

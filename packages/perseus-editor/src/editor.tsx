@@ -1,13 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     preprocessTex,
-    Errors,
     Log,
-    PerseusError,
     PerseusMarkdown,
     Util,
     Widgets,
 } from "@khanacademy/perseus";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import katex from "katex";

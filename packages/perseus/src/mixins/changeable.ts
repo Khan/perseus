@@ -8,11 +8,9 @@
  * this.props.onChange with the modified props.
  */
 
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import _ from "underscore";
-
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 
 import WIDGET_PROP_DENYLIST from "./widget-prop-denylist";
 

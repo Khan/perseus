@@ -13,6 +13,7 @@ import {
     point as kpoint,
     line as kline,
 } from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import _ from "underscore";
 
@@ -24,8 +25,6 @@ import "../jquery.mobile.vmouse";
 import {Arrowhead} from "../interactive2/arrowhead";
 import WrappedEllipse from "../interactive2/wrapped-ellipse";
 import WrappedLine from "../interactive2/wrapped-line";
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 
 import KhanColors from "./colors";
 import {clockwise, reverseVector} from "./geometry";

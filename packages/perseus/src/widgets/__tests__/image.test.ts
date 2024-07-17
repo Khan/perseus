@@ -40,7 +40,7 @@ describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
 
     it("should be accessible if background has 'alt' prop", () => {
         // Arrange, Act, and Assert
-        expect(isAccessible(question.widgets["image 1"])).toBeTrue();
+        expect(isAccessible(question.widgets["image 1"])).toBe(true);
     });
 
     it("should be inaccessible if background is missing 'alt' prop", () => {
@@ -56,6 +56,6 @@ describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
         };
 
         // Act and Assert
-        expect(isAccessible(inaccessibleWidgetInfo)).toBeFalse();
+        expect(isAccessible(inaccessibleWidgetInfo)).toBe(false);
     });
 });

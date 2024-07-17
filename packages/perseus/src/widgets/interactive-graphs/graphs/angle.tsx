@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {movePoint} from "../reducer/interactive-graph-action";
+import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {Angle} from "./components/angle-indicators";
@@ -31,17 +31,14 @@ export function AngleGraph(props: AngleGraphProps) {
     } = graphState;
 
     // Break the coords into the two end points and the center point
-    const endPoints = [coords[0], coords[2]] satisfies [
-        vec.Vector2,
-        vec.Vector2,
-    ];
+    const endPoints: [vec.Vector2, vec.Vector2] = [coords[0], coords[2]];
     const centerPoint = coords[1];
 
     // Convert the vectors to pixels for rendering the svg lines
-    const angleLines = [
+    const angleLines: CollinearTuple[] = [
         [centerPoint, endPoints[0]],
         [centerPoint, endPoints[1]],
-    ] satisfies CollinearTuple[];
+    ];
 
     const linePixelCoords = [
         useTransformVectorsToPixels(centerPoint, endPoints[0]),
@@ -98,7 +95,7 @@ export function AngleGraph(props: AngleGraphProps) {
                     snapTo={"angles"}
                     point={point}
                     onMove={(destination: vec.Vector2) =>
-                        dispatch(movePoint(i, destination))
+                        dispatch(actions.angle.movePoint(i, destination))
                     }
                 />
             ))}

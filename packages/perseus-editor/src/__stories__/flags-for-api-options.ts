@@ -11,6 +11,7 @@ export const flags = {
         linear: true,
         "linear-system": true,
         ray: true,
+        "start-coords-ui": true,
         "interactive-graph-locked-features-m2": true,
         "interactive-graph-locked-features-m2b": true,
     },
