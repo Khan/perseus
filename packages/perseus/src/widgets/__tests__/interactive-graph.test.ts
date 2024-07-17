@@ -95,7 +95,7 @@ describe("interactive-graph widget", function () {
                 expect(renderer).toHaveBeenAnsweredCorrectly();
             });
 
-            it("Shoud render predictably", () => {
+            it("Should render predictably", () => {
                 // Arrange
                 const {renderer, container} = renderQuestion(
                     question,
@@ -279,12 +279,12 @@ describe("a mafs graph", () => {
 
             // Assert
             expect(points[0]).toHaveStyle({
-                fill: lockedFigureColors.green,
-                stroke: lockedFigureColors.green,
+                fill: lockedFigureColors.grayH,
+                stroke: lockedFigureColors.grayH,
             });
             expect(points[1]).toHaveStyle({
                 fill: wbColor.white,
-                stroke: lockedFigureColors.green,
+                stroke: lockedFigureColors.grayH,
             });
         });
     });
@@ -422,12 +422,12 @@ describe("locked layer", () => {
 
         // Assert
         expect(points[0]).toHaveStyle({
-            fill: lockedFigureColors.green,
-            stroke: lockedFigureColors.green,
+            fill: lockedFigureColors.grayH,
+            stroke: lockedFigureColors.grayH,
         });
         expect(points[1]).toHaveStyle({
             fill: wbColor.white,
-            stroke: lockedFigureColors.green,
+            stroke: lockedFigureColors.grayH,
         });
     });
 
