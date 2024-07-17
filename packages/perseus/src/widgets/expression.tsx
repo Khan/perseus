@@ -614,9 +614,15 @@ export class Expression extends React.Component<Props, ExpressionState> {
         }
 
         return (
-            <View>
+            <View style={{margin: "5px 5px 0"}}>
                 {!!this.props.visibleLabel && (
-                    <label htmlFor={textareaId}>
+                    <label
+                        htmlFor={textareaId}
+                        style={{
+                            fontSize: "12px",
+                            lineHeight: "10px",
+                        }}
+                    >
                         {this.props.visibleLabel}
                     </label>
                 )}
