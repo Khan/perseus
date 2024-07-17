@@ -3,9 +3,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
-import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import ContentRenderer from "./content-renderer";
+import Editor from "./editor";
 import ItemExtrasEditor from "./item-extras-editor";
 
 import type {
@@ -45,7 +44,6 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
 
-    frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -54,10 +52,6 @@ class ItemEditor extends React.Component<Props> {
         const props = _(this.props).pick("question", "answerArea");
 
         this.props.onChange(_(props).extend(newProps), cb, silent);
-    };
-
-    triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
-        this.frame.current?.sendNewData(newData);
     };
 
     handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
