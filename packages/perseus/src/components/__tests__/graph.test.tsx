@@ -2,7 +2,7 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {waitForDeferredRenders} from "../../../../../testing/wait";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import Graph from "../graph";
 
@@ -15,7 +15,8 @@ describe("graph", () => {
 
     it("should render", async () => {
         const {container} = render(<Graph box={[400, 400]} />);
-        await waitForDeferredRenders();
+
+        await waitForInitialGraphieRender();
 
         expect(container).toMatchSnapshot();
     });

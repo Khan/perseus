@@ -5,7 +5,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {waitForDeferredRenders} from "../../../../../testing/wait";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import {flags} from "../../__stories__/flags-for-api-options";
 import {getDefaultFigureForType} from "../../components/util";
 import InteractiveGraphEditor from "../interactive-graph-editor";
@@ -596,7 +596,7 @@ describe("InteractiveGraphEditor", () => {
                 wrapper: RenderStateRoot,
             },
         );
-        await waitForDeferredRenders();
+        await waitForInitialGraphieRender();
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([
@@ -628,7 +628,7 @@ describe("InteractiveGraphEditor", () => {
                 wrapper: RenderStateRoot,
             },
         );
-        await waitForDeferredRenders();
+        await waitForInitialGraphieRender();
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([]);

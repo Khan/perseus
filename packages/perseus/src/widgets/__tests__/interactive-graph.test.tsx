@@ -8,7 +8,7 @@ import * as React from "react";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {waitForDeferredRenders} from "../../../../../testing/wait";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
@@ -94,7 +94,7 @@ describe("interactive-graph widget", function () {
                         (state) => (state.graph.coords = correct),
                     ),
                 );
-                await waitForDeferredRenders();
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -116,7 +116,7 @@ describe("interactive-graph widget", function () {
                         (state) => (state.graph.coords = correct),
                     ),
                 );
-                await waitForDeferredRenders();
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(container).toMatchSnapshot("after interaction");
@@ -127,7 +127,7 @@ describe("interactive-graph widget", function () {
                 const {renderer} = renderQuestion(question, blankOptions);
 
                 // Act
-                await waitForDeferredRenders();
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveInvalidInput();
@@ -145,7 +145,7 @@ describe("interactive-graph widget", function () {
                         (state) => (state.graph.coords = incorrect),
                     ),
                 );
-                await waitForDeferredRenders();
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveBeenAnsweredIncorrectly();

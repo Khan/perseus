@@ -1,4 +1,4 @@
-import {waitFor} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 
 // TODO(somewhatabstract): Replace with wonder-stuff-testing version
 if (typeof jest === "undefined") {
@@ -95,10 +95,14 @@ export const waitForAnimationFrame: () => Promise<void> = () =>
     wait({delay: FRAME_DURATION});
 
 /**
+ * Waits for the initial Graphie render.
  *
- * @returns a Promise<void> that resolves after the next DOM mutation has
- * completed.
+ * @returns a Promise<void> that resolves when the Graphie graph has renderred.
+ * The behaviour is undefined if there are multiple Graphies on the page (which
+ * is unlikely in tests).
  */
-export async function waitForDeferredRenders() {
-    return waitFor(() => {});
+export async function waitForInitialGraphieRender() {
+    // Graphie uses Raphaël.js to render SVG. We can tell that Graphie has done
+    // at least the first render by the existence of this text in the DOM.
+    await screen.findAllByText("Created with Raphaël");
 }

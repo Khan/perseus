@@ -1,5 +1,5 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {waitForDeferredRenders} from "../../../../../testing/wait";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {question1} from "../__testdata__/interaction.testdata";
 
@@ -15,7 +15,7 @@ describe("interaction widget", () => {
     it("should render", async () => {
         // Arrange/Act
         const {container} = renderQuestion(question1);
-        await waitForDeferredRenders();
+        await waitForInitialGraphieRender();
 
         // Assert
         expect(container).toMatchSnapshot();
@@ -24,7 +24,7 @@ describe("interaction widget", () => {
     it("should be unanswerable", async () => {
         // Arrange/Act
         const {renderer} = renderQuestion(question1);
-        await waitForDeferredRenders();
+        await waitForInitialGraphieRender();
 
         // Assert
         // Note that this widget can never be answered correctly, no matter
