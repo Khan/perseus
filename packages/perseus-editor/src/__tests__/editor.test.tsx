@@ -80,8 +80,9 @@ describe("Editor", () => {
         render(<Harnessed onChange={onChangeMock} />);
 
         // Act
-        screen.getByRole("button", {name: "Remove image widget"}),
-            await userEvent.click();
+        await userEvent.click(
+            screen.getByRole("button", {name: "Remove image widget"}),
+        );
 
         // Assert
         expect(onChangeMock).not.toHaveBeenCalled();
