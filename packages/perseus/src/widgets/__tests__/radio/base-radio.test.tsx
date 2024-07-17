@@ -44,7 +44,7 @@ function renderBaseRadio(props) {
 }
 
 describe("base-radio", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({

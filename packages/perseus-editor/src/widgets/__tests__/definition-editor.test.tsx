@@ -7,7 +7,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import DefinitionEditor from "../definition-editor";
 
 describe("definition-editor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

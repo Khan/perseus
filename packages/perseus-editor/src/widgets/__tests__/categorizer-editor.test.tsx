@@ -7,7 +7,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import CategorizerEditor from "../categorizer-editor";
 
 describe("categorizer-editor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

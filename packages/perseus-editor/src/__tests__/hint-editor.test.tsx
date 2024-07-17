@@ -5,7 +5,7 @@ import * as React from "react";
 import CombinedHintsEditor from "../hint-editor";
 
 describe("CombinedHintsEditor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

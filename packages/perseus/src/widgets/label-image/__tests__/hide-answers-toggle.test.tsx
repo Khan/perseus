@@ -9,7 +9,7 @@ import {HideAnswersToggle} from "../hide-answers-toggle";
 const labelText = mockStrings.hideAnswersToggleLabel;
 
 describe("HideAnswersToggle", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

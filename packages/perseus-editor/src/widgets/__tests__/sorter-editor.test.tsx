@@ -7,7 +7,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import SorterEditor from "../sorter-editor";
 
 describe("sorter-editor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

@@ -32,7 +32,7 @@ const selectOption = async (
 };
 
 describe("single-choice question", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -620,7 +620,7 @@ describe("multi-choice question", () => {
 
     const apiOptions: APIOptions = Object.freeze({});
 
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

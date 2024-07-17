@@ -34,7 +34,7 @@ const renderAndWaitToSettle = (component: React.ReactElement) => {
 };
 
 describe("Zoomable", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

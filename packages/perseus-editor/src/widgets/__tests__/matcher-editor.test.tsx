@@ -7,7 +7,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import MatcherEditor from "../matcher-editor";
 
 describe("matcher-editor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

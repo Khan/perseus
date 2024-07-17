@@ -26,7 +26,7 @@ const contextToKeyAria = {
 };
 
 describe("keypad", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({

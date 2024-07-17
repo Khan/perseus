@@ -42,7 +42,7 @@ const renderEditor = (props) => {
 };
 
 describe("InteractiveGraphEditor locked figures", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

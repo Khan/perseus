@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import ItemExtrasEditor from "../item-extras-editor";
 
 describe("ItemExtrasEditor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

@@ -9,7 +9,7 @@ import ExpressionEditor from "../expression-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 describe("expression-editor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

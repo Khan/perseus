@@ -26,7 +26,7 @@ import type {Rubric} from "../numeric-input";
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
 
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -409,7 +409,7 @@ describe("static function validate", () => {
 });
 
 describe("Numeric input widget", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

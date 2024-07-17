@@ -96,7 +96,7 @@ const assertInvalid = async (
 };
 
 describe("Expression Widget", function () {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

@@ -30,7 +30,7 @@ const question = {
 } as const;
 
 describe("Definition widget", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

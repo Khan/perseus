@@ -7,7 +7,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import NumericInputEditor from "../numeric-input-editor";
 
 describe("numeric-input-editor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

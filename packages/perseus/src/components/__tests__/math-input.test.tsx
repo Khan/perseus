@@ -16,7 +16,7 @@ const allButtonSets = {
 };
 
 describe("Perseus' MathInput", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

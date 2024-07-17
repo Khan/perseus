@@ -29,7 +29,7 @@ import "@testing-library/jest-dom"; // Imports custom matchers
  */
 
 describe("GraphSettings", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

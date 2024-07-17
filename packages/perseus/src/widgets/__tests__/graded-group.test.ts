@@ -21,7 +21,7 @@ const checkAnswer = async (
 };
 
 describe("graded-group", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({

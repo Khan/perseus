@@ -8,7 +8,7 @@ import {article1} from "../__testdata__/graded-group-set.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 describe("graded group widget", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

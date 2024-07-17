@@ -5,7 +5,7 @@ import * as React from "react";
 import TabbarItem from "../item";
 
 describe("<TabbarItem />", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

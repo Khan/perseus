@@ -21,7 +21,7 @@ function userEventForRealTimers() {
 }
 
 describe("InteractiveGraphSettings", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventForFakeTimers();
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

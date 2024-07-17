@@ -31,7 +31,7 @@ const mafsProps: PropsFor<typeof InteractiveGraphEditor> = {
 };
 
 describe("InteractiveGraphEditor", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

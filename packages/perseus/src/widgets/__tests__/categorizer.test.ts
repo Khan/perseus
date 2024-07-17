@@ -13,7 +13,7 @@ import type {APIOptions} from "../../types";
 import type {Rubric} from "../categorizer";
 
 describe("categorizer widget", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

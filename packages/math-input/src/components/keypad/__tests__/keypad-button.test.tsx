@@ -7,7 +7,7 @@ import {mockStrings} from "../../../strings";
 import {KeypadButton} from "../keypad-button";
 
 describe("<KeypadButton />", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

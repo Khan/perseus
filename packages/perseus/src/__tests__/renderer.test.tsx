@@ -51,7 +51,7 @@ describe("renderer", () => {
         registerWidget("mock-widget", MockWidgetExport);
     });
 
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

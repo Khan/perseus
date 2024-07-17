@@ -10,7 +10,7 @@ import ExplanationWidgetExports from "../explanation";
 import {renderQuestion} from "./renderQuestion";
 
 describe("Explanation", function () {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
 
     // NOTE: Since the visibility of an element is controlled by CSS,
     //          the only way that we can verify in RTL that an element is visible or not (expanded/collapsed)

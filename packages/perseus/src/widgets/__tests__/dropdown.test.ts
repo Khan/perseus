@@ -8,7 +8,7 @@ import {question1} from "../__testdata__/dropdown.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 describe("Dropdown widget", () => {
-    let userEvent;
+    let userEvent: ReturnType<typeof userEventLib.setup>;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
