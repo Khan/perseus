@@ -104,6 +104,13 @@
         margin: 22px 0px;
     }
 
+    // HACK:
+    // - question-paragraph.tsx adds a `paragraph` class
+    // - Simple Markdown adds one too
+    // I needed to modify Simple Markdown without
+    // modifying QuestionParagraph.
+    // We need to wrangle the paragraph class:
+    // https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3087630337/LEMS+Perseus+paragraph+CSS+class
     div.paragraph > div.paragraph {
         display: flex;
         flex-wrap: wrap;
