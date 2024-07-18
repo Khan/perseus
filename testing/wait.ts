@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {screen, waitFor} from "@testing-library/react";
 
 // TODO(somewhatabstract): Replace with wonder-stuff-testing version
 if (typeof jest === "undefined") {
@@ -104,5 +104,7 @@ export const waitForAnimationFrame: () => Promise<void> = () =>
 export async function waitForInitialGraphieRender() {
     // Graphie uses Raphaël.js to render SVG. We can tell that Graphie has done
     // at least the first render by the existence of this text in the DOM.
-    await screen.findAllByText("Created with Raphaël");
+    await waitFor(() =>
+        expect(screen.getAllByText("Created with Raphaël")).toBeInTheDocument(),
+    );
 }
