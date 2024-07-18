@@ -104,7 +104,10 @@ export const waitForAnimationFrame: () => Promise<void> = () =>
 export async function waitForInitialGraphieRender() {
     // Graphie uses Raphaël.js to render SVG. We can tell that Graphie has done
     // at least the first render by the existence of this text in the DOM.
-    await waitFor(() =>
-        expect(screen.getAllByText("Created with Raphaël")).toBeInTheDocument(),
-    );
+
+    // Note(jeremy): findAllBy will throw if there are no matches!
+    // See: https://testing-library.com/docs/dom-testing-library/cheatsheet
+
+    // eslint-disable-next-line testing-library/prefer-explicit-assert
+    await screen.findAllByText("Created with Raphaël");
 }

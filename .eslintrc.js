@@ -323,7 +323,6 @@ module.exports = {
         "testing-library/await-async-queries": "error",
         "testing-library/prefer-user-event": "error",
         "testing-library/prefer-explicit-assert": "error",
-        "testing-library/prefer-find-by": "off",
 
         // These rules results in a lot of false positives
         "testing-library/render-result-naming-convention": "off",
