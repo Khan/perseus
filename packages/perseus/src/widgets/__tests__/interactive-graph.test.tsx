@@ -8,6 +8,7 @@ import * as React from "react";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
@@ -74,7 +75,7 @@ describe("interactive-graph widget", function () {
             correct: ReadonlyArray<Coord>,
             incorrect: ReadonlyArray<Coord>,
         ) => {
-            it("Should accept the right answer", () => {
+            it("Should accept the right answer", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, blankOptions);
 
@@ -93,12 +94,13 @@ describe("interactive-graph widget", function () {
                         (state) => (state.graph.coords = correct),
                     ),
                 );
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveBeenAnsweredCorrectly();
             });
 
-            it("Shoud render predictably", () => {
+            it("Shoud render predictably", async () => {
                 // Arrange
                 const {renderer, container} = renderQuestion(
                     question,
@@ -114,23 +116,24 @@ describe("interactive-graph widget", function () {
                         (state) => (state.graph.coords = correct),
                     ),
                 );
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(container).toMatchSnapshot("after interaction");
             });
 
-            it("should reject no interaction", () => {
+            it("should reject no interaction", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, blankOptions);
 
                 // Act
-                // no action
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveInvalidInput();
             });
 
-            it("should reject an incorrect answer", () => {
+            it("should reject an incorrect answer", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, blankOptions);
 
@@ -142,6 +145,7 @@ describe("interactive-graph widget", function () {
                         (state) => (state.graph.coords = incorrect),
                     ),
                 );
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveBeenAnsweredIncorrectly();

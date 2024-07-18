@@ -215,10 +215,12 @@ describe("Perseus API", function () {
         });
     });
 
-    describe("widget placeholders", function () {
-        it("should replace widgets with [WIDGET]", function () {
+    describe("placeholders", function () {
+        it("should replace widgets with widgetPlaceholder", function () {
             const widgetPlaceholder = (
-                <span data-testid="widget-container">[WIDGET]</span>
+                <span data-testid="widget-container" key="1">
+                    [WIDGET]
+                </span>
             );
 
             render(
@@ -238,9 +240,11 @@ describe("Perseus API", function () {
             );
         });
 
-        it("should replace images with [IMAGE]", function () {
+        it("should replace images with imagePlaceholder", function () {
             const imagePlaceholder = (
-                <span data-testid="image-container">[IMAGE]</span>
+                <span data-testid="image-container" key="1">
+                    [IMAGE]
+                </span>
             );
             render(
                 <Renderer

@@ -1,4 +1,4 @@
-import {screen, render} from "@testing-library/react";
+import {screen, render, waitFor} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -13,7 +13,7 @@ describe("plotter widget", () => {
         );
     });
 
-    it("should show drag text when not static", () => {
+    it("should show drag text when not static", async () => {
         // Arrange and Act
         render(
             // @ts-expect-error - TS2769 - test works, but I can't figure out how to make the types happy
@@ -31,11 +31,11 @@ describe("plotter widget", () => {
 
         // Assert
         expect(
-            screen.getByText("Drag handles to make graph"),
+            await screen.findByText("Drag handles to make graph"),
         ).toBeInTheDocument();
     });
 
-    it("should not show drag text when static", () => {
+    it("should not show drag text when static", async () => {
         // Arrange and Act
         render(
             // @ts-expect-error - TS2769 - test works, but I can't figure out how to make the types happy
@@ -52,8 +52,10 @@ describe("plotter widget", () => {
         );
 
         // Assert
-        expect(
-            screen.queryByText("Drag handles to make graph"),
-        ).not.toBeInTheDocument();
+        await waitFor(() => {
+            expect(
+                screen.queryByText("Drag handles to make graph"),
+            ).not.toBeInTheDocument();
+        });
     });
 });
