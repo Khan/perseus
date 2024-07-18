@@ -170,7 +170,7 @@ describe("choice button", () => {
         await userEvent.click(button);
 
         // Assert
-        expect(checked).toBeTrue();
+        expect(checked).toBe(true);
     });
 
     it("can be unchecked", async () => {
@@ -188,7 +188,7 @@ describe("choice button", () => {
         await userEvent.click(button);
 
         // Assert
-        expect(checked).toBeFalse();
+        expect(checked).toBe(false);
     });
 });
 
@@ -322,6 +322,6 @@ describe("choice input (screen reader only)", () => {
         await userEvent.click(input);
 
         // Assert
-        expect(checked).toBeFalse();
+        expect(checked).toBe(false);
     });
 });

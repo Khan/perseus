@@ -3,7 +3,10 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
-import AxisLabels from "./axis-labels";
+import AxisLabels from "./backgrounds/axis-labels";
+import {AxisTickLabels} from "./backgrounds/axis-tick-labels";
+import {Grid} from "./backgrounds/grid";
+import {LegacyGrid} from "./backgrounds/legacy-grid";
 import GraphLockedLayer from "./graph-locked-layer";
 import {
     LinearGraph,
@@ -16,11 +19,8 @@ import {
     SinusoidGraph,
     AngleGraph,
 } from "./graphs";
-import {AxisTickLabels} from "./graphs/components/axis-tick-labels";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
-import {Grid} from "./grid";
-import {LegacyGrid} from "./legacy-grid";
 import {X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";

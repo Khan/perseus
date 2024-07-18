@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import useGraphConfig from "../../reducer/use-graph-config";
-import {pointToPixel} from "../use-transform";
+import {pointToPixel} from "../graphs/use-transform";
+import useGraphConfig from "../reducer/use-graph-config";
 
-import type {GraphConfig} from "../../reducer/use-graph-config";
+import type {GraphConfig} from "../reducer/use-graph-config";
 import type {vec} from "mafs";
 
 type ShowTickLabelProps = {
