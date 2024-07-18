@@ -147,7 +147,7 @@ describe("Perseus' MathInput", () => {
 
     it("does not return focus to input after button press via keyboard", async () => {
         // Assemble
-        render(
+        const {container} = render(
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
@@ -162,7 +162,6 @@ describe("Perseus' MathInput", () => {
         // focusing the input triggers the popover
         screen.getByRole("button").click();
         await userEvent.tab(); // to "123" tab
-        await userEvent.tab(); // to "1" button
         await userEvent.keyboard("{enter}");
         jest.runOnlyPendingTimers();
 

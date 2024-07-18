@@ -19,13 +19,13 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             aria-disabled="false"
             aria-label="Numbers"
             aria-selected="true"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-focused_en8zhl-o_O-clickable_1ncqa8p"
             role="tab"
             tabindex="0"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class="default_xu2jcg-o_O-base_1pupywz-o_O-focused_2hwz1v"
             >
               <div
                 class="default_xu2jcg-o_O-innerBox_qdbgl3"
@@ -1075,13 +1075,13 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             aria-disabled="false"
             aria-label="Numbers"
             aria-selected="true"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-focused_en8zhl-o_O-clickable_1ncqa8p"
             role="tab"
             tabindex="0"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class="default_xu2jcg-o_O-base_1pupywz-o_O-focused_2hwz1v"
             >
               <div
                 class="default_xu2jcg-o_O-innerBox_qdbgl3"
