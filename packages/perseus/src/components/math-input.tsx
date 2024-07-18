@@ -52,7 +52,7 @@ type Props = {
      * Overrides deprecated `buttonSets` prop.
      */
     keypadButtonSets?: KeypadButtonSets;
-    labelText: string;
+    ariaLabel: string;
     onFocus?: () => void;
     onBlur?: () => void;
     hasError?: boolean;
@@ -77,7 +77,6 @@ type InnerProps = Props & {
 
 type DefaultProps = {
     value: Props["value"];
-    labelText: Props["labelText"];
     convertDotToTimes: Props["convertDotToTimes"];
 };
 
@@ -100,7 +99,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     static defaultProps: DefaultProps = {
         value: "",
-        labelText: "Math input",
         convertDotToTimes: false,
     };
 
@@ -243,7 +241,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             );
         }
 
-        this.__mathField?.setAriaLabel(this.props.labelText);
+        this.__mathField?.setAriaLabel(this.props.ariaLabel);
         return this.__mathField;
     };
 
@@ -395,6 +393,10 @@ class MathInput extends React.Component<Props, State> {
     static contextType = MathInputI18nContext;
     declare context: React.ContextType<typeof MathInputI18nContext>;
     inputRef = React.createRef<InnerMathInput>();
+
+    static defaultProps: Pick<Props, "ariaLabel"> = {
+        ariaLabel: "Math input",
+    };
 
     blur() {
         this.inputRef.current?.blur();

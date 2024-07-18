@@ -34,7 +34,6 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                labelText="test"
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
                 value=""
@@ -43,7 +42,28 @@ describe("Perseus' MathInput", () => {
         jest.runOnlyPendingTimers();
 
         // Assert
-        expect(screen.getByLabelText("test:")).toBeInTheDocument();
+        expect(
+            screen.getByRole("textbox", {name: "Math input:"}),
+        ).toBeInTheDocument();
+    });
+
+    it("provides a default aria label", () => {
+        // Assemble
+        render(
+            <MathInput
+                onChange={() => {}}
+                keypadButtonSets={allButtonSets}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
+            />,
+        );
+        jest.runOnlyPendingTimers();
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "Math input:"}),
+        ).toBeInTheDocument();
     });
 
     it("is possible to type in the input", async () => {
@@ -55,14 +75,16 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
-                labelText="Math input"
                 value=""
             />,
         );
         jest.runOnlyPendingTimers();
 
         // Act
-        await userEvent.type(screen.getByRole("textbox"), "12345");
+        await userEvent.type(
+            screen.getByRole("textbox", {name: "Math input:"}),
+            "12345",
+        );
         jest.runOnlyPendingTimers();
 
         // Assert
@@ -78,7 +100,6 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
-                labelText="Math input"
                 value=""
             />,
         );
@@ -106,7 +127,6 @@ describe("Perseus' MathInput", () => {
                 buttonSets={["basic+div"]}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
-                labelText="Math input"
                 value=""
             />,
         );
@@ -134,7 +154,6 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
-                labelText="Math input"
                 value=""
             />,
         );
@@ -146,7 +165,7 @@ describe("Perseus' MathInput", () => {
         await userEvent.click(screen.getByRole("button", {name: "1"}));
 
         // Assert
-        expect(screen.getByRole("textbox")).toHaveFocus();
+        expect(screen.getByRole("textbox", {name: /Math input/})).toHaveFocus();
     });
 
     it("does not return focus to input after button press via keyboard", async () => {
@@ -157,7 +176,6 @@ describe("Perseus' MathInput", () => {
                 keypadButtonSets={allButtonSets}
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
-                labelText="Math input"
                 value=""
             />,
         );
@@ -172,7 +190,9 @@ describe("Perseus' MathInput", () => {
         jest.runOnlyPendingTimers();
 
         // Assert
-        expect(screen.getByRole("textbox")).not.toHaveFocus();
+        expect(
+            screen.getByRole("textbox", {name: "Math input:"}),
+        ).not.toHaveFocus();
     });
 
     it("does not focus on the keypad button when it is clicked with the mouse", () => {
@@ -183,7 +203,6 @@ describe("Perseus' MathInput", () => {
                 buttonsVisible="always"
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
-                labelText="Math input"
                 value=""
             />,
         );

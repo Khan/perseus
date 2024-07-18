@@ -666,7 +666,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                             onFocus={this._handleFocus}
                             onBlur={this._handleBlur}
                             hasError={this.state.showErrorStyle}
-                            labelText={
+                            ariaLabel={
                                 this.props.ariaLabel || "Expression input"
                             }
                             extraKeys={
