@@ -89,26 +89,12 @@ function TabbarItem(props: TabItemProps): React.ReactElement {
     const tabRef = useRef<{focus: () => void}>(null);
 
     useEffect(() => {
-        let timeout;
         if (role === "tab" && focus) {
-            /**
-             * When tabs are within a WonderBlocks Popover component, the
-             * manner in which the component is rendered and moved causes
-             * focus to snap to the bottom of the page on first focus.
-             *
-             * This timeout moves around that by delaying the focus enough
-             * to wait for the WonderBlock Popover to move to the correct
-             * location and scroll the user to the correct location.
-             * */
-            timeout = setTimeout(() => {
-                if (tabRef?.current) {
-                    // Move element into view when it is focused
-                    tabRef?.current.focus();
-                }
-            }, 0);
+            if (tabRef?.current) {
+                // Move element into view when it is focused
+                tabRef?.current.focus();
+            }
         }
-
-        return () => clearTimeout(timeout);
     }, [role, focus, tabRef]);
 
     return (
