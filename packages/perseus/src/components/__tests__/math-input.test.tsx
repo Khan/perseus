@@ -66,6 +66,26 @@ describe("Perseus' MathInput", () => {
         ).toBeInTheDocument();
     });
 
+    it("is possible to overwrite the aria label", () => {
+        // Assemble
+        render(
+            <MathInput
+                onChange={() => {}}
+                keypadButtonSets={allButtonSets}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
+                ariaLabel="Hello world"
+            />,
+        );
+        jest.runOnlyPendingTimers();
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "Hello world:"}),
+        ).toBeInTheDocument();
+    });
+
     it("is possible to type in the input", async () => {
         // Assemble
         const mockOnChange = jest.fn();

@@ -68,6 +68,19 @@ export const expressionItemWithAnswer = (answer: string): PerseusItem => {
     );
 };
 
+export const expressionItemWithLabels = createItemJson(
+    {
+        answerForms: [],
+        times: false,
+        buttonSets: ["basic"],
+        functions: [],
+        buttonsVisible: "always",
+        ariaLabel: "Test aria label",
+        visibleLabel: "Test visible label",
+    },
+    {major: 1, minor: 0},
+);
+
 export const expressionItem2: PerseusItem = createItemJson(
     {
         answerForms: [
