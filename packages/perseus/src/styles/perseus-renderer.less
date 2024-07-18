@@ -100,14 +100,15 @@
         font-family: "Lato", sans-serif;
         font-weight: 400;
         font-size: 18px;
-        // line-height: 22px;
+        line-height: 22px;
+        margin: 22px 0px;
+    }
+
+    div.paragraph > div.paragraph {
         display: flex;
         flex-wrap: wrap;
         align-items: end;
-    }
-
-    [data-perseus-paragraph-index] {
-        margin: 22px 0px;
+        margin: 0;
     }
 
     // HACK(yejia): Override the font size and line height for blurbs
