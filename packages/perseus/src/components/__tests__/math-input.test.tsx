@@ -147,7 +147,7 @@ describe("Perseus' MathInput", () => {
 
     it("does not return focus to input after button press via keyboard", async () => {
         // Assemble
-        const {container} = render(
+        render(
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
