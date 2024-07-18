@@ -11,7 +11,7 @@ on:
         #        │ │ │ ┌───── month (1 - 12 or JAN-DEC)
         #        │ │ │ │ ┌─── day of the week (0 - 6 or SUN-SAT)
         #        v v v v v
-        - cron: 30 7 * * 1
+        - cron: 30 7 * * 1 # in UTC
         #       Run on Mondays @ 7:30am UTC (3:30am EDT, 12:30 am PDT)
 
 jobs:
