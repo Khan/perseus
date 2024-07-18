@@ -32,7 +32,7 @@ jobs:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Update browserslist DB
-              run: npx update-browserslist@latest
+              run: npx update-browserslist-db@latest
 
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
