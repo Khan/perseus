@@ -38,7 +38,7 @@ jobs:
               uses: peter-evans/create-pull-request@v6
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
-                  team-reviewers: Perseus
+                  team-reviewers: perseus, frontend-infra-web
                   commit-message: "chore: update browserslist"
                   title: Update browserslist
                   body: |
@@ -57,4 +57,4 @@ jobs:
 
                       If everything looks fine, please approve this PR and then
                       land it (either with the Big Green Merge Button ™️ or by
-                      using `git land <this pr #>` in a terminal.
+                      using `git land <this pr #>` in a terminal).
