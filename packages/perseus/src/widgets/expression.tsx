@@ -153,6 +153,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
 
     //#region Previously a class extension
@@ -361,6 +362,29 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
+
+        if (this.props.apiOptions.customKeypad) {
+            // HACK: imperatively add an ID onto the Mathquill input
+            // (which in mobile is a span)
+            // in order to associate a visual label with it
+            if (this.refs.input) {
+                const container = ReactDOM.findDOMNode(this.refs.input);
+                const inputSpan = (container as Element).querySelector(
+                    ".mq-textarea > span",
+                );
+                inputSpan?.setAttribute("id", this._textareaId);
+            }
+        } else {
+            // HACK: imperatively add an ID onto the Mathquill textarea
+            // in order to associate a visual label with it
+            if (this.refs.input) {
+                const container = ReactDOM.findDOMNode(this.refs.input);
+                const textarea = (container as Element).getElementsByTagName(
+                    "textarea",
+                );
+                textarea[0].setAttribute("id", this._textareaId);
+            }
+        }
     };
 
     // Whenever the input value changes, attempt to parse it.
@@ -543,20 +567,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     render() {
-        const textareaId = `expression_textarea_${Date.now()}`;
-
         if (this.props.apiOptions.customKeypad) {
-            // HACK: imperatively add an ID onto the Mathquill input
-            // (which in mobile is a span)
-            // in order to associate a visual label with it
-            if (this.refs.input) {
-                const container = ReactDOM.findDOMNode(this.refs.input);
-                const inputSpan = (container as Element).querySelector(
-                    ".mq-textarea > span",
-                );
-                inputSpan?.setAttribute("id", textareaId);
-            }
-
             return (
                 <View style={{padding: "15px 4px 0"}}>
                     {!!this.props.visibleLabel && (
@@ -565,7 +576,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                                 fontSize: "12px",
                                 lineHeight: "10px",
                             }}
-                            htmlFor={textareaId}
+                            htmlFor={this._textareaId}
                         >
                             {this.props.visibleLabel}
                         </label>
@@ -603,21 +614,11 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
-        // HACK: imperatively add an ID onto the Mathquill textarea
-        // in order to associate a visual label with it
-        if (this.refs.input) {
-            const container = ReactDOM.findDOMNode(this.refs.input);
-            const textarea = (container as Element).getElementsByTagName(
-                "textarea",
-            );
-            textarea[0].setAttribute("id", textareaId);
-        }
-
         return (
             <View style={{margin: "5px 5px 0"}}>
                 {!!this.props.visibleLabel && (
                     <label
-                        htmlFor={textareaId}
+                        htmlFor={this._textareaId}
                         style={{
                             fontSize: "12px",
                             lineHeight: "10px",
