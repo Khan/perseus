@@ -441,7 +441,7 @@ export const PerseusExpressionAnswerFormConsidered = [
 ] as const;
 
 export type PerseusExpressionAnswerForm = {
-    // The Katex form of the expression.  e.g. "x\\cdot3=y"
+    // The TeX form of the expression.  e.g. "x\\cdot3=y"
     value: string;
     // The Answer expression must have the same form
     form: boolean;
@@ -874,7 +874,7 @@ export type PerseusGraphTypeRay = {
 } & PerseusGraphTypeCommon;
 
 export type PerseusLabelImageWidgetOptions = {
-    // Translatable Text; Katex representation of choices
+    // Translatable Text; Tex representation of choices
     choices: ReadonlyArray<string>;
     // The URL of the image
     imageUrl: string;

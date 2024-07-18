@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import Graph from "../graph";
-// TODO(scottgrant): Katex is unavailable here. Fix!
 
 type StoryArgs = Record<any, any>;
 

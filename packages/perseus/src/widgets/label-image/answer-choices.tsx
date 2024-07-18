@@ -14,7 +14,7 @@ import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
 export type AnswerType = {
-    // The answer string, can be plain text or a KaTeX expression.
+    // The answer string, can be plain text or a TeX expression.
     content: string;
     // Whether the answer is selected.
     checked: boolean;

@@ -519,9 +519,9 @@ export class MovablePoint {
      * Displays a tooltip above the point, replacing any previous contents. If
      * there is no tooltip initialized, adds the tooltip.
      *
-     * If the type of contents is string, the contents will be rendered with
-     * KaTeX. Otherwise, the content will be assumed to be a DOM node and will
-     * be appended inside the tooltip.
+     * If the type of contents is string, the contents will be rendered as TeX
+     * Otherwise, the content will be assumed to be a DOM node and will be
+     * appended inside the tooltip.
      */
     _showTooltip(contents) {
         if (!this._tooltip) {
