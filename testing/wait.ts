@@ -1,4 +1,4 @@
-import {screen, waitFor} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 
 // TODO(somewhatabstract): Replace with wonder-stuff-testing version
 if (typeof jest === "undefined") {
