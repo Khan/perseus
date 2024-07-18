@@ -90,6 +90,7 @@ function TabbarItem(props: TabItemProps): React.ReactElement {
 
     useEffect(() => {
         if (role === "tab" && focus) {
+            // Move element into view when it is focused
             tabRef?.current?.focus();
         }
     }, [role, focus, tabRef]);
