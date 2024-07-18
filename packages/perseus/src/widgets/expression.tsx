@@ -363,27 +363,15 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 
-        if (this.props.apiOptions.customKeypad) {
-            // HACK: imperatively add an ID onto the Mathquill input
-            // (which in mobile is a span)
-            // in order to associate a visual label with it
-            if (this.refs.input) {
-                const container = ReactDOM.findDOMNode(this.refs.input);
-                const inputSpan = (container as Element).querySelector(
-                    ".mq-textarea > span",
-                );
-                inputSpan?.setAttribute("id", this._textareaId);
-            }
-        } else {
-            // HACK: imperatively add an ID onto the Mathquill textarea
-            // in order to associate a visual label with it
-            if (this.refs.input) {
-                const container = ReactDOM.findDOMNode(this.refs.input);
-                const textarea = (container as Element).getElementsByTagName(
-                    "textarea",
-                );
-                textarea[0].setAttribute("id", this._textareaId);
-            }
+        // HACK: imperatively add an ID onto the Mathquill input
+        // (which in mobile is a span; desktop a textarea)
+        // in order to associate a visual label with it
+        if (this.refs.input) {
+            const isMobile = this.props.apiOptions.customKeypad;
+            const container = ReactDOM.findDOMNode(this.refs.input);
+            const selector = isMobile ? ".mq-textarea > span" : "textarea";
+            const inputElement = (container as Element).querySelector(selector);
+            inputElement?.setAttribute("id", this._textareaId);
         }
     };
 
