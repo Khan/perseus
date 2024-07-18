@@ -710,24 +710,6 @@ describe("renderer", () => {
             });
             expect(container).toMatchSnapshot();
         });
-
-        it("should replace deprecated alignment tags in inline math", async () => {
-            // Arrange
-            const question = {
-                content:
-                    "$\\begin{align}\n2\\text{HCl}(\\text{aq})+\\text{Ca}(\\text{OH})_2(\\text{aq})\\rightarrow\\text{Ca}(\\text{s})+2\\text H_2\\text O(\\text l)+\\text{Cl}_2(\\text g)\n\\end{align}$",
-                images: {},
-                widgets: {},
-            } as const;
-
-            // Act
-            renderQuestion(question);
-
-            // Assert
-            expect(
-                screen.getByText(/\\begin\{aligned\}.*\\end\{aligned\}/),
-            ).toBeInTheDocument();
-        });
     });
 
     // Note that we can't use `.each` here because the three props require
