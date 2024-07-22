@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 9.0.0
+
+### Major Changes
+
+-   [#1064](https://github.com/Khan/perseus/pull/1064) [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - React 18
+
+### Patch Changes
+
+-   [#1421](https://github.com/Khan/perseus/pull/1421) [`9a3bce37f`](https://github.com/Khan/perseus/commit/9a3bce37fe0d4718638b2571fab7081217b9f6cc) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Enhance types in tests using @testing-library/user-event
+
+-   Updated dependencies [[`4b6fc712e`](https://github.com/Khan/perseus/commit/4b6fc712ea259eba4482480796a8b46602cb0ec1), [`9a3bce37f`](https://github.com/Khan/perseus/commit/9a3bce37fe0d4718638b2571fab7081217b9f6cc), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df)]:
+    -   @khanacademy/perseus@26.0.0
+    -   @khanacademy/math-input@20.0.0
+
 ## 8.2.0
 
 ### Minor Changes
