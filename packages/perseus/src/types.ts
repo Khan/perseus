@@ -314,7 +314,6 @@ export type APIOptions = Readonly<{
      * the available choices.
      */
     onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
-    hintMode?: boolean;
 }>;
 
 type TeXProps = {
@@ -575,6 +574,7 @@ export type WidgetProps<
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: (arg1: FilterCriterion) => ReadonlyArray<Widget>;
     reviewModeRubric: Rubric;
+    hintMode: boolean;
     onChange: ChangeHandler;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer

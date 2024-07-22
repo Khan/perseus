@@ -1816,7 +1816,6 @@ class InteractiveGraph extends React.Component<Props, State> {
     render() {
         // Mafs shim
         const mafsFlags = this.props.apiOptions?.flags?.["mafs"];
-        const {hintMode = false} = this.props.apiOptions;
         if (shouldUseMafs(mafsFlags, this.props.graph)) {
             const box = getInteractiveBoxFromSizeClass(
                 this.props.containerSizeClass,
@@ -1835,7 +1834,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     snapStep={snapStep}
                     box={box}
                     showTooltips={!!this.props.showTooltips}
-                    hintMode={hintMode}
+                    hintMode={this.props.hintMode}
                 />
             );
         }
