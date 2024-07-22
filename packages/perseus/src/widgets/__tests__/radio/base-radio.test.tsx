@@ -10,6 +10,7 @@ import {generateChoice} from "../../__testdata__/base-radio.testdata";
 import BaseRadio from "../../radio/base-radio";
 
 import type {APIOptions} from "../../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 function renderBaseRadio(props) {
     const apiOptions: APIOptions = Object.freeze({});
@@ -44,7 +45,7 @@ function renderBaseRadio(props) {
 }
 
 describe("base-radio", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({

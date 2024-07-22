@@ -23,6 +23,7 @@ import type {Widget} from "../../renderer";
 import type {FilterCriterion} from "../../types";
 import type {Item} from "../item-types";
 import type {Tree} from "../tree-types";
+import type {UserEvent} from "@testing-library/user-event";
 
 // A little helper used in the render callback of a MultiRenderer.
 type Props = {renderers: any};
@@ -95,7 +96,7 @@ describe("multi-item renderer", () => {
         registerWidget("mock-widget", MockWidgetExport);
     });
 
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

@@ -14,6 +14,7 @@ import Editor from "../editor";
 import ImageEditor from "../widgets/image-editor";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
     return (
@@ -45,7 +46,7 @@ describe("Editor", () => {
         Widgets.registerEditors([ImageEditor]);
     });
 
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

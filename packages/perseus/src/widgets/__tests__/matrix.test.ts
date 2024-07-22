@@ -8,9 +8,10 @@ import {question1} from "../__testdata__/matrix.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("matrix widget", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

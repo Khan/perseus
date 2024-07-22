@@ -6,6 +6,8 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import MathInput from "../math-input";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 const allButtonSets = {
     advancedRelations: true,
     basicRelations: true,
@@ -16,7 +18,7 @@ const allButtonSets = {
 };
 
 describe("Perseus' MathInput", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

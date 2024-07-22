@@ -20,6 +20,7 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -96,7 +97,7 @@ const assertInvalid = async (
 };
 
 describe("Expression Widget", function () {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

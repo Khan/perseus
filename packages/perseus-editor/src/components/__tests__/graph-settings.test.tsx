@@ -6,6 +6,8 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import GraphSettings from "../graph-settings";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 import "@testing-library/jest-dom"; // Imports custom matchers
 
 /**
@@ -29,7 +31,7 @@ import "@testing-library/jest-dom"; // Imports custom matchers
  */
 
 describe("GraphSettings", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

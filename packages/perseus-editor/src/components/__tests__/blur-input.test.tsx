@@ -4,8 +4,10 @@ import * as React from "react";
 
 import BlurInput from "../blur-input";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("BlurInput", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

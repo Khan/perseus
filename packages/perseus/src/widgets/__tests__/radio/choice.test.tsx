@@ -6,6 +6,8 @@ import * as React from "react";
 
 import Choice from "../../radio/choice";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 function renderChoice(options) {
     const defaultOptions = {
         checked: false,
@@ -109,7 +111,7 @@ describe("all choice options", () => {
 
 // Tests 1 of 2 element types used to select a choice
 describe("choice button", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -194,7 +196,7 @@ describe("choice button", () => {
 
 // Tests 2 of 2 element types used to select a choice
 describe("choice input (screen reader only)", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({

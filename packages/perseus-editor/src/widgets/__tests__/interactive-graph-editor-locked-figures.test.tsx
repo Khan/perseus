@@ -10,6 +10,7 @@ import {getDefaultFigureForType} from "../../components/util";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
+import type {UserEvent} from "@testing-library/user-event";
 
 const defaultPoint = getDefaultFigureForType("point");
 const defaultLine = getDefaultFigureForType("line");
@@ -42,7 +43,7 @@ const renderEditor = (props) => {
 };
 
 describe("InteractiveGraphEditor locked figures", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

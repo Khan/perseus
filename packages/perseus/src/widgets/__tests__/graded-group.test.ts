@@ -9,6 +9,7 @@ import {question1} from "../__testdata__/graded-group.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const checkAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -21,7 +22,7 @@ const checkAnswer = async (
 };
 
 describe("graded-group", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({

@@ -6,8 +6,10 @@ import Keys from "../../../data/key-configs";
 import {mockStrings} from "../../../strings";
 import {KeypadButton} from "../keypad-button";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("<KeypadButton />", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

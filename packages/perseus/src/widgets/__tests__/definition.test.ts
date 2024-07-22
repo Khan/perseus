@@ -6,6 +6,8 @@ import * as Dependencies from "../../dependencies";
 
 import {renderQuestion} from "./renderQuestion";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 const question = {
     content:
         "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
@@ -30,7 +32,7 @@ const question = {
 } as const;
 
 describe("Definition widget", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

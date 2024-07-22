@@ -6,6 +6,8 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import InteractiveGraphSettings from "../interactive-graph-settings";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 import "@testing-library/jest-dom"; // Imports custom matchers
 
 function userEventForFakeTimers() {
@@ -21,7 +23,7 @@ function userEventForRealTimers() {
 }
 
 describe("InteractiveGraphSettings", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventForFakeTimers();
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

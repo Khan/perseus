@@ -6,6 +6,7 @@ import {useRef} from "react";
 
 import {useDraggable} from "./use-draggable";
 
+import type {UserEvent} from "@testing-library/user-event";
 import type {vec, Interval} from "mafs";
 
 function TestDraggable(props: {
@@ -29,7 +30,7 @@ function TestDraggable(props: {
 }
 
 describe("useDraggable", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

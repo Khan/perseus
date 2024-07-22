@@ -6,10 +6,12 @@ import * as React from "react";
 import {mockStrings} from "../../../strings";
 import {HideAnswersToggle} from "../hide-answers-toggle";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 const labelText = mockStrings.hideAnswersToggleLabel;
 
 describe("HideAnswersToggle", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

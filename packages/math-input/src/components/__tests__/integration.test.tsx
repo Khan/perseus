@@ -15,6 +15,7 @@ import {MobileKeypad} from "../keypad";
 import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
 
 import type {KeypadConfiguration} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const MQ = MathQuill.getInterface(3);
 
@@ -80,7 +81,7 @@ function ConnectedMathInput({keypadConfiguration = defaultConfiguration}) {
 }
 
 describe("math input integration", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

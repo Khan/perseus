@@ -25,6 +25,8 @@ import {registerWidget} from "../../widgets";
 import {expressionItem2} from "../__testdata__/expression.testdata";
 import ExpressionExport from "../expression";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 const MQ = mathQuillInstance;
 
 function RendererWithContext({item}) {
@@ -81,7 +83,7 @@ describe("expression mobile", () => {
         registerWidget("expression", ExpressionExport);
     });
 
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

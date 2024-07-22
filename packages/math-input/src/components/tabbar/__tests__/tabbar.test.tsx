@@ -4,8 +4,10 @@ import * as React from "react";
 
 import Tabbar from "../tabbar";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("<Tabbar />", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

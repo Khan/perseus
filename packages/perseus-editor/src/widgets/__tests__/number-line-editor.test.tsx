@@ -6,8 +6,10 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import NumberLineEditor from "../number-line-editor";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("number-line-editor", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

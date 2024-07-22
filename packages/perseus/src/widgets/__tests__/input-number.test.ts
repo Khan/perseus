@@ -18,6 +18,7 @@ import type {
     PerseusInputNumberWidgetOptions,
     PerseusRenderer,
 } from "../../perseus-types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const {transform} = InputNumber;
 
@@ -28,7 +29,7 @@ const options: PerseusInputNumberWidgetOptions = {
 };
 
 describe("input-number", function () {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

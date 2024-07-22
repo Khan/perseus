@@ -12,6 +12,7 @@ import Keypad from "../index";
 import type Key from "../../../data/keys";
 import type {MathFieldInterface} from "../../input/mathquill-types";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 type Props = {
     onChangeMathInput: (mathInputTex: string) => void;
@@ -111,7 +112,7 @@ function V2KeypadWithMathquill(props: Props) {
 }
 
 describe("Keypad v2 with MathQuill", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
