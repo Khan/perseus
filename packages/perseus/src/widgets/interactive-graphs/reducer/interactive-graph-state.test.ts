@@ -5,6 +5,23 @@ import {getGradableGraph} from "./interactive-graph-state";
 import type {InteractiveGraphState} from "../types";
 import type {PerseusGraphType} from "@khanacademy/perseus";
 
+const defaultAngleState: InteractiveGraphState = {
+    type: "angle",
+    coords: [
+        [5, 0],
+        [0, 0],
+        [5, 5],
+    ],
+    hasBeenInteractedWith: true,
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    showAngles: true,
+    allowReflexAngles: false,
+};
+
 describe("getGradableGraph", () => {
     /**
      * Originally `getGradableGraph` was returning a PerseusGraphType with just a
@@ -36,20 +53,13 @@ describe("getGradableGraph", () => {
     // legacy graph. This logic (& the tests) should be moved to the scoring function after removing the legacy graph.
     it("returns reversed coordinates if the angle graph is reflexive when not allowed", () => {
         const state: InteractiveGraphState = {
-            type: "angle",
+            ...defaultAngleState,
             coords: [
                 [-5, 0],
                 [0, 0],
                 [5, 5],
             ],
             hasBeenInteractedWith: true,
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            snapStep: [1, 1],
-            showAngles: true,
-            allowReflexAngles: false,
         };
         const initialGraph: PerseusGraphType = {
             type: "angle",
@@ -65,20 +75,13 @@ describe("getGradableGraph", () => {
 
     it("does not reverse coordinates if the angle graph is not reflexive", () => {
         const state: InteractiveGraphState = {
-            type: "angle",
+            ...defaultAngleState,
             coords: [
                 [5, 0],
                 [0, 0],
                 [5, 5],
             ],
             hasBeenInteractedWith: true,
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            snapStep: [1, 1],
-            showAngles: true,
-            allowReflexAngles: false,
         };
         const initialGraph: PerseusGraphType = {
             type: "angle",
@@ -94,19 +97,13 @@ describe("getGradableGraph", () => {
 
     it("does not reverse coordinates if the angle graph is allowed to be reflexive", () => {
         const state: InteractiveGraphState = {
-            type: "angle",
+            ...defaultAngleState,
             coords: [
                 [5, 0],
                 [0, 0],
                 [-5, -5],
             ],
             hasBeenInteractedWith: true,
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            snapStep: [1, 1],
-            showAngles: true,
             allowReflexAngles: true,
         };
         const initialGraph: PerseusGraphType = {

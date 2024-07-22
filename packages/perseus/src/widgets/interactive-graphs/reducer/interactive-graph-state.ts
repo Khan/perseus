@@ -96,7 +96,7 @@ export function getGradableGraph(
 
         return {
             ...initialGraph,
-            coords: coords,
+            coords,
             allowReflexAngles: state.allowReflexAngles,
         };
     }
