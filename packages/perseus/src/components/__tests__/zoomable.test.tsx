@@ -5,6 +5,8 @@ import * as React from "react";
 
 import Zoomable from "../zoomable";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 const mockSize = (
     el: HTMLElement | null | undefined,
     size: {
@@ -34,7 +36,7 @@ const renderAndWaitToSettle = (component: React.ReactElement) => {
 };
 
 describe("Zoomable", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

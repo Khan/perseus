@@ -6,8 +6,10 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import DefinitionEditor from "../definition-editor";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("definition-editor", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

@@ -22,11 +22,12 @@ import {
 import {renderQuestion} from "./renderQuestion";
 
 import type {Rubric} from "../numeric-input";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
 
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -409,7 +410,7 @@ describe("static function validate", () => {
 });
 
 describe("Numeric input widget", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

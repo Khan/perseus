@@ -26,6 +26,7 @@ import MockWidgetExport from "./mock-widget";
 
 import type {DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
 // because one of it's "instance" methods is created using `debounce` and Jest
@@ -51,7 +52,7 @@ describe("renderer", () => {
         registerWidget("mock-widget", MockWidgetExport);
     });
 
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

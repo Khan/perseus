@@ -13,8 +13,10 @@ import {question1} from "../__testdata__/group.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("group widget", () => {
-    let userEvent: ReturnType<typeof userEventLib.setup>;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
