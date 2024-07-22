@@ -667,6 +667,7 @@ function boundAndSnapAngleEndPoints(
 ) {
     const snap = snapDegrees || 1;
     const offsetDegrees = angleOffsetDeg || 0;
+    const startingPoint = coords[index];
 
     // Needed to prevent updating the original coords before the checks for
     // degenerate triangles and overlapping sides
@@ -691,6 +692,11 @@ function boundAndSnapAngleEndPoints(
 
     // Get the vertex of the angle
     const vertex = coords[1];
+
+    // Ensure that the point cannot be moved too close to the vertex
+    if (tooClose(vertex, boundPoint, range)) {
+        return startingPoint;
+    }
 
     // Gets the angle between the coords and the vertex
     let angle = findAngle(coordsCopy[index], vertex);

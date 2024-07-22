@@ -467,6 +467,48 @@ describe("movePoint on an angle graph", () => {
         ).toBeCloseTo(30);
     });
 
+    it("doesn't allow the endpoints to get too close to the vertex", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [5, 5],
+                [0, 0],
+                [5, 0],
+            ],
+            snapDegrees: 5,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(0, [1, 1]),
+        );
+        invariant(updated.type === "angle");
+
+        // The point should not have moved as it would have been too close to the vertex
+        expect(updated.coords[0]).toEqual([5, 5]);
+    });
+
+    it("doesn't allow the vertex to get too close to the endpoints", () => {
+        const state: InteractiveGraphState = {
+            ...baseAngleGraphState,
+            coords: [
+                [9, 0],
+                [6, 0],
+                [9, 1],
+            ],
+            snapDegrees: 5,
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.angle.movePoint(1, [9, 0]),
+        );
+        invariant(updated.type === "angle");
+
+        // The point should not have moved as it would have been too close to the vertex
+        expect(updated.coords[1]).toEqual([6, 0]);
+    });
+
     it("keeps points within the graph bounds", () => {
         const state: InteractiveGraphState = {
             ...baseAngleGraphState,
