@@ -1,5 +1,18 @@
 # @khanacademy/perseus-dev-ui
 
+## 2.0.0
+
+### Major Changes
+
+-   [#1064](https://github.com/Khan/perseus/pull/1064) [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - React 18
+
+### Patch Changes
+
+-   Updated dependencies [[`9a3bce37f`](https://github.com/Khan/perseus/commit/9a3bce37fe0d4718638b2571fab7081217b9f6cc), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df)]:
+    -   @khanacademy/math-input@20.0.0
+    -   @khanacademy/simple-markdown@0.13.0
+    -   @khanacademy/pure-markdown@0.3.7
+
 ## 1.6.2
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 26.0.0
+
+### Major Changes
+
+-   [#1064](https://github.com/Khan/perseus/pull/1064) [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - React 18
+
+### Minor Changes
+
+-   [#1426](https://github.com/Khan/perseus/pull/1426) [`4b6fc712e`](https://github.com/Khan/perseus/commit/4b6fc712ea259eba4482480796a8b46602cb0ec1) Thanks [@benchristel](https://github.com/benchristel)! - Tweak the animation of the protractor rotation handle. It's now slightly slower and the magnification is less extreme.
+
+### Patch Changes
+
+-   [#1421](https://github.com/Khan/perseus/pull/1421) [`9a3bce37f`](https://github.com/Khan/perseus/commit/9a3bce37fe0d4718638b2571fab7081217b9f6cc) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Enhance types in tests using @testing-library/user-event
+
+*   [#1064](https://github.com/Khan/perseus/pull/1064) [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix: prevent `react` and `react-dom` from being bundled
+
+*   Updated dependencies [[`9a3bce37f`](https://github.com/Khan/perseus/commit/9a3bce37fe0d4718638b2571fab7081217b9f6cc), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df)]:
+    -   @khanacademy/math-input@20.0.0
+    -   @khanacademy/simple-markdown@0.13.0
+    -   @khanacademy/pure-markdown@0.3.7
+
 ## 25.1.1
 
 ### Patch Changes
