@@ -12,7 +12,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {BodyMonospace, LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -21,6 +21,7 @@ import LabeledRow from "../components/graph-locked-figures/labeled-row";
 import LockedFiguresSection from "../components/graph-locked-figures/locked-figures-section";
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphTypeSelector from "../components/graph-type-selector";
+import {InteractiveGraphCorrectAnswer} from "../components/interactive-graph-correct-answer";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import SegmentCountSelector from "../components/segment-count-selector";
 import StartCoordSettings from "../components/start-coord-settings";
@@ -295,6 +296,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         }}
                     />
                 </LabeledRow>
+                <InteractiveGraphCorrectAnswer equationString={equationString}>
+                    {graph}
+                </InteractiveGraphCorrectAnswer>
                 {this.props.correct?.type === "point" && (
                     <LabeledRow label="Number of Points:">
                         <GraphPointsCountSelector
@@ -604,28 +608,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         </InfoTip>
                     </LabeledRow>
                 )}
-                <LabeledRow label="Correct answer:">
-                    <BodyMonospace
-                        style={{
-                            fontSize: 12,
-                            backgroundColor: "#eee",
-                            paddingInline: spacing.xxSmall_6,
-                            borderColor: "#ccc",
-                            borderStyle: "solid",
-                            borderWidth: 1,
-                        }}
-                    >
-                        {equationString}
-                    </BodyMonospace>
-                    <InfoTip>
-                        <p>
-                            Graph the correct answer in the graph below and
-                            ensure the equation or point coordinates displayed
-                            represent the correct answer.
-                        </p>
-                    </InfoTip>
-                </LabeledRow>
-                {graph}
                 {
                     // Only show the "Add locked figure" dropdown if the graph
                     // is using Mafs.

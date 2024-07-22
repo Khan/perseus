@@ -11,6 +11,7 @@ import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
@@ -31,7 +32,7 @@ const mafsProps: PropsFor<typeof InteractiveGraphEditor> = {
 };
 
 describe("InteractiveGraphEditor", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -51,7 +52,11 @@ describe("InteractiveGraphEditor", () => {
         });
 
         // Assert
-        expect(await screen.findByText("Correct answer:")).toBeInTheDocument();
+        expect(
+            await screen.findByText(
+                "Graph the correct answer in the graph below and ensure the equation or point coordinates displayed represent the correct answer.",
+            ),
+        ).toBeInTheDocument();
     });
 
     test("changing the graph should call onChange", async () => {

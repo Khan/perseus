@@ -154,6 +154,7 @@ const StartCoordSettings = (props: Props) => {
         <View style={styles.container}>
             {/* Heading for the collapsible section */}
             <Heading
+                isCollapsible={true}
                 title="Start coordinates"
                 isOpen={isOpen}
                 onToggle={() => setIsOpen(!isOpen)}
