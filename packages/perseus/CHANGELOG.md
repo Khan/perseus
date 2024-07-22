@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 25.1.1
+
+### Patch Changes
+
+-   [#1408](https://github.com/Khan/perseus/pull/1408) [`c41662717`](https://github.com/Khan/perseus/commit/c41662717e5ee795bce17d4fe283ceeb6ff6620f) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Move code for interactive graph grids and axes to a `backgrounds` folder
+
+*   [#1409](https://github.com/Khan/perseus/pull/1409) [`3ff40dd23`](https://github.com/Khan/perseus/commit/3ff40dd23396771be7dbdd1d549a2dc730a5cac4) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph: Test Utils] Update the interactive graph question builder with all options + update testdata to use builder
+
+-   [#1410](https://github.com/Khan/perseus/pull/1410) [`a8eb6908b`](https://github.com/Khan/perseus/commit/a8eb6908b07c37771dc2b011f76e8ae4855c3479) Thanks [@benchristel](https://github.com/benchristel)! - Internal: refactor interactive graph reducer actions to make it clearer which actions go with which graph type
+
+*   [#1420](https://github.com/Khan/perseus/pull/1420) [`a9dbbc4b1`](https://github.com/Khan/perseus/commit/a9dbbc4b1d6ada81f22b5466df86436e8d773921) Thanks [@benchristel](https://github.com/benchristel)! - Internal: refactor interactive graph reducer actions for clarity
+
 ## 25.1.0
 
 ### Minor Changes
