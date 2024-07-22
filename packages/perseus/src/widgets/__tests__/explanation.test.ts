@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -126,14 +126,16 @@ describe("Explanation", function () {
         verifyExpandCollapseState("Explanation", false);
 
         // Act - expand with the enter key
-        screen.getByRole("button", {name: "Explanation"}).focus();
+        act(() => screen.getByRole("button", {name: "Explanation"}).focus());
         await userEvent.keyboard("{Enter}");
 
         // Assert - elements have attributes changed that represent an expanded state
         verifyExpandCollapseState("Hide explanation!", true);
 
         // Act - collapse with the enter key
-        screen.getByRole("button", {name: "Hide explanation!"}).focus();
+        act(() =>
+            screen.getByRole("button", {name: "Hide explanation!"}).focus(),
+        );
         await userEvent.keyboard("{Enter}");
 
         // Assert - elements have attributes reset to represent a collapsed state
@@ -148,14 +150,16 @@ describe("Explanation", function () {
         verifyExpandCollapseState("Explanation", false);
 
         // Act - expand with a space bar
-        screen.getByRole("button", {name: "Explanation"}).focus();
+        act(() => screen.getByRole("button", {name: "Explanation"}).focus());
         await userEvent.keyboard(" ");
 
         // Assert - elements have attributes changed that represent an expanded state
         verifyExpandCollapseState("Hide explanation!", true);
 
         // Act - collapse with a space bar
-        screen.getByRole("button", {name: "Hide explanation!"}).focus();
+        act(() =>
+            screen.getByRole("button", {name: "Hide explanation!"}).focus(),
+        );
         await userEvent.keyboard(" ");
 
         // Assert - elements have attributes reset to represent a collapsed state

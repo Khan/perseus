@@ -1,6 +1,6 @@
 import {describe, beforeAll, beforeEach, it} from "@jest/globals";
 import {Errors} from "@khanacademy/perseus-core";
-import {screen, waitFor, within} from "@testing-library/react";
+import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -68,7 +68,7 @@ describe("renderer", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
     });
 
     describe("snapshots", () => {
@@ -87,7 +87,7 @@ describe("renderer", () => {
             // Act
             await userEvent.click(screen.getByRole("button"));
             await userEvent.click(screen.getAllByRole("option")[2]);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot("correct answer");
@@ -100,7 +100,7 @@ describe("renderer", () => {
             // Act
             await userEvent.click(screen.getByRole("button"));
             await userEvent.click(screen.getAllByRole("option")[1]);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot("incorrect answer");
@@ -329,12 +329,12 @@ describe("renderer", () => {
             if (imageIndex != null) {
                 const img = images[imageIndex];
                 if (img?.onload) {
-                    img.onload();
+                    act(() => img.onload());
                 }
             } else {
                 images.forEach((i) => {
                     if (i?.onload) {
-                        i.onload();
+                        act(() => i.onload());
                     }
                 });
             }
@@ -439,7 +439,6 @@ describe("renderer", () => {
             expect(screen.queryAllByRole("img")).toHaveLength(1);
 
             const wrapperStyle = getComputedStyle(
-                // $FlowIgnore[incompatible-call]
                 // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
                 screen.getByAltText("This image has dimensions").parentElement, // eslint-disable-line testing-library/no-node-access
             );
@@ -465,7 +464,6 @@ describe("renderer", () => {
             expect(screen.queryAllByRole("img")).toHaveLength(1);
 
             const wrapperStyle = getComputedStyle(
-                // $FlowIgnore[incompatible-call]
                 // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
                 screen.getByAltText("This image doesn't").parentElement, // eslint-disable-line testing-library/no-node-access
             );
@@ -751,7 +749,7 @@ describe("renderer", () => {
 
             // Poke the renderer so it's not in it's initial-render state
             await userEvent.click(screen.getByRole("button"));
-            jest.runOnlyPendingTimers(); // There's a setTimeout to open the dropdown
+            act(() => jest.runOnlyPendingTimers()); // There's a setTimeout to open the dropdown
             await userEvent.click(screen.getAllByRole("option")[1]);
         });
 
@@ -927,7 +925,7 @@ describe("renderer", () => {
             // Act
             await userEvent.tab();
             // There's a _.defer() in the blur handling
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -955,7 +953,7 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2);
 
             // Act
-            renderer.focusPath(["input-number 1"]);
+            act(() => renderer.focusPath(["input-number 1"]));
 
             // Assert
             expect(screen.getByRole("textbox")).toHaveFocus();
@@ -967,11 +965,11 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2, {
                 onFocusChange,
             });
-            renderer.focusPath(["input-number 1"]);
+            act(() => renderer.focusPath(["input-number 1"]));
             onFocusChange.mockClear();
 
             // Act
-            renderer.focusPath(["input-number 1"]);
+            act(() => renderer.focusPath(["input-number 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -993,11 +991,11 @@ describe("renderer", () => {
                 },
                 {onFocusChange},
             );
-            renderer.focusPath(["input-number 1"]);
+            act(() => renderer.focusPath(["input-number 1"]));
             onFocusChange.mockClear();
 
             // Act
-            renderer.focusPath(["input-number 2"]);
+            act(() => renderer.focusPath(["input-number 2"]));
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -1023,11 +1021,11 @@ describe("renderer", () => {
                 {onFocusChange},
             );
             // Focus _second_ input number widget
-            screen.getAllByRole("textbox")[1].focus();
+            act(() => screen.getAllByRole("textbox")[1].focus());
             onFocusChange.mockClear();
 
             // Act
-            renderer.blurPath(["input-number 1"]);
+            act(() => renderer.blurPath(["input-number 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1050,12 +1048,12 @@ describe("renderer", () => {
                 {onFocusChange},
             );
             // Focus _second_ input number widget
-            screen.getAllByRole("textbox")[1].focus();
+            act(() => screen.getAllByRole("textbox")[1].focus());
             onFocusChange.mockClear();
 
             // Act
-            renderer.blur();
-            jest.runOnlyPendingTimers(); // There's a _.defer() in this code path
+            act(() => renderer.blur());
+            act(() => jest.runOnlyPendingTimers()); // There's a _.defer() in this code path
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -1082,8 +1080,8 @@ describe("renderer", () => {
             );
 
             // Act
-            renderer.blur();
-            jest.runOnlyPendingTimers(); // There's a _.defer() in this code path
+            act(() => renderer.blur());
+            act(() => jest.runOnlyPendingTimers()); // There's a _.defer() in this code path
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1113,10 +1111,12 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question1);
 
             // Act
-            renderer.restoreSerializedState({
-                "group 1": {},
-                "interactive-chart 1": {},
-            });
+            act(() =>
+                renderer.restoreSerializedState({
+                    "group 1": {},
+                    "interactive-chart 1": {},
+                }),
+            );
 
             // Assert
             expect(errorSpy).toHaveBeenCalledWith(
@@ -1150,11 +1150,17 @@ describe("renderer", () => {
             const restorationCallback = jest.fn();
 
             // Act
-            renderer.restoreSerializedState(
-                {"mock-widget 1": {}, "mock-widget 2": {}, "mock-widget 3": {}},
-                restorationCallback,
+            act(() =>
+                renderer.restoreSerializedState(
+                    {
+                        "mock-widget 1": {},
+                        "mock-widget 2": {},
+                        "mock-widget 3": {},
+                    },
+                    restorationCallback,
+                ),
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(restorationCallback).toHaveBeenCalledTimes(1);
@@ -1173,7 +1179,7 @@ describe("renderer", () => {
             });
             // It takes a clock tick after rendering for widgetInfo to be
             // populated (which renderer uses during serialize()).
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const state = renderer.serialize();
@@ -1362,7 +1368,7 @@ describe("renderer", () => {
             expect(widgets.length).toBeGreaterThan(0);
 
             // Act
-            renderer.showRationalesForCurrentlySelectedChoices();
+            act(() => renderer.showRationalesForCurrentlySelectedChoices());
 
             // Assert
             widgets.forEach((w) =>
@@ -1388,7 +1394,7 @@ describe("renderer", () => {
             expect(widgets.length).toBeGreaterThan(0);
 
             // Act
-            renderer.deselectIncorrectSelectedChoices();
+            act(() => renderer.deselectIncorrectSelectedChoices());
 
             // Assert
             widgets.forEach((w) =>
@@ -1651,7 +1657,7 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            renderer.setInputValue(["input-number 2"], "1000", cb);
+            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
 
             // Assert
             expect(screen.getAllByRole("textbox")[0]).toHaveValue("");
@@ -1676,8 +1682,8 @@ describe("renderer", () => {
             const cb = jest.fn();
 
             // Act
-            renderer.setInputValue(["input-number 2"], "1000", cb);
-            jest.runOnlyPendingTimers();
+            act(() => renderer.setInputValue(["input-number 2"], "1000", cb));
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(cb).toHaveBeenCalled();
@@ -1707,9 +1713,9 @@ describe("renderer", () => {
 
             // Open the dropdown and select the second (idx: 1) item
             await userEvent.click(screen.getByRole("button"));
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
             await userEvent.click(screen.getAllByRole("option")[1]);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const userInput = renderer.getUserInputForWidgets();

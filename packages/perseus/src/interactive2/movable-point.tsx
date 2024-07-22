@@ -57,6 +57,7 @@ import _ from "underscore";
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
 import KhanColors from "../util/colors";
+// eslint-disable-next-line import/no-deprecated
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
 
@@ -237,6 +238,7 @@ export class MovablePoint {
 
         const showTrashTooltip = () => {
             this._showTooltip((container) => {
+                // eslint-disable-next-line import/no-deprecated
                 reactRender(
                     <span style={{fontSize: "2em"}}>
                         <InlineIcon

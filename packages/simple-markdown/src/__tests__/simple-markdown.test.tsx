@@ -1,8 +1,8 @@
 /* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console, import/no-commonjs, no-redeclare, no-useless-escape */
 import assert from "assert";
 
+import {render} from "@testing-library/react";
 import * as React from "react";
-import * as ReactDOMServer from "react-dom/server";
 
 import SimpleMarkdown from "../index";
 
@@ -48,9 +48,8 @@ var validateParse = function (parsed, expected) {
  * @returns {string}
  */
 var reactToHtml = function (reactElements) {
-    var rawHtml = ReactDOMServer.renderToStaticMarkup(
-        React.createElement("div", {}, reactElements),
-    );
+    const {container} = render(reactElements);
+    var rawHtml = container.outerHTML;
     var innerHtml = rawHtml.replace(/^<div>/, "").replace(/<\/div>$/, "");
     var simplifiedHtml = innerHtml
         .replace(/>\n*/g, ">")
@@ -4187,9 +4186,9 @@ describe("simple markdown", function () {
         });
 
         it("should output hrs", function () {
-            assertParsesToReact("-----\n\n", '<hr aria-hidden="true"/>');
-            assertParsesToReact(" * * * \n\n", '<hr aria-hidden="true"/>');
-            assertParsesToReact("___\n\n", '<hr aria-hidden="true"/>');
+            assertParsesToReact("-----\n\n", '<hr aria-hidden="true">');
+            assertParsesToReact(" * * * \n\n", '<hr aria-hidden="true">');
+            assertParsesToReact("___\n\n", '<hr aria-hidden="true">');
         });
 
         it("should output codeblocks", function () {
@@ -4293,15 +4292,15 @@ describe("simple markdown", function () {
                 "h1 | h2 | h3\n" + ":--|:--:|--:\n" + "d1 | d2 | d3\n" + "\n",
                 "<table><thead>" +
                     "<tr>" +
-                    '<th style="text-align:left" scope="col">h1</th>' +
-                    '<th style="text-align:center" scope="col">h2</th>' +
-                    '<th style="text-align:right" scope="col">h3</th>' +
+                    '<th style="text-align: left;" scope="col">h1</th>' +
+                    '<th style="text-align: center;" scope="col">h2</th>' +
+                    '<th style="text-align: right;" scope="col">h3</th>' +
                     "</tr>" +
                     "</thead><tbody>" +
                     "<tr>" +
-                    '<td style="text-align:left">d1</td>' +
-                    '<td style="text-align:center">d2</td>' +
-                    '<td style="text-align:right">d3</td>' +
+                    '<td style="text-align: left;">d1</td>' +
+                    '<td style="text-align: center;">d2</td>' +
+                    '<td style="text-align: right;">d3</td>' +
                     "</tr>" +
                     "</tbody></table>",
             );

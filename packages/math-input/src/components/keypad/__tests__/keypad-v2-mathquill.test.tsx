@@ -1,4 +1,4 @@
-import {Popover} from "@khanacademy/wonder-blocks-popover";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -69,7 +69,7 @@ function V2KeypadWithMathquill(props: Props) {
         <div style={{maxWidth: "400px", margin: "2em"}}>
             <Popover
                 content={
-                    <div>
+                    <PopoverContentCore>
                         <Keypad
                             extraKeys={["a", "b", "c"]}
                             onClickKey={handleClickKey}
@@ -87,7 +87,7 @@ function V2KeypadWithMathquill(props: Props) {
                             }
                             showDismiss
                         />
-                    </div>
+                    </PopoverContentCore>
                 }
                 dismissEnabled
                 opened={keypadOpen}

@@ -6,6 +6,7 @@ import {
 } from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
+    act,
     fireEvent,
     render,
     screen,
@@ -99,7 +100,7 @@ describe("expression mobile", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
     });
 
     it("renders input", () => {

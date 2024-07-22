@@ -1,15 +1,15 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {screen, fireEvent} from "@testing-library/react";
+import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {
-    passageWidget,
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
 } from "../__testdata__/radio.testdata";
+import PassageWidget from "../passage";
 
 import {renderQuestion} from "./renderQuestion";
 
@@ -134,7 +134,7 @@ describe("single-choice question", () => {
                 });
 
                 // Act
-                const gotFocus = renderer.focus();
+                const gotFocus = await act(() => renderer.focus());
 
                 // Assert
                 expect(gotFocus).toBe(true);
@@ -150,7 +150,7 @@ describe("single-choice question", () => {
                 // Since this is a single-select setup, just select the first
                 // incorrect choice.
                 await selectOption(userEvent, incorrect[0]);
-                renderer.deselectIncorrectSelectedChoices();
+                act(() => renderer.deselectIncorrectSelectedChoices());
 
                 // Assert
                 screen.getAllByRole("radio").forEach((r) => {
@@ -299,24 +299,53 @@ describe("single-choice question", () => {
     });
 
     it("should transform inline passage-refs to references to passage widgets", async () => {
-        // Arrange
+        const question: PerseusRenderer = {
+            content: "[[\u2603 passage 1]]\n\n[[☃ radio 1]]",
+            images: {},
+            widgets: {
+                "passage 1": {
+                    type: "passage",
+                    options: {
+                        footnotes: "",
+                        passageText: "{{First ref}} and {{Second ref}}",
+                        passageTitle: "",
+                        showLineNumbers: true,
+                        static: false,
+                    },
+                },
+                "radio 1": {
+                    type: "radio",
+                    options: {
+                        choices: [
+                            {
+                                correct: true,
+                                // Passage refs reference a passage widget in
+                                // the main content. The first value is the
+                                // passage widget (eg. "passage 1", "passage
+                                // 2") and the second value is the ref within
+                                // that passage widget. Note that both are
+                                // 1-based!
+                                content: `{{passage-ref 1 1 "the 1st ref in the 1st passage"}}`,
+                            },
+                            {content: `Answer 2`},
+                            {content: `Answer 3`},
+                        ],
+                    },
+                },
+            },
+        };
 
-        // Add a passage widget to the question content and then reference it
-        // in an answer.
-        const questionWithPassage = clone(question);
-        questionWithPassage.content = `[[\u2603 passage 1]]\n\nNow what's the answer?\n\n[[\u2603 radio 1]]`;
-        questionWithPassage.widgets["passage 1"] = passageWidget;
-        const radioOptions = questionWithPassage.widgets["radio 1"];
-        // HACK(jeremy): TypeScript doesn't know what type these options are because
-        // we've extracted them out of a generic `PerseusJson` blob and all the
-        // `widget` items are just type `Widget`.
-        radioOptions.options.choices[0].content =
-            '{{passage-ref 1 1 "Reference 1 here"}}';
+        // Arrange
+        // We mock this one function on Passage as its where all the magic DOM
+        // measurement happens. This ensures our assertions in this test don't
+        // have to assert NaN and make sense.
+        jest.spyOn(
+            PassageWidget.widget.prototype,
+            "getReference",
+        ).mockReturnValue({content: "", startLine: 1, endLine: 2});
 
         // Act
-        renderQuestion(questionWithPassage, apiOptions);
-        // Passage refs use `_.defer()` to update their reference ranges.
-        jest.runOnlyPendingTimers();
+        renderQuestion(question, apiOptions);
 
         // Assert
         // By using a `passage-ref` in a choice, we should now have the
@@ -324,8 +353,10 @@ describe("single-choice question", () => {
         // NOTE: We get by listitem role here because the 'radio' role
         // element does not contain the HTML that provides the label
         // for it.
-        const passageRefRadio = screen.getAllByRole("listitem")[0];
-        expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
+        await waitFor(() => {
+            const passageRefRadio = screen.getAllByRole("listitem")[0];
+            expect(passageRefRadio).toHaveTextContent("lines 1–2");
+        });
     });
 
     it("should render rationales for selected choices using method", async () => {
@@ -334,7 +365,7 @@ describe("single-choice question", () => {
 
         // Act
         await selectOption(userEvent, incorrect[0]);
-        renderer.showRationalesForCurrentlySelectedChoices();
+        act(() => renderer.showRationalesForCurrentlySelectedChoices());
 
         // Assert
         expect(

@@ -1,3 +1,5 @@
+import {act} from "@testing-library/react";
+
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {question1} from "../__testdata__/number-line.testdata";
@@ -55,7 +57,7 @@ describe("number-line widget", () => {
 
         // Act
         const [numberLine] = renderer.findWidgets("number-line 1");
-        numberLine.movePosition(-2.5);
+        act(() => numberLine.movePosition(-2.5));
 
         // assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -70,7 +72,8 @@ describe("number-line widget", () => {
 
         // Act
         const [numberLine] = renderer.findWidgets("number-line 1");
-        numberLine.movePosition(3.5);
+        act(() => numberLine.movePosition(3.5));
+
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
     });

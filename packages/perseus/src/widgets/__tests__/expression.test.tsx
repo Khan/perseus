@@ -1,5 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {screen} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
@@ -31,7 +31,7 @@ const renderAndAnswer = async (
     jest.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     await userEvent.type(screen.getByRole("textbox"), input);
-    jest.runOnlyPendingTimers();
+    act(() => jest.runOnlyPendingTimers());
 
     return renderer;
 };
@@ -92,7 +92,7 @@ const assertInvalid = async (
     if (input.length) {
         await userEvent.type(screen.getByRole("textbox"), input);
     }
-    jest.runOnlyPendingTimers();
+    act(() => jest.runOnlyPendingTimers());
     expect(renderer).toHaveInvalidInput();
 };
 
@@ -418,7 +418,7 @@ describe("focus state", () => {
 
         // Act
         const expressionInput = screen.getByRole("textbox");
-        expressionInput.focus();
+        act(() => expressionInput.focus());
 
         // Assert
         expect(expressionInput).toHaveFocus();
@@ -430,8 +430,8 @@ describe("focus state", () => {
 
         // Act
         const expressionInput = screen.getByRole("textbox");
-        expressionInput.focus();
-        expressionInput.blur();
+        act(() => expressionInput.focus());
+        act(() => expressionInput.blur());
 
         // Assert
         expect(expressionInput).not.toHaveFocus();
@@ -443,7 +443,7 @@ describe("focus state", () => {
         const expression = renderer.findWidgets("expression 1")[0];
 
         // act
-        expression.focusInputPath();
+        act(() => expression.focusInputPath());
 
         // Assert
         const expressionInput = screen.getByRole("textbox");
@@ -483,11 +483,11 @@ describe("interaction", () => {
     it("sets input value directly", () => {
         // arrange
         const {renderer} = renderQuestion(expressionItem2.question);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // act
-        renderer.setInputValue(["expression 1"], "123-x", () => {});
-        jest.runOnlyPendingTimers();
+        act(() => renderer.setInputValue(["expression 1"], "123-x", () => {}));
+        act(() => jest.runOnlyPendingTimers());
         const score = renderer.guessAndScore()[1];
 
         // Assert
@@ -498,13 +498,14 @@ describe("interaction", () => {
         expect(score.earned).toBe(score.total);
     });
 
-    it("has a developer facility for inserting", () => {
+    it("has a developer facility for inserting", async () => {
         // arrange
         const {renderer} = renderQuestion(expressionItem2.question);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
+
         const expression = renderer.findWidgets("expression 1")[0];
-        expression.insert("x+1");
-        jest.runOnlyPendingTimers();
+        act(() => expression.insert("x+1"));
+        act(() => jest.runOnlyPendingTimers());
 
         // act
         const score = renderer.score();
@@ -531,16 +532,21 @@ describe("error tooltip", () => {
         const expression = renderer.findWidgets("expression 1")[0];
 
         // Act
-        expression.insert("x&&&&&^1");
-        jest.runOnlyPendingTimers();
-        screen.getByRole("textbox").blur();
+        // Note(jeremy): You might think you could collapse all of these calls
+        // inside a single act() block, but that didn't work. The only way this
+        // test passes is with each statement in its own act() call. :/
+        act(() => expression.insert("x&&&&&^1"));
+        act(() => jest.runOnlyPendingTimers());
+        act(() => screen.getByRole("textbox").blur());
+        act(() => jest.runOnlyPendingTimers());
         renderer.guessAndScore();
 
         // Assert
-        expect(screen.getByText("Oops!")).toBeVisible();
-        expect(
-            screen.getByText("Sorry, I don't understand that!"),
-        ).toBeVisible();
+        await waitFor(() =>
+            expect(
+                screen.getByText("Oops! Sorry, I don't understand that!"),
+            ).toBeVisible(),
+        );
     });
 
     it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {
@@ -549,9 +555,9 @@ describe("error tooltip", () => {
         const expression = renderer.findWidgets("expression 1")[0];
 
         // Act
-        expression.insert("sen(x)");
-        jest.runOnlyPendingTimers();
-        screen.getByRole("textbox").blur();
+        act(() => expression.insert("sen(x)"));
+        act(() => jest.runOnlyPendingTimers());
+        act(() => screen.getByRole("textbox").blur());
         renderer.guessAndScore();
 
         // Assert

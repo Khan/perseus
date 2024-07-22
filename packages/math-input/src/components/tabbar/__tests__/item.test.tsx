@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -59,7 +59,7 @@ describe("<TabbarItem />", () => {
                 onClick={() => {}}
             />,
         );
-        jest.runAllTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(screen.getByRole("tab", {name: "Numbers"})).toHaveFocus();
