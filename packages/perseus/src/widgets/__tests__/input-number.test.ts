@@ -2,7 +2,7 @@
  * Disclaimer: Definitely not thorough enough
  */
 import {describe, beforeEach, it} from "@jest/globals";
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
@@ -337,24 +337,24 @@ describe("focus state", () => {
         );
     });
 
-    it("supports focusing", () => {
+    it("supports focusing", async () => {
         //  Arrange
         const {renderer} = renderQuestion(question);
 
         // Act
-        const gotFocus = renderer.focus();
+        const gotFocus = await act(() => renderer.focus());
 
         // Assert
         expect(gotFocus).toBe(true);
     });
 
-    it("supports blurring", () => {
+    it("supports blurring", async () => {
         //  Arrange
         const {renderer} = renderQuestion(question);
 
         // Act
-        const gotFocus = renderer.focus();
-        renderer.blur();
+        const gotFocus = await act(() => renderer.focus());
+        act(() => renderer.blur());
 
         // Assert
         expect(gotFocus).toBe(true);

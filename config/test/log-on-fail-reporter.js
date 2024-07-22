@@ -1,6 +1,6 @@
 /* eslint-disable import/no-commonjs */
 /**
- * Only log console statements on when the test errors out.
+ * Only log console statements when the test errors out.
  * From: https://gist.github.com/GeeWee/71db0d9911b4a087e4b2486386168b05
  */
 const {getConsoleOutput} = require("@jest/console");

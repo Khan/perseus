@@ -1,5 +1,5 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -539,7 +539,7 @@ describe("multi-item renderer", () => {
 
             // Act
             // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'never'.
-            renderer.restoreSerializedState(state);
+            act(() => renderer.restoreSerializedState(state));
 
             // Assert
             expect(screen.getAllByRole("radio")[0]).not.toBeChecked();
@@ -556,19 +556,21 @@ describe("multi-item renderer", () => {
             const callback = jest.fn();
 
             // Act
-            // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'never'.
-            renderer.restoreSerializedState(
-                {
-                    blurb: {"mock-widget 1": 1},
-                    hints: [2, 3],
-                    question: {
-                        "mock-widget 4": 4,
-                        "mock-widget 5": 5,
+            act(() =>
+                // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'never'.
+                renderer.restoreSerializedState(
+                    {
+                        blurb: {"mock-widget 1": 1},
+                        hints: [2, 3],
+                        question: {
+                            "mock-widget 4": 4,
+                            "mock-widget 5": 5,
+                        },
                     },
-                },
-                callback,
+                    callback,
+                ),
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(callback).toHaveBeenCalled();

@@ -1,5 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -76,6 +76,20 @@ describe("passage widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        // Our simple-markdown renderer (used by Passage) doesn't always add
+        // keys to children in a list. Just suppress it for now.
+        // eslint-disable-next-line no-console
+        const originalError = console.error;
+        jest.spyOn(console, "error").mockImplementation((...args) => {
+            if (
+                !args[0].startsWith(
+                    'Warning: Each child in a list should have a unique "key" prop.',
+                )
+            ) {
+                originalError(...args);
+            }
+        });
     });
 
     it.each([true, false])(
@@ -88,7 +102,7 @@ describe("passage widget", () => {
 
             // Act
             const {container} = renderQuestion(question1, apiOptions);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -105,7 +119,7 @@ describe("passage widget", () => {
 
             // Act
             const {container} = renderQuestion(question2, apiOptions);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -118,7 +132,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Act
         const score = renderer.score();
@@ -140,7 +154,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // @ts-expect-error - TS2503 - Cannot find namespace 'PassageWidgetExport'
         const [passage1]: [PassageWidgetExport.widget] =
@@ -164,7 +178,7 @@ describe("passage widget", () => {
             isMobile: false,
         };
         const {renderer} = renderQuestion(question2, apiOptions);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // @ts-expect-error - TS2503 - Cannot find namespace 'PassageWidgetExport'
         const [passage1]: [PassageWidgetExport.widget] =

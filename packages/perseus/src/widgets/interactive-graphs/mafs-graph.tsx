@@ -166,6 +166,6 @@ const renderGraph = (props: {
         case "sinusoid":
             return <SinusoidGraph graphState={state} dispatch={dispatch} />;
         default:
-            return new UnreachableCaseError(type);
+            throw new UnreachableCaseError(type);
     }
 };

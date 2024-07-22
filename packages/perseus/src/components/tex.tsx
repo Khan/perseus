@@ -41,7 +41,6 @@ export default class Tex extends React.Component<Props, State> {
     }
 
     handleRender: () => void = () => {
-        this.props.onRender();
         this.setState({rendered: true});
 
         this.props.onRender();

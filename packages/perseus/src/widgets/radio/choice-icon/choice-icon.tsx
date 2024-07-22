@@ -148,7 +148,6 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                     data-is-radio-icon={true}
                 >
                     <div className={css(styles.innerWrapper)}>
-                        {/* @ts-expect-error - TS2786 - 'ChoiceInner' cannot be used as a JSX component. */}
                         <ChoiceInner
                             pos={pos}
                             showCorrectness={showCorrectness}

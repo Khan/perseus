@@ -1,4 +1,4 @@
-import {render} from "@testing-library/react";
+import {act, render} from "@testing-library/react";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -56,7 +56,8 @@ describe("Sortable", () => {
         expect(container).toMatchSnapshot("first render: displays a spinner");
 
         // Act
-        simulateFakeTeXRendering();
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+        act(() => simulateFakeTeXRendering());
 
         // Assert
         expect(container).toMatchSnapshot(
@@ -89,7 +90,7 @@ describe("moveOptionToIndex", () => {
         }
 
         // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'never'.
-        sortable.moveOptionToIndex("a", 1);
+        act(() => sortable.moveOptionToIndex("a", 1));
 
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'never'.
         expect(sortable?.getOptions()).toStrictEqual(["b", "a", "c"]);

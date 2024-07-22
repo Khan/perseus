@@ -45,9 +45,7 @@ const ColorSelect = (props: Props) => {
                                     decorative={true}
                                 />
                             }
-                        >
-                            {colorName}
-                        </OptionItem>
+                        />
                     ))}
                 </SingleSelect>
             </LabelMedium>

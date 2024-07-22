@@ -39,7 +39,7 @@ export class MockAssetLoadingWidget extends React.Component<Record<any, any>> {
             <AssetContext.Consumer>
                 {({setAssetStatus}) => {
                     this.setAssetStatus = setAssetStatus;
-                    <div />;
+                    return <div />;
                 }}
             </AssetContext.Consumer>
         );
