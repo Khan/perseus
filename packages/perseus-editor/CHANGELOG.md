@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 8.2.0
+
+### Minor Changes
+
+-   [#1416](https://github.com/Khan/perseus/pull/1416) [`daa3082d3`](https://github.com/Khan/perseus/commit/daa3082d37b6a1a86847a39e44940faf85ce61a2) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Organizes the graph editor
+
+### Patch Changes
+
+-   Updated dependencies [[`c41662717`](https://github.com/Khan/perseus/commit/c41662717e5ee795bce17d4fe283ceeb6ff6620f), [`3ff40dd23`](https://github.com/Khan/perseus/commit/3ff40dd23396771be7dbdd1d549a2dc730a5cac4), [`a8eb6908b`](https://github.com/Khan/perseus/commit/a8eb6908b07c37771dc2b011f76e8ae4855c3479), [`a9dbbc4b1`](https://github.com/Khan/perseus/commit/a9dbbc4b1d6ada81f22b5466df86436e8d773921)]:
+    -   @khanacademy/perseus@25.1.1
+
 ## 8.1.0
 
 ### Minor Changes
