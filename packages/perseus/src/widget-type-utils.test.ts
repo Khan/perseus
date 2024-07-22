@@ -56,7 +56,7 @@ describe("widget-type-utils", () => {
             const result = contentHasWidgetType(type, content, widgetMap);
 
             // Assert
-            expect(result).toBeTrue();
+            expect(result).toBe(true);
         });
 
         it("returns false when not found", () => {
@@ -72,7 +72,7 @@ describe("widget-type-utils", () => {
             const result = contentHasWidgetType(type, content, widgetMap);
 
             // Assert
-            expect(result).toBeFalse();
+            expect(result).toBe(false);
         });
     });
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {movePoint} from "../reducer/interactive-graph-action";
+import {actions} from "../reducer/interactive-graph-action";
 
 import {StyledMovablePoint} from "./components/movable-point";
 
@@ -17,7 +17,7 @@ export function PointGraph(props: PointGraphProps) {
                     key={i}
                     point={point}
                     onMove={(destination) =>
-                        dispatch(movePoint(i, destination))
+                        dispatch(actions.pointGraph.movePoint(i, destination))
                     }
                 />
             ))}

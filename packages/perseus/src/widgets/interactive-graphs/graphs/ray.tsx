@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
+import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
 
@@ -13,9 +13,10 @@ export const RayGraph = (props: Props) => {
     const {dispatch} = props;
     const {coords: line} = props.graphState;
 
-    const handleMoveLine = (delta: vec.Vector2) => dispatch(moveLine(0, delta));
+    const handleMoveLine = (delta: vec.Vector2) =>
+        dispatch(actions.ray.moveRay(delta));
     const handleMovePoint = (pointIndex: number, newPoint: vec.Vector2) =>
-        dispatch(moveControlPoint(pointIndex, newPoint, 0));
+        dispatch(actions.ray.movePoint(pointIndex, newPoint));
 
     // Ray graphs only have one line
     return (
