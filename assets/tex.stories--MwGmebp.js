@@ -1,3 +1,0 @@
-import{j as o}from"./jsx-runtime-BGVbfQ2Z.js";import{T as n}from"./tex-SwZEYYPF.js";import"./index-qhcEwEpg.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./dependencies-fnqF3NiV.js";const d={title:"Perseus/Components/Tex",args:{equation:"f(x) = x + 1"}},e=a=>o(n,{setAssetStatus:()=>{},children:a.equation});var t,r,s;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <TeX setAssetStatus={() => {}} children={args.equation} />;
-}`,...(s=(r=e.parameters)==null?void 0:r.docs)==null?void 0:s.source}}};const x=["BasicOperation"];export{e as BasicOperation,x as __namedExportsOrder,d as default};

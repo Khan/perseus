@@ -1,1 +1,0 @@
-import{j as e}from"./jsx-runtime-BGVbfQ2Z.js";const p=({children:r})=>e("div",{className:"perseus-diff",children:r}),a=p;try{perseusdiffwrapper.displayName="perseusdiffwrapper",perseusdiffwrapper.__docgenInfo={description:"",displayName:"perseusdiffwrapper",props:{}}}catch{}export{a as W};
