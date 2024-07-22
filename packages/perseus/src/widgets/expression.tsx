@@ -620,7 +620,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
                                 onAnalyticsEvent: async () => {},
                             }
                         }
-                        portal={false}
                     />
                 </Tooltip>
             </div>

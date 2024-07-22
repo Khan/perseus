@@ -66,20 +66,6 @@ type Props = {
      */
     buttonsVisible?: ButtonsVisibleType;
     analytics: PerseusDependenciesV2["analytics"];
-    /**
-     * Optional property to enable the portal functionality for MathInput.
-     * This is very handy in cases where the Popover can't be easily
-     * injected into the DOM structure and requires portaling to
-     * the trigger location.
-     *
-     * Set to "true" by default.
-     *
-     * CAUTION: Turning off portal could cause some clipping issues
-     * especially around legacy code with usage of z-indexing,
-     * Use caution when turning this functionality off and ensure
-     * your content does not get clipped or hidden.
-     */
-    portal?: boolean;
 };
 
 type InnerProps = Props & {
@@ -92,7 +78,6 @@ type InnerProps = Props & {
 type DefaultProps = {
     value: Props["value"];
     convertDotToTimes: Props["convertDotToTimes"];
-    portal: Props["portal"];
 };
 
 type State = {
@@ -115,7 +100,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     static defaultProps: DefaultProps = {
         value: "",
         convertDotToTimes: false,
-        portal: true,
     };
 
     state: State = {
@@ -345,7 +329,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     <Popover
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
-                        portal={this.props.portal}
+                        portal={false}
                         dismissEnabled
                         content={() => (
                             <PopoverContentCore
