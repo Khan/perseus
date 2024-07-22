@@ -1,6 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import ToggleableCaret from "./toggleable-caret";
@@ -8,10 +8,12 @@ import ToggleableCaret from "./toggleable-caret";
 function Heading({
     title,
     isOpen,
+    isCollapsible,
     onToggle,
 }: {
     title: string;
     isOpen: boolean;
+    isCollapsible: boolean;
     onToggle?: (isOpen: boolean) => void;
 }) {
     return (
@@ -27,12 +29,20 @@ function Heading({
                 // match otherwise there's a gap from this header to the edge
                 // of the editor borders.
                 marginInline: -10,
-                cursor: "pointer",
+                cursor: isCollapsible ? "pointer" : "default",
+                userSelect: "none",
             }}
-            onClick={() => onToggle?.(!isOpen)}
+            onClick={() => isCollapsible && onToggle?.(!isOpen)}
         >
-            <LabelSmall>{title}</LabelSmall>
-            <ToggleableCaret isExpanded={isOpen} />
+            <LabelLarge
+                style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                }}
+            >
+                {title}
+            </LabelLarge>
+            {isCollapsible && <ToggleableCaret isExpanded={isOpen} />}
         </View>
     );
 }
