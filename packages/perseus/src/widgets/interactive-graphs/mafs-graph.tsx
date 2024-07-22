@@ -45,6 +45,7 @@ export type MafsGraphProps = {
     labels: InteractiveGraphProps["labels"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
+    hintMode: boolean;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {

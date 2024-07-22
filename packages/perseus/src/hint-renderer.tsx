@@ -82,6 +82,7 @@ class HintRenderer extends React.Component<Props> {
         const rendererApiOptions = {
             ...apiOptions,
             customKeypad: false,
+            hintMode: true,
         } as const;
 
         return (

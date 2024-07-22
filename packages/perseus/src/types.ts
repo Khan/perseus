@@ -314,6 +314,7 @@ export type APIOptions = Readonly<{
      * the available choices.
      */
     onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
+    hintMode?: boolean;
 }>;
 
 type TeXProps = {
