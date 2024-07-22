@@ -6,8 +6,10 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import CategorizerEditor from "../categorizer-editor";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("categorizer-editor", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

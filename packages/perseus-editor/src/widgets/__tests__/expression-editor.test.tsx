@@ -7,9 +7,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import ExpressionEditor from "../expression-editor";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("expression-editor", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

@@ -32,6 +32,7 @@ import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
@@ -73,7 +74,7 @@ describe("server item renderer", () => {
         registerWidget("mock-widget", MockWidgetExport);
     });
 
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

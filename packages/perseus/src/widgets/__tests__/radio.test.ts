@@ -15,6 +15,7 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -32,7 +33,7 @@ const selectOption = async (
 };
 
 describe("single-choice question", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -620,7 +621,7 @@ describe("multi-choice question", () => {
 
     const apiOptions: APIOptions = Object.freeze({});
 
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
