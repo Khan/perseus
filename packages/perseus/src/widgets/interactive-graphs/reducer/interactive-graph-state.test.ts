@@ -31,8 +31,9 @@ describe("getGradableGraph", () => {
         expect(result).toEqual(initialGraph);
     });
 
-    // (LEMS-2190): This test is to ensure that the new Mafs graph is reversing coordinates when the angle graph is reflexive
-    // in a clockwise direction in order to temporarily maintain the same angle scoring with the legacy graph.
+    // (LEMS-2190): This test is to ensure that the new Mafs graph is reversing coordinates when the angle graph
+    // is reflexive in a clockwise direction in order to temporarily maintain the same angle scoring with the
+    // legacy graph. This logic (& the tests) should be moved to the scoring function after removing the legacy graph.
     it("returns reversed coordinates if the angle graph is reflexive when not allowed", () => {
         const state: InteractiveGraphState = {
             type: "angle",
