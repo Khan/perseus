@@ -235,7 +235,8 @@ describe("a mafs graph", () => {
                 await userEvent.tab();
 
                 // Act
-                await userEvent.keyboard("{arrowup}{arrowright}");
+                await userEvent.keyboard("{arrowup}");
+                await userEvent.keyboard("{arrowright}");
 
                 // Assert
                 await waitFor(() => {
