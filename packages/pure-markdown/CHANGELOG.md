@@ -1,5 +1,12 @@
 # @khanacademy/pure-markdown
 
+## 0.3.7
+
+### Patch Changes
+
+-   Updated dependencies [[`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df)]:
+    -   @khanacademy/simple-markdown@0.13.0
+
 ## 0.3.6
 
 ### Patch Changes

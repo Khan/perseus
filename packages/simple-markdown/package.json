@@ -3,7 +3,7 @@
     "description": "Javascript markdown parsing, made simple",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.12.1",
+    "version": "0.13.0",
     "publishConfig": {
         "access": "public"
     },
