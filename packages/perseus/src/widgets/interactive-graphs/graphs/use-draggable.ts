@@ -103,6 +103,9 @@ export function useDraggable(args: Params): DragState {
                     );
 
                     if (vec.dist(testPoint, point) > min) {
+                        // @ts-expect-error abc
+                        // eslint-disable-next-line no-console
+                        console.log(`Keypress[${type}]: ${event.key}`);
                         onMove(testPoint);
                         break;
                     }
