@@ -2005,8 +2005,6 @@ class Renderer extends React.Component<Props, State> {
             baseElements: apiOptions.baseElements,
         });
 
-        const isHintMode = this.props.hintMode;
-
         const className = classNames({
             [ApiClassNames.RENDERER]: true,
             [ApiClassNames.RESPONSIVE_RENDERER]: true,
@@ -2015,12 +2013,7 @@ class Renderer extends React.Component<Props, State> {
 
         this.lastRenderedMarkdown = (
             <DefinitionProvider>
-                <div
-                    className={className}
-                    style={isHintMode ? styles.hintMode : {}}
-                >
-                    {markdownContents}
-                </div>
+                <div className={className}>{markdownContents}</div>
             </DefinitionProvider>
         );
         return this.lastRenderedMarkdown;
@@ -2028,9 +2021,6 @@ class Renderer extends React.Component<Props, State> {
 }
 
 const styles = {
-    hintMode: {
-        pointerEvents: "none",
-    },
     mobileZoomableParentFix: {
         // NOTE(abdul): There is an issue where transform animations will
         // cause the Zoomable component to disappear when running on the
