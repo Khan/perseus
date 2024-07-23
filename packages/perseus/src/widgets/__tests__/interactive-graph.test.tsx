@@ -1,39 +1,17 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import * as KAS from "@khanacademy/kas";
-import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import {Plot} from "mafs";
-import * as React from "react";
 
-import {lockedFigureColors} from "../../perseus-types";
-import {sinusoidQuestion} from "../__testdata__/grapher.testdata";
 import {
-    angleQuestion,
     angleQuestionWithDefaultCorrect,
-    circleQuestion,
     circleQuestionWithDefaultCorrect,
-    linearQuestion,
     linearQuestionWithDefaultCorrect,
-    linearSystemQuestion,
     linearSystemQuestionWithDefaultCorrect,
-    pointQuestion,
     pointQuestionWithDefaultCorrect,
-    polygonQuestion,
     polygonQuestionDefaultCorrect,
-    quadraticQuestion,
     quadraticQuestionWithDefaultCorrect,
-    rayQuestion,
     rayQuestionWithDefaultCorrect,
-    segmentQuestion,
     segmentQuestionDefaultCorrect,
-    segmentWithLockedEllipses,
-    segmentWithLockedFunction,
-    segmentWithLockedLineQuestion,
-    segmentWithLockedPointsQuestion,
-    segmentWithLockedPointsWithColorQuestion,
-    segmentWithLockedPolygons,
-    segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
@@ -55,21 +33,6 @@ describe("a mafs graph", () => {
     // Add types to this array as you test them
     const apiOptions = {
         flags: {mafs: trueForAllMafsSupportedGraphTypes},
-    };
-
-    const graphQuestionRenderers: {
-        [K in (typeof mafsSupportedGraphTypes)[number]]: PerseusRenderer;
-    } = {
-        angle: angleQuestion,
-        segment: segmentQuestion,
-        linear: linearQuestion,
-        "linear-system": linearSystemQuestion,
-        ray: rayQuestion,
-        polygon: polygonQuestion,
-        point: pointQuestion,
-        circle: circleQuestion,
-        quadratic: quadraticQuestion,
-        sinusoid: sinusoidQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
