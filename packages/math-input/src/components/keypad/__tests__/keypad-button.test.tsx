@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -6,8 +6,10 @@ import Keys from "../../../data/key-configs";
 import {mockStrings} from "../../../strings";
 import {KeypadButton} from "../keypad-button";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("<KeypadButton />", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -70,7 +72,9 @@ describe("<KeypadButton />", () => {
         );
 
         // Act
-        screen.getByRole("button", {name: "Right parenthesis"}).focus();
+        act(() =>
+            screen.getByRole("button", {name: "Right parenthesis"}).focus(),
+        );
         await userEvent.keyboard("{enter}");
 
         // Assert

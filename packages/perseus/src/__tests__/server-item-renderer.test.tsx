@@ -1,5 +1,5 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen} from "@testing-library/react";
+import {within, render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -32,6 +32,7 @@ import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
@@ -73,7 +74,7 @@ describe("server item renderer", () => {
         registerWidget("mock-widget", MockWidgetExport);
     });
 
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -89,7 +90,7 @@ describe("server item renderer", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
     });
 
     it("should snapshot", () => {
@@ -115,12 +116,12 @@ describe("server item renderer", () => {
         expect(screen.getByRole("textbox")).toBeVisible();
     });
 
-    it("should be invalid if no input provided", () => {
+    it("should be invalid if no input provided", async () => {
         // Arrange
         const {renderer} = renderQuestion(itemWithInput);
 
         // Act
-        const score = renderer.scoreInput();
+        const score = await act(() => renderer.scoreInput());
 
         // Assert
         expect(score.correct).toBe(false);
@@ -133,7 +134,7 @@ describe("server item renderer", () => {
         await userEvent.type(screen.getByRole("textbox"), "-42");
 
         // Act
-        const score = renderer.scoreInput();
+        const score = await act(() => renderer.scoreInput());
 
         // Assert
         expect(score.correct).toBe(true);
@@ -163,7 +164,7 @@ describe("server item renderer", () => {
         const inputs = screen.getAllByRole("textbox");
         await userEvent.type(inputs[0], "1");
         await userEvent.type(inputs[1], "2");
-        jest.runOnlyPendingTimers(); // Renderer uses setTimeout setting widget props
+        act(() => jest.runOnlyPendingTimers()); // Renderer uses setTimeout setting widget props
 
         // Assert
         expect(interactionCallback).toHaveBeenCalledWith({
@@ -178,7 +179,7 @@ describe("server item renderer", () => {
         const {renderer} = renderQuestion(itemWithInput);
 
         // Act
-        renderer.setInputValue(["input-number 1"], "99", focus);
+        act(() => renderer.setInputValue(["input-number 1"], "99", focus));
 
         // Assert
         expect(
@@ -332,14 +333,14 @@ describe("server item renderer", () => {
         // this test.
         // @ts-expect-error - TS2352 - Conversion of type 'Widget' to type 'MockAssetLoadingWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
         const widget = mockedWidget as MockAssetLoadingWidget;
-        widget.setAssetStatus("ABC", true);
+        act(() => widget.setAssetStatus("ABC", true));
 
         // Assert
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
     describe("focus management", () => {
-        it("calls onFocusChange when focusing the renderer", () => {
+        it("calls onFocusChange when focusing the renderer", async () => {
             // Arranged
             const onFocusChange = jest.fn();
             const {renderer} = renderQuestion(itemWithInput, {
@@ -347,7 +348,7 @@ describe("server item renderer", () => {
             });
 
             // Act
-            const gotFocus = renderer.focus();
+            const gotFocus = await act(() => renderer.focus());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -362,7 +363,7 @@ describe("server item renderer", () => {
             );
         });
 
-        it("activates the keypadElement when focusing the renderer on mobile", () => {
+        it("activates the keypadElement when focusing the renderer on mobile", async () => {
             // Arranged
             const onFocusChange = jest.fn();
             const keypadElementDOMNode = document.createElement("div");
@@ -391,7 +392,7 @@ describe("server item renderer", () => {
             );
 
             // Act
-            const gotFocus = renderer.focus();
+            const gotFocus = await act(() => renderer.focus());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -413,10 +414,10 @@ describe("server item renderer", () => {
             const {renderer} = renderQuestion(itemWithInput, {
                 onFocusChange,
             });
-            renderer.focus();
+            act(() => renderer.focus());
 
             // Act
-            renderer.blur();
+            act(() => renderer.blur());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -458,10 +459,10 @@ describe("server item renderer", () => {
                 {onFocusChange, isMobile: true},
                 {keypadElement},
             );
-            renderer.focus();
+            act(() => renderer.focus());
 
             // Act
-            renderer.blur();
+            act(() => renderer.blur());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -485,7 +486,7 @@ describe("server item renderer", () => {
             });
 
             // Act
-            renderer.focusPath(["input-number 1"]);
+            act(() => renderer.focusPath(["input-number 1"]));
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -543,22 +544,24 @@ describe("server item renderer", () => {
             const {renderer} = renderQuestion(itemWithInput);
 
             // Act
-            renderer.restoreSerializedState(
-                {
-                    hints: [{}, {}, {}],
-                    question: {
-                        "input-number 1": {
-                            answerType: "number",
-                            currentValue: "-42",
-                            rightAlign: undefined,
-                            simplify: "required",
-                            size: "normal",
+            act(() =>
+                renderer.restoreSerializedState(
+                    {
+                        hints: [{}, {}, {}],
+                        question: {
+                            "input-number 1": {
+                                answerType: "number",
+                                currentValue: "-42",
+                                rightAlign: undefined,
+                                simplify: "required",
+                                size: "normal",
+                            },
                         },
                     },
-                },
-                callback,
+                    callback,
+                ),
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(callback).toHaveBeenCalled();

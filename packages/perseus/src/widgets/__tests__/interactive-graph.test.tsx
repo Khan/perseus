@@ -1,12 +1,14 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import * as KAS from "@khanacademy/kas";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {waitFor} from "@testing-library/react";
+import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
+import * as React from "react";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
@@ -73,7 +75,7 @@ describe("interactive-graph widget", function () {
             correct: ReadonlyArray<Coord>,
             incorrect: ReadonlyArray<Coord>,
         ) => {
-            it("Should accept the right answer", () => {
+            it("Should accept the right answer", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, blankOptions);
 
@@ -85,17 +87,20 @@ describe("interactive-graph widget", function () {
                 // drag & drop behavior.
                 // We'll want to use cypress tests or similar to ensure this widget
                 // works as expected.
-                updateWidgetState(
-                    renderer,
-                    "interactive-graph 1",
-                    (state) => (state.graph.coords = correct),
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = correct),
+                    ),
                 );
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveBeenAnsweredCorrectly();
             });
 
-            it("Should render predictably", () => {
+            it("Should render predictably", async () => {
                 // Arrange
                 const {renderer, container} = renderQuestion(
                     question,
@@ -104,37 +109,43 @@ describe("interactive-graph widget", function () {
                 expect(container).toMatchSnapshot("first render");
 
                 // Act
-                updateWidgetState(
-                    renderer,
-                    "interactive-graph 1",
-                    (state) => (state.graph.coords = correct),
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = correct),
+                    ),
                 );
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(container).toMatchSnapshot("after interaction");
             });
 
-            it("should reject no interaction", () => {
+            it("should reject no interaction", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, blankOptions);
 
                 // Act
-                // no action
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveInvalidInput();
             });
 
-            it("should reject an incorrect answer", () => {
+            it("should reject an incorrect answer", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, blankOptions);
 
                 // Act
-                updateWidgetState(
-                    renderer,
-                    "interactive-graph 1",
-                    (state) => (state.graph.coords = incorrect),
+                act(() =>
+                    updateWidgetState(
+                        renderer,
+                        "interactive-graph 1",
+                        (state) => (state.graph.coords = incorrect),
+                    ),
                 );
+                await waitForInitialGraphieRender();
 
                 // Assert
                 expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -726,7 +737,7 @@ describe("locked layer", () => {
         const KasParseMock = jest
             .spyOn(KAS, "parse")
             .mockReturnValue({expr: {eval: () => PARSED}});
-        const PlotMock = jest.spyOn(Plot, "OfX").mockReturnValue(null);
+        const PlotMock = jest.spyOn(Plot, "OfX");
         renderQuestion(segmentWithLockedFunction("x^2"), {
             flags: {
                 mafs: {
@@ -771,8 +782,12 @@ describe("locked layer", () => {
                 },
             },
         };
-        const PlotOfXMock = jest.spyOn(Plot, "OfX").mockReturnValue(null);
-        const PlotOfYMock = jest.spyOn(Plot, "OfY").mockReturnValue(null);
+        const PlotOfXMock = jest
+            .spyOn(Plot, "OfX")
+            .mockReturnValue(<div>OfX</div>);
+        const PlotOfYMock = jest
+            .spyOn(Plot, "OfY")
+            .mockReturnValue(<div>OfY</div>);
         const equationFnMock = jest.fn();
 
         // Act - Render f(x)

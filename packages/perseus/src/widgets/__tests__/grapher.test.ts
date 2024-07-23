@@ -1,4 +1,5 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {
     linearQuestion,
@@ -14,17 +15,19 @@ describe("grapher widget", () => {
         );
     });
 
-    it("should snapshot linear graph question", () => {
+    it("should snapshot linear graph question", async () => {
         // Arrange and Act
         const {container} = renderQuestion(linearQuestion);
+        await waitForInitialGraphieRender();
 
         // Assert
         expect(container).toMatchSnapshot("initial render");
     });
 
-    it("should snapshot question with multiple graph types", () => {
+    it("should snapshot question with multiple graph types", async () => {
         // Arrange and Act
         const {container} = renderQuestion(multipleAvailableTypesQuestion);
+        await waitForInitialGraphieRender();
 
         // Assert
         expect(container).toMatchSnapshot("initial render");

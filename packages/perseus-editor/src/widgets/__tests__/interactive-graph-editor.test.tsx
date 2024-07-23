@@ -1,16 +1,18 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import {flags} from "../../__stories__/flags-for-api-options";
 import {getDefaultFigureForType} from "../../components/util";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
@@ -31,7 +33,7 @@ const mafsProps: PropsFor<typeof InteractiveGraphEditor> = {
 };
 
 describe("InteractiveGraphEditor", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -111,7 +113,7 @@ describe("InteractiveGraphEditor", () => {
             wrapper: RenderStateRoot,
         });
 
-        const defaultType = screen.getByText("Linear function");
+        const defaultType = await screen.findByText("Linear function");
         const otherType = screen.queryByText("Polygon");
 
         // Assert
@@ -134,12 +136,13 @@ describe("InteractiveGraphEditor", () => {
             },
         );
 
-        const defaultType = screen.queryByText("Linear function");
-        const otherType = screen.getByText("Polygon");
-
         // Assert
-        expect(defaultType).not.toBeInTheDocument();
-        expect(otherType).toBeInTheDocument();
+        await waitFor(() =>
+            expect(
+                screen.queryByText("Linear function"),
+            ).not.toBeInTheDocument(),
+        );
+        expect(screen.getByText("Polygon")).toBeInTheDocument();
     });
 
     test("Includes point-specific settings when graph type is 'point'", async () => {
@@ -158,7 +161,9 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Assert
-        expect(screen.getByText("Number of Points:")).toBeInTheDocument();
+        expect(
+            await screen.findByText("Number of Points:"),
+        ).toBeInTheDocument();
     });
 
     test("Includes polygon-specific settings when graph type is 'polygon'", async () => {
@@ -177,11 +182,17 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Assert
-        expect(screen.getByText("Number of sides:")).toBeInTheDocument();
-        expect(screen.getByText("Snap to:")).toBeInTheDocument();
-        expect(screen.getByText("Show angle measures")).toBeInTheDocument();
-        expect(screen.getByText("Show side measures")).toBeInTheDocument();
-        expect(screen.getByText("Student answer must")).toBeInTheDocument();
+        expect(await screen.findByText("Number of sides:")).toBeInTheDocument();
+        expect(await screen.findByText("Snap to:")).toBeInTheDocument();
+        expect(
+            await screen.findByText("Show angle measures"),
+        ).toBeInTheDocument();
+        expect(
+            await screen.findByText("Show side measures"),
+        ).toBeInTheDocument();
+        expect(
+            await screen.findByText("Student answer must"),
+        ).toBeInTheDocument();
     });
 
     test("Includes segment-specific settings when graph type is 'segment'", async () => {
@@ -200,7 +211,9 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Assert
-        expect(screen.getByText("Number of segments:")).toBeInTheDocument();
+        expect(
+            await screen.findByText("Number of segments:"),
+        ).toBeInTheDocument();
     });
 
     test("Includes angle-specific settings when graph type is 'angle'", async () => {
@@ -219,7 +232,9 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Assert
-        expect(screen.getByText("Student answer must")).toBeInTheDocument();
+        expect(
+            await screen.findByText("Student answer must"),
+        ).toBeInTheDocument();
     });
 
     test("Calls onChange when the number of points is changed", async () => {
@@ -586,6 +601,7 @@ describe("InteractiveGraphEditor", () => {
                 wrapper: RenderStateRoot,
             },
         );
+        await waitForInitialGraphieRender();
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([
@@ -617,6 +633,7 @@ describe("InteractiveGraphEditor", () => {
                 wrapper: RenderStateRoot,
             },
         );
+        await waitForInitialGraphieRender();
 
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([]);

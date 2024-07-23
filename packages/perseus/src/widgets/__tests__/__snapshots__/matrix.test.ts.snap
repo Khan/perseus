@@ -69,7 +69,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
           <div
             class="perseus-matrix"
           >
-            
             <div
               class="matrix-input"
             >
@@ -262,7 +261,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                 </span>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
@@ -335,7 +333,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
           <div
             class="perseus-matrix"
           >
-            
             <div
               class="matrix-input"
             >
@@ -528,7 +525,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                 </span>
               </div>
             </div>
-            
           </div>
         </div>
       </div>

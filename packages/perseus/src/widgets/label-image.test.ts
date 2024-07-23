@@ -11,6 +11,8 @@ import {textQuestion} from "./__testdata__/label-image.testdata";
 import {renderQuestion} from "./__tests__/renderQuestion";
 import {LabelImage} from "./label-image";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 const emptyMarker = {
     label: "",
     answers: [],
@@ -20,7 +22,7 @@ const emptyMarker = {
 } as const;
 
 describe("LabelImage", function () {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

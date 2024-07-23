@@ -7,6 +7,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import StartCoordSettings from "../start-coord-settings";
 
 import type {Range} from "@khanacademy/perseus";
+import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
     range: [
@@ -16,7 +17,7 @@ const defaultProps = {
     step: [1, 1] satisfies [number, number],
 };
 describe("StartCoordSettings", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

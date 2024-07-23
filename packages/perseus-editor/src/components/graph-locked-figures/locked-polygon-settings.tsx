@@ -95,9 +95,7 @@ const LockedPolygonSettings = (props: Props) => {
                                 key={option}
                                 value={option}
                                 label={option}
-                            >
-                                {option}
-                            </OptionItem>
+                            />
                         ))}
                     </SingleSelect>
                 </LabelMedium>
@@ -115,12 +113,8 @@ const LockedPolygonSettings = (props: Props) => {
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
-                    <OptionItem value="solid" label="solid">
-                        solid
-                    </OptionItem>
-                    <OptionItem value="dashed" label="dashed">
-                        dashed
-                    </OptionItem>
+                    <OptionItem value="solid" label="solid" />
+                    <OptionItem value="dashed" label="dashed" />
                 </SingleSelect>
             </LabelMedium>
 

@@ -38,9 +38,7 @@ const LockedFigureSelect = (props: Props) => {
                         key={`${id}-${figureType}`}
                         label={figureType}
                         onClick={() => onChange(figureType)}
-                    >
-                        {figureType}
-                    </ActionItem>
+                    />
                 ))}
             </ActionMenu>
         </View>

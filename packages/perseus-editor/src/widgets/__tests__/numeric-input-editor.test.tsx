@@ -1,13 +1,15 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {render, screen} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import NumericInputEditor from "../numeric-input-editor";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("numeric-input-editor", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -21,7 +23,11 @@ describe("numeric-input-editor", () => {
     it("should render", async () => {
         render(<NumericInputEditor onChange={() => undefined} />);
 
-        expect(screen.getByText(/Add new answer/)).toBeInTheDocument();
+        await waitFor(async () =>
+            expect(
+                await screen.findByText(/Add new answer/),
+            ).toBeInTheDocument(),
+        );
     });
 
     it("should be possible to select normal width", async () => {

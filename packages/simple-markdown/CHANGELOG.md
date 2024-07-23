@@ -1,5 +1,13 @@
 # @khanacademy/simple-markdown
 
+## 0.13.0
+
+### Minor Changes
+
+-   [#1064](https://github.com/Khan/perseus/pull/1064) [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - React 18
+
+*   [#1064](https://github.com/Khan/perseus/pull/1064) [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - React 18
+
 ## 0.12.1
 
 ### Patch Changes

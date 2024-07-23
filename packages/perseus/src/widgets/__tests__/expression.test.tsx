@@ -1,5 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {screen} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
@@ -21,6 +21,7 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -31,7 +32,7 @@ const renderAndAnswer = async (
     jest.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
     await userEvent.type(screen.getByRole("textbox"), input);
-    jest.runOnlyPendingTimers();
+    act(() => jest.runOnlyPendingTimers());
 
     return renderer;
 };
@@ -92,12 +93,12 @@ const assertInvalid = async (
     if (input.length) {
         await userEvent.type(screen.getByRole("textbox"), input);
     }
-    jest.runOnlyPendingTimers();
+    act(() => jest.runOnlyPendingTimers());
     expect(renderer).toHaveInvalidInput();
 };
 
 describe("Expression Widget", function () {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -404,73 +405,6 @@ describe("Expression Widget", function () {
         });
     });
 
-    describe("focus state", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-        });
-
-        it("supports directly focusing", () => {
-            //  Arrange
-            renderQuestion(expressionItem2.question);
-
-            // Act
-            const expressionInput = screen.getByRole("textbox");
-            expressionInput.focus();
-
-            // Assert
-            expect(expressionInput).toHaveFocus();
-        });
-
-        it("supports directly blurring", () => {
-            //  Arrange
-            renderQuestion(expressionItem2.question);
-
-            // Act
-            const expressionInput = screen.getByRole("textbox");
-            expressionInput.focus();
-            expressionInput.blur();
-
-            // Assert
-            expect(expressionInput).not.toHaveFocus();
-        });
-
-        it("can be focused via a function", () => {
-            // arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // act
-            expression.focusInputPath();
-
-            // Assert
-            const expressionInput = screen.getByRole("textbox");
-            expect(expressionInput).toHaveFocus();
-        });
-    });
-
-    describe("rendering", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-        });
-
-        it("supports mobile rendering", async () => {
-            // arrange and act
-            renderQuestion(expressionItem2.question, {
-                // Setting this triggers mobile rendering
-                // it would be nice if this was more clear in the code
-                customKeypad: true,
-            });
-
-            // Assert
-            const mobileInput = await screen.findByRole("textbox");
-            expect(mobileInput).toBeVisible();
-        });
-    });
-
     describe("labels", () => {
         it("renders visible label", async () => {
             // Arrange, Act
@@ -504,6 +438,73 @@ describe("Expression Widget", function () {
         });
     });
 
+    describe("focus state", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
+
+        it("supports directly focusing", () => {
+            //  Arrange
+            renderQuestion(expressionItem2.question);
+
+            // Act
+            const expressionInput = screen.getByRole("textbox");
+            act(() => expressionInput.focus());
+
+            // Assert
+            expect(expressionInput).toHaveFocus();
+        });
+
+        it("supports directly blurring", () => {
+            //  Arrange
+            renderQuestion(expressionItem2.question);
+
+            // Act
+            const expressionInput = screen.getByRole("textbox");
+            act(() => expressionInput.focus());
+            act(() => expressionInput.blur());
+
+            // Assert
+            expect(expressionInput).not.toHaveFocus();
+        });
+
+        it("can be focused via a function", () => {
+            // arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // act
+            act(() => expression.focusInputPath());
+
+            // Assert
+            const expressionInput = screen.getByRole("textbox");
+            expect(expressionInput).toHaveFocus();
+        });
+    });
+
+    describe("rendering", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
+
+        it("supports mobile rendering", async () => {
+            // arrange and act
+            renderQuestion(expressionItem2.question, {
+                // Setting this triggers mobile rendering
+                // it would be nice if this was more clear in the code
+                customKeypad: true,
+            });
+
+            // Assert
+            const mobileInput = await screen.findByRole("textbox");
+            expect(mobileInput).toBeVisible();
+        });
+    });
+
     describe("interaction", () => {
         beforeEach(() => {
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -515,11 +516,13 @@ describe("Expression Widget", function () {
         it("sets input value directly", () => {
             // arrange
             const {renderer} = renderQuestion(expressionItem2.question);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // act
-            renderer.setInputValue(["expression 1"], "123-x", () => {});
-            jest.runOnlyPendingTimers();
+            act(() =>
+                renderer.setInputValue(["expression 1"], "123-x", () => {}),
+            );
+            act(() => jest.runOnlyPendingTimers());
             const score = renderer.guessAndScore()[1];
 
             // Assert
@@ -530,13 +533,14 @@ describe("Expression Widget", function () {
             expect(score.earned).toBe(score.total);
         });
 
-        it("has a developer facility for inserting", () => {
+        it("has a developer facility for inserting", async () => {
             // arrange
             const {renderer} = renderQuestion(expressionItem2.question);
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
+
             const expression = renderer.findWidgets("expression 1")[0];
-            expression.insert("x+1");
-            jest.runOnlyPendingTimers();
+            act(() => expression.insert("x+1"));
+            act(() => jest.runOnlyPendingTimers());
 
             // act
             const score = renderer.score();
@@ -563,16 +567,21 @@ describe("Expression Widget", function () {
             const expression = renderer.findWidgets("expression 1")[0];
 
             // Act
-            expression.insert("x&&&&&^1");
-            jest.runOnlyPendingTimers();
-            screen.getByRole("textbox").blur();
+            // Note(jeremy): You might think you could collapse all of these calls
+            // inside a single act() block, but that didn't work. The only way this
+            // test passes is with each statement in its own act() call. :/
+            act(() => expression.insert("x&&&&&^1"));
+            act(() => jest.runOnlyPendingTimers());
+            act(() => screen.getByRole("textbox").blur());
+            act(() => jest.runOnlyPendingTimers());
             renderer.guessAndScore();
 
             // Assert
-            expect(screen.getByText("Oops!")).toBeVisible();
-            expect(
-                screen.getByText("Sorry, I don't understand that!"),
-            ).toBeVisible();
+            await waitFor(() =>
+                expect(
+                    screen.getByText("Oops! Sorry, I don't understand that!"),
+                ).toBeVisible(),
+            );
         });
 
         it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {
@@ -581,9 +590,9 @@ describe("Expression Widget", function () {
             const expression = renderer.findWidgets("expression 1")[0];
 
             // Act
-            expression.insert("sen(x)");
-            jest.runOnlyPendingTimers();
-            screen.getByRole("textbox").blur();
+            act(() => expression.insert("sen(x)"));
+            act(() => jest.runOnlyPendingTimers());
+            act(() => screen.getByRole("textbox").blur());
             renderer.guessAndScore();
 
             // Assert

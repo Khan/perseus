@@ -1,4 +1,4 @@
-import {Popover} from "@khanacademy/wonder-blocks-popover";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -12,6 +12,7 @@ import Keypad from "../index";
 import type Key from "../../../data/keys";
 import type {MathFieldInterface} from "../../input/mathquill-types";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 type Props = {
     onChangeMathInput: (mathInputTex: string) => void;
@@ -68,7 +69,7 @@ function V2KeypadWithMathquill(props: Props) {
         <div style={{maxWidth: "400px", margin: "2em"}}>
             <Popover
                 content={
-                    <div>
+                    <PopoverContentCore>
                         <Keypad
                             extraKeys={["a", "b", "c"]}
                             onClickKey={handleClickKey}
@@ -86,7 +87,7 @@ function V2KeypadWithMathquill(props: Props) {
                             }
                             showDismiss
                         />
-                    </div>
+                    </PopoverContentCore>
                 }
                 dismissEnabled
                 opened={keypadOpen}
@@ -111,7 +112,7 @@ function V2KeypadWithMathquill(props: Props) {
 }
 
 describe("Keypad v2 with MathQuill", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

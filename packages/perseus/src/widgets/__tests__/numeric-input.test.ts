@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -22,11 +22,12 @@ import {
 import {renderQuestion} from "./renderQuestion";
 
 import type {Rubric} from "../numeric-input";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
 
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -409,7 +410,7 @@ describe("static function validate", () => {
 });
 
 describe("Numeric input widget", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -508,18 +509,15 @@ describe("Numeric input widget", () => {
         expect(container).toMatchSnapshot("mobile render");
     });
 
-    it("can be focused", () => {
+    it("can be focused", async () => {
         const {renderer} = renderQuestion(question1);
 
         // Act
-        const gotFocus = renderer.focus();
+        const gotFocus = await act(() => renderer.focus());
 
         // Assert
         expect(gotFocus).toBe(true);
-        // eslint-disable-next-line testing-library/no-node-access
-        expect(document.activeElement).toBe(
-            screen.getByRole("textbox", {hidden: true}),
-        );
+        expect(screen.getByRole("textbox", {hidden: true})).toHaveFocus();
     });
 
     it("can be blurred", () => {
@@ -527,8 +525,8 @@ describe("Numeric input widget", () => {
 
         // Act
         const input = screen.getByRole("textbox", {hidden: true});
-        input.focus();
-        renderer.blur();
+        act(() => input.focus());
+        act(() => renderer.blur());
 
         // Assert
         // eslint-disable-next-line testing-library/no-node-access
@@ -550,20 +548,19 @@ describe("unionAnswerForms utility function", () => {
         const forms = [
             [
                 {
-                    simplify: "required",
+                    simplify: "required" as const,
                     name: "integer",
-                },
+                } as const,
             ],
             [
                 {
-                    simplify: "required",
+                    simplify: "required" as const,
                     name: "integer",
-                },
+                } as const,
             ],
         ];
 
         // act
-        // @ts-expect-error - TS2345 - Argument of type '{ simplify: string; name: string; }[][]' is not assignable to parameter of type 'readonly (readonly PerseusNumericInputAnswerForm[])[]'.
         const result = unionAnswerForms(forms);
 
         // assert
