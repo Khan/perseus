@@ -45,7 +45,7 @@ import type {InteractiveGraphState, PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
 
-export function interactiveGraphReducer(
+function interactiveGraphReducer_internal(
     state: InteractiveGraphState,
     action: InteractiveGraphAction,
 ): InteractiveGraphState {
@@ -71,6 +71,17 @@ export function interactiveGraphReducer(
         default:
             throw new UnreachableCaseError(action);
     }
+}
+
+export function interactiveGraphReducer(
+    state: InteractiveGraphState,
+    action: InteractiveGraphAction,
+): InteractiveGraphState {
+    const result = interactiveGraphReducer_internal(state, action);
+    console.log(
+        `Dispatched ${action.type} (${JSON.stringify(action)}) ==> ${JSON.stringify(result)}`,
+    );
+    return result;
 }
 
 function doMovePointInFigure(
