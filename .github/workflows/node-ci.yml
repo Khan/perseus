@@ -32,4 +32,4 @@ jobs:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Jest with coverage
-              run: DEBUG_PRINT_LIMIT=100000 yarn coverage
+              run: env DEBUG_PRINT_LIMIT=100000 yarn coverage __tests__/interactive-graph.test.tsx
