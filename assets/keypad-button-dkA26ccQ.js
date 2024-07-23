@@ -1,0 +1,21 @@
+import{j as n}from"./jsx-runtime-5BUNAZ9W.js";import{C as c}from"./index-Cz55-Vre.js";import{V as i}from"./index-e4P84RkC.js";import{c as t}from"./index-lUErx3pE.js";import{l as b}from"./index-awljIyHI.js";import{B as g}from"./button-assets-W0P3gTHH.js";const w=({coord:o,keyConfig:a,onClickKey:u,style:y,secondary:s,action:l})=>{const d=s?"#F6F6F7":l?"#DBDCDD":void 0;return n(i,{style:{gridColumn:o[0]+1,gridRow:o[1]+1,...y},testId:a.id,children:n(c,{onClick:r=>u(a.id,r),onMouseDown:r=>r.preventDefault(),style:e.clickable,"aria-label":a.ariaLabel,children:({hovered:r,focused:p,pressed:m})=>n(i,{style:[e.outerBoxBase],children:n(i,{style:[e.base,d!=null?{background:d}:void 0,r&&e.hovered,p&&e.focused,m&&e.pressed],children:n(g,{id:a.id})})})})})},e=b.StyleSheet.create({base:{display:"flex",justifyContent:"center",alignItems:"center",boxShadow:`0px 1px 0px ${t.offBlack32}`,boxSizing:"border-box",background:t.white,borderRadius:4,borderWidth:2,borderStyle:"solid",borderColor:"transparent",flex:1,minHeight:42,minWidth:42,padding:1},hovered:{borderColor:t.blue,padding:1,boxShadow:"none"},focused:{borderColor:t.blue,padding:0,boxShadow:"none"},pressed:{border:"2px solid #1B50B3",padding:0,background:`linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${t.white}`,boxShadow:"none"},outerBoxBase:{padding:1,height:"100%",width:"100%",boxSizing:"border-box",borderRadius:7,border:"2px solid transparent"},clickable:{width:"100%",height:"100%",boxSizing:"border-box",":focus":{outline:"none"}}});w.__docgenInfo={description:"",methods:[],displayName:"KeypadButton",props:{coord:{required:!0,tsType:{name:"unknown"},description:""},keyConfig:{required:!0,tsType:{name:"union",raw:"NonManyKeyConfig | ManyKeyConfig",elements:[{name:"signature",type:"object",raw:`{
+    id: Key;
+    type: Exclude<KeyType, "MANY">;
+    icon: IconConfig;
+    ariaLabel: string;
+}`,signature:{properties:[{key:"id",value:{name:"unknown[number]",raw:"(typeof KeyArray)[number]",required:!0}},{key:"type",value:{name:"Exclude",elements:[{name:"unknown[number]",raw:"(typeof KeyTypes)[number]"},{name:"literal",value:'"MANY"'}],raw:'Exclude<KeyType, "MANY">',required:!0}},{key:"icon",value:{name:"signature",type:"object",raw:`{
+    data: string;
+}`,signature:{properties:[{key:"data",value:{name:"string",required:!0}}]},required:!0}},{key:"ariaLabel",value:{name:"string",required:!0}}]}},{name:"intersection",raw:`Omit<NonManyKeyConfig, "type"> & {
+    type: Extract<KeyType, "MANY">;
+    childKeyIds: ReadonlyArray<string>;
+}`,elements:[{name:"Omit",elements:[{name:"signature",type:"object",raw:`{
+    id: Key;
+    type: Exclude<KeyType, "MANY">;
+    icon: IconConfig;
+    ariaLabel: string;
+}`,signature:{properties:[{key:"id",value:{name:"unknown[number]",raw:"(typeof KeyArray)[number]",required:!0}},{key:"type",value:{name:"Exclude",elements:[{name:"unknown[number]",raw:"(typeof KeyTypes)[number]"},{name:"literal",value:'"MANY"'}],raw:'Exclude<KeyType, "MANY">',required:!0}},{key:"icon",value:{name:"signature",type:"object",raw:`{
+    data: string;
+}`,signature:{properties:[{key:"data",value:{name:"string",required:!0}}]},required:!0}},{key:"ariaLabel",value:{name:"string",required:!0}}]}},{name:"literal",value:'"type"'}],raw:'Omit<NonManyKeyConfig, "type">'},{name:"signature",type:"object",raw:`{
+    type: Extract<KeyType, "MANY">;
+    childKeyIds: ReadonlyArray<string>;
+}`,signature:{properties:[{key:"type",value:{name:"Extract",elements:[{name:"unknown[number]",raw:"(typeof KeyTypes)[number]"},{name:"literal",value:'"MANY"'}],raw:'Extract<KeyType, "MANY">',required:!0}},{key:"childKeyIds",value:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>",required:!0}}]}}]}]},description:""},onClickKey:{required:!0,tsType:{name:"signature",type:"function",raw:"(key: Key, event?: React.SyntheticEvent) => void",signature:{arguments:[{type:{name:"unknown[number]",raw:"(typeof KeyArray)[number]"},name:"key"},{type:{name:"ReactSyntheticEvent",raw:"React.SyntheticEvent"},name:"event"}],return:{name:"void"}}},description:""},action:{required:!1,tsType:{name:"boolean"},description:""},secondary:{required:!1,tsType:{name:"boolean"},description:""},style:{required:!1,tsType:{name:"StyleType"},description:""}}};export{w as K};
