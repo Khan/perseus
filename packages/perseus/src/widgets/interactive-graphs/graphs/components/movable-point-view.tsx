@@ -92,6 +92,7 @@ export const MovablePointView = forwardRef(
                 data-testid="movable-point"
                 tabIndex={tabIndex(focusBehavior)}
             >
+                <text>{`${props.point[0]}, ${props.point[1]}`}</text>
                 <circle
                     className="movable-point-hitbox"
                     r={hitboxSizePx / 2}
