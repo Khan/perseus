@@ -104,20 +104,6 @@
         margin: 22px 0px;
     }
 
-    // HACK:
-    // - question-paragraph.tsx adds a `paragraph` class
-    // - Simple Markdown adds one too
-    // I needed to modify Simple Markdown without
-    // modifying QuestionParagraph.
-    // We need to wrangle the paragraph class:
-    // https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3087630337/LEMS+Perseus+paragraph+CSS+class
-    div.paragraph > div.paragraph {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: end;
-        margin: 0;
-    }
-
     // HACK(yejia): Override the font size and line height for blurbs
     //
     // TODO(TP-3315): Remove once Perseus uses Wonder Blocks BodySerif
@@ -470,6 +456,9 @@
 
     &.widget-inline-block {
         display: inline-block;
+        // we added this to help center inline Expression widgets
+        // in the context of text/MathJax
+        vertical-align: bottom;
     }
 }
 
