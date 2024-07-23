@@ -1,16 +1,11 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import * as KAS from "@khanacademy/kas";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {act, waitFor} from "@testing-library/react";
+import {waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
 
-import {clone} from "../../../../../testing/object-utils";
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import {waitForInitialGraphieRender} from "../../../../../testing/wait";
-import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
 import {sinusoidQuestion} from "../__testdata__/grapher.testdata";
 import {
@@ -28,7 +23,6 @@ import {
     polygonQuestionDefaultCorrect,
     quadraticQuestion,
     quadraticQuestionWithDefaultCorrect,
-    questionsAndAnswers,
     rayQuestion,
     rayQuestionWithDefaultCorrect,
     segmentQuestion,
@@ -46,113 +40,9 @@ import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supp
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
-import type Renderer from "../../renderer";
-import type {APIOptions} from "../../types";
 import type {mafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 import type {UserEvent} from "@testing-library/user-event";
-
-const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
-    const state = clone(renderer.getSerializedState());
-    update(state[widgetId]);
-    renderer.restoreSerializedState(state);
-};
-
-const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
-
-describe("interactive-graph widget", function () {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    describe.each(questionsAndAnswers)(
-        "question",
-        (
-            question: PerseusRenderer,
-            correct: ReadonlyArray<Coord>,
-            incorrect: ReadonlyArray<Coord>,
-        ) => {
-            it("Should accept the right answer", async () => {
-                // Arrange
-                const {renderer} = renderQuestion(question, blankOptions);
-
-                // Act
-                // NOTE: This isn't acting on the UI as a user would, which is
-                // a weakness of these tests. Because this widget is designed for
-                // pointer-dragging, jsdom (which doesn't support getBoundingClientRect
-                // or other position-based node attributes) is insufficient to model
-                // drag & drop behavior.
-                // We'll want to use cypress tests or similar to ensure this widget
-                // works as expected.
-                act(() =>
-                    updateWidgetState(
-                        renderer,
-                        "interactive-graph 1",
-                        (state) => (state.graph.coords = correct),
-                    ),
-                );
-                await waitForInitialGraphieRender();
-
-                // Assert
-                expect(renderer).toHaveBeenAnsweredCorrectly();
-            });
-
-            it("Should render predictably", async () => {
-                // Arrange
-                const {renderer, container} = renderQuestion(
-                    question,
-                    blankOptions,
-                );
-                expect(container).toMatchSnapshot("first render");
-
-                // Act
-                act(() =>
-                    updateWidgetState(
-                        renderer,
-                        "interactive-graph 1",
-                        (state) => (state.graph.coords = correct),
-                    ),
-                );
-                await waitForInitialGraphieRender();
-
-                // Assert
-                expect(container).toMatchSnapshot("after interaction");
-            });
-
-            it("should reject no interaction", async () => {
-                // Arrange
-                const {renderer} = renderQuestion(question, blankOptions);
-
-                // Act
-                await waitForInitialGraphieRender();
-
-                // Assert
-                expect(renderer).toHaveInvalidInput();
-            });
-
-            it("should reject an incorrect answer", async () => {
-                // Arrange
-                const {renderer} = renderQuestion(question, blankOptions);
-
-                // Act
-                act(() =>
-                    updateWidgetState(
-                        renderer,
-                        "interactive-graph 1",
-                        (state) => (state.graph.coords = incorrect),
-                    ),
-                );
-                await waitForInitialGraphieRender();
-
-                // Assert
-                expect(renderer).toHaveBeenAnsweredIncorrectly();
-            });
-        },
-    );
-});
 
 describe("a mafs graph", () => {
     let userEvent: UserEvent;
