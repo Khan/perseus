@@ -20,7 +20,8 @@ export const Base = (): React.ReactElement => {
     }
 
     function serialize() {
-        console.log(articleEditorRef.current?.serialize());
+        // eslint-disable-next-line no-console
+        console.log((articleEditorRef.current as any).serialize());
     }
 
     return (
@@ -33,7 +34,7 @@ export const Base = (): React.ReactElement => {
                 json={state}
                 onChange={handleChange}
                 previewURL="/perseus/frame"
-                ref={articleEditorRef}
+                ref={articleEditorRef as any}
             />
         </>
     );
