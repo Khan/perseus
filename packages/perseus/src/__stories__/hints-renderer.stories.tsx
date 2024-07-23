@@ -4,9 +4,7 @@ import React from "react";
 import HintsRenderer from "../hints-renderer";
 
 import type {Meta, StoryObj} from "@storybook/react";
-import {
-    interactiveGraphQuestionBuilder
-} from "../widgets/interactive-graphs/interactive-graph-question-builder";
+import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
 
 const meta: Meta<typeof HintsRenderer> = {
     title: "Perseus/Renderers/Hints Renderer",
@@ -61,14 +59,14 @@ export const WithInteractiveGraph: Story = {
     args: {
         apiOptions: {
             flags: {
-                mafs: {segment: true}
-            }
+                mafs: {segment: true},
+            },
         },
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().build(),
                 replace: false,
-            }
-        ]
-    }
-}
+            },
+        ],
+    },
+};
