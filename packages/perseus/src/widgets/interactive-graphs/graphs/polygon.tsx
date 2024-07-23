@@ -107,7 +107,10 @@ export const PolygonGraph = (props: Props) => {
                     onFocus: () => setFocused(true),
                     onBlur: () => setFocused(false),
                     onMouseEnter: () => setHovered(true),
-                    onMouseLeave: () => setHovered(false),
+                    onMouseLeave: () => {
+                        setHovered(false);
+                        setFocused(false);
+                    },
                     className: "movable-polygon",
                 }}
             />
