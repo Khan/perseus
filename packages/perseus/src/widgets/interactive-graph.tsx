@@ -1834,6 +1834,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     snapStep={snapStep}
                     box={box}
                     showTooltips={!!this.props.showTooltips}
+                    hintMode={this.props.hintMode}
                 />
             );
         }

@@ -175,6 +175,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     problemNum?: number;
     questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
+    hintMode?: boolean;
     /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
@@ -239,6 +240,7 @@ type DefaultProps = Required<
         | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
+        | "hintMode"
         | "serializedState"
         | "widgets"
     >
@@ -285,6 +287,7 @@ class Renderer extends React.Component<Props, State> {
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
+        hintMode: false,
         serializedState: null,
         onSerializedStateUpdated: () => {},
         linterContext: PerseusLinter.linterContextDefault,
@@ -666,6 +669,7 @@ class Renderer extends React.Component<Props, State> {
             onBlur: _.partial(this._onWidgetBlur, id),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
+            hintMode: this.props.hintMode,
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(id, newProps, cb, silent);
             },

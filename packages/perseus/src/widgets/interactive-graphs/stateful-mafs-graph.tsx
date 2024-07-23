@@ -31,6 +31,7 @@ export type StatefulMafsGraphProps = {
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
+    hintMode: boolean;
 };
 
 // Rather than be tightly bound to how data was structured in
