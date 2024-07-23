@@ -201,7 +201,9 @@ describe("a mafs graph", () => {
         "graph type %s",
         (_type, question) => {
             it("should render", () => {
-                renderQuestion(question, apiOptions);
+                const {container} = renderQuestion(question, apiOptions);
+
+                expect(container).toMatchSnapshot("first render");
             });
 
             it("should reject when has not been interacted with", () => {
@@ -221,7 +223,9 @@ describe("a mafs graph", () => {
         "graph type %s: default correct",
         (_type, question) => {
             it("should render", () => {
-                renderQuestion(question, apiOptions);
+                const {container} = renderQuestion(question, apiOptions);
+
+                expect(container).toMatchSnapshot("first render");
             });
 
             it("rejects incorrect answer", async () => {
@@ -245,7 +249,8 @@ describe("a mafs graph", () => {
                 await userEvent.tab();
 
                 // Act
-                await userEvent.keyboard("{arrowup}{arrowdown}");
+                await userEvent.keyboard("{arrowup}");
+                await userEvent.keyboard("{arrowdown}");
 
                 // Assert
                 await waitFor(() => {
