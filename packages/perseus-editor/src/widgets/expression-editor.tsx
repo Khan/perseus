@@ -285,6 +285,8 @@ class ExpressionEditor extends React.Component<Props> {
             "buttonSets",
             "functions",
             "times",
+            "visibleLabel",
+            "ariaLabel",
         ];
 
         const answerForms = this.props.answerForms.map((form) => {
