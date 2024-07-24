@@ -24,7 +24,7 @@ import GraphTypeSelector from "../components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "../components/interactive-graph-correct-answer";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import SegmentCountSelector from "../components/segment-count-selector";
-import StartCoordSettings from "../components/start-coord-settings";
+import StartCoordsSettings from "../components/start-coords-settings";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -495,7 +495,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     this.props.graph?.type === "segment" ||
                     this.props.graph?.type === "linear-system") &&
                     this.props.apiOptions.flags?.mafs?.["start-coords-ui"] && (
-                        <StartCoordSettings
+                        <StartCoordsSettings
                             {...this.props.graph}
                             range={this.props.range}
                             step={this.props.step}

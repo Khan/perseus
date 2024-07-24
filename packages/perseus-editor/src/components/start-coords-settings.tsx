@@ -28,7 +28,7 @@ type Props = PerseusGraphType & {
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 
-const StartCoordSettingsInner = (props: Props) => {
+const StartCoordsSettingsInner = (props: Props) => {
     const {type, range, step, startCoords, onChange} = props;
 
     switch (type) {
@@ -111,7 +111,7 @@ const StartCoordSettingsInner = (props: Props) => {
     }
 };
 
-const StartCoordSettings = (props: Props) => {
+const StartCoordsSettings = (props: Props) => {
     const {type, range, step, onChange} = props;
     const [isOpen, setIsOpen] = React.useState(true);
 
@@ -166,7 +166,7 @@ const StartCoordSettings = (props: Props) => {
             {/* Start coordinates main UI */}
             {isOpen && (
                 <>
-                    <StartCoordSettingsInner {...props} />
+                    <StartCoordsSettingsInner {...props} />
 
                     {/* Button to reset to default */}
                     <Strut size={spacing.small_12} />
@@ -198,4 +198,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default StartCoordSettings;
+export default StartCoordsSettings;

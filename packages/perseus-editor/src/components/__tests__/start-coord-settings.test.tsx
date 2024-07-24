@@ -6,7 +6,7 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {clone} from "../../util/object-utils";
-import StartCoordSettings from "../start-coord-settings";
+import StartCoordsSettings from "../start-coords-settings";
 
 import type {CollinearTuple, Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
@@ -35,7 +35,7 @@ describe("StartCoordSettings", () => {
 
         // Act
         render(
-            <StartCoordSettings
+            <StartCoordsSettings
                 {...defaultProps}
                 type="linear"
                 onChange={() => {}}
@@ -72,7 +72,7 @@ describe("StartCoordSettings", () => {
 
             // Act
             render(
-                <StartCoordSettings
+                <StartCoordsSettings
                     {...defaultProps}
                     type={type}
                     onChange={() => {}}
@@ -104,7 +104,7 @@ describe("StartCoordSettings", () => {
 
                 // Act
                 render(
-                    <StartCoordSettings
+                    <StartCoordsSettings
                         {...defaultProps}
                         type={type}
                         onChange={onChangeMock}
@@ -134,7 +134,7 @@ describe("StartCoordSettings", () => {
 
             // Act
             render(
-                <StartCoordSettings
+                <StartCoordsSettings
                     {...defaultProps}
                     startCoords={[
                         [-15, 15],
@@ -165,7 +165,7 @@ describe("StartCoordSettings", () => {
 
             // Act
             render(
-                <StartCoordSettings
+                <StartCoordsSettings
                     {...defaultProps}
                     type="segment"
                     numSegments={1}
@@ -186,7 +186,7 @@ describe("StartCoordSettings", () => {
 
             // Act
             render(
-                <StartCoordSettings
+                <StartCoordsSettings
                     {...defaultProps}
                     type="segment"
                     numSegments={2}
@@ -232,7 +232,7 @@ describe("StartCoordSettings", () => {
 
                 // Act
                 render(
-                    <StartCoordSettings
+                    <StartCoordsSettings
                         {...defaultProps}
                         type="segment"
                         numSegments={2}
@@ -262,7 +262,7 @@ describe("StartCoordSettings", () => {
 
             // Act
             render(
-                <StartCoordSettings
+                <StartCoordsSettings
                     {...defaultProps}
                     type="segment"
                     numSegments={2}
@@ -307,7 +307,7 @@ describe("StartCoordSettings", () => {
 
             // Act
             render(
-                <StartCoordSettings
+                <StartCoordsSettings
                     {...defaultProps}
                     type="linear-system"
                     onChange={() => {}}
@@ -352,7 +352,7 @@ describe("StartCoordSettings", () => {
 
                 // Act
                 render(
-                    <StartCoordSettings
+                    <StartCoordsSettings
                         {...defaultProps}
                         type="linear-system"
                         startCoords={coords}
@@ -381,7 +381,7 @@ describe("StartCoordSettings", () => {
 
             // Act
             render(
-                <StartCoordSettings
+                <StartCoordsSettings
                     {...defaultProps}
                     type="linear-system"
                     startCoords={[
