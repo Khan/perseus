@@ -51,6 +51,9 @@ export const PolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
+                    strokeWidth: active
+                        ? "var(--movable-line-stroke-weight-active)"
+                        : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
                 }}
             />
