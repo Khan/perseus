@@ -5,7 +5,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import {clone} from "../../../testing/object-utils";
+import {clone} from "../../util/object-utils";
 import StartCoordSettings from "../start-coord-settings";
 
 import type {CollinearTuple, Range} from "@khanacademy/perseus";
