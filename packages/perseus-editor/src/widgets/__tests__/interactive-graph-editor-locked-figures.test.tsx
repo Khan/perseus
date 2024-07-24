@@ -1202,6 +1202,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultPolygon],
             });
 
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
+
             // Act
             const xCoordInput = screen.getAllByLabelText("x")[0];
             await userEvent.clear(xCoordInput);
@@ -1232,6 +1239,13 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultPolygon],
             });
+
+            // Close the "Start coordinates" section first to remove
+            // other accordions from the DOM.
+            const startCoordinatesHeading = screen.getByRole("button", {
+                name: "Start coordinates",
+            });
+            await userEvent.click(startCoordinatesHeading);
 
             // Act
             const yCoordInput = screen.getAllByLabelText("y")[0];

@@ -490,10 +490,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         />
                     </LabeledRow>
                 )}
-                {(this.props.graph?.type === "linear" ||
-                    this.props.graph?.type === "ray" ||
-                    this.props.graph?.type === "segment" ||
-                    this.props.graph?.type === "linear-system") &&
+                {this.props.graph?.type &&
                     this.props.apiOptions.flags?.mafs?.["start-coords-ui"] && (
                         <StartCoordsSettings
                             {...this.props.graph}
@@ -644,12 +641,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
     };
 
     changeStartCoords = (coords) => {
-        if (
-            this.props.graph?.type !== "linear" &&
-            this.props.graph?.type !== "ray" &&
-            this.props.graph?.type !== "segment" &&
-            this.props.graph?.type !== "linear-system"
-        ) {
+        if (!this.props.graph?.type) {
             return;
         }
 

@@ -638,4 +638,38 @@ describe("InteractiveGraphEditor", () => {
         // Assert
         expect(ref.current?.getSaveWarnings()).toEqual([]);
     });
+
+    test("calls changeStartCoords when the startCoords are changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "linear"}}
+                correct={{type: "linear"}}
+                onChange={onChangeMock}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const xInput = screen.getAllByRole("spinbutton", {name: "x"})[0];
+        await userEvent.type(xInput, "1");
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith(
+            expect.objectContaining({
+                graph: {
+                    type: "linear",
+                    startCoords: [
+                        [-51, 5],
+                        [5, 5],
+                    ],
+                },
+            }),
+        );
+    });
 });
