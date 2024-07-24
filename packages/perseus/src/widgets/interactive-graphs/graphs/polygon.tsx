@@ -50,11 +50,6 @@ export const PolygonGraph = (props: Props) => {
             <Polygon
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
-                svgPolygonProps={{
-                    strokeWidth: active
-                        ? "var(--movable-line-stroke-weight-active)"
-                        : "var(--movable-line-stroke-weight)",
-                }}
             />
             {points.map((point, i) => {
                 const pt1 = points.at(i - 1);
