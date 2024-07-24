@@ -5,6 +5,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {clone} from "../../../testing/object-utils";
 import StartCoordSettings from "../start-coord-settings";
 
 import type {CollinearTuple, Range} from "@khanacademy/perseus";
@@ -91,10 +92,10 @@ describe("StartCoordSettings", () => {
 
         test.each`
             lineIndex | coord
-            ${0}         | ${"x"}
-            ${0}         | ${"y"}
-            ${1}         | ${"x"}
-            ${1}         | ${"y"}
+            ${0}      | ${"x"}
+            ${0}      | ${"y"}
+            ${1}      | ${"x"}
+            ${1}      | ${"y"}
         `(
             `calls onChange when $coord coord is changed (line $lineIndex) for ${type} graph`,
             async ({lineIndex, coord}) => {
@@ -248,7 +249,7 @@ describe("StartCoordSettings", () => {
                 await userEvent.clear(input);
                 await userEvent.type(input, "101");
 
-                const expectedCoords = coords;
+                const expectedCoords = clone(coords);
                 expectedCoords[segmentIndex][pointIndex][coordIndex] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -367,7 +368,7 @@ describe("StartCoordSettings", () => {
                 await userEvent.clear(input);
                 await userEvent.type(input, "101");
 
-                const expectedCoords = coords;
+                const expectedCoords = clone(coords);
                 expectedCoords[lineIndex][pointIndex][coordIndex] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
