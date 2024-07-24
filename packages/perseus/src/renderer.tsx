@@ -175,7 +175,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     problemNum?: number;
     questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
-    hintMode?: boolean;
     /**
      * Some widgets (e.g. InteractiveGraph) support "hint mode", a state where
      * the widget is non-editable, may have a partial solution filled in,
