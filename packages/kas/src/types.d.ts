@@ -9,7 +9,7 @@ export type CompareResult = {
     equal: boolean;
     wrongVariableCase?: boolean;
     wrongVariableNames?: boolean;
-    message: string;
+    message: string | null;
 };
 
 export type ExpressionVars = {
