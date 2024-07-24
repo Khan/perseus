@@ -38,7 +38,7 @@ class WidgetContainer extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    state: any = {
+    state: State = {
         // TODO(benkomalo): before we're mounted, we don't know how big
         // we're going to be, so just default to MEDIUM for now. :/ In the
         // future we can sniff with user-agents or something to get a

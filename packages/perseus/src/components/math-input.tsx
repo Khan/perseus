@@ -329,6 +329,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     <Popover
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
+                        portal={false}
                         dismissEnabled
                         content={() => (
                             <PopoverContentCore

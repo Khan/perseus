@@ -176,6 +176,13 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
     /**
+     * Some widgets (e.g. InteractiveGraph) support "hint mode", a state where
+     * the widget is non-editable, may have a partial solution filled in,
+     * and may have special styling. Setting hintMode to true will turn on hint
+     * mode for all rendered widgets.
+     */
+    hintMode?: boolean;
+    /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
      * "none", solutions will not be shown-- equivalent to `undefined`.
@@ -239,6 +246,7 @@ type DefaultProps = Required<
         | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
+        | "hintMode"
         | "serializedState"
         | "widgets"
     >
@@ -285,6 +293,7 @@ class Renderer extends React.Component<Props, State> {
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
+        hintMode: false,
         serializedState: null,
         onSerializedStateUpdated: () => {},
         linterContext: PerseusLinter.linterContextDefault,
@@ -666,6 +675,7 @@ class Renderer extends React.Component<Props, State> {
             onBlur: _.partial(this._onWidgetBlur, id),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
+            hintMode: this.props.hintMode,
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(id, newProps, cb, silent);
             },
