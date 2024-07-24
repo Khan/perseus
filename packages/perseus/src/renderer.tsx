@@ -177,6 +177,13 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     reviewMode?: boolean | null | undefined;
     hintMode?: boolean;
     /**
+     * Some widgets (e.g. InteractiveGraph) support "hint mode", a state where
+     * the widget is non-editable, may have a partial solution filled in,
+     * and may have special styling. Setting hintMode to true will turn on hint
+     * mode for all rendered widgets.
+     */
+    hintMode?: boolean;
+    /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
      * "none", solutions will not be shown-- equivalent to `undefined`.
