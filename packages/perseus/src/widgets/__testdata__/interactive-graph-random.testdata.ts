@@ -249,7 +249,6 @@ export const randomInteractiveGraphGenerator = (
                 static: false, //always false for this widget
                 type: "interactive-graph",
                 options: {
-                    rulerTicks: randomInteger(1, 100),
                     showProtractor: randomBoolean(0.2),
                     graph,
                     snapStep: [
@@ -261,10 +260,8 @@ export const randomInteractiveGraphGenerator = (
                     gridStep: [randomInteger(1, 10), randomInteger(1, 10)],
                     backgroundImage: randomBackgroundImage(),
                     range: [randomRange(), randomRange()],
-                    showRuler: randomBoolean(0.2),
                     markings:
                         randomElement(["none", "graph", "grid"]) || "none",
-                    rulerLabel: randomElement(["", randomWord()]) || "",
                     correct,
                 },
                 alignment: "default",

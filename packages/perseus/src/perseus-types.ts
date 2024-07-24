@@ -629,14 +629,8 @@ export type PerseusInteractiveGraphWidgetOptions = {
     labels: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
     showProtractor: boolean;
-    // Whether to show the Ruler tool overlayed on top of the graph
-    showRuler: boolean;
     // Whether to show tooltips on the graph
     showTooltips?: boolean;
-    // The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft", "yd", "mi"
-    rulerLabel: string;
-    // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be an integer.
-    rulerTicks: number;
     // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
     // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
     // TODO(kevinb): Add a transform function to interactive-graph.jsx to
