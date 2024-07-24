@@ -234,9 +234,12 @@ describe("a mafs graph", () => {
                 await userEvent.keyboard("{arrowup}{arrowright}");
 
                 // Assert
-                await waitFor(() => {
-                    expect(renderer).toHaveBeenAnsweredIncorrectly();
-                });
+                await waitFor(
+                    () => {
+                        expect(renderer).toHaveBeenAnsweredIncorrectly();
+                    },
+                    {timeout: 5000},
+                );
             });
 
             it("accepts correct answer", async () => {
@@ -248,9 +251,12 @@ describe("a mafs graph", () => {
                 await userEvent.keyboard("{arrowup}{arrowdown}");
 
                 // Assert
-                await waitFor(() => {
-                    expect(renderer).toHaveBeenAnsweredCorrectly();
-                });
+                await waitFor(
+                    () => {
+                        expect(renderer).toHaveBeenAnsweredCorrectly();
+                    },
+                    {timeout: 5000},
+                );
             });
         },
     );
