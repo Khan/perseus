@@ -2,9 +2,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
 import HintsRenderer from "../hints-renderer";
+import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
 
 import type {Meta, StoryObj} from "@storybook/react";
-import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
 
 const meta: Meta<typeof HintsRenderer> = {
     title: "Perseus/Renderers/Hints Renderer",
