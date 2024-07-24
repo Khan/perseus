@@ -5,6 +5,13 @@ export type CompareOptions = {
     simplify: boolean;
 };
 
+export type CompareResult = {
+    equal: boolean;
+    wrongVariableCase?: boolean;
+    wrongVariableNames?: boolean;
+    message: string;
+};
+
 export type ExpressionVars = {
     equal: boolean;
     equalIgnoringCase: boolean;

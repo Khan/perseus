@@ -1,4 +1,4 @@
-import type {CompareOptions, Expression} from "./types";
+import type {CompareOptions, CompareResult, Expression} from "./types";
 
 // Assumes that both expressions have already been parsed
 // TODO(alex): be able to pass a random() function to compare()
@@ -6,7 +6,7 @@ export const compare = function (
     expr1: Expression,
     expr2: Expression,
     options: CompareOptions,
-) {
+): CompareResult {
     const defaults: CompareOptions = {
         form: false,
         simplify: false,
