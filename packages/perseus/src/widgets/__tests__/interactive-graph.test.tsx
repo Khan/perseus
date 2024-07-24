@@ -224,9 +224,7 @@ describe("a mafs graph", () => {
                 renderQuestion(question, apiOptions);
             });
 
-            // TODO(Jeremy): This test is currently skipped because it is
-            // failing sporadically after the React 18 upgrade.
-            xit("rejects incorrect answer", async () => {
+            it("rejects incorrect answer", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, apiOptions);
 
@@ -236,14 +234,15 @@ describe("a mafs graph", () => {
                 await userEvent.keyboard("{arrowup}{arrowright}");
 
                 // Assert
-                await waitFor(() => {
-                    expect(renderer).toHaveBeenAnsweredIncorrectly();
-                });
+                await waitFor(
+                    () => {
+                        expect(renderer).toHaveBeenAnsweredIncorrectly();
+                    },
+                    {timeout: 5000},
+                );
             });
 
-            // TODO(Jeremy): This test is currently skipped because it is
-            // failing sporadically after the React 18 upgrade.
-            xit("accepts correct answer", async () => {
+            it("accepts correct answer", async () => {
                 const {renderer} = renderQuestion(question, apiOptions);
 
                 await userEvent.tab();
@@ -252,9 +251,12 @@ describe("a mafs graph", () => {
                 await userEvent.keyboard("{arrowup}{arrowdown}");
 
                 // Assert
-                await waitFor(() => {
-                    expect(renderer).toHaveBeenAnsweredCorrectly();
-                });
+                await waitFor(
+                    () => {
+                        expect(renderer).toHaveBeenAnsweredCorrectly();
+                    },
+                    {timeout: 5000},
+                );
             });
         },
     );
