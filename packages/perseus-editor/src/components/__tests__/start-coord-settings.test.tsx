@@ -90,14 +90,14 @@ describe("StartCoordSettings", () => {
         });
 
         test.each`
-            segmentIndex | coord
+            lineIndex | coord
             ${0}         | ${"x"}
             ${0}         | ${"y"}
             ${1}         | ${"x"}
             ${1}         | ${"y"}
         `(
-            `calls onChange when $coord coord is changed (segment $segmentIndex) for ${type} graph`,
-            async ({segmentIndex, coord}) => {
+            `calls onChange when $coord coord is changed (line $lineIndex) for ${type} graph`,
+            async ({lineIndex, coord}) => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -113,7 +113,7 @@ describe("StartCoordSettings", () => {
                 // Assert
                 const input = screen.getAllByRole("spinbutton", {
                     name: `${coord} coord`,
-                })[segmentIndex];
+                })[lineIndex];
                 await userEvent.clear(input);
                 await userEvent.type(input, "101");
 
@@ -121,7 +121,7 @@ describe("StartCoordSettings", () => {
                     [-5, 5],
                     [5, 5],
                 ];
-                expectedCoords[segmentIndex][coord === "x" ? 0 : 1] = 101;
+                expectedCoords[lineIndex][coord === "x" ? 0 : 1] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
@@ -157,52 +157,39 @@ describe("StartCoordSettings", () => {
         });
     });
 
-    // Outside the describe.each block to test the singular segment case,
-    // separate from the linear-system and 2 segment cases
-    test("shows the start coordinates UI for a singular segment", () => {
-        // Arrange
+    // startCoords with type CollinearTuple[]
+    describe("segment graph", () => {
+        test("shows the start coordinates UI for a singular segment", () => {
+            // Arrange
 
-        // Act
-        render(
-            <StartCoordSettings
-                {...defaultProps}
-                type="segment"
-                numSegments={1}
-                onChange={() => {}}
-            />,
-            {wrapper: RenderStateRoot},
-        );
+            // Act
+            render(
+                <StartCoordSettings
+                    {...defaultProps}
+                    type="segment"
+                    numSegments={1}
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
 
-        // Assert
-        expect(screen.getByText("Start coordinates")).toBeInTheDocument();
-        expect(screen.getByText("Segment 1")).toBeInTheDocument();
-        expect(screen.getByText("Point 1")).toBeInTheDocument();
-        expect(screen.getByText("Point 2")).toBeInTheDocument();
-    });
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Segment 1")).toBeInTheDocument();
+            expect(screen.getByText("Point 1")).toBeInTheDocument();
+            expect(screen.getByText("Point 2")).toBeInTheDocument();
+        });
 
-    describe.each`
-        type
-        ${"linear-system"}
-        ${"segment"}
-    `("graphs with CollinearTuple[] startCoords ($type graph)", ({type}) => {
-        const multilineProps = {
-            ...defaultProps,
-            type,
-            onChange: () => {},
-        };
-        const segmentProps = {
-            ...multilineProps,
-            numSegments: 2,
-        };
         test("shows the start coordinates UI for 2 segments", () => {
             // Arrange
 
             // Act
             render(
                 <StartCoordSettings
-                    {...(type === "linear-system"
-                        ? multilineProps
-                        : segmentProps)}
+                    {...defaultProps}
+                    type="segment"
+                    numSegments={2}
+                    onChange={() => {}}
                 />,
                 {wrapper: RenderStateRoot},
             );
@@ -245,11 +232,11 @@ describe("StartCoordSettings", () => {
                 // Act
                 render(
                     <StartCoordSettings
-                        {...(type === "linear-system"
-                            ? multilineProps
-                            : segmentProps)}
-                        onChange={onChangeMock}
+                        {...defaultProps}
+                        type="segment"
+                        numSegments={2}
                         startCoords={coords}
+                        onChange={onChangeMock}
                     />,
                     {wrapper: RenderStateRoot},
                 );
@@ -275,9 +262,127 @@ describe("StartCoordSettings", () => {
             // Act
             render(
                 <StartCoordSettings
-                    {...(type === "linear-system"
-                        ? multilineProps
-                        : segmentProps)}
+                    {...defaultProps}
+                    type="segment"
+                    numSegments={2}
+                    startCoords={[
+                        [
+                            [-15, 15],
+                            [15, 15],
+                        ],
+                        [
+                            [-15, -15],
+                            [15, -15],
+                        ],
+                    ]}
+                    onChange={onChangeMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            const resetButton = screen.getByRole("button", {
+                name: "Use default start coords",
+            });
+            await userEvent.click(resetButton);
+
+            expect(onChangeMock).toHaveBeenLastCalledWith([
+                [
+                    [-5, 5],
+                    [5, 5],
+                ],
+                [
+                    [-5, -5],
+                    [5, -5],
+                ],
+            ]);
+        });
+    });
+
+    // startCoords with type CollinearTuple[]
+    describe("linear-system graph", () => {
+        test("shows the start coordinates UI", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordSettings
+                    {...defaultProps}
+                    type="linear-system"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Line 1")).toBeInTheDocument();
+            expect(screen.getByText("Line 2")).toBeInTheDocument();
+            expect(screen.getAllByText("Point 1")).toHaveLength(2);
+            expect(screen.getAllByText("Point 2")).toHaveLength(2);
+        });
+
+        test.each`
+            lineIndex | pointIndex | coordIndex
+            ${0}      | ${0}       | ${0}
+            ${0}      | ${0}       | ${1}
+            ${0}      | ${1}       | ${0}
+            ${0}      | ${1}       | ${1}
+            ${1}      | ${0}       | ${0}
+            ${1}      | ${0}       | ${1}
+            ${1}      | ${1}       | ${0}
+            ${1}      | ${1}       | ${1}
+        `(
+            `calls onChange when $coord coord is changed (line $lineIndex)`,
+            async ({lineIndex, pointIndex, coordIndex}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                const coords = [
+                    [
+                        [1, 1],
+                        [2, 2],
+                    ],
+                    [
+                        [3, 3],
+                        [4, 4],
+                    ],
+                ] satisfies CollinearTuple[];
+
+                // Act
+                render(
+                    <StartCoordSettings
+                        {...defaultProps}
+                        type="linear-system"
+                        startCoords={coords}
+                        onChange={onChangeMock}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Assert
+                const input = screen.getAllByRole("spinbutton", {
+                    name: /coord/,
+                })[lineIndex * 4 + pointIndex * 2 + coordIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                const expectedCoords = coords;
+                expectedCoords[lineIndex][pointIndex][coordIndex] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+
+        test(`calls onChange when reset button is clicked`, async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            // Act
+            render(
+                <StartCoordSettings
+                    {...defaultProps}
+                    type="linear-system"
                     startCoords={[
                         [
                             [-15, 15],

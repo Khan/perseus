@@ -69,13 +69,14 @@ const StartCoordSettingsInner = (props: Props) => {
                 (type === "segment"
                     ? getSegmentCoords(props, range, step)
                     : getLinearSystemCoords(props, range, step));
+            const graphName = type === "segment" ? "Segment" : "Line";
             return (
                 <>
                     {multiLineCoords.map((coordPair, i) => (
                         <PerseusEditorAccordion
                             key={`segment-${i}-start-coords`}
                             header={
-                                <LabelLarge>{`Segment ${i + 1}`}</LabelLarge>
+                                <LabelLarge>{`${graphName} ${i + 1}`}</LabelLarge>
                             }
                             expanded={true}
                         >
