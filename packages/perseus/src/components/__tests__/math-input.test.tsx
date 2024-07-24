@@ -172,7 +172,6 @@ describe("Perseus' MathInput", () => {
             screen.getByRole("button", {name: /open math keypad/}),
         );
         await userEvent.tab(); // to "123" tab
-        await userEvent.tab(); // to "1" button
         await userEvent.keyboard("{enter}");
         act(() => jest.runOnlyPendingTimers());
 

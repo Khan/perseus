@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 26.1.0
+
+### Minor Changes
+
+-   [#1431](https://github.com/Khan/perseus/pull/1431) [`83bebcfaf`](https://github.com/Khan/perseus/commit/83bebcfafb7691475dda6a34aa4c92156d56a6e4) Thanks [@benchristel](https://github.com/benchristel)! - Add a `hintMode` prop to `Renderer` and widgets.
+
+### Patch Changes
+
+-   [#1424](https://github.com/Khan/perseus/pull/1424) [`fedac0be5`](https://github.com/Khan/perseus/commit/fedac0be518bb51345c82599b3d6729b52703961) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating wonderblock-popover version and disable portal functionality in Expression Popover functionality.
+
+-   Updated dependencies [[`fedac0be5`](https://github.com/Khan/perseus/commit/fedac0be518bb51345c82599b3d6729b52703961)]:
+    -   @khanacademy/math-input@20.0.1
+
 ## 26.0.0
 
 ### Major Changes
