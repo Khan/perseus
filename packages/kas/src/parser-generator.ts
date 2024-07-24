@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable comma-dangle */
-/* eslint-disable comma-spacing */
 /* eslint-disable import/no-commonjs */
-/* eslint-disable max-len */
-/* eslint-disable no-var */
 /* eslint-disable prettier/prettier */
 
 const fs = require("fs");
@@ -12,7 +8,7 @@ const path = require("path");
 
 const jison = require("jison");
 
-var grammar = {
+const grammar = {
     lex: {
         rules: [
             ["\\s+", "/* skip whitespace */"],
@@ -204,32 +200,32 @@ var grammar = {
     },
 };
 
-var prelude =
+const prelude =
     "// This is a @gene" + "rated file\n" + 'import _ from "underscore";\n\n';
-var parser = new jison.Generator(grammar).generate({moduleType: "js"});
+let parser = new jison.Generator(grammar).generate({moduleType: "js"});
 // NOTE(jeresig): We need to comment out these two labels as they appear to be
 // invalid ES5 (they also aren't referenced anywhere so this seems safe).
 parser = parser.replace(/(_token_stack:)/g, "//$1");
-var postlude = "\n\nexport {parser};\n";
+const postlude = "\n\nexport {parser};\n";
 
 fs.writeFileSync(
     path.resolve(__dirname, "__genfiles__", "parser.js"),
     prelude + parser + postlude,
 );
 
-var unitPrelude = "// this is a @gene" + "rated file\n\n";
-var unitEpilogue = "\n\nexport const unitParser = parser;\n";
+const unitPrelude = "// this is a @gene" + "rated file\n\n";
+const unitEpilogue = "\n\nexport const unitParser = parser;\n";
 
-var unitParserInfile = path.resolve(__dirname, "unitvalue.jison");
-var unitParserOutfile = path.resolve(
+const unitParserInfile = path.resolve(__dirname, "unitvalue.jison");
+const unitParserOutfile = path.resolve(
     __dirname,
     "__genfiles__",
     "unitparser.js",
 );
 
-var unitParserSource = fs.readFileSync(unitParserInfile);
-var unitParser = new jison.Generator(unitParserSource.toString());
-var generatedParser = unitParser.generate({moduleType: "js"});
+const unitParserSource = fs.readFileSync(unitParserInfile);
+const unitParser = new jison.Generator(unitParserSource.toString());
+let generatedParser = unitParser.generate({moduleType: "js"});
 // NOTE(jeresig): We need to comment out these two labels as they appear to be
 // invalid ES5 (they also aren't referenced anywhere so this seems safe).
 generatedParser = generatedParser.replace(/(_token_stack:)/g, "//$1");
