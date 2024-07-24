@@ -2,6 +2,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
 import HintsRenderer from "../hints-renderer";
+import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
@@ -49,6 +50,22 @@ export const Interactive: Story = {
                 images: {},
                 replace: false,
                 widgets: {},
+            },
+        ],
+    },
+};
+
+export const WithInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {segment: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().build(),
+                replace: false,
             },
         ],
     },
