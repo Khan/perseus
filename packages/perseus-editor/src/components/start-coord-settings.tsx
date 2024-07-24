@@ -35,6 +35,8 @@ const StartCoordSettingsInner = (props: Props) => {
         // coords with type CollinearTuple
         case "linear":
         case "ray":
+            // If startCoords is already set (in the editor), use that value.
+            // Otherwise, calculate the default startCoords.
             const linearCoords =
                 startCoords ?? getLineCoords(props, range, step);
             return (

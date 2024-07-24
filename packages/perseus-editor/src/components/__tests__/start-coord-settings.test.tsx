@@ -29,7 +29,7 @@ describe("StartCoordSettings", () => {
         );
     });
 
-    it("clicking the heading toggles the settings", async () => {
+    test("clicking the heading toggles the settings", async () => {
         // Arrange
 
         // Act
@@ -65,8 +65,8 @@ describe("StartCoordSettings", () => {
         type
         ${"linear"}
         ${"ray"}
-    `(`graphs with CollinearTuple startCoords`, ({type}) => {
-        it(`shows the start coordinates UI for ${type}`, () => {
+    `("graphs with CollinearTuple startCoords ($type graph)", ({type}) => {
+        test(`shows the start coordinates UI for ${type}`, () => {
             // Arrange
 
             // Act
@@ -89,14 +89,14 @@ describe("StartCoordSettings", () => {
             expect(resetButton).toBeInTheDocument();
         });
 
-        it.each`
+        test.each`
             segmentIndex | coord
             ${0}         | ${"x"}
             ${0}         | ${"y"}
             ${1}         | ${"x"}
             ${1}         | ${"y"}
         `(
-            `calls onChange when $coord coord is changed (segment $segmentIndex) for type ${type}`,
+            `calls onChange when $coord coord is changed (segment $segmentIndex) for ${type} graph`,
             async ({segmentIndex, coord}) => {
                 // Arrange
                 const onChangeMock = jest.fn();
@@ -127,7 +127,7 @@ describe("StartCoordSettings", () => {
             },
         );
 
-        it(`calls onChange when reset button is clicked for type ${type}`, async () => {
+        test(`calls onChange when reset button is clicked ${type} graph`, async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -159,7 +159,7 @@ describe("StartCoordSettings", () => {
 
     // Outside the describe.each block to test the singular segment case,
     // separate from the linear-system and 2 segment cases
-    it("shows the start coordinates UI for a singular segment", () => {
+    test("shows the start coordinates UI for a singular segment", () => {
         // Arrange
 
         // Act
@@ -184,7 +184,7 @@ describe("StartCoordSettings", () => {
         type
         ${"linear-system"}
         ${"segment"}
-    `(`graphs with CollinearTuple[] startCoords`, ({type}) => {
+    `("graphs with CollinearTuple[] startCoords ($type graph)", ({type}) => {
         const multilineProps = {
             ...defaultProps,
             type,
@@ -194,7 +194,7 @@ describe("StartCoordSettings", () => {
             ...multilineProps,
             numSegments: 2,
         };
-        it("shows the start coordinates UI for 2 segments", () => {
+        test("shows the start coordinates UI for 2 segments", () => {
             // Arrange
 
             // Act
@@ -215,7 +215,7 @@ describe("StartCoordSettings", () => {
             expect(screen.getAllByText("Point 2")).toHaveLength(2);
         });
 
-        it.each`
+        test.each`
             segmentIndex | pointIndex | coordIndex
             ${0}         | ${0}       | ${0}
             ${0}         | ${0}       | ${1}
@@ -268,7 +268,7 @@ describe("StartCoordSettings", () => {
             },
         );
 
-        it(`calls onChange when reset button is clicked`, async () => {
+        test(`calls onChange when reset button is clicked`, async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
