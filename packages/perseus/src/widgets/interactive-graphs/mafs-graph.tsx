@@ -65,6 +65,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
+                hintMode,
             }}
         >
             <View
