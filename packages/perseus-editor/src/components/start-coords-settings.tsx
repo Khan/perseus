@@ -1,4 +1,5 @@
 import {
+    getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,
@@ -8,9 +9,11 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
+import {vec} from "mafs";
 import * as React from "react";
 
 import Heading from "./heading";
+import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
 import {getDefaultGraphStartCoords} from "./util";
@@ -52,6 +55,18 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsMultiline
                     type={type}
                     startCoords={multiLineCoords}
+                    onChange={onChange}
+                />
+            );
+        case "circle":
+            const circleCoords = getCircleCoords(props);
+            const radius = vec.dist(
+                circleCoords.center,
+                circleCoords.radiusPoint,
+            );
+            return (
+                <StartCoordsCircle
+                    startCoords={{center: circleCoords.center, radius}}
                     onChange={onChange}
                 />
             );

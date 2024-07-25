@@ -1,9 +1,11 @@
 import {
+    getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,
 } from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import {vec} from "mafs";
 
 import type {
     Range,
@@ -168,6 +170,17 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "circle":
+            const startCoords = getCircleCoords({
+                ...graph,
+                startCoords: undefined,
+            });
+            const radius = vec.dist(
+                startCoords.center,
+                startCoords.radiusPoint,
+            );
+
+            return {center: startCoords.center, radius};
         default:
             return undefined;
     }

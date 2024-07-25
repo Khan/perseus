@@ -789,7 +789,10 @@ export type PerseusGraphTypeCircle = {
     center?: Coord;
     radius?: number;
     // The initial coordinates the graph renders with.
-    startCoords?: Coord;
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinear = {
