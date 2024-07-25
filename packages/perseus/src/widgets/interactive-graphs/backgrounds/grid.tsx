@@ -1,4 +1,4 @@
-import {Coordinates} from "mafs";
+import {Coordinates, usePaneContext, useTransformContext, vec} from "mafs";
 import * as React from "react";
 
 import {X, Y} from "../math";
@@ -8,7 +8,6 @@ import {AxisTicks} from "./axis-ticks";
 
 import type {GraphRange} from "../../../perseus-types";
 import type {SizeClass} from "../../../util/sizing-utils";
-import type {vec} from "mafs";
 
 interface GridProps {
     tickStep: vec.Vector2;
@@ -16,6 +15,8 @@ interface GridProps {
     range: GraphRange;
     containerSizeClass: SizeClass;
     markings: "graph" | "grid" | "none";
+    width: number;
+    height: number;
 }
 
 /**
@@ -62,8 +63,31 @@ const axisOptions = (
 };
 
 export const Grid = (props: GridProps) => {
+    const {viewTransform} = useTransformContext();
+    const {xPaneRange, yPaneRange} = usePaneContext();
+
+    const xMin = xPaneRange[0];
+    const yMax = yPaneRange[1];
+
+    const xPad = props.range[0][0] - Math.min(0, xMin);
+    const yPad = props.range[1][1] - Math.max(0, yMax);
+
+    const pad = vec.transform([xPad, yPad], viewTransform);
+
+    const horizontalAdjustment = props.range[0][0] > 0 ? 6.6 : 0;
+    const verticalAdjustment = props.range[1][1] < 0 ? 6.6 : 0;
+
+    const rectTop = pad[1] + verticalAdjustment - 1;
+    const rectBottom = pad[1] + props.height + verticalAdjustment + 1;
+    const rectLeft = pad[0] + horizontalAdjustment - 1;
+    const rectRight = pad[0] + props.width + horizontalAdjustment + 1;
+
     return props.markings === "none" ? null : (
-        <>
+        <g
+            style={{
+                clipPath: `rect(${rectTop}px ${rectRight}px ${rectBottom}px ${rectLeft}px`,
+            }}
+        >
             <Coordinates.Cartesian
                 xAxis={axisOptions(props, X)}
                 yAxis={axisOptions(props, Y)}
@@ -77,6 +101,6 @@ export const Grid = (props: GridProps) => {
                     </>
                 )
             }
-        </>
+        </g>
     );
 };

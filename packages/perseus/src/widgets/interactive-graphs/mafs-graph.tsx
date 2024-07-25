@@ -5,7 +5,7 @@ import {Mafs} from "mafs";
 import * as React from "react";
 
 import AxisLabels from "./backgrounds/axis-labels";
-import {AxisTickLabels} from "./backgrounds/axis-tick-labels";
+import {AxisTicks} from "./backgrounds/axis-ticks";
 import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
@@ -95,7 +95,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         padding: "25px 25px 0 0",
                         boxSizing: "content-box",
                         marginLeft: "20px",
-                        marginBottom: "20px",
+                        marginBottom: "30px",
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
                         width,
@@ -147,7 +147,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {props.markings === "graph" && (
                             <>
                                 <AxisLabels />
-                                <AxisTickLabels />
                             </>
                         )}
                         <Mafs
@@ -171,7 +170,15 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 range={state.range}
                                 containerSizeClass={props.containerSizeClass}
                                 markings={props.markings}
+                                width={width}
+                                height={height}
                             />
+                            {/* Axis Tick Labels */}
+                            {props.markings === "graph" && (
+                                <>
+                                    <AxisTicks />
+                                </>
+                            )}
                             {/* Locked figures layer */}
                             {props.lockedFigures && (
                                 <GraphLockedLayer
