@@ -55,6 +55,69 @@ export const Interactive: Story = {
     },
 };
 
+export const WithAllInteractiveGraphs: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {
+                    angle: true,
+                    circle: true,
+                    linear: true,
+                    "linear-system": true,
+                    point: true,
+                    polygon: true,
+                    ray: true,
+                    segment: true,
+                    quadratic: true,
+                    sinusoid: true,
+                },
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withAngle().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withCircle().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withLinear().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withLinearSystem().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withPoints(3).build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withPolygon().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withRay().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withSegments().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withQuadratic().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder().withSinusoid().build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
 export const WithSegmentInteractiveGraph: Story = {
     args: {
         apiOptions: {
