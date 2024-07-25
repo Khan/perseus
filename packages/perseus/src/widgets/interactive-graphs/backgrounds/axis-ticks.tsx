@@ -1,3 +1,4 @@
+import {usePaneContext} from "mafs";
 import * as React from "react";
 
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
@@ -47,9 +48,26 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
     const x2 = xPosition + tickSize / 2;
     const y2 = yPosition;
 
+    // Adjust the y position of the x-axis labels based on
+    // whether the x-axis is above, within, or below the graph
+    const xAdjustment = xPosition >= graphInfo.width ? -10 : 30;
+    const xPositionText = xPosition + xAdjustment;
+    const yPositionText = yPosition + 3;
+
     return (
         <g className="y-axis-ticks">
             <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
+            {y !== -1 && (
+                <text
+                    height={20}
+                    width={50}
+                    textAnchor="end"
+                    x={xPositionText}
+                    y={yPositionText}
+                >
+                    {y.toString()}
+                </text>
+            )}
         </g>
     );
 };
@@ -83,9 +101,26 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
     const x2 = xPosition;
     const y2 = yPosition - tickSize / 2;
 
+    // Adjust the y position of the x-axis labels based on
+    // whether the x-axis is above, within, or below the graph
+    const yAdjustment = yPosition >= graphInfo.height ? -10 : 25;
+    const xPositionText = xPosition;
+    const yPositionText = yPosition + yAdjustment;
+
     return (
         <g className="x-axis-ticks">
             <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
+            {x !== -1 && (
+                <text
+                    height={20}
+                    width={50}
+                    textAnchor="middle"
+                    x={xPositionText}
+                    y={yPositionText}
+                >
+                    {x.toString()}
+                </text>
+            )}
         </g>
     );
 };
@@ -125,6 +160,10 @@ export const AxisTicks = () => {
 
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
+
+    const cool = usePaneContext();
+
+    console.log("usePaneContext", cool);
 
     return (
         <g className="axis-ticks">

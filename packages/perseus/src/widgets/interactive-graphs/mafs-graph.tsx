@@ -1,10 +1,11 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import {Mafs} from "mafs";
+import {Mafs, usePaneContext} from "mafs";
 import * as React from "react";
 
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTickLabels} from "./backgrounds/axis-tick-labels";
+import {AxisTicks} from "./backgrounds/axis-ticks";
 import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import GraphLockedLayer from "./graph-locked-layer";
@@ -77,7 +78,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     padding: "25px 25px 0 0",
                     boxSizing: "content-box",
                     marginLeft: "20px",
-                    marginBottom: "20px",
+                    marginBottom: "30px",
                     pointerEvents: hintMode ? "none" : "auto",
                 }}
             >
@@ -95,7 +96,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     {props.markings === "graph" && (
                         <>
                             <AxisLabels />
-                            <AxisTickLabels />
                         </>
                     )}
                     <Mafs
@@ -119,7 +119,15 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             range={state.range}
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
+                            width={width}
+                            height={height}
                         />
+                        {/* Axis Tick Labels */}
+                        {props.markings === "graph" && (
+                            <>
+                                <AxisTicks />
+                            </>
+                        )}
                         {/* Locked layer */}
                         {props.lockedFigures && (
                             <GraphLockedLayer
