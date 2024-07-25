@@ -56,6 +56,7 @@ export const PolygonGraph = (props: Props) => {
                     strokeWidth: active
                         ? "var(--movable-line-stroke-weight-active)"
                         : "var(--movable-line-stroke-weight)",
+                    style: {fill: "transparent"},
                 }}
             />
             {points.map((point, i) => {
@@ -105,6 +106,7 @@ export const PolygonGraph = (props: Props) => {
                     strokeWidth: TARGET_SIZE,
                     style: {
                         cursor: dragging ? "grabbing" : "grab",
+                        fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
                     onFocus: () => setFocused(true),
                     onBlur: () => setFocused(false),

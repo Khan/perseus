@@ -118,7 +118,11 @@ export {
 } from "./widget-type-utils";
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
 export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
-export {getLineCoords} from "./widgets/interactive-graphs/reducer/initialize-graph-state";
+export {
+    getLineCoords,
+    getLinearSystemCoords,
+    getSegmentCoords,
+} from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**
  * Mixins

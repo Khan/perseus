@@ -216,7 +216,7 @@ describe("useDraggable", () => {
         expect(screen.getByRole("button")).toHaveFocus();
 
         // Act:
-        await userEvent.keyboard("{arrowright>1}{arrowup>1}");
+        await userEvent.keyboard("{arrowright}{arrowup}");
 
         // Assert: the element moved one step to the right and then one step up
         expect(onMoveSpy.mock.calls).toEqual([[[1, 0]], [[0, 1]]]);
