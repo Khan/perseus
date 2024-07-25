@@ -30,7 +30,6 @@ import Plotter from "./widgets/plotter";
 import PythonProgram from "./widgets/python-program";
 import Sorter from "./widgets/sorter";
 import Table from "./widgets/table";
-import Unit from "./widgets/unit";
 import Video from "./widgets/video";
 
 import type {WidgetExports} from "./types";
@@ -63,7 +62,6 @@ export default [
     PythonProgram,
     Sorter,
     Table,
-    Unit,
     Video,
     DeprecatedStandin,
 ] as ReadonlyArray<WidgetExports>;
