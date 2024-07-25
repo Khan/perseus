@@ -55,7 +55,7 @@ export const Interactive: Story = {
     },
 };
 
-export const WithInteractiveGraph: Story = {
+export const WithSegmentInteractiveGraph: Story = {
     args: {
         apiOptions: {
             flags: {
@@ -65,6 +65,162 @@ export const WithInteractiveGraph: Story = {
         hints: [
             {
                 ...interactiveGraphQuestionBuilder().build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithLinearInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {linear: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withLinear().build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithLinearSystemsInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {"linear-system": true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withLinearSystem().build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithRayInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {ray: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withRay().build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithCircleInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {circle: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withCircle().build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithQuadraticInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {quadratic: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withQuadratic().build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithSinusoidInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {circle: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withSinusoid().build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithPolygonInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {polygon: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withPolygon().build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder()
+                    .withPolygon("angles")
+                    .build(),
+                replace: false,
+            },
+            {
+                ...interactiveGraphQuestionBuilder()
+                    .withPolygon("sides")
+                    .build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithPointsInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {point: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withPoints(3).build(),
+                replace: false,
+            },
+        ],
+    },
+};
+
+export const WithAngleInteractiveGraph: Story = {
+    args: {
+        apiOptions: {
+            flags: {
+                mafs: {angle: true},
+            },
+        },
+        hints: [
+            {
+                ...interactiveGraphQuestionBuilder().withAngle().build(),
                 replace: false,
             },
         ],
