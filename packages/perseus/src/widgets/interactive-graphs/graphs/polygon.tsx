@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
@@ -22,6 +23,7 @@ export const PolygonGraph = (props: Props) => {
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
         props.graphState;
+    const {hintMode} = useGraphConfig();
 
     // TODO(benchristel): can the default set of points be removed here? I don't
     // think coords can be null.
@@ -100,7 +102,7 @@ export const PolygonGraph = (props: Props) => {
                 color="transparent"
                 svgPolygonProps={{
                     ref,
-                    tabIndex: 0,
+                    tabIndex: hintMode ? -1 : 0,
                     strokeWidth: TARGET_SIZE,
                     style: {
                         cursor: dragging ? "grabbing" : "grab",

@@ -47,6 +47,7 @@ class InteractiveGraphQuestionBuilder {
     private interactiveFigureConfig: InteractiveFigureConfig =
         new SegmentGraphConfig();
     private lockedFigures: LockedFigure[] = [];
+    private snapTo: "grid" | "angles" | "sides" = "grid";
 
     build(): PerseusRenderer {
         return {
@@ -208,7 +209,7 @@ class InteractiveGraphQuestionBuilder {
     }
 
     withPolygon(
-        snapTo: "grid" | "angles" | "sides",
+        snapTo?: "grid" | "angles" | "sides",
         options?: {
             match?: "similar" | "congruent" | "approx";
             numSides?: number | "unlimited";
@@ -626,7 +627,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     private startCoords?: Coord[];
 
     constructor(
-        snapTo: "grid" | "angles" | "sides",
+        snapTo?: "grid" | "angles" | "sides",
         options?: {
             match?: "similar" | "congruent" | "approx";
             numSides?: number | "unlimited";
@@ -636,7 +637,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
             startCoords?: Coord[];
         },
     ) {
-        this.snapTo = snapTo;
+        this.snapTo = snapTo ?? "grid";
         this.match = options?.match;
         this.numSides = options?.numSides ?? 3;
         this.showAngles = options?.showAngles ?? false;
