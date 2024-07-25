@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 10.0.0
+
+### Major Changes
+
+-   [#1435](https://github.com/Khan/perseus/pull/1435) [`364ccbecc`](https://github.com/Khan/perseus/commit/364ccbecc390981090f723fac116338888f295e9) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove StatefulArticleEditor
+
+### Minor Changes
+
+-   [#1431](https://github.com/Khan/perseus/pull/1431) [`83bebcfaf`](https://github.com/Khan/perseus/commit/83bebcfafb7691475dda6a34aa4c92156d56a6e4) Thanks [@benchristel](https://github.com/benchristel)! - Add a `hintMode` prop to `Renderer` and widgets.
+
+### Patch Changes
+
+-   Updated dependencies [[`fedac0be5`](https://github.com/Khan/perseus/commit/fedac0be518bb51345c82599b3d6729b52703961), [`83bebcfaf`](https://github.com/Khan/perseus/commit/83bebcfafb7691475dda6a34aa4c92156d56a6e4)]:
+    -   @khanacademy/math-input@20.0.1
+    -   @khanacademy/perseus@26.1.0
+
 ## 9.0.0
 
 ### Major Changes

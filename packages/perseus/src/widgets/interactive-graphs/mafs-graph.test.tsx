@@ -525,7 +525,7 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("{arrowdown>1}");
+        await userEvent.keyboard("{arrowdown}");
 
         const state = getState();
         invariant(
@@ -576,7 +576,7 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("{arrowup>1}");
+        await userEvent.keyboard("{arrowup}");
 
         const state = getState();
         invariant(
@@ -627,7 +627,7 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("{arrowright>1}");
+        await userEvent.keyboard("{arrowright}");
 
         const state = getState();
         invariant(
@@ -678,7 +678,7 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("{arrowleft>1}");
+        await userEvent.keyboard("{arrowleft}");
 
         const state = getState();
         invariant(

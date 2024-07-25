@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Add a `hintMode` prop to `Renderer` and widgets.
+[Interactive Graph Editor] Segment and Linear System graph start coords UI

@@ -49,7 +49,7 @@ export type MafsGraphProps = {
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch, labels} = props;
+    const {state, dispatch, labels, hintMode} = props;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
     return (
@@ -65,6 +65,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
+                hintMode,
             }}
         >
             <View
@@ -77,6 +78,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     boxSizing: "content-box",
                     marginLeft: "20px",
                     marginBottom: "20px",
+                    pointerEvents: hintMode ? "none" : "auto",
                 }}
             >
                 <LegacyGrid
@@ -125,7 +127,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 range={state.range}
                             />
                         )}
-                        /* Protractor */
+                        {/* Protractor */}
                         {props.showProtractor && <Protractor />}
                         {/* Interactive layer */}
                         {renderGraph({

@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
@@ -22,6 +23,7 @@ export const PolygonGraph = (props: Props) => {
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
         props.graphState;
+    const {hintMode} = useGraphConfig();
 
     // TODO(benchristel): can the default set of points be removed here? I don't
     // think coords can be null.
@@ -42,6 +44,7 @@ export const PolygonGraph = (props: Props) => {
     });
 
     const active = hovered || focused || dragging;
+    const lastMoveTime = React.useRef<number>(0);
 
     const lines = getLines(points);
 
@@ -50,11 +53,12 @@ export const PolygonGraph = (props: Props) => {
             <Polygon
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
-                // svgPolygonProps={{
-                //     strokeWidth: active
-                //         ? "var(--movable-line-stroke-weight-active)"
-                //         : "var(--movable-line-stroke-weight)",
-                // }}
+                svgPolygonProps={{
+                    // strokeWidth: active
+                    //     ? "var(--movable-line-stroke-weight-active)"
+                    //     : "var(--movable-line-stroke-weight)",
+                    style: {fill: "transparent"},
+                }}
             />
             {points.map((point, i) => {
                 const pt1 = points.at(i - 1);
@@ -99,10 +103,11 @@ export const PolygonGraph = (props: Props) => {
                 color="transparent"
                 svgPolygonProps={{
                     ref,
-                    tabIndex: 0,
+                    tabIndex: hintMode ? -1 : 0,
                     strokeWidth: TARGET_SIZE,
                     style: {
                         cursor: dragging ? "grabbing" : "grab",
+                        fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
                     onFocus: () => setFocused(true),
                     onBlur: () => setFocused(false),
@@ -116,9 +121,16 @@ export const PolygonGraph = (props: Props) => {
                     key={"point-" + i}
                     snapTo={snapTo}
                     point={point}
-                    onMove={(destination: vec.Vector2) =>
-                        dispatch(actions.polygon.movePoint(i, destination))
-                    }
+                    onMove={(destination: vec.Vector2) => {
+                        const now = Date.now();
+                        const targetFPS = 40;
+                        const moveThresholdTime = 1000 / targetFPS;
+
+                        if (now - lastMoveTime.current > moveThresholdTime) {
+                            dispatch(actions.polygon.movePoint(i, destination));
+                            lastMoveTime.current = now;
+                        }
+                    }}
                 />
             ))}
         </>

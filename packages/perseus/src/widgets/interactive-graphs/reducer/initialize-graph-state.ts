@@ -186,7 +186,7 @@ function getPointCoords(
     return normalizePoints(range, step, newCoords);
 }
 
-function getSegmentCoords(
+export function getSegmentCoords(
     graph: PerseusGraphTypeSegment,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
@@ -259,7 +259,7 @@ export function getLineCoords(
     return normalizePoints(range, step, defaultLinearCoords[0]);
 }
 
-function getLinearSystemCoords(
+export function getLinearSystemCoords(
     graph: PerseusGraphTypeLinearSystem,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],

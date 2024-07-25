@@ -15,6 +15,7 @@ export type GraphConfig = {
     width: number; // pixels
     height: number; // pixels
     labels: readonly string[];
+    hintMode?: boolean;
 };
 
 const defaultGraphConfig: GraphConfig = {
@@ -31,6 +32,7 @@ const defaultGraphConfig: GraphConfig = {
     width: 0,
     height: 0,
     labels: [],
+    hintMode: false,
 };
 
 export const GraphConfigContext =
