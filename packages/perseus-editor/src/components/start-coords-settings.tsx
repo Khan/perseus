@@ -13,6 +13,7 @@ import * as React from "react";
 import Heading from "./heading";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
+import {getDefaultGraphStartCoords} from "./util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
 
@@ -60,7 +61,7 @@ const StartCoordsSettingsInner = (props: Props) => {
 };
 
 const StartCoordsSettings = (props: Props) => {
-    const {onChange} = props;
+    const {range, step, onChange} = props;
     const [isOpen, setIsOpen] = React.useState(true);
 
     return (
@@ -86,7 +87,9 @@ const StartCoordsSettings = (props: Props) => {
                         kind="tertiary"
                         size="small"
                         onClick={() => {
-                            onChange(undefined);
+                            onChange(
+                                getDefaultGraphStartCoords(props, range, step),
+                            );
                         }}
                     >
                         Use default start coordinates

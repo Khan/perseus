@@ -1,6 +1,12 @@
+import {
+    getLineCoords,
+    getLinearSystemCoords,
+    getSegmentCoords,
+} from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {
+    Range,
     LockedFigure,
     LockedFigureType,
     LockedPointType,
@@ -9,6 +15,7 @@ import type {
     LockedVectorType,
     LockedPolygonType,
     LockedFunctionType,
+    PerseusGraphType,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
@@ -134,4 +141,34 @@ export function degreeToRadian(degrees: number) {
 }
 export function radianToDegree(radians: number) {
     return (radians / Math.PI) * 180;
+}
+
+export function getDefaultGraphStartCoords(
+    graph: PerseusGraphType,
+    range: [x: Range, y: Range],
+    step: [x: number, y: number],
+): PerseusGraphType["startCoords"] {
+    switch (graph.type) {
+        case "linear":
+        case "ray":
+            return getLineCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+        case "segment":
+            return getSegmentCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+        case "linear-system":
+            return getLinearSystemCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+        default:
+            return undefined;
+    }
 }

@@ -82,7 +82,10 @@ describe("StartCoordSettings", () => {
         await userEvent.click(resetButton);
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith(undefined);
+        expect(onChangeMock).toHaveBeenCalledWith([
+            [-5, 5],
+            [5, 5],
+        ]);
     });
 
     describe.each`
