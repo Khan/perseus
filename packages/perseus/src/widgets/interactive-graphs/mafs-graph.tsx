@@ -122,12 +122,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             width={width}
                             height={height}
                         />
-                        {/* Axis Tick Labels */}
-                        {props.markings === "graph" && (
-                            <>
-                                <AxisTicks />
-                            </>
-                        )}
                         {/* Locked layer */}
                         {props.lockedFigures && (
                             <GraphLockedLayer
