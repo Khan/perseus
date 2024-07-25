@@ -1,4 +1,11 @@
-import {degreeToRadian, getDefaultFigureForType, radianToDegree} from "../util";
+import {
+    degreeToRadian,
+    getDefaultFigureForType,
+    radianToDegree,
+    getDefaultGraphStartCoords,
+} from "../util";
+
+import type {PerseusGraphType, Range} from "@khanacademy/perseus";
 
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {
@@ -126,4 +133,110 @@ describe("radianToDegree", () => {
             expect(radianToDegree(radians)).toBe(degrees);
         },
     );
+});
+
+describe("getDefaultGraphStartCoords", () => {
+    test("should get default start coords for a linear graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "linear"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [-5, 5],
+            [5, 5],
+        ]);
+    });
+
+    test("should get default start coords for a ray graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "ray"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [-5, 5],
+            [5, 5],
+        ]);
+    });
+
+    test("should get default start coords for a segment graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "segment"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [
+                [-5, 5],
+                [5, 5],
+            ],
+        ]);
+    });
+
+    test("should get default start coords for a segment graph with multiple segments", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "segment", numSegments: 2};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [
+                [-5, 5],
+                [5, 5],
+            ],
+            [
+                [-5, -5],
+                [5, -5],
+            ],
+        ]);
+    });
+
+    test("should get default start coords for a linear system graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "linear-system"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [
+                [-5, 5],
+                [5, 5],
+            ],
+            [
+                [-5, -5],
+                [5, -5],
+            ],
+        ]);
+    });
 });

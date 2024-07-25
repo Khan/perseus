@@ -46,20 +46,46 @@ describe("StartCoordSettings", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Use default start coords"}),
+            screen.getByRole("button", {name: "Use default start coordinates"}),
         ).toBeInTheDocument();
 
         await userEvent.click(heading);
 
         expect(
-            screen.queryByRole("button", {name: "Use default start coords"}),
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
         ).not.toBeInTheDocument();
 
         await userEvent.click(heading);
 
         expect(
-            screen.getByRole("button", {name: "Use default start coords"}),
+            screen.getByRole("button", {name: "Use default start coordinates"}),
         ).toBeInTheDocument();
+    });
+
+    test("clicking the reset button resets the start coordinates", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <StartCoordsSettings
+                {...defaultProps}
+                type="linear"
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const resetButton = screen.getByRole("button", {
+            name: "Use default start coordinates",
+        });
+        await userEvent.click(resetButton);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith([
+            [-5, 5],
+            [5, 5],
+        ]);
     });
 
     describe.each`
@@ -80,13 +106,13 @@ describe("StartCoordSettings", () => {
             );
 
             const resetButton = screen.getByRole("button", {
-                name: "Use default start coords",
+                name: "Use default start coordinates",
             });
 
             // Assert
             expect(screen.getByText("Start coordinates")).toBeInTheDocument();
-            expect(screen.getByText("Point 1")).toBeInTheDocument();
-            expect(screen.getByText("Point 2")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
             expect(resetButton).toBeInTheDocument();
         });
 
@@ -113,7 +139,7 @@ describe("StartCoordSettings", () => {
 
                 // Assert
                 const input = screen.getAllByRole("spinbutton", {
-                    name: `${coord} coord`,
+                    name: `${coord}`,
                 })[lineIndex];
                 await userEvent.clear(input);
                 await userEvent.type(input, "101");
@@ -127,35 +153,6 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
-
-        test(`calls onChange when reset button is clicked ${type} graph`, async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-
-            // Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    startCoords={[
-                        [-15, 15],
-                        [15, 15],
-                    ]}
-                    type={type}
-                    onChange={onChangeMock}
-                />,
-            );
-
-            // Assert
-            const resetButton = screen.getByRole("button", {
-                name: "Use default start coords",
-            });
-            await userEvent.click(resetButton);
-
-            expect(onChangeMock).toHaveBeenLastCalledWith([
-                [-5, 5],
-                [5, 5],
-            ]);
-        });
     });
 
     // startCoords with type CollinearTuple[]
@@ -177,8 +174,8 @@ describe("StartCoordSettings", () => {
             // Assert
             expect(screen.getByText("Start coordinates")).toBeInTheDocument();
             expect(screen.getByText("Segment 1")).toBeInTheDocument();
-            expect(screen.getByText("Point 1")).toBeInTheDocument();
-            expect(screen.getByText("Point 2")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
         });
 
         test("shows the start coordinates UI for 2 segments", () => {
@@ -199,23 +196,23 @@ describe("StartCoordSettings", () => {
             expect(screen.getByText("Start coordinates")).toBeInTheDocument();
             expect(screen.getByText("Segment 1")).toBeInTheDocument();
             expect(screen.getByText("Segment 2")).toBeInTheDocument();
-            expect(screen.getAllByText("Point 1")).toHaveLength(2);
-            expect(screen.getAllByText("Point 2")).toHaveLength(2);
+            expect(screen.getAllByText("Point 1:")).toHaveLength(2);
+            expect(screen.getAllByText("Point 2:")).toHaveLength(2);
         });
 
         test.each`
-            segmentIndex | pointIndex | coordIndex
-            ${0}         | ${0}       | ${0}
-            ${0}         | ${0}       | ${1}
-            ${0}         | ${1}       | ${0}
-            ${0}         | ${1}       | ${1}
-            ${1}         | ${0}       | ${0}
-            ${1}         | ${0}       | ${1}
-            ${1}         | ${1}       | ${0}
-            ${1}         | ${1}       | ${1}
+            segmentIndex | pointIndex | coordIndex | coord
+            ${0}         | ${0}       | ${0}       | ${"x"}
+            ${0}         | ${0}       | ${1}       | ${"y"}
+            ${0}         | ${1}       | ${0}       | ${"x"}
+            ${0}         | ${1}       | ${1}       | ${"y"}
+            ${1}         | ${0}       | ${0}       | ${"x"}
+            ${1}         | ${0}       | ${1}       | ${"y"}
+            ${1}         | ${1}       | ${0}       | ${"x"}
+            ${1}         | ${1}       | ${1}       | ${"y"}
         `(
             `calls onChange when $coord coord is changed (segment $segmentIndex)`,
-            async ({segmentIndex, pointIndex, coordIndex}) => {
+            async ({segmentIndex, pointIndex, coordIndex, coord}) => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -244,8 +241,8 @@ describe("StartCoordSettings", () => {
 
                 // Assert
                 const input = screen.getAllByRole("spinbutton", {
-                    name: /coord/,
-                })[segmentIndex * 4 + pointIndex * 2 + coordIndex];
+                    name: coord,
+                })[segmentIndex * 2 + pointIndex];
                 await userEvent.clear(input);
                 await userEvent.type(input, "101");
 
@@ -255,49 +252,6 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
-
-        test(`calls onChange when reset button is clicked`, async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-
-            // Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="segment"
-                    numSegments={2}
-                    startCoords={[
-                        [
-                            [-15, 15],
-                            [15, 15],
-                        ],
-                        [
-                            [-15, -15],
-                            [15, -15],
-                        ],
-                    ]}
-                    onChange={onChangeMock}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            const resetButton = screen.getByRole("button", {
-                name: "Use default start coords",
-            });
-            await userEvent.click(resetButton);
-
-            expect(onChangeMock).toHaveBeenLastCalledWith([
-                [
-                    [-5, 5],
-                    [5, 5],
-                ],
-                [
-                    [-5, -5],
-                    [5, -5],
-                ],
-            ]);
-        });
     });
 
     // startCoords with type CollinearTuple[]
@@ -319,23 +273,23 @@ describe("StartCoordSettings", () => {
             expect(screen.getByText("Start coordinates")).toBeInTheDocument();
             expect(screen.getByText("Line 1")).toBeInTheDocument();
             expect(screen.getByText("Line 2")).toBeInTheDocument();
-            expect(screen.getAllByText("Point 1")).toHaveLength(2);
-            expect(screen.getAllByText("Point 2")).toHaveLength(2);
+            expect(screen.getAllByText("Point 1:")).toHaveLength(2);
+            expect(screen.getAllByText("Point 2:")).toHaveLength(2);
         });
 
         test.each`
-            lineIndex | pointIndex | coordIndex
-            ${0}      | ${0}       | ${0}
-            ${0}      | ${0}       | ${1}
-            ${0}      | ${1}       | ${0}
-            ${0}      | ${1}       | ${1}
-            ${1}      | ${0}       | ${0}
-            ${1}      | ${0}       | ${1}
-            ${1}      | ${1}       | ${0}
-            ${1}      | ${1}       | ${1}
+            lineIndex | pointIndex | coordIndex | coord
+            ${0}      | ${0}       | ${0}       | ${"x"}
+            ${0}      | ${0}       | ${1}       | ${"y"}
+            ${0}      | ${1}       | ${0}       | ${"x"}
+            ${0}      | ${1}       | ${1}       | ${"y"}
+            ${1}      | ${0}       | ${0}       | ${"x"}
+            ${1}      | ${0}       | ${1}       | ${"y"}
+            ${1}      | ${1}       | ${0}       | ${"x"}
+            ${1}      | ${1}       | ${1}       | ${"y"}
         `(
             `calls onChange when $coord coord is changed (line $lineIndex)`,
-            async ({lineIndex, pointIndex, coordIndex}) => {
+            async ({lineIndex, pointIndex, coordIndex, coord}) => {
                 // Arrange
                 const onChangeMock = jest.fn();
 
@@ -363,8 +317,8 @@ describe("StartCoordSettings", () => {
 
                 // Assert
                 const input = screen.getAllByRole("spinbutton", {
-                    name: /coord/,
-                })[lineIndex * 4 + pointIndex * 2 + coordIndex];
+                    name: coord,
+                })[lineIndex * 2 + pointIndex];
                 await userEvent.clear(input);
                 await userEvent.type(input, "101");
 
@@ -374,47 +328,5 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
-
-        test(`calls onChange when reset button is clicked`, async () => {
-            // Arrange
-            const onChangeMock = jest.fn();
-
-            // Act
-            render(
-                <StartCoordsSettings
-                    {...defaultProps}
-                    type="linear-system"
-                    startCoords={[
-                        [
-                            [-15, 15],
-                            [15, 15],
-                        ],
-                        [
-                            [-15, -15],
-                            [15, -15],
-                        ],
-                    ]}
-                    onChange={onChangeMock}
-                />,
-                {wrapper: RenderStateRoot},
-            );
-
-            // Assert
-            const resetButton = screen.getByRole("button", {
-                name: "Use default start coords",
-            });
-            await userEvent.click(resetButton);
-
-            expect(onChangeMock).toHaveBeenLastCalledWith([
-                [
-                    [-5, 5],
-                    [5, 5],
-                ],
-                [
-                    [-5, -5],
-                    [5, -5],
-                ],
-            ]);
-        });
     });
 });
