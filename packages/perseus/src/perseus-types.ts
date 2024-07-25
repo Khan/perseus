@@ -84,8 +84,6 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `table ${number}`]: TableWidget;
 } & {
-    [key in `unit-input ${number}`]: UnitInputWidget;
-} & {
     [key in `video ${number}`]: VideoWidget;
 };
 
@@ -253,8 +251,6 @@ export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTarg
 // prettier-ignore
 export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
-export type UnitInputWidget = Widget<'unit-input', PerseusUnitInputWidgetOptions>;
-// prettier-ignore
 export type VideoWidget = Widget<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
 export type AutoCorrectWidget = Widget<'deprecated-standin', PerseusWidgetOptions>;
@@ -294,7 +290,6 @@ export type PerseusWidget =
     | SimpleMarkdownTesterWidget
     | SorterWidget
     | TableWidget
-    | UnitInputWidget
     | VideoWidget
     | AutoCorrectWidget;
 

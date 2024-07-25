@@ -42,7 +42,6 @@ type WidgetName =
     | "simulator"
     | "sorter"
     | "table"
-    | "unit-input"
     | "video";
 
 type WidgetEnum =
@@ -122,7 +121,6 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
     simulator: "SIMULATOR",
     sorter: "SORTER",
     table: "TABLE",
-    "unit-input": "UNIT",
     video: "VIDEO",
 };
 

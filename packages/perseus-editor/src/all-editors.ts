@@ -33,7 +33,6 @@ import RadioEditor from "./widgets/radio/editor";
 import SimpleMarkdownTesterEditor from "./widgets/simple-markdown-tester-editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
-import UnitEditor from "./widgets/unit-editor";
 import VideoEditor from "./widgets/video-editor";
 
 export default [
@@ -70,7 +69,6 @@ export default [
     SimpleMarkdownTesterEditor,
     SorterEditor,
     TableEditor,
-    UnitEditor,
     VideoEditor,
     RadioEditor,
     DeprecatedStandinEditor,
