@@ -44,6 +44,7 @@ export const PolygonGraph = (props: Props) => {
     });
 
     const active = hovered || focused || dragging;
+    const lastMoveTime = React.useRef<number>(0);
 
     const lines = getLines(points);
 
@@ -120,9 +121,16 @@ export const PolygonGraph = (props: Props) => {
                     key={"point-" + i}
                     snapTo={snapTo}
                     point={point}
-                    onMove={(destination: vec.Vector2) =>
-                        dispatch(actions.polygon.movePoint(i, destination))
-                    }
+                    onMove={(destination: vec.Vector2) => {
+                        const now = Date.now();
+                        const targetFPS = 40;
+                        const moveThresholdTime = 1000 / targetFPS;
+
+                        if (now - lastMoveTime.current > moveThresholdTime) {
+                            dispatch(actions.polygon.movePoint(i, destination));
+                            lastMoveTime.current = now;
+                        }
+                    }}
                 />
             ))}
         </>
