@@ -21,9 +21,13 @@ function ComponentRenderer({
     return (
         <View style={{marginRight: "40px"}}>
             <StatefulKeypadContextProvider>
+                <KeypadContext.Consumer>
+                    {({setKeypadActive, keypadElement, setKeypadElement}) => (
+                        <>
                 <Renderer
                     strings={mockStrings}
                     apiOptions={apiOptions}
+                                keypadElement={keypadElement}
                     linterContext={{
                         contentType: "exercise",
                         highlightLint: true,
@@ -32,20 +36,14 @@ function ComponentRenderer({
                     }}
                     {...question}
                 />
-                <KeypadContext.Consumer>
-                    {({setKeypadActive, setKeypadElement}) => {
-                        return (
+
                             <MobileKeypad
                                 onAnalyticsEvent={() => Promise.resolve()}
                                 onDismiss={() => setKeypadActive(false)}
-                                onElementMounted={(element) => {
-                                    if (element) {
-                                        setKeypadElement(element);
-                                    }
-                                }}
+                                onElementMounted={setKeypadElement}
                             />
-                        );
-                    }}
+                        </>
+                    )}
                 </KeypadContext.Consumer>
             </StatefulKeypadContextProvider>
         </View>
