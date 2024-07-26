@@ -1,11 +1,9 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import {Mafs, usePaneContext} from "mafs";
+import {Mafs} from "mafs";
 import * as React from "react";
 
 import AxisLabels from "./backgrounds/axis-labels";
-import {AxisTickLabels} from "./backgrounds/axis-tick-labels";
-import {AxisTicks} from "./backgrounds/axis-ticks";
 import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import GraphLockedLayer from "./graph-locked-layer";
