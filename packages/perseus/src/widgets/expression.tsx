@@ -5,6 +5,7 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -558,7 +559,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     render() {
         if (this.props.apiOptions.customKeypad) {
             return (
-                <View style={{padding: "15px 4px 0"}}>
+                <View className={css(styles.mobileLabelInputWrapper)}>
                     {!!this.props.visibleLabel && (
                         <LabelSmall htmlFor={this._textareaId} tag="label">
                             {this.props.visibleLabel}
@@ -598,7 +599,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
         return (
-            <View style={{margin: "5px 5px 0"}}>
+            <View className={css(styles.desktopLabelInputWrapper)}>
                 {!!this.props.visibleLabel && (
                     <LabelSmall htmlFor={this._textareaId} tag="label">
                         {this.props.visibleLabel}
@@ -662,6 +663,15 @@ export class Expression extends React.Component<Props, ExpressionState> {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    mobileLabelInputWrapper: {
+        padding: "15px 4px 0",
+    },
+    desktopLabelInputWrapper: {
+        margin: "5px 5px 0",
+    },
+});
 
 /**
  * Determine the keypad configuration parameters for the input, based on the
