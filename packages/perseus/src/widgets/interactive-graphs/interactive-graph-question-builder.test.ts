@@ -976,7 +976,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 strokeStyle: "dashed",
                 directionalAxis: "y",
-                domain: {min: -5, max: 5},
+                domain: [-5, 5],
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -988,7 +988,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 strokeStyle: "dashed",
                 directionalAxis: "y",
-                domain: {min: -5, max: 5},
+                domain: [-5, 5],
             },
         ]);
     });

@@ -49,7 +49,7 @@ export const DomainRestrictedMin = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
         {...mafsOptions}
         question={segmentWithLockedFunction("sin(x)", {
-            domain: {min: -5},
+            domain: [-5, Infinity],
         })}
     />
 );
@@ -58,7 +58,7 @@ export const DomainRestrictedMax = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
         {...mafsOptions}
         question={segmentWithLockedFunction("sin(x)", {
-            domain: {max: 5},
+            domain: [-Infinity, 5],
         })}
     />
 );
@@ -67,7 +67,7 @@ export const DomainRestrictedBoth = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
         {...mafsOptions}
         question={segmentWithLockedFunction("sin(x)", {
-            domain: {min: -5, max: 5},
+            domain: [-5, 5],
         })}
     />
 );
