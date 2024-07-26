@@ -22,31 +22,29 @@ function ComponentRenderer({
     return (
         <View style={{marginRight: "40px"}}>
             <StatefulKeypadContextProvider>
-                <Renderer
-                    strings={mockStrings}
-                    apiOptions={apiOptions}
-                    linterContext={{
+                <KeypadContext.Consumer>
+                    {({setKeypadActive, keypadElement, setKeypadElement}) => (
+                        <>
+                            <Renderer
+                                strings={mockStrings}
+                                apiOptions={apiOptions}
+                                keypadElement={keypadElement}
+                                linterContext={{
                         contentType: "exercise",
                         highlightLint: true,
                         paths: [],
                         stack: [],
-                    }}
-                    {...question}
-                />
-                <KeypadContext.Consumer>
-                    {({setKeypadActive, setKeypadElement}) => {
-                        return (
+                                }}
+                                {...question}
+                            />
+
                             <MobileKeypad
                                 onAnalyticsEvent={() => Promise.resolve()}
                                 onDismiss={() => setKeypadActive(false)}
-                                onElementMounted={(element) => {
-                                    if (element) {
-                                        setKeypadElement(element);
-                                    }
-                                }}
+                                onElementMounted={setKeypadElement}
                             />
-                        );
-                    }}
+                        </>
+                    )}
                 </KeypadContext.Consumer>
             </StatefulKeypadContextProvider>
         </View>
