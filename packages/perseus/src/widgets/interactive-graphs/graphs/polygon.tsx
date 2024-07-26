@@ -20,6 +20,7 @@ export const PolygonGraph = (props: Props) => {
     const [focused, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
     const [clicked, setClicked] = React.useState(false);
+    const [movedWithKey, setMovedWithKey] = React.useState(false);
 
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
@@ -55,9 +56,10 @@ export const PolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
-                    strokeWidth: focused
-                        ? "var(--movable-line-stroke-weight-active)"
-                        : "var(--movable-line-stroke-weight)",
+                    strokeWidth:
+                        focused || movedWithKey
+                            ? "var(--movable-line-stroke-weight-active)"
+                            : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
                 }}
             />
@@ -112,10 +114,15 @@ export const PolygonGraph = (props: Props) => {
                     },
                     onMouseDown: () => setClicked(true),
                     onFocus: () => (!clicked ? setFocused(true) : () => {}),
-                    onBlur: () => setFocused(false),
+                    onBlur: () => {
+                        setFocused(false);
+                        setMovedWithKey(false);
+                    },
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
                     onMouseUp: () => setClicked(false),
+
+                    onKeyDownCapture: () => setMovedWithKey(true),
                     className: "movable-polygon",
                 }}
             />
