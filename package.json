@@ -29,7 +29,7 @@
         "@jest/globals": "^29.7.0",
         "@khanacademy/eslint-config": "^4.0.0",
         "@khanacademy/eslint-plugin": "^3.0.0",
-        "@khanacademy/mathjax-renderer": "^2.0.0",
+        "@khanacademy/mathjax-renderer": "^2.0.1",
         "@khanacademy/wonder-blocks-button": "6.3.1",
         "@khanacademy/wonder-blocks-layout": "2.0.32",
         "@khanacademy/wonder-blocks-spacing": "^4.0.1",
