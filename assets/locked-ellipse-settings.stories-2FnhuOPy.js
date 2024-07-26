@@ -1,0 +1,26 @@
+import{j as d}from"./jsx-runtime-5BUNAZ9W.js";import{r as a}from"./index-4g5l5LRQ.js";import{L as e}from"./locked-ellipse-settings-Ow0aG7cM.js";import{g as C}from"./util-DD-0RQSy.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./article-renderer-N7GOnMso.js";import"./util-PbY8Ec_P.js";import"./version-akiLXZts.js";import"./perseus-error-l3K_anoI.js";import"./index-default-4_ZsnO94.js";import"./jquery-5v7aFUvu.js";import"./prop-types-dLVY6Cpd.js";import"./index-lUErx3pE.js";import"./index-J2t_5nK1.js";import"./index-awljIyHI.js";import"./index-jmm5gWkb.js";import"./mobile-keypad-_omH0y9g.js";import"./index-FsYHUvK_.js";import"./index-e4P84RkC.js";import"./tabbar-Oqt6c7oQ.js";import"./item-BvwJUNFE.js";import"./index-Cz55-Vre.js";import"./index-tvtfaFq4.js";import"./button-assets-W0P3gTHH.js";import"./keypad-button-dkA26ccQ.js";import"./operators-page-AaL31SSd.js";import"./navigation-pad-J3QJzD-6.js";import"./key-translator-2vF_So3l.js";import"./_commonjs-dynamic-modules-h-SxKiO4.js";import"./invariant-bu5zBsRS.js";import"./enums-x5qaTru7.js";import"./renderer-R9gC02b3.js";import"./index-dnMhQZ-1.js";import"./asset-context-4nzQV6k0.js";import"./svg-image-E7NDzH3y.js";import"./index-zXbQRqKp.js";import"./dependencies-9B_Bv_mA.js";import"./fixed-to-responsive-Q2lYGnje.js";import"./constants-I_nlPaPx.js";import"./client-MU6fCXSs.js";import"./inline-icon-QIU9thzn.js";import"./icon-paths-AuJwhOz7.js";import"./image-loader-A74C9PE_.js";import"./tex-Co-L2gRx.js";import"./zoomable-fMxvjK02.js";import"./zoomable-tex-ZKYDI9ak.js";import"./perseus-api-7QXTiCE7.js";import"./index-k-0mNqHS.js";import"./stub-tag-editor-Fuvu94kh.js";import"./text-list-editor-vhSOgXmq.js";import"./lint-IvfTv29b.js";import"./info-tip-7k4XWhfR.js";import"./index-zE8cp1oq.js";import"./index-zHEZmPKZ.js";import"./index-skotlSua.js";import"./index-QR_wlop5.js";import"./x-6ZxseNgc.js";import"./index-wjVcXLkf.js";import"./Popper-D86xJ3go.js";import"./i18n-context-3gTlIcWM.js";import"./strings-YJ61eiUN.js";import"./math-input-3MKeOtqI.js";import"./index-wgZGcu4m.js";import"./input-with-examples--HU1gm88.js";import"./text-input-Q1V0RBx1.js";import"./index-_rEjQfTM.js";import"./minus-bold-ONmDo3Ve.js";import"./tooltip-vkx2pUmk.js";import"./simple-keypad-input-3VL6uesv.js";import"./base-radio-N6sbRpXE.js";import"./media-queries-MaBBbpNq.js";import"./shared-3pf9YZIg.js";import"./choice-qvE2MQTK.js";import"./icon-TA3bBVIW.js";import"./choice-icon-cBSCcTMf.js";import"./focus-ring-dCiEd0Hc.js";import"./option-status-o8Ma0JxL.js";import"./choice-none-above-Qqqim7U3.js";import"./video-transcript-link-6o6i_Fnt.js";import"./answer-choices-jj38LqZO.js";import"./button-group-KR3umc1e.js";import"./graph-l7ZYgNY7.js";import"./tiny-invariant-bHgPayXn.js";import"./bundle.esm-ylPat90q.js";import"./hud-CJYktPgf.js";import"./multi-button-group-AxfQn4Cq.js";import"./number-input-amkX2mhb.js";import"./prop-check-box-BcSa0Uvu.js";import"./range-input-wZxNg24N.js";import"./marker-ftu_L0T_.js";import"./answer-pill-Fp2a1ljs.js";import"./sortable-oS2KKSF_.js";import"./multi-renderer-h5tCNAS0.js";import"./hints-renderer-hF3evTye.js";import"./components-oury6HYs.js";import"./locked-figure-settings-actions-yyxP2sa9.js";import"./color-select-dHGLVcR3.js";import"./color-swatch-FUCJDgMQ.js";const go={title:"PerseusEditor/Components/Locked Ellipse Settings",component:e},r=i=>d(e,{...i}),c={...C("ellipse"),onChangeProps:()=>{},onMove:()=>{},onRemove:()=>{}};r.args=c;const o={render:function(){const[t,s]=a.useState(c);return d(e,{...t,onChangeProps:n=>{s({...t,...n})}})}};o.parameters={chromatic:{disableSnapshot:!0}};const p={render:function(){const[t,s]=a.useState(!0),[m,n]=a.useState(c);return d(e,{...m,expanded:t,onToggle:s,onChangeProps:R=>{n({...m,...R})}})}};r.__docgenInfo={description:"",methods:[],displayName:"Default"};var l,u,P;r.parameters={...r.parameters,docs:{...(l=r.parameters)==null?void 0:l.docs,source:{originalSource:`(args): React.ReactElement => {
+  return <LockedEllipseSettings {...args} />;
+}`,...(P=(u=r.parameters)==null?void 0:u.docs)==null?void 0:P.source}}};var g,f,h;o.parameters={...o.parameters,docs:{...(g=o.parameters)==null?void 0:g.docs,source:{originalSource:`{
+  render: function Render() {
+    const [props, setProps] = React.useState(defaultProps);
+    const handlePropsUpdate = newProps => {
+      setProps({
+        ...props,
+        ...newProps
+      });
+    };
+    return <LockedEllipseSettings {...props} onChangeProps={handlePropsUpdate} />;
+  }
+}`,...(h=(f=o.parameters)==null?void 0:f.docs)==null?void 0:h.source}}};var S,E,x;p.parameters={...p.parameters,docs:{...(S=p.parameters)==null?void 0:S.docs,source:{originalSource:`{
+  render: function Render() {
+    const [expanded, setExpanded] = React.useState(true);
+    const [props, setProps] = React.useState(defaultProps);
+    const handlePropsUpdate = newProps => {
+      setProps({
+        ...props,
+        ...newProps
+      });
+    };
+    return <LockedEllipseSettings {...props} expanded={expanded} onToggle={setExpanded} onChangeProps={handlePropsUpdate} />;
+  }
+}`,...(x=(E=p.parameters)==null?void 0:E.docs)==null?void 0:x.source}}};const fo=["Default","Controlled","Expanded"];export{o as Controlled,r as Default,p as Expanded,fo as __namedExportsOrder,go as default};
