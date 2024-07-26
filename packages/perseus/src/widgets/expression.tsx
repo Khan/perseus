@@ -4,6 +4,7 @@ import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -559,15 +560,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
             return (
                 <View style={{padding: "15px 4px 0"}}>
                     {!!this.props.visibleLabel && (
-                        <label
-                            style={{
-                                fontSize: "12px",
-                                lineHeight: "10px",
-                            }}
-                            htmlFor={this._textareaId}
-                        >
+                        <LabelSmall htmlFor={this._textareaId} tag="label">
                             {this.props.visibleLabel}
-                        </label>
+                        </LabelSmall>
                     )}
                     <KeypadInput
                         // eslint-disable-next-line react/no-string-refs
@@ -605,15 +600,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return (
             <View style={{margin: "5px 5px 0"}}>
                 {!!this.props.visibleLabel && (
-                    <label
-                        htmlFor={this._textareaId}
-                        style={{
-                            fontSize: "12px",
-                            lineHeight: "10px",
-                        }}
-                    >
+                    <LabelSmall htmlFor={this._textareaId} tag="label">
                         {this.props.visibleLabel}
-                    </label>
+                    </LabelSmall>
                 )}
                 <div
                     className={className}
