@@ -427,7 +427,9 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
+    // visible label associated with the MathQuill field
     visibleLabel?: string;
+    // aria label for screen readers attached to MathQuill field
     ariaLabel?: string;
     // Controls when buttons for special characters are visible when using a
     // desktop browser.  Defaults to "focused".
