@@ -568,7 +568,10 @@ export class Expression extends React.Component<Props, ExpressionState> {
                     <KeypadInput
                         // eslint-disable-next-line react/no-string-refs
                         ref="input"
-                        ariaLabel={this.props.ariaLabel || "Expression input"}
+                        ariaLabel={
+                            this.props.ariaLabel ||
+                            this.context.strings.mathInputBox
+                        }
                         value={this.props.value}
                         keypadElement={this.props.keypadElement}
                         onChange={this.changeAndTrack}
@@ -646,7 +649,8 @@ export class Expression extends React.Component<Props, ExpressionState> {
                             onBlur={this._handleBlur}
                             hasError={this.state.showErrorStyle}
                             ariaLabel={
-                                this.props.ariaLabel || "Expression input"
+                                this.props.ariaLabel ||
+                                this.context.strings.mathInputBox
                             }
                             extraKeys={
                                 this.props.keypadConfiguration?.extraKeys

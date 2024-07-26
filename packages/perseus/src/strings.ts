@@ -4,6 +4,7 @@
 export type PerseusStrings = {
     closeKeypad: string;
     openKeypad: string;
+    mathInputBox: string;
     removeHighlight: string;
     addHighlight: string;
     hintPos: ({pos}: {pos: number}) => string;
@@ -136,6 +137,7 @@ export const strings: {
 } = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
+    mathInputBox: "Math input box",
     removeHighlight: "Remove highlight",
     addHighlight: "Add highlight",
     hintPos: "Hint #%(pos)s",
@@ -292,6 +294,7 @@ export const strings: {
 export const mockStrings: PerseusStrings = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
+    mathInputBox: "Math input box",
     removeHighlight: "Remove highlight",
     addHighlight: "Add highlight",
     hintPos: ({pos}) => `Hint #${pos}`,
