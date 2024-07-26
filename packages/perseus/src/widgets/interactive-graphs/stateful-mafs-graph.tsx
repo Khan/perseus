@@ -100,7 +100,6 @@ export const StatefulMafsGraph = React.forwardRef<
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
     const showAngles = graph.type === "polygon" ? graph.showAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
-    const startCoords = graph.startCoords ?? null;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
@@ -119,9 +118,8 @@ export const StatefulMafsGraph = React.forwardRef<
         snapTo,
         showAngles,
         showSides,
-        startCoords,
         latestPropsRef,
-        startCoords,
+        graph.startCoords,
     ]);
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
