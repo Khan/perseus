@@ -19,6 +19,7 @@ type Props = MafsGraphProps<PolygonGraphState>;
 export const PolygonGraph = (props: Props) => {
     const [focused, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
+    const [clicked, setClicked] = React.useState(false);
 
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
@@ -54,9 +55,9 @@ export const PolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
-                    // strokeWidth: active
-                    //     ? "var(--movable-line-stroke-weight-active)"
-                    //     : "var(--movable-line-stroke-weight)",
+                    strokeWidth: focused
+                        ? "var(--movable-line-stroke-weight-active)"
+                        : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
                 }}
             />
@@ -109,10 +110,12 @@ export const PolygonGraph = (props: Props) => {
                         cursor: dragging ? "grabbing" : "grab",
                         fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
-                    onFocus: () => setFocused(true),
+                    onMouseDown: () => setClicked(true),
+                    onFocus: () => (!clicked ? setFocused(true) : () => {}),
                     onBlur: () => setFocused(false),
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
+                    onMouseUp: () => setClicked(false),
                     className: "movable-polygon",
                 }}
             />
