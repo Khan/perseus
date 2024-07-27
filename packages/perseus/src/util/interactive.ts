@@ -3257,7 +3257,7 @@ function Protractor(graph: any, center: any) {
         this.cy + r - graph.unscaleVector(10.5)[1],
     ]);
     const image = graph.mouselayer.image(
-        "https://storage.googleapis.com/junyi-exercise-img/widget_protractor.png",
+        "https://storage.googleapis.com/junyi-exercise-img/protractor.png",
         imgPos[0],
         imgPos[1],
         360,
