@@ -30,7 +30,8 @@
             "require": "./dist/strings.js",
             "types": "./dist/strings.d.ts",
             "source": "./src/strings.ts"
-        }
+        },
+        "./*.css": "./dist/*.css"
     },
     "files": [
         "dist"

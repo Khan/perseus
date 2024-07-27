@@ -18,6 +18,15 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/es/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "source": "./src/index.ts"
+        },
+        "./*.css": "./dist/*.css"
+    },
     "files": [
         "dist"
     ],
