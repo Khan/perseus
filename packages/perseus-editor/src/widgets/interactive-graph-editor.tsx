@@ -114,22 +114,10 @@ export type Props = {
      */
     showProtractor: boolean;
     /**
-     * Whether to show the ruler on the graph.
-     */
-    showRuler: boolean;
-    /**
      * Whether to show tooltips on the graph.
      * (Currently not used, but will be in the future.)
      */
     showTooltips: boolean;
-    /**
-     * The label to display on the ruler, if any.
-     */
-    rulerLabel: string;
-    /**
-     * The number of ticks to display on the ruler.
-     */
-    rulerTicks: number;
     /**
      * The current correct answer for the graph. Updated by this component
      * when the graph is changed.
@@ -162,10 +150,7 @@ type DefaultProps = {
     backgroundImage: Props["backgroundImage"];
     markings: Props["markings"];
     showProtractor: Props["showProtractor"];
-    showRuler: Props["showRuler"];
     showTooltips: Props["showTooltips"];
-    rulerLabel: Props["rulerLabel"];
-    rulerTicks: Props["rulerTicks"];
     correct: Props["correct"];
 };
 
@@ -231,10 +216,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 backgroundImage: this.props.backgroundImage,
                 markings: this.props.markings,
                 showProtractor: this.props.showProtractor,
-                showRuler: this.props.showRuler,
                 showTooltips: this.props.showTooltips,
-                rulerLabel: this.props.rulerLabel,
-                rulerTicks: this.props.rulerTicks,
                 lockedFigures: this.props.lockedFigures,
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
@@ -510,10 +492,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     backgroundImage={this.props.backgroundImage}
                     markings={this.props.markings}
                     showProtractor={this.props.showProtractor}
-                    showRuler={this.props.showRuler}
                     showTooltips={this.props.showTooltips}
-                    rulerLabel={this.props.rulerLabel}
-                    rulerTicks={this.props.rulerTicks}
                     onChange={this.props.onChange}
                 />
                 {this.props.correct.type === "polygon" && (
@@ -664,10 +643,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "markings",
             "labels",
             "showProtractor",
-            "showRuler",
             "showTooltips",
-            "rulerLabel",
-            "rulerTicks",
             "range",
             "gridStep",
             "snapStep",
@@ -701,7 +677,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 ],
                 function (key) {
                     if (_.has(correct, key)) {
-                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor" | "showRuler" | "rulerLabel" | "rulerTicks">'.
+                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor">'.
                         json.graph[key] = correct[key];
                     }
                 },

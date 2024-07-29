@@ -60,10 +60,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                 },
                 markings: "graph",
                 showProtractor: false,
-                showRuler: false,
                 showTooltips: false,
-                rulerLabel: "",
-                rulerTicks: 10,
                 graph: {
                     type: "linear",
                     coords: [

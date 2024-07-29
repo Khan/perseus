@@ -140,9 +140,6 @@ type DefaultProps = {
     markings: Props["markings"];
     showTooltips: Props["showTooltips"];
     showProtractor: Props["showProtractor"];
-    showRuler: Props["showRuler"];
-    rulerLabel: Props["rulerLabel"];
-    rulerTicks: Props["rulerTicks"];
     graph: Props["graph"];
 };
 
@@ -180,9 +177,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         markings: "graph",
         showTooltips: false,
         showProtractor: false,
-        showRuler: false,
-        rulerLabel: "",
-        rulerTicks: 10,
         graph: {
             type: "linear",
         },
@@ -1758,9 +1752,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                     markings={this.props.markings}
                     backgroundImage={this.props.backgroundImage}
                     showProtractor={this.props.showProtractor}
-                    showRuler={this.props.showRuler}
-                    rulerLabel={this.props.rulerLabel}
-                    rulerTicks={this.props.rulerTicks}
                     onMouseDown={onMouseDown}
                     onGraphieUpdated={this.setGraphie}
                     setDrawingAreaAvailable={
@@ -1788,9 +1779,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         markings: "graph",
         showTooltips: false,
         showProtractor: false,
-        showRuler: false,
-        rulerLabel: "",
-        rulerTicks: 10,
         graph: {
             type: "linear",
         },

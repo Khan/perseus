@@ -79,9 +79,6 @@ export function generateTestInteractiveGraphWidget(): InteractiveGraphWidget {
             markings: "graph",
             labels: ["x", "y"],
             showProtractor: false,
-            showRuler: false,
-            rulerLabel: "mm",
-            rulerTicks: 2,
             range: [
                 [-10, 10],
                 [-10, 10],
