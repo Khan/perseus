@@ -123,8 +123,8 @@ export const PolygonGraph = (props: Props) => {
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
                     onMouseUp: () => setClicked(false),
-                    // Focus can be applied with the mouse, so this allows us to add
-                    // styling if the polygon is moved after getting focus via the mouse.
+                    // Focus can be applied with the mouse, so this allows us to add styling if
+                    // the polygon is moved by the keyboard after getting focus via the mouse.
                     onKeyDownCapture: () => setMovedWithKey(true),
                     className: "movable-polygon",
                 }}
