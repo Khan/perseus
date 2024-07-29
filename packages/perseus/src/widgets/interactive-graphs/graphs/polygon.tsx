@@ -17,10 +17,8 @@ import type {CollinearTuple} from "@khanacademy/perseus";
 type Props = MafsGraphProps<PolygonGraphState>;
 
 export const PolygonGraph = (props: Props) => {
-    const [focused, setFocused] = React.useState(false);
+    const [, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
-    const [clicked, setClicked] = React.useState(false);
-    const [movedWithKey, setMovedWithKey] = React.useState(false);
 
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
@@ -45,7 +43,6 @@ export const PolygonGraph = (props: Props) => {
             ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
     });
 
-    const active = hovered || focused || dragging;
     const lastMoveTime = React.useRef<number>(0);
 
     const lines = getLines(points);
@@ -57,7 +54,7 @@ export const PolygonGraph = (props: Props) => {
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
                     strokeWidth:
-                        focused || movedWithKey
+                        hasFocusVisible(ref.current)
                             ? "var(--movable-line-stroke-weight-active)"
                             : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
@@ -74,7 +71,6 @@ export const PolygonGraph = (props: Props) => {
                         key={"angle-" + i}
                         centerPoint={point}
                         endPoints={[pt1, pt2]}
-                        active={active}
                         range={range}
                         polygonLines={lines}
                         showAngles={!!showAngles}
@@ -112,20 +108,10 @@ export const PolygonGraph = (props: Props) => {
                         cursor: dragging ? "grabbing" : "grab",
                         fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
-                    onMouseDown: () => setClicked(true),
-                    // If the polygon was focused by keyboard (and not the mouse), we want
-                    // to set focused to true so the polygon lines will become weighted
-                    onFocus: () => (!clicked ? setFocused(true) : () => {}),
-                    onBlur: () => {
-                        setFocused(false);
-                        setMovedWithKey(false);
-                    },
+                    onFocus: () => setFocused(true),
+                    onBlur: () => setFocused(false),
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
-                    onMouseUp: () => setClicked(false),
-                    // Focus can be applied with the mouse, so this allows us to add styling if
-                    // the polygon is moved by the keyboard after getting focus via the mouse.
-                    onKeyDownCapture: () => setMovedWithKey(true),
                     className: "movable-polygon",
                 }}
             />
@@ -155,4 +141,16 @@ function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
         const next = points[(i + 1) % points.length];
         return [point, next];
     });
+}
+
+function hasFocusVisible(element: Element | null | undefined): boolean {
+    const matches = (selector) => element?.matches(selector) ?? false
+    try {
+        return matches(":focus-visible")
+    } catch (e) {
+        // jsdom doesn't support :focus-visible
+        // (see https://github.com/jsdom/jsdom/issues/3426),
+        // so the call to matches(":focus-visible") will fail in tests.
+        return matches(":focus")
+    }
 }

@@ -16,7 +16,6 @@ interface PolygonAngleProps {
     centerPoint: vec.Vector2;
     endPoints: [vec.Vector2, vec.Vector2];
     polygonLines: readonly CollinearTuple[];
-    active: boolean;
     range: [Interval, Interval];
     showAngles: boolean;
     snapTo: "grid" | "angles" | "sides";
