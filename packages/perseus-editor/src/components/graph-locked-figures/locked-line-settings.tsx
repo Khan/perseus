@@ -17,6 +17,7 @@ import PerseusEditorAccordion from "../perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import DefiningPointSettings from "./defining-point-settings";
+import LineStyleSelect from "./line-style-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
@@ -129,22 +130,9 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
-                <LabelMedium tag="label" style={styles.row}>
-                    style
-                    <Strut size={spacing.xxxSmall_4} />
-                    <SingleSelect
-                        selectedValue={lineStyle}
-                        onChange={(value: "solid" | "dashed") =>
-                            onChangeProps({lineStyle: value})
-                        }
-                        // Placeholder is required, but never gets used.
-                        placeholder=""
-                        style={styles.selectMarginOffset}
-                    >
-                        <OptionItem value="solid" label="solid" />
-                        <OptionItem value="dashed" label="dashed" />
-                    </SingleSelect>
-                </LabelMedium>
+                <LineStyleSelect selectedValue={lineStyle} onChange={(value: "solid" | "dashed") =>
+                    onChangeProps({lineStyle: value})
+                }/>
             </View>
 
             {/* Points error message */}

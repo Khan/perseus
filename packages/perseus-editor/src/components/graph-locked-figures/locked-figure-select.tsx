@@ -23,9 +23,9 @@ type Props = {
 const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
-    const figureTypes = props.showM2Features
-        ? ["point", "line", "vector", "ellipse", "polygon"]
-        : ["point", "line"];
+    const m2Features = props.showM2Features ? ["vector", "ellipse", "polygon"] : [];
+    const m2bFeatures = props.showM2bFeatures ? ["function"] : [];
+    const figureTypes = ["point", "line", ...m2Features, ...m2bFeatures];
 
     return (
         <View style={styles.container}>

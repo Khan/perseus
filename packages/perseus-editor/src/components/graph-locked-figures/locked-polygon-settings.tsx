@@ -26,6 +26,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import PolygonSwatch from "./polygon-swatch";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import LineStyleSelect from "./line-style-select";
 
 export type Props = LockedFigureSettingsCommonProps &
     LockedPolygonType & {
@@ -102,21 +103,9 @@ const LockedPolygonSettings = (props: Props) => {
             </View>
 
             {/* Stroke style */}
-            <LabelMedium tag="label" style={[styles.row, styles.spaceUnder]}>
-                stroke
-                <Strut size={spacing.xxSmall_6} />
-                <SingleSelect
-                    selectedValue={strokeStyle}
-                    onChange={(value: "solid" | "dashed") =>
-                        onChangeProps({strokeStyle: value})
-                    }
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
-                >
-                    <OptionItem value="solid" label="solid" />
-                    <OptionItem value="dashed" label="dashed" />
-                </SingleSelect>
-            </LabelMedium>
+            <LineStyleSelect selectedValue={strokeStyle} onChange={(value: "solid" | "dashed") =>
+                onChangeProps({strokeStyle: value})
+            }/>
 
             {/* Show vertices switch */}
             <LabeledSwitch
