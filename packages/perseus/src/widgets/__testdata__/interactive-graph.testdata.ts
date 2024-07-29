@@ -1,7 +1,7 @@
 import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
 
 import type {Coord} from "../../interactive2/types";
-import type {PerseusRenderer} from "../../perseus-types";
+import type {PerseusRenderer, RadioWidget} from "../../perseus-types";
 import type {LockedFunctionOptions} from "../interactive-graphs/interactive-graph-question-builder";
 
 // Data for the interactive graph widget
@@ -808,3 +808,86 @@ export const quadraticQuestion: PerseusRenderer =
 
 export const quadraticQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withQuadratic().build();
+
+export const staticGraph: PerseusRenderer = interactiveGraphQuestionBuilder()
+    .addLockedPointAt(-7, -7)
+    .addLockedLine([-7, -5], [2, -3])
+    .addLockedVector([0, 0], [8, 2], "purple")
+    .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
+    .addLockedPolygon(
+        [
+            [-9, 4],
+            [-6, 4],
+            [-6, 1],
+            [-9, 1],
+        ],
+        {color: "pink"},
+    )
+    .withStaticMode(true)
+    .build();
+
+export const staticGraphWithAnotherQuestion: () => PerseusRenderer = () => {
+    const result = interactiveGraphQuestionBuilder()
+        .addLockedPointAt(-7, -7)
+        .addLockedLine([-7, -5], [2, -3])
+        .addLockedVector([0, 0], [8, 2], "purple")
+        .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
+        .addLockedPolygon(
+            [
+                [-9, 4],
+                [-6, 4],
+                [-6, 1],
+                [-9, 1],
+            ],
+            {color: "pink"},
+        )
+        .withStaticMode(true)
+        .build();
+    result["widgets"] = {
+        ...result["widgets"],
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                displayCount: null,
+                choices: [
+                    {
+                        content: "$-8$ and $8$",
+                        correct: false,
+                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                    },
+                    {
+                        content: "$-8$",
+                        correct: false,
+                        clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                    },
+                    {
+                        content: "The right answer !!!\n\n",
+                        correct: true,
+                        isNoneOfTheAbove: false,
+                        clue: "$8$ is the positive square root of $64$.",
+                    },
+                    {
+                        content: "No value of $x$ satisfies the equation.",
+                        correct: false,
+                        isNoneOfTheAbove: false,
+                        clue: "$8$ satisfies the equation.",
+                    },
+                ],
+                countChoices: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                randomize: false,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+    };
+    result["content"] = "[[\u2603 radio 1]]\n\n" + result["content"];
+    return result;
+};
