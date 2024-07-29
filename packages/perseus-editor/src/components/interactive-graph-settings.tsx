@@ -10,7 +10,6 @@ import {
 } from "@khanacademy/perseus";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -611,14 +610,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 const styles = StyleSheet.create({
     resetSpaceTop: {
         marginTop: 0,
-    },
-    spaceTop: {
-        marginTop: spacing.xSmall_8,
-    },
-    singleSelectShort: {
-        // Non-standard spacing, but it's the smallest we can go
-        // without running into styling issues with the dropdown.
-        height: 26,
     },
     backgroundUrlInput: {
         border: `1px solid ${color.offBlack32}`,

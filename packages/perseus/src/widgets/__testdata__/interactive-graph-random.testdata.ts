@@ -4,7 +4,6 @@ import {
     randomElement,
     randomInteger,
     randomLetter,
-    randomWord,
 } from "./randomizers";
 
 import type {Coord} from "../../interactive2/types";
