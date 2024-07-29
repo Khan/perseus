@@ -221,9 +221,7 @@ describe("InteractiveGraphSettings", () => {
         const banner = screen.getByRole("alert");
 
         // Assert
-        expect(banner).toHaveTextContent(
-            /The protractor is not accessible/,
-        );
+        expect(banner).toHaveTextContent(/The protractor is not accessible/);
     });
 
     test("hides a11y warning banner when protractor disabled", () => {
