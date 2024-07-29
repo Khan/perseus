@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 20.0.2
+
+### Patch Changes
+
+-   [#1454](https://github.com/Khan/perseus/pull/1454) [`7e71f8e8a`](https://github.com/Khan/perseus/commit/7e71f8e8a114d80ad7d26f478c31149d9009a9e5) Thanks [@Myranae](https://github.com/Myranae)! - Update mathjax-renderer version
+
 ## 20.0.1
 
 ### Patch Changes
