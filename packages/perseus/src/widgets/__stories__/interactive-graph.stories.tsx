@@ -20,6 +20,8 @@ import {
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
+    staticGraph,
+    staticGraphWithAnotherQuestion,
 } from "../__testdata__/interactive-graph.testdata";
 
 export default {
@@ -138,6 +140,19 @@ export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
 
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={sinusoidQuestion} />
+);
+
+export const StaticGraph = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI {...mafsOptions} question={staticGraph} />
+);
+
+export const StaticGraphWithAnotherWidget = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI
+        {...mafsOptions}
+        question={staticGraphWithAnotherQuestion()}
+    />
 );
 
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that
