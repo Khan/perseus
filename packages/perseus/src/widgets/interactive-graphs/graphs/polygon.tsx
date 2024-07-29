@@ -113,6 +113,8 @@ export const PolygonGraph = (props: Props) => {
                         fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
                     onMouseDown: () => setClicked(true),
+                    // If the polygon was focused by keyboard (and not the mouse), we want
+                    // to set focused to true so the polygon lines will become weighted
                     onFocus: () => (!clicked ? setFocused(true) : () => {}),
                     onBlur: () => {
                         setFocused(false);
@@ -121,7 +123,8 @@ export const PolygonGraph = (props: Props) => {
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
                     onMouseUp: () => setClicked(false),
-
+                    // Focus can be applied with the mouse, so this allows us to add
+                    // styling if the polygon is moved after getting focus via the mouse.
                     onKeyDownCapture: () => setMovedWithKey(true),
                     className: "movable-polygon",
                 }}
