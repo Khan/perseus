@@ -1289,6 +1289,15 @@ class Renderer extends React.Component<Props, State> {
             );
         }
         if (node.type === "math") {
+            // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
+            // support (yet) with \begin{aligned}...\end{aligned} which renders
+            // the same is supported by KaTeX.  It does the same for align*.
+            // TODO(kevinb) update content to use aligned instead of align.
+            // TODO(LEMS-1608) Remove this replacement as MathJax supports the
+            // "align" macro correctly (and, in fact, it is not synonymous with
+            // "aligned").
+            const tex = node.content.replace(/\{align[*]?\}/g, "{aligned}");
+
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
             return (
@@ -1310,7 +1319,7 @@ class Renderer extends React.Component<Props, State> {
                                     onRender={this.props.onRender}
                                     setAssetStatus={setAssetStatus}
                                 >
-                                    {node.content}
+                                    {tex}
                                 </TeX>
                             )}
                         </AssetContext.Consumer>
