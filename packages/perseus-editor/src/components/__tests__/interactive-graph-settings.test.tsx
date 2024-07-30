@@ -74,7 +74,6 @@ describe("InteractiveGraphSettings", () => {
         expect(screen.getByText("Markings:")).toBeInTheDocument();
         expect(screen.getByText("Snap Step")).toBeInTheDocument();
         expect(screen.getByText("Background image URL:")).toBeInTheDocument();
-        expect(screen.getByText("Show ruler")).toBeInTheDocument();
         expect(screen.getByText("Show protractor")).toBeInTheDocument();
     });
 
@@ -90,76 +89,6 @@ describe("InteractiveGraphSettings", () => {
         // Assert
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({markings: "grid"}),
-            undefined,
-        );
-    });
-
-    test("displays a11y warning banner when ruler enabled", () => {
-        // Arrange
-        render(
-            <InteractiveGraphSettings showRuler onChange={() => undefined} />,
-        );
-
-        // Act
-        const banner = screen.getByRole("alert");
-
-        // Assert
-        expect(banner).toHaveTextContent(
-            /The ruler and protractor are not accessible/,
-        );
-    });
-
-    test("hides a11y warning banner when ruler and protractor disabled", () => {
-        // Arrange
-        const {rerender} = render(
-            <InteractiveGraphSettings showRuler onChange={() => undefined} />,
-        );
-
-        // Act
-        rerender(<InteractiveGraphSettings onChange={() => undefined} />);
-
-        // Assert
-        const banner = screen.queryByRole("alert");
-        expect(banner).not.toBeInTheDocument();
-    });
-
-    test("calls onChange when ruler label is changed", async () => {
-        // Arrange
-        const onChange = jest.fn();
-
-        render(
-            <InteractiveGraphSettings showRuler={true} onChange={onChange} />,
-        );
-
-        // Act
-        const select = screen.getByRole("button", {name: "Ruler label:"});
-        await userEvent.click(select);
-        const option = screen.getByRole("option", {name: "Centimeters"});
-        await userEvent.click(option);
-
-        // Assert
-        expect(onChange).toHaveBeenCalledWith(
-            expect.objectContaining({rulerLabel: "cm"}),
-            undefined,
-        );
-    });
-
-    test("calls onChange when rulerTicks is changed", async () => {
-        // Arrange
-        const onChange = jest.fn();
-        render(
-            <InteractiveGraphSettings showRuler={true} onChange={onChange} />,
-        );
-
-        // Act
-        const select = screen.getByRole("button", {name: "Ruler ticks:"});
-        await userEvent.click(select);
-        const option = screen.getByRole("option", {name: "4"});
-        await userEvent.click(option);
-
-        // Assert
-        expect(onChange).toBeCalledWith(
-            expect.objectContaining({rulerTicks: "4"}),
             undefined,
         );
     });
@@ -279,7 +208,7 @@ describe("InteractiveGraphSettings", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    test("displays a11y warning banner when ruler enabled", () => {
+    test("displays a11y warning banner when protractor enabled", () => {
         // Arrange
         render(
             <InteractiveGraphSettings
@@ -292,12 +221,10 @@ describe("InteractiveGraphSettings", () => {
         const banner = screen.getByRole("alert");
 
         // Assert
-        expect(banner).toHaveTextContent(
-            /The ruler and protractor are not accessible/,
-        );
+        expect(banner).toHaveTextContent(/The protractor is not accessible/);
     });
 
-    test("hides a11y warning banner when ruler and protractor disabled", () => {
+    test("hides a11y warning banner when protractor disabled", () => {
         // Arrange
         const {rerender} = render(
             <InteractiveGraphSettings
@@ -334,25 +261,6 @@ describe("InteractiveGraphSettings", () => {
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({showProtractor: false}),
             undefined,
-        );
-    });
-
-    test("shows a11y warning banner when both ruler and protractor enabled", () => {
-        // Arrange
-        render(
-            <InteractiveGraphSettings
-                showRuler
-                showProtractor
-                onChange={() => undefined}
-            />,
-        );
-
-        // Act
-        const banner = screen.getByRole("alert");
-
-        // Assert
-        expect(banner).toHaveTextContent(
-            /The ruler and protractor are not accessible/,
         );
     });
 
