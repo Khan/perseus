@@ -17,10 +17,7 @@ import type {CollinearTuple} from "@khanacademy/perseus";
 type Props = MafsGraphProps<PolygonGraphState>;
 
 export const PolygonGraph = (props: Props) => {
-    const [focused, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
-    const [clicked, setClicked] = React.useState(false);
-    const [movedWithKey, setMovedWithKey] = React.useState(false);
 
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
@@ -109,8 +106,6 @@ export const PolygonGraph = (props: Props) => {
                         cursor: dragging ? "grabbing" : "grab",
                         fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
-                    onFocus: () => setFocused(true),
-                    onBlur: () => setFocused(false),
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
                     className: "movable-polygon",
