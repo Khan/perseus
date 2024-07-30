@@ -66,6 +66,15 @@ class Explanation extends React.Component<Props, State> {
     state: State = {
         expanded: false,
     };
+    _mounted: boolean = false;
+
+    componentDidMount() {
+        this._mounted = true;
+    }
+
+    componentWillUnmount() {
+        this._mounted = false;
+    }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
@@ -85,9 +94,9 @@ class Explanation extends React.Component<Props, State> {
 
         const caretIcon = this.state.expanded ? caretUp : caretDown;
 
-        const allowTransition = mediaQueryIsMatched(
-            "(prefers-reduced-motion: no-preference)",
-        );
+        const allowTransition =
+            this._mounted &&
+            mediaQueryIsMatched("(prefers-reduced-motion: no-preference)");
 
         // Special styling is needed to fit the button in a block of text without throwing off the line spacing.
         // While the button is not normally included in a block of text, it needs to be able to accommodate such a case.

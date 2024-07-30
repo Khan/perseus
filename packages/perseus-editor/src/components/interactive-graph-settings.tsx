@@ -10,7 +10,6 @@ import {
 } from "@khanacademy/perseus";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -83,21 +82,9 @@ type Props = {
      */
     showProtractor: boolean;
     /**
-     * Whether to show the ruler on the graph.
-     */
-    showRuler: boolean;
-    /**
      * Whether to show tooltips on the graph.
      */
     showTooltips: boolean;
-    /**
-     * The label to display on the ruler, if any.
-     */
-    rulerLabel: string;
-    /**
-     * The number of ticks to display on the ruler.
-     */
-    rulerTicks: number;
 
     onChange: (arg1: Partial<Props>) => void;
 };
@@ -157,10 +144,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         backgroundImage: defaultBackgroundImage,
         markings: "graph",
         showProtractor: false,
-        showRuler: false,
         showTooltips: false,
-        rulerLabel: "",
-        rulerTicks: 10,
     };
 
     componentDidMount() {
@@ -192,16 +176,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
     change = (...args) => {
         return Changeable.change.apply(this, args);
-    };
-
-    // TODO(aria): Make either a wrapper for standard events to work
-    // with this.change, or make these use some TextInput/NumberInput box
-    changeRulerLabel = (e) => {
-        this.change({rulerLabel: e.target.value});
-    };
-
-    changeRulerTicks = (e) => {
-        this.change({rulerTicks: +e.target.value});
     };
 
     changeBackgroundUrl = (e) => {
@@ -609,14 +583,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             </InfoTip>
                         </LabeledRow>
 
-                        <View style={styles.rulerSection}>
+                        <View style={styles.protractorSection}>
                             <View style={styles.checkboxRow}>
-                                <PropCheckBox
-                                    label="Show ruler"
-                                    showRuler={this.props.showRuler}
-                                    onChange={this.change}
-                                    style={styles.resetSpaceTop}
-                                />
                                 <PropCheckBox
                                     label="Show protractor"
                                     showProtractor={this.props.showProtractor}
@@ -624,97 +592,12 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     style={styles.resetSpaceTop}
                                 />
                             </View>
-                            {(this.props.showRuler ||
-                                this.props.showProtractor) && (
+                            {this.props.showProtractor && (
                                 <Banner
                                     layout="floating"
-                                    text="The ruler and protractor are not accessible. Please consider an alternate approach."
+                                    text="The protractor is not accessible. Please consider an alternate approach."
                                     kind="warning"
                                 />
-                            )}
-                            {this.props.showRuler && (
-                                <View style={styles.spaceTop}>
-                                    <LabeledRow
-                                        label="Ruler label:"
-                                        style={styles.resetSpaceTop}
-                                    >
-                                        <SingleSelect
-                                            id="ruler-label-select"
-                                            selectedValue={
-                                                this.props.rulerLabel
-                                            }
-                                            onChange={(newValue) => {
-                                                this.change({
-                                                    rulerLabel: newValue,
-                                                });
-                                            }}
-                                            placeholder="None"
-                                            style={styles.singleSelectShort}
-                                        >
-                                            <OptionItem
-                                                value=""
-                                                label="None"
-                                                horizontalRule="full-width"
-                                            />
-                                            <OptionItem
-                                                value="mm"
-                                                label="Milimeters"
-                                            />
-                                            <OptionItem
-                                                value="cm"
-                                                label="Centimeters"
-                                            />
-                                            <OptionItem
-                                                value="m"
-                                                label="Meters"
-                                            />
-                                            <OptionItem
-                                                value="km"
-                                                label="Kilometers"
-                                                horizontalRule="full-width"
-                                            />
-                                            <OptionItem
-                                                value="in"
-                                                label="Inches"
-                                            />
-                                            <OptionItem
-                                                value="ft"
-                                                label="Feet"
-                                            />
-                                            <OptionItem
-                                                value="yd"
-                                                label="Yards"
-                                            />
-                                            <OptionItem
-                                                value="mi"
-                                                label="Miles"
-                                            />
-                                        </SingleSelect>
-                                    </LabeledRow>
-                                    <LabeledRow label="Ruler ticks:">
-                                        <SingleSelect
-                                            id="ruler-ticks-select"
-                                            selectedValue={`${this.props.rulerTicks}`}
-                                            onChange={(newValue) => {
-                                                this.change({
-                                                    rulerTicks: newValue,
-                                                });
-                                            }}
-                                            placeholder="10"
-                                            style={styles.singleSelectShort}
-                                        >
-                                            {[1, 2, 4, 8, 10, 16].map(
-                                                (value) => (
-                                                    <OptionItem
-                                                        key={value}
-                                                        value={`${value}`}
-                                                        label={`${value}`}
-                                                    />
-                                                ),
-                                            )}
-                                        </SingleSelect>
-                                    </LabeledRow>
-                                </View>
                             )}
                         </View>
                     </View>
@@ -728,14 +611,6 @@ const styles = StyleSheet.create({
     resetSpaceTop: {
         marginTop: 0,
     },
-    spaceTop: {
-        marginTop: spacing.xSmall_8,
-    },
-    singleSelectShort: {
-        // Non-standard spacing, but it's the smallest we can go
-        // without running into styling issues with the dropdown.
-        height: 26,
-    },
     backgroundUrlInput: {
         border: `1px solid ${color.offBlack32}`,
         borderRadius: spacing.xxxSmall_4,
@@ -747,7 +622,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginBottom: spacing.xSmall_8,
     },
-    rulerSection: {
+    protractorSection: {
         marginTop: spacing.xSmall_8,
         borderTop: `1px solid ${color.offBlack16}`,
         paddingTop: spacing.xSmall_8,

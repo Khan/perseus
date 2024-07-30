@@ -1,5 +1,46 @@
 # @khanacademy/perseus-editor
 
+## 11.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`2e8022adb`](https://github.com/Khan/perseus/commit/2e8022adb11a000fb77528b1268ad5725dec817b)]:
+    -   @khanacademy/math-input@20.0.3
+    -   @khanacademy/perseus@27.0.2
+
+## 11.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`be40d776a`](https://github.com/Khan/perseus/commit/be40d776a5ee6bbf4c5af4df57889a32e9b8b3bf), [`ca31afb35`](https://github.com/Khan/perseus/commit/ca31afb359cc00035a4af965f19d20d7919a14a5)]:
+    -   @khanacademy/perseus@27.0.1
+    -   @khanacademy/kas@0.3.11
+
+## 11.0.0
+
+### Major Changes
+
+-   [#1456](https://github.com/Khan/perseus/pull/1456) [`b868801fa`](https://github.com/Khan/perseus/commit/b868801fab4ea28930f21be12d671e63f79b50ab) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused "Show ruler" option from the interactive graph editor. The
+    new Mafs version of the interactive graph does not implement the ruler,
+    and we have no plans to implement it, since it can't be made accessible
+    and isn't used in Khan Academy's existing content.
+
+*   [#1450](https://github.com/Khan/perseus/pull/1450) [`2216ad012`](https://github.com/Khan/perseus/commit/2216ad012668a5627c1ff3934bf600cc0788e335) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Unit aka UnitInput widget
+
+### Minor Changes
+
+-   [#1422](https://github.com/Khan/perseus/pull/1422) [`c386515ad`](https://github.com/Khan/perseus/commit/c386515ad52eef657f41ba7039614bc96e96e024) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Segment and Linear System graph start coords UI
+
+### Patch Changes
+
+-   [#1446](https://github.com/Khan/perseus/pull/1446) [`4985d2d4c`](https://github.com/Khan/perseus/commit/4985d2d4ce0a82f5dbcc3209067f75b34fd173bc) Thanks [@nishasy](https://github.com/nishasy)! - Rename StartCoordSettings to StartCoordsSettings
+
+*   [#1448](https://github.com/Khan/perseus/pull/1448) [`84675574c`](https://github.com/Khan/perseus/commit/84675574c95341d422eda61867e745627b76d349) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Refactor and clean up start coords UI implementation
+
+*   Updated dependencies [[`b868801fa`](https://github.com/Khan/perseus/commit/b868801fab4ea28930f21be12d671e63f79b50ab), [`84675574c`](https://github.com/Khan/perseus/commit/84675574c95341d422eda61867e745627b76d349), [`7e71f8e8a`](https://github.com/Khan/perseus/commit/7e71f8e8a114d80ad7d26f478c31149d9009a9e5), [`9bc4812fc`](https://github.com/Khan/perseus/commit/9bc4812fcfb3a08a083124e56f9378e8aefbc8ef), [`130ab9446`](https://github.com/Khan/perseus/commit/130ab94465da943c1582851122a409d72c6a96e1), [`9bc264ce1`](https://github.com/Khan/perseus/commit/9bc264ce10dc8a6c0a26b26e7568f4cd3c2bd4fe), [`bb1ac584b`](https://github.com/Khan/perseus/commit/bb1ac584b35e6c85284472d796bc4a4345349628), [`2216ad012`](https://github.com/Khan/perseus/commit/2216ad012668a5627c1ff3934bf600cc0788e335), [`7a448e77c`](https://github.com/Khan/perseus/commit/7a448e77c18d9c8437c24e6567f1e4fa03efc6b9), [`c386515ad`](https://github.com/Khan/perseus/commit/c386515ad52eef657f41ba7039614bc96e96e024)]:
+    -   @khanacademy/perseus@27.0.0
+    -   @khanacademy/math-input@20.0.2
+
 ## 10.0.0
 
 ### Major Changes
