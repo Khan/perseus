@@ -72,7 +72,6 @@ type SerializedState = {
     hints: any;
 };
 
-/* eslint-disable-next-line react/no-unsafe */
 export class ServerItemRenderer
     extends React.Component<Props, State>
     implements RendererInterface, KeypadContextRendererInterface
