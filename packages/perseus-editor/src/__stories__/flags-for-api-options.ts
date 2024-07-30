@@ -11,9 +11,24 @@ export const flags = {
         linear: true,
         "linear-system": true,
         ray: true,
-        "start-coords-ui": true,
+
+        // Locked figures flags
         "interactive-graph-locked-features-m2": true,
         "interactive-graph-locked-features-m2b": true,
+
+        // Start coords UI flags
+        "start-coords-ui": {
+            angle: false,
+            segment: true,
+            circle: true,
+            quadratic: false,
+            sinusoid: false,
+            polygon: false,
+            linear: true,
+            "linear-system": true,
+            ray: true,
+            point: false,
+        },
     },
 } satisfies APIOptions["flags"];
 
