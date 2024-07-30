@@ -4,7 +4,6 @@ import {
     StatefulKeypadContextProvider,
 } from "@khanacademy/math-input";
 import {Renderer, constants} from "@khanacademy/perseus";
-// eslint-disable-next-line monorepo/no-internal-import
 import {mockStrings} from "@khanacademy/perseus/strings";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -56,7 +55,11 @@ function ContentPreview({
 }
 
 const styles = StyleSheet.create({
-    container: {padding: spacing.xxxSmall_4},
+    container: {
+        padding: spacing.xxxSmall_4,
+        containerType: "inline-size",
+        containerName: "perseus-root",
+    },
     gutter: {marginRight: constants.lintGutterWidth},
 });
 
