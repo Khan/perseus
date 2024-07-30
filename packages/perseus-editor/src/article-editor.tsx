@@ -13,20 +13,23 @@ import DeviceFramer from "./components/device-framer";
 import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
-import IframeContentRenderer from "./preview/iframe-content-renderer";
+import ContentRenderer from "./preview/content-renderer";
 
-import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    Changeable,
+    ImageUploader,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
 
-type RendererProps = {
-    content?: string;
-    widgets?: any;
-    images?: any;
-};
+type JsonType =
+    | ReadonlyArray<Record<string, never>>
+    | PerseusRenderer
+    | ReadonlyArray<PerseusRenderer>;
 
-type JsonType = RendererProps | ReadonlyArray<RendererProps>;
 type DefaultProps = {
     contentPaths?: ReadonlyArray<string>;
     json: JsonType;
@@ -61,62 +64,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         highlightLint: true,
     };
 
-    componentDidMount() {
-        this._updatePreviewFrames();
-    }
+    editorRefs: Array<Editor | null> = [];
 
-    componentDidUpdate() {
-        this._updatePreviewFrames();
-    }
-
-    _updatePreviewFrames() {
-        if (this.props.mode === "preview") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-            this.refs["frame-all"].sendNewData({
-                type: "article-all",
-                data: this._sections().map((section, i) => {
-                    return this._apiOptionsForSection(section, i);
-                }),
-            });
-        } else if (this.props.mode === "edit") {
-            this._sections().forEach((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-                this.refs["frame-" + i].sendNewData({
-                    type: "article",
-                    data: this._apiOptionsForSection(section, i),
-                });
-            });
-        }
-    }
-
-    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
-        // eslint-disable-next-line react/no-string-refs
-        const editor = this.refs[`editor${sectionIndex}`];
-        return {
-            apiOptions: {
-                ...ApiOptions.defaults,
-                ...this.props.apiOptions,
-
-                // Alignment options are always available in article
-                // editors
-                showAlignmentOptions: true,
-                isArticle: true,
-            },
-            json: section,
-            useNewStyles: this.props.useNewStyles,
-            linterContext: {
-                contentType: "article",
-                highlightLint: this.state.highlightLint,
-                paths: this.props.contentPaths,
-            },
-            // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-            legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
-        };
-    }
-
-    _sections(): ReadonlyArray<RendererProps> {
+    _sections(): ReadonlyArray<PerseusRenderer> {
         return Array.isArray(this.props.json)
             ? this.props.json
             : [this.props.json];
@@ -201,7 +151,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     </div>
                                 </div>
                                 <Editor
-                                    {...section}
+                                    content={section.content}
+                                    images={section.images}
+                                    widgets={section.widgets}
                                     apiOptions={apiOptions}
                                     imageUploader={imageUploader}
                                     onChange={_.partial(
@@ -209,7 +161,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                         i,
                                     )}
                                     placeholder="Type your section text here..."
-                                    ref={"editor" + i}
+                                    ref={(editor) => {
+                                        this.editorRefs[i] = editor;
+                                    }}
                                 />
                             </div>
 
@@ -267,16 +221,36 @@ export default class ArticleEditor extends React.Component<Props, State> {
         const isMobile =
             this.props.screen === "phone" || this.props.screen === "tablet";
 
+        const apiOptions = {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+            isMobile,
+            // Alignment options are always available in article
+            // editors
+            showAlignmentOptions: true,
+            isArticle: true,
+        };
         return (
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
-                <IframeContentRenderer
-                    ref={"frame-" + i}
-                    key={this.props.screen}
-                    datasetKey="mobile"
-                    datasetValue={isMobile}
-                    seamless={nochrome}
-                    url={this.props.previewURL}
-                />
+                {this._sections().map((section, i) => {
+                    const editor = this.editorRefs[i];
+
+                    return (
+                        <ContentRenderer
+                            key={this.props.screen}
+                            apiOptions={apiOptions}
+                            question={section}
+                            seamless={nochrome}
+                            linterContext={{
+                                contentType: "article",
+                                highlightLint: this.state.highlightLint,
+                                paths: this.props.contentPaths ?? [],
+                                stack: [],
+                            }}
+                            legacyPerseusLint={editor?.getSaveWarnings() ?? []}
+                        />
+                    );
+                })}
             </DeviceFramer>
         );
     }
@@ -293,15 +267,14 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.props.onChange({json: newJson});
     };
 
-    _handleEditorChange: (i: number, newProps: RendererProps) => void = (
-        i,
-        newProps,
-    ) => {
-        const sections = _.clone(this._sections());
-        // @ts-expect-error - TS2542 - Index signature in type 'readonly RendererProps[]' only permits reading.
-        sections[i] = _.extend({}, sections[i], newProps);
+    _handleEditorChange(
+        sectionIndex: number,
+        newProps: Partial<PerseusRenderer>,
+    ) {
+        const sections = [...this._sections()];
+        sections[sectionIndex] = {...sections[sectionIndex], ...newProps};
         this.props.onChange({json: sections});
-    };
+    }
 
     _handleMoveSectionEarlier(i: number) {
         if (i === 0) {
@@ -309,9 +282,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
         const sections = _.clone(this._sections());
         const section = sections[i];
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly Renderer[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly Renderer[]'. Did you mean 'slice'?
         sections.splice(i - 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -324,9 +297,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
             return;
         }
         const section = sections[i];
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly Renderer[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly Renderer[]'. Did you mean 'slice'?
         sections.splice(i + 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -358,7 +331,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     _handleRemoveSection(i: number) {
         const sections = _.clone(this._sections());
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly Renderer[]'. Did you mean 'slice'?
         sections.splice(i, 1);
         this.props.onChange({
             json: sections,
@@ -388,7 +361,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
      *
      * This function can currently only be called in edit mode.
      */
-    getSaveWarnings(): ReadonlyArray<RendererProps> {
+    getSaveWarnings(): ReadonlyArray<PerseusRenderer> {
         if (this.props.mode !== "edit") {
             // TODO(joshuan): We should be able to get save warnings in
             // preview mode.
