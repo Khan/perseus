@@ -1200,9 +1200,7 @@ class Renderer extends React.Component<Props, State> {
         if (node.type === "blockMath") {
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
-            node.content; // ?
             const content = preprocessTex(node.content);
-            content; // ?
 
             const innerStyle = {
                 // HACK(benkomalo): we only want horizontal scrolling, but
