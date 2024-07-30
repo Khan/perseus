@@ -101,7 +101,7 @@ export type ChangeHandler = (
 ) => unknown;
 
 export type ImageUploader = (
-    file: string,
+    file: File,
     callback: (url: string) => unknown,
 ) => unknown;
 
