@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 27.0.1
+
+### Patch Changes
+
+-   [#1459](https://github.com/Khan/perseus/pull/1459) [`be40d776a`](https://github.com/Khan/perseus/commit/be40d776a5ee6bbf4c5af4df57889a32e9b8b3bf) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Guard against executing matchMedia during initial render
+
+-   Updated dependencies [[`ca31afb35`](https://github.com/Khan/perseus/commit/ca31afb359cc00035a4af965f19d20d7919a14a5)]:
+    -   @khanacademy/kas@0.3.11
+
 ## 27.0.0
 
 ### Major Changes
