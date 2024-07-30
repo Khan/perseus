@@ -45,7 +45,6 @@ export const PolygonGraph = (props: Props) => {
             ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
     });
 
-    const active = hovered || focused || dragging;
     const lastMoveTime = React.useRef<number>(0);
 
     const lines = getLines(points);
@@ -73,7 +72,6 @@ export const PolygonGraph = (props: Props) => {
                         key={"angle-" + i}
                         centerPoint={point}
                         endPoints={[pt1, pt2]}
-                        active={active}
                         range={range}
                         polygonLines={lines}
                         showAngles={!!showAngles}
