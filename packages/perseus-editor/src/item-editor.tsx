@@ -115,6 +115,12 @@ class ItemEditor extends React.Component<Props> {
                                 <ContentRenderer
                                     apiOptions={this.props.apiOptions}
                                     question={this.props.question}
+                                    linterContext={{
+                                        contentType: "exercise",
+                                        highlightLint: true,
+                                        paths: [],
+                                        stack: [],
+                                    }}
                                 />
                             </DeviceFramer>
                             <div
