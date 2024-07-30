@@ -202,7 +202,18 @@ class ExpressionEditor extends React.Component<Props> {
                         />
                     </label>
                     <InfoTip>
-                        <p>Label text that's read by screenreaders.</p>
+                        <p>
+                            Label text that's read by screen readers. Highly
+                            recommend adding a label here to ensure your
+                            exercise is accessible. For more information on
+                            writting accessible labels, please see{" "}
+                            <a
+                                href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                target="_blank"
+                            >
+                                this article.
+                            </a>
+                        </p>
                     </InfoTip>
                 </div>
 
