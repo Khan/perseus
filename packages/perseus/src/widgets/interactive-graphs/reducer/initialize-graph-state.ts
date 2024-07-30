@@ -367,7 +367,7 @@ function getQuadraticCoords(
     return normalizePoints(range, step, defaultCoords, true);
 }
 
-function getCircleCoords(graph: PerseusGraphTypeCircle): {
+export function getCircleCoords(graph: PerseusGraphTypeCircle): {
     center: Coord;
     radiusPoint: Coord;
 } {
@@ -378,10 +378,13 @@ function getCircleCoords(graph: PerseusGraphTypeCircle): {
         };
     }
 
-    if (graph.startCoords) {
+    if (graph.startCoords?.center && graph.startCoords.radius) {
         return {
-            center: graph.startCoords,
-            radiusPoint: vec.add(graph.startCoords, [2, 0]),
+            center: graph.startCoords.center,
+            radiusPoint: vec.add(graph.startCoords.center, [
+                graph.startCoords.radius,
+                0,
+            ]),
         };
     }
 

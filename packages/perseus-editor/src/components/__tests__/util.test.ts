@@ -239,4 +239,19 @@ describe("getDefaultGraphStartCoords", () => {
             ],
         ]);
     });
+
+    test("should get default start coords for a circle graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "circle"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual({center: [0, 0], radius: 2});
+    });
 });

@@ -340,7 +340,7 @@ export const rayWithStartingCoordsQuestion: PerseusRenderer =
 
 export const circleWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .withCircle({startCoords: [9, 9]})
+        .withCircle({startCoords: {center: [9, 9], radius: 5}})
         .build();
 
 export const quadraticWithStartingCoordsQuestion: PerseusRenderer =

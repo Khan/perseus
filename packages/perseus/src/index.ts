@@ -119,6 +119,7 @@ export {
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
 export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
 export {
+    getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,

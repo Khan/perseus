@@ -1,4 +1,6 @@
+import {vector as kvector} from "@khanacademy/kmath";
 import {
+    getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,
@@ -168,6 +170,16 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "circle":
+            const startCoords = getCircleCoords({
+                ...graph,
+                startCoords: undefined,
+            });
+            const radius = kvector.length(
+                kvector.subtract(startCoords.radiusPoint, startCoords.center),
+            );
+
+            return {center: startCoords.center, radius};
         default:
             return undefined;
     }
