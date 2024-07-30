@@ -15,7 +15,7 @@ function findChildOrAdd(elem: any, className: string) {
 }
 
 export default {
-    // Process a node and add math inside of it. This uses MathJax
+    // Process a node and add math inside of it. This uses MathJax to
     // format the math.
     //
     // elem: The element which the math should be added to.
