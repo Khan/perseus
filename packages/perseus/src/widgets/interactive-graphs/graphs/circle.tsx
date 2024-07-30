@@ -7,7 +7,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {StyledMovablePoint} from "./components/movable-point";
+import {MovablePoint} from "./components/movable-point";
 import {useDraggable} from "./use-draggable";
 import {
     useTransformDimensionsToPixels,
@@ -29,7 +29,7 @@ export function CircleGraph(props: CircleGraphProps) {
                 radius={getRadius(graphState)}
                 onMove={(c) => dispatch(actions.circle.moveCenter(c))}
             />
-            <StyledMovablePoint
+            <MovablePoint
                 point={radiusPoint}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
@@ -54,7 +54,7 @@ function MovableCircle(props: {
         gestureTarget: draggableRef,
         point: center,
         onMove,
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
     const [centerPx] = useTransformVectorsToPixels(center);

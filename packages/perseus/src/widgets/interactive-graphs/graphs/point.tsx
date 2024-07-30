@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {actions} from "../reducer/interactive-graph-action";
 
-import {StyledMovablePoint} from "./components/movable-point";
+import {MovablePoint} from "./components/movable-point";
 
 import type {PointGraphState, MafsGraphProps} from "../types";
 
@@ -13,7 +13,7 @@ export function PointGraph(props: PointGraphProps) {
     return (
         <>
             {props.graphState.coords.map((point, i) => (
-                <StyledMovablePoint
+                <MovablePoint
                     key={i}
                     point={point}
                     onMove={(destination) =>

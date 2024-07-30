@@ -7,7 +7,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
-import {StyledMovablePoint} from "./components/movable-point";
+import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
 
@@ -23,8 +23,14 @@ export const PolygonGraph = (props: Props) => {
     const [focusVisible, setFocusVisible] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, showAngles, showSides, range, snapStep, snapTo} =
-        props.graphState;
+    const {
+        coords,
+        showAngles,
+        showSides,
+        range,
+        snapStep,
+        snapTo = "grid",
+    } = props.graphState;
     const {disableKeyboardInteraction} = useGraphConfig();
 
     // TODO(benchristel): can the default set of points be removed here? I don't
@@ -33,7 +39,9 @@ export const PolygonGraph = (props: Props) => {
 
     const ref = React.useRef<SVGPolygonElement>(null);
     const dragReferencePoint = points[0];
-    const snapToValue = snapTo ?? "grid";
+    const constrain = ["angles", "sides"].includes(snapTo)
+        ? (p) => p
+        : (p) => snap(snapStep, p);
     const {dragging} = useDraggable({
         gestureTarget: ref,
         point: dragReferencePoint,
@@ -41,8 +49,7 @@ export const PolygonGraph = (props: Props) => {
             const delta = vec.sub(newPoint, dragReferencePoint);
             dispatch(actions.polygon.moveAll(delta));
         },
-        constrain: (p) =>
-            ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
+        constrainKeyboardMovement: constrain,
     });
 
     const lastMoveTime = React.useRef<number>(0);
@@ -75,7 +82,7 @@ export const PolygonGraph = (props: Props) => {
                         range={range}
                         polygonLines={lines}
                         showAngles={!!showAngles}
-                        snapTo={snapToValue}
+                        snapTo={snapTo}
                     />
                 );
             })}
@@ -126,9 +133,9 @@ export const PolygonGraph = (props: Props) => {
                 }}
             />
             {points.map((point, i) => (
-                <StyledMovablePoint
+                <MovablePoint
                     key={"point-" + i}
-                    snapTo={snapTo}
+                    constrain={constrain}
                     point={point}
                     onMove={(destination: vec.Vector2) => {
                         const now = Date.now();
