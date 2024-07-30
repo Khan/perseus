@@ -17,12 +17,7 @@ export const compare = function (
      *   like slope
      * - Allow student to choose their own variable names
      */
-
-    if (options !== undefined) {
-        options = {...defaults, ...options};
-    } else {
-        options = defaults;
-    }
+    options = {...defaults, ...options};
 
     // TODO(CP-1614): Figure out how to make these messages translatable
 
