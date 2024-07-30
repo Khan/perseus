@@ -37,6 +37,10 @@ type Props = InteractiveMarkerType & {
 };
 
 function shouldReduceMotion(): boolean {
+    // We cannot use matchMedia during SSR.
+    if (typeof window.matchMedia !== "function") {
+        return true;
+    }
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     return !mediaQuery || mediaQuery.matches;
 }
@@ -49,12 +53,21 @@ export default class Marker extends React.Component<Props> {
 
     // The marker icon element.
     _icon: HTMLElement | null | undefined;
+    _mounted: boolean = false;
 
     static defaultProps: {
         selected: ReadonlyArray<any>;
     } = {
         selected: [],
     };
+
+    componentDidMount() {
+        this._mounted = true;
+    }
+
+    componentWillUnmount() {
+        this._mounted = false;
+    }
 
     renderIcon() {
         const {selected, showCorrectness, showSelected, showPulsate} =
@@ -106,7 +119,7 @@ export default class Marker extends React.Component<Props> {
         } else if (showPulsate) {
             iconStyles = [
                 styles.markerPulsateBase,
-                shouldReduceMotion()
+                this._mounted && shouldReduceMotion()
                     ? showPulsate && styles.markerUnfilledPulsateOnce
                     : showPulsate && styles.markerUnfilledPulsateInfinite,
             ];
