@@ -68,7 +68,6 @@ export function V2KeypadWithMathquill() {
     return (
         <div style={{maxWidth: "400px", margin: "2em"}}>
             <Popover
-                portal={false}
                 content={
                     <PopoverContentCore
                         style={{
