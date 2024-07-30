@@ -7,6 +7,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 
+import type {SerializeOptions} from "./types";
 import type {
     APIOptions,
     ImageUploader,
@@ -72,7 +73,7 @@ class ItemEditor extends React.Component<Props> {
         return this.questionEditor.current?.getSaveWarnings();
     };
 
-    serialize: (options?: any) => {
+    serialize: (options?: SerializeOptions) => {
         answerArea: any;
         itemDataVersion: {
             major: number;
