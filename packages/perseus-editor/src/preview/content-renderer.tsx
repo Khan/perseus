@@ -12,15 +12,20 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {APIOptions, PerseusRenderer} from "@khanacademy/perseus";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-function ComponentRenderer({
+function ContentRenderer({
     question,
     apiOptions,
     seamless,
+    linterContext,
+    legacyPerseusLint,
 }: {
     question?: PerseusRenderer;
     apiOptions?: APIOptions;
     seamless?: boolean;
+    linterContext?: LinterContextProps;
+    legacyPerseusLint?: ReadonlyArray<string>;
 }) {
     return (
         <View style={[styles.container, !seamless ? styles.gutter : undefined]}>
@@ -32,12 +37,8 @@ function ComponentRenderer({
                                 strings={mockStrings}
                                 apiOptions={apiOptions}
                                 keypadElement={keypadElement}
-                                linterContext={{
-                                    contentType: "exercise",
-                                    highlightLint: true,
-                                    paths: [],
-                                    stack: [],
-                                }}
+                                linterContext={linterContext}
+                                legacyPerseusLint={legacyPerseusLint}
                                 {...question}
                             />
 
@@ -58,4 +59,5 @@ const styles = StyleSheet.create({
     container: {padding: spacing.xxxSmall_4},
     gutter: {marginRight: constants.lintGutterWidth},
 });
-export default ComponentRenderer;
+
+export default ContentRenderer;
