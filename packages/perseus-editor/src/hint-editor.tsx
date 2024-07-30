@@ -10,7 +10,7 @@ import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import IframeContentRenderer from "./preview/iframe-content-renderer";
+import ContentRenderer from "./preview/content-renderer";
 
 import type {
     APIOptions,
@@ -184,35 +184,6 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     };
 
     editor = React.createRef<HintEditor>();
-    frame = React.createRef<IframeContentRenderer>();
-
-    componentDidMount() {
-        this.updatePreview();
-    }
-
-    componentDidUpdate() {
-        this.updatePreview();
-    }
-
-    updatePreview = () => {
-        const shouldBold =
-            this.props.isLast && !/\*\*/.test(this.props.hint.content);
-
-        this.frame.current?.sendNewData({
-            type: "hint",
-            data: {
-                hint: this.props.hint,
-                bold: shouldBold,
-                pos: this.props.pos,
-                apiOptions: this.props.apiOptions,
-                linterContext: {
-                    contentType: "hint",
-                    highlightLint: this.props.highlightLint,
-                    paths: this.props.contentPaths,
-                },
-            },
-        });
-    };
 
     getSaveWarnings = () => {
         return this.editor.current?.getSaveWarnings();
@@ -258,12 +229,9 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         deviceType={this.props.deviceType}
                         nochrome={true}
                     >
-                        <IframeContentRenderer
-                            ref={this.frame}
-                            datasetKey="mobile"
-                            datasetValue={isMobile}
-                            seamless={true}
-                            url={this.props.previewURL}
+                        <ContentRenderer
+                            question={this.props.hint}
+                            apiOptions={{isMobile}}
                         />
                     </DeviceFramer>
                 </div>
@@ -398,7 +366,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         const {itemId, hints} = this.props;
         const hintElems = _.map(
             hints,
-            function (hint, i) {
+            (hint, i) => {
                 return (
                     <CombinedHintEditor
                         ref={"hintEditor" + i}
@@ -408,24 +376,16 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         itemId={itemId}
                         hint={hint}
                         pos={i}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         imageUploader={this.props.imageUploader}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onChange={this.handleHintChange.bind(this, i)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onRemove={this.handleHintRemove.bind(this, i)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMove={this.handleHintMove.bind(this, i)}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         deviceType={this.props.deviceType}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         apiOptions={this.props.apiOptions}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         highlightLint={this.props.highlightLint}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         previewURL={this.props.previewURL}
                         // TODO(CP-4838): what should be passed here?
                         contentPaths={[]}
