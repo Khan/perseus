@@ -4,14 +4,11 @@ import {
     StatefulKeypadContextProvider,
 } from "@khanacademy/math-input";
 import {Renderer, constants} from "@khanacademy/perseus";
-// eslint-disable-next-line monorepo/no-internal-import
 import {mockStrings} from "@khanacademy/perseus/strings";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-// eslint-disable-next-line import/no-relative-packages
 
 import type {APIOptions, PerseusRenderer} from "@khanacademy/perseus";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -58,7 +55,11 @@ function ContentRenderer({
 }
 
 const styles = StyleSheet.create({
-    container: {padding: spacing.xxxSmall_4},
+    container: {
+        padding: spacing.xxxSmall_4,
+        containerType: "inline-size",
+        containerName: "perseus-root",
+    },
     gutter: {marginRight: constants.lintGutterWidth},
 });
 
