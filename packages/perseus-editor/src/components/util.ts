@@ -1,3 +1,4 @@
+import {vector as kvector} from "@khanacademy/kmath";
 import {
     getCircleCoords,
     getLineCoords,
@@ -5,7 +6,6 @@ import {
     getSegmentCoords,
 } from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-import {vec} from "mafs";
 
 import type {
     Range,
@@ -175,9 +175,8 @@ export function getDefaultGraphStartCoords(
                 ...graph,
                 startCoords: undefined,
             });
-            const radius = vec.dist(
-                startCoords.center,
-                startCoords.radiusPoint,
+            const radius = kvector.length(
+                kvector.subtract(startCoords.radiusPoint, startCoords.center),
             );
 
             return {center: startCoords.center, radius};

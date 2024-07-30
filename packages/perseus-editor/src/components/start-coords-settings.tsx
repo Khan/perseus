@@ -1,3 +1,4 @@
+import {vector as kvector} from "@khanacademy/kmath";
 import {
     getCircleCoords,
     getLineCoords,
@@ -9,7 +10,6 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
-import {vec} from "mafs";
 import * as React from "react";
 
 import Heading from "./heading";
@@ -60,9 +60,8 @@ const StartCoordsSettingsInner = (props: Props) => {
             );
         case "circle":
             const circleCoords = getCircleCoords(props);
-            const radius = vec.dist(
-                circleCoords.center,
-                circleCoords.radiusPoint,
+            const radius = kvector.length(
+                kvector.subtract(circleCoords.radiusPoint, circleCoords.center),
             );
             return (
                 <StartCoordsCircle
