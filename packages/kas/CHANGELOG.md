@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 0.3.11
+
+### Patch Changes
+
+-   [#1449](https://github.com/Khan/perseus/pull/1449) [`ca31afb35`](https://github.com/Khan/perseus/commit/ca31afb359cc00035a4af965f19d20d7919a14a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add some types to the KAS package
+
 ## 0.3.10
 
 ### Patch Changes
