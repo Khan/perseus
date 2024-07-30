@@ -70,6 +70,7 @@ const startCoordsUiPhase1Types = [
     "segment",
     "circle",
 ];
+const startCoordsUiPhase2Types = ["sinusoid"];
 
 type Range = [min: number, max: number];
 
@@ -268,6 +269,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
         } else {
             graph = <div className="perseus-error">{this.props.valid}</div>;
         }
+
+        const startCoordsPhase1 =
+            this.props.apiOptions?.flags?.mafs?.["start-coords-ui-phase-1"];
+        const startCoordsPhase2 =
+            this.props.apiOptions?.flags?.mafs?.["start-coords-ui-phase-2"];
+
+        const displayStartCoordsUI =
+            this.props.graph &&
+            ((startCoordsPhase1 &&
+                startCoordsUiPhase1Types.includes(this.props.graph.type)) ||
+                (startCoordsPhase2 &&
+                    startCoordsUiPhase2Types.includes(this.props.graph.type)));
 
         return (
             <View>
@@ -483,12 +496,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 )}
                 {this.props.graph?.type &&
                     // TODO(LEMS-2228): Remove flags once this is fully released
-                    this.props.apiOptions?.flags?.mafs?.[
-                        "start-coords-ui-phase-1"
-                    ] &&
-                    startCoordsUiPhase1Types.includes(
-                        this.props.graph.type,
-                    ) && (
+                    displayStartCoordsUI && (
                         <StartCoordsSettings
                             {...this.props.graph}
                             range={this.props.range}

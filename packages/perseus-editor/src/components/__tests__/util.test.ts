@@ -3,6 +3,7 @@ import {
     getDefaultFigureForType,
     radianToDegree,
     getDefaultGraphStartCoords,
+    getSinusoidEquation,
 } from "../util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
@@ -253,5 +254,25 @@ describe("getDefaultGraphStartCoords", () => {
         const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
 
         expect(defaultCoords).toEqual({center: [0, 0], radius: 2});
+    });
+});
+
+describe("getSinusoidEquation", () => {
+    test.each`
+        point1      | point2     | expected
+        ${[0, 0]}   | ${[3, 2]}  | ${"y = 2.000sin(0.524x - 0.000) + 0.000"}
+        ${[0, 0]}   | ${[1, 0]}  | ${"y = 0.000sin(1.571x - 0.000) + 0.000"}
+        ${[0, 0]}   | ${[1, 1]}  | ${"y = 1.000sin(1.571x - 0.000) + 0.000"}
+        ${[0, 0]}   | ${[1, -1]} | ${"y = -1.000sin(1.571x - 0.000) + 0.000"}
+        ${[0, 0]}   | ${[-1, 0]} | ${"y = 0.000sin(-1.571x - 0.000) + 0.000"}
+        ${[-1, 0]}  | ${[1, 1]}  | ${"y = 1.000sin(0.785x - -0.785) + 0.000"}
+        ${[0, -1]}  | ${[1, 1]}  | ${"y = 2.000sin(1.571x - 0.000) + -1.000"}
+        ${[-9, -9]} | ${[9, 9]}  | ${"y = 18.000sin(0.087x - -0.785) + -9.000"}
+        ${[3, -4]}  | ${[6, 7]}  | ${"y = 11.000sin(0.524x - 1.571) + -4.000"}
+    `("should return the correct equation", ({point1, point2, expected}) => {
+        // Act
+        const equation = getSinusoidEquation([point1, point2]);
+
+        expect(equation).toBe(expected);
     });
 });

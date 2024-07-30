@@ -322,7 +322,7 @@ function getPolygonCoords(
     return coords;
 }
 
-function getSinusoidCoords(
+export function getSinusoidCoords(
     graph: PerseusGraphTypeSinusoid,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],

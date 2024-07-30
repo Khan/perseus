@@ -391,4 +391,68 @@ describe("StartCoordSettings", () => {
             },
         );
     });
+
+    describe("sinusoid graph", () => {
+        test("shows the start coordinates UI", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="sinusoid"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Starting equation:")).toBeInTheDocument();
+            expect(
+                // Equation for default start coords
+                screen.getByText("y = 2.000sin(0.524x - 0.000) + 0.000"),
+            ).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+        });
+
+        test.each`
+            pointIndex | coord
+            ${0}       | ${"x"}
+            ${0}       | ${"y"}
+            ${1}       | ${"x"}
+            ${1}       | ${"y"}
+        `(
+            "calls onChange when $coord coord is changed (line $pointIndex)",
+            async ({pointIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                // Act
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="sinusoid"
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Assert
+                const input = screen.getAllByRole("spinbutton", {
+                    name: `${coord}`,
+                })[pointIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                const expectedCoords = [
+                    [0, 0],
+                    [3, 2],
+                ];
+                expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
 });
