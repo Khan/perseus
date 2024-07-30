@@ -56,10 +56,9 @@ export const PolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
-                    strokeWidth:
-                        focused || movedWithKey
-                            ? "var(--movable-line-stroke-weight-active)"
-                            : "var(--movable-line-stroke-weight)",
+                    strokeWidth: hasFocusVisible(ref.current)
+                        ? "var(--movable-line-stroke-weight-active)"
+                        : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
                 }}
             />
@@ -112,20 +111,10 @@ export const PolygonGraph = (props: Props) => {
                         cursor: dragging ? "grabbing" : "grab",
                         fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
-                    onMouseDown: () => setClicked(true),
-                    // If the polygon was focused by keyboard (and not the mouse), we want
-                    // to set focused to true so the polygon lines will become weighted
-                    onFocus: () => (!clicked ? setFocused(true) : () => {}),
-                    onBlur: () => {
-                        setFocused(false);
-                        setMovedWithKey(false);
-                    },
+                    onFocus: () => setFocused(true),
+                    onBlur: () => setFocused(false),
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
-                    onMouseUp: () => setClicked(false),
-                    // Focus can be applied with the mouse, so this allows us to add styling if
-                    // the polygon is moved by the keyboard after getting focus via the mouse.
-                    onKeyDownCapture: () => setMovedWithKey(true),
                     className: "movable-polygon",
                 }}
             />
@@ -155,4 +144,16 @@ function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
         const next = points[(i + 1) % points.length];
         return [point, next];
     });
+}
+
+function hasFocusVisible(element: Element | null | undefined): boolean {
+    const matches = (selector: string) => element?.matches(selector) ?? false;
+    try {
+        return matches(":focus-visible");
+    } catch (e) {
+        // jsdom doesn't support :focus-visible
+        // (see https://github.com/jsdom/jsdom/issues/3426),
+        // so the call to matches(":focus-visible") will fail in tests.
+        return matches(":focus");
+    }
 }
