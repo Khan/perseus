@@ -17,7 +17,6 @@ export const getDependencies = (): PerseusDependencies => {
         [
             "Perseus has not been provided required dependencies.",
             "setDependencies(dependencies) must be called first.",
-            "Make sure Perseus is being imported from javascript/perseus/perseus.js.",
         ].join("\n"),
     );
 };
