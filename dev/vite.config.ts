@@ -32,7 +32,7 @@ glob.sync(resolve(__dirname, "../packages/*/package.json")).forEach(
             const mainSource = pkg.exports["."]?.source;
             if (mainSource == null) {
                 throw new Error(
-                    "Package declares 'exports', but not provide a main export (exports[\".\"])",
+                    `Package declares 'exports', but not provide a main export (exports["."])`,
                 );
             }
             packageAliases[pkg.name] = join(
