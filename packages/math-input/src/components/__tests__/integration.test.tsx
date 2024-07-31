@@ -48,6 +48,7 @@ function InputWithContext({keypadConfiguration}) {
                         onBlur={() => {
                             keypadElement?.dismiss();
                         }}
+                        ariaLabel="Math input"
                     />
                 );
             }}
