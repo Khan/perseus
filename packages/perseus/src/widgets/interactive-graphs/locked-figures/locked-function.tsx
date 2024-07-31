@@ -1,19 +1,28 @@
 import * as KAS from "@khanacademy/kas";
 import {Plot} from "mafs";
 import * as React from "react";
+import {useState, useEffect} from "react";
 
 import {lockedFigureColors} from "../../../perseus-types";
 
 import type {LockedFunctionType} from "../../../perseus-types";
 
 const LockedFunction = (props: LockedFunctionType) => {
+    const [equation, setEquation] = useState(KAS.parse(props.equation).expr);
     const {color, strokeStyle, directionalAxis, domain} = props;
     const plotProps = {
         color: lockedFigureColors[color],
         style: strokeStyle,
         domain,
     };
-    const equation = props.equationParsed || KAS.parse(props.equation).expr;
+
+    useEffect(() => {
+        setEquation(KAS.parse(props.equation).expr);
+    }, [props.equation]);
+
+    if (typeof equation === "undefined") {
+        return null;
+    }
 
     return (
         <g className="locked-function">

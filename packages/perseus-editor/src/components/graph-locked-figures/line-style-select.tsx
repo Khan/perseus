@@ -1,17 +1,17 @@
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import * as React from "react";
+import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
+import * as React from "react";
 
 export type StyleOptions = "solid" | "dashed";
 type Props = {
     selectedValue: StyleOptions;
     onChange: (newValue: string) => void;
-}
+};
 
-export const LineStyleSelect = (props: Props) => {
+const LineStyleSelect = (props: Props) => {
     const {selectedValue, onChange} = props;
 
     return (
