@@ -143,6 +143,10 @@ type DefaultProps = {
     graph: Props["graph"];
 };
 
+// (LEMS-2190): Move the Mafs Angle Graph coordinate reversal logic in interactive-graph-state.ts
+// to this file when we remove the legacy graph. This logic allows us to support bi-directional angles
+// for the new (non-reflexive) Mafs graphs, while maintaining the same scoring behaviour as the legacy graph.
+// Once the legacy graph is removed, we should move this logic directly into the validate function below.
 class LegacyInteractiveGraph extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
