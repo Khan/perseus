@@ -62,6 +62,15 @@ const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
     );
 });
 
+// TODO(LEMS-2228): Remove flags once this is fully released
+const startCoordsUiPhase1Types = [
+    "linear",
+    "linear-system",
+    "ray",
+    "segment",
+    "circle",
+];
+
 type Range = [min: number, max: number];
 
 export type Props = {
@@ -473,7 +482,13 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </LabeledRow>
                 )}
                 {this.props.graph?.type &&
-                    this.props.apiOptions?.flags?.mafs?.["start-coords-ui"] && (
+                    // TODO(LEMS-2228): Remove flags once this is fully released
+                    this.props.apiOptions?.flags?.mafs?.[
+                        "start-coords-ui-phase-1"
+                    ] &&
+                    startCoordsUiPhase1Types.includes(
+                        this.props.graph.type,
+                    ) && (
                         <StartCoordsSettings
                             {...this.props.graph}
                             range={this.props.range}

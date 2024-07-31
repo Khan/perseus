@@ -165,8 +165,9 @@ export const InteractiveGraphLockedFeaturesFlags = [
 export const InteractiveGraphEditorFlags = [
     /**
      * Enables the UI for setting the start coordinates of a graph.
+     * Includes linear, linear-system, ray, segment, and circle graphs.
      */
-    "start-coords-ui",
+    "start-coords-ui-phase-1",
 ] as const;
 
 /**
