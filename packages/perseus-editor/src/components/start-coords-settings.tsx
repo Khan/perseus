@@ -3,6 +3,7 @@ import {
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
+    getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
 } from "@khanacademy/perseus";
@@ -17,6 +18,7 @@ import Heading from "./heading";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
+import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
 
@@ -79,7 +81,14 @@ const StartCoordsSettingsInner = (props: Props) => {
                     onChange={onChange}
                 />
             );
-
+        case "quadratic":
+            const quadraticCoords = getQuadraticCoords(props, range, step);
+            return (
+                <StartCoordsQuadratic
+                    startCoords={quadraticCoords}
+                    onChange={onChange}
+                />
+            );
         default:
             return null;
     }

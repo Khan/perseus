@@ -3,6 +3,7 @@ import {
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
+    getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
 } from "@khanacademy/perseus";
@@ -187,6 +188,12 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "quadratic":
+            return getQuadraticCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
         default:
             return undefined;
     }
@@ -213,5 +220,36 @@ export const getSinusoidEquation = (startCoords: [Coord, Coord]) => {
         phase.toFixed(3) +
         ") + " +
         verticalOffset.toFixed(3)
+    );
+};
+
+export const getQuadraticEquation = (startCoords: [Coord, Coord, Coord]) => {
+    const p1 = startCoords[0];
+    const p2 = startCoords[1];
+    const p3 = startCoords[2];
+
+    const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
+    if (denom === 0) {
+        // Many of the callers assume that the return value is always defined.
+        return "Division by zero error";
+    }
+    const a =
+        (p3[0] * (p2[1] - p1[1]) +
+            p2[0] * (p1[1] - p3[1]) +
+            p1[0] * (p3[1] - p2[1])) /
+        denom;
+    const b =
+        (p3[0] * p3[0] * (p1[1] - p2[1]) +
+            p2[0] * p2[0] * (p3[1] - p1[1]) +
+            p1[0] * p1[0] * (p2[1] - p3[1])) /
+        denom;
+    const c =
+        (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
+            p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
+            p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
+        denom;
+
+    return (
+        "y = " + a.toFixed(3) + "x^2 + " + b.toFixed(3) + "x + " + c.toFixed(3)
     );
 };
