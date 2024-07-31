@@ -17,18 +17,7 @@ export const flags = {
         "interactive-graph-locked-features-m2b": true,
 
         // Start coords UI flags
-        "start-coords-ui": {
-            angle: false,
-            segment: true,
-            circle: true,
-            quadratic: false,
-            sinusoid: false,
-            polygon: false,
-            linear: true,
-            "linear-system": true,
-            ray: true,
-            point: false,
-        },
+        "start-coords-ui-phase-1": true,
     },
 } satisfies APIOptions["flags"];
 

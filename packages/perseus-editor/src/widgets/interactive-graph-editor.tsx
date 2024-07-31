@@ -473,9 +473,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </LabeledRow>
                 )}
                 {this.props.graph?.type &&
-                    (this.props.apiOptions?.flags?.mafs?.["start-coords-ui"][this.props.graph.type]) && (
+                    this.props.apiOptions?.flags?.mafs?.[
+                        "start-coords-ui-phase-1"
+                    ] && (
                         <StartCoordsSettings
                             {...this.props.graph}
+                            phase1={true}
                             range={this.props.range}
                             step={this.props.step}
                             onChange={this.changeStartCoords}

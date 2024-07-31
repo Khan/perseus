@@ -162,6 +162,14 @@ export const InteractiveGraphLockedFeaturesFlags = [
     "interactive-graph-locked-features-m2b",
 ] as const;
 
+export const InteractiveGraphEditorFlags = [
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes linear, linear-system, ray, segment, and circle graphs.
+     */
+    "start-coords-ui-phase-1",
+] as const;
+
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -297,7 +305,7 @@ export type APIOptions = Readonly<{
             | ({[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean} & {
                   [Key in (typeof InteractiveGraphLockedFeaturesFlags)[number]]?: boolean;
               } & {
-                  "start-coords-ui": {[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean};
+                  [Key in (typeof InteractiveGraphEditorFlags)[number]]?: boolean;
               });
     };
     /**
