@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 11.1.0
+
+### Minor Changes
+
+-   [#1453](https://github.com/Khan/perseus/pull/1453) [`79a09d62f`](https://github.com/Khan/perseus/commit/79a09d62f532fd3373fea4838c0d72812de14046) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Implement the UI for adding start coords for circle graphs
+
+*   [#1404](https://github.com/Khan/perseus/pull/1404) [`284e068b8`](https://github.com/Khan/perseus/commit/284e068b8e3bfb1f9ab49d84d209c5f9ef2d93c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Add label options for Expression
+
+### Patch Changes
+
+-   [#1463](https://github.com/Khan/perseus/pull/1463) [`0a118ca38`](https://github.com/Khan/perseus/commit/0a118ca3869110fb8d4cb44a5cce89453d7e4e8a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor - Storybook] Fix broken default and controlled stories
+
+-   Updated dependencies [[`79a09d62f`](https://github.com/Khan/perseus/commit/79a09d62f532fd3373fea4838c0d72812de14046), [`284e068b8`](https://github.com/Khan/perseus/commit/284e068b8e3bfb1f9ab49d84d209c5f9ef2d93c1)]:
+    -   @khanacademy/perseus@27.1.0
+    -   @khanacademy/math-input@20.1.0
+
 ## 11.0.2
 
 ### Patch Changes
