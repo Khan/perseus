@@ -2566,6 +2566,11 @@
     "@khanacademy/wonder-blocks-core" "^6.4.3"
     "@khanacademy/wonder-blocks-tokens" "^1.3.1"
 
+"@khanacademy/wonder-blocks-color@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-color/-/wonder-blocks-color-3.0.0.tgz#0742a6389920be1e59c3beec88093a189cec69b9"
+  integrity sha512-WpJ1X1lLU0luGl0DUuNNKhInaqUiiYOLqbSxyWS2GViRrWv6tOmF2nDSe7kumAsN1qgjLh684e3Sb92l8oZhXQ==
+
 "@khanacademy/wonder-blocks-core@6.4.0", "@khanacademy/wonder-blocks-core@^6.4.0":
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-core/-/wonder-blocks-core-6.4.0.tgz#e35da3c8124410b285fa98ebcf6e010892923081"
@@ -2800,7 +2805,7 @@
     "@khanacademy/wonder-blocks-tokens" "^1.3.0"
     "@khanacademy/wonder-blocks-typography" "^2.1.11"
 
-"@khanacademy/wonder-blocks-spacing@^4.0.1":
+"@khanacademy/wonder-blocks-spacing@4.0.1", "@khanacademy/wonder-blocks-spacing@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-spacing/-/wonder-blocks-spacing-4.0.1.tgz#2c23ebe8dc4819910886be9db142df80e366bac9"
   integrity sha512-do4UUHxC1/YveLfEfuS36ehVlZi7wImASX3orrLpzGoYFZRTjbEmmW6gN46UdW9jEy3e5fv0f5WUpded3ZtWIw==
