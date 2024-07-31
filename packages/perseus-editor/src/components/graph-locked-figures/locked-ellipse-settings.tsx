@@ -154,7 +154,6 @@ const LockedEllipseSettings = (props: Props) => {
 
             {/* Actions */}
             <LockedFigureSettingsActions
-                showM2Features={props.showM2Features}
                 figureType={props.type}
                 onMove={onMove}
                 onRemove={onRemove}

@@ -80,7 +80,6 @@ const LockedPointSettings = (props: Props) => {
             />
 
             <LockedFigureSettingsActions
-                showM2Features={props.showM2Features}
                 figureType={props.type}
                 onMove={onMove}
                 onRemove={onRemove}
