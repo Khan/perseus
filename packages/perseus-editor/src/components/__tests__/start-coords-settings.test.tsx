@@ -455,4 +455,72 @@ describe("StartCoordSettings", () => {
             },
         );
     });
+
+    describe("quadratic graph", () => {
+        test("shows the start coordinates UI", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="quadratic"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Starting equation:")).toBeInTheDocument();
+            expect(
+                // Equation for default start coords
+                screen.getByText("y = 0.400x^2 + 0.000x + -5.000"),
+            ).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            expect(screen.getByText("Point 3:")).toBeInTheDocument();
+        });
+
+        test.each`
+            pointIndex | coord
+            ${0}       | ${"x"}
+            ${0}       | ${"y"}
+            ${1}       | ${"x"}
+            ${1}       | ${"y"}
+            ${2}       | ${"x"}
+            ${2}       | ${"y"}
+        `(
+            "calls onChange when $coord coord is changed (line $pointIndex)",
+            async ({pointIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                // Act
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="quadratic"
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Assert
+                const input = screen.getAllByRole("spinbutton", {
+                    name: `${coord}`,
+                })[pointIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                const expectedCoords = [
+                    [-5, 5],
+                    [0, -5],
+                    [5, 5],
+                ];
+                expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
 });

@@ -345,7 +345,7 @@ export function getSinusoidCoords(
     return coords;
 }
 
-function getQuadraticCoords(
+export function getQuadraticCoords(
     graph: PerseusGraphTypeQuadratic,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],

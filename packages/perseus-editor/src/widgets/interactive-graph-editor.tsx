@@ -70,7 +70,7 @@ const startCoordsUiPhase1Types = [
     "segment",
     "circle",
 ];
-const startCoordsUiPhase2Types = ["sinusoid"];
+const startCoordsUiPhase2Types = ["sinusoid", "quadratic"];
 
 type Range = [min: number, max: number];
 

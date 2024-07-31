@@ -4,6 +4,7 @@ import {
     radianToDegree,
     getDefaultGraphStartCoords,
     getSinusoidEquation,
+    getQuadraticEquation,
 } from "../util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
@@ -274,5 +275,36 @@ describe("getSinusoidEquation", () => {
         const equation = getSinusoidEquation([point1, point2]);
 
         expect(equation).toBe(expected);
+    });
+});
+
+describe("getQuadraticEquation", () => {
+    test.each`
+        point1     | point2     | point3    | expected
+        ${[-5, 5]} | ${[0, -5]} | ${[5, 5]} | ${"y = 0.400x^2 + 0.000x + -5.000"}
+        ${[-5, 5]} | ${[0, 5]}  | ${[5, 5]} | ${"y = 0.000x^2 + 0.000x + 5.000"}
+        ${[-9, 9]} | ${[-7, 7]} | ${[9, 9]} | ${"y = 0.063x^2 + 0.000x + 3.938"}
+        ${[-9, 4]} | ${[-7, 7]} | ${[9, 9]} | ${"y = -0.076x^2 + 0.278x + 12.688"}
+        ${[-1, 0]} | ${[0, 1]}  | ${[1, 2]} | ${"y = 0.000x^2 + 1.000x + 1.000"}
+    `(
+        "should return the correct equation",
+        ({point1, point2, point3, expected}) => {
+            // Act
+            const equation = getQuadraticEquation([point1, point2, point3]);
+
+            expect(equation).toBe(expected);
+        },
+    );
+
+    test.each`
+        point1     | point2      | point3
+        ${[-5, 5]} | ${[-5, -5]} | ${[5, 5]}
+        ${[-5, 5]} | ${[0, -5]}  | ${[-5, 5]}
+        ${[-5, 5]} | ${[0, 5]}   | ${[0, 5]}
+    `("should return division by zero error", ({point1, point2, point3}) => {
+        // Act
+        const equation = getQuadraticEquation([point1, point2, point3]);
+
+        expect(equation).toBe("Division by zero error");
     });
 });
