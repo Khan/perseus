@@ -4,7 +4,7 @@
  * from https://phet.colorado.edu/.
  */
 
-import $ from "jquery";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -27,38 +27,30 @@ class PhetSim extends React.Component<any> {
         description: PropTypes.string,
     };
 
+    private readonly iframeRef: React.RefObject<HTMLIFrameElement>;
+    private errMessage: string | null;
+
+    constructor(props) {
+        super(props);
+        this.iframeRef = React.createRef<HTMLIFrameElement>();
+        this.errMessage = null;
+    }
+
     getUserInput: () => any = () => {
         return null;
     };
 
-    handleMessageEvent: (arg1: any) => void = (e) => {
-        // We receive data from the iframe that contains {passed: true/false}
-        //  and use that to set the status
-        // It could also contain an optional message
-        let data: Record<string, any> = {};
-        try {
-            data = JSON.parse(e.originalEvent.data);
-        } catch (err: any) {
-            return;
-        }
-
-        if (_.isUndefined(data.testsPassed)) {
-            return;
-        }
-
-        const status = data.testsPassed ? "correct" : "incorrect";
-        this.change({
-            status: status,
-            message: data.message,
-        });
-    };
-
     componentDidMount() {
-        $(window).on("message", this.handleMessageEvent);
-    }
-
-    componentWillUnmount() {
-        $(window).off("message", this.handleMessageEvent);
+        if (this.iframeRef.current) {
+            this.iframeRef.current.onload = () => {
+                if (this.iframeRef.current) {
+                    if (!this.checkForLocale(this.iframeRef.current)) {
+                        this.errMessage =
+                            "Sorry, this simulation isn't available in your language!";
+                    }
+                }
+            };
+        }
     }
 
     render(): React.ReactNode {
@@ -87,24 +79,38 @@ class PhetSim extends React.Component<any> {
             !url.startsWith("https://phet.colorado.edu/") // todo: find better check
         ) {
             // todo(anna): Error state, unable to provide content
-            // Figure out fallback
+            url = "";
+            this.errMessage = "Cannot load PhET widget";
         }
         url = updateQueryString(url, "locale", kaLocale);
 
         const sandboxProperties = "allow-same-origin allow-scripts";
 
         // We sandbox the iframe so that we allowlist only the functionality
-        //  that we need. This makes it a bit safer in case some content
-        //  creator "went wild".
+        // that we need. This makes it a bit safer in case some content
+        // creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
-            <iframe
-                sandbox={sandboxProperties}
-                style={style}
-                src={url}
-                aria-label={this.props.description}
-                allowFullScreen={true}
-            />
+            <>
+                {this.errMessage && (
+                    <Banner
+                        kind="warning"
+                        layout="floating"
+                        text={this.errMessage}
+                        onDismiss={() => {
+                            this.errMessage = null;
+                        }}
+                    />
+                )}
+                <iframe
+                    ref={this.iframeRef}
+                    sandbox={sandboxProperties}
+                    style={style}
+                    src={url}
+                    aria-label={this.props.description}
+                    allowFullScreen={true}
+                />
+            </>
         );
     }
 
@@ -116,6 +122,20 @@ class PhetSim extends React.Component<any> {
     simpleValidate: (arg1: any) => any = (rubric) => {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof PhetSim'.
         return PhetSim.validate(this.getUserInput(), rubric);
+    };
+
+    checkForLocale: (arg1: HTMLIFrameElement) => boolean = (iframe) => {
+        const {kaLocale} = getDependencies();
+        if (iframe.contentWindow) {
+            const locales: string[] = Object.keys(
+                // TODO(Anna): Fix the CORS error
+                iframe.contentWindow.phet.chipper.localeData,
+            );
+            return locales.includes(kaLocale);
+        }
+        // TODO(Anna): Feels like we should throw a different error if iframe.contentWindow
+        // isn't accessible... But what do we return here, in that case?
+        return false;
     };
 }
 
