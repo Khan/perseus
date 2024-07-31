@@ -19,6 +19,7 @@ export const flags = {
         // Start coords UI flags
         // TODO(LEMS-2228): Remove flags once this is fully released
         "start-coords-ui-phase-1": true,
+        "start-coords-ui-phase-2": true,
     },
 } satisfies APIOptions["flags"];
 

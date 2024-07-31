@@ -168,6 +168,11 @@ export const InteractiveGraphEditorFlags = [
      * Includes linear, linear-system, ray, segment, and circle graphs.
      */
     "start-coords-ui-phase-1",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes sinusoid graph.
+     */
+    "start-coords-ui-phase-2",
 ] as const;
 
 /**

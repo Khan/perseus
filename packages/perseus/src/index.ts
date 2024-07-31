@@ -123,6 +123,7 @@ export {
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,
+    getSinusoidCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**

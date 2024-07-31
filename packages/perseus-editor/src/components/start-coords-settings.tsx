@@ -4,6 +4,7 @@ import {
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,
+    getSinusoidCoords,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -16,6 +17,7 @@ import Heading from "./heading";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
+import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
@@ -69,6 +71,15 @@ const StartCoordsSettingsInner = (props: Props) => {
                     onChange={onChange}
                 />
             );
+        case "sinusoid":
+            const sinusoidCoords = getSinusoidCoords(props, range, step);
+            return (
+                <StartCoordsSinusoid
+                    startCoords={sinusoidCoords}
+                    onChange={onChange}
+                />
+            );
+
         default:
             return null;
     }

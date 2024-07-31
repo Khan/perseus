@@ -4,6 +4,7 @@ import {
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,
+    getSinusoidCoords,
 } from "@khanacademy/perseus";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
@@ -18,6 +19,7 @@ import type {
     LockedPolygonType,
     LockedFunctionType,
     PerseusGraphType,
+    Coord,
 } from "@khanacademy/perseus";
 
 export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
@@ -178,9 +180,38 @@ export function getDefaultGraphStartCoords(
             const radius = kvector.length(
                 kvector.subtract(startCoords.radiusPoint, startCoords.center),
             );
-
             return {center: startCoords.center, radius};
+        case "sinusoid":
+            return getSinusoidCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
         default:
             return undefined;
     }
 }
+
+export const getSinusoidEquation = (startCoords: [Coord, Coord]) => {
+    // Get coefficients
+    // It's assumed that p1 is the root and p2 is the first peak
+    const p1 = startCoords[0];
+    const p2 = startCoords[1];
+
+    // Resulting coefficients are canonical for this sine curve
+    const amplitude = p2[1] - p1[1];
+    const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
+    const phase = p1[0] * angularFrequency;
+    const verticalOffset = p1[1];
+
+    return (
+        "y = " +
+        amplitude.toFixed(3) +
+        "sin(" +
+        angularFrequency.toFixed(3) +
+        "x - " +
+        phase.toFixed(3) +
+        ") + " +
+        verticalOffset.toFixed(3)
+    );
+};
