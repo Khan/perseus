@@ -17,6 +17,7 @@ export const flags = {
         "interactive-graph-locked-features-m2b": true,
 
         // Start coords UI flags
+        // TODO(LEMS-2228): Remove flags once this is fully released
         "start-coords-ui-phase-1": true,
     },
 } satisfies APIOptions["flags"];

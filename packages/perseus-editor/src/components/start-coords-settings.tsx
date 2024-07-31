@@ -21,8 +21,6 @@ import {getDefaultGraphStartCoords} from "./util";
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
 
 type Props = PerseusGraphType & {
-    // TODO(LEMS-2228): Remove flags once this is fully released
-    phase1?: boolean;
     range: [x: Range, y: Range];
     step: [x: number, y: number];
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
@@ -79,23 +77,6 @@ const StartCoordsSettingsInner = (props: Props) => {
 const StartCoordsSettings = (props: Props) => {
     const {range, step, onChange} = props;
     const [isOpen, setIsOpen] = React.useState(true);
-
-    if (!props.phase1) {
-        return null;
-    }
-
-    if (
-        props.phase1 &&
-        !(
-            props.type === "linear" ||
-            props.type === "linear-system" ||
-            props.type === "ray" ||
-            props.type === "segment" ||
-            props.type === "circle"
-        )
-    ) {
-        return null;
-    }
 
     return (
         <View>
