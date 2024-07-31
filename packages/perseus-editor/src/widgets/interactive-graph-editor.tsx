@@ -472,18 +472,19 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         />
                     </LabeledRow>
                 )}
-                {this.props.graph?.type &&
-                    this.props.apiOptions?.flags?.mafs?.[
-                        "start-coords-ui-phase-1"
-                    ] && (
-                        <StartCoordsSettings
-                            {...this.props.graph}
-                            phase1={true}
-                            range={this.props.range}
-                            step={this.props.step}
-                            onChange={this.changeStartCoords}
-                        />
-                    )}
+                {this.props.graph?.type && (
+                    <StartCoordsSettings
+                        {...this.props.graph}
+                        phase1={
+                            this.props.apiOptions?.flags?.mafs?.[
+                                "start-coords-ui-phase-1"
+                            ]
+                        }
+                        range={this.props.range}
+                        step={this.props.step}
+                        onChange={this.changeStartCoords}
+                    />
+                )}
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
