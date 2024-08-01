@@ -129,7 +129,10 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
-                <LabelMedium tag="label" style={styles.row}>
+                <LabelMedium
+                    tag="label"
+                    style={[styles.row, styles.truncatedWidth]}
+                >
                     style
                     <Strut size={spacing.xxxSmall_4} />
                     <SingleSelect
@@ -202,6 +205,10 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: wbColor.red,
+    },
+    truncatedWidth: {
+        // Allow truncation, stop bleeding over the edge.
+        minWidth: 0,
     },
 });
 

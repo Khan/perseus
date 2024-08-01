@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        // Set minWidth to "auto" to prevent the component from bleeding
+        // into the margins. (minWidth is 0 by default.)
+        minWidth: "auto",
     },
 });
 
