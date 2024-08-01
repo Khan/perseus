@@ -42,7 +42,6 @@ describe("LockedFiguresSection", () => {
         // Arrange, Act
         render(
             <LockedFiguresSection
-                showM2Features={true}
                 showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
@@ -59,7 +58,6 @@ describe("LockedFiguresSection", () => {
         // Arrange, Act
         render(
             <LockedFiguresSection
-                showM2Features={true}
                 showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
@@ -78,7 +76,6 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                showM2Features={true}
                 showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
@@ -101,7 +98,6 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                showM2Features={true}
                 showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
@@ -126,7 +122,6 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                showM2Features={true}
                 showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
@@ -157,7 +152,6 @@ describe("LockedFiguresSection", () => {
         render(
             <LockedFiguresSection
                 figures={defaultFigures}
-                showM2Features={true}
                 showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
@@ -192,7 +186,6 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
-                showM2Features={true}
                 showM2bFeatures={true}
                 figures={defaultFigures}
                 onChange={jest.fn()}
@@ -219,7 +212,6 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
-                showM2Features={true}
                 showM2bFeatures={true}
                 figures={[
                     getDefaultFigureForType("point"),

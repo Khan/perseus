@@ -25,9 +25,6 @@ export type LockedFigureSettingsMovementType =
     | "front";
 
 type Props = {
-    // Whether to show the M2 features in the locked figure settings.
-    // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
-    showM2Features?: boolean;
     figureType: LockedFigureType;
     onMove: (movement: LockedFigureSettingsMovementType) => void;
     onRemove: () => void;
@@ -50,38 +47,34 @@ const LockedFigureSettingsActions = (props: Props) => {
 
             <Spring />
 
-            {props.showM2Features && (
-                <>
-                    <IconButton
-                        icon={caretDoubleUpIcon}
-                        size="small"
-                        aria-label={`Move locked ${figureType} to the back`}
-                        onClick={() => onMove("back")}
-                        style={styles.iconButton}
-                    />
-                    <IconButton
-                        icon={caretUpIcon}
-                        size="small"
-                        aria-label={`Move locked ${figureType} backward`}
-                        onClick={() => onMove("backward")}
-                        style={styles.iconButton}
-                    />
-                    <IconButton
-                        icon={caretDownIcon}
-                        size="small"
-                        aria-label={`Move locked ${figureType} forward`}
-                        onClick={() => onMove("forward")}
-                        style={styles.iconButton}
-                    />
-                    <IconButton
-                        icon={caretDoubleDownIcon}
-                        size="small"
-                        aria-label={`Move locked ${figureType} to the front`}
-                        onClick={() => onMove("front")}
-                        style={styles.iconButton}
-                    />
-                </>
-            )}
+            <IconButton
+                icon={caretDoubleUpIcon}
+                size="small"
+                aria-label={`Move locked ${figureType} to the back`}
+                onClick={() => onMove("back")}
+                style={styles.iconButton}
+            />
+            <IconButton
+                icon={caretUpIcon}
+                size="small"
+                aria-label={`Move locked ${figureType} backward`}
+                onClick={() => onMove("backward")}
+                style={styles.iconButton}
+            />
+            <IconButton
+                icon={caretDownIcon}
+                size="small"
+                aria-label={`Move locked ${figureType} forward`}
+                onClick={() => onMove("forward")}
+                style={styles.iconButton}
+            />
+            <IconButton
+                icon={caretDoubleDownIcon}
+                size="small"
+                aria-label={`Move locked ${figureType} to the front`}
+                onClick={() => onMove("front")}
+                style={styles.iconButton}
+            />
         </View>
     );
 };

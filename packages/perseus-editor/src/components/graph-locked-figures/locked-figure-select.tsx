@@ -12,8 +12,6 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 type Props = {
-    // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
-    showM2Features: boolean;
     // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
     showM2bFeatures: boolean;
     id: string;
@@ -23,9 +21,10 @@ type Props = {
 const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
-    const figureTypes = props.showM2Features
-        ? ["point", "line", "vector", "ellipse", "polygon"]
-        : ["point", "line"];
+    const figureTypes = ["point", "line", "vector", "ellipse", "polygon"];
+    const figureTypesCurrent = props.showM2bFeatures
+        ? [...figureTypes, "function"]
+        : figureTypes;
 
     return (
         <View style={styles.container}>
@@ -33,7 +32,7 @@ const LockedFigureSelect = (props: Props) => {
                 menuText="Add locked figure"
                 style={styles.addElementSelect}
             >
-                {figureTypes.map((figureType) => (
+                {figureTypesCurrent.map((figureType) => (
                     <ActionItem
                         key={`${id}-${figureType}`}
                         label={figureType}

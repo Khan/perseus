@@ -13,7 +13,6 @@ export const flags = {
         ray: true,
 
         // Locked figures flags
-        "interactive-graph-locked-features-m2": true,
         "interactive-graph-locked-features-m2b": true,
 
         // Start coords UI flags
