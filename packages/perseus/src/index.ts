@@ -84,7 +84,7 @@ export {
  */
 export {default as Util} from "./util";
 export {default as KhanColors} from "./util/colors";
-export {default as preprocessTex} from "./util/katex-preprocess";
+export {default as preprocessTex} from "./util/tex-preprocess";
 export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 export * as SizingUtils from "./util/sizing-utils";
 export {

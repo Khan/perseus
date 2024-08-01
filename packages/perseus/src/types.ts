@@ -318,7 +318,6 @@ export type APIOptions = Readonly<{
 
 type TeXProps = {
     children: string;
-    katexOptions?: any;
     onClick?: () => unknown;
     onRender?: (root?: any) => unknown;
     style?: any;

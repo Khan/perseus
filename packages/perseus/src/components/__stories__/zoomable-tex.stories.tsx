@@ -23,7 +23,7 @@ const ForceZoomWrapper = ({children}: Props): React.ReactElement => (
     </>
 );
 
-export const KaTeX = (args: StoryArgs): React.ReactElement => {
+export const Tex = (args: StoryArgs): React.ReactElement => {
     return (
         <ForceZoomWrapper>
             <ZoomableTex children="\sum_{i=1}^\infty\frac{1}{n^2} =\frac{\pi^2}{6}" />
@@ -31,7 +31,7 @@ export const KaTeX = (args: StoryArgs): React.ReactElement => {
     );
 };
 
-export const ComplexKaTeX = (args: StoryArgs): React.ReactElement => {
+export const ComplexTex = (args: StoryArgs): React.ReactElement => {
     return (
         <ForceZoomWrapper>
             {" "}
