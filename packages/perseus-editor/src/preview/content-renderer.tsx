@@ -7,7 +7,7 @@ import {Renderer, constants} from "@khanacademy/perseus";
 // eslint-disable-next-line monorepo/no-internal-import
 import {mockStrings} from "@khanacademy/perseus/strings";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -63,8 +63,9 @@ function ContentRenderer({
 const styles = StyleSheet.create({
     container: {
         padding: spacing.xxxSmall_4,
-        containerType: "inline-size",
-        containerName: "perseus-root",
+        borderStyle: "solid",
+        borderWidth: "1px",
+        borderColor: color.offBlack,
     },
     gutter: {marginRight: constants.lintGutterWidth},
 });
