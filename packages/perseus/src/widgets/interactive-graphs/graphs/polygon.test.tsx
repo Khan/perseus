@@ -5,7 +5,7 @@ import React from "react";
 
 import {hasFocusVisible} from "./polygon";
 
-import type {UserEvent} from "@testing-library/user-event/index";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("hasFocusVisible", () => {
     let userEvent: UserEvent;
