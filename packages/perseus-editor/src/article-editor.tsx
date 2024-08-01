@@ -215,7 +215,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _renderIframePreview(
-        i: number | string,
+        sectionIndex: number | "all",
         nochrome: boolean,
     ): React.ReactElement<any> {
         const isMobile =
@@ -230,27 +230,46 @@ export default class ArticleEditor extends React.Component<Props, State> {
             showAlignmentOptions: true,
             isArticle: true,
         };
+
+        const sections = this._sections();
         return (
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
-                {this._sections().map((section, i) => {
-                    const editor = this.editorRefs[i];
-
-                    return (
+                {sectionIndex === "all" ? (
+                    sections.map((section, i) => (
                         <ContentRenderer
-                            key={this.props.screen}
+                            key={`section-${i}`}
                             apiOptions={apiOptions}
                             question={section}
-                            seamless={nochrome}
+                            seamless={!nochrome}
                             linterContext={{
                                 contentType: "article",
                                 highlightLint: this.state.highlightLint,
                                 paths: this.props.contentPaths ?? [],
                                 stack: [],
                             }}
-                            legacyPerseusLint={editor?.getSaveWarnings() ?? []}
+                            legacyPerseusLint={
+                                this.editorRefs[i]?.getSaveWarnings() ?? []
+                            }
                         />
-                    );
-                })}
+                    ))
+                ) : (
+                    <ContentRenderer
+                        key={`section-${sectionIndex}`}
+                        apiOptions={apiOptions}
+                        question={sections[sectionIndex]}
+                        seamless={!nochrome}
+                        linterContext={{
+                            contentType: "article",
+                            highlightLint: this.state.highlightLint,
+                            paths: this.props.contentPaths ?? [],
+                            stack: [],
+                        }}
+                        legacyPerseusLint={
+                            this.editorRefs[sectionIndex]?.getSaveWarnings() ??
+                            []
+                        }
+                    />
+                )}
             </DeviceFramer>
         );
     }
