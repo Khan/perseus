@@ -26,8 +26,13 @@ function ContentRenderer({
     linterContext?: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
 }) {
+    const className = apiOptions?.isMobile ? "perseus-mobile" : "";
+
     return (
-        <View style={[styles.container, !seamless ? styles.gutter : undefined]}>
+        <View
+            className={`framework-perseus ${className}`}
+            style={[styles.container, !seamless ? styles.gutter : undefined]}
+        >
             <StatefulKeypadContextProvider>
                 <KeypadContext.Consumer>
                     {({setKeypadActive, keypadElement, setKeypadElement}) => (
