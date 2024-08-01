@@ -157,7 +157,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                     apiOptions={apiOptions}
                                     imageUploader={imageUploader}
                                     onChange={_.partial(
-                                        this._handleEditorChange,
+                                        this._handleEditorChange.bind(this),
                                         i,
                                     )}
                                     placeholder="Type your section text here..."
