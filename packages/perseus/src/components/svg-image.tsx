@@ -667,7 +667,6 @@ class SvgImage extends React.Component<Props, State> {
                         <ImageLoader
                             src={imageSrc}
                             imgProps={imageProps}
-                            // @ts-expect-error - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                             preloader={preloader}
                             onUpdate={this.handleUpdate}
                         />
@@ -679,7 +678,6 @@ class SvgImage extends React.Component<Props, State> {
             return (
                 <ImageLoader
                     src={imageSrc}
-                    // @ts-expect-error - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                     preloader={preloader}
                     imgProps={imageProps}
                     onUpdate={this.handleUpdate}
@@ -742,7 +740,6 @@ class SvgImage extends React.Component<Props, State> {
                         src={imageUrl}
                         onLoad={this.onImageLoad}
                         onUpdate={this.handleUpdate}
-                        // @ts-expect-error - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                         preloader={preloader}
                         imgProps={imageProps}
                     />
@@ -758,7 +755,6 @@ class SvgImage extends React.Component<Props, State> {
                     src={imageUrl}
                     onLoad={this.onImageLoad}
                     onUpdate={this.handleUpdate}
-                    // @ts-expect-error - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                     preloader={preloader}
                     imgProps={imageProps}
                 />
