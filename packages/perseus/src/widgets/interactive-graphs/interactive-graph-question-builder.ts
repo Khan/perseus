@@ -64,10 +64,7 @@ class InteractiveGraphQuestionBuilder {
                         labels: this.labels,
                         markings: this.markings,
                         range: [this.xRange, this.yRange],
-                        rulerLabel: "",
-                        rulerTicks: 10,
                         showProtractor: this.showProtractor,
-                        showRuler: false,
                         snapStep: this.snapStep,
                         step: this.tickStep,
                         lockedFigures: this.lockedFigures,
@@ -186,7 +183,10 @@ class InteractiveGraphQuestionBuilder {
     withCircle(options?: {
         center?: Coord;
         radius?: number;
-        startCoords?: Coord;
+        startCoords?: {
+            center: Coord;
+            radius: number;
+        };
     }): InteractiveGraphQuestionBuilder {
         this.interactiveFigureConfig = new CircleGraphConfig(options);
         return this;
@@ -531,14 +531,20 @@ class RayGraphConfig implements InteractiveFigureConfig {
 }
 
 class CircleGraphConfig implements InteractiveFigureConfig {
-    private startCoords?: Coord;
+    private startCoords?: {
+        center: Coord;
+        radius: number;
+    };
     private correctCenter: Coord;
     private correctRadius: number;
 
     constructor(options?: {
         center?: Coord;
         radius?: number;
-        startCoords?: Coord;
+        startCoords?: {
+            center: Coord;
+            radius: number;
+        };
     }) {
         this.startCoords = options?.startCoords;
         this.correctCenter = options?.center ?? [0, 0];
@@ -555,7 +561,10 @@ class CircleGraphConfig implements InteractiveFigureConfig {
 
     graph(): PerseusGraphType {
         if (this.startCoords) {
-            return {type: "circle", startCoords: this.startCoords, radius: 5};
+            return {
+                type: "circle",
+                startCoords: this.startCoords,
+            };
         }
 
         return {type: "circle"};

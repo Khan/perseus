@@ -17,7 +17,7 @@ import SortableArea from "../components/sortable";
 
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
 
-const {InfoTip, PropCheckBox} = components;
+const {InfoTip, PropCheckBox, TextInput} = components;
 
 type Props = {
     widgetId?: any;
@@ -175,6 +175,48 @@ class ExpressionEditor extends React.Component<Props> {
             <div className="perseus-widget-expression-editor">
                 <h3 className="expression-editor-h3">Global Options</h3>
 
+                <div className="perseus-widget-row">
+                    <label>
+                        Visible label:{" "}
+                        <TextInput
+                            value={this.props.visibleLabel}
+                            onChange={this.change("visibleLabel")}
+                        />
+                    </label>
+                    <InfoTip>
+                        <p>
+                            Optional visible text; strongly encouraged to help
+                            learners using dictation software, but can be
+                            omitted if the surrounding content provides enough
+                            context.
+                        </p>
+                    </InfoTip>
+                </div>
+
+                <div className="perseus-widget-row">
+                    <label>
+                        Aria label:{" "}
+                        <TextInput
+                            value={this.props.ariaLabel}
+                            onChange={this.change("ariaLabel")}
+                        />
+                    </label>
+                    <InfoTip>
+                        <p>
+                            Label text that's read by screen readers. Highly
+                            recommend adding a label here to ensure your
+                            exercise is accessible. For more information on
+                            writting accessible labels, please see{" "}
+                            <a
+                                href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                target="_blank"
+                            >
+                                this article.
+                            </a>
+                        </p>
+                    </InfoTip>
+                </div>
+
                 <div>
                     <PropCheckBox
                         times={this.props.times}
@@ -254,6 +296,8 @@ class ExpressionEditor extends React.Component<Props> {
             "buttonSets",
             "functions",
             "times",
+            "visibleLabel",
+            "ariaLabel",
         ];
 
         const answerForms = this.props.answerForms.map((form) => {

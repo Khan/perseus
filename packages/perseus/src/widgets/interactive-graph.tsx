@@ -140,12 +140,13 @@ type DefaultProps = {
     markings: Props["markings"];
     showTooltips: Props["showTooltips"];
     showProtractor: Props["showProtractor"];
-    showRuler: Props["showRuler"];
-    rulerLabel: Props["rulerLabel"];
-    rulerTicks: Props["rulerTicks"];
     graph: Props["graph"];
 };
 
+// (LEMS-2190): Move the Mafs Angle Graph coordinate reversal logic in interactive-graph-state.ts
+// to this file when we remove the legacy graph. This logic allows us to support bi-directional angles
+// for the new (non-reflexive) Mafs graphs, while maintaining the same scoring behaviour as the legacy graph.
+// Once the legacy graph is removed, we should move this logic directly into the validate function below.
 class LegacyInteractiveGraph extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -180,9 +181,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         markings: "graph",
         showTooltips: false,
         showProtractor: false,
-        showRuler: false,
-        rulerLabel: "",
-        rulerTicks: 10,
         graph: {
             type: "linear",
         },
@@ -1758,9 +1756,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                     markings={this.props.markings}
                     backgroundImage={this.props.backgroundImage}
                     showProtractor={this.props.showProtractor}
-                    showRuler={this.props.showRuler}
-                    rulerLabel={this.props.rulerLabel}
-                    rulerTicks={this.props.rulerTicks}
                     onMouseDown={onMouseDown}
                     onGraphieUpdated={this.setGraphie}
                     setDrawingAreaAvailable={
@@ -1788,9 +1783,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         markings: "graph",
         showTooltips: false,
         showProtractor: false,
-        showRuler: false,
-        rulerLabel: "",
-        rulerTicks: 10,
         graph: {
             type: "linear",
         },

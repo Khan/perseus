@@ -62,6 +62,16 @@ const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
     );
 });
 
+// TODO(LEMS-2228): Remove flags once this is fully released
+const startCoordsUiPhase1Types = [
+    "linear",
+    "linear-system",
+    "ray",
+    "segment",
+    "circle",
+];
+const startCoordsUiPhase2Types = ["sinusoid", "quadratic"];
+
 type Range = [min: number, max: number];
 
 export type Props = {
@@ -114,22 +124,10 @@ export type Props = {
      */
     showProtractor: boolean;
     /**
-     * Whether to show the ruler on the graph.
-     */
-    showRuler: boolean;
-    /**
      * Whether to show tooltips on the graph.
      * (Currently not used, but will be in the future.)
      */
     showTooltips: boolean;
-    /**
-     * The label to display on the ruler, if any.
-     */
-    rulerLabel: string;
-    /**
-     * The number of ticks to display on the ruler.
-     */
-    rulerTicks: number;
     /**
      * The current correct answer for the graph. Updated by this component
      * when the graph is changed.
@@ -162,10 +160,7 @@ type DefaultProps = {
     backgroundImage: Props["backgroundImage"];
     markings: Props["markings"];
     showProtractor: Props["showProtractor"];
-    showRuler: Props["showRuler"];
     showTooltips: Props["showTooltips"];
-    rulerLabel: Props["rulerLabel"];
-    rulerTicks: Props["rulerTicks"];
     correct: Props["correct"];
 };
 
@@ -231,10 +226,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 backgroundImage: this.props.backgroundImage,
                 markings: this.props.markings,
                 showProtractor: this.props.showProtractor,
-                showRuler: this.props.showRuler,
                 showTooltips: this.props.showTooltips,
-                rulerLabel: this.props.rulerLabel,
-                rulerTicks: this.props.rulerTicks,
                 lockedFigures: this.props.lockedFigures,
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
@@ -277,6 +269,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
         } else {
             graph = <div className="perseus-error">{this.props.valid}</div>;
         }
+
+        const startCoordsPhase1 =
+            this.props.apiOptions?.flags?.mafs?.["start-coords-ui-phase-1"];
+        const startCoordsPhase2 =
+            this.props.apiOptions?.flags?.mafs?.["start-coords-ui-phase-2"];
+
+        const displayStartCoordsUI =
+            this.props.graph &&
+            ((startCoordsPhase1 &&
+                startCoordsUiPhase1Types.includes(this.props.graph.type)) ||
+                (startCoordsPhase2 &&
+                    startCoordsUiPhase2Types.includes(this.props.graph.type)));
 
         return (
             <View>
@@ -491,7 +495,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </LabeledRow>
                 )}
                 {this.props.graph?.type &&
-                    this.props.apiOptions.flags?.mafs?.["start-coords-ui"] && (
+                    // TODO(LEMS-2228): Remove flags once this is fully released
+                    displayStartCoordsUI && (
                         <StartCoordsSettings
                             {...this.props.graph}
                             range={this.props.range}
@@ -510,10 +515,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     backgroundImage={this.props.backgroundImage}
                     markings={this.props.markings}
                     showProtractor={this.props.showProtractor}
-                    showRuler={this.props.showRuler}
                     showTooltips={this.props.showTooltips}
-                    rulerLabel={this.props.rulerLabel}
-                    rulerTicks={this.props.rulerTicks}
                     onChange={this.props.onChange}
                 />
                 {this.props.correct.type === "polygon" && (
@@ -613,11 +615,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
-                                showM2Features={
-                                    this.props.apiOptions?.flags?.mafs?.[
-                                        "interactive-graph-locked-features-m2"
-                                    ]
-                                }
                                 showM2bFeatures={
                                     this.props.apiOptions?.flags?.mafs?.[
                                         "interactive-graph-locked-features-m2b"
@@ -664,10 +661,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "markings",
             "labels",
             "showProtractor",
-            "showRuler",
             "showTooltips",
-            "rulerLabel",
-            "rulerTicks",
             "range",
             "gridStep",
             "snapStep",
@@ -701,7 +695,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 ],
                 function (key) {
                     if (_.has(correct, key)) {
-                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor" | "showRuler" | "rulerLabel" | "rulerTicks">'.
+                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor">'.
                         json.graph[key] = correct[key];
                     }
                 },

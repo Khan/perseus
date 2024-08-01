@@ -36,7 +36,6 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
-                labelText="test"
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
                 convertDotToTimes={false}
                 value=""
@@ -45,7 +44,48 @@ describe("Perseus' MathInput", () => {
         act(() => jest.runOnlyPendingTimers());
 
         // Assert
-        expect(screen.getByLabelText("test")).toBeInTheDocument();
+        expect(
+            screen.getByRole("textbox", {name: "Math input:"}),
+        ).toBeInTheDocument();
+    });
+
+    it("provides a default aria label", () => {
+        // Assemble
+        render(
+            <MathInput
+                onChange={() => {}}
+                keypadButtonSets={allButtonSets}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "Math input:"}),
+        ).toBeInTheDocument();
+    });
+
+    it("is possible to overwrite the aria label", () => {
+        // Assemble
+        render(
+            <MathInput
+                onChange={() => {}}
+                keypadButtonSets={allButtonSets}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
+                ariaLabel="Hello world"
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "Hello world:"}),
+        ).toBeInTheDocument();
     });
 
     it("is possible to type in the input", async () => {
@@ -63,7 +103,10 @@ describe("Perseus' MathInput", () => {
         act(() => jest.runOnlyPendingTimers());
 
         // Act
-        await userEvent.type(screen.getByRole("textbox"), "12345");
+        await userEvent.type(
+            screen.getByRole("textbox", {name: "Math input:"}),
+            "12345",
+        );
         act(() => jest.runOnlyPendingTimers());
 
         // Assert
@@ -150,7 +193,7 @@ describe("Perseus' MathInput", () => {
         await userEvent.click(screen.getByRole("button", {name: "1"}));
 
         // Assert
-        expect(screen.getByRole("textbox")).toHaveFocus();
+        expect(screen.getByRole("textbox", {name: /Math input/})).toHaveFocus();
     });
 
     it("does not return focus to input after button press via keyboard", async () => {
@@ -172,11 +215,14 @@ describe("Perseus' MathInput", () => {
             screen.getByRole("button", {name: /open math keypad/}),
         );
         await userEvent.tab(); // to "123" tab
+        await userEvent.tab(); // to "1" button
         await userEvent.keyboard("{enter}");
         act(() => jest.runOnlyPendingTimers());
 
         // Assert
-        expect(screen.getByRole("textbox")).not.toHaveFocus();
+        expect(
+            screen.getByRole("textbox", {name: "Math input:"}),
+        ).not.toHaveFocus();
     });
 
     it("does not focus on the keypad button when it is clicked with the mouse", async () => {

@@ -7,10 +7,6 @@ import type {Interval, vec} from "mafs";
 // Range is replaced within this file with Interval, but it is used elsewhere
 // and exported from the package, so we need to keep it around.
 export type Range = Interval;
-export type Domain = {
-    min?: number;
-    max?: number;
-};
 export type Size = [number, number];
 export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
@@ -422,6 +418,10 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
+    // visible label associated with the MathQuill field
+    visibleLabel?: string;
+    // aria label for screen readers attached to MathQuill field
+    ariaLabel?: string;
     // Controls when buttons for special characters are visible when using a
     // desktop browser.  Defaults to "focused".
     // NOTE: This isn't listed in perseus-format.js or perseus_data.go, but
@@ -629,14 +629,31 @@ export type PerseusInteractiveGraphWidgetOptions = {
     labels: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
     showProtractor: boolean;
-    // Whether to show the Ruler tool overlayed on top of the graph
-    showRuler: boolean;
+    /**
+     * Whether to show the Ruler tool overlayed on top of the graph.
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    showRuler?: boolean;
     // Whether to show tooltips on the graph
     showTooltips?: boolean;
-    // The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft", "yd", "mi"
-    rulerLabel: string;
-    // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be an integer.
-    rulerTicks: number;
+    /**
+     * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
+     * "yd", "mi".
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    rulerLabel?: string;
+    /**
+     * How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be
+     * an integer.
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    rulerTicks?: number;
     // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
     // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
     // TODO(kevinb): Add a transform function to interactive-graph.jsx to
@@ -745,7 +762,7 @@ export type LockedFunctionType = {
         [k: string]: any;
     };
     directionalAxis: "x" | "y";
-    domain?: Domain;
+    domain?: Interval;
 };
 
 export type PerseusGraphType =
@@ -789,7 +806,10 @@ export type PerseusGraphTypeCircle = {
     center?: Coord;
     radius?: number;
     // The initial coordinates the graph renders with.
-    startCoords?: Coord;
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinear = {

@@ -119,9 +119,12 @@ export {
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
 export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
 export {
+    getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,
+    getSinusoidCoords,
+    getQuadraticCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**

@@ -24,6 +24,7 @@ const constrainingFrictionFactor = 0.8;
 
 type Props = {
     keypadElement?: KeypadAPI;
+    ariaLabel: string;
     onBlur: () => void;
     onChange: (value: string, callback: any) => void;
     onFocus: () => void;
@@ -97,6 +98,7 @@ class MathInput extends React.Component<Props, State> {
 
         this.mathField = new MathWrapper(
             this._mathContainer,
+            this.props.ariaLabel,
             this.context.strings,
             this.context.locale,
             {

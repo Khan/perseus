@@ -1,12 +1,15 @@
-/* eslint-disable */
-import _ from "underscore";
+import type {CompareOptions, CompareResult, Expression} from "./types";
 
 // Assumes that both expressions have already been parsed
 // TODO(alex): be able to pass a random() function to compare()
-export const compare = function (expr1, expr2, options) {
-    var defaults = {
-        form: false, // Check that the two expressions have the same form
-        simplify: false, // Check that the second expression is simplified
+export const compare = function (
+    expr1: Expression,
+    expr2: Expression,
+    options: CompareOptions,
+): CompareResult {
+    const defaults: CompareOptions = {
+        form: false,
+        simplify: false,
     };
 
     /* Options that could be added in the future:
@@ -14,20 +17,14 @@ export const compare = function (expr1, expr2, options) {
      *   like slope
      * - Allow student to choose their own variable names
      */
-
-    if (options !== undefined) {
-        // eslint-disable-next-line no-undef
-        options = _.extend(defaults, options);
-    } else {
-        options = defaults;
-    }
+    options = {...defaults, ...options};
 
     // TODO(CP-1614): Figure out how to make these messages translatable
 
     // Variable check
-    var vars = expr1.sameVars(expr2);
+    const vars = expr1.sameVars(expr2);
     if (!vars.equal) {
-        var message;
+        let message;
         if (vars.equalIgnoringCase) {
             message =
                 "Check your variables; one or more are using " +

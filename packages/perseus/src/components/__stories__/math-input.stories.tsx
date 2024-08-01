@@ -25,6 +25,7 @@ const defaultObject = {
     value: "",
     onChange: () => {},
     analytics: {onAnalyticsEvent: () => Promise.resolve()},
+    labelText: "Math input",
 } as const;
 
 export const DefaultWithBasicButtonSet = (
@@ -33,7 +34,7 @@ export const DefaultWithBasicButtonSet = (
     return <MathInput {...defaultObject} />;
 };
 export const DefaultWithAriaLabel = (args: StoryArgs): React.ReactElement => {
-    return <MathInput {...defaultObject} labelText="Sample label" />;
+    return <MathInput {...defaultObject} ariaLabel="Sample label" />;
 };
 
 export const KeypadOpenByDefault = (args: StoryArgs): React.ReactElement => {

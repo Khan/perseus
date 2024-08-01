@@ -1,5 +1,84 @@
 # @khanacademy/perseus
 
+## 27.2.0
+
+### Minor Changes
+
+-   [#1468](https://github.com/Khan/perseus/pull/1468) [`af68a9e08`](https://github.com/Khan/perseus/commit/af68a9e082f7b042aeb516ddba38274fcc66c4fc) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add start coords UI for sinusoid graphs
+
+*   [#1469](https://github.com/Khan/perseus/pull/1469) [`6e1ec850c`](https://github.com/Khan/perseus/commit/6e1ec850c7efb186444dcd9023e2a2c37cd731d2) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add start coords UI for quadratic graphs
+
+### Patch Changes
+
+-   [#1470](https://github.com/Khan/perseus/pull/1470) [`942b0a9a5`](https://github.com/Khan/perseus/commit/942b0a9a5c42b92137a024b3c76ba8e99df55440) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Locked Figures] Remove m2 flag from the code
+
+*   [#1465](https://github.com/Khan/perseus/pull/1465) [`94ad04fee`](https://github.com/Khan/perseus/commit/94ad04fee00ae4601ed5d23a19bfeb9f68964c74) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add separate flags for graph types
+
+-   [#1432](https://github.com/Khan/perseus/pull/1432) [`ed6737025`](https://github.com/Khan/perseus/commit/ed67370251d2ebff672423b8e4da839c9dfb78c7) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix to ensure that new angle graphs are scored correctly.
+
+## 27.1.0
+
+### Minor Changes
+
+-   [#1453](https://github.com/Khan/perseus/pull/1453) [`79a09d62f`](https://github.com/Khan/perseus/commit/79a09d62f532fd3373fea4838c0d72812de14046) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Implement the UI for adding start coords for circle graphs
+
+*   [#1404](https://github.com/Khan/perseus/pull/1404) [`284e068b8`](https://github.com/Khan/perseus/commit/284e068b8e3bfb1f9ab49d84d209c5f9ef2d93c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Add label options for Expression
+
+### Patch Changes
+
+-   Updated dependencies [[`284e068b8`](https://github.com/Khan/perseus/commit/284e068b8e3bfb1f9ab49d84d209c5f9ef2d93c1)]:
+    -   @khanacademy/math-input@20.1.0
+
+## 27.0.2
+
+### Patch Changes
+
+-   [#1461](https://github.com/Khan/perseus/pull/1461) [`2e8022adb`](https://github.com/Khan/perseus/commit/2e8022adb11a000fb77528b1268ad5725dec817b) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Reverting portal disabled functionality to ensure no clipping behavior.
+
+-   Updated dependencies [[`2e8022adb`](https://github.com/Khan/perseus/commit/2e8022adb11a000fb77528b1268ad5725dec817b)]:
+    -   @khanacademy/math-input@20.0.3
+
+## 27.0.1
+
+### Patch Changes
+
+-   [#1459](https://github.com/Khan/perseus/pull/1459) [`be40d776a`](https://github.com/Khan/perseus/commit/be40d776a5ee6bbf4c5af4df57889a32e9b8b3bf) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Guard against executing matchMedia during initial render
+
+-   Updated dependencies [[`ca31afb35`](https://github.com/Khan/perseus/commit/ca31afb359cc00035a4af965f19d20d7919a14a5)]:
+    -   @khanacademy/kas@0.3.11
+
+## 27.0.0
+
+### Major Changes
+
+-   [#1456](https://github.com/Khan/perseus/pull/1456) [`b868801fa`](https://github.com/Khan/perseus/commit/b868801fab4ea28930f21be12d671e63f79b50ab) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused "Show ruler" option from the interactive graph editor. The
+    new Mafs version of the interactive graph does not implement the ruler,
+    and we have no plans to implement it, since it can't be made accessible
+    and isn't used in Khan Academy's existing content.
+
+*   [#1450](https://github.com/Khan/perseus/pull/1450) [`2216ad012`](https://github.com/Khan/perseus/commit/2216ad012668a5627c1ff3934bf600cc0788e335) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Unit aka UnitInput widget
+
+### Minor Changes
+
+-   [#1451](https://github.com/Khan/perseus/pull/1451) [`9bc4812fc`](https://github.com/Khan/perseus/commit/9bc4812fcfb3a08a083124e56f9378e8aefbc8ef) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Upgrade Mafs Dependency to v0.19.0 for Domain Restricted Functions
+
+*   [#1441](https://github.com/Khan/perseus/pull/1441) [`9bc264ce1`](https://github.com/Khan/perseus/commit/9bc264ce10dc8a6c0a26b26e7568f4cd3c2bd4fe) Thanks [@Myranae](https://github.com/Myranae)! - Turn off interactivity when Interactive Graph in hint mode
+
+-   [#1437](https://github.com/Khan/perseus/pull/1437) [`7a448e77c`](https://github.com/Khan/perseus/commit/7a448e77c18d9c8437c24e6567f1e4fa03efc6b9) Thanks [@Myranae](https://github.com/Myranae)! - Update Polygon to be filled on hover
+
+*   [#1422](https://github.com/Khan/perseus/pull/1422) [`c386515ad`](https://github.com/Khan/perseus/commit/c386515ad52eef657f41ba7039614bc96e96e024) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Segment and Linear System graph start coords UI
+
+### Patch Changes
+
+-   [#1448](https://github.com/Khan/perseus/pull/1448) [`84675574c`](https://github.com/Khan/perseus/commit/84675574c95341d422eda61867e745627b76d349) Thanks [@nishasy](https://github.com/nishasy)! - Cleaned up the `startCoords` code in the stateful mafs graph useEffect
+
+*   [#1444](https://github.com/Khan/perseus/pull/1444) [`130ab9446`](https://github.com/Khan/perseus/commit/130ab94465da943c1582851122a409d72c6a96e1) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Throttles point-moving performance in polygon
+
+-   [#1445](https://github.com/Khan/perseus/pull/1445) [`bb1ac584b`](https://github.com/Khan/perseus/commit/bb1ac584b35e6c85284472d796bc4a4345349628) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - useDraggable - fix to ignore keyup events (we don't want to treat keyup events as an intent to move - we have keydown for that)
+
+-   Updated dependencies [[`7e71f8e8a`](https://github.com/Khan/perseus/commit/7e71f8e8a114d80ad7d26f478c31149d9009a9e5)]:
+    -   @khanacademy/math-input@20.0.2
+
 ## 26.1.0
 
 ### Minor Changes

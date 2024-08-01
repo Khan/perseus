@@ -52,7 +52,7 @@ type Props = {
      * Overrides deprecated `buttonSets` prop.
      */
     keypadButtonSets?: KeypadButtonSets;
-    labelText?: string;
+    ariaLabel: string;
     onFocus?: () => void;
     onBlur?: () => void;
     hasError?: boolean;
@@ -241,6 +241,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             );
         }
 
+        this.__mathField?.setAriaLabel(this.props.ariaLabel);
         return this.__mathField;
     };
 
@@ -322,14 +323,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     <span
                         className={className}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
-                        aria-label={this.props.labelText}
                         onFocus={() => this.focus()}
                         onBlur={() => this.blur()}
                     />
                     <Popover
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
-                        portal={false}
                         dismissEnabled
                         content={() => (
                             <PopoverContentCore
@@ -394,6 +393,10 @@ class MathInput extends React.Component<Props, State> {
     static contextType = MathInputI18nContext;
     declare context: React.ContextType<typeof MathInputI18nContext>;
     inputRef = React.createRef<InnerMathInput>();
+
+    static defaultProps: Pick<Props, "ariaLabel"> = {
+        ariaLabel: "Math input",
+    };
 
     blur() {
         this.inputRef.current?.blur();
