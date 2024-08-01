@@ -7,7 +7,6 @@
 import Banner from "@khanacademy/wonder-blocks-banner";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
@@ -27,29 +26,25 @@ class PhetSim extends React.Component<any> {
         description: PropTypes.string,
     };
 
-    private readonly iframeRef: React.RefObject<HTMLIFrameElement>;
-    private errMessage: string | null;
-
     constructor(props) {
         super(props);
-        this.iframeRef = React.createRef<HTMLIFrameElement>();
-        this.errMessage = null;
+        this.state = {
+            iframeRef: React.createRef<HTMLIFrameElement>(),
+            errMessage: null,
+        };
     }
 
     getUserInput: () => any = () => {
         return null;
     };
 
-    componentDidMount() {
-        if (this.iframeRef.current) {
-            this.iframeRef.current.onload = () => {
-                if (this.iframeRef.current) {
-                    if (!this.checkForLocale(this.iframeRef.current)) {
-                        this.errMessage =
-                            "Sorry, this simulation isn't available in your language!";
-                    }
-                }
-            };
+    async componentDidMount() {
+        const {kaLocale} = getDependencies();
+        if (!(await this.checkForLocale(kaLocale))) {
+            this.setState({
+                errMessage:
+                    "Sorry, this simulation isn't available in your language!",
+            });
         }
     }
 
@@ -68,7 +63,8 @@ class PhetSim extends React.Component<any> {
             }
         });
 
-        let url = this.props.url;
+        let url: string = this.props.url;
+        url = updateQueryString(url, "locale", kaLocale);
 
         // The URL needs to start with https://phet.colorado.edu/
         // Do we want to allow users to paste in a relative path instead of
@@ -76,13 +72,11 @@ class PhetSim extends React.Component<any> {
         if (
             url &&
             url.length &&
-            !url.startsWith("https://phet.colorado.edu/") // todo: find better check
+            !url.startsWith("https://phet.colorado.edu/")
         ) {
-            // todo(anna): Error state, unable to provide content
+            // TODO(Anna): Do we want to report an error on this?
             url = "";
-            this.errMessage = "Cannot load PhET widget";
         }
-        url = updateQueryString(url, "locale", kaLocale);
 
         const sandboxProperties = "allow-same-origin allow-scripts";
 
@@ -92,23 +86,24 @@ class PhetSim extends React.Component<any> {
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
             <>
-                {this.errMessage && (
+                {this.state["errMessage"] && (
                     <Banner
                         kind="warning"
                         layout="floating"
-                        text={this.errMessage}
+                        text={this.state["errMessage"]}
                         onDismiss={() => {
-                            this.errMessage = null;
+                            this.setState({errMessage: null});
                         }}
                     />
                 )}
                 <iframe
-                    ref={this.iframeRef}
+                    ref={this.state["iframeRef"]}
                     sandbox={sandboxProperties}
                     style={style}
                     src={url}
-                    aria-label={this.props.description}
-                    allowFullScreen={true}
+                    srcDoc={url ? undefined : "Could not load PhET simulation."}
+                    title={this.props.description}
+                    allow="fullscreen"
                 />
             </>
         );
@@ -124,19 +119,27 @@ class PhetSim extends React.Component<any> {
         return PhetSim.validate(this.getUserInput(), rubric);
     };
 
-    checkForLocale: (arg1: HTMLIFrameElement) => boolean = (iframe) => {
-        const {kaLocale} = getDependencies();
-        if (iframe.contentWindow) {
-            const locales: string[] = Object.keys(
-                // TODO(Anna): Fix the CORS error
-                iframe.contentWindow.phet.chipper.localeData,
-            );
-            return locales.includes(kaLocale);
-        }
-        // TODO(Anna): Feels like we should throw a different error if iframe.contentWindow
-        // isn't accessible... But what do we return here, in that case?
-        return false;
-    };
+    async checkForLocale(kaLocale: string): Promise<boolean> {
+        return fetch(this.props.url)
+            .then((response: Response): Promise<string> => response.text())
+            .then((html: string): boolean => {
+                try {
+                    // Find where window.phet.chipper.localeData is set.
+                    const localeDataVar: string =
+                        "window.phet.chipper.localeData = ";
+                    const startIndex = html.indexOf(localeDataVar);
+                    html = html.substring(startIndex + localeDataVar.length);
+                    const endIndex = html.indexOf(";");
+                    html = html.substring(0, endIndex);
+                    const locales: string[] = Object.keys(JSON.parse(html));
+                    return locales.includes(kaLocale);
+                } catch {
+                    // TODO(Anna): Feels like we should throw a different error if locale data
+                    // isn't accessible... But what do we return in that case?
+                    return false;
+                }
+            });
+    }
 }
 
 export default {
