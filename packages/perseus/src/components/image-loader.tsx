@@ -28,7 +28,7 @@ export type ImageProps = {
     alt: string;
     title?: string;
     ["aria-hidden"]?: boolean;
-    tabIndex?: string;
+    tabIndex?: number;
     onClick?: (e: React.SyntheticEvent) => void;
     style?: Dimensions;
 };
@@ -41,7 +41,7 @@ type Props = {
     // When the DOM updates to replace the preloader with the image, or
     // vice-versa, we trigger this callback.
     onUpdate: (status: (typeof Status)[keyof typeof Status]) => void;
-    preloader: () => React.ReactElement | null | undefined;
+    preloader: (() => React.ReactNode) | null | undefined;
     src: string;
 };
 
@@ -122,17 +122,15 @@ class ImageLoader extends React.Component<Props, State> {
 
     renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
         const {src, imgProps} = this.props;
-        let onKeyUp = null;
-        let onKeyDown = null;
+        let onKeyUp;
+        let onKeyDown;
         if (imgProps.onClick != null) {
-            // @ts-expect-error - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
             onKeyUp = (e: React.KeyboardEvent) => {
                 // 13 is enter key, 32 is space key
                 if (e.keyCode === 13 || e.keyCode === 32) {
                     imgProps.onClick && imgProps.onClick(e);
                 }
             };
-            // @ts-expect-error - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
             onKeyDown = (e: React.KeyboardEvent) => {
                 // 32 is space key
                 if (e.keyCode === 32) {
@@ -146,9 +144,7 @@ class ImageLoader extends React.Component<Props, State> {
         return (
             <img
                 src={staticUrl(src)}
-                // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
                 onKeyUp={onKeyUp}
-                // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
                 onKeyDown={onKeyDown}
                 {...imgProps}
             />

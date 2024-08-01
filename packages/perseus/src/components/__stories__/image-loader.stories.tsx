@@ -20,7 +20,6 @@ export const SvgImage = (args: StoryArgs): React.ReactElement => {
     return (
         <ImageLoader
             src={svgUrl}
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
             preloader={null}
             imgProps={{
                 alt: "ALT",
@@ -34,7 +33,6 @@ export const PngImage = (args: StoryArgs): React.ReactElement => {
     return (
         <ImageLoader
             src={imgUrl}
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
             preloader={null}
             imgProps={{
                 alt: "ALT",
@@ -50,7 +48,6 @@ export const InvalidImageWithChildrenForFailedLoading = (
     return (
         <ImageLoader
             src="http://abcdefiahofshiaof.noway.badimage.com"
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
             preloader={null}
             imgProps={{
                 alt: "ALT",
