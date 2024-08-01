@@ -18,6 +18,8 @@ type Props = MafsGraphProps<PolygonGraphState>;
 
 export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
+    // This is more so required for the re-rendering that occurs when state
+    // updates; specifically with regard to line weighting and polygon focus.
     const [focusVisible, setFocusVisible] = React.useState(false);
 
     const {dispatch} = props;
@@ -109,11 +111,16 @@ export const PolygonGraph = (props: Props) => {
                     },
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
+                    // Required to remove line weighting when user clicks away
+                    // from the focused polygon
                     onKeyDownCapture: () => {
                         setFocusVisible(hasFocusVisible(ref.current));
                     },
+                    // Required for lines to darken on focus
                     onFocus: () =>
                         setFocusVisible(hasFocusVisible(ref.current)),
+                    // Required for line weighting to update on blur. Without this,
+                    // the user has to hover over the shape for it to update
                     onBlur: () => setFocusVisible(hasFocusVisible(ref.current)),
                     className: "movable-polygon",
                 }}
