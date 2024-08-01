@@ -18,6 +18,7 @@ type Props = MafsGraphProps<PolygonGraphState>;
 
 export const PolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
+    const [focusVisible, setFocusVisible] = React.useState(false);
 
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
@@ -52,7 +53,7 @@ export const PolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
-                    strokeWidth: hasFocusVisible(ref.current)
+                    strokeWidth: focusVisible
                         ? "var(--movable-line-stroke-weight-active)"
                         : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
@@ -108,6 +109,12 @@ export const PolygonGraph = (props: Props) => {
                     },
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
+                    onKeyDownCapture: () => {
+                        setFocusVisible(hasFocusVisible(ref.current));
+                    },
+                    onFocus: () =>
+                        setFocusVisible(hasFocusVisible(ref.current)),
+                    onBlur: () => setFocusVisible(hasFocusVisible(ref.current)),
                     className: "movable-polygon",
                 }}
             />
@@ -139,7 +146,9 @@ function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
     });
 }
 
-function hasFocusVisible(element: Element | null | undefined): boolean {
+export const hasFocusVisible = (
+    element: Element | null | undefined,
+): boolean => {
     const matches = (selector: string) => element?.matches(selector) ?? false;
     try {
         return matches(":focus-visible");
@@ -149,4 +158,4 @@ function hasFocusVisible(element: Element | null | undefined): boolean {
         // so the call to matches(":focus-visible") will fail in tests.
         return matches(":focus");
     }
-}
+};
