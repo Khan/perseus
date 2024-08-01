@@ -1,11 +1,11 @@
 import {components, ItemExtras} from "@khanacademy/perseus";
-import {StyleSheet} from "aphrodite"
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {PerseusAnswerArea} from "@khanacademy/perseus";
-import { Checkbox } from "@khanacademy/wonder-blocks-form";
-import { View } from "@khanacademy/wonder-blocks-core";
-import { spacing } from "@khanacademy/wonder-blocks-tokens";
 
 const {InfoTip} = components;
 
@@ -66,12 +66,9 @@ class ItemExtrasEditor extends React.Component<Props> {
                             // these need to be reset. All checked by
                             // default.
                             this.props.onChange({
-                                financialCalculatorMonthlyPayment:
-                                    e,
-                                financialCalculatorTotalAmount:
-                                    e,
-                                financialCalculatorTimeToPayOff:
-                                    e,
+                                financialCalculatorMonthlyPayment: e,
+                                financialCalculatorTotalAmount: e,
+                                financialCalculatorTimeToPayOff: e,
                             });
                         }}
                     />
@@ -86,8 +83,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }
                                 onChange={(e) => {
                                     this.props.onChange({
-                                        financialCalculatorMonthlyPayment:
-                                            e,
+                                        financialCalculatorMonthlyPayment: e,
                                     });
                                 }}
                                 indent
@@ -100,8 +96,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }
                                 onChange={(e) => {
                                     this.props.onChange({
-                                        financialCalculatorTotalAmount:
-                                            e,
+                                        financialCalculatorTotalAmount: e,
                                     });
                                 }}
                                 indent
@@ -114,8 +109,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }
                                 onChange={(e) => {
                                     this.props.onChange({
-                                        financialCalculatorTimeToPayOff:
-                                            e,
+                                        financialCalculatorTimeToPayOff: e,
                                     });
                                 }}
                                 indent
@@ -197,9 +191,13 @@ const ItemExtraCheckbox = (props: {
     onChange: (newState: boolean) => void;
     indent?: boolean;
 }) => (
-    <View style={[styles.checkbox, props.indent ? styles.indented :undefined]}>
+    <View style={[styles.checkbox, props.indent ? styles.indented : undefined]}>
         <Checkbox
-            label={<View style={{flexDirection: "row"}}>{props.label} <InfoTip>{props.infoTip}</InfoTip></View>}
+            label={
+                <View style={{flexDirection: "row"}}>
+                    {props.label} <InfoTip>{props.infoTip}</InfoTip>
+                </View>
+            }
             checked={props.checked}
             onChange={(newState) => props.onChange(newState)}
         />
@@ -207,9 +205,9 @@ const ItemExtraCheckbox = (props: {
 );
 
 const styles = StyleSheet.create({
-    indented:{
-        marginInlineStart: spacing.large_24
-    }
-})
+    indented: {
+        marginInlineStart: spacing.large_24,
+    },
+});
 
 export default ItemExtrasEditor;
