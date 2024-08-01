@@ -34,6 +34,7 @@ describe("hasFocusVisible", () => {
                     ]}
                     svgPolygonProps={{
                         ref,
+                        tabIndex: 0,
                     }}
                 />
             </Mafs>,
