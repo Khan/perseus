@@ -1,3 +1,4 @@
+import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {Ellipse} from "mafs";
 import * as React from "react";
 
@@ -25,7 +26,7 @@ const LockedEllipse = (props: LockedEllipseType) => {
                 style: {
                     fill:
                         fillStyle === "white"
-                            ? "white"
+                            ? wbColor.white
                             : lockedFigureColors[color],
                 },
             }}

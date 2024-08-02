@@ -34,11 +34,13 @@ import {
     segmentQuestion,
     segmentQuestionDefaultCorrect,
     segmentWithLockedEllipses,
+    segmentWithLockedEllipseWhite,
     segmentWithLockedFunction,
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
     segmentWithLockedPolygons,
+    segmentWithLockedPolygonWhite,
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
@@ -647,6 +649,35 @@ describe("locked layer", () => {
         });
     });
 
+    it("should render locked ellipses with white fill", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedEllipseWhite, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const circles = container.querySelectorAll("ellipse");
+        const whiteCircle = circles[0];
+        const translucentCircle = circles[1];
+
+        // Assert
+        expect(whiteCircle).toHaveStyle({
+            "fill-opacity": 1,
+            fill: wbColor.white,
+            stroke: lockedFigureColors["green"],
+        });
+        expect(translucentCircle).toHaveStyle({
+            "fill-opacity": "0.4",
+            fill: lockedFigureColors["pink"],
+            stroke: lockedFigureColors["pink"],
+        });
+    });
+
     it("should render locked polygons with style", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedPolygons, {
@@ -674,6 +705,35 @@ describe("locked layer", () => {
         expect(polygons[2]).toHaveStyle({
             "fill-opacity": "1",
             stroke: lockedFigureColors["purple"],
+        });
+    });
+
+    it("should render locked polygons with white fill", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedPolygonWhite, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const polygons = container.querySelectorAll(".locked-polygon polygon");
+        const whitePolygon = polygons[0];
+        const translucentPolygon = polygons[1];
+
+        // Assert
+        expect(whitePolygon).toHaveStyle({
+            "fill-opacity": 1,
+            fill: wbColor.white,
+            stroke: lockedFigureColors["green"],
+        });
+        expect(translucentPolygon).toHaveStyle({
+            "fill-opacity": "0.4",
+            fill: lockedFigureColors["pink"],
+            stroke: lockedFigureColors["pink"],
         });
     });
 
