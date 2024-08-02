@@ -26,7 +26,7 @@ import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import PolygonSwatch from "./polygon-swatch";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import LineStyleSelect from "./line-style-select";
+import LineStrokeSelect from "./line-stroke-select";
 
 export type Props = LockedFigureSettingsCommonProps &
     LockedPolygonType & {
@@ -103,7 +103,7 @@ const LockedPolygonSettings = (props: Props) => {
             </View>
 
             {/* Stroke style */}
-            <LineStyleSelect selectedValue={strokeStyle} onChange={(value: "solid" | "dashed") =>
+            <LineStrokeSelect selectedValue={strokeStyle} onChange={(value: "solid" | "dashed") =>
                 onChangeProps({strokeStyle: value})
             }/>
 

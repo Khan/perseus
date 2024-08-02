@@ -11,12 +11,12 @@ type Props = {
     onChange: (newValue: string) => void;
 };
 
-const LineStyleSelect = (props: Props) => {
+const LineStrokeSelect = (props: Props) => {
     const {selectedValue, onChange} = props;
 
     return (
         <LabelMedium tag="label" style={styles.row}>
-            style
+            stroke
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
                 selectedValue={selectedValue}
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LineStyleSelect;
+export default LineStrokeSelect;

@@ -13,7 +13,7 @@ import PerseusEditorAccordion from "../perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
-import LineStyleSelect from "./line-style-select";
+import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -137,7 +137,7 @@ const LockedEllipseSettings = (props: Props) => {
             </View>
 
             {/* Stroke style */}
-            <LineStyleSelect selectedValue={strokeStyle} onChange={(value: "solid" | "dashed") =>
+            <LineStrokeSelect selectedValue={strokeStyle} onChange={(value: "solid" | "dashed") =>
                 onChangeProps({strokeStyle: value})
             }/>
 

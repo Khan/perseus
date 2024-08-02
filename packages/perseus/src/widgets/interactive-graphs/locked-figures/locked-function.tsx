@@ -8,7 +8,14 @@ import {lockedFigureColors} from "../../../perseus-types";
 import type {LockedFunctionType} from "../../../perseus-types";
 
 const LockedFunction = (props: LockedFunctionType) => {
-    const [equation, setEquation] = useState(KAS.parse(props.equation).expr);
+    type Equation = {
+        [k: string]: any;
+        eval: (number) => number;
+    };
+    const [equation, setEquation]: [
+        Equation | undefined,
+        React.Dispatch<React.SetStateAction<Equation | undefined>>,
+    ] = useState();
     const {color, strokeStyle, directionalAxis, domain} = props;
     const plotProps = {
         color: lockedFigureColors[color],
@@ -17,6 +24,8 @@ const LockedFunction = (props: LockedFunctionType) => {
     };
 
     useEffect(() => {
+        // Parsing the equation in a "useEffect" hook saves about 2ms each frame
+        //    when the learner is interacting with the graph (i.e. moving points).
         setEquation(KAS.parse(props.equation).expr);
     }, [props.equation]);
 

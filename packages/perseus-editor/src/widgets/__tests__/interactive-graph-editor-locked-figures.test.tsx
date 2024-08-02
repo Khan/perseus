@@ -558,7 +558,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const styleInput = screen.getByRole("button", {
-                name: "style",
+                name: "stroke",
             });
             await userEvent.click(styleInput);
             const styleSelection = screen.getByText("dashed");
