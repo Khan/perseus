@@ -6,6 +6,7 @@ import {
     Expression,
     PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
+import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -162,6 +163,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             const checked = this.props.buttonSets.includes(name) || isBasic;
             return (
                 <Checkbox
+                    key={name}
                     label={name}
                     checked={checked}
                     disabled={isBasic}
@@ -172,6 +174,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
         buttonSetChoices.unshift(
             <Checkbox
+                key="show ÷ button"
                 label="show ÷ button"
                 checked={this.props.buttonSets.includes("basic+div")}
                 onChange={this.handleToggleDiv}
@@ -268,14 +271,9 @@ class ExpressionEditor extends React.Component<Props, State> {
                 {sortable}
 
                 <div>
-                    <button
-                        className="simple-button orange"
-                        style={{fontSize: 13}}
-                        onClick={this.newAnswer}
-                        type="button"
-                    >
+                    <Button size="small" onClick={this.newAnswer}>
                         Add new answer
-                    </button>
+                    </Button>
                 </div>
             </div>
         );
@@ -489,38 +487,29 @@ class AnswerOption extends React.Component<
 > {
     state = {deleteFocused: false};
 
-    handleDeleteBlur = () => {
-        this.setState({deleteFocused: false});
-    };
-
     change = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
     render(): React.ReactNode {
-        let removeButton: React.ReactNode | null = null;
-        if (this.state.deleteFocused) {
-            removeButton = (
-                <button
-                    type="button"
-                    className="simple-button orange"
-                    onClick={this.handleImSure}
-                    onBlur={this.handleDeleteBlur}
-                >
-                    I'm sure!
-                </button>
-            );
-        } else {
-            removeButton = (
-                <button
-                    type="button"
-                    className="simple-button orange"
-                    onClick={this.handleDelete}
-                >
-                    Delete
-                </button>
-            );
-        }
+        const removeButton = this.state.deleteFocused ? (
+            <Button
+                size="small"
+                onClick={this.handleImSure}
+                color="destructive"
+            >
+                I'm sure!
+            </Button>
+        ) : (
+            <Button
+                size="small"
+                onClick={this.handleDelete}
+                color="destructive"
+                light
+            >
+                Delete
+            </Button>
+        );
 
         return (
             <div className="expression-answer-option">
