@@ -1159,29 +1159,8 @@
     }
 }
 
-.button-set-label {
-    display: block;
-}
-
-// Float the first one left because it has a suboption.
-// This is a minor hack.
-.button-set-label-float {
-    display: block;
-    float: left;
-    margin-right: 10px;
-}
-
 .button-set-separator {
     margin: 10px 0;
-}
-
-// Don't allow selection on this label because I found it very easy to select
-// (don't know why...) which caused the selection to not actually be made.
-// I know this is autoprefixed in prod, but I want it to work in the perseus
-// repo.
-.show-div-button {
-    -webkit-user-select: none;
-    user-select: none;
 }
 
 // double selector for specificity
