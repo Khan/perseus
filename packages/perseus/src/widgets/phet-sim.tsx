@@ -11,10 +11,18 @@ import * as React from "react";
 import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
 
-import type {WidgetExports} from "../types";
+import type {PerseusPhetSimWidgetOptions} from "../perseus-types";
+import type {WidgetExports, WidgetProps} from "../types";
+
+type RenderProps = PerseusPhetSimWidgetOptions; // transform = _.identity
+type Props = WidgetProps<RenderProps, PerseusPhetSimWidgetOptions>;
+
+type State = {
+    errMessage: string | null;
+};
 
 /* This renders the PhET sim */
-class PhetSim extends React.Component<any> {
+class PhetSim extends React.Component<Props, State> {
     static propTypes = {
         ...Changeable.propTypes,
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -23,14 +31,25 @@ class PhetSim extends React.Component<any> {
         description: PropTypes.string,
     };
 
-    private url: URL | null = null;
+    private url: URL | null;
+    private iframeRef: React.RefObject<HTMLIFrameElement>;
+
+    state: State = {
+        errMessage: null,
+    };
 
     constructor(props) {
         super(props);
-        this.state = {
-            iframeRef: React.createRef<HTMLIFrameElement>(),
-            errMessage: null,
-        };
+        // Initialize the URL
+        const {kaLocale} = getDependencies();
+        this.url = new URL(this.props.url);
+        this.url.searchParams.set("locale", kaLocale);
+        if (this.url.origin !== "https://phet.colorado.edu") {
+            // TODO(Anna): Report some kind of error
+            this.url = null;
+        }
+        // Initialize the IFrame ref
+        this.iframeRef = React.createRef<HTMLIFrameElement>();
     }
 
     getUserInput: () => any = () => {
@@ -39,12 +58,6 @@ class PhetSim extends React.Component<any> {
 
     async componentDidMount() {
         const {kaLocale} = getDependencies();
-        this.url = new URL(this.props.url);
-        this.url.searchParams.set("locale", kaLocale);
-        if (this.url?.origin !== "https://phet.colorado.edu") {
-            // TODO(Anna): Do we want to report an error on this?
-            this.url = null;
-        }
         if (await this.showLocaleWarning(kaLocale)) {
             this.setState({
                 errMessage:
@@ -72,18 +85,18 @@ class PhetSim extends React.Component<any> {
         const sandboxProperties = "allow-same-origin allow-scripts";
         return (
             <>
-                {this.state["errMessage"] && (
+                {this.state.errMessage && (
                     <Banner
                         kind="warning"
                         layout="floating"
-                        text={this.state["errMessage"]}
+                        text={this.state.errMessage}
                         onDismiss={() => {
                             this.setState({errMessage: null});
                         }}
                     />
                 )}
                 <iframe
-                    ref={this.state["iframeRef"]}
+                    ref={this.iframeRef}
                     title={this.props.description}
                     sandbox={sandboxProperties}
                     style={style}
@@ -93,6 +106,13 @@ class PhetSim extends React.Component<any> {
                     }
                     allow="fullscreen"
                 />
+                <button
+                    onClick={() => {
+                        this.iframeRef.current?.requestFullscreen();
+                    }}
+                >
+                    Fullscreen
+                </button>
             </>
         );
     }
@@ -126,6 +146,8 @@ class PhetSim extends React.Component<any> {
                 return !locales.includes(kaLocale);
             })
             .catch((error: any) => {
+                // If we have an error grabbing locale data, we shouldn't show
+                // a locale warning in case it is spurious
                 return false;
             });
     }
