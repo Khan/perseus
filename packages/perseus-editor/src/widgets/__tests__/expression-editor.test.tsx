@@ -103,7 +103,7 @@ describe("expression-editor", () => {
 
         await userEvent.click(
             screen.getByRole("checkbox", {
-                name: "show \\div button",
+                name: "show ÷ button",
             }),
         );
 

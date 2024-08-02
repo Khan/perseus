@@ -3,7 +3,6 @@ import * as KAS from "@khanacademy/kas";
 import {
     components,
     Changeable,
-    Dependencies,
     Expression,
     PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
@@ -16,7 +15,10 @@ import _ from "underscore";
 
 import SortableArea from "../components/sortable";
 
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
+import type {
+    PerseusExpressionWidgetOptions,
+    LegacyButtonSets,
+} from "@khanacademy/perseus";
 
 const {InfoTip, TextInput} = components;
 
@@ -37,7 +39,7 @@ type DefaultProps = {
     functions: Props["functions"];
 };
 
-const buttonSetsList: any = [
+const buttonSetsList: LegacyButtonSets = [
     "basic",
     "trig",
     "prealgebra",
@@ -143,33 +145,24 @@ class ExpressionEditor extends React.Component<Props> {
         const buttonSetChoices = buttonSetsList.map((name) => {
             // The first one gets special cased to always be checked, disabled,
             // and float left.
-            const isFirst = name === "basic";
-            const checked =
-                this.props.buttonSets.includes(
-                    name as PerseusExpressionWidgetOptions["buttonSets"][number],
-                ) || isFirst;
+            const isBasic = name === "basic";
+            const checked = this.props.buttonSets.includes(name) || isBasic;
             return (
-                <label className="button-set-label" key={name}>
-                    <input
-                        type="checkbox"
-                        checked={checked}
-                        disabled={isFirst}
-                        onChange={() => this.handleButtonSet(name)}
-                    />
-                    {name}
-                </label>
+                <Checkbox
+                    label={name}
+                    checked={checked}
+                    disabled={isBasic}
+                    onChange={() => this.handleButtonSet(name)}
+                />
             );
         });
 
-        const {TeX} = Dependencies.getDependencies(); // OldExpression only
-
         buttonSetChoices.unshift(
-            <label className="button-set-label" key="show-div">
-                <input type="checkbox" onChange={this.handleToggleDiv} />
-                <span className="show-div-button">
-                    show <TeX>\div</TeX> button
-                </span>
-            </label>,
+            <Checkbox
+                label="show ÷ button"
+                checked={this.props.buttonSets.includes("basic+div")}
+                onChange={this.handleToggleDiv}
+            />,
         );
 
         return (

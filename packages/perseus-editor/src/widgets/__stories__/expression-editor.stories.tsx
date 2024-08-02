@@ -2,6 +2,7 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import EditorStoryWrapper from "../../editor-story-wrapper";
 import ExpressionEditor from "../expression-editor";
 
 import type {
@@ -57,14 +58,18 @@ class WithDebug extends React.Component<Empty, State> {
         return (
             <div className={css(styles.wrapper)}>
                 <div className={css(styles.editorWrapper)}>
-                    <ExpressionEditor
-                        {...this.state}
-                        onChange={(props: PerseusExpressionWidgetOptions) => {
-                            this.setState({
-                                ...props,
-                            });
-                        }}
-                    />
+                    <EditorStoryWrapper>
+                        <ExpressionEditor
+                            {...this.state}
+                            onChange={(
+                                props: PerseusExpressionWidgetOptions,
+                            ) => {
+                                this.setState({
+                                    ...props,
+                                });
+                            }}
+                        />
+                    </EditorStoryWrapper>
                 </div>
                 <RendererWithDebugUI
                     question={this.mergeQuestionWithState()}

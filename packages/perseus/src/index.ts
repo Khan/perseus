@@ -165,6 +165,7 @@ export type {
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
+    LegacyButtonSets,
     LockedFigure,
     LockedFigureColor,
     LockedFigureFillType,
