@@ -50,9 +50,9 @@ class ItemExtrasEditor extends React.Component<Props> {
                         label="Show calculator"
                         infoTip="Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
                         checked={this.props.calculator}
-                        onChange={(e) => {
+                        onChange={(newCheckedState) => {
                             this.props.onChange({
-                                calculator: e,
+                                calculator: newCheckedState,
                             });
                         }}
                     />
@@ -61,14 +61,16 @@ class ItemExtrasEditor extends React.Component<Props> {
                         label="Show financial calculator"
                         infoTip="This provides the student with the ability to view a financial calculator, e.g., for answering financial questions. Once checked, requires at least one of the three options below to be checked."
                         checked={this.shouldShowFinancialCalculatorOptions()}
-                        onChange={(e) => {
+                        onChange={(newCheckedState) => {
                             // If the financial calculator is unchecked,
                             // these need to be reset. All checked by
                             // default.
                             this.props.onChange({
-                                financialCalculatorMonthlyPayment: e,
-                                financialCalculatorTotalAmount: e,
-                                financialCalculatorTimeToPayOff: e,
+                                financialCalculatorMonthlyPayment:
+                                    newCheckedState,
+                                financialCalculatorTotalAmount: newCheckedState,
+                                financialCalculatorTimeToPayOff:
+                                    newCheckedState,
                             });
                         }}
                     />
@@ -81,9 +83,10 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 checked={
                                     this.props.financialCalculatorMonthlyPayment
                                 }
-                                onChange={(e) => {
+                                onChange={(newCheckedState) => {
                                     this.props.onChange({
-                                        financialCalculatorMonthlyPayment: e,
+                                        financialCalculatorMonthlyPayment:
+                                            newCheckedState,
                                     });
                                 }}
                                 indent
@@ -94,9 +97,10 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 checked={
                                     this.props.financialCalculatorTotalAmount
                                 }
-                                onChange={(e) => {
+                                onChange={(newCheckedState) => {
                                     this.props.onChange({
-                                        financialCalculatorTotalAmount: e,
+                                        financialCalculatorTotalAmount:
+                                            newCheckedState,
                                     });
                                 }}
                                 indent
@@ -107,9 +111,10 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 checked={
                                     this.props.financialCalculatorTimeToPayOff
                                 }
-                                onChange={(e) => {
+                                onChange={(newCheckedState) => {
                                     this.props.onChange({
-                                        financialCalculatorTimeToPayOff: e,
+                                        financialCalculatorTimeToPayOff:
+                                            newCheckedState,
                                     });
                                 }}
                                 indent
@@ -121,9 +126,9 @@ class ItemExtrasEditor extends React.Component<Props> {
                         label="Show periodic table"
                         infoTip="This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
                         checked={this.props.periodicTable}
-                        onChange={(e) => {
+                        onChange={(newCheckedState) => {
                             this.props.onChange({
-                                periodicTable: e,
+                                periodicTable: newCheckedState,
                                 // If the periodic table is unchecked,
                                 // this needs to be reset. If table is
                                 // checked, it should already be false.
@@ -137,9 +142,9 @@ class ItemExtrasEditor extends React.Component<Props> {
                             label="Include key/legend with periodic table"
                             infoTip="Include a key for HS courses; omit for AP chemistry."
                             checked={this.props.periodicTableWithKey}
-                            onChange={(e) => {
+                            onChange={(newCheckedState) => {
                                 this.props.onChange({
-                                    periodicTableWithKey: e,
+                                    periodicTableWithKey: newCheckedState,
                                 });
                             }}
                             indent
@@ -150,9 +155,9 @@ class ItemExtrasEditor extends React.Component<Props> {
                         label="Show z table (statistics)"
                         infoTip="This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
                         checked={this.props.zTable}
-                        onChange={(e) => {
+                        onChange={(newCheckedState) => {
                             this.props.onChange({
-                                zTable: e,
+                                zTable: newCheckedState,
                             });
                         }}
                     />
@@ -161,9 +166,9 @@ class ItemExtrasEditor extends React.Component<Props> {
                         label="Show t table (statistics)"
                         infoTip="This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
                         checked={this.props.tTable}
-                        onChange={(e) => {
+                        onChange={(newCheckedState) => {
                             this.props.onChange({
-                                tTable: e,
+                                tTable: newCheckedState,
                             });
                         }}
                     />
@@ -172,9 +177,9 @@ class ItemExtrasEditor extends React.Component<Props> {
                         label="Show chi-squared table (statistics)"
                         infoTip="This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
                         checked={this.props.chi2Table}
-                        onChange={(e) => {
+                        onChange={(newCheckedState) => {
                             this.props.onChange({
-                                chi2Table: e,
+                                chi2Table: newCheckedState,
                             });
                         }}
                     />
@@ -188,7 +193,7 @@ const ItemExtraCheckbox = (props: {
     label: string;
     infoTip: string;
     checked: boolean;
-    onChange: (newState: boolean) => void;
+    onChange: (newCheckedState: boolean) => void;
     indent?: boolean;
 }) => (
     <View style={[styles.checkbox, props.indent ? styles.indented : undefined]}>
@@ -199,7 +204,7 @@ const ItemExtraCheckbox = (props: {
                 </View>
             }
             checked={props.checked}
-            onChange={(newState) => props.onChange(newState)}
+            onChange={(newCheckedState) => props.onChange(newCheckedState)}
         />
     </View>
 );
