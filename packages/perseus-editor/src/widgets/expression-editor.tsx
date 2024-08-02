@@ -222,7 +222,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 <div>
                     <Checkbox
-                        label="Use × for rendering multiplication instead of a center dot."
+                        label="Use × instead of ⋅ for multiplication"
                         checked={this.props.times}
                         onChange={(value) => {
                             this.props.onChange({times: value});

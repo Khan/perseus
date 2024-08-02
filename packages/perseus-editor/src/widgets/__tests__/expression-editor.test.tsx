@@ -73,7 +73,7 @@ describe("expression-editor", () => {
 
         await userEvent.click(
             screen.getByRole("checkbox", {
-                name: "Use × for rendering multiplication instead of a center dot.",
+                name: "Use × instead of ⋅ for multiplication",
             }),
         );
 
