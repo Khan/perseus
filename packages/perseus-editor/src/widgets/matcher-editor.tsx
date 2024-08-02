@@ -1,10 +1,11 @@
 /* eslint-disable react/forbid-prop-types, react/sort-comp */
 import {components} from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-const {InfoTip, PropCheckBox, TextListEditor} = components;
+const {InfoTip, TextListEditor} = components;
 
 type Props = any;
 
@@ -79,10 +80,12 @@ class MatcherEditor extends React.Component<Props> {
                     />
                 </div>
                 <div>
-                    <PropCheckBox
+                    <Checkbox
                         label="Order of the matched pairs matters:"
-                        orderMatters={this.props.orderMatters}
-                        onChange={this.props.onChange}
+                        checked={this.props.orderMatters}
+                        onChange={(value) => {
+                            this.props.onChange({orderMatters: value});
+                        }}
                     />
                     <InfoTip>
                         <p>
@@ -100,10 +103,12 @@ class MatcherEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div>
-                    <PropCheckBox
+                    <Checkbox
                         label="Padding:"
-                        padding={this.props.padding}
-                        onChange={this.props.onChange}
+                        checked={this.props.padding}
+                        onChange={(value) => {
+                            this.props.onChange({padding: value});
+                        }}
                     />
                     <InfoTip>
                         <p>
