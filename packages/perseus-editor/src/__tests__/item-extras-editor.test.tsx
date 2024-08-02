@@ -19,19 +19,25 @@ describe("ItemExtrasEditor", () => {
         render(<ItemExtrasEditor onChange={() => {}} />);
 
         // Assert
-        expect(screen.getByLabelText("Show calculator")).not.toBeChecked();
-        expect(screen.getByLabelText("Show periodic table")).not.toBeChecked();
+        expect(
+            screen.getByRole("checkbox", {name: "Show calculator"}),
+        ).not.toBeChecked();
+        expect(
+            screen.getByRole("checkbox", {name: "Show periodic table"}),
+        ).not.toBeChecked();
         expect(
             screen.queryByText("Include key/legend with periodic table"),
         ).not.toBeInTheDocument();
         expect(
-            screen.getByLabelText("Show z table (statistics)"),
+            screen.getByRole("checkbox", {name: "Show z table (statistics)"}),
         ).not.toBeChecked();
         expect(
-            screen.getByLabelText("Show t table (statistics)"),
+            screen.getByRole("checkbox", {name: "Show t table (statistics)"}),
         ).not.toBeChecked();
         expect(
-            screen.getByLabelText("Show chi-squared table (statistics)"),
+            screen.getByRole("checkbox", {
+                name: "Show chi-squared table (statistics)",
+            }),
         ).not.toBeChecked();
     });
 
@@ -39,7 +45,9 @@ describe("ItemExtrasEditor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(<ItemExtrasEditor calculator={false} onChange={onChangeMock} />);
-        const checkbox = screen.getByLabelText("Show calculator");
+        const checkbox = screen.getByRole("checkbox", {
+            name: "Show calculator",
+        });
 
         // Act
         await userEvent.click(checkbox);
@@ -58,7 +66,9 @@ describe("ItemExtrasEditor", () => {
                 onChange={onChangeMock}
             />,
         );
-        const checkbox = screen.getByLabelText("Show periodic table");
+        const checkbox = screen.getByRole("checkbox", {
+            name: "Show periodic table",
+        });
 
         // Act
         await userEvent.click(checkbox);
@@ -119,17 +129,21 @@ describe("ItemExtrasEditor", () => {
             render(<TestComponent />);
 
             // Act
-            const checkbox = screen.getByLabelText("Show financial calculator");
+            const checkbox = screen.getByRole("checkbox", {
+                name: "Show financial calculator",
+            });
             await userEvent.click(checkbox);
 
             // Assert
             expect(checkbox).toBeChecked();
             expect(
-                screen.getByLabelText("Include monthly payment"),
+                screen.getByRole("checkbox", {name: "Include monthly payment"}),
             ).toBeChecked();
-            expect(screen.getByLabelText("Include total amount")).toBeChecked();
             expect(
-                screen.getByLabelText("Include time-to-pay-off"),
+                screen.getByRole("checkbox", {name: "Include total amount"}),
+            ).toBeChecked();
+            expect(
+                screen.getByRole("checkbox", {name: "Include time-to-pay-off"}),
             ).toBeChecked();
         });
 
@@ -139,16 +153,18 @@ describe("ItemExtrasEditor", () => {
 
             // Assert
             expect(
-                screen.getByLabelText("Show financial calculator"),
+                screen.getByRole("checkbox", {
+                    name: "Show financial calculator",
+                }),
             ).toBeChecked();
             expect(
-                screen.getByLabelText("Include monthly payment"),
+                screen.getByRole("checkbox", {name: "Include monthly payment"}),
             ).toBeChecked();
             expect(
-                screen.getByLabelText("Include total amount"),
+                screen.getByRole("checkbox", {name: "Include total amount"}),
             ).not.toBeChecked();
             expect(
-                screen.getByLabelText("Include time-to-pay-off"),
+                screen.getByRole("checkbox", {name: "Include time-to-pay-off"}),
             ).not.toBeChecked();
         });
 
@@ -158,12 +174,14 @@ describe("ItemExtrasEditor", () => {
 
             // Act
             await userEvent.click(
-                screen.getByLabelText("Include monthly payment"),
+                screen.getByRole("checkbox", {name: "Include monthly payment"}),
             );
 
             // Assert
             expect(
-                screen.getByLabelText("Show financial calculator"),
+                screen.getByRole("checkbox", {
+                    name: "Show financial calculator",
+                }),
             ).not.toBeChecked();
             expect(
                 screen.queryByLabelText("Include monthly payment"),
@@ -180,7 +198,9 @@ describe("ItemExtrasEditor", () => {
             // Arrange
             const onChangeMock = jest.fn();
             render(<ItemExtrasEditor onChange={onChangeMock} />);
-            const checkbox = screen.getByLabelText("Show financial calculator");
+            const checkbox = screen.getByRole("checkbox", {
+                name: "Show financial calculator",
+            });
 
             // Act
             await userEvent.click(checkbox);
@@ -204,7 +224,9 @@ describe("ItemExtrasEditor", () => {
                     financialCalculatorTimeToPayOff={true}
                 />,
             );
-            const checkbox = screen.getByLabelText("Show financial calculator");
+            const checkbox = screen.getByRole("checkbox", {
+                name: "Show financial calculator",
+            });
 
             // Act
             await userEvent.click(checkbox);
