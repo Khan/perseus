@@ -18,6 +18,17 @@ const LockedEllipse = (props: LockedEllipseType) => {
             fillOpacity={lockedFigureFillStyles[fillStyle]}
             strokeStyle={strokeStyle}
             color={lockedFigureColors[color]}
+            // We need to override the svg props if we want to have a
+            // different fill color than the stroke color (specifically,
+            // in the case where the fillStyle is "white").
+            svgEllipseProps={{
+                style: {
+                    fill:
+                        fillStyle === "white"
+                            ? "white"
+                            : lockedFigureColors[color],
+                },
+            }}
         />
     );
 };

@@ -33,7 +33,10 @@ const EllipseSwatch = (props: Props) => {
                     styles.innerCircle,
                     {
                         backgroundColor: lockedFigureColors[color],
-                        opacity: lockedFigureFillStyles[fillStyle],
+                        opacity:
+                            fillStyle === "white"
+                                ? 0
+                                : lockedFigureFillStyles[fillStyle],
                     },
                 ]}
             />
