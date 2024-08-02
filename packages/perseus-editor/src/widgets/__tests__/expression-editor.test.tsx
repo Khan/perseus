@@ -87,12 +87,18 @@ describe("expression-editor", () => {
         act(() => jest.runOnlyPendingTimers());
 
         const input = screen.getByRole("textbox", {
-            name: "Function variables:",
+            name: "Function variables",
         });
 
-        await userEvent.type(input, "x");
+        // make sure we can add things
+        await userEvent.type(input, "x y z");
 
-        expect(onChangeMock).toBeCalledWith({functions: ["x"]});
+        expect(onChangeMock).lastCalledWith({functions: ["x", "y", "z"]});
+
+        // make sure we can remove things
+        await userEvent.type(input, "{backspace}");
+
+        expect(onChangeMock).lastCalledWith({functions: ["x", "y"]});
     });
 
     it("should toggle division checkbox", async () => {

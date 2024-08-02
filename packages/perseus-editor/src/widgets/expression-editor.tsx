@@ -20,7 +20,7 @@ import type {
     LegacyButtonSets,
 } from "@khanacademy/perseus";
 
-const {InfoTip, TextInput} = components;
+const {InfoTip} = components;
 
 type Props = {
     widgetId?: any;
@@ -79,7 +79,13 @@ const _makeNewKey = (answerForms: ReadonlyArray<AnswerForm>) => {
     return usedKeys.length;
 };
 
-class ExpressionEditor extends React.Component<Props> {
+type State = {
+    // this is to help the "functions" input feel natural
+    // while still allowing us to to store the functions as an array
+    functionsInternal: string;
+};
+
+class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
     static defaultProps: DefaultProps = {
@@ -88,6 +94,13 @@ class ExpressionEditor extends React.Component<Props> {
         buttonSets: ["basic"],
         functions: ["f", "g", "h"],
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            functionsInternal: this.props.functions.join(" "),
+        };
+    }
 
     change(...args) {
         return Changeable.change.apply(this, args);
@@ -226,14 +239,11 @@ class ExpressionEditor extends React.Component<Props> {
                 </div>
 
                 <div>
-                    <label>
-                        {"Function variables: "}
-                        <input
-                            type="text"
-                            defaultValue={this.props.functions.join(" ")}
-                            onChange={this.handleFunctions}
-                        />
-                    </label>
+                    <LabeledTextField
+                        label="Function variables"
+                        value={this.state.functionsInternal}
+                        onChange={this.handleFunctions}
+                    />
                     <InfoTip>
                         <p>
                             Single-letter variables listed here will be
@@ -441,11 +451,10 @@ class ExpressionEditor extends React.Component<Props> {
     };
 
     // called when the function variables change
-    handleFunctions: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
+    handleFunctions: (value: string) => void = (value) => {
+        this.setState({functionsInternal: value});
         const newProps: Record<string, any> = {};
-        newProps.functions = e.target.value.split(/[ ,]+/).filter(isTruthy);
+        newProps.functions = value.split(/[ ,]+/).filter(isTruthy);
         this.props.onChange(newProps);
     };
 }
