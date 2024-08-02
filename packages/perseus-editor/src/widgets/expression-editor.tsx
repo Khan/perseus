@@ -8,6 +8,10 @@ import {
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
+import {
+    HeadingSmall,
+    HeadingXSmall,
+} from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
@@ -183,7 +187,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
         return (
             <div className="perseus-widget-expression-editor">
-                <h3 className="expression-editor-h3">Global Options</h3>
+                <HeadingSmall>Global Options</HeadingSmall>
 
                 <div className="perseus-widget-row">
                     <LabeledTextField
@@ -224,6 +228,21 @@ class ExpressionEditor extends React.Component<Props, State> {
                 </div>
 
                 <div>
+                    <LabeledTextField
+                        label="Function variables"
+                        value={this.state.functionsInternal}
+                        onChange={this.handleFunctions}
+                    />
+                    <InfoTip>
+                        <p>
+                            Single-letter variables listed here will be
+                            interpreted as functions. This let us know that f(x)
+                            means "f of x" and not "f times x".
+                        </p>
+                    </InfoTip>
+                </div>
+
+                <div>
                     <Checkbox
                         label="Use × instead of ⋅ for multiplication"
                         checked={this.props.times}
@@ -242,26 +261,11 @@ class ExpressionEditor extends React.Component<Props, State> {
                 </div>
 
                 <div>
-                    <LabeledTextField
-                        label="Function variables"
-                        value={this.state.functionsInternal}
-                        onChange={this.handleFunctions}
-                    />
-                    <InfoTip>
-                        <p>
-                            Single-letter variables listed here will be
-                            interpreted as functions. This let us know that f(x)
-                            means "f of x" and not "f times x".
-                        </p>
-                    </InfoTip>
-                </div>
-
-                <div>
-                    <div>Button sets:</div>
+                    <HeadingXSmall>Button Sets</HeadingXSmall>
                     {buttonSetChoices}
                 </div>
 
-                <h3 className="expression-editor-h3">Answers</h3>
+                <HeadingSmall>Answers</HeadingSmall>
 
                 <p style={{margin: "4px 0"}}>
                     student responses area matched against these from top to
