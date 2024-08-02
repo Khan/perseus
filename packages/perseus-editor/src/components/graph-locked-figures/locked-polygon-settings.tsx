@@ -142,7 +142,7 @@ const LockedPolygonSettings = (props: Props) => {
 
                     return (
                         <View
-                            key={`locked-polygon-point-${point[0]}-${point[1]}-index-${index}`}
+                            key={`locked-polygon-point-index-${index}`}
                             style={[styles.row, styles.spaceUnder]}
                         >
                             {/* Give the points alphabet labels */}
