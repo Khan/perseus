@@ -96,6 +96,7 @@ export const StatefulMafsGraph = React.forwardRef<
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
     const numSegments = graph.type === "segment" ? graph.numSegments : null;
+    const numPoints = graph.type === "point" ? graph.numPoints : null;
     const numSides = graph.type === "polygon" ? graph.numSides : null;
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
     const showAngles = graph.type === "polygon" ? graph.showAngles : null;
@@ -113,6 +114,7 @@ export const StatefulMafsGraph = React.forwardRef<
         }
     }, [
         graph.type,
+        numPoints,
         numSegments,
         numSides,
         snapTo,

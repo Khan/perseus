@@ -684,7 +684,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
 
 class PointsGraphConfig implements InteractiveFigureConfig {
     private numPoints: number | "unlimited";
-    private coords: Coord[];
+    private coords?: Coord[];
     private startCoords?: Coord[];
 
     constructor(
@@ -695,7 +695,7 @@ class PointsGraphConfig implements InteractiveFigureConfig {
         },
     ) {
         this.numPoints = numPoints;
-        this.coords = options?.coords ?? [[0, 0]];
+        this.coords = options?.coords;
         this.startCoords = options?.startCoords;
     }
 

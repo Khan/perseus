@@ -11,6 +11,7 @@ export const flags = {
         linear: true,
         "linear-system": true,
         ray: true,
+        point: true,
 
         // Locked figures flags
         "interactive-graph-locked-features-m2b": true,
