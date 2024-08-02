@@ -122,6 +122,7 @@ export {
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
+    getPointCoords,
     getSegmentCoords,
     getSinusoidCoords,
     getQuadraticCoords,

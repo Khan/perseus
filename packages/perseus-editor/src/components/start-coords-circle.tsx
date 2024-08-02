@@ -15,7 +15,6 @@ type Props = {
         center: Coord;
         radius: number;
     };
-    // center: number;
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 

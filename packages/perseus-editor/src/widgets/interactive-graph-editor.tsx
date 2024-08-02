@@ -25,6 +25,7 @@ import {InteractiveGraphCorrectAnswer} from "../components/interactive-graph-cor
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import SegmentCountSelector from "../components/segment-count-selector";
 import StartCoordsSettings from "../components/start-coords-settings";
+import {shouldShowStartCoordsUI} from "../components/util";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -61,16 +62,6 @@ const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
         />
     );
 });
-
-// TODO(LEMS-2228): Remove flags once this is fully released
-const startCoordsUiPhase1Types = [
-    "linear",
-    "linear-system",
-    "ray",
-    "segment",
-    "circle",
-];
-const startCoordsUiPhase2Types = ["sinusoid", "quadratic"];
 
 type Range = [min: number, max: number];
 
@@ -269,18 +260,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
         } else {
             graph = <div className="perseus-error">{this.props.valid}</div>;
         }
-
-        const startCoordsPhase1 =
-            this.props.apiOptions?.flags?.mafs?.["start-coords-ui-phase-1"];
-        const startCoordsPhase2 =
-            this.props.apiOptions?.flags?.mafs?.["start-coords-ui-phase-2"];
-
-        const displayStartCoordsUI =
-            this.props.graph &&
-            ((startCoordsPhase1 &&
-                startCoordsUiPhase1Types.includes(this.props.graph.type)) ||
-                (startCoordsPhase2 &&
-                    startCoordsUiPhase2Types.includes(this.props.graph.type)));
 
         return (
             <View>
@@ -496,7 +475,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 )}
                 {this.props.graph?.type &&
                     // TODO(LEMS-2228): Remove flags once this is fully released
-                    displayStartCoordsUI && (
+                    shouldShowStartCoordsUI(
+                        this.props.apiOptions.flags,
+                        this.props.graph,
+                    ) && (
                         <StartCoordsSettings
                             {...this.props.graph}
                             range={this.props.range}
