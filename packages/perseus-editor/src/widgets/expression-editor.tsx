@@ -6,7 +6,7 @@ import {
     Expression,
     PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
@@ -170,13 +170,11 @@ class ExpressionEditor extends React.Component<Props> {
                 <h3 className="expression-editor-h3">Global Options</h3>
 
                 <div className="perseus-widget-row">
-                    <label>
-                        Visible label:{" "}
-                        <TextInput
-                            value={this.props.visibleLabel}
-                            onChange={this.change("visibleLabel")}
-                        />
-                    </label>
+                    <LabeledTextField
+                        label="Visible label"
+                        value={this.props.visibleLabel || ""}
+                        onChange={this.change("visibleLabel")}
+                    />
                     <InfoTip>
                         <p>
                             Optional visible text; strongly encouraged to help
@@ -188,13 +186,11 @@ class ExpressionEditor extends React.Component<Props> {
                 </div>
 
                 <div className="perseus-widget-row">
-                    <label>
-                        Aria label:{" "}
-                        <TextInput
-                            value={this.props.ariaLabel}
-                            onChange={this.change("ariaLabel")}
-                        />
-                    </label>
+                    <LabeledTextField
+                        label="Aria label"
+                        value={this.props.ariaLabel || ""}
+                        onChange={this.change("ariaLabel")}
+                    />
                     <InfoTip>
                         <p>
                             Label text that's read by screen readers. Highly
