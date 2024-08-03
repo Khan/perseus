@@ -5,12 +5,14 @@
  * Used in the interactive graph editor's locked figures section.
  */
 import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
-import {TextField, RadioGroup, Choice} from "@khanacademy/wonder-blocks-form";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useEffect, useState} from "react";
 
 import PerseusEditorAccordion from "../perseus-editor-accordion";
 
@@ -42,8 +44,13 @@ export const LockedFunctionSettings = (props: Props) => {
         onMove,
         onRemove,
     } = props;
-    const lineLabel = `Function (<tbd>)`;
+    const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
+    const lineLabel = `Function (${equationPrefix}${equation})`;
     const domainLimits = domain ? [...domain] : [-Infinity, Infinity];
+    const [domainEntries, setDomainEntries] = useState([
+        domain ? domain[0].toString() : "",
+        domain ? domain[1].toString() : "",
+    ]);
 
     function handlePropChange(property: string, newValue: string) {
         const updatedProps: Partial<LockedFunctionType> = {};
@@ -52,14 +59,24 @@ export const LockedFunctionSettings = (props: Props) => {
     }
 
     function handleDomainChange(limitIndex: number, newValueString: string) {
-        // TODO: Is this the better way to handle validating numbers? (getting warnings in the console)
-        //       Also, unable to enter a negative number (have to enter number, then add minus sign)
-        const newValue = parseFloat(newValueString);
-        const otherIndex = Math.abs(limitIndex - 1);
-        const otherValue = domainLimits[otherIndex];
-        const newDomain: Interval = [-Infinity, Infinity];
+        const newDomainEntry = [...domainEntries];
+        newDomainEntry[limitIndex] = newValueString;
+        setDomainEntries(newDomainEntry);
+        if (isNaN(parseFloat(newValueString)) && newValueString !== "") {
+            return;
+        }
+
+        const newDomain: Interval | undefined = [
+            domainLimits[0],
+            domainLimits[1],
+        ];
+        let newValue = parseFloat(newValueString);
+        if (newValueString === "" && limitIndex === 0) {
+            newValue = -Infinity;
+        } else if (newValueString === "" && limitIndex === 1) {
+            newValue = Infinity;
+        }
         newDomain[limitIndex] = newValue;
-        newDomain[otherIndex] = otherValue;
         onChangeProps({domain: newDomain});
     }
 
@@ -74,7 +91,9 @@ export const LockedFunctionSettings = (props: Props) => {
                     onToggle={props.onToggle}
                     header={
                         <View style={styles.row}>
-                            <LabelLarge>{lineLabel}</LabelLarge>
+                            <LabelLarge style={styles.accordionHeader}>
+                                {lineLabel}
+                            </LabelLarge>
                             <Strut size={spacing.xSmall_8} />
                             <LineSwatch
                                 color={lineColor}
@@ -101,34 +120,30 @@ export const LockedFunctionSettings = (props: Props) => {
                         />
                     </View>
 
-                    <LabelMedium
-                        tag="label"
-                        style={[styles.row, styles.rowSpace]}
-                    >
-                        {"equation"}
+                    <View style={[styles.row, styles.rowSpace]}>
+                        <SingleSelect
+                            selectedValue={directionalAxis}
+                            onChange={handlePropChange.bind(
+                                null,
+                                "directionalAxis",
+                            )}
+                            aria-label="equation prefix"
+                            style={styles.equationPrefix}
+                            // Placeholder is required, but never gets used.
+                            placeholder=""
+                        >
+                            <OptionItem value="x" label="y =" />
+                            <OptionItem value="y" label="x =" />
+                        </SingleSelect>
                         <Strut size={spacing.xSmall_8} />
                         <TextField
                             type="text"
+                            aria-label="equation"
                             value={equation}
                             onChange={handlePropChange.bind(null, "equation")}
                             style={[styles.textField]}
                         />
-                    </LabelMedium>
-
-                    <RadioGroup
-                        label="directional axis"
-                        groupName={ids.get("directional-axis")}
-                        selectedValue={directionalAxis}
-                        onChange={handlePropChange.bind(
-                            null,
-                            "directionalAxis",
-                        )}
-                        style={[styles.row, styles.rowSpace]}
-                    >
-                        <Choice label="x" value="x" />
-                        <Strut size={spacing.large_24} />
-                        <Choice label="y" value="y" style={styles.choiceY} />
-                    </RadioGroup>
+                    </View>
 
                     {/* Domain restrictions */}
                     <View style={[styles.row, styles.rowSpace]}>
@@ -139,7 +154,7 @@ export const LockedFunctionSettings = (props: Props) => {
                             <TextField
                                 type="number"
                                 style={styles.domainMinField}
-                                value={`${domainLimits[0]}`}
+                                value={domainEntries[0]}
                                 onChange={handleDomainChange.bind(null, 0)}
                             />
                         </LabelMedium>
@@ -155,15 +170,8 @@ export const LockedFunctionSettings = (props: Props) => {
                             <TextField
                                 type="number"
                                 style={styles.domainMaxField}
-                                value={`${domainLimits[1]}`}
-                                onChange={(newValue) => {
-                                    onChangeProps({
-                                        domain: [
-                                            domainLimits[0],
-                                            parseFloat(newValue),
-                                        ],
-                                    });
-                                }}
+                                value={domainEntries[1]}
+                                onChange={handleDomainChange.bind(null, 1)}
                             />
                         </LabelMedium>
                     </View>
@@ -182,10 +190,14 @@ export const LockedFunctionSettings = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-    choiceY: {
-        // WB RadioGroup adds a top margin to the last option,
-        //     which messes with the linear nature of this group
-        marginTop: 0,
+    accordionHeader: {
+        textOverflow: "ellipsis",
+        maxWidth: "calc(100% - 64px)",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+    },
+    equationPrefix: {
+        minWidth: "auto",
     },
     domainMin: {
         alignItems: "center",

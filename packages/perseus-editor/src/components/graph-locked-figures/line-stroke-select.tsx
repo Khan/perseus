@@ -23,7 +23,6 @@ const LineStrokeSelect = (props: Props) => {
                 onChange={onChange}
                 // Placeholder is required, but never gets used.
                 placeholder=""
-                style={styles.selectMarginOffset}
             >
                 <OptionItem value="solid" label="solid" />
                 <OptionItem value="dashed" label="dashed" />
