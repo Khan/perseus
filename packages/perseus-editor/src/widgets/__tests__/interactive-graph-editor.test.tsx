@@ -672,4 +672,118 @@ describe("InteractiveGraphEditor", () => {
             }),
         );
     });
+
+    test.each`
+        type               | shouldRender
+        ${"linear"}        | ${true}
+        ${"ray"}           | ${true}
+        ${"linear-system"} | ${true}
+        ${"segment"}       | ${true}
+        ${"circle"}        | ${true}
+        ${"quadratic"}     | ${false}
+        ${"sinusoid"}      | ${false}
+        ${"polygon"}       | ${false}
+        ${"angle"}         | ${false}
+        ${"point"}         | ${false}
+    `(
+        "should render for $type graphs if phase1 flag is on: $shouldRender",
+        async ({type, shouldRender}) => {
+            // Arrange
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: {
+                            ...flags,
+                            mafs: {
+                                ...flags.mafs,
+                                "start-coords-ui-phase-1": shouldRender,
+                                "start-coords-ui-phase-2": false,
+                            },
+                        },
+                    }}
+                    graph={{type}}
+                    correct={{type}}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            if (shouldRender) {
+                expect(
+                    await screen.findByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeInTheDocument();
+            } else {
+                expect(
+                    screen.queryByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeNull();
+            }
+        },
+    );
+
+    test.each`
+        type               | shouldRender
+        ${"linear"}        | ${false}
+        ${"ray"}           | ${false}
+        ${"linear-system"} | ${false}
+        ${"segment"}       | ${false}
+        ${"circle"}        | ${false}
+        ${"quadratic"}     | ${false}
+        ${"sinusoid"}      | ${true}
+        ${"polygon"}       | ${false}
+        ${"angle"}         | ${false}
+        ${"point"}         | ${false}
+    `(
+        "should render for $type graphs if phase2 flag is on: $shouldRender",
+        async ({type, shouldRender}) => {
+            // Arrange
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: {
+                            ...flags,
+                            mafs: {
+                                ...flags.mafs,
+                                "start-coords-ui-phase-1": false,
+                                "start-coords-ui-phase-2": shouldRender,
+                            },
+                        },
+                    }}
+                    graph={{type}}
+                    correct={{type}}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            if (shouldRender) {
+                expect(
+                    await screen.findByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeInTheDocument();
+            } else {
+                expect(
+                    screen.queryByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeNull();
+            }
+        },
+    );
 });

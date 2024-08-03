@@ -4,8 +4,11 @@ import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
+import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../components/i18n-context";
@@ -76,6 +79,8 @@ type RenderProps = {
     buttonsVisible?: PerseusExpressionWidgetOptions["buttonsVisible"];
     functions: PerseusExpressionWidgetOptions["functions"];
     times: PerseusExpressionWidgetOptions["times"];
+    visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
+    ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
     keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
 };
 
@@ -90,6 +95,8 @@ export type Props = ExternalProps &
         onBlur: NonNullable<ExternalProps["onBlur"]>;
         onFocus: NonNullable<ExternalProps["onFocus"]>;
         times: NonNullable<ExternalProps["times"]>;
+        visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
+        ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
         value: string;
     };
 
@@ -148,6 +155,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
 
     //#region Previously a class extension
@@ -356,6 +364,17 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
+
+        // HACK: imperatively add an ID onto the Mathquill input
+        // (which in mobile is a span; desktop a textarea)
+        // in order to associate a visual label with it
+        if (this.refs.input) {
+            const isMobile = this.props.apiOptions.customKeypad;
+            const container = ReactDOM.findDOMNode(this.refs.input);
+            const selector = isMobile ? ".mq-textarea > span" : "textarea";
+            const inputElement = (container as Element).querySelector(selector);
+            inputElement?.setAttribute("id", this._textareaId);
+        }
     };
 
     // Whenever the input value changes, attempt to parse it.
@@ -537,32 +556,41 @@ export class Expression extends React.Component<Props, ExpressionState> {
         );
     };
 
-    render():
-        | React.ReactNode
-        | React.ReactElement<React.ComponentProps<"div">> {
+    render() {
         if (this.props.apiOptions.customKeypad) {
             return (
-                <KeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
-                    value={this.props.value}
-                    keypadElement={this.props.keypadElement}
-                    onChange={this.changeAndTrack}
-                    onFocus={() => {
-                        // this.props.keypadElement should always be set
-                        // when apiOptions.customKeypad is set, but how
-                        // to convince TypeScript of this?
-                        this.props.keypadElement?.configure(
-                            this.props.keypadConfiguration,
-                            () => {
-                                if (this._isMounted) {
-                                    this._handleFocus();
-                                }
-                            },
-                        );
-                    }}
-                    onBlur={this._handleBlur}
-                />
+                <View className={css(styles.mobileLabelInputWrapper)}>
+                    {!!this.props.visibleLabel && (
+                        <LabelSmall htmlFor={this._textareaId} tag="label">
+                            {this.props.visibleLabel}
+                        </LabelSmall>
+                    )}
+                    <KeypadInput
+                        // eslint-disable-next-line react/no-string-refs
+                        ref="input"
+                        ariaLabel={
+                            this.props.ariaLabel ||
+                            this.context.strings.mathInputBox
+                        }
+                        value={this.props.value}
+                        keypadElement={this.props.keypadElement}
+                        onChange={this.changeAndTrack}
+                        onFocus={() => {
+                            // this.props.keypadElement should always be set
+                            // when apiOptions.customKeypad is set, but how
+                            // to convince TypeScript of this?
+                            this.props.keypadElement?.configure(
+                                this.props.keypadConfiguration,
+                                () => {
+                                    if (this._isMounted) {
+                                        this._handleFocus();
+                                    }
+                                },
+                            );
+                        }}
+                        onBlur={this._handleBlur}
+                    />
+                </View>
             );
         }
 
@@ -574,58 +602,80 @@ export class Expression extends React.Component<Props, ExpressionState> {
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
         return (
-            <div
-                className={className}
-                onBlur={() =>
-                    this.state.invalid &&
-                    this.setState({
-                        showErrorTooltip: true,
-                        showErrorStyle: true,
-                    })
-                }
-                onFocus={() =>
-                    this.setState({
-                        showErrorTooltip: false,
-                    })
-                }
-            >
-                {/**
+            <View className={css(styles.desktopLabelInputWrapper)}>
+                {!!this.props.visibleLabel && (
+                    <LabelSmall htmlFor={this._textareaId} tag="label">
+                        {this.props.visibleLabel}
+                    </LabelSmall>
+                )}
+                <div
+                    className={className}
+                    onBlur={() =>
+                        this.state.invalid &&
+                        this.setState({
+                            showErrorTooltip: true,
+                            showErrorStyle: true,
+                        })
+                    }
+                    onFocus={() =>
+                        this.setState({
+                            showErrorTooltip: false,
+                        })
+                    }
+                >
+                    {/**
                 * This is a visually hidden container for the error tooltip.
                 https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role#example_3_visually_hidden_alert_container_for_screen_reader_notifications
             */}
-                <View style={a11y.srOnly} role="alert">
-                    {this.state.showErrorTooltip &&
-                        ERROR_TITLE + " " + ERROR_MESSAGE}
-                </View>
-                <Tooltip
-                    forceAnchorFocusivity={false}
-                    opened={this.state.showErrorTooltip}
-                    title={ERROR_TITLE}
-                    content={ERROR_MESSAGE}
-                >
-                    <MathInput
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
-                        className={ApiClassNames.INTERACTIVE}
-                        value={this.props.value}
-                        onChange={this.changeAndTrack}
-                        convertDotToTimes={this.props.times}
-                        buttonSets={this.props.buttonSets}
-                        onFocus={this._handleFocus}
-                        onBlur={this._handleBlur}
-                        hasError={this.state.showErrorStyle}
-                        extraKeys={this.props.keypadConfiguration?.extraKeys}
-                        analytics={
-                            this.props.analytics ?? {
-                                onAnalyticsEvent: async () => {},
+                    <View style={a11y.srOnly} role="alert">
+                        {this.state.showErrorTooltip &&
+                            ERROR_TITLE + " " + ERROR_MESSAGE}
+                    </View>
+                    <Tooltip
+                        forceAnchorFocusivity={false}
+                        opened={this.state.showErrorTooltip}
+                        title={ERROR_TITLE}
+                        content={ERROR_MESSAGE}
+                    >
+                        <MathInput
+                            // eslint-disable-next-line react/no-string-refs
+                            ref="input"
+                            className={ApiClassNames.INTERACTIVE}
+                            value={this.props.value}
+                            onChange={this.changeAndTrack}
+                            convertDotToTimes={this.props.times}
+                            buttonSets={this.props.buttonSets}
+                            onFocus={this._handleFocus}
+                            onBlur={this._handleBlur}
+                            hasError={this.state.showErrorStyle}
+                            ariaLabel={
+                                this.props.ariaLabel ||
+                                this.context.strings.mathInputBox
                             }
-                        }
-                    />
-                </Tooltip>
-            </div>
+                            extraKeys={
+                                this.props.keypadConfiguration?.extraKeys
+                            }
+                            analytics={
+                                this.props.analytics ?? {
+                                    onAnalyticsEvent: async () => {},
+                                }
+                            }
+                        />
+                    </Tooltip>
+                </div>
+            </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    mobileLabelInputWrapper: {
+        padding: "15px 4px 0",
+    },
+    desktopLabelInputWrapper: {
+        margin: "5px 5px 0",
+    },
+});
 
 /**
  * Determine the keypad configuration parameters for the input, based on the
@@ -705,6 +755,8 @@ const propUpgrades = {
         buttonSets: v0props.buttonSets,
         functions: v0props.functions,
         buttonsVisible: v0props.buttonsVisible,
+        visibleLabel: v0props.visibleLabel,
+        ariaLabel: v0props.ariaLabel,
 
         answerForms: [
             {
@@ -745,13 +797,22 @@ export default {
     defaultAlignment: "inline-block",
     widget: ExpressionWithDependencies,
     transform: (widgetOptions: PerseusExpressionWidgetOptions): RenderProps => {
-        const {times, functions, buttonSets, buttonsVisible} = widgetOptions;
+        const {
+            times,
+            functions,
+            buttonSets,
+            buttonsVisible,
+            visibleLabel,
+            ariaLabel,
+        } = widgetOptions;
         return {
             keypadConfiguration: keypadConfigurationForProps(widgetOptions),
             times,
             functions,
             buttonSets,
             buttonsVisible,
+            visibleLabel,
+            ariaLabel,
         };
     },
     version: {major: 1, minor: 0},

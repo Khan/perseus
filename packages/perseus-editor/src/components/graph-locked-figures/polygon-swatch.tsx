@@ -33,7 +33,10 @@ const PolygonSwatch = (props: Props) => {
                     styles.innerSquare,
                     {
                         backgroundColor: lockedFigureColors[color],
-                        opacity: lockedFigureFillStyles[fillStyle],
+                        opacity:
+                            fillStyle === "white"
+                                ? 0
+                                : lockedFigureFillStyles[fillStyle],
                     },
                 ]}
             />

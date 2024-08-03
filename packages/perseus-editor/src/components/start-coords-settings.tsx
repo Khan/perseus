@@ -1,7 +1,11 @@
+import {vector as kvector} from "@khanacademy/kmath";
 import {
+    getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
+    getQuadraticCoords,
     getSegmentCoords,
+    getSinusoidCoords,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -11,8 +15,11 @@ import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clock
 import * as React from "react";
 
 import Heading from "./heading";
+import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
+import StartCoordsQuadratic from "./start-coords-quadratic";
+import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
@@ -52,6 +59,33 @@ const StartCoordsSettingsInner = (props: Props) => {
                 <StartCoordsMultiline
                     type={type}
                     startCoords={multiLineCoords}
+                    onChange={onChange}
+                />
+            );
+        case "circle":
+            const circleCoords = getCircleCoords(props);
+            const radius = kvector.length(
+                kvector.subtract(circleCoords.radiusPoint, circleCoords.center),
+            );
+            return (
+                <StartCoordsCircle
+                    startCoords={{center: circleCoords.center, radius}}
+                    onChange={onChange}
+                />
+            );
+        case "sinusoid":
+            const sinusoidCoords = getSinusoidCoords(props, range, step);
+            return (
+                <StartCoordsSinusoid
+                    startCoords={sinusoidCoords}
+                    onChange={onChange}
+                />
+            );
+        case "quadratic":
+            const quadraticCoords = getQuadraticCoords(props, range, step);
+            return (
+                <StartCoordsQuadratic
+                    startCoords={quadraticCoords}
                     onChange={onChange}
                 />
             );

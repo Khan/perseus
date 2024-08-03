@@ -150,14 +150,8 @@ export const MafsGraphTypeFlags = [
 
 export const InteractiveGraphLockedFeaturesFlags = [
     /**
-     * Enables/Disables inital Milestone 2 locked features in the new Mafs
-     * interactive-graph widget (ellipses, vectors, polygons).
-     */
-    "interactive-graph-locked-features-m2",
-    /**
-     * Enables/Disables remaining Milestone 2 locked features in the new Mafs
-     * interactive-graph widget (the rest of the figure types:
-     * function plots, labels).
+     * Enables/Disables Milestone 2 phase b locked features in the
+     * new Mafs interactive-graph widget (locked functions).
      */
     "interactive-graph-locked-features-m2b",
 ] as const;
@@ -165,8 +159,14 @@ export const InteractiveGraphLockedFeaturesFlags = [
 export const InteractiveGraphEditorFlags = [
     /**
      * Enables the UI for setting the start coordinates of a graph.
+     * Includes linear, linear-system, ray, segment, and circle graphs.
      */
-    "start-coords-ui",
+    "start-coords-ui-phase-1",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes sinusoid graph.
+     */
+    "start-coords-ui-phase-2",
 ] as const;
 
 /**
@@ -318,7 +318,6 @@ export type APIOptions = Readonly<{
 
 type TeXProps = {
     children: string;
-    katexOptions?: any;
     onClick?: () => unknown;
     onRender?: (root?: any) => unknown;
     style?: any;

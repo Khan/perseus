@@ -418,6 +418,10 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
+    // visible label associated with the MathQuill field
+    visibleLabel?: string;
+    // aria label for screen readers attached to MathQuill field
+    ariaLabel?: string;
     // Controls when buttons for special characters are visible when using a
     // desktop browser.  Defaults to "focused".
     // NOTE: This isn't listed in perseus-format.js or perseus_data.go, but
@@ -432,7 +436,7 @@ export const PerseusExpressionAnswerFormConsidered = [
 ] as const;
 
 export type PerseusExpressionAnswerForm = {
-    // The Katex form of the expression.  e.g. "x\\cdot3=y"
+    // The TeX form of the expression.  e.g. "x\\cdot3=y"
     value: string;
     // The Answer expression must have the same form
     form: boolean;
@@ -718,11 +722,12 @@ export type LockedVectorType = {
     color: LockedFigureColor;
 };
 
-export type LockedFigureFillType = "none" | "solid" | "translucent";
+export type LockedFigureFillType = "none" | "white" | "translucent" | "solid";
 export const lockedFigureFillStyles: Record<LockedFigureFillType, number> = {
     none: 0,
-    solid: 1,
+    white: 1,
     translucent: 0.4,
+    solid: 1,
 } as const;
 
 export type LockedEllipseType = {
@@ -794,7 +799,10 @@ export type PerseusGraphTypeCircle = {
     center?: Coord;
     radius?: number;
     // The initial coordinates the graph renders with.
-    startCoords?: Coord;
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinear = {
@@ -874,7 +882,7 @@ export type PerseusGraphTypeRay = {
 } & PerseusGraphTypeCommon;
 
 export type PerseusLabelImageWidgetOptions = {
-    // Translatable Text; Katex representation of choices
+    // Translatable Text; Tex representation of choices
     choices: ReadonlyArray<string>;
     // The URL of the image
     imageUrl: string;

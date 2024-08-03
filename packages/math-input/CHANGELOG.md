@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 20.1.0
+
+### Minor Changes
+
+-   [#1404](https://github.com/Khan/perseus/pull/1404) [`284e068b8`](https://github.com/Khan/perseus/commit/284e068b8e3bfb1f9ab49d84d209c5f9ef2d93c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Add label options for Expression
+
 ## 20.0.3
 
 ### Patch Changes

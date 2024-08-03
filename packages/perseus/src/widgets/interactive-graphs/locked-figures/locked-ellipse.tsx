@@ -1,3 +1,4 @@
+import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {Ellipse} from "mafs";
 import * as React from "react";
 
@@ -18,6 +19,17 @@ const LockedEllipse = (props: LockedEllipseType) => {
             fillOpacity={lockedFigureFillStyles[fillStyle]}
             strokeStyle={strokeStyle}
             color={lockedFigureColors[color]}
+            // We need to override the svg props if we want to have a
+            // different fill color than the stroke color (specifically,
+            // in the case where the fillStyle is "white").
+            svgEllipseProps={{
+                style: {
+                    fill:
+                        fillStyle === "white"
+                            ? wbColor.white
+                            : lockedFigureColors[color],
+                },
+            }}
         />
     );
 };

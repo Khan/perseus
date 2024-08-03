@@ -122,8 +122,6 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "start-coords-ui": false,
-                        "interactive-graph-locked-features-m2": false,
                         "interactive-graph-locked-features-m2b": false,
                     },
                 },
@@ -134,33 +132,6 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
 };
 
 MafsWithLockedFiguresCurrent.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
-};
-
-export const MafsWithLockedFiguresM2Flag = (): React.ReactElement => {
-    return (
-        <EditorPageWithStorybookPreview
-            apiOptions={{
-                isMobile: false,
-                flags: {
-                    mafs: {
-                        ...flags.mafs,
-                        "start-coords-ui": false,
-                        "interactive-graph-locked-features-m2": true,
-                        "interactive-graph-locked-features-m2b": false,
-                    },
-                },
-            }}
-            question={segmentWithLockedFigures}
-        />
-    );
-};
-
-MafsWithLockedFiguresM2Flag.parameters = {
     chromatic: {
         // Disabling because this isn't visually testing anything on the
         // initial load of the editor page.

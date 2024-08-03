@@ -21,7 +21,7 @@ describe("MathQuill", () => {
         span = document.createElement("span");
         document.body.appendChild(span);
 
-        mathField = new TestMathWrapper(span, mockStrings, "en");
+        mathField = new TestMathWrapper(span, "Math field", mockStrings, "en");
     });
 
     afterEach(() => {

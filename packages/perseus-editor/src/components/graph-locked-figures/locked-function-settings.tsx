@@ -52,6 +52,13 @@ export const LockedFunctionSettings = (props: Props) => {
         domain ? domain[1].toString() : "",
     ]);
 
+    useEffect(() => {
+        setDomainEntries([
+            domain ? domain[0].toString() : "",
+            domain ? domain[1].toString() : "",
+        ]);
+    }, [domain]);
+
     function handlePropChange(property: string, newValue: string) {
         const updatedProps: Partial<LockedFunctionType> = {};
         updatedProps[property] = newValue;
@@ -178,7 +185,6 @@ export const LockedFunctionSettings = (props: Props) => {
 
                     {/* Actions */}
                     <LockedFigureSettingsActions
-                        showM2Features={props.showM2Features}
                         figureType={props.type}
                         onMove={onMove}
                         onRemove={onRemove}

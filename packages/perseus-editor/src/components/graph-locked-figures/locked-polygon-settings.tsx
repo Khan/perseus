@@ -80,7 +80,10 @@ const LockedPolygonSettings = (props: Props) => {
                 <Strut size={spacing.medium_16} />
 
                 {/* Fill opacity */}
-                <LabelMedium tag="label" style={styles.row}>
+                <LabelMedium
+                    tag="label"
+                    style={[styles.row, styles.truncatedWidth]}
+                >
                     fill
                     <Strut size={spacing.xxSmall_6} />
                     <SingleSelect
@@ -181,7 +184,6 @@ const LockedPolygonSettings = (props: Props) => {
 
             {/* Actions */}
             <LockedFigureSettingsActions
-                showM2Features={props.showM2Features}
                 figureType={props.type}
                 onMove={onMove}
                 onRemove={onRemove}
@@ -207,6 +209,10 @@ const styles = StyleSheet.create({
     },
     spaceUnder: {
         marginBottom: spacing.xSmall_8,
+    },
+    truncatedWidth: {
+        // Allow truncation, stop bleeding over the edge.
+        minWidth: 0,
     },
 });
 

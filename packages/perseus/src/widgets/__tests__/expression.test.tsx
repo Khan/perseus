@@ -13,6 +13,7 @@ import {
     expressionItem3,
     expressionItem3Options,
     expressionItemWithAnswer,
+    expressionItemWithLabels,
 } from "../__testdata__/expression.testdata";
 import {Expression} from "../expression";
 
@@ -327,243 +328,278 @@ describe("Expression Widget", function () {
             await assertCorrect(userEvent, item, "tg x");
         });
     });
-});
 
-describe("getOneCorrectAnswerFromRubric", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("should return undefined if rubric.value is null/undefined", () => {
-        // Arrange
-        const rubric = {
-            answerForms: [],
-            buttonSets: [],
-            functions: [],
-            times: true,
-        } as const;
-
-        // Act
-        const result = Expression.getOneCorrectAnswerFromRubric(rubric);
-
-        // Assert
-        expect(result).toBeUndefined();
-    });
-
-    it("returns a correct answer when there is one correct answer", () => {
-        // Arrange
-        const rubric = {
-            answerForms: [
-                {
-                    value: "123",
-                    form: true,
-                    simplify: false,
-                    considered: "correct",
-                },
-            ],
-            buttonSets: [],
-            functions: [],
-            times: true,
-        } as const;
-
-        // Act
-        const result = Expression.getOneCorrectAnswerFromRubric(rubric);
-
-        // Assert
-        expect(result).toEqual("123");
-    });
-
-    it("returns the first correct answer when there are multiple correct answers", () => {
-        // Arrange
-        const rubric = {
-            answerForms: [
-                {
-                    value: "123",
-                    form: true,
-                    simplify: false,
-                    considered: "correct",
-                },
-                {
-                    value: "456",
-                    form: true,
-                    simplify: false,
-                    considered: "correct",
-                },
-            ],
-            buttonSets: [],
-            functions: [],
-            times: true,
-        } as const;
-
-        // Act
-        const result = Expression.getOneCorrectAnswerFromRubric(rubric);
-
-        // Assert
-        expect(result).toEqual("123");
-    });
-});
-
-describe("focus state", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("supports directly focusing", () => {
-        //  Arrange
-        renderQuestion(expressionItem2.question);
-
-        // Act
-        const expressionInput = screen.getByRole("textbox");
-        act(() => expressionInput.focus());
-
-        // Assert
-        expect(expressionInput).toHaveFocus();
-    });
-
-    it("supports directly blurring", () => {
-        //  Arrange
-        renderQuestion(expressionItem2.question);
-
-        // Act
-        const expressionInput = screen.getByRole("textbox");
-        act(() => expressionInput.focus());
-        act(() => expressionInput.blur());
-
-        // Assert
-        expect(expressionInput).not.toHaveFocus();
-    });
-
-    it("can be focused via a function", () => {
-        // arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
-
-        // act
-        act(() => expression.focusInputPath());
-
-        // Assert
-        const expressionInput = screen.getByRole("textbox");
-        expect(expressionInput).toHaveFocus();
-    });
-});
-
-describe("rendering", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("supports mobile rendering", async () => {
-        // arrange and act
-        renderQuestion(expressionItem2.question, {
-            // Setting this triggers mobile rendering
-            // it would be nice if this was more clear in the code
-            customKeypad: true,
+    describe("getOneCorrectAnswerFromRubric", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
         });
 
-        // Assert
-        const mobileInput = await screen.findByRole("textbox");
-        expect(mobileInput).toBeVisible();
+        it("should return undefined if rubric.value is null/undefined", () => {
+            // Arrange
+            const rubric = {
+                answerForms: [],
+                buttonSets: [],
+                functions: [],
+                times: true,
+            } as const;
+
+            // Act
+            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+
+            // Assert
+            expect(result).toBeUndefined();
+        });
+
+        it("returns a correct answer when there is one correct answer", () => {
+            // Arrange
+            const rubric = {
+                answerForms: [
+                    {
+                        value: "123",
+                        form: true,
+                        simplify: false,
+                        considered: "correct",
+                    },
+                ],
+                buttonSets: [],
+                functions: [],
+                times: true,
+            } as const;
+
+            // Act
+            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+
+            // Assert
+            expect(result).toEqual("123");
+        });
+
+        it("returns the first correct answer when there are multiple correct answers", () => {
+            // Arrange
+            const rubric = {
+                answerForms: [
+                    {
+                        value: "123",
+                        form: true,
+                        simplify: false,
+                        considered: "correct",
+                    },
+                    {
+                        value: "456",
+                        form: true,
+                        simplify: false,
+                        considered: "correct",
+                    },
+                ],
+                buttonSets: [],
+                functions: [],
+                times: true,
+            } as const;
+
+            // Act
+            const result = Expression.getOneCorrectAnswerFromRubric(rubric);
+
+            // Assert
+            expect(result).toEqual("123");
+        });
     });
-});
 
-describe("interaction", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-        jest.useFakeTimers();
+    describe("labels", () => {
+        it("renders visible label", async () => {
+            // Arrange, Act
+            renderQuestion(expressionItemWithLabels.question);
+
+            // Assert
+            const label = await screen.findByText("Test visible label");
+            expect(label).toBeVisible();
+        });
+
+        it("renders aria label", async () => {
+            // Arrange, Act
+            renderQuestion(expressionItemWithLabels.question);
+
+            // Assert
+            const input = await screen.findByLabelText("Test aria label:");
+            expect(input).toBeVisible();
+        });
+
+        it("input can be focused by visible label", async () => {
+            // Arrange
+            renderQuestion(expressionItemWithLabels.question);
+
+            // Act
+            const label = await screen.findByText("Test visible label");
+            const input = await screen.findByLabelText("Test aria label:");
+            await userEvent.click(label);
+
+            // Assert
+            expect(input).toHaveFocus();
+        });
     });
 
-    it("sets input value directly", () => {
-        // arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        act(() => jest.runOnlyPendingTimers());
+    describe("focus state", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
 
-        // act
-        act(() => renderer.setInputValue(["expression 1"], "123-x", () => {}));
-        act(() => jest.runOnlyPendingTimers());
-        const score = renderer.guessAndScore()[1];
+        it("supports directly focusing", () => {
+            //  Arrange
+            renderQuestion(expressionItem2.question);
 
-        // Assert
-        expect(score.type).toBe("points");
-        // Score.total doesn't exist if the input is invalid
-        // In this case we know that it'll be valid so we can assert directly
-        // @ts-expect-error - TS2339 - Property 'earned' does not exist on type 'PerseusScore'. | TS2339 - Property 'total' does not exist on type 'PerseusScore'.
-        expect(score.earned).toBe(score.total);
+            // Act
+            const expressionInput = screen.getByRole("textbox");
+            act(() => expressionInput.focus());
+
+            // Assert
+            expect(expressionInput).toHaveFocus();
+        });
+
+        it("supports directly blurring", () => {
+            //  Arrange
+            renderQuestion(expressionItem2.question);
+
+            // Act
+            const expressionInput = screen.getByRole("textbox");
+            act(() => expressionInput.focus());
+            act(() => expressionInput.blur());
+
+            // Assert
+            expect(expressionInput).not.toHaveFocus();
+        });
+
+        it("can be focused via a function", () => {
+            // arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // act
+            act(() => expression.focusInputPath());
+
+            // Assert
+            const expressionInput = screen.getByRole("textbox");
+            expect(expressionInput).toHaveFocus();
+        });
     });
 
-    it("has a developer facility for inserting", async () => {
-        // arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        act(() => jest.runOnlyPendingTimers());
+    describe("rendering", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
 
-        const expression = renderer.findWidgets("expression 1")[0];
-        act(() => expression.insert("x+1"));
-        act(() => jest.runOnlyPendingTimers());
+        it("supports mobile rendering", async () => {
+            // arrange and act
+            renderQuestion(expressionItem2.question, {
+                // Setting this triggers mobile rendering
+                // it would be nice if this was more clear in the code
+                customKeypad: true,
+            });
 
-        // act
-        const score = renderer.score();
-
-        // Assert
-        // Score.total doesn't exist if the input is invalid
-        // In this case we know that it'll be valid so we can assert directly
-        // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
-        expect(score.total).toBe(1);
-    });
-});
-
-describe("error tooltip", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-        jest.useFakeTimers();
+            // Assert
+            const mobileInput = await screen.findByRole("textbox");
+            expect(mobileInput).toBeVisible();
+        });
     });
 
-    it("shows error text in tooltip", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
+    describe("interaction", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            jest.useFakeTimers();
+        });
 
-        // Act
-        // Note(jeremy): You might think you could collapse all of these calls
-        // inside a single act() block, but that didn't work. The only way this
-        // test passes is with each statement in its own act() call. :/
-        act(() => expression.insert("x&&&&&^1"));
-        act(() => jest.runOnlyPendingTimers());
-        act(() => screen.getByRole("textbox").blur());
-        act(() => jest.runOnlyPendingTimers());
-        renderer.guessAndScore();
+        it("sets input value directly", () => {
+            // arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            act(() => jest.runOnlyPendingTimers());
 
-        // Assert
-        await waitFor(() =>
+            // act
+            act(() =>
+                renderer.setInputValue(["expression 1"], "123-x", () => {}),
+            );
+            act(() => jest.runOnlyPendingTimers());
+            const score = renderer.guessAndScore()[1];
+
+            // Assert
+            expect(score.type).toBe("points");
+            // Score.total doesn't exist if the input is invalid
+            // In this case we know that it'll be valid so we can assert directly
+            // @ts-expect-error - TS2339 - Property 'earned' does not exist on type 'PerseusScore'. | TS2339 - Property 'total' does not exist on type 'PerseusScore'.
+            expect(score.earned).toBe(score.total);
+        });
+
+        it("has a developer facility for inserting", async () => {
+            // arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            act(() => jest.runOnlyPendingTimers());
+
+            const expression = renderer.findWidgets("expression 1")[0];
+            act(() => expression.insert("x+1"));
+            act(() => jest.runOnlyPendingTimers());
+
+            // act
+            const score = renderer.score();
+
+            // Assert
+            // Score.total doesn't exist if the input is invalid
+            // In this case we know that it'll be valid so we can assert directly
+            // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
+            expect(score.total).toBe(1);
+        });
+    });
+
+    describe("error tooltip", () => {
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            jest.useFakeTimers();
+        });
+
+        it("shows error text in tooltip", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act
+            // Note(jeremy): You might think you could collapse all of these calls
+            // inside a single act() block, but that didn't work. The only way this
+            // test passes is with each statement in its own act() call. :/
+            act(() => expression.insert("x&&&&&^1"));
+            act(() => jest.runOnlyPendingTimers());
+            act(() => screen.getByRole("textbox").blur());
+            act(() => jest.runOnlyPendingTimers());
+            renderer.guessAndScore();
+
+            // Assert
+            await waitFor(() =>
+                expect(
+                    screen.getByText("Oops! Sorry, I don't understand that!"),
+                ).toBeVisible(),
+            );
+        });
+
+        it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(expressionItem2.question);
+            const expression = renderer.findWidgets("expression 1")[0];
+
+            // Act
+            act(() => expression.insert("sen(x)"));
+            act(() => jest.runOnlyPendingTimers());
+            act(() => screen.getByRole("textbox").blur());
+            renderer.guessAndScore();
+
+            // Assert
+            expect(screen.queryByText("Oops!")).toBeNull();
             expect(
-                screen.getByText("Oops! Sorry, I don't understand that!"),
-            ).toBeVisible(),
-        );
-    });
-
-    it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
-
-        // Act
-        act(() => expression.insert("sen(x)"));
-        act(() => jest.runOnlyPendingTimers());
-        act(() => screen.getByRole("textbox").blur());
-        renderer.guessAndScore();
-
-        // Assert
-        expect(screen.queryByText("Oops!")).toBeNull();
-        expect(
-            screen.queryByText("Sorry, I don't understand that!"),
-        ).toBeNull();
+                screen.queryByText("Sorry, I don't understand that!"),
+            ).toBeNull();
+        });
     });
 });

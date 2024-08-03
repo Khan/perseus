@@ -340,7 +340,7 @@ export const rayWithStartingCoordsQuestion: PerseusRenderer =
 
 export const circleWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .withCircle({startCoords: [9, 9]})
+        .withCircle({startCoords: {center: [9, 9], radius: 5}})
         .build();
 
 export const quadraticWithStartingCoordsQuestion: PerseusRenderer =
@@ -665,6 +665,18 @@ export const segmentWithLockedEllipses: PerseusRenderer =
         })
         .build();
 
+export const segmentWithLockedEllipseWhite: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedEllipse([0, 0], [5, 5], {
+            color: "green",
+            fillStyle: "white",
+        })
+        .addLockedEllipse([-5, 5], [2, 3], {
+            color: "pink",
+            fillStyle: "translucent",
+        })
+        .build();
+
 export const segmentWithLockedPolygons: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPolygon([
@@ -699,6 +711,32 @@ export const segmentWithLockedPolygons: PerseusRenderer =
                 showVertices: false,
                 fillStyle: "solid",
                 strokeStyle: "solid",
+            },
+        )
+        .build();
+
+export const segmentWithLockedPolygonWhite: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedPolygon(
+            [
+                [0, 3],
+                [-3, 0],
+                [3, 0],
+            ],
+            {
+                color: "green",
+                fillStyle: "white",
+            },
+        )
+        .addLockedPolygon(
+            [
+                [-5, 0],
+                [-3, -1],
+                [3, -1],
+            ],
+            {
+                color: "pink",
+                fillStyle: "translucent",
             },
         )
         .build();

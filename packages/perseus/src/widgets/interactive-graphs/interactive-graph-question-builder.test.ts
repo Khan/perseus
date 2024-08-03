@@ -424,12 +424,22 @@ describe("InteractiveGraphQuestionBuilder", () => {
 
     it("creates a circle graph with options", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withCircle({center: [-1, -1], radius: 3, startCoords: [9, 9]})
+            .withCircle({
+                center: [-1, -1],
+                radius: 3,
+                startCoords: {
+                    center: [9, 9],
+                    radius: 5,
+                },
+            })
             .build();
         const graph = question.widgets["interactive-graph 1"];
         expect(graph.options).toEqual(
             expect.objectContaining({
-                graph: {type: "circle", startCoords: [9, 9], radius: 5},
+                graph: {
+                    type: "circle",
+                    startCoords: {center: [9, 9], radius: 5},
+                },
                 correct: {type: "circle", radius: 3, center: [-1, -1]},
             }),
         );

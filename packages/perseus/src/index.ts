@@ -84,7 +84,7 @@ export {
  */
 export {default as Util} from "./util";
 export {default as KhanColors} from "./util/colors";
-export {default as preprocessTex} from "./util/katex-preprocess";
+export {default as preprocessTex} from "./util/tex-preprocess";
 export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 export * as SizingUtils from "./util/sizing-utils";
 export {
@@ -119,9 +119,12 @@ export {
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
 export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
 export {
+    getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
     getSegmentCoords,
+    getSinusoidCoords,
+    getQuadraticCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**

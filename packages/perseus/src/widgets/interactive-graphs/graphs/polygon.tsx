@@ -17,8 +17,10 @@ import type {CollinearTuple} from "@khanacademy/perseus";
 type Props = MafsGraphProps<PolygonGraphState>;
 
 export const PolygonGraph = (props: Props) => {
-    const [focused, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
+    // This is more so required for the re-rendering that occurs when state
+    // updates; specifically with regard to line weighting and polygon focus.
+    const [focusVisible, setFocusVisible] = React.useState(false);
 
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
@@ -43,7 +45,6 @@ export const PolygonGraph = (props: Props) => {
             ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
     });
 
-    const active = hovered || focused || dragging;
     const lastMoveTime = React.useRef<number>(0);
 
     const lines = getLines(points);
@@ -54,7 +55,7 @@ export const PolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
-                    strokeWidth: active
+                    strokeWidth: focusVisible
                         ? "var(--movable-line-stroke-weight-active)"
                         : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
@@ -71,7 +72,6 @@ export const PolygonGraph = (props: Props) => {
                         key={"angle-" + i}
                         centerPoint={point}
                         endPoints={[pt1, pt2]}
-                        active={active}
                         range={range}
                         polygonLines={lines}
                         showAngles={!!showAngles}
@@ -109,10 +109,19 @@ export const PolygonGraph = (props: Props) => {
                         cursor: dragging ? "grabbing" : "grab",
                         fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
-                    onFocus: () => setFocused(true),
-                    onBlur: () => setFocused(false),
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
+                    // Required to remove line weighting when user clicks away
+                    // from the focused polygon
+                    onKeyDownCapture: () => {
+                        setFocusVisible(hasFocusVisible(ref.current));
+                    },
+                    // Required for lines to darken on focus
+                    onFocus: () =>
+                        setFocusVisible(hasFocusVisible(ref.current)),
+                    // Required for line weighting to update on blur. Without this,
+                    // the user has to hover over the shape for it to update
+                    onBlur: () => setFocusVisible(hasFocusVisible(ref.current)),
                     className: "movable-polygon",
                 }}
             />
@@ -143,3 +152,17 @@ function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
         return [point, next];
     });
 }
+
+export const hasFocusVisible = (
+    element: Element | null | undefined,
+): boolean => {
+    const matches = (selector: string) => element?.matches(selector) ?? false;
+    try {
+        return matches(":focus-visible");
+    } catch (e) {
+        // jsdom doesn't support :focus-visible
+        // (see https://github.com/jsdom/jsdom/issues/3426),
+        // so the call to matches(":focus-visible") will fail in tests.
+        return matches(":focus");
+    }
+};

@@ -23,9 +23,6 @@ import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
 import type {Props as LockedVectorProps} from "./locked-vector-settings";
 
 export type LockedFigureSettingsCommonProps = {
-    // Whether to show the M2 features in the locked figure settings.
-    // TODO(LEMS-2016): Remove this prop once the M2 flag is fully rolled out.
-    showM2Features?: boolean;
     // Whether to show the M2b features in the locked figure settings.
     // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
     showM2bFeatures?: boolean;
@@ -69,20 +66,11 @@ const LockedFigureSettings = (props: Props) => {
         case "line":
             return <LockedLineSettings {...props} />;
         case "vector":
-            if (props.showM2Features) {
-                return <LockedVectorSettings {...props} />;
-            }
-            break;
+            return <LockedVectorSettings {...props} />;
         case "ellipse":
-            if (props.showM2Features) {
-                return <LockedEllipseSettings {...props} />;
-            }
-            break;
+            return <LockedEllipseSettings {...props} />;
         case "polygon":
-            if (props.showM2Features) {
-                return <LockedPolygonSettings {...props} />;
-            }
-            break;
+            return <LockedPolygonSettings {...props} />;
         case "function":
             if (props.showM2bFeatures) {
                 return <LockedFunctionSettings {...props} />;

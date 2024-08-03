@@ -8,7 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import {clone} from "../../util/object-utils";
 import StartCoordsSettings from "../start-coords-settings";
 
-import type {CollinearTuple, Range} from "@khanacademy/perseus";
+import type {CollinearTuple, Coord, Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
@@ -324,6 +324,200 @@ describe("StartCoordSettings", () => {
 
                 const expectedCoords = clone(coords);
                 expectedCoords[lineIndex][pointIndex][coordIndex] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
+
+    describe("circle graph", () => {
+        test("shows the start coordinates UI", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="circle"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Center:")).toBeInTheDocument();
+            expect(screen.getByText("x")).toBeInTheDocument();
+            expect(screen.getByText("y")).toBeInTheDocument();
+        });
+
+        test.each`
+            coordIndex | coord
+            ${0}       | ${"x"}
+            ${1}       | ${"y"}
+        `(
+            `calls onChange when $coord coord is changed`,
+            async ({coordIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                const start = {center: [2, 2], radius: 5} satisfies {
+                    center: Coord;
+                    radius: number;
+                };
+
+                // Act
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="circle"
+                        startCoords={start}
+                        onChange={onChangeMock}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Assert
+                const input = screen.getByRole("spinbutton", {
+                    name: coord,
+                });
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                const expectedCoords = clone(start);
+                expectedCoords.center[coordIndex] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
+
+    describe("sinusoid graph", () => {
+        test("shows the start coordinates UI", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="sinusoid"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Starting equation:")).toBeInTheDocument();
+            expect(
+                // Equation for default start coords
+                screen.getByText("y = 2.000sin(0.524x - 0.000) + 0.000"),
+            ).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+        });
+
+        test.each`
+            pointIndex | coord
+            ${0}       | ${"x"}
+            ${0}       | ${"y"}
+            ${1}       | ${"x"}
+            ${1}       | ${"y"}
+        `(
+            "calls onChange when $coord coord is changed (line $pointIndex)",
+            async ({pointIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                // Act
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="sinusoid"
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Assert
+                const input = screen.getAllByRole("spinbutton", {
+                    name: `${coord}`,
+                })[pointIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                const expectedCoords = [
+                    [0, 0],
+                    [3, 2],
+                ];
+                expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
+
+    describe("quadratic graph", () => {
+        test("shows the start coordinates UI", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="quadratic"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Starting equation:")).toBeInTheDocument();
+            expect(
+                // Equation for default start coords
+                screen.getByText("y = 0.400x^2 + 0.000x + -5.000"),
+            ).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            expect(screen.getByText("Point 3:")).toBeInTheDocument();
+        });
+
+        test.each`
+            pointIndex | coord
+            ${0}       | ${"x"}
+            ${0}       | ${"y"}
+            ${1}       | ${"x"}
+            ${1}       | ${"y"}
+            ${2}       | ${"x"}
+            ${2}       | ${"y"}
+        `(
+            "calls onChange when $coord coord is changed (line $pointIndex)",
+            async ({pointIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                // Act
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="quadratic"
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Assert
+                const input = screen.getAllByRole("spinbutton", {
+                    name: `${coord}`,
+                })[pointIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                const expectedCoords = [
+                    [-5, 5],
+                    [0, -5],
+                    [5, 5],
+                ];
+                expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },

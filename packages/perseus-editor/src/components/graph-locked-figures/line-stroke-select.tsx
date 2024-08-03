@@ -15,7 +15,7 @@ const LineStrokeSelect = (props: Props) => {
     const {selectedValue, onChange} = props;
 
     return (
-        <LabelMedium tag="label" style={styles.row}>
+        <LabelMedium tag="label" style={styles.lineStrokeSelect}>
             stroke
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
@@ -32,10 +32,12 @@ const LineStrokeSelect = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-    row: {
+    lineStrokeSelect: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        // Allow truncation, stop bleeding over the edge.
+        minWidth: 0,
     },
 });
 

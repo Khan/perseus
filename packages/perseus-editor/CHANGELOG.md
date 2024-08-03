@@ -1,5 +1,38 @@
 # @khanacademy/perseus-editor
 
+## 11.2.0
+
+### Minor Changes
+
+-   [#1468](https://github.com/Khan/perseus/pull/1468) [`af68a9e08`](https://github.com/Khan/perseus/commit/af68a9e082f7b042aeb516ddba38274fcc66c4fc) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add start coords UI for sinusoid graphs
+
+*   [#1469](https://github.com/Khan/perseus/pull/1469) [`6e1ec850c`](https://github.com/Khan/perseus/commit/6e1ec850c7efb186444dcd9023e2a2c37cd731d2) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add start coords UI for quadratic graphs
+
+### Patch Changes
+
+-   [#1470](https://github.com/Khan/perseus/pull/1470) [`942b0a9a5`](https://github.com/Khan/perseus/commit/942b0a9a5c42b92137a024b3c76ba8e99df55440) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Locked Figures] Remove m2 flag from the code
+
+*   [#1465](https://github.com/Khan/perseus/pull/1465) [`94ad04fee`](https://github.com/Khan/perseus/commit/94ad04fee00ae4601ed5d23a19bfeb9f68964c74) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add separate flags for graph types
+
+*   Updated dependencies [[`af68a9e08`](https://github.com/Khan/perseus/commit/af68a9e082f7b042aeb516ddba38274fcc66c4fc), [`942b0a9a5`](https://github.com/Khan/perseus/commit/942b0a9a5c42b92137a024b3c76ba8e99df55440), [`6e1ec850c`](https://github.com/Khan/perseus/commit/6e1ec850c7efb186444dcd9023e2a2c37cd731d2), [`94ad04fee`](https://github.com/Khan/perseus/commit/94ad04fee00ae4601ed5d23a19bfeb9f68964c74), [`ed6737025`](https://github.com/Khan/perseus/commit/ed67370251d2ebff672423b8e4da839c9dfb78c7)]:
+    -   @khanacademy/perseus@27.2.0
+
+## 11.1.0
+
+### Minor Changes
+
+-   [#1453](https://github.com/Khan/perseus/pull/1453) [`79a09d62f`](https://github.com/Khan/perseus/commit/79a09d62f532fd3373fea4838c0d72812de14046) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Implement the UI for adding start coords for circle graphs
+
+*   [#1404](https://github.com/Khan/perseus/pull/1404) [`284e068b8`](https://github.com/Khan/perseus/commit/284e068b8e3bfb1f9ab49d84d209c5f9ef2d93c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Add label options for Expression
+
+### Patch Changes
+
+-   [#1463](https://github.com/Khan/perseus/pull/1463) [`0a118ca38`](https://github.com/Khan/perseus/commit/0a118ca3869110fb8d4cb44a5cce89453d7e4e8a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor - Storybook] Fix broken default and controlled stories
+
+-   Updated dependencies [[`79a09d62f`](https://github.com/Khan/perseus/commit/79a09d62f532fd3373fea4838c0d72812de14046), [`284e068b8`](https://github.com/Khan/perseus/commit/284e068b8e3bfb1f9ab49d84d209c5f9ef2d93c1)]:
+    -   @khanacademy/perseus@27.1.0
+    -   @khanacademy/math-input@20.1.0
+
 ## 11.0.2
 
 ### Patch Changes
