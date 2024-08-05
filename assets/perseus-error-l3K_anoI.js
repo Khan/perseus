@@ -1,1 +1,0 @@
-const a=Object.freeze({Unknown:"Unknown",Internal:"Internal",InvalidInput:"InvalidInput",NotAllowed:"NotAllowed",TransientService:"TransientService",Service:"Service"});class s extends Error{constructor(r,n,e){super(r),this.kind=n,this.metadata=e==null?void 0:e.metadata}}export{a as E,s as P};
