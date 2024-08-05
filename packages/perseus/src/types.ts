@@ -189,6 +189,10 @@ export type APIOptions = Readonly<{
     ) => unknown;
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
     readOnly?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
