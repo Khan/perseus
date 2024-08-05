@@ -13,6 +13,7 @@ import {
     HeadingXSmall,
 } from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
+import {css, StyleSheet} from "aphrodite";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
 import * as React from "react";
@@ -515,15 +516,22 @@ class AnswerOption extends React.Component<
             </Button>
         );
 
+        const answerStatusCss = css(
+            styles.answerStatus,
+            this.props.considered === "wrong" && styles.answerStatusWrong,
+            this.props.considered === "correct" && styles.answerStatusCorrect,
+            this.props.considered === "ungraded" && styles.answerStatusUngraded,
+        );
+
         return (
             <div className="expression-answer-option">
                 <div className="answer-handle" />
 
-                <div className="answer-body">
+                <div className={css(styles.answerBody)}>
                     <div className="answer-considered">
                         <div
                             onClick={this.toggleConsidered}
-                            className={"answer-status " + this.props.considered}
+                            className={answerStatusCss}
                         >
                             {this.props.considered}
                         </div>
@@ -593,3 +601,27 @@ class AnswerOption extends React.Component<
 }
 
 export default ExpressionEditor;
+
+const styles = StyleSheet.create({
+    answerStatus: {
+        color: "inherit",
+        cursor: "pointer",
+        textAlign: "center",
+        textDecoration: "none",
+        userSelect: "none",
+        display: "table-cell",
+        width: "100px",
+    },
+    answerStatusWrong: {
+        backgroundColor: "#ffcccc",
+    },
+    answerStatusCorrect: {
+        backgroundColor: "#aaffaa",
+    },
+    answerStatusUngraded: {
+        backgroundColor: "#d9edf7",
+    },
+    answerBody: {
+        display: "table-cell",
+    },
+});

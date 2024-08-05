@@ -486,37 +486,6 @@
 }
 
 //
-// Expression editor
-//
-.perseus-widget-expression-editor {
-    .answer-options-list li {
-        margin: 5px 0;
-    }
-
-    .answer-status {
-        color: inherit;
-        cursor: pointer;
-        display: inline-block;
-        text-align: center;
-        text-decoration: none;
-        width: 75%; // TODO(joel) 60%?
-        .user-select(none);
-
-        &.wrong {
-            background-color: @wrongRed;
-        }
-
-        &.correct {
-            background-color: @correctGreen;
-        }
-
-        &.ungraded {
-            background-color: @ungradedBlue;
-        }
-    }
-}
-
-//
 // Dropdown editor
 //
 .perseus-widget-dropdown {
@@ -1041,21 +1010,12 @@
         width: 20px;
     }
 
-    .answer-body {
-        display: table-cell;
-    }
-
     .answer-considered {
         display: table;
     }
 
     .answer-expression {
         display: table-cell;
-    }
-
-    .answer-status {
-        display: table-cell;
-        width: 100px;
     }
 
     .answer-option {
