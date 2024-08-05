@@ -8,7 +8,7 @@ import {
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {
     HeadingSmall,
     HeadingXSmall,
@@ -634,13 +634,13 @@ const styles = StyleSheet.create({
         width: "100px",
     },
     answerStatusWrong: {
-        backgroundColor: "#ffcccc",
+        backgroundColor: color.fadedRed16,
     },
     answerStatusCorrect: {
-        backgroundColor: "#aaffaa",
+        backgroundColor: color.fadedGreen16,
     },
     answerStatusUngraded: {
-        backgroundColor: "#d9edf7",
+        backgroundColor: color.fadedBlue16,
     },
     answerBody: {
         display: "table-cell",
