@@ -8,6 +8,7 @@ import {
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {
     HeadingSmall,
     HeadingXSmall,
@@ -156,7 +157,6 @@ class ExpressionEditor extends React.Component<Props, State> {
             <SortableArea
                 components={answerOptions}
                 onReorder={this.handleReorder}
-                className="answer-options-list"
             />
         );
 
@@ -187,10 +187,10 @@ class ExpressionEditor extends React.Component<Props, State> {
         );
 
         return (
-            <div className="perseus-widget-expression-editor">
+            <div>
                 <HeadingSmall>Global Options</HeadingSmall>
 
-                <div className="perseus-widget-row">
+                <div className={css(styles.paddedY)}>
                     <LabeledTextField
                         label="Visible label"
                         value={this.props.visibleLabel || ""}
@@ -206,7 +206,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     </InfoTip>
                 </div>
 
-                <div className="perseus-widget-row">
+                <div className={css(styles.paddedY)}>
                     <LabeledTextField
                         label="Aria label"
                         value={this.props.ariaLabel || ""}
@@ -228,7 +228,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     </InfoTip>
                 </div>
 
-                <div>
+                <div className={css(styles.paddedY)}>
                     <LabeledTextField
                         label="Function variables"
                         value={this.state.functionsInternal}
@@ -243,7 +243,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     </InfoTip>
                 </div>
 
-                <div>
+                <div className={css(styles.paddedY)}>
                     <Checkbox
                         label="Use × instead of ⋅ for multiplication"
                         checked={this.props.times}
@@ -261,7 +261,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     </InfoTip>
                 </div>
 
-                <div>
+                <div className={css(styles.paddedY)}>
                     <HeadingXSmall>Button Sets</HeadingXSmall>
                     {buttonSetChoices}
                 </div>
@@ -524,11 +524,11 @@ class AnswerOption extends React.Component<
         );
 
         return (
-            <div className="expression-answer-option">
-                <div className="answer-handle" />
+            <div className={css(styles.answerOption)}>
+                <div className={css(styles.answerHandle)} />
 
                 <div className={css(styles.answerBody)}>
-                    <div className="answer-considered">
+                    <div className={css(styles.answerConsidered)}>
                         <div
                             onClick={this.toggleConsidered}
                             className={answerStatusCss}
@@ -536,12 +536,12 @@ class AnswerOption extends React.Component<
                             {this.props.considered}
                         </div>
 
-                        <div className="answer-expression">
+                        <div className={css(styles.answerExpression)}>
                             <Expression {...this.props.expressionProps} />
                         </div>
                     </div>
 
-                    <div className="answer-option">
+                    <div className={css(styles.paddedY, styles.paddedX)}>
                         <Checkbox
                             label="Answer expression must have the same form."
                             checked={this.props.form}
@@ -558,7 +558,7 @@ class AnswerOption extends React.Component<
                         </InfoTip>
                     </div>
 
-                    <div className="answer-option">
+                    <div className={css(styles.paddedY, styles.paddedX)}>
                         <Checkbox
                             label="Answer expression must be fully expanded and simplified."
                             checked={this.props.simplify}
@@ -577,7 +577,7 @@ class AnswerOption extends React.Component<
                         </InfoTip>
                     </div>
 
-                    <div className="remove-container">{removeButton}</div>
+                    <div className={css(styles.paddedY)}>{removeButton}</div>
                 </div>
             </div>
         );
@@ -603,6 +603,27 @@ class AnswerOption extends React.Component<
 export default ExpressionEditor;
 
 const styles = StyleSheet.create({
+    paddedX: {
+        paddingLeft: spacing.xSmall_8,
+        paddingRight: spacing.xSmall_8,
+    },
+    paddedY: {
+        paddingTop: spacing.small_12,
+        paddingBottom: spacing.small_12,
+    },
+    answerOption: {
+        border: "1px solid #ddd",
+        borderRadius: "3px",
+    },
+    answerHandle: {
+        // textured draggy handle
+        background:
+            "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==) no-repeat 50% 50%",
+        borderRight: "1px solid #ddd",
+        cursor: "move",
+        display: "table-cell",
+        width: "20px",
+    },
     answerStatus: {
         color: "inherit",
         cursor: "pointer",
@@ -622,6 +643,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#d9edf7",
     },
     answerBody: {
+        display: "table-cell",
+    },
+    answerConsidered: {
+        display: "table",
+    },
+    answerExpression: {
         display: "table-cell",
     },
 });
