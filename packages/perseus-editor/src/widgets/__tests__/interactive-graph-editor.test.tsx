@@ -702,6 +702,7 @@ describe("InteractiveGraphEditor", () => {
                                 ...flags.mafs,
                                 "start-coords-ui-phase-1": shouldRender,
                                 "start-coords-ui-phase-2": false,
+                                "start-coords-ui-point": false,
                             },
                         },
                     }}
@@ -759,6 +760,65 @@ describe("InteractiveGraphEditor", () => {
                                 ...flags.mafs,
                                 "start-coords-ui-phase-1": false,
                                 "start-coords-ui-phase-2": shouldRender,
+                                "start-coords-ui-point": false,
+                            },
+                        },
+                    }}
+                    graph={{type}}
+                    correct={{type}}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            if (shouldRender) {
+                expect(
+                    await screen.findByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeInTheDocument();
+            } else {
+                expect(
+                    screen.queryByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeNull();
+            }
+        },
+    );
+
+    test.each`
+        type               | shouldRender
+        ${"linear"}        | ${false}
+        ${"ray"}           | ${false}
+        ${"linear-system"} | ${false}
+        ${"segment"}       | ${false}
+        ${"circle"}        | ${false}
+        ${"quadratic"}     | ${false}
+        ${"sinusoid"}      | ${false}
+        ${"polygon"}       | ${false}
+        ${"angle"}         | ${false}
+        ${"point"}         | ${true}
+    `(
+        "should render for $type graphs if point flag is on: $shouldRender",
+        async ({type, shouldRender}) => {
+            // Arrange
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: {
+                            ...flags,
+                            mafs: {
+                                ...flags.mafs,
+                                "start-coords-ui-phase-1": false,
+                                "start-coords-ui-phase-2": false,
+                                "start-coords-ui-point": shouldRender,
                             },
                         },
                     }}

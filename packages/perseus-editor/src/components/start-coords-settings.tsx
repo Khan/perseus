@@ -3,6 +3,7 @@ import {
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
+    getPointCoords,
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
@@ -18,6 +19,7 @@ import Heading from "./heading";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
+import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
@@ -86,6 +88,14 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsQuadratic
                     startCoords={quadraticCoords}
+                    onChange={onChange}
+                />
+            );
+        case "point":
+            const pointCoords = getPointCoords(props, range, step);
+            return (
+                <StartCoordsPoint
+                    startCoords={pointCoords}
                     onChange={onChange}
                 />
             );

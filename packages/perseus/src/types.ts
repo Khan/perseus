@@ -164,9 +164,14 @@ export const InteractiveGraphEditorFlags = [
     "start-coords-ui-phase-1",
     /**
      * Enables the UI for setting the start coordinates of a graph.
-     * Includes sinusoid graph.
+     * Includes sinusoid and quadratic graphs.
      */
     "start-coords-ui-phase-2",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes point graph.
+     */
+    "start-coords-ui-point",
 ] as const;
 
 /**
