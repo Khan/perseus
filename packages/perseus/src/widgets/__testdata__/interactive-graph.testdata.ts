@@ -97,6 +97,16 @@ export const pointQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const pointQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withPoints(1).build();
 
+export const pointQuestionWithStartingCoords: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withPoints(2, {
+            startCoords: [
+                [0, 0],
+                [2, 2],
+            ],
+        })
+        .build();
+
 export const polygonQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(

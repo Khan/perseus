@@ -637,7 +637,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 correct: {
                     type: "point",
                     numPoints: "unlimited",
-                    coords: [[0, 0]],
                 },
             }),
         );
