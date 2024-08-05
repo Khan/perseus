@@ -19,6 +19,7 @@ import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
+import {v4 as uuid} from "uuid";
 
 import a11y from "../util/a11y";
 import {debounce} from "../util/debounce";
@@ -28,7 +29,6 @@ import {PerseusI18nContext} from "./i18n-context";
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
-import {v4 as uuid} from "uuid";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -335,7 +335,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
-                        aria-label={this.context.strings.mathInputTitle}
+                        // aria-label={this.context.strings.mathInputTitle}
                         aria-describedby={`popover-content-${uniqueId}`}
                         content={() => (
                             <>
