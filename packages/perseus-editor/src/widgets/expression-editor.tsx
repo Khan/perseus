@@ -8,6 +8,7 @@ import {
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {
     HeadingSmall,
@@ -498,13 +499,19 @@ class AnswerOption extends React.Component<
 
     render(): React.ReactNode {
         const removeButton = this.state.deleteFocused ? (
-            <Button
-                size="small"
-                onClick={this.handleImSure}
-                color="destructive"
-            >
-                I'm sure!
-            </Button>
+            <>
+                <Button
+                    size="small"
+                    onClick={this.handleImSure}
+                    color="destructive"
+                >
+                    I'm sure!
+                </Button>
+                <Strut size={spacing.small_12} />
+                <Button size="small" onClick={this.handleCancelDelete} light>
+                    Cancel
+                </Button>
+            </>
         ) : (
             <Button
                 size="small"
@@ -577,7 +584,9 @@ class AnswerOption extends React.Component<
                         </InfoTip>
                     </div>
 
-                    <div className={css(styles.paddedY)}>{removeButton}</div>
+                    <div className={css(styles.buttonRow, styles.paddedY)}>
+                        {removeButton}
+                    </div>
                 </div>
             </div>
         );
@@ -585,6 +594,10 @@ class AnswerOption extends React.Component<
 
     handleImSure = () => {
         this.props.onDelete();
+    };
+
+    handleCancelDelete = () => {
+        this.setState({deleteFocused: false});
     };
 
     handleDelete = () => {
@@ -650,5 +663,8 @@ const styles = StyleSheet.create({
     },
     answerExpression: {
         display: "table-cell",
+    },
+    buttonRow: {
+        display: "flex",
     },
 });
