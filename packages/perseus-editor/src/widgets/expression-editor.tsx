@@ -7,6 +7,7 @@ import {
     Expression,
     PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
@@ -17,7 +18,7 @@ import SortableArea from "../components/sortable";
 
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
 
-const {InfoTip, PropCheckBox, TextInput} = components;
+const {InfoTip, TextInput} = components;
 
 type Props = {
     widgetId?: any;
@@ -218,12 +219,12 @@ class ExpressionEditor extends React.Component<Props> {
                 </div>
 
                 <div>
-                    <PropCheckBox
-                        times={this.props.times}
-                        onChange={this.props.onChange}
-                        labelAlignment="right"
-                        label="Use × for rendering multiplication instead of a
-                        center dot."
+                    <Checkbox
+                        label="Use × for rendering multiplication instead of a center dot."
+                        checked={this.props.times}
+                        onChange={(value) => {
+                            this.props.onChange({times: value});
+                        }}
                     />
                     <InfoTip>
                         <p>
@@ -542,11 +543,12 @@ class AnswerOption extends React.Component<
                     </div>
 
                     <div className="answer-option">
-                        <PropCheckBox
-                            form={this.props.form}
-                            onChange={this.props.onChange}
-                            labelAlignment="right"
+                        <Checkbox
                             label="Answer expression must have the same form."
+                            checked={this.props.form}
+                            onChange={(value) => {
+                                this.props.onChange({form: value});
+                            }}
                         />
                         <InfoTip>
                             <p>
@@ -558,12 +560,12 @@ class AnswerOption extends React.Component<
                     </div>
 
                     <div className="answer-option">
-                        <PropCheckBox
-                            simplify={this.props.simplify}
-                            onChange={this.props.onChange}
-                            labelAlignment="right"
-                            label="Answer expression must be fully expanded and
-                            simplified."
+                        <Checkbox
+                            label="Answer expression must be fully expanded and simplified."
+                            checked={this.props.simplify}
+                            onChange={(value) => {
+                                this.props.onChange({simplify: value});
+                            }}
                         />
                         <InfoTip>
                             <p>

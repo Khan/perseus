@@ -7,6 +7,7 @@ import {
     Util,
     PerseusI18nContext,
 } from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
@@ -20,7 +21,6 @@ const {
     InlineIcon,
     MultiButtonGroup,
     NumberInput,
-    PropCheckBox,
     TextInput,
 } = components;
 const {iconGear, iconTrash} = icons;
@@ -197,11 +197,12 @@ class NumericInputEditor extends React.Component<Props, State> {
                     </InfoTip>
                 </div>
                 <div className="perseus-widget-row">
-                    <PropCheckBox
+                    <Checkbox
                         label="Strictly match only these formats"
-                        strict={answers[i]["strict"]}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        onChange={this.updateAnswer.bind(this, i)}
+                        checked={answers[i]["strict"]}
+                        onChange={(value) => {
+                            this.updateAnswer.bind(this, i)({strict: value});
+                        }}
                     />
                 </div>
             </div>
@@ -245,10 +246,12 @@ class NumericInputEditor extends React.Component<Props, State> {
 
         const rightAlign = (
             <div className="perseus-widget-row">
-                <PropCheckBox
+                <Checkbox
                     label="Right alignment"
-                    rightAlign={this.props.rightAlign}
-                    onChange={this.props.onChange}
+                    checked={this.props.rightAlign}
+                    onChange={(value) => {
+                        this.props.onChange({rightAlign: value});
+                    }}
                 />
             </div>
         );
@@ -274,10 +277,12 @@ class NumericInputEditor extends React.Component<Props, State> {
         const coefficientCheck = (
             <div>
                 <div className="perseus-widget-row">
-                    <PropCheckBox
+                    <Checkbox
                         label="Coefficient"
-                        coefficient={this.props.coefficient}
-                        onChange={this.props.onChange}
+                        checked={this.props.coefficient}
+                        onChange={(value) => {
+                            this.props.onChange({coefficient: value});
+                        }}
                     />
                     <InfoTip>
                         <p>
