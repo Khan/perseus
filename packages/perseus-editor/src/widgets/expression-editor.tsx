@@ -536,12 +536,12 @@ class AnswerOption extends React.Component<
 
                 <div className={css(styles.answerBody)}>
                     <div className={css(styles.answerConsidered)}>
-                        <div
+                        <button
                             onClick={this.toggleConsidered}
                             className={answerStatusCss}
                         >
                             {this.props.considered}
-                        </div>
+                        </button>
 
                         <div className={css(styles.answerExpression)}>
                             <Expression {...this.props.expressionProps} />
@@ -638,13 +638,12 @@ const styles = StyleSheet.create({
         width: "20px",
     },
     answerStatus: {
-        color: "inherit",
-        cursor: "pointer",
-        textAlign: "center",
-        textDecoration: "none",
+        border: "none",
         userSelect: "none",
         display: "table-cell",
         width: "100px",
+        paddingTop: spacing.small_12,
+        paddingBottom: spacing.small_12,
     },
     answerStatusWrong: {
         backgroundColor: color.fadedRed16,
