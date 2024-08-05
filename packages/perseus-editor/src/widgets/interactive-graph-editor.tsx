@@ -354,7 +354,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         coords: null,
                                     };
 
-                                    this.props.onChange({correct: graph});
+                                    this.props.onChange({
+                                        correct: graph,
+                                        graph: graph,
+                                    });
                                 }}
                                 style={styles.singleSelectShort}
                             >

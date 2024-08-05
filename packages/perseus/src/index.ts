@@ -123,6 +123,7 @@ export {
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
+    getPolygonCoords,
     getSegmentCoords,
     getSinusoidCoords,
     getQuadraticCoords,

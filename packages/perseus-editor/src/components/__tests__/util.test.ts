@@ -326,6 +326,45 @@ describe("getDefaultGraphStartCoords", () => {
             [5, 0],
         ]);
     });
+
+    test("should get default start coords for a polygon graph, triangle (default)", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "polygon"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [3, -2],
+            [0, 4],
+            [-3, -2],
+        ]);
+    });
+
+    test("should get default start coords for a polygon graph, square", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "polygon", numSides: 4};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [3, -3],
+            [3, 3],
+            [-3, 3],
+            [-3, -3],
+        ]);
+    });
 });
 
 describe("getSinusoidEquation", () => {

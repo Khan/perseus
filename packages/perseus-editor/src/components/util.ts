@@ -4,6 +4,7 @@ import {
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
+    getPolygonCoords,
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
@@ -201,6 +202,12 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "polygon":
+            return getPolygonCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
         default:
             return undefined;
     }
@@ -275,6 +282,7 @@ export const shouldShowStartCoordsUI = (flags, graph) => {
     const startCoordsPhase1 = flags?.mafs?.["start-coords-ui-phase-1"];
     const startCoordsPhase2 = flags?.mafs?.["start-coords-ui-phase-2"];
     const startCoordsPoint = flags?.mafs?.["start-coords-ui-point"];
+    const startCoordsPolygon = flags?.mafs?.["start-coords-ui-polygon"];
 
     if (startCoordsPhase1 && startCoordsUiPhase1Types.includes(graph.type)) {
         return true;
@@ -288,6 +296,17 @@ export const shouldShowStartCoordsUI = (flags, graph) => {
         startCoordsPoint &&
         graph.type === "point" &&
         graph.numPoints !== "unlimited"
+    ) {
+        return true;
+    }
+
+    if (
+        startCoordsPolygon &&
+        graph.type === "polygon" &&
+        graph.numPoints !== "unlimited" &&
+        // Pre-initialized graph with undefined snapTo value
+        // initializes to snapTo="grid"
+        (graph.snapTo === "grid" || graph.snapTo === undefined)
     ) {
         return true;
     }

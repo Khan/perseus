@@ -700,9 +700,10 @@ describe("InteractiveGraphEditor", () => {
                             ...flags,
                             mafs: {
                                 ...flags.mafs,
-                                "start-coords-ui-phase-1": shouldRender,
+                                "start-coords-ui-phase-1": true,
                                 "start-coords-ui-phase-2": false,
                                 "start-coords-ui-point": false,
+                                "start-coords-ui-polygon": false,
                             },
                         },
                     }}
@@ -738,7 +739,7 @@ describe("InteractiveGraphEditor", () => {
         ${"linear-system"} | ${false}
         ${"segment"}       | ${false}
         ${"circle"}        | ${false}
-        ${"quadratic"}     | ${false}
+        ${"quadratic"}     | ${true}
         ${"sinusoid"}      | ${true}
         ${"polygon"}       | ${false}
         ${"angle"}         | ${false}
@@ -759,8 +760,9 @@ describe("InteractiveGraphEditor", () => {
                             mafs: {
                                 ...flags.mafs,
                                 "start-coords-ui-phase-1": false,
-                                "start-coords-ui-phase-2": shouldRender,
+                                "start-coords-ui-phase-2": true,
                                 "start-coords-ui-point": false,
+                                "start-coords-ui-polygon": false,
                             },
                         },
                     }}
@@ -818,7 +820,67 @@ describe("InteractiveGraphEditor", () => {
                                 ...flags.mafs,
                                 "start-coords-ui-phase-1": false,
                                 "start-coords-ui-phase-2": false,
-                                "start-coords-ui-point": shouldRender,
+                                "start-coords-ui-point": true,
+                                "start-coords-ui-polygon": false,
+                            },
+                        },
+                    }}
+                    graph={{type}}
+                    correct={{type}}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            if (shouldRender) {
+                expect(
+                    await screen.findByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeInTheDocument();
+            } else {
+                expect(
+                    screen.queryByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeNull();
+            }
+        },
+    );
+
+    test.each`
+        type               | shouldRender
+        ${"linear"}        | ${false}
+        ${"ray"}           | ${false}
+        ${"linear-system"} | ${false}
+        ${"segment"}       | ${false}
+        ${"circle"}        | ${false}
+        ${"quadratic"}     | ${false}
+        ${"sinusoid"}      | ${false}
+        ${"polygon"}       | ${true}
+        ${"angle"}         | ${false}
+        ${"point"}         | ${false}
+    `(
+        "should render for $type graphs if point flag is on: $shouldRender",
+        async ({type, shouldRender}) => {
+            // Arrange
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: {
+                            ...flags,
+                            mafs: {
+                                ...flags.mafs,
+                                "start-coords-ui-phase-1": false,
+                                "start-coords-ui-phase-2": false,
+                                "start-coords-ui-point": false,
+                                "start-coords-ui-polygon": true,
                             },
                         },
                     }}
