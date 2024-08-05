@@ -335,7 +335,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
-                        // aria-label={this.context.strings.mathInputTitle}
+                        aria-label={this.context.strings.mathInputTitle}
                         aria-describedby={`popover-content-${uniqueId}`}
                         content={() => (
                             <>
