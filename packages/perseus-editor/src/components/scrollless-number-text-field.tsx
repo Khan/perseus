@@ -10,11 +10,11 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
  * without scrolling the page.
  *
  * NOTE 1: Native HTML number inputs do not update the number value on scroll,
- * they only scroll the page. For some reason, inputs in React do NOT work
- * this way. By default, scrolling on a focused number input in React causes
- * BOTH the input value to change AND the page to scroll. The behavior in
- * this component is an improvement on the React behavior, but it's the
- * opposite of the native HTML behavior.
+ * they only scroll the page. Inputs in React do NOT work this way (explanation
+ * here: https://stackoverflow.com/a/68266494). By default, scrolling on a
+ * focused number input in React causes BOTH the input value to change AND
+ * the page to scroll. The behavior in this component is an improvement on
+ * the React behavior, but it's the opposite of the native HTML behavior.
  *
  * NOTE 2: Firefox seems to have a custom override for this. Even with this
  * stopPropogation, Firefox matches the native HTML behavior.
