@@ -535,7 +535,7 @@ class AnswerOption extends React.Component<
                 <div className={css(styles.answerHandle)} />
 
                 <div className={css(styles.answerBody)}>
-                    <div className={css(styles.answerConsidered)}>
+                    <div>
                         <button
                             onClick={this.toggleConsidered}
                             className={answerStatusCss}
@@ -543,7 +543,7 @@ class AnswerOption extends React.Component<
                             {this.props.considered}
                         </button>
 
-                        <div className={css(styles.answerExpression)}>
+                        <div>
                             <Expression {...this.props.expressionProps} />
                         </div>
                     </div>
@@ -621,12 +621,13 @@ const styles = StyleSheet.create({
         paddingRight: spacing.xSmall_8,
     },
     paddedY: {
-        paddingTop: spacing.small_12,
-        paddingBottom: spacing.small_12,
+        paddingTop: spacing.xxSmall_6,
+        paddingBottom: spacing.xxSmall_6,
     },
     answerOption: {
         border: "1px solid #ddd",
         borderRadius: "3px",
+        display: "flex",
     },
     answerHandle: {
         // textured draggy handle
@@ -634,13 +635,12 @@ const styles = StyleSheet.create({
             "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==) no-repeat 50% 50%",
         borderRight: "1px solid #ddd",
         cursor: "move",
-        display: "table-cell",
         width: "20px",
+        minWidth: "20px",
     },
     answerStatus: {
         border: "none",
         userSelect: "none",
-        display: "table-cell",
         width: "100px",
         paddingTop: spacing.small_12,
         paddingBottom: spacing.small_12,
@@ -654,15 +654,7 @@ const styles = StyleSheet.create({
     answerStatusUngraded: {
         backgroundColor: color.fadedBlue16,
     },
-    answerBody: {
-        display: "table-cell",
-    },
-    answerConsidered: {
-        display: "table",
-    },
-    answerExpression: {
-        display: "table-cell",
-    },
+    answerBody: {},
     buttonRow: {
         display: "flex",
     },
