@@ -37,6 +37,17 @@ const mafsOptions = {
     },
 };
 
+const polygonReadOnlyOptions = {
+    apiOptions: {
+        readOnly: true,
+        flags: {
+            mafs: {
+                polygon: true,
+            },
+        },
+    },
+};
+
 type StoryArgs = Record<any, any>;
 
 export const SideBySideFlipbook = (args: StoryArgs): React.ReactElement => (
@@ -69,6 +80,15 @@ export const Polygon = (args: StoryArgs): React.ReactElement => (
 
 export const PolygonWithMafs = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI {...mafsOptions} question={polygonQuestion} />
+);
+
+export const PolygonWithMafsReadOnly = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI
+        {...polygonReadOnlyOptions}
+        question={polygonQuestion}
+    />
 );
 
 export const Ray = (args: StoryArgs): React.ReactElement => (
