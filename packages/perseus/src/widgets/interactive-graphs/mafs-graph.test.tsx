@@ -26,6 +26,7 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         showTooltips: false,
         showProtractor: false,
         hintMode: false,
+        readOnly: false,
         labels: ["x", "y"],
         dispatch: () => {},
         state: {
