@@ -28,6 +28,7 @@ import {PerseusI18nContext} from "./i18n-context";
 import type {LegacyButtonSets} from "../perseus-types";
 import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+import {v4 as uuid} from "uuid";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -290,6 +291,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             "mq-math-mode": true,
         });
 
+        const uniqueId = uuid().slice(0, 8);
+
         if (this.props.className) {
             className = className + " " + this.props.className;
         }
@@ -333,11 +336,11 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
                         aria-label={this.context.strings.mathInputTitle}
-                        aria-describedby="popover-content"
+                        aria-describedby={`popover-content-${uniqueId}`}
                         content={() => (
                             <>
                                 <HeadingMedium
-                                    id="popover-content"
+                                    id={`popover-content-${uniqueId}`}
                                     style={a11y.srOnly}
                                 >
                                     {this.context.strings.mathInputDescription}
