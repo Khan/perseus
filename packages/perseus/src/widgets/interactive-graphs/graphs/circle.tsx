@@ -46,7 +46,7 @@ function MovableCircle(props: {
     onMove: (newCenter: vec.Vector2) => unknown;
 }) {
     const {center, radius, onMove} = props;
-    const {snapStep, hintMode} = useGraphConfig();
+    const {snapStep, hintMode, readOnly} = useGraphConfig();
 
     const draggableRef = useRef<SVGGElement>(null);
 
@@ -63,7 +63,7 @@ function MovableCircle(props: {
     return (
         <g
             ref={draggableRef}
-            tabIndex={hintMode ? -1 : 0}
+            tabIndex={hintMode || readOnly ? -1 : 0}
             className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
         >
             <ellipse
