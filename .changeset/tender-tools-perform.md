@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-update wonder blocks popover versions
+add non-visual text as a description for expression widget
