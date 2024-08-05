@@ -722,11 +722,12 @@ export type LockedVectorType = {
     color: LockedFigureColor;
 };
 
-export type LockedFigureFillType = "none" | "solid" | "translucent";
+export type LockedFigureFillType = "none" | "white" | "translucent" | "solid";
 export const lockedFigureFillStyles: Record<LockedFigureFillType, number> = {
     none: 0,
-    solid: 1,
+    white: 1,
     translucent: 0.4,
+    solid: 1,
 } as const;
 
 export type LockedEllipseType = {

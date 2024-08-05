@@ -7,10 +7,10 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 type Props = {
-    children: string | React.ReactElement | React.ReactElement[];
+    children: React.ReactNode;
 };
 
-export const InfoTip = (props: Props) => {
+const InfoTipBase = (props: Props) => {
     return (
         <Tooltip
             content={<Body style={styles.body}>{props.children}</Body>}
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default InfoTip;
+export default InfoTipBase;
