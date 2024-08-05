@@ -291,7 +291,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             "mq-math-mode": true,
         });
 
-        const uniqueId = uuid().slice(0, 8);
+        const popoverContentUniqueId = uuid().slice(0, 8);
 
         if (this.props.className) {
             className = className + " " + this.props.className;
@@ -336,11 +336,11 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
                         aria-label={this.context.strings.mathInputTitle}
-                        aria-describedby={`popover-content-${uniqueId}`}
+                        aria-describedby={`popover-content-${popoverContentUniqueId}`}
                         content={() => (
                             <>
                                 <HeadingMedium
-                                    id={`popover-content-${uniqueId}`}
+                                    id={`popover-content-${popoverContentUniqueId}`}
                                     style={a11y.srOnly}
                                 >
                                     {this.context.strings.mathInputDescription}
