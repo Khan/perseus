@@ -7,11 +7,11 @@
 
 import * as React from "react";
 
-import ReactComponentsInfoTip from "./info-tip/info-tip";
+import InfoTipBase from "./info-tip-base";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type Props = PropsFor<typeof ReactComponentsInfoTip>;
+type Props = PropsFor<typeof InfoTipBase>;
 
 type State = {
     didMount: boolean;
@@ -30,7 +30,7 @@ class InfoTip extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         if (this.state.didMount) {
-            return <ReactComponentsInfoTip {...this.props} />;
+            return <InfoTipBase {...this.props} />;
         }
         return <div />;
     }

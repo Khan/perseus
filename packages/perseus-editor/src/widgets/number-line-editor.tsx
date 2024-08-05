@@ -1,12 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
 import {components, EditorJsonify} from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-const {ButtonGroup, InfoTip, NumberInput, PropCheckBox, RangeInput} =
-    components;
+const {ButtonGroup, InfoTip, NumberInput, RangeInput} = components;
 
 type Range = [number, number];
 
@@ -365,28 +365,34 @@ class NumberLineEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     {!this.props.static && (
                         <div className="perseus-widget-left-col">
-                            <PropCheckBox
+                            <Checkbox
                                 label="Show tick controller"
-                                isTickCtrl={this.props.isTickCtrl}
-                                onChange={this.props.onChange}
+                                checked={this.props.isTickCtrl}
+                                onChange={(value) => {
+                                    this.props.onChange({isTickCtrl: value});
+                                }}
                             />
                         </div>
                     )}
                     <div className="perseus-widget-right-col">
-                        <PropCheckBox
+                        <Checkbox
                             label="Show label ticks"
-                            labelTicks={this.props.labelTicks}
-                            onChange={this.props.onChange}
+                            checked={this.props.labelTicks}
+                            onChange={(value) => {
+                                this.props.onChange({labelTicks: value});
+                            }}
                         />
                     </div>
                 </div>
 
                 <div className="perseus-widget-row">
                     {!this.props.static && (
-                        <PropCheckBox
+                        <Checkbox
                             label="Show tooltips"
-                            showTooltips={this.props.showTooltips}
-                            onChange={this.props.onChange}
+                            checked={this.props.showTooltips}
+                            onChange={(value) => {
+                                this.props.onChange({showTooltips: value});
+                            }}
                         />
                     )}
                 </div>

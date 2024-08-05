@@ -84,6 +84,33 @@ describe("numeric-input-editor", () => {
         expect(onChangeMock).toBeCalledWith({coefficient: true});
     });
 
+    it("should be possible to select strictly match only these formats", async () => {
+        const onChangeMock = jest.fn();
+
+        render(<NumericInputEditor onChange={onChangeMock} />);
+
+        await userEvent.click(screen.getByLabelText("Toggle options"));
+        await userEvent.click(
+            screen.getByRole("checkbox", {
+                name: "Strictly match only these formats",
+            }),
+        );
+
+        expect(onChangeMock).toBeCalledWith({
+            answers: [
+                {
+                    answerForms: [],
+                    maxError: null,
+                    message: "",
+                    simplify: "required",
+                    status: "correct",
+                    strict: true,
+                    value: null,
+                },
+            ],
+        });
+    });
+
     it("should be possible to update label text", async () => {
         const onChangeMock = jest.fn();
 

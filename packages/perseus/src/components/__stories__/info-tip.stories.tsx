@@ -18,9 +18,6 @@ export const TextOnMouseover = (args: StoryArgs): React.ReactElement => {
 
 export const CodeInText = (args: StoryArgs): React.ReactElement => {
     return (
-        // InfoTip is complaining about <code> not being a string
-        // or React.ReactElement even though it should be valid.
-        // @ts-expect-error - TS2769 - No overload matches this call.
         <InfoTip>
             Settings that you add here are available to the program as an object
             returned by <code>Program.settings()</code>

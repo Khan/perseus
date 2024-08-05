@@ -1,11 +1,12 @@
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
 
-const {InfoTip, PropCheckBox} = components;
+const {InfoTip} = components;
 
 type Props = any;
 
@@ -68,11 +69,12 @@ class PassageEditor extends React.Component<Props> {
         return (
             <div className="perseus-widget-passage-editor">
                 <div className="perseus-widget-row">
-                    <PropCheckBox
+                    <Checkbox
                         label="Show line numbers"
-                        labelAlignment="right"
-                        showLineNumbers={this.props.showLineNumbers}
-                        onChange={this.props.onChange}
+                        checked={this.props.showLineNumbers}
+                        onChange={(value) => {
+                            this.props.onChange({showLineNumbers: value});
+                        }}
                     />
                 </div>
                 <div>

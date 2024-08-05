@@ -10,13 +10,14 @@ import {
     KhanMath,
     Util,
 } from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-const {ButtonGroup, InfoTip, PropCheckBox, RangeInput} = components;
+const {ButtonGroup, InfoTip, RangeInput} = components;
 
 const defaultBackgroundImage = {
     url: null,
@@ -521,10 +522,12 @@ const GraphSettings = createReactClass({
                             />
                         </div>
                         <div className="perseus-widget-left-col">
-                            <PropCheckBox
+                            <Checkbox
                                 label="Show tooltips"
-                                showTooltips={this.props.showTooltips}
-                                onChange={this.change}
+                                checked={this.props.showTooltips}
+                                onChange={(value) => {
+                                    this.change({showTooltips: value});
+                                }}
                             />
                         </div>
                     </div>
@@ -566,17 +569,21 @@ const GraphSettings = createReactClass({
                     <div className="misc-settings">
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
-                                <PropCheckBox
+                                <Checkbox
                                     label="Show ruler"
-                                    showRuler={this.props.showRuler}
-                                    onChange={this.change}
+                                    checked={this.props.showRuler}
+                                    onChange={(value) => {
+                                        this.change({showRuler: value});
+                                    }}
                                 />
                             </div>
                             <div className="perseus-widget-right-col">
-                                <PropCheckBox
+                                <Checkbox
                                     label="Show protractor"
-                                    showProtractor={this.props.showProtractor}
-                                    onChange={this.change}
+                                    checked={this.props.showProtractor}
+                                    onChange={(value) => {
+                                        this.change({showProtractor: value});
+                                    }}
                                 />
                             </div>
                         </div>

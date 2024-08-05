@@ -1,10 +1,10 @@
-import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import ScrolllessNumberTextField from "./scrollless-number-text-field";
 import {degreeToRadian, radianToDegree} from "./util";
 
 type Props = {
@@ -37,8 +37,7 @@ const AngleInput = (props: Props) => {
         <LabelMedium tag="label" style={styles.row}>
             angle (degrees)
             <Strut size={spacing.xxSmall_6} />
-            <TextField
-                type="number"
+            <ScrolllessNumberTextField
                 value={angleInput}
                 onChange={handleAngleChange}
                 style={styles.textField}
