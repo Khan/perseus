@@ -394,7 +394,7 @@ export function getCircleCoords(graph: PerseusGraphTypeCircle): {
     };
 }
 
-const getAngleCoords = (params: {
+export const getAngleCoords = (params: {
     graph: PerseusGraphTypeAngle;
     range: [x: Interval, y: Interval];
     step: [x: number, y: number];

@@ -127,6 +127,7 @@ export {
     getSegmentCoords,
     getSinusoidCoords,
     getQuadraticCoords,
+    getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**
