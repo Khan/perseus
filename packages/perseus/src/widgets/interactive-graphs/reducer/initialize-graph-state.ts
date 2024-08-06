@@ -277,7 +277,7 @@ export function getLinearSystemCoords(
     );
 }
 
-function getPolygonCoords(
+export function getPolygonCoords(
     graph: PerseusGraphTypePolygon,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],

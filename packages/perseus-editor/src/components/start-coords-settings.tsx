@@ -4,6 +4,7 @@ import {
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
+    getPolygonCoords,
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
@@ -91,8 +92,13 @@ const StartCoordsSettingsInner = (props: Props) => {
                     onChange={onChange}
                 />
             );
+        // Graphs with startCoords of type ReadonlyArray<Coord>
         case "point":
-            const pointCoords = getPointCoords(props, range, step);
+        case "polygon":
+            const pointCoords =
+                type === "point"
+                    ? getPointCoords(props, range, step)
+                    : getPolygonCoords(props, range, step);
             return (
                 <StartCoordsPoint
                     startCoords={pointCoords}
