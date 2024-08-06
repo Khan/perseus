@@ -33,7 +33,7 @@ export type Props = LockedFunctionType &
         onChangeProps: (newProps: Partial<LockedFunctionType>) => void;
     };
 
-export const LockedFunctionSettings = (props: Props) => {
+const LockedFunctionSettings = (props: Props) => {
     const {
         color: lineColor,
         strokeStyle,
@@ -47,36 +47,43 @@ export const LockedFunctionSettings = (props: Props) => {
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
     const lineLabel = `Function (${equationPrefix}${equation})`;
     const domainLimits = domain ? [...domain] : [-Infinity, Infinity];
+
+    // Tracking the string value of domain values to handle interim state of
+    //     entering in a negative value - used when specifying value of input field
     const [domainEntries, setDomainEntries] = useState([
-        domain ? domain[0].toString() : "",
-        domain ? domain[1].toString() : "",
+        domain && domain[0] !== -Infinity ? domain[0].toString() : "",
+        domain && domain[1] !== Infinity ? domain[1].toString() : "",
     ]);
 
     useEffect(() => {
         setDomainEntries([
-            domain ? domain[0].toString() : "",
-            domain ? domain[1].toString() : "",
+            domain && domain[0] !== -Infinity ? domain[0].toString() : "",
+            domain && domain[1] !== Infinity ? domain[1].toString() : "",
         ]);
     }, [domain]);
 
+    // Generic function for handling property changes (except for 'domain')
     function handlePropChange(property: string, newValue: string) {
         const updatedProps: Partial<LockedFunctionType> = {};
         updatedProps[property] = newValue;
         onChangeProps(updatedProps);
     }
 
+    /*
+     Reason for having a separate 'propChange' function for 'domain':
+        Domain entries are optional. Their default value is +/- Infinity.
+        Since input fields that are empty evaluate to zero, there needs to be
+            dedicated code to convert empty to Infinity.
+     */
     function handleDomainChange(limitIndex: number, newValueString: string) {
-        const newDomainEntry = [...domainEntries];
-        newDomainEntry[limitIndex] = newValueString;
-        setDomainEntries(newDomainEntry);
-        if (isNaN(parseFloat(newValueString)) && newValueString !== "") {
-            return;
-        }
-
+        const newDomainEntries = [...domainEntries];
+        newDomainEntries[limitIndex] = newValueString;
+        setDomainEntries(newDomainEntries);
         const newDomain: Interval | undefined = [
             domainLimits[0],
             domainLimits[1],
         ];
+
         let newValue = parseFloat(newValueString);
         if (newValueString === "" && limitIndex === 0) {
             newValue = -Infinity;

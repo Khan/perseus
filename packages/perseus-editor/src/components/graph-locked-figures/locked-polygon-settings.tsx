@@ -22,11 +22,11 @@ import PerseusEditorAccordion from "../perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import LabeledSwitch from "./labeled-switch";
+import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import PolygonSwatch from "./polygon-swatch";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import LineStrokeSelect from "./line-stroke-select";
 
 export type Props = LockedFigureSettingsCommonProps &
     LockedPolygonType & {

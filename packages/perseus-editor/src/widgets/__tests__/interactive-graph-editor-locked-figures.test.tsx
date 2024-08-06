@@ -72,12 +72,13 @@ describe("InteractiveGraphEditor locked figures", () => {
 
     // Basic functionality
     describe.each`
-        figureType   | figureName
-        ${"point"}   | ${"Point"}
-        ${"line"}    | ${"Line"}
-        ${"vector"}  | ${"Vector"}
-        ${"ellipse"} | ${"Ellipse"}
-        ${"polygon"} | ${"Polygon"}
+        figureType    | figureName
+        ${"point"}    | ${"Point"}
+        ${"line"}     | ${"Line"}
+        ${"vector"}   | ${"Vector"}
+        ${"ellipse"}  | ${"Ellipse"}
+        ${"polygon"}  | ${"Polygon"}
+        ${"function"} | ${"Function"}
     `(`$figureType basics`, ({figureType, figureName}) => {
         test("Calls onChange when a locked $figureType is added", async () => {
             // Arrange
