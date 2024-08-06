@@ -8,7 +8,7 @@ const PT = PropTypes;
 
 /**
  * Takes an array of components to sort.
- * As of this writing, there are two sortable components
+ * As of 08/05/24, there are two sortable components
  * (one in perseus and one in perseus-editor).
  * As far as I can tell, this one is only used in ExpressionEditor.
  */
