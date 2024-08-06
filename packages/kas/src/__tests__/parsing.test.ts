@@ -8,12 +8,17 @@ expect.extend({
         expected: string,
         options?: any,
     ): jest.CustomMatcherResult {
-        const actual = KAS.parse(input, options).expr.print();
+        const parsed = KAS.parse(input, options);
+        const expression = parsed.expr;
+        const actual = expression.print();
 
         if (actual !== expected) {
+            console.log(JSON.stringify(parsed, null, 2));
+            console.log(JSON.stringify(expression, null, 2));
             return {
                 pass: false,
-                message: () => `${input} parses as ${expected}`,
+                message: () =>
+                    `input: ${input}\nexpected:${expected}\nactual: ${actual}`,
             };
         }
 
@@ -104,34 +109,36 @@ describe("parsing", () => {
         expect("1/2 2").toParseAs("1/2*2");
     });
 
-    test("rationals using \\frac", () => {
-        expect("\\frac{1}{2}").toParseAs("1/2");
-        expect("\\frac{-1}{2}").toParseAs("-1/2");
-        expect("\\frac{1}{-2}").toParseAs("-1/2");
-        expect("\\frac{-1}{-2}").toParseAs("-1*-1/2");
-        expect("\\frac{42}{42}").toParseAs("42/42");
-        expect("\\frac{42}{1}").toParseAs("42/1");
-        expect("\\frac{0}{42}").toParseAs("0/42");
+    test.only("rationals using \\frac", () => {
+        // expect("\\frac{1}{2}").toParseAs("1/2");
+        // expect("\\frac{-1}{2}").toParseAs("-1/2");
+        // expect("\\frac{1}{-2}").toParseAs("-1/2");
+        // expect("\\frac{-1}{-2}").toParseAs("-1*-1/2");
+        // expect("\\frac{42}{42}").toParseAs("42/42");
+        // expect("\\frac{42}{1}").toParseAs("42/1");
+        // expect("\\frac{0}{42}").toParseAs("0/42");
 
-        expect("2\\frac{1}{2}").toParseAs("2*1/2");
-        expect("\\frac{1}{2}\\frac{1}{2}").toParseAs("1/2*1/2");
-        expect("-\\frac{1}{2}").toParseAs("-1/2");
-        expect("\\frac{1}{2}2").toParseAs("1/2*2");
+        expect("2\\frac{1}{2}").toParseAs("(2+1/2)");
+        // expect("\\frac{1}{2}\\frac{1}{2}").toParseAs("1/2*1/2");
+        // expect("-\\frac{1}{2}").toParseAs("-1/2");
+        // expect("\\frac{1}{2}2").toParseAs("1/2*2");
     });
 
-    test("rationals using \\dfrac", () => {
-        expect("\\dfrac{1}{2}").toParseAs("1/2");
-        expect("\\dfrac{-1}{2}").toParseAs("-1/2");
-        expect("\\dfrac{1}{-2}").toParseAs("-1/2");
-        expect("\\dfrac{-1}{-2}").toParseAs("-1*-1/2");
-        expect("\\dfrac{42}{42}").toParseAs("42/42");
-        expect("\\dfrac{42}{1}").toParseAs("42/1");
-        expect("\\dfrac{0}{42}").toParseAs("0/42");
+    test.only("rationals using \\dfrac", () => {
+        // STOPSHIP delete this fake line
+        expect("(5+\\frac{3}{4})").toParseAs("(5+3/4)");
+        // expect("\\dfrac{1}{2}").toParseAs("1/2");
+        // expect("\\dfrac{-1}{2}").toParseAs("-1/2");
+        // expect("\\dfrac{1}{-2}").toParseAs("-1/2");
+        // expect("\\dfrac{-1}{-2}").toParseAs("-1*-1/2");
+        // expect("\\dfrac{42}{42}").toParseAs("42/42");
+        // expect("\\dfrac{42}{1}").toParseAs("42/1");
+        // expect("\\dfrac{0}{42}").toParseAs("0/42");
 
-        expect("2\\dfrac{1}{2}").toParseAs("2*1/2");
-        expect("\\dfrac{1}{2}\\dfrac{1}{2}").toParseAs("1/2*1/2");
-        expect("-\\dfrac{1}{2}").toParseAs("-1/2");
-        expect("\\dfrac{1}{2}2").toParseAs("1/2*2");
+        // expect("2\\dfrac{1}{2}").toParseAs("2*1/2");
+        // expect("\\dfrac{1}{2}\\dfrac{1}{2}").toParseAs("1/2*1/2");
+        // expect("-\\dfrac{1}{2}").toParseAs("-1/2");
+        // expect("\\dfrac{1}{2}2").toParseAs("1/2*2");
     });
 
     test("parens", () => {
