@@ -19,15 +19,11 @@ import type {
     Hint,
     ChangeHandler,
     DeviceType,
+    ImageUploader,
 } from "@khanacademy/perseus";
 
 const {InfoTip, InlineIcon} = components;
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
-
-type ImageUploader = (
-    file: string,
-    callback: (url: string) => unknown,
-) => unknown;
 
 type HintEditorProps = {
     itemId?: string;
