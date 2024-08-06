@@ -5,6 +5,7 @@
  */
 
 import Banner from "@khanacademy/wonder-blocks-banner";
+import Button from "@khanacademy/wonder-blocks-button";
 import PropTypes from "prop-types";
 import * as React from "react";
 
@@ -31,8 +32,8 @@ class PhetSim extends React.Component<Props, State> {
         description: PropTypes.string,
     };
 
-    private url: URL | null;
-    private iframeRef: React.RefObject<HTMLIFrameElement>;
+    private readonly url: URL | null;
+    private readonly iframeRef: React.RefObject<HTMLIFrameElement>;
 
     state: State = {
         errMessage: null,
@@ -43,6 +44,7 @@ class PhetSim extends React.Component<Props, State> {
         // Initialize the URL
         const {kaLocale} = getDependencies();
         this.url = new URL(this.props.url);
+        // TODO(Anna): Update kaLocale to match PhET locale format
         this.url.searchParams.set("locale", kaLocale);
         if (this.url.origin !== "https://phet.colorado.edu") {
             // TODO(Anna): Report some kind of error
@@ -106,13 +108,13 @@ class PhetSim extends React.Component<Props, State> {
                     }
                     allow="fullscreen"
                 />
-                <button
+                <Button
                     onClick={() => {
                         this.iframeRef.current?.requestFullscreen();
                     }}
                 >
                     Fullscreen
-                </button>
+                </Button>
             </>
         );
     }
@@ -132,6 +134,33 @@ class PhetSim extends React.Component<Props, State> {
         if (!this.url) {
             return false;
         }
+
+        /*
+        Access to fetch at 'https://phet.colorado.edu/services/check-html-updates' from origin 'http://localhost:6006'
+        has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No
+        'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your
+        needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+         */
+        const phetRegex: RegExp =
+            /https:\/\/phet\.colorado\.edu\/sims\/html\/([a-zA-Z0-9-]+)\/.*/g;
+        const match: RegExpExecArray | null = phetRegex.exec(
+            this.url.toString(),
+        );
+        if (!match) {
+            return false;
+        }
+        const simName = match[1];
+        const locales = await fetch(
+            `https://phet.colorado.edu/sims/html/${simName}/latest/string-map.json`,
+        )
+            .then((response: Response) => response.json())
+            .then((json: any) => {
+                console.log(Object.keys(json));
+                return Object.keys(json);
+            });
+
+        //return !locales.includes(kaLocale);
+
         return fetch(this.url)
             .then((response: Response): Promise<string> => response.text())
             .then((html: string): boolean => {
@@ -143,6 +172,7 @@ class PhetSim extends React.Component<Props, State> {
                 const endIndex = html.indexOf(";");
                 html = html.substring(0, endIndex);
                 const locales: string[] = Object.keys(JSON.parse(html));
+                console.log(locales);
                 return !locales.includes(kaLocale);
             })
             .catch((error: any) => {
