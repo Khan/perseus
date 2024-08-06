@@ -17,7 +17,6 @@ export const question1: PerseusRenderer = {
             alignment: "block",
         },
     },
-    replace: false,
 };
 
 export const question2: PerseusRenderer = {
@@ -37,7 +36,6 @@ export const question2: PerseusRenderer = {
             alignment: "block",
         },
     },
-    replace: false,
 };
 
 export const question3: PerseusRenderer = {
@@ -57,5 +55,4 @@ export const question3: PerseusRenderer = {
             alignment: "block",
         },
     },
-    replace: false,
 };

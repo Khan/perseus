@@ -1,11 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/sort-comp */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-const {InfoTip, NumberInput, PropCheckBox, RangeInput} = components;
+const {InfoTip, NumberInput, RangeInput} = components;
 
 const defaultImage = {
     url: null,
@@ -103,17 +104,21 @@ class MeasurerEditor extends React.Component<Props> {
                 </div>
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col">
-                        <PropCheckBox
+                        <Checkbox
                             label="Show ruler"
-                            showRuler={this.props.showRuler}
-                            onChange={this.props.onChange}
+                            checked={this.props.showRuler}
+                            onChange={(value) => {
+                                this.props.onChange({showRuler: value});
+                            }}
                         />
                     </div>
                     <div className="perseus-widget-right-col">
-                        <PropCheckBox
+                        <Checkbox
                             label="Show protractor"
-                            showProtractor={this.props.showProtractor}
-                            onChange={this.props.onChange}
+                            checked={this.props.showProtractor}
+                            onChange={(value) => {
+                                this.props.onChange({showProtractor: value});
+                            }}
                         />
                     </div>
                 </div>

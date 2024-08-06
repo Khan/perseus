@@ -47,6 +47,7 @@ import type {
     PerseusScore,
     WidgetProps,
 } from "./types";
+import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
@@ -169,7 +170,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     findExternalWidgets: any;
     highlightedWidgets?: ReadonlyArray<any>;
     images: PerseusRenderer["images"];
-    keypadElement?: any; // TODO(kevinb): add proper types,
+    keypadElement?: KeypadAPI | null;
     onInteractWithWidget: (id: string) => void;
     onRender: (node?: any) => void;
     problemNum?: number;

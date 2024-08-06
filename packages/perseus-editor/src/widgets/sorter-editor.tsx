@@ -1,11 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-const {InfoTip, PropCheckBox, TextListEditor} = components;
+const {InfoTip, TextListEditor} = components;
 
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
@@ -84,10 +85,12 @@ class SorterEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div>
-                    <PropCheckBox
+                    <Checkbox
                         label="Padding:"
-                        padding={this.props.padding}
-                        onChange={this.props.onChange}
+                        checked={this.props.padding}
+                        onChange={(value) => {
+                            this.props.onChange({padding: value});
+                        }}
                     />
                     <InfoTip>
                         <p>

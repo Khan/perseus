@@ -1,5 +1,4 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
@@ -7,6 +6,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import CoordinatePairInput from "./coordinate-pair-input";
+import ScrolllessNumberTextField from "./scrollless-number-text-field";
 
 import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
 
@@ -15,7 +15,6 @@ type Props = {
         center: Coord;
         radius: number;
     };
-    // center: number;
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 
@@ -42,9 +41,8 @@ const StartCoordsCircle = (props: Props) => {
             <View style={styles.row}>
                 <LabelLarge>Radius:</LabelLarge>
                 <Strut size={spacing.small_12} />
-                <TextField
+                <ScrolllessNumberTextField
                     value={startCoords.radius.toString()}
-                    type="number"
                     onChange={(value) => {
                         onChange({
                             center: startCoords.center,

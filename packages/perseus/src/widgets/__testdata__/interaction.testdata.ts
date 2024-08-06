@@ -4,7 +4,6 @@ export const question1: PerseusRenderer = {
     content:
         "Drag the dot all the way to the right.\n\n[[☃ interaction 1]]\n\n\n*Notice that we add a zero to the empty place value.* ",
     images: {},
-    replace: false,
     widgets: {
         "interaction 1": {
             alignment: "default",

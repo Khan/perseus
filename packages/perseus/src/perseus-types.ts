@@ -87,7 +87,7 @@ export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
     // A collection of hints to be offered to the user that support answering the question.
-    hints: ReadonlyArray<PerseusRenderer>;
+    hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
     // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
@@ -116,8 +116,6 @@ export type PerseusRenderer = {
     content: string;
     // A dictionary of {[widgetName]: Widget} to be referenced from the content field
     widgets: PerseusWidgetsMap;
-    // Used only for PerseusItem.hints.  If true, it replaces the previous hint in the list with the current one. This allows for hints that build upon each other.
-    replace?: boolean;
     // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     metadata?: ReadonlyArray<string>;
@@ -125,6 +123,15 @@ export type PerseusRenderer = {
     images: {
         [key: string]: PerseusImageDetail;
     };
+};
+
+export type Hint = PerseusRenderer & {
+    /**
+     * When `true`, causes the previous hint to be replaced with this hint when
+     * displayed. When `false`, the previous hint remains visible when this one
+     * is displayed. This allows for hints that build upon each other.
+     */
+    replace?: boolean;
 };
 
 export type PerseusImageDetail = {

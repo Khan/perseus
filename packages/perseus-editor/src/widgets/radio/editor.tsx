@@ -6,13 +6,14 @@ import {
     BaseRadio,
     Changeable,
 } from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
 
-const {InlineIcon, PropCheckBox} = components;
+const {InlineIcon} = components;
 const {iconPlus, iconTrash} = icons;
 
 class ChoiceEditor extends React.Component<any> {
@@ -150,28 +151,35 @@ class RadioEditor extends React.Component<any> {
                     </a>
                     <br />
                     <div className="perseus-widget-left-col">
-                        <PropCheckBox
+                        <Checkbox
                             label="Multiple selections"
-                            labelAlignment="right"
-                            multipleSelect={this.props.multipleSelect}
-                            onChange={this.onMultipleSelectChange}
+                            checked={this.props.multipleSelect}
+                            onChange={(value) => {
+                                this.onMultipleSelectChange({
+                                    multipleSelect: value,
+                                });
+                            }}
                         />
                     </div>
                     <div className="perseus-widget-right-col">
-                        <PropCheckBox
+                        <Checkbox
                             label="Randomize order"
-                            labelAlignment="right"
-                            randomize={this.props.randomize}
-                            onChange={this.props.onChange}
+                            checked={this.props.randomize}
+                            onChange={(value) => {
+                                this.props.onChange({randomize: value});
+                            }}
                         />
                     </div>
                     {this.props.multipleSelect && (
                         <div className="perseus-widget-left-col">
-                            <PropCheckBox
+                            <Checkbox
                                 label="Specify number correct"
-                                labelAlignment="right"
-                                countChoices={this.props.countChoices}
-                                onChange={this.onCountChoicesChange}
+                                checked={this.props.countChoices}
+                                onChange={(value) => {
+                                    this.onCountChoicesChange({
+                                        countChoices: value,
+                                    });
+                                }}
                             />
                         </div>
                     )}

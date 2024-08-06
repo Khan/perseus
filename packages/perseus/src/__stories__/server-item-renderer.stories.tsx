@@ -13,11 +13,11 @@ import {
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
 
-type StoryArgs = Record<any, any>;
+import type {StoryObj, Meta} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
+type StoryArgs = StoryObj<ServerItemRenderer>;
+
+type Story = Meta<ServerItemRenderer>;
 
 export default {
     title: "Perseus/Renderers/Server Item Renderer",

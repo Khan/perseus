@@ -673,6 +673,8 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
+    // TODO(LEMS-2228): Remove flag-related code once
+    // start coords UI is rolled out 100%
     test.each`
         type               | shouldRender
         ${"linear"}        | ${true}
@@ -700,8 +702,69 @@ describe("InteractiveGraphEditor", () => {
                             ...flags,
                             mafs: {
                                 ...flags.mafs,
-                                "start-coords-ui-phase-1": shouldRender,
+                                "start-coords-ui-phase-1": true,
                                 "start-coords-ui-phase-2": false,
+                                "start-coords-ui-point": false,
+                                "start-coords-ui-polygon": false,
+                            },
+                        },
+                    }}
+                    graph={{type}}
+                    correct={{type}}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            if (shouldRender) {
+                expect(
+                    await screen.findByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeInTheDocument();
+            } else {
+                expect(
+                    screen.queryByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeNull();
+            }
+        },
+    );
+
+    test.each`
+        type               | shouldRender
+        ${"linear"}        | ${false}
+        ${"ray"}           | ${false}
+        ${"linear-system"} | ${false}
+        ${"segment"}       | ${false}
+        ${"circle"}        | ${false}
+        ${"quadratic"}     | ${true}
+        ${"sinusoid"}      | ${true}
+        ${"polygon"}       | ${false}
+        ${"angle"}         | ${false}
+        ${"point"}         | ${false}
+    `(
+        "should render for $type graphs if phase2 flag is on: $shouldRender",
+        async ({type, shouldRender}) => {
+            // Arrange
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: {
+                            ...flags,
+                            mafs: {
+                                ...flags.mafs,
+                                "start-coords-ui-phase-1": false,
+                                "start-coords-ui-phase-2": true,
+                                "start-coords-ui-point": false,
+                                "start-coords-ui-polygon": false,
                             },
                         },
                     }}
@@ -738,12 +801,12 @@ describe("InteractiveGraphEditor", () => {
         ${"segment"}       | ${false}
         ${"circle"}        | ${false}
         ${"quadratic"}     | ${false}
-        ${"sinusoid"}      | ${true}
+        ${"sinusoid"}      | ${false}
         ${"polygon"}       | ${false}
         ${"angle"}         | ${false}
-        ${"point"}         | ${false}
+        ${"point"}         | ${true}
     `(
-        "should render for $type graphs if phase2 flag is on: $shouldRender",
+        "should render for $type graphs if point flag is on: $shouldRender",
         async ({type, shouldRender}) => {
             // Arrange
 
@@ -758,7 +821,9 @@ describe("InteractiveGraphEditor", () => {
                             mafs: {
                                 ...flags.mafs,
                                 "start-coords-ui-phase-1": false,
-                                "start-coords-ui-phase-2": shouldRender,
+                                "start-coords-ui-phase-2": false,
+                                "start-coords-ui-point": true,
+                                "start-coords-ui-polygon": false,
                             },
                         },
                     }}
@@ -786,4 +851,155 @@ describe("InteractiveGraphEditor", () => {
             }
         },
     );
+
+    test.each`
+        type               | shouldRender
+        ${"linear"}        | ${false}
+        ${"ray"}           | ${false}
+        ${"linear-system"} | ${false}
+        ${"segment"}       | ${false}
+        ${"circle"}        | ${false}
+        ${"quadratic"}     | ${false}
+        ${"sinusoid"}      | ${false}
+        ${"polygon"}       | ${true}
+        ${"angle"}         | ${false}
+        ${"point"}         | ${false}
+    `(
+        "should render for $type graphs if polygon flag is on: $shouldRender",
+        async ({type, shouldRender}) => {
+            // Arrange
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: {
+                            ...flags,
+                            mafs: {
+                                ...flags.mafs,
+                                "start-coords-ui-phase-1": false,
+                                "start-coords-ui-phase-2": false,
+                                "start-coords-ui-point": false,
+                                "start-coords-ui-polygon": true,
+                            },
+                        },
+                    }}
+                    graph={{type}}
+                    correct={{type}}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            if (shouldRender) {
+                expect(
+                    await screen.findByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeInTheDocument();
+            } else {
+                expect(
+                    screen.queryByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeNull();
+            }
+        },
+    );
+
+    test("should not render for point graphs with unlimited points", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "point", numPoints: "unlimited"}}
+                correct={{type: "point", numPoints: "unlimited"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
+
+    test("should not render for polygon graphs with unlimited sides", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "polygon", numSides: "unlimited"}}
+                correct={{type: "polygon", numSides: "unlimited"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
+
+    test("should not render for polygon graphs with non-grid snapTo (angles)", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "polygon", snapTo: "angles"}}
+                correct={{type: "polygon", snapTo: "angles"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
+
+    test("should not render for polygon graphs with non-grid snapTo (sides)", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "polygon", snapTo: "sides"}}
+                correct={{type: "polygon", snapTo: "sides"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
 });

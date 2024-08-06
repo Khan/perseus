@@ -1,13 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/sort-comp */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
-
-const {PropCheckBox} = components;
 
 type PairEditorProps = any;
 
@@ -174,16 +173,20 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                         onChange={this.change("height")}
                     />
                 </label>
-                <PropCheckBox
+                <Checkbox
                     label="Allow full screen"
-                    allowFullScreen={this.props.allowFullScreen}
-                    onChange={this.props.onChange}
+                    checked={this.props.allowFullScreen}
+                    onChange={(value) => {
+                        this.props.onChange({allowFullScreen: value});
+                    }}
                 />
                 <br />
-                <PropCheckBox
+                <Checkbox
                     label="Allow iframe content to redirect the page"
-                    allowTopNavigation={this.props.allowTopNavigation}
-                    onChange={this.props.onChange}
+                    checked={this.props.allowTopNavigation}
+                    onChange={(value) => {
+                        this.props.onChange({allowTopNavigation: value});
+                    }}
                 />
             </div>
         );
