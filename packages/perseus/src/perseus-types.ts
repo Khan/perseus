@@ -128,6 +128,11 @@ export type PerseusRenderer = {
 };
 
 export type Hint = PerseusRenderer & {
+    /**
+     * When `true`, causes the previous hint to be replaced with this hint when
+     * displayed. When `false`, the previous hint remains visible when this one
+     * is displayed.
+     */
     replace?: boolean;
 };
 
