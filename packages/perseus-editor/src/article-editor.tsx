@@ -359,10 +359,14 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     serialize(): JsonType {
         if (this.props.mode === "edit") {
+            // Note(jeremy): Fixing this type error involves some extensive
+            // re-working of the may <Editor /> component. Today it accepts a
+            // `replace` prop (I _think_ because it's also used for editing
+            // hints), but when I tried to re-work it I couldn't decipher which
+            // types to fix and which to not fix.
+            // @ts-expect-error - TS2322 - Type 'undefined' is not assignable to type 'PerseusRenderer'.ts
             return this._sections().map((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-                return this.refs["editor" + i].serialize();
+                return this.editorRefs[i]?.serialize();
             });
         }
         if (this.props.mode === "preview" || this.props.mode === "json") {
@@ -375,12 +379,12 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     /**
-     * Returns an array, with one element be section.
+     * Returns an array, with one element per section.
      * Each element is an array of lint warnings present in that section.
      *
      * This function can currently only be called in edit mode.
      */
-    getSaveWarnings(): ReadonlyArray<PerseusRenderer> {
+    getSaveWarnings(): ReadonlyArray<ReadonlyArray<string>> {
         if (this.props.mode !== "edit") {
             // TODO(joshuan): We should be able to get save warnings in
             // preview mode.
@@ -391,9 +395,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
 
         return this._sections().map((section, i) => {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-            return this.refs["editor" + i].getSaveWarnings();
+            return this.editorRefs[i]?.getSaveWarnings() ?? [];
         });
     }
 
