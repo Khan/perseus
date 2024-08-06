@@ -15,8 +15,7 @@ export type GraphConfig = {
     width: number; // pixels
     height: number; // pixels
     labels: readonly string[];
-    hintMode?: boolean;
-    readOnly?: boolean;
+    disableKeyboardInteraction?: boolean;
 };
 
 const defaultGraphConfig: GraphConfig = {
@@ -33,8 +32,7 @@ const defaultGraphConfig: GraphConfig = {
     width: 0,
     height: 0,
     labels: [],
-    hintMode: false,
-    readOnly: false,
+    disableKeyboardInteraction: false,
 };
 
 export const GraphConfigContext =

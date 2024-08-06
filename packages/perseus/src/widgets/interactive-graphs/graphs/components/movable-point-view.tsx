@@ -38,7 +38,7 @@ const hitboxSizePx = 48;
 // the description of https://github.com/Khan/perseus/pull/1240
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {range, markings, showTooltips, hintMode, readOnly} =
+        const {range, markings, showTooltips, disableKeyboardInteraction} =
             useGraphConfig();
         const {
             point,
@@ -91,7 +91,9 @@ export const MovablePointView = forwardRef(
                 className={pointClasses}
                 style={{"--movable-point-color": color, cursor} as any}
                 data-testid="movable-point"
-                tabIndex={hintMode || readOnly ? -1 : tabIndex(focusBehavior)}
+                tabIndex={
+                    disableKeyboardInteraction ? -1 : tabIndex(focusBehavior)
+                }
             >
                 <circle
                     className="movable-point-hitbox"

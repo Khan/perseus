@@ -66,8 +66,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
-                hintMode,
-                readOnly,
+                disableKeyboardInteraction: hintMode || readOnly,
             }}
         >
             <View
