@@ -303,7 +303,7 @@ export const shouldShowStartCoordsUI = (flags, graph) => {
     if (
         startCoordsPolygon &&
         graph.type === "polygon" &&
-        graph.numPoints !== "unlimited" &&
+        graph.numSides !== "unlimited" &&
         // Pre-initialized graph with undefined snapTo value
         // initializes to snapTo="grid"
         (graph.snapTo === "grid" || graph.snapTo === undefined)
