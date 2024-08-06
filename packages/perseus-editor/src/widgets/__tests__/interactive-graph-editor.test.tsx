@@ -673,6 +673,8 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
+    // TODO(LEMS-2228): Remove flag-related code once
+    // start coords UI is rolled out 100%
     test.each`
         type               | shouldRender
         ${"linear"}        | ${true}
@@ -908,4 +910,96 @@ describe("InteractiveGraphEditor", () => {
             }
         },
     );
+
+    test("should not render for point graphs with unlimited points", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "point", numPoints: "unlimited"}}
+                correct={{type: "point", numPoints: "unlimited"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
+
+    test("should not render for polygon graphs with unlimited sides", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "polygon", numSides: "unlimited"}}
+                correct={{type: "polygon", numSides: "unlimited"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
+
+    test("should not render for polygon graphs with non-grid snapTo (angles)", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "polygon", snapTo: "angles"}}
+                correct={{type: "polygon", snapTo: "angles"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
+
+    test("should not render for polygon graphs with non-grid snapTo (sides)", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "polygon", snapTo: "sides"}}
+                correct={{type: "polygon", snapTo: "sides"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
 });
