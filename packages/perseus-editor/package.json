@@ -25,7 +25,7 @@
             "types": "./dist/index.d.ts",
             "source": "./src/index.ts"
         },
-        "./*.css": "./dist/*.css"
+        "./index.css": "./dist/index.css"
     },
     "files": [
         "dist"

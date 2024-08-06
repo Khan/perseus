@@ -31,7 +31,7 @@
             "types": "./dist/strings.d.ts",
             "source": "./src/strings.ts"
         },
-        "./*.css": "./dist/*.css"
+        "./index.css": "./dist/index.css"
     },
     "files": [
         "dist"
