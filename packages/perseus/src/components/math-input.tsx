@@ -13,15 +13,12 @@ import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
-import {v4 as uuid} from "uuid";
 
-import a11y from "../util/a11y";
 import {debounce} from "../util/debounce";
 
 import {PerseusI18nContext} from "./i18n-context";
@@ -291,8 +288,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             "mq-math-mode": true,
         });
 
-        const popoverContentUniqueId = uuid().slice(0, 8);
-
         if (this.props.className) {
             className = className + " " + this.props.className;
         }
@@ -335,38 +330,25 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
-                        aria-label={this.context.strings.mathInputTitle}
-                        aria-describedby={`popover-content-${popoverContentUniqueId}`}
                         content={() => (
-                            <>
-                                <HeadingMedium
-                                    id={`popover-content-${popoverContentUniqueId}`}
-                                    style={a11y.srOnly}
-                                >
-                                    {this.context.strings.mathInputDescription}
-                                </HeadingMedium>
-                                <PopoverContentCore
-                                    closeButtonVisible
-                                    style={styles.popoverContent}
-                                >
-                                    <DesktopKeypad
-                                        onAnalyticsEvent={
-                                            this.props.analytics
-                                                .onAnalyticsEvent
-                                        }
-                                        extraKeys={this.props.extraKeys}
-                                        onClickKey={this.handleKeypadPress}
-                                        cursorContext={this.state.cursorContext}
-                                        convertDotToTimes={
-                                            this.props.convertDotToTimes
-                                        }
-                                        {...(this.props.keypadButtonSets ??
-                                            mapButtonSets(
-                                                this.props?.buttonSets,
-                                            ))}
-                                    />
-                                </PopoverContentCore>
-                            </>
+                            <PopoverContentCore
+                                closeButtonVisible
+                                style={styles.popoverContent}
+                            >
+                                <DesktopKeypad
+                                    onAnalyticsEvent={
+                                        this.props.analytics.onAnalyticsEvent
+                                    }
+                                    extraKeys={this.props.extraKeys}
+                                    onClickKey={this.handleKeypadPress}
+                                    cursorContext={this.state.cursorContext}
+                                    convertDotToTimes={
+                                        this.props.convertDotToTimes
+                                    }
+                                    {...(this.props.keypadButtonSets ??
+                                        mapButtonSets(this.props?.buttonSets))}
+                                />
+                            </PopoverContentCore>
                         )}
                     >
                         {this.props.buttonsVisible === "never" ? (

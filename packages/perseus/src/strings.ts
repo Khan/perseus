@@ -123,8 +123,6 @@ export type PerseusStrings = {
     videoTranscript: string;
     somethingWrong: string;
     videoWrapper: string;
-    mathInputTitle: string;
-    mathInputDescription: string;
 };
 
 /**
@@ -288,9 +286,6 @@ export const strings: {
     videoTranscript: "See video transcript",
     somethingWrong: "Something went wrong.",
     videoWrapper: "Khan Academy video wrapper",
-    mathInputTitle: "mathematics keyboard",
-    mathInputDescription:
-        "Use keyboard/mouse to interact with math-based input fields",
 };
 
 /**
@@ -438,7 +433,4 @@ export const mockStrings: PerseusStrings = {
     videoTranscript: "See video transcript",
     somethingWrong: "Something went wrong.",
     videoWrapper: "Khan Academy video wrapper",
-    mathInputTitle: "mathematics keyboard",
-    mathInputDescription:
-        "Use keyboard/mouse to interact with math-based input fields",
 };
