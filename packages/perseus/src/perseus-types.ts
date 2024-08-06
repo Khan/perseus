@@ -116,8 +116,6 @@ export type PerseusRenderer = {
     content: string;
     // A dictionary of {[widgetName]: Widget} to be referenced from the content field
     widgets: PerseusWidgetsMap;
-    // Used only for PerseusItem.hints.  If true, it replaces the previous hint in the list with the current one. This allows for hints that build upon each other.
-    replace?: boolean;
     // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     metadata?: ReadonlyArray<string>;
@@ -131,7 +129,7 @@ export type Hint = PerseusRenderer & {
     /**
      * When `true`, causes the previous hint to be replaced with this hint when
      * displayed. When `false`, the previous hint remains visible when this one
-     * is displayed.
+     * is displayed. This allows for hints that build upon each other.
      */
     replace?: boolean;
 };
