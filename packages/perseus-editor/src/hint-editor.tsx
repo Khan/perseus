@@ -318,14 +318,13 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         silent: boolean,
     ) => {
         // TODO(joel) - lens
-        const hints = _(this.props.hints).clone();
+        const hints = [...this.props.hints];
         hints[i] = _.extend(
             {},
             this.serializeHint(i, {keepDeletedWidgets: true}),
             newProps,
         );
 
-        // @ts-expect-error - TS2740 - Type 'Hint' is missing the following properties from type 'readonly Hint[]': length, concat, join, slice, and 18 more.
         this.props.onChange({hints: hints}, cb, silent);
     };
 
@@ -335,10 +334,8 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             return;
         }
 
-        const hints = _(this.props.hints).clone();
-        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'Hint'.
+        const hints = [...this.props.hints];
         hints.splice(i, 1);
-        // @ts-expect-error - TS2322 - Type 'Hint' is not assignable to type 'readonly Hint[]'.
         this.props.onChange({hints: hints});
     };
 
@@ -346,12 +343,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         i: number,
         dir: number,
     ) => {
-        const hints = _(this.props.hints).clone();
-        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'Hint'.
+        const hints = [...this.props.hints];
         const hint = hints.splice(i, 1)[0];
-        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'Hint'.
         hints.splice(i + dir, 0, hint);
-        // @ts-expect-error - TS2322 - Type 'Hint' is not assignable to type 'readonly Hint[]'.
         this.props.onChange({hints: hints}, () => {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
@@ -360,10 +354,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     };
 
     addHint: () => void = () => {
-        const hints = _(this.props.hints)
-            .clone()
-            // @ts-expect-error - TS2339 - Property 'concat' does not exist on type 'Hint'.
-            .concat([{content: ""}]);
+        const hints = [...this.props.hints].concat([
+            {content: "", images: {}, widgets: {}},
+        ]);
         this.props.onChange({hints: hints}, () => {
             const i = hints.length - 1;
             // eslint-disable-next-line react/no-string-refs

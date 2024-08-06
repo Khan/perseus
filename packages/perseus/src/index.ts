@@ -152,7 +152,6 @@ export type {
     DomInsertCheckFn,
     EditorMode,
     FocusPath,
-    Hint,
     ImageDict,
     ImageUploader,
     JiptLabelStore,
@@ -167,6 +166,7 @@ export type {
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
+    Hint,
     LockedFigure,
     LockedFigureColor,
     LockedFigureFillType,

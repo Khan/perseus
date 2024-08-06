@@ -87,7 +87,7 @@ export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
     // A collection of hints to be offered to the user that support answering the question.
-    hints: ReadonlyArray<PerseusRenderer>;
+    hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
     // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
@@ -125,6 +125,10 @@ export type PerseusRenderer = {
     images: {
         [key: string]: PerseusImageDetail;
     };
+};
+
+export type Hint = PerseusRenderer & {
+    replace?: boolean;
 };
 
 export type PerseusImageDetail = {

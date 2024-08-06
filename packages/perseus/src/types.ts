@@ -1,8 +1,8 @@
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
 import type {
+    Hint,
     PerseusAnswerArea,
-    PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
@@ -46,10 +46,6 @@ export type PerseusScore =
           total: number;
           message?: string | null | undefined;
       };
-
-export type Hint = PerseusRenderer & {
-    replace?: boolean;
-};
 
 export type Version = {
     major: number;
