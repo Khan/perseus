@@ -404,6 +404,10 @@ export const getAngleCoords = (params: {
         return graph.coords;
     }
 
+    if (graph.startCoords) {
+        return graph.startCoords;
+    }
+
     const {snapDegrees, angleOffsetDeg} = graph;
     const snap = snapDegrees || 1;
     let angle = snap;
