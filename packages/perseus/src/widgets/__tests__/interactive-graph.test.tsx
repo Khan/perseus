@@ -1,5 +1,4 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import * as KAS from "@khanacademy/kas";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";

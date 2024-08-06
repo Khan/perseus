@@ -186,10 +186,6 @@ const styles = StyleSheet.create({
     spaceUnder: {
         marginBottom: spacing.xSmall_8,
     },
-    selectMarginOffset: {
-        // Align with the point settings accordions.
-        marginInlineEnd: -spacing.xxxSmall_4,
-    },
     errorText: {
         color: wbColor.red,
     },
