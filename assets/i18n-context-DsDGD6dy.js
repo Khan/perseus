@@ -1,1 +1,0 @@
-import"./jsx-runtime-5BUNAZ9W.js";import{r as t}from"./index-4g5l5LRQ.js";import{m as s}from"./strings-3jqcfOzr.js";const e=t.createContext({strings:s,locale:"en"}),a=()=>t.useContext(e);export{e as P,a as u};
