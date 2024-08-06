@@ -22,28 +22,17 @@ import {
     segmentWithLockedPolygons,
 } from "../__testdata__/interactive-graph.testdata";
 
+import type {APIOptions} from "@khanacademy/perseus";
+
 export default {
     title: "Perseus/Widgets/Interactive Graph",
 };
 
-const mafsOptions = {
-    apiOptions: {
-        flags: {
-            mafs: {
-                segment: true,
-                polygon: true,
-            },
-        },
-    },
-};
-
-const polygonReadOnlyOptions = {
-    apiOptions: {
-        readOnly: true,
-        flags: {
-            mafs: {
-                polygon: true,
-            },
+const enableMafs: APIOptions = {
+    flags: {
+        mafs: {
+            segment: true,
+            polygon: true,
         },
     },
 };
@@ -79,14 +68,17 @@ export const Polygon = (args: StoryArgs): React.ReactElement => (
 );
 
 export const PolygonWithMafs = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI {...mafsOptions} question={polygonQuestion} />
+    <RendererWithDebugUI
+        apiOptions={{...enableMafs}}
+        question={polygonQuestion}
+    />
 );
 
 export const PolygonWithMafsReadOnly = (
     args: StoryArgs,
 ): React.ReactElement => (
     <RendererWithDebugUI
-        {...polygonReadOnlyOptions}
+        apiOptions={{...enableMafs, readOnly: true}}
         question={polygonQuestion}
     />
 );
@@ -103,7 +95,7 @@ export const SegmentWithMafsAndLockedPoints = (
     args: StoryArgs,
 ): React.ReactElement => (
     <RendererWithDebugUI
-        {...mafsOptions}
+        apiOptions={{...enableMafs}}
         question={segmentWithLockedPointsQuestion}
     />
 );
@@ -112,46 +104,49 @@ export const SegmentWithMafsAndLockedLines = (
     args: StoryArgs,
 ): React.ReactElement => (
     <RendererWithDebugUI
-        {...mafsOptions}
+        apiOptions={{...enableMafs}}
         question={segmentWithLockedLineQuestion}
     />
 );
 
 export const AllLockedLineSegments = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        {...mafsOptions}
+        apiOptions={{...enableMafs}}
         question={segmentWithAllLockedLineSegmentVariations}
     />
 );
 
 export const AllLockedLines = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        {...mafsOptions}
+        apiOptions={{...enableMafs}}
         question={segmentWithAllLockedLineVariations}
     />
 );
 
 export const AllLockedRays = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        {...mafsOptions}
+        apiOptions={{...enableMafs}}
         question={segmentWithAllLockedRayVariations}
     />
 );
 
 export const LockedVector = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI {...mafsOptions} question={segmentWithLockedVectors} />
+    <RendererWithDebugUI
+        apiOptions={{...enableMafs}}
+        question={segmentWithLockedVectors}
+    />
 );
 
 export const LockedEllipse = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        {...mafsOptions}
+        apiOptions={{...enableMafs}}
         question={segmentWithLockedEllipses}
     />
 );
 
 export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
-        {...mafsOptions}
+        apiOptions={{...enableMafs}}
         question={segmentWithLockedPolygons}
     />
 );
