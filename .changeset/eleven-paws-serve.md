@@ -1,4 +1,5 @@
 ---
+"@khanacademy/perseus": minor
 "@khanacademy/perseus-editor": minor
 ---
 
