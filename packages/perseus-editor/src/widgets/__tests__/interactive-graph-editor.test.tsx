@@ -863,7 +863,7 @@ describe("InteractiveGraphEditor", () => {
         ${"angle"}         | ${false}
         ${"point"}         | ${false}
     `(
-        "should render for $type graphs if point flag is on: $shouldRender",
+        "should render for $type graphs if polygon flag is on: $shouldRender",
         async ({type, shouldRender}) => {
             // Arrange
 
