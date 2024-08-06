@@ -20,15 +20,14 @@ import mediaQueries from "./styles/media-queries";
 import sharedStyles from "./styles/shared";
 import Util from "./util";
 
+import type {Hint} from "./perseus-types";
 import type Renderer from "./renderer";
 import type {APIOptionsWithDefaults} from "./types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Props = PropsFor<typeof Renderer> & {
     className?: string;
-    // note (mcurtis): I think this should be $ReadOnlyArray<PerseusRenderer>,
-    // but things spiraled out of control when I tried to change it
-    hints: ReadonlyArray<any>;
+    hints: ReadonlyArray<Hint>;
     hintsVisible?: number;
 };
 
