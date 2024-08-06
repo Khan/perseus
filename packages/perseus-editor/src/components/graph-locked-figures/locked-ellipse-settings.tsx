@@ -140,9 +140,12 @@ const LockedEllipseSettings = (props: Props) => {
             </View>
 
             {/* Stroke style */}
-            <LineStrokeSelect selectedValue={strokeStyle} onChange={(value: "solid" | "dashed") =>
-                onChangeProps({strokeStyle: value})
-            }/>
+            <LineStrokeSelect
+                selectedValue={strokeStyle}
+                onChange={(value: "solid" | "dashed") =>
+                    onChangeProps({strokeStyle: value})
+                }
+            />
 
             {/* Actions */}
             <LockedFigureSettingsActions

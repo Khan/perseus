@@ -130,9 +130,12 @@ const LockedLineSettings = (props: Props) => {
                 <Strut size={spacing.small_12} />
 
                 {/* Line style settings */}
-                <LineStrokeSelect selectedValue={lineStyle} onChange={(value: "solid" | "dashed") =>
-                    onChangeProps({lineStyle: value})
-                }/>
+                <LineStrokeSelect
+                    selectedValue={lineStyle}
+                    onChange={(value: "solid" | "dashed") =>
+                        onChangeProps({lineStyle: value})
+                    }
+                />
             </View>
 
             {/* Points error message */}
