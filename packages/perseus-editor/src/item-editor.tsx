@@ -19,7 +19,7 @@ const ITEM_DATA_VERSION = itemDataVersion;
 
 type Props = {
     apiOptions?: APIOptions;
-    deviceType?: DeviceType;
+    deviceType: DeviceType;
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
@@ -115,6 +115,7 @@ class ItemEditor extends React.Component<Props> {
                                 <ContentRenderer
                                     apiOptions={this.props.apiOptions}
                                     question={this.props.question}
+                                    screen={this.props.deviceType}
                                     linterContext={{
                                         contentType: "exercise",
                                         highlightLint: true,

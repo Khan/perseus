@@ -11,23 +11,29 @@ import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {APIOptions, PerseusRenderer} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    DeviceType,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 function ContentRenderer({
     question,
     apiOptions,
+    screen,
     seamless,
     linterContext,
     legacyPerseusLint,
 }: {
     question?: PerseusRenderer;
     apiOptions?: APIOptions;
+    screen: DeviceType;
     seamless?: boolean;
     linterContext?: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
 }) {
-    const className = apiOptions?.isMobile ? "perseus-mobile" : "";
+    const className = `${apiOptions?.isMobile ? "perseus-mobile" : ""} perseus-preview-${screen}`;
 
     return (
         <View
