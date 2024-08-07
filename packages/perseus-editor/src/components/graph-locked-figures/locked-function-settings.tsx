@@ -4,7 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -46,16 +46,17 @@ const LockedFunctionSettings = (props: Props) => {
     } = props;
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
     const lineLabel = `Function (${equationPrefix}${equation})`;
-    const domainLimits = domain ? [...domain] : [-Infinity, Infinity];
 
-    // Tracking the string value of domain values to handle interim state of
-    //     entering in a negative value - used when specifying value of input field
+    // Tracking the string value of domain constraints to handle interim state of
+    //     entering a negative value, as well as representing Infinity as an empty string.
+    // This variable is used when specifying the values of the input fields.
     const [domainEntries, setDomainEntries] = useState([
         domain && domain[0] !== -Infinity ? domain[0].toString() : "",
         domain && domain[1] !== Infinity ? domain[1].toString() : "",
     ]);
 
     useEffect(() => {
+        // "useEffect" used to maintain parity between domain constraints and their string representation.
         setDomainEntries([
             domain && domain[0] !== -Infinity ? domain[0].toString() : "",
             domain && domain[1] !== Infinity ? domain[1].toString() : "",
@@ -79,10 +80,9 @@ const LockedFunctionSettings = (props: Props) => {
         const newDomainEntries = [...domainEntries];
         newDomainEntries[limitIndex] = newValueString;
         setDomainEntries(newDomainEntries);
-        const newDomain: Interval | undefined = [
-            domainLimits[0],
-            domainLimits[1],
-        ];
+        const newDomain: Interval = domain
+            ? [...domain]
+            : [-Infinity, Infinity];
 
         let newValue = parseFloat(newValueString);
         if (newValueString === "" && limitIndex === 0) {
@@ -95,116 +95,120 @@ const LockedFunctionSettings = (props: Props) => {
     }
 
     return (
-        <UniqueIDProvider
-            mockOnFirstRender={true}
-            scope="locked-function-settings"
-        >
-            {(ids) => (
-                <PerseusEditorAccordion
-                    expanded={props.expanded}
-                    onToggle={props.onToggle}
-                    header={
-                        <View style={styles.row}>
-                            <LabelLarge style={styles.accordionHeader}>
-                                {lineLabel}
-                            </LabelLarge>
-                            <Strut size={spacing.xSmall_8} />
-                            <LineSwatch
-                                color={lineColor}
-                                lineStyle={strokeStyle}
-                            />
-                        </View>
-                    }
-                >
-                    <View style={[styles.row, styles.spaceUnder]}>
-                        {/* Line color settings */}
-                        <ColorSelect
-                            selectedValue={lineColor}
-                            onChange={handlePropChange.bind(null, "color")}
-                        />
-                        <Strut size={spacing.small_12} />
-
-                        {/* Line style settings */}
-                        <LineStrokeSelect
-                            selectedValue={strokeStyle}
-                            onChange={handlePropChange.bind(
-                                null,
-                                "strokeStyle",
-                            )}
-                        />
-                    </View>
-
-                    <View style={[styles.row, styles.rowSpace]}>
-                        <SingleSelect
-                            selectedValue={directionalAxis}
-                            onChange={handlePropChange.bind(
-                                null,
-                                "directionalAxis",
-                            )}
-                            aria-label="equation prefix"
-                            style={styles.equationPrefix}
-                            // Placeholder is required, but never gets used.
-                            placeholder=""
-                        >
-                            <OptionItem value="x" label="y =" />
-                            <OptionItem value="y" label="x =" />
-                        </SingleSelect>
-                        <Strut size={spacing.xSmall_8} />
-                        <TextField
-                            type="text"
-                            aria-label="equation"
-                            value={equation}
-                            onChange={handlePropChange.bind(null, "equation")}
-                            style={[styles.textField]}
-                        />
-                    </View>
-
-                    {/* Domain restrictions */}
-                    <View style={[styles.row, styles.rowSpace]}>
-                        <LabelMedium tag="label" style={styles.domainMin}>
-                            {"domain min"}
-
-                            <Strut size={spacing.xxSmall_6} />
-                            <TextField
-                                type="number"
-                                style={styles.domainMinField}
-                                value={domainEntries[0]}
-                                onChange={handleDomainChange.bind(null, 0)}
-                            />
-                        </LabelMedium>
-                        <Strut size={spacing.medium_16} />
-                        <LabelMedium
-                            tag="label"
-                            aria-label="domain max"
-                            style={styles.domainMax}
-                        >
-                            {"max"}
-
-                            <Strut size={spacing.xxSmall_6} />
-                            <TextField
-                                type="number"
-                                style={styles.domainMaxField}
-                                value={domainEntries[1]}
-                                onChange={handleDomainChange.bind(null, 1)}
-                            />
-                        </LabelMedium>
-                    </View>
-
-                    {/* Actions */}
-                    <LockedFigureSettingsActions
-                        figureType={props.type}
-                        onMove={onMove}
-                        onRemove={onRemove}
+        <PerseusEditorAccordion
+            expanded={props.expanded}
+            onToggle={props.onToggle}
+            header={
+                <View style={styles.row}>
+                    <LabelLarge style={styles.accordionHeader}>
+                        {lineLabel}
+                    </LabelLarge>
+                    <Strut size={spacing.xSmall_8} />
+                    <LineSwatch
+                        color={lineColor}
+                        lineStyle={strokeStyle}
                     />
-                </PerseusEditorAccordion>
-            )}
-        </UniqueIDProvider>
+                </View>
+            }
+        >
+            <View style={[styles.row, styles.spaceUnder]}>
+                {/* Line color settings */}
+                <ColorSelect
+                    selectedValue={lineColor}
+                    onChange={(newValue) => {
+                        handlePropChange("color", newValue);
+                    }}
+                />
+                <Strut size={spacing.small_12} />
+
+                {/* Line style settings */}
+                <LineStrokeSelect
+                    selectedValue={strokeStyle}
+                    onChange={(newValue) => {
+                        handlePropChange("strokeStyle", newValue);
+                    }}
+                />
+            </View>
+
+            <View style={[styles.row, styles.rowSpace]}>
+                {/* Directional axis (x or y) */}
+                <SingleSelect
+                    selectedValue={directionalAxis}
+                    onChange={(newValue) => {
+                        handlePropChange("directionalAxis", newValue);
+                    }}
+                    aria-label="equation prefix"
+                    style={styles.equationPrefix}
+                    // Placeholder is required, but never gets used.
+                    placeholder=""
+                >
+                    <OptionItem value="x" label="y =" />
+                    <OptionItem value="y" label="x =" />
+                </SingleSelect>
+                <Strut size={spacing.xSmall_8} />
+                {/* Equation entry */}
+                <TextField
+                    type="text"
+                    aria-label="equation"
+                    value={equation}
+                    onChange={(newValue) => {
+                        handlePropChange("equation", newValue);
+                    }}
+                    style={[styles.textField]}
+                />
+            </View>
+
+            {/* Domain restrictions */}
+            <View style={[styles.row, styles.rowSpace]}>
+                <LabelMedium tag="label" style={styles.domainMin}>
+                    {"domain min"}
+
+                    <Strut size={spacing.xxSmall_6} />
+                    <TextField
+                        type="number"
+                        style={styles.domainMinField}
+                        value={domainEntries[0]}
+                        onChange={(newValue) => {
+                            handleDomainChange(0, newValue);
+                        }}
+                    />
+                </LabelMedium>
+                <Strut size={spacing.medium_16} />
+                <LabelMedium
+                    tag="label"
+                    aria-label="domain max"
+                    style={styles.domainMax}
+                >
+                    {"max"}
+
+                    <Strut size={spacing.xxSmall_6} />
+                    <TextField
+                        type="number"
+                        style={styles.domainMaxField}
+                        value={domainEntries[1]}
+                        onChange={(newValue) => {
+                            handleDomainChange(1, newValue);
+                        }}
+                    />
+                </LabelMedium>
+            </View>
+
+            {/* Actions */}
+            <LockedFigureSettingsActions
+                figureType={props.type}
+                onMove={onMove}
+                onRemove={onRemove}
+            />
+        </PerseusEditorAccordion>
     );
 };
 
 const styles = StyleSheet.create({
     accordionHeader: {
         textOverflow: "ellipsis",
+        // A maximum width needs to be specified in order for the ellipsis to work.
+        // The 64px in the calculation accounts for the line swatch (56px) and the preceding strut (8px).
+        // Margin and padding won't work here because they would create space between the header text and the swatch.
         maxWidth: "calc(100% - 64px)",
         overflow: "hidden",
         whiteSpace: "nowrap",
@@ -215,16 +219,25 @@ const styles = StyleSheet.create({
     domainMin: {
         alignItems: "center",
         display: "flex",
-        width: "calc(((100% - 141px) / 2) + 88.6px)",
+        // The 'width' property is applied to the label, which wraps the text and the input field.
+        // The width of the input fields (min/max) should be the same (to have a consistent look),
+        //     so the following calculation distributes the space accordingly.
+        // For the "domain min" block, the text is 82.7px, and the strut is 6px (88.7px total).
+        // The "domain max" block is 30.23px, and the strut is 6px (36.23px total).
+        // The calculation takes the remain space after the text & struts (141px total) are removed,
+        //     and divides it between the two input fields equally.
+        // The calculation reads: "Take 1/2 of the non-text space, and add the required space for this label's text"
+        width: "calc(((100% - 141px) / 2) + 88.7px)",
         // @ts-expect-error // TS2353: textWrap does not exist in type CSSProperties
         textWrap: "nowrap",
     },
     domainMinField: {
-        width: "calc(100% - 88.6px)", // make room for the label
+        width: "calc(100% - 88.7px)", // make room for the label
     },
     domainMax: {
         alignItems: "center",
         display: "flex",
+        // See explanation for "domainMin" for the calculation below.
         width: "calc(((100% - 141px) / 2) + 36.2px)",
     },
     domainMaxField: {

@@ -211,6 +211,10 @@ describe("Locked Function Settings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledTimes(3);
+            // NOTE: Since the 'onChangeProps' function is being mocked,
+            //           the equation doesn't get updated,
+            //           and therefore the keystrokes don't accumulate.
+            //       This is reflected in the calls to 'onChangeProps' being just 1 character at a time.
             expect(onChangeProps).toHaveBeenNthCalledWith(1, {equation: "z"});
             expect(onChangeProps).toHaveBeenNthCalledWith(2, {equation: "o"});
             expect(onChangeProps).toHaveBeenNthCalledWith(3, {equation: "t"});
@@ -240,7 +244,7 @@ describe("Locked Function Settings", () => {
             expect(onChangeProps).toHaveBeenCalledWith({directionalAxis: "y"});
         });
 
-        describe("Domain restrictions", () => {
+        describe("Domain interactions", () => {
             test("valid entries update component properties", async () => {
                 // Arrange
                 render(
@@ -291,7 +295,6 @@ describe("Locked Function Settings", () => {
                 await userEvent.type(domainMaxField, "-2");
 
                 // Assert
-                // expect(onChangeProps).toHaveBeenCalledTimes(2);
                 expect(onChangeProps).toHaveBeenNthCalledWith(1, {
                     domain: [-5, Infinity],
                 });
