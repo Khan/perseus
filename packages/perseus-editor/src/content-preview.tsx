@@ -4,29 +4,48 @@ import {
     StatefulKeypadContextProvider,
 } from "@khanacademy/math-input";
 import {Renderer, constants} from "@khanacademy/perseus";
+// eslint-disable-next-line monorepo/no-internal-import
 import {mockStrings} from "@khanacademy/perseus/strings";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {APIOptions, PerseusRenderer} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    DeviceType,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
+/**
+ * The `ContentPreview` component provides a simple preview system for Perseus
+ * Content. Due to how Persus styles are built, the preview styling matches the
+ * current device based on the viewport width (using `@media` queries for
+ * `min-width` and `max-width`).
+ *
+ * The preview will render the mobile variant (styling and layout) when the
+ * `previewDevice` is phone or tablet. Note that the styling cannot be matched
+ * 100% due to the above `@media` query limitation.
+ */
 function ContentPreview({
     question,
     apiOptions,
     seamless,
     linterContext,
     legacyPerseusLint,
+    previewDevice,
 }: {
     question?: PerseusRenderer;
     apiOptions?: APIOptions;
     seamless?: boolean;
     linterContext?: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
+    previewDevice: DeviceType;
 }) {
-    const className = apiOptions?.isMobile ? "perseus-mobile" : "";
+    const isMobile = previewDevice !== "desktop";
+
+    const className = isMobile ? "perseus-mobile" : "";
 
     return (
         <View
@@ -39,7 +58,7 @@ function ContentPreview({
                         <>
                             <Renderer
                                 strings={mockStrings}
-                                apiOptions={apiOptions}
+                                apiOptions={{...apiOptions, isMobile}}
                                 keypadElement={keypadElement}
                                 linterContext={linterContext}
                                 legacyPerseusLint={legacyPerseusLint}
