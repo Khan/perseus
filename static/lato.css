@@ -2,92 +2,127 @@
 
 /* non-latin (cyrillic, hungarian, serbian) */
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: italic;
     font-weight: 400;
-    src: local('Lato Italic'), local('Lato-Italic'), url(fonts/lato/Lato-Italic.woff2) format('woff2');
-    unicode-range: U+0400-04FF, U+0500-052F, U+2DE0-2DFF, U+A640-A69F, U+1D00-1D7F;
+    src:
+        local("Lato Italic"),
+        local("Lato-Italic"),
+        url(fonts/lato/Lato-Italic.woff2) format("woff2");
+    unicode-range: U+0400-04FF, U+0500-052F, U+2DE0-2DFF, U+A640-A69F,
+        U+1D00-1D7F;
 }
 
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
-    src: local('Lato Regular'), local('Lato-Regular'), url(fonts/lato/Lato-Regular.woff2) format('woff2');
-    unicode-range: U+0400-04FF, U+0500-052F, U+2DE0-2DFF, U+A640-A69F, U+1D00-1D7F;
+    src:
+        local("Lato Regular"),
+        local("Lato-Regular"),
+        url(fonts/lato/Lato-Regular.woff2) format("woff2");
+    unicode-range: U+0400-04FF, U+0500-052F, U+2DE0-2DFF, U+A640-A69F,
+        U+1D00-1D7F;
 }
 
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 700;
-    src: local('Lato Bold'), local('Lato-Bold'), url(fonts/lato/Lato-Bold.woff2) format('woff2');
-    unicode-range: U+0400-04FF, U+0500-052F, U+2DE0-2DFF, U+A640-A69F, U+1D00-1D7F;
+    src:
+        local("Lato Bold"),
+        local("Lato-Bold"),
+        url(fonts/lato/Lato-Bold.woff2) format("woff2");
+    unicode-range: U+0400-04FF, U+0500-052F, U+2DE0-2DFF, U+A640-A69F,
+        U+1D00-1D7F;
 }
 
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 900;
-    src: local('Lato Black'), local('Lato-Black'), url(fonts/lato/Lato-Black.woff2) format('woff2');
-    unicode-range: U+0400-04FF, U+0500-052F, U+2DE0-2DFF, U+A640-A69F, U+1D00-1D7F;
+    src:
+        local("Lato Black"),
+        local("Lato-Black"),
+        url(fonts/lato/Lato-Black.woff2) format("woff2");
+    unicode-range: U+0400-04FF, U+0500-052F, U+2DE0-2DFF, U+A640-A69F,
+        U+1D00-1D7F;
 }
 
 /* latin */
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: italic;
     font-weight: 400;
-    src: local('Lato Italic'), local('Lato-Italic'), url(fonts/lato/LatoLatin-Italic.woff2) format('woff2');
+    src:
+        local("Lato Italic"),
+        local("Lato-Italic"),
+        url(fonts/lato/LatoLatin-Italic.woff2) format("woff2");
 }
 
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
-    src: local('Lato Regular'), local('Lato-Regular'), url(fonts/lato/LatoLatin-Regular.woff2) format('woff2');
+    src:
+        local("Lato Regular"),
+        local("Lato-Regular"),
+        url(fonts/lato/LatoLatin-Regular.woff2) format("woff2");
 }
 
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 700;
-    src: local('Lato Bold'), local('Lato-Bold'), url(fonts/lato/LatoLatin-Bold.woff2) format('woff2');
+    src:
+        local("Lato Bold"),
+        local("Lato-Bold"),
+        url(fonts/lato/LatoLatin-Bold.woff2) format("woff2");
 }
 
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: normal;
     font-weight: 900;
-    src: local('Lato Black'), local('Lato-Black'), url(fonts/lato/LatoLatin-Black.woff2) format('woff2');
+    src:
+        local("Lato Black"),
+        local("Lato-Black"),
+        url(fonts/lato/LatoLatin-Black.woff2) format("woff2");
 }
 
 /* Latin Extended (e.g. vietnamese) */
 @font-face {
-    font-family: 'Lato';
+    font-family: "Lato";
     font-style: italic;
     font-weight: 400;
-    src: local('Lato Italic'), local('Lato-Italic'), url(fonts/lato/LatoLatinExtended-Italic.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    src:
+        local("Lato Italic"),
+        local("Lato-Italic"),
+        url(fonts/lato/LatoLatinExtended-Italic.woff2) format("woff2");
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+        U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
     font-family: "Lato";
     font-weight: 400;
     src: url("fonts/lato/LatoLatinExtended-Regular.woff2");
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+        U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
     font-family: "Lato";
     font-weight: 700;
     src: url("fonts/lato/LatoLatinExtended-Bold.woff2");
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+        U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
     font-family: "Lato";
     font-weight: 900;
     src: url("fonts/lato/LatoLatinExtended-Black.woff2");
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+        U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
