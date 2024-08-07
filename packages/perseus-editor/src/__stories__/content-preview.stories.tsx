@@ -56,3 +56,23 @@ export const Article: Story = {
         question: articleWithImages,
     },
 };
+
+export const WithLintErrors: Story = {
+    args: {
+        linterContext: {
+            contentType: "exercise",
+            highlightLint: true,
+            stack: [],
+            paths: [],
+        },
+        question: {
+            content: `# H1s bad
+
+Here is some unclosed math: $1+1=3
+
+We should use \`\\dfrac{}\` instead of \`\\frac{}\`: $\\frac{3}{5}$`,
+            widgets: {},
+            images: {},
+        },
+    },
+};
