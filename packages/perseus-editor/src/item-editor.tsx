@@ -12,6 +12,7 @@ import type {
     ImageUploader,
     ChangeHandler,
     DeviceType,
+    PerseusRenderer,
 } from "@khanacademy/perseus";
 
 const ITEM_DATA_VERSION = itemDataVersion;
@@ -22,7 +23,7 @@ type Props = {
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
-    question?: any;
+    question?: PerseusRenderer;
     answerArea?: any;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;

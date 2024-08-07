@@ -110,7 +110,7 @@ export function initializeGraphState(
     }
 }
 
-function getPointCoords(
+export function getPointCoords(
     graph: PerseusGraphTypePoint,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
@@ -277,7 +277,7 @@ export function getLinearSystemCoords(
     );
 }
 
-function getPolygonCoords(
+export function getPolygonCoords(
     graph: PerseusGraphTypePolygon,
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],

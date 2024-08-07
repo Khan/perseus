@@ -3,6 +3,8 @@ import {
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
+    getPointCoords,
+    getPolygonCoords,
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
@@ -194,6 +196,18 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "point":
+            return getPointCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
+        case "polygon":
+            return getPolygonCoords(
+                {...graph, startCoords: undefined},
+                range,
+                step,
+            );
         default:
             return undefined;
     }
@@ -252,4 +266,50 @@ export const getQuadraticEquation = (startCoords: [Coord, Coord, Coord]) => {
     return (
         "y = " + a.toFixed(3) + "x^2 + " + b.toFixed(3) + "x + " + c.toFixed(3)
     );
+};
+
+export const shouldShowStartCoordsUI = (flags, graph) => {
+    // TODO(LEMS-2228): Remove flags once this is fully released
+    const startCoordsUiPhase1Types = [
+        "linear",
+        "linear-system",
+        "ray",
+        "segment",
+        "circle",
+    ];
+    const startCoordsUiPhase2Types = ["sinusoid", "quadratic"];
+
+    const startCoordsPhase1 = flags?.mafs?.["start-coords-ui-phase-1"];
+    const startCoordsPhase2 = flags?.mafs?.["start-coords-ui-phase-2"];
+    const startCoordsPoint = flags?.mafs?.["start-coords-ui-point"];
+    const startCoordsPolygon = flags?.mafs?.["start-coords-ui-polygon"];
+
+    if (startCoordsPhase1 && startCoordsUiPhase1Types.includes(graph.type)) {
+        return true;
+    }
+
+    if (startCoordsPhase2 && startCoordsUiPhase2Types.includes(graph.type)) {
+        return true;
+    }
+
+    if (
+        startCoordsPoint &&
+        graph.type === "point" &&
+        graph.numPoints !== "unlimited"
+    ) {
+        return true;
+    }
+
+    if (
+        startCoordsPolygon &&
+        graph.type === "polygon" &&
+        graph.numSides !== "unlimited" &&
+        // Pre-initialized graph with undefined snapTo value
+        // initializes to snapTo="grid"
+        (graph.snapTo === "grid" || graph.snapTo === undefined)
+    ) {
+        return true;
+    }
+
+    return false;
 };
