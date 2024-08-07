@@ -46,8 +46,11 @@ export type MathInputStrings = {
     logBase10: string;
     logCustomBase: string;
     sine: string;
+    sin: string;
     cosine: string;
+    cos: string;
     tangent: string;
+    tan: string;
     pi: string;
     theta: string;
     upArrow: string;
@@ -207,15 +210,30 @@ export const strings: {
             "A label for a button that will allow the user to input a sine function.",
         message: "Sine",
     },
+    sin: {
+        context:
+            "A label for a button that will allow the user to input a sine function (shorthand version).",
+        message: "sin",
+    },
     cosine: {
         context:
             "A label for a button that will allow the user to input a cosine function.",
         message: "Cosine",
     },
+    cos: {
+        context:
+            "A label for a button that will allow the user to input a cosine function (shorthand version).",
+        message: "cos",
+    },
     tangent: {
         context:
             "A label for a button that will allow the user to input a tangent function.",
         message: "Tangent",
+    },
+    tan: {
+        context:
+            "A label for a button that will allow the user to input a tangent function (shorthand version).",
+        message: "tan",
     },
     pi: {
         context:
@@ -295,8 +313,11 @@ export const mockStrings: MathInputStrings = {
     logBase10: "Logarithm with base 10",
     logCustomBase: "Logarithm with custom base",
     sine: "Sine",
+    sin: "sin",
     cosine: "Cosine",
+    cos: "cos",
     tangent: "Tangent",
+    tan: "tan",
     pi: "Pi",
     theta: "Theta",
     upArrow: "Up arrow",
