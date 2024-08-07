@@ -104,10 +104,7 @@ const LockedFunctionSettings = (props: Props) => {
                         {lineLabel}
                     </LabelLarge>
                     <Strut size={spacing.xSmall_8} />
-                    <LineSwatch
-                        color={lineColor}
-                        lineStyle={strokeStyle}
-                    />
+                    <LineSwatch color={lineColor} lineStyle={strokeStyle} />
                 </View>
             }
         >
