@@ -266,6 +266,26 @@ describe("a mafs graph", () => {
                     {timeout: 5000},
                 );
             });
+
+            it("is marked invalid when readOnly set to true", async () => {
+                const {renderer} = renderQuestion(question, {
+                    ...apiOptions,
+                    readOnly: true,
+                });
+
+                await userEvent.tab();
+
+                // Act
+                await userEvent.keyboard("{arrowup}{arrowdown}");
+
+                // Assert
+                await waitFor(
+                    () => {
+                        expect(renderer).toHaveInvalidInput();
+                    },
+                    {timeout: 5000},
+                );
+            });
         },
     );
 
