@@ -1,5 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {useState} from "react";
 
 import {articleWithImages} from "../../../../perseus/src/__testdata__/article-renderer.testdata";
@@ -59,5 +61,25 @@ export const Exercise: Story = {
 export const Article: Story = {
     args: {
         question: articleWithImages,
+    },
+};
+
+export const WithLintErrors: Story = {
+    args: {
+        linterContext: {
+            contentType: "exercise",
+            highlightLint: true,
+            stack: [],
+            paths: [],
+        },
+        question: {
+            content: `# H1s bad
+
+Here is some unclosed math: $1+1=3
+
+We should use \`\\dfrac{}\` instead of \`\\frac{}\`: $\\frac{3}{5}$`,
+            widgets: {},
+            images: {},
+        },
     },
 };
