@@ -139,15 +139,20 @@ class IframeContentRenderer extends React.Component<Props> {
         const frame = document.createElement("iframe");
         frame.style.width = "100%";
         frame.style.height = "100%";
-        frame.src = this.props.url;
+
+        const finalUrl = new URL(this.props.url);
+        const searchParams = finalUrl.searchParams;
 
         if (this.props.datasetKey) {
             // If the user has specified a data-* attribute to place on the
             // iframe, we set it here. Right now, this is used to
             // communicate if the iframe should be enabling touch emulation.
-            frame.dataset[this.props.datasetKey] = this.props.datasetValue;
+            searchParams.append(
+                `perseus-preview-${this.props.datasetKey}`,
+                this.props.datasetValue,
+            );
         }
-        frame.dataset.id = String(this.iframeID);
+        searchParams.append(`perseus-preview-id`, `${this.iframeID}`);
 
         if (this.props.seamless) {
             // The seamless prop is the same as the "nochrome" prop that
@@ -156,8 +161,10 @@ class IframeContentRenderer extends React.Component<Props> {
             // for lint indicators in the right margin. We use the dataset
             // as above to pass this information on to the perseus-frame
             // component inside the iframe
-            frame.dataset.lintGutter = "true";
+            searchParams.append("perseus-preview-lint-gutter", "true");
         }
+
+        frame.src = finalUrl.toString();
 
         this.container.current?.appendChild(frame);
 
