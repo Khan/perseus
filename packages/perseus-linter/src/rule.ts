@@ -127,13 +127,24 @@ import Selector from "./selector";
 
 import type {TraversalState, TreeNode} from "./tree-transformer";
 
+export type MakeRuleOptions = {
+    name: string;
+    pattern?: RegExp;
+    severity?: number;
+    selector?: string;
+    locale?: string;
+    message?: string;
+    lint?: any;
+    applies?: any;
+};
+
 // This represents the type returned by String.match(). It is an
 // array of strings, but also has index:number and input:string properties.
 // TypeScript doesn't handle it well, so we punt and just use any.
-export type PatternMatchType = any;
+type PatternMatchType = any;
 
 // This is the return type of the check() method of a Rule object
-export type RuleCheckReturnType =
+type RuleCheckReturnType =
     | {
           rule: string;
           message: string;
@@ -149,13 +160,13 @@ export type RuleCheckReturnType =
 // object containing a string and two numbers.
 // prettier-ignore
 // (prettier formats this in a way that ka-lint does not like)
-export type LintTesterReturnType = string | {
+type LintTesterReturnType = string | {
     message: string,
     start: number,
     end: number
 } | null | undefined;
 
-export type LintRuleContextObject = any | null | undefined;
+type LintRuleContextObject = any | null | undefined;
 
 // This is the type of the lint detection function that the Rule() constructor
 // expects as its fourth argument. It is passed the TraversalState object and
@@ -163,7 +174,7 @@ export type LintRuleContextObject = any | null | undefined;
 // nodes returned by the selector match and the array of strings returned by
 // the pattern match. It should return null if no lint is detected or an
 // error message or an object contining an error message.
-export type LintTester = (
+type LintTester = (
     state: TraversalState,
     content: string,
     selectorMatch: ReadonlyArray<TreeNode>,
@@ -175,7 +186,7 @@ export type LintTester = (
 // be checked by context. For example, some rules only apply in exercises,
 // and should never be applied to articles. Defaults to true, so if we
 // omit the applies function in a rule, it'll be tested everywhere.
-export type AppliesTester = (context: LintRuleContextObject) => boolean;
+type AppliesTester = (context: LintRuleContextObject) => boolean;
 
 /**
  * A Rule object describes a Perseus lint rule. See the comment at the top of
@@ -233,7 +244,7 @@ export default class Rule {
 
     // A factory method for use with rules described in JSON files
     // See the documentation at the start of this file for details.
-    static makeRule(options: any): Rule {
+    static makeRule(options: MakeRuleOptions): Rule {
         return new Rule(
             options.name,
             options.severity,
