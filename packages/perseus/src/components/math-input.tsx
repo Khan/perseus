@@ -517,9 +517,11 @@ const styles = StyleSheet.create({
         borderRadius: 1,
     },
     iconInactive: {
+        border: `2px solid transparent`,
         backgroundColor: color.offBlack8,
     },
     iconActive: {
+        border: "2px solid white",
         backgroundColor: color.offBlack64,
     },
     outerWrapper: {
