@@ -22,8 +22,11 @@ export const LegacyGrid = ({box, backgroundImage}: Props) => {
     if (url && typeof url === "string") {
         // const scale = box[X] / interactiveSizes.defaultBoxSize;
         const scale = box[X] / (width ?? interactiveSizes.defaultBoxSize);
+        // eslint-disable-next-line
         console.log("Box: ", box);
+        // eslint-disable-next-line
         console.log("Default Box: ", interactiveSizes.defaultBoxSize);
+        // eslint-disable-next-line
         console.log("Scale: ", scale);
         return (
             <View
