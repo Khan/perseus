@@ -3,8 +3,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
+import ContentRenderer from "./content-renderer";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 
 import type {
@@ -19,7 +19,7 @@ const ITEM_DATA_VERSION = itemDataVersion;
 
 type Props = {
     apiOptions?: APIOptions;
-    deviceType?: DeviceType;
+    deviceType: DeviceType;
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
@@ -44,7 +44,6 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
 
-    frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -53,10 +52,6 @@ class ItemEditor extends React.Component<Props> {
         const props = _(this.props).pick("question", "answerArea");
 
         this.props.onChange(_(props).extend(newProps), cb, silent);
-    };
-
-    triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
-        this.frame.current?.sendNewData(newData);
     };
 
     handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
@@ -89,9 +84,6 @@ class ItemEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const isMobile =
-            this.props.deviceType === "phone" ||
-            this.props.deviceType === "tablet";
         return (
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
@@ -120,13 +112,16 @@ class ItemEditor extends React.Component<Props> {
                                 deviceType={this.props.deviceType}
                                 nochrome={true}
                             >
-                                <IframeContentRenderer
-                                    ref={this.frame}
-                                    key={this.props.deviceType}
-                                    datasetKey="mobile"
-                                    datasetValue={isMobile}
-                                    seamless={true}
-                                    url={this.props.previewURL}
+                                <ContentRenderer
+                                    apiOptions={this.props.apiOptions}
+                                    question={this.props.question}
+                                    screen={this.props.deviceType}
+                                    linterContext={{
+                                        contentType: "exercise",
+                                        highlightLint: true,
+                                        paths: [],
+                                        stack: [],
+                                    }}
                                 />
                             </DeviceFramer>
                             <div
