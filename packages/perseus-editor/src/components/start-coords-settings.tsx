@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    getAngleCoords,
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
@@ -17,6 +18,7 @@ import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clock
 import * as React from "react";
 
 import Heading from "./heading";
+import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
@@ -102,6 +104,14 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsPoint
                     startCoords={pointCoords}
+                    onChange={onChange}
+                />
+            );
+        case "angle":
+            const angleCoords = getAngleCoords({graph: props, range, step});
+            return (
+                <StartCoordsAngle
+                    startCoords={angleCoords}
                     onChange={onChange}
                 />
             );
