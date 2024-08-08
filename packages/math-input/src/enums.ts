@@ -20,8 +20,5 @@ export const KeyTypes = [
     // For buttons that modify the broader keypad state (e.g., by changing
     // the visible pane).
     "KEYPAD_NAVIGATION",
-    // For buttons that house multiple buttons and have no action
-    // themselves.
-    "MANY",
 ];
 export type KeyType = (typeof KeyTypes)[number];

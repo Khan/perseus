@@ -93,7 +93,6 @@ export const getKeyTranslator = (
     LEFT_PAREN: buildGenericCallback("(", ActionType.CMD),
     RIGHT_PAREN: buildGenericCallback(")", ActionType.CMD),
     SQRT: buildGenericCallback("sqrt", ActionType.CMD),
-    PHI: buildGenericCallback("\\phi", ActionType.CMD),
     PI: buildGenericCallback("pi", ActionType.CMD),
     THETA: buildGenericCallback("theta", ActionType.CMD),
     RADICAL: buildGenericCallback("nthroot", ActionType.CMD),
@@ -119,14 +118,6 @@ export const getKeyTranslator = (
         }
     },
 
-    LOG_B: (mathQuill) => {
-        mathQuill.typedText("log_");
-        mathQuill.keystroke("Right");
-        mathQuill.typedText("(");
-        mathQuill.keystroke("Left");
-        mathQuill.keystroke("Left");
-    },
-
     LOG_N: (mathQuill) => {
         mathQuill.write("log_{ }\\left(\\right)");
         mathQuill.keystroke("Left"); // into parentheses
@@ -134,28 +125,9 @@ export const getKeyTranslator = (
         mathQuill.keystroke("Left"); // into index
     },
 
-    NTHROOT3: (mathQuill) => {
-        mathQuill.typedText("nthroot3");
-        mathQuill.keystroke("Right");
-    },
-
-    POW: (mathQuill) => {
-        const contents = mathQuill.latex();
-        mathQuill.typedText("^");
-
-        // If the input hasn't changed (for example, if we're
-        // attempting to add an exponent on an empty input or an empty
-        // denominator), insert our own "a^b"
-        if (mathQuill.latex() === contents) {
-            mathQuill.typedText("a^b");
-        }
-    },
-
     // These need to be overwritten by the consumer
     // if they're going to be used
     DISMISS: () => {},
-    NOOP: () => {},
-    MANY: () => {},
 
     NUM_0: buildGenericCallback("0"),
     NUM_1: buildGenericCallback("1"),
