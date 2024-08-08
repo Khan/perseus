@@ -1,0 +1,44 @@
+import{j as i,a as t}from"./jsx-runtime-5BUNAZ9W.js";import{a as o}from"./chunk-WFFRPTHA-zlNDxfrq.js";import{R as z}from"./renderer-with-debug-ui-R973B6OD.js";import{N as p}from"./article-renderer-MIlZSHBm.js";import"./index-4g5l5LRQ.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./preview-errors-7FWlPnjy.js";import"./index-PPLHz8o0.js";import"./choice-ImFDAsPt.js";import"./index-Cz55-Vre.js";import"./index-awljIyHI.js";import"./index-tvtfaFq4.js";import"./index-e4P84RkC.js";import"./index-lUErx3pE.js";import"./index-QR_wlop5.js";import"./index-zXbQRqKp.js";import"./index-skotlSua.js";import"./index-zE8cp1oq.js";import"./index-wjVcXLkf.js";import"./index-GPnNv0mI.js";import"./index-jmm5gWkb.js";import"./x-6ZxseNgc.js";import"./Popper-D86xJ3go.js";import"./index-dnMhQZ-1.js";import"./i18n-context-SHL040F7.js";import"./strings-U4LenZoO.js";import"./icon-TA3bBVIW.js";import"./perseus-api-Xe5udHfi.js";import"./index-0C4KXdeC.js";import"./invariant-bu5zBsRS.js";import"./stub-tag-editor-5nWG-1U8.js";import"./text-list-editor-uZ0v1gHC.js";import"./jquery-yG1GhClm.js";import"./media-queries-MaBBbpNq.js";import"./constants-I_nlPaPx.js";import"./choice-icon-Fa6RfAAR.js";import"./inline-icon-QIU9thzn.js";import"./icon-paths-AuJwhOz7.js";import"./focus-ring-dCiEd0Hc.js";import"./option-status-_NngQfjZ.js";import"./side-by-side-qr1qIzeQ.js";import"./util-nn1bbT0H.js";import"./version-akiLXZts.js";import"./dependencies-9B_Bv_mA.js";import"./multi-renderer-MbvEaF9H.js";import"./renderer-qYLtVIRz.js";import"./index-J2t_5nK1.js";import"./asset-context-4nzQV6k0.js";import"./svg-image-SxmvWYsn.js";import"./fixed-to-responsive-Q2lYGnje.js";import"./client-MU6fCXSs.js";import"./image-loader-s-naDkf8.js";import"./tex-Co-L2gRx.js";import"./zoomable-fMxvjK02.js";import"./zoomable-tex-ZKYDI9ak.js";import"./lint-IvfTv29b.js";import"./hints-renderer-rbx70kqr.js";import"./shared-3pf9YZIg.js";import"./button-group-KR3umc1e.js";import"./base-radio-ZIp3pJ0Q.js";import"./choice-none-above-aLLjKr7F.js";import"./graph-BSKC9uhm.js";import"./hud-CJYktPgf.js";import"./index-unb9_VrH.js";import"./index-zHEZmPKZ.js";import"./index-FsYHUvK_.js";import"./math-input-4mD5FeU_.js";import"./prop-types-biAKn00V.js";import"./mobile-keypad-fIN5N6sB.js";import"./tabbar-tY-vWj59.js";import"./item-kdyp1JvI.js";import"./button-assets-gSR_ngpH.js";import"./keypad-button-i3yjQmDW.js";import"./operators-page-AY25AXJ7.js";import"./navigation-pad-Z2fVjJac.js";import"./key-translator-uJhRSksH.js";import"./_commonjs-dynamic-modules-h-SxKiO4.js";import"./multi-button-group-AxfQn4Cq.js";import"./number-input-zY6mWygG.js";import"./range-input-9Q27vuux.js";import"./text-input-Q1V0RBx1.js";import"./index-_rEjQfTM.js";import"./minus-bold-ONmDo3Ve.js";import"./register-all-widgets-for-testing-fVl7kHkN.js";import"./enums-x5qaTru7.js";import"./input-with-examples-cuzj726-.js";import"./tooltip-vkx2pUmk.js";import"./simple-keypad-input-EGr_kSM4.js";import"./video-transcript-link-jDAvsjOz.js";import"./answer-choices-R7ojpA4J.js";import"./tiny-invariant-bHgPayXn.js";import"./bundle.esm-ylPat90q.js";import"./marker-7AluEFl_.js";import"./answer-pill-l1qy508O.js";import"./sortable-64LAkajy.js";const A={content:"$5008 \\div 4 =$ [[☃ numeric-input 1]] ",images:{},widgets:{"numeric-input 1":{graded:!0,version:{major:0,minor:0},static:!1,type:"numeric-input",options:{coefficient:!1,static:!1,answers:[{status:"correct",maxError:null,strict:!1,value:1252,simplify:"required",message:""}],labelText:"",size:"normal"},alignment:"default"}}};function l(e){return{...{alignment:"",answers:[],containerSizeClass:"medium",isLastUsedWidget:!0,coefficient:!1,currentValue:"",problemNum:0,reviewModeRubric:{answers:[],labelText:"",size:"medium",coefficient:!1,static:!1},rightAlign:!1,size:"normal",static:!1,widgetId:"widgetId",findWidgets:o("findWidgets"),onBlur:o("onBlur"),onChange:o("onChange"),onFocus:o("onFocus"),trackInteraction:o("trackInteraction")},...e}}const dr={title:"Perseus/Widgets/NumericInput",args:{coefficient:!1,currentValue:"8675309",rightAlign:!1},argTypes:{size:{options:["normal","small"],control:{type:"radio"},defaultValue:"normal"}}},n=()=>i(z,{question:A}),s=e=>{const r=l(e);return i(p,{...r})},a=e=>{const r=l({...e,size:"small"}),c=l({...e,size:"normal"});return t("div",{children:[t("label",{children:["Small:",i(p,{...r})]}),t("label",{children:["Normal:",i(p,{...c})]})]})},m=e=>{const r=l({...e,rightAlign:!1}),c=l({...e,rightAlign:!0});return t("div",{children:[t("label",{children:["Left:",i(p,{...r})]}),t("label",{children:["Right:",i(p,{...c})]})]})};n.__docgenInfo={description:"",methods:[],displayName:"Question1"};s.__docgenInfo={description:"",methods:[],displayName:"Interactive",props:{coefficient:{required:!0,tsType:{name:"boolean"},description:""},currentValue:{required:!0,tsType:{name:"string"},description:""},rightAlign:{required:!0,tsType:{name:"boolean"},description:""},size:{required:!0,tsType:{name:"union",raw:'"normal" | "small"',elements:[{name:"literal",value:'"normal"'},{name:"literal",value:'"small"'}]},description:""}}};a.__docgenInfo={description:"",methods:[],displayName:"Sizes",props:{coefficient:{required:!0,tsType:{name:"boolean"},description:""},currentValue:{required:!0,tsType:{name:"string"},description:""},rightAlign:{required:!0,tsType:{name:"boolean"},description:""},size:{required:!0,tsType:{name:"union",raw:'"normal" | "small"',elements:[{name:"literal",value:'"normal"'},{name:"literal",value:'"small"'}]},description:""}}};m.__docgenInfo={description:"",methods:[],displayName:"TextAlignment",props:{coefficient:{required:!0,tsType:{name:"boolean"},description:""},currentValue:{required:!0,tsType:{name:"string"},description:""},rightAlign:{required:!0,tsType:{name:"boolean"},description:""},size:{required:!0,tsType:{name:"union",raw:'"normal" | "small"',elements:[{name:"literal",value:'"normal"'},{name:"literal",value:'"small"'}]},description:""}}};var u,d,g;n.parameters={...n.parameters,docs:{...(u=n.parameters)==null?void 0:u.docs,source:{originalSource:`(): React.ReactElement => {
+  return <RendererWithDebugUI question={question1} />;
+}`,...(g=(d=n.parameters)==null?void 0:d.docs)==null?void 0:g.source}}};var f,h,b;s.parameters={...s.parameters,docs:{...(f=s.parameters)==null?void 0:f.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  const props = generateProps(args);
+  return <NumericInput {...props} />;
+}`,...(b=(h=s.parameters)==null?void 0:h.docs)==null?void 0:b.source}}};var y,I,v;a.parameters={...a.parameters,docs:{...(y=a.parameters)==null?void 0:y.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  const smallProps = generateProps({
+    ...args,
+    size: "small"
+  });
+  const normalProps = generateProps({
+    ...args,
+    size: "normal"
+  });
+  return <div>
+            <label>
+                Small:
+                <NumericInput {...smallProps} />
+            </label>
+            <label>
+                Normal:
+                <NumericInput {...normalProps} />
+            </label>
+        </div>;
+}`,...(v=(I=a.parameters)==null?void 0:I.docs)==null?void 0:v.source}}};var P,T,q;m.parameters={...m.parameters,docs:{...(P=m.parameters)==null?void 0:P.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  const leftProps = generateProps({
+    ...args,
+    rightAlign: false
+  });
+  const rightProps = generateProps({
+    ...args,
+    rightAlign: true
+  });
+  return <div>
+            <label>
+                Left:
+                <NumericInput {...leftProps} />
+            </label>
+            <label>
+                Right:
+                <NumericInput {...rightProps} />
+            </label>
+        </div>;
+}`,...(q=(T=m.parameters)==null?void 0:T.docs)==null?void 0:q.source}}};const gr=["Question1","Interactive","Sizes","TextAlignment"];export{s as Interactive,n as Question1,a as Sizes,m as TextAlignment,gr as __namedExportsOrder,dr as default};
