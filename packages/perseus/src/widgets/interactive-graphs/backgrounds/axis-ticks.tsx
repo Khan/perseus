@@ -50,7 +50,7 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const xAdjustment = xPosition >= graphInfo.width ? -10 : 30;
+    const xAdjustment = xPosition >= graphInfo.width ? -10 : 25;
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + 3;
 
@@ -103,14 +103,14 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const yAdjustment = yPosition >= graphInfo.height ? -10 : 25;
+    const yAdjustment = yPosition >= graphInfo.height ? -10 : 20;
     const xPositionText = xPosition;
     const yPositionText = yPosition + yAdjustment;
 
     return (
         <g className="x-axis-ticks">
             <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
-            {x !== -1 && (
+            {
                 <text
                     height={20}
                     width={50}
@@ -120,7 +120,7 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
                 >
                     {x.toString()}
                 </text>
-            )}
+            }
         </g>
     );
 };

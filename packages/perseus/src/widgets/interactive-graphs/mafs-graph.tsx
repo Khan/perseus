@@ -173,6 +173,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 markings={props.markings}
                                 width={width}
                                 height={height}
+                                lockedFigures={props.lockedFigures}
                             />
                             {/* Axis Ticks and Labels */}
                             {
@@ -180,7 +181,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 props.markings === "graph" && (
                                     <>
                                         <AxisTicks />
-                                        <AxisArrows />
+                                        <g
+                                            style={{
+                                                width: width,
+                                                height: height,
+                                            }}
+                                            className="dumbo"
+                                        >
+                                            <AxisArrows />
+                                            <AxisLabels />
+                                        </g>
                                     </>
                                 )
                             }
