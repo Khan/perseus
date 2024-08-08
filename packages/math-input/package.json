@@ -30,6 +30,12 @@
             "require": "./dist/strings.js",
             "types": "./dist/strings.d.ts",
             "source": "./src/strings.ts"
+        },
+        "./keypad-context": {
+            "import": "./dist/es/keypad-context.js",
+            "require": "./dist/keypad-context.js",
+            "types": "./dist/keypad-context.d.ts",
+            "source": "./src/components/keypad-context.tsx"
         }
     },
     "files": [
