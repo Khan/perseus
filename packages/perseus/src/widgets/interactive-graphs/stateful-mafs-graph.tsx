@@ -29,10 +29,10 @@ export type StatefulMafsGraphProps = {
     markings: InteractiveGraphProps["markings"];
     onChange: InteractiveGraphProps["onChange"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
-    static: InteractiveGraphProps["static"];
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
     readOnly: boolean;
+    static: InteractiveGraphProps["static"];
 };
 
 // Rather than be tightly bound to how data was structured in
