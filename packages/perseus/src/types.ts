@@ -173,6 +173,11 @@ export const InteractiveGraphEditorFlags = [
      * Includes polygon graph.
      */
     "start-coords-ui-polygon",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes angle graph.
+     */
+    "start-coords-ui-angle",
 ] as const;
 
 /**

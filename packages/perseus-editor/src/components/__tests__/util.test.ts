@@ -365,6 +365,26 @@ describe("getDefaultGraphStartCoords", () => {
             [-3, -3],
         ]);
     });
+
+    test("should get default start coords for an angle graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "angle"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        // Default correct answer is 20 degree angle at (0, 0)
+        expect(defaultCoords).toEqual([
+            [7, 0],
+            [0, 0],
+            [6.5778483455013586, 2.394141003279681],
+        ]);
+    });
 });
 
 describe("getSinusoidEquation", () => {
