@@ -163,8 +163,6 @@ export const AxisTicks = () => {
 
     const cool = usePaneContext();
 
-    console.log("usePaneContext", cool);
-
     return (
         <g className="axis-ticks">
             {yGridTicks.map((y) => {
