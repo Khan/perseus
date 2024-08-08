@@ -26,7 +26,6 @@ export default StyleSheet.create({
     },
 
     blankBackground: {
-        // TODO(emily): Use KhanUtil._BACKGROUND?
         backgroundColor: "#FDFDFD",
     },
 

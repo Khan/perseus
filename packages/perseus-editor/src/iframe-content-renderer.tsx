@@ -14,6 +14,8 @@
 import {Log} from "@khanacademy/perseus";
 import * as React from "react";
 
+const SearchParamPrefix = "perseus-preview";
+
 let nextIframeID = 0;
 const requestIframeData: Record<string, any> = {};
 const updateIframeHeight: Record<string, any> = {};
@@ -148,11 +150,11 @@ class IframeContentRenderer extends React.Component<Props> {
             // iframe, we set it here. Right now, this is used to
             // communicate if the iframe should be enabling touch emulation.
             searchParams.append(
-                `perseus-preview-${this.props.datasetKey}`,
+                `${SearchParamPrefix}-${this.props.datasetKey}`,
                 this.props.datasetValue,
             );
         }
-        searchParams.append(`perseus-preview-id`, `${this.iframeID}`);
+        searchParams.append(`${SearchParamPrefix}-id`, `${this.iframeID}`);
 
         if (this.props.seamless) {
             // The seamless prop is the same as the "nochrome" prop that
@@ -161,7 +163,7 @@ class IframeContentRenderer extends React.Component<Props> {
             // for lint indicators in the right margin. We use the dataset
             // as above to pass this information on to the perseus-frame
             // component inside the iframe
-            searchParams.append("perseus-preview-lint-gutter", "true");
+            searchParams.append(`${SearchParamPrefix}-lint-gutter`, "true");
         }
 
         frame.src = finalUrl.toString();

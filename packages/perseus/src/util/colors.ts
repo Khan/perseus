@@ -1,5 +1,5 @@
 /**
- * Color constants we use throughout Perseus (originally on KhanUtil).
+ * Color constants we use throughout Perseus.
  *
  * Note that if the color palette changes substantially, it may also need to be
  * updated in khan-exercises and cherry-picked into graphie-to-png's
