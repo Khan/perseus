@@ -22,6 +22,7 @@ import PerseusEditorAccordion from "../perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import LabeledSwitch from "./labeled-switch";
+import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import PolygonSwatch from "./polygon-swatch";
 
@@ -105,21 +106,12 @@ const LockedPolygonSettings = (props: Props) => {
             </View>
 
             {/* Stroke style */}
-            <LabelMedium tag="label" style={[styles.row, styles.spaceUnder]}>
-                stroke
-                <Strut size={spacing.xxSmall_6} />
-                <SingleSelect
-                    selectedValue={strokeStyle}
-                    onChange={(value: "solid" | "dashed") =>
-                        onChangeProps({strokeStyle: value})
-                    }
-                    // Placeholder is required, but never gets used.
-                    placeholder=""
-                >
-                    <OptionItem value="solid" label="solid" />
-                    <OptionItem value="dashed" label="dashed" />
-                </SingleSelect>
-            </LabelMedium>
+            <LineStrokeSelect
+                selectedValue={strokeStyle}
+                onChange={(value: "solid" | "dashed") =>
+                    onChangeProps({strokeStyle: value})
+                }
+            />
 
             {/* Show vertices switch */}
             <LabeledSwitch
@@ -142,7 +134,7 @@ const LockedPolygonSettings = (props: Props) => {
 
                     return (
                         <View
-                            key={`locked-polygon-point-${point[0]}-${point[1]}-index-${index}`}
+                            key={`locked-polygon-point-index-${index}`}
                             style={[styles.row, styles.spaceUnder]}
                         >
                             {/* Give the points alphabet labels */}

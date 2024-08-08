@@ -8,6 +8,7 @@
 import * as React from "react";
 
 import LockedEllipseSettings from "./locked-ellipse-settings";
+import LockedFunctionSettings from "./locked-function-settings";
 import LockedLineSettings from "./locked-line-settings";
 import LockedPointSettings from "./locked-point-settings";
 import LockedPolygonSettings from "./locked-polygon-settings";
@@ -15,6 +16,7 @@ import LockedVectorSettings from "./locked-vector-settings";
 
 import type {Props as LockedEllipseProps} from "./locked-ellipse-settings";
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
+import type {Props as LockedFunctionProps} from "./locked-function-settings";
 import type {Props as LockedLineProps} from "./locked-line-settings";
 import type {Props as LockedPointProps} from "./locked-point-settings";
 import type {Props as LockedPolygonProps} from "./locked-polygon-settings";
@@ -54,6 +56,7 @@ type Props = LockedFigureSettingsCommonProps &
         | LockedEllipseProps
         | LockedVectorProps
         | LockedPolygonProps
+        | LockedFunctionProps
     );
 
 const LockedFigureSettings = (props: Props) => {
@@ -68,6 +71,11 @@ const LockedFigureSettings = (props: Props) => {
             return <LockedEllipseSettings {...props} />;
         case "polygon":
             return <LockedPolygonSettings {...props} />;
+        case "function":
+            if (props.showM2bFeatures) {
+                return <LockedFunctionSettings {...props} />;
+            }
+            break;
     }
 
     return null;

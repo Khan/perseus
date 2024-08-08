@@ -10,6 +10,7 @@ import {
 } from "@khanacademy/perseus";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -20,7 +21,7 @@ import Heading from "./heading";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
 
-const {ButtonGroup, InfoTip, PropCheckBox, RangeInput} = components;
+const {ButtonGroup, InfoTip, RangeInput} = components;
 
 const defaultBackgroundImage = {
     url: null,
@@ -547,10 +548,12 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 </LabeledRow>
                             </div>
                             <div className="perseus-widget-left-col">
-                                <PropCheckBox
+                                <Checkbox
                                     label="Show tooltips"
-                                    showTooltips={this.props.showTooltips}
-                                    onChange={this.change}
+                                    checked={this.props.showTooltips}
+                                    onChange={(value) => {
+                                        this.change({showTooltips: value});
+                                    }}
                                 />
                             </div>
                         </div>
@@ -585,10 +588,12 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
                         <View style={styles.protractorSection}>
                             <View style={styles.checkboxRow}>
-                                <PropCheckBox
+                                <Checkbox
                                     label="Show protractor"
-                                    showProtractor={this.props.showProtractor}
-                                    onChange={this.change}
+                                    checked={this.props.showProtractor}
+                                    onChange={(value) => {
+                                        this.change({showProtractor: value});
+                                    }}
                                     style={styles.resetSpaceTop}
                                 />
                             </View>

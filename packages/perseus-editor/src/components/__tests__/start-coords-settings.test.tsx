@@ -523,4 +523,173 @@ describe("StartCoordSettings", () => {
             },
         );
     });
+
+    describe("point graph", () => {
+        test("shows the start coordinates UI: 1 point (default)", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+        });
+
+        test("shows the start coordinates UI: 6 points", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="point"
+                    numPoints={6}
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            expect(screen.getByText("Point 3:")).toBeInTheDocument();
+            expect(screen.getByText("Point 4:")).toBeInTheDocument();
+            expect(screen.getByText("Point 5:")).toBeInTheDocument();
+            expect(screen.getByText("Point 6:")).toBeInTheDocument();
+        });
+
+        test.each`
+            pointIndex | coord
+            ${0}       | ${"x"}
+            ${0}       | ${"y"}
+            ${1}       | ${"x"}
+            ${1}       | ${"y"}
+        `(
+            "calls onChange when $coord coord is changed (line $pointIndex)",
+            async ({pointIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                // Act
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="point"
+                        numPoints={2}
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Assert
+                const input = screen.getAllByRole("spinbutton", {
+                    name: `${coord}`,
+                })[pointIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                const expectedCoords = [
+                    [-5, 0],
+                    [5, 0],
+                ];
+                expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
+
+    describe("polygon graph", () => {
+        test("shows the start coordinates UI: 3 sides (default)", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="polygon"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            expect(screen.getByText("Point 3:")).toBeInTheDocument();
+        });
+
+        test("shows the start coordinates UI: 6 sides", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="polygon"
+                    numSides={6}
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            expect(screen.getByText("Point 3:")).toBeInTheDocument();
+            expect(screen.getByText("Point 4:")).toBeInTheDocument();
+            expect(screen.getByText("Point 5:")).toBeInTheDocument();
+            expect(screen.getByText("Point 6:")).toBeInTheDocument();
+        });
+
+        test.each`
+            pointIndex | coord
+            ${0}       | ${"x"}
+            ${0}       | ${"y"}
+            ${1}       | ${"x"}
+            ${1}       | ${"y"}
+            ${2}       | ${"x"}
+            ${2}       | ${"y"}
+        `(
+            "calls onChange when $coord coord is changed (line $pointIndex)",
+            async ({pointIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="polygon"
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Act
+                const input = screen.getAllByRole("spinbutton", {
+                    name: `${coord}`,
+                })[pointIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                // Assert
+                const expectedCoords = [
+                    [3, -2],
+                    [0, 4],
+                    [-3, -2],
+                ];
+                expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
 });

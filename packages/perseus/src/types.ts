@@ -1,8 +1,8 @@
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
 import type {
+    Hint,
     PerseusAnswerArea,
-    PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
@@ -46,10 +46,6 @@ export type PerseusScore =
           total: number;
           message?: string | null | undefined;
       };
-
-export type Hint = PerseusRenderer & {
-    replace?: boolean;
-};
 
 export type Version = {
     major: number;
@@ -101,7 +97,7 @@ export type ChangeHandler = (
 ) => unknown;
 
 export type ImageUploader = (
-    file: string,
+    file: File,
     callback: (url: string) => unknown,
 ) => unknown;
 
@@ -164,9 +160,24 @@ export const InteractiveGraphEditorFlags = [
     "start-coords-ui-phase-1",
     /**
      * Enables the UI for setting the start coordinates of a graph.
-     * Includes sinusoid graph.
+     * Includes sinusoid and quadratic graphs.
      */
     "start-coords-ui-phase-2",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes point graph.
+     */
+    "start-coords-ui-point",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes polygon graph.
+     */
+    "start-coords-ui-polygon",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes angle graph.
+     */
+    "start-coords-ui-angle",
 ] as const;
 
 /**

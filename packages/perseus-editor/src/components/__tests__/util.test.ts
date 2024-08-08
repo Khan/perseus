@@ -256,6 +256,135 @@ describe("getDefaultGraphStartCoords", () => {
 
         expect(defaultCoords).toEqual({center: [0, 0], radius: 2});
     });
+
+    test("should get default start coords for a sinusoid graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "sinusoid"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [0, 0],
+            [3, 2],
+        ]);
+    });
+
+    test("should get default start coords for a quadratic graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "quadratic"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [-5, 5],
+            [0, -5],
+            [5, 5],
+        ]);
+    });
+
+    test("should get default start coords for a point graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "point"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([[0, 0]]);
+    });
+
+    test("should get default start coords for a point graph with multiple points", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "point", numPoints: 2};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [-5, 0],
+            [5, 0],
+        ]);
+    });
+
+    test("should get default start coords for a polygon graph, triangle (default)", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "polygon"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [3, -2],
+            [0, 4],
+            [-3, -2],
+        ]);
+    });
+
+    test("should get default start coords for a polygon graph, square", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "polygon", numSides: 4};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [3, -3],
+            [3, 3],
+            [-3, 3],
+            [-3, -3],
+        ]);
+    });
+
+    test("should get default start coords for an angle graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "angle"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        // Default correct answer is 20 degree angle at (0, 0)
+        expect(defaultCoords).toEqual([
+            [7, 0],
+            [0, 0],
+            [6.5778483455013586, 2.394141003279681],
+        ]);
+    });
 });
 
 describe("getSinusoidEquation", () => {

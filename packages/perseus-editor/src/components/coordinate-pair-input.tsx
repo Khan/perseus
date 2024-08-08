@@ -1,10 +1,11 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import ScrolllessNumberTextField from "./scrollless-number-text-field";
 
 import type {Coord} from "@khanacademy/perseus";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
@@ -58,8 +59,7 @@ const CoordinatePairInput = (props: Props) => {
                 {labels ? labels[0] : "x coord"}
 
                 <Strut size={spacing.xxSmall_6} />
-                <TextField
-                    type="number"
+                <ScrolllessNumberTextField
                     value={coordState[0]}
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
                     style={[
@@ -74,8 +74,7 @@ const CoordinatePairInput = (props: Props) => {
                 {labels ? labels[1] : "y coord"}
 
                 <Strut size={spacing.xxSmall_6} />
-                <TextField
-                    type="number"
+                <ScrolllessNumberTextField
                     value={coordState[1]}
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
                     style={[

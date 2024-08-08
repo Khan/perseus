@@ -218,7 +218,6 @@ export const quadraticQuestion: PerseusRenderer = {
     content:
         "In conclusion, the vertex of the parabola is at\n\n$(3,-8)$\n\nand the zeros are\n\n$(5,0)$ and $(1,0)$\n\nIn order to graph, we need the vertex and another point. That other point can be one of the zeros we found, like $(1,0)$:\n\n[[☃ grapher 1]]",
     images: {},
-    replace: false,
     widgets: {
         "grapher 1": {
             alignment: "default",
@@ -268,7 +267,6 @@ export const sinusoidQuestion: PerseusRenderer = {
     content:
         "###The answer\n\nWe found that the graph of $y=-4\\cos\\left(x\\right)+3$ has a minimum point at $(0,-1)$ and then intersects its midline at $\\left(\\dfrac{1}{2}\\pi,3\\right)$.\n\n[[☃ grapher 3]]\n  ",
     images: {},
-    replace: false,
     widgets: {
         "grapher 3": {
             alignment: "default",

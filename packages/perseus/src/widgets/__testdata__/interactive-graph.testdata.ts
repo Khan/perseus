@@ -32,6 +32,17 @@ export const angleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const angleQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withAngle().build();
 
+export const angleWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withAngle({
+            startCoords: [
+                [5, 1],
+                [1, 1],
+                [4, 5],
+            ],
+        })
+        .build();
+
 export const circleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withCircle({center: [-2, -4], radius: 2})
     .build();
@@ -97,6 +108,16 @@ export const pointQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
 export const pointQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withPoints(1).build();
 
+export const pointQuestionWithStartingCoords: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withPoints(2, {
+            startCoords: [
+                [0, 0],
+                [2, 2],
+            ],
+        })
+        .build();
+
 export const polygonQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(
@@ -116,6 +137,18 @@ export const polygonQuestion: PerseusRenderer =
                 [3.5, 2],
                 [3.5, 5],
                 [-0.5, 2],
+            ],
+        })
+        .build();
+
+export const polygonWithStartingCoordsQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withPolygon("grid", {
+            startCoords: [
+                [6, 6],
+                [8, 6],
+                [8, 8],
+                [6, 8],
             ],
         })
         .build();
@@ -765,6 +798,9 @@ export const segmentWithLockedFigures: PerseusRenderer =
             ],
             {color: "pink"},
         )
+        .addLockedFunction("sin(x)", {
+            color: "red",
+        })
         .build();
 
 export const quadraticQuestion: PerseusRenderer =

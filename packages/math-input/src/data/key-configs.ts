@@ -272,12 +272,6 @@ const KeyConfigs = (
             ariaLabel: strings.theta,
         }),
     },
-    NOOP: {
-        ...getDefaultOperatorFields({
-            key: "NOOP",
-            keyType: "EMPTY",
-        }),
-    },
     // Input navigation
     UP: {
         ...getDefaultOperatorFields({
@@ -363,14 +357,6 @@ const KeyConfigs = (
             key: "DISMISS",
             keyType: "KEYPAD_NAVIGATION",
             ariaLabel: strings.dismiss,
-        }),
-    },
-
-    // TODO(charlie): Use the numeral color for the 'Many' key.
-    MANY: {
-        ...getDefaultOperatorFields({
-            key: "MANY",
-            keyType: "MANY",
         }),
     },
 
@@ -685,26 +671,6 @@ const KeyConfigs = (
     z: {
         ...getDefaultValueFields({
             key: "z",
-        }),
-    },
-    PHI: {
-        ...getDefaultValueFields({
-            key: "PHI",
-        }),
-    },
-    NTHROOT3: {
-        ...getDefaultValueFields({
-            key: "NTHROOT3",
-        }),
-    },
-    POW: {
-        ...getDefaultValueFields({
-            key: "POW",
-        }),
-    },
-    LOG_B: {
-        ...getDefaultValueFields({
-            key: "LOG_B",
         }),
     },
 });

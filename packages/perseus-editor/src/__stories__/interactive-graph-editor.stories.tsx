@@ -8,10 +8,12 @@ import * as React from "react";
 
 import {EditorPage} from "..";
 import {
+    angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
     linearSystemWithStartingCoordsQuestion,
     linearWithStartingCoordsQuestion,
-    polygonQuestion,
+    pointQuestionWithStartingCoords,
+    polygonWithStartingCoordsQuestion,
     quadraticWithStartingCoordsQuestion,
     rayWithStartingCoordsQuestion,
     segmentWithLockedFigures,
@@ -39,43 +41,39 @@ export default {
 
 const onChangeAction = action("onChange");
 
-export const InteractiveGraphSegmentWithStartingCoords =
-    (): React.ReactElement => {
-        return (
-            <EditorPageWithStorybookPreview
-                question={segmentWithStartingCoordsQuestion}
-            />
-        );
-    };
+export const InteractiveGraphSegment = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={segmentWithStartingCoordsQuestion}
+        />
+    );
+};
 
-export const InteractiveGraphSegmentsWithStartingCoords =
-    (): React.ReactElement => {
-        return (
-            <EditorPageWithStorybookPreview
-                question={segmentsWithStartingCoordsQuestion}
-            />
-        );
-    };
+export const InteractiveGraphSegments = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={segmentsWithStartingCoordsQuestion}
+        />
+    );
+};
 
-export const InteractiveGraphLinearWithStartingCoords =
-    (): React.ReactElement => {
-        return (
-            <EditorPageWithStorybookPreview
-                question={linearWithStartingCoordsQuestion}
-            />
-        );
-    };
+export const InteractiveGraphLinear = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={linearWithStartingCoordsQuestion}
+        />
+    );
+};
 
-export const InteractiveGraphLinearSystemWithStartingCoords =
-    (): React.ReactElement => {
-        return (
-            <EditorPageWithStorybookPreview
-                question={linearSystemWithStartingCoordsQuestion}
-            />
-        );
-    };
+export const InteractiveGraphLinearSystem = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={linearSystemWithStartingCoordsQuestion}
+        />
+    );
+};
 
-export const InteractiveGraphRayWithStartingCoords = (): React.ReactElement => {
+export const InteractiveGraphRay = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
             question={rayWithStartingCoordsQuestion}
@@ -83,35 +81,50 @@ export const InteractiveGraphRayWithStartingCoords = (): React.ReactElement => {
     );
 };
 
-export const InteractiveGraphCircleWithStartingCoords =
-    (): React.ReactElement => {
-        return (
-            <EditorPageWithStorybookPreview
-                question={circleWithStartingCoordsQuestion}
-            />
-        );
-    };
+export const InteractiveGraphCircle = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={circleWithStartingCoordsQuestion}
+        />
+    );
+};
 
-export const InteractiveGraphQuadraticWithStartingCoords =
-    (): React.ReactElement => {
-        return (
-            <EditorPageWithStorybookPreview
-                question={quadraticWithStartingCoordsQuestion}
-            />
-        );
-    };
+export const InteractiveGraphQuadratic = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={quadraticWithStartingCoordsQuestion}
+        />
+    );
+};
 
-export const InteractiveGraphSinusoidWithStartingCoords =
-    (): React.ReactElement => {
-        return (
-            <EditorPageWithStorybookPreview
-                question={sinusoidWithStartingCoordsQuestion}
-            />
-        );
-    };
+export const InteractiveGraphSinusoid = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={sinusoidWithStartingCoordsQuestion}
+        />
+    );
+};
+
+export const InteractiveGraphPoint = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview
+        question={pointQuestionWithStartingCoords}
+    />
+);
 
 export const InteractiveGraphPolygon = (): React.ReactElement => {
-    return <EditorPageWithStorybookPreview question={polygonQuestion} />;
+    return (
+        <EditorPageWithStorybookPreview
+            question={polygonWithStartingCoordsQuestion}
+        />
+    );
+};
+
+export const InteractiveGraphAngle = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={angleWithStartingCoordsQuestion}
+        />
+    );
 };
 
 export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {

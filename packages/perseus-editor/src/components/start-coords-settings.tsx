@@ -1,8 +1,11 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    getAngleCoords,
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
+    getPointCoords,
+    getPolygonCoords,
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
@@ -15,9 +18,11 @@ import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clock
 import * as React from "react";
 
 import Heading from "./heading";
+import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
 import StartCoordsMultiline from "./start-coords-multiline";
+import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
@@ -86,6 +91,27 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsQuadratic
                     startCoords={quadraticCoords}
+                    onChange={onChange}
+                />
+            );
+        // Graphs with startCoords of type ReadonlyArray<Coord>
+        case "point":
+        case "polygon":
+            const pointCoords =
+                type === "point"
+                    ? getPointCoords(props, range, step)
+                    : getPolygonCoords(props, range, step);
+            return (
+                <StartCoordsPoint
+                    startCoords={pointCoords}
+                    onChange={onChange}
+                />
+            );
+        case "angle":
+            const angleCoords = getAngleCoords({graph: props, range, step});
+            return (
+                <StartCoordsAngle
+                    startCoords={angleCoords}
                     onChange={onChange}
                 />
             );

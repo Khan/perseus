@@ -1837,42 +1837,6 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     </g>
                 </svg>
             );
-
-        /**
-         * ANYTHING BELOW IS NOT YET HANDLED
-         */
-        case "MANY":
-        case "NOOP":
-        case "PHI":
-        case "NTHROOT3":
-        case "POW":
-        case "LOG_B":
-            // placeholder
-            return (
-                <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="black"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <text
-                        y="20"
-                        textLength="100%"
-                        lengthAdjust="spacingAndGlyphs"
-                    >
-                        {id}
-                    </text>
-                    <text
-                        y="35"
-                        textLength="100%"
-                        lengthAdjust="spacingAndGlyphs"
-                        fill="red"
-                    >
-                        placeholder
-                    </text>
-                </svg>
-            );
         default:
             // this line forces an exhaustive check of all keys;
             // if a key is not handled, the compiler will complain.

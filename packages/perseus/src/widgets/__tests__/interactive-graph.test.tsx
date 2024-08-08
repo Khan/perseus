@@ -1,5 +1,4 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import * as KAS from "@khanacademy/kas";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -822,49 +821,6 @@ describe("locked layer", () => {
         });
     });
 
-    it("parses equation only when needed for a locked function", () => {
-        const PARSED = "equation needed parsing";
-        const PREPARSED = "equation was pre-parsed";
-        // Arrange - equation needs parsing
-        const KasParseMock = jest
-            .spyOn(KAS, "parse")
-            .mockReturnValue({expr: {eval: () => PARSED}});
-        const PlotMock = jest.spyOn(Plot, "OfX");
-        renderQuestion(segmentWithLockedFunction("x^2"), {
-            flags: {
-                mafs: {
-                    segment: true,
-                },
-            },
-        });
-        let plotFn = PlotMock.mock.calls[0][0]["y"];
-
-        // Assert
-        expect(KasParseMock).toHaveBeenCalledTimes(1);
-        expect(plotFn(0)).toEqual(PARSED);
-
-        // Arrange - equation does NOT need parsing
-        KasParseMock.mockClear();
-        PlotMock.mockClear();
-        renderQuestion(
-            segmentWithLockedFunction("x^2", {
-                equationParsed: {eval: () => PREPARSED},
-            }),
-            {
-                flags: {
-                    mafs: {
-                        segment: true,
-                    },
-                },
-            },
-        );
-        plotFn = PlotMock.mock.calls[0][0]["y"];
-
-        // Assert
-        expect(KasParseMock).toHaveBeenCalledTimes(0);
-        expect(plotFn(0)).toEqual(PREPARSED);
-    });
-
     it("plots the supplied equation on the axis specified", () => {
         // Arrange
         const apiOptions = {
@@ -880,7 +836,6 @@ describe("locked layer", () => {
         const PlotOfYMock = jest
             .spyOn(Plot, "OfY")
             .mockReturnValue(<div>OfY</div>);
-        const equationFnMock = jest.fn();
 
         // Act - Render f(x)
         renderQuestion(segmentWithLockedFunction("x^2"), apiOptions);
@@ -896,9 +851,6 @@ describe("locked layer", () => {
         renderQuestion(
             segmentWithLockedFunction("x^2", {
                 directionalAxis: "y",
-                equationParsed: {
-                    eval: equationFnMock,
-                },
             }),
             apiOptions,
         );
@@ -906,8 +858,5 @@ describe("locked layer", () => {
         // Assert
         expect(PlotOfXMock).toHaveBeenCalledTimes(0);
         expect(PlotOfYMock).toHaveBeenCalledTimes(1);
-        PlotOfYMock.mock.calls[0][0]["x"](1.21); // Execute the plot function
-        expect(equationFnMock).toHaveBeenCalledTimes(1);
-        expect(equationFnMock).toHaveBeenCalledWith({y: 1.21});
     });
 });
