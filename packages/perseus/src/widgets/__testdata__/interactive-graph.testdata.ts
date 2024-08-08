@@ -798,6 +798,9 @@ export const segmentWithLockedFigures: PerseusRenderer =
             ],
             {color: "pink"},
         )
+        .addLockedFunction("sin(x)", {
+            color: "red",
+        })
         .build();
 
 export const quadraticQuestion: PerseusRenderer =

@@ -761,14 +761,6 @@ export type LockedFunctionType = {
     color: LockedFigureColor;
     strokeStyle: "solid" | "dashed";
     equation: string; // This is the user-defined equation (as it was typed)
-    equationParsed?: {
-        // This is the parsed (tokenized) version of the equation.
-        // Since the function that is passed to Mafs is executed many times,
-        //    it would be expensive to have KAS parse the equation each time.
-        // This is parsed version is included to aid in performance.
-        // KAS doesn't have any types, so making this generic
-        [k: string]: any;
-    };
     directionalAxis: "x" | "y";
     domain?: Interval;
 };
