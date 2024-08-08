@@ -106,7 +106,6 @@ class HintRenderer extends React.Component<Props> {
                 <Renderer
                     // eslint-disable-next-line react/no-string-refs
                     ref="renderer"
-                    hintMode={true}
                     widgets={hint.widgets}
                     content={hint.content || ""}
                     images={hint.images}

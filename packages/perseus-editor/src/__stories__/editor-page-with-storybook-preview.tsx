@@ -123,7 +123,6 @@ function EditorPageWithStorybookPreview(props: Props) {
                             <Renderer
                                 strings={mockStrings}
                                 apiOptions={apiOptions}
-                                hintMode={true}
                                 {...hint}
                             />
                         </View>
