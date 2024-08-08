@@ -168,6 +168,7 @@ export type {
 export type {ParsedValue} from "./util";
 export type {
     Hint,
+    LegacyButtonSets,
     LockedFigure,
     LockedFigureColor,
     LockedFigureFillType,

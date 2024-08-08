@@ -3,12 +3,19 @@ import * as KAS from "@khanacademy/kas";
 import {
     components,
     Changeable,
-    Dependencies,
     Expression,
     PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import Button from "@khanacademy/wonder-blocks-button";
+import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {
+    HeadingSmall,
+    HeadingXSmall,
+} from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
+import {css, StyleSheet} from "aphrodite";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
 import * as React from "react";
@@ -16,9 +23,12 @@ import _ from "underscore";
 
 import SortableArea from "../components/sortable";
 
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
+import type {
+    PerseusExpressionWidgetOptions,
+    LegacyButtonSets,
+} from "@khanacademy/perseus";
 
-const {InfoTip, TextInput} = components;
+const {InfoTip} = components;
 
 type Props = {
     widgetId?: any;
@@ -37,7 +47,7 @@ type DefaultProps = {
     functions: Props["functions"];
 };
 
-const buttonSetsList: any = [
+const buttonSetsList: LegacyButtonSets = [
     "basic",
     "trig",
     "prealgebra",
@@ -77,7 +87,13 @@ const _makeNewKey = (answerForms: ReadonlyArray<AnswerForm>) => {
     return usedKeys.length;
 };
 
-class ExpressionEditor extends React.Component<Props> {
+type State = {
+    // this is to help the "functions" input feel natural
+    // while still allowing us to to store the functions as an array
+    functionsInternal: string;
+};
+
+class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
     static defaultProps: DefaultProps = {
@@ -86,6 +102,13 @@ class ExpressionEditor extends React.Component<Props> {
         buttonSets: ["basic"],
         functions: ["f", "g", "h"],
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            functionsInternal: this.props.functions.join(" "),
+        };
+    }
 
     change(...args) {
         return Changeable.change.apply(this, args);
@@ -135,7 +158,6 @@ class ExpressionEditor extends React.Component<Props> {
             <SortableArea
                 components={answerOptions}
                 onReorder={this.handleReorder}
-                className="answer-options-list"
             />
         );
 
@@ -143,47 +165,38 @@ class ExpressionEditor extends React.Component<Props> {
         const buttonSetChoices = buttonSetsList.map((name) => {
             // The first one gets special cased to always be checked, disabled,
             // and float left.
-            const isFirst = name === "basic";
-            const checked =
-                this.props.buttonSets.includes(
-                    name as PerseusExpressionWidgetOptions["buttonSets"][number],
-                ) || isFirst;
+            const isBasic = name === "basic";
+            const checked = this.props.buttonSets.includes(name) || isBasic;
             return (
-                <label className="button-set-label" key={name}>
-                    <input
-                        type="checkbox"
-                        checked={checked}
-                        disabled={isFirst}
-                        onChange={() => this.handleButtonSet(name)}
-                    />
-                    {name}
-                </label>
+                <Checkbox
+                    key={name}
+                    label={name}
+                    checked={checked}
+                    disabled={isBasic}
+                    onChange={() => this.handleButtonSet(name)}
+                />
             );
         });
 
-        const {TeX} = Dependencies.getDependencies(); // OldExpression only
-
         buttonSetChoices.unshift(
-            <label className="button-set-label" key="show-div">
-                <input type="checkbox" onChange={this.handleToggleDiv} />
-                <span className="show-div-button">
-                    show <TeX>\div</TeX> button
-                </span>
-            </label>,
+            <Checkbox
+                key="show ÷ button"
+                label="show ÷ button"
+                checked={this.props.buttonSets.includes("basic+div")}
+                onChange={this.handleToggleDiv}
+            />,
         );
 
         return (
-            <div className="perseus-widget-expression-editor">
-                <h3 className="expression-editor-h3">Global Options</h3>
+            <div>
+                <HeadingSmall>Global Options</HeadingSmall>
 
-                <div className="perseus-widget-row">
-                    <label>
-                        Visible label:{" "}
-                        <TextInput
-                            value={this.props.visibleLabel}
-                            onChange={this.change("visibleLabel")}
-                        />
-                    </label>
+                <div className={css(styles.paddedY)}>
+                    <LabeledTextField
+                        label="Visible label"
+                        value={this.props.visibleLabel || ""}
+                        onChange={this.change("visibleLabel")}
+                    />
                     <InfoTip>
                         <p>
                             Optional visible text; strongly encouraged to help
@@ -194,14 +207,12 @@ class ExpressionEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
 
-                <div className="perseus-widget-row">
-                    <label>
-                        Aria label:{" "}
-                        <TextInput
-                            value={this.props.ariaLabel}
-                            onChange={this.change("ariaLabel")}
-                        />
-                    </label>
+                <div className={css(styles.paddedY)}>
+                    <LabeledTextField
+                        label="Aria label"
+                        value={this.props.ariaLabel || ""}
+                        onChange={this.change("ariaLabel")}
+                    />
                     <InfoTip>
                         <p>
                             Label text that's read by screen readers. Highly
@@ -218,9 +229,24 @@ class ExpressionEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
 
-                <div>
+                <div className={css(styles.paddedY)}>
+                    <LabeledTextField
+                        label="Function variables"
+                        value={this.state.functionsInternal}
+                        onChange={this.handleFunctions}
+                    />
+                    <InfoTip>
+                        <p>
+                            Single-letter variables listed here will be
+                            interpreted as functions. This let us know that f(x)
+                            means "f of x" and not "f times x".
+                        </p>
+                    </InfoTip>
+                </div>
+
+                <div className={css(styles.paddedY)}>
                     <Checkbox
-                        label="Use × for rendering multiplication instead of a center dot."
+                        label="Use × instead of ⋅ for multiplication"
                         checked={this.props.times}
                         onChange={(value) => {
                             this.props.onChange({times: value});
@@ -236,30 +262,12 @@ class ExpressionEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
 
-                <div>
-                    <label>
-                        {"Function variables: "}
-                        <input
-                            type="text"
-                            defaultValue={this.props.functions.join(" ")}
-                            onChange={this.handleFunctions}
-                        />
-                    </label>
-                    <InfoTip>
-                        <p>
-                            Single-letter variables listed here will be
-                            interpreted as functions. This let us know that f(x)
-                            means "f of x" and not "f times x".
-                        </p>
-                    </InfoTip>
-                </div>
-
-                <div>
-                    <div>Button sets:</div>
+                <div className={css(styles.paddedY)}>
+                    <HeadingXSmall>Button Sets</HeadingXSmall>
                     {buttonSetChoices}
                 </div>
 
-                <h3 className="expression-editor-h3">Answers</h3>
+                <HeadingSmall>Answers</HeadingSmall>
 
                 <p style={{margin: "4px 0"}}>
                     student responses area matched against these from top to
@@ -269,14 +277,9 @@ class ExpressionEditor extends React.Component<Props> {
                 {sortable}
 
                 <div>
-                    <button
-                        className="simple-button orange"
-                        style={{fontSize: 13}}
-                        onClick={this.newAnswer}
-                        type="button"
-                    >
+                    <Button size="small" onClick={this.newAnswer}>
                         Add new answer
-                    </button>
+                    </Button>
                 </div>
             </div>
         );
@@ -452,11 +455,10 @@ class ExpressionEditor extends React.Component<Props> {
     };
 
     // called when the function variables change
-    handleFunctions: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
+    handleFunctions: (value: string) => void = (value) => {
+        this.setState({functionsInternal: value});
         const newProps: Record<string, any> = {};
-        newProps.functions = e.target.value.split(/[ ,]+/).filter(isTruthy);
+        newProps.functions = value.split(/[ ,]+/).filter(isTruthy);
         this.props.onChange(newProps);
     };
 }
@@ -491,58 +493,62 @@ class AnswerOption extends React.Component<
 > {
     state = {deleteFocused: false};
 
-    handleDeleteBlur = () => {
-        this.setState({deleteFocused: false});
-    };
-
     change = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
     render(): React.ReactNode {
-        let removeButton: React.ReactNode | null = null;
-        if (this.state.deleteFocused) {
-            removeButton = (
-                <button
-                    type="button"
-                    className="simple-button orange"
+        const removeButton = this.state.deleteFocused ? (
+            <>
+                <Button
+                    size="small"
                     onClick={this.handleImSure}
-                    onBlur={this.handleDeleteBlur}
+                    color="destructive"
                 >
                     I'm sure!
-                </button>
-            );
-        } else {
-            removeButton = (
-                <button
-                    type="button"
-                    className="simple-button orange"
-                    onClick={this.handleDelete}
-                >
-                    Delete
-                </button>
-            );
-        }
+                </Button>
+                <Strut size={spacing.small_12} />
+                <Button size="small" onClick={this.handleCancelDelete} light>
+                    Cancel
+                </Button>
+            </>
+        ) : (
+            <Button
+                size="small"
+                onClick={this.handleDelete}
+                color="destructive"
+                light
+            >
+                Delete
+            </Button>
+        );
+
+        const answerStatusCss = css(
+            styles.answerStatus,
+            this.props.considered === "wrong" && styles.answerStatusWrong,
+            this.props.considered === "correct" && styles.answerStatusCorrect,
+            this.props.considered === "ungraded" && styles.answerStatusUngraded,
+        );
 
         return (
-            <div className="expression-answer-option">
-                <div className="answer-handle" />
+            <div className={css(styles.answerOption)}>
+                <div className={css(styles.answerHandle)} />
 
-                <div className="answer-body">
-                    <div className="answer-considered">
-                        <div
+                <div className={css(styles.answerBody)}>
+                    <div>
+                        <button
                             onClick={this.toggleConsidered}
-                            className={"answer-status " + this.props.considered}
+                            className={answerStatusCss}
                         >
                             {this.props.considered}
-                        </div>
+                        </button>
 
-                        <div className="answer-expression">
+                        <div>
                             <Expression {...this.props.expressionProps} />
                         </div>
                     </div>
 
-                    <div className="answer-option">
+                    <div className={css(styles.paddedY, styles.paddedX)}>
                         <Checkbox
                             label="Answer expression must have the same form."
                             checked={this.props.form}
@@ -559,7 +565,7 @@ class AnswerOption extends React.Component<
                         </InfoTip>
                     </div>
 
-                    <div className="answer-option">
+                    <div className={css(styles.paddedY, styles.paddedX)}>
                         <Checkbox
                             label="Answer expression must be fully expanded and simplified."
                             checked={this.props.simplify}
@@ -578,7 +584,9 @@ class AnswerOption extends React.Component<
                         </InfoTip>
                     </div>
 
-                    <div className="remove-container">{removeButton}</div>
+                    <div className={css(styles.buttonRow, styles.paddedY)}>
+                        {removeButton}
+                    </div>
                 </div>
             </div>
         );
@@ -586,6 +594,10 @@ class AnswerOption extends React.Component<
 
     handleImSure = () => {
         this.props.onDelete();
+    };
+
+    handleCancelDelete = () => {
+        this.setState({deleteFocused: false});
     };
 
     handleDelete = () => {
@@ -602,3 +614,48 @@ class AnswerOption extends React.Component<
 }
 
 export default ExpressionEditor;
+
+const styles = StyleSheet.create({
+    paddedX: {
+        paddingLeft: spacing.xSmall_8,
+        paddingRight: spacing.xSmall_8,
+    },
+    paddedY: {
+        paddingTop: spacing.xxSmall_6,
+        paddingBottom: spacing.xxSmall_6,
+    },
+    answerOption: {
+        border: "1px solid #ddd",
+        borderRadius: "3px",
+        display: "flex",
+    },
+    answerHandle: {
+        // textured draggy handle
+        background:
+            "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==) no-repeat 50% 50%",
+        borderRight: "1px solid #ddd",
+        cursor: "move",
+        width: "20px",
+        minWidth: "20px",
+    },
+    answerStatus: {
+        border: "none",
+        userSelect: "none",
+        width: "100px",
+        paddingTop: spacing.small_12,
+        paddingBottom: spacing.small_12,
+    },
+    answerStatusWrong: {
+        backgroundColor: color.fadedRed16,
+    },
+    answerStatusCorrect: {
+        backgroundColor: color.fadedGreen16,
+    },
+    answerStatusUngraded: {
+        backgroundColor: color.fadedBlue16,
+    },
+    answerBody: {},
+    buttonRow: {
+        display: "flex",
+    },
+});

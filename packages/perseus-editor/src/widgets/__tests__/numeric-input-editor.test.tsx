@@ -117,7 +117,7 @@ describe("numeric-input-editor", () => {
         render(<NumericInputEditor onChange={onChangeMock} />);
 
         const input = screen.getByRole("textbox", {
-            name: "Label text:",
+            name: "Aria label",
         });
 
         await userEvent.type(input, "a");

@@ -63,7 +63,6 @@ class TextInput extends React.Component<Props> {
         const formattedValue = value === null ? "" : value.toString();
 
         return (
-            // $FlowIgnore
             <TextField
                 style={style}
                 disabled={disabled}
