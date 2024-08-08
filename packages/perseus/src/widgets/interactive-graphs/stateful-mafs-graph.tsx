@@ -32,6 +32,7 @@ export type StatefulMafsGraphProps = {
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
     hintMode: boolean;
+    readOnly: boolean;
 };
 
 // Rather than be tightly bound to how data was structured in

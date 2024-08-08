@@ -78,7 +78,7 @@ function useControlPoint(
     color: string | undefined,
     onMovePoint: (newPoint: vec.Vector2) => unknown,
 ) {
-    const {snapStep, hintMode} = useGraphConfig();
+    const {snapStep, disableKeyboardInteraction} = useGraphConfig();
     const [focused, setFocused] = useState(false);
     const keyboardHandleRef = useRef<SVGGElement>(null);
     useDraggable({
@@ -100,7 +100,7 @@ function useControlPoint(
         <g
             data-testid="movable-point__focusable-handle"
             className="movable-point__focusable-handle"
-            tabIndex={hintMode ? -1 : 0}
+            tabIndex={disableKeyboardInteraction ? -1 : 0}
             ref={keyboardHandleRef}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
@@ -142,8 +142,12 @@ export const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
-    const {range, graphDimensionsInPixels, snapStep, hintMode} =
-        useGraphConfig();
+    const {
+        range,
+        graphDimensionsInPixels,
+        snapStep,
+        disableKeyboardInteraction,
+    } = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
@@ -172,7 +176,7 @@ export const Line = (props: LineProps) => {
         <>
             <g
                 ref={line}
-                tabIndex={hintMode ? -1 : 0}
+                tabIndex={disableKeyboardInteraction ? -1 : 0}
                 className="movable-line"
                 data-testid="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}

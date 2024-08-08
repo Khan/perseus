@@ -25,7 +25,7 @@ export const PolygonGraph = (props: Props) => {
     const {dispatch} = props;
     const {coords, showAngles, showSides, range, snapStep, snapTo} =
         props.graphState;
-    const {hintMode} = useGraphConfig();
+    const {disableKeyboardInteraction} = useGraphConfig();
 
     // TODO(benchristel): can the default set of points be removed here? I don't
     // think coords can be null.
@@ -103,7 +103,7 @@ export const PolygonGraph = (props: Props) => {
                 color="transparent"
                 svgPolygonProps={{
                     ref,
-                    tabIndex: hintMode ? -1 : 0,
+                    tabIndex: disableKeyboardInteraction ? -1 : 0,
                     strokeWidth: TARGET_SIZE,
                     style: {
                         cursor: dragging ? "grabbing" : "grab",
