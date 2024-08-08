@@ -94,7 +94,6 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
                 trackInteraction={() => {}}
                 widgetId="expression"
                 reviewModeRubric={reviewModeRubric}
-                hintMode={false}
                 keypadConfiguration={keypadConfiguration}
             />
         </div>

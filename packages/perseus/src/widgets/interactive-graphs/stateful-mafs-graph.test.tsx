@@ -25,7 +25,6 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
         onChange: () => {},
         showTooltips: false,
         showProtractor: false,
-        hintMode: false,
         readOnly: false,
         labels: ["x", "y"],
         graph: {type: "segment"},
