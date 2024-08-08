@@ -46,6 +46,7 @@ export type MafsGraphProps = {
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
+    static: boolean | null | undefined;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -65,7 +66,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
-                disableKeyboardInteraction: readOnly,
+                disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
             <View
@@ -78,7 +79,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     boxSizing: "content-box",
                     marginLeft: "20px",
                     marginBottom: "20px",
-                    pointerEvents: "auto",
+                    pointerEvents: props.static ? "none" : "auto",
                 }}
             >
                 <LegacyGrid

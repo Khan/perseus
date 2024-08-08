@@ -28,6 +28,7 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
         readOnly: false,
         labels: ["x", "y"],
         graph: {type: "segment"},
+        static: false,
     };
 }
 

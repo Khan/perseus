@@ -27,6 +27,7 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         showProtractor: false,
         readOnly: false,
         labels: ["x", "y"],
+        static: false,
         dispatch: () => {},
         state: {
             type: "segment",
