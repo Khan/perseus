@@ -93,11 +93,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         left: 0,
                     }}
                 >
-                    {props.markings === "graph" && (
-                        <>
-                            <AxisLabels />
-                        </>
-                    )}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
@@ -121,6 +116,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             markings={props.markings}
                             width={width}
                             height={height}
+                            lockedFigures={props.lockedFigures}
                         />
                         {/* Axis Ticks and Labels */}
                         {
@@ -128,17 +124,20 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             props.markings === "graph" && (
                                 <>
                                     <AxisTicks />
-                                    <AxisArrows />
+                                    <g
+                                        style={{
+                                            width: width,
+                                            height: height,
+                                        }}
+                                        className="dumbo"
+                                    >
+                                        <AxisArrows />
+                                        <AxisLabels />
+                                    </g>
                                 </>
                             )
                         }
-                        {/* Locked layer */}
-                        {props.lockedFigures && (
-                            <GraphLockedLayer
-                                lockedFigures={props.lockedFigures}
-                                range={state.range}
-                            />
-                        )}
+
                         {/* Protractor */}
                         {props.showProtractor && <Protractor />}
                         {/* Interactive layer */}
