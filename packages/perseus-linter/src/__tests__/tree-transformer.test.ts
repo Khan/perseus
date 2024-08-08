@@ -56,7 +56,6 @@ describe("PerseusLinter tree transformer", () => {
     function getTraversalOrder(tree: any) {
         const order: Array<any> = [];
         new TreeTransformer(tree).traverse((n, state) => {
-            // @ts-expect-error - TS2339 - Property 'id' does not exist on type 'TreeNode'.
             order.push(n.id);
         });
         return order;
