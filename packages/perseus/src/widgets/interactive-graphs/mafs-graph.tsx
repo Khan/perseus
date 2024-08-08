@@ -4,6 +4,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
+import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
 import {Grid} from "./backgrounds/grid";
@@ -173,12 +174,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 width={width}
                                 height={height}
                             />
-                            {/* Axis Tick Labels */}
-                            {props.markings === "graph" && (
-                                <>
-                                    <AxisTicks />
-                                </>
-                            )}
+                            {/* Axis Ticks and Labels */}
+                            {
+                                // Only render the axis ticks and arrows if the markings are set to a full "graph"
+                                props.markings === "graph" && (
+                                    <>
+                                        <AxisTicks />
+                                        <AxisArrows />
+                                    </>
+                                )
+                            }
                             {/* Locked figures layer */}
                             {props.lockedFigures && (
                                 <GraphLockedLayer

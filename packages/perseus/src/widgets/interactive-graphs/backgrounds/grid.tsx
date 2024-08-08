@@ -85,7 +85,7 @@ export const Grid = (props: GridProps) => {
     return props.markings === "none" ? null : (
         <g
             style={{
-                clipPath: `rect(${rectTop}px ${rectRight}px ${rectBottom}px ${rectLeft}px`,
+                clipPath: `path('M ${rectLeft} ${rectTop} H ${rectRight} V ${rectBottom} H ${rectLeft} Z')`,
             }}
         >
             <Coordinates.Cartesian
@@ -94,9 +94,12 @@ export const Grid = (props: GridProps) => {
             />
             {
                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
+                // TODO: STOPSHIP : this should move to mafs-graph with the axis labels if this prototype works,
+                // but it messes up the calculations being performed above to get the clipping mask.
+                // This is a temporary solution to get the prototype working for testing in Safari.
+                // The ultimate solution would be to move the arrows to mafs-graph, and adjust the calculations accordingly.
                 props.markings === "graph" && (
                     <>
-                        <AxisTicks />
                         <AxisArrows />
                     </>
                 )
