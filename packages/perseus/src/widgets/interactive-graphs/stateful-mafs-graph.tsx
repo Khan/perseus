@@ -20,6 +20,7 @@ export type StatefulMafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;
+    correct: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
     snapStep: InteractiveGraphProps["snapStep"];
@@ -31,8 +32,8 @@ export type StatefulMafsGraphProps = {
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
-    hintMode: boolean;
     readOnly: boolean;
+    static: InteractiveGraphProps["static"];
 };
 
 // Rather than be tightly bound to how data was structured in
@@ -127,6 +128,10 @@ export const StatefulMafsGraph = React.forwardRef<
         latestPropsRef,
         graph.startCoords,
     ]);
+
+    if (props.static) {
+        return <MafsGraph {...props} state={initializeGraphState({...props, graph: props.correct})} dispatch={dispatch}  />
+    }
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
 });

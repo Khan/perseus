@@ -48,7 +48,6 @@ function renderPassage(
         reviewModeRubric: {
             ...widgetPropsBase,
         },
-        hintMode: false,
         static: true,
         trackInteraction: () => {},
         widgetId: "passage",
