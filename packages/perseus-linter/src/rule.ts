@@ -134,8 +134,14 @@ export type MakeRuleOptions = {
     selector?: string;
     locale?: string;
     message?: string;
-    lint?: any;
-    applies?: any;
+    lint?: (
+        state: TraversalState,
+        content: string,
+        nodes: any,
+        match: any,
+        context: any,
+    ) => string | undefined;
+    applies?: AppliesTester;
 };
 
 // This represents the type returned by String.match(). It is an
@@ -209,8 +215,8 @@ export default class Rule {
         severity: number | null | undefined,
         selector: Selector | null | undefined,
         pattern: RegExp | null | undefined,
-        lint: LintTester | string,
-        applies: AppliesTester,
+        lint: LintTester | string | undefined,
+        applies: AppliesTester | undefined,
     ) {
         if (!selector && !pattern) {
             throw new PerseusError(

@@ -47,7 +47,7 @@ Otherwise escape it by writing \\$.`,
 this heading is level ${currentHeading.level} but
 the previous heading was level ${previousHeading.level}`;
                 }
-                return false;
+                return;
             },
         },
     ];
