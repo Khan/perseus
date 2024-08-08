@@ -139,7 +139,7 @@ export type MakeRuleOptions = {
         content: string,
         nodes: any,
         match: any,
-        context: any,
+        context: LintRuleContextObject,
     ) => string | undefined;
     applies?: AppliesTester;
 };
@@ -172,7 +172,14 @@ type LintTesterReturnType = string | {
     end: number
 } | null | undefined;
 
-type LintRuleContextObject = any | null | undefined;
+type LintRuleContextObject =
+    | {
+          content: string;
+          contentType: "article";
+          widgets: any[];
+      }
+    | null
+    | undefined;
 
 // This is the type of the lint detection function that the Rule() constructor
 // expects as its fourth argument. It is passed the TraversalState object and
