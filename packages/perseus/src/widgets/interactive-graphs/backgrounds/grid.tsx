@@ -1,14 +1,15 @@
-import {Coordinates} from "mafs";
+import {Coordinates, usePaneContext, useTransformContext, vec} from "mafs";
 import * as React from "react";
 
+import GraphLockedLayer from "../graph-locked-layer";
 import {X, Y} from "../math";
 
 import AxisArrows from "./axis-arrows";
+import AxisLabels from "./axis-labels";
 import {AxisTicks} from "./axis-ticks";
 
 import type {GraphRange} from "../../../perseus-types";
 import type {SizeClass} from "../../../util/sizing-utils";
-import type {vec} from "mafs";
 
 interface GridProps {
     tickStep: vec.Vector2;
@@ -16,6 +17,9 @@ interface GridProps {
     range: GraphRange;
     containerSizeClass: SizeClass;
     markings: "graph" | "grid" | "none";
+    width: number;
+    height: number;
+    lockedFigures?: any;
 }
 
 /**
@@ -62,21 +66,47 @@ const axisOptions = (
 };
 
 export const Grid = (props: GridProps) => {
+    const {viewTransform} = useTransformContext();
+    const {xPaneRange, yPaneRange} = usePaneContext();
+
+    const xMin = xPaneRange[0];
+    const yMax = yPaneRange[1];
+
+    const xPad = props.range[0][0] - Math.min(0, xMin);
+    const yPad = props.range[1][1] - Math.max(0, yMax);
+
+    const pad = vec.transform([xPad, yPad], viewTransform);
+
+    // STOPSHIP: this is hacky as all heck but this is for testing
+
+    const horizontalAdjustment = props.range[0][0] > 0 ? 0 : 0;
+    const verticalAdjustment = props.range[1][1] < 0 ? 6.6 : 0;
+
+    const rectTop = pad[1] + verticalAdjustment - 1;
+    const rectBottom = pad[1] + props.height + verticalAdjustment + 1;
+    const rectLeft = pad[0] + horizontalAdjustment - 1;
+    const rectRight = pad[0] + props.width + horizontalAdjustment + 2;
+
     return props.markings === "none" ? null : (
-        <>
+        <g
+            style={{
+                clipPath: `path('M ${rectLeft} ${rectTop} H ${rectRight} V ${rectBottom} H ${rectLeft} Z')`,
+            }}
+        >
             <Coordinates.Cartesian
                 xAxis={axisOptions(props, X)}
                 yAxis={axisOptions(props, Y)}
             />
-            {
-                // Only render the axis ticks and arrows if the markings are set to a full "graph"
-                props.markings === "graph" && (
-                    <>
-                        <AxisTicks />
-                        <AxisArrows />
-                    </>
-                )
-            }
-        </>
+            {props.lockedFigures && (
+                <g style={{width: props.width, height: props.height}}>
+                    {/* Locked layer */}
+
+                    <GraphLockedLayer
+                        lockedFigures={props.lockedFigures}
+                        range={props.range}
+                    />
+                </g>
+            )}
+        </g>
     );
 };

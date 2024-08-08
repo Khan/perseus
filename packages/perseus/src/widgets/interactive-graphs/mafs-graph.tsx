@@ -3,8 +3,9 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
+import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
-import {AxisTickLabels} from "./backgrounds/axis-tick-labels";
+import {AxisTicks} from "./backgrounds/axis-ticks";
 import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
 import GraphLockedLayer from "./graph-locked-layer";
@@ -78,7 +79,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     padding: "25px 25px 0 0",
                     boxSizing: "content-box",
                     marginLeft: "20px",
-                    marginBottom: "20px",
+                    marginBottom: "30px",
                     pointerEvents: hintMode ? "none" : "auto",
                 }}
             >
@@ -93,12 +94,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         left: 0,
                     }}
                 >
-                    {props.markings === "graph" && (
-                        <>
-                            <AxisLabels />
-                            <AxisTickLabels />
-                        </>
-                    )}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
@@ -120,14 +115,30 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             range={state.range}
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
+                            width={width}
+                            height={height}
+                            lockedFigures={props.lockedFigures}
                         />
-                        {/* Locked layer */}
-                        {props.lockedFigures && (
-                            <GraphLockedLayer
-                                lockedFigures={props.lockedFigures}
-                                range={state.range}
-                            />
-                        )}
+                        {/* Axis Ticks and Labels */}
+                        {
+                            // Only render the axis ticks and arrows if the markings are set to a full "graph"
+                            props.markings === "graph" && (
+                                <>
+                                    <AxisTicks />
+                                    <g
+                                        style={{
+                                            width: width,
+                                            height: height,
+                                        }}
+                                        className="dumbo"
+                                    >
+                                        <AxisArrows />
+                                        <AxisLabels />
+                                    </g>
+                                </>
+                            )
+                        }
+
                         {/* Protractor */}
                         {props.showProtractor && <Protractor />}
                         {/* Interactive layer */}

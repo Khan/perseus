@@ -29,11 +29,13 @@
     --movable-line-stroke-color: var(--mafs-blue);
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
+    overflow: visible !important;
 }
 
 .MafsView > svg {
     /* Chrome/Safari bugfix for LEMS-1906 */
     display: block;
+    overflow: visible; /* <= our change */
 }
 
 .MafsView .movable-line:hover,
@@ -263,4 +265,9 @@
     stroke: var(--mafs-blue);
 
     stroke-width: 0.1px;
+}
+
+.MafsView .axis-ticks text {
+    font-size: 14px;
+    font-family: "Mafs-MJXTEX";
 }
