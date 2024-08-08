@@ -462,6 +462,11 @@ class SvgImage extends React.Component<Props, State> {
     ) => {
         _.map(options.labels, (labelData) => {
             const {JIPT} = getDependencies();
+            console.group(labelData.content);
+            console.log("Label Coordinates: ", labelData.coordinates);
+            console.log("Props Scale: ", this.props.scale);
+            console.log("Props: ", this.props);
+            console.groupEnd();
             if (JIPT.useJIPT && this.state.labelDataIsLocalized) {
                 // If we're using JIPT translation and we got proper JIPT tags,
                 // render the labels as plain text (so JIPT can find them) and

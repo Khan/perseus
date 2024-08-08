@@ -20,7 +20,11 @@ interface Props {
 export const LegacyGrid = ({box, backgroundImage}: Props) => {
     const {url, width, height} = backgroundImage ?? {};
     if (url && typeof url === "string") {
-        const scale = box[X] / interactiveSizes.defaultBoxSize;
+        // const scale = box[X] / interactiveSizes.defaultBoxSize;
+        const scale = box[X] / (width ?? interactiveSizes.defaultBoxSize);
+        console.log("Box: ", box);
+        console.log("Default Box: ", interactiveSizes.defaultBoxSize);
+        console.log("Scale: ", scale);
         return (
             <View
                 style={{
@@ -38,7 +42,7 @@ export const LegacyGrid = ({box, backgroundImage}: Props) => {
                             scale={scale}
                             responsive={false}
                             setAssetStatus={setAssetStatus}
-                            alt=""
+                            alt="LEGACY"
                         />
                     )}
                 </AssetContext.Consumer>
