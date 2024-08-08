@@ -5,9 +5,12 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+// @ts-expect-error it can't find type declaration
+// eslint-disable-next-line monorepo/no-internal-import
+import {KeypadContext} from "@khanacademy/math-input/keypad-context";
+
 import {View} from "../../fake-react-native-web/index";
 import {MathInputI18nContext} from "../i18n-context";
-import {KeypadContext} from "../keypad-context";
 
 import CursorHandle from "./cursor-handle";
 import {

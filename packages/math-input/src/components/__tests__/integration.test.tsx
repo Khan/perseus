@@ -9,10 +9,16 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import MathQuill from "mathquill";
 import React, {useState} from "react";
 
+import {
+    KeypadContext,
+    StatefulKeypadContextProvider,
+    // @ts-expect-error it can't find type declaration
+    // eslint-disable-next-line monorepo/no-internal-import
+} from "@khanacademy/math-input/keypad-context";
+
 import {KeypadType} from "../../enums";
 import MathInput from "../input/math-input";
 import {MobileKeypad} from "../keypad";
-import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
 
 import type {KeypadConfiguration} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";

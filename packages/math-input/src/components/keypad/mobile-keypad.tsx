@@ -1,6 +1,8 @@
 import * as React from "react";
 
-import {KeypadContext} from "../keypad-context";
+// @ts-expect-error it can't find type declaration
+// eslint-disable-next-line monorepo/no-internal-import
+import {KeypadContext} from "@khanacademy/math-input/keypad-context";
 
 import MobileKeypadInternals from "./mobile-keypad-internals";
 

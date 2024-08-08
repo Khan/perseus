@@ -1,8 +1,10 @@
+import {MobileKeypad} from "@khanacademy/math-input";
 import {
     KeypadContext,
     StatefulKeypadContextProvider,
-    MobileKeypad,
-} from "@khanacademy/math-input";
+    // @ts-expect-error it can't find type declaration
+    // eslint-disable-next-line monorepo/no-internal-import
+} from "@khanacademy/math-input/keypad-context";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
 import {StyleSheet} from "aphrodite";

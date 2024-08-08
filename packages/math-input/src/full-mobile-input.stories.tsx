@@ -2,12 +2,13 @@ import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {
-    KeypadInput,
-    KeypadType,
-    MobileKeypad,
     StatefulKeypadContextProvider,
     KeypadContext,
-} from "./index";
+    // @ts-expect-error it can't find type declaration
+    // eslint-disable-next-line monorepo/no-internal-import
+} from "@khanacademy/math-input/keypad-context";
+
+import {KeypadInput, KeypadType, MobileKeypad} from "./index";
 
 export default {
     title: "math-input/Full Mobile MathInput",
