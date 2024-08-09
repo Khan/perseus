@@ -45,24 +45,21 @@ type State = {
 /**
  * This component renders "lint" nodes in a markdown parse tree. Lint nodes
  * are inserted into the tree by the Perseus linter (see
- * perseus-linter/src/index).
+ * `perseus-linter/src/index`).
  *
- * This component serves multiple purposes
- *
- * 1) It renders a small circle in the right margin to indicate that there
- * is lint on (or near) that line.
- *
- * 2) The area around the circle is hoverable: when the mouse moves over it
- * the linty content is highlighted and a tooltip is displayed that explains
- * what the problem is.
- *
- * 3) The hoverable area is also an HTML <a> tag. Clicking on it opens
- * a new tab and links to additional details about the specific lint rule.
+ * This component serves multiple purposes:
+ *   1. It renders a small circle in the right margin to indicate that there is
+ *      lint on (or near) that line.
+ *   2. The area around the circle is hoverable: when the mouse moves over it
+ *      the linty content is highlighted and a tooltip is displayed that
+ *      explains what the problem is.
+ *   3. The hoverable area is also an HTML <a> tag. Clicking on it opens
+ *      a new tab and links to additional details about the specific lint rule.
  *
  * The CSS required to position the circles in the right margin is tricky
  * and it does not always work perfectly. When lint occurs on a block element
  * that has a right margin (like anything blockquoted) the circle will appear
- * to the left of where it belongs.  And if there is more
+ * to the left of where it belongs.  And if there is more...
  **/
 class Lint extends React.Component<Props, State> {
     _positionTimeout: number | undefined;
