@@ -5,7 +5,8 @@
  */
 
 import Banner from "@khanacademy/wonder-blocks-banner";
-import Button from "@khanacademy/wonder-blocks-button";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import PropTypes from "prop-types";
 import * as React from "react";
 
@@ -20,6 +21,7 @@ type Props = WidgetProps<RenderProps, PerseusPhetSimWidgetOptions>;
 
 type State = {
     errMessage: string | null;
+    url: URL | null;
 };
 
 /* This renders the PhET sim */
@@ -32,26 +34,23 @@ class PhetSim extends React.Component<Props, State> {
         description: PropTypes.string,
     };
 
-    private readonly url: URL | null;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement>;
+    private readonly locale: string;
 
     state: State = {
+        url: null,
         errMessage: null,
     };
 
     constructor(props) {
         super(props);
-        // Initialize the URL
-        const {kaLocale} = getDependencies();
-        this.url = new URL(this.props.url);
-        // TODO(Anna): Update kaLocale to match PhET locale format
-        this.url.searchParams.set("locale", kaLocale);
-        if (this.url.origin !== "https://phet.colorado.edu") {
-            // TODO(Anna): Report some kind of error
-            this.url = null;
-        }
-        // Initialize the IFrame ref
+        this.locale = this.getPhetCompatibleLocale(getDependencies().kaLocale);
         this.iframeRef = React.createRef<HTMLIFrameElement>();
+        this.state.url = new URL(this.props.url);
+        this.state.url.searchParams.set("locale", this.locale);
+        if (this.state.url.origin !== "https://phet.colorado.edu") {
+            this.state.url = null;
+        }
     }
 
     getUserInput: () => any = () => {
@@ -59,8 +58,17 @@ class PhetSim extends React.Component<Props, State> {
     };
 
     async componentDidMount() {
-        const {kaLocale} = getDependencies();
-        if (await this.showLocaleWarning(kaLocale)) {
+        // Display an error if we fail to load the resource
+        if (this.state.url) {
+            const validLink = await fetch(this.state.url).then(
+                (response: Response) => response.ok,
+            );
+            if (!validLink) {
+                this.setState({url: null});
+            }
+        }
+        // Display a warning if the simulation doesn't have our locale
+        if (await this.showLocaleWarning(this.locale)) {
             this.setState({
                 errMessage:
                     "Sorry, this simulation isn't available in your language!",
@@ -73,6 +81,7 @@ class PhetSim extends React.Component<Props, State> {
             width: String(this.props.width),
             height: String(this.props.height),
         } as const;
+
         // Add "px" to unitless numbers
         Object.entries(style).forEach(([key, value]: [any, any]) => {
             if (!value.endsWith("%") && !value.endsWith("px")) {
@@ -102,19 +111,22 @@ class PhetSim extends React.Component<Props, State> {
                     title={this.props.description}
                     sandbox={sandboxProperties}
                     style={style}
-                    src={this.url?.toString()}
+                    src={this.state.url?.toString()}
                     srcDoc={
-                        this.url ? undefined : "Could not load PhET simulation."
+                        this.state.url
+                            ? undefined
+                            : "Could not load simulation."
                     }
                     allow="fullscreen"
                 />
-                <Button
+                <IconButton
+                    icon={cornersOutIcon}
                     onClick={() => {
                         this.iframeRef.current?.requestFullscreen();
                     }}
-                >
-                    Fullscreen
-                </Button>
+                    aria-label={"Fullscreen"}
+                    size={"small"}
+                />
             </>
         );
     }
@@ -129,23 +141,33 @@ class PhetSim extends React.Component<Props, State> {
         return PhetSim.validate(this.getUserInput(), rubric);
     };
 
-    async showLocaleWarning(kaLocale: string): Promise<boolean> {
-        // If there is no actual simulation, we shouldn't show any locale warnings
-        if (!this.url) {
+    getPhetCompatibleLocale: (arg1: string) => string = (kaLocale) => {
+        switch (kaLocale) {
+            case "pt-pt":
+                return "pt";
+            case "zh-hans":
+                return "zh_CN";
+            case "zh-hant":
+                return "zh_TW";
+            case "fa-af":
+                return "fa_DA";
+            default:
+                return kaLocale;
+        }
+    };
+
+    async showLocaleWarning(locale: string): Promise<boolean> {
+        // Do not show a locale warning on an invalid URL
+        if (!this.state.url) {
             return false;
         }
-
-        /*
-        Access to fetch at 'https://phet.colorado.edu/services/check-html-updates' from origin 'http://localhost:6006'
-        has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No
-        'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your
-        needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
-         */
+        // Grab the simulation name
         const phetRegex: RegExp =
             /https:\/\/phet\.colorado\.edu\/sims\/html\/([a-zA-Z0-9-]+)\/.*/g;
         const match: RegExpExecArray | null = phetRegex.exec(
-            this.url.toString(),
+            this.state.url.toString(),
         );
+        // Do not show a locale warning on a non-simulation URL
         if (!match) {
             return false;
         }
@@ -155,31 +177,17 @@ class PhetSim extends React.Component<Props, State> {
         )
             .then((response: Response) => response.json())
             .then((json: any) => {
-                console.log(Object.keys(json));
                 return Object.keys(json);
             });
 
-        //return !locales.includes(kaLocale);
-
-        return fetch(this.url)
-            .then((response: Response): Promise<string> => response.text())
-            .then((html: string): boolean => {
-                // Find where window.phet.chipper.localeData is set.
-                const localeDataVar: string =
-                    "window.phet.chipper.localeData = ";
-                const startIndex = html.indexOf(localeDataVar);
-                html = html.substring(startIndex + localeDataVar.length);
-                const endIndex = html.indexOf(";");
-                html = html.substring(0, endIndex);
-                const locales: string[] = Object.keys(JSON.parse(html));
-                console.log(locales);
-                return !locales.includes(kaLocale);
-            })
-            .catch((error: any) => {
-                // If we have an error grabbing locale data, we shouldn't show
-                // a locale warning in case it is spurious
+        // Only display a locale warning if there is no fallback language
+        const baseLocale = this.locale.split("_")[0];
+        for (const l of locales) {
+            if (baseLocale === l.split("_")[0]) {
                 return false;
-            });
+            }
+        }
+        return true;
     }
 }
 
