@@ -8,12 +8,9 @@ expect.extend({
         expected: string,
         options?: any,
     ): jest.CustomMatcherResult {
-        const parsed = KAS.parse(input, options);
-        const expression = parsed.expr;
-        const actual = expression.print();
+        const actual = KAS.parse(input, options).expr.print();
 
         if (actual !== expected) {
-            // console.log(JSON.stringify(expression.prototype, null, 2));
             return {
                 pass: false,
                 message: () =>
