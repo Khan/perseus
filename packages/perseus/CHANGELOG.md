@@ -1,5 +1,48 @@
 # @khanacademy/perseus
 
+## 28.0.0
+
+### Major Changes
+
+-   [#1479](https://github.com/Khan/perseus/pull/1479) [`ef96cdd54`](https://github.com/Khan/perseus/commit/ef96cdd541999a203cbde089c76cc132b937adce) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove PropCheckBox component from Perseus; use WB instead
+
+### Minor Changes
+
+-   [#1455](https://github.com/Khan/perseus/pull/1455) [`8b0268215`](https://github.com/Khan/perseus/commit/8b02682152223982f80e7bee38e9567027b8ed4e) Thanks [@Myranae](https://github.com/Myranae)! - Update Polygon graphs to have weighted lines only on keyboard focus
+
+*   [#1492](https://github.com/Khan/perseus/pull/1492) [`2ebbc1978`](https://github.com/Khan/perseus/commit/2ebbc1978da4d021e7044ac49829063e356af846) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Build the foundation for adding start coords UI for angle graphs
+
+-   [#1428](https://github.com/Khan/perseus/pull/1428) [`eb9f3f9c0`](https://github.com/Khan/perseus/commit/eb9f3f9c064e6b6260bd667222f7370aae263715) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Drop katex dependency - no longer used
+
+*   [#1472](https://github.com/Khan/perseus/pull/1472) [`4c2ace57a`](https://github.com/Khan/perseus/commit/4c2ace57a922a527579293c065f8ed8120193344) Thanks [@benchristel](https://github.com/benchristel)! - Add keyboard controls to Mafs angle graphs
+
+-   [#1487](https://github.com/Khan/perseus/pull/1487) [`53031f8df`](https://github.com/Khan/perseus/commit/53031f8df120a7ea15b6d82e5a94988d9281a9b3) Thanks [@Myranae](https://github.com/Myranae)! - Make graphs non-interactive via keyboard when their question has been answered correctly
+
+*   [#1486](https://github.com/Khan/perseus/pull/1486) [`0b625f560`](https://github.com/Khan/perseus/commit/0b625f56098c4db142891ab4ffed2b2300924711) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add start coords UI for point graphs
+
+-   [#1488](https://github.com/Khan/perseus/pull/1488) [`0bec013e8`](https://github.com/Khan/perseus/commit/0bec013e89c70dd431f86b4872dd3378ed29e110) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add start coords UI for polygon graphs (snap to grid only)
+
+### Patch Changes
+
+-   [#1474](https://github.com/Khan/perseus/pull/1474) [`a8aaac339`](https://github.com/Khan/perseus/commit/a8aaac33921f31c65e8cb02c0eb66d15fc4f019e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor type fixes in the `ImageLoader` and `SvgImage` components
+
+*   [#1493](https://github.com/Khan/perseus/pull/1493) [`de13fd337`](https://github.com/Khan/perseus/commit/de13fd3378cb078119f2b5311d347d4ee3b1d687) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add/Edit/Delete Locked Function in Interactive Graph Editor
+
+-   [#1476](https://github.com/Khan/perseus/pull/1476) [`18f38fca4`](https://github.com/Khan/perseus/commit/18f38fca404678ff6162df09355acb072a1e6120) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Miscellaneous type improvements
+
+*   [#1489](https://github.com/Khan/perseus/pull/1489) [`de2883b3f`](https://github.com/Khan/perseus/commit/de2883b3fdc7a6e294c39b33cd2989aed75cd969) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Correct `hints` type on ItemRenderer
+
+-   [#1478](https://github.com/Khan/perseus/pull/1478) [`7fd586ef4`](https://github.com/Khan/perseus/commit/7fd586ef4a36c753bb57f1f0eb0c0f98afe8fa0d) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Add "white" as a fill option for locked ellipses and polygons
+
+*   [#1482](https://github.com/Khan/perseus/pull/1482) [`f920a4cc7`](https://github.com/Khan/perseus/commit/f920a4cc7f0e8e8072ee55598e8e13698d6dc2cf) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor: Storybook] Add a story for Point graph type start coords
+
+-   [#1484](https://github.com/Khan/perseus/pull/1484) [`808956098`](https://github.com/Khan/perseus/commit/808956098d9502cff4d9759ee07d6dcaa61a83ab) Thanks [@handeyeco](https://github.com/handeyeco)! - Minor cleanup around InfoTip
+
+*   [#1475](https://github.com/Khan/perseus/pull/1475) [`6a218bcc1`](https://github.com/Khan/perseus/commit/6a218bcc1a7757dd93c1b90dfc03bd1c3715c8c8) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - add non-visual text as a description for expression widget
+
+*   Updated dependencies [[`6c6ff52f4`](https://github.com/Khan/perseus/commit/6c6ff52f4725ff78f50bd6ca71f201a6c9ab786b), [`342a72211`](https://github.com/Khan/perseus/commit/342a722119f549f20e71ff1e44d2bba6c44c9ba3), [`5e66539e6`](https://github.com/Khan/perseus/commit/5e66539e6a3edfd784041c5ba2b17135eafebe1b)]:
+    -   @khanacademy/math-input@20.1.1
+
 ## 27.2.0
 
 ### Minor Changes

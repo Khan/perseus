@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 20.1.1
+
+### Patch Changes
+
+-   [#1495](https://github.com/Khan/perseus/pull/1495) [`6c6ff52f4`](https://github.com/Khan/perseus/commit/6c6ff52f4725ff78f50bd6ca71f201a6c9ab786b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove old buttons that we weren't using anymore
+
+*   [#1475](https://github.com/Khan/perseus/pull/1475) [`342a72211`](https://github.com/Khan/perseus/commit/342a722119f549f20e71ff1e44d2bba6c44c9ba3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - update wonder blocks popover versions
+
+-   [#1496](https://github.com/Khan/perseus/pull/1496) [`5e66539e6`](https://github.com/Khan/perseus/commit/5e66539e6a3edfd784041c5ba2b17135eafebe1b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused buttons from MathInput; add Lato
+
 ## 20.1.0
 
 ### Minor Changes
