@@ -1543,10 +1543,6 @@ export type PerseusIFrameWidgetOptions = {
 export type PerseusPhetSimWidgetOptions = {
     // A URL to display, must start with https://phet.colorado.edu/
     url: string;
-    // The width of the widget
-    width?: number | string;
-    // The height of the widget
-    height?: number | string;
     // Translatable Text; Description of the sim for Khanmigo and alt text
     description: string;
     // Always false
