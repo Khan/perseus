@@ -17,6 +17,131 @@
         white-space: pre;
         overflow: auto;
     }
+
+    // These classes define styles that are used in the preview system. They
+    // override production styles defined using media queries (which are not
+    // easily mocked/mimiced in a preview environment). To accomplish this, we
+    // define a set of CSS variables for each device size we support: phone,
+    // tablet, desktop. We then define styles using @media queries for these
+    // same device sizes (these represent the production styles). Within these
+    // style definitions, we use `var()` with the CSS variable and provide a
+    // production fallback. If the variable is set (ie. we're previewing), the
+    // variable value is used for the style. If unset, we use the production
+    // value for that device size.
+    //
+    // The values in each of these three "perseus-preview-<device>" classes
+    // should be kept in sync with the default values for the same device size
+    // contained in the @media queries.
+    //
+    // See also `content-renderer.tsx`!
+
+    .perseus-preview-phone {
+        --perseus-preview-override-max-paragraph-width: none;
+
+        --perseus-preview-override-title-size: 24px;
+        --perseus-preview-override-title-line-height: 1.2;
+
+        --perseus-preview-override-heading-size: 24px;
+        --perseus-preview-override-heading-line-height: 1.2;
+        --perseus-preview-override-heading-padding-top-multiplier: 1;
+
+        --perseus-preview-override-subheading-size: 22px;
+        --perseus-preview-override-subheading-line-height: 1.1;
+        --perseus-preview-override-subheading-padding-top-multiplier: 0;
+
+        --perseus-preview-override-body-size: 18px;
+        --perseus-preview-override-body-line-height: 1.4;
+
+        --perseus-preview-override-choice-text-size: 16px;
+        --perseus-preview-override-choice-text-line-height: 1.25;
+
+        --perseus-preview-override-image-caption-size: 14px;
+        --perseus-preview-override-image-caption-line-height: 1.3;
+
+        --perseus-preview-override-math-block-size: 21px;
+        --perseus-preview-override-math-block-line-height: 1.5;
+        --perseus-preview-override-math-inline-size: 21px;
+        --perseus-preview-override-math-inline-line-height: 1.2;
+
+        --perseus-preview-override-code-size: 18px;
+        --perseus-preview-override-code-line-height: 1.6;
+        --perseus-preview-override-code-horizontal-margin-multiplier: -1;
+
+        --perseus-preview-override-block-quote-border-width: 4px;
+        --perseus-preview-override-block-quote-padding: 18px;
+    }
+
+    .perseus-preview-tablet {
+        --perseus-preview-override-max-paragraph-width: @articleMaxWidthTablet;
+
+        --perseus-preview-override-title-size: 30px;
+        --perseus-preview-override-title-line-height: 1.1;
+
+        --perseus-preview-override-heading-size: 30px;
+        --perseus-preview-override-heading-line-height: 1.2;
+        --perseus-preview-override-heading-padding-top-multiplier: 2;
+
+        --perseus-preview-override-subheading-size: 28px;
+        --perseus-preview-override-subheading-line-height: 1.1;
+        --perseus-preview-override-subheading-padding-top-multiplier: 1;
+
+        --perseus-preview-override-body-size: 20px;
+        --perseus-preview-override-body-line-height: 1.5;
+
+        --perseus-preview-override-choice-text-size: 18px;
+        --perseus-preview-override-choice-text-line-height: 1.25;
+
+        --perseus-preview-override-image-caption-size: 17px;
+        --perseus-preview-override-image-caption-line-height: 1.4;
+
+        --perseus-preview-override-math-block-size: 30px;
+        --perseus-preview-override-math-block-line-height: 1.3;
+        --perseus-preview-override-math-inline-size: 23px;
+        --perseus-preview-override-math-inline-line-height: 1.3;
+
+        --perseus-preview-override-code-size: 18px;
+        --perseus-preview-override-code-line-height: 1.6;
+        --perseus-preview-override-code-horizontal-margin-multiplier: -1;
+
+        --perseus-preview-override-block-quote-border-width: 4px;
+        --perseus-preview-override-block-quote-padding: 20px;
+    }
+
+    .perseus-preview-desktop {
+        --perseus-preview-override-max-paragraph-width: @articleMaxWidth;
+
+        --perseus-preview-override-title-size: 35px;
+        --perseus-preview-override-title-line-height: 1.1;
+
+        --perseus-preview-override-heading-size: 35px;
+        --perseus-preview-override-heading-line-height: 1.1;
+        --perseus-preview-override-heading-padding-top-multiplier: 2;
+
+        --perseus-preview-override-subheading-size: 30px;
+        --perseus-preview-override-subheading-line-height: 1.1;
+        --perseus-preview-override-subheading-padding-top-multiplier: 1;
+
+        --perseus-preview-override-body-size: 22px;
+        --perseus-preview-override-body-line-height: 1.4;
+
+        --perseus-preview-override-choice-text-size: 20px;
+        --perseus-preview-override-choice-text-line-height: 1.25;
+
+        --perseus-preview-override-image-caption-size: 20px;
+        --perseus-preview-override-image-caption-line-height: 1.4;
+
+        --perseus-preview-override-math-block-size: 30px;
+        --perseus-preview-override-math-block-line-height: 1.3;
+        --perseus-preview-override-math-inline-size: 25px;
+        --perseus-preview-override-math-inline-line-height: 1.2;
+
+        --perseus-preview-override-code-size: 18px;
+        --perseus-preview-override-code-line-height: 1.6;
+        --perseus-preview-override-code-horizontal-margin-multiplier: -1;
+
+        --perseus-preview-override-block-quote-border-width: 5px;
+        --perseus-preview-override-block-quote-padding: 20px;
+    }
 }
 
 // Desktop Articles
@@ -310,7 +435,7 @@
 
     .header(@fontSize; @lineHeight; @color; @paddingTopMultiplier) {
         font-weight: 700;
-        padding-top: @baseUnit * @paddingTopMultiplier;
+        padding-top: calc(@baseUnit * @paddingTopMultiplier);
 
         .text(@fontSize, @lineHeight, @color);
     }
@@ -324,9 +449,9 @@
         }
     }
 
-    .title(@fontSize; @lineHeight; @paddingTopMultiplier) {
+    .title(@fontSize; @lineHeight) {
         h1 {
-            .header(@fontSize, @lineHeight, @gray17, @paddingTopMultiplier);
+            .header(@fontSize, @lineHeight, @gray17, 0);
         }
     }
 
@@ -548,56 +673,158 @@
 
     // Phone styles
     @media (max-width: @pure-sm-max) {
-        .max-paragraph-width(none);
+        .max-paragraph-width(
+            var(--perseus-preview-override-max-paragraph-width, none)
+        );
 
-        .title(24px, 1.2, 0);
-        .heading(24px, 1.2, 1);
-        .sub-heading(22px, 1.1, 0);
+        .title(
+            var(--perseus-preview-override-title-size, 24px),
+            var(--perseus-preview-override-title-line-height, 1.2),
+        );
+        .heading(
+            var(--perseus-preview-override-heading-size, 24px),
+            var(--perseus-preview-override-heading-line-height, 1.2),
+            var(--perseus-preview-override-heading-padding-top-multiplier, 1)
+        );
+        .sub-heading(
+            var(--perseus-preview-override-subheading-size, 22px),
+            var(--perseus-preview-override-subheading-line-height, 1.1),
+            var(--perseus-preview-override-subheading-padding-top-multiplier, 0)
+        );
 
-        .body-text(18px, 1.4);
-        .choice-text(16px, 1.25);
+        .body-text(
+            var(--perseus-preview-override-body-size, 18px),
+            var(--perseus-preview-override-body-line-height, 1.4)
+        );
+        .choice-text(
+            var(--perseus-preview-override-choice-text-size, 16px),
+            var(--perseus-preview-override-choice-text-line-height, 1.25)
+        );
         // NOTE(charlie): The values used in this responsive caption sizing
         // should be kept in sync with the instructions text sizing in
         // base-radio.jsx.
-        .image-caption(14px, 1.3);
+        .image-caption(
+            var(--perseus-preview-override-image-caption-size, 14px),
+            var(--perseus-preview-override-image-caption-line-height, 1.3)
+        );
 
-        .math(21px, 1.5, 21px, 1.2);
-        .code(18px, 1.6, -1);
-        .blockquote(4px, 18px);
+        .math(
+            var(--perseus-preview-override-math-block-size, 21px),
+            var(--perseus-preview-override-math-block-line-height, 1.5),
+            var(--perseus-preview-override-math-inline-size, 21px),
+            var(--perseus-preview-override-math-inline-line-height, 1.2)
+        );
+        .code(
+            var(--perseus-preview-override-code-size, 18px),
+            var(--perseus-preview-override-code-line-height, 1.6),
+            var(--perseus-preview-override-code-horizontal-margin-multiplier, -1)
+        );
+        .blockquote(
+            var(--perseus-preview-override-block-quote-border-width, 4px),
+            var(--perseus-preview-override-block-quote-padding, 18px)
+        );
     }
 
     // Tablet styles
     @media (min-width: @pure-md-min) and (max-width: @tablet-width-max) {
-        .max-paragraph-width(@articleMaxWidthTablet);
+        .max-paragraph-width(
+            var(--perseus-preview-override-max-paragraph-width, @articleMaxWidthTablet)
+        );
 
-        .title(30px, 1.1, 0);
-        .heading(30px, 1.1, 2);
-        .sub-heading(28px, 1.1, 1);
+        .title(
+            var(--perseus-preview-override-title-size, 30px),
+            var(--perseus-preview-override-title-line-height, 1.1),
+        );
+        .heading(
+            var(--perseus-preview-override-heading-size, 30px),
+            var(--perseus-preview-override-heading-line-height, 1.2),
+            var(--perseus-preview-override-heading-padding-top-multiplier, 2)
+        );
+        .sub-heading(
+            var(--perseus-preview-override-subheading-size, 28px),
+            var(--perseus-preview-override-subheading-line-height, 1.1),
+            var(--perseus-preview-override-subheading-padding-top-multiplier, 1)
+        );
 
-        .body-text(20px, 1.5);
-        .choice-text(18px, 1.25);
-        .image-caption(17px, 1.4);
+        .body-text(
+            var(--perseus-preview-override-body-size, 20px),
+            var(--perseus-preview-override-body-line-height, 1.5)
+        );
+        .choice-text(
+            var(--perseus-preview-override-choice-text-size, 18px),
+            var(--perseus-preview-override-choice-text-line-height, 1.25)
+        );
+        .image-caption(
+            var(--perseus-preview-override-image-caption-size, 17px),
+            var(--perseus-preview-override-image-caption-line-height, 1.4)
+        );
 
-        .math(30px, 1.3, 23px, 1.3);
-        .code(18px, 1.6, -1);
-        .blockquote(4px, 20px);
+        .math(
+            var(--perseus-preview-override-math-block-size, 30px),
+            var(--perseus-preview-override-math-block-line-height, 1.3),
+            var(--perseus-preview-override-math-inline-size, 23px),
+            var(--perseus-preview-override-math-inline-line-height, 1.3)
+        );
+        .code(
+            var(--perseus-preview-override-code-size, 18px),
+            var(--perseus-preview-override-code-line-height, 1.6),
+            var(--perseus-preview-override-code-horizontal-margin-multiplier, -1)
+        );
+        .blockquote(
+            var(--perseus-preview-override-block-quote-border-width, 4px),
+            var(--perseus-preview-override-block-quote-padding, 20px)
+        );
     }
 
     // Desktop styles
     @media (min-width: @desktop-width-min) {
-        .max-paragraph-width(@articleMaxWidth);
+        .max-paragraph-width(
+            var(--perseus-preview-override-max-paragraph-width, @articleMaxWidth)
+        );
 
-        .title(35px, 1.1, 0);
-        .heading(35px, 1.1, 2);
-        .sub-heading(30px, 1.1, 1);
+        .title(
+            var(--perseus-preview-override-title-size, 35px),
+            var(--perseus-preview-override-title-line-height, 1.1),
+        );
+        .heading(
+            var(--perseus-preview-override-heading-size, 35px),
+            var(--perseus-preview-override-heading-line-height, 1.1),
+            var(--perseus-preview-override-heading-padding-top-multiplier, 2)
+        );
+        .sub-heading(
+            var(--perseus-preview-override-subheading-size, 30px),
+            var(--perseus-preview-override-subheading-line-height, 1.1),
+            var(--perseus-preview-override-subheading-padding-top-multiplier, 1)
+        );
 
-        .body-text(22px, 1.4);
-        .choice-text(20px, 1.25);
-        .image-caption(20px, 1.4);
+        .body-text(
+            var(--perseus-preview-override-body-size, 22px),
+            var(--perseus-preview-override-body-line-height, 1.4)
+        );
+        .choice-text(
+            var(--perseus-preview-override-choice-text-size, 20px),
+            var(--perseus-preview-override-choice-text-line-height, 1.25)
+        );
+        .image-caption(
+            var(--perseus-preview-override-image-caption-size, 20px),
+            var(--perseus-preview-override-image-caption-line-height, 1.4)
+        );
 
-        .math(30px, 1.3, 25px, 1.2);
-        .code(18px, 1.6, -1);
-        .blockquote(5px, 20px);
+        .math(
+            var(--perseus-preview-override-math-block-size, 30px),
+            var(--perseus-preview-override-math-block-line-height, 1.3),
+            var(--perseus-preview-override-math-inline-size, 25px),
+            var(--perseus-preview-override-math-inline-line-height, 1.2)
+        );
+        .code(
+            var(--perseus-preview-override-code-size, 18px),
+            var(--perseus-preview-override-code-line-height, 1.6),
+            var(--perseus-preview-override-code-horizontal-margin-multiplier, -1)
+        );
+        .blockquote(
+            var(--perseus-preview-override-block-quote-border-width, 5px),
+            var(--perseus-preview-override-block-quote-padding, 20px)
+        );
     }
 
     // TODO(charlie): These are the existing Bibliotron article styles, less

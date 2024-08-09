@@ -241,6 +241,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                             apiOptions={apiOptions}
                             question={section}
                             seamless={!nochrome}
+                            screen={this.props.screen}
                             linterContext={{
                                 contentType: "article",
                                 highlightLint: this.state.highlightLint,
@@ -258,6 +259,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                         apiOptions={apiOptions}
                         question={sections[sectionIndex]}
                         seamless={!nochrome}
+                        screen={this.props.screen}
                         linterContext={{
                             contentType: "article",
                             highlightLint: this.state.highlightLint,

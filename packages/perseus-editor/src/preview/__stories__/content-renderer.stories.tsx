@@ -1,7 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {useState} from "react";
 
 import {articleWithImages} from "../../../../perseus/src/__testdata__/article-renderer.testdata";
