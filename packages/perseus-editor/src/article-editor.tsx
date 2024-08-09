@@ -361,14 +361,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     serialize(): JsonType {
         if (this.props.mode === "edit") {
-            // Note(jeremy): Fixing this type error involves some extensive
-            // re-working of the may <Editor /> component. Today it accepts a
-            // `replace` prop (I _think_ because it's also used for editing
-            // hints), but when I tried to re-work it I couldn't decipher which
-            // types to fix and which to not fix.
-            // @ts-expect-error - TS2322 - Type 'undefined' is not assignable to type 'PerseusRenderer'.ts
-            return this._sections().map((section, i) => {
-                return this.editorRefs[i]?.serialize();
+            return this._sections().map((_, i) => {
+                return this.editorRefs[i]!.serialize();
             });
         }
         if (this.props.mode === "preview" || this.props.mode === "json") {
