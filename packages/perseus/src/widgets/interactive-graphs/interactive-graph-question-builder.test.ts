@@ -145,7 +145,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 correct: {
                     type: "segment",
                     numSegments: 1,
-                    coords: [expect.anything()],
                 },
             }),
         );
@@ -168,7 +167,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 correct: {
                     type: "segment",
                     numSegments: 2,
-                    coords: [expect.anything(), expect.anything()],
                 },
             }),
         );
@@ -230,10 +228,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 graph: {type: "linear"},
                 correct: {
                     type: "linear",
-                    coords: [
-                        [-5, 5],
-                        [5, 5],
-                    ],
                 },
             }),
         );
@@ -283,16 +277,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 graph: {type: "linear-system"},
                 correct: {
                     type: "linear-system",
-                    coords: [
-                        [
-                            [-5, 5],
-                            [5, 5],
-                        ],
-                        [
-                            [-5, -5],
-                            [5, -5],
-                        ],
-                    ],
                 },
             }),
         );
@@ -366,10 +350,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 graph: {type: "ray"},
                 correct: {
                     type: "ray",
-                    coords: [
-                        [-5, 5],
-                        [5, 5],
-                    ],
                 },
             }),
         );
@@ -455,11 +435,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 graph: {type: "quadratic"},
                 correct: {
                     type: "quadratic",
-                    coords: [
-                        [-5, 5],
-                        [0, -5],
-                        [5, 5],
-                    ],
                 },
             }),
         );
@@ -513,10 +488,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 graph: {type: "sinusoid"},
                 correct: {
                     type: "sinusoid",
-                    coords: [
-                        [0, 0],
-                        [3, 2],
-                    ],
                 },
             }),
         );
@@ -573,11 +544,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     showAngles: false,
                     showSides: false,
                     snapTo: "grid",
-                    coords: [
-                        [3, -2],
-                        [0, 4],
-                        [-3, -2],
-                    ],
                 }),
             }),
         );
@@ -688,12 +654,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 graph: {type: "angle"},
                 correct: {
                     type: "angle",
-                    coords: [
-                        // Default correct answer is 20 degree angle at (0, 0)
-                        [6.994907182610915, 0],
-                        [0, 0],
-                        [6.5778483455013586, 2.394141003279681],
-                    ],
                 },
             }),
         );
