@@ -1,4 +1,4 @@
-import{i as e}from"./interactive-graph-question-builder-7fsMMH95.js";const s=e().withContent(`**Drag the vertex of the angle to place the vertex at point $\\text{A}$.**  
+import{i as e}from"./interactive-graph-question-builder-Giang6cH.js";const s=e().withContent(`**Drag the vertex of the angle to place the vertex at point $\\text{A}$.**  
 
 **Drag another point on the angle to make one of the rays go through point $\\text{B}$.**
 
