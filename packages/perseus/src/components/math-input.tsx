@@ -521,7 +521,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.offBlack8,
     },
     iconActive: {
-        border: "2px solid white",
+        border: `2px solid ${color.white}`,
         backgroundColor: color.offBlack64,
     },
     outerWrapper: {
