@@ -1,12 +1,9 @@
-import {action} from "@storybook/addon-actions";
-import * as React from "react";
-
 import {
     StatefulKeypadContextProvider,
     KeypadContext,
-    // @ts-expect-error it can't find type declaration
-    // eslint-disable-next-line monorepo/no-internal-import
-} from "@khanacademy/math-input/keypad-context";
+} from "@khanacademy/keypad-context";
+import {action} from "@storybook/addon-actions";
+import * as React from "react";
 
 import {KeypadInput, KeypadType, MobileKeypad} from "./index";
 

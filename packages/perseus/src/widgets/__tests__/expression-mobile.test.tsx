@@ -1,10 +1,10 @@
-import {MobileKeypad, mathQuillInstance} from "@khanacademy/math-input";
 import {
     KeypadContext,
     StatefulKeypadContextProvider,
     // @ts-expect-error it can't find type declaration
     // eslint-disable-next-line monorepo/no-internal-import
-} from "@khanacademy/math-input/keypad-context";
+} from "@khanacademy/keypad-context";
+import {MobileKeypad, mathQuillInstance} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     act,

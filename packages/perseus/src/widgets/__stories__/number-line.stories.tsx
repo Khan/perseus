@@ -1,6 +1,6 @@
 // @ts-expect-error it can't find type declaration
 // eslint-disable-next-line monorepo/no-internal-import
-import {KeypadContext} from "@khanacademy/math-input/keypad-context";
+import {KeypadContext} from "@khanacademy/keypad-context";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
