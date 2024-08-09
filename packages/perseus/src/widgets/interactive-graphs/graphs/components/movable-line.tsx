@@ -85,7 +85,7 @@ function useControlPoint(
         gestureTarget: keyboardHandleRef,
         point,
         onMove: onMovePoint,
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
     const visiblePointRef = useRef<SVGGElement>(null);
@@ -93,7 +93,7 @@ function useControlPoint(
         gestureTarget: visiblePointRef,
         point,
         onMove: onMovePoint,
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
     const focusableHandle = (
@@ -169,7 +169,7 @@ export const Line = (props: LineProps) => {
         onMove: (newPoint) => {
             onMove(vec.sub(newPoint, start));
         },
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
     return (

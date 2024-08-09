@@ -9,6 +9,7 @@ import {useDraggable} from "../use-draggable";
 import {MovablePointView} from "./movable-point-view";
 
 import type {CSSCursor} from "./css-cursor";
+import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
 type Props = {
@@ -16,20 +17,24 @@ type Props = {
     onMove: (newPoint: vec.Vector2) => unknown;
     color?: string;
     cursor?: CSSCursor | undefined;
-    snapTo?: "grid" | "angles" | "sides";
+    constrain?: KeyboardMovementConstraint;
 };
 
-export const StyledMovablePoint = (props: Props) => {
+export const MovablePoint = (props: Props) => {
     const {snapStep} = useGraphConfig();
     const elementRef = useRef<SVGGElement>(null);
-    const {point, onMove, cursor, color = WBColor.blue, snapTo} = props;
-    const snapToValue = snapTo ?? "grid";
+    const {
+        point,
+        onMove,
+        cursor,
+        color = WBColor.blue,
+        constrain = (p) => snap(snapStep, p),
+    } = props;
     const {dragging} = useDraggable({
         gestureTarget: elementRef,
         point,
         onMove,
-        constrain: (p) =>
-            ["angles", "sides"].includes(snapToValue) ? p : snap(snapStep, p),
+        constrainKeyboardMovement: constrain,
     });
 
     return (

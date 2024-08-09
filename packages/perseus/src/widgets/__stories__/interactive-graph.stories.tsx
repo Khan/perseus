@@ -33,6 +33,7 @@ const enableMafs: APIOptions = {
         mafs: {
             segment: true,
             polygon: true,
+            angle: true,
         },
     },
 };
@@ -153,6 +154,10 @@ export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
 
 export const Sinusoid = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={sinusoidQuestion} />
+);
+
+export const AngleWithMafs = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI apiOptions={enableMafs} question={angleQuestion} />
 );
 
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that

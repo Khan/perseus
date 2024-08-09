@@ -1,4 +1,4 @@
-import {segmentsIntersect} from "./geometry";
+import {findIntersectionOfRays, segmentsIntersect} from "./geometry";
 
 import type {Segment} from "./geometry";
 
@@ -174,5 +174,67 @@ describe("segmentsIntersect", () => {
             [1, 1],
         ];
         expect(segmentsIntersect(segment1, segment2)).toBe(false);
+    });
+});
+
+describe("findIntersectionOfRays", () => {
+    it("returns undefined when the direction of the first ray is undefined", () => {
+        const ray1: Segment = [
+            [0, 0],
+            [0, 0],
+        ];
+        const ray2: Segment = [
+            [-1, -1],
+            [1, 1],
+        ];
+        expect(findIntersectionOfRays(ray1, ray2)).toBe(undefined);
+    });
+
+    it("returns undefined when the direction of the second ray is undefined", () => {
+        const ray1: Segment = [
+            [-1, -1],
+            [1, 1],
+        ];
+        const ray2: Segment = [
+            [0, 0],
+            [0, 0],
+        ];
+        expect(findIntersectionOfRays(ray1, ray2)).toBe(undefined);
+    });
+
+    it("returns undefined when the rays are parallel", () => {
+        const ray1: Segment = [
+            [0, 0],
+            [1, 1],
+        ];
+        const ray2: Segment = [
+            [0, 1],
+            [1, 2],
+        ];
+        expect(findIntersectionOfRays(ray1, ray2)).toBe(undefined);
+    });
+
+    it("returns the intersection point", () => {
+        const ray1: Segment = [
+            [0, 0],
+            [1, 1],
+        ];
+        const ray2: Segment = [
+            [1, 0],
+            [1, 0.5],
+        ];
+        expect(findIntersectionOfRays(ray1, ray2)).toEqual([1, 1]);
+    });
+
+    it("returns undefined when one ray points away from the other", () => {
+        const ray1: Segment = [
+            [0, 0],
+            [1, 1],
+        ];
+        const ray2: Segment = [
+            [1, 0],
+            [1, -0.5],
+        ];
+        expect(findIntersectionOfRays(ray1, ray2)).toBe(undefined);
     });
 });

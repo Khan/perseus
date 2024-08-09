@@ -4,22 +4,25 @@ import {Mafs, Transform} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
+import {snap} from "../math";
+
 import {useDraggable} from "./use-draggable";
 
+import type {KeyboardMovementConstraint} from "./use-draggable";
 import type {UserEvent} from "@testing-library/user-event";
 import type {vec, Interval} from "mafs";
 
 function TestDraggable(props: {
     point: vec.Vector2;
-    constrain?: (point: vec.Vector2) => vec.Vector2;
+    constrainKeyboardMovement?: KeyboardMovementConstraint;
     onMove?: (point: vec.Vector2) => unknown;
 }) {
-    const {onMove = () => {}, constrain = (p) => p} = props;
+    const {onMove = () => {}, constrainKeyboardMovement = (p) => p} = props;
     const gestureTarget = useRef<HTMLButtonElement>(null);
     const {dragging} = useDraggable({
-        ...props,
+        point: props.point,
         onMove,
-        constrain,
+        constrainKeyboardMovement,
         gestureTarget,
     });
     return (
@@ -109,7 +112,7 @@ describe("useDraggable", () => {
         expect(onMoveSpy).toHaveBeenCalledWith([1, -1]);
     });
 
-    it("constrains the destination point using the given constrain function", async () => {
+    it("constrains the destination point using a constrainKeyboardMovement function", async () => {
         // Arrange: a 200x200px graph with a 20-unit range in each dimension.
         // One graph unit = 10px.
         const mafsProps = {
@@ -127,21 +130,55 @@ describe("useDraggable", () => {
                 <TestDraggable
                     point={[0, 0]}
                     onMove={onMoveSpy}
-                    constrain={(p) => [Math.round(p[0]), Math.round(p[1])]}
+                    constrainKeyboardMovement={(p) => snap([1, 1], p)}
                 />
             </Mafs>,
         );
         const dragHandle = screen.getByRole("button");
 
-        // Act: click and hold the drag handle...
-        mouseDownAt(dragHandle, 0, 0);
-        // ...and then drag 12px right and 13px down
-        moveMouseTo(dragHandle, 12, 13);
+        // Act
+        await userEvent.tab();
+        await userEvent.type(dragHandle, "{arrowright}");
 
-        // Assert: the draggable element was moved to (1, -1) due to the
-        // constrain function. If you see (1.2, -1.3) instead, that means the
-        // constraint is not being applied.
-        expect(onMoveSpy).toHaveBeenCalledWith([1, -1]);
+        // Assert: the draggable element was moved one step to the right
+        expect(onMoveSpy.mock.calls).toEqual([[[1, 0]]]);
+    });
+
+    it("constrains the destination point using a constrainKeyboardMovement object", async () => {
+        // Arrange: a 200x200px graph with a 20-unit range in each dimension.
+        // One graph unit = 10px.
+        const mafsProps = {
+            width: 200,
+            height: 200,
+            viewBox: {
+                x: [-10, 10] as Interval,
+                y: [-10, 10] as Interval,
+                padding: 0,
+            },
+        };
+        const onMoveSpy = jest.fn();
+        render(
+            <Mafs {...mafsProps}>
+                <TestDraggable
+                    point={[0, 0]}
+                    onMove={onMoveSpy}
+                    constrainKeyboardMovement={{
+                        up: [1, 1],
+                        down: [2, 2],
+                        left: [3, 3],
+                        right: [4, 4],
+                    }}
+                />
+            </Mafs>,
+        );
+        const dragHandle = screen.getByRole("button");
+
+        // Act
+        await userEvent.tab();
+        await userEvent.type(dragHandle, "{arrowright}");
+
+        // Assert:
+        expect(onMoveSpy.mock.calls).toEqual([[[4, 4]]]);
     });
 
     it("accounts for the user transform when measuring drag distance", async () => {
@@ -201,7 +238,7 @@ describe("useDraggable", () => {
                 <TestDraggable
                     point={[0, 0]}
                     onMove={onMoveSpy}
-                    constrain={(point) => [
+                    constrainKeyboardMovement={(point) => [
                         Math.round(point[0]),
                         Math.round(point[1]),
                     ]}
