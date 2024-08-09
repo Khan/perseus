@@ -1,5 +1,6 @@
 import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import JsonEditor from "./components/json-editor";
@@ -115,19 +116,29 @@ class EditorPage extends React.Component<Props, State> {
         };
     }
 
-    getSaveWarnings(): any {
-        const issues1 = this.itemEditor.current?.getSaveWarnings();
-        const issues2 = this.hintsEditor.current?.getSaveWarnings();
+    getSaveWarnings(): ReadonlyArray<string> {
+        const issues1 = this.itemEditor.current?.getSaveWarnings() ?? [];
+        const issues2 = this.hintsEditor.current?.getSaveWarnings() ?? [];
         return issues1.concat(issues2);
     }
 
-    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
+    serialize(options?: {keepDeletedWidgets?: boolean}): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        return _.extend(this.itemEditor.current?.serialize(options), {
+        invariant(this.itemEditor.current != null);
+        invariant(this.hintsEditor.current != null);
+        return {
+            ...this.itemEditor.current?.serialize(options),
             hints: this.hintsEditor.current?.serialize(options),
-        });
+
+            // Note(jeremy): These two are to satisfy the fact that our
+            // PerseusItem type really should be a union between a multi item
+            // and a standard perseus item (also that the `answer` field, which
+            // is deprecated, is required).
+            _multi: undefined,
+            answer: undefined,
+        };
     }
 
     handleChange: ChangeHandler = (toChange, cb, silent) => {

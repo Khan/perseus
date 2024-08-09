@@ -796,7 +796,7 @@ class Editor extends React.Component<Props, State> {
         this.props.onChange({content: newContent}, this.focusAndMoveToEnd);
     };
 
-    getSaveWarnings: () => any = () => {
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
         // eslint-disable-next-line react/no-string-refs
         const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
         const warnings = _(widgetIds)
