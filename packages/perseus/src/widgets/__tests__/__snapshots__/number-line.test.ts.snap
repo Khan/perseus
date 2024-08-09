@@ -217,14 +217,14 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   <path
                     d="M29.999999999999993,48L29.999999999999993,32"
                     fill="none"
-                    stroke="#11accd"
+                    stroke="#1865f2"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 3.5;"
                   />
                   <path
                     d="M258,48L258,32"
                     fill="none"
-                    stroke="#11accd"
+                    stroke="#1865f2"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 3.5;"
                   />
@@ -384,7 +384,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                 <span
                   class="graphie-label"
                   data-math-formula="-4"
-                  style="position: absolute; padding: 7px; color: rgb(17, 172, 205); left: 29.999999999999993px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 29.999999999999993px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -393,7 +393,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                 <span
                   class="graphie-label"
                   data-math-formula="4"
-                  style="position: absolute; padding: 7px; color: rgb(17, 172, 205); left: 258px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 258px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -621,14 +621,14 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   <path
                     d="M29.999999999999982,48L29.999999999999982,32"
                     fill="none"
-                    stroke="#6495ed"
+                    stroke="#1865f2"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
                   <path
                     d="M430,48L430,32"
                     fill="none"
-                    stroke="#6495ed"
+                    stroke="#1865f2"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -657,11 +657,11 @@ exports[`number-line widget should snapshot: first render 1`] = `
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
