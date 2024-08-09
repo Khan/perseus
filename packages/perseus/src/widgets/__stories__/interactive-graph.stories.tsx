@@ -20,8 +20,8 @@ import {
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
-    staticGraph,
-    staticGraphWithAnotherQuestion,
+    staticGraphQuestion,
+    staticGraphQuestionWithAnotherWidget,
 } from "../__testdata__/interactive-graph.testdata";
 
 import type {APIOptions} from "@khanacademy/perseus";
@@ -163,7 +163,7 @@ export const AngleWithMafs = (args: StoryArgs): React.ReactElement => (
 );
 
 export const StaticGraph = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI apiOptions={enableMafs} question={staticGraph} />
+    <RendererWithDebugUI apiOptions={enableMafs} question={staticGraphQuestion} />
 );
 
 export const StaticGraphWithAnotherWidget = (
@@ -171,7 +171,7 @@ export const StaticGraphWithAnotherWidget = (
 ): React.ReactElement => (
     <RendererWithDebugUI
         apiOptions={enableMafs}
-        question={staticGraphWithAnotherQuestion()}
+        question={staticGraphQuestionWithAnotherWidget()}
     />
 );
 

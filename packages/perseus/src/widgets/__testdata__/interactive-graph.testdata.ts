@@ -809,7 +809,7 @@ export const quadraticQuestion: PerseusRenderer =
 export const quadraticQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withQuadratic().build();
 
-export const staticGraph: PerseusRenderer = interactiveGraphQuestionBuilder()
+export const staticGraphQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .addLockedPointAt(-7, -7)
     .addLockedLine([-7, -5], [2, -3])
     .addLockedVector([0, 0], [8, 2], "purple")
@@ -826,7 +826,7 @@ export const staticGraph: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withStaticMode(true)
     .build();
 
-export const staticGraphWithAnotherQuestion: () => PerseusRenderer = () => {
+export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer = () => {
     const result = interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7)
         .addLockedLine([-7, -5], [2, -3])
