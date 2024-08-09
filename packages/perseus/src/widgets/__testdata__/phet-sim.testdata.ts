@@ -11,8 +11,6 @@ export const question1: PerseusRenderer = {
             type: "phet-sim",
             options: {
                 url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
-                height: "410",
-                width: "410",
                 description: "Projectile Data Lab",
                 static: false,
             },

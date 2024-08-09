@@ -29,8 +29,6 @@ type State = {
 class PhetSim extends React.Component<Props, State> {
     static propTypes = {
         ...Changeable.propTypes,
-        width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         url: PropTypes.string,
         description: PropTypes.string,
     };
@@ -78,41 +76,40 @@ class PhetSim extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        const style = {
-            width: String(this.props.width),
-            height: String(this.props.height),
-        } as const;
-
-        // Add "px" to unitless numbers
-        Object.entries(style).forEach(([key, value]: [any, any]) => {
-            if (!value.endsWith("%") && !value.endsWith("px")) {
-                style[key] = value + "px";
-            }
-        });
-
         // We sandbox the iframe so that we allowlist only the functionality
         // that we need. This makes it a bit safer in case some content
         // creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         const sandboxProperties = "allow-same-origin allow-scripts";
         return (
-            <>
-                {this.state.errMessage && (
-                    <Banner
-                        kind="warning"
-                        layout="floating"
-                        text={this.state.errMessage}
-                        onDismiss={() => {
-                            this.setState({errMessage: null});
-                        }}
-                    />
-                )}
-                <View>
+            <View>
+                <View
+                    style={{
+                        position: "relative",
+                        width: "100%",
+                        paddingBottom: "100%",
+                        height: 0,
+                    }}
+                >
+                    {this.state.errMessage && (
+                        <Banner
+                            kind="warning"
+                            layout="floating"
+                            text={this.state.errMessage}
+                            onDismiss={() => {
+                                this.setState({errMessage: null});
+                            }}
+                        />
+                    )}
                     <iframe
                         ref={this.iframeRef}
                         title={this.props.description}
                         sandbox={sandboxProperties}
-                        style={style}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            position: "absolute",
+                        }}
                         src={this.state.url?.toString()}
                         srcDoc={
                             this.state.url
@@ -121,20 +118,20 @@ class PhetSim extends React.Component<Props, State> {
                         }
                         allow="fullscreen"
                     />
-                    <IconButton
-                        icon={cornersOutIcon}
-                        onClick={() => {
-                            this.iframeRef.current?.requestFullscreen();
-                        }}
-                        aria-label={"Fullscreen"}
-                        style={{
-                            marginTop: 5,
-                            marginBottom: 5,
-                            alignSelf: "flex-end",
-                        }}
-                    />
                 </View>
-            </>
+                <IconButton
+                    icon={cornersOutIcon}
+                    onClick={() => {
+                        this.iframeRef.current?.requestFullscreen();
+                    }}
+                    aria-label={"Fullscreen"}
+                    style={{
+                        marginTop: 5,
+                        marginBottom: 5,
+                        alignSelf: "flex-end",
+                    }}
+                />
+            </View>
         );
     }
 
