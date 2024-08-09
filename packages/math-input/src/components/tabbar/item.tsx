@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
         marginLeft: 1,
     },
     hovered: {
-        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${color.white}`,
         border: "1px solid #1865F2",
     },
     pressed: {
