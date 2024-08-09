@@ -1183,7 +1183,7 @@ class Renderer extends React.Component<Props, State> {
             }
             // Widgets can contain text nodes, so we don't center them with
             // markdown magic here.
-            // Instead, we center them with css magic in articles.less
+            // Instead, we center them with css magic in styles.less
             // /cry(aria)
             this._foundTextNodes = true;
 
