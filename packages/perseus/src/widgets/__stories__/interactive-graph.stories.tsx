@@ -163,7 +163,10 @@ export const AngleWithMafs = (args: StoryArgs): React.ReactElement => (
 );
 
 export const StaticGraph = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI apiOptions={enableMafs} question={staticGraphQuestion} />
+    <RendererWithDebugUI
+        apiOptions={enableMafs}
+        question={staticGraphQuestion}
+    />
 );
 
 export const StaticGraphWithAnotherWidget = (

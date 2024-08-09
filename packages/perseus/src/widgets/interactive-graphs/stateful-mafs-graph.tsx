@@ -130,7 +130,13 @@ export const StatefulMafsGraph = React.forwardRef<
     ]);
 
     if (props.static) {
-        return <MafsGraph {...props} state={initializeGraphState({...props, graph: props.correct})} dispatch={dispatch}  />
+        return (
+            <MafsGraph
+                {...props}
+                state={initializeGraphState({...props, graph: props.correct})}
+                dispatch={dispatch}
+            />
+        );
     }
 
     return <MafsGraph {...props} state={state} dispatch={dispatch} />;
