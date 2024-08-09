@@ -38,12 +38,6 @@ export {
     useMathInputI18n,
 } from "./components/i18n-context";
 
-// Context used to pass data/refs around
-export {
-    KeypadContext,
-    StatefulKeypadContextProvider,
-} from "./components/keypad-context";
-
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";
 export type {KeypadAPI, KeypadConfiguration} from "./types";

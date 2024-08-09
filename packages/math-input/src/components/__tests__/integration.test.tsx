@@ -1,4 +1,8 @@
 import {
+    KeypadContext,
+    StatefulKeypadContextProvider,
+} from "@khanacademy/keypad-context";
+import {
     screen,
     render,
     fireEvent,
@@ -12,7 +16,6 @@ import React, {useState} from "react";
 import {KeypadType} from "../../enums";
 import MathInput from "../input/math-input";
 import {MobileKeypad} from "../keypad";
-import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
 
 import type {KeypadConfiguration} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
