@@ -348,20 +348,17 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .value();
     };
 
-    serialize: (options?: any) => ReadonlyArray<string> = (options: any) => {
+    serialize(options?: any): ReadonlyArray<Hint> {
         return this.props.hints.map((hint, i) => {
             return this.serializeHint(i, options);
         });
-    };
+    }
 
-    serializeHint: (index: number, options?: any) => string = (
-        index: number,
-        options: any,
-    ): string => {
+    serializeHint(index: number, options?: any): Hint {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs["hintEditor" + index].serialize(options);
-    };
+    }
 
     render(): React.ReactNode {
         const {itemId, hints} = this.props;

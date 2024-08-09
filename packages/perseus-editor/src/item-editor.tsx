@@ -64,8 +64,8 @@ class ItemEditor extends React.Component<Props> {
         this.updateProps({answerArea}, cb, silent);
     };
 
-    getSaveWarnings: () => any = () => {
-        return this.questionEditor.current?.getSaveWarnings();
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
+        return this.questionEditor.current?.getSaveWarnings() ?? [];
     };
 
     serialize: (options?: any) => {
