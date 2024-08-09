@@ -5,6 +5,7 @@
  */
 
 import Banner from "@khanacademy/wonder-blocks-banner";
+import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import PropTypes from "prop-types";
@@ -106,27 +107,33 @@ class PhetSim extends React.Component<Props, State> {
                         }}
                     />
                 )}
-                <iframe
-                    ref={this.iframeRef}
-                    title={this.props.description}
-                    sandbox={sandboxProperties}
-                    style={style}
-                    src={this.state.url?.toString()}
-                    srcDoc={
-                        this.state.url
-                            ? undefined
-                            : "Could not load simulation."
-                    }
-                    allow="fullscreen"
-                />
-                <IconButton
-                    icon={cornersOutIcon}
-                    onClick={() => {
-                        this.iframeRef.current?.requestFullscreen();
-                    }}
-                    aria-label={"Fullscreen"}
-                    size={"small"}
-                />
+                <View>
+                    <iframe
+                        ref={this.iframeRef}
+                        title={this.props.description}
+                        sandbox={sandboxProperties}
+                        style={style}
+                        src={this.state.url?.toString()}
+                        srcDoc={
+                            this.state.url
+                                ? undefined
+                                : "Could not load simulation."
+                        }
+                        allow="fullscreen"
+                    />
+                    <IconButton
+                        icon={cornersOutIcon}
+                        onClick={() => {
+                            this.iframeRef.current?.requestFullscreen();
+                        }}
+                        aria-label={"Fullscreen"}
+                        style={{
+                            marginTop: 5,
+                            marginBottom: 5,
+                            alignSelf: "flex-end",
+                        }}
+                    />
+                </View>
             </>
         );
     }
