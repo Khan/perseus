@@ -1,8 +1,6 @@
 import {
     KeypadContext,
     StatefulKeypadContextProvider,
-    // @ts-expect-error it can't find type declaration
-    // eslint-disable-next-line monorepo/no-internal-import
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";

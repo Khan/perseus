@@ -1,5 +1,3 @@
-// @ts-expect-error it can't find type declaration
-// eslint-disable-next-line monorepo/no-internal-import
 import {KeypadContext} from "@khanacademy/keypad-context";
 import {action} from "@storybook/addon-actions";
 import React from "react";
