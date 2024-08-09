@@ -893,6 +893,23 @@ describe("doMoveRadiusPoint", () => {
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
 
+    it("snaps", () => {
+        const state: InteractiveGraphState = {
+            ...baseCircleGraphState,
+            snapStep: [2, 7],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            actions.circle.moveRadiusPoint([-3.1, 0]),
+        );
+
+        // make sure the state object is different
+        expect(state).not.toBe(updated);
+        // Assert: the x-coordinate snaps to the nearest multiple of 2.
+        expect((updated as CircleGraphState).radiusPoint).toEqual([-4, 0]);
+    });
+
     it("constrains to range", () => {
         const state: InteractiveGraphState = {
             ...baseCircleGraphState,

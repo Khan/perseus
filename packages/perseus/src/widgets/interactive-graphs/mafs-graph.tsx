@@ -46,10 +46,11 @@ export type MafsGraphProps = {
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     hintMode: boolean;
+    readOnly: boolean;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch, labels, hintMode} = props;
+    const {state, dispatch, labels, hintMode, readOnly} = props;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
     return (
@@ -65,7 +66,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
-                hintMode,
+                disableKeyboardInteraction: hintMode || readOnly,
             }}
         >
             <View

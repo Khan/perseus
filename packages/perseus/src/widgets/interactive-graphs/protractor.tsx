@@ -50,7 +50,7 @@ export function Protractor() {
         gestureTarget: draggableRef,
         onMove: setCenter,
         point: center,
-        constrain: (point) => bound({snapStep, range, point}),
+        constrainKeyboardMovement: (point) => bound({snapStep, range, point}),
     });
 
     const rotationHandleRef = useRef<SVGGElement>(null);

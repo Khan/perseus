@@ -706,6 +706,7 @@ describe("InteractiveGraphEditor", () => {
                                 "start-coords-ui-phase-2": false,
                                 "start-coords-ui-point": false,
                                 "start-coords-ui-polygon": false,
+                                "start-coords-ui-angle": false,
                             },
                         },
                     }}
@@ -765,6 +766,7 @@ describe("InteractiveGraphEditor", () => {
                                 "start-coords-ui-phase-2": true,
                                 "start-coords-ui-point": false,
                                 "start-coords-ui-polygon": false,
+                                "start-coords-ui-angle": false,
                             },
                         },
                     }}
@@ -824,6 +826,7 @@ describe("InteractiveGraphEditor", () => {
                                 "start-coords-ui-phase-2": false,
                                 "start-coords-ui-point": true,
                                 "start-coords-ui-polygon": false,
+                                "start-coords-ui-angle": false,
                             },
                         },
                     }}
@@ -883,6 +886,67 @@ describe("InteractiveGraphEditor", () => {
                                 "start-coords-ui-phase-2": false,
                                 "start-coords-ui-point": false,
                                 "start-coords-ui-polygon": true,
+                                "start-coords-ui-angle": false,
+                            },
+                        },
+                    }}
+                    graph={{type}}
+                    correct={{type}}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Assert
+            if (shouldRender) {
+                expect(
+                    await screen.findByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeInTheDocument();
+            } else {
+                expect(
+                    screen.queryByRole("button", {
+                        name: "Use default start coordinates",
+                    }),
+                ).toBeNull();
+            }
+        },
+    );
+
+    test.each`
+        type               | shouldRender
+        ${"linear"}        | ${false}
+        ${"ray"}           | ${false}
+        ${"linear-system"} | ${false}
+        ${"segment"}       | ${false}
+        ${"circle"}        | ${false}
+        ${"quadratic"}     | ${false}
+        ${"sinusoid"}      | ${false}
+        ${"polygon"}       | ${false}
+        ${"angle"}         | ${true}
+        ${"point"}         | ${false}
+    `(
+        "should render for $type graphs if angle flag is on: $shouldRender",
+        async ({type, shouldRender}) => {
+            // Arrange
+
+            // Act
+            render(
+                <InteractiveGraphEditor
+                    {...baseProps}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: {
+                            ...flags,
+                            mafs: {
+                                ...flags.mafs,
+                                "start-coords-ui-phase-1": false,
+                                "start-coords-ui-phase-2": false,
+                                "start-coords-ui-point": false,
+                                "start-coords-ui-polygon": false,
+                                "start-coords-ui-angle": true,
                             },
                         },
                     }}

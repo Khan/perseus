@@ -4,7 +4,7 @@ import * as React from "react";
 
 import {actions} from "../reducer/interactive-graph-action";
 
-import {StyledMovablePoint} from "./components/movable-point";
+import {MovablePoint} from "./components/movable-point";
 
 import type {QuadraticGraphState, MafsGraphProps} from "../types";
 
@@ -36,7 +36,7 @@ export function QuadraticGraph(props: QuadraticGraphProps) {
         <>
             <Plot.OfX y={y} color={color.blue} />
             {coords.map((coord, i) => (
-                <StyledMovablePoint
+                <MovablePoint
                     key={"point-" + i}
                     point={coord}
                     onMove={(destination) =>

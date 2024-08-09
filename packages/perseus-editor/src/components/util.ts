@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    getAngleCoords,
     getCircleCoords,
     getLineCoords,
     getLinearSystemCoords,
@@ -208,6 +209,12 @@ export function getDefaultGraphStartCoords(
                 range,
                 step,
             );
+        case "angle":
+            return getAngleCoords({
+                graph: {...graph, startCoords: undefined},
+                range,
+                step,
+            });
         default:
             return undefined;
     }
@@ -283,12 +290,17 @@ export const shouldShowStartCoordsUI = (flags, graph) => {
     const startCoordsPhase2 = flags?.mafs?.["start-coords-ui-phase-2"];
     const startCoordsPoint = flags?.mafs?.["start-coords-ui-point"];
     const startCoordsPolygon = flags?.mafs?.["start-coords-ui-polygon"];
+    const startCoordsAngle = flags?.mafs?.["start-coords-ui-angle"];
 
     if (startCoordsPhase1 && startCoordsUiPhase1Types.includes(graph.type)) {
         return true;
     }
 
     if (startCoordsPhase2 && startCoordsUiPhase2Types.includes(graph.type)) {
+        return true;
+    }
+
+    if (startCoordsAngle && graph.type === "angle") {
         return true;
     }
 
