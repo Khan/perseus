@@ -517,7 +517,7 @@ const styles = StyleSheet.create({
         borderRadius: 1,
     },
     iconInactive: {
-        border: `2px solid transparent`,
+        border: "2px solid transparent",
         backgroundColor: color.offBlack8,
     },
     iconActive: {
