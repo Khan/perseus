@@ -21,6 +21,33 @@ type Props = {
 const StartCoordsCircle = (props: Props) => {
     const {startCoords, onChange} = props;
 
+    const [radiusState, setRadiusState] = React.useState(
+        startCoords.radius.toString(),
+    );
+
+    // Update the local state when the props change. (Specifically, when
+    // the radius is reset from the "Use default start coordinates" button.)
+    React.useEffect(() => {
+        setRadiusState(startCoords.radius.toString());
+    }, [startCoords.radius]);
+
+    function handleRadiuschange(newValue: string) {
+        // Update the local state to update the input field.
+        setRadiusState(newValue);
+
+        // Assume the user is in the middle of typing. Don't update
+        // the props until they've finished typing a valid number.
+        if (isNaN(+newValue) || newValue === "" || +newValue === 0) {
+            return;
+        }
+
+        // Update the props (update the graph).
+        onChange({
+            center: startCoords.center,
+            radius: parseFloat(newValue),
+        });
+    }
+
     return (
         <View style={styles.tile}>
             {/* Center */}
@@ -38,20 +65,15 @@ const StartCoordsCircle = (props: Props) => {
             <Strut size={spacing.small_12} />
 
             {/* Radius */}
-            <View style={styles.row}>
-                <LabelLarge>Radius:</LabelLarge>
+            <LabelLarge tag="label" style={styles.row}>
+                Radius:
                 <Strut size={spacing.small_12} />
                 <ScrolllessNumberTextField
-                    value={startCoords.radius.toString()}
-                    onChange={(value) => {
-                        onChange({
-                            center: startCoords.center,
-                            radius: parseFloat(value),
-                        });
-                    }}
+                    value={radiusState}
+                    onChange={handleRadiuschange}
                     style={styles.textField}
                 />
-            </View>
+            </LabelLarge>
         </View>
     );
 };
@@ -64,6 +86,7 @@ const styles = StyleSheet.create({
         borderRadius: spacing.xSmall_8,
     },
     row: {
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
     },
