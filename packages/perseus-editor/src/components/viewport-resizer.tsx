@@ -2,14 +2,18 @@
  * A component that displays controls for choosing a viewport size.
  * Renders three buttons: "Phone", "Tablet", and "Desktop".
  */
-import {components, constants, icons} from "@khanacademy/perseus";
+import {components, constants} from "@khanacademy/perseus";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import phosphorDesktop from "@phosphor-icons/core/regular/desktop.svg";
+import phosphorPhone from "@phosphor-icons/core/regular/device-mobile.svg";
+import phosphorTablet from "@phosphor-icons/core/regular/device-tablet.svg";
 import * as React from "react";
 
 import type {DeviceType} from "@khanacademy/perseus";
 
-const {ButtonGroup, InlineIcon} = components;
+const {ButtonGroup} = components;
 const {devices} = constants;
-const {iconDesktop, iconMobilePhone, iconTablet} = icons;
 
 type Props = {
     /** The current device type that is selected. */
@@ -24,23 +28,22 @@ type Props = {
 const ViewportResizer = (props: Props) => {
     const phoneButtonContents = (
         <span>
-            <InlineIcon {...iconMobilePhone} /> Phone
+            <PhosphorIcon icon={phosphorPhone} /> Phone
         </span>
     );
     const tabletButtonContents = (
         <span>
-            <InlineIcon {...iconTablet} /> Tablet
+            <PhosphorIcon icon={phosphorTablet} /> Tablet
         </span>
     );
     const desktopButtonContents = (
         <span>
-            <InlineIcon {...iconDesktop} /> Desktop
+            <PhosphorIcon icon={phosphorDesktop} /> Desktop
         </span>
     );
 
-    // TODO(david): Allow input of custom viewport sizes.
     return (
-        <span className="viewport-resizer">
+        <LabelMedium>
             Viewport:{" "}
             <ButtonGroup
                 value={props.deviceType}
@@ -55,7 +58,7 @@ const ViewportResizer = (props: Props) => {
                 ]}
                 onChange={props.onViewportSizeChanged}
             />
-        </span>
+        </LabelMedium>
     );
 };
 
