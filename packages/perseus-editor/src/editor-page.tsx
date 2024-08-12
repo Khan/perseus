@@ -1,4 +1,7 @@
 import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
@@ -180,19 +183,21 @@ class EditorPage extends React.Component<Props, State> {
 
         return (
             <div id="perseus" className={className}>
-                <div style={{marginBottom: 10}}>
+                <View
+                    style={{
+                        marginBottom: 10,
+                        height: 30,
+                        flexDirection: "row",
+                        gap: spacing.medium_16,
+                        alignItems: "center",
+                    }}
+                >
                     {this.props.developerMode && (
-                        <span>
-                            <label>
-                                {" "}
-                                Developer JSON Mode:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.props.jsonMode}
-                                    onChange={this.toggleJsonMode}
-                                />
-                            </label>{" "}
-                        </span>
+                        <Checkbox
+                            label="Developer JSON Mode"
+                            checked={this.props.jsonMode}
+                            onChange={this.toggleJsonMode}
+                        />
                     )}
 
                     {!this.props.jsonMode && (
@@ -205,6 +210,11 @@ class EditorPage extends React.Component<Props, State> {
                     )}
 
                     {!this.props.jsonMode && (
+                        // NOTE: This component positions itself using fixed
+                        // positioning, so even though it appears here, near
+                        // the JSON Mode and Viewport Resizer elements, it
+                        // shows up in a completely different place on the page
+                        // visually.
                         <HUD
                             message="Style warnings"
                             enabled={this.state.highlightLint}
@@ -215,7 +225,7 @@ class EditorPage extends React.Component<Props, State> {
                             }}
                         />
                     )}
-                </div>
+                </View>
 
                 {this.props.developerMode && this.props.jsonMode && (
                     <div>
