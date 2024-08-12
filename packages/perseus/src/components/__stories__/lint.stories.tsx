@@ -13,6 +13,9 @@ const meta: Meta<typeof Lint> = {
         message: "Test message",
         ruleName: "Test rule",
     },
+    argTypes: {
+        children: {table: {disable: true}},
+    },
     decorators: [
         (Story) => (
             <Container>
