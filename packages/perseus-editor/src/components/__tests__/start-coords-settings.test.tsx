@@ -390,6 +390,79 @@ describe("StartCoordSettings", () => {
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
             },
         );
+
+        test("does not call onChange when the radius is not a number", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="circle"
+                    onChange={onChangeMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const input = screen.getByRole("spinbutton", {
+                name: "Radius:",
+            });
+            await userEvent.type(input, "-");
+
+            // Assert
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+
+        test("does not call onChange when the radius is empty", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="circle"
+                    onChange={onChangeMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const input = screen.getByRole("spinbutton", {
+                name: "Radius:",
+            });
+            await userEvent.clear(input);
+
+            // Assert
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+
+        test("allows the user to type a decimal radius", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="circle"
+                    onChange={onChangeMock}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const input = screen.getByRole("spinbutton", {
+                name: "Radius:",
+            });
+            await userEvent.clear(input);
+            await userEvent.type(input, "0.5");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                center: [0, 0],
+                radius: 0.5,
+            });
+        });
     });
 
     describe("sinusoid graph", () => {
