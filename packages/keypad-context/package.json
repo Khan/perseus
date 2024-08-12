@@ -24,8 +24,14 @@
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
-    "dependencies": {},
-    "devDependencies": {},
-    "peerDependencies": {},
+    "dependencies": {
+        "@khanacademy/perseus-core": "1.5.0"
+    },
+    "devDependencies": {
+        "react": ">= 18"
+    },
+    "peerDependencies": {
+        "react": ">= 18"
+    },
     "keywords": []
 }
