@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Lint from "../lint";
+import Lint, {Severity} from "../lint";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
@@ -15,6 +15,18 @@ const meta: Meta<typeof Lint> = {
     },
     argTypes: {
         children: {table: {disable: true}},
+        severity: {
+            options: [1, 2, 3, 4],
+            control: {
+                type: "select",
+                labels: {
+                    1: "Error",
+                    2: "Warning",
+                    3: "Recommendation",
+                    4: "Offline Reporting Only",
+                },
+            },
+        },
     },
     decorators: [
         (Story) => (
@@ -45,10 +57,14 @@ const Container = ({children}: {children: React.ReactNode}) => {
 };
 
 export const DefaultLintContainerAndMessage: Story = {};
-export const LintSeverity1Error: Story = {args: {severity: 1}};
-export const LintSeverity2Error: Story = {args: {severity: 2}};
-export const LintSeverity3Error: Story = {args: {severity: 3}};
-export const LintSeverity4Error: Story = {args: {severity: 4}};
+export const SeverityError: Story = {args: {severity: Severity.Error}};
+export const SeverityWarning: Story = {args: {severity: Severity.Warning}};
+export const SeverityRecommendation: Story = {
+    args: {severity: Severity.Recommendation},
+};
+export const SeverityOfflineReportingOnly: Story = {
+    args: {severity: Severity.OfflineReportingOnly},
+};
 
 export const InlineLintContainerAndMessage: Story = {
     args: {inline: true},

@@ -12,7 +12,7 @@ const exclamationIcon = {
     width: 12,
 } as const;
 
-enum Severity {
+export enum Severity {
     Error = 1,
     Warning = 2,
     Recommendation = 3,
