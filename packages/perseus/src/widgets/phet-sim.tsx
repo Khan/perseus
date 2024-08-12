@@ -83,6 +83,13 @@ class PhetSim extends React.Component<Props, State> {
         const sandboxProperties = "allow-same-origin allow-scripts";
         return (
             <View>
+                {this.state.errMessage && (
+                    <Banner
+                        kind="warning"
+                        layout="floating"
+                        text={this.state.errMessage}
+                    />
+                )}
                 <View
                     style={{
                         position: "relative",
@@ -91,16 +98,6 @@ class PhetSim extends React.Component<Props, State> {
                         height: 0,
                     }}
                 >
-                    {this.state.errMessage && (
-                        <Banner
-                            kind="warning"
-                            layout="floating"
-                            text={this.state.errMessage}
-                            onDismiss={() => {
-                                this.setState({errMessage: null});
-                            }}
-                        />
-                    )}
                     <iframe
                         ref={this.iframeRef}
                         title={this.props.description}
@@ -114,7 +111,7 @@ class PhetSim extends React.Component<Props, State> {
                         srcDoc={
                             this.state.url
                                 ? undefined
-                                : "Could not load simulation."
+                                : "Sorry, this simulation cannot load."
                         }
                         allow="fullscreen"
                     />
@@ -124,6 +121,7 @@ class PhetSim extends React.Component<Props, State> {
                     onClick={() => {
                         this.iframeRef.current?.requestFullscreen();
                     }}
+                    kind={"secondary"}
                     aria-label={"Fullscreen"}
                     style={{
                         marginTop: 5,
@@ -145,6 +143,10 @@ class PhetSim extends React.Component<Props, State> {
         return PhetSim.validate(this.getUserInput(), rubric);
     };
 
+    // kaLocales and PhET locales use different formats and abbreviations.
+    // PhET accepts different formats, i.e. kaLocale's hyphens, but it does not accept
+    // different abbreviations, so in points of divergence of abbreviations, we need to
+    // convert kaLocale abbreviations into abbreviations recognized by PhET.
     getPhetCompatibleLocale: (arg1: string) => string = (kaLocale) => {
         switch (kaLocale) {
             case "pt-pt":
