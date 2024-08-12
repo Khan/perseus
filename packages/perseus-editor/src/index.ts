@@ -9,7 +9,7 @@ export {default as StructuredItemDiff} from "./diffs/structured-item-diff";
 export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
 export {default as i18n} from "./i18n";
-export {default as IframeContentRenderer} from "./iframe-content-renderer";
+export {default as IframeContentRenderer} from "./preview/iframe-content-renderer";
 export {default as MultiRendererEditor} from "./multirenderer-editor";
 export {default as StatefulEditorPage} from "./stateful-editor-page";
 

@@ -10,7 +10,7 @@ import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
+import IframeContentRenderer from "./preview/iframe-content-renderer";
 
 import type {
     APIOptions,

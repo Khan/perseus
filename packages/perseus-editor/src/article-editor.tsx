@@ -13,7 +13,7 @@ import DeviceFramer from "./components/device-framer";
 import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
+import IframeContentRenderer from "./preview/iframe-content-renderer";
 
 import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
 
