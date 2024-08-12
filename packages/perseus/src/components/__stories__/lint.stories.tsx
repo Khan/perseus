@@ -8,7 +8,7 @@ const meta: Meta<typeof Lint> = {
     title: "Perseus/Components/Lint",
     component: Lint,
     args: {
-        children: <div>This is the sample lint child</div>,
+        children: <span>This is the sample lint child</span>,
         insideTable: false,
         message: "Test message",
         ruleName: "Test rule",
