@@ -26,12 +26,12 @@ import mathStartsWithSpaceRule from "../rules/math-starts-with-space";
 import mathTextEmptyRule from "../rules/math-text-empty";
 import mathWithoutDollarsRule from "../rules/math-without-dollars";
 import nestedListsRule from "../rules/nested-lists";
+import StaticWidgetInQuestionStem from "../rules/static-widget-in-question-stem";
 import tableMissingCellsRule from "../rules/table-missing-cells";
 import unbalancedCodeDelimitersRule from "../rules/unbalanced-code-delimiters";
 import unescapedDollarRule from "../rules/unescaped-dollar";
 import widgetInTableRule from "../rules/widget-in-table";
 import TreeTransformer from "../tree-transformer";
-import {staticWidgetInQuestionStem} from "../rules/static-widget-in-question-stem";
 
 type Rule = any;
 
@@ -535,7 +535,7 @@ describe("Individual lint rules tests", () => {
     ]);
 
     test("Rule static-widget-in-question-stem allows static widgets in hints", () => {
-        const problems = testRule(staticWidgetInQuestionStem, "[[☃ radio 1]]", {
+        const problems = testRule(StaticWidgetInQuestionStem, "[[☃ radio 1]]", {
             contentType: "exercise",
             stack: ["hint"],
             widgets: {
@@ -551,7 +551,7 @@ describe("Individual lint rules tests", () => {
     });
 
     test("Rule static-widget-in-question-stem allows static widgets in articles", () => {
-        const problems = testRule(staticWidgetInQuestionStem, "[[☃ radio 1]]", {
+        const problems = testRule(StaticWidgetInQuestionStem, "[[☃ radio 1]]", {
             contentType: "article",
             stack: [],
             widgets: {
@@ -567,7 +567,7 @@ describe("Individual lint rules tests", () => {
     });
 
     test("Rule static-widget-in-question-stem allows non-static widgets in question stems", () => {
-        const problems = testRule(staticWidgetInQuestionStem, "[[☃ radio 1]]", {
+        const problems = testRule(StaticWidgetInQuestionStem, "[[☃ radio 1]]", {
             contentType: "exercise",
             stack: [],
             widgets: {
@@ -583,7 +583,7 @@ describe("Individual lint rules tests", () => {
     });
 
     test("Rule static-widget-in-question-stem tolerates widget with no definition", () => {
-        const problems = testRule(staticWidgetInQuestionStem, "[[☃ radio 1]]", {
+        const problems = testRule(StaticWidgetInQuestionStem, "[[☃ radio 1]]", {
             contentType: "exercise",
             stack: [],
             widgets: {},
@@ -593,7 +593,7 @@ describe("Individual lint rules tests", () => {
     });
 
     test("Rule static-widget-in-question-stem allows warns about static widgets in question stems", () => {
-        const problems = testRule(staticWidgetInQuestionStem, "[[☃ radio 1]]", {
+        const problems = testRule(StaticWidgetInQuestionStem, "[[☃ radio 1]]", {
             contentType: "exercise",
             stack: [],
             widgets: {

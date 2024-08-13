@@ -30,6 +30,7 @@ import MathStartsWithSpace from "./math-starts-with-space";
 import MathTextEmpty from "./math-text-empty";
 import MathWithoutDollars from "./math-without-dollars";
 import NestedLists from "./nested-lists";
+import StaticWidgetInQuestionStem from "./static-widget-in-question-stem"
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
@@ -59,6 +60,7 @@ export default [
     MathStartsWithSpace,
     MathTextEmpty,
     NestedLists,
+    StaticWidgetInQuestionStem,
     TableMissingCells,
     UnescapedDollar,
     WidgetInTable,

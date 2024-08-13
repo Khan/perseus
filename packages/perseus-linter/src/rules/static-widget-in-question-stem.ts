@@ -1,6 +1,6 @@
 import {Rule} from "@khanacademy/perseus-linter";
 
-export const staticWidgetInQuestionStem = Rule.makeRule({
+export default Rule.makeRule({
     name: "static-widget-in-question-stem",
     severity: Rule.Severity.WARNING,
     selector: "widget",
