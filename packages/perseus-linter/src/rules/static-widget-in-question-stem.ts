@@ -19,7 +19,7 @@ export default Rule.makeRule({
         }
 
         if (widget.static) {
-            return `Widget in question stem is static (non-interactive).`
+            return `Widget in question stem is static (non-interactive).`;
         }
-    }
-})
+    },
+});
