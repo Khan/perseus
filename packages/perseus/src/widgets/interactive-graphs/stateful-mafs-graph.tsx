@@ -129,6 +129,8 @@ export const StatefulMafsGraph = React.forwardRef<
         graph.startCoords,
     ]);
 
+    // If the graph is static, it always displays the correct answer. This is
+    // standard behavior for Perseus widgets (e.g. compare the Radio widget).
     if (props.static) {
         return (
             <MafsGraph
