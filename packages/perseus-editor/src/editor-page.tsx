@@ -1,14 +1,16 @@
 import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import warning from "@phosphor-icons/core/bold/warning-circle-bold.svg";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import JsonEditor from "./components/json-editor";
-import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 
@@ -193,21 +195,53 @@ class EditorPage extends React.Component<Props, State> {
                         alignItems: "center",
                     }}
                 >
-                    {this.props.developerMode && (
-                        <Checkbox
-                            style={{width: 360, marginRight: 30}}
-                            label="Developer JSON Mode"
-                            checked={this.props.jsonMode}
-                            onChange={this.toggleJsonMode}
-                        />
-                    )}
+                    <View
+                        style={{
+                            width: 360,
+                            minWidth: 360,
+                            maxWidth: 360,
+                            marginRight: 30,
+                        }}
+                    >
+                        {" "}
+                        {this.props.developerMode && (
+                            <Checkbox
+                                label="Developer JSON Mode"
+                                checked={this.props.jsonMode}
+                                onChange={this.toggleJsonMode}
+                            />
+                        )}
+                    </View>
 
                     {!this.props.jsonMode && (
                         <View style={{paddingLeft: 15}}>
                             <LabelSmall>
-                                <em>Note:</em> Please ensure this exercise looks
-                                correct on a phone and tablet by using the
-                                "Preview" tab.
+                                <em>Note:</em> Don't forget to check how this
+                                exercise looks on a phone and tablet by using
+                                the "Preview" tab.{" "}
+                                <Tooltip
+                                    title="Preview"
+                                    content={
+                                        <View
+                                            style={{padding: spacing.xSmall_8}}
+                                        >
+                                            <LabelSmall>
+                                                This preview is designed to give
+                                                you fast feedback when editing
+                                                the exercise. To be sure it
+                                                looks correct on all devices a
+                                                Khan Academy learner may view it
+                                                on, please use the "Preview"
+                                                tab.
+                                            </LabelSmall>
+                                        </View>
+                                    }
+                                >
+                                    <PhosphorIcon
+                                        icon={warning}
+                                        style={{color: color.activeRed}}
+                                    />
+                                </Tooltip>
                             </LabelSmall>
                         </View>
                     )}

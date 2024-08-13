@@ -18,13 +18,14 @@ type Props = {
     apiOptions?: APIOptions;
     question?: PerseusRenderer;
     hints?: ReadonlyArray<Hint>;
+    developerMode?: boolean;
 };
 
 const onChangeAction = action("onChange");
 
 function EditorPageWithStorybookPreview(props: Props) {
     const [previewDevice, setPreviewDevice] =
-        React.useState<DeviceType>("phone");
+        React.useState<DeviceType>("desktop");
     const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
     const [answerArea, setAnswerArea] = React.useState<
         PerseusAnswerArea | undefined | null
@@ -49,7 +50,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                 onPreviewDeviceChange={(newDevice) =>
                     setPreviewDevice(newDevice)
                 }
-                developerMode={true}
+                developerMode={props.developerMode}
                 jsonMode={jsonMode}
                 answerArea={answerArea}
                 question={question}

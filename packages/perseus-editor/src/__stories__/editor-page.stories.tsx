@@ -4,12 +4,17 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
 
+import type {Meta, StoryObj} from "@storybook/react";
+
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
-export default {
+const meta: Meta = {
     title: "PerseusEditor/EditorPage",
+    component: EditorPageWithStorybookPreview,
+    args: {developerMode: false},
 };
+export default meta;
 
-export const Demo = (): React.ReactElement => {
-    return <EditorPageWithStorybookPreview />;
-};
+type Story = StoryObj<typeof EditorPageWithStorybookPreview>;
+
+export const Demo: Story = {};
