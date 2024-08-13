@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 20.1.2
+
+### Patch Changes
+
+-   [#1497](https://github.com/Khan/perseus/pull/1497) [`5b6b97641`](https://github.com/Khan/perseus/commit/5b6b976416f885c08bda2ead5948fcdbe94dc380) Thanks [@handeyeco](https://github.com/handeyeco)! - Switch trig keys from SVG to text
+
+*   [#1490](https://github.com/Khan/perseus/pull/1490) [`c2464eef8`](https://github.com/Khan/perseus/commit/c2464eef807b0b1c2696e553300026462262544d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Explicitly export bundled css in package.json
+
+-   [#1501](https://github.com/Khan/perseus/pull/1501) [`3f18a2211`](https://github.com/Khan/perseus/commit/3f18a22118ad9b952009a78c30bb1c8242e81d9c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - updates math input to fix color contrast issues
+
 ## 20.1.1
 
 ### Patch Changes
