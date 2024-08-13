@@ -6,7 +6,7 @@ export const question1: PerseusRenderer = {
     images: {},
     widgets: {
         "phet-sim 1": {
-            graded: true,
+            graded: false,
             version: {major: 0, minor: 0},
             static: false,
             type: "phet-sim",
