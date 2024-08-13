@@ -20,6 +20,8 @@ import {
     segmentWithLockedEllipses,
     segmentWithLockedVectors,
     segmentWithLockedPolygons,
+    staticGraphQuestion,
+    staticGraphQuestionWithAnotherWidget,
 } from "../__testdata__/interactive-graph.testdata";
 
 import type {APIOptions} from "@khanacademy/perseus";
@@ -158,6 +160,22 @@ export const Sinusoid = (args: StoryArgs): React.ReactElement => (
 
 export const AngleWithMafs = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI apiOptions={enableMafs} question={angleQuestion} />
+);
+
+export const StaticGraph = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={enableMafs}
+        question={staticGraphQuestion}
+    />
+);
+
+export const StaticGraphWithAnotherWidget = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={enableMafs}
+        question={staticGraphQuestionWithAnotherWidget()}
+    />
 );
 
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that
