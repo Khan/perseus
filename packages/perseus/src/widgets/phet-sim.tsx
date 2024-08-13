@@ -206,4 +206,5 @@ export default {
     widget: PhetSim,
     // Let's not expose it to all content creators yet
     hidden: true,
+    isLintable: true,
 } as WidgetExports<typeof PhetSim>;

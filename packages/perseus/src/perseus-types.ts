@@ -290,6 +290,7 @@ export type PerseusWidget =
     | OrdererWidget
     | PassageRefWidget
     | PassageWidget
+    | PhetSimWidget
     | PlotterWidget
     | PythonProgramWidget
     | RadioWidget
