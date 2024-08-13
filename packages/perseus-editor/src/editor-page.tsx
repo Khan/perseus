@@ -1,9 +1,16 @@
 import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import warning from "@phosphor-icons/core/bold/warning-circle-bold.svg";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import JsonEditor from "./components/json-editor";
-import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 
@@ -62,7 +69,6 @@ type State = {
 };
 
 class EditorPage extends React.Component<Props, State> {
-    _isMounted: boolean;
     renderer: any;
 
     itemEditor = React.createRef<ItemEditor>();
@@ -94,33 +100,6 @@ class EditorPage extends React.Component<Props, State> {
             wasAnswered: false,
             highlightLint: true,
         };
-
-        this._isMounted = false;
-    }
-
-    componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
-        // this.isMounted() but is still considered an anti-pattern.
-        this._isMounted = true;
-
-        this.updateRenderer();
-    }
-
-    componentDidUpdate() {
-        // NOTE: It is required to delay the preview update until after the
-        // current frame, to allow for ItemEditor to render its widgets.
-        // This then enables to serialize the widgets properties correctly,
-        // in order to send data to the preview iframe (IframeContentRenderer).
-        // Otherwise, widgets will render in an "empty" state in the preview.
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
-        setTimeout(() => {
-            this.updateRenderer();
-        });
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
     }
 
     toggleJsonMode: () => void = () => {
@@ -136,50 +115,6 @@ class EditorPage extends React.Component<Props, State> {
         );
     };
 
-    updateRenderer() {
-        // Some widgets (namely the image widget) like to call onChange before
-        // anything has actually been mounted, which causes problems here. We
-        // just ensure don't update until we've mounted
-        const hasEditor = !this.props.developerMode || !this.props.jsonMode;
-        if (!this._isMounted || !hasEditor) {
-            return;
-        }
-
-        const touch =
-            this.props.previewDevice === "phone" ||
-            this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
-
-        this.itemEditor.current?.triggerPreviewUpdate({
-            type: "question",
-            data: _({
-                item: this.serialize(),
-                apiOptions: deviceBasedApiOptions,
-                initialHintsVisible: 0,
-                device: this.props.previewDevice,
-                linterContext: {
-                    contentType: "exercise",
-                    highlightLint: this.state.highlightLint,
-                    // TODO(CP-4838): is it okay to use [] as a default?
-                    paths: this.props.contentPaths || [],
-                },
-                reviewMode: true,
-                legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
-            }).extend(
-                _(this.props).pick(
-                    "workAreaSelector",
-                    "solutionAreaSelector",
-                    "hintsAreaSelector",
-                    "problemNum",
-                ),
-            ),
-        });
-    }
-
     getApiOptions(): APIOptionsWithDefaults {
         return {
             ...ApiOptions.defaults,
@@ -187,19 +122,29 @@ class EditorPage extends React.Component<Props, State> {
         };
     }
 
-    getSaveWarnings(): any {
-        const issues1 = this.itemEditor.current?.getSaveWarnings();
-        const issues2 = this.hintsEditor.current?.getSaveWarnings();
+    getSaveWarnings(): ReadonlyArray<string> {
+        const issues1 = this.itemEditor.current?.getSaveWarnings() ?? [];
+        const issues2 = this.hintsEditor.current?.getSaveWarnings() ?? [];
         return issues1.concat(issues2);
     }
 
-    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
+    serialize(options?: {keepDeletedWidgets?: boolean}): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        return _.extend(this.itemEditor.current?.serialize(options), {
+        invariant(this.itemEditor.current != null);
+        invariant(this.hintsEditor.current != null);
+        return {
+            ...this.itemEditor.current?.serialize(options),
             hints: this.hintsEditor.current?.serialize(options),
-        });
+
+            // Note(jeremy): These two are to satisfy the fact that our
+            // PerseusItem type really should be a union between a multi item
+            // and a standard perseus item (also that the `answer` field, which
+            // is deprecated, is required).
+            _multi: undefined,
+            answer: undefined,
+        };
     }
 
     handleChange: ChangeHandler = (toChange, cb, silent) => {
@@ -224,48 +169,78 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        let className = "framework-perseus";
+        const className = "framework-perseus";
 
-        const touch =
-            this.props.previewDevice === "phone" ||
-            this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
-
-        if (deviceBasedApiOptions.isMobile) {
-            className += " " + ClassNames.MOBILE;
-        }
+        const apiOptions = this.getApiOptions();
 
         return (
             <div id="perseus" className={className}>
-                <div style={{marginBottom: 10}}>
-                    {this.props.developerMode && (
-                        <span>
-                            <label>
-                                {" "}
-                                Developer JSON Mode:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.props.jsonMode}
-                                    onChange={this.toggleJsonMode}
-                                />
-                            </label>{" "}
-                        </span>
+                <View
+                    style={{
+                        marginBottom: 10,
+                        height: 30,
+                        flexDirection: "row",
+                        gap: spacing.medium_16,
+                        alignItems: "center",
+                    }}
+                >
+                    <View
+                        style={{
+                            width: 360,
+                            minWidth: 360,
+                            maxWidth: 360,
+                            marginRight: 30,
+                        }}
+                    >
+                        {" "}
+                        {this.props.developerMode && (
+                            <Checkbox
+                                label="Developer JSON Mode"
+                                checked={this.props.jsonMode}
+                                onChange={this.toggleJsonMode}
+                            />
+                        )}
+                    </View>
+
+                    {!this.props.jsonMode && (
+                        <View style={{paddingLeft: 15}}>
+                            <LabelSmall>
+                                <em>Note:</em> Don't forget to check how this
+                                exercise looks on a phone and tablet by using
+                                the "Preview" tab.{" "}
+                                <Tooltip
+                                    title="Preview"
+                                    content={
+                                        <View
+                                            style={{padding: spacing.xSmall_8}}
+                                        >
+                                            <LabelSmall>
+                                                This preview is designed to give
+                                                you fast feedback when editing
+                                                the exercise. To be sure it
+                                                looks correct on all devices a
+                                                Khan Academy learner may view it
+                                                on, please use the "Preview"
+                                                tab.
+                                            </LabelSmall>
+                                        </View>
+                                    }
+                                >
+                                    <PhosphorIcon
+                                        icon={warning}
+                                        style={{color: color.activeRed}}
+                                    />
+                                </Tooltip>
+                            </LabelSmall>
+                        </View>
                     )}
 
                     {!this.props.jsonMode && (
-                        <ViewportResizer
-                            deviceType={this.props.previewDevice}
-                            onViewportSizeChanged={
-                                this.props.onPreviewDeviceChange
-                            }
-                        />
-                    )}
-
-                    {!this.props.jsonMode && (
+                        // NOTE: This component positions itself using fixed
+                        // positioning, so even though it appears here, near
+                        // the JSON Mode and Viewport Resizer elements, it
+                        // shows up in a completely different place on the page
+                        // visually.
                         <HUD
                             message="Style warnings"
                             enabled={this.state.highlightLint}
@@ -276,7 +251,7 @@ class EditorPage extends React.Component<Props, State> {
                             }}
                         />
                     )}
-                </div>
+                </View>
 
                 {this.props.developerMode && this.props.jsonMode && (
                     <div>
@@ -298,8 +273,7 @@ class EditorPage extends React.Component<Props, State> {
                         onChange={this.handleChange}
                         wasAnswered={this.state.wasAnswered}
                         gradeMessage={this.state.gradeMessage}
-                        deviceType={this.props.previewDevice}
-                        apiOptions={deviceBasedApiOptions}
+                        apiOptions={apiOptions}
                         previewURL={this.props.previewURL}
                     />
                 )}
@@ -312,7 +286,7 @@ class EditorPage extends React.Component<Props, State> {
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleChange}
                         deviceType={this.props.previewDevice}
-                        apiOptions={deviceBasedApiOptions}
+                        apiOptions={apiOptions}
                         previewURL={this.props.previewURL}
                         highlightLint={this.state.highlightLint}
                     />

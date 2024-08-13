@@ -4,14 +4,13 @@ import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
+import ContentRenderer from "./preview/content-renderer";
 
 import type {
     APIOptions,
     ImageUploader,
     ChangeHandler,
-    DeviceType,
     PerseusRenderer,
 } from "@khanacademy/perseus";
 
@@ -19,7 +18,6 @@ const ITEM_DATA_VERSION = itemDataVersion;
 
 type Props = {
     apiOptions?: APIOptions;
-    deviceType?: DeviceType;
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
@@ -44,7 +42,6 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
 
-    frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
@@ -53,10 +50,6 @@ class ItemEditor extends React.Component<Props> {
         const props = _(this.props).pick("question", "answerArea");
 
         this.props.onChange(_(props).extend(newProps), cb, silent);
-    };
-
-    triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
-        this.frame.current?.sendNewData(newData);
     };
 
     handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
@@ -69,8 +62,8 @@ class ItemEditor extends React.Component<Props> {
         this.updateProps({answerArea}, cb, silent);
     };
 
-    getSaveWarnings: () => any = () => {
-        return this.questionEditor.current?.getSaveWarnings();
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
+        return this.questionEditor.current?.getSaveWarnings() ?? [];
     };
 
     serialize: (options?: any) => {
@@ -89,9 +82,6 @@ class ItemEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const isMobile =
-            this.props.deviceType === "phone" ||
-            this.props.deviceType === "tablet";
         return (
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
@@ -115,26 +105,18 @@ class ItemEditor extends React.Component<Props> {
                     </div>
 
                     <div className="perseus-editor-right-cell">
-                        <div id="problemarea">
-                            <DeviceFramer
-                                deviceType={this.props.deviceType}
-                                nochrome={true}
-                            >
-                                <IframeContentRenderer
-                                    ref={this.frame}
-                                    key={this.props.deviceType}
-                                    datasetKey="mobile"
-                                    datasetValue={isMobile}
-                                    seamless={true}
-                                    url={this.props.previewURL}
-                                />
-                            </DeviceFramer>
-                            <div
-                                id="hintsarea"
-                                className="hintsarea"
-                                style={{display: "none"}}
+                        <DeviceFramer deviceType={"desktop"} nochrome={true}>
+                            <ContentRenderer
+                                apiOptions={this.props.apiOptions}
+                                question={this.props.question}
+                                linterContext={{
+                                    contentType: "exercise",
+                                    highlightLint: true,
+                                    paths: [],
+                                    stack: [],
+                                }}
                             />
-                        </div>
+                        </DeviceFramer>
                     </div>
                 </div>
 

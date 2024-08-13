@@ -3,6 +3,7 @@
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import Editor from "../editor";
@@ -69,7 +70,8 @@ class GroupEditor extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    getSaveWarnings: () => ReadonlyArray<any> = () => {
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
+        invariant(this.editor.current != null);
         return this.editor.current?.getSaveWarnings();
     };
 

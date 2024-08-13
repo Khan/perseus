@@ -177,7 +177,9 @@ export const WithSaveWarnings = (): React.ReactElement => {
         segmentWithLockedFigures,
     );
     const [hints, setHints] = React.useState<ReadonlyArray<Hint> | undefined>();
-    const [saveWarnings, setSaveWarnings] = React.useState<string[]>([]);
+    const [saveWarnings, setSaveWarnings] = React.useState<readonly string[]>(
+        [],
+    );
 
     const editorPageRef = React.useRef<EditorPage>(null);
 
