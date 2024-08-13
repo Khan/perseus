@@ -169,20 +169,9 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        let className = "framework-perseus";
+        const className = "framework-perseus";
 
-        const touch =
-            this.props.previewDevice === "phone" ||
-            this.props.previewDevice === "tablet";
-        const deviceBasedApiOptions: APIOptionsWithDefaults = {
-            ...this.getApiOptions(),
-            customKeypad: touch,
-            isMobile: touch,
-        };
-
-        if (deviceBasedApiOptions.isMobile) {
-            className += " " + ClassNames.MOBILE;
-        }
+        const apiOptions = this.getApiOptions();
 
         return (
             <div id="perseus" className={className}>
@@ -284,7 +273,7 @@ class EditorPage extends React.Component<Props, State> {
                         onChange={this.handleChange}
                         wasAnswered={this.state.wasAnswered}
                         gradeMessage={this.state.gradeMessage}
-                        apiOptions={deviceBasedApiOptions}
+                        apiOptions={apiOptions}
                         previewURL={this.props.previewURL}
                     />
                 )}
@@ -297,7 +286,7 @@ class EditorPage extends React.Component<Props, State> {
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleChange}
                         deviceType={this.props.previewDevice}
-                        apiOptions={deviceBasedApiOptions}
+                        apiOptions={apiOptions}
                         previewURL={this.props.previewURL}
                         highlightLint={this.state.highlightLint}
                     />
