@@ -655,9 +655,7 @@ class Renderer extends React.Component<Props, State> {
             ...widgetProps,
             widgetId: id,
             alignment: widgetInfo && widgetInfo.alignment,
-            // When determining if a widget is static, we verify that the widget is not an
-            // exercise question by verifying that it has no problem number.
-            static: widgetInfo && widgetInfo.static && !this.props.problemNum,
+            static: widgetInfo?.static,
             problemNum: this.props.problemNum,
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,
