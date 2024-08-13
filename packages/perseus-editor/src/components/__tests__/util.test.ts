@@ -5,6 +5,7 @@ import {
     getDefaultGraphStartCoords,
     getSinusoidEquation,
     getQuadraticEquation,
+    getAngleEquation,
 } from "../util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
@@ -436,4 +437,33 @@ describe("getQuadraticEquation", () => {
 
         expect(equation).toBe("Division by zero error");
     });
+});
+
+describe("getAngleEquation", () => {
+    test.each`
+        point1      | vertex    | point2                                     | expected
+        ${[7, 0]}   | ${[0, 0]} | ${[6.5778483455013586, 2.394141003279681]} | ${"20° angle at (0, 0)"}
+        ${[5, 1]}   | ${[1, 1]} | ${[1, 5]}                                  | ${"90° angle at (1, 1)"}
+        ${[2, 1]}   | ${[1, 1]} | ${[2, 1]}                                  | ${"0° angle at (1, 1)"}
+        ${[2, 1]}   | ${[2, 1]} | ${[2, 1]}                                  | ${"0° angle at (2, 1)"}
+        ${[5, 0]}   | ${[0, 0]} | ${[0, 5]}                                  | ${"90° angle at (0, 0)"}
+        ${[5, 0]}   | ${[0, 0]} | ${[-5, 5]}                                 | ${"135° angle at (0, 0)"}
+        ${[5, 0]}   | ${[0, 0]} | ${[-5, -5]}                                | ${"225° angle at (0, 0)"}
+        ${[5, 0]}   | ${[0, 0]} | ${[5, -5]}                                 | ${"315° angle at (0, 0)"}
+        ${[0, 5]}   | ${[0, 0]} | ${[5, 0]}                                  | ${"-90° angle at (0, 0)"}
+        ${[-5, 5]}  | ${[0, 0]} | ${[5, 0]}                                  | ${"-135° angle at (0, 0)"}
+        ${[-5, -5]} | ${[0, 0]} | ${[5, 0]}                                  | ${"-225° angle at (0, 0)"}
+        ${[5, -5]}  | ${[0, 0]} | ${[5, 0]}                                  | ${"-315° angle at (0, 0)"}
+    `(
+        "should return the correct equation",
+        ({point1, vertex, point2, expected}) => {
+            // Arrange
+
+            // Act
+            const equation = getAngleEquation([point1, vertex, point2]);
+
+            // Assert
+            expect(equation).toBe(expected);
+        },
+    );
 });
