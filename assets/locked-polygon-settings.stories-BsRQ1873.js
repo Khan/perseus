@@ -1,0 +1,26 @@
+import{j as d}from"./jsx-runtime-5BUNAZ9W.js";import{r as a}from"./index-4g5l5LRQ.js";import{L as e}from"./locked-polygon-settings-Sg8bCgHH.js";import{g as E}from"./util-hN9xoird.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./article-renderer-XQqtpGxG.js";import"./util-KY8kJaBW.js";import"./version-akiLXZts.js";import"./jquery-yG1GhClm.js";import"./prop-types-m2woFJUg.js";import"./index-lUErx3pE.js";import"./index-J2t_5nK1.js";import"./index-awljIyHI.js";import"./index-jmm5gWkb.js";import"./mobile-keypad-cY_XnmKN.js";import"./index-FsYHUvK_.js";import"./index-e4P84RkC.js";import"./tabbar-bBu8F0LR.js";import"./item-m8Nh1pVx.js";import"./index-Cz55-Vre.js";import"./index-tvtfaFq4.js";import"./button-assets-Z9EPvaqZ.js";import"./keypad-button--EiKtrcz.js";import"./operators-page-6_sBHI_n.js";import"./navigation-pad-Mri7Skbs.js";import"./key-translator-TewQj1fb.js";import"./_commonjs-dynamic-modules-h-SxKiO4.js";import"./enums-x5qaTru7.js";import"./renderer--YvrISPx.js";import"./index-dnMhQZ-1.js";import"./asset-context-4nzQV6k0.js";import"./svg-image-UfCByHtE.js";import"./index-zXbQRqKp.js";import"./dependencies-9B_Bv_mA.js";import"./fixed-to-responsive-Q2lYGnje.js";import"./constants-I_nlPaPx.js";import"./client-MU6fCXSs.js";import"./inline-icon-QIU9thzn.js";import"./icon-paths-AuJwhOz7.js";import"./image-loader-s-naDkf8.js";import"./tex-Co-L2gRx.js";import"./zoomable-fMxvjK02.js";import"./zoomable-tex-ZKYDI9ak.js";import"./perseus-api-GqFoxb6z.js";import"./stub-tag-editor--1JgemZ6.js";import"./text-list-editor--7RKQsFY.js";import"./lint-IvfTv29b.js";import"./index-8nUh1h5D.js";import"./index-zE8cp1oq.js";import"./index-hihFCi2M.js";import"./index-skotlSua.js";import"./index-KZ9xT8RQ.js";import"./x-6ZxseNgc.js";import"./index-wjVcXLkf.js";import"./Popper-D86xJ3go.js";import"./i18n-context-SHL040F7.js";import"./strings-U4LenZoO.js";import"./math-input-2kaZn-qQ.js";import"./index-GPnNv0mI.js";import"./input-with-examples-YcY2eiEb.js";import"./text-input-wkUsDgzz.js";import"./index-YQYcT5qz.js";import"./minus-bold-ONmDo3Ve.js";import"./tooltip-vkx2pUmk.js";import"./simple-keypad-input-foIzcx54.js";import"./base-radio-5XRdCvsI.js";import"./media-queries-MaBBbpNq.js";import"./shared-3pf9YZIg.js";import"./choice-oTvvoS3K.js";import"./icon-TA3bBVIW.js";import"./choice-icon-Fa6RfAAR.js";import"./focus-ring-dCiEd0Hc.js";import"./option-status-_NngQfjZ.js";import"./choice-none-above-yIix363P.js";import"./video-transcript-link-jDAvsjOz.js";import"./answer-choices-0-_aNKv2.js";import"./button-group-KR3umc1e.js";import"./graph-VKYZ1zR1.js";import"./tiny-invariant-bHgPayXn.js";import"./bundle.esm-ylPat90q.js";import"./hud-CJYktPgf.js";import"./multi-button-group-AxfQn4Cq.js";import"./number-input-_vmR2dDD.js";import"./range-input-W6BaCFKq.js";import"./marker-yWiVXV5h.js";import"./answer-pill-HSRk2o80.js";import"./sortable-GnlwTp2T.js";import"./multi-renderer-z9XqDT5K.js";import"./hints-renderer-P4pEkX64.js";import"./coordinate-pair-input-QWaIoUlf.js";import"./scrollless-number-text-field-GDkKIt-C.js";import"./locked-figure-settings-actions-Rm8weWKT.js";import"./color-select-2kjFnDFE.js";import"./color-swatch-c_3ZswVC.js";import"./labeled-switch-9-1_7j-5.js";import"./line-stroke-select-7qE7tDz-.js";const lr={title:"PerseusEditor/Components/Locked Polygon Settings",component:e},o=n=>d(e,{...n}),c={...E("polygon"),onChangeProps:()=>{},onMove:()=>{},onRemove:()=>{}};o.args=c;const r={render:function(){const[t,i]=a.useState(c);return d(e,{...t,onChangeProps:s=>{i({...t,...s})}})}};r.parameters={chromatic:{disableSnapshot:!0}};const p={render:function(){const[t,i]=a.useState(!0),[m,s]=a.useState(c);return d(e,{...m,expanded:t,onToggle:i,onChangeProps:y=>{s({...m,...y})}})}};o.__docgenInfo={description:"",methods:[],displayName:"Default"};var u,l,P;o.parameters={...o.parameters,docs:{...(u=o.parameters)==null?void 0:u.docs,source:{originalSource:`(args): React.ReactElement => {
+  return <LockedPolygonSettings {...args} />;
+}`,...(P=(l=o.parameters)==null?void 0:l.docs)==null?void 0:P.source}}};var g,f,h;r.parameters={...r.parameters,docs:{...(g=r.parameters)==null?void 0:g.docs,source:{originalSource:`{
+  render: function Render() {
+    const [props, setProps] = React.useState(defaultProps);
+    const handlePropsUpdate = newProps => {
+      setProps({
+        ...props,
+        ...newProps
+      });
+    };
+    return <LockedPolygonSettings {...props} onChangeProps={handlePropsUpdate} />;
+  }
+}`,...(h=(f=r.parameters)==null?void 0:f.docs)==null?void 0:h.source}}};var S,x,R;p.parameters={...p.parameters,docs:{...(S=p.parameters)==null?void 0:S.docs,source:{originalSource:`{
+  render: function Render() {
+    const [expanded, setExpanded] = React.useState(true);
+    const [props, setProps] = React.useState(defaultProps);
+    const handlePropsUpdate = newProps => {
+      setProps({
+        ...props,
+        ...newProps
+      });
+    };
+    return <LockedPolygonSettings {...props} expanded={expanded} onToggle={setExpanded} onChangeProps={handlePropsUpdate} />;
+  }
+}`,...(R=(x=p.parameters)==null?void 0:x.docs)==null?void 0:R.source}}};const Pr=["Default","Controlled","Expanded"];export{r as Controlled,o as Default,p as Expanded,Pr as __namedExportsOrder,lr as default};
