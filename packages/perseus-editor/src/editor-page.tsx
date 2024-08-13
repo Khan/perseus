@@ -2,6 +2,7 @@ import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
@@ -194,6 +195,7 @@ class EditorPage extends React.Component<Props, State> {
                 >
                     {this.props.developerMode && (
                         <Checkbox
+                            style={{width: 360, marginRight: 30}}
                             label="Developer JSON Mode"
                             checked={this.props.jsonMode}
                             onChange={this.toggleJsonMode}
@@ -201,12 +203,13 @@ class EditorPage extends React.Component<Props, State> {
                     )}
 
                     {!this.props.jsonMode && (
-                        <ViewportResizer
-                            deviceType={this.props.previewDevice}
-                            onViewportSizeChanged={
-                                this.props.onPreviewDeviceChange
-                            }
-                        />
+                        <View style={{paddingLeft: 15}}>
+                            <LabelSmall>
+                                <em>Note:</em> Please ensure this exercise looks
+                                correct on a phone and tablet by using the
+                                "Preview" tab.
+                            </LabelSmall>
+                        </View>
                     )}
 
                     {!this.props.jsonMode && (
@@ -247,7 +250,6 @@ class EditorPage extends React.Component<Props, State> {
                         onChange={this.handleChange}
                         wasAnswered={this.state.wasAnswered}
                         gradeMessage={this.state.gradeMessage}
-                        deviceType={this.props.previewDevice}
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
                     />

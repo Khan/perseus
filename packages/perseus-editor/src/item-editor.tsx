@@ -11,7 +11,6 @@ import type {
     APIOptions,
     ImageUploader,
     ChangeHandler,
-    DeviceType,
     PerseusRenderer,
 } from "@khanacademy/perseus";
 
@@ -19,7 +18,6 @@ const ITEM_DATA_VERSION = itemDataVersion;
 
 type Props = {
     apiOptions?: APIOptions;
-    deviceType?: DeviceType;
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
@@ -107,28 +105,18 @@ class ItemEditor extends React.Component<Props> {
                     </div>
 
                     <div className="perseus-editor-right-cell">
-                        <div id="problemarea">
-                            <DeviceFramer
-                                deviceType={this.props.deviceType}
-                                nochrome={true}
-                            >
-                                <ContentRenderer
-                                    apiOptions={this.props.apiOptions}
-                                    question={this.props.question}
-                                    linterContext={{
-                                        contentType: "exercise",
-                                        highlightLint: true,
-                                        paths: [],
-                                        stack: [],
-                                    }}
-                                />
-                            </DeviceFramer>
-                            <div
-                                id="hintsarea"
-                                className="hintsarea"
-                                style={{display: "none"}}
+                        <DeviceFramer deviceType={"desktop"} nochrome={true}>
+                            <ContentRenderer
+                                apiOptions={this.props.apiOptions}
+                                question={this.props.question}
+                                linterContext={{
+                                    contentType: "exercise",
+                                    highlightLint: true,
+                                    paths: [],
+                                    stack: [],
+                                }}
                             />
-                        </div>
+                        </DeviceFramer>
                     </div>
                 </div>
 
