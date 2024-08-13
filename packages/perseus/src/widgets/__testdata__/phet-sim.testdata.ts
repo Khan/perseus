@@ -3,6 +3,7 @@ import type {PerseusRenderer} from "../../perseus-types";
 export const question1: PerseusRenderer = {
     content:
         "Do this fun PhET simulation! A projectile data lab!\n[[\u2603 phet-sim 1]]\n",
+    images: {},
     widgets: {
         "phet-sim 1": {
             graded: true,

@@ -11,6 +11,7 @@ import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import PropTypes from "prop-types";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
 
@@ -33,6 +34,8 @@ class PhetSim extends React.Component<Props, State> {
         description: PropTypes.string,
     };
 
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement>;
     private readonly locale: string;
 
@@ -69,8 +72,7 @@ class PhetSim extends React.Component<Props, State> {
         // Display a warning if the simulation doesn't have our locale
         if (await this.showLocaleWarning(this.locale)) {
             this.setState({
-                errMessage:
-                    "Sorry, this simulation isn't available in your language!",
+                errMessage: this.context.strings.simulationLocaleWarning,
             });
         }
     }
@@ -84,6 +86,7 @@ class PhetSim extends React.Component<Props, State> {
         return (
             <View>
                 {this.state.errMessage && (
+                    // TODO(anna): Make this banner focusable
                     <Banner
                         kind="warning"
                         layout="floating"
@@ -111,7 +114,7 @@ class PhetSim extends React.Component<Props, State> {
                         srcDoc={
                             this.state.url
                                 ? undefined
-                                : "Sorry, this simulation cannot load."
+                                : this.context.strings.simulationLocaleWarning
                         }
                         allow="fullscreen"
                     />

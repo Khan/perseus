@@ -125,6 +125,8 @@ export type PerseusStrings = {
     videoWrapper: string;
     mathInputTitle: string;
     mathInputDescription: string;
+    simulationLoadFail: string;
+    simulationLocaleWarning: string;
 };
 
 /**
@@ -291,6 +293,9 @@ export const strings: {
     mathInputTitle: "mathematics keyboard",
     mathInputDescription:
         "Use keyboard/mouse to interact with math-based input fields",
+    simulationLoadFail: "Sorry, this simulation cannot load.",
+    simulationLocaleWarning:
+        "Sorry, this simulation isn't available in your language.",
 };
 
 /**
@@ -441,4 +446,7 @@ export const mockStrings: PerseusStrings = {
     mathInputTitle: "mathematics keyboard",
     mathInputDescription:
         "Use keyboard/mouse to interact with math-based input fields",
+    simulationLoadFail: "Sorry, this simulation cannot load.",
+    simulationLocaleWarning:
+        "Sorry, this simulation isn't available in your language.",
 };
