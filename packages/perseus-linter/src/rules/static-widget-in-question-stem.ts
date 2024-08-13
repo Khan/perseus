@@ -1,4 +1,4 @@
-import {Rule} from "@khanacademy/perseus-linter";
+import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "static-widget-in-question-stem",
@@ -18,7 +18,7 @@ export default Rule.makeRule({
             return;
         }
 
-        if (widget.options.static) {
+        if (widget.static) {
             return `Widget in question stem is static (non-interactive).`
         }
     }

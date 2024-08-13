@@ -540,9 +540,7 @@ describe("Individual lint rules tests", () => {
             stack: ["hint"],
             widgets: {
                 "radio 1": {
-                    options: {
-                        static: true,
-                    },
+                    static: true,
                 },
             },
         })
@@ -556,9 +554,7 @@ describe("Individual lint rules tests", () => {
             stack: [],
             widgets: {
                 "radio 1": {
-                    options: {
-                        static: true,
-                    },
+                    static: true,
                 },
             },
         })
@@ -572,9 +568,7 @@ describe("Individual lint rules tests", () => {
             stack: [],
             widgets: {
                 "radio 1": {
-                    options: {
-                        static: false,
-                    },
+                    static: false,
                 },
             },
         })
@@ -598,9 +592,7 @@ describe("Individual lint rules tests", () => {
             stack: [],
             widgets: {
                 "radio 1": {
-                    options: {
-                        static: true,
-                    },
+                    static: true,
                 },
             },
         })
