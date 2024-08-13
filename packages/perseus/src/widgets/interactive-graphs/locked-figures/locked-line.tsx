@@ -21,6 +21,8 @@ const LockedLine = (props: Props) => {
         props;
     const [point1, point2] = points;
 
+    console.log("point1", point1);
+
     let line;
 
     if (kind === "ray") {
@@ -85,6 +87,9 @@ const LockedLine = (props: Props) => {
                 color={lockedFigureColors[color]}
             />
         );
+
+        console.log("point1", point1.coord);
+        console.log("point2", point2.coord);
 
         line = (
             <>

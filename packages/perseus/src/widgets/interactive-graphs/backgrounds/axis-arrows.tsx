@@ -10,6 +10,11 @@ export default function AxisArrows() {
 
     const axisColor = "var(--mafs-fg)";
 
+    console.log("xMin", xMin);
+    console.log("xMax", xMax);
+    console.log("yMin", yMin);
+    console.log("yMax", yMax);
+
     return (
         <>
             <Arrowhead color={axisColor} tip={[xMin, 0]} angle={180} />

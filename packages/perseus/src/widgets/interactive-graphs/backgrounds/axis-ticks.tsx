@@ -50,7 +50,8 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const xAdjustment = xPosition >= graphInfo.width ? -10 : 25;
+    console.log("xPosition", xPosition);
+    const xAdjustment = xPosition >= graphInfo.width ? -10 : 23;
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + 3;
 
@@ -89,9 +90,9 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
 
     // If the tick is on the edge of the graph's range, don't render it
-    if (xPosition === -graphInfo.width / 2 || xPosition === graphInfo.width) {
+    /* if (xPosition === -graphInfo.width / 2 || xPosition === graphInfo.width) {
         return null;
-    }
+    } */
 
     // Position of the start of the tick
     const x1 = xPosition;
@@ -103,7 +104,8 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const yAdjustment = yPosition >= graphInfo.height ? -10 : 20;
+    console.log("yPosition", yPosition);
+    const yAdjustment = yPosition >= graphInfo.height ? -10 : 23;
     const xPositionText = xPosition;
     const yPositionText = yPosition + yAdjustment;
 
@@ -160,8 +162,6 @@ export const AxisTicks = () => {
 
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
-
-    const cool = usePaneContext();
 
     return (
         <g className="axis-ticks">
