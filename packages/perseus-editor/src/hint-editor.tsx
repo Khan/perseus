@@ -232,7 +232,6 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         <ContentRenderer
                             question={this.props.hint}
                             apiOptions={{isMobile}}
-                            screen={this.props.deviceType}
                         />
                     </DeviceFramer>
                 </div>
