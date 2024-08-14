@@ -138,6 +138,7 @@ export class Graphie {
         scale?: number | Coord;
         isMobile?: boolean;
     }) {
+        // eslint-disable-next-line
         console.log("Graphie -> init -> Options: ", options);
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
