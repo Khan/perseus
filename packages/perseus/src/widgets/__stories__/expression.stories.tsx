@@ -1,4 +1,5 @@
-import {KeypadContext, KeypadType} from "@khanacademy/math-input";
+import {KeypadContext} from "@khanacademy/keypad-context";
+import {KeypadType} from "@khanacademy/math-input";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 

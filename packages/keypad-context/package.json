@@ -1,0 +1,37 @@
+{
+    "name": "@khanacademy/keypad-context",
+    "description": "Perseus keypad context",
+    "author": "Khan Academy",
+    "license": "MIT",
+    "version": "0.0.0",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/keypad-context"
+    },
+    "bugs": {
+        "url": "https://github.com/Khan/perseus/issues"
+    },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+    },
+    "dependencies": {
+        "@khanacademy/perseus-core": "1.5.0"
+    },
+    "devDependencies": {
+        "react": ">= 18"
+    },
+    "peerDependencies": {
+        "react": ">= 18"
+    },
+    "keywords": []
+}
