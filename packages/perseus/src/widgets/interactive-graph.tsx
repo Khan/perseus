@@ -1826,7 +1826,6 @@ class InteractiveGraph extends React.Component<Props, State> {
                     snapStep={snapStep}
                     box={box}
                     showTooltips={!!this.props.showTooltips}
-                    hintMode={this.props.hintMode}
                     readOnly={this.props.apiOptions?.readOnly}
                 />
             );
@@ -2685,9 +2684,12 @@ export function shouldUseMafs(
             return Boolean(mafsFlags[graph.type]);
     }
 }
+// We don't need to change any of the original props for static mode
+const staticTransform = _.identity;
 
 export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
+    staticTransform: staticTransform,
 } as WidgetExports<typeof InteractiveGraph>;

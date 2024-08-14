@@ -48,6 +48,7 @@ class InteractiveGraphQuestionBuilder {
         new SegmentGraphConfig();
     private lockedFigures: LockedFigure[] = [];
     private snapTo: "grid" | "angles" | "sides" = "grid";
+    private staticMode: boolean = false;
 
     build(): PerseusRenderer {
         return {
@@ -56,6 +57,7 @@ class InteractiveGraphQuestionBuilder {
             widgets: {
                 "interactive-graph 1": {
                     graded: true,
+                    static: this.staticMode,
                     options: {
                         correct: this.interactiveFigureConfig.correct(),
                         backgroundImage: this.backgroundImage,
@@ -81,6 +83,11 @@ class InteractiveGraphQuestionBuilder {
 
     withContent(content: string): InteractiveGraphQuestionBuilder {
         this.content = content;
+        return this;
+    }
+
+    withStaticMode(staticMode: boolean): InteractiveGraphQuestionBuilder {
+        this.staticMode = staticMode;
         return this;
     }
 
@@ -404,7 +411,7 @@ interface InteractiveFigureConfig {
 
 class SegmentGraphConfig implements InteractiveFigureConfig {
     private numSegments: number;
-    private coords: CollinearTuple[];
+    private coords?: CollinearTuple[];
     private startCoords?: CollinearTuple[];
 
     constructor(options?: {
@@ -417,12 +424,7 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
             options?.startCoords?.length ??
             options?.coords?.length ??
             1;
-        this.coords =
-            options?.coords ??
-            repeat(this.numSegments, () => [
-                [-5, 5],
-                [5, 5],
-            ]);
+        this.coords = options?.coords;
         this.startCoords = options?.startCoords;
     }
 
@@ -445,17 +447,14 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
 
 class LinearGraphConfig implements InteractiveFigureConfig {
     private startCoords?: CollinearTuple;
-    private correctCoords: CollinearTuple;
+    private correctCoords?: CollinearTuple;
 
     constructor(options?: {
         coords?: CollinearTuple;
         startCoords?: CollinearTuple;
     }) {
         this.startCoords = options?.startCoords;
-        this.correctCoords = options?.coords ?? [
-            [-5, 5],
-            [5, 5],
-        ];
+        this.correctCoords = options?.coords;
     }
 
     correct(): PerseusGraphType {
@@ -472,23 +471,14 @@ class LinearGraphConfig implements InteractiveFigureConfig {
 
 class LinearSystemGraphConfig implements InteractiveFigureConfig {
     private startCoords?: CollinearTuple[];
-    private correctCoords: CollinearTuple[];
+    private correctCoords?: CollinearTuple[];
 
     constructor(options?: {
         coords?: CollinearTuple[];
         startCoords?: CollinearTuple[];
     }) {
         this.startCoords = options?.startCoords;
-        this.correctCoords = options?.coords ?? [
-            [
-                [-5, 5],
-                [5, 5],
-            ],
-            [
-                [-5, -5],
-                [5, -5],
-            ],
-        ];
+        this.correctCoords = options?.coords;
     }
 
     correct(): PerseusGraphType {
@@ -511,10 +501,7 @@ class RayGraphConfig implements InteractiveFigureConfig {
         coords?: CollinearTuple;
         startCoords?: CollinearTuple;
     }) {
-        this.coords = options?.coords ?? [
-            [-5, 5],
-            [5, 5],
-        ];
+        this.coords = options?.coords;
         this.startCoords = options?.startCoords;
     }
 
@@ -579,11 +566,7 @@ class QuadraticGraphConfig implements InteractiveFigureConfig {
         coords?: [Coord, Coord, Coord];
         startCoords?: [Coord, Coord, Coord];
     }) {
-        this.coords = options?.coords ?? [
-            [-5, 5],
-            [0, -5],
-            [5, 5],
-        ];
+        this.coords = options?.coords;
         this.startCoords = options?.startCoords;
     }
 
@@ -607,10 +590,7 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
         coords?: [Coord, Coord];
         startCoords?: [Coord, Coord];
     }) {
-        this.coords = options?.coords ?? [
-            [0, 0],
-            [3, 2],
-        ];
+        this.coords = options?.coords;
         this.startCoords = options?.startCoords;
     }
 
@@ -632,7 +612,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     private numSides: number | "unlimited";
     private showAngles: boolean;
     private showSides: boolean;
-    private coords: Coord[];
+    private coords?: Coord[];
     private startCoords?: Coord[];
 
     constructor(
@@ -648,14 +628,14 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     ) {
         this.snapTo = snapTo ?? "grid";
         this.match = options?.match;
-        this.numSides = options?.numSides ?? 3;
+        this.numSides =
+            options?.numSides ??
+            options?.startCoords?.length ??
+            options?.coords?.length ??
+            3;
         this.showAngles = options?.showAngles ?? false;
         this.showSides = options?.showSides ?? false;
-        this.coords = options?.coords ?? [
-            [3, -2],
-            [0, 4],
-            [-3, -2],
-        ];
+        this.coords = options?.coords;
         this.startCoords = options?.startCoords;
     }
     correct(): PerseusGraphType {
@@ -734,12 +714,7 @@ class AngleGraphConfig implements InteractiveFigureConfig {
         snapDegrees?: number;
         match?: "congruent";
     }) {
-        // Default correct answer is 20 degree angle at (0, 0)
-        this.coords = options?.coords ?? [
-            [6.994907182610915, 0],
-            [0, 0],
-            [6.5778483455013586, 2.394141003279681],
-        ];
+        this.coords = options?.coords;
         this.startCoords = options?.startCoords;
         this.showAngles = options?.showAngles;
         this.allowReflexAngles = options?.allowReflexAngles;
@@ -771,8 +746,4 @@ class AngleGraphConfig implements InteractiveFigureConfig {
             match: this.match,
         };
     }
-}
-
-function repeat<T>(n: number, makeItem: () => T): T[] {
-    return new Array(n).fill(null).map(makeItem);
 }
