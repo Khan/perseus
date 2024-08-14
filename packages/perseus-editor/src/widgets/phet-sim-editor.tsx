@@ -1,9 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/sort-comp */
 import {EditorJsonify} from "@khanacademy/perseus";
-import * as React from "react";
-
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
+import * as React from "react";
 
 type Props = {
     url: string;
