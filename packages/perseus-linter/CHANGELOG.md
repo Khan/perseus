@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 1.1.0
+
+### Minor Changes
+
+-   [#1511](https://github.com/Khan/perseus/pull/1511) [`7eb7ab165`](https://github.com/Khan/perseus/commit/7eb7ab165e20af37ee10ad38c2bbef8538c79f08) Thanks [@benchristel](https://github.com/benchristel)! - Warn content creators when a static widget appears in a question stem
+
 ## 1.0.0
 
 ### Major Changes
