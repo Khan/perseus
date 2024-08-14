@@ -181,33 +181,33 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 props.markings === "graph" && (
                                     <>
                                         <AxisTicks />
-                                        <g
-                                            style={{
-                                                width: width,
-                                                height: height,
-                                            }}
-                                            className="dumbo"
-                                        >
-                                            <AxisArrows />
-                                            <AxisLabels />
-                                        </g>
+                                        <AxisArrows />
                                     </>
                                 )
                             }
-                            {/* Locked figures layer */}
-                            {props.lockedFigures && (
-                                <GraphLockedLayer
-                                    lockedFigures={props.lockedFigures}
-                                    range={state.range}
-                                />
-                            )}
-                            {/* Protractor */}
-                            {props.showProtractor && <Protractor />}
-                            {/* Interactive layer */}
-                            {renderGraph({
-                                state,
-                                dispatch,
-                            })}
+                            <svg
+                                width={width}
+                                height={height}
+                                viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}
+                                preserveAspectRatio="xMidYMin"
+                                x={-width / 2}
+                                y={-height / 2}
+                            >
+                                {/* Locked figures layer */}
+                                {props.lockedFigures && (
+                                    <GraphLockedLayer
+                                        lockedFigures={props.lockedFigures}
+                                        range={state.range}
+                                    />
+                                )}
+                                {/* Protractor */}
+                                {props.showProtractor && <Protractor />}
+                                {/* Interactive layer */}
+                                {renderGraph({
+                                    state,
+                                    dispatch,
+                                })}{" "}
+                            </svg>
                         </Mafs>
                     </View>
                 </View>

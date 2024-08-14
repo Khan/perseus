@@ -32,14 +32,6 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
     const pointOnAxis: vec.Vector2 = [xPointOnAxis, y];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
 
-    // If the tick is on the edge of the graph's range, don't render it
-    if (
-        yPosition === -graphInfo.height ||
-        yPosition === graphInfo.height + 20
-    ) {
-        return null;
-    }
-
     // Position of the start of the tick
     const x1 = xPosition - tickSize / 2;
     const y1 = yPosition;
@@ -50,7 +42,6 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    console.log("xPosition", xPosition);
     const xAdjustment = xPosition >= graphInfo.width ? -10 : 23;
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + 3;
@@ -104,7 +95,6 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    console.log("yPosition", yPosition);
     const yAdjustment = yPosition >= graphInfo.height ? -10 : 23;
     const xPositionText = xPosition;
     const yPositionText = yPosition + yAdjustment;
@@ -135,7 +125,8 @@ export function generateTickLocations(
     const ticks: number[] = [];
 
     // Add ticks in the positive direction
-    for (let i = 0 + tickStep; i < max; i += tickStep) {
+    const start = Math.max(min, 0);
+    for (let i = start + tickStep; i < max; i += tickStep) {
         ticks.push(i);
     }
 
@@ -163,6 +154,7 @@ export const AxisTicks = () => {
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
 
+    console.log("yGridTicks", yGridTicks);
     return (
         <g className="axis-ticks">
             {yGridTicks.map((y) => {

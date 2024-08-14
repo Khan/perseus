@@ -68,7 +68,7 @@ const axisOptions = (
 const getVerticalAdjustment = (range: GraphRange) => {
     console.log("range", range);
     const yMax = range[1][1];
-    return yMax <= 0 && yMax % 2 !== 0 ? 6.6 : 0.5;
+    return yMax <= 0 && yMax % 2 !== 0 && yMax !== -1 ? 6.6 : 0.5;
 };
 
 export const Grid = (props: GridProps) => {
@@ -84,6 +84,7 @@ export const Grid = (props: GridProps) => {
     const pad = vec.transform([xPad, yPad], viewTransform);
 
     // STOPSHIP: this is hacky as all heck but this is for testing
+    console.log("pad", pad);
 
     const horizontalAdjustment = props.range[0][0] > 0 ? 0 : -0.5;
     const verticalAdjustment = getVerticalAdjustment(props.range);
@@ -109,12 +110,6 @@ export const Grid = (props: GridProps) => {
                 xAxis={axisOptions(props, X)}
                 yAxis={axisOptions(props, Y)}
             />
-            {props.lockedFigures && (
-                <GraphLockedLayer
-                    lockedFigures={props.lockedFigures}
-                    range={props.range}
-                />
-            )}
         </g>
     );
 };
