@@ -21,6 +21,8 @@ export const flags = {
         "start-coords-ui-phase-1": true,
         "start-coords-ui-phase-2": true,
         "start-coords-ui-point": true,
+        "start-coords-ui-polygon": true,
+        "start-coords-ui-angle": true,
     },
 } satisfies APIOptions["flags"];
 

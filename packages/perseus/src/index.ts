@@ -123,9 +123,11 @@ export {
     getLineCoords,
     getLinearSystemCoords,
     getPointCoords,
+    getPolygonCoords,
     getSegmentCoords,
     getSinusoidCoords,
     getQuadraticCoords,
+    getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**
@@ -151,7 +153,6 @@ export type {
     DomInsertCheckFn,
     EditorMode,
     FocusPath,
-    Hint,
     ImageDict,
     ImageUploader,
     JiptLabelStore,
@@ -166,6 +167,8 @@ export type {
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
+    Hint,
+    LegacyButtonSets,
     LockedFigure,
     LockedFigureColor,
     LockedFigureFillType,

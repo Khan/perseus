@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "20.1.0",
+    "version": "21.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -30,7 +30,8 @@
             "require": "./dist/strings.js",
             "types": "./dist/strings.d.ts",
             "source": "./src/strings.ts"
-        }
+        },
+        "./styles.css": "./dist/index.css"
     },
     "files": [
         "dist"
@@ -38,13 +39,14 @@
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "1.5.0",
+        "@khanacademy/keypad-context": "^1.0.0",
         "mathquill": "https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "^2.0.1",
         "@khanacademy/wonder-blocks-clickable": "4.2.1",
         "@khanacademy/wonder-blocks-core": "6.4.0",
-        "@khanacademy/wonder-blocks-popover": "3.2.9",
+        "@khanacademy/wonder-blocks-popover": "3.2.11",
         "@khanacademy/wonder-blocks-timing": "5.0.0",
         "@khanacademy/wonder-blocks-tokens": "1.3.0",
         "@khanacademy/wonder-stuff-core": "1.5.2",
@@ -64,7 +66,7 @@
         "@khanacademy/mathjax-renderer": "^2.0.1",
         "@khanacademy/wonder-blocks-clickable": "4.2.1",
         "@khanacademy/wonder-blocks-core": "6.4.0",
-        "@khanacademy/wonder-blocks-popover": "3.2.9",
+        "@khanacademy/wonder-blocks-popover": "3.2.11",
         "@khanacademy/wonder-blocks-timing": "5.0.0",
         "@khanacademy/wonder-blocks-tokens": "1.3.0",
         "@khanacademy/wonder-stuff-core": "1.5.2",

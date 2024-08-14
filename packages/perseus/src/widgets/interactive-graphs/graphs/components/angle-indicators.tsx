@@ -140,7 +140,6 @@ interface AngleProps {
     coords: [vec.Vector2, vec.Vector2];
     showAngles: boolean;
     allowReflexAngles: boolean;
-    angleOffsetDeg: number;
     snapDegrees: number;
     range: [Interval, Interval];
 }

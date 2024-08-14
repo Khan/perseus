@@ -1,5 +1,36 @@
 # @khanacademy/math-input
 
+## 21.0.0
+
+### Major Changes
+
+-   [#1502](https://github.com/Khan/perseus/pull/1502) [`84d9c62d2`](https://github.com/Khan/perseus/commit/84d9c62d2ae7b55680f2ef90c5915e7f7406020d) Thanks [@handeyeco](https://github.com/handeyeco)! - Break out keypad-context from math-input to reduce bundle size
+
+### Patch Changes
+
+-   Updated dependencies [[`84d9c62d2`](https://github.com/Khan/perseus/commit/84d9c62d2ae7b55680f2ef90c5915e7f7406020d)]:
+    -   @khanacademy/keypad-context@1.0.0
+
+## 20.1.2
+
+### Patch Changes
+
+-   [#1497](https://github.com/Khan/perseus/pull/1497) [`5b6b97641`](https://github.com/Khan/perseus/commit/5b6b976416f885c08bda2ead5948fcdbe94dc380) Thanks [@handeyeco](https://github.com/handeyeco)! - Switch trig keys from SVG to text
+
+*   [#1490](https://github.com/Khan/perseus/pull/1490) [`c2464eef8`](https://github.com/Khan/perseus/commit/c2464eef807b0b1c2696e553300026462262544d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Explicitly export bundled css in package.json
+
+-   [#1501](https://github.com/Khan/perseus/pull/1501) [`3f18a2211`](https://github.com/Khan/perseus/commit/3f18a22118ad9b952009a78c30bb1c8242e81d9c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - updates math input to fix color contrast issues
+
+## 20.1.1
+
+### Patch Changes
+
+-   [#1495](https://github.com/Khan/perseus/pull/1495) [`6c6ff52f4`](https://github.com/Khan/perseus/commit/6c6ff52f4725ff78f50bd6ca71f201a6c9ab786b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove old buttons that we weren't using anymore
+
+*   [#1475](https://github.com/Khan/perseus/pull/1475) [`342a72211`](https://github.com/Khan/perseus/commit/342a722119f549f20e71ff1e44d2bba6c44c9ba3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - update wonder blocks popover versions
+
+-   [#1496](https://github.com/Khan/perseus/pull/1496) [`5e66539e6`](https://github.com/Khan/perseus/commit/5e66539e6a3edfd784041c5ba2b17135eafebe1b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused buttons from MathInput; add Lato
+
 ## 20.1.0
 
 ### Minor Changes

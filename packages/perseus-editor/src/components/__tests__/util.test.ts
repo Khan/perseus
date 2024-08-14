@@ -5,6 +5,7 @@ import {
     getDefaultGraphStartCoords,
     getSinusoidEquation,
     getQuadraticEquation,
+    getAngleEquation,
 } from "../util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
@@ -326,6 +327,65 @@ describe("getDefaultGraphStartCoords", () => {
             [5, 0],
         ]);
     });
+
+    test("should get default start coords for a polygon graph, triangle (default)", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "polygon"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [3, -2],
+            [0, 4],
+            [-3, -2],
+        ]);
+    });
+
+    test("should get default start coords for a polygon graph, square", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "polygon", numSides: 4};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        expect(defaultCoords).toEqual([
+            [3, -3],
+            [3, 3],
+            [-3, 3],
+            [-3, -3],
+        ]);
+    });
+
+    test("should get default start coords for an angle graph", () => {
+        // Arrange
+        const graph: PerseusGraphType = {type: "angle"};
+        const range = [
+            [-10, 10],
+            [-10, 10],
+        ] satisfies [Range, Range];
+        const step = [1, 1] satisfies [number, number];
+
+        // Act
+        const defaultCoords = getDefaultGraphStartCoords(graph, range, step);
+
+        // Default correct answer is 20 degree angle at (0, 0)
+        expect(defaultCoords).toEqual([
+            [7, 0],
+            [0, 0],
+            [6.5778483455013586, 2.394141003279681],
+        ]);
+    });
 });
 
 describe("getSinusoidEquation", () => {
@@ -377,4 +437,33 @@ describe("getQuadraticEquation", () => {
 
         expect(equation).toBe("Division by zero error");
     });
+});
+
+describe("getAngleEquation", () => {
+    test.each`
+        point1      | vertex    | point2                                     | expected
+        ${[7, 0]}   | ${[0, 0]} | ${[6.5778483455013586, 2.394141003279681]} | ${"20° angle at (0, 0)"}
+        ${[5, 1]}   | ${[1, 1]} | ${[1, 5]}                                  | ${"90° angle at (1, 1)"}
+        ${[2, 1]}   | ${[1, 1]} | ${[2, 1]}                                  | ${"0° angle at (1, 1)"}
+        ${[2, 1]}   | ${[2, 1]} | ${[2, 1]}                                  | ${"0° angle at (2, 1)"}
+        ${[5, 0]}   | ${[0, 0]} | ${[0, 5]}                                  | ${"90° angle at (0, 0)"}
+        ${[5, 0]}   | ${[0, 0]} | ${[-5, 5]}                                 | ${"135° angle at (0, 0)"}
+        ${[5, 0]}   | ${[0, 0]} | ${[-5, -5]}                                | ${"225° angle at (0, 0)"}
+        ${[5, 0]}   | ${[0, 0]} | ${[5, -5]}                                 | ${"315° angle at (0, 0)"}
+        ${[0, 5]}   | ${[0, 0]} | ${[5, 0]}                                  | ${"-90° angle at (0, 0)"}
+        ${[-5, 5]}  | ${[0, 0]} | ${[5, 0]}                                  | ${"-135° angle at (0, 0)"}
+        ${[-5, -5]} | ${[0, 0]} | ${[5, 0]}                                  | ${"-225° angle at (0, 0)"}
+        ${[5, -5]}  | ${[0, 0]} | ${[5, 0]}                                  | ${"-315° angle at (0, 0)"}
+    `(
+        "should return the correct equation",
+        ({point1, vertex, point2, expected}) => {
+            // Arrange
+
+            // Act
+            const equation = getAngleEquation([point1, vertex, point2]);
+
+            // Assert
+            expect(equation).toBe(expected);
+        },
+    );
 });

@@ -1,8 +1,8 @@
 import {
     KeypadContext,
     StatefulKeypadContextProvider,
-    MobileKeypad,
-} from "@khanacademy/math-input";
+} from "@khanacademy/keypad-context";
+import {MobileKeypad} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
 import {StyleSheet} from "aphrodite";

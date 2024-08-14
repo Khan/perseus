@@ -30,15 +30,36 @@ export type Params = {
     gestureTarget: RefObject<Element>;
     onMove: (point: vec.Vector2) => unknown;
     point: vec.Vector2;
-    constrain: (point: vec.Vector2) => vec.Vector2;
+    constrainKeyboardMovement: KeyboardMovementConstraint;
 };
+
+export type KeyboardMovementConstraint =
+    // The function form of KeyboardMovementConstraint should be a "snap"
+    // function that takes a target point to move near, and returns the closest
+    // valid point. If the function form is used, useDraggable will search for
+    // the valid destination that is closest to the current point in the
+    // direction of the movement.
+    | ((point: vec.Vector2) => vec.Vector2)
+    // Alternatively, the movement can be constrained to specific
+    // pre-determined points based on which key is pressed.
+    | {
+          left: vec.Vector2;
+          right: vec.Vector2;
+          up: vec.Vector2;
+          down: vec.Vector2;
+      };
 
 type DragState = {
     dragging: boolean;
 };
 
 export function useDraggable(args: Params): DragState {
-    const {gestureTarget: target, onMove, point, constrain} = args;
+    const {
+        gestureTarget: target,
+        onMove,
+        point,
+        constrainKeyboardMovement,
+    } = args;
     const [dragging, setDragging] = React.useState(false);
     const {xSpan, ySpan} = useSpanContext();
     const {viewTransform, userTransform} = useTransformContext();
@@ -60,6 +81,7 @@ export function useDraggable(args: Params): DragState {
 
             const isKeyboard = type.includes("key");
             if (isKeyboard) {
+                invariant(event instanceof KeyboardEvent);
                 event?.preventDefault();
 
                 // When a key is held down, we see multiple "keydown" events,
@@ -69,6 +91,13 @@ export function useDraggable(args: Params): DragState {
                 // We never want to process the keyup event as an intent to
                 // move so we bail on further processing here.
                 if (type === "keyup") {
+                    return;
+                }
+
+                if (typeof constrainKeyboardMovement === "object") {
+                    const destination =
+                        constrainKeyboardMovement[directionForKey[event.key]];
+                    onMove(destination ?? point);
                     return;
                 }
 
@@ -83,6 +112,7 @@ export function useDraggable(args: Params): DragState {
                     yDownDirection[X],
                     -yDownDirection[Y],
                 ] as vec.Vector2;
+
                 const span = Math.abs(direction[X]) ? xSpan : ySpan;
 
                 let divisions = 50;
@@ -103,7 +133,7 @@ export function useDraggable(args: Params): DragState {
                 for (const dx of tests) {
                     // Transform the test back into the point's coordinate system
                     const testMovement = vec.scale(direction, dx);
-                    const testPoint = constrain(
+                    const testPoint = constrainKeyboardMovement(
                         vec.transform(
                             vec.add(
                                 vec.transform(point, userTransform),
@@ -135,11 +165,9 @@ export function useDraggable(args: Params): DragState {
                     inverseViewTransform,
                 );
                 onMove(
-                    constrain(
-                        vec.transform(
-                            vec.add(pickup.current, movement),
-                            inverseTransform,
-                        ),
+                    vec.transform(
+                        vec.add(pickup.current, movement),
+                        inverseTransform,
                     ),
                 );
             }
@@ -148,6 +176,16 @@ export function useDraggable(args: Params): DragState {
     );
     return {dragging};
 }
+
+const directionForKey: Record<
+    "ArrowLeft" | "ArrowRight" | "ArrowUp" | "ArrowDown",
+    "left" | "right" | "up" | "down" | undefined
+> = {
+    ArrowLeft: "left",
+    ArrowRight: "right",
+    ArrowUp: "up",
+    ArrowDown: "down",
+};
 
 function getInverseTransform(transform: vec.Matrix) {
     const invert = vec.matrixInvert(transform);

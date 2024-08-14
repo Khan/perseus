@@ -1,6 +1,5 @@
+import {KeypadContext} from "@khanacademy/keypad-context";
 import * as React from "react";
-
-import {KeypadContext} from "../keypad-context";
 
 import MobileKeypadInternals from "./mobile-keypad-internals";
 

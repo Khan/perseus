@@ -45,8 +45,6 @@ export const KeyArray = [
     "JUMP_INTO_NUMERATOR",
     "JUMP_OUT_NUMERATOR",
     "JUMP_OUT_DENOMINATOR", // Multi-functional keys.
-    "NOOP", // mobile native only
-    "MANY", // A custom key that captures an arbitrary number of symbols but has no 'default' symbol or action.
     "NUM_0",
     "NUM_1",
     "NUM_2",
@@ -109,13 +107,6 @@ export const KeyArray = [
     "X",
     "Y",
     "Z",
-
-    // Currently only used by
-    // Perseus' Expression MathInput
-    "PHI",
-    "NTHROOT3",
-    "POW",
-    "LOG_B",
 ] as const;
 
 type Key = (typeof KeyArray)[number];

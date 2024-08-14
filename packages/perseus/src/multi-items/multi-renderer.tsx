@@ -319,6 +319,14 @@ class MultiRenderer extends React.Component<Props, State> {
                 <HintsRenderer
                     {...this._getRendererProps()}
                     findExternalWidgets={findExternalWidgets}
+                    // Note(Jeremy): The MultiRenderer codebase types are
+                    // slightly different from the rest of the codebase.
+                    // Ideally `HintNode` would spread the `Hint` type into it,
+                    // but there is a difference in optionality of `widgets`
+                    // and `images` and that causes a huge cascade of type
+                    // errors (they are truly optional, but most of our code
+                    // assumes they're provided/set). Ignoring this for now.
+                    // @ts-expect-error - TS2769 - Type 'HintNode' is not assignable to type 'Hint'.
                     hints={[hint]}
                 />
             ),

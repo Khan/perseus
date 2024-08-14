@@ -1352,30 +1352,6 @@ describe("renderer", () => {
             expect(el).not.toBeNull();
         });
 
-        it("should force the widget to be non-static if it has a problem number", () => {
-            // Arrange/Act
-            const {renderer} = renderQuestion(
-                {
-                    ...question1,
-                    widgets: {
-                        ...question1.widgets,
-                        "dropdown 1": {
-                            ...question1.widgets["dropdown 1"],
-                            static: true,
-                        },
-                    },
-                },
-                {},
-                {problemNum: 1},
-            );
-
-            // Assert
-            const [dropdownWidget] = renderer.findWidgets("dropdown 1");
-
-            // Act
-            expect(dropdownWidget.props.static).toBe(false);
-        });
-
         it("should ask each widget to show rationales", () => {
             // Arrange
             const {renderer} = renderQuestion(mockedItem);

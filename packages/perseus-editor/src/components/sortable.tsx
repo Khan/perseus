@@ -1,3 +1,4 @@
+import {css, StyleSheet} from "aphrodite";
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -5,7 +6,12 @@ import ReactDOM from "react-dom";
 
 const PT = PropTypes;
 
-// Takes an array of components to sort
+/**
+ * Takes an array of components to sort.
+ * As of 08/05/24, there are two sortable components
+ * (one in perseus and one in perseus-editor).
+ * As far as I can tell, this one is only used in ExpressionEditor.
+ */
 // eslint-disable-next-line react/no-unsafe
 const SortableArea = createReactClass({
     propTypes: {
@@ -162,6 +168,7 @@ const SortableItem = createReactClass({
         e.preventDefault();
     },
     render: function () {
+        // I think these might be getting styles from Webapp
         let dragState = "sortable-disabled";
         if (this.props.dragging) {
             dragState = "sortable-dragging";
@@ -172,7 +179,7 @@ const SortableItem = createReactClass({
         return (
             <li
                 draggable={this.props.draggable}
-                className={dragState}
+                className={[dragState, css(styles.sortableListItem)].join(" ")}
                 onDragStart={this.handleDragStart}
                 onDrop={this.handleDrop}
                 onDragEnter={this.handleDragEnter}
@@ -181,6 +188,12 @@ const SortableItem = createReactClass({
                 {this.props.component}
             </li>
         );
+    },
+});
+
+const styles = StyleSheet.create({
+    sortableListItem: {
+        margin: "5px 0",
     },
 });
 
