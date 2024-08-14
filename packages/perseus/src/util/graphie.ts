@@ -138,6 +138,7 @@ export class Graphie {
         scale?: number | Coord;
         isMobile?: boolean;
     }) {
+        console.log("Graphie -> init -> Options: ", options);
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
 
@@ -977,6 +978,10 @@ export class Graphie {
             // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
             $span.setPosition = (point) => {
                 const scaledPoint = this.scalePoint(point);
+                // eslint-disable-next-line
+                console.log("'setPosition' - Point - Scaled Point: ", scaledPoint);
+                // eslint-disable-next-line
+                console.log("'setPosition': ", point);
                 $span.css({
                     left: scaledPoint[0],
                     top: scaledPoint[1],

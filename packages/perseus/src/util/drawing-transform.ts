@@ -46,6 +46,21 @@ export class DrawingTransform {
 
         const x = point[0];
         const y = point[1];
+        // eslint-disable-next-line
+        console.group("Drawing Transform");
+        // eslint-disable-next-line
+        console.log("Point: ", point);
+        // eslint-disable-next-line
+        console.log("Bounds: ", this.bounds);
+        // eslint-disable-next-line
+        console.log("Scale: ", [this.xScale, this.yScale]);
+        // eslint-disable-next-line
+        console.log("Scaled Point: ", [
+            (x - this.bounds.xMin) * this.xScale,
+            (this.bounds.yMax - y) * this.yScale,
+        ]);
+        // eslint-disable-next-line
+        console.groupEnd();
         return [
             (x - this.bounds.xMin) * this.xScale,
             (this.bounds.yMax - y) * this.yScale,

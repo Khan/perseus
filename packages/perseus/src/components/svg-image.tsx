@@ -470,8 +470,6 @@ class SvgImage extends React.Component<Props, State> {
             console.log("Props Scale: ", this.props.scale);
             // eslint-disable-next-line
             console.log("Props: ", this.props);
-            // eslint-disable-next-line
-            console.groupEnd();
             if (JIPT.useJIPT && this.state.labelDataIsLocalized) {
                 // If we're using JIPT translation and we got proper JIPT tags,
                 // render the labels as plain text (so JIPT can find them) and
@@ -510,6 +508,10 @@ class SvgImage extends React.Component<Props, State> {
                 const labelStyle = label[0].style;
                 let labelTop = this._tryGetPixels(labelStyle.top);
                 let labelLeft = this._tryGetPixels(labelStyle.left);
+                // eslint-disable-next-line
+                console.log("Style-based Label Top: ", labelTop);
+                // eslint-disable-next-line
+                console.log("Style-based Label Left: ", labelLeft);
                 if (labelTop === null || labelLeft === null) {
                     // Graphie labels are supposed to have an explicit position,
                     // but to be on the safe side, let's fall back to using
@@ -520,9 +522,15 @@ class SvgImage extends React.Component<Props, State> {
                     const labelPosition = label.position();
                     labelTop = labelPosition.top;
                     labelLeft = labelPosition.left;
+                    // eslint-disable-next-line
+                    console.log("JQuery Label Positions: ", labelPosition);
                 }
                 const svgHeight = (this.props.height || 0) * this.props.scale;
                 const svgWidth = (this.props.width || 0) * this.props.scale;
+                // eslint-disable-next-line
+                console.log("Calculated Label Top: ", labelTop, svgHeight, (labelTop / svgHeight) * 100);
+                // eslint-disable-next-line
+                console.log("Calculated Label Left: ", labelLeft, svgWidth, (labelLeft / svgWidth) * 100);
                 label.css({
                     // @ts-expect-error - TS2531 - Object is possibly 'null'.
                     top: (labelTop / svgHeight) * 100 + "%",
@@ -535,6 +543,8 @@ class SvgImage extends React.Component<Props, State> {
                     label.css(styleName, styleValue);
                 });
             }
+            // eslint-disable-next-line
+            console.groupEnd();
             this.setState({
                 labelsRendered: {
                     ...this.state.labelsRendered,
