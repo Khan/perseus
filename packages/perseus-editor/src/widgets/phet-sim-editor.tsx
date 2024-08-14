@@ -7,25 +7,34 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-type PhetSimEditorProps = any;
+type Props = {
+    onChange: (args: any) => void;
+    url: string;
+    description: string;
+};
 
-class PhetSimEditor extends React.Component<PhetSimEditorProps> {
+type DefaultProps = {
+    url: Props["url"];
+    description: Props["description"];
+};
+
+class PhetSimEditor extends React.Component<Props> {
     static propTypes = {
-        ...Changeable.propTypes,
+        onChange: PropTypes.func,
         url: PropTypes.string,
         description: PropTypes.string,
     };
-
-    static defaultProps: PhetSimEditorProps = {
+/*
+    static defaultProps: DefaultProps = {
         url: "",
         description: "",
     };
-
+ */
     static widgetName = "phet-sim" as const;
 
-    change: (arg1: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
+    change(...args) {
+        this.props.onChange(args);
+    }
 
     render(): React.ReactNode {
         const sandboxProperties = "allow-same-origin allow-scripts";
@@ -35,15 +44,13 @@ class PhetSimEditor extends React.Component<PhetSimEditorProps> {
                 <LabeledTextField
                     label="URL"
                     value={this.props.url}
-                    onChange={this.change("url")}
+                    onChange={(url: string) => this.change({url})}
                 />
                 <br />
                 <LabeledTextField
                     label="Description"
                     value={this.props.description}
-                    onChange={(value) => {
-                        this.props.onChange({description: value});
-                    }}
+                    onChange={(description: string) => this.change({description})}
                 />
                 <br />
                 <LabelMedium>
