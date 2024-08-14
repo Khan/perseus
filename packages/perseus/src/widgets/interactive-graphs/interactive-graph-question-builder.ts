@@ -1,3 +1,4 @@
+import type {Coord} from "../../interactive2/types";
 import type {
     CollinearTuple,
     LockedEllipseType,
@@ -12,7 +13,6 @@ import type {
     PerseusGraphType,
     PerseusRenderer,
 } from "../../perseus-types";
-import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
 export type LockedFunctionOptions = Omit<
