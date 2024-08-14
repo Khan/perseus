@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 11.5.0
+
+### Minor Changes
+
+-   [#1515](https://github.com/Khan/perseus/pull/1515) [`ab19ffe0f`](https://github.com/Khan/perseus/commit/ab19ffe0f7a52d86fc6e7228c997c2cc8607ff0e) Thanks [@nishasy](https://github.com/nishasy)! - [Start Coords] Implement start coords UI for angle graphs
+
 ## 11.4.1
 
 ### Patch Changes
