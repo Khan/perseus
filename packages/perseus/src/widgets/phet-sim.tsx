@@ -8,7 +8,6 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../components/i18n-context";
@@ -28,12 +27,6 @@ type State = {
 
 /* This renders the PhET sim */
 class PhetSim extends React.Component<Props, State> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        url: PropTypes.string,
-        description: PropTypes.string,
-    };
-
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement>;
@@ -48,11 +41,6 @@ class PhetSim extends React.Component<Props, State> {
         super(props);
         this.locale = this.getPhetCompatibleLocale(getDependencies().kaLocale);
         this.iframeRef = React.createRef<HTMLIFrameElement>();
-        this.state.url = new URL(this.props.url);
-        this.state.url.searchParams.set("locale", this.locale);
-        if (this.state.url.origin !== "https://phet.colorado.edu") {
-            this.state.url = null;
-        }
     }
 
     getUserInput: () => any = () => {
@@ -60,20 +48,13 @@ class PhetSim extends React.Component<Props, State> {
     };
 
     async componentDidMount() {
-        // Display an error if we fail to load the resource
-        if (this.state.url) {
-            const validLink = await fetch(this.state.url).then(
-                (response: Response) => response.ok,
-            );
-            if (!validLink) {
-                this.setState({url: null});
-            }
-        }
-        // Display a warning if the simulation doesn't have our locale
-        if (await this.showLocaleWarning(this.locale)) {
-            this.setState({
-                errMessage: this.context.strings.simulationLocaleWarning,
-            });
+        await this.updateSimState(this.props.url);
+    }
+
+    async componentDidUpdate(prevProps) {
+        // If the URL has changed, update our state
+        if (prevProps.url !== this.props.url) {
+            await this.updateSimState(this.props.url);
         }
     }
 
@@ -93,28 +74,20 @@ class PhetSim extends React.Component<Props, State> {
                         text={this.state.errMessage}
                     />
                 )}
-                <View
-                    style={{
-                        position: "relative",
-                        width: "100%",
-                        paddingBottom: "100%",
-                        height: 0,
-                    }}
-                >
+                <View>
                     <iframe
                         ref={this.iframeRef}
                         title={this.props.description}
                         sandbox={sandboxProperties}
                         style={{
-                            width: "100%",
-                            height: "100%",
-                            position: "absolute",
+                            width: 400,
+                            height: 400,
                         }}
                         src={this.state.url?.toString()}
                         srcDoc={
                             this.state.url
                                 ? undefined
-                                : this.context.strings.simulationLocaleWarning
+                                : this.context.strings.simulationLoadFail
                         }
                         allow="fullscreen"
                     />
@@ -165,17 +138,48 @@ class PhetSim extends React.Component<Props, State> {
         }
     };
 
-    async showLocaleWarning(locale: string): Promise<boolean> {
+    makeSafeUrl(urlString: string): URL | null {
+        let url: URL | null = null;
+        if (URL.canParse(urlString)) {
+            url = new URL(urlString);
+            url.searchParams.set("locale", this.locale);
+            if (url.origin !== "https://phet.colorado.edu") {
+                url = null;
+            }
+        }
+        return url;
+    }
+
+    async updateSimState(urlString: string) {
+        const url = this.makeSafeUrl(urlString);
+        if (url) {
+            // Display an error if we fail to load the resource
+            const validLink = await fetch(url)
+                .then((response: Response) => response.ok)
+                .catch(() => false);
+            if (validLink) {
+                const showLocaleWarning = await this.showLocaleWarning(url);
+                this.setState({
+                    url: url,
+                    errMessage: showLocaleWarning
+                        ? this.context.strings.simulationLocaleWarning
+                        : null,
+                });
+                return;
+            }
+        }
+        this.setState({url: null, errMessage: null});
+    }
+
+    async showLocaleWarning(url: URL): Promise<boolean> {
         // Do not show a locale warning on an invalid URL
-        if (!this.state.url) {
+        if (!url) {
             return false;
         }
         // Grab the simulation name
         const phetRegex: RegExp =
             /https:\/\/phet\.colorado\.edu\/sims\/html\/([a-zA-Z0-9-]+)\/.*/g;
-        const match: RegExpExecArray | null = phetRegex.exec(
-            this.state.url.toString(),
-        );
+        const match: RegExpExecArray | null = phetRegex.exec(url.toString());
         // Do not show a locale warning on a non-simulation URL
         if (!match) {
             return false;
