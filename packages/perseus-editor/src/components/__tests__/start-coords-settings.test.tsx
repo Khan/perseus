@@ -765,4 +765,118 @@ describe("StartCoordSettings", () => {
             },
         );
     });
+
+    describe("angle graph", () => {
+        test("shows the start coordinates UI (default)", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="angle"
+                    onChange={() => {}}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const xInputs = screen.getAllByRole("spinbutton", {name: "x"});
+            const yInputs = screen.getAllByRole("spinbutton", {name: "y"});
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            // Default angle on initialization
+            expect(screen.getByText("20° angle at (0, 0)")).toBeInTheDocument();
+            expect(screen.getByText("Vertex:")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            expect(xInputs).toHaveLength(3);
+            expect(yInputs).toHaveLength(3);
+            expect(xInputs[0]).toHaveValue(7);
+            expect(yInputs[0]).toHaveValue(0);
+            expect(xInputs[1]).toHaveValue(0);
+            expect(yInputs[1]).toHaveValue(0);
+            expect(xInputs[2]).toHaveValue(6.5778483455013586);
+            expect(yInputs[2]).toHaveValue(2.394141003279681);
+        });
+
+        test("shows the start coords UI (specified coords)", () => {
+            // Arrange
+
+            // Act
+            render(
+                <StartCoordsSettings
+                    {...defaultProps}
+                    type="angle"
+                    onChange={() => {}}
+                    startCoords={[
+                        [7, 1],
+                        [1, 1],
+                        [1, 7],
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const xInputs = screen.getAllByRole("spinbutton", {name: "x"});
+            const yInputs = screen.getAllByRole("spinbutton", {name: "y"});
+
+            // Assert
+            expect(screen.getByText("Start coordinates")).toBeInTheDocument();
+            // Default angle on initialization
+            expect(screen.getByText("90° angle at (1, 1)")).toBeInTheDocument();
+            expect(screen.getByText("Vertex:")).toBeInTheDocument();
+            expect(screen.getByText("Point 1:")).toBeInTheDocument();
+            expect(screen.getByText("Point 2:")).toBeInTheDocument();
+            expect(xInputs).toHaveLength(3);
+            expect(yInputs).toHaveLength(3);
+            expect(xInputs[0]).toHaveValue(7);
+            expect(yInputs[0]).toHaveValue(1);
+            expect(xInputs[1]).toHaveValue(1);
+            expect(yInputs[1]).toHaveValue(1);
+            expect(xInputs[2]).toHaveValue(1);
+            expect(yInputs[2]).toHaveValue(7);
+        });
+
+        test.each`
+            pointIndex | coord
+            ${0}       | ${"x"}
+            ${0}       | ${"y"}
+            ${1}       | ${"x"}
+            ${1}       | ${"y"}
+            ${2}       | ${"x"}
+            ${2}       | ${"y"}
+        `(
+            "calls onChange when $coord coord is changed (line $pointIndex)",
+            async ({pointIndex, coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                // Act
+                render(
+                    <StartCoordsSettings
+                        {...defaultProps}
+                        type="angle"
+                        onChange={onChangeMock}
+                    />,
+                );
+
+                // Assert
+                const input = screen.getAllByRole("spinbutton", {
+                    name: `${coord}`,
+                })[pointIndex];
+                await userEvent.clear(input);
+                await userEvent.type(input, "101");
+
+                const expectedCoords = [
+                    [7, 0],
+                    [0, 0],
+                    [6.5778483455013586, 2.394141003279681],
+                ];
+                expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
+
+                expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
+            },
+        );
+    });
 });

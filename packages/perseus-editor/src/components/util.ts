@@ -275,6 +275,22 @@ export const getQuadraticEquation = (startCoords: [Coord, Coord, Coord]) => {
     );
 };
 
+const findAngle = (point1: Coord, point2: Coord) => {
+    const x = point1[0] - point2[0];
+    const y = point1[1] - point2[1];
+
+    return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
+};
+
+export const getAngleEquation = (startCoords: [Coord, Coord, Coord]) => {
+    const [point1, vertex, point2] = startCoords;
+
+    const angle = findAngle(point2, vertex) - findAngle(point1, vertex);
+    const roundedAngle = angle.toFixed(0);
+
+    return `${roundedAngle}\u00B0 angle at (${vertex[0]}, ${vertex[1]})`;
+};
+
 export const shouldShowStartCoordsUI = (flags, graph) => {
     // TODO(LEMS-2228): Remove flags once this is fully released
     const startCoordsUiPhase1Types = [
