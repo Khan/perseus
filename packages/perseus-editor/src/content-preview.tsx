@@ -10,9 +10,7 @@ import {
     type DeviceType,
     type PerseusRenderer,
 } from "@khanacademy/perseus";
-// eslint-disable-next-line monorepo/no-internal-import
-import {mockStrings} from "@khanacademy/perseus/strings";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {PropsFor, View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 
@@ -35,6 +33,7 @@ function ContentPreview({
     linterContext,
     legacyPerseusLint,
     previewDevice,
+    strings,
 }: {
     question?: PerseusRenderer;
     apiOptions?: APIOptions;
@@ -42,6 +41,7 @@ function ContentPreview({
     linterContext?: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
     previewDevice: DeviceType;
+    strings: PropsFor<typeof Renderer>["strings"];
 }) {
     const isMobile = previewDevice !== "desktop";
 
@@ -57,7 +57,7 @@ function ContentPreview({
                     {({setKeypadActive, keypadElement, setKeypadElement}) => (
                         <>
                             <Renderer
-                                strings={mockStrings}
+                                strings={strings}
                                 apiOptions={{...apiOptions, isMobile}}
                                 keypadElement={keypadElement}
                                 linterContext={linterContext}

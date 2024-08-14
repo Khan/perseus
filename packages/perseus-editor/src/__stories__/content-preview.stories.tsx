@@ -2,6 +2,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {useState} from "react";
 
+import {mockStrings} from "../../../perseus/src/strings";
 import {articleWithImages} from "../../../perseus/src/__testdata__/article-renderer.testdata";
 import {question} from "../../../perseus/src/widgets/__testdata__/radio.testdata";
 import DeviceFramer from "../components/device-framer";
@@ -32,6 +33,9 @@ const PreviewWrapper = (props) => {
 const meta: Meta<typeof ContentPreview> = {
     title: "PerseusEditor/Content Preview",
     component: ContentPreview,
+    args: {
+        strings: mockStrings,
+    },
     decorators: [
         (Story) => (
             <View style={{margin: spacing.xxSmall_6}}>
