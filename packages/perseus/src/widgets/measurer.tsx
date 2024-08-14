@@ -10,9 +10,9 @@ import SvgImage from "../components/svg-image";
 import {ApiOptions} from "../perseus-api";
 import GraphUtils from "../util/graph-utils";
 
+import type {Coord} from "../interactive2/types";
 import type {WidgetExports} from "../types";
 import type {Interval} from "../util/interval";
-import type {Coord} from "@khanacademy/perseus";
 
 const defaultImage = {
     url: null,

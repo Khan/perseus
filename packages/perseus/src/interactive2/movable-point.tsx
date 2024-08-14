@@ -67,9 +67,8 @@ import objective_ from "./objective_";
 import WrappedEllipse from "./wrapped-ellipse";
 
 import type {Movable} from "./movable";
-import type {Constraint, ConstraintCallbacks} from "./types";
+import type {Constraint, ConstraintCallbacks, Coord} from "./types";
 import type {Graphie} from "../util/graphie";
-import type {Coord} from "@khanacademy/perseus";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;

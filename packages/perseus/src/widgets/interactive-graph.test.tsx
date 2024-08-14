@@ -9,8 +9,8 @@ import type {
     PerseusGraphTypeLinear,
     PerseusGraphTypePoint,
     PerseusGraphTypePolygon,
+    PerseusGraphType,
 } from "../perseus-types";
-import type {PerseusGraphType} from "@khanacademy/perseus";
 
 function createRubric(graph: PerseusGraphType): Rubric {
     return {graph, correct: graph};

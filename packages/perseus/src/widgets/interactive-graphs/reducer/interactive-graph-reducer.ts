@@ -40,13 +40,13 @@ import {
     REINITIALIZE,
 } from "./interactive-graph-action";
 
+import type {Coord} from "../../../interactive2/types";
 import type {QuadraticCoords} from "../graphs/quadratic";
 import type {
     AngleGraphState,
     InteractiveGraphState,
     PairOfPoints,
 } from "../types";
-import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
 
 const minDistanceBetweenAngleVertexAndSidePoint = 2;

@@ -11,8 +11,8 @@ import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
 
+import type {CollinearTuple} from "../../../perseus-types";
 import type {MafsGraphProps, PolygonGraphState} from "../types";
-import type {CollinearTuple} from "@khanacademy/perseus";
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
