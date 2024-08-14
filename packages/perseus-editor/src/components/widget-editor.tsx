@@ -5,6 +5,10 @@ import {
     Widgets,
     WIDGET_PROP_DENYLIST,
 } from "@khanacademy/perseus";
+import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
+import Switch from "@khanacademy/wonder-blocks-switch";
 import * as React from "react";
 import _ from "underscore";
 
@@ -12,10 +16,6 @@ import SectionControlButton from "./section-control-button";
 
 import type Editor from "../editor";
 import type {APIOptions, Alignment, PerseusWidget} from "@khanacademy/perseus";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
 
 const {InlineIcon} = components;
 const {iconChevronDown, iconChevronRight, iconTrash} = icons;
