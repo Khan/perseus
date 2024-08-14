@@ -12,7 +12,7 @@ import expressionExport from "../expression";
 
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
-import type {LegacyButtonSets, PerseusItem} from "../../perseus-types";
+import type {LegacyButtonSets, StandardItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";
 
 type StoryArgs = {
@@ -25,7 +25,7 @@ type Story = {
 };
 
 type WrappedKeypadContextProps = {
-    item: PerseusItem;
+    item: StandardItem;
     customKeypad: boolean;
     isMobile?: boolean;
 };

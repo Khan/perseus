@@ -1,10 +1,10 @@
 import {
     ItemExtras,
     type PerseusAnswerArea,
-    type PerseusItem,
+    type StandardItem,
 } from "../perseus-types";
 
-export const itemWithPieChart: PerseusItem = {
+export const itemWithPieChart: StandardItem = {
     answerArea: Object.fromEntries(
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
@@ -46,6 +46,5 @@ export const itemWithPieChart: PerseusItem = {
             },
         },
     },
-    _multi: null,
     answer: null,
 };

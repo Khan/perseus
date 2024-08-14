@@ -3,11 +3,11 @@ import type {
     ExpressionWidget,
     InteractiveGraphWidget,
     NumericInputWidget,
-    PerseusItem,
+    StandardItem,
     RadioWidget,
 } from "../perseus-types";
 
-export const genericPerseusItemData: PerseusItem = {
+export const genericPerseusItemData: StandardItem = {
     question: {
         content: "",
         images: {},
@@ -29,7 +29,6 @@ export const genericPerseusItemData: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 } as const;
 
@@ -39,12 +38,12 @@ export const genericPerseusItemData: PerseusItem = {
  * In order to better type Perseus objects used in testing, this function
  * uses a basic Perseus object and updates it with custom values as needed.
  *
- * @param {Partial<PerseusItem>} customFields
- * @returns {PerseusItem}
+ * @param {Partial<StandardItem>} customFields
+ * @returns {StandardItem}
  */
 export function generateTestPerseusItem(
-    customFields: Partial<PerseusItem> = {},
-): PerseusItem {
+    customFields: Partial<StandardItem> = {},
+): StandardItem {
     return {...genericPerseusItemData, ...customFields};
 }
 

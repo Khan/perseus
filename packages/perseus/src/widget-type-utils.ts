@@ -1,7 +1,7 @@
 import {getWidgetRegex} from "./util/snowman-utils";
 
 import type {
-    PerseusItem,
+    StandardItem,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
@@ -92,11 +92,11 @@ export function getWidgetIdsFromContentByType(
 /**
  * Pull the widget map out of ItemData
  *
- * @param {PerseusItem} PerseusItem containing a widgetMap
- * @returns {WidgetMap} the widget map in the PerseusItem
+ * @param {StandardItem} StandardItem containing a widgetMap
+ * @returns {WidgetMap} the widget map in the StandardItem
  */
 export function getWidgetsMapFromItemData(
-    itemData: PerseusItem,
+    itemData: StandardItem,
 ): PerseusWidgetsMap {
     return itemData.question.widgets;
 }

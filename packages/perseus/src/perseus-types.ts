@@ -83,19 +83,36 @@ export type PerseusWidgetsMap = {
     [key in `video ${number}`]: VideoWidget;
 };
 
-export type PerseusItem = {
+/**
+ * A PerseusItem is the top-level Perseus data type.
+ */
+export type PerseusItem = StandardItem | MultiItem;
+
+/**
+ * A "StandardItem" is a classic Perseus item. It is rendered by the
+ * `ServerItemRenderer` and the layout is pre-set.
+ */
+export type StandardItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
     // A collection of hints to be offered to the user that support answering the question.
     hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
-    _multi: any;
     // The version of the item.  Not used by Perseus
     itemDataVersion: Version;
     // Deprecated field
     answer: any;
+};
+
+/**
+ * A "MultiItem" is an advanced Perseus item. It is rendered by the
+ * `MultiRenderer` and you can control the layout of individual parts of the
+ * item.
+ */
+export type MultiItem = {
+    // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
+    _multi: any;
 };
 
 export type PerseusArticle = ReadonlyArray<PerseusRenderer>;

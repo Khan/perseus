@@ -2,7 +2,7 @@ import {
     ItemExtras,
     type InputNumberWidget,
     type LabelImageWidget,
-    type PerseusItem,
+    type StandardItem,
     type PerseusRenderer,
     type PerseusAnswerArea,
     type ExpressionWidget,
@@ -10,7 +10,7 @@ import {
     type NumericInputWidget,
 } from "../perseus-types";
 
-export const itemWithInput: PerseusItem = {
+export const itemWithInput: StandardItem = {
     question: {
         content:
             "Enter the number $$-42$$ in the box: [[\u2603 input-number 1]]",
@@ -36,12 +36,11 @@ export const itemWithInput: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
 
-export const itemWithMultipleInputNumbers: PerseusItem = {
+export const itemWithMultipleInputNumbers: StandardItem = {
     question: {
         content:
             "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 input-number 2]]",
@@ -79,12 +78,11 @@ export const itemWithMultipleInputNumbers: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
 
-export const itemWithNumericAndNumberInputs: PerseusItem = {
+export const itemWithNumericAndNumberInputs: StandardItem = {
     question: {
         content:
             "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 1]]",
@@ -132,12 +130,11 @@ export const itemWithNumericAndNumberInputs: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
 
-export const itemWithRadioAndExpressionWidgets: PerseusItem = {
+export const itemWithRadioAndExpressionWidgets: StandardItem = {
     question: {
         content:
             "Here's a radio widget: [[\u2603 radio 1]] \n\n Here's an expression widget: [[\u2603 expression 1]]",
@@ -224,16 +221,14 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
 
-export const labelImageItem: PerseusItem = {
+export const labelImageItem: StandardItem = {
     answerArea: Object.fromEntries(
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
-    _multi: null,
     answer: null,
     hints: [],
     itemDataVersion: {major: 0, minor: 1},
@@ -297,7 +292,7 @@ export const labelImageItem: PerseusItem = {
 };
 
 // Note that if this item is used, you _must_ first register the MockWidget
-export const mockedItem: PerseusItem = {
+export const mockedItem: StandardItem = {
     // The mock widget type is not part of the PerseusWidget type union (and
     // we don't want to make it such to avoid polluting our production types
     // for test purposes) so we force TypeScript to accept it here.
@@ -342,12 +337,11 @@ export const mockedItem: PerseusItem = {
     } as PerseusRenderer,
     hints: [],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
 
-export const itemWithLintingError: PerseusItem = {
+export const itemWithLintingError: StandardItem = {
     question: {
         content: "# h1s aren't allowed",
         images: {},
@@ -355,12 +349,11 @@ export const itemWithLintingError: PerseusItem = {
     },
     hints: [],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
 
-export const itemWithImages: PerseusItem = {
+export const itemWithImages: StandardItem = {
     question: {
         content: `_An example of the different images and their alignments._
 
@@ -548,7 +541,6 @@ And what follows are _hints_...
         },
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };

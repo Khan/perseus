@@ -2,7 +2,7 @@ import {
     ItemExtras,
     type PerseusExpressionWidgetOptions,
     type Version,
-    type PerseusItem,
+    type StandardItem,
     type PerseusRenderer,
     type ExpressionWidget,
     type PerseusAnswerArea,
@@ -21,7 +21,7 @@ import {
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
     version: Version,
-): PerseusItem => {
+): StandardItem => {
     return {
         question: {
             content: "[[☃ expression 1]]",
@@ -35,7 +35,6 @@ const createItemJson = (
                 },
             },
         },
-        _multi: null,
         answer: null,
         answerArea: Object.fromEntries(
             ItemExtras.map((extra) => [extra, false]),
@@ -48,7 +47,7 @@ const createItemJson = (
     };
 };
 
-export const expressionItemWithAnswer = (answer: string): PerseusItem => {
+export const expressionItemWithAnswer = (answer: string): StandardItem => {
     return createItemJson(
         {
             answerForms: [
@@ -81,7 +80,7 @@ export const expressionItemWithLabels = createItemJson(
     {major: 1, minor: 0},
 );
 
-export const expressionItem2: PerseusItem = createItemJson(
+export const expressionItem2: StandardItem = createItemJson(
     {
         answerForms: [
             {
@@ -134,7 +133,7 @@ export const expressionItem3Options: PerseusExpressionWidgetOptions = {
     ariaLabel: "number of centimeters",
 };
 
-export const expressionItem3: PerseusItem = createItemJson(
+export const expressionItem3: StandardItem = createItemJson(
     expressionItem3Options,
     {
         major: 1,

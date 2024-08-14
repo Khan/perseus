@@ -15,7 +15,7 @@ import type {
     Hint,
     ImageUploader,
     Version,
-    PerseusItem,
+    StandardItem,
 } from "@khanacademy/perseus";
 import type {KEScore} from "@khanacademy/perseus-core";
 
@@ -55,7 +55,7 @@ type Props = {
 };
 
 type State = {
-    json: PerseusItem;
+    json: StandardItem;
     gradeMessage: string;
     wasAnswered: boolean;
     highlightLint: boolean;
@@ -193,7 +193,7 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
-    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
+    serialize(options?: {keepDeletedWidgets?: boolean}): any | StandardItem {
         if (this.props.jsonMode) {
             return this.state.json;
         }
@@ -208,7 +208,7 @@ class EditorPage extends React.Component<Props, State> {
         this.props.onChange(newProps, cb, silent);
     };
 
-    changeJSON: (newJson: PerseusItem) => void = (newJson: PerseusItem) => {
+    changeJSON: (newJson: StandardItem) => void = (newJson: StandardItem) => {
         this.setState({
             json: newJson,
         });

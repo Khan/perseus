@@ -7,7 +7,7 @@ import {
 import * as Widgets from "../widgets";
 
 import type {
-    PerseusItem,
+    StandardItem,
     PerseusRadioWidgetOptions,
     PerseusWidgetsMap,
     PerseusRenderer,
@@ -639,7 +639,7 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
 // TODO (LEMS-1836): We should also consider adding the getOneCorrectAnswerFromRubric method to all widgets.
 export const getCorrectAnswerForWidgetId = (
     widgetId: string,
-    itemData: PerseusItem,
+    itemData: StandardItem,
 ): string | undefined => {
     const rubric = itemData.question.widgets[widgetId].options;
     const widgetMap = getWidgetsMapFromItemData(itemData);
@@ -653,14 +653,14 @@ export const getCorrectAnswerForWidgetId = (
 
 /* Verify if the widget ID exists in the content string of the Perseus Item */
 export const isWidgetIdInContent = (
-    perseusItem: PerseusItem,
+    perseusItem: StandardItem,
     widgetId: string,
 ): boolean => {
     return perseusItem.question.content.indexOf(widgetId as string) !== -1;
 };
 
 /* Return an array of all the widget IDs that exist in the content string of a Perseus Item */
-export const getValidWidgetIds = (perseusItem: PerseusItem): Array<string> => {
+export const getValidWidgetIds = (perseusItem: StandardItem): Array<string> => {
     const {widgets} = perseusItem.question;
     return keys(widgets).filter((id) => isWidgetIdInContent(perseusItem, id));
 };
