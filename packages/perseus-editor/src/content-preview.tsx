@@ -1,21 +1,21 @@
 import {
     KeypadContext,
-    MobileKeypad,
     StatefulKeypadContextProvider,
-} from "@khanacademy/math-input";
-import {Renderer, constants} from "@khanacademy/perseus";
+} from "@khanacademy/keypad-context";
+import {MobileKeypad} from "@khanacademy/math-input";
+import {
+    Renderer,
+    constants,
+    type APIOptions,
+    type DeviceType,
+    type PerseusRenderer,
+} from "@khanacademy/perseus";
 // eslint-disable-next-line monorepo/no-internal-import
 import {mockStrings} from "@khanacademy/perseus/strings";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
-import * as React from "react";
 
-import type {
-    APIOptions,
-    DeviceType,
-    PerseusRenderer,
-} from "@khanacademy/perseus";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 /**

@@ -35,6 +35,7 @@
     },
     "dependencies": {
         "@khanacademy/kas": "^0.3.11",
+        "@khanacademy/keypad-context": "^1.0.0",
         "@khanacademy/kmath": "^0.1.13",
         "@khanacademy/math-input": "^21.0.0",
         "@khanacademy/perseus": "^28.2.0",
