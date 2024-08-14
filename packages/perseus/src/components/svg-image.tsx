@@ -528,9 +528,9 @@ class SvgImage extends React.Component<Props, State> {
                 const svgHeight = (this.props.height || 0) * this.props.scale;
                 const svgWidth = (this.props.width || 0) * this.props.scale;
                 // eslint-disable-next-line
-                console.log("Calculated Label Top: ", labelTop, svgHeight, (labelTop / svgHeight) * 100);
+                console.log("Calculated Label Top: ", labelTop, svgHeight, (labelTop ?? 0 / svgHeight) * 100);
                 // eslint-disable-next-line
-                console.log("Calculated Label Left: ", labelLeft, svgWidth, (labelLeft / svgWidth) * 100);
+                console.log("Calculated Label Left: ", labelLeft, svgWidth, (labelLeft ?? 0 / svgWidth) * 100);
                 label.css({
                     // @ts-expect-error - TS2531 - Object is possibly 'null'.
                     top: (labelTop / svgHeight) * 100 + "%",
