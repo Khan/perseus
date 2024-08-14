@@ -10,11 +10,12 @@ import {
     type DeviceType,
     type PerseusRenderer,
 } from "@khanacademy/perseus";
-import {PropsFor, View} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 /**
  * The `ContentPreview` component provides a simple preview system for Perseus

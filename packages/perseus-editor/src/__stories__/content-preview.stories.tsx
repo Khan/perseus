@@ -2,8 +2,8 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {useState} from "react";
 
-import {mockStrings} from "../../../perseus/src/strings";
 import {articleWithImages} from "../../../perseus/src/__testdata__/article-renderer.testdata";
+import {mockStrings} from "../../../perseus/src/strings";
 import {question} from "../../../perseus/src/widgets/__testdata__/radio.testdata";
 import DeviceFramer from "../components/device-framer";
 import ViewportResizer from "../components/viewport-resizer";

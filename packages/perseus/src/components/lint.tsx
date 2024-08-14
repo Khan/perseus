@@ -1,11 +1,11 @@
+import {color, font} from "@khanacademy/wonder-blocks-tokens";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 
 import * as constants from "../styles/constants";
 
 import InlineIcon from "./inline-icon";
-import {color, font} from "@khanacademy/wonder-blocks-tokens";
 
 const exclamationIcon = {
     path: "M6 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-9a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z",
