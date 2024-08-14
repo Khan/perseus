@@ -1,5 +1,24 @@
 # @khanacademy/perseus
 
+## 28.2.0
+
+### Minor Changes
+
+-   [#1503](https://github.com/Khan/perseus/pull/1503) [`f08320034`](https://github.com/Khan/perseus/commit/f083200340545f41275f0696dbfc967f45028b0c) Thanks [@benchristel](https://github.com/benchristel)! - Add static mode to interactive graph
+
+*   [#1511](https://github.com/Khan/perseus/pull/1511) [`7eb7ab165`](https://github.com/Khan/perseus/commit/7eb7ab165e20af37ee10ad38c2bbef8538c79f08) Thanks [@benchristel](https://github.com/benchristel)! - Warn content creators when a static widget appears in a question stem
+
+### Patch Changes
+
+-   [#877](https://github.com/Khan/perseus/pull/877) [`720e3bfd2`](https://github.com/Khan/perseus/commit/720e3bfd2d7f46fdbb25db2f561d0f519ae4c9b3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused Less variables
+
+*   [#1502](https://github.com/Khan/perseus/pull/1502) [`84d9c62d2`](https://github.com/Khan/perseus/commit/84d9c62d2ae7b55680f2ef90c5915e7f7406020d) Thanks [@handeyeco](https://github.com/handeyeco)! - Break out keypad-context from math-input to reduce bundle size
+
+*   Updated dependencies [[`7eb7ab165`](https://github.com/Khan/perseus/commit/7eb7ab165e20af37ee10ad38c2bbef8538c79f08), [`84d9c62d2`](https://github.com/Khan/perseus/commit/84d9c62d2ae7b55680f2ef90c5915e7f7406020d)]:
+    -   @khanacademy/perseus-linter@1.1.0
+    -   @khanacademy/keypad-context@1.0.0
+    -   @khanacademy/math-input@21.0.0
+
 ## 28.1.0
 
 ### Minor Changes
