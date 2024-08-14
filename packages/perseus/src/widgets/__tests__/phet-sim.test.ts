@@ -11,6 +11,11 @@ describe("phet-sim widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve({test: 100}),
+            }),
+        ) as jest.Mock;
     });
 
     it("should snapshot", () => {
