@@ -979,7 +979,10 @@ export class Graphie {
             $span.setPosition = (point) => {
                 const scaledPoint = this.scalePoint(point);
                 // eslint-disable-next-line
-                console.log("'setPosition' - Point - Scaled Point: ", scaledPoint);
+                console.log(
+                    "'setPosition' - Point - Scaled Point: ",
+                    scaledPoint,
+                );
                 // eslint-disable-next-line
                 console.log("'setPosition': ", point);
                 $span.css({
