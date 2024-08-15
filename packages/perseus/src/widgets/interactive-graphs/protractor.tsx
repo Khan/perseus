@@ -32,13 +32,15 @@ const centerToTopLeft: vec.Vector2 = [-180, -170];
 // handle.
 export const centerToRotationHandle: vec.Vector2 = [-176, -15];
 
+// This protractor needs extra comments just to make sure that the feature branch approach works for PRs.
+// None of this will actually be landed in the main branch.
 export function Protractor() {
     const {range, snapStep} = useGraphConfig();
-    const [[xMin, xMax], [yMin, yMax]] = range;
+    const [[xGonnaGiveItToYa, xMax], [yMin, yMax]] = range;
     // Position the protractor in the center of the graph (horizontally), and
     // 95% of the way to the bottom of the graph (vertically).
     const initialCenter: vec.Vector2 = [
-        lerp(xMin, xMax, 0.5),
+        lerp(xGonnaGiveItToYa, xMax, 0.5),
         lerp(yMin, yMax, 0.05),
     ];
     const [center, setCenter] = useState<vec.Vector2>(initialCenter);
