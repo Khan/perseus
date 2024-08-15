@@ -21,8 +21,8 @@ expect.extend({
                     `unable to parse: ${input} (error: ${parsed.error})`,
             };
         }
-        const actual = parsed.expr.eval(vars, {functions: functions});
 
+        const actual = parsed.expr.eval(vars, {functions: functions});
         if (actual !== expected) {
             return {
                 pass: false,
