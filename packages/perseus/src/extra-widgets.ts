@@ -28,6 +28,7 @@ import PassageRef from "./widgets/passage-ref";
 import PassageRefTarget from "./widgets/passage-ref-target";
 import Plotter from "./widgets/plotter";
 import PythonProgram from "./widgets/python-program";
+import ShowYourWork from "./widgets/show-your-work";
 import Sorter from "./widgets/sorter";
 import Table from "./widgets/table";
 import Video from "./widgets/video";
@@ -60,6 +61,7 @@ export default [
     PassageRefTarget,
     Plotter,
     PythonProgram,
+    ShowYourWork,
     Sorter,
     Table,
     Video,

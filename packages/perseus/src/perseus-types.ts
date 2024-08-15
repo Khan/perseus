@@ -74,6 +74,8 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `radio ${number}`]: RadioWidget;
 } & {
+    [key in `show-your-work ${number}`]: ShowYourWorkWidget
+} & {
     [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
 } & {
     [key in `sorter ${number}`]: SorterWidget;
@@ -251,6 +253,8 @@ export type InputNumberWidget = Widget<'input-number', PerseusInputNumberWidgetO
 export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
+// prettier-ignore
+export type ShowYourWorkWidget = Widget<'show-your-work', PerseusShowYourWorkWidgetOptions>;
 // prettier-ignore
 export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
@@ -1184,6 +1188,10 @@ export type PerseusSequenceWidgetOptions = {
     json: ReadonlyArray<PerseusRenderer>;
 };
 
+export type PerseusShowYourWorkWidgetOptions = {
+    foo: "bar",
+};
+
 export type PerseusSimulatorWidgetOptions = {
     // Translatable Text; The X Axis
     xAxisLabel: string;
@@ -1606,6 +1614,7 @@ export type PerseusWidgetOptions =
     | PerseusPassageWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
+    | PerseusShowYourWorkWidgetOptions
     | PerseusSimpleMarkdownTesterWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions
