@@ -12,7 +12,7 @@ glob.sync(resolve(__dirname, "../packages/*/package.json")).forEach(
         const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 
         // "exports" is the more modern way to declare package exports. Some,
-        // but not all, Perseus packages delcare "exports".
+        // but not all, Perseus packages declare "exports".
         if ("exports" in pkg) {
             // Not all packages export strings, but for those that do we need
             // to set up an alias so Vite properly resolves them.
