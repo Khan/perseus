@@ -1,5 +1,5 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, logRoles, render, screen, act} from "@testing-library/react";
+import {within, render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
