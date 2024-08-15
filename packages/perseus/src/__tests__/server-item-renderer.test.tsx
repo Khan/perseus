@@ -1,5 +1,5 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act} from "@testing-library/react";
+import {within, logRoles, render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -588,7 +588,7 @@ describe("server item renderer", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("should show linting errors when highlightLint is true", () => {
+        it("should show linting errors when highlightLint is true", async () => {
             // Arrange and Act
             renderQuestion(itemWithLintingError, undefined, {
                 linterContext: {
@@ -598,6 +598,12 @@ describe("server item renderer", () => {
                     stack: [],
                 },
             });
+
+            // Linting errors are surfaced as a link with a warning or error
+            // icon inside them. We need to click on it to open the tooltip
+            // that contains the error message.
+            const lintIcon = screen.getByRole("link");
+            await userEvent.click(lintIcon);
 
             expect(
                 screen.getByText("Don't use level-1 headings", {exact: false}),
