@@ -38,7 +38,7 @@ export function PointGraph(props: PointGraphProps) {
         <>
             <rect
                 style={{
-                    fill: "rgba(255,0,0,0.3)",
+                    fill: "rgba(0,0,0,0)",
                 }}
                 width={widthPx}
                 height={heightPx}

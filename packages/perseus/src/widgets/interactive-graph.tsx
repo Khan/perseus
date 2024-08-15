@@ -1830,6 +1830,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 />
             );
         }
+        console.log("LEGACY");
         return (
             <LegacyInteractiveGraph ref={this.legacyGraphRef} {...this.props} />
         );
@@ -2669,7 +2670,8 @@ export function shouldUseMafs(
                 // TODO(benchristel): add a feature flag for the "unlimited"
                 // case once we've implemented point graphs with unlimited
                 // points
-                return false;
+                // return Boolean(mafsFlags["point-unlimited"]);
+                return true;
             }
             return Boolean(mafsFlags["point"]);
         case "polygon":
