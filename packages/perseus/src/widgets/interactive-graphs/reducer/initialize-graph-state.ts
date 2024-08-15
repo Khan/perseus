@@ -4,6 +4,7 @@ import {vec} from "mafs";
 import {magnitude, vector} from "../../../util/geometry";
 import {normalizeCoords, normalizePoints} from "../utils";
 
+import type {Coord} from "../../../interactive2/types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeAngle,
@@ -18,7 +19,6 @@ import type {
     PerseusGraphTypeSinusoid,
 } from "../../../perseus-types";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
-import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
 
 export type InitializeGraphStateParams = {

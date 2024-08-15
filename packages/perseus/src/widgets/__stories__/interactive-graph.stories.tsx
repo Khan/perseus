@@ -24,7 +24,7 @@ import {
     staticGraphQuestionWithAnotherWidget,
 } from "../__testdata__/interactive-graph.testdata";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptions} from "../../types";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph",
