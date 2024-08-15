@@ -1,3 +1,4 @@
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
@@ -72,82 +73,109 @@ export const MafsGraph = (props: MafsGraphProps) => {
             }}
         >
             <View
-                className="mafs-graph"
                 style={{
-                    width,
-                    height,
-                    position: "relative",
-                    padding: "25px 25px 0 0",
-                    boxSizing: "content-box",
-                    marginLeft: "20px",
-                    marginBottom: "20px",
-                    pointerEvents: props.static ? "none" : "auto",
+                    width: "intrinsic",
                 }}
             >
-                <LegacyGrid
-                    box={props.box}
-                    backgroundImage={props.backgroundImage}
-                />
                 <View
+                    className="mafs-graph"
                     style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
+                        width,
+                        height,
+                        position: "relative",
+                        padding: "25px 25px 0 0",
+                        boxSizing: "content-box",
+                        marginLeft: "20px",
+                        marginBottom: "20px",
+                        pointerEvents: props.static ? "none" : "auto",
                     }}
                 >
-                    {props.markings === "graph" && (
-                        <>
-                            <AxisLabels />
-                            <AxisTickLabels />
-                        </>
-                    )}
-                    <Mafs
-                        preserveAspectRatio={false}
-                        viewBox={{
-                            x: state.range[X],
-                            y: state.range[Y],
-                            padding: 0,
-                        }}
-                        pan={false}
-                        zoom={false}
-                        width={width}
-                        height={height}
-                        onClick={(point, event) => {
-                            if (props.graph.type === "point") {
-                                dispatch(actions.pointGraph.addPoint(point));
-                            }
+                    <LegacyGrid
+                        box={props.box}
+                        backgroundImage={props.backgroundImage}
+                    />
+                    <View
+                        style={{
+                            position: "absolute",
+                            bottom: 0,
+                            left: 0,
                         }}
                     >
-                        {/* Svg definitions to render only once */}
-                        <SvgDefs />
-                        {/* Background layer */}
-                        <Grid
-                            tickStep={props.step}
-                            gridStep={props.gridStep}
-                            range={state.range}
-                            containerSizeClass={props.containerSizeClass}
-                            markings={props.markings}
-                        />
-                        {/* Locked layer */}
-                        {props.lockedFigures && (
-                            <GraphLockedLayer
-                                lockedFigures={props.lockedFigures}
-                                range={state.range}
-                            />
+                        {props.markings === "graph" && (
+                            <>
+                                <AxisLabels />
+                                <AxisTickLabels />
+                            </>
                         )}
-                        {/* Protractor */}
-                        {props.showProtractor && <Protractor />}
-                        {/* Interactive layer */}
-                        {renderGraph({
-                            state,
-                            dispatch,
-                        })}
-                    </Mafs>
+                        <Mafs
+                            preserveAspectRatio={false}
+                            viewBox={{
+                                x: state.range[X],
+                                y: state.range[Y],
+                                padding: 0,
+                            }}
+                            pan={false}
+                            zoom={false}
+                            width={width}
+                            height={height}
+                            onClick={(point, event) => {
+                                if (props.graph.type === "point") {
+                                    dispatch(
+                                        actions.pointGraph.addPoint(point),
+                                    );
+                                }
+                            }}
+                        >
+                            {/* Svg definitions to render only once */}
+                            <SvgDefs />
+                            {/* Background layer */}
+                            <Grid
+                                tickStep={props.step}
+                                gridStep={props.gridStep}
+                                range={state.range}
+                                containerSizeClass={props.containerSizeClass}
+                                markings={props.markings}
+                            />
+                            {/* Locked layer */}
+                            {props.lockedFigures && (
+                                <GraphLockedLayer
+                                    lockedFigures={props.lockedFigures}
+                                    range={state.range}
+                                />
+                            )}
+                            {/* Protractor */}
+                            {props.showProtractor && <Protractor />}
+                            {/* Interactive layer */}
+                            {renderGraph({
+                                state,
+                                dispatch,
+                            })}
+                        </Mafs>
+                    </View>
                 </View>
+                {props.graph.type === "point" &&
+                    renderPointGraphControls({state, dispatch})}
             </View>
         </GraphConfigContext.Provider>
     );
 };
+
+const renderPointGraphControls = (props: {
+    state: InteractiveGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+}) => (
+    <Button
+        kind="secondary"
+        style={{
+            width: "100%",
+        }}
+        onClick={() => {
+            props.dispatch(actions.pointGraph.addPoint([0, 0]));
+        }}
+    >
+        Add Point
+    </Button>
+);
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
