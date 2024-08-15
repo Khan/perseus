@@ -24,6 +24,7 @@ import {PointGraph} from "./graphs/point";
 import {X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
+import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
@@ -47,6 +48,7 @@ export type MafsGraphProps = {
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
     static: boolean | null | undefined;
+    graph: InteractiveGraphProps["graph"];
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -110,6 +112,14 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         zoom={false}
                         width={width}
                         height={height}
+                        onClick={(point) => {
+                            if (
+                                props.graph.type === "point" &&
+                                props.graph.numPoints === "unlimited"
+                            ) {
+                                dispatch(actions.pointGraph.addPoint(point));
+                            }
+                        }}
                     >
                         {/* Svg definitions to render only once */}
                         <SvgDefs />

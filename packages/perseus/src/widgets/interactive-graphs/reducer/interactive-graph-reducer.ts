@@ -38,6 +38,8 @@ import {
     type MovePoint,
     type MoveRadiusPoint,
     REINITIALIZE,
+    ADD_POINT,
+    type AddPoint,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -74,6 +76,8 @@ export function interactiveGraphReducer(
             return doChangeSnapStep(state, action);
         case CHANGE_RANGE:
             return doChangeRange(state, action);
+        case ADD_POINT:
+            return doAddPoint(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -497,6 +501,14 @@ function doChangeRange(
         ...state,
         range: action.range,
     };
+}
+
+function doAddPoint(
+    state: InteractiveGraphState,
+    action: AddPoint,
+): InteractiveGraphState {
+    debugger;
+    return state;
 }
 
 const getDeltaVertex = (
