@@ -102,10 +102,17 @@ describe("evaluating", () => {
         expect("g(1)").toEvaluateAs(-1, {f: "x", g: "-f(x)"}, ["f", "g"]);
     });
 
-    test("fraction expressions", () => {
+    test.only("fraction expressions", () => {
         // these are mixed numbers
         expect("2\\frac{1}{2} + 1").toEvaluateAs(3.5);
         expect("(2\\frac{1}{2}) + 1").toEvaluateAs(3.5);
+
+        // STOPSHIP negatives don't work
+        // negative
+        expect("-2\\frac{1}{2} + 1").toEvaluateAs(-1.5);
+        expect("(-2\\frac{1}{2}) + 1").toEvaluateAs(-1.5);
+        expect("2-\\frac{1}{2} + 1").toEvaluateAs(0);
+        expect("(2-\\frac{1}{2}) + 1").toEvaluateAs(0);
 
         // these are not mixed numbers
         expect("(2)\\frac{1}{2} + 1").toEvaluateAs(2);
