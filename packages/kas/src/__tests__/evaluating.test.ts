@@ -113,5 +113,10 @@ describe("evaluating", () => {
         expect("\\frac{1}{2}2 + 1").toEvaluateAs(2);
         expect("2 + \\frac{1}{2} + 1").toEvaluateAs(3.5);
         expect("2 * \\frac{1}{2}").toEvaluateAs(1);
+
+        // handling mixed numbers doesn't
+        // break implicit multiplication
+        expect("2 2").toEvaluateAs(4);
+        expect("2\\pi").toEvaluateAs(6.283185307179586);
     });
 });
