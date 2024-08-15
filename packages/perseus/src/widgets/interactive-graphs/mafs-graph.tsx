@@ -118,13 +118,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             zoom={false}
                             width={width}
                             height={height}
-                            onClick={(point, event) => {
-                                if (props.graph.type === "point") {
-                                    dispatch(
-                                        actions.pointGraph.addPoint(point),
-                                    );
-                                }
-                            }}
                         >
                             {/* Svg definitions to render only once */}
                             <SvgDefs />
