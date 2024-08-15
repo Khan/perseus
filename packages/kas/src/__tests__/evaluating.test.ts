@@ -13,10 +13,15 @@ expect.extend({
         vars: Variables = {},
         functions?: ReadonlyArray<string>,
     ) {
-        const actual = KAS.parse(input, {functions: functions}).expr.eval(
-            vars,
-            {functions: functions},
-        );
+        const parsed = KAS.parse(input, {functions: functions});
+        if (parsed.false || parsed.error) {
+            return {
+                pass: false,
+                message: () =>
+                    `unable to parse: ${input} (error: ${parsed.error})`,
+            };
+        }
+        const actual = parsed.expr.eval(vars, {functions: functions});
 
         if (actual !== expected) {
             return {
@@ -107,8 +112,6 @@ describe("evaluating", () => {
         expect("2(\\frac{1}{2}) + 1").toEvaluateAs(2);
         expect("\\frac{1}{2}2 + 1").toEvaluateAs(2);
         expect("2 + \\frac{1}{2} + 1").toEvaluateAs(3.5);
-
-        // STOPSHIP: this fails, but it needs to pass
         expect("2 * \\frac{1}{2}").toEvaluateAs(1);
     });
 });

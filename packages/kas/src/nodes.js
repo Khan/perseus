@@ -1307,17 +1307,7 @@ _.each([Add, Mul], function (type) {
     _.extend(type, {
         // create a new sequence unless left is already one (returns a copy)
         createOrAppend: function (left, right) {
-            if (
-                type === Mul &&
-                left instanceof Num &&
-                right instanceof Num &&
-                left.isInteger() &&
-                right.isFraction() &&
-                !left.hints.parens &&
-                !right.hints.parens
-            ) {
-                return new Add(left, right);
-            } else if (left instanceof type) {
+            if (left instanceof type) {
                 return new type(left.terms.concat(right));
             } else {
                 return new type(left, right);

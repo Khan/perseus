@@ -193,6 +193,10 @@ const grammar = {
             ["subscriptable", "$$ = $1;"],
             ["invocation", "$$ = $1;"],
             [
+                "INT FRAC { additive } { additive }",
+                "$$ = yy.Add.createOrAppend(yy.Int.create(Number($1)), yy.Mul.handleDivide($4, $7));",
+            ],
+            [
                 "FRAC { additive } { additive }",
                 "$$ = yy.Mul.handleDivide($3, $6);",
             ],
