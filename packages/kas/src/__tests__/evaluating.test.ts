@@ -20,8 +20,9 @@ expect.extend({
 
         if (actual !== expected) {
             return {
-                pass: actual !== expected,
-                message: () => `${input} evaluates as ${expected}`,
+                pass: false,
+                message: () =>
+                    `input: ${input}\nexpected: ${expected}\nactual: ${actual}`,
             };
         }
 
@@ -44,6 +45,13 @@ declare global {
 }
 
 describe("evaluating", () => {
+    // Due to a bug in `toEvaluateAs`, all tests were passing
+    // whether or not they should have been.
+    // This is to make sure we don't regress again.
+    test.failing("should be possible to fail", () => {
+        expect("2+2").toEvaluateAs(5);
+    });
+
     test("empty", () => {
         expect("").toEvaluateAs(0);
     });
@@ -87,5 +95,20 @@ describe("evaluating", () => {
         expect("f(4+8)").toEvaluateAs(48, {f: "4x"}, ["f"]);
         expect("f(x-1)-f(x)").toEvaluateAs(-7, {f: "x^3", x: 2}, ["f"]);
         expect("g(1)").toEvaluateAs(-1, {f: "x", g: "-f(x)"}, ["f", "g"]);
+    });
+
+    test("fraction expressions", () => {
+        // these are mixed numbers
+        expect("2\\frac{1}{2} + 1").toEvaluateAs(3.5);
+        expect("(2\\frac{1}{2}) + 1").toEvaluateAs(3.5);
+
+        // these are not mixed numbers
+        expect("(2)\\frac{1}{2} + 1").toEvaluateAs(2);
+        expect("2(\\frac{1}{2}) + 1").toEvaluateAs(2);
+        expect("\\frac{1}{2}2 + 1").toEvaluateAs(2);
+        expect("2 + \\frac{1}{2} + 1").toEvaluateAs(3.5);
+
+        // STOPSHIP: this fails, but it needs to pass
+        expect("2 * \\frac{1}{2}").toEvaluateAs(1);
     });
 });
