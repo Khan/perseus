@@ -112,11 +112,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         zoom={false}
                         width={width}
                         height={height}
-                        onClick={(point) => {
-                            if (
-                                props.graph.type === "point" &&
-                                props.graph.numPoints === "unlimited"
-                            ) {
+                        onClick={(point, event) => {
+                            if (props.graph.type === "point") {
                                 dispatch(actions.pointGraph.addPoint(point));
                             }
                         }}

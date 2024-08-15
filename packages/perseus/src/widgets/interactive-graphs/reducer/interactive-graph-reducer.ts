@@ -507,8 +507,24 @@ function doAddPoint(
     state: InteractiveGraphState,
     action: AddPoint,
 ): InteractiveGraphState {
-    debugger;
-    return state;
+    if (state.type !== "point") {
+        return state;
+    }
+    const {snapStep} = state;
+    const snappedPoint = snap(snapStep, action.location);
+
+    // Check if there's already a point in that spot
+    for (const point of state.coords) {
+        if (point[0] === snappedPoint[0] && point[1] === snappedPoint[1]) {
+            return state;
+        }
+    }
+
+    // If there's no point in spot where we want the new point to go we add it there
+    return {
+        ...state,
+        coords: [...state.coords, snappedPoint],
+    };
 }
 
 const getDeltaVertex = (
