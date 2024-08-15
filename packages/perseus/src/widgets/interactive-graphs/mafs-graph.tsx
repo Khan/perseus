@@ -80,6 +80,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     marginLeft: "20px",
                     marginBottom: "20px",
                     pointerEvents: props.static ? "none" : "auto",
+                    userSelect: "none",
                 }}
             >
                 <LegacyGrid
