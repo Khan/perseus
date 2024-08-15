@@ -20,8 +20,9 @@ expect.extend({
 
         if (actual !== expected) {
             return {
-                pass: actual !== expected,
-                message: () => `${input} evaluates as ${expected}`,
+                pass: false,
+                message: () =>
+                    `input: ${input}\nexpected: ${expected}\nactual: ${actual}`,
             };
         }
 
@@ -44,6 +45,13 @@ declare global {
 }
 
 describe("evaluating", () => {
+    // Due to a bug in `toEvaluateAs`, all tests were passing
+    // whether or not they should have been.
+    // This is to make sure we don't regress again.
+    test.failing("should be possible to fail", () => {
+        expect("2+2").toEvaluateAs(5);
+    });
+
     test("empty", () => {
         expect("").toEvaluateAs(0);
     });
