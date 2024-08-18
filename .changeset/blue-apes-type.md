@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Change PerseusItem to be a type union with StandardItem and MultiItem
+Change PerseusItem to no longer include multi items

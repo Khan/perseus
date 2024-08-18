@@ -3,10 +3,10 @@ import * as React from "react";
 import AssetContext from "../asset-context";
 import {ItemExtras} from "../perseus-types";
 
-import type {PerseusAnswerArea, StandardItem} from "../perseus-types";
+import type {PerseusAnswerArea, PerseusItem} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
-export const mockedAssetItem: StandardItem = {
+export const mockedAssetItem: PerseusItem = {
     question: {
         content: "[[\u2603 example-widget 1]]",
         images: Object.freeze({}),

@@ -19,13 +19,13 @@ import {Expression} from "../expression";
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {StandardItem} from "../../perseus-types";
+import type {PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
-    itemData: StandardItem,
+    itemData: PerseusItem,
     input: string,
     isCorrect: boolean,
 ) => {
@@ -39,7 +39,7 @@ const renderAndAnswer = async (
 
 const assertCorrect = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
-    itemData: StandardItem,
+    itemData: PerseusItem,
     input: string,
 ) => {
     const renderer = await renderAndAnswer(
@@ -61,7 +61,7 @@ const assertCorrect = async (
 
 const assertIncorrect = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
-    itemData: StandardItem,
+    itemData: PerseusItem,
     input: string,
 ) => {
     const renderer = await renderAndAnswer(
@@ -84,7 +84,7 @@ const assertIncorrect = async (
 // TODO: actually Assert that message is being set on the score object.
 const assertInvalid = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
-    itemData: StandardItem,
+    itemData: PerseusItem,
     input: string,
     message?: string,
 ) => {

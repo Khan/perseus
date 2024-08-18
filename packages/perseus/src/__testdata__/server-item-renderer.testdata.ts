@@ -2,7 +2,7 @@ import {
     ItemExtras,
     type InputNumberWidget,
     type LabelImageWidget,
-    type StandardItem,
+    type PerseusItem,
     type PerseusRenderer,
     type PerseusAnswerArea,
     type ExpressionWidget,
@@ -10,7 +10,7 @@ import {
     type NumericInputWidget,
 } from "../perseus-types";
 
-export const itemWithInput: StandardItem = {
+export const itemWithInput: PerseusItem = {
     question: {
         content:
             "Enter the number $$-42$$ in the box: [[\u2603 input-number 1]]",
@@ -40,7 +40,7 @@ export const itemWithInput: StandardItem = {
     answer: null,
 };
 
-export const itemWithMultipleInputNumbers: StandardItem = {
+export const itemWithMultipleInputNumbers: PerseusItem = {
     question: {
         content:
             "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 input-number 2]]",
@@ -82,7 +82,7 @@ export const itemWithMultipleInputNumbers: StandardItem = {
     answer: null,
 };
 
-export const itemWithNumericAndNumberInputs: StandardItem = {
+export const itemWithNumericAndNumberInputs: PerseusItem = {
     question: {
         content:
             "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 1]]",
@@ -134,7 +134,7 @@ export const itemWithNumericAndNumberInputs: StandardItem = {
     answer: null,
 };
 
-export const itemWithRadioAndExpressionWidgets: StandardItem = {
+export const itemWithRadioAndExpressionWidgets: PerseusItem = {
     question: {
         content:
             "Here's a radio widget: [[\u2603 radio 1]] \n\n Here's an expression widget: [[\u2603 expression 1]]",
@@ -225,7 +225,7 @@ export const itemWithRadioAndExpressionWidgets: StandardItem = {
     answer: null,
 };
 
-export const labelImageItem: StandardItem = {
+export const labelImageItem: PerseusItem = {
     answerArea: Object.fromEntries(
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
@@ -292,7 +292,7 @@ export const labelImageItem: StandardItem = {
 };
 
 // Note that if this item is used, you _must_ first register the MockWidget
-export const mockedItem: StandardItem = {
+export const mockedItem: PerseusItem = {
     // The mock widget type is not part of the PerseusWidget type union (and
     // we don't want to make it such to avoid polluting our production types
     // for test purposes) so we force TypeScript to accept it here.
@@ -341,7 +341,7 @@ export const mockedItem: StandardItem = {
     answer: null,
 };
 
-export const itemWithLintingError: StandardItem = {
+export const itemWithLintingError: PerseusItem = {
     question: {
         content: "# h1s aren't allowed",
         images: {},
@@ -353,7 +353,7 @@ export const itemWithLintingError: StandardItem = {
     answer: null,
 };
 
-export const itemWithImages: StandardItem = {
+export const itemWithImages: PerseusItem = {
     question: {
         content: `_An example of the different images and their alignments._
 

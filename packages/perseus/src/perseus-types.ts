@@ -84,15 +84,13 @@ export type PerseusWidgetsMap = {
 };
 
 /**
- * A PerseusItem is the top-level Perseus data type.
- */
-export type PerseusItem = StandardItem | MultiItem;
-
-/**
- * A "StandardItem" is a classic Perseus item. It is rendered by the
+ * A "PerseusItem" is a classic Perseus item. It is rendered by the
  * `ServerItemRenderer` and the layout is pre-set.
+ *
+ * To render more complex Perseus items, see the `Item` type in the multi item
+ * area.
  */
-export type StandardItem = {
+export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
     // A collection of hints to be offered to the user that support answering the question.

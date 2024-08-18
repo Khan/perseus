@@ -1,6 +1,6 @@
-import type {StandardItem} from "../perseus-types";
+import type {PerseusItem} from "../perseus-types";
 
-export const basicObject: StandardItem = {
+export const basicObject: PerseusItem = {
     question: {
         content: "",
         images: {},
@@ -25,7 +25,7 @@ export const basicObject: StandardItem = {
     answer: null,
 };
 
-export const customQuestionInfo: Partial<StandardItem> = {
+export const customQuestionInfo: Partial<PerseusItem> = {
     question: {
         content: "Test content string",
         images: {"Test image string": {width: 200, height: 200}},
@@ -46,7 +46,7 @@ export const customQuestionInfo: Partial<StandardItem> = {
     },
 };
 
-export const expectedQuestionInfoAdded: StandardItem = {
+export const expectedQuestionInfoAdded: PerseusItem = {
     question: {
         content: "Test content string",
         images: {"Test image string": {width: 200, height: 200}},
@@ -84,7 +84,7 @@ export const expectedQuestionInfoAdded: StandardItem = {
     answer: null,
 };
 
-export const customAnswerAreaInfo: Partial<StandardItem> = {
+export const customAnswerAreaInfo: Partial<PerseusItem> = {
     answerArea: {
         calculator: true,
         chi2Table: true,
@@ -98,7 +98,7 @@ export const customAnswerAreaInfo: Partial<StandardItem> = {
     },
 };
 
-export const expectedAnswerAreaInfoAdded: StandardItem = {
+export const expectedAnswerAreaInfoAdded: PerseusItem = {
     question: {
         content: "",
         images: {},
@@ -123,7 +123,7 @@ export const expectedAnswerAreaInfoAdded: StandardItem = {
     answer: null,
 };
 
-export const customHintsInfo: Partial<StandardItem> = {
+export const customHintsInfo: Partial<PerseusItem> = {
     hints: [
         {
             content: "Test content string",
@@ -158,7 +158,7 @@ export const customHintsInfo: Partial<StandardItem> = {
     ],
 };
 
-export const expectedHintsInfoAdded: StandardItem = {
+export const expectedHintsInfoAdded: PerseusItem = {
     question: {
         content: "",
         images: {},

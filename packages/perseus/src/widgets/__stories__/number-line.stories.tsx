@@ -7,7 +7,7 @@ import {question1, question2} from "../__testdata__/number-line.testdata";
 
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
-import type {StandardItem} from "../../perseus-types";
+import type {PerseusItem} from "../../perseus-types";
 
 export default {
     title: "Perseus/Widgets/Number Line",
@@ -42,7 +42,7 @@ export const ShowTickControllerMobile = (
                                         minor: 1,
                                     },
                                     hints: [],
-                                } satisfies StandardItem
+                                } satisfies PerseusItem
                             }
                             apiOptions={{
                                 isMobile: true,

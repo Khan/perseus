@@ -202,7 +202,6 @@ export type {
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
-    StandardItem,
     MultiItem,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";

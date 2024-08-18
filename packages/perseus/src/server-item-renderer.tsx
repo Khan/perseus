@@ -22,7 +22,7 @@ import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-import type {StandardItem, ShowSolutions} from "./perseus-types";
+import type {PerseusItem, ShowSolutions} from "./perseus-types";
 import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
@@ -38,7 +38,7 @@ const {mapObject} = Objective;
 type OwnProps = {
     apiOptions: APIOptions;
     hintsVisible?: number;
-    item: StandardItem;
+    item: PerseusItem;
     linterContext: LinterContextProps;
     problemNum?: number;
     reviewMode?: boolean;
