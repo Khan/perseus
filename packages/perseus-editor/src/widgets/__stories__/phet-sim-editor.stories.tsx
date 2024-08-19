@@ -1,6 +1,6 @@
 import {action} from "@storybook/addon-actions";
 
-import {PhetSimEditor} from "../phet-sim-editor";
+import PhetSimEditor from "../phet-sim-editor";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
