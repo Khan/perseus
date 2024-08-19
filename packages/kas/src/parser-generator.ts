@@ -130,7 +130,7 @@ const grammar = {
             // the second term in an implicit multiplication cannot be negative
             [
                 "multiplicative triglog",
-                "$$ = yy.Mul.fold(yy.Mul.createOrAppend($1, $2, true));",
+                "$$ = yy.Mul.fold(yy.Mul.createOrAppend($1, $2));",
             ],
             [
                 "multiplicative * negative",

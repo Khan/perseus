@@ -1306,19 +1306,8 @@ _.extend(Mul.prototype, {
 _.each([Add, Mul], function (type) {
     _.extend(type, {
         // create a new sequence unless left is already one (returns a copy)
-        createOrAppend: function (left, right, implicit = false) {
-            if (
-                implicit &&
-                type === Mul &&
-                left instanceof Num &&
-                right instanceof Num &&
-                left.isInteger() &&
-                right.isFraction() &&
-                !left.hints.parens &&
-                !right.hints.parens
-            ) {
-                return new Add(left, right);
-            } else if (left instanceof type) {
+        createOrAppend: function (left, right) {
+            if (left instanceof type) {
                 return new type(left.terms.concat(right));
             } else {
                 return new type(left, right);
@@ -3070,12 +3059,6 @@ _.extend(Num.prototype, {
     },
     codegen: function () {
         return this.print();
-    },
-    isInteger: function () {
-        return this instanceof Int;
-    },
-    isFraction: function () {
-        return this instanceof Rational && !(this instanceof Int);
     },
 
     // takes another Num and returns a new Num

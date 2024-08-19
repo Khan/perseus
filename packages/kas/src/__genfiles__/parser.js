@@ -105,7 +105,7 @@ case 6:
 this.$ = yy.Add.createOrAppend($$[$0-2], yy.Mul.handleNegative($$[$0], "subtract"));
 break;
 case 8:
-this.$ = yy.Mul.fold(yy.Mul.createOrAppend($$[$0-1], $$[$0], true));
+this.$ = yy.Mul.fold(yy.Mul.createOrAppend($$[$0-1], $$[$0]));
 break;
 case 9:
 this.$ = yy.Mul.fold(yy.Mul.createOrAppend($$[$0-2], $$[$0]));
