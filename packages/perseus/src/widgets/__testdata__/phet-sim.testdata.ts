@@ -19,3 +19,22 @@ export const question1: PerseusRenderer = {
         },
     },
 };
+
+export const nonPhetUrl: PerseusRenderer = {
+    content: "This should display an error!\n[[\u2603 phet-sim 2]]\n",
+    images: {},
+    widgets: {
+        "phet-sim 2": {
+            graded: false,
+            version: {major: 0, minor: 0},
+            static: false,
+            type: "phet-sim",
+            options: {
+                url: "https://google.com/",
+                description: "Google",
+                static: false,
+            },
+            alignment: "default",
+        },
+    },
+};

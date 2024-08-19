@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`phet-sim widget should snapshot on mobile: first mobile render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        Do this fun PhET simulation! A projectile data lab!
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="default_xu2jcg"
+          >
+            <div
+              class="default_xu2jcg"
+            >
+              <iframe
+                allow="fullscreen"
+                sandbox="allow-same-origin allow-scripts"
+                srcdoc="Sorry, this simulation cannot load."
+                style="width: 400px; height: 400px;"
+                title="Projectile Data Lab"
+              />
+            </div>
+            <button
+              aria-disabled="false"
+              aria-label="Fullscreen"
+              class="button_vr44p2-o_O-shared_188r6j6-o_O-default_b6j6uv-o_O-inlineStyles_oz9y1l"
+              type="button"
+            >
+              <span
+                class="svg_1q6jc65-o_O-icon_1521uiv-o_O-inlineStyles_xbmduj"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`phet-sim widget should snapshot: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        Do this fun PhET simulation! A projectile data lab!
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="default_xu2jcg"
+          >
+            <div
+              class="default_xu2jcg"
+            >
+              <iframe
+                allow="fullscreen"
+                sandbox="allow-same-origin allow-scripts"
+                srcdoc="Sorry, this simulation cannot load."
+                style="width: 400px; height: 400px;"
+                title="Projectile Data Lab"
+              />
+            </div>
+            <button
+              aria-disabled="false"
+              aria-label="Fullscreen"
+              class="button_vr44p2-o_O-shared_188r6j6-o_O-default_b6j6uv-o_O-inlineStyles_oz9y1l"
+              type="button"
+            >
+              <span
+                class="svg_1q6jc65-o_O-icon_1521uiv-o_O-inlineStyles_xbmduj"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
