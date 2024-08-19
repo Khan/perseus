@@ -1,5 +1,5 @@
 ---
-"@khanacademy/kas": minor
+"@khanacademy/kas": patch
 ---
 
-Change how we evaluate mixed numbers
+Add some tests for mixed numbers in KAS.
