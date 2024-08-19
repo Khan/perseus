@@ -3,7 +3,7 @@ import {screen, waitFor} from "@testing-library/react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {nonPhetUrl, question1} from "../__testdata__/phet-sim.testdata";
-import PhetSim, {makeSafeUrl} from "../phet-sim";
+import {makeSafeUrl} from "../phet-sim";
 
 import {renderQuestion} from "./renderQuestion";
 
