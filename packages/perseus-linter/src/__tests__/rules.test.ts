@@ -546,6 +546,82 @@ describe("Individual lint rules tests", () => {
         },
     });
 
+    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sin\\left(42\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                },
+            },
+        },
+    });
+
+    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sin\\left(42\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic", "trig"],
+                },
+            },
+        },
+    });
+
+    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\log\\left(5\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                },
+            },
+        },
+    });
+
+    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\log\\left(5\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic", "logarithms"],
+                },
+            },
+        },
+    });
+
     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
     expectWarning(doubleSpacingAfterTerminalRule, [
         "Good times.  Great oldies.",
