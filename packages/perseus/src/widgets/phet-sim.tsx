@@ -20,8 +20,12 @@ import type {WidgetExports, WidgetProps} from "../types";
 type RenderProps = PerseusPhetSimWidgetOptions; // transform = _.identity
 type Props = WidgetProps<RenderProps, PerseusPhetSimWidgetOptions>;
 
+// For returning user input, but currently the PhET widget
+// does not support accessing user input
+type UserInput = null;
+
 type State = {
-    errMessage: string | null;
+    bannerMessage: string | null;
     url: URL | null;
 };
 
@@ -29,21 +33,21 @@ type State = {
 class PhetSim extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-    private readonly iframeRef: React.RefObject<HTMLIFrameElement>;
+    private readonly iframeRef: React.RefObject<HTMLIFrameElement> =
+        React.createRef<HTMLIFrameElement>();
     private readonly locale: string;
 
     state: State = {
         url: null,
-        errMessage: null,
+        bannerMessage: null,
     };
 
     constructor(props) {
         super(props);
         this.locale = this.getPhetCompatibleLocale(getDependencies().kaLocale);
-        this.iframeRef = React.createRef<HTMLIFrameElement>();
     }
 
-    getUserInput: () => any = () => {
+    getUserInput(): UserInput {
         return null;
     };
 
@@ -60,18 +64,18 @@ class PhetSim extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         // We sandbox the iframe so that we allowlist only the functionality
-        // that we need. This makes it a bit safer in case some content
-        // creator "went wild".
+        // that we need. This makes it safer to present third-party content
+        // from the PhET website.
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         const sandboxProperties = "allow-same-origin allow-scripts";
         return (
             <View>
-                {this.state.errMessage && (
+                {this.state.bannerMessage && (
                     // TODO(anna): Make this banner focusable
                     <Banner
                         kind="warning"
                         layout="floating"
-                        text={this.state.errMessage}
+                        text={this.state.bannerMessage}
                     />
                 )}
                 <View>
@@ -138,37 +142,37 @@ class PhetSim extends React.Component<Props, State> {
         }
     };
 
+    // Setting URL to null will display an error message in the iframe
     makeSafeUrl(urlString: string): URL | null {
-        let url: URL | null = null;
-        if (URL.canParse(urlString)) {
-            url = new URL(urlString);
-            url.searchParams.set("locale", this.locale);
-            if (url.origin !== "https://phet.colorado.edu") {
-                url = null;
-            }
+        if (!URL.canParse(urlString)) {
+            return null;
         }
+        const url = new URL(urlString);
+        if (url.origin !== "https://phet.colorado.edu") {
+            return null;
+        }
+        url.searchParams.set("locale", this.locale);
         return url;
     }
 
     async updateSimState(urlString: string) {
         const url = this.makeSafeUrl(urlString);
-        if (url) {
-            // Display an error if we fail to load the resource
-            const validLink = await fetch(url)
-                .then((response: Response) => response.ok)
-                .catch(() => false);
-            if (validLink) {
-                const showLocaleWarning = await this.showLocaleWarning(url);
-                this.setState({
-                    url: url,
-                    errMessage: showLocaleWarning
-                        ? this.context.strings.simulationLocaleWarning
-                        : null,
-                });
-                return;
-            }
+        if (url === null) {
+            this.setState({url: null, bannerMessage: null});
+            return;
         }
-        this.setState({url: null, errMessage: null});
+        const response = await fetch(url);
+        if (!response.ok) {
+            this.setState({url: null, bannerMessage: null});
+            return;
+        }
+        const showLocaleWarning = await this.showLocaleWarning(url);
+        this.setState({
+            url: url,
+            bannerMessage: showLocaleWarning
+                ? this.context.strings.simulationLocaleWarning
+                : null,
+        });
     }
 
     async showLocaleWarning(url: URL): Promise<boolean> {
