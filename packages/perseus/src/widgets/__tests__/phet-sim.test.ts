@@ -60,11 +60,9 @@ describe("phet-sim widget", () => {
         };
 
         // Act
-        //const {container} = renderQuestion(question1, apiOptions);
         renderQuestion(question1, apiOptions);
 
         // Assert
-        //await waitFor(() => expect(container).toMatchSnapshot("first render"));
         await waitFor(() => {
             expect(screen.queryByTitle("Projectile Data Lab")).toHaveAttribute(
                 "src",
