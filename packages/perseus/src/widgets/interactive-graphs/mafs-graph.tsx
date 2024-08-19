@@ -73,81 +73,82 @@ export const MafsGraph = (props: MafsGraphProps) => {
             }}
         >
             <View
-            style={{
-            width: "intrinsic",
-            }}
-            >
-            <View
-                className="mafs-graph"
                 style={{
-                    height,
-                    position: "relative",
-                    padding: "25px 25px 0 0",
-                    boxSizing: "content-box",
-                    marginLeft: "20px",
-                    marginBottom: "20px",
-                    pointerEvents: props.static ? "none" : "auto",
-                    userSelect: "none",
+                    width: width,
                 }}
             >
-                <LegacyGrid
-                    box={props.box}
-                    backgroundImage={props.backgroundImage}
-                />
                 <View
+                    className="mafs-graph"
                     style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
+                        height,
+                        width,
+                        position: "relative",
+                        padding: "25px 25px 0 0",
+                        boxSizing: "content-box",
+                        marginLeft: "20px",
+                        marginBottom: "20px",
+                        pointerEvents: props.static ? "none" : "auto",
+                        userSelect: "none",
                     }}
                 >
-                    {props.markings === "graph" && (
-                        <>
-                            <AxisLabels />
-                            <AxisTickLabels />
-                        </>
-                    )}
-                    <Mafs
-                        preserveAspectRatio={false}
-                        viewBox={{
-                            x: state.range[X],
-                            y: state.range[Y],
-                            padding: 0,
+                    <LegacyGrid
+                        box={props.box}
+                        backgroundImage={props.backgroundImage}
+                    />
+                    <View
+                        style={{
+                            position: "absolute",
+                            bottom: 0,
+                            left: 0,
                         }}
-                        pan={false}
-                        zoom={false}
-                        width={width}
-                        height={height}
                     >
-                        {/* Svg definitions to render only once */}
-                        <SvgDefs />
-                        {/* Background layer */}
-                        <Grid
-                            tickStep={props.step}
-                            gridStep={props.gridStep}
-                            range={state.range}
-                            containerSizeClass={props.containerSizeClass}
-                            markings={props.markings}
-                        />
-                        {/* Locked layer */}
-                        {props.lockedFigures && (
-                            <GraphLockedLayer
-                                lockedFigures={props.lockedFigures}
-                                range={state.range}
-                            />
+                        {props.markings === "graph" && (
+                            <>
+                                <AxisLabels />
+                                <AxisTickLabels />
+                            </>
                         )}
-                        {/* Protractor */}
-                        {props.showProtractor && <Protractor />}
-                        {/* Interactive layer */}
-                        {renderGraph({
-                            state,
-                            dispatch,
-                        })}
-                    </Mafs>
+                        <Mafs
+                            preserveAspectRatio={false}
+                            viewBox={{
+                                x: state.range[X],
+                                y: state.range[Y],
+                                padding: 0,
+                            }}
+                            pan={false}
+                            zoom={false}
+                            width={width}
+                            height={height}
+                        >
+                            {/* Svg definitions to render only once */}
+                            <SvgDefs />
+                            {/* Background layer */}
+                            <Grid
+                                tickStep={props.step}
+                                gridStep={props.gridStep}
+                                range={state.range}
+                                containerSizeClass={props.containerSizeClass}
+                                markings={props.markings}
+                            />
+                            {/* Locked layer */}
+                            {props.lockedFigures && (
+                                <GraphLockedLayer
+                                    lockedFigures={props.lockedFigures}
+                                    range={state.range}
+                                />
+                            )}
+                            {/* Protractor */}
+                            {props.showProtractor && <Protractor />}
+                            {/* Interactive layer */}
+                            {renderGraph({
+                                state,
+                                dispatch,
+                            })}
+                        </Mafs>
+                    </View>
                 </View>
                 {props.graph.type === "point" &&
                     renderPointGraphControls({state, dispatch})}
-            </View>
             </View>
         </GraphConfigContext.Provider>
     );
@@ -161,6 +162,7 @@ const renderPointGraphControls = (props: {
         kind="secondary"
         style={{
             width: "100%",
+            marginLeft: "20px",
         }}
         onClick={() => {
             props.dispatch(actions.pointGraph.addPoint([0, 0]));
