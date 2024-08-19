@@ -1,8 +1,6 @@
-import {screen} from "@testing-library/react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {nonPhetUrl, question1} from "../__testdata__/phet-sim.testdata";
+import {question1} from "../__testdata__/phet-sim.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
