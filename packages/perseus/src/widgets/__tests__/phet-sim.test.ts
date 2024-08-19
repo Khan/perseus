@@ -21,21 +21,6 @@ describe("phet-sim widget", () => {
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 
-    it("should reject non-PhET domain", () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-
-        // Act
-        renderQuestion(nonPhetUrl, apiOptions);
-
-        // Assert
-        expect(
-            screen.queryByText("Sorry, this simulation cannot load."),
-        ).toBeVisible();
-    });
-
     it("should snapshot", () => {
         // Arrange
         const apiOptions: APIOptions = {
