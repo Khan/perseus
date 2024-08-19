@@ -49,7 +49,7 @@ class PhetSim extends React.Component<Props, State> {
 
     getUserInput(): UserInput {
         return null;
-    };
+    }
 
     async componentDidMount() {
         await this.updateSimState(this.props.url);
