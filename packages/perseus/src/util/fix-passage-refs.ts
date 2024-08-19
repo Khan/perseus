@@ -2,7 +2,7 @@ import _ from "underscore";
 
 import {traverse} from "../traversal";
 
-import type {PerseusItem} from "../perseus-types";
+import type {MultiItem, PerseusItem} from "../perseus-types";
 
 const findPassageRefR = new RegExp(
     // [[ passage-ref 1]]
@@ -103,7 +103,7 @@ const fixRendererPassageRefs = (options: any) => {
     return traverse(options, null, fixRadioWidget, fixWholeOptions);
 };
 
-const fixPassageRefs = (itemData: PerseusItem): any => {
+const fixPassageRefs = (itemData: PerseusItem | MultiItem): any => {
     if ("_multi" in itemData) {
         // We're in a multi-item. Don't do anything, just return the original
         // item data.
