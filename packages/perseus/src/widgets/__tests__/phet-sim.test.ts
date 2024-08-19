@@ -1,6 +1,8 @@
+import {screen} from "@testing-library/react";
+
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {question1} from "../__testdata__/phet-sim.testdata";
+import {nonPhetUrl, question1} from "../__testdata__/phet-sim.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
@@ -16,6 +18,22 @@ describe("phet-sim widget", () => {
                 json: () => Promise.resolve({test: 100}),
             }),
         ) as jest.Mock;
+        global.URL.canParse = jest.fn(() => true) as jest.Mock;
+    });
+
+    it("should reject non-PhET domain", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            isMobile: false,
+        };
+
+        // Act
+        renderQuestion(nonPhetUrl, apiOptions);
+
+        // Assert
+        expect(
+            screen.queryByText("Sorry, this simulation cannot load."),
+        ).toBeVisible();
     });
 
     it("should snapshot", () => {
