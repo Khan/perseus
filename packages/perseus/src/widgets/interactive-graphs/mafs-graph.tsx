@@ -73,81 +73,81 @@ export const MafsGraph = (props: MafsGraphProps) => {
             }}
         >
             <View
+            style={{
+            width: "intrinsic",
+            }}
+            >
+            <View
+                className="mafs-graph"
                 style={{
-                    width: "intrinsic",
+                    height,
+                    position: "relative",
+                    padding: "25px 25px 0 0",
+                    boxSizing: "content-box",
+                    marginLeft: "20px",
+                    marginBottom: "20px",
+                    pointerEvents: props.static ? "none" : "auto",
+                    userSelect: "none",
                 }}
             >
+                <LegacyGrid
+                    box={props.box}
+                    backgroundImage={props.backgroundImage}
+                />
                 <View
-                    className="mafs-graph"
                     style={{
-                        width,
-                        height,
-                        position: "relative",
-                        padding: "25px 25px 0 0",
-                        boxSizing: "content-box",
-                        marginLeft: "20px",
-                        marginBottom: "20px",
-                        pointerEvents: props.static ? "none" : "auto",
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
                     }}
                 >
-                    <LegacyGrid
-                        box={props.box}
-                        backgroundImage={props.backgroundImage}
-                    />
-                    <View
-                        style={{
-                            position: "absolute",
-                            bottom: 0,
-                            left: 0,
+                    {props.markings === "graph" && (
+                        <>
+                            <AxisLabels />
+                            <AxisTickLabels />
+                        </>
+                    )}
+                    <Mafs
+                        preserveAspectRatio={false}
+                        viewBox={{
+                            x: state.range[X],
+                            y: state.range[Y],
+                            padding: 0,
                         }}
+                        pan={false}
+                        zoom={false}
+                        width={width}
+                        height={height}
                     >
-                        {props.markings === "graph" && (
-                            <>
-                                <AxisLabels />
-                                <AxisTickLabels />
-                            </>
-                        )}
-                        <Mafs
-                            preserveAspectRatio={false}
-                            viewBox={{
-                                x: state.range[X],
-                                y: state.range[Y],
-                                padding: 0,
-                            }}
-                            pan={false}
-                            zoom={false}
-                            width={width}
-                            height={height}
-                        >
-                            {/* Svg definitions to render only once */}
-                            <SvgDefs />
-                            {/* Background layer */}
-                            <Grid
-                                tickStep={props.step}
-                                gridStep={props.gridStep}
+                        {/* Svg definitions to render only once */}
+                        <SvgDefs />
+                        {/* Background layer */}
+                        <Grid
+                            tickStep={props.step}
+                            gridStep={props.gridStep}
+                            range={state.range}
+                            containerSizeClass={props.containerSizeClass}
+                            markings={props.markings}
+                        />
+                        {/* Locked layer */}
+                        {props.lockedFigures && (
+                            <GraphLockedLayer
+                                lockedFigures={props.lockedFigures}
                                 range={state.range}
-                                containerSizeClass={props.containerSizeClass}
-                                markings={props.markings}
                             />
-                            {/* Locked layer */}
-                            {props.lockedFigures && (
-                                <GraphLockedLayer
-                                    lockedFigures={props.lockedFigures}
-                                    range={state.range}
-                                />
-                            )}
-                            {/* Protractor */}
-                            {props.showProtractor && <Protractor />}
-                            {/* Interactive layer */}
-                            {renderGraph({
-                                state,
-                                dispatch,
-                            })}
-                        </Mafs>
-                    </View>
+                        )}
+                        {/* Protractor */}
+                        {props.showProtractor && <Protractor />}
+                        {/* Interactive layer */}
+                        {renderGraph({
+                            state,
+                            dispatch,
+                        })}
+                    </Mafs>
                 </View>
                 {props.graph.type === "point" &&
                     renderPointGraphControls({state, dispatch})}
+            </View>
             </View>
         </GraphConfigContext.Provider>
     );
