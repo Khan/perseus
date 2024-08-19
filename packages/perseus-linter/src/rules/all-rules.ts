@@ -8,6 +8,7 @@ import AbsoluteUrl from "./absolute-url";
 import BlockquotedMath from "./blockquoted-math";
 import BlockquotedWidget from "./blockquoted-widget";
 import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
+import ExpressionWidget from "./expression-widget";
 import ExtraContentSpacing from "./extra-content-spacing";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
@@ -40,6 +41,7 @@ export default [
     BlockquotedMath,
     BlockquotedWidget,
     DoubleSpacingAfterTerminal,
+    ExpressionWidget,
     ExtraContentSpacing,
     HeadingLevel1,
     HeadingLevelSkip,
