@@ -35,7 +35,6 @@ const createItemJson = (
                 },
             },
         },
-        _multi: null,
         answer: null,
         answerArea: Object.fromEntries(
             ItemExtras.map((extra) => [extra, false]),
