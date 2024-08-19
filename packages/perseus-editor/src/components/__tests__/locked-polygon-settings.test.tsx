@@ -219,8 +219,8 @@ describe("LockedPolygonSettings", () => {
         );
 
         // Act
-        const moveUpButton = screen.getByLabelText("Move polygon down");
-        await userEvent.click(moveUpButton);
+        const moveDownButton = screen.getByLabelText("Move polygon down");
+        await userEvent.click(moveDownButton);
 
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
@@ -253,8 +253,8 @@ describe("LockedPolygonSettings", () => {
         );
 
         // Act
-        const moveUpButton = screen.getByLabelText("Move polygon left");
-        await userEvent.click(moveUpButton);
+        const moveLeftButton = screen.getByLabelText("Move polygon left");
+        await userEvent.click(moveLeftButton);
 
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
@@ -287,8 +287,8 @@ describe("LockedPolygonSettings", () => {
         );
 
         // Act
-        const moveUpButton = screen.getByLabelText("Move polygon right");
-        await userEvent.click(moveUpButton);
+        const moveRightButton = screen.getByLabelText("Move polygon right");
+        await userEvent.click(moveRightButton);
 
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
