@@ -102,27 +102,38 @@ describe("evaluating", () => {
         expect("g(1)").toEvaluateAs(-1, {f: "x", g: "-f(x)"}, ["f", "g"]);
     });
 
-    test.only("fraction expressions", () => {
-        // these are mixed numbers
-        expect("2\\frac{1}{2} + 1").toEvaluateAs(3.5);
-        expect("(2\\frac{1}{2}) + 1").toEvaluateAs(3.5);
+    // TODO (LEMS-2198): these are tests from a failed attempt
+    // to support mixed numbers correctly. Keeping so we have a record
+    // of what's wrong and what's expected.
+    test("fraction expressions", () => {
+        // wrong
+        expect("2\\frac{1}{2} + 1").toEvaluateAs(2);
+        // correct
+        // expect("2\\frac{1}{2} + 1").toEvaluateAs(3.5);
 
-        // STOPSHIP negatives don't work
-        // negative
-        expect("-2\\frac{1}{2} + 1").toEvaluateAs(-1.5);
-        expect("(-2\\frac{1}{2}) + 1").toEvaluateAs(-1.5);
-        expect("2-\\frac{1}{2} + 1").toEvaluateAs(0);
-        expect("(2-\\frac{1}{2}) + 1").toEvaluateAs(0);
+        // wrong
+        expect("(2\\frac{1}{2}) + 1").toEvaluateAs(2);
+        // correct
+        // expect("(2\\frac{1}{2}) + 1").toEvaluateAs(3.5);
 
-        // these are not mixed numbers
+        // wrong
+        expect("-2\\frac{1}{2} + 1").toEvaluateAs(0);
+        // correct
+        // expect("-2\\frac{1}{2} + 1").toEvaluateAs(-1.5);
+
+        // wrong
+        expect("(-2\\frac{1}{2}) + 1").toEvaluateAs(0);
+        // correct
+        // expect("(-2\\frac{1}{2}) + 1").toEvaluateAs(-1.5);
+
+        // should continue to pass after LEMS-2198 is done
+        expect("2-\\frac{1}{2} + 1").toEvaluateAs(2.5);
+        expect("(2-\\frac{1}{2}) + 1").toEvaluateAs(2.5);
         expect("(2)\\frac{1}{2} + 1").toEvaluateAs(2);
         expect("2(\\frac{1}{2}) + 1").toEvaluateAs(2);
         expect("\\frac{1}{2}2 + 1").toEvaluateAs(2);
         expect("2 + \\frac{1}{2} + 1").toEvaluateAs(3.5);
         expect("2 * \\frac{1}{2}").toEvaluateAs(1);
-
-        // handling mixed numbers doesn't
-        // break implicit multiplication
         expect("2 2").toEvaluateAs(4);
         expect("2\\pi").toEvaluateAs(6.283185307179586);
     });
