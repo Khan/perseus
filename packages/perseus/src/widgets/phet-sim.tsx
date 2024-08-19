@@ -30,7 +30,7 @@ type State = {
 };
 
 /* This renders the PhET sim */
-class PhetSim extends React.Component<Props, State> {
+export class PhetSim extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement> =
@@ -78,24 +78,22 @@ class PhetSim extends React.Component<Props, State> {
                         text={this.state.bannerMessage}
                     />
                 )}
-                <View>
-                    <iframe
-                        ref={this.iframeRef}
-                        title={this.props.description}
-                        sandbox={sandboxProperties}
-                        style={{
-                            width: 400,
-                            height: 400,
-                        }}
-                        src={this.state.url?.toString()}
-                        srcDoc={
-                            this.state.url !== null
-                                ? undefined
-                                : this.context.strings.simulationLoadFail
-                        }
-                        allow="fullscreen"
-                    />
-                </View>
+                <iframe
+                    ref={this.iframeRef}
+                    title={this.props.description}
+                    sandbox={sandboxProperties}
+                    style={{
+                        width: 400,
+                        height: 400,
+                    }}
+                    src={this.state.url?.toString()}
+                    srcDoc={
+                        this.state.url !== null
+                            ? undefined
+                            : this.context.strings.simulationLoadFail
+                    }
+                    allow="fullscreen"
+                />
                 <IconButton
                     icon={cornersOutIcon}
                     onClick={() => {
