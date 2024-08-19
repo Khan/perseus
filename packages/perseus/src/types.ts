@@ -610,3 +610,8 @@ export type ChangeFn = (
     propValue?: any,
     callback?: () => unknown,
 ) => any | null | undefined;
+
+export type SharedRendererProps = {
+    apiOptions: APIOptions;
+    linterContext: LinterContextProps;
+};

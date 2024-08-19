@@ -8,11 +8,9 @@ import Renderer from "./renderer";
 import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 
-import type {APIOptions} from "./types";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {SharedRendererProps} from "./types";
 
-type Props = {
-    apiOptions: APIOptions;
+type Props = SharedRendererProps & {
     className?: string;
     hint: any;
     lastHint?: boolean;
@@ -20,7 +18,6 @@ type Props = {
     pos: number;
     totalHints?: number;
     findExternalWidgets?: any;
-    linterContext: LinterContextProps;
 };
 
 type DefaultProps = {
