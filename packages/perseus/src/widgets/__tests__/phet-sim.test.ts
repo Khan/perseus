@@ -3,6 +3,7 @@ import {screen, waitFor} from "@testing-library/react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {nonPhetUrl, question1} from "../__testdata__/phet-sim.testdata";
+import PhetSim, {makeSafeUrl} from "../phet-sim";
 
 import {renderQuestion} from "./renderQuestion";
 
@@ -23,34 +24,6 @@ describe("phet-sim widget", () => {
             }),
         ) as jest.Mock;
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
-    });
-
-    // Snapshots a widget with URL = null, before componentDidMount runs
-    it("should snapshot", async () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-
-        // Act
-        const {container} = renderQuestion(question1, apiOptions);
-
-        // Assert
-        expect(container).toMatchSnapshot("first render");
-    });
-
-    // Snapshots a widget with URL = null, before componentDidMount runs
-    it("should snapshot on mobile", async () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: true,
-        };
-
-        // Act
-        const {container} = renderQuestion(question1, apiOptions);
-
-        // Assert
-        expect(container).toMatchSnapshot("first mobile render");
     });
 
     it("should display with valid PhET URL", async () => {
@@ -87,5 +60,32 @@ describe("phet-sim widget", () => {
                 "Sorry, this simulation cannot load.",
             );
         });
+    });
+
+    it("should make the URL with the correct locale", async () => {
+        // Arrange
+        const baseUrl =
+            "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html";
+        const locale = "fr";
+
+        // Act
+        const url: URL | null = makeSafeUrl(baseUrl, locale);
+
+        // Assert
+        expect(url?.toString()).toBe(
+            "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html?locale=fr",
+        );
+    });
+
+    it("should erase a non-PhET URL", async () => {
+        // Arrange
+        const baseUrl = "https://google.com";
+        const locale = "en";
+
+        // Act
+        const url: URL | null = makeSafeUrl(baseUrl, locale);
+
+        // Assert
+        expect(url).toBe(null);
     });
 });

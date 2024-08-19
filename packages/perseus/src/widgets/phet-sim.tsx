@@ -142,21 +142,8 @@ class PhetSim extends React.Component<Props, State> {
         }
     };
 
-    // Setting URL to null will display an error message in the iframe
-    makeSafeUrl(urlString: string): URL | null {
-        if (!URL.canParse(urlString)) {
-            return null;
-        }
-        const url = new URL(urlString);
-        if (url.origin !== "https://phet.colorado.edu") {
-            return null;
-        }
-        url.searchParams.set("locale", this.locale);
-        return url;
-    }
-
     async updateSimState(urlString: string) {
-        const url = this.makeSafeUrl(urlString);
+        const url = makeSafeUrl(urlString, this.locale);
         if (url === null) {
             this.setState({url: null, bannerMessage: null});
             return;
@@ -211,6 +198,19 @@ class PhetSim extends React.Component<Props, State> {
         return true;
     }
 }
+
+// Setting URL to null will display an error message in the iframe
+export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
+    if (!URL.canParse(urlString)) {
+        return null;
+    }
+    const url = new URL(urlString);
+    if (url.origin !== "https://phet.colorado.edu") {
+        return null;
+    }
+    url.searchParams.set("locale", locale);
+    return url;
+};
 
 export default {
     name: "phet-sim",
