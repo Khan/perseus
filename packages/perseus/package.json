@@ -41,8 +41,8 @@
     },
     "dependencies": {
         "@khanacademy/kas": "^0.3.11",
-        "@khanacademy/kmath": "^0.1.13",
         "@khanacademy/keypad-context": "^1.0.0",
+        "@khanacademy/kmath": "^0.1.13",
         "@khanacademy/math-input": "^21.0.0",
         "@khanacademy/perseus-core": "1.5.0",
         "@khanacademy/perseus-linter": "^1.1.0",
@@ -61,6 +61,7 @@
         "@khanacademy/wonder-blocks-dropdown": "5.3.0",
         "@khanacademy/wonder-blocks-form": "^4.7.1",
         "@khanacademy/wonder-blocks-icon": "4.1.0",
+        "@khanacademy/wonder-blocks-icon-button": "^5.3.3",
         "@khanacademy/wonder-blocks-layout": "2.0.32",
         "@khanacademy/wonder-blocks-link": "6.1.1",
         "@khanacademy/wonder-blocks-pill": "2.2.1",
