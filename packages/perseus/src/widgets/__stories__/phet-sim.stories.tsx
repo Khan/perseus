@@ -1,14 +1,18 @@
-import * as React from "react";
+import {PhetSim} from "../phet-sim";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question1} from "../__testdata__/phet-sim.testdata";
+import type {Meta, StoryObj} from "@storybook/react";
 
-export default {
-    title: "Perseus/Widgets/PhetSim",
+const meta: Meta<typeof PhetSim> = {
+    component: PhetSim,
+    title: "Perseus/Widgets/PhET Simulation",
 };
 
-type StoryArgs = Record<any, any>;
+export default meta;
+type Story = StoryObj<typeof PhetSim>;
 
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+export const Primary: Story = {
+    args: {
+        url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
+        description: "Projectile Data Lab",
+    },
 };

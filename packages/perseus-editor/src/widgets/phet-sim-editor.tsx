@@ -7,7 +7,7 @@ import BlurInput from "../components/blur-input";
 
 type PhetSimEditorProps = any;
 
-class PhetSimEditor extends React.Component<PhetSimEditorProps> {
+export class PhetSimEditor extends React.Component<PhetSimEditorProps> {
     static propTypes = {
         ...Changeable.propTypes,
     };

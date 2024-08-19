@@ -1,18 +1,19 @@
 import {action} from "@storybook/addon-actions";
-import * as React from "react";
 
-import PhetSimEditor from "../phet-sim-editor";
+import {PhetSimEditor} from "../phet-sim-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
+const meta: Meta<typeof PhetSimEditor> = {
+    component: PhetSimEditor,
+    title: "PerseusEditor/Widgets/PhET Simulation Editor",
 };
 
-export default {
-    title: "PerseusEditor/Widgets/PhET Simulation Editor",
-} as Story;
+export default meta;
+type Story = StoryObj<typeof PhetSimEditor>;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <PhetSimEditor onChange={action("onChange")} />;
+export const Primary: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };
