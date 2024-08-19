@@ -89,7 +89,7 @@ class PhetSim extends React.Component<Props, State> {
                         }}
                         src={this.state.url?.toString()}
                         srcDoc={
-                            this.state.url
+                            this.state.url !== null
                                 ? undefined
                                 : this.context.strings.simulationLoadFail
                         }
@@ -189,13 +189,17 @@ class PhetSim extends React.Component<Props, State> {
             return false;
         }
         const simName = match[1];
-        const locales = await fetch(
+        const response = await fetch(
             `https://phet.colorado.edu/sims/html/${simName}/latest/string-map.json`,
-        )
-            .then((response: Response) => response.json())
-            .then((json: any) => {
-                return Object.keys(json);
-            });
+        );
+        if (!response.ok) {
+            return false;
+        }
+        const responseJson = await response.json();
+        if (!responseJson) {
+            return false;
+        }
+        const locales = Object.keys(responseJson);
 
         // Only display a locale warning if there is no fallback language
         const baseLocale = this.locale.split("_")[0];
