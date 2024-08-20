@@ -1,25 +1,24 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/sort-comp */
-import {EditorJsonify} from "@khanacademy/perseus";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
-type Props = {
-    url: string;
-    description: string;
+import type {PerseusPhetSimWidgetOptions} from "@khanacademy/perseus/src/perseus-types";
+
+type Options = {
+    url: PerseusPhetSimWidgetOptions["url"];
+    description: PerseusPhetSimWidgetOptions["description"];
+};
+
+type Props = Options & {
     onChange: (arg1: {
         url?: Props["url"];
         description?: Props["description"];
     }) => void;
 };
 
-type DefaultProps = {
-    url: Props["url"];
-    description: Props["description"];
-};
-
 class PhetSimEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: Options = {
         url: "",
         description: "",
     };
@@ -46,8 +45,11 @@ class PhetSimEditor extends React.Component<Props> {
         );
     }
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
+    serialize: () => Options = () => {
+        return {
+            url: this.props.url,
+            description: this.props.description,
+        };
     };
 }
 
