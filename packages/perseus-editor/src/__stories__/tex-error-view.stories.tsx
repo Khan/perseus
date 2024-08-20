@@ -5,9 +5,6 @@ import type {Meta, StoryObj} from "@storybook/react";
 const meta: Meta<typeof TexErrorView> = {
     component: TexErrorView,
     title: "PerseusEditor/TexErrorView",
-    argTypes: {
-        errorList: {table: {disable: true}},
-    },
 };
 
 export default meta;
