@@ -7,6 +7,7 @@ import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTickLabels} from "./backgrounds/axis-tick-labels";
 import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
+import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
 import {
     LinearGraph,
@@ -33,6 +34,7 @@ import "mafs/core.css";
 import "./mafs-styles.css";
 
 export type MafsGraphProps = {
+    showLabelsFlag?: boolean;
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
@@ -100,6 +102,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             <AxisTickLabels />
                         </>
                     )}
+                    {/* Locked labels layer */}
+                    {props.showLabelsFlag && props.lockedFigures && (
+                        <GraphLockedLabelsLayer
+                            lockedFigures={props.lockedFigures}
+                        />
+                    )}
                     <Mafs
                         preserveAspectRatio={false}
                         viewBox={{
@@ -122,7 +130,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             containerSizeClass={props.containerSizeClass}
                             markings={props.markings}
                         />
-                        {/* Locked layer */}
+                        {/* Locked figures layer */}
                         {props.lockedFigures && (
                             <GraphLockedLayer
                                 lockedFigures={props.lockedFigures}

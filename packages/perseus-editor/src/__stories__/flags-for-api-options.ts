@@ -15,6 +15,7 @@ export const flags = {
 
         // Locked figures flags
         "interactive-graph-locked-features-m2b": true,
+        "interactive-graph-locked-features-labels": true,
 
         // Start coords UI flags
         // TODO(LEMS-2228): Remove flags once this is fully released

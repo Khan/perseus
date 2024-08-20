@@ -961,4 +961,41 @@ describe("InteractiveGraphQuestionBuilder", () => {
             },
         ]);
     });
+
+    it("adds a locked label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedLabel("the text", [1, 2])
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "label",
+                text: "the text",
+                coord: [1, 2],
+                color: "grayH",
+                size: "medium",
+            },
+        ]);
+    });
+
+    it("adds a locked label with options", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedLabel("some other text", [15, 2], {
+                color: "green",
+                size: "large",
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "label",
+                text: "some other text",
+                coord: [15, 2],
+                color: "green",
+                size: "large",
+            },
+        ]);
+    });
 });

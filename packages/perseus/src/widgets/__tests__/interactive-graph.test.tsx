@@ -35,6 +35,7 @@ import {
     segmentWithLockedEllipses,
     segmentWithLockedEllipseWhite,
     segmentWithLockedFunction,
+    segmentWithLockedLabels,
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
@@ -859,4 +860,25 @@ describe("locked layer", () => {
         expect(PlotOfXMock).toHaveBeenCalledTimes(0);
         expect(PlotOfYMock).toHaveBeenCalledTimes(1);
     });
+
+    it("should render locked labels", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedLabels, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+
+        // Assert
+        expect(labels).toHaveLength(3);
+    });
+
+    it("should render locked labels with style", async () => {});
 });

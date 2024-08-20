@@ -6,6 +6,7 @@ import type {
     LockedFigureColor,
     LockedFigureFillType,
     LockedFunctionType,
+    LockedLabelType,
     LockedLineType,
     LockedPointType,
     LockedPolygonType,
@@ -380,6 +381,27 @@ class InteractiveGraphQuestionBuilder {
         };
 
         this.addLockedFigure(lockedFunction);
+        return this;
+    }
+
+    addLockedLabel(
+        text: string,
+        coord: Coord,
+        options?: {
+            color?: LockedFigureColor;
+            size?: "small" | "medium" | "large";
+        },
+    ) {
+        const lockedLabel: LockedLabelType = {
+            type: "label",
+            coord,
+            text,
+            color: "grayH",
+            size: "medium",
+            ...options,
+        };
+
+        this.addLockedFigure(lockedLabel);
         return this;
     }
 

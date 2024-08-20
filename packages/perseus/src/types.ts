@@ -150,6 +150,11 @@ export const InteractiveGraphLockedFeaturesFlags = [
      * new Mafs interactive-graph widget (locked functions).
      */
     "interactive-graph-locked-features-m2b",
+    /**
+     * Enables/Disables locked features in the new Mafs interactive-graph
+     * widget (locked labels).
+     */
+    "interactive-graph-locked-features-labels",
 ] as const;
 
 export const InteractiveGraphEditorFlags = [

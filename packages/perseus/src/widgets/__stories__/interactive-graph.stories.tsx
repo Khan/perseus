@@ -22,6 +22,7 @@ import {
     segmentWithLockedPolygons,
     staticGraphQuestion,
     staticGraphQuestionWithAnotherWidget,
+    segmentWithLockedLabels,
 } from "../__testdata__/interactive-graph.testdata";
 
 import type {APIOptions} from "../../types";
@@ -36,6 +37,7 @@ const enableMafs: APIOptions = {
             segment: true,
             polygon: true,
             angle: true,
+            "interactive-graph-locked-features-labels": true,
         },
     },
 };
@@ -151,6 +153,13 @@ export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
         apiOptions={{...enableMafs}}
         question={segmentWithLockedPolygons}
+    />
+);
+
+export const LockedLabel = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI
+        apiOptions={{...enableMafs}}
+        question={segmentWithLockedLabels}
     />
 );
 
