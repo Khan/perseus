@@ -112,6 +112,7 @@ export class PhetSim extends React.Component<Props, State> {
                         marginBottom: 5,
                         alignSelf: "flex-end",
                     }}
+                    disabled={this.state.url === null}
                 />
             </View>
         );
