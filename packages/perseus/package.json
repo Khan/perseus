@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "27.2.0",
+    "version": "29.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -30,7 +30,8 @@
             "require": "./dist/strings.js",
             "types": "./dist/strings.d.ts",
             "source": "./src/strings.ts"
-        }
+        },
+        "./styles.css": "./dist/index.css"
     },
     "files": [
         "dist"
@@ -41,9 +42,10 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.11",
         "@khanacademy/kmath": "^0.1.13",
-        "@khanacademy/math-input": "^20.1.0",
+        "@khanacademy/keypad-context": "^1.0.0",
+        "@khanacademy/math-input": "^21.0.0",
         "@khanacademy/perseus-core": "1.5.0",
-        "@khanacademy/perseus-linter": "^1.0.0",
+        "@khanacademy/perseus-linter": "^1.1.0",
         "@khanacademy/pure-markdown": "^0.3.7",
         "@khanacademy/simple-markdown": "^0.13.0",
         "@use-gesture/react": "^10.2.27",

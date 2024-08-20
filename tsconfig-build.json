@@ -8,6 +8,7 @@
         {"path": "./packages/kas/tsconfig-build.json"},
         {"path": "./packages/kmath/tsconfig-build.json"},
         {"path": "./packages/math-input/tsconfig-build.json"},
+        {"path": "./packages/keypad-context/tsconfig-build.json"},
         {"path": "./packages/perseus/tsconfig-build.json"},
         {"path": "./packages/perseus-core/tsconfig-build.json"},
         {"path": "./packages/perseus-editor/tsconfig-build.json"},

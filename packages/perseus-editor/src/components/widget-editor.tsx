@@ -5,6 +5,10 @@ import {
     Widgets,
     WIDGET_PROP_DENYLIST,
 } from "@khanacademy/perseus";
+import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
+import Switch from "@khanacademy/wonder-blocks-switch";
 import * as React from "react";
 import _ from "underscore";
 
@@ -91,11 +95,11 @@ class WidgetEditor extends React.Component<
         this.props.onChange(newWidgetInfo, cb, silent);
     };
 
-    _toggleStatic = (e: Event) => {
-        e.preventDefault();
-        const newWidgetInfo = Object.assign({}, this.state.widgetInfo, {
-            static: !this.state.widgetInfo.static,
-        }) as PerseusWidget;
+    _setStatic = (value: boolean) => {
+        const newWidgetInfo = {
+            ...this.state.widgetInfo,
+            static: value,
+        } as PerseusWidget;
         this.props.onChange(newWidgetInfo);
     };
 
@@ -170,16 +174,10 @@ class WidgetEditor extends React.Component<
                     </a>
 
                     {supportsStaticMode && (
-                        <input
-                            type="button"
-                            // @ts-expect-error - TS2322 - Type '(e: Event) => void' is not assignable to type 'MouseEventHandler<HTMLInputElement>'.
-                            onClick={this._toggleStatic}
-                            className="simple-button--small"
-                            value={
-                                widgetInfo.static
-                                    ? "Unset as static"
-                                    : "Set as static"
-                            }
+                        <LabeledSwitch
+                            label="Static"
+                            checked={!!widgetInfo.static}
+                            onChange={this._setStatic}
                         />
                     )}
                     {supportedAlignments.length > 1 && (
@@ -220,6 +218,23 @@ class WidgetEditor extends React.Component<
             </div>
         );
     }
+}
+
+function LabeledSwitch(props: {
+    label: string;
+    checked: boolean;
+    onChange: (value: boolean) => unknown;
+}) {
+    const {label, ...switchProps} = props;
+    const ids = useUniqueIdWithMock();
+    const id = ids.get("switch");
+    return (
+        <>
+            <label htmlFor={id}>{label}</label>
+            <Strut size={Spacing.xxSmall_6} />
+            <Switch id={id} {...switchProps} />
+        </>
+    );
 }
 
 export default WidgetEditor;

@@ -5,7 +5,7 @@ import * as React from "react";
 import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 
-import {StyledMovablePoint} from "./components/movable-point";
+import {MovablePoint} from "./components/movable-point";
 
 import type {Coord} from "../../../interactive2/types";
 import type {SinusoidGraphState, MafsGraphProps} from "../types";
@@ -51,7 +51,7 @@ export function SinusoidGraph(props: SinusoidGraphProps) {
                 color={color.blue}
             />
             {coords.map((coord, i) => (
-                <StyledMovablePoint
+                <MovablePoint
                     key={"point-" + i}
                     point={coord}
                     onMove={(destination) =>

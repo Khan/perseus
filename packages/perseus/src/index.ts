@@ -127,6 +127,7 @@ export {
     getSegmentCoords,
     getSinusoidCoords,
     getQuadraticCoords,
+    getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**
@@ -167,6 +168,7 @@ export type {
 export type {ParsedValue} from "./util";
 export type {
     Hint,
+    LegacyButtonSets,
     LockedFigure,
     LockedFigureColor,
     LockedFigureFillType,
@@ -200,6 +202,7 @@ export type {
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
+    MultiItem,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";

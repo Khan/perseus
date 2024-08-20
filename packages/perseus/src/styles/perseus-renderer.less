@@ -1,15 +1,9 @@
 @import (inline) "./khan-exercise.css";
 
-//
-// Edit this file in the *perseus* repo!
-// (All changes outside the perseus repo will be overwritten)
-//
-
 @import "./variables.less";
 @import "./util.less";
 
-// Article Renderer
-@import "./articles.less";
+@import "./styles.less";
 
 #perseus {
     position: relative;
@@ -34,7 +28,7 @@
 // counterintuitive, so we simply don't let you see anything you draw under
 // a widget.
 .blank-background {
-    background-color: #fdfdfd; // Keep in sync with KhanUtil._BACKGROUND
+    background-color: #fdfdfd;
 }
 // There is no scratchpad in the answer_area, and it has a different color
 // background, so just make it transparent

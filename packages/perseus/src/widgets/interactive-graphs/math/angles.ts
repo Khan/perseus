@@ -12,6 +12,7 @@ export function calculateAngleInDegrees([x, y]: vec.Vector2): number {
     return (Math.atan2(y, x) * 180) / Math.PI;
 }
 
+// Converts polar coordinates to cartesian. The th(eta) parameter is in degrees.
 export function polar(r: number | vec.Vector2, th: number): vec.Vector2 {
     if (typeof r === "number") {
         r = [r, r];

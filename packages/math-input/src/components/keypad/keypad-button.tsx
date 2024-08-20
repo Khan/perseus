@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
         minHeight: 42,
         minWidth: 42,
         padding: 1,
+        fontFamily: 'Lato, "Noto Sans", sans-serif',
     },
     hovered: {
         borderColor: color.blue,

@@ -4,6 +4,7 @@ import {vec} from "mafs";
 import {magnitude, vector} from "../../../util/geometry";
 import {normalizeCoords, normalizePoints} from "../utils";
 
+import type {Coord} from "../../../interactive2/types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeAngle,
@@ -18,7 +19,6 @@ import type {
     PerseusGraphTypeSinusoid,
 } from "../../../perseus-types";
 import type {InteractiveGraphState, PairOfPoints} from "../types";
-import type {Coord} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
 
 export type InitializeGraphStateParams = {
@@ -394,7 +394,7 @@ export function getCircleCoords(graph: PerseusGraphTypeCircle): {
     };
 }
 
-const getAngleCoords = (params: {
+export const getAngleCoords = (params: {
     graph: PerseusGraphTypeAngle;
     range: [x: Interval, y: Interval];
     step: [x: number, y: number];
@@ -402,6 +402,10 @@ const getAngleCoords = (params: {
     const {graph, range, step} = params;
     if (graph.coords) {
         return graph.coords;
+    }
+
+    if (graph.startCoords) {
+        return graph.startCoords;
     }
 
     const {snapDegrees, angleOffsetDeg} = graph;

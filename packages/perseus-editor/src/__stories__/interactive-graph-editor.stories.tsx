@@ -8,11 +8,12 @@ import * as React from "react";
 
 import {EditorPage} from "..";
 import {
+    angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
     linearSystemWithStartingCoordsQuestion,
     linearWithStartingCoordsQuestion,
     pointQuestionWithStartingCoords,
-    polygonQuestion,
+    polygonWithStartingCoordsQuestion,
     quadraticWithStartingCoordsQuestion,
     rayWithStartingCoordsQuestion,
     segmentWithLockedFigures,
@@ -111,7 +112,19 @@ export const InteractiveGraphPoint = (): React.ReactElement => (
 );
 
 export const InteractiveGraphPolygon = (): React.ReactElement => {
-    return <EditorPageWithStorybookPreview question={polygonQuestion} />;
+    return (
+        <EditorPageWithStorybookPreview
+            question={polygonWithStartingCoordsQuestion}
+        />
+    );
+};
+
+export const InteractiveGraphAngle = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={angleWithStartingCoordsQuestion}
+        />
+    );
 };
 
 export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {

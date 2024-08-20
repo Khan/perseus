@@ -6,6 +6,6 @@
     },
     "references": [
         {"path": "../perseus-core/tsconfig-build.json"},
-        {"path": "../perseus-core/tsconfig-build.json"},
+        {"path": "../keypad-context/tsconfig-build.json"},
     ]
 }

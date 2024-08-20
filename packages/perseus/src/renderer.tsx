@@ -177,13 +177,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     questionCompleted?: boolean;
     reviewMode?: boolean | null | undefined;
     /**
-     * Some widgets (e.g. InteractiveGraph) support "hint mode", a state where
-     * the widget is non-editable, may have a partial solution filled in,
-     * and may have special styling. Setting hintMode to true will turn on hint
-     * mode for all rendered widgets.
-     */
-    hintMode?: boolean;
-    /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
      * "none", solutions will not be shown-- equivalent to `undefined`.
@@ -247,7 +240,6 @@ type DefaultProps = Required<
         | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
-        | "hintMode"
         | "serializedState"
         | "widgets"
     >
@@ -294,7 +286,6 @@ class Renderer extends React.Component<Props, State> {
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
-        hintMode: false,
         serializedState: null,
         onSerializedStateUpdated: () => {},
         linterContext: PerseusLinter.linterContextDefault,
@@ -664,9 +655,7 @@ class Renderer extends React.Component<Props, State> {
             ...widgetProps,
             widgetId: id,
             alignment: widgetInfo && widgetInfo.alignment,
-            // When determining if a widget is static, we verify that the widget is not an
-            // exercise question by verifying that it has no problem number.
-            static: widgetInfo && widgetInfo.static && !this.props.problemNum,
+            static: widgetInfo?.static,
             problemNum: this.props.problemNum,
             apiOptions: this.getApiOptions(),
             keypadElement: this.props.keypadElement,
@@ -676,7 +665,6 @@ class Renderer extends React.Component<Props, State> {
             onBlur: _.partial(this._onWidgetBlur, id),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
-            hintMode: this.props.hintMode,
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(id, newProps, cb, silent);
             },
@@ -1183,7 +1171,7 @@ class Renderer extends React.Component<Props, State> {
             }
             // Widgets can contain text nodes, so we don't center them with
             // markdown magic here.
-            // Instead, we center them with css magic in articles.less
+            // Instead, we center them with css magic in styles.less
             // /cry(aria)
             this._foundTextNodes = true;
 

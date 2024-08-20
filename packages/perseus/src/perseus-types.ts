@@ -83,6 +83,13 @@ export type PerseusWidgetsMap = {
     [key in `video ${number}`]: VideoWidget;
 };
 
+/**
+ * A "PerseusItem" is a classic Perseus item. It is rendered by the
+ * `ServerItemRenderer` and the layout is pre-set.
+ *
+ * To render more complex Perseus items, see the `Item` type in the multi item
+ * area.
+ */
 export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
@@ -90,12 +97,20 @@ export type PerseusItem = {
     hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
-    _multi: any;
     // The version of the item.  Not used by Perseus
     itemDataVersion: Version;
     // Deprecated field
     answer: any;
+};
+
+/**
+ * A "MultiItem" is an advanced Perseus item. It is rendered by the
+ * `MultiRenderer` and you can control the layout of individual parts of the
+ * item.
+ */
+export type MultiItem = {
+    // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
+    _multi: any;
 };
 
 export type PerseusArticle = ReadonlyArray<PerseusRenderer>;
@@ -761,14 +776,6 @@ export type LockedFunctionType = {
     color: LockedFigureColor;
     strokeStyle: "solid" | "dashed";
     equation: string; // This is the user-defined equation (as it was typed)
-    equationParsed?: {
-        // This is the parsed (tokenized) version of the equation.
-        // Since the function that is passed to Mafs is executed many times,
-        //    it would be expensive to have KAS parse the equation each time.
-        // This is parsed version is included to aid in performance.
-        // KAS doesn't have any types, so making this generic
-        [k: string]: any;
-    };
     directionalAxis: "x" | "y";
     domain?: Interval;
 };

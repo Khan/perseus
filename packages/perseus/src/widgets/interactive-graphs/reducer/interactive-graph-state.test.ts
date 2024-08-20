@@ -2,8 +2,8 @@ import invariant from "tiny-invariant";
 
 import {getGradableGraph} from "./interactive-graph-state";
 
+import type {PerseusGraphType} from "../../../perseus-types";
 import type {InteractiveGraphState} from "../types";
-import type {PerseusGraphType} from "@khanacademy/perseus";
 
 const defaultAngleState: InteractiveGraphState = {
     type: "angle",

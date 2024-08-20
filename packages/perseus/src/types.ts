@@ -173,6 +173,11 @@ export const InteractiveGraphEditorFlags = [
      * Includes polygon graph.
      */
     "start-coords-ui-polygon",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes angle graph.
+     */
+    "start-coords-ui-angle",
 ] as const;
 
 /**
@@ -195,6 +200,10 @@ export type APIOptions = Readonly<{
     ) => unknown;
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
     readOnly?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
@@ -579,7 +588,6 @@ export type WidgetProps<
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: (arg1: FilterCriterion) => ReadonlyArray<Widget>;
     reviewModeRubric: Rubric;
-    hintMode: boolean;
     onChange: ChangeHandler;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer

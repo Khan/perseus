@@ -29,7 +29,6 @@ export const genericPerseusItemData: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 } as const;
 

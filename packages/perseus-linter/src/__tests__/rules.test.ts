@@ -26,6 +26,7 @@ import mathStartsWithSpaceRule from "../rules/math-starts-with-space";
 import mathTextEmptyRule from "../rules/math-text-empty";
 import mathWithoutDollarsRule from "../rules/math-without-dollars";
 import nestedListsRule from "../rules/nested-lists";
+import StaticWidgetInQuestionStem from "../rules/static-widget-in-question-stem";
 import tableMissingCellsRule from "../rules/table-missing-cells";
 import unbalancedCodeDelimitersRule from "../rules/unbalanced-code-delimiters";
 import unescapedDollarRule from "../rules/unescaped-dollar";
@@ -35,7 +36,11 @@ import TreeTransformer from "../tree-transformer";
 type Rule = any;
 
 describe("Individual lint rules tests", () => {
-    function testRule(rule: Rule, markdown: string, context) {
+    function testRule(
+        rule: Rule,
+        markdown: string,
+        context,
+    ): {message: string}[] | null {
         const tree = PureMarkdown.parse(markdown);
         const tt = new TreeTransformer(tree);
         const warnings = [];
@@ -532,4 +537,93 @@ describe("Individual lint rules tests", () => {
         "This is definitely okay. Yeah.",
         "$a == 3.  125$",
     ]);
+
+    test("Rule static-widget-in-question-stem allows static widgets in hints", () => {
+        const problems = testRule(
+            StaticWidgetInQuestionStem,
+            "[[☃ radio 1]]",
+            {
+                contentType: "exercise",
+                stack: ["hint"],
+                widgets: {
+                    "radio 1": {
+                        static: true,
+                    },
+                },
+            },
+        );
+
+        expect(problems).toBe(null);
+    });
+
+    test("Rule static-widget-in-question-stem allows static widgets in articles", () => {
+        const problems = testRule(
+            StaticWidgetInQuestionStem,
+            "[[☃ radio 1]]",
+            {
+                contentType: "article",
+                stack: [],
+                widgets: {
+                    "radio 1": {
+                        static: true,
+                    },
+                },
+            },
+        );
+
+        expect(problems).toBe(null);
+    });
+
+    test("Rule static-widget-in-question-stem allows non-static widgets in question stems", () => {
+        const problems = testRule(
+            StaticWidgetInQuestionStem,
+            "[[☃ radio 1]]",
+            {
+                contentType: "exercise",
+                stack: [],
+                widgets: {
+                    "radio 1": {
+                        static: false,
+                    },
+                },
+            },
+        );
+
+        expect(problems).toBe(null);
+    });
+
+    test("Rule static-widget-in-question-stem tolerates widget with no definition", () => {
+        const problems = testRule(
+            StaticWidgetInQuestionStem,
+            "[[☃ radio 1]]",
+            {
+                contentType: "exercise",
+                stack: [],
+                widgets: {},
+            },
+        );
+
+        expect(problems).toBe(null);
+    });
+
+    test("Rule static-widget-in-question-stem allows warns about static widgets in question stems", () => {
+        const problems = testRule(
+            StaticWidgetInQuestionStem,
+            "[[☃ radio 1]]",
+            {
+                contentType: "exercise",
+                stack: [],
+                widgets: {
+                    "radio 1": {
+                        static: true,
+                    },
+                },
+            },
+        );
+
+        expect(problems?.length).toBe(1);
+        expect(problems?.[0]?.message).toBe(
+            "Widget in question stem is static (non-interactive).",
+        );
+    });
 });

@@ -1,5 +1,90 @@
 # @khanacademy/perseus-editor
 
+## 11.6.0
+
+### Minor Changes
+
+-   [#1521](https://github.com/Khan/perseus/pull/1521) [`a9292af78`](https://github.com/Khan/perseus/commit/a9292af78f569b703fcae07de01852f264861158) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add ContentPreview component
+
+*   [#1517](https://github.com/Khan/perseus/pull/1517) [`93ad3c638`](https://github.com/Khan/perseus/commit/93ad3c638878d1238393c71703b63cef9b93871b) Thanks [@benchristel](https://github.com/benchristel)! - Replace the "(un)set as static" button in the widget editor with a toggle switch
+
+### Patch Changes
+
+-   [#1525](https://github.com/Khan/perseus/pull/1525) [`426a3ae1d`](https://github.com/Khan/perseus/commit/426a3ae1d5a7f0aef20ccea6b99ada6929e1abc4) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change PerseusItem to no longer include multi items
+
+*   [#1526](https://github.com/Khan/perseus/pull/1526) [`487aa464a`](https://github.com/Khan/perseus/commit/487aa464ad450aa37ec2b8ef11596a585112a6fd) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Locked Figures] Add controls to move a whole locked polygon
+
+*   Updated dependencies [[`426a3ae1d`](https://github.com/Khan/perseus/commit/426a3ae1d5a7f0aef20ccea6b99ada6929e1abc4), [`3e6a65378`](https://github.com/Khan/perseus/commit/3e6a6537842ce2659ff2a12523a75b41a90681e6), [`a9292af78`](https://github.com/Khan/perseus/commit/a9292af78f569b703fcae07de01852f264861158), [`da65a54a2`](https://github.com/Khan/perseus/commit/da65a54a2cadc381c19255e9c2a402ed74733449), [`250971357`](https://github.com/Khan/perseus/commit/25097135792ecb1b5679d6fc8b41dc0c5bb1da9b)]:
+    -   @khanacademy/perseus@29.0.0
+
+## 11.5.0
+
+### Minor Changes
+
+-   [#1515](https://github.com/Khan/perseus/pull/1515) [`ab19ffe0f`](https://github.com/Khan/perseus/commit/ab19ffe0f7a52d86fc6e7228c997c2cc8607ff0e) Thanks [@nishasy](https://github.com/nishasy)! - [Start Coords] Implement start coords UI for angle graphs
+
+## 11.4.1
+
+### Patch Changes
+
+-   Updated dependencies [[`f08320034`](https://github.com/Khan/perseus/commit/f083200340545f41275f0696dbfc967f45028b0c), [`720e3bfd2`](https://github.com/Khan/perseus/commit/720e3bfd2d7f46fdbb25db2f561d0f519ae4c9b3), [`7eb7ab165`](https://github.com/Khan/perseus/commit/7eb7ab165e20af37ee10ad38c2bbef8538c79f08), [`84d9c62d2`](https://github.com/Khan/perseus/commit/84d9c62d2ae7b55680f2ef90c5915e7f7406020d)]:
+    -   @khanacademy/perseus@28.2.0
+    -   @khanacademy/math-input@21.0.0
+
+## 11.4.0
+
+### Minor Changes
+
+-   [#1480](https://github.com/Khan/perseus/pull/1480) [`182c8f660`](https://github.com/Khan/perseus/commit/182c8f6600bbefa817c4553e3827498b8d425bbe) Thanks [@handeyeco](https://github.com/handeyeco)! - Refactor ExpressionEditor to use Wonder-Blocks
+
+### Patch Changes
+
+-   [#1509](https://github.com/Khan/perseus/pull/1509) [`76b55a9b3`](https://github.com/Khan/perseus/commit/76b55a9b3673a9f4aa072574afddb5312d7b06f5) Thanks [@nishasy](https://github.com/nishasy)! - [Start Coords] Fix the radius input in circle graph start coords UI
+
+*   [#1490](https://github.com/Khan/perseus/pull/1490) [`c2464eef8`](https://github.com/Khan/perseus/commit/c2464eef807b0b1c2696e553300026462262544d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Explicitly export bundled css in package.json
+
+*   Updated dependencies [[`5b6b97641`](https://github.com/Khan/perseus/commit/5b6b976416f885c08bda2ead5948fcdbe94dc380), [`c2464eef8`](https://github.com/Khan/perseus/commit/c2464eef807b0b1c2696e553300026462262544d), [`182c8f660`](https://github.com/Khan/perseus/commit/182c8f6600bbefa817c4553e3827498b8d425bbe), [`3f18a2211`](https://github.com/Khan/perseus/commit/3f18a22118ad9b952009a78c30bb1c8242e81d9c), [`3f9cc14fe`](https://github.com/Khan/perseus/commit/3f9cc14fe469a6792b56edf2510f0adebd65fd73)]:
+    -   @khanacademy/math-input@20.1.2
+    -   @khanacademy/perseus@28.1.0
+
+## 11.3.0
+
+### Minor Changes
+
+-   [#1493](https://github.com/Khan/perseus/pull/1493) [`de13fd337`](https://github.com/Khan/perseus/commit/de13fd3378cb078119f2b5311d347d4ee3b1d687) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add/Edit/Delete Locked Function in Interactive Graph Editor
+
+*   [#1492](https://github.com/Khan/perseus/pull/1492) [`2ebbc1978`](https://github.com/Khan/perseus/commit/2ebbc1978da4d021e7044ac49829063e356af846) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Build the foundation for adding start coords UI for angle graphs
+
+-   [#1486](https://github.com/Khan/perseus/pull/1486) [`0b625f560`](https://github.com/Khan/perseus/commit/0b625f56098c4db142891ab4ffed2b2300924711) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add start coords UI for point graphs
+
+*   [#1488](https://github.com/Khan/perseus/pull/1488) [`0bec013e8`](https://github.com/Khan/perseus/commit/0bec013e89c70dd431f86b4872dd3378ed29e110) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Add start coords UI for polygon graphs (snap to grid only)
+
+### Patch Changes
+
+-   [#1491](https://github.com/Khan/perseus/pull/1491) [`395b44f29`](https://github.com/Khan/perseus/commit/395b44f2999ede7fcb968284a949a1e4fdd87200) Thanks [@nishasy](https://github.com/nishasy)! - [Hint Mode: Start Coords] Correct flag logic for polygon graph start coords UI
+
+*   [#1476](https://github.com/Khan/perseus/pull/1476) [`18f38fca4`](https://github.com/Khan/perseus/commit/18f38fca404678ff6162df09355acb072a1e6120) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Miscellaneous type improvements
+
+-   [#1479](https://github.com/Khan/perseus/pull/1479) [`ef96cdd54`](https://github.com/Khan/perseus/commit/ef96cdd541999a203cbde089c76cc132b937adce) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove PropCheckBox component from Perseus; use WB instead
+
+*   [#1489](https://github.com/Khan/perseus/pull/1489) [`de2883b3f`](https://github.com/Khan/perseus/commit/de2883b3fdc7a6e294c39b33cd2989aed75cd969) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Correct `hints` type on ItemRenderer
+
+-   [#1478](https://github.com/Khan/perseus/pull/1478) [`7fd586ef4`](https://github.com/Khan/perseus/commit/7fd586ef4a36c753bb57f1f0eb0c0f98afe8fa0d) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Add "white" as a fill option for locked ellipses and polygons
+
+*   [#1482](https://github.com/Khan/perseus/pull/1482) [`f920a4cc7`](https://github.com/Khan/perseus/commit/f920a4cc7f0e8e8072ee55598e8e13698d6dc2cf) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor: Storybook] Add a story for Point graph type start coords
+
+-   [#1471](https://github.com/Khan/perseus/pull/1471) [`b4e0b60dc`](https://github.com/Khan/perseus/commit/b4e0b60dce773f5bcd5c49ce2f2a47cfd74024ae) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Fix the dropdowns overlapping labels in locked figures settings
+
+*   [#1481](https://github.com/Khan/perseus/pull/1481) [`a35be719f`](https://github.com/Khan/perseus/commit/a35be719fdf177ea3a028679d518c5da1535ee23) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Stop page scrolling on number text field focused scroll
+
+-   [#1484](https://github.com/Khan/perseus/pull/1484) [`808956098`](https://github.com/Khan/perseus/commit/808956098d9502cff4d9759ee07d6dcaa61a83ab) Thanks [@handeyeco](https://github.com/handeyeco)! - Minor cleanup around InfoTip
+
+*   [#1477](https://github.com/Khan/perseus/pull/1477) [`653b520c6`](https://github.com/Khan/perseus/commit/653b520c6fa4f184657ca8f63d6658aaa42235da) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate ItemExtrasEditor to WB checkboxes
+
+*   Updated dependencies [[`a8aaac339`](https://github.com/Khan/perseus/commit/a8aaac33921f31c65e8cb02c0eb66d15fc4f019e), [`de13fd337`](https://github.com/Khan/perseus/commit/de13fd3378cb078119f2b5311d347d4ee3b1d687), [`8b0268215`](https://github.com/Khan/perseus/commit/8b02682152223982f80e7bee38e9567027b8ed4e), [`2ebbc1978`](https://github.com/Khan/perseus/commit/2ebbc1978da4d021e7044ac49829063e356af846), [`6c6ff52f4`](https://github.com/Khan/perseus/commit/6c6ff52f4725ff78f50bd6ca71f201a6c9ab786b), [`18f38fca4`](https://github.com/Khan/perseus/commit/18f38fca404678ff6162df09355acb072a1e6120), [`ef96cdd54`](https://github.com/Khan/perseus/commit/ef96cdd541999a203cbde089c76cc132b937adce), [`342a72211`](https://github.com/Khan/perseus/commit/342a722119f549f20e71ff1e44d2bba6c44c9ba3), [`de2883b3f`](https://github.com/Khan/perseus/commit/de2883b3fdc7a6e294c39b33cd2989aed75cd969), [`7fd586ef4`](https://github.com/Khan/perseus/commit/7fd586ef4a36c753bb57f1f0eb0c0f98afe8fa0d), [`f920a4cc7`](https://github.com/Khan/perseus/commit/f920a4cc7f0e8e8072ee55598e8e13698d6dc2cf), [`eb9f3f9c0`](https://github.com/Khan/perseus/commit/eb9f3f9c064e6b6260bd667222f7370aae263715), [`4c2ace57a`](https://github.com/Khan/perseus/commit/4c2ace57a922a527579293c065f8ed8120193344), [`53031f8df`](https://github.com/Khan/perseus/commit/53031f8df120a7ea15b6d82e5a94988d9281a9b3), [`808956098`](https://github.com/Khan/perseus/commit/808956098d9502cff4d9759ee07d6dcaa61a83ab), [`5e66539e6`](https://github.com/Khan/perseus/commit/5e66539e6a3edfd784041c5ba2b17135eafebe1b), [`0b625f560`](https://github.com/Khan/perseus/commit/0b625f56098c4db142891ab4ffed2b2300924711), [`6a218bcc1`](https://github.com/Khan/perseus/commit/6a218bcc1a7757dd93c1b90dfc03bd1c3715c8c8), [`0bec013e8`](https://github.com/Khan/perseus/commit/0bec013e89c70dd431f86b4872dd3378ed29e110)]:
+    -   @khanacademy/perseus@28.0.0
+    -   @khanacademy/math-input@20.1.1
+
 ## 11.2.0
 
 ### Minor Changes

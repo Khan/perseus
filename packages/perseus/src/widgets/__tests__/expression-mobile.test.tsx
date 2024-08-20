@@ -1,9 +1,8 @@
 import {
     KeypadContext,
     StatefulKeypadContextProvider,
-    MobileKeypad,
-    mathQuillInstance,
-} from "@khanacademy/math-input";
+} from "@khanacademy/keypad-context";
+import {MobileKeypad, mathQuillInstance} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     act,

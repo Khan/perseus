@@ -4,7 +4,7 @@ import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "../../perseus-types";
 
 type StoryArgs = Record<any, any>;
 

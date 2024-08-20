@@ -45,11 +45,12 @@ export type MafsGraphProps = {
     labels: InteractiveGraphProps["labels"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
-    hintMode: boolean;
+    readOnly: boolean;
+    static: boolean | null | undefined;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch, labels, hintMode} = props;
+    const {state, dispatch, labels, readOnly} = props;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
     return (
@@ -65,7 +66,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
-                hintMode,
+                disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
             <View
@@ -78,7 +79,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     boxSizing: "content-box",
                     marginLeft: "20px",
                     marginBottom: "20px",
-                    pointerEvents: hintMode ? "none" : "auto",
+                    pointerEvents: props.static ? "none" : "auto",
+                    userSelect: "none",
                 }}
             >
                 <LegacyGrid

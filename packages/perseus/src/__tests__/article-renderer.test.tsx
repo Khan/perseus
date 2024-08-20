@@ -1,8 +1,8 @@
 import {
     StatefulKeypadContextProvider,
     KeypadContext,
-    MobileKeypad,
-} from "@khanacademy/math-input";
+} from "@khanacademy/keypad-context";
+import {MobileKeypad} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render, fireEvent, waitFor, act} from "@testing-library/react";
 import * as React from "react";
