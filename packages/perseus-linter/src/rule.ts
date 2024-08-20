@@ -175,12 +175,7 @@ type LintTesterReturnType = string | {
 type LintRuleContextObject =
     | {
           content: string;
-          contentType: "article";
-          widgets: any[];
-      }
-    | {
-          content: string;
-          contentType: "exercise";
+          contentType: "article" | "exercise";
           stack: string[];
           widgets: any[];
       }
