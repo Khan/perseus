@@ -5,7 +5,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: (state, content, nodes, match, context) => {
-        if (context.contentType !== "exercise") {
+        if (context?.contentType !== "exercise") {
             return;
         }
 
