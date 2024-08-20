@@ -179,6 +179,7 @@ type LintRuleContextObject =
           widgets: any[];
       }
     | {
+          content: string;
           contentType: "exercise";
           stack: string[];
           widgets: any[];
