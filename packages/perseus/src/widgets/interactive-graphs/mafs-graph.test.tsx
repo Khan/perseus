@@ -442,6 +442,7 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "point",
+            numPoints: 2,
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],

@@ -523,6 +523,7 @@ function doAddPoint(
     // If there's no point in spot where we want the new point to go we add it there
     return {
         ...state,
+        hasBeenInteractedWith: true,
         coords: [...state.coords, snappedPoint],
     };
 }
