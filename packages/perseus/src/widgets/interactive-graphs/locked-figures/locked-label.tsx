@@ -1,4 +1,5 @@
 import {font} from "@khanacademy/wonder-blocks-tokens";
+import * as React from "react";
 
 import {getDependencies} from "../../../dependencies";
 import {lockedFigureColors, type LockedLabelType} from "../../../perseus-types";
