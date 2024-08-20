@@ -49,7 +49,6 @@ export type MafsGraphProps = {
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
     static: boolean | null | undefined;
-    graph: InteractiveGraphProps["graph"];
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -147,7 +146,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         </Mafs>
                     </View>
                 </View>
-                {props.graph.type === "point" &&
+                {props.state.type === "point" &&
+                    props.state.numPoints === "unlimited" &&
                     renderPointGraphControls({state, dispatch})}
             </View>
         </GraphConfigContext.Provider>
