@@ -8,11 +8,17 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
+import {phoneMargin} from "../styles/constants";
+import {
+    borderRadiusLarge,
+    tableBackgroundHover,
+} from "../styles/global-constants";
 
 import type {PerseusPhetSimWidgetOptions} from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
@@ -25,7 +31,10 @@ type Props = WidgetProps<RenderProps, PerseusPhetSimWidgetOptions>;
 type UserInput = null;
 
 type State = {
-    bannerMessage: string | null;
+    banner: {
+        message: string;
+        kind: "warning" | "critical";
+    } | null;
     url: URL | null;
 };
 
@@ -39,7 +48,7 @@ export class PhetSim extends React.Component<Props, State> {
 
     state: State = {
         url: null,
-        bannerMessage: null,
+        banner: null,
     };
 
     constructor(props) {
@@ -69,13 +78,13 @@ export class PhetSim extends React.Component<Props, State> {
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         const sandboxProperties = "allow-same-origin allow-scripts";
         return (
-            <View>
-                {this.state.bannerMessage && (
+            <View style={styles.container}>
+                {this.state.banner !== null && (
                     // TODO(anna): Make this banner focusable
                     <Banner
-                        kind="warning"
                         layout="floating"
-                        text={this.state.bannerMessage}
+                        kind={this.state.banner.kind}
+                        text={this.state.banner.message}
                     />
                 )}
                 <iframe
@@ -83,15 +92,12 @@ export class PhetSim extends React.Component<Props, State> {
                     title={this.props.description}
                     sandbox={sandboxProperties}
                     style={{
-                        width: 400,
-                        height: 400,
+                        minWidth: 400,
+                        width: "100%",
+                        height: 225,
                     }}
                     src={this.state.url?.toString()}
-                    srcDoc={
-                        this.state.url !== null
-                            ? undefined
-                            : this.context.strings.simulationLoadFail
-                    }
+                    srcDoc={this.state.url !== null ? undefined : "null"}
                     allow="fullscreen"
                 />
                 <IconButton
@@ -140,22 +146,35 @@ export class PhetSim extends React.Component<Props, State> {
         }
     };
 
+    displayLoadFailure: () => void = () => {
+        this.setState({
+            url: null,
+            banner: {
+                message: this.context.strings.simulationLoadFail,
+                kind: "critical",
+            },
+        });
+    };
+
     async updateSimState(urlString: string) {
         const url = makeSafeUrl(urlString, this.locale);
         if (url === null) {
-            this.setState({url: null, bannerMessage: null});
+            this.displayLoadFailure();
             return;
         }
         const response = await fetch(url);
         if (!response.ok) {
-            this.setState({url: null, bannerMessage: null});
+            this.displayLoadFailure();
             return;
         }
         const showLocaleWarning = await this.showLocaleWarning(url);
         this.setState({
             url: url,
-            bannerMessage: showLocaleWarning
-                ? this.context.strings.simulationLocaleWarning
+            banner: showLocaleWarning
+                ? {
+                      message: this.context.strings.simulationLocaleWarning,
+                      kind: "warning",
+                  }
                 : null,
         });
     }
@@ -215,6 +234,16 @@ export default {
     displayName: "PhET Simulation",
     widget: PhetSim,
     // Let's not expose it to all content creators yet
-    hidden: true,
+    hidden: false,
     isLintable: true,
 } as WidgetExports<typeof PhetSim>;
+
+const styles = StyleSheet.create({
+    container: {
+        borderRadius: borderRadiusLarge,
+        backgroundColor: tableBackgroundHover,
+        padding: phoneMargin,
+        paddingBottom: 0,
+        width: 500,
+    },
+});
