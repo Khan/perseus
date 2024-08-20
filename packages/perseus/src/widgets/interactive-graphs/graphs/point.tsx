@@ -14,13 +14,9 @@ import type {PointGraphState, MafsGraphProps} from "../types";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
-/*
-TODO:
-- Need a way to delete points after they've been adeded
-*/
-
 export function PointGraph(props: PointGraphProps) {
     const {dispatch} = props;
+    const numPoints = props.graphState.numPoints;
     const graphState = useGraphConfig();
     const {
         range: [[minX, maxX], [minY, maxY]],
@@ -34,28 +30,32 @@ export function PointGraph(props: PointGraphProps) {
     const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
     return (
         <>
-            <rect
-                style={{
-                    fill: "rgba(0,0,0,0)",
-                }}
-                width={widthPx}
-                height={heightPx}
-                x={left}
-                y={top}
-                onClick={(event) => {
-                    const elementRect =
-                        event.currentTarget.getBoundingClientRect();
+            {numPoints === "unlimited" && (
+                <rect
+                    style={{
+                        fill: "rgba(0,0,0,0)",
+                    }}
+                    width={widthPx}
+                    height={heightPx}
+                    x={left}
+                    y={top}
+                    onClick={(event) => {
+                        const elementRect =
+                            event.currentTarget.getBoundingClientRect();
 
-                    const x = event.clientX - elementRect.x;
-                    const y = event.clientY - elementRect.y;
+                        const x = event.clientX - elementRect.x;
+                        const y = event.clientY - elementRect.y;
 
-                    const graphCoordiantes = pixelsToVectors(
-                        [[x, y]],
-                        graphState,
-                    );
-                    dispatch(actions.pointGraph.addPoint(graphCoordiantes[0]));
-                }}
-            />
+                        const graphCoordiantes = pixelsToVectors(
+                            [[x, y]],
+                            graphState,
+                        );
+                        dispatch(
+                            actions.pointGraph.addPoint(graphCoordiantes[0]),
+                        );
+                    }}
+                />
+            )}
             {props.graphState.coords.map((point, i) => (
                 <MovablePoint
                     key={i}
