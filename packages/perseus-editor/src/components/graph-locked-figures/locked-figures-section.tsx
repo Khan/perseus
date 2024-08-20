@@ -24,6 +24,10 @@ type Props = {
     // Whether to show the M2b features in the locked figure settings.
     // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
     showM2bFeatures: boolean;
+    // Whether to show the locked labels in the locked figure settings.
+    // TODO(LEMS-2274): Remove this prop once the label flag is
+    // sfully rolled out.
+    showLabelsFlag?: boolean;
     figures?: Array<LockedFigure>;
     onChange: (props: Partial<InteractiveGraphEditorProps>) => void;
 };
@@ -159,17 +163,11 @@ const LockedFiguresSection = (props: Props) => {
             {isExpanded && (
                 <View>
                     {figures?.map((figure, index) => {
-                        if (figure.type === "label") {
-                            // TODO(LEMS-1795): Add locked label settings.
-                            // Remove this block once label locked figure
-                            // settings are implemented.
-                            return;
-                        }
-
                         return (
                             <LockedFigureSettings
                                 key={`${uniqueId}-locked-${figure}-${index}`}
                                 showM2bFeatures={props.showM2bFeatures}
+                                showLabelsFlag={props.showLabelsFlag}
                                 expanded={expandedStates[index]}
                                 onToggle={(newValue) => {
                                     const newExpanded = [...expandedStates];
@@ -190,6 +188,7 @@ const LockedFiguresSection = (props: Props) => {
                     <View style={styles.buttonContainer}>
                         <LockedFigureSelect
                             showM2bFeatures={props.showM2bFeatures}
+                            showLabelsFlag={props.showLabelsFlag}
                             id={`${uniqueId}-select`}
                             onChange={addLockedFigure}
                         />
