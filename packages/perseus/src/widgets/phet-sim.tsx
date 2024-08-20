@@ -16,8 +16,9 @@ import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
 import {phoneMargin} from "../styles/constants";
 import {
+    basicBorderColor,
     borderRadiusLarge,
-    tableBackgroundHover,
+    grayExtraLight,
 } from "../styles/global-constants";
 
 import type {PerseusPhetSimWidgetOptions} from "../perseus-types";
@@ -94,10 +95,10 @@ export class PhetSim extends React.Component<Props, State> {
                     style={{
                         minWidth: 400,
                         width: "100%",
-                        height: 225,
+                        height: 360,
+                        borderWidth: 0,
                     }}
                     src={this.state.url?.toString()}
-                    srcDoc={this.state.url !== null ? undefined : "null"}
                     allow="fullscreen"
                 />
                 <IconButton
@@ -234,7 +235,6 @@ export default {
     name: "phet-sim",
     displayName: "PhET Simulation",
     widget: PhetSim,
-    // Let's not expose it to all content creators yet
     hidden: false,
     isLintable: true,
 } as WidgetExports<typeof PhetSim>;
@@ -242,9 +242,10 @@ export default {
 const styles = StyleSheet.create({
     container: {
         borderRadius: borderRadiusLarge,
-        backgroundColor: tableBackgroundHover,
+        borderWidth: 1,
+        borderColor: basicBorderColor,
         padding: phoneMargin,
         paddingBottom: 0,
-        width: 500,
+        width: 650,
     },
 });
