@@ -689,4 +689,13 @@ describe("MafsGraph", () => {
         );
         expect(state.coords).toEqual(expectedCoords);
     });
+
+    context("with an unlimited-point graph", () => {
+        it("displays an add point button", () => {
+            expect(true).toBe(false);
+        });
+        it("adds a point when the add point button is clicked", () => {
+            expect(true).toBe(false);
+        });
+    });
 });
