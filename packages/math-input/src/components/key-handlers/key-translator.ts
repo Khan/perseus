@@ -67,7 +67,7 @@ function buildTranslatableFunctionCallback(
 
 function buildNormalFunctionCallback(command: string) {
     return function (mathField: MathFieldInterface) {
-        mathField.write(`${command}\\left(\\right)`);
+        mathField.write(`\\${command}\\left(\\right)`);
         mathField.keystroke("Left");
     };
 }
