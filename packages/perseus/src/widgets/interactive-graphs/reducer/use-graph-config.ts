@@ -27,7 +27,7 @@ const defaultGraphConfig: GraphConfig = {
     gridStep: [1, 1],
     snapStep: [1, 1],
     markings: "none",
-    showTooltips: false,
+    showTooltips: true,
     graphDimensionsInPixels: [1, 1],
     width: 0,
     height: 0,
