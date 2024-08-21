@@ -117,6 +117,7 @@ export const MovablePointView = forwardRef(
         return (
             <>
                 {showHairlines && hairlines}
+
                 {showTooltips ? (
                     <Tooltip
                         autoUpdate={true}
