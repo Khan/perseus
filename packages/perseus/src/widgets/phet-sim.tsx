@@ -15,11 +15,7 @@ import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
 import {phoneMargin} from "../styles/constants";
-import {
-    basicBorderColor,
-    borderRadiusLarge,
-    grayExtraLight,
-} from "../styles/global-constants";
+import {basicBorderColor, borderRadiusLarge} from "../styles/global-constants";
 
 import type {PerseusPhetSimWidgetOptions} from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
