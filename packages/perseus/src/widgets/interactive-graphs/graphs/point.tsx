@@ -14,9 +14,26 @@ import type {PointGraphState, MafsGraphProps} from "../types";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
-export function PointGraph(props: PointGraphProps) {
+export function LimitedPointGraph(props: PointGraphProps) {
     const {dispatch} = props;
-    const numPoints = props.graphState.numPoints;
+
+    return (
+        <>
+            {props.graphState.coords.map((point, i) => (
+                <MovablePoint
+                    key={i}
+                    point={point}
+                    onMove={(destination) =>
+                        dispatch(actions.pointGraph.movePoint(i, destination))
+                    }
+                />
+            ))}
+        </>
+    );
+}
+
+export function UnlimitedPointGraph(props: PointGraphProps) {
+    const {dispatch} = props;
     const graphState = useGraphConfig();
     const {
         range: [[minX, maxX], [minY, maxY]],
@@ -30,32 +47,28 @@ export function PointGraph(props: PointGraphProps) {
     const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
     return (
         <>
-            {numPoints === "unlimited" && (
-                <rect
-                    style={{
-                        fill: "rgba(0,0,0,0)",
-                    }}
-                    width={widthPx}
-                    height={heightPx}
-                    x={left}
-                    y={top}
-                    onClick={(event) => {
-                        const elementRect =
-                            event.currentTarget.getBoundingClientRect();
+            <rect
+                style={{
+                    fill: "rgba(0,0,0,0)",
+                }}
+                width={widthPx}
+                height={heightPx}
+                x={left}
+                y={top}
+                onClick={(event) => {
+                    const elementRect =
+                        event.currentTarget.getBoundingClientRect();
 
-                        const x = event.clientX - elementRect.x;
-                        const y = event.clientY - elementRect.y;
+                    const x = event.clientX - elementRect.x;
+                    const y = event.clientY - elementRect.y;
 
-                        const graphCoordinates = pixelsToVectors(
-                            [[x, y]],
-                            graphState,
-                        );
-                        dispatch(
-                            actions.pointGraph.addPoint(graphCoordinates[0]),
-                        );
-                    }}
-                />
-            )}
+                    const graphCoordinates = pixelsToVectors(
+                        [[x, y]],
+                        graphState,
+                    );
+                    dispatch(actions.pointGraph.addPoint(graphCoordinates[0]));
+                }}
+            />
             {props.graphState.coords.map((point, i) => (
                 <MovablePoint
                     key={i}
@@ -67,4 +80,13 @@ export function PointGraph(props: PointGraphProps) {
             ))}
         </>
     );
+}
+
+export function PointGraph(props: PointGraphProps) {
+    const numPoints = props.graphState.numPoints;
+    if (numPoints === "unlimited") {
+        return UnlimitedPointGraph(props);
+    }
+
+    return LimitedPointGraph(props);
 }
