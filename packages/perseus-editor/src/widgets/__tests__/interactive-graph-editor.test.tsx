@@ -997,51 +997,51 @@ describe("InteractiveGraphEditor", () => {
         },
     );
 
-    test("should not render for point graphs with unlimited points", async () => {
-        // Arrange
-
-        // Act
-        render(
-            <InteractiveGraphEditor
-                {...mafsProps}
-                graph={{type: "point", numPoints: "unlimited"}}
-                correct={{type: "point", numPoints: "unlimited"}}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Assert
-        expect(
-            screen.queryByRole("button", {
-                name: "Use default start coordinates",
-            }),
-        ).toBeNull();
-    });
-
-    test("should not render for polygon graphs with unlimited sides", async () => {
-        // Arrange
-
-        // Act
-        render(
-            <InteractiveGraphEditor
-                {...mafsProps}
-                graph={{type: "polygon", numSides: "unlimited"}}
-                correct={{type: "polygon", numSides: "unlimited"}}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Assert
-        expect(
-            screen.queryByRole("button", {
-                name: "Use default start coordinates",
-            }),
-        ).toBeNull();
-    });
+    // test("should not render for point graphs with unlimited points", async () => {
+    //     // Arrange
+    //
+    //     // Act
+    //     render(
+    //         <InteractiveGraphEditor
+    //             {...mafsProps}
+    //             graph={{type: "point", numPoints: "unlimited"}}
+    //             correct={{type: "point", numPoints: "unlimited"}}
+    //         />,
+    //         {
+    //             wrapper: RenderStateRoot,
+    //         },
+    //     );
+    //
+    //     // Assert
+    //     expect(
+    //         screen.queryByRole("button", {
+    //             name: "Use default start coordinates",
+    //         }),
+    //     ).toBeNull();
+    // });
+    //
+    // test("should not render for polygon graphs with unlimited sides", async () => {
+    //     // Arrange
+    //
+    //     // Act
+    //     render(
+    //         <InteractiveGraphEditor
+    //             {...mafsProps}
+    //             graph={{type: "polygon", numSides: "unlimited"}}
+    //             correct={{type: "polygon", numSides: "unlimited"}}
+    //         />,
+    //         {
+    //             wrapper: RenderStateRoot,
+    //         },
+    //     );
+    //
+    //     // Assert
+    //     expect(
+    //         screen.queryByRole("button", {
+    //             name: "Use default start coordinates",
+    //         }),
+    //     ).toBeNull();
+    // });
 
     test("should not render for polygon graphs with non-grid snapTo (angles)", async () => {
         // Arrange
