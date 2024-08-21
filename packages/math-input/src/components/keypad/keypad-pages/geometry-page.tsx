@@ -15,28 +15,22 @@ export default function GeometryPage(props: Props) {
     const {strings} = useMathInputI18n();
     const Keys = KeyConfigs(strings);
 
-    function handleclick(...rest) {
-        console.log("geometry-page.tsx");
-        console.log(rest);
-        onClickKey(...rest);
-    }
-
     return (
         <>
             {/* Row 1 */}
             <KeypadButton
                 keyConfig={Keys.SIN}
-                onClickKey={handleclick}
+                onClickKey={onClickKey}
                 coord={[0, 0]}
             />
             <KeypadButton
                 keyConfig={Keys.COS}
-                onClickKey={handleclick}
+                onClickKey={onClickKey}
                 coord={[1, 0]}
             />
             <KeypadButton
                 keyConfig={Keys.TAN}
-                onClickKey={handleclick}
+                onClickKey={onClickKey}
                 coord={[2, 0]}
             />
         </>

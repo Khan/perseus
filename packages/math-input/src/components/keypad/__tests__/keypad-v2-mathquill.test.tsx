@@ -18,6 +18,7 @@ type Props = {
     onChangeMathInput: (mathInputTex: string) => void;
     keypadClosed?: boolean;
     onAnalyticsEvent?: AnalyticsEventHandlerFn;
+    portuguese?: boolean;
 };
 
 function V2KeypadWithMathquill(props: Props) {
@@ -26,6 +27,10 @@ function V2KeypadWithMathquill(props: Props) {
     const {onChangeMathInput, keypadClosed, onAnalyticsEvent} = props;
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(!keypadClosed);
     const {strings} = useMathInputI18n();
+
+    if (props.portuguese) {
+        strings.sin = "sen";
+    }
 
     React.useEffect(() => {
         if (!mathField && mathFieldWrapperRef.current) {
@@ -48,11 +53,7 @@ function V2KeypadWithMathquill(props: Props) {
         }
     }, [mathField, strings, onChangeMathInput]);
 
-    const keyTranslator = getKeyTranslator("en", {
-        sin: "sin",
-        cos: "cos",
-        tan: "tan",
-    });
+    const keyTranslator = getKeyTranslator("en", strings);
 
     function handleClickKey(key: Key) {
         if (!mathField) {
@@ -328,5 +329,29 @@ describe("Keypad v2 with MathQuill", () => {
             type: "math-input:keypad-closed",
             payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
         });
+    });
+
+    // Portuguese trig names
+    it("handles portuguese sen trig function", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill
+                onChangeMathInput={mockMathInputCallback}
+                portuguese
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        await userEvent.click(screen.getByText("sen"));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "\\operatorname{sen}\\left(42\\right)",
+        );
     });
 });
