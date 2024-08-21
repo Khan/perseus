@@ -59,7 +59,7 @@ export const StatefulMafsGraph = React.forwardRef<
     Partial<Widget>,
     StatefulMafsGraphProps
 >((props, ref) => {
-    const {onChange, graph} = props;
+    const {onChange, graph, showTooltips} = props;
 
     const [state, dispatch] = React.useReducer(
         interactiveGraphReducer,
@@ -106,7 +106,6 @@ export const StatefulMafsGraph = React.forwardRef<
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
     const showAngles = graph.type === "polygon" ? graph.showAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
-    const showTooltips = props.showTooltips ?? null;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);

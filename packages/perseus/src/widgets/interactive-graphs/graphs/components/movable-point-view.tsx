@@ -47,7 +47,7 @@ export const MovablePointView = forwardRef(
             focusBehavior,
             cursor,
         } = props;
-
+        console.log("showTooltips", showTooltips);
         // WB Tooltip requires a color name for the background color.
         // Since the color in props is a hex value, a reverse lookup is needed.
         const wbColorName = (Object.entries(WBColor).find(
@@ -117,20 +117,16 @@ export const MovablePointView = forwardRef(
         return (
             <>
                 {showHairlines && hairlines}
-
-                {showTooltips ? (
-                    <Tooltip
-                        autoUpdate={true}
-                        backgroundColor={wbColorName}
-                        content={`(${point[X]}, ${point[Y]})`}
-                        contentStyle={{color: "white"}}
-                        // opened={true}
-                    >
-                        {svgForPoint}
-                    </Tooltip>
-                ) : (
-                    svgForPoint
-                )}
+                <Tooltip
+                    autoUpdate={true}
+                    backgroundColor={wbColorName}
+                    content={`(${point[X]}, ${point[Y]})`}
+                    contentStyle={{color: "white"}}
+                    // opened={true}
+                >
+                    {svgForPoint}
+                </Tooltip>
+                ) : ( svgForPoint )
             </>
         );
     },
