@@ -1694,9 +1694,9 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // eslint-disable-next-line
         console.log("Scale: ", scale);
 
+        const currentPadding = $span.css("padding") ?? "0px";
         const newPadding =
-            Math.round(parseInt($span.css("padding").slice(0, -2)) * scale) /
-            100;
+            Math.round(parseInt(currentPadding.slice(0, -2)) * scale) / 100;
 
         const multipliers = labelDirections[direction || "center"];
         $span.css({
