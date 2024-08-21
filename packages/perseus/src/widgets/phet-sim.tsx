@@ -193,7 +193,7 @@ export class PhetSim extends React.Component<Props, State> {
             /https:\/\/phet\.colorado\.edu\/sims\/html\/([a-zA-Z0-9-]+)\/.*/g;
         const match: RegExpExecArray | null = phetRegex.exec(url.toString());
         // Do not show a locale warning on a non-simulation URL
-        if (!match) {
+        if (match === null) {
             return false;
         }
         const simName = match[1];
@@ -203,14 +203,19 @@ export class PhetSim extends React.Component<Props, State> {
         if (!response.ok) {
             return false;
         }
-        const responseJson = await response.json();
-        if (!responseJson) {
+
+        let responseJson: any;
+        try {
+            responseJson = await response.json();
+        } catch {
+            // If the file exists but there is no content to parse into a JSON,
+            // response.json() will throw an error that we want to catch.
             return false;
         }
-        const locales = Object.keys(responseJson);
+        const locales: string[] = Object.keys(responseJson);
 
         // Only display a locale warning if there is no fallback language
-        const baseLocale = this.locale.split("_")[0];
+        const baseLocale: string = this.locale.split("_")[0];
         for (const l of locales) {
             if (baseLocale === l.split("_")[0]) {
                 return false;
