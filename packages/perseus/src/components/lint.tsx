@@ -1,6 +1,7 @@
+import {color, font} from "@khanacademy/wonder-blocks-tokens";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import * as constants from "../styles/constants";
 
@@ -38,10 +39,6 @@ type Props = {
     severity?: Severity;
 };
 
-type State = {
-    tooltipAbove: boolean;
-};
-
 /**
  * This component renders "lint" nodes in a markdown parse tree. Lint nodes
  * are inserted into the tree by the Perseus linter (see
@@ -64,43 +61,12 @@ type State = {
  * that has a right margin (like anything blockquoted) the circle will appear
  * to the left of where it belongs.  And if there is more
  **/
-class Lint extends React.Component<Props, State> {
+class Lint extends React.Component<Props> {
     _positionTimeout: number | undefined;
-
-    state: State = {
-        tooltipAbove: true,
-    };
-
-    componentDidMount() {
-        // TODO(somewhatabstract): Use WB timing
-        // eslint-disable-next-line no-restricted-syntax
-        this._positionTimeout = window.setTimeout(this.getPosition);
-    }
-
-    componentWillUnmount() {
-        // TODO(somewhatabstract): Use WB timing
-        // eslint-disable-next-line no-restricted-syntax
-        window.clearTimeout(this._positionTimeout);
-    }
-
-    // We can't call setState in componentDidMount without risking a render
-    // thrash, and we can't call getBoundingClientRect in render, so we
-    // borrow a timeout approach from learnstorm-dashboard.jsx and set our
-    // state once the component has mounted and we can get what we need.
-    getPosition: () => void = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'getBoundingClientRect' does not exist on type 'Element | Text'.
-        const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
-        // TODO(scottgrant): This is a magic number! We don't know the size
-        // of the tooltip at this point, so we're arbitrarily choosing a
-        // point at which to flip the tooltip's position.
-        this.setState({tooltipAbove: rect.top > 100});
-    };
 
     // Render the <a> element that holds the indicator icon and the tooltip
     // We pass different styles for the inline and block cases
     renderLink: (arg1: any) => React.ReactElement = (style) => {
-        const tooltipAbove = this.state.tooltipAbove;
-
         let severityStyle;
         let warningText;
         let warningTextStyle;
@@ -119,38 +85,33 @@ class Lint extends React.Component<Props, State> {
         }
 
         return (
-            <a
-                href={`https://khanacademy.org/r/linter-rules#${this.props.ruleName}`}
-                target="lint-help-window"
-                className={css(style)}
+            <Tooltip
+                backgroundColor={"offBlack"}
+                content={
+                    <>
+                        {this.props.message.split("\n\n").map((m, i) => (
+                            <p key={i} className={css(styles.tooltipParagraph)}>
+                                <span className={css(warningTextStyle)}>
+                                    {warningText}:{" "}
+                                </span>
+                                {m}
+                            </p>
+                        ))}
+                    </>
+                }
             >
-                <span className={css(styles.indicator, severityStyle)}>
-                    {this.props.severity === 1 && (
-                        <InlineIcon {...exclamationIcon} />
-                    )}
-                </span>
-                <div
-                    className={css(
-                        styles.tooltip,
-                        tooltipAbove && styles.tooltipAbove,
-                    )}
+                <a
+                    href={`https://khanacademy.org/r/linter-rules#${this.props.ruleName}`}
+                    target="lint-help-window"
+                    className={css(style)}
                 >
-                    {this.props.message.split("\n\n").map((m, i) => (
-                        <p key={i} className={css(styles.tooltipParagraph)}>
-                            <span className={css(warningTextStyle)}>
-                                {warningText}:{" "}
-                            </span>
-                            {m}
-                        </p>
-                    ))}
-                    <div
-                        className={css(
-                            styles.tail,
-                            tooltipAbove && styles.tailAbove,
+                    <span className={css(styles.indicator, severityStyle)}>
+                        {this.props.severity === 1 && (
+                            <InlineIcon {...exclamationIcon} />
                         )}
-                    />
-                </div>
-            </a>
+                    </span>
+                </a>
+            </Tooltip>
         );
     };
 
@@ -386,60 +347,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffbe26",
     },
 
-    // These are the styles for the tooltip
-    tooltip: {
-        // Absolute positioning relative to the lint indicator circle.
-        position: "absolute",
-        right: -12,
-
-        // The tooltip is hidden by default; only displayed on hover
-        display: "none",
-
-        // When it is displayed, it goes on top!
-        zIndex: 1000,
-
-        // These styles control what the tooltip looks like
-        color: constants.white,
-        backgroundColor: constants.gray17,
-        opacity: 0.9,
-        fontFamily: constants.baseFontFamily,
-        fontSize: "12px",
-        lineHeight: "15px",
-        width: "320px",
-        borderRadius: "4px",
-    },
-    // If we're going to render the tooltip above the warning circle, we use
-    // the previous rules in tooltip, but change the position slightly.
-    tooltipAbove: {
-        bottom: 32,
-    },
-
-    // We give the tooltip a little triangular "tail" that points down at
-    // the lint indicator circle. This is inside the tooltip and positioned
-    // relative to it. It also shares the opacity of the tooltip. We're using
-    // the standard CSS trick for drawing triangles with a thick border.
-    tail: {
-        position: "absolute",
-        top: -12,
-        right: 16,
-        width: 0,
-        height: 0,
-
-        // This is the CSS triangle trick
-        borderLeft: "8px solid transparent",
-        borderRight: "8px solid transparent",
-        borderBottom: "12px solid " + constants.gray17,
-    },
-    tailAbove: {
-        bottom: -12,
-        borderBottom: "none",
-        borderTop: "12px solid " + constants.gray17,
-        top: "auto",
-    },
-
     // Each warning in the tooltip is its own <p>. They are 12 pixels from
     // the edges of the tooltip and 12 pixels from each other.
     tooltipParagraph: {
+        fontFamily: font.family.sans,
+        color: color.white,
         margin: 12,
     },
 

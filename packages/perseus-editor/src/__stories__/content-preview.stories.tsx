@@ -1,7 +1,4 @@
-import {
-    PerseusI18nContextProvider,
-    type DeviceType,
-} from "@khanacademy/perseus";
+import {PerseusI18nContextProvider} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {useState} from "react";
@@ -13,6 +10,7 @@ import DeviceFramer from "../components/device-framer";
 import ViewportResizer from "../components/viewport-resizer";
 import ContentPreview from "../content-preview";
 
+import type {DeviceType} from "@khanacademy/perseus";
 import type {Meta, StoryObj} from "@storybook/react";
 
 import "../styles/perseus-editor.less";
