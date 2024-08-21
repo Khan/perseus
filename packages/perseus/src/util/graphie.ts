@@ -1686,11 +1686,7 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // eslint-disable-next-line
         console.log("Width: ", $container.width());
         // eslint-disable-next-line
-        console.log(
-            "Max-Width: ",
-            maxWidth,
-            maxWidth.slice(0, -2),
-        );
+        console.log("Max-Width: ", maxWidth, maxWidth.slice(0, -2));
         // eslint-disable-next-line
         console.log("Scale: ", scale);
 
