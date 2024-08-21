@@ -96,8 +96,8 @@ export class PhetSim extends React.Component<Props, State> {
                     sandbox={sandboxProperties}
                     style={{
                         minWidth: 400,
-                        width: "100%",
                         height: 360,
+                        width: "100%",
                         borderWidth: 0,
                     }}
                     src={this.state.url?.toString()}
@@ -237,7 +237,8 @@ export default {
     name: "phet-sim",
     displayName: "PhET Simulation",
     widget: PhetSim,
-    hidden: false,
+    // Let's not expose it to all content creators yet
+    hidden: true,
     isLintable: true,
 } as WidgetExports<typeof PhetSim>;
 
