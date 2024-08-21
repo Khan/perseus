@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 12.0.0
+
+### Major Changes
+
+-   [#1536](https://github.com/Khan/perseus/pull/1536) [`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert introduction of ContentPreview component (broke editor linting tooltip)"
+
+### Patch Changes
+
+-   Updated dependencies [[`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84)]:
+    -   @khanacademy/perseus@30.0.0
+
 ## 11.6.0
 
 ### Minor Changes
