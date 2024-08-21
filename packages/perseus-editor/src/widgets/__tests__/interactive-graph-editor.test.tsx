@@ -591,7 +591,7 @@ describe("InteractiveGraphEditor", () => {
         rerender(<InteractiveGraphEditor {...mafsProps} showTooltips={true} />);
 
         await userEvent.click(screen.getAllByTestId("movable-point")[0]);
-        expect(screen.getByRole("tooltip")).toBeInTheDocument();
+        expect(screen.getAllByRole("tooltip")[0]).toBeInTheDocument();
     });
 
     test("getSaveWarnings returns an error when the graph is invalid", async () => {
