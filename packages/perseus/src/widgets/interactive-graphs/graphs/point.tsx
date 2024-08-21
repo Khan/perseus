@@ -46,12 +46,12 @@ export function PointGraph(props: PointGraphProps) {
                         const x = event.clientX - elementRect.x;
                         const y = event.clientY - elementRect.y;
 
-                        const graphCoordiantes = pixelsToVectors(
+                        const graphCoordinates = pixelsToVectors(
                             [[x, y]],
                             graphState,
                         );
                         dispatch(
-                            actions.pointGraph.addPoint(graphCoordiantes[0]),
+                            actions.pointGraph.addPoint(graphCoordinates[0]),
                         );
                     }}
                 />
