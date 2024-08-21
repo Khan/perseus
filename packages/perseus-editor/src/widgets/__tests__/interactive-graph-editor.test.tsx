@@ -572,6 +572,28 @@ describe("InteractiveGraphEditor", () => {
         expect(await screen.findAllByTestId("movable-line")).toHaveLength(4);
     });
 
+    test("tooltip appears when showTooltips is true and point is clicked", async () => {
+        // Arrange
+
+        // Act
+        const {rerender} = render(
+            <InteractiveGraphEditor {...mafsProps} showTooltips={false} />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert: confirm no tooltip is present when showTooltips false,
+        // but tooltip is present when true
+        await userEvent.click(screen.getAllByTestId("movable-point")[0]);
+        expect(screen.queryByRole("tooltip", {hidden: true})).toBeNull();
+
+        rerender(<InteractiveGraphEditor {...mafsProps} showTooltips={true} />);
+
+        await userEvent.click(screen.getAllByTestId("movable-point")[0]);
+        expect(screen.getByRole("tooltip")).toBeInTheDocument();
+    });
+
     test("getSaveWarnings returns an error when the graph is invalid", async () => {
         // Arrange
         jest.spyOn(React, "useRef").mockReturnValue({
