@@ -215,6 +215,6 @@ export default {
     displayName: "PhET Simulation",
     widget: PhetSim,
     // Let's not expose it to all content creators yet
-    hidden: false,
+    hidden: true,
     isLintable: true,
 } as WidgetExports<typeof PhetSim>;
