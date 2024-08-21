@@ -35,7 +35,6 @@ export const ShowTickControllerMobile = (
                             item={
                                 {
                                     question: question2,
-                                    _multi: null,
                                     answer: null,
                                     answerArea: null,
                                     itemDataVersion: {
@@ -43,7 +42,7 @@ export const ShowTickControllerMobile = (
                                         minor: 1,
                                     },
                                     hints: [],
-                                } as PerseusItem
+                                } satisfies PerseusItem
                             }
                             apiOptions={{
                                 isMobile: true,

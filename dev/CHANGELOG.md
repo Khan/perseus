@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 2.0.9
+
+### Patch Changes
+
+-   [#1521](https://github.com/Khan/perseus/pull/1521) [`a9292af78`](https://github.com/Khan/perseus/commit/a9292af78f569b703fcae07de01852f264861158) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update vite config to alias `/strings` expots to correct strings.ts file per package
+
 ## 2.0.8
 
 ### Patch Changes

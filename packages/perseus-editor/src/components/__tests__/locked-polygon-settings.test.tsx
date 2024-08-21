@@ -164,4 +164,140 @@ describe("LockedPolygonSettings", () => {
         // Assert
         expect(onToggle).toHaveBeenCalled();
     });
+
+    test("calls onChange when the whole polygon is moved up", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+                points={[
+                    [1, 1],
+                    [2, 1],
+                    [2, 2],
+                    [1, 2],
+                ]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const moveUpButton = screen.getByLabelText("Move polygon up");
+        await userEvent.click(moveUpButton);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({
+            points: [
+                [1, 2],
+                [2, 2],
+                [2, 3],
+                [1, 3],
+            ],
+        });
+    });
+
+    test("calls onChange when the whole polygon is moved down", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+                points={[
+                    [1, 1],
+                    [2, 1],
+                    [2, 2],
+                    [1, 2],
+                ]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const moveDownButton = screen.getByLabelText("Move polygon down");
+        await userEvent.click(moveDownButton);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({
+            points: [
+                [1, 0],
+                [2, 0],
+                [2, 1],
+                [1, 1],
+            ],
+        });
+    });
+
+    test("calls onChange when the whole polygon is moved left", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+                points={[
+                    [1, 1],
+                    [2, 1],
+                    [2, 2],
+                    [1, 2],
+                ]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const moveLeftButton = screen.getByLabelText("Move polygon left");
+        await userEvent.click(moveLeftButton);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({
+            points: [
+                [0, 1],
+                [1, 1],
+                [1, 2],
+                [0, 2],
+            ],
+        });
+    });
+
+    test("calls onChange when the whole polygon is moved right", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+                points={[
+                    [1, 1],
+                    [2, 1],
+                    [2, 2],
+                    [1, 2],
+                ]}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const moveRightButton = screen.getByLabelText("Move polygon right");
+        await userEvent.click(moveRightButton);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({
+            points: [
+                [2, 1],
+                [3, 1],
+                [3, 2],
+                [2, 2],
+            ],
+        });
+    });
 });

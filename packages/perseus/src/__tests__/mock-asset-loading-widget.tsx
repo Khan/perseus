@@ -26,7 +26,6 @@ export const mockedAssetItem: PerseusItem = {
     ) as PerseusAnswerArea,
     itemDataVersion: {major: 0, minor: 1},
     hints: [],
-    _multi: null,
     answer: null,
 } as const;
 
