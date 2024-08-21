@@ -146,9 +146,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         </Mafs>
                     </View>
                 </View>
-                {props.state.type === "point" &&
-                    props.state.numPoints === "unlimited" &&
-                    renderPointGraphControls({state, dispatch})}
+                {renderGraphControls({state, dispatch})}
             </View>
         </GraphConfigContext.Provider>
     );
@@ -171,6 +169,23 @@ const renderPointGraphControls = (props: {
         Add Point
     </Button>
 );
+
+const renderGraphControls = (props: {
+    state: InteractiveGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+}) => {
+    const {state, dispatch} = props;
+    const {type} = state;
+    switch (type) {
+        case "point":
+            if (state.numPoints === "unlimited") {
+                return renderPointGraphControls({state, dispatch});
+            }
+            return null;
+        default:
+            return null;
+    }
+};
 
 const renderGraph = (props: {
     state: InteractiveGraphState;
