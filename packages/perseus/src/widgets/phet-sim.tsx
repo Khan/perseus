@@ -82,11 +82,17 @@ export class PhetSim extends React.Component<Props, State> {
             <View style={styles.container}>
                 {this.state.banner !== null && (
                     // TODO(anna): Make this banner focusable
-                    <Banner
-                        layout="floating"
-                        kind={this.state.banner.kind}
-                        text={this.state.banner.message}
-                    />
+                    <View
+                        style={{
+                            marginBottom: phoneMargin,
+                        }}
+                    >
+                        <Banner
+                            layout="floating"
+                            kind={this.state.banner.kind}
+                            text={this.state.banner.message}
+                        />
+                    </View>
                 )}
                 <iframe
                     ref={this.iframeRef}
