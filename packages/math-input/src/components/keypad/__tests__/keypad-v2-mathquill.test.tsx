@@ -30,6 +30,7 @@ function V2KeypadWithMathquill(props: Props) {
 
     if (props.portuguese) {
         strings.sin = "sen";
+        strings.tan = "tg";
     }
 
     React.useEffect(() => {
@@ -331,7 +332,6 @@ describe("Keypad v2 with MathQuill", () => {
         });
     });
 
-    // Portuguese trig names
     it("handles portuguese sen trig function", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
@@ -352,6 +352,29 @@ describe("Keypad v2 with MathQuill", () => {
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
             "\\operatorname{sen}\\left(42\\right)",
+        );
+    });
+
+    it("handles portuguese tg trig function", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill
+                onChangeMathInput={mockMathInputCallback}
+                portuguese
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        await userEvent.click(screen.getByText("tg"));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "\\operatorname{tg}\\left(42\\right)",
         );
     });
 });

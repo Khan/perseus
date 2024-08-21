@@ -240,8 +240,13 @@ describe("Expression Widget", function () {
         });
 
         it("allows portugese sen", async () => {
-            const item = expressionItemWithAnswer("sin(x)");
-            await assertCorrect(userEvent, item, "sen(x)");
+            const item = expressionItemWithAnswer("sin(42)");
+            await assertCorrect(userEvent, item, "sen(42)");
+        });
+
+        it("allows portugese tg", async () => {
+            const item = expressionItemWithAnswer("tan(42)");
+            await assertCorrect(userEvent, item, "tg(42)");
         });
     });
 

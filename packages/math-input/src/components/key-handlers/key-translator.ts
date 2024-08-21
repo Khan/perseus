@@ -40,6 +40,31 @@ function buildGenericCallback(
     };
 }
 
+/**
+ * This lets us use translated functions
+ * (like tg->tan and sen->sin) when we know it's safe to.
+ * This lets us progressively support translations without needing
+ * to support every language all at once.
+ *
+ * @param {string} command - the translated command/function to check
+ * @param {string[]} supportedTranslations - list of translations we support
+ * @param {string} defaultCommand - what to fallback to if the command isn't supported
+ */
+function buildTranslatableFunctionCallback(
+    command: string,
+    supportedTranslations: string[],
+    defaultCommand: string,
+) {
+    const cmd = command;
+    if (!supportedTranslations.includes(cmd)) {
+        cmd = defaultCommand;
+    }
+    return function (mathField: MathFieldInterface) {
+        mathField.write(`${cmd}\\left(\\right)`);
+        mathField.keystroke("Left");
+    };
+}
+
 function buildNormalFunctionCallback(command: string) {
     return function (mathField: MathFieldInterface) {
         mathField.write(`${command}\\left(\\right)`);
@@ -73,9 +98,10 @@ export const getKeyTranslator = (
 
     LOG: buildNormalFunctionCallback("log"),
     LN: buildNormalFunctionCallback("ln"),
-    SIN: buildNormalFunctionCallback(strings.sin),
+
     COS: buildNormalFunctionCallback(strings.cos),
-    TAN: buildNormalFunctionCallback(strings.tan),
+    SIN: buildTranslatableFunctionCallback(strings.sin, ["sin", "sen"], "sin"),
+    TAN: buildTranslatableFunctionCallback(strings.tan, ["tan", "tg"], "tan"),
 
     CDOT: buildGenericCallback("\\cdot"),
     DECIMAL: buildGenericCallback(getDecimalSeparator(locale)),

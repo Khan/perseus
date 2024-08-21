@@ -47,7 +47,7 @@ export function V2KeypadWithMathquill() {
     const keyTranslator = getKeyTranslator("en", {
         sin: "sen",
         cos: "cos",
-        tan: "tan",
+        tan: "tg",
     });
 
     function handleClickKey(key: Key) {
