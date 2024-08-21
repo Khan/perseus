@@ -13,7 +13,6 @@ export const question1: PerseusRenderer = {
             options: {
                 url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
                 description: "Projectile Data Lab",
-                static: false,
             },
             alignment: "default",
         },
@@ -32,7 +31,6 @@ export const nonPhetUrl: PerseusRenderer = {
             options: {
                 url: "https://google.com/",
                 description: "Google",
-                static: false,
             },
             alignment: "default",
         },

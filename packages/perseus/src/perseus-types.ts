@@ -1561,8 +1561,6 @@ export type PerseusPhetSimWidgetOptions = {
     url: string;
     // Translatable Text; Description of the sim for Khanmigo and alt text
     description: string;
-    // Always false
-    static: boolean;
 };
 
 export type PerseusVideoWidgetOptions = {
