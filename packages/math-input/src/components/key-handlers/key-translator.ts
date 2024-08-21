@@ -55,10 +55,9 @@ function buildTranslatableFunctionCallback(
     supportedTranslations: string[],
     defaultCommand: string,
 ) {
-    const cmd = command;
-    if (!supportedTranslations.includes(cmd)) {
-        cmd = defaultCommand;
-    }
+    const cmd = supportedTranslations.includes(command)
+        ? command
+        : defaultCommand;
     return function (mathField: MathFieldInterface) {
         mathField.write(`${cmd}\\left(\\right)`);
         mathField.keystroke("Left");
