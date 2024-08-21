@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 3.0.0
+
+### Major Changes
+
+-   [#1536](https://github.com/Khan/perseus/pull/1536) [`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert introduction of ContentPreview component (broke editor linting tooltip)"
+
 ## 2.0.9
 
 ### Patch Changes
