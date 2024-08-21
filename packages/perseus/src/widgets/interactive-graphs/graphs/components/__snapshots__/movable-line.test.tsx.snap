@@ -62,9 +62,11 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         tabindex="0"
       />
       <g
+        aria-describedby="uid-tooltip-2-aria-content"
         class="movable-point  "
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
+        tabindex="0"
       >
         <circle
           class="movable-point-hitbox"
@@ -96,9 +98,11 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         />
       </g>
       <g
+        aria-describedby="uid-tooltip-3-aria-content"
         class="movable-point  "
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
+        tabindex="0"
       >
         <circle
           class="movable-point-hitbox"
@@ -196,9 +200,11 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         tabindex="0"
       />
       <g
+        aria-describedby="uid-tooltip-0-aria-content"
         class="movable-point  "
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
+        tabindex="0"
       >
         <circle
           class="movable-point-hitbox"
@@ -230,9 +236,11 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         />
       </g>
       <g
+        aria-describedby="uid-tooltip-1-aria-content"
         class="movable-point  "
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
+        tabindex="0"
       >
         <circle
           class="movable-point-hitbox"
@@ -384,9 +392,11 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         tabindex="0"
       />
       <g
+        aria-describedby="uid-tooltip-4-aria-content"
         class="movable-point  "
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
+        tabindex="0"
       >
         <circle
           class="movable-point-hitbox"
@@ -418,9 +428,11 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         />
       </g>
       <g
+        aria-describedby="uid-tooltip-5-aria-content"
         class="movable-point  "
         data-testid="movable-point"
         style="--movable-point-color: #1865f2;"
+        tabindex="0"
       >
         <circle
           class="movable-point-hitbox"
