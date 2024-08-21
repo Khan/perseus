@@ -122,11 +122,10 @@ export const MovablePointView = forwardRef(
                     backgroundColor={wbColorName}
                     content={`(${point[X]}, ${point[Y]})`}
                     contentStyle={{color: "white"}}
-                    // opened={true}
+                    opened={true}
                 >
                     {svgForPoint}
                 </Tooltip>
-                ) : ( svgForPoint )
             </>
         );
     },
