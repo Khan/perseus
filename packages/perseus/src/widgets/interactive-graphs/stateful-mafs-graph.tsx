@@ -99,13 +99,14 @@ export const StatefulMafsGraph = React.forwardRef<
 
     // Update the graph whenever any of the following values changes.
     // This is necessary to keep the graph previews in sync with the updated
-    // graph settings within the interative graph editor.
+    // graph settings within the interactive graph editor.
     const numSegments = graph.type === "segment" ? graph.numSegments : null;
     const numPoints = graph.type === "point" ? graph.numPoints : null;
     const numSides = graph.type === "polygon" ? graph.numSides : null;
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
     const showAngles = graph.type === "polygon" ? graph.showAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
+    const showTooltips = props.showTooltips ?? null;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
@@ -127,6 +128,7 @@ export const StatefulMafsGraph = React.forwardRef<
         showSides,
         latestPropsRef,
         graph.startCoords,
+        showTooltips,
     ]);
 
     // If the graph is static, it always displays the correct answer. This is
