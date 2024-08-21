@@ -3,7 +3,7 @@
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
-import type {PerseusPhetSimWidgetOptions} from "@khanacademy/perseus/src/perseus-types";
+import type {PerseusPhetSimWidgetOptions} from "@khanacademy/perseus";
 
 type DefaultProps = {
     url: PerseusPhetSimWidgetOptions["url"];
