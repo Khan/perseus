@@ -515,7 +515,7 @@ function doAddPoint(
 
     // Check if there's already a point in that spot
     for (const point of state.coords) {
-        if (point[0] === snappedPoint[0] && point[1] === snappedPoint[1]) {
+        if (point[X] === snappedPoint[X] && point[Y] === snappedPoint[Y]) {
             return state;
         }
     }
