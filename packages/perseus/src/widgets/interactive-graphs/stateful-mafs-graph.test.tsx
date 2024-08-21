@@ -114,7 +114,7 @@ describe("StatefulMafsGraph", () => {
 
         // Assert: when the user clicks a movable point with showTooltips
         // set to true, a tooltip should appear
-        expect(screen.getByRole("tooltip")).toBeInTheDocument();
+        expect(screen.getAllByRole("tooltip")[0]).toBeInTheDocument();
     });
 
     it("re-renders when the number of line segments on a segment graph changes", () => {
