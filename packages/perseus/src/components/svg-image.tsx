@@ -485,12 +485,16 @@ class SvgImage extends React.Component<Props, State> {
                 // without coordinates. They don't seem to have any content, so
                 // it seems fine to just ignore them (rather than error), but
                 // we should figure out why this is happening.
+                const fontSize =
+                    this.props.scale !== 1
+                        ? {"font-size": 100 * this.props.scale + "%"}
+                        : null;
                 const label = graphie.label(
                     labelData.coordinates,
                     labelData.content,
                     labelData.alignment,
                     labelData.typesetAsMath,
-                    {"font-size": 100 * this.props.scale + "%"},
+                    fontSize,
                 );
 
                 // Convert absolute positioning css from pixels to percentages

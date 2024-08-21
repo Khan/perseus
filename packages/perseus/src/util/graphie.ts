@@ -1650,6 +1650,8 @@ const SVG_SPECIFIC_STYLE_MASK = {
 
 const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     const $span = $(span);
+    // eslint-disable-next-line
+    console.group(`Label: ${span.innerText}`);
     const direction = $span.data("labelDirection");
     let [width, height] = size;
     // This can happen when a span
@@ -1675,12 +1677,37 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginTop: -height / 2 - y * scale,
         });
     } else {
+        const $container = $span.closest(".svg-image");
+        $container.css("line-height", "normal");
+        const scale =
+            (($container.width() ?? 0) /
+                parseInt($container.css("max-width").slice(0, -2))) *
+            100;
+        // eslint-disable-next-line
+        console.log("Width: ", $container.width());
+        // eslint-disable-next-line
+        console.log(
+            "Max-Width: ",
+            $container.css("max-width"),
+            $container.css("max-width").slice(0, -2),
+        );
+        // eslint-disable-next-line
+        console.log("Scale: ", scale);
+
+        const newPadding =
+            Math.round(parseInt($span.css("padding").slice(0, -2)) * scale) /
+            100;
+
         const multipliers = labelDirections[direction || "center"];
         $span.css({
-            marginLeft: Math.round(width * multipliers[0]),
-            marginTop: Math.round(height * multipliers[1]),
+            marginLeft: Math.round(width * multipliers[0] * scale) / 100,
+            marginTop: Math.round(height * multipliers[1] * scale) / 100,
+            fontSize: `${Math.round(scale * 100) / 100}%`,
+            padding: `${newPadding}px`,
         });
     }
+    // eslint-disable-next-line
+    console.groupEnd();
 };
 
 const GraphUtils = {
