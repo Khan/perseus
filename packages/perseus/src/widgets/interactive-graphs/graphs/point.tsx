@@ -47,6 +47,9 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
     const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
     return (
         <>
+            {/* This rect is here to grab clicks so that new points can be added */}
+            {/* It's important because it stops mouse events from propogating
+                when dragging a points around */}
             <rect
                 style={{
                     fill: "rgba(0,0,0,0)",
