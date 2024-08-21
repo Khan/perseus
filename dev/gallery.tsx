@@ -26,6 +26,7 @@ import "../packages/perseus/src/styles/perseus-renderer.less";
 const questions: [PerseusRenderer, number][] = pairWithIndices([
     interactiveGraph.segmentQuestion,
     interactiveGraph.pointQuestion,
+    interactiveGraph.finitePointQuestion,
     interactiveGraph.angleQuestion,
     interactiveGraph.linearSystemQuestion,
     interactiveGraph.circleQuestion,
