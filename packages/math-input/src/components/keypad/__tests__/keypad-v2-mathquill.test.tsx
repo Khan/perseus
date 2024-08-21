@@ -31,6 +31,9 @@ function V2KeypadWithMathquill(props: Props) {
     if (props.portuguese) {
         strings.sin = "sen";
         strings.tan = "tg";
+    } else {
+        strings.sin = "sin";
+        strings.tan = "tan";
     }
 
     React.useEffect(() => {
@@ -332,6 +335,26 @@ describe("Keypad v2 with MathQuill", () => {
         });
     });
 
+    it("handles english sin trig function", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        await userEvent.click(screen.getByText("sin"));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "\\sin\\left(42\\right)",
+        );
+    });
+
     it("handles portuguese sen trig function", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
@@ -352,6 +375,26 @@ describe("Keypad v2 with MathQuill", () => {
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
             "\\operatorname{sen}\\left(42\\right)",
+        );
+    });
+
+    it("handles english tan trig function", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        await userEvent.click(screen.getByText("tan"));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "\\tan\\left(42\\right)",
         );
     });
 

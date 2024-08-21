@@ -45,9 +45,9 @@ export function V2KeypadWithMathquill() {
     }, [mathField]);
 
     const keyTranslator = getKeyTranslator("en", {
-        sin: "sen",
+        sin: "sin",
         cos: "cos",
-        tan: "tg",
+        tan: "tan",
     });
 
     function handleClickKey(key: Key) {
