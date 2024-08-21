@@ -1679,17 +1679,17 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     } else {
         const $container = $span.closest(".svg-image");
         $container.css("line-height", "normal");
+
+        const maxWidth = $container.css("max-width") ?? "0px";
         const scale =
-            (($container.width() ?? 0) /
-                parseInt($container.css("max-width").slice(0, -2))) *
-            100;
+            (($container.width() ?? 0) / parseInt(maxWidth.slice(0, -2))) * 100;
         // eslint-disable-next-line
         console.log("Width: ", $container.width());
         // eslint-disable-next-line
         console.log(
             "Max-Width: ",
-            $container.css("max-width"),
-            $container.css("max-width").slice(0, -2),
+            maxWidth,
+            maxWidth.slice(0, -2),
         );
         // eslint-disable-next-line
         console.log("Scale: ", scale);
