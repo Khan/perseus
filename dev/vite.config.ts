@@ -10,7 +10,41 @@ const packageAliases = {};
 glob.sync(resolve(__dirname, "../packages/*/package.json")).forEach(
     (packageJsonPath) => {
         const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-        packageAliases[pkg.name] = join(dirname(packageJsonPath), pkg.source);
+
+        // "exports" is the more modern way to declare package exports. Some,
+        // but not all, Perseus packages declare "exports".
+        if ("exports" in pkg) {
+            // Not all packages export strings, but for those that do we need
+            // to set up an alias so Vite properly resolves them.
+            // Eg `import {strings, mockStrings} from "@khanacademy/perseus/strings";`
+            // And MOST IMPORTANTLY, this alias _must_ precede the main
+            // import, otherwise Vite will just use the main export and tack
+            // `/strings` onto the end, resulting in a path like this:
+            // `packages/perseus/src/index.ts/strings`
+            const stringsSource = pkg.exports["./strings"]?.source;
+            if (stringsSource != null) {
+                packageAliases[`${pkg.name}/strings`] = join(
+                    dirname(packageJsonPath),
+                    stringsSource,
+                );
+            }
+
+            const mainSource = pkg.exports["."]?.source;
+            if (mainSource == null) {
+                throw new Error(
+                    `Package declares 'exports', but not provide a main export (exports["."])`,
+                );
+            }
+            packageAliases[pkg.name] = join(
+                dirname(packageJsonPath),
+                mainSource,
+            );
+        } else {
+            packageAliases[pkg.name] = join(
+                dirname(packageJsonPath),
+                pkg.source,
+            );
+        }
     },
 );
 
