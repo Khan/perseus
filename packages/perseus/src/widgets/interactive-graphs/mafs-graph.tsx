@@ -71,16 +71,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View
-                style={{
-                    width: width,
-                }}
-            >
+            <View>
                 <View
                     className="mafs-graph"
                     style={{
                         height,
-                        width,
+                        width: "intrinsic",
                         position: "relative",
                         padding: "25px 25px 0 0",
                         boxSizing: "content-box",
