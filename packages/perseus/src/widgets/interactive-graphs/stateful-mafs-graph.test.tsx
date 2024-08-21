@@ -94,6 +94,29 @@ describe("StatefulMafsGraph", () => {
         expect(screen.getAllByTestId("movable-point").length).toBe(3);
     });
 
+    it("re-renders when tooltips is toggled", async () => {
+        // Arrange: render a segment graph
+        const noTooltipsGraphProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            showTooltips: false,
+        };
+        const {rerender} = render(
+            <StatefulMafsGraph {...noTooltipsGraphProps} />,
+        );
+
+        // Act: rerender with a quadratic graph
+        const tooltipsGraphProps: StatefulMafsGraphProps = {
+            ...getBaseStatefulMafsGraphProps(),
+            showTooltips: true,
+        };
+        rerender(<StatefulMafsGraph {...tooltipsGraphProps} />);
+        await userEvent.click(screen.getAllByTestId("movable-point")[0]);
+
+        // Assert: when the user clicks a movable point with showTooltips
+        // set to true, a tooltip should appear
+        expect(screen.getByRole("tooltip")).toBeInTheDocument();
+    });
+
     it("re-renders when the number of line segments on a segment graph changes", () => {
         // Arrange: render a segment graph with one segment
         const oneSegmentProps: StatefulMafsGraphProps = {
