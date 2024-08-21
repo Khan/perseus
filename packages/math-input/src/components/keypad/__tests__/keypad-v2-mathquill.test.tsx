@@ -344,7 +344,7 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Act
         await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
-        await userEvent.click(screen.getByText("sin"));
+        await userEvent.click(screen.getByRole("button", {name: "Sine"}));
         await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
         await userEvent.click(screen.getByRole("button", {name: "4"}));
         await userEvent.click(screen.getByRole("button", {name: "2"}));
@@ -367,6 +367,8 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Act
         await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        // This needs to stay as "getByText" because we're validating translations
+        // and aria-labels are in English
         await userEvent.click(screen.getByText("sen"));
         await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
         await userEvent.click(screen.getByRole("button", {name: "4"}));
@@ -387,7 +389,7 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Act
         await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
-        await userEvent.click(screen.getByText("tan"));
+        await userEvent.click(screen.getByRole("button", {name: "Tangent"}));
         await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
         await userEvent.click(screen.getByRole("button", {name: "4"}));
         await userEvent.click(screen.getByRole("button", {name: "2"}));
@@ -410,6 +412,8 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Act
         await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        // This needs to stay as "getByText" because we're validating translations
+        // and aria-labels are in English
         await userEvent.click(screen.getByText("tg"));
         await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
         await userEvent.click(screen.getByRole("button", {name: "4"}));
