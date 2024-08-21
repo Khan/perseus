@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 29.0.0
+
+### Major Changes
+
+-   [#1525](https://github.com/Khan/perseus/pull/1525) [`426a3ae1d`](https://github.com/Khan/perseus/commit/426a3ae1d5a7f0aef20ccea6b99ada6929e1abc4) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change PerseusItem to no longer include multi items
+
+### Patch Changes
+
+-   [#275](https://github.com/Khan/perseus/pull/275) [`3e6a65378`](https://github.com/Khan/perseus/commit/3e6a6537842ce2659ff2a12523a75b41a90681e6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Perseus no longer depends on window.KhanUtil nor window.Exercises
+
+*   [#1521](https://github.com/Khan/perseus/pull/1521) [`a9292af78`](https://github.com/Khan/perseus/commit/a9292af78f569b703fcae07de01852f264861158) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate Lint component to use WonderBlocks ToolTip
+
+-   [#1522](https://github.com/Khan/perseus/pull/1522) [`da65a54a2`](https://github.com/Khan/perseus/commit/da65a54a2cadc381c19255e9c2a402ed74733449) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update internal imports to use relative paths instead of package name
+
+*   [#1523](https://github.com/Khan/perseus/pull/1523) [`250971357`](https://github.com/Khan/perseus/commit/25097135792ecb1b5679d6fc8b41dc0c5bb1da9b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Stop the Mafs graphs from being user selectable
+
 ## 28.2.0
 
 ### Minor Changes
