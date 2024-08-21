@@ -5,12 +5,12 @@ import * as React from "react";
 
 import type {PerseusPhetSimWidgetOptions} from "@khanacademy/perseus/src/perseus-types";
 
-type Options = {
+type DefaultProps = {
     url: PerseusPhetSimWidgetOptions["url"];
     description: PerseusPhetSimWidgetOptions["description"];
 };
 
-type Props = Options & {
+type Props = DefaultProps & {
     onChange: (arg1: {
         url?: Props["url"];
         description?: Props["description"];
@@ -18,7 +18,7 @@ type Props = Options & {
 };
 
 class PhetSimEditor extends React.Component<Props> {
-    static defaultProps: Options = {
+    static defaultProps: DefaultProps = {
         url: "",
         description: "",
     };
@@ -45,12 +45,12 @@ class PhetSimEditor extends React.Component<Props> {
         );
     }
 
-    serialize: () => Options = () => {
+    serialize(): PerseusPhetSimWidgetOptions {
         return {
             url: this.props.url,
             description: this.props.description,
         };
-    };
+    }
 }
 
 export default PhetSimEditor;
