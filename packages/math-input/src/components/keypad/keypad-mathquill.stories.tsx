@@ -60,8 +60,6 @@ export function V2KeypadWithMathquill() {
         }
 
         const mathFieldCallback = keyTranslator[key];
-        console.log("keypad-mathquill.stories");
-        console.log({keyTranslator, key, mathFieldCallback});
         if (mathFieldCallback) {
             mathFieldCallback(mathField, key);
             setCursorContext(getCursorContext(mathField));
@@ -92,10 +90,7 @@ export function V2KeypadWithMathquill() {
                             convertDotToTimes
                             preAlgebra
                             trigonometry
-                            onAnalyticsEvent={async (event) => {
-                                // eslint-disable-next-line no-console
-                                // console.log("Send Event:", event);
-                            }}
+                            onAnalyticsEvent={async () => {}}
                             showDismiss
                         />
                     </PopoverContentCore>

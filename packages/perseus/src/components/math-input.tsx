@@ -260,8 +260,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
         const {locale} = this.context;
         const translator = getKeyTranslator(locale, this.context.strings)[key];
-        console.log("math-input.tsx");
-        console.log({translator, key});
         const mathField = this.mathField();
 
         if (mathField) {

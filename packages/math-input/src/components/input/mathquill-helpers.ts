@@ -157,7 +157,7 @@ export function maybeFindCommand(initialNode) {
     // a command being prefixed with a backslash leads to undesired
     // behavior. For example, Greek symbols, left parentheses, and square
     // roots all get treated as commands.
-    const validCommands = ["\\log", "\\ln", "\\cos", "\\sin", "\\sen", "\\tan"];
+    const validCommands = ["\\log", "\\ln", "\\cos", "\\sin", "\\tan"];
 
     let name = "";
     let startNode;
