@@ -10,11 +10,6 @@ export default function AxisArrows() {
 
     const axisColor = "var(--mafs-fg)";
 
-    console.log("xMin", xMin);
-    console.log("xMax", xMax);
-    console.log("yMin", yMin);
-    console.log("yMax", yMax);
-
     return (
         <>
             {!(yMin > 0 || yMax < 0) && (

@@ -72,6 +72,48 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const descriptionId = `interactive-graph-description-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
 
+    // We need to adjust the nested SVG viewbox based on the range of the graph
+    // in order to ensure that the graph is centered within the SVG and the clipping mask
+    let xMin = 0;
+    const totalXRange =
+        Math.abs(state.range[X][0]) + Math.abs(state.range[X][1]);
+
+    // X RANGE ADJUSTMENTS
+    // If the x range is entirely negative, we need to adjust the xMin to be -width
+    if (state.range[X][1] === 0) {
+        xMin = -width;
+    }
+
+    // If the x range is entirely positive, we need to adjust the xMin to be 0
+    if (state.range[X][0] >= 0) {
+        xMin = 0 + (width / totalXRange) * Math.abs(state.range[X][0] + 1);
+    }
+
+    // If the xMin is negative, we need to manually adjust
+    if (state.range[X][0] < 0) {
+        xMin = -(width / totalXRange) * Math.abs(state.range[X][0]);
+    }
+
+    // Y RANGE ADJUSTMENTS
+    let yMin = -height;
+    const totalYRange =
+        Math.abs(state.range[Y][0]) + Math.abs(state.range[Y][1]);
+
+    // If the y range is entirely positive, we want to subtract the e
+    if (state.range[Y][0] > 0) {
+        yMin = -height - (height / totalYRange) * Math.abs(state.range[Y][0]);
+    }
+
+    // If the yMin is negative, we need to manually adjust
+    if (state.range[Y][0] < 0) {
+        yMin = -height + (height / totalYRange) * Math.abs(state.range[Y][0]);
+    }
+
+    // Create the viewbox for the nested SVG
+    const viewBox = `${xMin} ${yMin} ${width} ${height}`;
+    const x = xMin;
+    const y = yMin;
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -188,10 +230,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             <svg
                                 width={width}
                                 height={height}
-                                viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}
+                                viewBox={viewBox}
                                 preserveAspectRatio="xMidYMin"
-                                x={-width / 2}
-                                y={-height / 2}
+                                x={x}
+                                y={y}
                             >
                                 {/* Locked figures layer */}
                                 {props.lockedFigures && (
@@ -206,7 +248,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 {renderGraph({
                                     state,
                                     dispatch,
-                                })}{" "}
+                                })}
                             </svg>
                         </Mafs>
                     </View>

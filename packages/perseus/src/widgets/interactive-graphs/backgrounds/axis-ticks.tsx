@@ -1,4 +1,3 @@
-import {usePaneContext} from "mafs";
 import * as React from "react";
 
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
@@ -16,10 +15,10 @@ const tickStyle: React.CSSProperties = {
 };
 
 const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
+    // If the graph requires out-of-bounds labels, we want to make sure to set the
+    // coordinates to the edge of the visible range of the graph. Otherwise,
+    // Otherwise, the ticks and labels would render outside of the clipping-mask.
     let xPointOnAxis = 0;
-
-    // If the graph is zoomed in, we want to make sure the ticks are still visible
-    // even if they are outside the graph's range.
     if (graphInfo.range[X][MIN] > 0) {
         // If the graph is on the positive side of the x-axis, lock the ticks to the left side of the graph
         xPointOnAxis = graphInfo.range[X][MIN];
@@ -29,6 +28,7 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
         xPointOnAxis = graphInfo.range[X][MAX];
     }
 
+    // Convert the Vector2 coordinates to pixel coordinates
     const pointOnAxis: vec.Vector2 = [xPointOnAxis, y];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
 
@@ -42,9 +42,9 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const xAdjustment = xPosition >= graphInfo.width ? -10 : 23;
+    const xAdjustment = graphInfo.range[X][MAX] < 0 ? 20 : -15;
     const xPositionText = xPosition + xAdjustment;
-    const yPositionText = yPosition + 3;
+    const yPositionText = yPosition + 5; // Adjusting by 5 pixels allows the text to center on the tick
 
     return (
         <g className="y-axis-ticks">
@@ -53,7 +53,10 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
                 <text
                     height={20}
                     width={50}
-                    textAnchor="end"
+                    textAnchor={"end"}
+                    stroke="white"
+                    strokeWidth={5}
+                    paintOrder="stroke"
                     x={xPositionText}
                     y={yPositionText}
                 >
@@ -65,9 +68,10 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
 };
 
 const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
+    // If the graph requires out-of-bounds labels, we want to make sure to set the
+    // coordinates to the edge of the visible range of the graph. Otherwise,
+    // Otherwise, the ticks and labels would render outside of the clipping-mask.
     let yPointOnAxis = 0;
-    // If the graph is zoomed in, we want to make sure the ticks are still visible
-    // even if they are outside the graph's range.
     if (graphInfo.range[Y][MIN] > 0) {
         // If the graph is on the positive side of the y-axis, lock the ticks to the top of the graph
         yPointOnAxis = graphInfo.range[Y][MIN];
@@ -77,13 +81,9 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
         yPointOnAxis = graphInfo.range[Y][MAX];
     }
 
+    // Convert the Vector2 coordinates to pixel coordinates
     const pointOnAxis: vec.Vector2 = [x, yPointOnAxis];
     const [[xPosition, yPosition]] = useTransformVectorsToPixels(pointOnAxis);
-
-    // If the tick is on the edge of the graph's range, don't render it
-    /* if (xPosition === -graphInfo.width / 2 || xPosition === graphInfo.width) {
-        return null;
-    } */
 
     // Position of the start of the tick
     const x1 = xPosition;
@@ -95,8 +95,16 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const yAdjustment = yPosition >= graphInfo.height ? -10 : 23;
-    const xPositionText = xPosition;
+    // When the range
+    const yAdjustment = graphInfo.range[Y][MAX] < 0 ? -15 : 22;
+
+    // Adjust the x position of the x-axis labels based on
+    // whether the label is positive or negative, as the labels
+    // appear to be off-center to the ticks when negative
+    const xAdjustment = x < 0 ? -2 : 0;
+
+    // Apply the adjustments to the x and y positions for the text
+    const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + yAdjustment;
 
     return (
@@ -107,6 +115,9 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
                     height={20}
                     width={50}
                     textAnchor="middle"
+                    stroke="white"
+                    strokeWidth={5}
+                    paintOrder="stroke"
                     x={xPositionText}
                     y={yPositionText}
                 >
@@ -151,10 +162,10 @@ export const AxisTicks = () => {
     const [[xMin, xMax], [yMin, yMax]] = range;
     const [xTickStep, yTickStep] = tickStep;
 
+    // Generate the tick locations & labels for the x and y axes
     const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
 
-    console.log("yGridTicks", yGridTicks);
     return (
         <g className="axis-ticks">
             {yGridTicks.map((y) => {
