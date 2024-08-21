@@ -117,16 +117,19 @@ export const MovablePointView = forwardRef(
         return (
             <>
                 {showHairlines && hairlines}
-                <Tooltip
-                    autoUpdate={true}
-                    backgroundColor={wbColorName}
-                    content={`(${point[X]}, ${point[Y]})`}
-                    contentStyle={{color: "white"}}
-                    opened={true}
-                >
-                    {svgForPoint}
-                </Tooltip>
-                : ( svgForPoint )
+                {showTooltips ? (
+                    <Tooltip
+                        autoUpdate={true}
+                        backgroundColor={wbColorName}
+                        content={`(${point[X]}, ${point[Y]})`}
+                        contentStyle={{color: "white"}}
+                        opened={true}
+                    >
+                        {svgForPoint}
+                    </Tooltip>
+                ) : (
+                    svgForPoint
+                )}
             </>
         );
     },
