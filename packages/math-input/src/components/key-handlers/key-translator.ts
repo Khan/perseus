@@ -42,13 +42,20 @@ function buildGenericCallback(
 
 function buildNormalFunctionCallback(command: string) {
     return function (mathField: MathFieldInterface) {
-        mathField.write(`\\${command}\\left(\\right)`);
+        mathField.write(`${command}\\left(\\right)`);
         mathField.keystroke("Left");
     };
 }
 
+type KeyTranslatorStrings = {
+    sin: string;
+    cos: string;
+    tan: string;
+};
+
 export const getKeyTranslator = (
     locale: string,
+    strings: KeyTranslatorStrings,
 ): Record<Key, MathFieldUpdaterCallback> => ({
     EXP: handleExponent,
     EXP_2: handleExponent,
@@ -66,9 +73,9 @@ export const getKeyTranslator = (
 
     LOG: buildNormalFunctionCallback("log"),
     LN: buildNormalFunctionCallback("ln"),
-    SIN: buildNormalFunctionCallback("sin"),
-    COS: buildNormalFunctionCallback("cos"),
-    TAN: buildNormalFunctionCallback("tan"),
+    SIN: buildNormalFunctionCallback(strings.sin),
+    COS: buildNormalFunctionCallback(strings.cos),
+    TAN: buildNormalFunctionCallback(strings.tan),
 
     CDOT: buildGenericCallback("\\cdot"),
     DECIMAL: buildGenericCallback(getDecimalSeparator(locale)),

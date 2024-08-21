@@ -44,7 +44,11 @@ export function V2KeypadWithMathquill() {
         }
     }, [mathField]);
 
-    const keyTranslator = getKeyTranslator("en");
+    const keyTranslator = getKeyTranslator("en", {
+        sin: "sen",
+        cos: "cos",
+        tan: "tan",
+    });
 
     function handleClickKey(key: Key) {
         if (!mathField) {
@@ -56,6 +60,8 @@ export function V2KeypadWithMathquill() {
         }
 
         const mathFieldCallback = keyTranslator[key];
+        console.log("keypad-mathquill.stories");
+        console.log({keyTranslator, key, mathFieldCallback});
         if (mathFieldCallback) {
             mathFieldCallback(mathField, key);
             setCursorContext(getCursorContext(mathField));
@@ -88,7 +94,7 @@ export function V2KeypadWithMathquill() {
                             trigonometry
                             onAnalyticsEvent={async (event) => {
                                 // eslint-disable-next-line no-console
-                                console.log("Send Event:", event);
+                                // console.log("Send Event:", event);
                             }}
                             showDismiss
                         />

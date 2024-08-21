@@ -132,7 +132,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         const input = this.mathField();
         const {locale} = this.context;
         const customKeyTranslator = {
-            ...getKeyTranslator(locale),
+            ...getKeyTranslator(locale, this.context.strings),
             // If there's something in the input that can become part of a
             // fraction, typing "/" puts it in the numerator. If not, typing
             // "/" does nothing. In that case, enter a \frac.
@@ -259,7 +259,9 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
         const {locale} = this.context;
-        const translator = getKeyTranslator(locale)[key];
+        const translator = getKeyTranslator(locale, this.context.strings)[key];
+        console.log("math-input.tsx");
+        console.log({translator, key});
         const mathField = this.mathField();
 
         if (mathField) {

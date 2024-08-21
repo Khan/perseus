@@ -48,7 +48,11 @@ function V2KeypadWithMathquill(props: Props) {
         }
     }, [mathField, strings, onChangeMathInput]);
 
-    const keyTranslator = getKeyTranslator("en");
+    const keyTranslator = getKeyTranslator("en", {
+        sin: "sin",
+        cos: "cos",
+        tan: "tan",
+    });
 
     function handleClickKey(key: Key) {
         if (!mathField) {
