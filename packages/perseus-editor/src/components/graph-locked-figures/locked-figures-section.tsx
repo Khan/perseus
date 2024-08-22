@@ -163,6 +163,13 @@ const LockedFiguresSection = (props: Props) => {
             {isExpanded && (
                 <View>
                     {figures?.map((figure, index) => {
+                        if (figure.type === "label") {
+                            // TODO(LEMS-1795): Add locked label settings.
+                            // Remove this block once label locked figure
+                            // settings are implemented.
+                            return;
+                        }
+
                         return (
                             <LockedFigureSettings
                                 key={`${uniqueId}-locked-${figure}-${index}`}
