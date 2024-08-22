@@ -135,8 +135,10 @@ describe("Locked Label Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledTimes(2);
             // Calls are not being accumulated because they're mocked.
-            expect(onChangeProps).toHaveBeenNthCalledWith(1, {coord: [1, 0]});
-            expect(onChangeProps).toHaveBeenNthCalledWith(2, {coord: [0, 2]});
+            expect(onChangeProps.mock.calls).toEqual([
+                [{coord: [1, 0]}],
+                [{coord: [0, 2]}],
+            ]);
         });
 
         test("calls 'onChangeProps' when text is changed", async () => {
@@ -158,16 +160,17 @@ describe("Locked Label Settings", () => {
             await userEvent.type(textInput, "x^2");
 
             // Assert
-            // Assert
             expect(onChangeProps).toHaveBeenCalledTimes(3);
             // NOTE: Since the 'onChangeProps' function is being mocked,
             //   the equation doesn't get updated,
             //   and therefore the keystrokes don't accumulate.
             //   This is reflected in the calls to 'onChangeProps' being
             //   just 1 character at a time.
-            expect(onChangeProps).toHaveBeenNthCalledWith(1, {text: "x"});
-            expect(onChangeProps).toHaveBeenNthCalledWith(2, {text: "^"});
-            expect(onChangeProps).toHaveBeenNthCalledWith(3, {text: "2"});
+            expect(onChangeProps.mock.calls).toEqual([
+                [{text: "x"}],
+                [{text: "^"}],
+                [{text: "2"}],
+            ]);
         });
 
         test("calls 'onChangeProps' when color is changed", async () => {

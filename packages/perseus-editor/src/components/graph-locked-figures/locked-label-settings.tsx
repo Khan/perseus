@@ -37,12 +37,23 @@ export type Props = LockedLabelType &
     };
 
 export default function LockedLabelSettings(props: Props) {
-    const {coord, color, size, text, onChangeProps} = props;
+    const {
+        type,
+        coord,
+        color,
+        size,
+        text,
+        expanded,
+        onChangeProps,
+        onMove,
+        onRemove,
+        onToggle,
+    } = props;
 
     return (
         <PerseusEditorAccordion
-            expanded={props.expanded}
-            onToggle={props.onToggle}
+            expanded={expanded}
+            onToggle={onToggle}
             header={
                 <View style={[styles.row, styles.accordionHeaderContainer]}>
                     <LabelLarge>
@@ -124,9 +135,9 @@ export default function LockedLabelSettings(props: Props) {
 
             {/* Actions */}
             <LockedFigureSettingsActions
-                figureType={props.type}
-                onMove={props.onMove}
-                onRemove={props.onRemove}
+                figureType={type}
+                onMove={onMove}
+                onRemove={onRemove}
             />
         </PerseusEditorAccordion>
     );
