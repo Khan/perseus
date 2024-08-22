@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 0.3.12
+
+### Patch Changes
+
+-   [#1507](https://github.com/Khan/perseus/pull/1507) [`e19c58eb9`](https://github.com/Khan/perseus/commit/e19c58eb9f0ef84c32dfdb40a4382cfa4c82392d) Thanks [@handeyeco](https://github.com/handeyeco)! - Add some tests for mixed numbers in KAS.
+
 ## 0.3.11
 
 ### Patch Changes

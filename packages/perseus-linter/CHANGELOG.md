@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 1.2.0
+
+### Minor Changes
+
+-   [#1499](https://github.com/Khan/perseus/pull/1499) [`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50) Thanks [@handeyeco](https://github.com/handeyeco)! - Add expression-widget lint rule
+
+### Patch Changes
+
+-   [#1499](https://github.com/Khan/perseus/pull/1499) [`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleaning up some types in perseus-linter
+
 ## 1.1.0
 
 ### Minor Changes

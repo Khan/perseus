@@ -6,19 +6,10 @@ import {lockedFigureColors, type LockedLabelType} from "../../../perseus-types";
 import {pointToPixel} from "../graphs/use-transform";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import type {GraphDimensions} from "../types";
-
 export default function LockedLabel(props: LockedLabelType) {
     const {coord, text, color, size} = props;
-    const {range, width, height} = useGraphConfig();
 
-    const graphInfo: GraphDimensions = {
-        range,
-        width,
-        height,
-    };
-
-    const [x, y] = pointToPixel(coord, graphInfo);
+    const [x, y] = pointToPixel(coord, useGraphConfig());
 
     const {TeX} = getDependencies();
 
