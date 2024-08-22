@@ -718,7 +718,8 @@ export type LockedFigure =
     | LockedVectorType
     | LockedEllipseType
     | LockedPolygonType
-    | LockedFunctionType;
+    | LockedFunctionType
+    | LockedLabelType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -778,6 +779,16 @@ export type LockedFunctionType = {
     equation: string; // This is the user-defined equation (as it was typed)
     directionalAxis: "x" | "y";
     domain?: Interval;
+};
+
+// Not associated with a specific figure
+export type LockedLabelType = {
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
 };
 
 export type PerseusGraphType =

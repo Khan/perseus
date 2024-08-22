@@ -804,6 +804,22 @@ export const segmentWithLockedFunction = (
         .build();
 };
 
+export const segmentWithLockedLabels: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedLabel("small \\frac{1}{2}", [-6, 2], {
+            color: "pink",
+            size: "small",
+        })
+        .addLockedLabel("medium E_0 = mc^2", [1, 2], {
+            color: "blue",
+            size: "medium",
+        })
+        .addLockedLabel("large \\sqrt{2a}", [-3, -2], {
+            color: "green",
+            size: "large",
+        })
+        .build();
+
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7)
@@ -822,6 +838,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
         .addLockedFunction("sin(x)", {
             color: "red",
         })
+        .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
         .build();
 
 export const quadraticQuestion: PerseusRenderer =

@@ -17,6 +17,7 @@ import type {PerseusGraphType} from "../../perseus-types";
 import type {Widget} from "../../renderer";
 
 export type StatefulMafsGraphProps = {
+    showLabelsFlag?: boolean;
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;

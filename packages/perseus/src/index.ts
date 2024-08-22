@@ -180,6 +180,7 @@ export type {
     LockedEllipseType,
     LockedPolygonType,
     LockedFunctionType,
+    LockedLabelType,
     PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,
