@@ -12,17 +12,20 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {BodyMonospace, LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import LabeledRow from "../components/graph-locked-figures/labeled-row";
+import LockedFiguresSection from "../components/graph-locked-figures/locked-figures-section";
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphTypeSelector from "../components/graph-type-selector";
+import {InteractiveGraphCorrectAnswer} from "../components/interactive-graph-correct-answer";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
-import LabeledRow from "../components/labeled-row";
-import LockedFiguresSection from "../components/locked-figures-section";
 import SegmentCountSelector from "../components/segment-count-selector";
+import StartCoordsSettings from "../components/start-coords-settings";
+import {shouldShowStartCoordsUI} from "../components/util";
 import {parsePointCount} from "../util/points";
 
 import type {
@@ -112,22 +115,10 @@ export type Props = {
      */
     showProtractor: boolean;
     /**
-     * Whether to show the ruler on the graph.
-     */
-    showRuler: boolean;
-    /**
      * Whether to show tooltips on the graph.
      * (Currently not used, but will be in the future.)
      */
     showTooltips: boolean;
-    /**
-     * The label to display on the ruler, if any.
-     */
-    rulerLabel: string;
-    /**
-     * The number of ticks to display on the ruler.
-     */
-    rulerTicks: number;
     /**
      * The current correct answer for the graph. Updated by this component
      * when the graph is changed.
@@ -160,10 +151,7 @@ type DefaultProps = {
     backgroundImage: Props["backgroundImage"];
     markings: Props["markings"];
     showProtractor: Props["showProtractor"];
-    showRuler: Props["showRuler"];
     showTooltips: Props["showTooltips"];
-    rulerLabel: Props["rulerLabel"];
-    rulerTicks: Props["rulerTicks"];
     correct: Props["correct"];
 };
 
@@ -229,28 +217,28 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 backgroundImage: this.props.backgroundImage,
                 markings: this.props.markings,
                 showProtractor: this.props.showProtractor,
-                showRuler: this.props.showRuler,
                 showTooltips: this.props.showTooltips,
-                rulerLabel: this.props.rulerLabel,
-                rulerTicks: this.props.rulerTicks,
                 lockedFigures: this.props.lockedFigures,
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
                     let correct = this.props.correct;
                     // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     if (correct.type === newProps.graph.type) {
-                        correct = _.extend({}, correct, newProps.graph);
+                        correct = {
+                            ...correct,
+                            ...newProps.graph,
+                        };
                     } else {
                         // Clear options from previous graph
                         correct = newProps.graph;
                     }
-                    this.props.onChange({correct: correct});
+                    this.props.onChange({
+                        correct: correct,
+                        graph: this.props.graph,
+                    });
                 },
             } as const;
 
-            // This is used to force a remount of the graph component
-            // when there's a significant change
-            const graphKey = `${correct.type}:${correct.numSegments || 0}`;
             graph = (
                 // There are a bunch of props that renderer.jsx passes to widgets via
                 // getWidgetProps() and widget-container.jsx that the editors don't
@@ -258,7 +246,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // @ts-expect-error - TS2769 - No overload matches this call.
                 <InteractiveGraph
                     {...graphProps}
-                    key={graphKey}
                     containerSizeClass={sizeClass}
                     apiOptions={{
                         ...this.props.apiOptions,
@@ -292,6 +279,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         }}
                     />
                 </LabeledRow>
+                <InteractiveGraphCorrectAnswer equationString={equationString}>
+                    {graph}
+                </InteractiveGraphCorrectAnswer>
                 {this.props.correct?.type === "point" && (
                     <LabeledRow label="Number of Points:">
                         <GraphPointsCountSelector
@@ -299,6 +289,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             onChange={(points) => {
                                 this.props.onChange({
                                     correct: {
+                                        type: "point",
+                                        numPoints: points,
+                                    },
+                                    graph: {
                                         type: "point",
                                         numPoints: points,
                                     },
@@ -329,7 +323,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         snapTo: "grid",
                                     };
 
-                                    this.props.onChange({correct: graph});
+                                    this.props.onChange({
+                                        correct: graph,
+                                        graph: graph,
+                                    });
                                 }}
                                 style={styles.singleSelectShort}
                             >
@@ -357,7 +354,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         coords: null,
                                     };
 
-                                    this.props.onChange({correct: graph});
+                                    this.props.onChange({
+                                        correct: graph,
+                                        graph: graph,
+                                    });
                                 }}
                                 style={styles.singleSelectShort}
                             >
@@ -401,13 +401,22 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     !!this.props.correct?.showAngles
                                 }
                                 onChange={() => {
-                                    this.props.onChange({
-                                        correct: {
-                                            ...this.props.correct,
-                                            showAngles:
-                                                !this.props.correct.showAngles,
-                                        },
-                                    });
+                                    if (this.props.graph?.type === "polygon") {
+                                        this.props.onChange({
+                                            correct: {
+                                                ...this.props.correct,
+                                                showAngles:
+                                                    !this.props.correct
+                                                        .showAngles,
+                                            },
+                                            graph: {
+                                                ...this.props.graph,
+                                                showAngles:
+                                                    !this.props.graph
+                                                        .showAngles,
+                                            },
+                                        });
+                                    }
                                 }}
                             />
                             <InfoTip>
@@ -424,13 +433,21 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     !!this.props.correct?.showSides
                                 }
                                 onChange={() => {
-                                    this.props.onChange({
-                                        correct: {
-                                            ...this.props.correct,
-                                            showSides:
-                                                !this.props.correct.showSides,
-                                        },
-                                    });
+                                    if (this.props.graph?.type === "polygon") {
+                                        this.props.onChange({
+                                            correct: {
+                                                ...this.props.correct,
+                                                showSides:
+                                                    !this.props.correct
+                                                        .showSides,
+                                            },
+                                            graph: {
+                                                ...this.props.graph,
+                                                showSides:
+                                                    !this.props.graph.showSides,
+                                            },
+                                        });
+                                    }
                                 }}
                             />
                             <InfoTip>
@@ -450,11 +467,28 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         numSegments: sides,
                                         coords: null,
                                     },
+                                    graph: {
+                                        type: "segment",
+                                        numSegments: sides,
+                                    },
                                 });
                             }}
                         />
                     </LabeledRow>
                 )}
+                {this.props.graph?.type &&
+                    // TODO(LEMS-2228): Remove flags once this is fully released
+                    shouldShowStartCoordsUI(
+                        this.props.apiOptions.flags,
+                        this.props.graph,
+                    ) && (
+                        <StartCoordsSettings
+                            {...this.props.graph}
+                            range={this.props.range}
+                            step={this.props.step}
+                            onChange={this.changeStartCoords}
+                        />
+                    )}
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
@@ -466,10 +500,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     backgroundImage={this.props.backgroundImage}
                     markings={this.props.markings}
                     showProtractor={this.props.showProtractor}
-                    showRuler={this.props.showRuler}
                     showTooltips={this.props.showTooltips}
-                    rulerLabel={this.props.rulerLabel}
-                    rulerTicks={this.props.rulerTicks}
                     onChange={this.props.onChange}
                 />
                 {this.props.correct.type === "polygon" && (
@@ -561,42 +592,22 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         </InfoTip>
                     </LabeledRow>
                 )}
-                <LabeledRow label="Correct answer:">
-                    <BodyMonospace
-                        style={{
-                            fontSize: 12,
-                            backgroundColor: "#eee",
-                            paddingInline: spacing.xxSmall_6,
-                            borderColor: "#ccc",
-                            borderStyle: "solid",
-                            borderWidth: 1,
-                        }}
-                    >
-                        {equationString}
-                    </BodyMonospace>
-                    <InfoTip>
-                        <p>
-                            Graph the correct answer in the graph below and
-                            ensure the equation or point coordinates displayed
-                            represent the correct answer.
-                        </p>
-                    </InfoTip>
-                </LabeledRow>
-                {graph}
                 {
                     // Only show the "Add locked figure" dropdown if the graph
                     // is using Mafs.
                     this.props.graph &&
                         this.props.apiOptions?.flags?.mafs?.[
-                            "interactive-graph-locked-features-m1"
-                        ] &&
-                        this.props.apiOptions?.flags?.mafs?.[
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
-                                showM2Features={
+                                showM2bFeatures={
                                     this.props.apiOptions?.flags?.mafs?.[
-                                        "interactive-graph-locked-features-m2"
+                                        "interactive-graph-locked-features-m2b"
+                                    ]
+                                }
+                                showLabelsFlag={
+                                    this.props.apiOptions?.flags?.mafs?.[
+                                        "interactive-graph-locked-features-labels"
                                     ]
                                 }
                                 figures={this.props.lockedFigures}
@@ -616,6 +627,22 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({correct: correct});
     };
 
+    changeStartCoords = (coords) => {
+        if (!this.props.graph?.type) {
+            return;
+        }
+
+        const graph = {
+            ...this.props.graph,
+            startCoords: coords,
+        };
+        this.props.onChange({graph: graph});
+    };
+
+    // serialize() is what makes copy/paste work. All the properties included
+    // in the serialization json are included when, for example, a graph
+    // is copied from the question editor and pasted into the hint editor
+    // (double brackets in the markdown).
     serialize(): PerseusInteractiveGraphWidgetOptions {
         const json = _.pick(
             this.props,
@@ -624,10 +651,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "markings",
             "labels",
             "showProtractor",
-            "showRuler",
             "showTooltips",
-            "rulerLabel",
-            "rulerTicks",
             "range",
             "gridStep",
             "snapStep",
@@ -640,7 +664,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
             // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
             const correct = graph && graph.getUserInput();
             _.extend(json, {
-                graph: {type: correct.type},
+                graph: {
+                    type: correct.type,
+                    startCoords: this.props.graph?.startCoords,
+                },
                 correct: correct,
             });
 
@@ -658,7 +685,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 ],
                 function (key) {
                     if (_.has(correct, key)) {
-                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor" | "showRuler" | "rulerLabel" | "rulerTicks">'.
+                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor">'.
                         json.graph[key] = correct[key];
                     }
                 },

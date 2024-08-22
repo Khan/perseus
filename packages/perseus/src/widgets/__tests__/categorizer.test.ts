@@ -11,9 +11,10 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
 import type {Rubric} from "../categorizer";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("categorizer widget", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

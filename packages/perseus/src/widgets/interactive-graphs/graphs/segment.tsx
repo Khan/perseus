@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {moveControlPoint, moveLine} from "../reducer/interactive-graph-action";
+import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
 
@@ -20,14 +20,18 @@ export const SegmentGraph = (props: SegmentProps) => {
                     key={i}
                     points={segment}
                     onMoveLine={(delta: vec.Vector2) => {
-                        dispatch(moveLine(i, delta));
+                        dispatch(actions.segment.moveLine(i, delta));
                     }}
                     onMovePoint={(
                         endpointIndex: number,
                         destination: vec.Vector2,
                     ) => {
                         dispatch(
-                            moveControlPoint(endpointIndex, destination, i),
+                            actions.segment.movePointInFigure(
+                                i,
+                                endpointIndex,
+                                destination,
+                            ),
                         );
                     }}
                 />

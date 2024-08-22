@@ -1,5 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
+import {Errors} from "@khanacademy/perseus-core";
 import {
     linterContextProps,
     linterContextDefault,
@@ -12,7 +13,7 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
-import {Errors, Log} from "../logging/log";
+import {Log} from "../logging/log";
 import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";

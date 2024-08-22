@@ -1,13 +1,12 @@
 import * as React from "react";
 
 import Graph from "../graph";
-// TODO(scottgrant): Katex is unavailable here. Fix!
 
-type StoryArgs = Record<any, any>;
+import type {StoryObj, Meta} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
+type StoryArgs = StoryObj<Graph>;
+
+type Story = Meta<Graph>;
 
 const size = 200;
 

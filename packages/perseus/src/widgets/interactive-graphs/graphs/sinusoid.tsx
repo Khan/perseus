@@ -2,9 +2,10 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Plot} from "mafs";
 import * as React from "react";
 
-import {movePoint} from "../reducer/interactive-graph-action";
+import {X, Y} from "../math";
+import {actions} from "../reducer/interactive-graph-action";
 
-import {StyledMovablePoint} from "./components/movable-point";
+import {MovablePoint} from "./components/movable-point";
 
 import type {Coord} from "../../../interactive2/types";
 import type {SinusoidGraphState, MafsGraphProps} from "../types";
@@ -26,18 +27,35 @@ export function SinusoidGraph(props: SinusoidGraphProps) {
     // The coords[0] is the root and the coords[1] is the first peak
     const {coords} = graphState;
 
-    // Get the coefficients for calculating the quadratic equation
-    const coeffs: SineCoefficient = getSinusoidCoefficients(coords);
+    // The coefficients are used to calculate the sinusoid equation, plot the graph, and to indicate
+    // to content creators the currently selected "correct answer" in the Content Editor.
+    // While we should technically never have invalid coordinates, we want to ensure that
+    // we have a fallback so that the graph can still be plotted without crashing.
+    const coeffRef = React.useRef<SineCoefficient>({
+        amplitude: 1,
+        angularFrequency: 1,
+        phase: 1,
+        verticalOffset: 0,
+    });
+    const coeffs = getSinusoidCoefficients(coords);
+
+    // If the coefficients are valid, update the reference
+    if (coeffs !== undefined) {
+        coeffRef.current = coeffs;
+    }
 
     return (
         <>
-            <Plot.OfX y={(x) => computeSine(x, coeffs)} color={color.blue} />
+            <Plot.OfX
+                y={(x) => computeSine(x, coeffRef.current)}
+                color={color.blue}
+            />
             {coords.map((coord, i) => (
-                <StyledMovablePoint
+                <MovablePoint
                     key={"point-" + i}
                     point={coord}
                     onMove={(destination) =>
-                        dispatch(movePoint(i, destination))
+                        dispatch(actions.sinusoid.movePoint(i, destination))
                     }
                 />
             ))}
@@ -63,16 +81,21 @@ export const computeSine = function (
 
 export const getSinusoidCoefficients = (
     coords: ReadonlyArray<Coord>,
-): SineCoefficient => {
+): SineCoefficient | undefined => {
     // It's assumed that p1 is the root and p2 is the first peak
     const p1 = coords[0];
     const p2 = coords[1];
 
+    // If the x-coordinates are the same, we are unable to calculate the coefficients
+    if (p2[X] === p1[X]) {
+        return;
+    }
+
     // Resulting coefficients are canonical for this sine curve
-    const amplitude = p2[1] - p1[1];
-    const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-    const phase = p1[0] * angularFrequency;
-    const verticalOffset = p1[1];
+    const amplitude = p2[Y] - p1[Y];
+    const angularFrequency = Math.PI / (2 * (p2[X] - p1[X]));
+    const phase = p1[X] * angularFrequency;
+    const verticalOffset = p1[Y];
 
     return {amplitude, angularFrequency, phase, verticalOffset};
 };

@@ -1,5 +1,6 @@
 import {vec} from "mafs";
 
+import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import type {GraphDimensions} from "../types";
@@ -50,4 +51,25 @@ export const useTransformVectorsToPixels = (...vectors: vec.Vector2[]) => {
 export const useTransformDimensionsToPixels = (...dimens: vec.Vector2[]) => {
     const graphState = useGraphConfig();
     return dimensionsToPixels(dimens, graphState);
+};
+
+export function pixelsToVectors(
+    pixels: vec.Vector2[],
+    graphState: GraphDimensions,
+): vec.Vector2[] {
+    const [[xMin, xMax], [yMin, yMax]] = graphState.range;
+    const {width, height} = graphState;
+    const xSpan = xMax - xMin;
+    const ySpan = yMax - yMin;
+
+    return pixels.map((pixel): vec.Vector2 => {
+        const x = (pixel[X] / width) * xSpan + xMin;
+        const y = yMax - (pixel[Y] / height) * ySpan;
+        return [x, y];
+    });
+}
+
+export const useTransformPixelsToVectors = (...pixels: vec.Vector2[]) => {
+    const graphState = useGraphConfig();
+    return pixelsToVectors(pixels, graphState);
 };

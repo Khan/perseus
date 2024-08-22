@@ -25,7 +25,7 @@ This repo is a constellation of sub-repos for showing exercise content. Please s
 
 To install Perseus, you need to run the following commands:
 
-#### `yarn install`
+#### `yarn`
 
 Installs project dependencies and tooling
 

@@ -50,14 +50,14 @@
  *     removes the point from graphie
  */
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 import KhanColors from "../util/colors";
+// eslint-disable-next-line import/no-deprecated
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
 
@@ -67,9 +67,8 @@ import objective_ from "./objective_";
 import WrappedEllipse from "./wrapped-ellipse";
 
 import type {Movable} from "./movable";
-import type {Constraint, ConstraintCallbacks} from "./types";
+import type {Constraint, ConstraintCallbacks, Coord} from "./types";
 import type {Graphie} from "../util/graphie";
-import type {Coord} from "@khanacademy/perseus";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -238,6 +237,7 @@ export class MovablePoint {
 
         const showTrashTooltip = () => {
             this._showTooltip((container) => {
+                // eslint-disable-next-line import/no-deprecated
                 reactRender(
                     <span style={{fontSize: "2em"}}>
                         <InlineIcon
@@ -520,9 +520,9 @@ export class MovablePoint {
      * Displays a tooltip above the point, replacing any previous contents. If
      * there is no tooltip initialized, adds the tooltip.
      *
-     * If the type of contents is string, the contents will be rendered with
-     * KaTeX. Otherwise, the content will be assumed to be a DOM node and will
-     * be appended inside the tooltip.
+     * If the type of contents is string, the contents will be rendered as TeX
+     * Otherwise, the content will be assumed to be a DOM node and will be
+     * appended inside the tooltip.
      */
     _showTooltip(contents) {
         if (!this._tooltip) {

@@ -5,11 +5,12 @@ import {
     Changeable,
     EditorJsonify,
 } from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-const {PropCheckBox, TextListEditor} = components;
+const {TextListEditor} = components;
 const Categorizer = CategorizerWidget.widget;
 
 type Props = any;
@@ -45,11 +46,12 @@ class CategorizerEditor extends React.Component<Props> {
         return (
             <div>
                 <div className="perseus-widget-row">
-                    <PropCheckBox
+                    <Checkbox
                         label="Randomize item order"
-                        labelAlignment="right"
-                        randomizeItems={this.props.randomizeItems}
-                        onChange={this.props.onChange}
+                        checked={this.props.randomizeItems}
+                        onChange={(value) => {
+                            this.props.onChange({randomizeItems: value});
+                        }}
                     />
                 </div>
                 Categories:

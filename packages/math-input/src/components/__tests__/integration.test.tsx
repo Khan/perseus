@@ -1,4 +1,8 @@
 import {
+    KeypadContext,
+    StatefulKeypadContextProvider,
+} from "@khanacademy/keypad-context";
+import {
     screen,
     render,
     fireEvent,
@@ -12,9 +16,9 @@ import React, {useState} from "react";
 import {KeypadType} from "../../enums";
 import MathInput from "../input/math-input";
 import {MobileKeypad} from "../keypad";
-import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
 
 import type {KeypadConfiguration} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const MQ = MathQuill.getInterface(3);
 
@@ -47,6 +51,7 @@ function InputWithContext({keypadConfiguration}) {
                         onBlur={() => {
                             keypadElement?.dismiss();
                         }}
+                        ariaLabel="Math input"
                     />
                 );
             }}
@@ -80,7 +85,7 @@ function ConnectedMathInput({keypadConfiguration = defaultConfiguration}) {
 }
 
 describe("math input integration", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

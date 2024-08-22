@@ -36,7 +36,6 @@ export const itemWithInput: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -79,7 +78,6 @@ export const itemWithMultipleInputNumbers: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -132,7 +130,6 @@ export const itemWithNumericAndNumberInputs: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -224,7 +221,6 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -233,7 +229,6 @@ export const labelImageItem: PerseusItem = {
     answerArea: Object.fromEntries(
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
-    _multi: null,
     answer: null,
     hints: [],
     itemDataVersion: {major: 0, minor: 1},
@@ -342,7 +337,6 @@ export const mockedItem: PerseusItem = {
     } as PerseusRenderer,
     hints: [],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -355,7 +349,6 @@ export const itemWithLintingError: PerseusItem = {
     },
     hints: [],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
@@ -548,7 +541,6 @@ And what follows are _hints_...
         },
     ],
     answerArea: null,
-    _multi: null,
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };

@@ -4,8 +4,10 @@ import * as React from "react";
 
 import Tabbar from "../tabbar";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("<Tabbar />", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -73,7 +75,9 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        expect(screen.getByRole("tab", {name: "Dismiss"})).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Dismiss"}),
+        ).toBeInTheDocument();
     });
 
     it("does not show dismiss button without onClickClose callback", async () => {
@@ -88,7 +92,7 @@ describe("<Tabbar />", () => {
 
         // Assert
         expect(
-            screen.queryByRole("tab", {name: "Dismiss"}),
+            screen.queryByRole("button", {name: "Dismiss"}),
         ).not.toBeInTheDocument();
     });
 
@@ -105,7 +109,7 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        await userEvent.click(screen.getByRole("tab", {name: "Dismiss"}));
+        await userEvent.click(screen.getByRole("button", {name: "Dismiss"}));
         expect(mockClickCloseCallback).toHaveBeenCalled();
     });
 });

@@ -2,7 +2,7 @@
  * A collection of geomtry-related utility functions
  */
 
-import {number as knumber} from "@khanacademy/kmath";
+import {number as knumber, point as kpoint} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import Util from "../util";
@@ -22,8 +22,11 @@ export type SineCoefficient = [
     number, // phase
     number, // verticalOffset
 ];
-export type QuadraticCoefficient = [number, number, number]; // a, b, c
 
+// a, b, c
+export type QuadraticCoefficient = [number, number, number];
+
+// Given a number, return whether it is positive (1), negative (-1), or zero (0)
 export function sign(val: number): 0 | 1 | -1 {
     if (eq(val, 0)) {
         return 0;
@@ -31,6 +34,8 @@ export function sign(val: number): 0 | 1 | -1 {
     return val > 0 ? 1 : -1;
 }
 
+// Determine whether three points are collinear (0), for a clockwise turn (negative),
+// or counterclockwise turn (positive)
 export function ccw(a: Coord, b: Coord, c: Coord): number {
     return (b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]);
 }
@@ -76,6 +81,34 @@ export function intersects(ab: Line, cd: Line): boolean {
         }
     }
 
+    return false;
+}
+
+// Whether any two sides of a polygon intersect each other
+export function polygonSidesIntersect(vertices: Coord[]): boolean {
+    for (let i = 0; i < vertices.length; i++) {
+        for (let k = i + 1; k < vertices.length; k++) {
+            // If any two vertices are the same point, sides overlap
+            if (kpoint.equal(vertices[i], vertices[k])) {
+                return true;
+            }
+
+            // Find the other end of the sides starting at vertices i and k
+            const iNext = (i + 1) % vertices.length;
+            const kNext = (k + 1) % vertices.length;
+
+            // Adjacent sides always intersect (at the vertex); skip those
+            if (iNext === k || kNext === i) {
+                continue;
+            }
+
+            const side1: Line = [vertices[i], vertices[iNext]];
+            const side2: Line = [vertices[k], vertices[kNext]];
+            if (intersects(side1, side2)) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 

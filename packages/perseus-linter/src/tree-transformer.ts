@@ -56,12 +56,14 @@
  * methods are available to the traversal callback.
  **/
 
-import {Errors, PerseusError} from "@khanacademy/perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
 // TreeNode is the type of a node in a parse tree. The only real requirement is
 // that every node has a string-valued `type` property
 export type TreeNode = {
     type: string;
+    widgetType?: string;
+    id?: string;
 };
 
 // TraversalCallback is the type of the callback function passed to the

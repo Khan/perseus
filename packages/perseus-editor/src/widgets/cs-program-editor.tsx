@@ -8,9 +8,10 @@ import {
     Changeable,
     Dependencies,
     EditorJsonify,
-    Errors,
     Log,
 } from "@khanacademy/perseus";
+import {Errors} from "@khanacademy/perseus-core";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -18,7 +19,7 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
-const {InfoTip, PropCheckBox} = components;
+const {InfoTip} = components;
 
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
@@ -220,20 +221,24 @@ class CSProgramEditor extends React.Component<any> {
                     />
                 </label>
                 <br />
-                <PropCheckBox
+                <Checkbox
                     label="Show Editor"
-                    showEditor={this.props.showEditor}
-                    onChange={this.props.onChange}
+                    checked={this.props.showEditor}
+                    onChange={(value) => {
+                        this.props.onChange({showEditor: value});
+                    }}
                 />
                 <InfoTip>
                     If you show the editor, you should use the "full-width"
                     alignment to make room for the width of the editor.
                 </InfoTip>
                 <br />
-                <PropCheckBox
+                <Checkbox
                     label="Show Buttons"
-                    showButtons={this.props.showButtons}
-                    onChange={this.props.onChange}
+                    checked={this.props.showButtons}
+                    onChange={(value) => {
+                        this.props.onChange({showButtons: value});
+                    }}
                 />
                 <br />
                 <label>
@@ -243,9 +248,6 @@ class CSProgramEditor extends React.Component<any> {
                         pairs={this.props.settings}
                         onChange={this._handleSettingsChange}
                     />
-                    {/* InfoTip is complaining about <code> not being a string
-                        or React.ReactElement even though it should be valid.
-                    @ts-expect-error - TS2769 - No overload matches this call. */}
                     <InfoTip>
                         Settings that you add here are available to the program
                         as an object returned by <code>Program.settings()</code>

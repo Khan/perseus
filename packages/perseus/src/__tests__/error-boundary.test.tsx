@@ -62,14 +62,17 @@ describe("error boundary", () => {
         expect(errorSpy).toHaveBeenCalledWith(
             "Unhandled Perseus error: I can haz error",
             "Internal",
-            {
-                cause: expect.anything(),
+            expect.objectContaining({
+                cause: expect.any(Object),
                 loggedMetadata: {
-                    componentStack: `
-    in ProblematicComponent
-    in ErrorBoundary`,
+                    // We're very lax on what's in the componentStack as that
+                    // can change between React versions and it's merely an
+                    // implementation detail that we don't control.
+                    componentStack: expect.stringContaining(
+                        "at ProblematicComponent",
+                    ),
                 },
-            },
+            }),
         );
     });
 });

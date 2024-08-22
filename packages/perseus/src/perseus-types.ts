@@ -8,7 +8,7 @@ import type {Interval, vec} from "mafs";
 // and exported from the package, so we need to keep it around.
 export type Range = Interval;
 export type Size = [number, number];
-export type CollinearTuple = readonly [vec.Vector2, vec.Vector2];
+export type CollinearTuple = [vec.Vector2, vec.Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
 
 export type PerseusWidgetsMap = {
@@ -80,24 +80,37 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `table ${number}`]: TableWidget;
 } & {
-    [key in `unit-input ${number}`]: UnitInputWidget;
-} & {
     [key in `video ${number}`]: VideoWidget;
 };
 
+/**
+ * A "PerseusItem" is a classic Perseus item. It is rendered by the
+ * `ServerItemRenderer` and the layout is pre-set.
+ *
+ * To render more complex Perseus items, see the `Item` type in the multi item
+ * area.
+ */
 export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
     // A collection of hints to be offered to the user that support answering the question.
-    hints: ReadonlyArray<PerseusRenderer>;
+    hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
-    _multi: any;
     // The version of the item.  Not used by Perseus
     itemDataVersion: Version;
     // Deprecated field
     answer: any;
+};
+
+/**
+ * A "MultiItem" is an advanced Perseus item. It is rendered by the
+ * `MultiRenderer` and you can control the layout of individual parts of the
+ * item.
+ */
+export type MultiItem = {
+    // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
+    _multi: any;
 };
 
 export type PerseusArticle = ReadonlyArray<PerseusRenderer>;
@@ -118,8 +131,6 @@ export type PerseusRenderer = {
     content: string;
     // A dictionary of {[widgetName]: Widget} to be referenced from the content field
     widgets: PerseusWidgetsMap;
-    // Used only for PerseusItem.hints.  If true, it replaces the previous hint in the list with the current one. This allows for hints that build upon each other.
-    replace?: boolean;
     // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     metadata?: ReadonlyArray<string>;
@@ -127,6 +138,15 @@ export type PerseusRenderer = {
     images: {
         [key: string]: PerseusImageDetail;
     };
+};
+
+export type Hint = PerseusRenderer & {
+    /**
+     * When `true`, causes the previous hint to be replaced with this hint when
+     * displayed. When `false`, the previous hint remains visible when this one
+     * is displayed. This allows for hints that build upon each other.
+     */
+    replace?: boolean;
 };
 
 export type PerseusImageDetail = {
@@ -249,8 +269,6 @@ export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTarg
 // prettier-ignore
 export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
-export type UnitInputWidget = Widget<'unit-input', PerseusUnitInputWidgetOptions>;
-// prettier-ignore
 export type VideoWidget = Widget<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
 export type AutoCorrectWidget = Widget<'deprecated-standin', PerseusWidgetOptions>;
@@ -290,7 +308,6 @@ export type PerseusWidget =
     | SimpleMarkdownTesterWidget
     | SorterWidget
     | TableWidget
-    | UnitInputWidget
     | VideoWidget
     | AutoCorrectWidget;
 
@@ -423,6 +440,10 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
+    // visible label associated with the MathQuill field
+    visibleLabel?: string;
+    // aria label for screen readers attached to MathQuill field
+    ariaLabel?: string;
     // Controls when buttons for special characters are visible when using a
     // desktop browser.  Defaults to "focused".
     // NOTE: This isn't listed in perseus-format.js or perseus_data.go, but
@@ -437,7 +458,7 @@ export const PerseusExpressionAnswerFormConsidered = [
 ] as const;
 
 export type PerseusExpressionAnswerForm = {
-    // The Katex form of the expression.  e.g. "x\\cdot3=y"
+    // The TeX form of the expression.  e.g. "x\\cdot3=y"
     value: string;
     // The Answer expression must have the same form
     form: boolean;
@@ -630,14 +651,31 @@ export type PerseusInteractiveGraphWidgetOptions = {
     labels: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
     showProtractor: boolean;
-    // Whether to show the Ruler tool overlayed on top of the graph
-    showRuler: boolean;
+    /**
+     * Whether to show the Ruler tool overlayed on top of the graph.
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    showRuler?: boolean;
     // Whether to show tooltips on the graph
     showTooltips?: boolean;
-    // The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft", "yd", "mi"
-    rulerLabel: string;
-    // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be an integer.
-    rulerTicks: number;
+    /**
+     * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
+     * "yd", "mi".
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    rulerLabel?: string;
+    /**
+     * How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be
+     * an integer.
+     * @deprecated - no longer used by the InteractiveGraph widget. The
+     * property is kept on this type to prevent its accidental reuse in future
+     * features, since it may appear in production data.
+     */
+    rulerTicks?: number;
     // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
     // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
     // TODO(kevinb): Add a transform function to interactive-graph.jsx to
@@ -653,24 +691,35 @@ export type PerseusInteractiveGraphWidgetOptions = {
 };
 
 const lockedFigureColorNames = [
+    "blue",
     "green",
     "grayH",
     "purple",
     "pink",
+    "orange",
     "red",
 ] as const;
 
 export type LockedFigureColor = (typeof lockedFigureColorNames)[number];
 
 export const lockedFigureColors: Record<LockedFigureColor, string> = {
+    blue: "#3D7586",
     green: "#447A53",
     grayH: "#3B3D45",
     purple: "#594094",
     pink: "#B25071",
     red: "#D92916",
+    orange: "#946700",
 } as const;
 
-export type LockedFigure = LockedPointType | LockedLineType | LockedCircleType;
+export type LockedFigure =
+    | LockedPointType
+    | LockedLineType
+    | LockedVectorType
+    | LockedEllipseType
+    | LockedPolygonType
+    | LockedFunctionType
+    | LockedLabelType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -690,13 +739,56 @@ export type LockedLineType = {
     showPoint2: boolean;
 };
 
-export type LockedCircleType = {
-    type: "circle";
-    center: Coord;
-    radius: number;
+export type LockedVectorType = {
+    type: "vector";
+    points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
-    fillStyle: "none" | "solid" | "translucent";
+};
+
+export type LockedFigureFillType = "none" | "white" | "translucent" | "solid";
+export const lockedFigureFillStyles: Record<LockedFigureFillType, number> = {
+    none: 0,
+    white: 1,
+    translucent: 0.4,
+    solid: 1,
+} as const;
+
+export type LockedEllipseType = {
+    type: "ellipse";
+    center: Coord;
+    radius: [x: number, y: number];
+    angle: number;
+    color: LockedFigureColor;
+    fillStyle: LockedFigureFillType;
     strokeStyle: "solid" | "dashed";
+};
+
+export type LockedPolygonType = {
+    type: "polygon";
+    points: ReadonlyArray<Coord>;
+    color: LockedFigureColor;
+    showVertices: boolean;
+    fillStyle: LockedFigureFillType;
+    strokeStyle: "solid" | "dashed";
+};
+
+export type LockedFunctionType = {
+    type: "function";
+    color: LockedFigureColor;
+    strokeStyle: "solid" | "dashed";
+    equation: string; // This is the user-defined equation (as it was typed)
+    directionalAxis: "x" | "y";
+    domain?: Interval;
+};
+
+// Not associated with a specific figure
+export type LockedLabelType = {
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
 };
 
 export type PerseusGraphType =
@@ -730,25 +822,36 @@ export type PerseusGraphTypeAngle = {
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
     // must have 3 coords - ie [Coord, Coord, Coord]
-    coords?: ReadonlyArray<Coord>;
+    coords?: [Coord, Coord, Coord];
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
 };
 
 export type PerseusGraphTypeCircle = {
     type: "circle";
     center?: Coord;
     radius?: number;
+    // The initial coordinates the graph renders with.
+    startCoords?: {
+        center: Coord;
+        radius: number;
+    };
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinear = {
     type: "linear";
     // expects 2 coords
     coords?: CollinearTuple;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
     // expects 2 sets of 2 coords
-    coords?: ReadonlyArray<CollinearTuple>;
+    coords?: CollinearTuple[];
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypePoint = {
@@ -756,6 +859,8 @@ export type PerseusGraphTypePoint = {
     // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
     numPoints?: number | "unlimited";
     coords?: ReadonlyArray<Coord>;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypePolygon = {
@@ -766,17 +871,21 @@ export type PerseusGraphTypePolygon = {
     showAngles?: boolean;
     // Whether to show side measurements. default: false
     showSides?: boolean;
-    // How to snap points.  e.g. "grid", "angles", or "sides"
-    snapTo?: string;
+    // How to snap points.  e.g. "grid", "angles", or "sides". default: grid
+    snapTo?: "grid" | "angles" | "sides";
     // How to match the answer. If missing, defaults to exact matching.
     match?: "similar" | "congruent" | "approx";
     coords?: ReadonlyArray<Coord>;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
     // expects a list of 3 coords
     coords?: [Coord, Coord, Coord];
+    // The initial coordinates the graph renders with.
+    startCoords?: [Coord, Coord, Coord];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSegment = {
@@ -784,23 +893,29 @@ export type PerseusGraphTypeSegment = {
     // The number of segments if a "segment" type. default: 1.  Max: 6
     numSegments?: number;
     // Expects a list of Coord tuples. Length should match the `numSegments` value.
-    coords?: ReadonlyArray<CollinearTuple>;
+    coords?: CollinearTuple[];
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
     // Expects a list of 2 Coords
     coords?: ReadonlyArray<Coord>;
+    // The initial coordinates the graph renders with.
+    startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeRay = {
     type: "ray";
     // Expects a list of 2 Coords
     coords?: CollinearTuple;
+    // The initial coordinates the graph renders with.
+    startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
 
 export type PerseusLabelImageWidgetOptions = {
-    // Translatable Text; Katex representation of choices
+    // Translatable Text; Tex representation of choices
     choices: ReadonlyArray<string>;
     // The URL of the image
     imageUrl: string;

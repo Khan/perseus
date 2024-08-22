@@ -3,9 +3,11 @@ import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
 
+import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
+import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
 
@@ -14,6 +16,7 @@ type Props = {
     color?: string | undefined;
     dragging: boolean;
     focusBehavior: FocusBehaviorConfig;
+    cursor?: CSSCursor | undefined;
 };
 
 type FocusBehaviorConfig =
@@ -35,8 +38,15 @@ const hitboxSizePx = 48;
 // the description of https://github.com/Khan/perseus/pull/1240
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {range, markings, showTooltips} = useGraphConfig();
-        const {point, color = WBColor.blue, dragging, focusBehavior} = props;
+        const {range, markings, showTooltips, disableKeyboardInteraction} =
+            useGraphConfig();
+        const {
+            point,
+            color = WBColor.blue,
+            dragging,
+            focusBehavior,
+            cursor,
+        } = props;
 
         // WB Tooltip requires a color name for the background color.
         // Since the color in props is a hex value, a reverse lookup is needed.
@@ -48,8 +58,7 @@ export const MovablePointView = forwardRef(
 
         const [[x, y]] = useTransformVectorsToPixels(point);
 
-        const [xMin, xMax] = range[0];
-        const [yMin, yMax] = range[1];
+        const [[xMin, xMax], [yMin, yMax]] = range;
 
         const [[verticalStartX]] = useTransformVectorsToPixels([xMin, 0]);
         const [[verticalEndX]] = useTransformVectorsToPixels([xMax, 0]);
@@ -80,9 +89,11 @@ export const MovablePointView = forwardRef(
             <g
                 ref={hitboxRef}
                 className={pointClasses}
-                style={{"--movable-point-color": color} as any}
+                style={{"--movable-point-color": color, cursor} as any}
                 data-testid="movable-point"
-                tabIndex={tabIndex(focusBehavior)}
+                tabIndex={
+                    disableKeyboardInteraction ? -1 : tabIndex(focusBehavior)
+                }
             >
                 <circle
                     className="movable-point-hitbox"
@@ -111,7 +122,7 @@ export const MovablePointView = forwardRef(
                     <Tooltip
                         autoUpdate={true}
                         backgroundColor={wbColorName}
-                        content={`(${point[0]}, ${point[1]})`}
+                        content={`(${point[X]}, ${point[Y]})`}
                         contentStyle={{color: "white"}}
                     >
                         {svgForPoint}

@@ -3,13 +3,35 @@ import {screen, render} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import LockedFiguresSection from "../locked-figures-section";
+import LockedFiguresSection from "../graph-locked-figures/locked-figures-section";
 import {getDefaultFigureForType} from "../util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+const defaultFigures = [
+    getDefaultFigureForType("point"),
+    getDefaultFigureForType("line"),
+    getDefaultFigureForType("vector"),
+];
+
 describe("LockedFiguresSection", () => {
     let userEvent: UserEvent;
+    const getDefaultFigureHeader = (type: "point" | "line" | "vector") => {
+        switch (type) {
+            case "point":
+                return screen.getByRole("button", {
+                    name: "Point (0, 0) grayH, filled",
+                });
+            case "line":
+                return screen.getByRole("button", {
+                    name: "Line (0, 0), (2, 2) grayH, solid",
+                });
+            case "vector":
+                return screen.getByRole("button", {
+                    name: "Vector (0, 0), (2, 2) grayH, solid",
+                });
+        }
+    };
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -18,9 +40,15 @@ describe("LockedFiguresSection", () => {
 
     test("renders", () => {
         // Arrange, Act
-        render(<LockedFiguresSection onChange={jest.fn()} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedFiguresSection
+                showM2bFeatures={true}
+                onChange={jest.fn()}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Assert
         expect(screen.getByText("Add locked figure")).toBeInTheDocument();
@@ -28,9 +56,15 @@ describe("LockedFiguresSection", () => {
 
     test("renders no expand/collapse button when there are no figures", () => {
         // Arrange, Act
-        render(<LockedFiguresSection onChange={jest.fn()} />, {
-            wrapper: RenderStateRoot,
-        });
+        render(
+            <LockedFiguresSection
+                showM2bFeatures={true}
+                onChange={jest.fn()}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
 
         // Assert
         expect(screen.queryByRole("button", {name: "Expand all"})).toBeNull();
@@ -41,10 +75,8 @@ describe("LockedFiguresSection", () => {
         // Arrange, Act
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
+                showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
             {
@@ -55,6 +87,7 @@ describe("LockedFiguresSection", () => {
         // Assert
         expect(screen.getByText("Point (0, 0)")).toBeInTheDocument();
         expect(screen.getByText("Line (0, 0), (2, 2)")).toBeInTheDocument();
+        expect(screen.getByText("Vector (0, 0), (2, 2)")).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Expand all"}),
         ).toBeInTheDocument();
@@ -64,10 +97,8 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
+                showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
             {
@@ -76,26 +107,22 @@ describe("LockedFiguresSection", () => {
         );
 
         // Act
-        const pointHeader = screen.getByRole("button", {
-            name: "Point (0, 0) grayH, filled",
-        });
-        const lineHeader = screen.getByRole("button", {
-            name: "Line (0, 0), (2, 2) grayH, solid",
-        });
+        const pointHeader = getDefaultFigureHeader("point");
+        const lineHeader = getDefaultFigureHeader("line");
+        const vectorHeader = getDefaultFigureHeader("vector");
 
         // Assert
         expect(pointHeader.getAttribute("aria-expanded")).toBe("false");
         expect(lineHeader.getAttribute("aria-expanded")).toBe("false");
+        expect(vectorHeader.getAttribute("aria-expanded")).toBe("false");
     });
 
     test("renders all expanded when expand all button is clicked", async () => {
         // Arrange
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
+                showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
             {
@@ -107,12 +134,9 @@ describe("LockedFiguresSection", () => {
             name: "Expand all",
         });
 
-        const pointHeader = screen.getByRole("button", {
-            name: "Point (0, 0) grayH, filled",
-        });
-        const lineHeader = screen.getByRole("button", {
-            name: "Line (0, 0), (2, 2) grayH, solid",
-        });
+        const pointHeader = getDefaultFigureHeader("point");
+        const lineHeader = getDefaultFigureHeader("line");
+        const vectorHeader = getDefaultFigureHeader("vector");
 
         // Act
         await userEvent.click(expandAllButton);
@@ -120,16 +144,15 @@ describe("LockedFiguresSection", () => {
         // Assert
         expect(pointHeader.getAttribute("aria-expanded")).toBe("true");
         expect(lineHeader.getAttribute("aria-expanded")).toBe("true");
+        expect(vectorHeader.getAttribute("aria-expanded")).toBe("true");
     });
 
     test("renders all collapsed when collapse all button is clicked", async () => {
         // Arrange
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                figures={defaultFigures}
+                showM2bFeatures={true}
                 onChange={jest.fn()}
             />,
             {
@@ -141,12 +164,9 @@ describe("LockedFiguresSection", () => {
             name: "Expand all",
         });
 
-        const pointHeader = screen.getByRole("button", {
-            name: "Point (0, 0) grayH, filled",
-        });
-        const lineHeader = screen.getByRole("button", {
-            name: "Line (0, 0), (2, 2) grayH, solid",
-        });
+        const pointHeader = getDefaultFigureHeader("point");
+        const lineHeader = getDefaultFigureHeader("line");
+        const vectorHeader = getDefaultFigureHeader("vector");
 
         // Act
         await userEvent.click(expandAllButton);
@@ -159,16 +179,15 @@ describe("LockedFiguresSection", () => {
         // Assert
         expect(pointHeader.getAttribute("aria-expanded")).toBe("false");
         expect(lineHeader.getAttribute("aria-expanded")).toBe("false");
+        expect(vectorHeader.getAttribute("aria-expanded")).toBe("false");
     });
 
     test("render collapse button when some figures are expanded", async () => {
         // Arrange
         render(
             <LockedFiguresSection
-                figures={[
-                    getDefaultFigureForType("point"),
-                    getDefaultFigureForType("line"),
-                ]}
+                showM2bFeatures={true}
+                figures={defaultFigures}
                 onChange={jest.fn()}
             />,
             {
@@ -193,6 +212,7 @@ describe("LockedFiguresSection", () => {
         // Arrange
         render(
             <LockedFiguresSection
+                showM2bFeatures={true}
                 figures={[
                     getDefaultFigureForType("point"),
                     {...getDefaultFigureForType("point"), coord: [1, 1]},

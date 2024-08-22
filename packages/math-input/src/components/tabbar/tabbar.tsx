@@ -1,6 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useState} from "react";
 
 import TabbarItem from "./item";
 
@@ -31,27 +32,58 @@ type Props = {
 
 function Tabbar(props: Props): React.ReactElement {
     const {items, onClickClose, selectedItem, onSelectItem, style} = props;
+    const selectedIndex = items.indexOf(selectedItem);
+
+    const [focus, setFocus] = useState(
+        selectedIndex === -1 ? 0 : selectedIndex,
+    );
+    /**
+     * Custom function to handle arrow key navigation for the TabBar for each TabItem.
+     * This implementation also circular in that if the user goes past the end of
+     * the list they will go back to the beginning and vise versa.
+     * This is the recommended pattern per WCAG implementation:
+     * https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-manual/
+     * @param e - onKeyDown event data.
+     */
+    const onArrowKeyFocus = (e) => {
+        if (e.keyCode === 39) {
+            // Right arrow
+            setFocus(focus === items.length - 1 ? 0 : focus + 1);
+        } else if (e.keyCode === 37) {
+            // Left arrow
+            setFocus(focus === 0 ? items.length - 1 : focus - 1);
+        }
+    };
 
     return (
-        <View style={[styles.tabbar, style]} role="tablist">
-            <View style={[styles.pages]}>
-                {items.map((item) => (
-                    <TabbarItem
-                        key={`tabbar-item-${item}`}
-                        itemState={
-                            item === selectedItem ? "active" : "inactive"
-                        }
-                        itemType={item}
-                        onClick={() => {
-                            onSelectItem(item);
-                        }}
-                    />
-                ))}
-            </View>
+        <View style={[styles.tabbar, style]}>
+            {items.length > 0 && (
+                <View
+                    style={[styles.pages]}
+                    role="tablist"
+                    onKeyDown={onArrowKeyFocus}
+                >
+                    {items.map((item, index) => (
+                        <TabbarItem
+                            role="tab"
+                            key={`tabbar-item-${item}`}
+                            itemState={
+                                item === selectedItem ? "active" : "inactive"
+                            }
+                            itemType={item}
+                            focus={focus === index}
+                            onClick={() => {
+                                onSelectItem(item);
+                            }}
+                        />
+                    ))}
+                </View>
+            )}
 
             <View>
                 {onClickClose && (
                     <TabbarItem
+                        role="button"
                         itemState="inactive"
                         itemType="Dismiss"
                         onClick={onClickClose}

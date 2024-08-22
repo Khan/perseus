@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 1.5.0
+
+### Minor Changes
+
+-   [#1411](https://github.com/Khan/perseus/pull/1411) [`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617) Thanks [@handeyeco](https://github.com/handeyeco)! - Consolidate PerseusError code and move it into perseus-core (deletes the perseus-error package)
+
 ## 1.4.2
 
 ### Patch Changes

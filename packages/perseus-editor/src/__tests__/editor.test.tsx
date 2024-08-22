@@ -14,6 +14,7 @@ import Editor from "../editor";
 import ImageEditor from "../widgets/image-editor";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
     return (
@@ -45,7 +46,7 @@ describe("Editor", () => {
         Widgets.registerEditors([ImageEditor]);
     });
 
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -80,8 +81,9 @@ describe("Editor", () => {
         render(<Harnessed onChange={onChangeMock} />);
 
         // Act
-        screen.getByRole("button", {name: "Remove image widget"}),
-            await userEvent.click();
+        await userEvent.click(
+            screen.getByRole("button", {name: "Remove image widget"}),
+        );
 
         // Assert
         expect(onChangeMock).not.toHaveBeenCalled();
@@ -123,7 +125,6 @@ describe("Editor", () => {
         await userEvent.clear(captionInput);
         await userEvent.type(captionInput, "A picture of kittens");
         await userEvent.tab(); // blurring the input triggers onChange to be called
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(changeFn).toHaveBeenCalledWith(

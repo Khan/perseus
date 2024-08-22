@@ -38,24 +38,32 @@ class MathWrapper {
     mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback>;
 
     constructor(
-        element,
+        mathFieldMount,
+        ariaLabel: string,
         strings: MathInputStrings,
         locale: string,
         callbacks = {},
     ) {
-        this.mathField = createMathField(element, locale, strings, () => {
-            return {
-                // use a span instead of a textarea so that we don't bring up the
-                // native keyboard on mobile when selecting the input
-                substituteTextarea: function () {
-                    return document.createElement("span");
-                },
-            };
-        });
+        this.mathField = createMathField(
+            mathFieldMount,
+            locale,
+            strings,
+            () => {
+                return {
+                    // use a span instead of a textarea so that we don't bring up the
+                    // native keyboard on mobile when selecting the input
+                    substituteTextarea: function () {
+                        return document.createElement("span");
+                    },
+                };
+            },
+        );
+        this.mathField?.setAriaLabel(ariaLabel);
+
         this.callbacks = callbacks;
 
         this.mobileKeyTranslator = {
-            ...getKeyTranslator(locale),
+            ...getKeyTranslator(locale, strings),
             // note(Matthew): our mobile backspace logic is really complicated
             // and for some reason doesn't really work in the desktop experience.
             // So we default to the basic backspace functionality in the

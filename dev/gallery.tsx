@@ -26,6 +26,7 @@ import "../packages/perseus/src/styles/perseus-renderer.less";
 const questions: [PerseusRenderer, number][] = pairWithIndices([
     interactiveGraph.segmentQuestion,
     interactiveGraph.pointQuestion,
+    interactiveGraph.finitePointQuestion,
     interactiveGraph.angleQuestion,
     interactiveGraph.linearSystemQuestion,
     interactiveGraph.circleQuestion,
@@ -34,6 +35,8 @@ const questions: [PerseusRenderer, number][] = pairWithIndices([
     interactiveGraph.polygonWithAnglesQuestion,
     interactiveGraph.polygonWithAnglesAndManySidesQuestion,
     interactiveGraph.polygonWithAnglesAndFourSidesQuestion,
+    interactiveGraph.polygonWithFourSidesSnappingQuestion,
+    interactiveGraph.polygonWithAnglesAndAnglesSnapToQuestion,
     interactiveGraph.rayQuestion,
     interactiveGraph.sinusoidQuestion,
     grapher.absoluteValueQuestion,

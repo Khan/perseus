@@ -10,6 +10,8 @@ import Keypad from "../index";
 
 import {getTestDataTabs} from "./test-data-tabs";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 const contextToKeyAria = {
     [CursorContext.IN_PARENS]:
         keyConfigs(mockStrings).JUMP_OUT_PARENTHESES.ariaLabel,
@@ -26,7 +28,7 @@ const contextToKeyAria = {
 };
 
 describe("keypad", () => {
-    let userEvent;
+    let userEvent: UserEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -110,7 +112,7 @@ describe("keypad", () => {
 
         // Assert
         expect(
-            screen.getByRole("tab", {
+            screen.getByRole("button", {
                 name: "Dismiss",
             }),
         ).toBeInTheDocument();
@@ -125,7 +127,7 @@ describe("keypad", () => {
 
         // Assert
         expect(
-            screen.queryByRole("tab", {
+            screen.queryByRole("button", {
                 name: "Dismiss",
             }),
         ).not.toBeInTheDocument();

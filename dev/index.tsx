@@ -2,7 +2,7 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useEffect, useReducer} from "react";
-import {render} from "react-dom";
+import {createRoot} from "react-dom/client";
 
 import {setDependencies} from "../packages/perseus/src/dependencies";
 import {storybookTestDependencies} from "../testing/test-dependencies";
@@ -12,11 +12,15 @@ import {Gallery} from "./gallery";
 
 setDependencies(storybookTestDependencies);
 
-render(
+const rootEl = document.getElementById("app-root");
+if (rootEl === null) {
+    throw new Error("No root element found");
+}
+const root = createRoot(rootEl);
+root.render(
     <RenderStateRoot>
         <Router />
     </RenderStateRoot>,
-    document.getElementById("app-root"),
 );
 
 function Router() {

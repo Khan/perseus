@@ -1,20 +1,14 @@
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {render} from "@testing-library/react";
-import * as MafsLibrary from "mafs";
+import {Mafs} from "mafs";
 import React from "react";
 
 import * as ReducerGraphConfig from "../../reducer/use-graph-config";
+import * as UseDraggableModule from "../use-draggable";
 
-import {StyledMovablePoint} from "./movable-point";
+import {MovablePoint} from "./movable-point";
 
-jest.mock("mafs", () => {
-    const originalModule = jest.requireActual("mafs");
-    return {
-        __esModule: true,
-        ...originalModule,
-        useMovable: jest.fn(),
-    };
-});
+import type {GraphConfig} from "../../reducer/use-graph-config";
 
 jest.mock("@khanacademy/wonder-blocks-tooltip", () => {
     const originalModule = jest.requireActual(
@@ -31,24 +25,29 @@ const TooltipMock = ({children}) => {
     return children;
 };
 
-describe("StyledMovablePoint", () => {
+describe("MovablePoint", () => {
     let useGraphConfigMock: jest.SpyInstance;
-    let useMovableMock: jest.SpyInstance;
-    const Mafs = MafsLibrary.Mafs;
-    const baseGraphConfigContext = {
-        snapStep: 1,
+    let useDraggableMock: jest.SpyInstance;
+    const baseGraphConfigContext: GraphConfig = {
         range: [
-            [0, 0],
-            [1, 1],
+            [0, 1],
+            [0, 1],
         ],
+        tickStep: [1, 1],
+        gridStep: [1, 1],
+        snapStep: [1, 1],
         markings: "graph",
         showTooltips: false,
+        graphDimensionsInPixels: [200, 200],
+        width: 200,
+        height: 200,
+        labels: [],
     };
 
     beforeEach(() => {
         useGraphConfigMock = jest.spyOn(ReducerGraphConfig, "default");
-        useMovableMock = jest
-            .spyOn(MafsLibrary, "useMovable")
+        useDraggableMock = jest
+            .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
     });
 
@@ -73,7 +72,7 @@ describe("StyledMovablePoint", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
-                    <StyledMovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
                 </Mafs>,
             );
             expect(Tooltip).toHaveBeenCalled();
@@ -83,7 +82,7 @@ describe("StyledMovablePoint", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
             render(
                 <Mafs width={200} height={200}>
-                    <StyledMovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
                 </Mafs>,
             );
             expect(Tooltip).not.toHaveBeenCalled();
@@ -93,7 +92,7 @@ describe("StyledMovablePoint", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
-                    <StyledMovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
                 </Mafs>,
             );
             // @ts-expect-error // TS2339: Property mock does not exist on type typeof Tooltip
@@ -106,7 +105,7 @@ describe("StyledMovablePoint", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
-                    <StyledMovablePoint
+                    <MovablePoint
                         point={[0, 0]}
                         color="#9059ff"
                         onMove={() => {}}
@@ -124,7 +123,7 @@ describe("StyledMovablePoint", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
-                    <StyledMovablePoint
+                    <MovablePoint
                         point={[0, 0]}
                         color="#f00"
                         onMove={() => {}}
@@ -142,10 +141,10 @@ describe("StyledMovablePoint", () => {
     describe("Hairlines", () => {
         it("Shows hairlines when dragging and 'markings' are NOT set to 'none'", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
-            useMovableMock.mockReturnValue({dragging: true});
+            useDraggableMock.mockReturnValue({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <StyledMovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
                 </Mafs>,
             );
 
@@ -161,7 +160,7 @@ describe("StyledMovablePoint", () => {
             useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <StyledMovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
                 </Mafs>,
             );
 
@@ -174,10 +173,10 @@ describe("StyledMovablePoint", () => {
             const graphStateContext = {...baseGraphConfigContext};
             graphStateContext.markings = "none";
             useGraphConfigMock.mockReturnValue(graphStateContext);
-            useMovableMock.mockReturnValue({dragging: true});
+            useDraggableMock.mockReturnValue({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
-                    <StyledMovablePoint point={[0, 0]} onMove={() => {}} />,
+                    <MovablePoint point={[0, 0]} onMove={() => {}} />,
                 </Mafs>,
             );
 

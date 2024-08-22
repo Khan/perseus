@@ -1,60 +1,97 @@
+import type {InitializeGraphStateParams} from "./initialize-graph-state";
 import type {Interval, vec} from "mafs";
 
 export type InteractiveGraphAction =
-    | MoveControlPoint
+    | Reinitialize
+    | MovePointInFigure
     | MoveLine
     | MoveAll
     | MovePoint
     | MoveCenter
     | MoveRadiusPoint
     | ChangeSnapStep
-    | ChangeRange;
+    | ChangeRange
+    | AddPoint;
 
-export const MOVE_CONTROL_POINT = "move-control-point";
-export interface MoveControlPoint {
-    type: typeof MOVE_CONTROL_POINT;
-    itemIndex: number;
-    pointIndex: number;
-    destination: vec.Vector2;
-}
-export function moveControlPoint(
-    pointIndex: number,
-    destination: vec.Vector2,
-    itemIndex: number,
-): MoveControlPoint {
-    return {
-        type: MOVE_CONTROL_POINT,
-        itemIndex,
-        pointIndex,
-        destination,
-    };
-}
+export const actions = {
+    angle: {
+        movePoint,
+    },
+    circle: {
+        moveCenter,
+        moveRadiusPoint,
+    },
+    linear: {
+        moveLine: (delta: vec.Vector2) => moveLine(0, delta),
+        movePoint: (pointIndex, destination) =>
+            movePointInFigure(0, pointIndex, destination),
+    },
+    linearSystem: {
+        moveLine,
+        movePointInFigure,
+    },
+    pointGraph: {
+        movePoint,
+        addPoint,
+    },
+    polygon: {
+        movePoint,
+        moveAll,
+    },
+    quadratic: {
+        movePoint,
+    },
+    ray: {
+        moveRay: (delta: vec.Vector2) => moveLine(0, delta),
+        movePoint: (pointIndex, destination) =>
+            movePointInFigure(0, pointIndex, destination),
+    },
+    segment: {
+        movePointInFigure,
+        moveLine,
+    },
+    sinusoid: {
+        movePoint,
+    },
+};
 
-export const MOVE_ALL = "move-all";
 export const MOVE_LINE = "move-line";
-interface MoveItem {
-    delta: vec.Vector2;
-    itemIndex?: number;
-}
-export interface MoveLine extends MoveItem {
+export interface MoveLine {
     type: typeof MOVE_LINE;
+    itemIndex: number;
+    delta: vec.Vector2;
 }
-export interface MoveAll extends MoveItem {
-    type: typeof MOVE_ALL;
-}
-/** This action assumes the state.coords holds an array of collinear tuples that define lines */
-export function moveLine(itemIndex: number, delta: vec.Vector2): MoveLine {
+function moveLine(itemIndex: number, delta: vec.Vector2): MoveLine {
     return {
         type: MOVE_LINE,
         itemIndex,
         delta,
     };
 }
-/** This action assumes a flat array of vectors */
-export const moveAll = (delta: vec.Vector2): MoveAll => ({
-    type: MOVE_ALL,
-    delta,
-});
+
+export const ADD_POINT = "add-point";
+export interface AddPoint {
+    type: typeof ADD_POINT;
+    location: vec.Vector2;
+}
+function addPoint(location: vec.Vector2): AddPoint {
+    return {
+        type: ADD_POINT,
+        location,
+    };
+}
+
+export const MOVE_ALL = "move-all";
+export interface MoveAll {
+    type: typeof MOVE_ALL;
+    delta: vec.Vector2;
+}
+function moveAll(delta: vec.Vector2): MoveAll {
+    return {
+        type: MOVE_ALL,
+        delta,
+    };
+}
 
 export const MOVE_POINT = "move-point";
 export interface MovePoint {
@@ -62,10 +99,30 @@ export interface MovePoint {
     index: number;
     destination: vec.Vector2;
 }
-export function movePoint(index: number, destination: vec.Vector2): MovePoint {
+function movePoint(index: number, destination: vec.Vector2): MovePoint {
     return {
         type: MOVE_POINT,
         index,
+        destination,
+    };
+}
+
+export const MOVE_POINT_IN_FIGURE = "move-point-in-figure";
+export interface MovePointInFigure {
+    type: typeof MOVE_POINT_IN_FIGURE;
+    figureIndex: number;
+    pointIndex: number;
+    destination: vec.Vector2;
+}
+function movePointInFigure(
+    figureIndex: number,
+    pointIndex: number,
+    destination: vec.Vector2,
+): MovePointInFigure {
+    return {
+        type: MOVE_POINT_IN_FIGURE,
+        figureIndex,
+        pointIndex,
         destination,
     };
 }
@@ -75,7 +132,7 @@ export interface MoveCenter {
     type: typeof MOVE_CENTER;
     destination: vec.Vector2;
 }
-export function moveCenter(destination: vec.Vector2): MoveCenter {
+function moveCenter(destination: vec.Vector2): MoveCenter {
     return {
         type: MOVE_CENTER,
         destination,
@@ -87,7 +144,7 @@ export interface MoveRadiusPoint {
     type: typeof MOVE_RADIUS_POINT;
     destination: vec.Vector2;
 }
-export function moveRadiusPoint(destination: vec.Vector2): MoveRadiusPoint {
+function moveRadiusPoint(destination: vec.Vector2): MoveRadiusPoint {
     return {
         type: MOVE_RADIUS_POINT,
         destination,
@@ -117,5 +174,17 @@ export function changeRange(range: [x: Interval, y: Interval]): ChangeRange {
     return {
         type: CHANGE_RANGE,
         range,
+    };
+}
+
+export const REINITIALIZE = "reinitialize";
+export interface Reinitialize {
+    type: typeof REINITIALIZE;
+    params: InitializeGraphStateParams;
+}
+export function reinitialize(params: InitializeGraphStateParams): Reinitialize {
+    return {
+        type: REINITIALIZE,
+        params,
     };
 }

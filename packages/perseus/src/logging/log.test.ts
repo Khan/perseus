@@ -1,7 +1,9 @@
+import {Errors} from "@khanacademy/perseus-core";
+
 import {testDependencies} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 
-import {Errors, Log} from "./log";
+import {Log} from "./log";
 
 describe("Perseus logging", () => {
     it("should proxy log() calls to the logger obtained from getDependencies", () => {

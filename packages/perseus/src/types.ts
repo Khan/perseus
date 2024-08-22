@@ -1,8 +1,8 @@
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
 import type {
+    Hint,
     PerseusAnswerArea,
-    PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
@@ -46,10 +46,6 @@ export type PerseusScore =
           total: number;
           message?: string | null | undefined;
       };
-
-export type Hint = PerseusRenderer & {
-    replace?: boolean;
-};
 
 export type Version = {
     major: number;
@@ -101,7 +97,7 @@ export type ChangeHandler = (
 ) => unknown;
 
 export type ImageUploader = (
-    file: string,
+    file: File,
     callback: (url: string) => unknown,
 ) => unknown;
 
@@ -126,6 +122,8 @@ type TrackInteractionArgs = {
     Partial<TrackingSequenceExtraArguments>;
 
 export const MafsGraphTypeFlags = [
+    /** Enables the `angle` interactive-graph type.  */
+    "angle",
     /** Enables the `segment` interactive-graph type.  */
     "segment",
     /** Enables the `linear` interactive-graph type.  */
@@ -134,7 +132,7 @@ export const MafsGraphTypeFlags = [
     "linear-system",
     /** Enables the `ray` interactive-graph type.  */
     "ray",
-    /** Enables the `polygon` interactive-graph type.  */
+    /** Enables the `polygon` interactive-graph type a fixed number of sides. */
     "polygon",
     /** Enables the `circle` interactive-graph type.  */
     "circle",
@@ -142,20 +140,51 @@ export const MafsGraphTypeFlags = [
     "quadratic",
     /** Enables the `sinusoid` interactive-graph type.  */
     "sinusoid",
+    /** Enables the `point` interactive-graph type with a fixed number of points. */
+    "point",
+    /** Enable the `unlimited-point` interactive graph type */
+    "unlimited-point",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [
     /**
-     * Enables/Disables Milestone 1 locked features in the new Mafs
-     * interactive-graph widget (points and lines).
+     * Enables/Disables Milestone 2 phase b locked features in the
+     * new Mafs interactive-graph widget (locked functions).
      */
-    "interactive-graph-locked-features-m1",
+    "interactive-graph-locked-features-m2b",
     /**
-     * Enables/Disables Milestone 2 locked features in the new Mafs
-     * interactive-graph widget (the rest of the figure types:
-     * circles, vectors, polygons, functions, labels).
+     * Enables/Disables locked features in the new Mafs interactive-graph
+     * widget (locked labels).
      */
-    "interactive-graph-locked-features-m2",
+    "interactive-graph-locked-features-labels",
+] as const;
+
+export const InteractiveGraphEditorFlags = [
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes linear, linear-system, ray, segment, and circle graphs.
+     */
+    "start-coords-ui-phase-1",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes sinusoid and quadratic graphs.
+     */
+    "start-coords-ui-phase-2",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes point graph.
+     */
+    "start-coords-ui-point",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes polygon graph.
+     */
+    "start-coords-ui-polygon",
+    /**
+     * Enables the UI for setting the start coordinates of a graph.
+     * Includes angle graph.
+     */
+    "start-coords-ui-angle",
 ] as const;
 
 /**
@@ -178,6 +207,10 @@ export type APIOptions = Readonly<{
     ) => unknown;
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
     showAlignmentOptions?: boolean;
+    /**
+     * A boolean that indicates whether the associated problem has been
+     * answered correctly and should no longer be interactive.
+     */
     readOnly?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
@@ -292,6 +325,8 @@ export type APIOptions = Readonly<{
             | false
             | ({[Key in (typeof MafsGraphTypeFlags)[number]]?: boolean} & {
                   [Key in (typeof InteractiveGraphLockedFeaturesFlags)[number]]?: boolean;
+              } & {
+                  [Key in (typeof InteractiveGraphEditorFlags)[number]]?: boolean;
               });
     };
     /**
@@ -305,7 +340,6 @@ export type APIOptions = Readonly<{
 
 type TeXProps = {
     children: string;
-    katexOptions?: any;
     onClick?: () => unknown;
     onRender?: (root?: any) => unknown;
     style?: any;
@@ -583,3 +617,8 @@ export type ChangeFn = (
     propValue?: any,
     callback?: () => unknown,
 ) => any | null | undefined;
+
+export type SharedRendererProps = {
+    apiOptions: APIOptions;
+    linterContext: LinterContextProps;
+};

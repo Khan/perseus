@@ -109,6 +109,7 @@ export class LabelImage extends React.Component<
 
     // The rendered markers on the question image for labeling.
     _markers: Array<Marker | null | undefined>;
+    _mounted: boolean = false;
 
     static gradeMarker(marker: InteractiveMarkerType): InteractiveMarkerScore {
         const score = {
@@ -375,6 +376,14 @@ export class LabelImage extends React.Component<
         };
     }
 
+    componentDidMount() {
+        this._mounted = true;
+    }
+
+    componentWillUnmount() {
+        this._mounted = false;
+    }
+
     simpleValidate(rubric: LabelImageProps): PerseusScore {
         return LabelImage.validate(this.getUserInput(), rubric);
     }
@@ -503,17 +512,17 @@ export class LabelImage extends React.Component<
 
         const {activeMarkerIndex, markersInteracted} = this.state;
 
+        // Determine whether page is rendered in a narrow browser window.
+        const isNarrowPage =
+            this._mounted &&
+            window.matchMedia(mediaQueries.xsOrSmaller.replace("@media ", ""))
+                .matches;
+
+        // Determine whether the image is wider than it is tall.
+        const isWideImage = this.props.imageWidth / 2 > this.props.imageHeight;
+
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
-            // Determine whether page is rendered in a narrow browser window.
-            const isNarrowPage = window.matchMedia(
-                mediaQueries.xsOrSmaller.replace("@media ", ""),
-            ).matches;
-
-            // Determine whether the image is wider than it is tall.
-            const isWideImage =
-                this.props.imageWidth / 2 > this.props.imageHeight;
-
             let side: "bottom" | "left" | "right" | "top";
             let markerPosition;
             // Position popup closest to the center, preferring it renders

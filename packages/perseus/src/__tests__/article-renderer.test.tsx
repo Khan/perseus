@@ -1,10 +1,10 @@
 import {
     StatefulKeypadContextProvider,
     KeypadContext,
-    MobileKeypad,
-} from "@khanacademy/math-input";
+} from "@khanacademy/keypad-context";
+import {MobileKeypad} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {screen, render, fireEvent, waitFor} from "@testing-library/react";
+import {screen, render, fireEvent, waitFor, act} from "@testing-library/react";
 import * as React from "react";
 
 import {
@@ -92,7 +92,7 @@ describe("article renderer", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
     });
 
     it("should render the content for a section", () => {

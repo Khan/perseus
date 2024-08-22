@@ -9,19 +9,12 @@ export type IconConfig = {
     data: string;
 };
 
-export type NonManyKeyConfig = {
+export type KeyConfig = {
     id: Key;
-    type: Exclude<KeyType, "MANY">;
+    type: KeyType;
     icon: IconConfig;
     ariaLabel: string;
 };
-
-export type ManyKeyConfig = Omit<NonManyKeyConfig, "type"> & {
-    type: Extract<KeyType, "MANY">;
-    childKeyIds: ReadonlyArray<string>;
-};
-
-export type KeyConfig = NonManyKeyConfig | ManyKeyConfig;
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;

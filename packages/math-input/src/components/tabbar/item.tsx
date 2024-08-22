@@ -3,6 +3,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useEffect, useRef} from "react";
 
 import IconAsset from "./icons";
 
@@ -20,7 +21,6 @@ const styles = StyleSheet.create({
         marginLeft: 1,
     },
     hovered: {
-        background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${color.white}`,
         border: "1px solid #1865F2",
     },
     pressed: {
@@ -75,70 +75,94 @@ function imageTintColor(
     return color.offBlack64;
 }
 export type ItemState = "active" | "inactive" | "disabled";
-type Props = {
+type TabItemProps = {
     onClick: () => void;
     itemState: ItemState;
     itemType: KeypadPageType;
+    focus?: boolean;
+    role: "tab" | "button";
 };
 
-class TabbarItem extends React.Component<Props> {
-    render(): React.ReactNode {
-        const {onClick, itemType, itemState} = this.props;
-        return (
-            <Clickable
-                onClick={onClick}
-                disabled={itemState === "disabled"}
-                aria-label={itemType}
-                style={styles.clickable}
-                aria-selected={itemState === "active"}
-                role="tab"
-            >
-                {({hovered, focused, pressed}) => {
-                    const tintColor = imageTintColor(
-                        itemState,
-                        hovered,
-                        focused,
-                        pressed,
-                    );
+function TabbarItem(props: TabItemProps): React.ReactElement {
+    const {onClick, itemType, itemState, focus, role} = props;
+    const tabRef = useRef<{focus: () => void}>(null);
 
-                    return (
+    useEffect(() => {
+        let timeout;
+        if (role === "tab" && focus) {
+            /**
+             * When tabs are within a WonderBlocks Popover component, the
+             * manner in which the component is rendered and moved causes
+             * focus to snap to the bottom of the page on first focus.
+             *
+             * This timeout moves around that by delaying the focus enough
+             * to wait for the WonderBlock Popover to move to the correct
+             * location and scroll the user to the correct location.
+             * */
+            timeout = setTimeout(() => {
+                if (tabRef?.current) {
+                    // Move element into view when it is focused
+                    tabRef?.current.focus();
+                }
+            }, 0);
+        }
+
+        return () => clearTimeout(timeout);
+    }, [role, focus, tabRef]);
+
+    return (
+        <Clickable
+            onClick={onClick}
+            disabled={itemState === "disabled"}
+            aria-label={itemType}
+            style={styles.clickable}
+            aria-selected={itemState === "active"}
+            tabIndex={role === "button" ? 0 : focus ? 0 : -1}
+            role={role}
+            ref={tabRef}
+        >
+            {({hovered, focused, pressed}) => {
+                const tintColor = imageTintColor(
+                    itemState,
+                    hovered,
+                    focused,
+                    pressed,
+                );
+
+                return (
+                    <View
+                        style={[
+                            styles.base,
+                            itemState !== "disabled" &&
+                                hovered &&
+                                styles.hovered,
+                            focused && styles.focused,
+                            pressed && styles.pressed,
+                        ]}
+                    >
                         <View
                             style={[
-                                styles.base,
-                                itemState !== "disabled" &&
-                                    hovered &&
-                                    styles.hovered,
-                                focused && styles.focused,
-                                pressed && styles.pressed,
+                                styles.innerBox,
+                                pressed && styles.innerBoxPressed,
                             ]}
                         >
+                            <IconAsset type={itemType} tintColor={tintColor} />
+                        </View>
+                        {itemState === "active" && (
                             <View
                                 style={[
-                                    styles.innerBox,
-                                    pressed && styles.innerBoxPressed,
+                                    styles.activeIndicator,
+                                    {
+                                        backgroundColor: tintColor,
+                                    },
                                 ]}
-                            >
-                                <IconAsset
-                                    type={itemType}
-                                    tintColor={tintColor}
-                                />
-                            </View>
-                            {itemState === "active" && (
-                                <View
-                                    style={[
-                                        styles.activeIndicator,
-                                        {
-                                            backgroundColor: tintColor,
-                                        },
-                                    ]}
-                                />
-                            )}
-                        </View>
-                    );
-                }}
-            </Clickable>
-        );
-    }
+                            />
+                        )}
+                    </View>
+                );
+            }}
+        </Clickable>
+    );
 }
 
 export const TabbarItemForTesting = TabbarItem;

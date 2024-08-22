@@ -1,24 +1,37 @@
-import {Polygon, useMovable, vec} from "mafs";
+import {Polygon, vec} from "mafs";
 import * as React from "react";
 
-import {moveAll, movePoint} from "../reducer/interactive-graph-action";
-import {TARGET_SIZE, snap} from "../utils";
+import {snap} from "../math";
+import {actions} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
+import {TARGET_SIZE} from "../utils";
 
-import {Angle} from "./components/angle";
-import {StyledMovablePoint} from "./components/movable-point";
+import {PolygonAngle} from "./components/angle-indicators";
+import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
-import {getLines} from "./utils";
+import {useDraggable} from "./use-draggable";
 
+import type {CollinearTuple} from "../../../perseus-types";
 import type {MafsGraphProps, PolygonGraphState} from "../types";
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
 export const PolygonGraph = (props: Props) => {
-    const [focused, setFocused] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
+    // This is more so required for the re-rendering that occurs when state
+    // updates; specifically with regard to line weighting and polygon focus.
+    const [focusVisible, setFocusVisible] = React.useState(false);
 
     const {dispatch} = props;
-    const {coords, showAngles, showSides, range, snapStep} = props.graphState;
+    const {
+        coords,
+        showAngles,
+        showSides,
+        range,
+        snapStep,
+        snapTo = "grid",
+    } = props.graphState;
+    const {disableKeyboardInteraction} = useGraphConfig();
 
     // TODO(benchristel): can the default set of points be removed here? I don't
     // think coords can be null.
@@ -26,17 +39,20 @@ export const PolygonGraph = (props: Props) => {
 
     const ref = React.useRef<SVGPolygonElement>(null);
     const dragReferencePoint = points[0];
-    const {dragging} = useMovable({
+    const constrain = ["angles", "sides"].includes(snapTo)
+        ? (p) => p
+        : (p) => snap(snapStep, p);
+    const {dragging} = useDraggable({
         gestureTarget: ref,
         point: dragReferencePoint,
         onMove: (newPoint) => {
             const delta = vec.sub(newPoint, dragReferencePoint);
-            dispatch(moveAll(delta));
+            dispatch(actions.polygon.moveAll(delta));
         },
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: constrain,
     });
 
-    const active = hovered || focused || dragging;
+    const lastMoveTime = React.useRef<number>(0);
 
     const lines = getLines(points);
 
@@ -46,9 +62,10 @@ export const PolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="var(--movable-line-stroke-color)"
                 svgPolygonProps={{
-                    strokeWidth: active
+                    strokeWidth: focusVisible
                         ? "var(--movable-line-stroke-weight-active)"
                         : "var(--movable-line-stroke-weight)",
+                    style: {fill: "transparent"},
                 }}
             />
             {points.map((point, i) => {
@@ -58,21 +75,25 @@ export const PolygonGraph = (props: Props) => {
                     return null;
                 }
                 return (
-                    <Angle
+                    <PolygonAngle
                         key={"angle-" + i}
                         centerPoint={point}
                         endPoints={[pt1, pt2]}
-                        active={active}
                         range={range}
                         polygonLines={lines}
                         showAngles={!!showAngles}
+                        snapTo={snapTo}
                     />
                 );
             })}
             {showSides &&
                 lines.map(([start, end], i) => {
                     const [x, y] = vec.midpoint(start, end);
-                    const length = parseFloat(vec.dist(start, end).toFixed(1));
+                    const length = parseFloat(
+                        vec
+                            .dist(start, end)
+                            .toFixed(snapTo === "sides" ? 0 : 1),
+                    );
                     return (
                         <TextLabel key={"side-" + i} x={x} y={y}>
                             {!Number.isInteger(length) && "≈ "}
@@ -89,27 +110,66 @@ export const PolygonGraph = (props: Props) => {
                 color="transparent"
                 svgPolygonProps={{
                     ref,
-                    tabIndex: 0,
+                    tabIndex: disableKeyboardInteraction ? -1 : 0,
                     strokeWidth: TARGET_SIZE,
                     style: {
                         cursor: dragging ? "grabbing" : "grab",
+                        fill: hovered ? "var(--mafs-blue)" : "transparent",
                     },
-                    onFocus: () => setFocused(true),
-                    onBlur: () => setFocused(false),
                     onMouseEnter: () => setHovered(true),
                     onMouseLeave: () => setHovered(false),
+                    // Required to remove line weighting when user clicks away
+                    // from the focused polygon
+                    onKeyDownCapture: () => {
+                        setFocusVisible(hasFocusVisible(ref.current));
+                    },
+                    // Required for lines to darken on focus
+                    onFocus: () =>
+                        setFocusVisible(hasFocusVisible(ref.current)),
+                    // Required for line weighting to update on blur. Without this,
+                    // the user has to hover over the shape for it to update
+                    onBlur: () => setFocusVisible(hasFocusVisible(ref.current)),
                     className: "movable-polygon",
                 }}
             />
             {points.map((point, i) => (
-                <StyledMovablePoint
+                <MovablePoint
                     key={"point-" + i}
+                    constrain={constrain}
                     point={point}
-                    onMove={(destination: vec.Vector2) =>
-                        dispatch(movePoint(i, destination))
-                    }
+                    onMove={(destination: vec.Vector2) => {
+                        const now = Date.now();
+                        const targetFPS = 40;
+                        const moveThresholdTime = 1000 / targetFPS;
+
+                        if (now - lastMoveTime.current > moveThresholdTime) {
+                            dispatch(actions.polygon.movePoint(i, destination));
+                            lastMoveTime.current = now;
+                        }
+                    }}
                 />
             ))}
         </>
     );
+};
+
+function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
+    return points.map((point, i) => {
+        const next = points[(i + 1) % points.length];
+        return [point, next];
+    });
+}
+
+export const hasFocusVisible = (
+    element: Element | null | undefined,
+): boolean => {
+    const matches = (selector: string) => element?.matches(selector) ?? false;
+    try {
+        return matches(":focus-visible");
+    } catch (e) {
+        // jsdom doesn't support :focus-visible
+        // (see https://github.com/jsdom/jsdom/issues/3426),
+        // so the call to matches(":focus-visible") will fail in tests.
+        return matches(":focus");
+    }
 };

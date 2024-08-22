@@ -104,7 +104,7 @@ describe("KAS", () => {
 
         const {equal} = KAS.compare(expr1, expr2);
 
-        expect(equal).toBeTrue();
+        expect(equal).toBe(true);
     });
 
     it("should compare equations", () => {
@@ -113,7 +113,7 @@ describe("KAS", () => {
 
         const {equal} = KAS.compare(eq1, eq2);
 
-        expect(equal).toBeTrue();
+        expect(equal).toBe(true);
     });
 
     it("can collect like terms", () => {

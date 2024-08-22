@@ -13,12 +13,15 @@ import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
+import {v4 as uuid} from "uuid";
 
+import a11y from "../util/a11y";
 import {debounce} from "../util/debounce";
 
 import {PerseusI18nContext} from "./i18n-context";
@@ -52,7 +55,7 @@ type Props = {
      * Overrides deprecated `buttonSets` prop.
      */
     keypadButtonSets?: KeypadButtonSets;
-    labelText?: string;
+    ariaLabel: string;
     onFocus?: () => void;
     onBlur?: () => void;
     hasError?: boolean;
@@ -129,7 +132,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         const input = this.mathField();
         const {locale} = this.context;
         const customKeyTranslator = {
-            ...getKeyTranslator(locale),
+            ...getKeyTranslator(locale, this.context.strings),
             // If there's something in the input that can become part of a
             // fraction, typing "/" puts it in the numerator. If not, typing
             // "/" does nothing. In that case, enter a \frac.
@@ -241,6 +244,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             );
         }
 
+        this.__mathField?.setAriaLabel(this.props.ariaLabel);
         return this.__mathField;
     };
 
@@ -255,7 +259,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
         const {locale} = this.context;
-        const translator = getKeyTranslator(locale)[key];
+        const translator = getKeyTranslator(locale, this.context.strings)[key];
         const mathField = this.mathField();
 
         if (mathField) {
@@ -286,6 +290,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
             "mq-editable-field": true,
             "mq-math-mode": true,
         });
+
+        const popoverContentUniqueId = uuid().slice(0, 8);
 
         if (this.props.className) {
             className = className + " " + this.props.className;
@@ -322,7 +328,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     <span
                         className={className}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
-                        aria-label={this.props.labelText}
                         onFocus={() => this.focus()}
                         onBlur={() => this.blur()}
                     />
@@ -330,25 +335,38 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
+                        aria-label={this.context.strings.mathInputTitle}
+                        aria-describedby={`popover-content-${popoverContentUniqueId}`}
                         content={() => (
-                            <PopoverContentCore
-                                closeButtonVisible
-                                style={styles.popoverContent}
-                            >
-                                <DesktopKeypad
-                                    onAnalyticsEvent={
-                                        this.props.analytics.onAnalyticsEvent
-                                    }
-                                    extraKeys={this.props.extraKeys}
-                                    onClickKey={this.handleKeypadPress}
-                                    cursorContext={this.state.cursorContext}
-                                    convertDotToTimes={
-                                        this.props.convertDotToTimes
-                                    }
-                                    {...(this.props.keypadButtonSets ??
-                                        mapButtonSets(this.props?.buttonSets))}
-                                />
-                            </PopoverContentCore>
+                            <>
+                                <HeadingMedium
+                                    id={`popover-content-${popoverContentUniqueId}`}
+                                    style={a11y.srOnly}
+                                >
+                                    {this.context.strings.mathInputDescription}
+                                </HeadingMedium>
+                                <PopoverContentCore
+                                    closeButtonVisible
+                                    style={styles.popoverContent}
+                                >
+                                    <DesktopKeypad
+                                        onAnalyticsEvent={
+                                            this.props.analytics
+                                                .onAnalyticsEvent
+                                        }
+                                        extraKeys={this.props.extraKeys}
+                                        onClickKey={this.handleKeypadPress}
+                                        cursorContext={this.state.cursorContext}
+                                        convertDotToTimes={
+                                            this.props.convertDotToTimes
+                                        }
+                                        {...(this.props.keypadButtonSets ??
+                                            mapButtonSets(
+                                                this.props?.buttonSets,
+                                            ))}
+                                    />
+                                </PopoverContentCore>
+                            </>
                         )}
                     >
                         {this.props.buttonsVisible === "never" ? (
@@ -364,8 +382,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                         ? this.context.strings.closeKeypad
                                         : this.context.strings.openKeypad
                                 }
-                                aria-checked={this.state.keypadOpen}
-                                role="switch"
+                                role="button"
                                 onClick={() =>
                                     this.state.keypadOpen
                                         ? this.closeKeypad()
@@ -394,6 +411,10 @@ class MathInput extends React.Component<Props, State> {
     static contextType = MathInputI18nContext;
     declare context: React.ContextType<typeof MathInputI18nContext>;
     inputRef = React.createRef<InnerMathInput>();
+
+    static defaultProps: Pick<Props, "ariaLabel"> = {
+        ariaLabel: "Math input",
+    };
 
     blur() {
         this.inputRef.current?.blur();
@@ -496,9 +517,11 @@ const styles = StyleSheet.create({
         borderRadius: 1,
     },
     iconInactive: {
+        border: "2px solid transparent",
         backgroundColor: color.offBlack8,
     },
     iconActive: {
+        border: `2px solid ${color.white}`,
         backgroundColor: color.offBlack64,
     },
     outerWrapper: {

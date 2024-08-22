@@ -20,15 +20,14 @@ import mediaQueries from "./styles/media-queries";
 import sharedStyles from "./styles/shared";
 import Util from "./util";
 
+import type {Hint} from "./perseus-types";
 import type Renderer from "./renderer";
 import type {APIOptionsWithDefaults} from "./types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Props = PropsFor<typeof Renderer> & {
     className?: string;
-    // note (mcurtis): I think this should be $ReadOnlyArray<PerseusRenderer>,
-    // but things spiraled out of control when I tried to change it
-    hints: ReadonlyArray<any>;
+    hints: ReadonlyArray<Hint>;
     hintsVisible?: number;
 };
 
@@ -244,7 +243,6 @@ class HintsRenderer extends React.Component<Props, State> {
                 {hints}
                 {showGetAnotherHint && (
                     <button
-                        // @ts-expect-error - TS2322 - Type '{ children: Element[]; rel: string; className: string; onClick: (evt: MouseEvent<HTMLButtonElement, MouseEvent>) => void; }' is not assignable to type 'DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>'.
                         rel="button"
                         className={css(
                             styles.linkButton,

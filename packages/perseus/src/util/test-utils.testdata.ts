@@ -1,4 +1,4 @@
-import type {PerseusItem} from "@khanacademy/perseus";
+import type {PerseusItem} from "../perseus-types";
 
 export const basicObject: PerseusItem = {
     question: {
@@ -22,7 +22,6 @@ export const basicObject: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 };
 
@@ -82,7 +81,6 @@ export const expectedQuestionInfoAdded: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 };
 
@@ -122,7 +120,6 @@ export const expectedAnswerAreaInfoAdded: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    _multi: null,
     answer: null,
 };
 
@@ -214,6 +211,5 @@ export const expectedHintsInfoAdded: PerseusItem = {
             },
         },
     ],
-    _multi: null,
     answer: null,
 };

@@ -1,11 +1,11 @@
 import {
     KeypadContext,
     StatefulKeypadContextProvider,
-    MobileKeypad,
-    mathQuillInstance,
-} from "@khanacademy/math-input";
+} from "@khanacademy/keypad-context";
+import {MobileKeypad, mathQuillInstance} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
+    act,
     fireEvent,
     render,
     screen,
@@ -24,6 +24,8 @@ import WrappedServerItemRenderer from "../../server-item-renderer";
 import {registerWidget} from "../../widgets";
 import {expressionItem2} from "../__testdata__/expression.testdata";
 import ExpressionExport from "../expression";
+
+import type {UserEvent} from "@testing-library/user-event";
 
 const MQ = mathQuillInstance;
 
@@ -81,7 +83,7 @@ describe("expression mobile", () => {
         registerWidget("expression", ExpressionExport);
     });
 
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -97,7 +99,7 @@ describe("expression mobile", () => {
         // If we don't spin the timers here, then the timer fires in the test
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
     });
 
     it("renders input", () => {
@@ -139,7 +141,7 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        await userEvent.click(screen.getByRole("tab", {name: "Dismiss"}));
+        await userEvent.click(screen.getByRole("button", {name: "Dismiss"}));
 
         // wait for the keypad to close
         await waitFor(() =>

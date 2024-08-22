@@ -182,7 +182,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                   class="mq-textarea"
                 >
                   <span
-                    aria-label="Math input box:"
+                    aria-label="Math Input:"
                   />
                 </span>
                 <span

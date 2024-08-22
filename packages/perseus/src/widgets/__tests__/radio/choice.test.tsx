@@ -6,6 +6,8 @@ import * as React from "react";
 
 import Choice from "../../radio/choice";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 function renderChoice(options) {
     const defaultOptions = {
         checked: false,
@@ -109,7 +111,7 @@ describe("all choice options", () => {
 
 // Tests 1 of 2 element types used to select a choice
 describe("choice button", () => {
-    let userEvent;
+    let userEvent: UserEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -170,7 +172,7 @@ describe("choice button", () => {
         await userEvent.click(button);
 
         // Assert
-        expect(checked).toBeTrue();
+        expect(checked).toBe(true);
     });
 
     it("can be unchecked", async () => {
@@ -188,13 +190,13 @@ describe("choice button", () => {
         await userEvent.click(button);
 
         // Assert
-        expect(checked).toBeFalse();
+        expect(checked).toBe(false);
     });
 });
 
 // Tests 2 of 2 element types used to select a choice
 describe("choice input (screen reader only)", () => {
-    let userEvent;
+    let userEvent: UserEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -322,6 +324,6 @@ describe("choice input (screen reader only)", () => {
         await userEvent.click(input);
 
         // Assert
-        expect(checked).toBeFalse();
+        expect(checked).toBe(false);
     });
 });

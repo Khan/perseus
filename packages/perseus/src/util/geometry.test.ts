@@ -1,4 +1,4 @@
-import {clockwise, reverseVector} from "./geometry";
+import {clockwise, polygonSidesIntersect, reverseVector} from "./geometry";
 
 describe("reverseVector", () => {
     it("flips the sign of zero", () => {
@@ -71,5 +71,49 @@ describe("clockwise", () => {
                 [-1, 0],
             ]),
         ).toBe(true);
+    });
+});
+
+describe("polygonSidesIntersect", () => {
+    it("is false given an ordinary triangle", () => {
+        expect(
+            polygonSidesIntersect([
+                [0, 0],
+                [1, 0],
+                [0, 1],
+            ]),
+        ).toBe(false);
+    });
+
+    it("is true given a 'triangle' with two vertices the same", () => {
+        expect(
+            polygonSidesIntersect([
+                [0, 0],
+                [1, 0],
+                [1, 0],
+            ]),
+        ).toBe(true);
+    });
+
+    it("is true given a quadrilateral with intersecting sides", () => {
+        expect(
+            polygonSidesIntersect([
+                [0, 0],
+                [2, 2],
+                [0, 2],
+                [2, 0],
+            ]),
+        ).toBe(true);
+    });
+
+    it("is false given a quadrilateral with non-intersecting sides", () => {
+        expect(
+            polygonSidesIntersect([
+                [0, 0],
+                [2, 0],
+                [2, 2],
+                [0, 2],
+            ]),
+        ).toBe(false);
     });
 });

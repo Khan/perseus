@@ -1,9 +1,11 @@
-import {useMovable, vec} from "mafs";
+import {vec} from "mafs";
 import {useRef, useState} from "react";
 import * as React from "react";
 
+import {inset, snap, size} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
-import {snap, TARGET_SIZE} from "../../utils";
+import {TARGET_SIZE} from "../../utils";
+import {useDraggable} from "../use-draggable";
 import {useTransformVectorsToPixels} from "../use-transform";
 import {getIntersectionOfRayWithBox} from "../utils";
 
@@ -76,28 +78,29 @@ function useControlPoint(
     color: string | undefined,
     onMovePoint: (newPoint: vec.Vector2) => unknown,
 ) {
-    const {snapStep} = useGraphConfig();
+    const {snapStep, disableKeyboardInteraction} = useGraphConfig();
     const [focused, setFocused] = useState(false);
     const keyboardHandleRef = useRef<SVGGElement>(null);
-    useMovable({
+    useDraggable({
         gestureTarget: keyboardHandleRef,
         point,
         onMove: onMovePoint,
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
     const visiblePointRef = useRef<SVGGElement>(null);
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: visiblePointRef,
         point,
         onMove: onMovePoint,
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
     const focusableHandle = (
         <g
             data-testid="movable-point__focusable-handle"
-            tabIndex={0}
+            className="movable-point__focusable-handle"
+            tabIndex={disableKeyboardInteraction ? -1 : 0}
             ref={keyboardHandleRef}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
@@ -135,11 +138,16 @@ type LineProps = {
           };
 };
 
-const Line = (props: LineProps) => {
+export const Line = (props: LineProps) => {
     const {start, end, onMove, extend, stroke = defaultStroke} = props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
-    const {range, graphDimensionsInPixels, snapStep} = useGraphConfig();
+    const {
+        range,
+        graphDimensionsInPixels,
+        snapStep,
+        disableKeyboardInteraction,
+    } = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
     let endExtend: vec.Vector2 | undefined = undefined;
@@ -155,20 +163,20 @@ const Line = (props: LineProps) => {
     }
 
     const line = useRef<SVGGElement>(null);
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: line,
         point: start,
         onMove: (newPoint) => {
             onMove(vec.sub(newPoint, start));
         },
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
     return (
         <>
             <g
                 ref={line}
-                tabIndex={0}
+                tabIndex={disableKeyboardInteraction ? -1 : 0}
                 className="movable-line"
                 data-testid="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}
@@ -225,16 +233,5 @@ export function trimRange(
     const graphUnitsPerPixelY = size(yRange) / pixelsTall;
     const graphUnitsToTrimX = pixelsToTrim * graphUnitsPerPixelX;
     const graphUnitsToTrimY = pixelsToTrim * graphUnitsPerPixelY;
-    return [trim(xRange, graphUnitsToTrimX), trim(yRange, graphUnitsToTrimY)];
-}
-
-function trim(interval: Interval, amount: number): Interval {
-    if (size(interval) < amount * 2) {
-        return [0, 0];
-    }
-    return [interval[0] + amount, interval[1] - amount];
-}
-
-function size(interval: Interval): number {
-    return interval[1] - interval[0];
+    return inset([graphUnitsToTrimX, graphUnitsToTrimY], range);
 }
