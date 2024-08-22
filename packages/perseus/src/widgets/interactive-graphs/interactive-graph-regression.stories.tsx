@@ -81,20 +81,76 @@ export const MafsWithLargeRange = (args: StoryArgs): React.ReactElement => (
 );
 
 export const MafsWithYAxisAtLeft = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withXRange(0, 20).build()}
-    />
+    <>
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withXRange(0, 20)
+                .build()}
+        />
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withXRange(0, 20)
+                .addLockedLine([1, 1], [5, 2])
+                .build()}
+        />
+    </>
 );
 
 export const MafsWithYAxisNearLeft = (args: StoryArgs): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withXRange(-1, 20).build()}
-    />
+    <>
+        {" "}
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withXRange(-1, 20)
+                .build()}
+        />
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withXRange(-1, 20)
+                .addLockedLine([1, 1], [5, 2])
+                .build()}
+        />
+    </>
+);
+
+export const MafsWithYAxisJustOverLeft = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <>
+        {" "}
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withXRange(-3, 20)
+                .build()}
+        />
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withXRange(-3, 20)
+                .addLockedLine([1, 1], [5, 2])
+                .build()}
+        />
+    </>
 );
 
 export const MafsWithYAxisOffLeft = (args: StoryArgs): React.ReactElement => (
     <MafsQuestionRenderer
         question={interactiveGraphQuestionBuilder().withXRange(1, 20).build()}
+    />
+);
+
+export const MafsWithYAxisOffFurtherLeft = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder().withXRange(6, 20).build()}
+    />
+);
+
+export const MafsWithYAxisOffEvenFurtherLeft = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder().withXRange(15, 30).build()}
     />
 );
 
@@ -128,6 +184,24 @@ export const MafsWithXAxisOffBottom = (args: StoryArgs): React.ReactElement => (
     <MafsQuestionRenderer
         question={interactiveGraphQuestionBuilder().withYRange(1, 20).build()}
     />
+);
+
+export const MafsWithXAxisJustOverBottom = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <>
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withYRange(-3, 20)
+                .build()}
+        />
+        <MafsQuestionRenderer
+            question={interactiveGraphQuestionBuilder()
+                .withYRange(-3, 20)
+                .addLockedLine([-3, 2], [5, 16])
+                .build()}
+        />
+    </>
 );
 
 export const MafsWithXAxisAtTop = (args: StoryArgs): React.ReactElement => (
