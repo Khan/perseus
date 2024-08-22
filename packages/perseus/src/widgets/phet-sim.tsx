@@ -20,7 +20,7 @@ import {basicBorderColor, borderRadiusLarge} from "../styles/global-constants";
 import type {PerseusPhetSimWidgetOptions} from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
 
-type RenderProps = PerseusPhetSimWidgetOptions; // transform = _.identity
+type RenderProps = PerseusPhetSimWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimWidgetOptions>;
 
 // For returning user input, but currently the PhET widget
@@ -35,7 +35,7 @@ type State = {
     url: URL | null;
 };
 
-/* This renders the PhET sim */
+// This renders the PhET sim
 export class PhetSim extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
