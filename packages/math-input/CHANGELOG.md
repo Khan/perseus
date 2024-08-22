@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 21.0.1
+
+### Patch Changes
+
+-   [#1538](https://github.com/Khan/perseus/pull/1538) [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720) Thanks [@handeyeco](https://github.com/handeyeco)! - Use Portuguese sen and tg when updating Mathquill from the keypad
+
 ## 21.0.0
 
 ### Major Changes
