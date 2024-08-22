@@ -1821,6 +1821,11 @@ class InteractiveGraph extends React.Component<Props, State> {
             return (
                 <StatefulMafsGraph
                     {...this.props}
+                    showLabelsFlag={
+                        this.props.apiOptions?.flags?.["mafs"]?.[
+                            "interactive-graph-locked-features-labels"
+                        ]
+                    }
                     ref={this.mafsRef}
                     gridStep={gridStep}
                     snapStep={snapStep}
@@ -2666,10 +2671,7 @@ export function shouldUseMafs(
     switch (graph.type) {
         case "point":
             if (graph.numPoints === UNLIMITED) {
-                // TODO(benchristel): add a feature flag for the "unlimited"
-                // case once we've implemented point graphs with unlimited
-                // points
-                return false;
+                return Boolean(mafsFlags["unlimited-point"]);
             }
             return Boolean(mafsFlags["point"]);
         case "polygon":

@@ -35,6 +35,7 @@ import {
     segmentWithLockedEllipses,
     segmentWithLockedEllipseWhite,
     segmentWithLockedFunction,
+    segmentWithLockedLabels,
     segmentWithLockedLineQuestion,
     segmentWithLockedPointsQuestion,
     segmentWithLockedPointsWithColorQuestion,
@@ -181,6 +182,7 @@ describe("a mafs graph", () => {
         circle: circleQuestion,
         quadratic: quadraticQuestion,
         sinusoid: sinusoidQuestion,
+        "unlimited-point": pointQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -196,6 +198,7 @@ describe("a mafs graph", () => {
         circle: circleQuestionWithDefaultCorrect,
         quadratic: quadraticQuestionWithDefaultCorrect,
         sinusoid: sinusoidQuestionWithDefaultCorrect,
+        "unlimited-point": pointQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
@@ -858,5 +861,49 @@ describe("locked layer", () => {
         // Assert
         expect(PlotOfXMock).toHaveBeenCalledTimes(0);
         expect(PlotOfYMock).toHaveBeenCalledTimes(1);
+    });
+
+    it("should render locked labels", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentWithLockedLabels, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+
+        // Assert
+        expect(labels).toHaveLength(3);
+
+        // content
+        expect(labels[0]).toHaveTextContent("small \\frac{1}{2}");
+        expect(labels[1]).toHaveTextContent("medium E_0 = mc^2");
+        expect(labels[2]).toHaveTextContent("large \\sqrt{2a}");
+
+        // styles
+        expect(labels[0]).toHaveStyle({
+            color: lockedFigureColors["pink"],
+            fontSize: "14px", // small
+            left: "80px",
+            top: "160px",
+        });
+        expect(labels[1]).toHaveStyle({
+            color: lockedFigureColors["blue"],
+            fontSize: "16px", // medium
+            left: "220px",
+            top: "160px",
+        });
+        expect(labels[2]).toHaveStyle({
+            color: lockedFigureColors["green"],
+            fontSize: "20px", // large
+            left: "140px",
+            top: "240px",
+        });
     });
 });

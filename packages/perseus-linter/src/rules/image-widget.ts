@@ -16,11 +16,13 @@ export default Rule.makeRule({
             return;
         }
 
+        const nodeId = state.currentNode().id;
+        if (!nodeId) {
+            return;
+        }
+
         // If it can't find a definition for the widget it does nothing
-        const widget =
-            context &&
-            context.widgets &&
-            context.widgets[state.currentNode().id];
+        const widget = context && context.widgets && context.widgets[nodeId];
         if (!widget) {
             return;
         }

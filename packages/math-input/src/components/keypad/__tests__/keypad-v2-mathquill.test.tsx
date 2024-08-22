@@ -18,6 +18,7 @@ type Props = {
     onChangeMathInput: (mathInputTex: string) => void;
     keypadClosed?: boolean;
     onAnalyticsEvent?: AnalyticsEventHandlerFn;
+    portuguese?: boolean;
 };
 
 function V2KeypadWithMathquill(props: Props) {
@@ -26,6 +27,14 @@ function V2KeypadWithMathquill(props: Props) {
     const {onChangeMathInput, keypadClosed, onAnalyticsEvent} = props;
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(!keypadClosed);
     const {strings} = useMathInputI18n();
+
+    if (props.portuguese) {
+        strings.sin = "sen";
+        strings.tan = "tg";
+    } else {
+        strings.sin = "sin";
+        strings.tan = "tan";
+    }
 
     React.useEffect(() => {
         if (!mathField && mathFieldWrapperRef.current) {
@@ -48,7 +57,7 @@ function V2KeypadWithMathquill(props: Props) {
         }
     }, [mathField, strings, onChangeMathInput]);
 
-    const keyTranslator = getKeyTranslator("en");
+    const keyTranslator = getKeyTranslator("en", strings);
 
     function handleClickKey(key: Key) {
         if (!mathField) {
@@ -324,5 +333,95 @@ describe("Keypad v2 with MathQuill", () => {
             type: "math-input:keypad-closed",
             payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
         });
+    });
+
+    it("handles english sin trig function", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        await userEvent.click(screen.getByRole("button", {name: "Sine"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "\\sin\\left(42\\right)",
+        );
+    });
+
+    it("handles portuguese sen trig function", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill
+                onChangeMathInput={mockMathInputCallback}
+                portuguese
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        // This needs to stay as "getByText" because we're validating translations
+        // and aria-labels are in English
+        await userEvent.click(screen.getByText("sen"));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "\\operatorname{sen}\\left(42\\right)",
+        );
+    });
+
+    it("handles english tan trig function", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        await userEvent.click(screen.getByRole("button", {name: "Tangent"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "\\tan\\left(42\\right)",
+        );
+    });
+
+    it("handles portuguese tg trig function", async () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill
+                onChangeMathInput={mockMathInputCallback}
+                portuguese
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        // This needs to stay as "getByText" because we're validating translations
+        // and aria-labels are in English
+        await userEvent.click(screen.getByText("tg"));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "\\operatorname{tg}\\left(42\\right)",
+        );
     });
 });

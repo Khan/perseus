@@ -52,6 +52,7 @@ export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
 export interface PointGraphState extends InteractiveGraphStateCommon {
     type: "point";
     coords: Coord[];
+    numPoints?: number | "unlimited";
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {

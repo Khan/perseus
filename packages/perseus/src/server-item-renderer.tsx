@@ -23,23 +23,24 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {PerseusItem, ShowSolutions} from "./perseus-types";
-import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
+import type {
+    FocusPath,
+    PerseusDependenciesV2,
+    SharedRendererProps,
+} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     KeypadContextRendererInterface,
     RendererInterface,
     KEScore,
 } from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {mapObject} = Objective;
 
 type OwnProps = {
-    apiOptions: APIOptions;
     hintsVisible?: number;
     item: PerseusItem;
-    linterContext: LinterContextProps;
     problemNum?: number;
     reviewMode?: boolean;
     keypadElement?: KeypadAPI | null | undefined;
@@ -51,7 +52,7 @@ type HOCProps = {
     onRendered: (isRendered: boolean) => void;
 };
 
-type Props = OwnProps & HOCProps;
+type Props = SharedRendererProps & OwnProps & HOCProps;
 
 type DefaultProps = Required<
     Pick<Props, "apiOptions" | "onRendered" | "linterContext">

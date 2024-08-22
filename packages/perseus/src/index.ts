@@ -164,6 +164,7 @@ export type {
     VideoKind,
     WidgetDict,
     WidgetExports,
+    SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
@@ -179,6 +180,7 @@ export type {
     LockedEllipseType,
     LockedPolygonType,
     LockedFunctionType,
+    LockedLabelType,
     PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,

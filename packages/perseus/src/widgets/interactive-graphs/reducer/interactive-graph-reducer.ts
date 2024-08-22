@@ -38,6 +38,8 @@ import {
     type MovePoint,
     type MoveRadiusPoint,
     REINITIALIZE,
+    ADD_POINT,
+    type AddPoint,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -74,6 +76,8 @@ export function interactiveGraphReducer(
             return doChangeSnapStep(state, action);
         case CHANGE_RANGE:
             return doChangeRange(state, action);
+        case ADD_POINT:
+            return doAddPoint(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -496,6 +500,31 @@ function doChangeRange(
     return {
         ...state,
         range: action.range,
+    };
+}
+
+function doAddPoint(
+    state: InteractiveGraphState,
+    action: AddPoint,
+): InteractiveGraphState {
+    if (state.type !== "point") {
+        return state;
+    }
+    const {snapStep} = state;
+    const snappedPoint = snap(snapStep, action.location);
+
+    // Check if there's already a point in that spot
+    for (const point of state.coords) {
+        if (point[X] === snappedPoint[X] && point[Y] === snappedPoint[Y]) {
+            return state;
+        }
+    }
+
+    // If there's no point in spot where we want the new point to go we add it there
+    return {
+        ...state,
+        hasBeenInteractedWith: true,
+        coords: [...state.coords, snappedPoint],
     };
 }
 

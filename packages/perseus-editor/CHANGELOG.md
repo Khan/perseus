@@ -1,5 +1,27 @@
 # @khanacademy/perseus-editor
 
+## 12.0.1
+
+### Patch Changes
+
+-   [#1518](https://github.com/Khan/perseus/pull/1518) [`0667abecf`](https://github.com/Khan/perseus/commit/0667abecfc40990033ec46babf92f752e22c6444) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert reorder of NumericInputEditor fields
+
+-   Updated dependencies [[`e19c58eb9`](https://github.com/Khan/perseus/commit/e19c58eb9f0ef84c32dfdb40a4382cfa4c82392d), [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720), [`811f914cb`](https://github.com/Khan/perseus/commit/811f914cbded3a9a3af1c08cc6aa79cadb1dbb23)]:
+    -   @khanacademy/kas@0.3.12
+    -   @khanacademy/math-input@21.0.1
+    -   @khanacademy/perseus@30.0.1
+
+## 12.0.0
+
+### Major Changes
+
+-   [#1536](https://github.com/Khan/perseus/pull/1536) [`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert introduction of ContentPreview component (broke editor linting tooltip)"
+
+### Patch Changes
+
+-   Updated dependencies [[`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84)]:
+    -   @khanacademy/perseus@30.0.0
+
 ## 11.6.0
 
 ### Minor Changes

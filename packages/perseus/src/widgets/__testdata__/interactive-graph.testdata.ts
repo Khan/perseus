@@ -118,6 +118,27 @@ export const pointQuestionWithStartingCoords: PerseusRenderer =
         })
         .build();
 
+export const finitePointQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withContent(
+            "Vector $\\vec v$ is graphed in the interactive graph below.\n\n**Assuming $3\\vec v$ starts at the origin, plot its endpoint.**\n\n[[\u2603 interactive-graph 1]]",
+        )
+        .withBackgroundImage(
+            "web+graphie://ka-perseus-graphie.s3.amazonaws.com/d6983eff3063dac5815cc4d48c565cddba819765",
+            400,
+            400,
+        )
+        .withMarkings("none")
+        .withGridStep(1, 1)
+        .withSnapStep(1, 1)
+        .withTickStep(1, 1)
+        .withXRange(-8, 8)
+        .withYRange(-8, 8)
+        .withPoints(1, {
+            coords: [[0, 0]],
+        })
+        .build();
+
 export const polygonQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(
@@ -783,6 +804,22 @@ export const segmentWithLockedFunction = (
         .build();
 };
 
+export const segmentWithLockedLabels: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedLabel("small \\frac{1}{2}", [-6, 2], {
+            color: "pink",
+            size: "small",
+        })
+        .addLockedLabel("medium E_0 = mc^2", [1, 2], {
+            color: "blue",
+            size: "medium",
+        })
+        .addLockedLabel("large \\sqrt{2a}", [-3, -2], {
+            color: "green",
+            size: "large",
+        })
+        .build();
+
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7)
@@ -801,6 +838,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
         .addLockedFunction("sin(x)", {
             color: "red",
         })
+        .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
         .build();
 
 export const quadraticQuestion: PerseusRenderer =

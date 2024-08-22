@@ -14,6 +14,7 @@ export default function GeometryPage(props: Props) {
     const {onClickKey} = props;
     const {strings} = useMathInputI18n();
     const Keys = KeyConfigs(strings);
+
     return (
         <>
             {/* Row 1 */}
