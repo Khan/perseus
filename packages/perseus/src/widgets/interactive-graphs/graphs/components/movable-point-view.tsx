@@ -1,9 +1,10 @@
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
-import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
 
-import {X, Y} from "../../math";
+import {InlineIcon} from "../../../../components";
+import {iconTrash} from "../../../../icon-paths";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
@@ -17,6 +18,7 @@ type Props = {
     dragging: boolean;
     focusBehavior: FocusBehaviorConfig;
     cursor?: CSSCursor | undefined;
+    popoverComponent: () => React.Component<Props>;
 };
 
 type FocusBehaviorConfig =
@@ -38,14 +40,15 @@ const hitboxSizePx = 48;
 // the description of https://github.com/Khan/perseus/pull/1240
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {range, markings, showTooltips, disableKeyboardInteraction} =
-            useGraphConfig();
+        const {range, markings, disableKeyboardInteraction} = useGraphConfig();
+        const showTooltips = true;
         const {
             point,
             color = WBColor.blue,
             dragging,
             focusBehavior,
             cursor,
+            popoverComponent,
         } = props;
 
         // WB Tooltip requires a color name for the background color.
@@ -114,22 +117,27 @@ export const MovablePointView = forwardRef(
             </g>
         );
 
+        const renderedPopover = popoverComponent();
         return (
             <>
                 {showHairlines && hairlines}
 
-                {showTooltips ? (
-                    <Tooltip
-                        autoUpdate={true}
-                        backgroundColor={wbColorName}
-                        content={`(${point[X]}, ${point[Y]})`}
-                        contentStyle={{color: "white"}}
-                    >
-                        {svgForPoint}
-                    </Tooltip>
-                ) : (
-                    svgForPoint
-                )}
+                <Popover
+                    content={
+                        <PopoverContentCore
+                            style={{
+                                maxWidth: "80px",
+                                padding: 6,
+                            }}
+                        >
+                            {renderedPopover}
+                        </PopoverContentCore>
+                    }
+                    opened={true}
+                    placement="top"
+                >
+                    {svgForPoint}
+                </Popover>
             </>
         );
     },

@@ -18,6 +18,7 @@ type Props = {
     color?: string;
     cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
+    popoverComponent: () => React.Component<Props>;
 };
 
 export const MovablePoint = (props: Props) => {
@@ -29,6 +30,7 @@ export const MovablePoint = (props: Props) => {
         cursor,
         color = WBColor.blue,
         constrain = (p) => snap(snapStep, p),
+        popoverComponent,
     } = props;
     const {dragging} = useDraggable({
         gestureTarget: elementRef,
@@ -45,6 +47,7 @@ export const MovablePoint = (props: Props) => {
             dragging={dragging}
             focusBehavior={{type: "uncontrolled", tabIndex: 0}}
             cursor={cursor}
+            popoverComponent={popoverComponent}
         />
     );
 };

@@ -40,6 +40,8 @@ import {
     REINITIALIZE,
     ADD_POINT,
     type AddPoint,
+    REMOVE_POINT,
+    RemovePoint,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -78,6 +80,8 @@ export function interactiveGraphReducer(
             return doChangeRange(state, action);
         case ADD_POINT:
             return doAddPoint(state, action);
+        case REMOVE_POINT:
+            return doRemovePoint(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -525,6 +529,20 @@ function doAddPoint(
         ...state,
         hasBeenInteractedWith: true,
         coords: [...state.coords, snappedPoint],
+    };
+}
+
+function doRemovePoint(
+    state: InteractiveGraphState,
+    action: RemovePoint,
+): InteractiveGraphState {
+    if (state.type !== "point") {
+        return state;
+    }
+
+    return {
+        ...state,
+        coords: state.coords.filter((_, i) => i !== action.index),
     };
 }
 

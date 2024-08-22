@@ -11,6 +11,12 @@ import {
 } from "./use-transform";
 
 import type {PointGraphState, MafsGraphProps} from "../types";
+// import {InlineIcon} from "../../../components";
+// import {iconTrash} from "../../../../icon-paths";
+
+import {InlineIcon} from "../../../components";
+import {iconTrash} from "../../../icon-paths";
+import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
@@ -79,6 +85,24 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
+                    popoverComponent={() => (
+                        <button
+                            // eslint-disable-next-line react/jsx-no-bind
+                            onClick={() => {
+                                dispatch(actions.pointGraph.removePoint(i));
+                            }}
+                        >
+                            <InlineIcon
+                                {...iconTrash}
+                                style={{
+                                    position: "static",
+                                    color: "red",
+                                    marginLeft: 9,
+                                    marginRight: 9,
+                                }}
+                            />
+                        </button>
+                    )}
                 />
             ))}
         </>
