@@ -13,7 +13,12 @@ export default Rule.makeRule({
             return;
         }
 
-        const widget = context?.widgets?.[state.currentNode().id];
+        const nodeId = state.currentNode().id;
+        if (!nodeId) {
+            return;
+        }
+
+        const widget = context?.widgets?.[nodeId];
         if (!widget) {
             return;
         }
