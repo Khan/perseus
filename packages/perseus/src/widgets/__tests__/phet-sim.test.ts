@@ -55,10 +55,9 @@ describe("phet-sim widget", () => {
 
         // Assert
         await waitFor(() => {
-            expect(screen.queryByTitle("Google")).toHaveAttribute(
-                "srcDoc",
-                "Sorry, this simulation cannot load.",
-            );
+            expect(
+                screen.getByText("Sorry, this simulation cannot load."),
+            ).toBeDefined();
         });
     });
 

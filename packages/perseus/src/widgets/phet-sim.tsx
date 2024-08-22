@@ -8,11 +8,14 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
 import * as Changeable from "../mixins/changeable";
+import {phoneMargin} from "../styles/constants";
+import {basicBorderColor, borderRadiusLarge} from "../styles/global-constants";
 
 import type {PerseusPhetSimWidgetOptions} from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
@@ -25,7 +28,10 @@ type Props = WidgetProps<RenderProps, PerseusPhetSimWidgetOptions>;
 type UserInput = null;
 
 type State = {
-    bannerMessage: string | null;
+    banner: {
+        message: string;
+        kind: "warning" | "critical";
+    } | null;
     url: URL | null;
 };
 
@@ -39,7 +45,7 @@ export class PhetSim extends React.Component<Props, State> {
 
     state: State = {
         url: null,
-        bannerMessage: null,
+        banner: null,
     };
 
     constructor(props) {
@@ -69,29 +75,32 @@ export class PhetSim extends React.Component<Props, State> {
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         const sandboxProperties = "allow-same-origin allow-scripts";
         return (
-            <View>
-                {this.state.bannerMessage && (
+            <View style={styles.container}>
+                {this.state.banner !== null && (
                     // TODO(anna): Make this banner focusable
-                    <Banner
-                        kind="warning"
-                        layout="floating"
-                        text={this.state.bannerMessage}
-                    />
+                    <View
+                        style={{
+                            marginBottom: phoneMargin,
+                        }}
+                    >
+                        <Banner
+                            layout="floating"
+                            kind={this.state.banner.kind}
+                            text={this.state.banner.message}
+                        />
+                    </View>
                 )}
                 <iframe
                     ref={this.iframeRef}
                     title={this.props.description}
                     sandbox={sandboxProperties}
                     style={{
-                        width: 400,
-                        height: 400,
+                        minWidth: 400,
+                        height: 360,
+                        width: "100%",
+                        borderWidth: 0,
                     }}
                     src={this.state.url?.toString()}
-                    srcDoc={
-                        this.state.url !== null
-                            ? undefined
-                            : this.context.strings.simulationLoadFail
-                    }
                     allow="fullscreen"
                 />
                 <IconButton
@@ -106,6 +115,7 @@ export class PhetSim extends React.Component<Props, State> {
                         marginBottom: 5,
                         alignSelf: "flex-end",
                     }}
+                    disabled={this.state.url === null}
                 />
             </View>
         );
@@ -140,22 +150,35 @@ export class PhetSim extends React.Component<Props, State> {
         }
     };
 
+    displayLoadFailure: () => void = () => {
+        this.setState({
+            url: null,
+            banner: {
+                message: this.context.strings.simulationLoadFail,
+                kind: "critical",
+            },
+        });
+    };
+
     async updateSimState(urlString: string) {
         const url = makeSafeUrl(urlString, this.locale);
         if (url === null) {
-            this.setState({url: null, bannerMessage: null});
+            this.displayLoadFailure();
             return;
         }
         const response = await fetch(url);
         if (!response.ok) {
-            this.setState({url: null, bannerMessage: null});
+            this.displayLoadFailure();
             return;
         }
         const showLocaleWarning = await this.showLocaleWarning(url);
         this.setState({
             url: url,
-            bannerMessage: showLocaleWarning
-                ? this.context.strings.simulationLocaleWarning
+            banner: showLocaleWarning
+                ? {
+                      message: this.context.strings.simulationLocaleWarning,
+                      kind: "warning",
+                  }
                 : null,
         });
     }
@@ -170,7 +193,7 @@ export class PhetSim extends React.Component<Props, State> {
             /https:\/\/phet\.colorado\.edu\/sims\/html\/([a-zA-Z0-9-]+)\/.*/g;
         const match: RegExpExecArray | null = phetRegex.exec(url.toString());
         // Do not show a locale warning on a non-simulation URL
-        if (!match) {
+        if (match === null) {
             return false;
         }
         const simName = match[1];
@@ -180,14 +203,19 @@ export class PhetSim extends React.Component<Props, State> {
         if (!response.ok) {
             return false;
         }
-        const responseJson = await response.json();
-        if (!responseJson) {
+
+        let responseJson: any;
+        try {
+            responseJson = await response.json();
+        } catch {
+            // If the file exists but there is no content to parse into a JSON,
+            // response.json() will throw an error that we want to catch.
             return false;
         }
-        const locales = Object.keys(responseJson);
+        const locales: string[] = Object.keys(responseJson);
 
         // Only display a locale warning if there is no fallback language
-        const baseLocale = this.locale.split("_")[0];
+        const baseLocale: string = this.locale.split("_")[0];
         for (const l of locales) {
             if (baseLocale === l.split("_")[0]) {
                 return false;
@@ -218,3 +246,14 @@ export default {
     hidden: true,
     isLintable: true,
 } as WidgetExports<typeof PhetSim>;
+
+const styles = StyleSheet.create({
+    container: {
+        borderRadius: borderRadiusLarge,
+        borderWidth: 1,
+        borderColor: basicBorderColor,
+        padding: phoneMargin,
+        paddingBottom: 0,
+        width: 650,
+    },
+});
