@@ -332,6 +332,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onBlur={() => this.blur()}
                     />
                     <Popover
+                        rootBoundary="document"
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
