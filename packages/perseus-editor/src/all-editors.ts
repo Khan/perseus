@@ -27,6 +27,7 @@ import OrdererEditor from "./widgets/orderer-editor";
 import PassageEditor from "./widgets/passage-editor";
 import PassageRefEditor from "./widgets/passage-ref-editor";
 import PassageRefTargetEditor from "./widgets/passage-ref-target-editor";
+import PhetSimEditor from "./widgets/phet-sim-editor";
 import PlotterEditor from "./widgets/plotter-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
 import RadioEditor from "./widgets/radio/editor";
@@ -64,6 +65,7 @@ export default [
     PassageEditor,
     PassageRefEditor,
     PassageRefTargetEditor,
+    PhetSimEditor,
     PlotterEditor,
     PythonProgramEditor,
     SimpleMarkdownTesterEditor,
