@@ -1,5 +1,6 @@
 import {
     dimensionsToPixels,
+    pixelsToVectors,
     pointToPixel,
     vectorsToPixels,
 } from "./use-transform";
@@ -131,5 +132,83 @@ describe("pointToPixel", () => {
         };
         expect(pointToPixel([0, 0], testContext)).toEqual([0, 200]);
         expect(pointToPixel([1, 1], testContext)).toEqual([20, 180]);
+    });
+});
+
+describe("pixelsToVectors", () => {
+    it("transforms (0, 0) to the top left corner of the graph bounds", () => {
+        const testContext: GraphDimensions = {
+            range: [
+                [-3, 10],
+                [1, 7],
+            ],
+            width: 200,
+            height: 200,
+        };
+        const [[x, y]] = pixelsToVectors([[0, 0]], testContext);
+        expect(x).toBe(-3);
+        expect(y).toBe(7);
+    });
+
+    it("transforms (0, 200) to the bottom left corner of the graph bounds", () => {
+        const testContext: GraphDimensions = {
+            range: [
+                [-3, 10],
+                [1, 7],
+            ],
+            width: 200,
+            height: 200,
+        };
+        const [[x, y]] = pixelsToVectors([[0, 200]], testContext);
+        expect(x).toBe(-3);
+        expect(y).toBe(1);
+    });
+
+    it("transforms (200, 0) to the top right corner of the graph bounds", () => {
+        const testContext: GraphDimensions = {
+            range: [
+                [-3, 10],
+                [1, 7],
+            ],
+            width: 200,
+            height: 200,
+        };
+        const [[x, y]] = pixelsToVectors([[200, 0]], testContext);
+        expect(x).toBe(10);
+        expect(y).toBe(7);
+    });
+
+    it("transforms (200, 200) to the bottom right corner of the graph bounds", () => {
+        const testContext: GraphDimensions = {
+            range: [
+                [-3, 10],
+                [1, 7],
+            ],
+            width: 200,
+            height: 200,
+        };
+        const [[x, y]] = pixelsToVectors([[200, 200]], testContext);
+        expect(x).toBe(10);
+        expect(y).toBe(1);
+    });
+
+    it("transforms multiple vectors", () => {
+        const testContext: GraphDimensions = {
+            range: [
+                [-3, 10],
+                [1, 7],
+            ],
+            width: 200,
+            height: 200,
+        };
+        const [a, b] = pixelsToVectors(
+            [
+                [200, 200],
+                [0, 0],
+            ],
+            testContext,
+        );
+        expect(a).toEqual([10, 1]);
+        expect(b).toEqual([-3, 7]);
     });
 });

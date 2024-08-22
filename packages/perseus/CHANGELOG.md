@@ -1,5 +1,40 @@
 # @khanacademy/perseus
 
+## 30.0.1
+
+### Patch Changes
+
+-   [#1538](https://github.com/Khan/perseus/pull/1538) [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720) Thanks [@handeyeco](https://github.com/handeyeco)! - Use Portuguese sen and tg when updating Mathquill from the keypad
+
+*   [#1530](https://github.com/Khan/perseus/pull/1530) [`811f914cb`](https://github.com/Khan/perseus/commit/811f914cbded3a9a3af1c08cc6aa79cadb1dbb23) Thanks [@handeyeco](https://github.com/handeyeco)! - Add SharedRendererProps type
+
+*   Updated dependencies [[`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50), [`e19c58eb9`](https://github.com/Khan/perseus/commit/e19c58eb9f0ef84c32dfdb40a4382cfa4c82392d), [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720), [`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50)]:
+    -   @khanacademy/perseus-linter@1.2.0
+    -   @khanacademy/kas@0.3.12
+    -   @khanacademy/math-input@21.0.1
+
+## 30.0.0
+
+### Major Changes
+
+-   [#1536](https://github.com/Khan/perseus/pull/1536) [`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert introduction of ContentPreview component (broke editor linting tooltip)"
+
+## 29.0.0
+
+### Major Changes
+
+-   [#1525](https://github.com/Khan/perseus/pull/1525) [`426a3ae1d`](https://github.com/Khan/perseus/commit/426a3ae1d5a7f0aef20ccea6b99ada6929e1abc4) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change PerseusItem to no longer include multi items
+
+### Patch Changes
+
+-   [#275](https://github.com/Khan/perseus/pull/275) [`3e6a65378`](https://github.com/Khan/perseus/commit/3e6a6537842ce2659ff2a12523a75b41a90681e6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Perseus no longer depends on window.KhanUtil nor window.Exercises
+
+*   [#1521](https://github.com/Khan/perseus/pull/1521) [`a9292af78`](https://github.com/Khan/perseus/commit/a9292af78f569b703fcae07de01852f264861158) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate Lint component to use WonderBlocks ToolTip
+
+-   [#1522](https://github.com/Khan/perseus/pull/1522) [`da65a54a2`](https://github.com/Khan/perseus/commit/da65a54a2cadc381c19255e9c2a402ed74733449) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update internal imports to use relative paths instead of package name
+
+*   [#1523](https://github.com/Khan/perseus/pull/1523) [`250971357`](https://github.com/Khan/perseus/commit/25097135792ecb1b5679d6fc8b41dc0c5bb1da9b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Stop the Mafs graphs from being user selectable
+
 ## 28.2.0
 
 ### Minor Changes

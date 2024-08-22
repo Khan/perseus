@@ -182,6 +182,7 @@ describe("a mafs graph", () => {
         circle: circleQuestion,
         quadratic: quadraticQuestion,
         sinusoid: sinusoidQuestion,
+        "unlimited-point": pointQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -197,6 +198,7 @@ describe("a mafs graph", () => {
         circle: circleQuestionWithDefaultCorrect,
         quadratic: quadraticQuestionWithDefaultCorrect,
         sinusoid: sinusoidQuestionWithDefaultCorrect,
+        "unlimited-point": pointQuestionWithDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
