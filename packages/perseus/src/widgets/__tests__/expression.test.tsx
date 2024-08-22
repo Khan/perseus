@@ -238,6 +238,16 @@ describe("Expression Widget", function () {
             const item = expressionItemWithAnswer("sin(x)");
             await assertIncorrect(userEvent, item, "2");
         });
+
+        it("allows portugese sen", async () => {
+            const item = expressionItemWithAnswer("sin(42)");
+            await assertCorrect(userEvent, item, "sen(42)");
+        });
+
+        it("allows portugese tg", async () => {
+            const item = expressionItemWithAnswer("tan(42)");
+            await assertCorrect(userEvent, item, "tg(42)");
+        });
     });
 
     describe("analytics", () => {
