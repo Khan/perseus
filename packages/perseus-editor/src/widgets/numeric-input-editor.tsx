@@ -499,16 +499,16 @@ class NumericInputEditor extends React.Component<Props, State> {
 
         return (
             <div className="perseus-input-number-editor">
-                {labelText}
-                {inputSize}
-                {rightAlign}
-                {coefficientCheck}
                 <div className="ui-title">User input</div>
                 <div className="msg-title">
                     Message shown to user on attempt
                 </div>
                 {generateInputAnswerEditors()}
                 {addAnswerButton}
+                {inputSize}
+                {rightAlign}
+                {coefficientCheck}
+                {labelText}
             </div>
         );
     }
