@@ -62,6 +62,8 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 // that every node has a string-valued `type` property
 export type TreeNode = {
     type: string;
+    widgetType?: string;
+    id?: string;
 };
 
 // TraversalCallback is the type of the callback function passed to the

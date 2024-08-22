@@ -1,5 +1,44 @@
 # @khanacademy/perseus-editor
 
+## 12.0.1
+
+### Patch Changes
+
+-   [#1518](https://github.com/Khan/perseus/pull/1518) [`0667abecf`](https://github.com/Khan/perseus/commit/0667abecfc40990033ec46babf92f752e22c6444) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert reorder of NumericInputEditor fields
+
+-   Updated dependencies [[`e19c58eb9`](https://github.com/Khan/perseus/commit/e19c58eb9f0ef84c32dfdb40a4382cfa4c82392d), [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720), [`811f914cb`](https://github.com/Khan/perseus/commit/811f914cbded3a9a3af1c08cc6aa79cadb1dbb23)]:
+    -   @khanacademy/kas@0.3.12
+    -   @khanacademy/math-input@21.0.1
+    -   @khanacademy/perseus@30.0.1
+
+## 12.0.0
+
+### Major Changes
+
+-   [#1536](https://github.com/Khan/perseus/pull/1536) [`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert introduction of ContentPreview component (broke editor linting tooltip)"
+
+### Patch Changes
+
+-   Updated dependencies [[`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84)]:
+    -   @khanacademy/perseus@30.0.0
+
+## 11.6.0
+
+### Minor Changes
+
+-   [#1521](https://github.com/Khan/perseus/pull/1521) [`a9292af78`](https://github.com/Khan/perseus/commit/a9292af78f569b703fcae07de01852f264861158) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add ContentPreview component
+
+*   [#1517](https://github.com/Khan/perseus/pull/1517) [`93ad3c638`](https://github.com/Khan/perseus/commit/93ad3c638878d1238393c71703b63cef9b93871b) Thanks [@benchristel](https://github.com/benchristel)! - Replace the "(un)set as static" button in the widget editor with a toggle switch
+
+### Patch Changes
+
+-   [#1525](https://github.com/Khan/perseus/pull/1525) [`426a3ae1d`](https://github.com/Khan/perseus/commit/426a3ae1d5a7f0aef20ccea6b99ada6929e1abc4) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change PerseusItem to no longer include multi items
+
+*   [#1526](https://github.com/Khan/perseus/pull/1526) [`487aa464a`](https://github.com/Khan/perseus/commit/487aa464ad450aa37ec2b8ef11596a585112a6fd) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Locked Figures] Add controls to move a whole locked polygon
+
+*   Updated dependencies [[`426a3ae1d`](https://github.com/Khan/perseus/commit/426a3ae1d5a7f0aef20ccea6b99ada6929e1abc4), [`3e6a65378`](https://github.com/Khan/perseus/commit/3e6a6537842ce2659ff2a12523a75b41a90681e6), [`a9292af78`](https://github.com/Khan/perseus/commit/a9292af78f569b703fcae07de01852f264861158), [`da65a54a2`](https://github.com/Khan/perseus/commit/da65a54a2cadc381c19255e9c2a402ed74733449), [`250971357`](https://github.com/Khan/perseus/commit/25097135792ecb1b5679d6fc8b41dc0c5bb1da9b)]:
+    -   @khanacademy/perseus@29.0.0
+
 ## 11.5.0
 
 ### Minor Changes

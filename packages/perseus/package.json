@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "28.2.0",
+    "version": "30.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -40,12 +40,12 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.3.11",
+        "@khanacademy/kas": "^0.3.12",
         "@khanacademy/kmath": "^0.1.13",
         "@khanacademy/keypad-context": "^1.0.0",
-        "@khanacademy/math-input": "^21.0.0",
+        "@khanacademy/math-input": "^21.0.1",
         "@khanacademy/perseus-core": "1.5.0",
-        "@khanacademy/perseus-linter": "^1.1.0",
+        "@khanacademy/perseus-linter": "^1.2.0",
         "@khanacademy/pure-markdown": "^0.3.7",
         "@khanacademy/simple-markdown": "^0.13.0",
         "@use-gesture/react": "^10.2.27",

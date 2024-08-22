@@ -164,6 +164,7 @@ export type {
     VideoKind,
     WidgetDict,
     WidgetExports,
+    SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
@@ -202,6 +203,7 @@ export type {
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
+    MultiItem,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";
