@@ -76,6 +76,7 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 coords: getPointCoords(graph, range, step),
+                numPoints: graph.numPoints || 0,
             };
         case "circle":
             return {

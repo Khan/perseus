@@ -10,7 +10,8 @@ export type InteractiveGraphAction =
     | MoveCenter
     | MoveRadiusPoint
     | ChangeSnapStep
-    | ChangeRange;
+    | ChangeRange
+    | AddPoint;
 
 export const actions = {
     angle: {
@@ -31,6 +32,7 @@ export const actions = {
     },
     pointGraph: {
         movePoint,
+        addPoint,
     },
     polygon: {
         movePoint,
@@ -64,6 +66,18 @@ function moveLine(itemIndex: number, delta: vec.Vector2): MoveLine {
         type: MOVE_LINE,
         itemIndex,
         delta,
+    };
+}
+
+export const ADD_POINT = "add-point";
+export interface AddPoint {
+    type: typeof ADD_POINT;
+    location: vec.Vector2;
+}
+function addPoint(location: vec.Vector2): AddPoint {
+    return {
+        type: ADD_POINT,
+        location,
     };
 }
 

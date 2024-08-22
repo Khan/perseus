@@ -142,6 +142,8 @@ export const MafsGraphTypeFlags = [
     "sinusoid",
     /** Enables the `point` interactive-graph type with a fixed number of points. */
     "point",
+    /** Enable the `unlimited-point` interactive graph type */
+    "unlimited-point",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [
