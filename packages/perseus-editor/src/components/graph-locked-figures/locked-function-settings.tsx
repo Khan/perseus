@@ -13,6 +13,8 @@ import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect, useState} from "react";
+import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 
 import PerseusEditorAccordion from "../perseus-editor-accordion";
 
@@ -55,6 +57,8 @@ const LockedFunctionSettings = (props: Props) => {
         domain && domain[1] !== Infinity ? domain[1].toString() : "",
     ]);
 
+    const [exampleEquation, setExampleEquation] = useState("");
+
     useEffect(() => {
         // "useEffect" used to maintain parity between domain constraints and their string representation.
         setDomainEntries([
@@ -93,6 +97,14 @@ const LockedFunctionSettings = (props: Props) => {
         newDomain[limitIndex] = newValue;
         onChangeProps({domain: newDomain});
     }
+
+    function handleExampleChange(selectedValue: string) {
+        setExampleEquation(selectedValue);
+        // TODO: map through examples and add to example content area
+    }
+
+    const exampleStyling =
+        exampleEquation === "" ? styles.exampleHidden : styles.exampleContainer;
 
     return (
         <PerseusEditorAccordion
@@ -135,7 +147,7 @@ const LockedFunctionSettings = (props: Props) => {
                         handlePropChange("directionalAxis", newValue);
                     }}
                     aria-label="equation prefix"
-                    style={styles.equationPrefix}
+                    style={styles.dropdownMenu}
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
@@ -190,6 +202,52 @@ const LockedFunctionSettings = (props: Props) => {
                 </LabelMedium>
             </View>
 
+            {/* Examples */}
+            <View style={[styles.exampleWorkspace, styles.rowSpace]}>
+                <SingleSelect
+                    selectedValue={exampleEquation}
+                    onChange={handleExampleChange}
+                    style={styles.dropdownMenu}
+                    placeholder="example"
+                >
+                    <OptionItem value="linear" label="linear" />
+                    <OptionItem value="sinusoid" label="sinusoid" />
+                </SingleSelect>
+                <Strut size={spacing.small_12} />
+                <View style={exampleStyling}>
+                    <IconButton
+                        icon={copyIcon}
+                        aria-label="copy example"
+                        onClick={(e) =>
+                            navigator.clipboard.writeText("Hello, world!")
+                        }
+                        size="medium"
+                    />
+                    <Strut size={spacing.small_12} />
+                    <span style={styles.exampleContent}>
+                        example
+                        <br />
+                        equation
+                        <br />
+                        with
+                        <br />
+                        lots
+                        <br />
+                        and
+                        <br />
+                        lots
+                        <br />
+                        and
+                        <br />
+                        lots
+                        <br />
+                        of
+                        <br />
+                        breaks
+                    </span>
+                </View>
+            </View>
+
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
@@ -209,9 +267,6 @@ const styles = StyleSheet.create({
         maxWidth: "calc(100% - 64px)",
         overflow: "hidden",
         whiteSpace: "nowrap",
-    },
-    equationPrefix: {
-        minWidth: "auto",
     },
     domainMin: {
         alignItems: "center",
@@ -239,6 +294,25 @@ const styles = StyleSheet.create({
     },
     domainMaxField: {
         width: "calc(100% - 36.2px)", // make room for the label
+    },
+    dropdownMenu: {
+        minWidth: "auto",
+    },
+    exampleContainer: {
+        display: "flex",
+        flexDirection: "row",
+        maxHeight: "100px",
+        overflowX: "scroll",
+    },
+    exampleContent: {
+        flexGrow: "1",
+    },
+    exampleHidden: {
+        display: "none",
+    },
+    exampleWorkspace: {
+        display: "flex",
+        flexDirection: "row",
     },
     rowSpace: {
         marginTop: spacing.xSmall_8,
