@@ -3,11 +3,11 @@
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
-import type {PerseusPhetSimWidgetOptions} from "@khanacademy/perseus";
+import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus";
 
 type DefaultProps = {
-    url: PerseusPhetSimWidgetOptions["url"];
-    description: PerseusPhetSimWidgetOptions["description"];
+    url: PerseusPhetSimulationWidgetOptions["url"];
+    description: PerseusPhetSimulationWidgetOptions["description"];
 };
 
 type Props = DefaultProps & {
@@ -17,13 +17,13 @@ type Props = DefaultProps & {
     }) => void;
 };
 
-class PhetSimEditor extends React.Component<Props> {
+class PhetSimulationEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         url: "",
         description: "",
     };
 
-    static widgetName = "phet-sim" as const;
+    static widgetName = "phet-simulation" as const;
 
     render(): React.ReactNode {
         return (
@@ -45,7 +45,7 @@ class PhetSimEditor extends React.Component<Props> {
         );
     }
 
-    serialize(): PerseusPhetSimWidgetOptions {
+    serialize(): PerseusPhetSimulationWidgetOptions {
         return {
             url: this.props.url,
             description: this.props.description,
@@ -53,4 +53,4 @@ class PhetSimEditor extends React.Component<Props> {
     }
 }
 
-export default PhetSimEditor;
+export default PhetSimulationEditor;

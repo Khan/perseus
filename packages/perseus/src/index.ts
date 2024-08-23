@@ -195,7 +195,7 @@ export type {
     PerseusInputNumberWidgetOptions,
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
-    PerseusPhetSimWidgetOptions,
+    PerseusPhetSimulationWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,

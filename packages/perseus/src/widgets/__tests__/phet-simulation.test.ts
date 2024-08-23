@@ -2,14 +2,14 @@ import {screen, waitFor} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {nonPhetUrl, question1} from "../__testdata__/phet-sim.testdata";
-import {makeSafeUrl} from "../phet-sim";
+import {nonPhetUrl, question1} from "../__testdata__/phet-simulation.testdata";
+import {makeSafeUrl} from "../phet-simulation";
 
 import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
 
-describe("phet-sim widget", () => {
+describe("phet-simulation widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,

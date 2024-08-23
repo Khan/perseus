@@ -26,7 +26,7 @@ import Orderer from "./widgets/orderer";
 import Passage from "./widgets/passage";
 import PassageRef from "./widgets/passage-ref";
 import PassageRefTarget from "./widgets/passage-ref-target";
-import PhetSim from "./widgets/phet-sim";
+import PhetSimulation from "./widgets/phet-simulation";
 import Plotter from "./widgets/plotter";
 import PythonProgram from "./widgets/python-program";
 import Sorter from "./widgets/sorter";
@@ -59,7 +59,7 @@ export default [
     Passage,
     PassageRef,
     PassageRefTarget,
-    PhetSim,
+    PhetSimulation,
     Plotter,
     PythonProgram,
     Sorter,

@@ -17,11 +17,11 @@ import * as Changeable from "../mixins/changeable";
 import {phoneMargin} from "../styles/constants";
 import {basicBorderColor, borderRadiusLarge} from "../styles/global-constants";
 
-import type {PerseusPhetSimWidgetOptions} from "../perseus-types";
+import type {PerseusPhetSimulationWidgetOptions} from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
 
-type RenderProps = PerseusPhetSimWidgetOptions;
-type Props = WidgetProps<RenderProps, PerseusPhetSimWidgetOptions>;
+type RenderProps = PerseusPhetSimulationWidgetOptions;
+type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
 
 // For returning user input, but currently the PhET widget
 // does not support accessing user input
@@ -36,7 +36,7 @@ type State = {
 };
 
 // This renders the PhET sim
-export class PhetSim extends React.Component<Props, State> {
+export class PhetSimulation extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement> =
@@ -127,8 +127,8 @@ export class PhetSim extends React.Component<Props, State> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof PhetSim'.
-        return PhetSim.validate(this.getUserInput(), rubric);
+        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof PhetSimulation'.
+        return PhetSimulation.validate(this.getUserInput(), rubric);
     };
 
     // kaLocales and PhET locales use different formats and abbreviations.
@@ -239,13 +239,13 @@ export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
 };
 
 export default {
-    name: "phet-sim",
+    name: "phet-simulation",
     displayName: "PhET Simulation",
-    widget: PhetSim,
+    widget: PhetSimulation,
     // Hides widget from content creators until full release
     hidden: true,
     isLintable: true,
-} as WidgetExports<typeof PhetSim>;
+} as WidgetExports<typeof PhetSimulation>;
 
 const styles = StyleSheet.create({
     container: {
