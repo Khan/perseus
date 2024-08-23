@@ -23,7 +23,7 @@ class PhetSimulationEditor extends React.Component<Props> {
         description: "",
     };
 
-    static widgetName = "phet-sim" as const;
+    static widgetName = "phet-simulation" as const;
 
     render(): React.ReactNode {
         return (
