@@ -72,6 +72,12 @@ const DeviceFramer = ({
                         SCREEN_SIZES[deviceType].framedWidth +
                         2 * constants.perseusFrameBorderWidth +
                         constants.lintGutterWidth,
+
+                    position: "sticky",
+                    top: 8,
+                    maxHeight: "80vh",
+                    overflowY: "auto",
+                    overflowX: "hidden",
                 }}
             >
                 <div>{children}</div>
