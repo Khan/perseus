@@ -4,11 +4,11 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import PhetSimEditor from "../phet-sim-editor";
+import PhetSimulationEditor from "../phet-simulation-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-describe("phet-sim editor", () => {
+describe("phet-simulation editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -22,7 +22,7 @@ describe("phet-sim editor", () => {
 
     it("renders", async () => {
         // Act
-        render(<PhetSimEditor onChange={() => {}} />);
+        render(<PhetSimulationEditor onChange={() => {}} />);
 
         // Assert
         expect(screen.getByLabelText("URL")).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe("phet-sim editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<PhetSimEditor onChange={onChangeMock} />);
+        render(<PhetSimulationEditor onChange={onChangeMock} />);
         await userEvent.type(screen.getByLabelText("URL"), "h");
 
         // Assert
@@ -46,7 +46,7 @@ describe("phet-sim editor", () => {
         const onChangeMock = jest.fn();
 
         // Act
-        render(<PhetSimEditor onChange={onChangeMock} />);
+        render(<PhetSimulationEditor onChange={onChangeMock} />);
         await userEvent.type(screen.getByLabelText("Description"), "P");
 
         // Assert

@@ -1,14 +1,14 @@
-import {PhetSim} from "../phet-sim";
+import {PhetSimulation} from "../phet-simulation";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
-const meta: Meta<typeof PhetSim> = {
-    component: PhetSim,
+const meta: Meta<typeof PhetSimulation> = {
+    component: PhetSimulation,
     title: "Perseus/Widgets/PhET Simulation",
 };
 
 export default meta;
-type Story = StoryObj<typeof PhetSim>;
+type Story = StoryObj<typeof PhetSimulation>;
 
 export const Primary: Story = {
     args: {

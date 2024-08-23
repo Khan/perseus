@@ -68,7 +68,7 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `passage-ref-target ${number}`]: PassageRefWidget;
 } & {
-    [key in `phet-sim ${number}`]: PhetSimWidget;
+    [key in `phet-simulation ${number}`]: PhetSimulationWidget;
 } & {
     [key in `plotter ${number}`]: PlotterWidget;
 } & {
@@ -249,7 +249,7 @@ export type PassageRefWidget = Widget<'passage-ref', PerseusPassageRefWidgetOpti
 // prettier-ignore
 export type PassageWidget = Widget<'passage', PerseusPassageWidgetOptions>;
 // prettier-ignore
-export type PhetSimWidget = Widget<'phet-sim', PerseusPhetSimWidgetOptions>;
+export type PhetSimulationWidget = Widget<'phet-simulation', PerseusPhetSimulationWidgetOptions>;
 // prettier-ignore
 export type PlotterWidget = Widget<'plotter', PerseusPlotterWidgetOptions>;
 // prettier-ignore
@@ -305,7 +305,7 @@ export type PerseusWidget =
     | OrdererWidget
     | PassageRefWidget
     | PassageWidget
-    | PhetSimWidget
+    | PhetSimulationWidget
     | PlotterWidget
     | PythonProgramWidget
     | RadioWidget
@@ -1567,7 +1567,7 @@ export type PerseusIFrameWidgetOptions = {
     static: boolean;
 };
 
-export type PerseusPhetSimWidgetOptions = {
+export type PerseusPhetSimulationWidgetOptions = {
     // A URL to display, must start with https://phet.colorado.edu/
     url: string;
     // Translatable Text; Description of the sim for Khanmigo and alt text
@@ -1642,7 +1642,7 @@ export type PerseusWidgetOptions =
     | PerseusPassageRefTargetWidgetOptions
     | PerseusPassageRefWidgetOptions
     | PerseusPassageWidgetOptions
-    | PerseusPhetSimWidgetOptions
+    | PerseusPhetSimulationWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
     | PerseusSimpleMarkdownTesterWidgetOptions
