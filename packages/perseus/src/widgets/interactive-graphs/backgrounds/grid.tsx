@@ -1,12 +1,7 @@
 import {Coordinates, usePaneContext, useTransformContext, vec} from "mafs";
 import * as React from "react";
 
-import GraphLockedLayer from "../graph-locked-layer";
 import {X, Y} from "../math";
-
-import AxisArrows from "./axis-arrows";
-import AxisLabels from "./axis-labels";
-import {AxisTicks} from "./axis-ticks";
 
 import type {GraphRange} from "../../../perseus-types";
 import type {SizeClass} from "../../../util/sizing-utils";
