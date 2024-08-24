@@ -98,6 +98,10 @@ export type Props = ExternalProps &
         visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
         ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
         value: string;
+    } & {
+        noWrapper?: boolean;
+        disabled?: boolean;
+        dontSimplifyFractions?: boolean;
     };
 
 export type ExpressionState = {
@@ -462,10 +466,15 @@ export class Expression extends React.Component<Props, ExpressionState> {
     ) => {
         // TODO(jack): Disable icu for content creators here, or
         // make it so that solution answers with ','s or '.'s work
-        const options = _.pick(props || this.props, "functions");
-        _.extend(options, {
+        const options: {
+            functions: ReadonlyArray<string>;
+            decimal_separator: string;
+            dontSimplifyFractions?: boolean;
+        } = {
+            functions: props.functions,
             decimal_separator: getDecimalSeparator(this.context.locale),
-        });
+        }
+        options.dontSimplifyFractions = this.props.dontSimplifyFractions;
         return KAS.parse(normalizeTex(value), options);
     };
 
@@ -559,7 +568,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     render() {
         if (this.props.apiOptions.customKeypad) {
             return (
-                <View className={css(styles.mobileLabelInputWrapper)}>
+                <View className={this.props.noWrapper ? undefined : css(styles.mobileLabelInputWrapper)}>
                     {!!this.props.visibleLabel && (
                         <LabelSmall htmlFor={this._textareaId} tag="label">
                             {this.props.visibleLabel}
@@ -602,7 +611,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
         return (
-            <View className={css(styles.desktopLabelInputWrapper)}>
+            <View className={this.props.noWrapper ? undefined : css(styles.desktopLabelInputWrapper)}>
                 {!!this.props.visibleLabel && (
                     <LabelSmall htmlFor={this._textareaId} tag="label">
                         {this.props.visibleLabel}
@@ -645,6 +654,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                             onChange={this.changeAndTrack}
                             convertDotToTimes={this.props.times}
                             buttonSets={this.props.buttonSets}
+                            disabled={this.props.disabled}
                             onFocus={this._handleFocus}
                             onBlur={this._handleBlur}
                             hasError={this.state.showErrorStyle}

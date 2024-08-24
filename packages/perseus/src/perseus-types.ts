@@ -294,6 +294,7 @@ export type PerseusWidget =
     | PythonProgramWidget
     | RadioWidget
     | RefTargetWidget
+    | ShowYourWorkWidget
     | SimpleMarkdownTesterWidget
     | SorterWidget
     | TableWidget

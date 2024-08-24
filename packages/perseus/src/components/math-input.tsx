@@ -69,6 +69,7 @@ type Props = {
      */
     buttonsVisible?: ButtonsVisibleType;
     analytics: PerseusDependenciesV2["analytics"];
+    disabled?: boolean;
 };
 
 type InnerProps = Props & {
@@ -331,7 +332,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onFocus={() => this.focus()}
                         onBlur={() => this.blur()}
                     />
-                    <Popover
+                    {!this.props.disabled && <Popover
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
                         dismissEnabled
@@ -397,7 +398,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 )}
                             </Clickable>
                         )}
-                    </Popover>
+                    </Popover>}
                 </div>
             </View>
         );

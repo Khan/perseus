@@ -1341,6 +1341,10 @@ _.extend(Mul, {
 
     // division can create either a Rational or a Mul
     handleDivide: function (left, right) {
+        if (parsingOptions.dontSimplifyFractions) {
+            return new Rational(left, right).addHint("fraction");
+        }
+
         // dividing by a Mul is the same as repeated division by its terms
         if (right instanceof Mul) {
             var first = Mul.handleDivide(left, right.terms[0]);
@@ -3503,6 +3507,10 @@ parser.yy = {
     },
 };
 
+const parsingOptions = {
+    dontSimplifyFractions: false,
+};
+
 export const parse = function (input, options) {
     try {
         if (options && options.functions) {
@@ -3518,6 +3526,10 @@ export const parse = function (input, options) {
         // TODO(jack): Fix the output to have ','s in this case
         if (options && options.decimal_separator) {
             input = input.split(options.decimal_separator).join(".");
+        }
+
+        if (options && options.dontSimplifyFractions) {
+            parsingOptions.dontSimplifyFractions = options.dontSimplifyFractions;
         }
 
         var expr = parser.parse(input).completeParse();
