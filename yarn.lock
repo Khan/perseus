@@ -2836,15 +2836,15 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-timing/-/wonder-blocks-timing-5.0.1.tgz#895e7d2191800da708733d3855dee4220ae55301"
   integrity sha512-2xHgDqQygIAIUQMeGWUhisjxgHLt0E7TudZMsnF4v/8kNHop42T4TEMD4tF8sBpvvKf/ZXXYUwseJIzAzkPmgg==
 
-"@khanacademy/wonder-blocks-tokens@2.0.0", "@khanacademy/wonder-blocks-tokens@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-2.0.0.tgz#7d03f1a190ae738134f78bca8ba7fba366f2520f"
-  integrity sha512-lCsnCRW2LCSRS9WinbkNXrOG21Tf4sfLTyTsrLT+yO1seWroCj/rwxhbyNWe4vJm+Q6M+DxvC7f3YFcDjuvkcw==
-
-"@khanacademy/wonder-blocks-tokens@^1.3.0":
+"@khanacademy/wonder-blocks-tokens@1.3.0", "@khanacademy/wonder-blocks-tokens@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-1.3.0.tgz#05bf558b220fd9bf4d0693d20e28c0c15967455b"
   integrity sha512-vImubvBzSsinHLSbJAF61J15UjgE8hD207zVxCOuYszzKJk6bv0BMrRRCyq7/t61I04qEcXnE14HP0m5Vb4cYw==
+
+"@khanacademy/wonder-blocks-tokens@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-2.0.0.tgz#7d03f1a190ae738134f78bca8ba7fba366f2520f"
+  integrity sha512-lCsnCRW2LCSRS9WinbkNXrOG21Tf4sfLTyTsrLT+yO1seWroCj/rwxhbyNWe4vJm+Q6M+DxvC7f3YFcDjuvkcw==
 
 "@khanacademy/wonder-blocks-toolbar@3.0.31":
   version "3.0.31"
