@@ -128,6 +128,8 @@ export type PerseusStrings = {
     sin: string;
     cos: string;
     tan: string;
+    simulationLoadFail: string;
+    simulationLocaleWarning: string;
 };
 
 /**
@@ -297,6 +299,9 @@ export const strings: {
     sin: "sin",
     cos: "cos",
     tan: "tan",
+    simulationLoadFail: "Sorry, this simulation cannot load.",
+    simulationLocaleWarning:
+        "Sorry, this simulation isn't available in your language.",
 };
 
 /**
@@ -450,4 +455,7 @@ export const mockStrings: PerseusStrings = {
     sin: "sin",
     cos: "cos",
     tan: "tan",
+    simulationLoadFail: "Sorry, this simulation cannot load.",
+    simulationLocaleWarning:
+        "Sorry, this simulation isn't available in your language.",
 };

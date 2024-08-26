@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     panel: {
         position: "fixed",
         right: 0,
+        minWidth: 500,
         height: "90vh",
         overflow: "auto",
         flex: "none",

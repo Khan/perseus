@@ -37,7 +37,7 @@ describe("Locked Function Settings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    describe("Heading interactions", () => {
+    describe("Header interactions", () => {
         test("should show the function's color and stroke by default", () => {
             // Arrange
             render(<LockedFunctionSettings {...defaultProps} />, {
