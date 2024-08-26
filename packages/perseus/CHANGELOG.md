@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 31.0.1
+
+### Patch Changes
+
+-   [#1549](https://github.com/Khan/perseus/pull/1549) [`cae713da5`](https://github.com/Khan/perseus/commit/cae713da54be20aba8150f98b8f99ade9c2a8bb7) Thanks [@aemandine](https://github.com/aemandine)! - Refactor PhET Sim widget name to PhET Simulation
+
 ## 31.0.0
 
 ### Major Changes

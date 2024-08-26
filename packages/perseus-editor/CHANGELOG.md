@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 13.0.1
+
+### Patch Changes
+
+-   [#1550](https://github.com/Khan/perseus/pull/1550) [`7c5de59f2`](https://github.com/Khan/perseus/commit/7c5de59f25e77c8a5b6fd595647835b340c7aa3c) Thanks [@nishasy](https://github.com/nishasy)! - [Locked labels] Bugfix from merge conflict: Add back locked label settings
+
+*   [#1549](https://github.com/Khan/perseus/pull/1549) [`cae713da5`](https://github.com/Khan/perseus/commit/cae713da54be20aba8150f98b8f99ade9c2a8bb7) Thanks [@aemandine](https://github.com/aemandine)! - Refactor PhET Sim widget name to PhET Simulation
+
+*   Updated dependencies [[`cae713da5`](https://github.com/Khan/perseus/commit/cae713da54be20aba8150f98b8f99ade9c2a8bb7)]:
+    -   @khanacademy/perseus@31.0.1
+
 ## 13.0.0
 
 ### Major Changes
