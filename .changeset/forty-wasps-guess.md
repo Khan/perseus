@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-HintEditor: define explicit DefaultProps type
+HintEditor: tweak props to take defaultProps into account
