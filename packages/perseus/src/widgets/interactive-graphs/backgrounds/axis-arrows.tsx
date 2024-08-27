@@ -10,6 +10,8 @@ export default function AxisArrows() {
 
     const axisColor = "var(--mafs-fg)";
 
+    // Only render the arrows if the axis is within the visible range
+    // as otherwise the arrows will be rendered outside the graph
     return (
         <>
             {!(yMin > 0 || yMax < 0) && (

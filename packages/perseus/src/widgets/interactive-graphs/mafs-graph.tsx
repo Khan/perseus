@@ -181,9 +181,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 markings={props.markings}
                                 width={width}
                                 height={height}
-                                lockedFigures={props.lockedFigures}
                             />
-                            {/* Axis Ticks and Labels */}
+                            {/* Axis Ticks, Labels, and Arrows */}
                             {
                                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
                                 props.markings === "graph" && (
@@ -193,6 +192,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     </>
                                 )
                             }
+                            {/* Nested SVG to prevent figures from overflowing the graph bounds */}
                             <svg
                                 width={width}
                                 height={height}
@@ -260,53 +260,57 @@ const renderGraphControls = (props: {
     }
 };
 
+// Calculate the difference between the min and max values of a range
 const getRangeDiff = (range: vec.Vector2) => {
     const [min, max] = range;
     return Math.abs(max - min);
 };
 
-// We need to adjust the nested SVG viewbox min values based on the range of the graph
-// in order to ensure that the graph is centered within the SVG and the clipping mask
+// We need to adjust the nested SVG viewbox min values based on the range of the graph in order
+// to ensure that the graph is sized and positioned correctly within the SVG and the clipping mask
 const calculateNestedSVGViewBox = (
     range: vec.Vector2[],
     width: number,
     height: number,
 ) => {
     // X RANGE
-    let xMin = 0; // When range.xMin is 0, we want to use 0 as the xMin value for the SVG
+    let viewboxX = 0; // When xMin is 0, we want to use 0 as the viewboxX value
     const totalXRange = getRangeDiff(range[X]);
     const gridCellWidth = width / totalXRange;
+    const minX = range[X][0];
 
-    // If the x range is entirely positive, we need to adjust the xMin to be 0
-    if (range[X][0] > 0) {
-        const leftAdjustment = gridCellWidth * Math.abs(range[X][0]);
-        xMin = leftAdjustment;
+    // If xMin is entirely positive, we need to adjust the
+    // viewboxX to be the grid cell width multiplied by xMin
+    if (minX > 0) {
+        viewboxX = gridCellWidth * Math.abs(minX);
     }
-    // If the xMin is negative, we need to manually adjust
-    if (range[X][0] < 0) {
-        xMin = -gridCellWidth * Math.abs(range[X][0]);
+    // If xMin is negative, we need to adjust the viewboxX to be
+    // the negative value of the grid cell width multiplied by xMin
+    if (minX < 0) {
+        viewboxX = -gridCellWidth * Math.abs(minX);
     }
 
     // Y RANGE
-    let yMin = -height; // When yMin is 0, we want to use the full height of the SVG
+    let viewboxY = -height; // When yMin is 0, we want to use the negative value of the graph height
     const totalYRange = getRangeDiff(range[Y]);
     const gridCellHeight = height / totalYRange;
+    const minY = range[Y][0];
 
-    // If the y range is entirely positive, we want to subtract the height
-    // from the sum of the gridcell height and the min y value
-    if (range[Y][0] > 0) {
-        yMin = -height - gridCellHeight * Math.abs(range[Y][0]);
+    // If the y range is entirely positive, we want a negative sum of the
+    // height and the gridcell height multiplied by the absolute value of yMin
+    if (minY > 0) {
+        viewboxY = -height - gridCellHeight * Math.abs(minY);
     }
 
-    // If the yMin is negative, we want to
-    if (range[Y][0] < 0) {
-        yMin = -height + gridCellHeight * Math.abs(range[Y][0]);
+    // If the yMin is negative, we want to multiply the gridcell height
+    // by the absolute value of yMin, and subtract the full height of the graph
+    if (minY < 0) {
+        viewboxY = gridCellHeight * Math.abs(minY) - height;
     }
 
-    // Create the viewbox for the nested SVG
     return {
-        x: xMin,
-        y: yMin,
+        x: viewboxX,
+        y: viewboxY,
     };
 };
 

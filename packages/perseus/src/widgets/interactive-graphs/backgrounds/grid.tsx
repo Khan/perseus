@@ -5,6 +5,7 @@ import {X, Y} from "../math";
 
 import type {GraphRange} from "../../../perseus-types";
 import type {SizeClass} from "../../../util/sizing-utils";
+import type {Interval} from "mafs";
 
 interface GridProps {
     tickStep: vec.Vector2;
@@ -14,7 +15,6 @@ interface GridProps {
     markings: "graph" | "grid" | "none";
     width: number;
     height: number;
-    lockedFigures?: any;
 }
 
 /**
@@ -62,30 +62,64 @@ const axisOptions = (
 
 const getVerticalAdjustment = (range: GraphRange) => {
     const yMax = range[1][1];
+    // If the yMax is less than or equal to 0 and is an odd number
+    // then we need to adjust the grid by 6.6 units to accomodate the
+    // size of the axis arrows. Otherwise, we need to adjust by 0.5 units
+    // for just the grid border.
     return yMax <= 0 && yMax % 2 !== 0 && yMax !== -1 ? 6.6 : 0.5;
+};
+
+// Generate the clip path for the grid so that the
+// grid lines don't render outside the graph bounds
+const getClipPath = (
+    viewTransform: vec.Matrix,
+    xPaneRange: Interval,
+    yPaneRange: Interval,
+    height: number,
+    width: number,
+    range: GraphRange,
+) => {
+    // Get the true bounds of the SVG from mafs
+    const xMin = xPaneRange[0];
+    const yMax = yPaneRange[1];
+
+    // Adjust the necessary padding for the
+    // clipping path by the range of the graph
+    const xPad = range[0][0] - Math.min(0, xMin);
+    const yPad = range[1][1] - Math.max(0, yMax);
+
+    // Transform the padding to pixel coordinates
+    const pad = vec.transform([xPad, yPad], viewTransform);
+
+    // Adjust the grid to be centered in the graph
+    // depending on the provided range.
+    const horizontalAdjustment = range[0][0] > 0 ? 0 : -0.5;
+    const verticalAdjustment = getVerticalAdjustment(range);
+
+    // Create a path that is the size of the graph with a 1px
+    // buffer to account for the outer grid border lines
+    const rectTop = pad[1] + verticalAdjustment - 1;
+    const rectBottom = pad[1] + height + verticalAdjustment;
+    const rectLeft = pad[0] + horizontalAdjustment;
+    const rectRight = pad[0] + width + horizontalAdjustment + 1;
+
+    return `path('M ${rectLeft} ${rectTop} H ${rectRight} V ${rectBottom} H ${rectLeft} Z')`;
 };
 
 export const Grid = (props: GridProps) => {
     const {viewTransform} = useTransformContext();
     const {xPaneRange, yPaneRange} = usePaneContext();
 
-    const xMin = xPaneRange[0];
-    const yMax = yPaneRange[1];
-
-    const xPad = props.range[0][0] - Math.min(0, xMin);
-    const yPad = props.range[1][1] - Math.max(0, yMax);
-
-    const pad = vec.transform([xPad, yPad], viewTransform);
-
-    const horizontalAdjustment = props.range[0][0] > 0 ? 0 : -0.5;
-    const verticalAdjustment = getVerticalAdjustment(props.range);
-
-    const rectTop = pad[1] + verticalAdjustment - 1;
-    const rectBottom = pad[1] + props.height + verticalAdjustment;
-    const rectLeft = pad[0] + horizontalAdjustment;
-    const rectRight = pad[0] + props.width + horizontalAdjustment + 1;
-
-    const clipPath = `path('M ${rectLeft} ${rectTop} H ${rectRight} V ${rectBottom} H ${rectLeft} Z')`;
+    // Set up the clip path for the grid so that grid
+    // lines do not render outside the graph bounds
+    const clipPath = getClipPath(
+        viewTransform,
+        xPaneRange,
+        yPaneRange,
+        props.height,
+        props.width,
+        props.range,
+    );
 
     return props.markings === "none" ? null : (
         <g

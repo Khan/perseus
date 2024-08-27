@@ -4,28 +4,28 @@ import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {MAX, MIN, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import type {GraphDimensions} from "../types";
-import type {vec} from "mafs";
+import type {Interval, vec} from "mafs";
 
 const tickSize = 10;
+const tickLabelSize = 14;
 
 const tickStyle: React.CSSProperties = {
     stroke: "black",
     strokeWidth: 1,
 };
 
-const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
+const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
     // If the graph requires out-of-bounds labels, we want to make sure to set the
     // coordinates to the edge of the visible range of the graph. Otherwise,
     // Otherwise, the ticks and labels would render outside of the clipping-mask.
     let xPointOnAxis = 0;
-    if (graphInfo.range[X][MIN] > 0) {
+    if (range[X][MIN] > 0) {
         // If the graph is on the positive side of the x-axis, lock the ticks to the left side of the graph
-        xPointOnAxis = graphInfo.range[X][MIN];
+        xPointOnAxis = range[X][MIN];
     }
-    if (graphInfo.range[X][MAX] < 0) {
+    if (range[X][MAX] < 0) {
         // If the graph is on the negative side of the x-axis, lock the ticks to the right side of the graph
-        xPointOnAxis = graphInfo.range[X][MAX];
+        xPointOnAxis = range[X][MAX];
     }
 
     // Convert the Vector2 coordinates to pixel coordinates
@@ -42,17 +42,28 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const xAdjustment = graphInfo.range[X][MAX] < 0 ? 20 : -15;
+    const xAdjustment = range[X][MAX] < 0 ? 20 : -15;
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + 5; // Adjusting by 5 pixels allows the text to center on the tick
 
+    // If the graph displays both the y and x axis lines within the graph, we want
+    // to hide the tick at -1 on the y-axis to prevent overlap with the x-axis line
+    const hideNegative1 = range[X][MIN] < 0 && range[X][MAX] > -1;
+    if (hideNegative1 && y === -1) {
+        return null;
+    }
+
     return (
-        <g className="y-axis-ticks">
+        <g className="tick">
             <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
-            {y !== -1 && (
+            {
                 <text
                     height={20}
                     width={50}
+                    style={{
+                        fontSize: `${tickLabelSize}px`,
+                        fontFamily: "Mafs-MJXTEX",
+                    }}
                     textAnchor={"end"}
                     stroke="white"
                     strokeWidth={5}
@@ -62,23 +73,23 @@ const YGridTick = ({y, graphInfo}: {y: number; graphInfo: GraphDimensions}) => {
                 >
                     {y.toString()}
                 </text>
-            )}
+            }
         </g>
     );
 };
 
-const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
+const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
     // If the graph requires out-of-bounds labels, we want to make sure to set the
     // coordinates to the edge of the visible range of the graph. Otherwise,
     // Otherwise, the ticks and labels would render outside of the clipping-mask.
     let yPointOnAxis = 0;
-    if (graphInfo.range[Y][MIN] > 0) {
+    if (range[Y][MIN] > 0) {
         // If the graph is on the positive side of the y-axis, lock the ticks to the top of the graph
-        yPointOnAxis = graphInfo.range[Y][MIN];
+        yPointOnAxis = range[Y][MIN];
     }
-    if (graphInfo.range[Y][MAX] < 0) {
+    if (range[Y][MAX] < 0) {
         // If the graph is on the negative side of the x-axis, lock the ticks to the bottom of the graph
-        yPointOnAxis = graphInfo.range[Y][MAX];
+        yPointOnAxis = range[Y][MAX];
     }
 
     // Convert the Vector2 coordinates to pixel coordinates
@@ -96,7 +107,7 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
     // When the range
-    const yAdjustment = graphInfo.range[Y][MAX] < 0 ? -15 : 22;
+    const yAdjustment = range[Y][MAX] < 0 ? -15 : 22;
 
     // Adjust the x position of the x-axis labels based on
     // whether the label is positive or negative, as the labels
@@ -108,12 +119,16 @@ const XGridTick = ({x, graphInfo}: {x: number; graphInfo: GraphDimensions}) => {
     const yPositionText = yPosition + yAdjustment;
 
     return (
-        <g className="x-axis-ticks">
+        <g className="tick">
             <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
             {
                 <text
                     height={20}
                     width={50}
+                    style={{
+                        fontSize: `${tickLabelSize}px`,
+                        fontFamily: "Mafs-MJXTEX",
+                    }}
                     textAnchor="middle"
                     stroke="white"
                     strokeWidth={5}
@@ -151,14 +166,7 @@ export function generateTickLocations(
 }
 
 export const AxisTicks = () => {
-    const {tickStep, range, width, height} = useGraphConfig();
-
-    const graphInfo = {
-        range,
-        width,
-        height,
-    };
-
+    const {tickStep, range} = useGraphConfig();
     const [[xMin, xMax], [yMin, yMax]] = range;
     const [xTickStep, yTickStep] = tickStep;
 
@@ -168,24 +176,28 @@ export const AxisTicks = () => {
 
     return (
         <g className="axis-ticks">
-            {yGridTicks.map((y) => {
-                return (
-                    <YGridTick
-                        y={y}
-                        key={`y-grid-tick-${y}`}
-                        graphInfo={graphInfo}
-                    />
-                );
-            })}
-            {xGridTicks.map((x) => {
-                return (
-                    <XGridTick
-                        x={x}
-                        key={`x-grid-tick-${x}`}
-                        graphInfo={graphInfo}
-                    />
-                );
-            })}
+            <g className="y-axis-ticks">
+                {yGridTicks.map((y) => {
+                    return (
+                        <YGridTick
+                            y={y}
+                            key={`y-grid-tick-${y}`}
+                            range={range}
+                        />
+                    );
+                })}
+            </g>
+            <g className="x-axis-ticks">
+                {xGridTicks.map((x) => {
+                    return (
+                        <XGridTick
+                            x={x}
+                            key={`x-grid-tick-${x}`}
+                            range={range}
+                        />
+                    );
+                })}
+            </g>
         </g>
     );
 };
