@@ -6,14 +6,15 @@
  * because the body of the document is not the body of the editor. To make this
  * work, this component renders an iframe and can communicate objects to it
  * through postMessage. The recipient then needs to listen for these messages
- * and pull out the appropriate object stored in the parent's iframeDataStore
- * to get the data to render. When the iframe is loaded, it's javascript calls
- * its requestIframeData function in the parent, which triggers the parent to
- * send the current data.
+ * to get the data to render. When the iframe is loaded, it's javascript sends
+ * a message to the parent, which triggers the parent to send the current data.
  */
-import {Log} from "@khanacademy/perseus";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
+import {isPerseusMessage, sendMessageToIframeContent} from "./iframe-utils";
+
+import type {MessageToIFrameParent} from "./iframe-utils";
 import type {
     APIOptions,
     DeviceType,
@@ -59,36 +60,37 @@ export type NewDataMessage =
 let nextIframeID = 0;
 const requestIframeData: Record<string, any> = {};
 const updateIframeHeight: Record<string, any> = {};
-// @ts-expect-error - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
-window.iframeDataStore = {};
 
-// This is called once after Perseus is loaded and the iframe
-// is ready to render content, then twice a second afterwards
-// to capture the result of animations.
-window.addEventListener("message", (event) => {
-    if (typeof event.data === "string") {
+function processIframeParentMessage(message: MessageToIFrameParent) {
+    if (!isPerseusMessage(message)) {
+        return;
+    }
+
+    const messageType = message.type;
+    switch (messageType) {
+        case "perseus:update-iframe-height":
+            updateIframeHeight[message.frameID](message.height);
+            return;
+
+        case "perseus:request-data":
         // In Perseus, we expect the callback to exist, as it is added by
         // `IframeContentRenderer.componentDidMount()`. Unfortunately, this
         // event listener also gets added in Manticore (since we include Perseus
         // from there), and Crowdin fires its own "message" events. So we'll
         // just have to ignore the event when we can't find the callback.
-        const callback = requestIframeData[event.data];
-        if (callback) {
-            callback();
-        }
-    } else if (event.data.id) {
-        if (event.data.height !== undefined) {
-            updateIframeHeight[event.data.id](event.data.height);
-        } else if (event.data.lintWarnings) {
-            // This is a lint report being sent back from the linter.
-            // TODO:
-            // We'll want to display the number of warnings in the HUD.
-            // But for now, we just log it to the console
-            Log.log("LINTER REPORT", {
-                lintWarnings: JSON.stringify(event.data.lintWarnings),
-            });
-        }
+            requestIframeData[message.frameID]?.();
+            return;
+
+        default:
+            throw new UnreachableCaseError(messageType);
     }
+}
+
+// This is called once after Perseus is loaded and the iframe
+// is ready to render content, then twice a second afterwards
+// to capture the result of animations.
+window.addEventListener("message", (event) => {
+    processIframeParentMessage(event.data);
 });
 
 type Props = {
@@ -216,9 +218,16 @@ class IframeContentRenderer extends React.Component<Props> {
             // We can't use JSON.stringify/parse for this because the apiOptions
             // includes the functions GroupMetadataEditor, groupAnnotator,
             // onFocusChange, and onInputError.
-            // @ts-expect-error - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
-            window.iframeDataStore[this.iframeID] = data;
-            frame.contentWindow.postMessage(this.iframeID, "*");
+            sendMessageToIframeContent(frame, {
+                type: "perseus:data-changed",
+                frameID: this.iframeID,
+                // We clone the data using the JSON module to eliminate
+                // functions that may exist (mostly in APIOptions).
+                // `JSON.stringify()` throws away any values that are
+                // functions. These values cannot be sent through
+                // `postMessage()` and shouldn't be anyways.
+                data: JSON.parse(JSON.stringify(data)),
+            });
         }
     }
 

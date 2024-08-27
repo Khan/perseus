@@ -14,6 +14,11 @@ export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as MultiRendererEditor} from "./multirenderer-editor";
 export {default as StatefulEditorPage} from "./stateful-editor-page";
 
+export {
+    registerIframeParentMessageHandler,
+    sendMessageToIframeParent,
+} from "./iframe-utils";
+
 import "./styles/perseus-editor.less";
 
 // eslint-disable-next-line import/order
