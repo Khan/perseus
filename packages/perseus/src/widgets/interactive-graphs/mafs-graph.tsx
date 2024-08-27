@@ -73,12 +73,13 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const graphRef = React.useRef<HTMLElement>(null);
 
     // Calculate the viewBox for the nested SVG that contains
-    // the interactive elements and locked figures
-    const viewBoxSettings = calculateNestedSVGViewBox(
+    // the interactive elements and locked figures to prevent overflow
+    const {viewboxX, viewboxY} = calculateNestedSVGCoords(
         state.range,
         width,
         height,
     );
+    const viewBox = `${viewboxX} ${viewboxY} ${width} ${height}`;
 
     return (
         <GraphConfigContext.Provider
@@ -196,10 +197,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             <svg
                                 width={width}
                                 height={height}
-                                viewBox={`${viewBoxSettings.x} ${viewBoxSettings.y} ${width} ${height}`}
+                                viewBox={viewBox}
                                 preserveAspectRatio="xMidYMin"
-                                x={viewBoxSettings.x}
-                                y={viewBoxSettings.y}
+                                x={viewboxX}
+                                y={viewboxY}
                             >
                                 {/* Locked figures layer */}
                                 {props.lockedFigures && (
@@ -266,13 +267,13 @@ const getRangeDiff = (range: vec.Vector2) => {
     return Math.abs(max - min);
 };
 
-// We need to adjust the nested SVG viewbox min values based on the range of the graph in order
+// We need to adjust the nested SVG viewbox x and Y values based on the range of the graph in order
 // to ensure that the graph is sized and positioned correctly within the SVG and the clipping mask
-const calculateNestedSVGViewBox = (
+const calculateNestedSVGCoords = (
     range: vec.Vector2[],
     width: number,
     height: number,
-) => {
+): {viewboxX: number; viewboxY: number} => {
     // X RANGE
     let viewboxX = 0; // When xMin is 0, we want to use 0 as the viewboxX value
     const totalXRange = getRangeDiff(range[X]);
@@ -309,8 +310,8 @@ const calculateNestedSVGViewBox = (
     }
 
     return {
-        x: viewboxX,
-        y: viewboxY,
+        viewboxX,
+        viewboxY,
     };
 };
 

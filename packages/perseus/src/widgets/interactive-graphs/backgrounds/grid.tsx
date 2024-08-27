@@ -60,7 +60,8 @@ const axisOptions = (
     };
 };
 
-const getVerticalAdjustment = (range: GraphRange) => {
+// Get the vertical adjustment for the grid clippig mask based on the range
+const getVerticalClipAdjustment = (range: GraphRange) => {
     const yMax = range[1][1];
     // If the yMax is less than or equal to 0 and is an odd number
     // then we need to adjust the grid by 6.6 units to accomodate the
@@ -70,7 +71,7 @@ const getVerticalAdjustment = (range: GraphRange) => {
 };
 
 // Generate the clip path for the grid so that the
-// grid lines don't render outside the graph bounds
+// grid lines are confined within the graph bounds
 const getClipPath = (
     viewTransform: vec.Matrix,
     xPaneRange: Interval,
@@ -83,21 +84,21 @@ const getClipPath = (
     const xMin = xPaneRange[0];
     const yMax = yPaneRange[1];
 
-    // Adjust the necessary padding for the
-    // clipping path by the range of the graph
+    // Adjust the necessary padding for the clipping path
+    // by the range of the graph and  the graph bounds
     const xPad = range[0][0] - Math.min(0, xMin);
     const yPad = range[1][1] - Math.max(0, yMax);
 
     // Transform the padding to pixel coordinates
     const pad = vec.transform([xPad, yPad], viewTransform);
 
-    // Adjust the grid to be centered in the graph
-    // depending on the provided range.
+    // Calculate any necessary adjustments to the horizontal and vertical
+    // padding to account for the grid border lines and axis arrows
     const horizontalAdjustment = range[0][0] > 0 ? 0 : -0.5;
-    const verticalAdjustment = getVerticalAdjustment(range);
+    const verticalAdjustment = getVerticalClipAdjustment(range);
 
-    // Create a path that is the size of the graph with a 1px
-    // buffer to account for the outer grid border lines
+    // Combine the padding and adjustments to get the coordinates for the clip path,
+    // while also adding 1 to the width and height to account for the grid border.
     const rectTop = pad[1] + verticalAdjustment - 1;
     const rectBottom = pad[1] + height + verticalAdjustment;
     const rectLeft = pad[0] + horizontalAdjustment;

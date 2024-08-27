@@ -17,7 +17,7 @@ const tickStyle: React.CSSProperties = {
 const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
     // If the graph requires out-of-bounds labels, we want to make sure to set the
     // coordinates to the edge of the visible range of the graph. Otherwise,
-    // Otherwise, the ticks and labels would render outside of the clipping-mask.
+    // the ticks and labels would render outside of the clipping-mask.
     let xPointOnAxis = 0;
     if (range[X][MIN] > 0) {
         // If the graph is on the positive side of the x-axis, lock the ticks to the left side of the graph
@@ -81,7 +81,7 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
 const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
     // If the graph requires out-of-bounds labels, we want to make sure to set the
     // coordinates to the edge of the visible range of the graph. Otherwise,
-    // Otherwise, the ticks and labels would render outside of the clipping-mask.
+    // the ticks and labels would render outside of the clipping-mask.
     let yPointOnAxis = 0;
     if (range[Y][MIN] > 0) {
         // If the graph is on the positive side of the y-axis, lock the ticks to the top of the graph
@@ -104,14 +104,13 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
     const x2 = xPosition;
     const y2 = yPosition - tickSize / 2;
 
-    // Adjust the y position of the x-axis labels based on
+    // Adjust the Y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    // When the range
     const yAdjustment = range[Y][MAX] < 0 ? -15 : 22;
 
-    // Adjust the x position of the x-axis labels based on
-    // whether the label is positive or negative, as the labels
-    // appear to be off-center to the ticks when negative
+    // Adjust the X position of the x-axis labels based on
+    // whether the label is positive or negative, in order to
+    // account for the width of the negative sign
     const xAdjustment = x < 0 ? -2 : 0;
 
     // Apply the adjustments to the x and y positions for the text
