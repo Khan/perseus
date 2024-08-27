@@ -114,7 +114,6 @@ type Props = Readonly<{
     apiOptions: any;
     className?: string;
     content: string;
-    replace?: any;
     placeholder: string;
     widgets: {
         [name: string]: PerseusWidget;
@@ -833,7 +832,6 @@ class Editor extends React.Component<Props, State> {
     serialize: (options?: any) => {
         content: string;
         images: any;
-        replace: any | undefined;
         widgets: Record<any, any>;
     } = (options: any) => {
         // need to serialize the widgets since the state might not be
@@ -865,7 +863,6 @@ class Editor extends React.Component<Props, State> {
         }
 
         return {
-            replace: this.props.replace,
             content: this.props.content,
             images: this.props.images,
             widgets: widgets,
