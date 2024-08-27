@@ -85,11 +85,6 @@ export const MafsWithYAxisAtLeft = (args: StoryArgs): React.ReactElement => (
         <MafsQuestionRenderer
             question={interactiveGraphQuestionBuilder()
                 .withXRange(0, 20)
-                .build()}
-        />
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withXRange(0, 20)
                 .addLockedLine([1, 1], [5, 2])
                 .build()}
         />
@@ -98,12 +93,6 @@ export const MafsWithYAxisAtLeft = (args: StoryArgs): React.ReactElement => (
 
 export const MafsWithYAxisNearLeft = (args: StoryArgs): React.ReactElement => (
     <>
-        {" "}
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withXRange(-1, 20)
-                .build()}
-        />
         <MafsQuestionRenderer
             question={interactiveGraphQuestionBuilder()
                 .withXRange(-1, 20)
@@ -117,12 +106,6 @@ export const MafsWithYAxisJustOverLeft = (
     args: StoryArgs,
 ): React.ReactElement => (
     <>
-        {" "}
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withXRange(-3, 20)
-                .build()}
-        />
         <MafsQuestionRenderer
             question={interactiveGraphQuestionBuilder()
                 .withXRange(-3, 20)
@@ -190,11 +173,6 @@ export const MafsWithXAxisJustOverBottom = (
     args: StoryArgs,
 ): React.ReactElement => (
     <>
-        <MafsQuestionRenderer
-            question={interactiveGraphQuestionBuilder()
-                .withYRange(-3, 20)
-                .build()}
-        />
         <MafsQuestionRenderer
             question={interactiveGraphQuestionBuilder()
                 .withYRange(-3, 20)

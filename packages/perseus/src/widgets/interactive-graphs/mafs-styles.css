@@ -35,7 +35,7 @@
 .MafsView > svg {
     /* Chrome/Safari bugfix for LEMS-1906 */
     display: block;
-    overflow: visible; /* <= our change */
+    overflow: visible; /* LEMS-2035: This ensures that Mafs doesn't clip the axis labels */
 }
 
 .MafsView .movable-line:hover,
@@ -263,6 +263,5 @@
 .MafsView .angle-arc,
 .MafsView .arc-right-angle {
     stroke: var(--mafs-blue);
-
     stroke-width: 0.1px;
 }
