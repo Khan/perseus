@@ -45,6 +45,15 @@ type HintEditorProps = {
     __type?: "hint";
 };
 
+type DefaultHintEditorProps = {
+    className: HintEditorProps["className"];
+    content: HintEditorProps["content"];
+    replace: HintEditorProps["replace"];
+    showMoveButtons: HintEditorProps["showMoveButtons"];
+    showRemoveButton: HintEditorProps["showRemoveButton"];
+    showTitle: HintEditorProps["showTitle"];
+};
+
 /* Renders a hint editor box
  *
  * This includes:
@@ -54,14 +63,7 @@ type HintEditorProps = {
  *  ~ the move hint up/down arrows
  */
 export class HintEditor extends React.Component<HintEditorProps> {
-    static defaultProps: {
-        className: string;
-        content: string;
-        replace: boolean;
-        showMoveButtons: boolean;
-        showRemoveButton: boolean;
-        showTitle: boolean;
-    } = {
+    static defaultProps: DefaultHintEditorProps = {
         className: "",
         content: "",
         replace: false,
