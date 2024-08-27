@@ -41,7 +41,7 @@ import {
     ADD_POINT,
     type AddPoint,
     REMOVE_POINT,
-    RemovePoint,
+    type RemovePoint,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";

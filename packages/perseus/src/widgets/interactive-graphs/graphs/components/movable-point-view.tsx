@@ -3,8 +3,6 @@ import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {forwardRef} from "react";
 
-import {InlineIcon} from "../../../../components";
-import {iconTrash} from "../../../../icon-paths";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
@@ -68,7 +66,7 @@ export const MovablePointView = forwardRef(
         const [[_, horizontalStartY]] = useTransformVectorsToPixels([0, yMin]);
         const [[__, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
 
-        const showHairlines = dragging && markings !== "none";
+        const showHairlines = true; //dragging && markings !== "none";
         const hairlines = (
             <g>
                 <line

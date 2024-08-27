@@ -6,7 +6,11 @@ import {changeSnapStep, changeRange, actions} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {GraphRange} from "../../../perseus-types";
-import type {CircleGraphState, InteractiveGraphState} from "../types";
+import type {
+    CircleGraphState,
+    PointGraphState,
+    InteractiveGraphState,
+} from "../types";
 
 const baseSegmentGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
@@ -22,6 +26,18 @@ const baseSegmentGraphState: InteractiveGraphState = {
 const basePointGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "point",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [],
+};
+
+const baseUnlimitedPointGraphState: PointGraphState = {
+    hasBeenInteractedWith: false,
+    type: "point",
+    numPoints: "unlimited",
     range: [
         [-10, 10],
         [-10, 10],
@@ -951,5 +967,51 @@ describe("doMoveRadiusPoint", () => {
                 actions.circle.moveRadiusPoint([5, 0]),
             ),
         ).toThrow();
+    });
+});
+
+describe("unlimited points", () => {
+    it("adds points", () => {
+        const state: PointGraphState = {
+            ...baseUnlimitedPointGraphState,
+        };
+
+        const stateAfterAddingPoint = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([8, 10]),
+        ) as PointGraphState;
+
+        expect(stateAfterAddingPoint.coords).toMatchObject([[8, 10]]);
+    });
+
+    it("removes points", () => {
+        let state: PointGraphState = {
+            ...baseUnlimitedPointGraphState,
+        };
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([1, 1]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([2, 2]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([3, 3]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.removePoint(1),
+        ) as PointGraphState;
+
+        expect(state.coords).toMatchObject([
+            [1, 1],
+            [3, 3],
+        ]);
     });
 });
