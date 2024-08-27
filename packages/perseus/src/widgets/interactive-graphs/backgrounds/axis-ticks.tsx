@@ -48,7 +48,7 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
     const yPositionText = yPosition + tickLabelSize * 0.25; // Center the text vertically on the tick
 
     // If the graph displays both the y and x axis lines within the graph, we want
-    // to hide the tick at -1 on the y-axis to prevent overlap with the x-axis line
+    // to hide the label at -1 on the y-axis to prevent overlap with the x-axis label
     const hideNegative1 = range[X][MIN] < 0 && range[X][MAX] > -1;
     if (hideNegative1 && y === -1) {
         return null;

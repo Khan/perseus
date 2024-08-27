@@ -63,10 +63,10 @@ const axisOptions = (
 // Get the vertical adjustment for the grid clippig mask based on the range
 const getVerticalClipAdjustment = (range: GraphRange) => {
     const yMax = range[1][1];
-    // If the yMax is less than or equal to 0 and is an odd number
+    // If the yMax is odd, less than or equal to 0, and not -1 (special case),
     // then we need to adjust the grid by 6.6 units to accomodate the
     // size of the axis arrows. Otherwise, we need to adjust by 0.5 units
-    // for just the grid border.
+    // to accommodate for just the grid border.
     return yMax <= 0 && yMax % 2 !== 0 && yMax !== -1 ? 6.6 : 0.5;
 };
 
@@ -85,7 +85,7 @@ const getClipPath = (
     const yMax = yPaneRange[1];
 
     // Adjust the necessary padding for the clipping path
-    // by the range of the graph and  the graph bounds
+    // by the range of the graph and the graph bounds
     const xPad = range[0][0] - Math.min(0, xMin);
     const yPad = range[1][1] - Math.max(0, yMax);
 
