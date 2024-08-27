@@ -30,11 +30,11 @@ type HintEditorProps = {
     apiOptions?: APIOptions;
     className: string;
     imageUploader?: ImageUploader;
-    showMoveButtons?: boolean;
-    showRemoveButton?: boolean;
-    showTitle?: boolean;
-    content?: string | null | undefined;
-    replace?: boolean | null | undefined;
+    showMoveButtons: boolean;
+    showRemoveButton: boolean;
+    showTitle: boolean;
+    content: string | null;
+    replace: boolean | null;
     widgets?: WidgetDict | null | undefined;
     images?: ImageDict | null | undefined;
     isLast: boolean;
