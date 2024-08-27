@@ -51,7 +51,7 @@ describe("IframeContentRenderer", () => {
         );
 
         // Assert
-        expect(container).toMatchInlineSnapshot();
+        expect(container).toMatchSnapshot();
     });
 
     it("should assign each iframe in page a unique frame ID", () => {
