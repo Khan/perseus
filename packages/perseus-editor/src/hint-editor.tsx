@@ -45,6 +45,15 @@ type HintEditorProps = {
     __type?: "hint";
 };
 
+type DefaultHintEditorProps = {
+    className: HintEditorProps["className"];
+    content: HintEditorProps["content"];
+    replace: HintEditorProps["replace"];
+    showMoveButtons: HintEditorProps["showMoveButtons"];
+    showRemoveButton: HintEditorProps["showRemoveButton"];
+    showTitle: HintEditorProps["showTitle"];
+};
+
 /* Renders a hint editor box
  *
  * This includes:
@@ -54,14 +63,7 @@ type HintEditorProps = {
  *  ~ the move hint up/down arrows
  */
 export class HintEditor extends React.Component<HintEditorProps> {
-    static defaultProps: {
-        className: string;
-        content: string;
-        replace: boolean;
-        showMoveButtons: boolean;
-        showRemoveButton: boolean;
-        showTitle: boolean;
-    } = {
+    static defaultProps: DefaultHintEditorProps = {
         className: "",
         content: "",
         replace: false,
@@ -87,7 +89,10 @@ export class HintEditor extends React.Component<HintEditorProps> {
     };
 
     serialize: (options?: any) => any = (options: any) => {
-        return this.editor.current?.serialize(options);
+        return {
+            ...this.editor.current!.serialize(options),
+            replace: this.props.replace ?? undefined,
+        };
     };
 
     render(): React.ReactNode {
@@ -105,7 +110,6 @@ export class HintEditor extends React.Component<HintEditorProps> {
                     widgets={this.props.widgets || undefined}
                     content={this.props.content || undefined}
                     images={this.props.images}
-                    replace={this.props.replace}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange}
