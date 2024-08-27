@@ -59,8 +59,8 @@ export class HintEditor extends React.Component<HintEditorProps> {
         content: string;
         replace: boolean;
         showMoveButtons: boolean;
-        showTitle: boolean;
         showRemoveButton: boolean;
+        showTitle: boolean;
     } = {
         className: "",
         content: "",
