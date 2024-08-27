@@ -301,6 +301,7 @@ type CombinedHintsEditorProps = {
  */
 class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     static HintEditor: typeof HintEditor = HintEditor;
+    hintEditors: Record<number, CombinedHintEditor | null> = {};
 
     static defaultProps: {
         highlightLint: boolean;
@@ -353,9 +354,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         const hint = hints.splice(i, 1)[0];
         hints.splice(i + dir, 0, hint);
         this.props.onChange({hints: hints}, () => {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs["hintEditor" + (i + dir)].focus();
+            this.hintEditors[i + dir]?.focus();
         });
     };
 
@@ -365,42 +364,29 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         ]);
         this.props.onChange({hints: hints}, () => {
             const i = hints.length - 1;
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs["hintEditor" + i].focus();
+            this.hintEditors[i]?.focus();
         });
     };
 
     getSaveWarnings: () => any = () => {
-        return _.chain(this.props.hints)
+        return this.props.hints
             .map((hint, i) => {
-                return _.map(
-                    // eslint-disable-next-line react/no-string-refs
-                    // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-                    this.refs["hintEditor" + i].getSaveWarnings(),
-                    (issue) => "Hint " + (i + 1) + ": " + issue,
-                );
+                return this.hintEditors[i]
+                    ?.getSaveWarnings()
+                    .map((issue) => "Hint " + (i + 1) + ": " + issue);
             })
-            .flatten(true)
-            .value();
+            .flat();
     };
 
-    serialize: (options?: any) => ReadonlyArray<PerseusRenderer> = (
-        options: any,
-    ) => {
+    serialize(options?: any): ReadonlyArray<PerseusRenderer> {
         return this.props.hints.map((hint, i) => {
             return this.serializeHint(i, options);
         });
-    };
+    }
 
-    serializeHint: (index: number, options?: any) => PerseusRenderer = (
-        index,
-        options,
-    ) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-        return this.refs["hintEditor" + index].serialize(options);
-    };
+    serializeHint(index: number, options?: any): PerseusRenderer {
+        return this.hintEditors[index]!.serialize(options)!;
+    }
 
     render(): React.ReactNode {
         const {itemId, hints} = this.props;
@@ -409,7 +395,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             (hint, i) => {
                 return (
                     <CombinedHintEditor
-                        ref={"hintEditor" + i}
+                        ref={(editor) => {
+                            this.hintEditors[i] = editor;
+                        }}
                         key={"hintEditor" + i}
                         isFirst={i === 0}
                         isLast={i + 1 === hints.length}
