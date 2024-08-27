@@ -88,12 +88,12 @@ export class HintEditor extends React.Component<HintEditorProps> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize: (options?: any) => any = (options: any) => {
+    serialize(options?: any): Hint {
         return {
             ...this.editor.current!.serialize(options),
             replace: this.props.replace ?? undefined,
         };
-    };
+    }
 
     render(): React.ReactNode {
         return (
