@@ -30,11 +30,11 @@ type HintEditorProps = {
     apiOptions?: APIOptions;
     className: string;
     imageUploader?: ImageUploader;
-    showMoveButtons?: boolean;
-    showRemoveButton?: boolean;
-    showTitle?: boolean;
-    content?: string | null | undefined;
-    replace?: boolean | null | undefined;
+    showMoveButtons: boolean;
+    showRemoveButton: boolean;
+    showTitle: boolean;
+    content: string | null;
+    replace: boolean | null;
     widgets?: WidgetDict | null | undefined;
     images?: ImageDict | null | undefined;
     isLast: boolean;
@@ -43,15 +43,6 @@ type HintEditorProps = {
     onRemove: () => unknown;
     onChange: ChangeHandler;
     __type?: "hint";
-};
-
-type DefaultHintEditorProps = {
-    className: HintEditorProps["className"];
-    content: HintEditorProps["content"];
-    replace: HintEditorProps["replace"];
-    showMoveButtons: HintEditorProps["showMoveButtons"];
-    showRemoveButton: HintEditorProps["showRemoveButton"];
-    showTitle: HintEditorProps["showTitle"];
 };
 
 /* Renders a hint editor box
@@ -63,7 +54,7 @@ type DefaultHintEditorProps = {
  *  ~ the move hint up/down arrows
  */
 export class HintEditor extends React.Component<HintEditorProps> {
-    static defaultProps: DefaultHintEditorProps = {
+    static defaultProps = {
         className: "",
         content: "",
         replace: false,
