@@ -42,9 +42,10 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
 
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const xAdjustment = range[X][MAX] < 0 ? 20 : -15;
+    const xAdjustment =
+        range[X][MAX] <= 0 ? tickLabelSize * 1.5 : -tickLabelSize;
     const xPositionText = xPosition + xAdjustment;
-    const yPositionText = yPosition + 5; // Adjusting by 5 pixels allows the text to center on the tick
+    const yPositionText = yPosition + tickLabelSize * 0.25; // Center the text vertically on the tick
 
     // If the graph displays both the y and x axis lines within the graph, we want
     // to hide the tick at -1 on the y-axis to prevent overlap with the x-axis line
@@ -106,7 +107,8 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
 
     // Adjust the Y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
-    const yAdjustment = range[Y][MAX] < 0 ? -15 : 22;
+    const yAdjustment =
+        range[Y][MAX] < 0 ? -tickLabelSize : tickLabelSize * 1.5;
 
     // Adjust the X position of the x-axis labels based on
     // whether the label is positive or negative, in order to
