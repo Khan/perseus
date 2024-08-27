@@ -398,7 +398,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         const {itemId, hints} = this.props;
         const hintElems = _.map(
             hints,
-            function (hint, i) {
+            (hint, i) => {
                 return (
                     <CombinedHintEditor
                         ref={"hintEditor" + i}
@@ -408,24 +408,16 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         itemId={itemId}
                         hint={hint}
                         pos={i}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         imageUploader={this.props.imageUploader}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onChange={this.handleHintChange.bind(this, i)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onRemove={this.handleHintRemove.bind(this, i)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMove={this.handleHintMove.bind(this, i)}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         deviceType={this.props.deviceType}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         apiOptions={this.props.apiOptions}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         highlightLint={this.props.highlightLint}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         previewURL={this.props.previewURL}
                         // TODO(CP-4838): what should be passed here?
                         contentPaths={[]}
