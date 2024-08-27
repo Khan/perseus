@@ -89,7 +89,10 @@ export class HintEditor extends React.Component<HintEditorProps> {
     };
 
     serialize: (options?: any) => any = (options: any) => {
-        return this.editor.current?.serialize(options);
+        return {
+            ...this.editor.current!.serialize(options),
+            replace: this.props.replace ?? undefined,
+        };
     };
 
     render(): React.ReactNode {
@@ -107,7 +110,6 @@ export class HintEditor extends React.Component<HintEditorProps> {
                     widgets={this.props.widgets || undefined}
                     content={this.props.content || undefined}
                     images={this.props.images}
-                    replace={this.props.replace}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange}
