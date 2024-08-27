@@ -69,15 +69,17 @@ function processIframeParentMessage(message: MessageToIFrameParent) {
     const messageType = message.type;
     switch (messageType) {
         case "perseus:update-iframe-height":
-            updateIframeHeight[message.frameID](message.height);
+            message; // ?
+            updateIframeHeight; // ?
+            updateIframeHeight[message.frameID]?.(message.height);
             return;
 
         case "perseus:request-data":
-        // In Perseus, we expect the callback to exist, as it is added by
-        // `IframeContentRenderer.componentDidMount()`. Unfortunately, this
-        // event listener also gets added in Manticore (since we include Perseus
-        // from there), and Crowdin fires its own "message" events. So we'll
-        // just have to ignore the event when we can't find the callback.
+            // In Perseus, we expect the callback to exist, as it is added by
+            // `IframeContentRenderer.componentDidMount()`. Unfortunately, this
+            // event listener also gets added in Manticore (since we include Perseus
+            // from there), and Crowdin fires its own "message" events. So we'll
+            // just have to ignore the event when we can't find the callback.
             requestIframeData[message.frameID]?.();
             return;
 

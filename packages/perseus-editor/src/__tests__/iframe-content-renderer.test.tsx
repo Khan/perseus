@@ -1,7 +1,9 @@
-import {render} from "@testing-library/react";
+/* eslint-disable testing-library/no-node-access */
+import {render, waitFor} from "@testing-library/react";
 import * as React from "react";
 
 import IframeContentRenderer from "../iframe-content-renderer";
+import {sendMessageToIframeParent} from "../iframe-utils";
 
 expect.extend({
     toHaveSearchParam(
@@ -38,7 +40,23 @@ declare global {
         }
     }
 }
+
+function getIframeID(iframe: HTMLIFrameElement | null): string {
+    const url = iframe?.src;
+    if (!url) {
+        return "";
+    }
+
+    const frameID = new URL(url).searchParams.get("frame-id");
+    expect(frameID).not.toBeNull();
+    return frameID!;
+}
+
 describe("IframeContentRenderer", () => {
+    beforeEach(() => {
+        jest.useRealTimers();
+    });
+
     it("should render", () => {
         // Arrange
 
@@ -83,12 +101,9 @@ describe("IframeContentRenderer", () => {
         // same value twice, our set will be smaller than the count of iframes
         // we have).
         const idSet = new Set<string | null>();
-        [...iframes]
-            .map((frame) => new URL(frame.src).searchParams.get("frame-id"))
-            .forEach((id) => {
-                expect(id).not.toBeNull();
-                idSet.add(id);
-            });
+        [...iframes].map(getIframeID).forEach((id) => {
+            idSet.add(id);
+        });
 
         expect(idSet.size).toBe(3);
     });
@@ -144,5 +159,101 @@ describe("IframeContentRenderer", () => {
         // eslint-disable-next-line testing-library/no-node-access
         const frame = document.querySelector("iframe");
         expect(new URL(frame!.src).searchParams.get("lint-gutter")).toBeNull();
+    });
+
+    it("should send requested data", async () => {
+        // Arrange
+        const iframeRef = React.createRef<IframeContentRenderer>();
+        const {container} = render(
+            <IframeContentRenderer
+                ref={iframeRef}
+                seamless={false}
+                url="http://localhost/perseus/frame"
+            />,
+        );
+
+        const messageHandler = jest.fn();
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const iframe = container.querySelector("iframe");
+        expect(iframe).not.toBeNull();
+        expect(iframe?.contentWindow).not.toBeNull();
+        iframe!.contentWindow!.addEventListener("message", messageHandler);
+
+        // Act
+        iframeRef.current?.sendNewData({
+            type: "hint",
+            data: {
+                hint: {content: "Hello world", images: {}, widgets: {}},
+                bold: false,
+                pos: 0,
+                linterContext: {
+                    contentType: "hint",
+                    highlightLint: true,
+                    paths: [],
+                    stack: [],
+                },
+            },
+        });
+
+        // Assert
+        await waitFor(() => expect(messageHandler).toHaveBeenCalled());
+    });
+
+    it("should handle update-iframe-height message", async () => {
+        // Arrange
+        const iframeRef = React.createRef<IframeContentRenderer>();
+        const {container} = render(
+            <IframeContentRenderer
+                ref={iframeRef}
+                seamless={true}
+                url="http://localhost/perseus/frame"
+            />,
+        );
+
+        const iframeID = getIframeID(document.querySelector("iframe"));
+
+        // Act
+        sendMessageToIframeParent({
+            type: "perseus:update-iframe-height",
+            frameID: iframeID,
+            height: 929,
+        });
+
+        // Assert
+        await waitFor(() =>
+            expect(container.firstElementChild).toHaveStyle({height: "929px"}),
+        );
+    });
+
+    it("should handle request-data message", async () => {
+        // Arrange
+        const iframeRef = React.createRef<IframeContentRenderer>();
+        render(
+            <IframeContentRenderer
+                ref={iframeRef}
+                seamless={false}
+                url="http://localhost/perseus/frame"
+            />,
+        );
+
+        const iframeID = getIframeID(document.querySelector("iframe"));
+        let message: any = null;
+        const messageHandler = jest.fn().mockImplementation((e) => {
+            message = e.data;
+        });
+        window.parent!.addEventListener("message", messageHandler);
+
+        // Act
+        sendMessageToIframeParent({
+            type: "perseus:request-data",
+            frameID: iframeID,
+        });
+
+        // Assert
+        await waitFor(() => expect(messageHandler).toHaveBeenCalled());
+        expect(message).toEqual({
+            type: "perseus:request-data",
+            frameID: iframeID,
+        });
     });
 });
