@@ -180,6 +180,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 range={state.range}
                                 containerSizeClass={props.containerSizeClass}
                                 markings={props.markings}
+                                width={width}
+                                height={height}
                             />
                             {/* Axis Ticks, Labels, and Arrows */}
                             {

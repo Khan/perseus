@@ -49,12 +49,12 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
 
     // If the graph displays both the y and x axis lines within the graph, we want
     // to hide the label at -1 on the y-axis to prevent overlap with the x-axis label
-    const hideNegative1 = range[X][MIN] < 0 && range[X][MAX] > -1;
+    const showLabel = shouldShowLabel(y, range);
 
     return (
         <g className="tick">
             <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
-            {hideNegative1 && y === -1 && (
+            {showLabel && (
                 <text
                     height={20}
                     width={50}
@@ -139,6 +139,20 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
             }
         </g>
     );
+};
+
+// Determines whether to show the label for the given tick
+// Currently, the only condition is to hide the label at -1
+// on the y-axis when the x-axis is within the graph
+const shouldShowLabel = (number: number, range: [Interval, Interval]) => {
+    let showLabel = true;
+
+    // If the x-axis is within the graph and the y-axis is at -1, hide the label
+    if (range[X][MIN] < 0 && range[X][MAX] > -1 && number === -1) {
+        showLabel = false;
+    }
+
+    return showLabel;
 };
 
 export function generateTickLocations(

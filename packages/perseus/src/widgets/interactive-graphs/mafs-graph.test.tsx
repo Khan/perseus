@@ -461,7 +461,6 @@ describe("MafsGraph", () => {
             ]);
         });
     });
-    calculateNestedSVGCoords;
 });
 
 describe("calculateNestedSVGCoords", () => {
