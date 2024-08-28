@@ -22,6 +22,7 @@ import LockedFiguresSection from "../components/graph-locked-figures/locked-figu
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphTypeSelector from "../components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "../components/interactive-graph-correct-answer";
+import InteractiveGraphDescription from "../components/interactive-graph-description";
 import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import SegmentCountSelector from "../components/segment-count-selector";
 import StartCoordsSettings from "../components/start-coords-settings";
@@ -135,6 +136,10 @@ export type Props = {
      * etc.) that are locked in place and not interactive.
      */
     lockedFigures?: Array<LockedFigure>;
+    // Aria-label for the full graph area.
+    fullGraphAriaLabel?: string;
+    // Aria-describedby for the graph area.
+    fullGraphAriaDescribedby?: string;
 
     /**
      * The graph to display in the graph area.
@@ -219,6 +224,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 showProtractor: this.props.showProtractor,
                 showTooltips: this.props.showTooltips,
                 lockedFigures: this.props.lockedFigures,
+                fullGraphAriaLabel: this.props.fullGraphAriaLabel,
+                fullGraphAriaDescribedby: this.props.fullGraphAriaDescribedby,
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
                     let correct = this.props.correct;
@@ -279,6 +286,31 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         }}
                     />
                 </LabeledRow>
+                {this.props.graph &&
+                    this.props.apiOptions?.flags?.mafs?.[
+                        this.props.graph.type
+                    ] && (
+                        <InteractiveGraphDescription
+                            ariaLabelValue={this.props.fullGraphAriaLabel ?? ""}
+                            ariaDescribedbyValue={
+                                this.props.fullGraphAriaDescribedby ?? ""
+                            }
+                            onChange={(
+                                type: "label" | "description",
+                                newValue,
+                            ) => {
+                                if (type === "label") {
+                                    this.props.onChange({
+                                        fullGraphAriaLabel: newValue,
+                                    });
+                                } else {
+                                    this.props.onChange({
+                                        fullGraphAriaDescribedby: newValue,
+                                    });
+                                }
+                            }}
+                        />
+                    )}
                 <InteractiveGraphCorrectAnswer equationString={equationString}>
                     {graph}
                 </InteractiveGraphCorrectAnswer>
@@ -656,6 +688,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "gridStep",
             "snapStep",
             "lockedFigures",
+            "fullGraphAriaLabel",
+            "fullGraphAriaDescribedby",
         );
 
         // eslint-disable-next-line react/no-string-refs

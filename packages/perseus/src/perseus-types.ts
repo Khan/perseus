@@ -693,6 +693,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     // Shapes (points, chords, etc) displayed on the graph that cannot
     // be moved by the user.
     lockedFigures?: ReadonlyArray<LockedFigure>;
+    // Aria label that applies to the entire graph.
+    fullGraphAriaLabel?: string;
+    // Area description that applies to the entire graph.
+    fullGraphAriaDescribedby?: string;
 };
 
 const lockedFigureColorNames = [

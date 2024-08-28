@@ -47,6 +47,8 @@ export type MafsGraphProps = {
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
+    fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
+    fullGraphAriaDescribedby?: InteractiveGraphProps["fullGraphAriaDescribedby"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
@@ -54,9 +56,20 @@ export type MafsGraphProps = {
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch, labels, readOnly} = props;
+    const {
+        state,
+        dispatch,
+        labels,
+        readOnly,
+        fullGraphAriaLabel,
+        fullGraphAriaDescribedby,
+    } = props;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
+
+    const uniqueId = React.useId();
+    const descriptionId = `interactive-graph-description-${uniqueId}`;
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -73,7 +86,24 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View>
+            <View
+                id={descriptionId}
+                tabIndex={-1}
+                style={{
+                    display: "none",
+                }}
+            >
+                {fullGraphAriaDescribedby}
+            </View>
+            <View
+                aria-label={fullGraphAriaLabel}
+                aria-describedby={descriptionId}
+                tabIndex={
+                    fullGraphAriaLabel || fullGraphAriaDescribedby
+                        ? 0
+                        : undefined
+                }
+            >
                 <View
                     className="mafs-graph"
                     style={{

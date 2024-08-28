@@ -10,6 +10,7 @@ import {EditorPage} from "..";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
+    interactiveGraphWithAriaLabel,
     linearSystemWithStartingCoordsQuestion,
     linearWithStartingCoordsQuestion,
     pointQuestionWithStartingCoords,
@@ -40,6 +41,10 @@ export default {
 };
 
 const onChangeAction = action("onChange");
+
+export const InteractiveGraphWithAriaLabel = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={interactiveGraphWithAriaLabel} />
+);
 
 export const InteractiveGraphSegment = (): React.ReactElement => {
     return (
