@@ -123,8 +123,7 @@ class ItemEditor extends React.Component<Props> {
                                 <IframeContentRenderer
                                     ref={this.frame}
                                     key={this.props.deviceType}
-                                    datasetKey="mobile"
-                                    datasetValue={isMobile}
+                                    emulateMobile={isMobile}
                                     seamless={true}
                                     url={this.props.previewURL}
                                 />

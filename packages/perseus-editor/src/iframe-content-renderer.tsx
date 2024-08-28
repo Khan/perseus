@@ -12,7 +12,11 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
-import {isPerseusMessage, sendMessageToIframeContent} from "./iframe-utils";
+import {
+    isPerseusMessage,
+    sendMessageToIframeContent,
+    setIframeParameter,
+} from "./iframe-utils";
 
 import type {MessageToIFrameParent} from "./iframe-utils";
 import type {
@@ -179,14 +183,21 @@ class IframeContentRenderer extends React.Component<Props> {
         const frame = document.createElement("iframe");
         frame.style.width = "100%";
         frame.style.height = "100%";
-        const frameSrc = new URL(this.props.url);
+        // We provide a known, invalid base URL here (the second parameter) so
+        // that we can remove it later in this function. The URL constructor
+        // does not accept a path-only but we use it to properly construct the
+        // URL we need. At the end we strip the known base URI and know that
+        // the only way it would exist in the final URL is because a path was
+        // passed in.
+        const frameSrc = new URL(this.props.url, "https://www.example.com");
 
-        frameSrc.searchParams.append(
+        setIframeParameter(
+            frameSrc,
             "emulate-mobile",
             this.props.emulateMobile.toString(),
         );
 
-        frameSrc.searchParams.append("frame-id", String(this.iframeID));
+        setIframeParameter(frameSrc, "frame-id", String(this.iframeID));
 
         if (this.props.seamless) {
             // The seamless prop is the same as the "nochrome" prop that
@@ -195,10 +206,11 @@ class IframeContentRenderer extends React.Component<Props> {
             // for lint indicators in the right margin. We use the dataset
             // as above to pass this information on to the perseus-frame
             // component inside the iframe
-            frameSrc.searchParams.append("lint-gutter", "true");
+            setIframeParameter(frameSrc, "lint-gutter", "true");
         }
-
-        frame.src = frameSrc.toString();
+        // Now strip the known, invalid base URL - meaning we were passed just
+        // a URL path.
+        frame.src = frameSrc.toString().replace("https://www.example.com", "");
         this.container.current?.appendChild(frame);
 
         this._frame = frame;

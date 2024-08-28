@@ -93,3 +93,29 @@ export function registerIframeParentMessageHandler(
 
     return () => window.removeEventListener("message", wrappedHandler);
 }
+
+type IframeParameter = "frame-id" | "lint-gutter" | "emulate-mobile";
+
+/**
+ * Sets the given iframe parameter and value on the provided url.
+ */
+export function setIframeParameter(
+    url: URL,
+    parameter: IframeParameter,
+    value: string,
+) {
+    url.searchParams.set(parameter, value);
+}
+
+/**
+ * Extracts the requested parameter from the preview <iframe> `src` url.
+ * @returns the parameter value, if found, or `null`.
+ */
+export function getIframeParameter(
+    url: string | URL,
+    parameter: IframeParameter,
+): string | null {
+    const urlObject =
+        typeof url === "string" ? new URL(url, "https://www.example.com") : url;
+    return urlObject.searchParams.get(parameter);
+}

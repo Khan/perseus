@@ -64,12 +64,35 @@ describe("IframeContentRenderer", () => {
         const {container} = render(
             <IframeContentRenderer
                 seamless={true}
+                emulateMobile={false}
                 url="http://localhost/perseus/frame"
             />,
         );
 
         // Assert
         expect(container).toMatchSnapshot();
+    });
+
+    it("should set iframe.src when only path provided", () => {
+        // Arrange
+
+        // Act
+        render(
+            <IframeContentRenderer
+                seamless={true}
+                emulateMobile={false}
+                url="/perseus/frame"
+            />,
+        );
+
+        // Assert
+        // eslint-disable-next-line testing-library/no-node-access
+        const iframe = document.querySelector("iframe");
+        expect(iframe).not.toBeNull();
+        expect(iframe!.src).toBe(
+            document.baseURI +
+                "perseus/frame?emulate-mobile=false&frame-id=1&lint-gutter=true",
+        );
     });
 
     it("should assign each iframe in page a unique frame ID", () => {
@@ -80,14 +103,17 @@ describe("IframeContentRenderer", () => {
             <div>
                 <IframeContentRenderer
                     seamless={true}
+                    emulateMobile={false}
                     url="http://localhost/perseus/frame"
                 />
                 <IframeContentRenderer
                     seamless={true}
+                    emulateMobile={false}
                     url="http://localhost/perseus/frame"
                 />
                 <IframeContentRenderer
                     seamless={true}
+                    emulateMobile={false}
                     url="http://localhost/perseus/frame"
                 />
             </div>,
@@ -108,7 +134,7 @@ describe("IframeContentRenderer", () => {
         expect(idSet.size).toBe(3);
     });
 
-    it("should set the dataset key and value if provided", () => {
+    it("should set the emulate-mobile key", () => {
         // Arrange
 
         // Act
@@ -116,15 +142,14 @@ describe("IframeContentRenderer", () => {
             <IframeContentRenderer
                 seamless={true}
                 url="http://localhost/perseus/frame"
-                datasetKey="key-123"
-                datasetValue={"abc-111"}
+                emulateMobile={false}
             />,
         );
 
         // Assert
         // eslint-disable-next-line testing-library/no-node-access
         const frame = document.querySelector("iframe");
-        expect(frame?.src).toHaveSearchParam("key-123", "abc-111");
+        expect(frame?.src).toHaveSearchParam("emulate-mobile", "false");
     });
 
     it("should enable lint-gutter when seamless == true", () => {
@@ -134,6 +159,7 @@ describe("IframeContentRenderer", () => {
         render(
             <IframeContentRenderer
                 seamless={true}
+                emulateMobile={false}
                 url="http://localhost/perseus/frame"
             />,
         );
@@ -151,6 +177,7 @@ describe("IframeContentRenderer", () => {
         render(
             <IframeContentRenderer
                 seamless={false}
+                emulateMobile={false}
                 url="http://localhost/perseus/frame"
             />,
         );
@@ -168,6 +195,7 @@ describe("IframeContentRenderer", () => {
             <IframeContentRenderer
                 ref={iframeRef}
                 seamless={false}
+                emulateMobile={true}
                 url="http://localhost/perseus/frame"
             />,
         );
@@ -206,6 +234,7 @@ describe("IframeContentRenderer", () => {
             <IframeContentRenderer
                 ref={iframeRef}
                 seamless={true}
+                emulateMobile={true}
                 url="http://localhost/perseus/frame"
             />,
         );
@@ -232,6 +261,7 @@ describe("IframeContentRenderer", () => {
             <IframeContentRenderer
                 ref={iframeRef}
                 seamless={false}
+                emulateMobile={true}
                 url="http://localhost/perseus/frame"
             />,
         );

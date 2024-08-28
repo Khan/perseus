@@ -15,6 +15,7 @@ export {default as MultiRendererEditor} from "./multirenderer-editor";
 export {default as StatefulEditorPage} from "./stateful-editor-page";
 
 export {
+    getIframeParameter,
     registerIframeParentMessageHandler,
     sendMessageToIframeParent,
 } from "./iframe-utils";
