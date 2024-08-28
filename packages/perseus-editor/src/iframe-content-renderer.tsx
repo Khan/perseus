@@ -98,9 +98,9 @@ type Props = {
     // The URL that the iframe should load
     url: string;
     // The data-* suffix for passing information to the iframe's JS
-    datasetKey: string;
+    datasetKey?: string;
     // The value of the data-* attribute
-    datasetValue: any;
+    datasetValue?: string | number | boolean;
     // Whether to make the iframe's height match its content's height,
     // used to prevent scrolling inside the iframe.
     seamless: boolean;
@@ -178,15 +178,19 @@ class IframeContentRenderer extends React.Component<Props> {
         const frame = document.createElement("iframe");
         frame.style.width = "100%";
         frame.style.height = "100%";
-        frame.src = this.props.url;
+        const frameSrc = new URL(this.props.url);
 
         if (this.props.datasetKey) {
-            // If the user has specified a data-* attribute to place on the
-            // iframe, we set it here. Right now, this is used to
-            // communicate if the iframe should be enabling touch emulation.
-            frame.dataset[this.props.datasetKey] = this.props.datasetValue;
+            // If the user has provided and extra data attribute to pass to the
+            // iframe page, we add it to the url here. Right now, this is used
+            // to communicate if the iframe should be enabling touch emulation.
+            frameSrc.searchParams.append(
+                this.props.datasetKey,
+                (this.props.datasetValue ?? "").toString(),
+            );
         }
-        frame.dataset.id = String(this.iframeID);
+
+        frameSrc.searchParams.append("frame-id", String(this.iframeID));
 
         if (this.props.seamless) {
             // The seamless prop is the same as the "nochrome" prop that
@@ -195,9 +199,10 @@ class IframeContentRenderer extends React.Component<Props> {
             // for lint indicators in the right margin. We use the dataset
             // as above to pass this information on to the perseus-frame
             // component inside the iframe
-            frame.dataset.lintGutter = "true";
+            frameSrc.searchParams.append("lint-gutter", "true");
         }
 
+        frame.src = frameSrc.toString();
         this.container.current?.appendChild(frame);
 
         this._frame = frame;

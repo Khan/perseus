@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IframeContentRenderer should render 1`] = `
+<div>
+  <div
+    style="width: 100%; height: 100%;"
+  >
+    <iframe
+      src="http://localhost/perseus/frame?frame-id=0&lint-gutter=true"
+      style="width: 100%; height: 100%;"
+    />
+  </div>
+</div>
+`;
