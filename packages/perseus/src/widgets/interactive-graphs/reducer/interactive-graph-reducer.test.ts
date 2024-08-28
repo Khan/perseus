@@ -972,6 +972,73 @@ describe("doMoveRadiusPoint", () => {
     });
 });
 
+describe("delete intent", () => {
+    it("does nothing when no points are selected", () => {
+        let state: PointGraphState = {
+            ...baseUnlimitedPointGraphState,
+        };
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([1, 1]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([2, 2]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.global.deleteIntent(),
+        ) as PointGraphState;
+
+        expect(state.coords).toMatchObject([
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
+    it("removes points when a point is focused and a delete intent is received", () => {
+        let state: PointGraphState = {
+            ...baseUnlimitedPointGraphState,
+        };
+
+        // Add some points
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([1, 1]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([2, 2]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([3, 3]),
+        ) as PointGraphState;
+
+        // Focus a point
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.focusPoint(0),
+        ) as PointGraphState;
+
+        // Fire a delete intent
+        state = interactiveGraphReducer(
+            state,
+            actions.global.deleteIntent(),
+        ) as PointGraphState;
+
+        expect(state.coords).toMatchObject([
+            [2, 2],
+            [3, 3],
+        ]);
+    });
+});
+
 describe("unlimited points", () => {
     it("adds points", () => {
         const state: PointGraphState = {
