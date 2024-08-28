@@ -7,6 +7,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 
+import type {NewDataMessage} from "./iframe-content-renderer";
 import type {
     APIOptions,
     ImageUploader,
@@ -57,9 +58,9 @@ class ItemEditor extends React.Component<Props> {
         this.props.onChange(_(props).extend(newProps), cb, silent);
     };
 
-    triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
+    triggerPreviewUpdate(newData: Extract<NewDataMessage, {type: "question"}>) {
         this.frame.current?.sendNewData(newData);
-    };
+    }
 
     handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
         const question = _.extend({}, this.props.question, newProps);

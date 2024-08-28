@@ -14,6 +14,48 @@
 import {Log} from "@khanacademy/perseus";
 import * as React from "react";
 
+import type {
+    APIOptions,
+    DeviceType,
+    PerseusItem,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
+
+type ArticleData = {
+    apiOptions: APIOptions;
+    json: Partial<PerseusRenderer>;
+    useNewStyles: boolean;
+    linterContext: LinterContextProps;
+    legacyPerseusLint: ReadonlyArray<string>;
+};
+
+export type NewDataMessage =
+    | {
+          type: "question";
+          data: {
+              item: PerseusItem;
+              apiOptions: APIOptions;
+              initialHintsVisible: number;
+              device: DeviceType;
+              linterContext: LinterContextProps;
+              reviewMode: boolean;
+              legacyPerseusLint: ReadonlyArray<string>;
+          };
+      }
+    | {
+          type: "hint";
+          data: {
+              hint: PerseusRenderer;
+              bold: boolean;
+              pos: number;
+              apiOptions?: APIOptions;
+              linterContext: LinterContextProps;
+          };
+      }
+    | {type: "article-all"; data: ReadonlyArray<ArticleData>}
+    | {type: "article"; data: ArticleData};
+
 let nextIframeID = 0;
 const requestIframeData: Record<string, any> = {};
 const updateIframeHeight: Record<string, any> = {};
@@ -164,7 +206,7 @@ class IframeContentRenderer extends React.Component<Props> {
         this._frame = frame;
     }
 
-    sendNewData(data: any) {
+    sendNewData(data: NewDataMessage) {
         const frame = this._frame;
         if (this._isMounted && data && frame?.contentWindow) {
             this._lastData = data;
