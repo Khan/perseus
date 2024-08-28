@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 3.0.2
+
+### Patch Changes
+
+-   [#1541](https://github.com/Khan/perseus/pull/1541) [`36471197c`](https://github.com/Khan/perseus/commit/36471197cc25d78b8f9515ba0da04875480c788d) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Adds a finite point question to dev gallery
+
 ## 3.0.1
 
 ### Patch Changes
