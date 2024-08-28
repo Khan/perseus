@@ -30,7 +30,7 @@ type ArticleData = {
     legacyPerseusLint: ReadonlyArray<string>;
 };
 
-export type SendNewData =
+export type NewDataMessage =
     | {
           type: "question";
           data: {
@@ -206,7 +206,7 @@ class IframeContentRenderer extends React.Component<Props> {
         this._frame = frame;
     }
 
-    sendNewData(data: SendNewData) {
+    sendNewData(data: NewDataMessage) {
         const frame = this._frame;
         if (this._isMounted && data && frame?.contentWindow) {
             this._lastData = data;
