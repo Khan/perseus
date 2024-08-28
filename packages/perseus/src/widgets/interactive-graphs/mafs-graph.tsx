@@ -180,8 +180,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 range={state.range}
                                 containerSizeClass={props.containerSizeClass}
                                 markings={props.markings}
-                                width={width}
-                                height={height}
                             />
                             {/* Axis Ticks, Labels, and Arrows */}
                             {
@@ -268,8 +266,9 @@ const getRangeDiff = (range: vec.Vector2) => {
 };
 
 // We need to adjust the nested SVG viewbox x and Y values based on the range of the graph in order
-// to ensure that the graph is sized and positioned correctly within the SVG and the clipping mask
-const calculateNestedSVGCoords = (
+// to ensure that the graph is sized and positioned correctly within the SVG and the clipping mask.
+// Exported for testing.
+export const calculateNestedSVGCoords = (
     range: vec.Vector2[],
     width: number,
     height: number,

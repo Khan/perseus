@@ -7,7 +7,7 @@ import invariant from "tiny-invariant";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
-import {MafsGraph} from "./mafs-graph";
+import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
 import {actions, ADD_POINT} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
@@ -459,6 +459,28 @@ describe("MafsGraph", () => {
             expect(mockDispatch.mock.calls).toEqual([
                 [{type: ADD_POINT, location: [0, 0]}],
             ]);
+        });
+    });
+    calculateNestedSVGCoords;
+});
+
+describe("calculateNestedSVGCoords", () => {
+    it("calculates nested SVG coordinates", () => {
+        const range: GraphRange = [
+            [-10, 10],
+            [-10, 10],
+        ];
+        const fullPixelSpace: vec.Vector2 = [400, 400];
+
+        const result = calculateNestedSVGCoords(
+            range,
+            fullPixelSpace[0],
+            fullPixelSpace[1],
+        );
+
+        expect(result).toEqual({
+            viewboxX: -200,
+            viewboxY: -200,
         });
     });
 });
