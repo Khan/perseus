@@ -156,7 +156,7 @@ class EditorPage extends React.Component<Props, State> {
 
         this.itemEditor.current?.triggerPreviewUpdate({
             type: "question",
-            data: _({
+            data: {
                 item: this.serialize(),
                 apiOptions: deviceBasedApiOptions,
                 initialHintsVisible: 0,
@@ -166,17 +166,11 @@ class EditorPage extends React.Component<Props, State> {
                     highlightLint: this.state.highlightLint,
                     // TODO(CP-4838): is it okay to use [] as a default?
                     paths: this.props.contentPaths || [],
+                    stack: [],
                 },
                 reviewMode: true,
                 legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
-            }).extend(
-                _(this.props).pick(
-                    "workAreaSelector",
-                    "solutionAreaSelector",
-                    "hintsAreaSelector",
-                    "problemNum",
-                ),
-            ),
+            },
         });
     }
 

@@ -199,7 +199,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
         this.updatePreview();
     }
 
-    updatePreview = () => {
+    updatePreview() {
         const shouldBold =
             this.props.isLast && !/\*\*/.test(this.props.hint.content);
 
@@ -212,12 +212,13 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                 apiOptions: this.props.apiOptions,
                 linterContext: {
                     contentType: "hint",
-                    highlightLint: this.props.highlightLint,
+                    highlightLint: this.props.highlightLint ?? false,
                     paths: this.props.contentPaths,
+                    stack: [],
                 },
             },
         });
-    };
+    }
 
     getSaveWarnings = () => {
         return this.editor.current?.getSaveWarnings();
