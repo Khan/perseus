@@ -58,8 +58,6 @@
         "prop-types": "15.6.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router": "5.3.4",
-        "react-router-dom": "5.3.4",
         "react-transition-group": "^4.4.1"
     },
     "peerDependencies": {
@@ -77,8 +75,6 @@
         "prop-types": "15.6.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router": "5.3.4",
-        "react-router-dom": "5.3.4",
         "react-transition-group": "^4.4.1"
     },
     "keywords": []
