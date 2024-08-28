@@ -115,16 +115,13 @@ class IframeContentRenderer extends React.Component<Props> {
     _lastData: any;
     // @ts-expect-error - TS2564 - Property '_lastHeight' has no initializer and is not definitely assigned in the constructor.
     _lastHeight: number;
-    // @ts-expect-error - TS2564 - Property 'iframeID' has no initializer and is not definitely assigned in the constructor.
-    iframeID: number;
+
+    iframeID = nextIframeID++;
 
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
-
-        this.iframeID = nextIframeID;
-        nextIframeID++;
 
         this._prepareFrame();
         requestIframeData[this.iframeID] = () => {
