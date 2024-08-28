@@ -101,10 +101,9 @@ type Props = {
 
     // The URL that the iframe should load
     url: string;
-    // The data-* suffix for passing information to the iframe's JS
-    datasetKey?: string;
-    // The value of the data-* attribute
-    datasetValue?: string | number | boolean;
+    // When `true`, instructs the iframe content page to enable mobile touch
+    // emulation.
+    emulateMobile: boolean;
     // Whether to make the iframe's height match its content's height,
     // used to prevent scrolling inside the iframe.
     seamless: boolean;
@@ -146,7 +145,7 @@ class IframeContentRenderer extends React.Component<Props> {
 
     shouldComponentUpdate(nextProps: Props): boolean {
         return (
-            nextProps.datasetValue !== this.props.datasetValue ||
+            nextProps.emulateMobile !== this.props.emulateMobile ||
             nextProps.seamless !== this.props.seamless
         );
     }
@@ -160,7 +159,7 @@ class IframeContentRenderer extends React.Component<Props> {
             }
         }
 
-        if (prevProps.datasetValue !== this.props.datasetValue) {
+        if (prevProps.emulateMobile !== this.props.emulateMobile) {
             // Not just a change in seamless
             this._prepareFrame();
         }
@@ -184,15 +183,10 @@ class IframeContentRenderer extends React.Component<Props> {
         frame.style.height = "100%";
         const frameSrc = new URL(this.props.url);
 
-        if (this.props.datasetKey) {
-            // If the user has provided and extra data attribute to pass to the
-            // iframe page, we add it to the url here. Right now, this is used
-            // to communicate if the iframe should be enabling touch emulation.
-            frameSrc.searchParams.append(
-                this.props.datasetKey,
-                (this.props.datasetValue ?? "").toString(),
-            );
-        }
+        frameSrc.searchParams.append(
+            "emulate-mobile",
+            this.props.emulateMobile.toString(),
+        );
 
         frameSrc.searchParams.append("frame-id", String(this.iframeID));
 
