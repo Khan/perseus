@@ -56,6 +56,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
         sectionImageUploadGenerator: () => <span />,
         useNewStyles: false,
     };
+    editors: Record<string, Editor | null> = {};
+    iframeRenderers: Record<string, IframeContentRenderer | null> = {};
 
     state: State = {
         highlightLint: true,
@@ -71,9 +73,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     _updatePreviewFrames() {
         if (this.props.mode === "preview") {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-            this.refs["frame-all"].sendNewData({
+            this.iframeRenderers["frame-all"]?.sendNewData({
                 type: "article-all",
                 data: this._sections().map((section, i) => {
                     return this._apiOptionsForSection(section, i);
@@ -81,9 +81,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
             });
         } else if (this.props.mode === "edit") {
             this._sections().forEach((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-                this.refs["frame-" + i].sendNewData({
+                this.iframeRenderers["frame-" + i]?.sendNewData({
                     type: "article",
                     data: this._apiOptionsForSection(section, i),
                 });
@@ -91,9 +89,8 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
     }
 
-    _apiOptionsForSection(section: RendererProps, sectionIndex: number): any {
-        // eslint-disable-next-line react/no-string-refs
-        const editor = this.refs[`editor${sectionIndex}`];
+    _apiOptionsForSection(section: RendererProps, sectionIndex: number) {
+        const editor = this.editors[`editor${sectionIndex}`];
         return {
             apiOptions: {
                 ...ApiOptions.defaults,
@@ -109,10 +106,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
             linterContext: {
                 contentType: "article",
                 highlightLint: this.state.highlightLint,
-                paths: this.props.contentPaths,
+                paths: this.props.contentPaths ?? [],
+                stack: [],
             },
-            // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-            legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
+            legacyPerseusLint: editor?.getSaveWarnings() ?? [],
         };
     }
 
@@ -209,7 +206,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                         i,
                                     )}
                                     placeholder="Type your section text here..."
-                                    ref={"editor" + i}
+                                    ref={(editor) =>
+                                        (this.editors["editor" + i] = editor)
+                                    }
                                 />
                             </div>
 
@@ -261,7 +260,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _renderIframePreview(
-        i: number | string,
+        i: number | "all",
         nochrome: boolean,
     ): React.ReactElement<any> {
         const isMobile =
@@ -270,7 +269,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         return (
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
                 <IframeContentRenderer
-                    ref={"frame-" + i}
+                    ref={(frame) =>
+                        (this.iframeRenderers["frame-" + i] = frame)
+                    }
                     key={this.props.screen}
                     datasetKey="mobile"
                     datasetValue={isMobile}
@@ -368,9 +369,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     serialize(): JsonType {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-                return this.refs["editor" + i].serialize();
+                return this.editors["editor" + i]!.serialize();
             });
         }
         if (this.props.mode === "preview" || this.props.mode === "json") {
