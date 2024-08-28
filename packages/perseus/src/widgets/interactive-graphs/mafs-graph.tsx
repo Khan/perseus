@@ -87,6 +87,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
                     }}
+                    onKeyUp={(event) => {
+                        if (event.key === "Backspace") {
+                            dispatch(actions.global.deleteIntent());
+                        }
+                    }}
                 >
                     <LegacyGrid
                         box={props.box}

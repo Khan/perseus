@@ -443,6 +443,7 @@ describe("MafsGraph", () => {
         const state: InteractiveGraphState = {
             type: "point",
             numPoints: 2,
+            focusedPointIndex: null,
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -698,6 +699,7 @@ describe("MafsGraph", () => {
             const state: InteractiveGraphState = {
                 type: "point",
                 numPoints: "unlimited",
+                focusedPointIndex: null,
                 hasBeenInteractedWith: true,
                 range: [
                     [-10, 10],
@@ -731,6 +733,7 @@ describe("MafsGraph", () => {
             const state: InteractiveGraphState = {
                 type: "point",
                 numPoints: "unlimited",
+                focusedPointIndex: null,
                 hasBeenInteractedWith: true,
                 range: [
                     [-10, 10],

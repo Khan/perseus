@@ -53,6 +53,7 @@ export interface PointGraphState extends InteractiveGraphStateCommon {
     type: "point";
     coords: Coord[];
     numPoints?: number | "unlimited";
+    focusedPointIndex: number | null;
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
