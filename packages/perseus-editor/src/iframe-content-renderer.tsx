@@ -100,7 +100,7 @@ type Props = {
     // The data-* suffix for passing information to the iframe's JS
     datasetKey?: string;
     // The value of the data-* attribute
-    datasetValue?: any;
+    datasetValue?: string | number | boolean;
     // Whether to make the iframe's height match its content's height,
     // used to prevent scrolling inside the iframe.
     seamless: boolean;
