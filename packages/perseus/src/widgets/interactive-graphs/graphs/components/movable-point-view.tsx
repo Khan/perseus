@@ -17,11 +17,17 @@ type Props = {
     dragging: boolean;
     focusBehavior: FocusBehaviorConfig;
     cursor?: CSSCursor | undefined;
+    onClick?: () => unknown;
 };
 
-type FocusBehaviorConfig =
-    | {type: "uncontrolled"; tabIndex: number}
-    | {type: "controlled"; showFocusRing: boolean};
+type FocusBehaviorConfig = ControlledFocusBehavior | UncontrolledFocusBehavior;
+
+type ControlledFocusBehavior = {type: "controlled"; showFocusRing: boolean};
+type UncontrolledFocusBehavior = {
+    type: "uncontrolled";
+    tabIndex: number;
+    onFocusChange: (isFocused: boolean) => unknown;
+};
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
 // graph.
@@ -46,6 +52,7 @@ export const MovablePointView = forwardRef(
             dragging,
             focusBehavior,
             cursor,
+            onClick = () => {},
         } = props;
 
         // WB Tooltip requires a color name for the background color.
@@ -94,6 +101,11 @@ export const MovablePointView = forwardRef(
                 tabIndex={
                     disableKeyboardInteraction ? -1 : tabIndex(focusBehavior)
                 }
+                onFocus={() => {
+                    return getOnFocusChangeCallback(focusBehavior)(true);
+                }}
+                onBlur={() => getOnFocusChangeCallback(focusBehavior)(false)}
+                onClick={onClick}
             >
                 <circle
                     className="movable-point-hitbox"
@@ -147,4 +159,11 @@ function tabIndex(config: FocusBehaviorConfig) {
         return config.tabIndex;
     }
     return undefined;
+}
+
+function getOnFocusChangeCallback(config: FocusBehaviorConfig) {
+    if (config.type === "uncontrolled") {
+        return config.onFocusChange;
+    }
+    return () => {};
 }
