@@ -1,0 +1,35 @@
+import{j as C}from"./jsx-runtime-FVsy8kgq.js";import{A as t}from"./answer-pill-mD1fJqMI.js";import"./index-TT1qJ6UJ.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./index-FlmdAi7b.js";import"./extends-wRoo2ExD.js";import"./index-awljIyHI.js";import"./index-az6L7JTG.js";import"./react-router-dom-W_e8xVUu.js";import"./index-tvtfaFq4.js";import"./index-deFLJwr4.js";import"./index-YZKI02_d.js";import"./Popper-kGnKOid7.js";import"./index-7vsPyIck.js";import"./i18n-context-W41LcU6B.js";import"./strings-4Ql_kQxk.js";import"./renderer-EjHytTUv.js";import"./version-akiLXZts.js";import"./perseus-error-l3K_anoI.js";import"./invariant-bu5zBsRS.js";import"./index-J2t_5nK1.js";import"./index-dnMhQZ-1.js";import"./jquery-5v7aFUvu.js";import"./index-default-4_ZsnO94.js";import"./asset-context-I7yIqWki.js";import"./svg-image-t5Cgz781.js";import"./dependencies-8XILypbq.js";import"./util-d6C3c8a_.js";import"./fixed-to-responsive-1fSZ1n--.js";import"./constants-I_nlPaPx.js";import"./client-rbWgHzHN.js";import"./inline-icon-tKY1iMkH.js";import"./icon-paths-AuJwhOz7.js";import"./image-loader-mgyZcN0j.js";import"./tex-VP4hirbI.js";import"./zoomable-CA1NzpZD.js";import"./zoomable-tex-MZi7Hqbp.js";import"./perseus-api-OW2_bRsL.js";import"./index-k-0mNqHS.js";import"./stub-tag-editor-jAebgctF.js";import"./text-list-editor-_UIkAa1J.js";import"./lint-I_5mQeXl.js";const pr={title:"Perseus/Widgets/Label Image/Answer Pill",component:t,render:k=>C(t,{...k}),argTypes:{showCorrectness:{options:["not answered","correct","incorrect"],control:{type:"radio"}}}},r={args:{id:"1",selectedAnswers:["Answer Pill"],markerRef:null,side:"top",onClick:()=>{}}},e={args:{id:"1",selectedAnswers:["Answer 1","Answer 2"],markerRef:null,side:"top",onClick:()=>{}}},o={args:{id:"1",selectedAnswers:["Right Answer"],showCorrectness:"correct",markerRef:null,side:"top",onClick:()=>{}}},s={args:{id:"1",selectedAnswers:["Wrong Answer"],showCorrectness:"incorrect",markerRef:null,side:"top",onClick:()=>{}}};var n,i,p;r.parameters={...r.parameters,docs:{...(n=r.parameters)==null?void 0:n.docs,source:{originalSource:`{
+  args: {
+    id: "1",
+    selectedAnswers: ["Answer Pill"],
+    markerRef: null,
+    side: "top",
+    onClick: () => {}
+  }
+}`,...(p=(i=r.parameters)==null?void 0:i.docs)==null?void 0:p.source}}};var c,m,a;e.parameters={...e.parameters,docs:{...(c=e.parameters)==null?void 0:c.docs,source:{originalSource:`{
+  args: {
+    id: "1",
+    selectedAnswers: ["Answer 1", "Answer 2"],
+    markerRef: null,
+    side: "top",
+    onClick: () => {}
+  }
+}`,...(a=(m=e.parameters)==null?void 0:m.docs)==null?void 0:a.source}}};var l,d,w;o.parameters={...o.parameters,docs:{...(l=o.parameters)==null?void 0:l.docs,source:{originalSource:`{
+  args: {
+    id: "1",
+    selectedAnswers: ["Right Answer"],
+    showCorrectness: "correct",
+    markerRef: null,
+    side: "top",
+    onClick: () => {}
+  }
+}`,...(w=(d=o.parameters)==null?void 0:d.docs)==null?void 0:w.source}}};var A,u,g;s.parameters={...s.parameters,docs:{...(A=s.parameters)==null?void 0:A.docs,source:{originalSource:`{
+  args: {
+    id: "1",
+    selectedAnswers: ["Wrong Answer"],
+    showCorrectness: "incorrect",
+    markerRef: null,
+    side: "top",
+    onClick: () => {}
+  }
+}`,...(g=(u=s.parameters)==null?void 0:u.docs)==null?void 0:g.source}}};const cr=["SingleAnswer","MultipleAnswers","Correct","Incorrect"];export{o as Correct,s as Incorrect,e as MultipleAnswers,r as SingleAnswer,cr as __namedExportsOrder,pr as default};

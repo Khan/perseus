@@ -1,0 +1,1 @@
+import{j as a}from"./jsx-runtime-FVsy8kgq.js";const e=({children:r})=>a("div",{className:"perseus-diff",children:r}),s=e;e.__docgenInfo={description:"",methods:[],displayName:"Wrapper",props:{children:{required:!0,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""}}};export{s as W};
