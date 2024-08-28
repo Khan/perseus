@@ -24,7 +24,7 @@ import {
 } from "./graphs";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
-import {X, Y} from "./math";
+import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import {actions} from "./reducer/interactive-graph-action";
@@ -279,7 +279,7 @@ export const calculateNestedSVGCoords = (
     let viewboxX = 0; // When xMin is 0, we want to use 0 as the viewboxX value
     const totalXRange = getRangeDiff(range[X]);
     const gridCellWidth = width / totalXRange;
-    const minX = range[X][0];
+    const minX = range[X][MIN];
 
     // If xMin is entirely positive, we need to adjust the
     // viewboxX to be the grid cell width multiplied by xMin
@@ -296,7 +296,7 @@ export const calculateNestedSVGCoords = (
     let viewboxY = -height; // When yMin is 0, we want to use the negative value of the graph height
     const totalYRange = getRangeDiff(range[Y]);
     const gridCellHeight = height / totalYRange;
-    const minY = range[Y][0];
+    const minY = range[Y][MIN];
 
     // If the y range is entirely positive, we want a negative sum of the
     // height and the gridcell height multiplied by the absolute value of yMin

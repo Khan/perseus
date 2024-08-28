@@ -187,7 +187,7 @@ export const AxisTicks = () => {
     const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
 
     return (
-        <g className="axis-ticks">
+        <g className="axis-ticks" role="presentation">
             <g className="y-axis-ticks">
                 {yGridTicks.map((y) => {
                     return (

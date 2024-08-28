@@ -1,7 +1,7 @@
 import {Coordinates, usePaneContext, useTransformContext, vec} from "mafs";
 import * as React from "react";
 
-import {X, Y} from "../math";
+import {MAX, MIN, X, Y} from "../math";
 
 import type {GraphRange} from "../../../perseus-types";
 import type {SizeClass} from "../../../util/sizing-utils";
@@ -86,8 +86,8 @@ const getClipPath = (
 
     // Adjust the necessary padding for the clipping path
     // by the range of the graph and the graph bounds
-    const xPad = range[0][0] - Math.min(0, xMin);
-    const yPad = range[1][1] - Math.max(0, yMax);
+    const xPad = range[X][MIN] - Math.min(0, xMin);
+    const yPad = range[Y][MAX] - Math.max(0, yMax);
 
     // Transform the padding to pixel coordinates
     const pad = vec.transform([xPad, yPad], viewTransform);
