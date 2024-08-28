@@ -27,6 +27,7 @@ import TexErrorView from "./tex-error-view";
 import type {
     ChangeHandler,
     ImageUploader,
+    PerseusRenderer,
     PerseusWidget,
 } from "@khanacademy/perseus";
 
@@ -110,24 +111,21 @@ const imageUrlsFromContent = function (content: string) {
     return allMatches(IMAGE_REGEX, content).map((capture) => capture[1]);
 };
 
-type Props = Readonly<{
-    apiOptions: any;
-    className?: string;
-    content: string;
-    placeholder: string;
-    widgets: {
-        [name: string]: PerseusWidget;
-    };
-    images: any;
-    disabled: boolean;
-    widgetEnabled: boolean;
-    immutableWidgets: boolean;
-    showWordCount: boolean;
-    warnNoPrompt: boolean;
-    warnNoWidgets: boolean;
-    imageUploader?: ImageUploader;
-    onChange: ChangeHandler;
-}>;
+type Props = Readonly<
+    PerseusRenderer & {
+        apiOptions: any;
+        className?: string;
+        placeholder: string;
+        disabled: boolean;
+        widgetEnabled: boolean;
+        immutableWidgets: boolean;
+        showWordCount: boolean;
+        warnNoPrompt: boolean;
+        warnNoWidgets: boolean;
+        imageUploader?: ImageUploader;
+        onChange: ChangeHandler;
+    }
+>;
 
 type DefaultProps = {
     content: string;
@@ -685,7 +683,6 @@ class Editor extends React.Component<Props, State> {
         const newContent = newPrelude + widgetContent + newPostlude;
 
         const newWidgets = _.clone(this.props.widgets);
-        // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
             type: widgetType as PerseusWidget["type"],
