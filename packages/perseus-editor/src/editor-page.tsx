@@ -193,13 +193,15 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
-    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
+    serialize(options?: {keepDeletedWidgets?: boolean}): PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        return _.extend(this.itemEditor.current?.serialize(options), {
-            hints: this.hintsEditor.current?.serialize(options),
-        });
+        return {
+            ...this.itemEditor.current!.serialize(options),
+            hints: this.hintsEditor.current!.serialize(options) ?? [],
+            answer: undefined,
+        };
     }
 
     handleChange: ChangeHandler = (toChange, cb, silent) => {

@@ -826,11 +826,7 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
-    serialize: (options?: any) => {
-        content: string;
-        images: any;
-        widgets: Record<any, any>;
-    } = (options: any) => {
+    serialize(options?: any): PerseusRenderer {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
@@ -864,7 +860,7 @@ class Editor extends React.Component<Props, State> {
             images: this.props.images,
             widgets: widgets,
         };
-    };
+    }
 
     render(): React.ReactNode {
         let pieces;

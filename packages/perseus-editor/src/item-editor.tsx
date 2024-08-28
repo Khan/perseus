@@ -13,6 +13,8 @@ import type {
     ChangeHandler,
     DeviceType,
     PerseusRenderer,
+    PerseusAnswerArea,
+    Version,
 } from "@khanacademy/perseus";
 
 const ITEM_DATA_VERSION = itemDataVersion;
@@ -74,16 +76,13 @@ class ItemEditor extends React.Component<Props> {
     };
 
     serialize: (options?: any) => {
-        answerArea: any;
-        itemDataVersion: {
-            major: number;
-            minor: number;
-        };
-        question: any;
+        answerArea: PerseusAnswerArea;
+        itemDataVersion: Version;
+        question: PerseusRenderer;
     } = (options: any) => {
         return {
-            question: this.questionEditor.current?.serialize(options),
-            answerArea: this.itemExtrasEditor.current?.serialize(),
+            question: this.questionEditor.current!.serialize(options),
+            answerArea: this.itemExtrasEditor.current!.serialize(),
             itemDataVersion: ITEM_DATA_VERSION,
         };
     };
