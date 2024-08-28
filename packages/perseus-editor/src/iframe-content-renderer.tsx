@@ -181,9 +181,9 @@ class IframeContentRenderer extends React.Component<Props> {
         const frameSrc = new URL(this.props.url);
 
         if (this.props.datasetKey) {
-            // If the user has specified a data-* attribute to place on the
-            // iframe, we set it here. Right now, this is used to
-            // communicate if the iframe should be enabling touch emulation.
+            // If the user has provided and extra data attribute to pass to the
+            // iframe page, we add it to the url here. Right now, this is used
+            // to communicate if the iframe should be enabling touch emulation.
             frameSrc.searchParams.append(
                 this.props.datasetKey,
                 this.props.datasetValue,
