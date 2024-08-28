@@ -69,8 +69,6 @@ function processIframeParentMessage(message: MessageToIFrameParent) {
     const messageType = message.type;
     switch (messageType) {
         case "perseus:update-iframe-height":
-            message; // ?
-            updateIframeHeight; // ?
             updateIframeHeight[message.frameID]?.(message.height);
             return;
 
