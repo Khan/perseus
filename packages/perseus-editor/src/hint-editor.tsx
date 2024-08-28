@@ -109,7 +109,7 @@ export class HintEditor extends React.Component<HintEditorProps> {
                     apiOptions={this.props.apiOptions}
                     widgets={this.props.widgets || undefined}
                     content={this.props.content || undefined}
-                    images={this.props.images}
+                    images={this.props.images || undefined}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange}
