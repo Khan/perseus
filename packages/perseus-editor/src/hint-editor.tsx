@@ -20,6 +20,7 @@ import type {
     ChangeHandler,
     DeviceType,
     ImageUploader,
+    PerseusRenderer,
 } from "@khanacademy/perseus";
 
 const {InfoTip, InlineIcon} = components;
@@ -88,12 +89,12 @@ export class HintEditor extends React.Component<HintEditorProps> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize: (options?: any) => any = (options: any) => {
+    serialize(options?: any): Hint {
         return {
             ...this.editor.current!.serialize(options),
             replace: this.props.replace ?? undefined,
         };
-    };
+    }
 
     render(): React.ReactNode {
         return (
@@ -383,16 +384,18 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .value();
     };
 
-    serialize: (options?: any) => ReadonlyArray<string> = (options: any) => {
+    serialize: (options?: any) => ReadonlyArray<PerseusRenderer> = (
+        options: any,
+    ) => {
         return this.props.hints.map((hint, i) => {
             return this.serializeHint(i, options);
         });
     };
 
-    serializeHint: (index: number, options?: any) => string = (
-        index: number,
-        options: any,
-    ): string => {
+    serializeHint: (index: number, options?: any) => PerseusRenderer = (
+        index,
+        options,
+    ) => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs["hintEditor" + index].serialize(options);
