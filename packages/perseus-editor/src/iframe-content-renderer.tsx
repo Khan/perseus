@@ -186,7 +186,7 @@ class IframeContentRenderer extends React.Component<Props> {
             // to communicate if the iframe should be enabling touch emulation.
             frameSrc.searchParams.append(
                 this.props.datasetKey,
-                this.props.datasetValue,
+                (this.props.datasetValue ?? "").toString(),
             );
         }
 
