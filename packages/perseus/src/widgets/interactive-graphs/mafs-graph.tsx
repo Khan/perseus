@@ -89,8 +89,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
             <View
                 id={descriptionId}
                 tabIndex={-1}
+                aria-hidden={true}
                 style={{
-                    display: "none",
+                    width: 0,
+                    height: 0,
+                    overflow: "hidden",
                 }}
             >
                 {fullGraphAriaDescribedby}
