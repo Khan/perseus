@@ -86,7 +86,6 @@ describe("IframeContentRenderer", () => {
         );
 
         // Assert
-        // eslint-disable-next-line testing-library/no-node-access
         const iframe = document.querySelector("iframe");
         expect(iframe).not.toBeNull();
         expect(iframe!.src).toBe(
@@ -120,7 +119,6 @@ describe("IframeContentRenderer", () => {
         );
 
         // Assert
-        // eslint-disable-next-line testing-library/no-node-access
         const iframes = document.querySelectorAll("iframe");
 
         // We use a Set() to ensure the frame ids are unique (if we set the
@@ -147,7 +145,6 @@ describe("IframeContentRenderer", () => {
         );
 
         // Assert
-        // eslint-disable-next-line testing-library/no-node-access
         const frame = document.querySelector("iframe");
         expect(frame?.src).toHaveSearchParam("emulate-mobile", "false");
     });
@@ -165,7 +162,6 @@ describe("IframeContentRenderer", () => {
         );
 
         // Assert
-        // eslint-disable-next-line testing-library/no-node-access
         const frame = document.querySelector("iframe");
         expect(frame!.src).toHaveSearchParam("lint-gutter", "true");
     });
@@ -183,7 +179,6 @@ describe("IframeContentRenderer", () => {
         );
 
         // Assert
-        // eslint-disable-next-line testing-library/no-node-access
         const frame = document.querySelector("iframe");
         expect(new URL(frame!.src).searchParams.get("lint-gutter")).toBeNull();
     });
@@ -201,7 +196,7 @@ describe("IframeContentRenderer", () => {
         );
 
         const messageHandler = jest.fn();
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        // eslint-disable-next-line testing-library/no-container
         const iframe = container.querySelector("iframe");
         expect(iframe).not.toBeNull();
         expect(iframe?.contentWindow).not.toBeNull();
