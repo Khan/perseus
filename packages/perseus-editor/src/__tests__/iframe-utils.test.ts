@@ -56,7 +56,7 @@ describe("getIframeParameter", () => {
         expect(value).toBe("100");
     });
 
-    it("should get parameter from url string", () => {
+    it("should get parameter from url object", () => {
         // Arrange
         const url = new URL(
             "https://www.example.com/path/to/preview?frame-id=100",
@@ -64,6 +64,17 @@ describe("getIframeParameter", () => {
 
         // Act
         const value = getIframeParameter(url, "frame-id");
+
+        // Assert
+        expect(value).toBe("100");
+    });
+
+    it("should get parameter from search params", () => {
+        // Arrange
+        const searchParams = new URLSearchParams("?frame-id=100");
+
+        // Act
+        const value = getIframeParameter(searchParams, "frame-id");
 
         // Assert
         expect(value).toBe("100");

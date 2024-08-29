@@ -112,10 +112,14 @@ export function setIframeParameter(
  * @returns the parameter value, if found, or `null`.
  */
 export function getIframeParameter(
-    url: string | URL,
+    url: string | URL | URLSearchParams,
     parameter: IframeParameter,
 ): string | null {
-    const urlObject =
-        typeof url === "string" ? new URL(url, "https://www.example.com") : url;
-    return urlObject.searchParams.get(parameter);
+    const searchParams =
+        typeof url === "string"
+            ? new URL(url, "https://www.example.com").searchParams
+            : url instanceof URL
+              ? url.searchParams
+              : url;
+    return searchParams.get(parameter);
 }
