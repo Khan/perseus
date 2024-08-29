@@ -107,12 +107,14 @@ export function setIframeParameter(
     url.searchParams.set(parameter, value);
 }
 
+type NormalizedSearchParams = Record<string, string>;
+
 /**
  * Extracts the requested parameter from the preview <iframe> `src` url.
  * @returns the parameter value, if found, or `null`.
  */
 export function getIframeParameter(
-    url: string | URL | URLSearchParams,
+    url: string | URL | URLSearchParams | NormalizedSearchParams,
     parameter: IframeParameter,
 ): string | null {
     const searchParams =
@@ -120,6 +122,9 @@ export function getIframeParameter(
             ? new URL(url, "https://www.example.com").searchParams
             : url instanceof URL
               ? url.searchParams
-              : url;
+              : url instanceof URLSearchParams
+                ? url
+                : new URLSearchParams(url);
+
     return searchParams.get(parameter);
 }

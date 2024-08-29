@@ -80,6 +80,17 @@ describe("getIframeParameter", () => {
         expect(value).toBe("100");
     });
 
+    it("should get parameter from generic key/value pairs", () => {
+        // Arrange
+        const searchParams = {"frame-id": "100", "ignored-param": "unkonwn"};
+
+        // Act
+        const value = getIframeParameter(searchParams, "frame-id");
+
+        // Assert
+        expect(value).toBe("100");
+    });
+
     it("should return null if parameter not set", () => {
         // Arrange
         const url = new URL("https://www.example.com/path/to/preview");
