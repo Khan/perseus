@@ -1,3 +1,11 @@
+import type {
+    APIOptions,
+    DeviceType,
+    PerseusItem,
+    PerseusRenderer,
+} from "@khanacademy/perseus";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
+
 /**
  * Sent to the parent iframe to tell it to update the <iframe> height. This is
  * used to ensure that the iframe displays the full height of the content after
@@ -25,13 +33,47 @@ export type MessageToIFrameParent =
     | UpdateIframeHeightMessage
     | RequestDataMessage;
 
+export type ArticleData = {
+    apiOptions: APIOptions;
+    json: Partial<PerseusRenderer>;
+    useNewStyles: boolean;
+    linterContext: LinterContextProps;
+    legacyPerseusLint: ReadonlyArray<string>;
+};
+
+export type NewDataMessage =
+    | {
+          type: "question";
+          data: {
+              item: PerseusItem;
+              apiOptions: APIOptions;
+              initialHintsVisible: number;
+              device: DeviceType;
+              linterContext: LinterContextProps;
+              reviewMode: boolean;
+              legacyPerseusLint: ReadonlyArray<string>;
+          };
+      }
+    | {
+          type: "hint";
+          data: {
+              hint: PerseusRenderer;
+              bold: boolean;
+              pos: number;
+              apiOptions?: APIOptions;
+              linterContext: LinterContextProps;
+          };
+      }
+    | {type: "article-all"; data: ReadonlyArray<ArticleData>}
+    | {type: "article"; data: ArticleData};
+
 /**
  * Sent by the iframe host to update what is being previewed (ie. re-render).
  */
 type DataChangedMessage = {
     type: "perseus:data-changed";
     frameID: number;
-    data: any;
+    data: NewDataMessage;
 };
 
 /**

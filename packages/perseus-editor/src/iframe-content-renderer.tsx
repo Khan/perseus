@@ -18,48 +18,7 @@ import {
     setIframeParameter,
 } from "./iframe-utils";
 
-import type {MessageToIFrameParent} from "./iframe-utils";
-import type {
-    APIOptions,
-    DeviceType,
-    PerseusItem,
-    PerseusRenderer,
-} from "@khanacademy/perseus";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
-
-type ArticleData = {
-    apiOptions: APIOptions;
-    json: Partial<PerseusRenderer>;
-    useNewStyles: boolean;
-    linterContext: LinterContextProps;
-    legacyPerseusLint: ReadonlyArray<string>;
-};
-
-export type NewDataMessage =
-    | {
-          type: "question";
-          data: {
-              item: PerseusItem;
-              apiOptions: APIOptions;
-              initialHintsVisible: number;
-              device: DeviceType;
-              linterContext: LinterContextProps;
-              reviewMode: boolean;
-              legacyPerseusLint: ReadonlyArray<string>;
-          };
-      }
-    | {
-          type: "hint";
-          data: {
-              hint: PerseusRenderer;
-              bold: boolean;
-              pos: number;
-              apiOptions?: APIOptions;
-              linterContext: LinterContextProps;
-          };
-      }
-    | {type: "article-all"; data: ReadonlyArray<ArticleData>}
-    | {type: "article"; data: ArticleData};
+import type {MessageToIFrameParent, NewDataMessage} from "./iframe-utils";
 
 let nextIframeID = 0;
 const requestIframeData: Record<string, any> = {};
