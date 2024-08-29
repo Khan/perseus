@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
 /**
  * This is a PhET simulation widget. It is used for rendering simulations
  * from https://phet.colorado.edu/.
@@ -53,10 +52,6 @@ export class PhetSimulation extends React.Component<Props, State> {
         this.locale = this.getPhetCompatibleLocale(getDependencies().kaLocale);
     }
 
-    getUserInput(): UserInput {
-        return null;
-    }
-
     async componentDidMount() {
         await this.updateSimState(this.props.url);
     }
@@ -68,57 +63,8 @@ export class PhetSimulation extends React.Component<Props, State> {
         }
     }
 
-    render(): React.ReactNode {
-        // We sandbox the iframe so that we allowlist only the functionality
-        // that we need. This makes it safer to present third-party content
-        // from the PhET website.
-        // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        const sandboxProperties = "allow-same-origin allow-scripts";
-        return (
-            <View style={styles.container}>
-                {this.state.banner !== null && (
-                    // TODO(anna): Make this banner focusable
-                    <View
-                        style={{
-                            marginBottom: phoneMargin,
-                        }}
-                    >
-                        <Banner
-                            layout="floating"
-                            kind={this.state.banner.kind}
-                            text={this.state.banner.message}
-                        />
-                    </View>
-                )}
-                <iframe
-                    ref={this.iframeRef}
-                    title={this.props.description}
-                    sandbox={sandboxProperties}
-                    style={{
-                        minWidth: 400,
-                        height: 360,
-                        width: "100%",
-                        borderWidth: 0,
-                    }}
-                    src={this.state.url?.toString()}
-                    allow="fullscreen"
-                />
-                <IconButton
-                    icon={cornersOutIcon}
-                    onClick={() => {
-                        this.iframeRef.current?.requestFullscreen();
-                    }}
-                    kind={"secondary"}
-                    aria-label={"Fullscreen"}
-                    style={{
-                        marginTop: 5,
-                        marginBottom: 5,
-                        alignSelf: "flex-end",
-                    }}
-                    disabled={this.state.url === null}
-                />
-            </View>
-        );
+    getUserInput(): UserInput {
+        return null;
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
@@ -223,6 +169,59 @@ export class PhetSimulation extends React.Component<Props, State> {
         }
         return true;
     }
+
+    render(): React.ReactNode {
+        // We sandbox the iframe so that we allowlist only the functionality
+        // that we need. This makes it safer to present third-party content
+        // from the PhET website.
+        // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
+        const sandboxProperties = "allow-same-origin allow-scripts";
+        return (
+            <View style={styles.container}>
+                {this.state.banner !== null && (
+                    // TODO(anna): Make this banner focusable
+                    <View
+                        style={{
+                            marginBottom: phoneMargin,
+                        }}
+                    >
+                        <Banner
+                            layout="floating"
+                            kind={this.state.banner.kind}
+                            text={this.state.banner.message}
+                        />
+                    </View>
+                )}
+                <iframe
+                    ref={this.iframeRef}
+                    title={this.props.description}
+                    sandbox={sandboxProperties}
+                    style={{
+                        minWidth: 400,
+                        height: 360,
+                        width: "100%",
+                        borderWidth: 0,
+                    }}
+                    src={this.state.url?.toString()}
+                    allow="fullscreen"
+                />
+                <IconButton
+                    icon={cornersOutIcon}
+                    onClick={() => {
+                        this.iframeRef.current?.requestFullscreen();
+                    }}
+                    kind={"secondary"}
+                    aria-label={"Fullscreen"}
+                    style={{
+                        marginTop: 5,
+                        marginBottom: 5,
+                        alignSelf: "flex-end",
+                    }}
+                    disabled={this.state.url === null}
+                />
+            </View>
+        );
+    }
 }
 
 // Setting URL to null will display an error message in the iframe
@@ -238,15 +237,6 @@ export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
     return url;
 };
 
-export default {
-    name: "phet-simulation",
-    displayName: "PhET Simulation",
-    widget: PhetSimulation,
-    // Hides widget from content creators until full release
-    hidden: true,
-    isLintable: true,
-} as WidgetExports<typeof PhetSimulation>;
-
 const styles = StyleSheet.create({
     container: {
         borderRadius: borderRadiusLarge,
@@ -257,3 +247,12 @@ const styles = StyleSheet.create({
         width: 650,
     },
 });
+
+export default {
+    name: "phet-simulation",
+    displayName: "PhET Simulation",
+    widget: PhetSimulation,
+    // Hides widget from content creators until full release
+    hidden: true,
+    isLintable: true,
+} as WidgetExports<typeof PhetSimulation>;
