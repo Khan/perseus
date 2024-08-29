@@ -61,7 +61,6 @@ module.exports = {
         "<rootDir>/**/*.test.tsx",
     ],
     setupFilesAfterEnv: [
-        "jest-extended/all",
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
     ],

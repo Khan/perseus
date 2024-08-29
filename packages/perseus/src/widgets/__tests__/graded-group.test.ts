@@ -1,5 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -9,6 +9,7 @@ import {question1} from "../__testdata__/graded-group.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const checkAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -21,7 +22,7 @@ const checkAnswer = async (
 };
 
 describe("graded-group", () => {
-    let userEvent;
+    let userEvent: UserEvent;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -136,7 +137,7 @@ describe("graded-group", () => {
             await userEvent.click(
                 screen.getByRole("button", {name: "Explain"}),
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
             expect(
@@ -150,7 +151,7 @@ describe("graded-group", () => {
             await userEvent.click(
                 screen.getByRole("button", {name: "Explain"}),
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             await userEvent.click(
@@ -188,7 +189,7 @@ describe("graded-group", () => {
             await userEvent.click(
                 screen.getAllByRole("button", {name: "True"})[3],
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             await checkAnswer(userEvent);
@@ -218,7 +219,7 @@ describe("graded-group", () => {
             await userEvent.click(
                 screen.getAllByRole("button", {name: "False"})[3],
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             await checkAnswer(userEvent);
@@ -240,7 +241,7 @@ describe("graded-group", () => {
             await userEvent.click(
                 screen.getAllByRole("button", {name: "False"})[1],
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             await checkAnswer(userEvent);
 
@@ -248,10 +249,12 @@ describe("graded-group", () => {
             await userEvent.click(
                 screen.getAllByRole("button", {name: "False"})[2],
             );
-            jest.runOnlyPendingTimers();
+            act(() => jest.runOnlyPendingTimers());
 
             // Assert
-            expect(screen.getByRole("button", {name: "Check"})).toBeVisible();
+            expect(
+                screen.getByRole("button", {name: "Try again"}),
+            ).toBeVisible();
         });
 
         it("should be able to reveal the hint", async () => {

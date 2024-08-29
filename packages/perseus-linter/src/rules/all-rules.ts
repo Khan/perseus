@@ -8,6 +8,7 @@ import AbsoluteUrl from "./absolute-url";
 import BlockquotedMath from "./blockquoted-math";
 import BlockquotedWidget from "./blockquoted-widget";
 import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
+import ExpressionWidget from "./expression-widget";
 import ExtraContentSpacing from "./extra-content-spacing";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
@@ -30,7 +31,7 @@ import MathStartsWithSpace from "./math-starts-with-space";
 import MathTextEmpty from "./math-text-empty";
 import MathWithoutDollars from "./math-without-dollars";
 import NestedLists from "./nested-lists";
-import Profanity from "./profanity";
+import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
@@ -41,6 +42,7 @@ export default [
     BlockquotedMath,
     BlockquotedWidget,
     DoubleSpacingAfterTerminal,
+    ExpressionWidget,
     ExtraContentSpacing,
     HeadingLevel1,
     HeadingLevelSkip,
@@ -60,10 +62,10 @@ export default [
     MathStartsWithSpace,
     MathTextEmpty,
     NestedLists,
+    StaticWidgetInQuestionStem,
     TableMissingCells,
     UnescapedDollar,
     WidgetInTable,
-    Profanity,
     MathWithoutDollars,
     UnbalancedCodeDelimiters,
     ImageSpacesAroundUrls,

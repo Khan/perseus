@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -35,7 +35,7 @@ describe("passage-ref widget", () => {
 
         // Act
         const {container} = renderQuestion(question1);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(container).toMatchSnapshot();
@@ -47,7 +47,7 @@ describe("passage-ref widget", () => {
 
         // Act
         renderQuestion(question1);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(screen.getByText("lines ?–?", {exact: false})).toBeVisible();
@@ -63,7 +63,7 @@ describe("passage-ref widget", () => {
 
         // Act
         const {container} = renderQuestion(question1);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(container).toMatchSnapshot();
@@ -79,7 +79,7 @@ describe("passage-ref widget", () => {
 
         // Act
         renderQuestion(question1);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(screen.getByText("line 4", {exact: false})).toBeVisible();
@@ -95,7 +95,7 @@ describe("passage-ref widget", () => {
 
         // Act
         const {container} = renderQuestion(question1);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(container).toMatchSnapshot();
@@ -111,7 +111,7 @@ describe("passage-ref widget", () => {
 
         // Act
         renderQuestion(question1);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(screen.getByText("lines 4–6", {exact: false})).toBeVisible();
@@ -144,7 +144,7 @@ describe("passage-ref widget", () => {
                 },
             },
         });
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(
@@ -159,7 +159,7 @@ describe("passage-ref widget", () => {
 
         // Act
         const {renderer} = renderQuestion(question1);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();

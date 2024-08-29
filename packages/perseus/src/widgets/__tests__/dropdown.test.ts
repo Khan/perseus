@@ -7,8 +7,10 @@ import {question1} from "../__testdata__/dropdown.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
+import type {UserEvent} from "@testing-library/user-event";
+
 describe("Dropdown widget", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -96,7 +98,7 @@ describe("Dropdown widget", () => {
         const focused = renderer.focus();
 
         // Assert
-        expect(focused).toBeTrue();
+        expect(focused).toBe(true);
         // TODO(LP-10797): we don't check that the document.activeElement is
         // actually set because the dropdown widget focuses a <div> (it's root
         // element), which is not actually focusable because it doesn't have a

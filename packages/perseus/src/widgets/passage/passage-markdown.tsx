@@ -202,6 +202,7 @@ const rules = {
 
             return {
                 ref: ref,
+                // @ts-expect-error - TS2322- Type 'SingleASTNode[]' is not assignable to type 'ReactNode'.
                 refContent: refContent,
             };
         },
@@ -289,7 +290,11 @@ const rules = {
                 >
                     <span style={SQUARE_LABEL_STYLE}>{node.content}</span>
                 </span>,
-                <AltText id="questionMarker" number={node.content} />,
+                <AltText
+                    key="alt-text"
+                    id="questionMarker"
+                    number={node.content}
+                />,
                 node.space ? "\u00A0" : null,
             ];
         },
@@ -322,7 +327,11 @@ const rules = {
                 >
                     <span style={CIRCLE_LABEL_STYLE}>{node.content}</span>
                 </span>,
-                <AltText id="circleMarker" number={node.content} />,
+                <AltText
+                    key="alt-text"
+                    id="circleMarker"
+                    number={node.content}
+                />,
                 node.space ? "\u00A0" : null,
             ];
         },
@@ -352,7 +361,11 @@ const rules = {
                 >
                     [{node.content}]
                 </span>,
-                <AltText id="sentenceMarker" number={node.content} />,
+                <AltText
+                    key="alt-text"
+                    id="sentenceMarker"
+                    number={node.content}
+                />,
                 node.space ? "\u00A0" : null,
             ];
         },

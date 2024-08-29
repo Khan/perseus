@@ -11,10 +11,9 @@
  * The words yielded by WordIndexer are sorted in document order, which makes
  * them amenable to binary search - see `findBoundaryWordIndex` in ranges.js.
  */
-import * as React from "react";
 
-import {Errors} from "../../logging/log";
-import {PerseusError} from "../../perseus-error";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import * as React from "react";
 
 import type {DOMRange} from "./types";
 

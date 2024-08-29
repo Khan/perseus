@@ -7,6 +7,7 @@ import {
     Util,
     PerseusI18nContext,
 } from "@khanacademy/perseus";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
@@ -20,7 +21,6 @@ const {
     InlineIcon,
     MultiButtonGroup,
     NumberInput,
-    PropCheckBox,
     TextInput,
 } = components;
 const {iconGear, iconTrash} = icons;
@@ -197,11 +197,12 @@ class NumericInputEditor extends React.Component<Props, State> {
                     </InfoTip>
                 </div>
                 <div className="perseus-widget-row">
-                    <PropCheckBox
+                    <Checkbox
                         label="Strictly match only these formats"
-                        strict={answers[i]["strict"]}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        onChange={this.updateAnswer.bind(this, i)}
+                        checked={answers[i]["strict"]}
+                        onChange={(value) => {
+                            this.updateAnswer.bind(this, i)({strict: value});
+                        }}
                     />
                 </div>
             </div>
@@ -245,10 +246,12 @@ class NumericInputEditor extends React.Component<Props, State> {
 
         const rightAlign = (
             <div className="perseus-widget-row">
-                <PropCheckBox
+                <Checkbox
                     label="Right alignment"
-                    rightAlign={this.props.rightAlign}
-                    onChange={this.props.onChange}
+                    checked={this.props.rightAlign}
+                    onChange={(value) => {
+                        this.props.onChange({rightAlign: value});
+                    }}
                 />
             </div>
         );
@@ -256,7 +259,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         const labelText = (
             <div className="perseus-widget-row">
                 <label>
-                    Label text:{" "}
+                    Aria label
                     <TextInput
                         value={this.props.labelText}
                         onChange={this.change("labelText")}
@@ -274,10 +277,12 @@ class NumericInputEditor extends React.Component<Props, State> {
         const coefficientCheck = (
             <div>
                 <div className="perseus-widget-row">
-                    <PropCheckBox
+                    <Checkbox
                         label="Coefficient"
-                        coefficient={this.props.coefficient}
-                        onChange={this.props.onChange}
+                        checked={this.props.coefficient}
+                        onChange={(value) => {
+                            this.props.onChange({coefficient: value});
+                        }}
                     />
                     <InfoTip>
                         <p>
@@ -292,9 +297,14 @@ class NumericInputEditor extends React.Component<Props, State> {
         const addAnswerButton = (
             <div>
                 <a
-                    href="javascript:void(0)"
+                    href="#"
                     className="simple-button orange"
-                    onClick={() => this.addAnswer()}
+                    onClick={(e) => {
+                        // preventDefault ensures that href="#"
+                        // doesn't scroll to the top of the page
+                        e.preventDefault();
+                        this.addAnswer();
+                    }}
                     onKeyDown={(e) => this.onSpace(e, this.addAnswer)}
                 >
                     <span>Add new answer</span>
@@ -425,9 +435,14 @@ class NumericInputEditor extends React.Component<Props, State> {
                             ) : null}
                             <div className="value-divider" />
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className={"answer-status " + answer.status}
-                                onClick={() => this.onStatusChange(i)}
+                                onClick={(e) => {
+                                    // preventDefault ensures that href="#"
+                                    // doesn't scroll to the top of the page
+                                    e.preventDefault();
+                                    this.onStatusChange(i);
+                                }}
                                 onKeyDown={(e) =>
                                     this.onSpace(e, this.onStatusChange)
                                 }
@@ -435,10 +450,15 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 {answer.status}
                             </a>
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className="answer-trash"
                                 aria-label="Delete answer"
-                                onClick={() => this.onTrashAnswer(i)}
+                                onClick={(e) => {
+                                    // preventDefault ensures that href="#"
+                                    // doesn't scroll to the top of the page
+                                    e.preventDefault();
+                                    this.onTrashAnswer(i);
+                                }}
                                 onKeyDown={(e) =>
                                     this.onSpace(e, this.onTrashAnswer)
                                 }
@@ -446,10 +466,15 @@ class NumericInputEditor extends React.Component<Props, State> {
                                 <InlineIcon {...iconTrash} />
                             </a>
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className="options-toggle"
                                 aria-label="Toggle options"
-                                onClick={() => this.onToggleOptions(i)}
+                                onClick={(e) => {
+                                    // preventDefault ensures that href="#"
+                                    // doesn't scroll to the top of the page
+                                    e.preventDefault();
+                                    this.onToggleOptions(i);
+                                }}
                                 onKeyDown={(e) =>
                                     this.onSpace(e, this.onToggleOptions)
                                 }

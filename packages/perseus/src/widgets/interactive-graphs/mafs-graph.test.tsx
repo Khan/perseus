@@ -7,11 +7,11 @@ import invariant from "tiny-invariant";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
-import {MafsGraph, StatefulMafsGraph} from "./mafs-graph";
-import {movePoint} from "./reducer/interactive-graph-action";
+import {MafsGraph} from "./mafs-graph";
+import {actions, ADD_POINT} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
-import type {MafsGraphProps, StatefulMafsGraphProps} from "./mafs-graph";
+import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
 import type {GraphRange} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -24,7 +24,10 @@ function getBaseMafsGraphProps(): MafsGraphProps {
         markings: "graph",
         containerSizeClass: "small",
         showTooltips: false,
+        showProtractor: false,
+        readOnly: false,
         labels: ["x", "y"],
+        static: false,
         dispatch: () => {},
         state: {
             type: "segment",
@@ -39,25 +42,6 @@ function getBaseMafsGraphProps(): MafsGraphProps {
     };
 }
 
-function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
-    return {
-        box: [400, 400],
-        step: [1, 1],
-        snapStep: [1, 1],
-        gridStep: [1, 1],
-        range: [
-            [-10, 10],
-            [-10, 10],
-        ],
-        markings: "graph",
-        containerSizeClass: "small",
-        onChange: () => {},
-        showTooltips: false,
-        labels: ["x", "y"],
-        graph: {type: "segment"},
-    };
-}
-
 function createFakeStore<S, A>(reducer: (state: S, action: A) => S, state: S) {
     return {
         dispatch(action: A) {
@@ -69,47 +53,6 @@ function createFakeStore<S, A>(reducer: (state: S, action: A) => S, state: S) {
         },
     };
 }
-
-describe("StatefulMafsGraph", () => {
-    let userEvent: UserEvent;
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-        userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
-    });
-
-    it("renders", () => {
-        const {container} = render(
-            <StatefulMafsGraph {...getBaseStatefulMafsGraphProps()} />,
-        );
-
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const movablePoints = container.querySelectorAll(
-            "circle.movable-point-hitbox",
-        );
-
-        expect(movablePoints).not.toBe(0);
-    });
-
-    it("calls onChange when using graph", async () => {
-        const mockChangeHandler = jest.fn();
-
-        render(
-            <StatefulMafsGraph
-                {...getBaseStatefulMafsGraphProps()}
-                onChange={mockChangeHandler}
-            />,
-        );
-
-        await userEvent.tab();
-        await userEvent.keyboard("{arrowup}");
-
-        expect(mockChangeHandler).toHaveBeenCalled();
-    });
-});
 
 function graphToPixel(
     point: vec.Vector2,
@@ -499,6 +442,7 @@ describe("MafsGraph", () => {
         const mockDispatch = jest.fn();
         const state: InteractiveGraphState = {
             type: "point",
+            numPoints: 2,
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -521,7 +465,7 @@ describe("MafsGraph", () => {
         const group = screen.getByTestId("movable-point");
         group.focus();
         await userEvent.keyboard("[ArrowRight]");
-        const action = movePoint(0, [4, 2]);
+        const action = actions.pointGraph.movePoint(0, [4, 2]);
         expect(mockDispatch).toHaveBeenCalledWith(action);
 
         const updatedState = interactiveGraphReducer(state, action);
@@ -583,7 +527,7 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("{arrowdown>1}");
+        await userEvent.keyboard("{arrowdown}");
 
         const state = getState();
         invariant(
@@ -634,7 +578,7 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("{arrowup>1}");
+        await userEvent.keyboard("{arrowup}");
 
         const state = getState();
         invariant(
@@ -685,7 +629,7 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("{arrowright>1}");
+        await userEvent.keyboard("{arrowright}");
 
         const state = getState();
         invariant(
@@ -736,7 +680,7 @@ describe("MafsGraph", () => {
 
         const group = screen.getByTestId("movable-line");
         group.focus();
-        await userEvent.keyboard("{arrowleft>1}");
+        await userEvent.keyboard("{arrowleft}");
 
         const state = getState();
         invariant(
@@ -744,5 +688,78 @@ describe("MafsGraph", () => {
             `state type must be segment but was ${state.type}`,
         );
         expect(state.coords).toEqual(expectedCoords);
+    });
+
+    describe("with an unlimited-point graph", () => {
+        it("displays an add point button", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                hasBeenInteractedWith: true,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [],
+            };
+
+            const baseMafsGraphProps = getBaseMafsGraphProps();
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: NOTHING
+
+            // Assert
+            // Make sure the button is on the page
+            const addPointButton = await screen.findByText("Add Point");
+            expect(addPointButton).not.toBeNull();
+        });
+        it("adds a point when the add point button is clicked", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                hasBeenInteractedWith: true,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [],
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphProps(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: Click the button
+            const addPointButton = await screen.findByText("Add Point");
+            await userEvent.click(addPointButton);
+
+            expect(mockDispatch.mock.calls).toEqual([
+                [{type: ADD_POINT, location: [0, 0]}],
+            ]);
+        });
     });
 });

@@ -10,19 +10,18 @@ import {
 } from "@khanacademy/perseus";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import LabeledRow from "./labeled-row";
-import ToggleableCaret from "./toggleable-caret";
+import LabeledRow from "./graph-locked-figures/labeled-row";
+import Heading from "./heading";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
 
-const {ButtonGroup, InfoTip, PropCheckBox, RangeInput} = components;
+const {ButtonGroup, InfoTip, RangeInput} = components;
 
 const defaultBackgroundImage = {
     url: null,
@@ -32,38 +31,6 @@ const defaultBackgroundImage = {
 
 function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
-}
-
-function Heading({
-    title,
-    isOpen,
-    onToggle,
-}: {
-    title: string;
-    isOpen: boolean;
-    onToggle?: (isOpen: boolean) => void;
-}) {
-    return (
-        <View
-            style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                backgroundColor: color.offBlack8,
-                padding: spacing.xSmall_8,
-                marginTop: spacing.small_12,
-                // NOTE(jeremy): This is the inverse of the @editorPadding CSS
-                // variable found in perseus-editor.less. For now, it must
-                // match otherwise there's a gap from this header to the edge
-                // of the editor borders.
-                marginInline: -10,
-                cursor: "pointer",
-            }}
-            onClick={() => onToggle?.(!isOpen)}
-        >
-            <LabelSmall>{title}</LabelSmall>
-            <ToggleableCaret isExpanded={isOpen} />
-        </View>
-    );
 }
 
 type Range = [min: number, max: number];
@@ -116,21 +83,9 @@ type Props = {
      */
     showProtractor: boolean;
     /**
-     * Whether to show the ruler on the graph.
-     */
-    showRuler: boolean;
-    /**
      * Whether to show tooltips on the graph.
      */
     showTooltips: boolean;
-    /**
-     * The label to display on the ruler, if any.
-     */
-    rulerLabel: string;
-    /**
-     * The number of ticks to display on the ruler.
-     */
-    rulerTicks: number;
 
     onChange: (arg1: Partial<Props>) => void;
 };
@@ -190,10 +145,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         backgroundImage: defaultBackgroundImage,
         markings: "graph",
         showProtractor: false,
-        showRuler: false,
         showTooltips: false,
-        rulerLabel: "",
-        rulerTicks: 10,
     };
 
     componentDidMount() {
@@ -225,16 +177,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
     change = (...args) => {
         return Changeable.change.apply(this, args);
-    };
-
-    // TODO(aria): Make either a wrapper for standard events to work
-    // with this.change, or make these use some TextInput/NumberInput box
-    changeRulerLabel = (e) => {
-        this.change({rulerLabel: e.target.value});
-    };
-
-    changeRulerTicks = (e) => {
-        this.change({rulerTicks: +e.target.value});
     };
 
     changeBackgroundUrl = (e) => {
@@ -498,6 +440,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 <Heading
                     title="Common Graph Settings"
                     isOpen={this.state.isExpanded}
+                    isCollapsible={true}
                     onToggle={() =>
                         this.setState({isExpanded: !this.state.isExpanded})
                     }
@@ -605,10 +548,12 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 </LabeledRow>
                             </div>
                             <div className="perseus-widget-left-col">
-                                <PropCheckBox
+                                <Checkbox
                                     label="Show tooltips"
-                                    showTooltips={this.props.showTooltips}
-                                    onChange={this.change}
+                                    checked={this.props.showTooltips}
+                                    onChange={(value) => {
+                                        this.change({showTooltips: value});
+                                    }}
                                 />
                             </div>
                         </div>
@@ -641,112 +586,23 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             </InfoTip>
                         </LabeledRow>
 
-                        <View style={styles.rulerSection}>
+                        <View style={styles.protractorSection}>
                             <View style={styles.checkboxRow}>
-                                <PropCheckBox
-                                    label="Show ruler"
-                                    showRuler={this.props.showRuler}
-                                    onChange={this.change}
-                                    style={styles.resetSpaceTop}
-                                />
-                                <PropCheckBox
+                                <Checkbox
                                     label="Show protractor"
-                                    showProtractor={this.props.showProtractor}
-                                    onChange={this.change}
+                                    checked={this.props.showProtractor}
+                                    onChange={(value) => {
+                                        this.change({showProtractor: value});
+                                    }}
                                     style={styles.resetSpaceTop}
                                 />
                             </View>
-                            {(this.props.showRuler ||
-                                this.props.showProtractor) && (
+                            {this.props.showProtractor && (
                                 <Banner
                                     layout="floating"
-                                    text="The ruler and protractor are not accessible. Please consider an alternate approach."
+                                    text="The protractor is not accessible. Please consider an alternate approach."
                                     kind="warning"
                                 />
-                            )}
-                            {this.props.showRuler && (
-                                <View style={styles.spaceTop}>
-                                    <LabeledRow
-                                        label="Ruler label:"
-                                        style={styles.resetSpaceTop}
-                                    >
-                                        <SingleSelect
-                                            id="ruler-label-select"
-                                            selectedValue={
-                                                this.props.rulerLabel
-                                            }
-                                            onChange={(newValue) => {
-                                                this.change({
-                                                    rulerLabel: newValue,
-                                                });
-                                            }}
-                                            placeholder="None"
-                                            style={styles.singleSelectShort}
-                                        >
-                                            <OptionItem
-                                                value=""
-                                                label="None"
-                                                horizontalRule="full-width"
-                                            />
-                                            <OptionItem
-                                                value="mm"
-                                                label="Milimeters"
-                                            />
-                                            <OptionItem
-                                                value="cm"
-                                                label="Centimeters"
-                                            />
-                                            <OptionItem
-                                                value="m"
-                                                label="Meters"
-                                            />
-                                            <OptionItem
-                                                value="km"
-                                                label="Kilometers"
-                                                horizontalRule="full-width"
-                                            />
-                                            <OptionItem
-                                                value="in"
-                                                label="Inches"
-                                            />
-                                            <OptionItem
-                                                value="ft"
-                                                label="Feet"
-                                            />
-                                            <OptionItem
-                                                value="yd"
-                                                label="Yards"
-                                            />
-                                            <OptionItem
-                                                value="mi"
-                                                label="Miles"
-                                            />
-                                        </SingleSelect>
-                                    </LabeledRow>
-                                    <LabeledRow label="Ruler ticks:">
-                                        <SingleSelect
-                                            id="ruler-ticks-select"
-                                            selectedValue={`${this.props.rulerTicks}`}
-                                            onChange={(newValue) => {
-                                                this.change({
-                                                    rulerTicks: newValue,
-                                                });
-                                            }}
-                                            placeholder="10"
-                                            style={styles.singleSelectShort}
-                                        >
-                                            {[1, 2, 4, 8, 10, 16].map(
-                                                (value) => (
-                                                    <OptionItem
-                                                        key={value}
-                                                        value={`${value}`}
-                                                        label={`${value}`}
-                                                    />
-                                                ),
-                                            )}
-                                        </SingleSelect>
-                                    </LabeledRow>
-                                </View>
                             )}
                         </View>
                     </View>
@@ -760,14 +616,6 @@ const styles = StyleSheet.create({
     resetSpaceTop: {
         marginTop: 0,
     },
-    spaceTop: {
-        marginTop: spacing.xSmall_8,
-    },
-    singleSelectShort: {
-        // Non-standard spacing, but it's the smallest we can go
-        // without running into styling issues with the dropdown.
-        height: 26,
-    },
     backgroundUrlInput: {
         border: `1px solid ${color.offBlack32}`,
         borderRadius: spacing.xxxSmall_4,
@@ -779,7 +627,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginBottom: spacing.xSmall_8,
     },
-    rulerSection: {
+    protractorSection: {
         marginTop: spacing.xSmall_8,
         borderTop: `1px solid ${color.offBlack16}`,
         paddingTop: spacing.xSmall_8,

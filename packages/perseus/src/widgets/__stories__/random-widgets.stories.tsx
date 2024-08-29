@@ -9,7 +9,7 @@ import {randomExpressionGenerator} from "../__testdata__/expression.testdata";
 import {randomInteractiveGraphGenerator} from "../__testdata__/interactive-graph-random.testdata";
 import {randomRadioGenerator} from "../__testdata__/radio.testdata";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "../../perseus-types";
 
 export default {
     title: "Perseus/Randomized Widgets",

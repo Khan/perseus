@@ -4,7 +4,7 @@ import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "../../perseus-types";
 
 type StoryArgs = Record<any, any>;
 
@@ -153,7 +153,9 @@ export const MafsWithMultipleSegments = (
     args: StoryArgs,
 ): React.ReactElement => (
     <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withSegments(3).build()}
+        question={interactiveGraphQuestionBuilder()
+            .withSegments({numSegments: 3})
+            .build()}
     />
 );
 
@@ -198,6 +200,12 @@ export const MafsWithLockedLine = (args: StoryArgs): React.ReactElement => (
         question={interactiveGraphQuestionBuilder()
             .addLockedLine([-1, 1], [2, 3])
             .build()}
+    />
+);
+
+export const MafsWithProtractor = (args: StoryArgs): React.ReactElement => (
+    <MafsQuestionRenderer
+        question={interactiveGraphQuestionBuilder().withProtractor().build()}
     />
 );
 

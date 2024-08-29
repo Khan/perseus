@@ -1,9 +1,4 @@
-import type {CollinearTuple} from "../../../perseus-types";
 import type {Interval, vec} from "mafs";
-
-export function calculateAngleInDegrees([x, y]: vec.Vector2) {
-    return (Math.atan2(y, x) * 180) / Math.PI;
-}
 
 /**
  * Given a ray and a rectangular box, find the point where the ray intersects
@@ -44,13 +39,6 @@ export const getIntersectionOfRayWithBox = (
         default:
             return [xExtreme, yExtreme];
     }
-};
-
-export const getLines = (points: readonly vec.Vector2[]): CollinearTuple[] => {
-    return points.map((point, i) => {
-        const next = points[(i + 1) % points.length];
-        return [point, next];
-    });
 };
 
 function isBetween(x: number, low: number, high: number) {

@@ -34,6 +34,7 @@ type WidgetName =
     | "passage"
     | "passage-ref"
     | "passage-ref-target"
+    | "phet-simulation"
     | "plotter"
     | "python-program"
     | "reaction-diagram"
@@ -42,7 +43,6 @@ type WidgetName =
     | "simulator"
     | "sorter"
     | "table"
-    | "unit-input"
     | "video";
 
 type WidgetEnum =
@@ -74,6 +74,7 @@ type WidgetEnum =
     | "PASSAGE"
     | "PASSAGE_REF"
     | "PASSAGE_REF_TARGET"
+    | "PHET_SIMULATION"
     | "PLOTTER"
     | "PYTHON_PROGRAM"
     | "REACTION_DIAGRAM"
@@ -114,6 +115,7 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
     passage: "PASSAGE",
     "passage-ref": "PASSAGE_REF",
     "passage-ref-target": "PASSAGE_REF_TARGET",
+    "phet-simulation": "PHET_SIMULATION",
     plotter: "PLOTTER",
     "python-program": "PYTHON_PROGRAM",
     "reaction-diagram": "REACTION_DIAGRAM",
@@ -122,7 +124,6 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
     simulator: "SIMULATOR",
     sorter: "SORTER",
     table: "TABLE",
-    "unit-input": "UNIT",
     video: "VIDEO",
 };
 

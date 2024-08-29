@@ -1,159 +1,42 @@
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
-import {useEffect, useImperativeHandle, useRef} from "react";
 
-import AxisLabels from "./axis-labels";
+import AxisLabels from "./backgrounds/axis-labels";
+import {AxisTickLabels} from "./backgrounds/axis-tick-labels";
+import {Grid} from "./backgrounds/grid";
+import {LegacyGrid} from "./backgrounds/legacy-grid";
+import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
 import {
     LinearGraph,
+    LinearSystemGraph,
     PolygonGraph,
     RayGraph,
     SegmentGraph,
     CircleGraph,
     QuadraticGraph,
     SinusoidGraph,
+    AngleGraph,
 } from "./graphs";
-import {AxisTickLabels} from "./graphs/components/axis-tick-labels";
 import {SvgDefs} from "./graphs/components/text-label";
 import {PointGraph} from "./graphs/point";
-import {Grid} from "./grid";
-import {LegacyGrid} from "./legacy-grid";
-import {
-    changeRange,
-    changeSnapStep,
-    type InteractiveGraphAction,
-} from "./reducer/interactive-graph-action";
-import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
-import {
-    getGradableGraph,
-    getRadius,
-    initializeGraphState,
-} from "./reducer/interactive-graph-state";
+import {X, Y} from "./math";
+import {Protractor} from "./protractor";
+import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
+import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
 import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
-import type {Widget} from "../../renderer";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
 
-export type StatefulMafsGraphProps = {
-    box: [number, number];
-    backgroundImage?: InteractiveGraphProps["backgroundImage"];
-    graph: InteractiveGraphProps["graph"];
-    lockedFigures?: InteractiveGraphProps["lockedFigures"];
-    range: InteractiveGraphProps["range"];
-    snapStep: InteractiveGraphProps["snapStep"];
-    step: InteractiveGraphProps["step"];
-    gridStep: InteractiveGraphProps["gridStep"];
-    containerSizeClass: InteractiveGraphProps["containerSizeClass"];
-    markings: InteractiveGraphProps["markings"];
-    onChange: InteractiveGraphProps["onChange"];
-    showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
-    labels: InteractiveGraphProps["labels"];
-};
-
-type MafsChange = {
-    graph: InteractiveGraphState;
-};
-
-const renderGraph = (props: {
-    state: InteractiveGraphState;
-    dispatch: (action: InteractiveGraphAction) => unknown;
-}) => {
-    const {state, dispatch} = props;
-    const {type} = state;
-    switch (type) {
-        case "segment":
-            return <SegmentGraph graphState={state} dispatch={dispatch} />;
-        case "linear":
-        case "linear-system":
-            return <LinearGraph graphState={state} dispatch={dispatch} />;
-        case "ray":
-            return <RayGraph graphState={state} dispatch={dispatch} />;
-        case "polygon":
-            return <PolygonGraph graphState={state} dispatch={dispatch} />;
-        case "point":
-            return <PointGraph graphState={state} dispatch={dispatch} />;
-        case "circle":
-            return <CircleGraph graphState={state} dispatch={dispatch} />;
-        case "quadratic":
-            return <QuadraticGraph graphState={state} dispatch={dispatch} />;
-        case "sinusoid":
-            return <SinusoidGraph graphState={state} dispatch={dispatch} />;
-        default:
-            return new UnreachableCaseError(type);
-    }
-};
-
-// Rather than be tightly bound to how data was structured in
-// the legacy interactive graph, this lets us store state
-// however we want and we just transform it before handing it off
-// the the parent InteractiveGraph
-function mafsStateToInteractiveGraph(state: MafsChange) {
-    if (state.graph.type === "circle") {
-        return {
-            ...state,
-            graph: {
-                ...state.graph,
-                radius: getRadius(state.graph),
-            },
-        };
-    }
-    return {
-        ...state,
-    };
-}
-
-export const StatefulMafsGraph = React.forwardRef<
-    Partial<Widget>,
-    StatefulMafsGraphProps
->((props, ref) => {
-    const {onChange} = props;
-
-    const [state, dispatch] = React.useReducer(
-        interactiveGraphReducer,
-        props,
-        initializeGraphState,
-    );
-
-    useImperativeHandle(ref, () => ({
-        getUserInput: () => getGradableGraph(state, props.graph),
-    }));
-
-    const prevState = useRef<InteractiveGraphState>(state);
-
-    useEffect(() => {
-        if (prevState.current !== state) {
-            onChange(mafsStateToInteractiveGraph({graph: state}));
-        }
-        prevState.current = state;
-    }, [onChange, state]);
-
-    // Destructuring first to keep useEffect from making excess calls
-    const [xSnap, ySnap] = props.snapStep;
-    useEffect(() => {
-        dispatch(changeSnapStep([xSnap, ySnap]));
-    }, [dispatch, xSnap, ySnap]);
-
-    // Destructuring first to keep useEffect from making excess calls
-    const [[xMinRange, xMaxRange], [yMinRange, yMaxRange]] = props.range;
-    useEffect(() => {
-        dispatch(
-            changeRange([
-                [xMinRange, xMaxRange],
-                [yMinRange, yMaxRange],
-            ]),
-        );
-    }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
-
-    return <MafsGraph {...props} state={state} dispatch={dispatch} />;
-});
-
 export type MafsGraphProps = {
+    showLabelsFlag?: boolean;
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
@@ -162,13 +45,16 @@ export type MafsGraphProps = {
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
+    readOnly: boolean;
+    static: boolean | null | undefined;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch, labels} = props;
+    const {state, dispatch, labels, readOnly} = props;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
     return (
@@ -184,77 +70,155 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
+                disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View
-                className="mafs-graph"
-                style={{
-                    width,
-                    height,
-                    position: "relative",
-                    padding: "25px 25px 0 0",
-                    boxSizing: "content-box",
-                    marginLeft: "20px",
-                    marginBottom: "20px",
-                }}
-            >
-                <LegacyGrid
-                    box={props.box}
-                    backgroundImage={props.backgroundImage}
-                />
+            <View>
                 <View
+                    className="mafs-graph"
                     style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
+                        height,
+                        width: "intrinsic",
+                        position: "relative",
+                        padding: "25px 25px 0 0",
+                        boxSizing: "content-box",
+                        marginLeft: "20px",
+                        marginBottom: "20px",
+                        pointerEvents: props.static ? "none" : "auto",
+                        userSelect: "none",
                     }}
                 >
-                    {props.markings === "graph" && (
-                        <>
-                            <AxisLabels />
-                            <AxisTickLabels />
-                        </>
-                    )}
-                    <Mafs
-                        preserveAspectRatio={false}
-                        viewBox={{
-                            x: state.range[0],
-                            y: state.range[1],
-                            padding: 0,
-                        }}
-                        pan={false}
-                        zoom={false}
-                        width={width}
-                        height={height}
-                    >
-                        {/* Svg definitions to render only once */}
-                        <SvgDefs />
-
-                        {/* Background layer */}
-                        <Grid
-                            tickStep={props.step}
-                            gridStep={props.gridStep}
-                            range={state.range}
-                            containerSizeClass={props.containerSizeClass}
-                            markings={props.markings}
+                    <LegacyGrid
+                        box={props.box}
+                        backgroundImage={props.backgroundImage}
+                    />
+                    {/* Locked labels layer */}
+                    {props.showLabelsFlag && props.lockedFigures && (
+                        <GraphLockedLabelsLayer
+                            lockedFigures={props.lockedFigures}
                         />
-
-                        {/* Locked layer */}
-                        {props.lockedFigures && (
-                            <GraphLockedLayer
-                                lockedFigures={props.lockedFigures}
-                                range={state.range}
-                            />
+                    )}
+                    <View
+                        style={{
+                            position: "absolute",
+                            bottom: 0,
+                            left: 0,
+                        }}
+                    >
+                        {props.markings === "graph" && (
+                            <>
+                                <AxisLabels />
+                                <AxisTickLabels />
+                            </>
                         )}
-
-                        {/* Interactive layer */}
-                        {renderGraph({
-                            state,
-                            dispatch,
-                        })}
-                    </Mafs>
+                        <Mafs
+                            preserveAspectRatio={false}
+                            viewBox={{
+                                x: state.range[X],
+                                y: state.range[Y],
+                                padding: 0,
+                            }}
+                            pan={false}
+                            zoom={false}
+                            width={width}
+                            height={height}
+                        >
+                            {/* Svg definitions to render only once */}
+                            <SvgDefs />
+                            {/* Background layer */}
+                            <Grid
+                                tickStep={props.step}
+                                gridStep={props.gridStep}
+                                range={state.range}
+                                containerSizeClass={props.containerSizeClass}
+                                markings={props.markings}
+                            />
+                            {/* Locked figures layer */}
+                            {props.lockedFigures && (
+                                <GraphLockedLayer
+                                    lockedFigures={props.lockedFigures}
+                                    range={state.range}
+                                />
+                            )}
+                            {/* Protractor */}
+                            {props.showProtractor && <Protractor />}
+                            {/* Interactive layer */}
+                            {renderGraph({
+                                state,
+                                dispatch,
+                            })}
+                        </Mafs>
+                    </View>
                 </View>
+                {renderGraphControls({state, dispatch})}
             </View>
         </GraphConfigContext.Provider>
     );
+};
+
+const renderPointGraphControls = (props: {
+    state: InteractiveGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+}) => (
+    <Button
+        kind="secondary"
+        style={{
+            width: "100%",
+            marginLeft: "20px",
+        }}
+        onClick={() => {
+            props.dispatch(actions.pointGraph.addPoint([0, 0]));
+        }}
+    >
+        Add Point
+    </Button>
+);
+
+const renderGraphControls = (props: {
+    state: InteractiveGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+}) => {
+    const {state, dispatch} = props;
+    const {type} = state;
+    switch (type) {
+        case "point":
+            if (state.numPoints === "unlimited") {
+                return renderPointGraphControls({state, dispatch});
+            }
+            return null;
+        default:
+            return null;
+    }
+};
+
+const renderGraph = (props: {
+    state: InteractiveGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+}) => {
+    const {state, dispatch} = props;
+    const {type} = state;
+    switch (type) {
+        case "angle":
+            return <AngleGraph graphState={state} dispatch={dispatch} />;
+        case "segment":
+            return <SegmentGraph graphState={state} dispatch={dispatch} />;
+        case "linear-system":
+            return <LinearSystemGraph graphState={state} dispatch={dispatch} />;
+        case "linear":
+            return <LinearGraph graphState={state} dispatch={dispatch} />;
+        case "ray":
+            return <RayGraph graphState={state} dispatch={dispatch} />;
+        case "polygon":
+            return <PolygonGraph graphState={state} dispatch={dispatch} />;
+        case "point":
+            return <PointGraph graphState={state} dispatch={dispatch} />;
+        case "circle":
+            return <CircleGraph graphState={state} dispatch={dispatch} />;
+        case "quadratic":
+            return <QuadraticGraph graphState={state} dispatch={dispatch} />;
+        case "sinusoid":
+            return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+        default:
+            throw new UnreachableCaseError(type);
+    }
 };

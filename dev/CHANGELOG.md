@@ -1,5 +1,128 @@
 # @khanacademy/perseus-dev-ui
 
+## 3.0.2
+
+### Patch Changes
+
+-   [#1541](https://github.com/Khan/perseus/pull/1541) [`36471197c`](https://github.com/Khan/perseus/commit/36471197cc25d78b8f9515ba0da04875480c788d) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Adds a finite point question to dev gallery
+
+## 3.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50), [`e19c58eb9`](https://github.com/Khan/perseus/commit/e19c58eb9f0ef84c32dfdb40a4382cfa4c82392d), [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720), [`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50)]:
+    -   @khanacademy/perseus-linter@1.2.0
+    -   @khanacademy/kas@0.3.12
+    -   @khanacademy/math-input@21.0.1
+
+## 3.0.0
+
+### Major Changes
+
+-   [#1536](https://github.com/Khan/perseus/pull/1536) [`78a5558f9`](https://github.com/Khan/perseus/commit/78a5558f93c966a076a35b74c5c01d697408ce84) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert introduction of ContentPreview component (broke editor linting tooltip)"
+
+## 2.0.9
+
+### Patch Changes
+
+-   [#1521](https://github.com/Khan/perseus/pull/1521) [`a9292af78`](https://github.com/Khan/perseus/commit/a9292af78f569b703fcae07de01852f264861158) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update vite config to alias `/strings` expots to correct strings.ts file per package
+
+## 2.0.8
+
+### Patch Changes
+
+-   Updated dependencies [[`7eb7ab165`](https://github.com/Khan/perseus/commit/7eb7ab165e20af37ee10ad38c2bbef8538c79f08), [`84d9c62d2`](https://github.com/Khan/perseus/commit/84d9c62d2ae7b55680f2ef90c5915e7f7406020d)]:
+    -   @khanacademy/perseus-linter@1.1.0
+    -   @khanacademy/math-input@21.0.0
+
+## 2.0.7
+
+### Patch Changes
+
+-   Updated dependencies [[`5b6b97641`](https://github.com/Khan/perseus/commit/5b6b976416f885c08bda2ead5948fcdbe94dc380), [`c2464eef8`](https://github.com/Khan/perseus/commit/c2464eef807b0b1c2696e553300026462262544d), [`3f18a2211`](https://github.com/Khan/perseus/commit/3f18a22118ad9b952009a78c30bb1c8242e81d9c)]:
+    -   @khanacademy/math-input@20.1.2
+
+## 2.0.6
+
+### Patch Changes
+
+-   Updated dependencies [[`6c6ff52f4`](https://github.com/Khan/perseus/commit/6c6ff52f4725ff78f50bd6ca71f201a6c9ab786b), [`342a72211`](https://github.com/Khan/perseus/commit/342a722119f549f20e71ff1e44d2bba6c44c9ba3), [`5e66539e6`](https://github.com/Khan/perseus/commit/5e66539e6a3edfd784041c5ba2b17135eafebe1b)]:
+    -   @khanacademy/math-input@20.1.1
+
+## 2.0.5
+
+### Patch Changes
+
+-   Updated dependencies [[`284e068b8`](https://github.com/Khan/perseus/commit/284e068b8e3bfb1f9ab49d84d209c5f9ef2d93c1)]:
+    -   @khanacademy/math-input@20.1.0
+
+## 2.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`2e8022adb`](https://github.com/Khan/perseus/commit/2e8022adb11a000fb77528b1268ad5725dec817b)]:
+    -   @khanacademy/math-input@20.0.3
+
+## 2.0.3
+
+### Patch Changes
+
+-   Updated dependencies [[`ca31afb35`](https://github.com/Khan/perseus/commit/ca31afb359cc00035a4af965f19d20d7919a14a5)]:
+    -   @khanacademy/kas@0.3.11
+
+## 2.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`7e71f8e8a`](https://github.com/Khan/perseus/commit/7e71f8e8a114d80ad7d26f478c31149d9009a9e5)]:
+    -   @khanacademy/math-input@20.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`fedac0be5`](https://github.com/Khan/perseus/commit/fedac0be518bb51345c82599b3d6729b52703961)]:
+    -   @khanacademy/math-input@20.0.1
+
+## 2.0.0
+
+### Major Changes
+
+-   [#1064](https://github.com/Khan/perseus/pull/1064) [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - React 18
+
+### Patch Changes
+
+-   Updated dependencies [[`9a3bce37f`](https://github.com/Khan/perseus/commit/9a3bce37fe0d4718638b2571fab7081217b9f6cc), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df)]:
+    -   @khanacademy/math-input@20.0.0
+    -   @khanacademy/simple-markdown@0.13.0
+    -   @khanacademy/pure-markdown@0.3.7
+
+## 1.6.2
+
+### Patch Changes
+
+-   Updated dependencies [[`be7f14153`](https://github.com/Khan/perseus/commit/be7f141536b6ed69bba8a4378a1ddae51fd5307e), [`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617), [`24a72177e`](https://github.com/Khan/perseus/commit/24a72177edfc3471192f0f040918d998c2c6897d)]:
+    -   @khanacademy/kas@0.3.10
+    -   @khanacademy/kmath@0.1.13
+    -   @khanacademy/math-input@19.2.1
+    -   @khanacademy/perseus-linter@1.0.0
+    -   @khanacademy/pure-markdown@0.3.6
+    -   @khanacademy/simple-markdown@0.12.1
+    -   @khanacademy/perseus-core@1.5.0
+
+## 1.6.1
+
+### Patch Changes
+
+-   Updated dependencies [[`5de483386`](https://github.com/Khan/perseus/commit/5de483386693884ccdef22b9740582e6098a5baa)]:
+    -   @khanacademy/math-input@19.2.0
+
+## 1.6.0
+
+### Minor Changes
+
+-   [#1338](https://github.com/Khan/perseus/pull/1338) [`7a530de8d`](https://github.com/Khan/perseus/commit/7a530de8df3d7edf709b4c4e42843b295f8e73bc) Thanks [@Myranae](https://github.com/Myranae)! - Implement the "sides" snapTo type for Polygon interactive graphs
+
 ## 1.5.9
 
 ### Patch Changes

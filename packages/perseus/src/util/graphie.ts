@@ -4,6 +4,7 @@ import {
     vector as kvector,
     number as knumber,
 } from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -13,8 +14,7 @@ import Raphael from "raphael";
 // release
 // http://groups.google.com/group/raphaeljs/browse_thread/thread/c34c75ad8d431544
 
-import {Errors, Log} from "../logging/log";
-import {PerseusError} from "../perseus-error";
+import {Log} from "../logging/log";
 
 import KhanColors from "./colors";
 import {DrawingTransform} from "./drawing-transform";

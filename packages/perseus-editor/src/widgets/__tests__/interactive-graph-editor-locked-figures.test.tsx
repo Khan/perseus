@@ -10,9 +10,11 @@ import {getDefaultFigureForType} from "../../components/util";
 import InteractiveGraphEditor from "../interactive-graph-editor";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
+import type {UserEvent} from "@testing-library/user-event";
 
 const defaultPoint = getDefaultFigureForType("point");
 const defaultLine = getDefaultFigureForType("line");
+const defaultPolygon = getDefaultFigureForType("polygon");
 
 const baseProps = {
     apiOptions: ApiOptions.defaults,
@@ -41,7 +43,7 @@ const renderEditor = (props) => {
 };
 
 describe("InteractiveGraphEditor locked figures", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -52,12 +54,31 @@ describe("InteractiveGraphEditor locked figures", () => {
         );
     });
 
+    const assertAndCloseStartCoordsSection = async () => {
+        // Confirm the "Start coordinates" section is open.
+        const resetCoordsButton = screen.getByRole("button", {
+            name: "Use default start coordinates",
+        });
+        expect(resetCoordsButton).toBeInTheDocument();
+
+        // Close the "Start coordinates" section first to remove
+        // other inputs from the DOM.
+        const startCoordinatesHeading = screen.getByRole("button", {
+            name: "Start coordinates",
+        });
+
+        await userEvent.click(startCoordinatesHeading);
+    };
+
     // Basic functionality
     describe.each`
-        figureType   | figureName
-        ${"point"}   | ${"Point"}
-        ${"line"}    | ${"Line"}
-        ${"ellipse"} | ${"Ellipse"}
+        figureType    | figureName
+        ${"point"}    | ${"Point"}
+        ${"line"}     | ${"Line"}
+        ${"vector"}   | ${"Vector"}
+        ${"ellipse"}  | ${"Ellipse"}
+        ${"polygon"}  | ${"Polygon"}
+        ${"function"} | ${"Function"}
     `(`$figureType basics`, ({figureType, figureName}) => {
         test("Calls onChange when a locked $figureType is added", async () => {
             // Arrange
@@ -94,7 +115,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: /Delete/,
+                name: `Delete locked ${figureType}`,
             });
             await userEvent.click(deleteButton);
 
@@ -122,7 +143,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Act
             const deleteButton = screen.getByRole("button", {
-                name: /Delete/,
+                name: `Delete locked ${figureType}`,
             });
             await userEvent.click(deleteButton);
 
@@ -131,11 +152,196 @@ describe("InteractiveGraphEditor locked figures", () => {
             expect(onChangeMock).not.toBeCalled();
         });
 
+        describe("movement", () => {
+            const first = {
+                ...getDefaultFigureForType(figureType),
+                color: "blue",
+            };
+            const second = {
+                ...getDefaultFigureForType(figureType),
+                color: "green",
+            };
+            const third = {
+                ...getDefaultFigureForType(figureType),
+                color: "red",
+            };
+
+            test(`Calls onChange when a locked ${figureType} is moved back`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the back`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [third, first, second],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved backward`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} backward`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [first, third, second],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved forward`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} forward`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [second, first, third],
+                    }),
+                );
+            });
+
+            test(`Calls onChange when a locked ${figureType} is moved front`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the front`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [second, third, first],
+                    }),
+                );
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved to the back and is already in the back`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the back`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved backward and is already in the back`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} backward`,
+                });
+                await userEvent.click(moveButton[0]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved forward and is already in the front`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} forward`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+
+            test(`Does not call onChange when a locked ${figureType} is moved to the front and is already in the front`, async () => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [first, second, third],
+                });
+
+                // Act
+                const moveButton = screen.getAllByRole("button", {
+                    name: `Move locked ${figureType} to the front`,
+                });
+                await userEvent.click(moveButton[2]);
+
+                // Assert
+                expect(onChangeMock).not.toBeCalled();
+            });
+        });
+
         test("Shows settings accordion when a locked $figureType is passed in", async () => {
             // Arrange
             renderEditor({
                 lockedFigures: [getDefaultFigureForType(figureType)],
             });
+
+            await assertAndCloseStartCoordsSection();
 
             // Act
             // There may be accordions within the settings, such as the
@@ -190,6 +396,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultPoint],
             });
 
+            await assertAndCloseStartCoordsSection();
+
             // Act
             const xCoordInput = screen.getByLabelText("x coord");
             await userEvent.clear(xCoordInput);
@@ -216,6 +424,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultPoint],
             });
+
+            await assertAndCloseStartCoordsSection();
 
             // Act
             const xCoordInput = screen.getByLabelText("y coord");
@@ -244,6 +454,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultPoint],
             });
 
+            await assertAndCloseStartCoordsSection();
+
             // Act
             const fillInput = screen.getByRole("switch", {
                 name: "open point",
@@ -271,6 +483,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultPoint],
             });
 
+            await assertAndCloseStartCoordsSection();
+
             // Act
             const xCoordInput = screen.getByLabelText("x coord");
             await userEvent.clear(xCoordInput);
@@ -288,6 +502,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultPoint],
             });
+
+            await assertAndCloseStartCoordsSection();
 
             // Act
             const yCoordInput = screen.getByLabelText("y coord");
@@ -315,6 +531,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [defaultPoint],
                 });
 
+                await assertAndCloseStartCoordsSection();
+
                 // Act
                 const coordInput = screen.getByLabelText(`${coord} coord`);
                 await userEvent.clear(coordInput);
@@ -337,9 +555,11 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultLine],
             });
 
+            await assertAndCloseStartCoordsSection();
+
             // Act
             const styleInput = screen.getByRole("button", {
-                name: "style",
+                name: "stroke",
             });
             await userEvent.click(styleInput);
             const styleSelection = screen.getByText("dashed");
@@ -366,6 +586,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultLine],
             });
+
+            await assertAndCloseStartCoordsSection();
 
             // Act
             const point1Input = screen.getAllByLabelText("x coord")[0];
@@ -399,6 +621,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultLine],
             });
 
+            await assertAndCloseStartCoordsSection();
+
             // Act
             const point2Input = screen.getAllByLabelText("y coord")[0];
             await userEvent.click(point2Input);
@@ -431,6 +655,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [defaultLine],
             });
 
+            await assertAndCloseStartCoordsSection();
+
             // Act
             const point1Input = screen.getAllByLabelText("x coord")[1];
             await userEvent.click(point1Input);
@@ -462,6 +688,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 onChange: onChangeMock,
                 lockedFigures: [defaultLine],
             });
+
+            await assertAndCloseStartCoordsSection();
 
             // Act
             const point1Input = screen.getAllByLabelText("y coord")[1];
@@ -579,6 +807,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [getDefaultFigureForType("ellipse")],
             });
 
+            await assertAndCloseStartCoordsSection();
+
             // Act
             const xCoordInput = screen.getByLabelText("x coord");
             await userEvent.clear(xCoordInput);
@@ -607,6 +837,8 @@ describe("InteractiveGraphEditor locked figures", () => {
                 lockedFigures: [getDefaultFigureForType("ellipse")],
             });
 
+            await assertAndCloseStartCoordsSection();
+
             // Act
             const yCoordInput = screen.getByLabelText("y coord");
             await userEvent.clear(yCoordInput);
@@ -626,7 +858,43 @@ describe("InteractiveGraphEditor locked figures", () => {
             );
         });
 
-        test("Calls onChange when a locked ellipse's radius is changed", async () => {
+        // Test both x and y radius changes
+        test.each`
+            coord
+            ${"x"}
+            ${"y"}
+        `(
+            "Calls onChange when a locked ellipse's $coord radius is changed",
+            async ({coord}) => {
+                // Arrange
+                const onChangeMock = jest.fn();
+
+                renderEditor({
+                    onChange: onChangeMock,
+                    lockedFigures: [getDefaultFigureForType("ellipse")],
+                });
+
+                // Act
+                const radiusInput = screen.getByLabelText(`${coord} radius`);
+                await userEvent.clear(radiusInput);
+                await userEvent.type(radiusInput, "5");
+                await userEvent.tab();
+
+                // Assert
+                expect(onChangeMock).toBeCalledWith(
+                    expect.objectContaining({
+                        lockedFigures: [
+                            expect.objectContaining({
+                                type: "ellipse",
+                                radius: coord === "x" ? [5, 1] : [1, 5],
+                            }),
+                        ],
+                    }),
+                );
+            },
+        );
+
+        test("Calls onChange when a locked ellipse's angle is changed (radians)", async () => {
             // Arrange
             const onChangeMock = jest.fn();
 
@@ -636,9 +904,11 @@ describe("InteractiveGraphEditor locked figures", () => {
             });
 
             // Act
-            const radiusInput = screen.getByLabelText("radius");
-            await userEvent.clear(radiusInput);
-            await userEvent.type(radiusInput, "5");
+            const angleInput = screen.getByRole("spinbutton", {
+                name: "angle (degrees)",
+            });
+            await userEvent.clear(angleInput);
+            await userEvent.type(angleInput, "30");
             await userEvent.tab();
 
             // Assert
@@ -647,7 +917,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                     lockedFigures: [
                         expect.objectContaining({
                             type: "ellipse",
-                            radius: 5,
+                            angle: Math.PI / 6,
                         }),
                     ],
                 }),
@@ -715,6 +985,228 @@ describe("InteractiveGraphEditor locked figures", () => {
         });
     });
 
+    describe("polygons", () => {
+        test("Calls onChange when fill is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const fillInput = screen.getByRole("button", {
+                name: "fill",
+            });
+            await userEvent.click(fillInput);
+            const fillSelection = screen.getByText("translucent");
+            await userEvent.click(fillSelection);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            fillStyle: "translucent",
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when stroke is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const strokeInput = screen.getByRole("button", {
+                name: "stroke",
+            });
+            await userEvent.click(strokeInput);
+            const strokeSelection = screen.getByText("dashed");
+            await userEvent.click(strokeSelection);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            strokeStyle: "dashed",
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when show vertices is toggled", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const toggle = screen.getByLabelText("show vertices");
+            await userEvent.click(toggle);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            showVertices: true,
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a point is added", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            const addPointButton = screen.getByRole("button", {
+                name: "Add point",
+            });
+            await userEvent.click(addPointButton);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            points: [...defaultPolygon.points, [0, 0]],
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a point is removed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            const squarePolygonPoints = [
+                [-9, 4],
+                [-6, 4],
+                [-6, 1],
+                [-9, 1],
+            ];
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [
+                    {
+                        ...defaultPolygon,
+                        points: squarePolygonPoints,
+                    },
+                ],
+            });
+
+            // Act
+            const deleteButton = screen.getByLabelText(
+                "Delete polygon point A",
+            );
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            points: squarePolygonPoints.slice(1),
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a point's x coordinate is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            // Act
+            await assertAndCloseStartCoordsSection();
+
+            const xCoordInput = screen.getAllByLabelText("x")[0];
+            await userEvent.clear(xCoordInput);
+            await userEvent.type(xCoordInput, "7");
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            points: [
+                                [7, 2],
+                                [-1, 0],
+                                [1, 0],
+                            ],
+                        }),
+                    ],
+                }),
+            );
+        });
+
+        test("Calls onChange when a point's y coordinate is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+
+            renderEditor({
+                onChange: onChangeMock,
+                lockedFigures: [defaultPolygon],
+            });
+
+            await assertAndCloseStartCoordsSection();
+
+            // Act
+            const yCoordInput = screen.getAllByLabelText("y")[0];
+            await userEvent.clear(yCoordInput);
+            await userEvent.type(yCoordInput, "7");
+
+            // Assert
+            expect(onChangeMock).toBeCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [
+                        expect.objectContaining({
+                            type: "polygon",
+                            points: [
+                                [0, 7],
+                                [-1, 0],
+                                [1, 0],
+                            ],
+                        }),
+                    ],
+                }),
+            );
+        });
+    });
+
     describe("accordion states", () => {
         test("should show expand all button if figure is deleted and others are collapsed", async () => {
             // Arrange
@@ -737,7 +1229,7 @@ describe("InteractiveGraphEditor locked figures", () => {
 
             // Delete the figure
             const deleteButton = screen.getByRole("button", {
-                name: "Delete locked line defined by 0, 0 and 2, 2.",
+                name: "Delete locked line",
             });
             await userEvent.click(deleteButton);
 

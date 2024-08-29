@@ -1,5 +1,26 @@
 # @khanacademy/kas
 
+## 0.3.12
+
+### Patch Changes
+
+-   [#1507](https://github.com/Khan/perseus/pull/1507) [`e19c58eb9`](https://github.com/Khan/perseus/commit/e19c58eb9f0ef84c32dfdb40a4382cfa4c82392d) Thanks [@handeyeco](https://github.com/handeyeco)! - Add some tests for mixed numbers in KAS.
+
+## 0.3.11
+
+### Patch Changes
+
+-   [#1449](https://github.com/Khan/perseus/pull/1449) [`ca31afb35`](https://github.com/Khan/perseus/commit/ca31afb359cc00035a4af965f19d20d7919a14a5) Thanks [@handeyeco](https://github.com/handeyeco)! - Add some types to the KAS package
+
+## 0.3.10
+
+### Patch Changes
+
+-   [#1407](https://github.com/Khan/perseus/pull/1407) [`be7f14153`](https://github.com/Khan/perseus/commit/be7f141536b6ed69bba8a4378a1ddae51fd5307e) Thanks [@handeyeco](https://github.com/handeyeco)! - Updates to README files
+
+-   Updated dependencies [[`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617)]:
+    -   @khanacademy/perseus-core@1.5.0
+
 ## 0.3.9
 
 ### Patch Changes

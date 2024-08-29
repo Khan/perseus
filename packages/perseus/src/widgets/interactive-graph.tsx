@@ -1,5 +1,6 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import {number as knumber, point as kpoint} from "@khanacademy/kmath";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import debounce from "lodash.debounce";
 import * as React from "react";
@@ -9,24 +10,22 @@ import Graph from "../components/graph";
 import {PerseusI18nContext} from "../components/i18n-context";
 import Interactive2 from "../interactive2";
 import WrappedLine from "../interactive2/wrapped-line";
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 import Util from "../util";
 import KhanColors from "../util/colors";
 import {
     angleMeasures,
+    canonicalSineCoefficients,
     ccw,
     collinear,
+    getLineEquation,
+    getLineIntersection,
     intersects,
     lawOfCosines,
     magnitude,
     rotate,
-    vector,
     sign,
-    getLineEquation,
-    getLineIntersection,
-    canonicalSineCoefficients,
     similar,
+    vector,
 } from "../util/geometry";
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
@@ -53,8 +52,8 @@ import type {
 } from "../types";
 import type {
     QuadraticCoefficient,
-    SineCoefficient,
     Range,
+    SineCoefficient,
 } from "../util/geometry";
 
 const {DeprecationMixin} = Util;
@@ -141,12 +140,13 @@ type DefaultProps = {
     markings: Props["markings"];
     showTooltips: Props["showTooltips"];
     showProtractor: Props["showProtractor"];
-    showRuler: Props["showRuler"];
-    rulerLabel: Props["rulerLabel"];
-    rulerTicks: Props["rulerTicks"];
     graph: Props["graph"];
 };
 
+// (LEMS-2190): Move the Mafs Angle Graph coordinate reversal logic in interactive-graph-state.ts
+// to this file when we remove the legacy graph. This logic allows us to support bi-directional angles
+// for the new (non-reflexive) Mafs graphs, while maintaining the same scoring behaviour as the legacy graph.
+// Once the legacy graph is removed, we should move this logic directly into the validate function below.
 class LegacyInteractiveGraph extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -181,9 +181,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         markings: "graph",
         showTooltips: false,
         showProtractor: false,
-        showRuler: false,
-        rulerLabel: "",
-        rulerTicks: 10,
         graph: {
             type: "linear",
         },
@@ -1759,9 +1756,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                     markings={this.props.markings}
                     backgroundImage={this.props.backgroundImage}
                     showProtractor={this.props.showProtractor}
-                    showRuler={this.props.showRuler}
-                    rulerLabel={this.props.rulerLabel}
-                    rulerTicks={this.props.rulerTicks}
                     onMouseDown={onMouseDown}
                     onGraphieUpdated={this.setGraphie}
                     setDrawingAreaAvailable={
@@ -1789,9 +1783,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         markings: "graph",
         showTooltips: false,
         showProtractor: false,
-        showRuler: false,
-        rulerLabel: "",
-        rulerTicks: 10,
         graph: {
             type: "linear",
         },
@@ -1816,7 +1807,8 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     render() {
         // Mafs shim
-        if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
+        const mafsFlags = this.props.apiOptions?.flags?.["mafs"];
+        if (shouldUseMafs(mafsFlags, this.props.graph)) {
             const box = getInteractiveBoxFromSizeClass(
                 this.props.containerSizeClass,
             );
@@ -1829,11 +1821,17 @@ class InteractiveGraph extends React.Component<Props, State> {
             return (
                 <StatefulMafsGraph
                     {...this.props}
+                    showLabelsFlag={
+                        this.props.apiOptions?.flags?.["mafs"]?.[
+                            "interactive-graph-locked-features-labels"
+                        ]
+                    }
                     ref={this.mafsRef}
                     gridStep={gridStep}
                     snapStep={snapStep}
                     box={box}
                     showTooltips={!!this.props.showTooltips}
+                    readOnly={this.props.apiOptions?.readOnly}
                 />
             );
         }
@@ -2117,7 +2115,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getAngleCoords(
         graph: PerseusGraphTypeAngle,
         props: Props,
-    ): ReadonlyArray<Coord> {
+    ): [Coord, Coord, Coord] {
         let coords = graph.coords;
         if (coords) {
             return coords;
@@ -2134,20 +2132,18 @@ class InteractiveGraph extends React.Component<Props, State> {
         coords = InteractiveGraph.pointsFromNormalized(props, [
             [0.85, 0.5],
             [0.5, 0.5],
-        ]);
+        ]) as [Coord, Coord, Coord];
 
         // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         const radius = magnitude(vector(...coords));
 
         // Adjust the lower point by angleOffsetDeg degrees
-        // @ts-expect-error - TS2542 - Index signature in type 'readonly Coord[]' only permits reading.
         coords[0] = [
             coords[1][0] + radius * Math.cos(offset),
             coords[1][1] + radius * Math.sin(offset),
         ];
         // Position the upper point angle radians from the
         // lower point
-        // @ts-expect-error - TS2542 - Index signature in type 'readonly Coord[]' only permits reading.
         coords[2] = [
             coords[1][0] + radius * Math.cos(angle + offset),
             coords[1][1] + radius * Math.sin(angle + offset),
@@ -2663,8 +2659,39 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 }
 
+// exported for testing
+export function shouldUseMafs(
+    mafsFlags: Record<string, boolean> | undefined | boolean,
+    graph: PerseusGraphType,
+): boolean {
+    if (typeof mafsFlags === "boolean" || typeof mafsFlags === "undefined") {
+        return false;
+    }
+
+    switch (graph.type) {
+        case "point":
+            if (graph.numPoints === UNLIMITED) {
+                return Boolean(mafsFlags["unlimited-point"]);
+            }
+            return Boolean(mafsFlags["point"]);
+        case "polygon":
+            if (graph.numSides === UNLIMITED) {
+                // TODO(benchristel): add a feature flag for the "unlimited"
+                // case once we've implemented polygon graphs with unlimited
+                // sides
+                return false;
+            }
+            return Boolean(mafsFlags["polygon"]);
+        default:
+            return Boolean(mafsFlags[graph.type]);
+    }
+}
+// We don't need to change any of the original props for static mode
+const staticTransform = _.identity;
+
 export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
+    staticTransform: staticTransform,
 } as WidgetExports<typeof InteractiveGraph>;

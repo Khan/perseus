@@ -69,7 +69,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
           <div
             class="perseus-matrix"
           >
-            
             <div
               class="matrix-input"
             >
@@ -92,7 +91,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1qo22fw"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1qo22fw"
                     id="input-13"
                     type="text"
                     value=""
@@ -106,7 +105,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-14"
                     type="text"
                     value=""
@@ -120,7 +119,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-15"
                     type="text"
                     value=""
@@ -134,7 +133,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-16"
                     type="text"
                     value=""
@@ -152,7 +151,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-17"
                     type="text"
                     value=""
@@ -166,7 +165,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-18"
                     type="text"
                     value=""
@@ -180,7 +179,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-19"
                     type="text"
                     value=""
@@ -194,7 +193,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-20"
                     type="text"
                     value=""
@@ -212,7 +211,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-21"
                     type="text"
                     value=""
@@ -226,7 +225,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-22"
                     type="text"
                     value=""
@@ -240,7 +239,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-23"
                     type="text"
                     value=""
@@ -254,7 +253,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-24"
                     type="text"
                     value=""
@@ -262,7 +261,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                 </span>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
@@ -335,7 +333,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
           <div
             class="perseus-matrix"
           >
-            
             <div
               class="matrix-input"
             >
@@ -358,7 +355,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1qo22fw"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1qo22fw"
                     id="input-1"
                     type="text"
                     value=""
@@ -372,7 +369,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-2"
                     type="text"
                     value=""
@@ -386,7 +383,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-3"
                     type="text"
                     value=""
@@ -400,7 +397,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-4"
                     type="text"
                     value=""
@@ -418,7 +415,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-5"
                     type="text"
                     value=""
@@ -432,7 +429,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-6"
                     type="text"
                     value=""
@@ -446,7 +443,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-7"
                     type="text"
                     value=""
@@ -460,7 +457,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-8"
                     type="text"
                     value=""
@@ -478,7 +475,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-9"
                     type="text"
                     value=""
@@ -492,7 +489,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-10"
                     type="text"
                     value=""
@@ -506,7 +503,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-11"
                     type="text"
                     value=""
@@ -520,7 +517,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-input_1simu8f"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_53h0n9-o_O-input_1simu8f"
                     id="input-12"
                     type="text"
                     value=""
@@ -528,7 +525,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                 </span>
               </div>
             </div>
-            
           </div>
         </div>
       </div>

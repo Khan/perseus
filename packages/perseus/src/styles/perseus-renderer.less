@@ -1,15 +1,9 @@
 @import (inline) "./khan-exercise.css";
 
-//
-// Edit this file in the *perseus* repo!
-// (All changes outside the perseus repo will be overwritten)
-//
-
 @import "./variables.less";
 @import "./util.less";
 
-// Article Renderer
-@import "./articles.less";
+@import "./styles.less";
 
 #perseus {
     position: relative;
@@ -34,7 +28,7 @@
 // counterintuitive, so we simply don't let you see anything you draw under
 // a widget.
 .blank-background {
-    background-color: #fdfdfd; // Keep in sync with KhanUtil._BACKGROUND
+    background-color: #fdfdfd;
 }
 // There is no scratchpad in the answer_area, and it has a different color
 // background, so just make it transparent
@@ -205,18 +199,6 @@
         &.normal {
             width: 80px;
         }
-    }
-
-    .math-output {
-        display: inline-block;
-        min-width: 80px;
-        min-height: 36px;
-        border-radius: 5px;
-        padding: 0;
-        margin-top: 4px;
-        margin-bottom: 4px;
-        background: white;
-        border: 1px solid #a4a4a4;
     }
 
     .graph-settings {
@@ -449,7 +431,6 @@
 @import "./widgets/radio.less";
 @import "./widgets/sortable.less";
 @import "./widgets/table.less";
-@import "./widgets/unit.less";
 
 .perseus-widget-container {
     &.widget-nohighlight {
@@ -468,6 +449,9 @@
 
     &.widget-inline-block {
         display: inline-block;
+        // we added this to help center inline Expression widgets
+        // in the context of text/MathJax
+        vertical-align: bottom;
     }
 }
 
@@ -730,7 +714,7 @@
     }
 }
 
-.perseus-widget-editor-content .locked-figure-accordion h2 {
+.perseus-widget-editor-content .perseus-editor-accordion h2 {
     // Reset the padding that's added to article h2
     // for the accordion h2.
     padding-top: 0;

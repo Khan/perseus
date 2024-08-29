@@ -92,6 +92,35 @@ export const WithMafs: StoryComponentType = {
 };
 
 /**
+ * Example of what the InteractiveGraphEditor experience is when using
+ * a Mafs-based InteractiveGraph to create Polygons.
+ */
+export const WithMafsPolygon: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            ...mafsOptions,
+            graph: {type: "polygon"},
+            correct: {
+                type: "polygon",
+                numSides: 4,
+                showAngles: true,
+                showSides: true,
+                snapTo: "angles",
+            },
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
+
+/**
  * This InteractiveGraphEditor has locked points.
  *
  * Locked figures are graph elements such as points, lines, line segements,
@@ -181,6 +210,67 @@ export const WithLockedLines: StoryComponentType = {
                     lineStyle: "solid",
                     showPoint1: true,
                     showPoint2: true,
+                },
+            ],
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
+
+export const WithLockedEllipses: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            // Use locked figures with mafs only.
+            ...mafsOptions,
+            lockedFigures: [
+                {
+                    type: "ellipse",
+                    center: [0, 0],
+                    radius: [5, 2],
+                    angle: 0,
+                    color: "green",
+                    fillStyle: "translucent",
+                    strokeStyle: "solid",
+                },
+            ],
+        });
+
+        return <InteractiveGraphEditor {...state} onChange={dispatch} />;
+    },
+};
+
+export const WithLockedPolygons: StoryComponentType = {
+    render: function Render() {
+        const reducer = (state, newState) => {
+            return {
+                ...state,
+                ...newState,
+            };
+        };
+
+        const [state, dispatch] = React.useReducer(reducer, {
+            // Use locked figures with mafs only.
+            ...mafsOptions,
+            lockedFigures: [
+                {
+                    type: "polygon",
+                    points: [
+                        [-9, 4],
+                        [-6, 4],
+                        [-6, 1],
+                        [-9, 1],
+                    ],
+                    color: "green",
+                    fillStyle: "translucent",
+                    strokeStyle: "solid",
                 },
             ],
         });

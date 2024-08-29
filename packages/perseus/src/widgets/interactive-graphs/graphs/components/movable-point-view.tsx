@@ -3,6 +3,7 @@ import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
 
+import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
 
@@ -16,11 +17,17 @@ type Props = {
     dragging: boolean;
     focusBehavior: FocusBehaviorConfig;
     cursor?: CSSCursor | undefined;
+    onClick?: () => unknown;
 };
 
-type FocusBehaviorConfig =
-    | {type: "uncontrolled"; tabIndex: number}
-    | {type: "controlled"; showFocusRing: boolean};
+type FocusBehaviorConfig = ControlledFocusBehavior | UncontrolledFocusBehavior;
+
+type ControlledFocusBehavior = {type: "controlled"; showFocusRing: boolean};
+type UncontrolledFocusBehavior = {
+    type: "uncontrolled";
+    tabIndex: number;
+    onFocusChange: (isFocused: boolean) => unknown;
+};
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
 // graph.
@@ -37,13 +44,15 @@ const hitboxSizePx = 48;
 // the description of https://github.com/Khan/perseus/pull/1240
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {range, markings, showTooltips} = useGraphConfig();
+        const {range, markings, showTooltips, disableKeyboardInteraction} =
+            useGraphConfig();
         const {
             point,
             color = WBColor.blue,
             dragging,
             focusBehavior,
             cursor,
+            onClick = () => {},
         } = props;
 
         // WB Tooltip requires a color name for the background color.
@@ -56,8 +65,7 @@ export const MovablePointView = forwardRef(
 
         const [[x, y]] = useTransformVectorsToPixels(point);
 
-        const [xMin, xMax] = range[0];
-        const [yMin, yMax] = range[1];
+        const [[xMin, xMax], [yMin, yMax]] = range;
 
         const [[verticalStartX]] = useTransformVectorsToPixels([xMin, 0]);
         const [[verticalEndX]] = useTransformVectorsToPixels([xMax, 0]);
@@ -90,7 +98,14 @@ export const MovablePointView = forwardRef(
                 className={pointClasses}
                 style={{"--movable-point-color": color, cursor} as any}
                 data-testid="movable-point"
-                tabIndex={tabIndex(focusBehavior)}
+                tabIndex={
+                    disableKeyboardInteraction ? -1 : tabIndex(focusBehavior)
+                }
+                onFocus={() => {
+                    return getOnFocusChangeCallback(focusBehavior)(true);
+                }}
+                onBlur={() => getOnFocusChangeCallback(focusBehavior)(false)}
+                onClick={onClick}
             >
                 <circle
                     className="movable-point-hitbox"
@@ -119,7 +134,7 @@ export const MovablePointView = forwardRef(
                     <Tooltip
                         autoUpdate={true}
                         backgroundColor={wbColorName}
-                        content={`(${point[0]}, ${point[1]})`}
+                        content={`(${point[X]}, ${point[Y]})`}
                         contentStyle={{color: "white"}}
                     >
                         {svgForPoint}
@@ -144,4 +159,11 @@ function tabIndex(config: FocusBehaviorConfig) {
         return config.tabIndex;
     }
     return undefined;
+}
+
+function getOnFocusChangeCallback(config: FocusBehaviorConfig) {
+    if (config.type === "uncontrolled") {
+        return config.onFocusChange;
+    }
+    return () => {};
 }

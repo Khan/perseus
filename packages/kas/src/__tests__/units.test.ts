@@ -160,7 +160,7 @@ describe("units", () => {
                 new KAS.Mul(new KAS.Int(50), new KAS.Unit("m")),
                 new KAS.Int(50),
             ).equal,
-        ).toBeFalse();
+        ).toBe(false);
 
         expect(["50 m", "50 A"]).not.toParseUnitsAsEqual("50 m != 50 A");
         expect(["5000 mA", "5 A"]).toParseUnitsAsEqual("5000 mA = 5 A");

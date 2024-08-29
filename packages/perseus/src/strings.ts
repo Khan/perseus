@@ -4,6 +4,7 @@
 export type PerseusStrings = {
     closeKeypad: string;
     openKeypad: string;
+    mathInputBox: string;
     removeHighlight: string;
     addHighlight: string;
     hintPos: ({pos}: {pos: number}) => string;
@@ -122,6 +123,13 @@ export type PerseusStrings = {
     videoTranscript: string;
     somethingWrong: string;
     videoWrapper: string;
+    mathInputTitle: string;
+    mathInputDescription: string;
+    sin: string;
+    cos: string;
+    tan: string;
+    simulationLoadFail: string;
+    simulationLocaleWarning: string;
 };
 
 /**
@@ -136,6 +144,7 @@ export const strings: {
 } = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
+    mathInputBox: "Math input box",
     removeHighlight: "Remove highlight",
     addHighlight: "Add highlight",
     hintPos: "Hint #%(pos)s",
@@ -284,6 +293,15 @@ export const strings: {
     videoTranscript: "See video transcript",
     somethingWrong: "Something went wrong.",
     videoWrapper: "Khan Academy video wrapper",
+    mathInputTitle: "mathematics keyboard",
+    mathInputDescription:
+        "Use keyboard/mouse to interact with math-based input fields",
+    sin: "sin",
+    cos: "cos",
+    tan: "tan",
+    simulationLoadFail: "Sorry, this simulation cannot load.",
+    simulationLocaleWarning:
+        "Sorry, this simulation isn't available in your language.",
 };
 
 /**
@@ -292,6 +310,7 @@ export const strings: {
 export const mockStrings: PerseusStrings = {
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
+    mathInputBox: "Math input box",
     removeHighlight: "Remove highlight",
     addHighlight: "Add highlight",
     hintPos: ({pos}) => `Hint #${pos}`,
@@ -430,4 +449,13 @@ export const mockStrings: PerseusStrings = {
     videoTranscript: "See video transcript",
     somethingWrong: "Something went wrong.",
     videoWrapper: "Khan Academy video wrapper",
+    mathInputTitle: "mathematics keyboard",
+    mathInputDescription:
+        "Use keyboard/mouse to interact with math-based input fields",
+    sin: "sin",
+    cos: "cos",
+    tan: "tan",
+    simulationLoadFail: "Sorry, this simulation cannot load.",
+    simulationLocaleWarning:
+        "Sorry, this simulation isn't available in your language.",
 };

@@ -1,3 +1,4 @@
+import {act} from "@testing-library/react";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -77,12 +78,10 @@ describe("sorter widget", () => {
         const sorter = renderer.findWidgets("sorter 1")[0];
 
         // Put the options in the correct order
-        ["$0.005$ kilograms", "$15$ grams", "$55$ grams"].forEach(
-            (option, index) => {
-                sorter.moveOptionToIndex(option, 3);
-            },
-        );
 
+        ["$0.005$ kilograms", "$15$ grams", "$55$ grams"].forEach((option) => {
+            act(() => sorter.moveOptionToIndex(option, 3));
+        });
         // Act
         renderer.guessAndScore();
 
@@ -100,7 +99,7 @@ describe("sorter widget", () => {
         // Put the options in the reverse order
         ["$0.005$ kilograms", "$15$ grams", "$55$ grams"].forEach(
             (option, index) => {
-                sorter.moveOptionToIndex(option, 0);
+                act(() => sorter.moveOptionToIndex(option, 0));
             },
         );
 

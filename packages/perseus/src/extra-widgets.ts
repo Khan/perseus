@@ -26,11 +26,11 @@ import Orderer from "./widgets/orderer";
 import Passage from "./widgets/passage";
 import PassageRef from "./widgets/passage-ref";
 import PassageRefTarget from "./widgets/passage-ref-target";
+import PhetSimulation from "./widgets/phet-simulation";
 import Plotter from "./widgets/plotter";
 import PythonProgram from "./widgets/python-program";
 import Sorter from "./widgets/sorter";
 import Table from "./widgets/table";
-import Unit from "./widgets/unit";
 import Video from "./widgets/video";
 
 import type {WidgetExports} from "./types";
@@ -59,11 +59,11 @@ export default [
     Passage,
     PassageRef,
     PassageRefTarget,
+    PhetSimulation,
     Plotter,
     PythonProgram,
     Sorter,
     Table,
-    Unit,
     Video,
     DeprecatedStandin,
 ] as ReadonlyArray<WidgetExports>;

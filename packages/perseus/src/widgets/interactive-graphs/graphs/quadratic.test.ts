@@ -1,7 +1,6 @@
-import {isValidDestination, getQuadraticCoefficients} from "./quadratic";
+import {getQuadraticCoefficients} from "./quadratic";
 
 import type {QuadraticGraphState} from "../types";
-import type {vec} from "mafs";
 
 describe("QuadraticGraph", () => {
     it("should accurately calculate coefficients", () => {
@@ -31,17 +30,5 @@ describe("QuadraticGraph", () => {
             [0, 0],
         ];
         expect(getQuadraticCoefficients(coords)).toBe(undefined);
-    });
-
-    it("should indicate when new coordinates would invalidate the graph", () => {
-        const coords: QuadraticGraphState["coords"] = [
-            [-5, 5],
-            [0, -5],
-            [5, 5],
-        ];
-        const destination: vec.Vector2 = [0, 0];
-        const elementId = 0;
-        const isValid = isValidDestination(destination, elementId, coords);
-        expect(isValid).toBe(false);
     });
 });

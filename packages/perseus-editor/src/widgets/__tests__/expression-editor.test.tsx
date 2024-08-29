@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -7,9 +7,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import ExpressionEditor from "../expression-editor";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("expression-editor", () => {
-    let userEvent;
+    let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -23,7 +24,7 @@ describe("expression-editor", () => {
 
     it("should render", async () => {
         render(<ExpressionEditor onChange={() => undefined} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         expect(await screen.findByText(/Add new answer/)).toBeInTheDocument();
     });
@@ -59,7 +60,7 @@ describe("expression-editor", () => {
                 answerForms={answerForms}
             />,
         );
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         expect(await screen.findByText(/π/)).toBeInTheDocument();
     });
@@ -68,11 +69,11 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
-                name: "Use × for rendering multiplication instead of a center dot.",
+                name: "Use × instead of ⋅ for multiplication",
             }),
         );
 
@@ -83,26 +84,32 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} functions={[]} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         const input = screen.getByRole("textbox", {
-            name: "Function variables:",
+            name: "Function variables",
         });
 
-        await userEvent.type(input, "x");
+        // make sure we can add things
+        await userEvent.type(input, "x y z");
 
-        expect(onChangeMock).toBeCalledWith({functions: ["x"]});
+        expect(onChangeMock).lastCalledWith({functions: ["x", "y", "z"]});
+
+        // make sure we can remove things
+        await userEvent.type(input, "{backspace}");
+
+        expect(onChangeMock).lastCalledWith({functions: ["x", "y"]});
     });
 
     it("should toggle division checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
-                name: "show \\div button",
+                name: "show ÷ button",
             }),
         );
 
@@ -121,7 +128,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -138,7 +145,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -155,7 +162,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -172,7 +179,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -189,7 +196,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -206,7 +213,7 @@ describe("expression-editor", () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("button", {
@@ -250,10 +257,10 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
-            screen.getByRole("switch", {
+            screen.getByRole("button", {
                 name: "open math keypad",
             }),
         );
@@ -263,7 +270,7 @@ describe("expression-editor", () => {
                 name: "9",
             }),
         );
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         expect(onChangeMock).toBeCalledWith(
             {
@@ -311,7 +318,7 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -355,7 +362,7 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("checkbox", {
@@ -399,7 +406,7 @@ describe("expression-editor", () => {
                 ]}
             />,
         );
-        jest.runOnlyPendingTimers();
+        act(() => jest.runOnlyPendingTimers());
 
         await userEvent.click(
             screen.getByRole("button", {

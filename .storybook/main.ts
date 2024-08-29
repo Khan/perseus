@@ -66,9 +66,13 @@ const config: StorybookConfig = {
         });
     },
 
+    typescript: {
+        reactDocgen: "react-docgen",
+    },
     docs: {
         autodocs: true,
     },
+    staticDirs: ["../static"],
 };
 
 export default config;

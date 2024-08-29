@@ -40,6 +40,30 @@ function buildGenericCallback(
     };
 }
 
+/**
+ * This lets us use translated functions
+ * (like tg->tan and sen->sin) when we know it's safe to.
+ * This lets us progressively support translations without needing
+ * to support every language all at once.
+ *
+ * @param {string} command - the translated command/function to check
+ * @param {string[]} supportedTranslations - list of translations we support
+ * @param {string} defaultCommand - what to fallback to if the command isn't supported
+ */
+function buildTranslatableFunctionCallback(
+    command: string,
+    supportedTranslations: string[],
+    defaultCommand: string,
+) {
+    const cmd = supportedTranslations.includes(command)
+        ? command
+        : defaultCommand;
+    return function (mathField: MathFieldInterface) {
+        mathField.write(`${cmd}\\left(\\right)`);
+        mathField.keystroke("Left");
+    };
+}
+
 function buildNormalFunctionCallback(command: string) {
     return function (mathField: MathFieldInterface) {
         mathField.write(`\\${command}\\left(\\right)`);
@@ -47,8 +71,15 @@ function buildNormalFunctionCallback(command: string) {
     };
 }
 
+type KeyTranslatorStrings = {
+    sin: string;
+    cos: string;
+    tan: string;
+};
+
 export const getKeyTranslator = (
     locale: string,
+    strings: KeyTranslatorStrings,
 ): Record<Key, MathFieldUpdaterCallback> => ({
     EXP: handleExponent,
     EXP_2: handleExponent,
@@ -66,9 +97,10 @@ export const getKeyTranslator = (
 
     LOG: buildNormalFunctionCallback("log"),
     LN: buildNormalFunctionCallback("ln"),
-    SIN: buildNormalFunctionCallback("sin"),
-    COS: buildNormalFunctionCallback("cos"),
-    TAN: buildNormalFunctionCallback("tan"),
+
+    COS: buildNormalFunctionCallback(strings.cos),
+    SIN: buildTranslatableFunctionCallback(strings.sin, ["sin", "sen"], "sin"),
+    TAN: buildTranslatableFunctionCallback(strings.tan, ["tan", "tg"], "tan"),
 
     CDOT: buildGenericCallback("\\cdot"),
     DECIMAL: buildGenericCallback(getDecimalSeparator(locale)),
@@ -93,7 +125,6 @@ export const getKeyTranslator = (
     LEFT_PAREN: buildGenericCallback("(", ActionType.CMD),
     RIGHT_PAREN: buildGenericCallback(")", ActionType.CMD),
     SQRT: buildGenericCallback("sqrt", ActionType.CMD),
-    PHI: buildGenericCallback("\\phi", ActionType.CMD),
     PI: buildGenericCallback("pi", ActionType.CMD),
     THETA: buildGenericCallback("theta", ActionType.CMD),
     RADICAL: buildGenericCallback("nthroot", ActionType.CMD),
@@ -119,14 +150,6 @@ export const getKeyTranslator = (
         }
     },
 
-    LOG_B: (mathQuill) => {
-        mathQuill.typedText("log_");
-        mathQuill.keystroke("Right");
-        mathQuill.typedText("(");
-        mathQuill.keystroke("Left");
-        mathQuill.keystroke("Left");
-    },
-
     LOG_N: (mathQuill) => {
         mathQuill.write("log_{ }\\left(\\right)");
         mathQuill.keystroke("Left"); // into parentheses
@@ -134,28 +157,9 @@ export const getKeyTranslator = (
         mathQuill.keystroke("Left"); // into index
     },
 
-    NTHROOT3: (mathQuill) => {
-        mathQuill.typedText("nthroot3");
-        mathQuill.keystroke("Right");
-    },
-
-    POW: (mathQuill) => {
-        const contents = mathQuill.latex();
-        mathQuill.typedText("^");
-
-        // If the input hasn't changed (for example, if we're
-        // attempting to add an exponent on an empty input or an empty
-        // denominator), insert our own "a^b"
-        if (mathQuill.latex() === contents) {
-            mathQuill.typedText("a^b");
-        }
-    },
-
     // These need to be overwritten by the consumer
     // if they're going to be used
     DISMISS: () => {},
-    NOOP: () => {},
-    MANY: () => {},
 
     NUM_0: buildGenericCallback("0"),
     NUM_1: buildGenericCallback("1"),

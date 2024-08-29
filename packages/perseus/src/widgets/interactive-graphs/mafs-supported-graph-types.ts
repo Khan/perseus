@@ -1,4 +1,5 @@
 export const mafsSupportedGraphTypes = [
+    "angle",
     "segment",
     "linear",
     "linear-system",
@@ -8,6 +9,7 @@ export const mafsSupportedGraphTypes = [
     "circle",
     "quadratic",
     "sinusoid",
+    "unlimited-point",
 ] as const;
 
 export type MafsSupportedGraphType = (typeof mafsSupportedGraphTypes)[number];

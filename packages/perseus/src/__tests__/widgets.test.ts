@@ -39,7 +39,6 @@ describe("Widget API support", () => {
         "plotter",
         "sorter",
         "table",
-        "unit-input",
         "video",
     ])("%s widget should provide static validate function", (widgetType) => {
         expect(Widgets.getWidget(widgetType)).toHaveProperty("validate");

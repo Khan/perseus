@@ -1,4 +1,5 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {question1} from "../__testdata__/interaction.testdata";
 
@@ -11,17 +12,19 @@ describe("interaction widget", () => {
         );
     });
 
-    it("should render", () => {
+    it("should render", async () => {
         // Arrange/Act
         const {container} = renderQuestion(question1);
+        await waitForInitialGraphieRender();
 
         // Assert
         expect(container).toMatchSnapshot();
     });
 
-    it("should be unanswerable", () => {
+    it("should be unanswerable", async () => {
         // Arrange/Act
         const {renderer} = renderQuestion(question1);
+        await waitForInitialGraphieRender();
 
         // Assert
         // Note that this widget can never be answered correctly, no matter

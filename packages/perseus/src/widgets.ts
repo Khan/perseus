@@ -1,7 +1,7 @@
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {Errors, Log} from "./logging/log";
-import {PerseusError} from "./perseus-error";
+import {Log} from "./logging/log";
 
 import type {PerseusWidget} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
@@ -72,6 +72,7 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("reaction-diagram", "deprecated-standin");
     replaceWidget("sequence", "deprecated-standin");
     replaceWidget("simulator", "deprecated-standin");
+    replaceWidget("unit-input", "deprecated-standin");
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
@@ -112,6 +113,7 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("reaction-diagram", "deprecated-standin");
     replaceEditor("sequence", "deprecated-standin");
     replaceEditor("simulator", "deprecated-standin");
+    replaceEditor("unit-input", "deprecated-standin");
 };
 
 export const getWidget = (

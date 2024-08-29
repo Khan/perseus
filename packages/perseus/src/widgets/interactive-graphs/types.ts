@@ -1,7 +1,7 @@
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
+import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {WidgetProps} from "../../types";
-import type {Coord} from "@khanacademy/perseus";
 import type {Interval, vec} from "mafs";
 
 export type InteractiveGraphProps = WidgetProps<
@@ -15,7 +15,9 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
 };
 
 export type InteractiveGraphState =
+    | AngleGraphState
     | SegmentGraphState
+    | LinearSystemGraphState
     | LinearGraphState
     | RayGraphState
     | PolygonGraphState
@@ -38,24 +40,31 @@ export interface SegmentGraphState extends InteractiveGraphStateCommon {
 }
 
 export interface LinearGraphState extends InteractiveGraphStateCommon {
-    type: "linear" | "linear-system";
+    type: "linear";
+    coords: PairOfPoints;
+}
+
+export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
+    type: "linear-system";
     coords: PairOfPoints[];
 }
 
 export interface PointGraphState extends InteractiveGraphStateCommon {
     type: "point";
     coords: Coord[];
+    numPoints?: number | "unlimited";
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
     type: "ray";
-    coords: PairOfPoints[];
+    coords: PairOfPoints;
 }
 
 export interface PolygonGraphState extends InteractiveGraphStateCommon {
     type: "polygon";
     showAngles: boolean;
     showSides: boolean;
+    snapTo: "grid" | "angles" | "sides";
     coords: Coord[];
 }
 
@@ -73,6 +82,20 @@ export interface QuadraticGraphState extends InteractiveGraphStateCommon {
 export interface SinusoidGraphState extends InteractiveGraphStateCommon {
     type: "sinusoid";
     coords: [vec.Vector2, vec.Vector2];
+}
+
+export interface AngleGraphState extends InteractiveGraphStateCommon {
+    type: "angle";
+    // Whether to show the angle measurements.  default: false
+    showAngles?: boolean;
+    // Allow Reflex Angles if an "angle" type.  default: false
+    allowReflexAngles?: boolean;
+    // The angle offset in degrees if an "angle" type. default: 0
+    angleOffsetDeg?: number;
+    // Snap to degree increments if an "angle" type. default: 1
+    snapDegrees?: number;
+    // must have 3 coords - ie [Coord, Coord, Coord]
+    coords: [Coord, Coord, Coord];
 }
 
 export type PairOfPoints = [Coord, Coord];

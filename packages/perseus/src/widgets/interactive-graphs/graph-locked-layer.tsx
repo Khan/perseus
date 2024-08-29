@@ -1,10 +1,12 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
-import LockedEllipse from "./locked-ellipse";
-import LockedLine from "./locked-line";
-import LockedPoint from "./locked-point";
-import LockedVector from "./locked-vector";
+import LockedEllipse from "./locked-figures/locked-ellipse";
+import LockedFunction from "./locked-figures/locked-function";
+import LockedLine from "./locked-figures/locked-line";
+import LockedPoint from "./locked-figures/locked-point";
+import LockedPolygon from "./locked-figures/locked-polygon";
+import LockedVector from "./locked-figures/locked-vector";
 
 import type {LockedFigure} from "../../perseus-types";
 import type {Interval} from "mafs";
@@ -32,6 +34,10 @@ const GraphLockedLayer = (props: Props) => {
                                 {...figure}
                             />
                         );
+                    case "vector":
+                        return (
+                            <LockedVector key={`vector-${index}`} {...figure} />
+                        );
                     case "ellipse":
                         return (
                             <LockedEllipse
@@ -39,10 +45,26 @@ const GraphLockedLayer = (props: Props) => {
                                 {...figure}
                             />
                         );
-                    case "vector":
+                    case "polygon":
                         return (
-                            <LockedVector key={`vector-${index}`} {...figure} />
+                            <LockedPolygon
+                                key={`polygon-${index}`}
+                                {...figure}
+                            />
                         );
+                    case "function":
+                        return (
+                            <LockedFunction
+                                key={`function-${index}`}
+                                {...figure}
+                            />
+                        );
+                    case "label":
+                        // This is rendered outside the SVG element, since
+                        // TeX cannot be rendered inside an SVG.
+                        // See graph-locked-labels-layer.tsx for
+                        // the component that renders these.
+                        return null;
                     default:
                         /**
                          * Devlopment-time future-proofing: This should

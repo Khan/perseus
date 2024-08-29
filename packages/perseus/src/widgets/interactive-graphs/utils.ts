@@ -1,6 +1,8 @@
+import {clampToBox, inset, MIN, size} from "./math";
+
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
-import type {vec} from "mafs";
+import type {Interval, vec} from "mafs";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG
@@ -21,14 +23,12 @@ export const normalizePoints = <A extends Coord[]>(
             coords.map((coord, i) => {
                 const axisRange = range[i];
                 if (noSnap) {
-                    return axisRange[0] + (axisRange[1] - axisRange[0]) * coord;
+                    return axisRange[MIN] + size(axisRange) * coord;
                 }
                 const axisStep = step[i];
-                const nSteps = Math.floor(
-                    (axisRange[1] - axisRange[0]) / axisStep,
-                );
+                const nSteps = Math.floor(size(axisRange) / axisStep);
                 const tick = Math.round(coord * nSteps);
-                return axisRange[0] + axisStep * tick;
+                return axisRange[MIN] + axisStep * tick;
             }) as Coord,
     ) as any;
 
@@ -40,16 +40,21 @@ export const normalizeCoords = <A extends Coord[]>(
     coordsList.map<Coord>(
         (coords) =>
             coords.map((coord, i) => {
-                const extent = ranges[i][1] - ranges[i][0];
-                return (coord + ranges[i][1]) / extent;
+                return (coord + ranges[i][1]) / size(ranges[i]);
             }) as Coord,
     ) as any;
 
-export function snap(snapStep: vec.Vector2, point: vec.Vector2): vec.Vector2 {
-    const [requestedX, requestedY] = point;
-    const [snapX, snapY] = snapStep;
-    return [
-        Math.round(requestedX / snapX) * snapX,
-        Math.round(requestedY / snapY) * snapY,
-    ];
+// Returns the closest point to the given `point` that is within the graph
+// bounds given in `state`.
+export function bound({
+    snapStep,
+    range,
+    point,
+}: {
+    snapStep: vec.Vector2;
+    range: [Interval, Interval];
+    point: vec.Vector2;
+}): vec.Vector2 {
+    const boundingBox = inset(snapStep, range);
+    return clampToBox(boundingBox, point);
 }

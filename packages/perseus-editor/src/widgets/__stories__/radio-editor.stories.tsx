@@ -9,12 +9,11 @@ import type {
     PerseusRenderer,
     APIOptions,
 } from "@khanacademy/perseus";
+import type {Meta, StoryObj} from "@storybook/react";
 
-type StoryArgs = Record<any, any>;
+type StoryArgs = StoryObj<RadioEditor>;
 
-type Story = {
-    title: string;
-};
+type Story = Meta<RadioEditor>;
 
 export default {
     title: "PerseusEditor/Widgets/Radio Editor",
@@ -82,7 +81,6 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_widget' has no initializer and is not definitely assigned in the constructor.
     _widget: RadioEditor;
 
-    //$FlowIgnore
     // @ts-expect-error [FEI-5003] - TS2416 - Property 'state' in type 'WithState' is not assignable to the same property in base type 'Component<Empty, PerseusRadioWidgetOptions, any>'.
     state = question.widgets["radio 1"];
 

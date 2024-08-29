@@ -1,21 +1,42 @@
+import type {Coord} from "../../interactive2/types";
 import type {
-    LockedEllipseFillType,
+    CollinearTuple,
     LockedEllipseType,
     LockedFigure,
     LockedFigureColor,
+    LockedFigureFillType,
+    LockedFunctionType,
+    LockedLabelType,
     LockedLineType,
     LockedPointType,
+    LockedPolygonType,
     LockedVectorType,
     PerseusGraphType,
     PerseusRenderer,
 } from "../../perseus-types";
 import type {Interval, vec} from "mafs";
 
+export type LockedFunctionOptions = Omit<
+    Partial<LockedFunctionType>,
+    "type" | "equation"
+>;
+
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
     return new InteractiveGraphQuestionBuilder();
 }
 
 class InteractiveGraphQuestionBuilder {
+    private content: string = "[[☃ interactive-graph 1]]";
+    private backgroundImage?: {
+        url: string;
+        height: number;
+        width: number;
+        scale?: number;
+        bottom?: number;
+        left?: number;
+        right?: number;
+        top?: number;
+    };
     private gridStep: vec.Vector2 = [1, 1];
     private labels: [string, string] = ["x", "y"];
     private markings: "graph" | "grid" | "none" = "graph";
@@ -23,28 +44,30 @@ class InteractiveGraphQuestionBuilder {
     private yRange: Interval = [-10, 10];
     private snapStep: vec.Vector2 = [0.5, 0.5];
     private tickStep: vec.Vector2 = [1, 1];
+    private showProtractor: boolean = false;
     private interactiveFigureConfig: InteractiveFigureConfig =
-        new SegmentGraphConfig(1);
+        new SegmentGraphConfig();
     private lockedFigures: LockedFigure[] = [];
+    private snapTo: "grid" | "angles" | "sides" = "grid";
+    private staticMode: boolean = false;
 
     build(): PerseusRenderer {
         return {
-            content: "[[☃ interactive-graph 1]]",
+            content: this.content,
             images: {},
             widgets: {
                 "interactive-graph 1": {
                     graded: true,
+                    static: this.staticMode,
                     options: {
                         correct: this.interactiveFigureConfig.correct(),
+                        backgroundImage: this.backgroundImage,
                         graph: this.interactiveFigureConfig.graph(),
                         gridStep: this.gridStep,
                         labels: this.labels,
                         markings: this.markings,
                         range: [this.xRange, this.yRange],
-                        rulerLabel: "",
-                        rulerTicks: 10,
-                        showProtractor: false,
-                        showRuler: false,
+                        showProtractor: this.showProtractor,
                         snapStep: this.snapStep,
                         step: this.tickStep,
                         lockedFigures: this.lockedFigures,
@@ -57,6 +80,37 @@ class InteractiveGraphQuestionBuilder {
                 },
             },
         };
+    }
+
+    withContent(content: string): InteractiveGraphQuestionBuilder {
+        this.content = content;
+        return this;
+    }
+
+    withStaticMode(staticMode: boolean): InteractiveGraphQuestionBuilder {
+        this.staticMode = staticMode;
+        return this;
+    }
+
+    withBackgroundImage(
+        url: string,
+        height: number,
+        width: number,
+        options?: {
+            scale?: number;
+            bottom?: number;
+            left?: number;
+            right?: number;
+            top?: number;
+        },
+    ): InteractiveGraphQuestionBuilder {
+        this.backgroundImage = {
+            url,
+            height,
+            width,
+            ...options,
+        };
+        return this;
     }
 
     withGridStep(x: number, y: number): InteractiveGraphQuestionBuilder {
@@ -96,63 +150,161 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    withSegments(numSegments: number): InteractiveGraphQuestionBuilder {
-        this.interactiveFigureConfig = new SegmentGraphConfig(numSegments);
+    withProtractor(): InteractiveGraphQuestionBuilder {
+        this.showProtractor = true;
         return this;
     }
 
-    withCircle(): InteractiveGraphQuestionBuilder {
-        this.interactiveFigureConfig = new CircleGraphConfig();
+    withSegments(options?: {
+        numSegments?: number;
+        startCoords?: CollinearTuple[];
+        coords?: CollinearTuple[];
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new SegmentGraphConfig(options);
         return this;
     }
 
-    // TODO(benchristel): if we want other attributes of locked points to be
-    // configurable in the future, we can add an `options` param to this method.
-    addLockedPointAt(x: number, y: number): InteractiveGraphQuestionBuilder {
-        this.addLockedFigure(this.createLockedPoint(x, y));
+    withLinear(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new LinearGraphConfig(options);
+        return this;
+    }
+
+    withLinearSystem(options?: {
+        coords?: CollinearTuple[];
+        startCoords?: CollinearTuple[];
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new LinearSystemGraphConfig(options);
+        return this;
+    }
+
+    withRay(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new RayGraphConfig(options);
+        return this;
+    }
+
+    withCircle(options?: {
+        center?: Coord;
+        radius?: number;
+        startCoords?: {
+            center: Coord;
+            radius: number;
+        };
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new CircleGraphConfig(options);
+        return this;
+    }
+
+    withQuadratic(options?: {
+        coords?: [Coord, Coord, Coord];
+        startCoords?: [Coord, Coord, Coord];
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new QuadraticGraphConfig(options);
+        return this;
+    }
+
+    withSinusoid(options?: {
+        coords?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new SinusoidGraphConfig(options);
+        return this;
+    }
+
+    withPolygon(
+        snapTo?: "grid" | "angles" | "sides",
+        options?: {
+            match?: "similar" | "congruent" | "approx";
+            numSides?: number | "unlimited";
+            showAngles?: boolean;
+            showSides?: boolean;
+            coords?: Coord[];
+            startCoords?: Coord[];
+        },
+    ): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new PolygonGraphConfig(snapTo, options);
+        return this;
+    }
+
+    withPoints(
+        numPoints: number | "unlimited",
+        options?: {
+            coords?: Coord[];
+            startCoords?: Coord[];
+        },
+    ): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new PointsGraphConfig(
+            numPoints,
+            options,
+        );
+        return this;
+    }
+
+    withAngle(options?: {
+        coords?: [Coord, Coord, Coord];
+        startCoords?: [Coord, Coord, Coord];
+        showAngles?: boolean;
+        allowReflexAngles?: boolean;
+        angleOffsetDeg?: number;
+        snapDegrees?: number;
+        match?: "congruent";
+    }): InteractiveGraphQuestionBuilder {
+        this.interactiveFigureConfig = new AngleGraphConfig(options);
+        return this;
+    }
+
+    addLockedPointAt(
+        x: number,
+        y: number,
+        options?: {
+            color?: LockedFigureColor;
+            filled?: boolean;
+        },
+    ): InteractiveGraphQuestionBuilder {
+        this.addLockedFigure(this.createLockedPoint(x, y, options));
         return this;
     }
 
     addLockedLine(
         point1: vec.Vector2,
         point2: vec.Vector2,
+        options?: {
+            kind?: "line" | "ray" | "segment";
+            lineStyle?: "solid" | "dashed";
+            color?: LockedFigureColor;
+            filled?: [boolean, boolean];
+            showPoint1?: boolean;
+            showPoint2?: boolean;
+        },
     ): InteractiveGraphQuestionBuilder {
         const line: LockedLineType = {
             type: "line",
-            kind: "line",
-            showPoint1: true,
-            showPoint2: true,
-            color: "green",
-            lineStyle: "solid",
+            kind: options?.kind ?? "line",
+            showPoint1: options?.showPoint1 ?? false,
+            showPoint2: options?.showPoint2 ?? false,
+            color: options?.color ?? "grayH",
+            lineStyle: options?.lineStyle ?? "solid",
             points: [
-                this.createLockedPoint(...point1),
-                this.createLockedPoint(...point2),
+                {
+                    ...this.createLockedPoint(...point1, {
+                        color: options?.color,
+                        filled: options?.filled?.[0] ?? true,
+                    }),
+                },
+                {
+                    ...this.createLockedPoint(...point2, {
+                        color: options?.color,
+                        filled: options?.filled?.[1] ?? true,
+                    }),
+                },
             ],
         };
         this.addLockedFigure(line);
-        return this;
-    }
-
-    addLockedEllipse(
-        center: vec.Vector2,
-        radius: number,
-        options?: {
-            color?: LockedFigureColor;
-            fillStyle?: LockedEllipseFillType;
-            strokeStyle?: "solid" | "dashed";
-        },
-    ): InteractiveGraphQuestionBuilder {
-        const ellipse: LockedEllipseType = {
-            type: "ellipse",
-            center: center,
-            radius: radius,
-            color: "grayH",
-            fillStyle: "none",
-            strokeStyle: "solid",
-            ...options,
-        };
-
-        this.addLockedFigure(ellipse);
         return this;
     }
 
@@ -170,8 +322,103 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    private createLockedPoint(x: number, y: number): LockedPointType {
-        return {type: "point", coord: [x, y], color: "green", filled: true};
+    addLockedEllipse(
+        center: vec.Vector2,
+        radius: [x: number, y: number],
+        options?: {
+            angle?: number;
+            color?: LockedFigureColor;
+            fillStyle?: LockedFigureFillType;
+            strokeStyle?: "solid" | "dashed";
+        },
+    ): InteractiveGraphQuestionBuilder {
+        const ellipse: LockedEllipseType = {
+            type: "ellipse",
+            center: center,
+            radius: radius,
+            angle: 0,
+            color: "grayH",
+            fillStyle: "none",
+            strokeStyle: "solid",
+            ...options,
+        };
+
+        this.addLockedFigure(ellipse);
+        return this;
+    }
+
+    addLockedPolygon(
+        points: vec.Vector2[],
+        options?: {
+            color?: LockedFigureColor;
+            showVertices?: boolean;
+            fillStyle?: LockedFigureFillType;
+            strokeStyle?: "solid" | "dashed";
+        },
+    ): InteractiveGraphQuestionBuilder {
+        const polygon: LockedPolygonType = {
+            type: "polygon",
+            points: points,
+            color: "grayH",
+            showVertices: false,
+            fillStyle: "none",
+            strokeStyle: "solid",
+            ...options,
+        };
+
+        this.addLockedFigure(polygon);
+        return this;
+    }
+
+    addLockedFunction(equation: string, options?: LockedFunctionOptions) {
+        const lockedFunction: LockedFunctionType = {
+            type: "function",
+            equation,
+            color: "grayH",
+            strokeStyle: "solid",
+            directionalAxis: "x",
+            ...options,
+        };
+
+        this.addLockedFigure(lockedFunction);
+        return this;
+    }
+
+    addLockedLabel(
+        text: string,
+        coord: Coord,
+        options?: {
+            color?: LockedFigureColor;
+            size?: "small" | "medium" | "large";
+        },
+    ) {
+        const lockedLabel: LockedLabelType = {
+            type: "label",
+            coord,
+            text,
+            color: "grayH",
+            size: "medium",
+            ...options,
+        };
+
+        this.addLockedFigure(lockedLabel);
+        return this;
+    }
+
+    private createLockedPoint(
+        x: number,
+        y: number,
+        options?: {
+            color?: LockedFigureColor;
+            filled?: boolean;
+        },
+    ): LockedPointType {
+        return {
+            type: "point",
+            coord: [x, y],
+            color: options?.color ?? "grayH",
+            filled: options?.filled ?? true,
+        };
     }
 
     private addLockedFigure(figure: LockedFigure) {
@@ -186,36 +433,339 @@ interface InteractiveFigureConfig {
 
 class SegmentGraphConfig implements InteractiveFigureConfig {
     private numSegments: number;
-    constructor(numSegments: number) {
-        this.numSegments = numSegments;
+    private coords?: CollinearTuple[];
+    private startCoords?: CollinearTuple[];
+
+    constructor(options?: {
+        numSegments?: number;
+        startCoords?: CollinearTuple[];
+        coords?: CollinearTuple[];
+    }) {
+        this.numSegments =
+            options?.numSegments ??
+            options?.startCoords?.length ??
+            options?.coords?.length ??
+            1;
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
     }
 
     correct(): PerseusGraphType {
         return {
             type: "segment",
             numSegments: this.numSegments,
-            coords: repeat(this.numSegments, () => [
-                [-7, 7],
-                [2, 5],
-            ]),
+            coords: this.coords,
         };
     }
 
     graph(): PerseusGraphType {
-        return {type: "segment", numSegments: this.numSegments};
+        return {
+            type: "segment",
+            numSegments: this.numSegments,
+            startCoords: this.startCoords,
+        };
+    }
+}
+
+class LinearGraphConfig implements InteractiveFigureConfig {
+    private startCoords?: CollinearTuple;
+    private correctCoords?: CollinearTuple;
+
+    constructor(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }) {
+        this.startCoords = options?.startCoords;
+        this.correctCoords = options?.coords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "linear",
+            coords: this.correctCoords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "linear", startCoords: this.startCoords};
+    }
+}
+
+class LinearSystemGraphConfig implements InteractiveFigureConfig {
+    private startCoords?: CollinearTuple[];
+    private correctCoords?: CollinearTuple[];
+
+    constructor(options?: {
+        coords?: CollinearTuple[];
+        startCoords?: CollinearTuple[];
+    }) {
+        this.startCoords = options?.startCoords;
+        this.correctCoords = options?.coords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "linear-system",
+            coords: this.correctCoords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "linear-system", startCoords: this.startCoords};
+    }
+}
+
+class RayGraphConfig implements InteractiveFigureConfig {
+    private coords?: CollinearTuple;
+    private startCoords?: CollinearTuple;
+
+    constructor(options?: {
+        coords?: CollinearTuple;
+        startCoords?: CollinearTuple;
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "ray",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "ray", startCoords: this.startCoords};
     }
 }
 
 class CircleGraphConfig implements InteractiveFigureConfig {
+    private startCoords?: {
+        center: Coord;
+        radius: number;
+    };
+    private correctCenter: Coord;
+    private correctRadius: number;
+
+    constructor(options?: {
+        center?: Coord;
+        radius?: number;
+        startCoords?: {
+            center: Coord;
+            radius: number;
+        };
+    }) {
+        this.startCoords = options?.startCoords;
+        this.correctCenter = options?.center ?? [0, 0];
+        this.correctRadius = options?.radius ?? 2;
+    }
+
     correct(): PerseusGraphType {
-        return {type: "circle", radius: 5, center: [0, 0]};
+        return {
+            type: "circle",
+            radius: this.correctRadius,
+            center: this.correctCenter,
+        };
     }
 
     graph(): PerseusGraphType {
+        if (this.startCoords) {
+            return {
+                type: "circle",
+                startCoords: this.startCoords,
+            };
+        }
+
         return {type: "circle"};
     }
 }
 
-function repeat<T>(n: number, makeItem: () => T): T[] {
-    return new Array(n).fill(null).map(makeItem);
+class QuadraticGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord, Coord];
+    private startCoords?: [Coord, Coord, Coord];
+
+    constructor(options?: {
+        coords?: [Coord, Coord, Coord];
+        startCoords?: [Coord, Coord, Coord];
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "quadratic",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "quadratic", startCoords: this.startCoords};
+    }
+}
+
+class SinusoidGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord];
+    private startCoords?: [Coord, Coord];
+
+    constructor(options?: {
+        coords?: [Coord, Coord];
+        startCoords?: [Coord, Coord];
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "sinusoid",
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "sinusoid", startCoords: this.startCoords};
+    }
+}
+
+class PolygonGraphConfig implements InteractiveFigureConfig {
+    private snapTo: "grid" | "angles" | "sides";
+    private match?: "similar" | "congruent" | "approx";
+    private numSides: number | "unlimited";
+    private showAngles: boolean;
+    private showSides: boolean;
+    private coords?: Coord[];
+    private startCoords?: Coord[];
+
+    constructor(
+        snapTo?: "grid" | "angles" | "sides",
+        options?: {
+            match?: "similar" | "congruent" | "approx";
+            numSides?: number | "unlimited";
+            showAngles?: boolean;
+            showSides?: boolean;
+            coords?: Coord[];
+            startCoords?: Coord[];
+        },
+    ) {
+        this.snapTo = snapTo ?? "grid";
+        this.match = options?.match;
+        this.numSides =
+            options?.numSides ??
+            options?.startCoords?.length ??
+            options?.coords?.length ??
+            3;
+        this.showAngles = options?.showAngles ?? false;
+        this.showSides = options?.showSides ?? false;
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+    correct(): PerseusGraphType {
+        return {
+            type: "polygon",
+            match: this.match,
+            numSides: this.numSides,
+            showAngles: this.showAngles,
+            showSides: this.showSides,
+            snapTo: this.snapTo,
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {
+            type: "polygon",
+            numSides: this.numSides,
+            showAngles: this.showAngles,
+            showSides: this.showSides,
+            snapTo: this.snapTo,
+            startCoords: this.startCoords,
+        };
+    }
+}
+
+class PointsGraphConfig implements InteractiveFigureConfig {
+    private numPoints: number | "unlimited";
+    private coords?: Coord[];
+    private startCoords?: Coord[];
+
+    constructor(
+        numPoints: number | "unlimited",
+        options?: {
+            coords?: Coord[];
+            startCoords?: Coord[];
+        },
+    ) {
+        this.numPoints = numPoints;
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "point",
+            numPoints: this.numPoints,
+            coords: this.coords,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {
+            type: "point",
+            numPoints: this.numPoints,
+            startCoords: this.startCoords,
+        };
+    }
+}
+
+class AngleGraphConfig implements InteractiveFigureConfig {
+    private coords?: [Coord, Coord, Coord];
+    private startCoords?: [Coord, Coord, Coord];
+    private showAngles?: boolean;
+    private allowReflexAngles?: boolean;
+    private angleOffsetDeg?: number;
+    private snapDegrees?: number;
+    private match?: "congruent";
+
+    constructor(options?: {
+        coords?: [Coord, Coord, Coord];
+        startCoords?: [Coord, Coord, Coord];
+        showAngles?: boolean;
+        allowReflexAngles?: boolean;
+        angleOffsetDeg?: number;
+        snapDegrees?: number;
+        match?: "congruent";
+    }) {
+        this.coords = options?.coords;
+        this.startCoords = options?.startCoords;
+        this.showAngles = options?.showAngles;
+        this.allowReflexAngles = options?.allowReflexAngles;
+        this.angleOffsetDeg = options?.angleOffsetDeg;
+        this.snapDegrees = options?.snapDegrees;
+        this.match = options?.match;
+    }
+
+    correct(): PerseusGraphType {
+        return {
+            type: "angle",
+            coords: this.coords,
+            showAngles: this.showAngles,
+            allowReflexAngles: this.allowReflexAngles,
+            angleOffsetDeg: this.angleOffsetDeg,
+            snapDegrees: this.snapDegrees,
+            match: this.match,
+        };
+    }
+
+    graph(): PerseusGraphType {
+        return {
+            type: "angle",
+            startCoords: this.startCoords,
+            showAngles: this.showAngles,
+            allowReflexAngles: this.allowReflexAngles,
+            angleOffsetDeg: this.angleOffsetDeg,
+            snapDegrees: this.snapDegrees,
+            match: this.match,
+        };
+    }
 }

@@ -35,7 +35,6 @@ const createItemJson = (
                 },
             },
         },
-        _multi: null,
         answer: null,
         answerArea: Object.fromEntries(
             ItemExtras.map((extra) => [extra, false]),
@@ -67,6 +66,19 @@ export const expressionItemWithAnswer = (answer: string): PerseusItem => {
         {major: 1, minor: 0},
     );
 };
+
+export const expressionItemWithLabels = createItemJson(
+    {
+        answerForms: [],
+        times: false,
+        buttonSets: ["basic"],
+        functions: [],
+        buttonsVisible: "always",
+        ariaLabel: "Test aria label",
+        visibleLabel: "Test visible label",
+    },
+    {major: 1, minor: 0},
+);
 
 export const expressionItem2: PerseusItem = createItemJson(
     {
@@ -117,6 +129,8 @@ export const expressionItem3Options: PerseusExpressionWidgetOptions = {
     buttonSets: ["basic"],
     functions: ["f", "g", "h"],
     buttonsVisible: "focused",
+    visibleLabel: "number of cm",
+    ariaLabel: "number of centimeters",
 };
 
 export const expressionItem3: PerseusItem = createItemJson(

@@ -1,5 +1,22 @@
 # @khanacademy/pure-markdown
 
+## 0.3.7
+
+### Patch Changes
+
+-   Updated dependencies [[`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df), [`c6a5cbe13`](https://github.com/Khan/perseus/commit/c6a5cbe13c5b586f7511e2c9cc3392d180b002df)]:
+    -   @khanacademy/simple-markdown@0.13.0
+
+## 0.3.6
+
+### Patch Changes
+
+-   [#1407](https://github.com/Khan/perseus/pull/1407) [`be7f14153`](https://github.com/Khan/perseus/commit/be7f141536b6ed69bba8a4378a1ddae51fd5307e) Thanks [@handeyeco](https://github.com/handeyeco)! - Updates to README files
+
+-   Updated dependencies [[`be7f14153`](https://github.com/Khan/perseus/commit/be7f141536b6ed69bba8a4378a1ddae51fd5307e), [`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617)]:
+    -   @khanacademy/simple-markdown@0.12.1
+    -   @khanacademy/perseus-core@1.5.0
+
 ## 0.3.5
 
 ### Patch Changes

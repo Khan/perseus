@@ -1,5 +1,36 @@
 # @khanacademy/perseus-linter
 
+## 1.2.0
+
+### Minor Changes
+
+-   [#1499](https://github.com/Khan/perseus/pull/1499) [`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50) Thanks [@handeyeco](https://github.com/handeyeco)! - Add expression-widget lint rule
+
+### Patch Changes
+
+-   [#1499](https://github.com/Khan/perseus/pull/1499) [`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleaning up some types in perseus-linter
+
+## 1.1.0
+
+### Minor Changes
+
+-   [#1511](https://github.com/Khan/perseus/pull/1511) [`7eb7ab165`](https://github.com/Khan/perseus/commit/7eb7ab165e20af37ee10ad38c2bbef8538c79f08) Thanks [@benchristel](https://github.com/benchristel)! - Warn content creators when a static widget appears in a question stem
+
+## 1.0.0
+
+### Major Changes
+
+-   [#1406](https://github.com/Khan/perseus/pull/1406) [`24a72177e`](https://github.com/Khan/perseus/commit/24a72177edfc3471192f0f040918d998c2c6897d) Thanks [@handeyeco](https://github.com/handeyeco)! - No longer lint for profanity
+
+### Patch Changes
+
+-   [#1407](https://github.com/Khan/perseus/pull/1407) [`be7f14153`](https://github.com/Khan/perseus/commit/be7f141536b6ed69bba8a4378a1ddae51fd5307e) Thanks [@handeyeco](https://github.com/handeyeco)! - Updates to README files
+
+*   [#1411](https://github.com/Khan/perseus/pull/1411) [`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617) Thanks [@handeyeco](https://github.com/handeyeco)! - Consolidate PerseusError code and move it into perseus-core (deletes the perseus-error package)
+
+*   Updated dependencies [[`b0df85a80`](https://github.com/Khan/perseus/commit/b0df85a803444a5de1f74672c5f0f5ccc3aa5617)]:
+    -   @khanacademy/perseus-core@1.5.0
+
 ## 0.4.0
 
 ### Minor Changes

@@ -53,8 +53,7 @@ export * as globalStyles from "./styles/global-styles";
 export * as globalConstants from "./styles/global-constants";
 export * as icons from "./icon-paths";
 export * as Dependencies from "./dependencies";
-export {Errors, Log} from "./logging/log";
-export {PerseusError} from "./perseus-error";
+export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as KhanMath} from "./util/math";
 export {default as LoadingContext} from "./loading-context";
@@ -65,7 +64,7 @@ export {
     plotterPlotTypes,
     ItemExtras,
     lockedFigureColors,
-    lockedEllipseFillStyles,
+    lockedFigureFillStyles,
 } from "./perseus-types";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
@@ -85,7 +84,7 @@ export {
  */
 export {default as Util} from "./util";
 export {default as KhanColors} from "./util/colors";
-export {default as preprocessTex} from "./util/katex-preprocess";
+export {default as preprocessTex} from "./util/tex-preprocess";
 export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 export * as SizingUtils from "./util/sizing-utils";
 export {
@@ -119,6 +118,17 @@ export {
 } from "./widget-type-utils";
 export {convertWidgetNameToEnum} from "./util/widget-enum-utils";
 export {addWidget, QUESTION_WIDGETS} from "./util/snowman-utils";
+export {
+    getCircleCoords,
+    getLineCoords,
+    getLinearSystemCoords,
+    getPointCoords,
+    getPolygonCoords,
+    getSegmentCoords,
+    getSinusoidCoords,
+    getQuadraticCoords,
+    getAngleCoords,
+} from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
 /**
  * Mixins
@@ -132,7 +142,7 @@ export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
  * Types
  */
 export type {PerseusOptions} from "./init";
-export type {ILogger, LogErrorOptions, ErrorKind} from "./logging/log";
+export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
     Alignment,
@@ -143,7 +153,6 @@ export type {
     DomInsertCheckFn,
     EditorMode,
     FocusPath,
-    Hint,
     ImageDict,
     ImageUploader,
     JiptLabelStore,
@@ -155,23 +164,30 @@ export type {
     VideoKind,
     WidgetDict,
     WidgetExports,
+    SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
+    Hint,
+    LegacyButtonSets,
     LockedFigure,
     LockedFigureColor,
+    LockedFigureFillType,
     LockedFigureType,
     LockedPointType,
     LockedLineType,
-    LockedEllipseType,
-    LockedEllipseFillType,
     LockedVectorType,
+    LockedEllipseType,
+    LockedPolygonType,
+    LockedFunctionType,
+    LockedLabelType,
     PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,
     // Utility types
     Range,
     Size,
+    CollinearTuple,
     MathFormat,
     InputNumberWidget, // TODO(jeremy): remove?
     // Widget configuration types
@@ -179,6 +195,7 @@ export type {
     PerseusInputNumberWidgetOptions,
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
+    PerseusPhetSimulationWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
@@ -188,6 +205,7 @@ export type {
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetsMap,
+    MultiItem,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";

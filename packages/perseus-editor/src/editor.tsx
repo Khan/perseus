@@ -1,13 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     preprocessTex,
-    Errors,
     Log,
-    PerseusError,
     PerseusMarkdown,
     Util,
     Widgets,
 } from "@khanacademy/perseus";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import katex from "katex";
@@ -25,7 +24,11 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
-import type {ChangeHandler, PerseusWidget} from "@khanacademy/perseus";
+import type {
+    ChangeHandler,
+    ImageUploader,
+    PerseusWidget,
+} from "@khanacademy/perseus";
 
 // like [[snowman input-number 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -123,10 +126,7 @@ type Props = Readonly<{
     showWordCount: boolean;
     warnNoPrompt: boolean;
     warnNoWidgets: boolean;
-    imageUploader?: (
-        file: string,
-        callback: (url: string) => unknown,
-    ) => unknown;
+    imageUploader?: ImageUploader;
     onChange: ChangeHandler;
 }>;
 

@@ -2,10 +2,8 @@
  * Utility functions for writing Interactive2 movablethings
  */
 
+import {PerseusError, Errors} from "@khanacademy/perseus-core";
 import _ from "underscore";
-
-import {Errors} from "../logging/log";
-import {PerseusError} from "../perseus-error";
 
 import MovableHelperMethods from "./movable-helper-methods";
 

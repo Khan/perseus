@@ -13,15 +13,21 @@ expect.extend({
         vars: Variables = {},
         functions?: ReadonlyArray<string>,
     ) {
-        const actual = KAS.parse(input, {functions: functions}).expr.eval(
-            vars,
-            {functions: functions},
-        );
+        const parsed = KAS.parse(input, {functions: functions});
+        if (parsed.false || parsed.error) {
+            return {
+                pass: false,
+                message: () =>
+                    `unable to parse: ${input} (error: ${parsed.error})`,
+            };
+        }
 
+        const actual = parsed.expr.eval(vars, {functions: functions});
         if (actual !== expected) {
             return {
-                pass: actual !== expected,
-                message: () => `${input} evaluates as ${expected}`,
+                pass: false,
+                message: () =>
+                    `input: ${input}\nexpected: ${expected}\nactual: ${actual}`,
             };
         }
 
@@ -44,6 +50,13 @@ declare global {
 }
 
 describe("evaluating", () => {
+    // Due to a bug in `toEvaluateAs`, all tests were passing
+    // whether or not they should have been.
+    // This is to make sure we don't regress again.
+    test.failing("should be possible to fail", () => {
+        expect("2+2").toEvaluateAs(5);
+    });
+
     test("empty", () => {
         expect("").toEvaluateAs(0);
     });
@@ -87,5 +100,41 @@ describe("evaluating", () => {
         expect("f(4+8)").toEvaluateAs(48, {f: "4x"}, ["f"]);
         expect("f(x-1)-f(x)").toEvaluateAs(-7, {f: "x^3", x: 2}, ["f"]);
         expect("g(1)").toEvaluateAs(-1, {f: "x", g: "-f(x)"}, ["f", "g"]);
+    });
+
+    // TODO (LEMS-2198): these are tests from a failed attempt
+    // to support mixed numbers correctly. Keeping so we have a record
+    // of what's wrong and what's expected.
+    test("fraction expressions", () => {
+        // wrong
+        expect("2\\frac{1}{2} + 1").toEvaluateAs(2);
+        // correct
+        // expect("2\\frac{1}{2} + 1").toEvaluateAs(3.5);
+
+        // wrong
+        expect("(2\\frac{1}{2}) + 1").toEvaluateAs(2);
+        // correct
+        // expect("(2\\frac{1}{2}) + 1").toEvaluateAs(3.5);
+
+        // wrong
+        expect("-2\\frac{1}{2} + 1").toEvaluateAs(0);
+        // correct
+        // expect("-2\\frac{1}{2} + 1").toEvaluateAs(-1.5);
+
+        // wrong
+        expect("(-2\\frac{1}{2}) + 1").toEvaluateAs(0);
+        // correct
+        // expect("(-2\\frac{1}{2}) + 1").toEvaluateAs(-1.5);
+
+        // should continue to pass after LEMS-2198 is done
+        expect("2-\\frac{1}{2} + 1").toEvaluateAs(2.5);
+        expect("(2-\\frac{1}{2}) + 1").toEvaluateAs(2.5);
+        expect("(2)\\frac{1}{2} + 1").toEvaluateAs(2);
+        expect("2(\\frac{1}{2}) + 1").toEvaluateAs(2);
+        expect("\\frac{1}{2}2 + 1").toEvaluateAs(2);
+        expect("2 + \\frac{1}{2} + 1").toEvaluateAs(3.5);
+        expect("2 * \\frac{1}{2}").toEvaluateAs(1);
+        expect("2 2").toEvaluateAs(4);
+        expect("2\\pi").toEvaluateAs(6.283185307179586);
     });
 });

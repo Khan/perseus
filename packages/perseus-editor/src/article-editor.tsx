@@ -4,13 +4,8 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {
-    components,
-    icons,
-    ApiOptions,
-    Errors,
-    PerseusError,
-} from "@khanacademy/perseus";
+import {components, icons, ApiOptions} from "@khanacademy/perseus";
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
@@ -20,7 +15,7 @@ import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 
-import type {APIOptions, Changeable} from "@khanacademy/perseus";
+import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
@@ -44,7 +39,7 @@ type DefaultProps = {
 };
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
-    imageUploader?: (arg1: string, arg2: (arg1: string) => unknown) => unknown;
+    imageUploader?: ImageUploader;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
 } & Changeable.ChangeableProps;

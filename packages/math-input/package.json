@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "19.1.0",
+    "version": "21.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -30,23 +30,25 @@
             "require": "./dist/strings.js",
             "types": "./dist/strings.d.ts",
             "source": "./src/strings.ts"
-        }
+        },
+        "./styles.css": "./dist/index.css"
     },
     "files": [
         "dist"
     ],
     "scripts": {},
     "dependencies": {
-        "@khanacademy/perseus-core": "1.4.2",
+        "@khanacademy/keypad-context": "^1.0.0",
+        "@khanacademy/perseus-core": "1.5.0",
         "mathquill": "https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz"
     },
     "devDependencies": {
-        "@khanacademy/mathjax-renderer": "^2.0.0",
-        "@khanacademy/wonder-blocks-clickable": "4.2.1",
-        "@khanacademy/wonder-blocks-core": "6.4.0",
-        "@khanacademy/wonder-blocks-popover": "3.2.2",
-        "@khanacademy/wonder-blocks-timing": "5.0.0",
-        "@khanacademy/wonder-blocks-tokens": "1.3.0",
+        "@khanacademy/mathjax-renderer": "^2.1.0",
+        "@khanacademy/wonder-blocks-clickable": "4.2.6",
+        "@khanacademy/wonder-blocks-core": "6.4.3",
+        "@khanacademy/wonder-blocks-popover": "3.2.13",
+        "@khanacademy/wonder-blocks-timing": "5.0.1",
+        "@khanacademy/wonder-blocks-tokens": "2.0.0",
         "@khanacademy/wonder-stuff-core": "1.5.2",
         "@phosphor-icons/core": "^2.0.2",
         "aphrodite": "^1.2.5",
@@ -54,29 +56,25 @@
         "katex": "0.11.1",
         "perseus-build-settings": "^0.4.1",
         "prop-types": "15.6.1",
-        "react": "16.14.0",
-        "react-dom": "^16.8.0",
-        "react-router": "5.2.1",
-        "react-router-dom": "5.3.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "react-transition-group": "^4.4.1"
     },
     "peerDependencies": {
-        "@khanacademy/mathjax-renderer": "^2.0.0",
-        "@khanacademy/wonder-blocks-clickable": "4.2.1",
-        "@khanacademy/wonder-blocks-core": "6.4.0",
-        "@khanacademy/wonder-blocks-popover": "3.2.2",
-        "@khanacademy/wonder-blocks-timing": "5.0.0",
-        "@khanacademy/wonder-blocks-tokens": "1.3.0",
+        "@khanacademy/mathjax-renderer": "^2.1.0",
+        "@khanacademy/wonder-blocks-clickable": "4.2.6",
+        "@khanacademy/wonder-blocks-core": "6.4.3",
+        "@khanacademy/wonder-blocks-popover": "3.2.13",
+        "@khanacademy/wonder-blocks-timing": "5.0.1",
+        "@khanacademy/wonder-blocks-tokens": "2.0.0",
         "@khanacademy/wonder-stuff-core": "1.5.2",
         "@phosphor-icons/core": "^2.0.2",
         "aphrodite": "^1.2.5",
         "jquery": "^2.1.1",
         "katex": "0.11.1",
         "prop-types": "15.6.1",
-        "react": "16.14.0",
-        "react-dom": "^16.8.0",
-        "react-router": "5.2.1",
-        "react-router-dom": "5.3.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "react-transition-group": "^4.4.1"
     },
     "keywords": []

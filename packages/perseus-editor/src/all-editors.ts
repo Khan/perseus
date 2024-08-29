@@ -27,13 +27,13 @@ import OrdererEditor from "./widgets/orderer-editor";
 import PassageEditor from "./widgets/passage-editor";
 import PassageRefEditor from "./widgets/passage-ref-editor";
 import PassageRefTargetEditor from "./widgets/passage-ref-target-editor";
+import PhetSimulationEditor from "./widgets/phet-simulation-editor";
 import PlotterEditor from "./widgets/plotter-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
 import RadioEditor from "./widgets/radio/editor";
 import SimpleMarkdownTesterEditor from "./widgets/simple-markdown-tester-editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
-import UnitEditor from "./widgets/unit-editor";
 import VideoEditor from "./widgets/video-editor";
 
 export default [
@@ -65,12 +65,12 @@ export default [
     PassageEditor,
     PassageRefEditor,
     PassageRefTargetEditor,
+    PhetSimulationEditor,
     PlotterEditor,
     PythonProgramEditor,
     SimpleMarkdownTesterEditor,
     SorterEditor,
     TableEditor,
-    UnitEditor,
     VideoEditor,
     RadioEditor,
     DeprecatedStandinEditor,

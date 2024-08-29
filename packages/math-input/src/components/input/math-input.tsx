@@ -1,4 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {KeypadContext} from "@khanacademy/keypad-context";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
@@ -7,7 +8,6 @@ import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
 import {MathInputI18nContext} from "../i18n-context";
-import {KeypadContext} from "../keypad-context";
 
 import CursorHandle from "./cursor-handle";
 import {
@@ -24,6 +24,7 @@ const constrainingFrictionFactor = 0.8;
 
 type Props = {
     keypadElement?: KeypadAPI;
+    ariaLabel: string;
     onBlur: () => void;
     onChange: (value: string, callback: any) => void;
     onFocus: () => void;
@@ -97,6 +98,7 @@ class MathInput extends React.Component<Props, State> {
 
         this.mathField = new MathWrapper(
             this._mathContainer,
+            this.props.ariaLabel,
             this.context.strings,
             this.context.locale,
             {

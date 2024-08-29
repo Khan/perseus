@@ -2,11 +2,11 @@ import * as React from "react";
 
 import ButtonGroup from "../button-group";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-};
+type StoryArgs = StoryObj<ButtonGroup>;
+
+type Story = Meta<ButtonGroup>;
 
 export default {
     title: "Perseus/Components/Button Group",

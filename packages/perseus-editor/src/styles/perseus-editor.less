@@ -158,6 +158,10 @@
     padding: @editorPadding;
 }
 
+.perseus-answer-options * {
+    margin-bottom: 4px;
+}
+
 .perseus-answer-widget {
     border: @editorBorder;
     border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
@@ -482,41 +486,6 @@
     .perseus-editor-left-cell > .pod-title {
         // Make section header padding visually match widget editor header padding
         padding: 4px 9px;
-    }
-}
-
-//
-// Expression editor
-//
-.perseus-widget-expression-editor {
-    .answer-options-list li {
-        margin: 5px 0;
-    }
-
-    .answer-status {
-        color: inherit;
-        cursor: pointer;
-        display: inline-block;
-        text-align: center;
-        text-decoration: none;
-        width: 75%; // TODO(joel) 60%?
-        .user-select(none);
-
-        &.wrong {
-            background-color: @wrongRed;
-        }
-
-        &.correct {
-            background-color: @correctGreen;
-        }
-
-        &.ungraded {
-            background-color: @ungradedBlue;
-        }
-    }
-
-    .expression-editor-h3 {
-        margin: 10px 0 4px;
     }
 }
 
@@ -1031,61 +1000,6 @@
     margin-top: 22px;
 }
 
-.expression-answer-option {
-    border: 1px solid #ddd;
-    border-radius: 3px;
-
-    .answer-handle {
-        // textured draggy handle
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==)
-            no-repeat 50% 50%;
-        border-right: 1px solid #ddd;
-        cursor: move;
-        display: table-cell;
-        width: 20px;
-    }
-
-    .answer-body {
-        display: table-cell;
-    }
-
-    .answer-considered {
-        display: table;
-    }
-
-    .answer-expression {
-        display: table-cell;
-    }
-
-    .answer-status {
-        display: table-cell;
-        width: 100px;
-    }
-
-    .answer-option {
-        padding-left: 5px;
-    }
-
-    .remove-container {
-        padding: 5px;
-
-        button {
-            width: 100%;
-        }
-    }
-
-    .perseus-math-input {
-        width: 236px;
-
-        .mq-root-block {
-            border-top: none;
-            border-right: none;
-            border-bottom: 1px solid #ddd !important;
-            border-left: 1px solid #ddd !important;
-        }
-    }
-}
-
 //
 // Interaction Editor
 //
@@ -1159,29 +1073,8 @@
     }
 }
 
-.button-set-label {
-    display: block;
-}
-
-// Float the first one left because it has a suboption.
-// This is a minor hack.
-.button-set-label-float {
-    display: block;
-    float: left;
-    margin-right: 10px;
-}
-
 .button-set-separator {
     margin: 10px 0;
-}
-
-// Don't allow selection on this label because I found it very easy to select
-// (don't know why...) which caused the selection to not actually be made.
-// I know this is autoprefixed in prod, but I want it to work in the perseus
-// repo.
-.show-div-button {
-    -webkit-user-select: none;
-    user-select: none;
 }
 
 // double selector for specificity

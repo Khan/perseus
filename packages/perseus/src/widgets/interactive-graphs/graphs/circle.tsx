@@ -1,13 +1,14 @@
-import {useMovable, vec} from "mafs";
+import {vec} from "mafs";
 import * as React from "react";
 import {useRef} from "react";
 
-import {moveCenter, moveRadiusPoint} from "../reducer/interactive-graph-action";
+import {snap, X, Y} from "../math";
+import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
-import {snap} from "../utils";
 
-import {StyledMovablePoint} from "./components/movable-point";
+import {MovablePoint} from "./components/movable-point";
+import {useDraggable} from "./use-draggable";
 import {
     useTransformDimensionsToPixels,
     useTransformVectorsToPixels,
@@ -26,13 +27,13 @@ export function CircleGraph(props: CircleGraphProps) {
             <MovableCircle
                 center={center}
                 radius={getRadius(graphState)}
-                onMove={(newCenter) => dispatch(moveCenter(newCenter))}
+                onMove={(c) => dispatch(actions.circle.moveCenter(c))}
             />
-            <StyledMovablePoint
+            <MovablePoint
                 point={radiusPoint}
                 cursor="ew-resize"
                 onMove={(newRadiusPoint) => {
-                    dispatch(moveRadiusPoint(newRadiusPoint));
+                    dispatch(actions.circle.moveRadiusPoint(newRadiusPoint));
                 }}
             />
         </>
@@ -45,15 +46,15 @@ function MovableCircle(props: {
     onMove: (newCenter: vec.Vector2) => unknown;
 }) {
     const {center, radius, onMove} = props;
-    const {snapStep} = useGraphConfig();
+    const {snapStep, disableKeyboardInteraction} = useGraphConfig();
 
     const draggableRef = useRef<SVGGElement>(null);
 
-    const {dragging} = useMovable({
+    const {dragging} = useDraggable({
         gestureTarget: draggableRef,
         point: center,
         onMove,
-        constrain: (p) => snap(snapStep, p),
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
     const [centerPx] = useTransformVectorsToPixels(center);
@@ -62,22 +63,22 @@ function MovableCircle(props: {
     return (
         <g
             ref={draggableRef}
-            tabIndex={0}
+            tabIndex={disableKeyboardInteraction ? -1 : 0}
             className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
         >
             <ellipse
                 className="focus-ring"
-                cx={centerPx[0]}
-                cy={centerPx[1]}
-                rx={radiiPx[0] + 3}
-                ry={radiiPx[1] + 3}
+                cx={centerPx[X]}
+                cy={centerPx[Y]}
+                rx={radiiPx[X] + 3}
+                ry={radiiPx[Y] + 3}
             />
             <ellipse
                 className="circle"
-                cx={centerPx[0]}
-                cy={centerPx[1]}
-                rx={radiiPx[0]}
-                ry={radiiPx[1]}
+                cx={centerPx[X]}
+                cy={centerPx[Y]}
+                rx={radiiPx[X]}
+                ry={radiiPx[Y]}
             />
             <DragHandle center={center} />
         </g>
@@ -96,10 +97,10 @@ function DragHandle(props: {center: [x: number, y: number]}) {
         <>
             <rect
                 className="movable-circle-handle"
-                x={topLeft[0]}
-                y={topLeft[1]}
-                width={dragHandleDimensions[0]}
-                height={dragHandleDimensions[1]}
+                x={topLeft[X]}
+                y={topLeft[Y]}
+                width={dragHandleDimensions[X]}
+                height={dragHandleDimensions[Y]}
                 rx={cornerRadius}
                 ry={cornerRadius}
             />
@@ -107,6 +108,7 @@ function DragHandle(props: {center: [x: number, y: number]}) {
                 const [xPx, yPx] = vec.add(offsetPx, centerPx);
                 return (
                     <circle
+                        key={`circle-${xPx}-${yPx}`}
                         className="movable-circle-handle-dot"
                         cx={xPx}
                         cy={yPx}
