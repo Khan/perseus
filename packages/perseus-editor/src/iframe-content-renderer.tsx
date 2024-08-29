@@ -9,7 +9,6 @@
  * to get the data to render. When the iframe is loaded, it's javascript sends
  * a message to the parent, which triggers the parent to send the current data.
  */
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import {
@@ -24,6 +23,12 @@ let nextIframeID = 0;
 const requestIframeData: Record<string, any> = {};
 const updateIframeHeight: Record<string, any> = {};
 
+/**
+ * Processes a message sent to the iframe parent (ie. this component).
+ *
+ * Note that this handler also sees messages sent from itself to the iframe so
+ * we intentionally ignore those here.
+ */
 function processIframeParentMessage(message: MessageToIFrameParent) {
     if (!isPerseusMessage(message)) {
         return;
@@ -45,7 +50,12 @@ function processIframeParentMessage(message: MessageToIFrameParent) {
             return;
 
         default:
-            throw new UnreachableCaseError(messageType);
+            // This is a type assertion that ensures we handle all of the types
+            // of messages we handle. We do _not_ throw an UnreachableCaseError
+            // here because this handler also sees messages sent from this
+            // component and those are not currently filtered by
+            // isPerseusMessage().
+            const _: never = messageType;
     }
 }
 
