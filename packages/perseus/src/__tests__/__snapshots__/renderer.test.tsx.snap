@@ -357,9 +357,12 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
+                aria-controls="uid-single-select-dropdown-2-wb-id"
+                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
-                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                id="uid-single-select-opener-3-wb-id"
                 type="button"
               >
                 <span
@@ -422,9 +425,12 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
+                aria-controls="uid-single-select-dropdown-4-wb-id"
+                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
-                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                id="uid-single-select-opener-5-wb-id"
                 type="button"
               >
                 <span
@@ -487,9 +493,12 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
+                aria-controls="uid-single-select-dropdown-0-wb-id"
+                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
-                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                id="uid-single-select-opener-1-wb-id"
                 type="button"
               >
                 <span
