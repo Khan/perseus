@@ -272,7 +272,7 @@ jobs:
         name: Publish npm snapshot
         # We don't publish snapshots on Changeset "Version Packages" PRs
         if: |
-          !startsWith(github.head_ref, 'changeset-release/')
+            !startsWith(github.head_ref, 'changeset-release/')
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
