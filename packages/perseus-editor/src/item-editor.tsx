@@ -7,7 +7,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 
-import type {NewDataMessage} from "./iframe-content-renderer";
+import type {NewDataMessage} from "./iframe-utils";
 import type {
     APIOptions,
     ImageUploader,
