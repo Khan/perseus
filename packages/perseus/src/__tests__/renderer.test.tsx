@@ -22,8 +22,6 @@ import {renderQuestion} from "../widgets/__tests__/renderQuestion";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
-import MockWidgetExport from "./mock-widget";
-
 import type {DropdownWidget} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -49,7 +47,6 @@ describe("renderer", () => {
     beforeAll(() => {
         registerWidget("input-number", InputNumberExport);
         registerWidget("radio", RadioWidgetExport);
-        registerWidget("mock-widget", MockWidgetExport);
     });
 
     let userEvent: UserEvent;
@@ -1165,7 +1162,6 @@ describe("renderer", () => {
 
             const {renderer} = renderQuestion(mockedItem);
             const [widget1, widget2, widget3] = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
                 (_, info) => info.type === "mock-widget",
             );
             widget1.restoreSerializedState = makeRestoreSerializedStateMock;
@@ -1356,7 +1352,6 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion(mockedItem);
             const widgets = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
                 (_, info) => info.type === "mock-widget",
             );
             widgets.forEach(
@@ -1383,7 +1378,6 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion(mockedItem);
             const widgets = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
                 (_, info) => info.type === "mock-widget",
             );
             widgets.forEach(

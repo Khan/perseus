@@ -686,7 +686,6 @@ class Editor extends React.Component<Props, State> {
         const newContent = newPrelude + widgetContent + newPostlude;
 
         const newWidgets = _.clone(this.props.widgets);
-        // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
             type: widgetType as PerseusWidget["type"],

@@ -7,10 +7,8 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
-import MockWidgetExport from "../../__tests__/mock-widget";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {registerWidget} from "../../widgets";
 import {
     mockedQuestion1,
     question1,
@@ -92,10 +90,6 @@ const _findWidgets = (
 };
 
 describe("multi-item renderer", () => {
-    beforeAll(() => {
-        registerWidget("mock-widget", MockWidgetExport);
-    });
-
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
