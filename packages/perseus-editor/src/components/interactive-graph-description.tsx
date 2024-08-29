@@ -50,7 +50,7 @@ export default function InteractiveGraphDescription(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <LabelLarge>
                         Description
-                        <TextField
+                        <TextArea
                             value={ariaDescribedbyValue}
                             onChange={(newValue) =>
                                 handleChange("description", newValue)
