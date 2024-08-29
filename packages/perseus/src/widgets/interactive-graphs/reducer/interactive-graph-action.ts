@@ -11,7 +11,8 @@ export type InteractiveGraphAction =
     | MoveRadiusPoint
     | ChangeSnapStep
     | ChangeRange
-    | AddPoint;
+    | AddPoint
+    | RemovePoint;
 
 export const actions = {
     angle: {
@@ -33,6 +34,7 @@ export const actions = {
     pointGraph: {
         movePoint,
         addPoint,
+        removePoint,
     },
     polygon: {
         movePoint,
@@ -78,6 +80,18 @@ function addPoint(location: vec.Vector2): AddPoint {
     return {
         type: ADD_POINT,
         location,
+    };
+}
+
+export const REMOVE_POINT = "remove-point";
+export interface RemovePoint {
+    type: typeof REMOVE_POINT;
+    index: number;
+}
+function removePoint(index: number): RemovePoint {
+    return {
+        type: REMOVE_POINT,
+        index,
     };
 }
 
