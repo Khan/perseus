@@ -69,6 +69,12 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
+            - name: Force Node version
+              uses: actions/setup-node@v4
+              with:
+                node-version: ${{ matrix.node-version }}
+                cache: yarn
+
             - name: Install node_modules
               run: yarn install
 
