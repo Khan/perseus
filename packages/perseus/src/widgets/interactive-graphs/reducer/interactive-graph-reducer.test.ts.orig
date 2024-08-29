@@ -48,6 +48,18 @@ const baseUnlimitedPointGraphState: PointGraphState = {
     coords: [],
 };
 
+const baseUnlimitedPointGraphState: PointGraphState = {
+    hasBeenInteractedWith: false,
+    type: "point",
+    numPoints: "unlimited",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [],
+};
+
 const baseAngleGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
     type: "angle",
@@ -972,52 +984,7 @@ describe("doMoveRadiusPoint", () => {
     });
 });
 
-describe("unlimited points", () => {
-    it("adds points", () => {
-        const state: PointGraphState = {
-            ...baseUnlimitedPointGraphState,
-        };
-
-        const stateAfterAddingPoint = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([8, 10]),
-        ) as PointGraphState;
-
-        expect(stateAfterAddingPoint.coords).toMatchObject([[8, 10]]);
-    });
-
-    it("removes points", () => {
-        let state: PointGraphState = {
-            ...baseUnlimitedPointGraphState,
-        };
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([1, 1]),
-        ) as PointGraphState;
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([2, 2]),
-        ) as PointGraphState;
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([3, 3]),
-        ) as PointGraphState;
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.removePoint(1),
-        ) as PointGraphState;
-
-        expect(state.coords).toMatchObject([
-            [1, 1],
-            [3, 3],
-        ]);
-    });
-});
-
+<<<<<<< HEAD
 describe("delete intent", () => {
     it("does nothing when no points are selected", () => {
         let state: PointGraphState = {
@@ -1085,6 +1052,8 @@ describe("delete intent", () => {
     });
 });
 
+=======
+>>>>>>> main
 describe("unlimited points", () => {
     it("adds points", () => {
         const state: PointGraphState = {

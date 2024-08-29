@@ -30,9 +30,12 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 3 items
               </span>
               <button
+                aria-controls="uid-single-select-dropdown-2-wb-id"
+                aria-disabled="false"
                 aria-expanded="true"
                 aria-haspopup="listbox"
-                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                id="uid-single-select-opener-3-wb-id"
                 type="button"
               >
                 <span
@@ -95,9 +98,12 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 data-testid="dropdown-live-region"
               />
               <button
+                aria-controls="uid-single-select-dropdown-0-wb-id"
+                aria-disabled="false"
                 aria-expanded="false"
                 aria-haspopup="listbox"
-                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                id="uid-single-select-opener-1-wb-id"
                 type="button"
               >
                 <span
