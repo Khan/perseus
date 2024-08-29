@@ -14,10 +14,11 @@ import type {vec} from "mafs";
 
 type Props = {
     point: vec.Vector2;
-    onMove: (newPoint: vec.Vector2) => unknown;
+    onMove?: (newPoint: vec.Vector2) => unknown;
     color?: string;
     cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
+    onFocusChange?: (isFocused: boolean) => unknown;
 };
 
 export const MovablePoint = (props: Props) => {
@@ -25,7 +26,8 @@ export const MovablePoint = (props: Props) => {
     const elementRef = useRef<SVGGElement>(null);
     const {
         point,
-        onMove,
+        onMove = () => {},
+        onFocusChange = () => {},
         cursor,
         color = WBColor.blue,
         constrain = (p) => snap(snapStep, p),
@@ -43,7 +45,8 @@ export const MovablePoint = (props: Props) => {
             point={point}
             color={color}
             dragging={dragging}
-            focusBehavior={{type: "uncontrolled", tabIndex: 0}}
+            focusBehavior={{type: "uncontrolled", tabIndex: 0, onFocusChange}}
+            onClick={() => elementRef.current?.focus()}
             cursor={cursor}
         />
     );
