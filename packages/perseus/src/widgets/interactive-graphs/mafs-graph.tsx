@@ -3,7 +3,6 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
-import {color} from "@khanacademy/wonder-blocks-tokens";
 
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTickLabels} from "./backgrounds/axis-tick-labels";
