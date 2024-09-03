@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import {UniqueIDProvider, View} from "@khanacademy/wonder-blocks-core";
@@ -46,6 +45,11 @@ class Explanation extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    state: State = {
+        expanded: false,
+    };
+    _mounted: boolean = false;
+
     static defaultProps: DefaultProps = {
         showPrompt: "Explain",
         hidePrompt: "Hide explanation",
@@ -62,11 +66,6 @@ class Explanation extends React.Component<Props, State> {
             message: null,
         };
     }
-
-    state: State = {
-        expanded: false,
-    };
-    _mounted: boolean = false;
 
     componentDidMount() {
         this._mounted = true;
@@ -85,6 +84,14 @@ class Explanation extends React.Component<Props, State> {
             expanded: !this.state.expanded,
         });
         this.props.trackInteraction();
+    };
+
+    getUserInput: () => Empty = () => {
+        return {};
+    };
+
+    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
+        return Explanation.validate(this.getUserInput(), rubric);
     };
 
     render(): React.ReactNode {
@@ -171,14 +178,6 @@ class Explanation extends React.Component<Props, State> {
             </UniqueIDProvider>
         );
     }
-
-    getUserInput: () => Empty = () => {
-        return {};
-    };
-
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Explanation.validate(this.getUserInput(), rubric);
-    };
 }
 
 const leftBorderSpacing = 23;
