@@ -12,7 +12,7 @@ import {
     inputNumberWidget,
     question1,
     question2,
-    mockedItem,
+    definitionItem,
     mockedRandomItem,
     mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
@@ -958,8 +958,8 @@ describe("renderer", () => {
 
         it("should throw if widget provides invalid focus path", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
-            const [widget2] = renderer.findWidgets("mock-widget 2");
+            const {renderer} = renderQuestion(definitionItem);
+            const [widget2] = renderer.findWidgets("definition 2");
 
             // Act and Assert
             expect(() => {
@@ -1113,9 +1113,9 @@ describe("renderer", () => {
     describe("state serialization", () => {
         it("should request widget's serialized state if implemented", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
 
-            const [widget2] = renderer.findWidgets("mock-widget 2");
+            const [widget2] = renderer.findWidgets("definition 2");
             expect(widget2).not.toBeUndefined();
             widget2.getSerializedState = jest.fn();
 
@@ -1160,10 +1160,9 @@ describe("renderer", () => {
                 .fn()
                 .mockImplementation((props, callback) => callback());
 
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const [widget1, widget2, widget3] = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
-                (_, info) => info.type === "mock-widget",
+                (_, info) => info.type === "definition",
             );
             widget1.restoreSerializedState = makeRestoreSerializedStateMock;
             widget2.restoreSerializedState = makeRestoreSerializedStateMock;
@@ -1175,9 +1174,9 @@ describe("renderer", () => {
             act(() =>
                 renderer.restoreSerializedState(
                     {
-                        "mock-widget 1": {},
-                        "mock-widget 2": {},
-                        "mock-widget 3": {},
+                        "definition 1": {},
+                        "definition 2": {},
+                        "definition 3": {},
                     },
                     restorationCallback,
                 ),
@@ -1190,11 +1189,9 @@ describe("renderer", () => {
 
         it("should return each widget's state from serialize()", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const widgets = renderer.findWidgets((id) =>
-                ["mock-widget 1", "mock-widget 2", "mock-widget 3"].includes(
-                    id,
-                ),
+                ["definition 1", "definition 2", "definition 3"].includes(id),
             );
             widgets.forEach((w) => {
                 w.serialize = jest.fn(() => `State: ${w.props.widgetId}`);
@@ -1208,9 +1205,9 @@ describe("renderer", () => {
 
             // Assert
             expect(state).toStrictEqual({
-                "mock-widget 1": "State: mock-widget 1",
-                "mock-widget 2": "State: mock-widget 2",
-                "mock-widget 3": "State: mock-widget 3",
+                "definition 1": "State: definition 1",
+                "definition 2": "State: definition 2",
+                "definition 3": "State: definition 3",
             });
         });
     });
@@ -1351,10 +1348,9 @@ describe("renderer", () => {
 
         it("should ask each widget to show rationales", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const widgets = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
-                (_, info) => info.type === "mock-widget",
+                (_, info) => info.type === "definition",
             );
             widgets.forEach(
                 (w) =>
@@ -1378,10 +1374,9 @@ describe("renderer", () => {
 
         it("should ask each widget to deselect incorrect choices", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const widgets = renderer.findWidgets(
-                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
-                (_, info) => info.type === "mock-widget",
+                (_, info) => info.type === "definition",
             );
             widgets.forEach(
                 (w) => (w.deselectIncorrectSelectedChoices = jest.fn()),
@@ -1500,13 +1495,13 @@ describe("renderer", () => {
 
         it("should return the widget's getDOMNodeForPath() result for the widget at requested FocusPath", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
+            const {renderer} = renderQuestion(definitionItem);
             const widget2DOMNode = <span />;
-            const [widget2] = renderer.findWidgets("mock-widget 2");
+            const [widget2] = renderer.findWidgets("definition 2");
             widget2.getDOMNodeForPath = jest.fn(() => widget2DOMNode);
 
             // Act
-            const node = renderer.getDOMNodeForPath(["mock-widget 2"]);
+            const node = renderer.getDOMNodeForPath(["definition 2"]);
 
             // Assert
             expect(node).toBe(widget2DOMNode);
@@ -1542,18 +1537,16 @@ describe("renderer", () => {
     describe("getInputPaths", () => {
         it("should return all input paths for all rendererd widgets", () => {
             // Arrange
-            const {renderer} = renderQuestion(mockedItem);
-            const [mockWidget1, mockWidget2, mockWidget3] =
+            const {renderer} = renderQuestion(definitionItem);
+            const [definition1, definition2, definition3] =
                 renderer.findWidgets((id) =>
-                    [
-                        "mock-widget 1",
-                        "mock-widget 2",
-                        "mock-widget 3",
-                    ].includes(id),
+                    ["definition 1", "definition 2", "definition 3"].includes(
+                        id,
+                    ),
                 );
-            mockWidget1.getInputPaths = jest.fn(() => ["input 1"]);
-            mockWidget2.getInputPaths = jest.fn(() => ["input 2", "input 3"]);
-            mockWidget3.getInputPaths = jest.fn(() => [
+            definition1.getInputPaths = jest.fn(() => ["input 1"]);
+            definition2.getInputPaths = jest.fn(() => ["input 2", "input 3"]);
+            definition3.getInputPaths = jest.fn(() => [
                 ["input 4", "sub-input 4.1"],
                 "input 5",
             ]);
@@ -1565,24 +1558,24 @@ describe("renderer", () => {
             expect(inputPaths).toMatchInlineSnapshot(`
                 [
                   [
-                    "mock-widget 1",
+                    "definition 1",
                     "input 1",
                   ],
                   [
-                    "mock-widget 2",
+                    "definition 2",
                     "input 2",
                   ],
                   [
-                    "mock-widget 2",
+                    "definition 2",
                     "input 3",
                   ],
                   [
-                    "mock-widget 3",
+                    "definition 3",
                     "input 4",
                     "sub-input 4.1",
                   ],
                   [
-                    "mock-widget 3",
+                    "definition 3",
                     "input 5",
                   ],
                 ]

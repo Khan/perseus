@@ -12,7 +12,7 @@ import {
     itemWithLintingError,
     itemWithNumericAndNumberInputs,
     itemWithRadioAndExpressionWidgets,
-    mockedItem,
+    definitionItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
 import WrappedServerItemRenderer, {
@@ -223,17 +223,17 @@ describe("server item renderer", () => {
 
     it("should return all widget ids", () => {
         // Arrange
-        const {renderer} = renderQuestion(mockedItem);
+        const {renderer} = renderQuestion(definitionItem);
 
         // Act
         const widgetIds = renderer.getWidgetIds();
 
         // Assert
         expect(widgetIds).toStrictEqual([
-            "mock-widget 1",
-            "mock-widget 2",
-            "mock-widget 3",
-            "mock-widget 4",
+            "definition 1",
+            "definition 2",
+            "definition 3",
+            "definition 4",
         ]);
     });
 
