@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {
     number as knumber,
     vector as kvector,
@@ -109,6 +108,98 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
 
     change = (...args) => {
         return Changeable.change.apply(this, args);
+    };
+
+    renderPlot = () => {
+        const model = this.props.model;
+        const xRange = this.props.graph.range[0];
+        const style = {
+            stroke: this.props.isMobile
+                ? KhanColors.BLUE_C
+                : KhanColors.DYNAMIC,
+            ...(this.props.isMobile ? {"stroke-width": 3} : {}),
+        } as const;
+
+        const coeffs = model.getCoefficients(this._coords(), this._asymptote());
+        if (!coeffs) {
+            return;
+        }
+
+        const functionProps = model.getPropsForCoeffs(coeffs, xRange);
+        return (
+            <model.Movable
+                {...functionProps}
+                key={this.props.model.url}
+                range={xRange}
+                style={style}
+            />
+        );
+    };
+
+    renderAsymptote = () => {
+        const model = this.props.model;
+        const graph = this.props.graph;
+        const asymptote = this._asymptote();
+        const dashed = {
+            strokeDasharray: "- ",
+        } as const;
+        return (
+            asymptote && (
+                <MovableLine
+                    onMove={(newCoord, oldCoord) => {
+                        // Calculate and apply displacement
+                        const delta = kvector.subtract(newCoord, oldCoord);
+                        const newAsymptote = _.map(this._asymptote(), (coord) =>
+                            kvector.add(coord, delta),
+                        );
+                        this.props.onChange({
+                            asymptote: newAsymptote,
+                        });
+                    }}
+                    constraints={[
+                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        Interactive2.MovableLine.constraints.bound(),
+                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        Interactive2.MovableLine.constraints.snap(),
+                        (newCoord, oldCoord: any) => {
+                            // Calculate and apply proposed displacement
+                            const delta = kvector.subtract(newCoord, oldCoord);
+                            const proposedAsymptote = _.map(
+                                this._asymptote(),
+                                (coord) => kvector.add(coord, delta),
+                            );
+                            // Verify that resulting asymptote is valid for graph
+                            if (model.extraAsymptoteConstraint) {
+                                return model.extraAsymptoteConstraint(
+                                    newCoord,
+                                    oldCoord,
+                                    this._coords(),
+                                    proposedAsymptote,
+                                    graph,
+                                );
+                            }
+                            return true;
+                        },
+                    ]}
+                    normalStyle={dashed}
+                    highlightStyle={dashed}
+                >
+                    {_.map(asymptote, (coord, i) => (
+                        <MovablePoint
+                            key={`asymptoteCoord-${i}`}
+                            coord={coord}
+                            static={true}
+                            draw={null}
+                            extendLine={true}
+                            showHairlines={this.props.showHairlines}
+                            hideHairlines={this.props.hideHairlines}
+                            showTooltips={this.props.showTooltips}
+                            isMobile={this.props.isMobile}
+                        />
+                    ))}
+                </MovableLine>
+            )
+        );
     };
 
     render(): React.ReactNode {
@@ -242,98 +333,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
             </div>
         );
     }
-
-    renderPlot = () => {
-        const model = this.props.model;
-        const xRange = this.props.graph.range[0];
-        const style = {
-            stroke: this.props.isMobile
-                ? KhanColors.BLUE_C
-                : KhanColors.DYNAMIC,
-            ...(this.props.isMobile ? {"stroke-width": 3} : {}),
-        } as const;
-
-        const coeffs = model.getCoefficients(this._coords(), this._asymptote());
-        if (!coeffs) {
-            return;
-        }
-
-        const functionProps = model.getPropsForCoeffs(coeffs, xRange);
-        return (
-            <model.Movable
-                {...functionProps}
-                key={this.props.model.url}
-                range={xRange}
-                style={style}
-            />
-        );
-    };
-
-    renderAsymptote = () => {
-        const model = this.props.model;
-        const graph = this.props.graph;
-        const asymptote = this._asymptote();
-        const dashed = {
-            strokeDasharray: "- ",
-        } as const;
-        return (
-            asymptote && (
-                <MovableLine
-                    onMove={(newCoord, oldCoord) => {
-                        // Calculate and apply displacement
-                        const delta = kvector.subtract(newCoord, oldCoord);
-                        const newAsymptote = _.map(this._asymptote(), (coord) =>
-                            kvector.add(coord, delta),
-                        );
-                        this.props.onChange({
-                            asymptote: newAsymptote,
-                        });
-                    }}
-                    constraints={[
-                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                        Interactive2.MovableLine.constraints.bound(),
-                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                        Interactive2.MovableLine.constraints.snap(),
-                        (newCoord, oldCoord: any) => {
-                            // Calculate and apply proposed displacement
-                            const delta = kvector.subtract(newCoord, oldCoord);
-                            const proposedAsymptote = _.map(
-                                this._asymptote(),
-                                (coord) => kvector.add(coord, delta),
-                            );
-                            // Verify that resulting asymptote is valid for graph
-                            if (model.extraAsymptoteConstraint) {
-                                return model.extraAsymptoteConstraint(
-                                    newCoord,
-                                    oldCoord,
-                                    this._coords(),
-                                    proposedAsymptote,
-                                    graph,
-                                );
-                            }
-                            return true;
-                        },
-                    ]}
-                    normalStyle={dashed}
-                    highlightStyle={dashed}
-                >
-                    {_.map(asymptote, (coord, i) => (
-                        <MovablePoint
-                            key={`asymptoteCoord-${i}`}
-                            coord={coord}
-                            static={true}
-                            draw={null}
-                            extendLine={true}
-                            showHairlines={this.props.showHairlines}
-                            hideHairlines={this.props.hideHairlines}
-                            showTooltips={this.props.showTooltips}
-                            isMobile={this.props.isMobile}
-                        />
-                    ))}
-                </MovableLine>
-            )
-        );
-    };
 }
 
 type UserInput = any; // Really this is props.plot, I think
@@ -367,72 +366,12 @@ class Grapher extends React.Component<Props> {
 
     static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
 
-    render(): React.ReactNode {
-        const type = this.props.plot.type;
-        const coords = this.props.plot.coords;
-        const asymptote = this.props.plot.asymptote;
+    static validate(state: UserInput, rubric: Rubric): PerseusScore {
+        return grapherValidate(state, rubric);
+    }
 
-        const typeSelector = (
-            <div style={typeSelectorStyle} className="above-scratchpad">
-                <ButtonGroup
-                    value={type}
-                    allowEmpty={true}
-                    buttons={_.map(this.props.availableTypes, typeToButton)}
-                    onChange={this.handleActiveTypeChange}
-                />
-            </div>
-        );
-
-        const box = getInteractiveBoxFromSizeClass(
-            this.props.containerSizeClass,
-        );
-
-        // Calculate additional graph properties so that the same values are
-        // passed in to both FunctionGrapher and Graphie.
-        const options = {
-            ...this.props.graph,
-            ...getGridAndSnapSteps(this.props.graph, box[0]),
-            gridConfig: this._getGridConfig({
-                ...this.props.graph,
-                box: box,
-                ...getGridAndSnapSteps(this.props.graph, box[0]),
-            }),
-        } as const;
-
-        // The `graph` prop will eventually be passed to the <Graphie>
-        // component. In fact, if model is `null`, this is functionalliy
-        // identical to a <Graphie>. Otherwise, some points and a plot will be
-        // overlayed.
-        const grapherProps = {
-            graph: {
-                box: box,
-                range: options.range,
-                step: options.step,
-                snapStep: options.snapStep,
-                backgroundImage: options.backgroundImage,
-                options: options,
-                setup: this._setupGraphie,
-            },
-            onChange: this.handlePlotChanges,
-            model: type && functionForType(type),
-            coords: coords,
-            asymptote: asymptote,
-            static: this.props.static,
-            setDrawingAreaAvailable:
-                this.props.apiOptions.setDrawingAreaAvailable,
-            isMobile: this.props.apiOptions.isMobile,
-            showTooltips: this.props.graph.showTooltips,
-            showHairlines: this.showHairlines,
-            hideHairlines: this.hideHairlines,
-        } as const;
-
-        return (
-            <div>
-                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
-                <FunctionGrapher {...grapherProps} />
-                {this.props.availableTypes.length > 1 && typeSelector}
-            </div>
-        );
+    static getUserInputFromProps(props: Props): UserInput {
+        return props.plot;
     }
 
     handlePlotChanges: (arg1: any) => any = (newPlot) => {
@@ -607,12 +546,72 @@ class Grapher extends React.Component<Props> {
 
     focus(): void {}
 
-    static validate(state: UserInput, rubric: Rubric): PerseusScore {
-        return grapherValidate(state, rubric);
-    }
+    render(): React.ReactNode {
+        const type = this.props.plot.type;
+        const coords = this.props.plot.coords;
+        const asymptote = this.props.plot.asymptote;
 
-    static getUserInputFromProps(props: Props): UserInput {
-        return props.plot;
+        const typeSelector = (
+            <div style={typeSelectorStyle} className="above-scratchpad">
+                <ButtonGroup
+                    value={type}
+                    allowEmpty={true}
+                    buttons={_.map(this.props.availableTypes, typeToButton)}
+                    onChange={this.handleActiveTypeChange}
+                />
+            </div>
+        );
+
+        const box = getInteractiveBoxFromSizeClass(
+            this.props.containerSizeClass,
+        );
+
+        // Calculate additional graph properties so that the same values are
+        // passed in to both FunctionGrapher and Graphie.
+        const options = {
+            ...this.props.graph,
+            ...getGridAndSnapSteps(this.props.graph, box[0]),
+            gridConfig: this._getGridConfig({
+                ...this.props.graph,
+                box: box,
+                ...getGridAndSnapSteps(this.props.graph, box[0]),
+            }),
+        } as const;
+
+        // The `graph` prop will eventually be passed to the <Graphie>
+        // component. In fact, if model is `null`, this is functionalliy
+        // identical to a <Graphie>. Otherwise, some points and a plot will be
+        // overlayed.
+        const grapherProps = {
+            graph: {
+                box: box,
+                range: options.range,
+                step: options.step,
+                snapStep: options.snapStep,
+                backgroundImage: options.backgroundImage,
+                options: options,
+                setup: this._setupGraphie,
+            },
+            onChange: this.handlePlotChanges,
+            model: type && functionForType(type),
+            coords: coords,
+            asymptote: asymptote,
+            static: this.props.static,
+            setDrawingAreaAvailable:
+                this.props.apiOptions.setDrawingAreaAvailable,
+            isMobile: this.props.apiOptions.isMobile,
+            showTooltips: this.props.graph.showTooltips,
+            showHairlines: this.showHairlines,
+            hideHairlines: this.hideHairlines,
+        } as const;
+
+        return (
+            <div>
+                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
+                <FunctionGrapher {...grapherProps} />
+                {this.props.availableTypes.length > 1 && typeSelector}
+            </div>
+        );
     }
 }
 
