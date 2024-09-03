@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/forbid-prop-types */
 import {
     linterContextProps,
     linterContextDefault,
@@ -61,6 +61,69 @@ export class Matcher extends React.Component<any, any> {
         leftHeight: 0,
         rightHeight: 0,
         texRendererLoaded: false,
+    };
+
+    changeAndTrack: (arg1: any) => void = (e) => {
+        this.props.onChange(e);
+        this.props.trackInteraction();
+    };
+
+    onMeasureLeft: (arg1: any) => void = (dimensions) => {
+        const height = _.max(dimensions.heights);
+        this.setState({leftHeight: height});
+    };
+
+    onMeasureRight: (arg1: any) => void = (dimensions) => {
+        const height = _.max(dimensions.heights);
+        this.setState({rightHeight: height});
+    };
+
+    getUserInput: () => any = () => {
+        // If the math renderer hasn't loaded then we won't be able to get the
+        // contents of the sortables on the left and right, so we just return
+        // empty arrays until we render for the first time.
+        if (!this.state.texRendererLoaded) {
+            return {
+                left: [],
+                right: [],
+            };
+        }
+
+        return {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
+            left: this.refs.left.getOptions(),
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
+            right: this.refs.right.getOptions(),
+        };
+    };
+
+    // Programatic API for moving options
+    // This is used by testing
+    moveLeftOptionToIndex: (option: SortableOption, index: number) => void = (
+        option,
+        index,
+    ) => {
+        // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
+        this.refs.left.moveOptionToIndex(option, index);
+    };
+
+    // Programatic API for moving options
+    // This is used by testing
+    moveRightOptionToIndex: (option: SortableOption, index: number) => void = (
+        option,
+        index,
+    ) => {
+        // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
+        this.refs.right.moveOptionToIndex(option, index);
+    };
+
+    simpleValidate: (arg1: any) => any = (rubric) => {
+        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Matcher'.
+        return Matcher.validate(this.getUserInput(), rubric);
     };
 
     render(): React.ReactElement {
@@ -181,69 +244,6 @@ export class Matcher extends React.Component<any, any> {
             </table>
         );
     }
-
-    changeAndTrack: (arg1: any) => void = (e) => {
-        this.props.onChange(e);
-        this.props.trackInteraction();
-    };
-
-    onMeasureLeft: (arg1: any) => void = (dimensions) => {
-        const height = _.max(dimensions.heights);
-        this.setState({leftHeight: height});
-    };
-
-    onMeasureRight: (arg1: any) => void = (dimensions) => {
-        const height = _.max(dimensions.heights);
-        this.setState({rightHeight: height});
-    };
-
-    getUserInput: () => any = () => {
-        // If the math renderer hasn't loaded then we won't be able to get the
-        // contents of the sortables on the left and right, so we just return
-        // empty arrays until we render for the first time.
-        if (!this.state.texRendererLoaded) {
-            return {
-                left: [],
-                right: [],
-            };
-        }
-
-        return {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-            left: this.refs.left.getOptions(),
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-            right: this.refs.right.getOptions(),
-        };
-    };
-
-    // Programatic API for moving options
-    // This is used by testing
-    moveLeftOptionToIndex: (option: SortableOption, index: number) => void = (
-        option,
-        index,
-    ) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
-        this.refs.left.moveOptionToIndex(option, index);
-    };
-
-    // Programatic API for moving options
-    // This is used by testing
-    moveRightOptionToIndex: (option: SortableOption, index: number) => void = (
-        option,
-        index,
-    ) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
-        this.refs.right.moveOptionToIndex(option, index);
-    };
-
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Matcher'.
-        return Matcher.validate(this.getUserInput(), rubric);
-    };
 }
 
 _.extend(Matcher, {

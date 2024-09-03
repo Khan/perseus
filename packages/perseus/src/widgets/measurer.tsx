@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this */
 import createReactClass from "create-react-class";
 import $ from "jquery";
 import PropTypes from "prop-types";
@@ -58,37 +58,6 @@ const Measurer: any = createReactClass({
 
     getInitialState: function () {
         return {};
-    },
-
-    render: function () {
-        const image = _.extend({}, defaultImage, this.props.image);
-
-        // TODO(scottgrant): This isn't a11y-friendly! We should insist on
-        // finding some valid alt text when this widget is used.
-        return (
-            <div
-                className={
-                    "perseus-widget perseus-widget-measurer " +
-                    "graphie-container above-scratchpad"
-                }
-                style={{width: this.props.box[0], height: this.props.box[1]}}
-            >
-                {image.url && (
-                    <div
-                        style={{
-                            position: "relative",
-                            top: image.top,
-                            left: image.left,
-                        }}
-                    >
-                        {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
-                        <SvgImage src={image.url} />
-                    </div>
-                )}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div className="graphie" ref="graphieDiv" />
-            </div>
-        );
     },
 
     componentDidMount: function () {
@@ -182,6 +151,37 @@ const Measurer: any = createReactClass({
     },
 
     focus: $.noop,
+
+    render: function () {
+        const image = _.extend({}, defaultImage, this.props.image);
+
+        // TODO(scottgrant): This isn't a11y-friendly! We should insist on
+        // finding some valid alt text when this widget is used.
+        return (
+            <div
+                className={
+                    "perseus-widget perseus-widget-measurer " +
+                    "graphie-container above-scratchpad"
+                }
+                style={{width: this.props.box[0], height: this.props.box[1]}}
+            >
+                {image.url && (
+                    <div
+                        style={{
+                            position: "relative",
+                            top: image.top,
+                            left: image.left,
+                        }}
+                    >
+                        {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
+                        <SvgImage src={image.url} />
+                    </div>
+                )}
+                {/* eslint-disable-next-line react/no-string-refs */}
+                <div className="graphie" ref="graphieDiv" />
+            </div>
+        );
+    },
 });
 
 _.extend(Measurer, {
