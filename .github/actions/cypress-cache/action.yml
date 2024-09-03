@@ -1,0 +1,16 @@
+name: "Cypress Cache"
+description: "Install & cache Cypress binaries"
+
+# The steps this action runs.
+runs:
+    using: "composite"
+    steps:
+        - name: Find Cypress cache
+          id: find-cypress-cache
+          shell: bash
+          run: echo "CYPRESS_CACHE_PATH=$(./node_modules/.bin/cypress cache path)" >> "$GITHUB_OUTPUT"
+
+        - name: Cypress cache
+          uses: actions/cache@v4
+          with:
+              path: ${{ steps.find-cypress-cache.outputs.CYPRESS_CACHE_PATH }}

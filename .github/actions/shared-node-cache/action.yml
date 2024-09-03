@@ -21,7 +21,12 @@ runs:
           with:
               ssh-private-key: ${{ inputs.ssh-private-key }}
 
-        - name: Use Node.js ${{ inputs.node-version }} & Install & cache node_modules
-          uses: Khan/actions@shared-node-cache-v2
+        - name: Setup Node
+          uses: actions/setup-node@v4
           with:
-              node-version: ${{ inputs.node-version }}
+              node-version: ${{ matrix.node-version }}
+              cache: yarn
+
+        - name: Install yarn dependencies
+          shell: bash
+          run: yarn install --frozen-lockfile
