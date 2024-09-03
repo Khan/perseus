@@ -6,21 +6,21 @@ import {ItemExtras} from "../perseus-types";
 import type {PerseusAnswerArea, PerseusItem} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
+/**
+ * @deprecated - please use real widgets rather than mock widgets
+ */
 export const mockedAssetItem: PerseusItem = {
     question: {
-        content: "[[\u2603 definition 1]]",
+        content: "[[\u2603 example-widget 1]]",
         images: Object.freeze({}),
         widgets: {
-            "definition 1": {
-                type: "definition",
+            // @ts-expect-error - TS2353 - Object literal may only specify known properties, and '"example-widget 1"' does not exist in type 'PerseusWidgetsMap'.
+            "example-widget 1": {
+                type: "example-widget",
                 alignment: "default",
                 static: false,
                 graded: true,
-                options: {
-                    togglePrompt: "word",
-                    definition: "",
-                    static: false,
-                },
+                options: Object.freeze({value: ""}),
                 version: {major: 1, minor: 0},
             },
         },
@@ -33,6 +33,9 @@ export const mockedAssetItem: PerseusItem = {
     answer: null,
 } as const;
 
+/**
+ * @deprecated - please use real widgets rather than mock widgets
+ */
 export class MockAssetLoadingWidget extends React.Component<Record<any, any>> {
     // @ts-expect-error - TS2564 - Property 'setAssetStatus' has no initializer and is not definitely assigned in the constructor.
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
