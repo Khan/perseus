@@ -21,12 +21,11 @@ runs:
           with:
               ssh-private-key: ${{ inputs.ssh-private-key }}
 
-        - name: Setup Node
-          uses: actions/setup-node@v4
+        - name: Use Node.js ${{ inputs.node-version }} & Install & cache node_modules
+          uses: Khan/actions@shared-node-cache-v2
           with:
-              node-version: ${{ matrix.node-version }}
-              cache: yarn
+              node-version: ${{ inputs.node-version }}
 
-        - name: Install yarn dependencies
+        - name: Check node_modules file hash
           shell: bash
-          run: yarn install --frozen-lockfile
+          run: yarn hash-files 'node_modules/**/*'

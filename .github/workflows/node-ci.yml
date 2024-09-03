@@ -154,9 +154,6 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
-            - name: Cypress cache
-              uses: ./.github/actions/cypress-cache
-
             - name: Run test with coverage
               run: yarn cypress:ci
 
