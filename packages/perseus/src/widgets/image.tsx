@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
@@ -75,6 +74,15 @@ class ImageWidget extends React.Component<Props> {
         caption: "",
         linterContext: linterContextDefault,
     };
+
+    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+        return {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null,
+        };
+    }
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
@@ -254,15 +262,6 @@ class ImageWidget extends React.Component<Props> {
                 {caption}
             </figure>
         );
-    }
-
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
     }
 }
 
