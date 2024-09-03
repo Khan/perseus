@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import * as React from "react";
 import _ from "underscore";
 
@@ -69,6 +68,26 @@ class PassageRef extends React.Component<Props, State> {
         content: null,
     };
 
+    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+        return {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null,
+        };
+    }
+
+    componentDidMount() {
+        // TODO(scottgrant): This is a hack to remove the deprecated call to
+        // this.isMounted() but is still considered an anti-pattern.
+        this._isMounted = true;
+
+        this._deferredUpdateRange();
+
+        this._throttledUpdateRange = _.throttle(this._deferredUpdateRange, 500);
+        window.addEventListener("resize", this._throttledUpdateRange);
+    }
+
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return (
             !_.isEqual(this.props, nextProps) ||
@@ -76,10 +95,60 @@ class PassageRef extends React.Component<Props, State> {
         );
     }
 
+    componentDidUpdate() {
+        this._deferredUpdateRange();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this._throttledUpdateRange);
+
+        this._isMounted = false;
+    }
+
     // TODO(tamarab): getUserInput needs to be updated to only return
     // props input by the user. Currently returns all the widget's props.
     getUserInput: () => UserInput = () => {
         return removeDenylistProps(this.props);
+    };
+
+    change: ChangeFn = (...args) => {
+        return Changeable.change.apply(this, args);
+    };
+
+    _deferredUpdateRange: () => void = () => {
+        _.defer(this._updateRange);
+    };
+
+    _updateRange: () => void = () => {
+        // Note(TB): findWidgets runs findInternal and findExternal;
+        // findExternal runs findInternal for the renderers involved;
+        // findInternal returns type $ReadOnlyArray<?Widget>
+        const passage: Passage | null | undefined = this.props.findWidgets(
+            "passage " + this.props.passageNumber,
+        )[0];
+
+        let refInfo: Reference | null | undefined = null;
+        if (passage) {
+            refInfo = passage.getReference(this.props.referenceNumber);
+        }
+
+        if (this._isMounted) {
+            if (refInfo) {
+                this.setState({
+                    lineRange: [refInfo.startLine, refInfo.endLine],
+                    content: refInfo.content,
+                });
+            } else {
+                this.setState({
+                    lineRange: null,
+                    content: null,
+                });
+            }
+        }
+    };
+
+    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
+        return PassageRef.validate(this.getUserInput(), rubric);
     };
 
     render(): React.ReactNode {
@@ -128,76 +197,6 @@ class PassageRef extends React.Component<Props, State> {
                 )}
             </span>
         );
-    }
-
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    componentDidMount() {
-        // TODO(scottgrant): This is a hack to remove the deprecated call to
-        // this.isMounted() but is still considered an anti-pattern.
-        this._isMounted = true;
-
-        this._deferredUpdateRange();
-
-        this._throttledUpdateRange = _.throttle(this._deferredUpdateRange, 500);
-        window.addEventListener("resize", this._throttledUpdateRange);
-    }
-
-    componentDidUpdate() {
-        this._deferredUpdateRange();
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("resize", this._throttledUpdateRange);
-
-        this._isMounted = false;
-    }
-
-    _deferredUpdateRange: () => void = () => {
-        _.defer(this._updateRange);
-    };
-
-    _updateRange: () => void = () => {
-        // Note(TB): findWidgets runs findInternal and findExternal;
-        // findExternal runs findInternal for the renderers involved;
-        // findInternal returns type $ReadOnlyArray<?Widget>
-        const passage: Passage | null | undefined = this.props.findWidgets(
-            "passage " + this.props.passageNumber,
-        )[0];
-
-        let refInfo: Reference | null | undefined = null;
-        if (passage) {
-            refInfo = passage.getReference(this.props.referenceNumber);
-        }
-
-        if (this._isMounted) {
-            if (refInfo) {
-                this.setState({
-                    lineRange: [refInfo.startLine, refInfo.endLine],
-                    content: refInfo.content,
-                });
-            } else {
-                this.setState({
-                    lineRange: null,
-                    content: null,
-                });
-            }
-        }
-    };
-
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return PassageRef.validate(this.getUserInput(), rubric);
-    };
-
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
     }
 }
 
