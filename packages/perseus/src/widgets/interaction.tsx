@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import * as KAS from "@khanacademy/kas";
 import {vector as kvector} from "@khanacademy/kmath";
 import * as React from "react";
@@ -124,6 +124,15 @@ class Interaction extends React.Component<Props, State> {
         elements: [],
     };
 
+    static validate(state: any, rubric: any): PerseusScore {
+        return {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null,
+        };
+    }
+
     state: State = {
         variables: _getInitialVariables(this.props.elements),
         functions: _getInitialFunctions(this.props.elements),
@@ -243,6 +252,18 @@ class Interaction extends React.Component<Props, State> {
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
+    };
+
+    getUserInput: () => any = () => {
+        // TODO(eater): Perhaps we want to be able to record the state of the
+        // user's interaction. Unfortunately sending all the props will
+        // probably make the attempt payload too large. So for now, don't send
+        // anything.
+        return {};
+    };
+
+    simpleValidate: (arg1: any) => any = (rubric) => {
+        return Interaction.validate(this.getUserInput(), rubric);
     };
 
     render(): React.ReactNode {
@@ -719,27 +740,6 @@ class Interaction extends React.Component<Props, State> {
                 )}
             </Graphie>
         );
-    }
-
-    getUserInput: () => any = () => {
-        // TODO(eater): Perhaps we want to be able to record the state of the
-        // user's interaction. Unfortunately sending all the props will
-        // probably make the attempt payload too large. So for now, don't send
-        // anything.
-        return {};
-    };
-
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        return Interaction.validate(this.getUserInput(), rubric);
-    };
-
-    static validate(state: any, rubric: any): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
     }
 }
 
