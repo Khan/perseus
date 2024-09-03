@@ -6,10 +6,13 @@ import {forwardRef} from "react";
 import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
+import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 
 import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
+import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     point: vec.Vector2;
@@ -72,6 +75,8 @@ export const MovablePointView = forwardRef(
         const [[_, horizontalStartY]] = useTransformVectorsToPixels([0, yMin]);
         const [[__, horizontalEndY]] = useTransformVectorsToPixels([0, yMax]);
 
+        const [focused, setFocused] = React.useState<boolean>(false);
+
         const showHairlines = dragging && markings !== "none";
         const hairlines = (
             <g>
@@ -102,9 +107,18 @@ export const MovablePointView = forwardRef(
                     disableKeyboardInteraction ? -1 : tabIndex(focusBehavior)
                 }
                 onFocus={() => {
+                    if (focusBehavior.type === "uncontrolled") {
+                        setFocused(true);
+                    }
+
                     return getOnFocusChangeCallback(focusBehavior)(true);
                 }}
-                onBlur={() => getOnFocusChangeCallback(focusBehavior)(false)}
+                onBlur={() => {
+                    // if (focusBehavior.type === "uncontrolled") {
+                    //     setFocused(false);
+                    // }
+                    getOnFocusChangeCallback(focusBehavior)(false);
+                }}
                 onClick={onClick}
             >
                 <circle
@@ -130,18 +144,19 @@ export const MovablePointView = forwardRef(
             <>
                 {showHairlines && hairlines}
 
-                {showTooltips ? (
-                    <Tooltip
-                        autoUpdate={true}
-                        backgroundColor={wbColorName}
-                        content={`(${point[X]}, ${point[Y]})`}
-                        contentStyle={{color: "white"}}
-                    >
-                        {svgForPoint}
-                    </Tooltip>
-                ) : (
-                    svgForPoint
-                )}
+                <Popover
+                    onClose={() => {}}
+                    opened={focused}
+                    content={
+                        <PopoverContent
+                            title="Title"
+                            content="Some content"
+                            closeButtonVisible
+                        />
+                    }
+                >
+                    {svgForPoint}
+                </Popover>
             </>
         );
     },
