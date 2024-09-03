@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/forbid-prop-types */
 /**
  * This is an iframe widget. It is used for rendering an iframe that
  *  then communicates its state via window.postMessage
@@ -44,6 +44,14 @@ class Iframe extends React.Component<any> {
         allowTopNavigation: false,
     };
 
+    componentDidMount() {
+        $(window).on("message", this.handleMessageEvent);
+    }
+
+    componentWillUnmount() {
+        $(window).off("message", this.handleMessageEvent);
+    }
+
     getUserInput: () => any = () => {
         return WidgetJsonifyDeprecated.getUserInput.call(this);
     };
@@ -70,13 +78,15 @@ class Iframe extends React.Component<any> {
         });
     };
 
-    componentDidMount() {
-        $(window).on("message", this.handleMessageEvent);
-    }
+    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        return Changeable.change.apply(this, args);
+    };
 
-    componentWillUnmount() {
-        $(window).off("message", this.handleMessageEvent);
-    }
+    simpleValidate: (arg1: any) => any = (rubric) => {
+        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Iframe'.
+        return Iframe.validate(this.getUserInput(), rubric);
+    };
 
     render(): React.ReactNode {
         const style = {
@@ -144,16 +154,6 @@ class Iframe extends React.Component<any> {
             />
         );
     }
-
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Iframe'.
-        return Iframe.validate(this.getUserInput(), rubric);
-    };
 }
 
 /**
