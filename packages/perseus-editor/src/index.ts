@@ -16,14 +16,13 @@ export {default as StatefulEditorPage} from "./stateful-editor-page";
 import "./styles/perseus-editor.less";
 
 // eslint-disable-next-line import/order
-import {Widgets} from "@khanacademy/perseus";
+import {Widgets, widgets} from "@khanacademy/perseus";
 import AllEditors from "./all-editors";
-import AllWidgets from "./all-widgets";
 
 Widgets.registerEditors(AllEditors);
-Widgets.registerWidgets(AllWidgets);
+Widgets.registerWidgets(widgets);
 
 Widgets.replaceDeprecatedWidgets();
 Widgets.replaceDeprecatedEditors();
 
-export {AllEditors, AllWidgets};
+export {AllEditors, widgets};

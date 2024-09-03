@@ -292,7 +292,10 @@ describe("server item renderer", () => {
         // TODO: is it possible to use an existing widget to test the same logic?
 
         // Arrange
-        registerWidget("example-widget", MockAssetLoadingWidgetExport);
+        registerWidget(
+            "mock-asset-loading-widget",
+            MockAssetLoadingWidgetExport,
+        );
 
         const onRendered = jest.fn();
         let renderer: ServerItemRenderer | null | undefined;
@@ -313,8 +316,9 @@ describe("server item renderer", () => {
             throw new Error("Renderer failed to render.");
         }
 
-        const mockedWidget =
-            renderer.questionRenderer.getWidgetInstance("example-widget 1");
+        const mockedWidget = renderer.questionRenderer.getWidgetInstance(
+            "mock-asset-loading-widget 1",
+        );
         if (mockedWidget == null) {
             throw new Error("Couldn't find mocked widget!");
         }
