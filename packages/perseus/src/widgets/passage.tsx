@@ -125,6 +125,15 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         stylesAreApplied: false,
     };
 
+    static validate(state: UserInput, rubric: Rubric): PerseusScore {
+        return {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null,
+        };
+    }
+
     componentDidMount() {
         this._updateState();
 
@@ -375,17 +384,6 @@ export class Passage extends React.Component<PassageProps, PassageState> {
     simpleValidate(rubric: Rubric): PerseusScore {
         return Passage.validate(this.getUserInput(), rubric);
     }
-
-    /* eslint-disable react/sort-comp */
-    static validate(state: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
-    }
-    /* eslint-enable react/sort-comp */
 
     /**
      * Rendering
