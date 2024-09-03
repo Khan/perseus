@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
@@ -157,103 +157,6 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         );
     }
 
-    componentWillUnmount() {
-        this._mounted = false;
-        // Event handlers should be unbound before component unmounting, but
-        // just in case...
-        if (this.isMouseMoveUpBound) {
-            this.unbindMouseMoveUp();
-        }
-
-        if (this.animationFrameRequest) {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
-            cancelAnimationFrame(this.animationFrameRequest);
-        }
-
-        document.removeEventListener("touchmove", this.onMouseMove);
-    }
-
-    getCurrentPosition = () => {
-        return {
-            left:
-                this.state.startPosition.left +
-                this.state.mouse.left -
-                this.state.startMouse.left,
-            top:
-                this.state.startPosition.top +
-                this.state.mouse.top -
-                this.state.startMouse.top,
-        };
-    };
-
-    render(): React.ReactNode {
-        const {includePadding, layout, state: type} = this.props;
-
-        // We need to keep backwards compatbility with rules specified directly
-        // in CSS. Hence the hacky tacking on of manual classNames.
-        // See sortable.less for details.
-        let className =
-            css(
-                styles.card,
-                styles.draggable,
-                layout === Layout.HORIZONTAL && styles.horizontalCard,
-                layout === Layout.VERTICAL && styles.verticalCard,
-                type === ItemState.DRAGGING && styles.dragging,
-                type === ItemState.DISABLED && styles.disabled,
-                !includePadding && styles.unpaddedCard,
-            ) +
-            " " +
-            ApiClassNames.INTERACTIVE +
-            " perseus-sortable-draggable";
-
-        if (!includePadding) {
-            className += " perseus-sortable-draggable-unpadded";
-        }
-
-        const style: any = {
-            position: "static",
-        };
-
-        if (
-            this.props.state === ItemState.DRAGGING ||
-            this.props.state === ItemState.ANIMATING
-        ) {
-            _.extend(style, {position: "absolute"}, this.getCurrentPosition());
-        }
-
-        if (this.props.width) {
-            style.width = this.props.width + 1; // Fix for non-integer widths
-        }
-        if (this.props.height) {
-            style.height = this.props.height;
-        }
-        if (this.props.margin != null) {
-            style.margin = this.props.margin;
-        }
-        return (
-            <li
-                className={className}
-                style={style}
-                onMouseDown={this.onMouseDown}
-                onTouchStart={this.onMouseDown}
-                onTouchMove={this.onMouseMove}
-                onTouchEnd={this.onMouseUp}
-                onTouchCancel={this.onMouseUp}
-            >
-                <Renderer
-                    content={this.props.content}
-                    linterContext={PerseusLinter.pushContextStack(
-                        this.props.linterContext,
-                        "draggable",
-                    )}
-                    onRender={this.props.onRender}
-                    strings={this.context.strings}
-                />
-            </li>
-        );
-    }
-
     componentDidUpdate(prevProps: DraggableProps) {
         if (this.props.state === prevProps.state) {
             return;
@@ -292,6 +195,36 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             $(ReactDOM.findDOMNode(this)).finish();
         }
     }
+
+    componentWillUnmount() {
+        this._mounted = false;
+        // Event handlers should be unbound before component unmounting, but
+        // just in case...
+        if (this.isMouseMoveUpBound) {
+            this.unbindMouseMoveUp();
+        }
+
+        if (this.animationFrameRequest) {
+            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+            // eslint-disable-next-line no-restricted-syntax
+            cancelAnimationFrame(this.animationFrameRequest);
+        }
+
+        document.removeEventListener("touchmove", this.onMouseMove);
+    }
+
+    getCurrentPosition = () => {
+        return {
+            left:
+                this.state.startPosition.left +
+                this.state.mouse.left -
+                this.state.startMouse.left,
+            top:
+                this.state.startPosition.top +
+                this.state.mouse.top -
+                this.state.startMouse.top,
+        };
+    };
 
     bindMouseMoveUp = () => {
         this.isMouseMoveUpBound = true;
@@ -403,6 +336,73 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             this.props.onMouseUp();
         }
     };
+
+    render(): React.ReactNode {
+        const {includePadding, layout, state: type} = this.props;
+
+        // We need to keep backwards compatbility with rules specified directly
+        // in CSS. Hence the hacky tacking on of manual classNames.
+        // See sortable.less for details.
+        let className =
+            css(
+                styles.card,
+                styles.draggable,
+                layout === Layout.HORIZONTAL && styles.horizontalCard,
+                layout === Layout.VERTICAL && styles.verticalCard,
+                type === ItemState.DRAGGING && styles.dragging,
+                type === ItemState.DISABLED && styles.disabled,
+                !includePadding && styles.unpaddedCard,
+            ) +
+            " " +
+            ApiClassNames.INTERACTIVE +
+            " perseus-sortable-draggable";
+
+        if (!includePadding) {
+            className += " perseus-sortable-draggable-unpadded";
+        }
+
+        const style: any = {
+            position: "static",
+        };
+
+        if (
+            this.props.state === ItemState.DRAGGING ||
+            this.props.state === ItemState.ANIMATING
+        ) {
+            _.extend(style, {position: "absolute"}, this.getCurrentPosition());
+        }
+
+        if (this.props.width) {
+            style.width = this.props.width + 1; // Fix for non-integer widths
+        }
+        if (this.props.height) {
+            style.height = this.props.height;
+        }
+        if (this.props.margin != null) {
+            style.margin = this.props.margin;
+        }
+        return (
+            <li
+                className={className}
+                style={style}
+                onMouseDown={this.onMouseDown}
+                onTouchStart={this.onMouseDown}
+                onTouchMove={this.onMouseMove}
+                onTouchEnd={this.onMouseUp}
+                onTouchCancel={this.onMouseUp}
+            >
+                <Renderer
+                    content={this.props.content}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "draggable",
+                    )}
+                    onRender={this.props.onRender}
+                    strings={this.context.strings}
+                />
+            </li>
+        );
+    }
 }
 
 export type SortableOption = string;
@@ -466,6 +466,43 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         waitForTexRendererToLoad: true,
     };
 
+    remeasureItems: () => void = _.debounce(() => {
+        this.setState({
+            // Clear item measurements
+            items: Sortable.clearItemMeasurements(this.state.items),
+        });
+    }, 20);
+
+    static itemsFromProps(props: {
+        disabled: boolean;
+        options: ReadonlyArray<SortableOption>;
+    }): ReadonlyArray<SortableItem> {
+        const state: ItemState = props.disabled
+            ? ItemState.DISABLED
+            : ItemState.STATIC;
+        return props.options.map((option: SortableOption, i) => {
+            return {
+                option: option,
+                key: i,
+                state,
+                width: 0,
+                height: 0,
+            };
+        });
+    }
+
+    static clearItemMeasurements(
+        items: ReadonlyArray<SortableItem>,
+    ): ReadonlyArray<SortableItem> {
+        return items.map((item) => {
+            return {
+                ...item,
+                width: 0,
+                height: 0,
+            };
+        });
+    }
+
     constructor(props: SortableProps) {
         super(props);
         // Don't call this.setState() here!
@@ -510,36 +547,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this.measureItems();
             }, 0);
         }
-    }
-
-    static itemsFromProps(props: {
-        disabled: boolean;
-        options: ReadonlyArray<SortableOption>;
-    }): ReadonlyArray<SortableItem> {
-        const state: ItemState = props.disabled
-            ? ItemState.DISABLED
-            : ItemState.STATIC;
-        return props.options.map((option: SortableOption, i) => {
-            return {
-                option: option,
-                key: i,
-                state,
-                width: 0,
-                height: 0,
-            };
-        });
-    }
-
-    static clearItemMeasurements(
-        items: ReadonlyArray<SortableItem>,
-    ): ReadonlyArray<SortableItem> {
-        return items.map((item) => {
-            return {
-                ...item,
-                width: 0,
-                height: 0,
-            };
-        });
     }
 
     measureItems() {
@@ -595,151 +602,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             this.props.onMeasure &&
                 this.props.onMeasure({widths: widths, heights: heights});
         });
-    }
-
-    remeasureItems: () => void = _.debounce(() => {
-        this.setState({
-            // Clear item measurements
-            items: Sortable.clearItemMeasurements(this.state.items),
-        });
-    }, 20);
-
-    render(): React.ReactNode {
-        // To minimize layout shift, we display a spinner until our math
-        // renderer is ready to render the math inside the sortable. To
-        // do this, we:
-        // - render a dummy TeX component to force the math renderer to load
-        // - display a spinner until the TeX component calls its onRender
-        //   callback, signifying that the math is rendered (from which we can
-        //   infer that the math renderer has loaded)
-        //
-        // If we didn't do this, the user might see a sortable with empty
-        // cells on first render, and then the math would pop in a few moments
-        // later once the rendering library loaded.
-        if (
-            this.props.waitForTexRendererToLoad &&
-            !this.state.texRendererLoaded
-        ) {
-            const {TeX} = getDependencies();
-            return (
-                <>
-                    <CircularSpinner />
-                    <div style={{display: "none"}}>
-                        <TeX
-                            onRender={() =>
-                                this.setState({texRendererLoaded: true})
-                            }
-                        >
-                            1
-                        </TeX>
-                    </div>
-                </>
-            );
-        }
-
-        const cards: Array<
-            | React.ReactElement<React.ComponentProps<typeof Placeholder>>
-            | React.ReactElement<React.ComponentProps<typeof Draggable>>
-        > = [];
-
-        const {layout} = this.props;
-        // We need to keep backwards compatbility with rules specified directly
-        // in CSS. See sortable.less for details.
-        const className = css(styles.sortable) + " perseus-sortable";
-
-        const syncWidth =
-            this.props.constraints?.width || layout === Layout.VERTICAL;
-        const syncHeight =
-            this.props.constraints?.height || layout === Layout.HORIZONTAL;
-
-        _.each(
-            this.state.items,
-            function (item, i, items) {
-                const isLast = i === items.length - 1;
-                const isStatic =
-                    item.state === ItemState.STATIC ||
-                    item.state === ItemState.DISABLED;
-                let margin;
-
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                if (this.props.layout === Layout.HORIZONTAL) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    margin = "0 " + this.props.margin + "px 0 0"; // right
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                } else if (this.props.layout === Layout.VERTICAL) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    margin = "0 0 " + this.props.margin + "px 0"; // bottom
-                }
-
-                cards.push(
-                    <Draggable
-                        content={item.option}
-                        key={item.key}
-                        state={item.state}
-                        // @ts-expect-error - TS2769 - No overload matches this call.
-                        ref={item.key}
-                        width={syncWidth ? item.width : undefined}
-                        height={syncHeight ? item.height : undefined}
-                        layout={layout}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        includePadding={this.props.padding}
-                        margin={isLast && isStatic ? 0 : margin}
-                        endPosition={item.endPosition}
-                        linterContext={PerseusLinter.pushContextStack(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.props.linterContext,
-                            "sortable",
-                        )}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onRender={this.remeasureItems}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseDown={this.onMouseDown.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseMove={this.onMouseMove.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseUp={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchMove={this.onMouseMove.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchEnd={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchCancel={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onAnimationEnd={this.onAnimationEnd.bind(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this,
-                            item.key,
-                        )}
-                    />,
-                );
-
-                if (
-                    item.state === ItemState.DRAGGING ||
-                    item.state === ItemState.ANIMATING
-                ) {
-                    cards.push(
-                        <Placeholder
-                            key={"placeholder_" + item.key}
-                            ref={"placeholder_" + item.key}
-                            width={item.width}
-                            height={item.height}
-                            layout={layout}
-                            margin={isLast ? 0 : margin}
-                        />,
-                    );
-                }
-            },
-            this,
-        );
-
-        return <ul className={className}>{cards}</ul>;
     }
 
     onMouseDown(key: SortableItem["key"]) {
@@ -898,6 +760,144 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
     getOptions(): ReadonlyArray<SortableOption> {
         return _.pluck(this.state.items, "option");
+    }
+
+    render(): React.ReactNode {
+        // To minimize layout shift, we display a spinner until our math
+        // renderer is ready to render the math inside the sortable. To
+        // do this, we:
+        // - render a dummy TeX component to force the math renderer to load
+        // - display a spinner until the TeX component calls its onRender
+        //   callback, signifying that the math is rendered (from which we can
+        //   infer that the math renderer has loaded)
+        //
+        // If we didn't do this, the user might see a sortable with empty
+        // cells on first render, and then the math would pop in a few moments
+        // later once the rendering library loaded.
+        if (
+            this.props.waitForTexRendererToLoad &&
+            !this.state.texRendererLoaded
+        ) {
+            const {TeX} = getDependencies();
+            return (
+                <>
+                    <CircularSpinner />
+                    <div style={{display: "none"}}>
+                        <TeX
+                            onRender={() =>
+                                this.setState({texRendererLoaded: true})
+                            }
+                        >
+                            1
+                        </TeX>
+                    </div>
+                </>
+            );
+        }
+
+        const cards: Array<
+            | React.ReactElement<React.ComponentProps<typeof Placeholder>>
+            | React.ReactElement<React.ComponentProps<typeof Draggable>>
+        > = [];
+
+        const {layout} = this.props;
+        // We need to keep backwards compatbility with rules specified directly
+        // in CSS. See sortable.less for details.
+        const className = css(styles.sortable) + " perseus-sortable";
+
+        const syncWidth =
+            this.props.constraints?.width || layout === Layout.VERTICAL;
+        const syncHeight =
+            this.props.constraints?.height || layout === Layout.HORIZONTAL;
+
+        _.each(
+            this.state.items,
+            function (item, i, items) {
+                const isLast = i === items.length - 1;
+                const isStatic =
+                    item.state === ItemState.STATIC ||
+                    item.state === ItemState.DISABLED;
+                let margin;
+
+                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                if (this.props.layout === Layout.HORIZONTAL) {
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    margin = "0 " + this.props.margin + "px 0 0"; // right
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                } else if (this.props.layout === Layout.VERTICAL) {
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    margin = "0 0 " + this.props.margin + "px 0"; // bottom
+                }
+
+                cards.push(
+                    <Draggable
+                        content={item.option}
+                        key={item.key}
+                        state={item.state}
+                        // @ts-expect-error - TS2769 - No overload matches this call.
+                        ref={item.key}
+                        width={syncWidth ? item.width : undefined}
+                        height={syncHeight ? item.height : undefined}
+                        layout={layout}
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        includePadding={this.props.padding}
+                        margin={isLast && isStatic ? 0 : margin}
+                        endPosition={item.endPosition}
+                        linterContext={PerseusLinter.pushContextStack(
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.props.linterContext,
+                            "sortable",
+                        )}
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onRender={this.remeasureItems}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onMouseDown={this.onMouseDown.bind(this, item.key)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onMouseMove={this.onMouseMove.bind(this, item.key)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onMouseUp={this.onMouseUp.bind(this, item.key)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onTouchMove={this.onMouseMove.bind(this, item.key)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onTouchEnd={this.onMouseUp.bind(this, item.key)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onTouchCancel={this.onMouseUp.bind(this, item.key)}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        onAnimationEnd={this.onAnimationEnd.bind(
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this,
+                            item.key,
+                        )}
+                    />,
+                );
+
+                if (
+                    item.state === ItemState.DRAGGING ||
+                    item.state === ItemState.ANIMATING
+                ) {
+                    cards.push(
+                        <Placeholder
+                            key={"placeholder_" + item.key}
+                            ref={"placeholder_" + item.key}
+                            width={item.width}
+                            height={item.height}
+                            layout={layout}
+                            margin={isLast ? 0 : margin}
+                        />,
+                    );
+                }
+            },
+            this,
+        );
+
+        return <ul className={className}>{cards}</ul>;
     }
 }
 
