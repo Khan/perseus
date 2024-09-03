@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid, react/sort-comp */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import {
     components,
     icons,
@@ -81,10 +81,9 @@ type State = {
 };
 
 class ImageEditor extends React.Component<Props> {
-    _isMounted = false;
-
     static displayName = "ImageEditor";
     static widgetName = "image";
+    _isMounted = false;
 
     static defaultProps: DefaultProps = {
         title: "",
@@ -108,99 +107,6 @@ class ImageEditor extends React.Component<Props> {
 
     componentWillUnmount() {
         this._isMounted = false;
-    }
-
-    render() {
-        const backgroundImage = this.props.backgroundImage;
-
-        const imageSettings = (
-            <div className="image-settings">
-                {!Util.isLabeledSVG(backgroundImage.url) && (
-                    <div>
-                        <label>
-                            <div>Preview:</div>
-                            <img
-                                alt="Editor preview of image"
-                                src={backgroundImage.url}
-                                style={{
-                                    width: "100%",
-                                }}
-                            />
-                        </label>
-                    </div>
-                )}
-                <div>
-                    <label>
-                        <div>Dimensions:</div>
-                        <p>
-                            {backgroundImage.width}x{backgroundImage.height}
-                        </p>
-                    </label>
-                </div>
-
-                <div>
-                    <label>
-                        <div>
-                            Alt text:
-                            <InfoTip>
-                                This is important for screenreaders. The content
-                                of this alt text will be formatted as markdown
-                                (tables, emphasis, etc. are supported).
-                            </InfoTip>
-                        </div>
-                        <Editor
-                            apiOptions={this.props.apiOptions}
-                            content={this.props.alt}
-                            onChange={(props) => {
-                                if (props.content != null) {
-                                    this.change("alt", props.content);
-                                }
-                            }}
-                            widgetEnabled={false}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <div>Caption:</div>
-                        <Editor
-                            apiOptions={this.props.apiOptions}
-                            content={this.props.caption}
-                            onChange={(props) => {
-                                if (props.content != null) {
-                                    this.change("caption", props.content);
-                                }
-                            }}
-                            widgetEnabled={false}
-                        />
-                    </label>
-                </div>
-            </div>
-        );
-
-        const backgroundImageErrorText = (
-            <div className="renderer-widget-error">
-                {this.state.backgroundImageError}
-            </div>
-        );
-
-        return (
-            <div className="perseus-image-editor">
-                <label>
-                    Image url:
-                    <InfoTip>Paste an image or graphie image URL.</InfoTip>
-                    {this.state.backgroundImageError &&
-                        backgroundImageErrorText}
-                    <BlurInput
-                        value={backgroundImage.url || ""}
-                        style={{width: 332}}
-                        onChange={(url) => this.onUrlChange(url, false)}
-                    />
-                </label>
-
-                {backgroundImage.url && imageSettings}
-            </div>
-        );
     }
 
     _renderRowForLabel(label, i) {
@@ -361,6 +267,99 @@ class ImageEditor extends React.Component<Props> {
 
     serialize() {
         return EditorJsonify.serialize.call(this);
+    }
+
+    render() {
+        const backgroundImage = this.props.backgroundImage;
+
+        const imageSettings = (
+            <div className="image-settings">
+                {!Util.isLabeledSVG(backgroundImage.url) && (
+                    <div>
+                        <label>
+                            <div>Preview:</div>
+                            <img
+                                alt="Editor preview of image"
+                                src={backgroundImage.url}
+                                style={{
+                                    width: "100%",
+                                }}
+                            />
+                        </label>
+                    </div>
+                )}
+                <div>
+                    <label>
+                        <div>Dimensions:</div>
+                        <p>
+                            {backgroundImage.width}x{backgroundImage.height}
+                        </p>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        <div>
+                            Alt text:
+                            <InfoTip>
+                                This is important for screenreaders. The content
+                                of this alt text will be formatted as markdown
+                                (tables, emphasis, etc. are supported).
+                            </InfoTip>
+                        </div>
+                        <Editor
+                            apiOptions={this.props.apiOptions}
+                            content={this.props.alt}
+                            onChange={(props) => {
+                                if (props.content != null) {
+                                    this.change("alt", props.content);
+                                }
+                            }}
+                            widgetEnabled={false}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <div>Caption:</div>
+                        <Editor
+                            apiOptions={this.props.apiOptions}
+                            content={this.props.caption}
+                            onChange={(props) => {
+                                if (props.content != null) {
+                                    this.change("caption", props.content);
+                                }
+                            }}
+                            widgetEnabled={false}
+                        />
+                    </label>
+                </div>
+            </div>
+        );
+
+        const backgroundImageErrorText = (
+            <div className="renderer-widget-error">
+                {this.state.backgroundImageError}
+            </div>
+        );
+
+        return (
+            <div className="perseus-image-editor">
+                <label>
+                    Image url:
+                    <InfoTip>Paste an image or graphie image URL.</InfoTip>
+                    {this.state.backgroundImageError &&
+                        backgroundImageErrorText}
+                    <BlurInput
+                        value={backgroundImage.url || ""}
+                        style={{width: 332}}
+                        onChange={(url) => this.onUrlChange(url, false)}
+                    />
+                </label>
+
+                {backgroundImage.url && imageSettings}
+            </div>
+        );
     }
 }
 
