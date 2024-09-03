@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -55,6 +54,39 @@ export class Categorizer extends React.Component<Props, State> {
         uniqueId: _.uniqueId("perseus_radio_"),
     };
 
+    static validate(
+        userInput: UserInput,
+        rubric: Rubric,
+        strings: PerseusStrings,
+    ): PerseusScore {
+        let completed = true;
+        let allCorrect = true;
+        rubric.values.forEach((value, i) => {
+            if (userInput.values[i] == null) {
+                completed = false;
+            }
+            if (userInput.values[i] !== value) {
+                allCorrect = false;
+            }
+        });
+        if (!completed) {
+            return {
+                type: "invalid",
+                message: strings.invalidSelection,
+            };
+        }
+        return {
+            type: "points",
+            earned: allCorrect ? 1 : 0,
+            total: 1,
+            message: null,
+        };
+    }
+
+    static getUserInputFromProps(props: Props): UserInput {
+        return WidgetJsonifyDeprecated.getUserInputFromProps(props);
+    }
+
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
@@ -62,6 +94,22 @@ export class Categorizer extends React.Component<Props, State> {
 
     getUserInput: () => UserInput = () => {
         return Categorizer.getUserInputFromProps(this.props);
+    };
+
+    onChange(itemNum, catNum) {
+        const values = [...this.props.values];
+        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
+        values[itemNum] = catNum;
+        this.change("values", values);
+        this.props.trackInteraction();
+    }
+
+    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
+        return Categorizer.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+        );
     };
 
     render(): React.ReactNode {
@@ -214,55 +262,6 @@ export class Categorizer extends React.Component<Props, State> {
                 {table}
             </div>
         );
-    }
-
-    onChange(itemNum, catNum) {
-        const values = [...this.props.values];
-        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
-        values[itemNum] = catNum;
-        this.change("values", values);
-        this.props.trackInteraction();
-    }
-
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Categorizer.validate(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
-    };
-
-    static validate(
-        userInput: UserInput,
-        rubric: Rubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        let completed = true;
-        let allCorrect = true;
-        rubric.values.forEach((value, i) => {
-            if (userInput.values[i] == null) {
-                completed = false;
-            }
-            if (userInput.values[i] !== value) {
-                allCorrect = false;
-            }
-        });
-        if (!completed) {
-            return {
-                type: "invalid",
-                message: strings.invalidSelection,
-            };
-        }
-        return {
-            type: "points",
-            earned: allCorrect ? 1 : 0,
-            total: 1,
-            message: null,
-        };
-    }
-
-    static getUserInputFromProps(props: Props): UserInput {
-        return WidgetJsonifyDeprecated.getUserInputFromProps(props);
     }
 }
 
