@@ -72,11 +72,6 @@ export class PhetSimulation extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof PhetSimulation'.
-        return PhetSimulation.validate(this.getUserInput(), rubric);
-    };
-
     // kaLocales and PhET locales use different formats and abbreviations.
     // PhET accepts different formats, i.e. kaLocale's hyphens, but it does not accept
     // different abbreviations, so in points of divergence of abbreviations, we need to
