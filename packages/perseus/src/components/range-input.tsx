@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/forbid-prop-types */
 import PropTypes from "prop-types";
 import * as React from "react";
 
@@ -19,6 +19,15 @@ class RangeInput extends React.Component<any> {
 
     static defaultProps: any = {
         placeholder: [null, null],
+    };
+
+    onChange: (arg1: number, arg2: string) => void = (i, newVal) => {
+        const value = this.props.value;
+        if (i === 0) {
+            this.props.onChange([newVal, value[1]]);
+        } else {
+            this.props.onChange([value[0], newVal]);
+        }
     };
 
     render(): React.ReactNode {
@@ -46,15 +55,6 @@ class RangeInput extends React.Component<any> {
             </div>
         );
     }
-
-    onChange: (arg1: number, arg2: string) => void = (i, newVal) => {
-        const value = this.props.value;
-        if (i === 0) {
-            this.props.onChange([newVal, value[1]]);
-        } else {
-            this.props.onChange([value[0], newVal]);
-        }
-    };
 }
 
 export default RangeInput;
