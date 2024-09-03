@@ -1,0 +1,28 @@
+import{j as r}from"./jsx-runtime-FVsy8kgq.js";import{l as p}from"./index-awljIyHI.js";import{r as W}from"./index-TT1qJ6UJ.js";import{Q as b}from"./question-markers-ozXVYdd0.js";import"./_commonjsHelpers-4gQjN7DL.js";import"./article-renderer-oI4YmYfU.js";import"./util-Q3BXsyUV.js";import"./version-akiLXZts.js";import"./perseus-error-l3K_anoI.js";import"./index-default-4_ZsnO94.js";import"./jquery-5v7aFUvu.js";import"./prop-types-nSWwc1hR.js";import"./mobile-keypad-6FB87h35.js";import"./index-7vsPyIck.js";import"./index-CkAxGj88.js";import"./index-J2t_5nK1.js";import"./index-6h5t6F0w.js";import"./index-deFLJwr4.js";import"./tabbar-qQQo4fB1.js";import"./item--2I-4f2E.js";import"./index-u34vH4Ah.js";import"./index-tvtfaFq4.js";import"./button-assets-txIojR3b.js";import"./keypad-button-Oyhkb2Xv.js";import"./operators-page-eUz2SZPX.js";import"./navigation-pad-L84zJoYQ.js";import"./key-translator-w6GK8UdZ.js";import"./_commonjs-dynamic-modules-h-SxKiO4.js";import"./enums-x5qaTru7.js";import"./renderer-_VS37mk6.js";import"./index-dnMhQZ-1.js";import"./asset-context-I7yIqWki.js";import"./svg-image-1KPe8aE1.js";import"./index-ngddCaVG.js";import"./dependencies-8XILypbq.js";import"./fixed-to-responsive-1fSZ1n--.js";import"./constants-I_nlPaPx.js";import"./client-rbWgHzHN.js";import"./inline-icon-tKY1iMkH.js";import"./icon-paths-AuJwhOz7.js";import"./image-loader-mgyZcN0j.js";import"./tex-VP4hirbI.js";import"./zoomable-CA1NzpZD.js";import"./zoomable-tex-MZi7Hqbp.js";import"./perseus-api-TZuPrt69.js";import"./stub-tag-editor-PtEloNzA.js";import"./text-list-editor-oYfrC68v.js";import"./lint-I_5mQeXl.js";import"./index-sNnTAXhT.js";import"./index-xuPsLuPk.js";import"./index-KnMeZIm4.js";import"./index--wY930uG.js";import"./index-h_CiYGGb.js";import"./Popper-kGnKOid7.js";import"./i18n-context-W41LcU6B.js";import"./strings-4Ql_kQxk.js";import"./math-input-7QTcx3Ho.js";import"./index-dTfPrQ97.js";import"./phet-simulation-mWZYlqxH.js";import"./arrow-square-out-bold-090vdhrx.js";import"./input-with-examples-Id57pxBf.js";import"./text-input-UKLpKhjh.js";import"./index-aLQwBKgs.js";import"./minus-bold-ONmDo3Ve.js";import"./tooltip-S_hcgkAT.js";import"./simple-keypad-input-vsRGHRFI.js";import"./base-radio-tGYiHWel.js";import"./media-queries-MaBBbpNq.js";import"./shared-3pf9YZIg.js";import"./choice-fYS92oPm.js";import"./index-qUyqkRvh.js";import"./icon-YuYiVxsK.js";import"./choice-icon-tgwIPBbY.js";import"./focus-ring-sgSTt4fM.js";import"./option-status-GwxF4Pf4.js";import"./choice-none-above-BfNQKOBW.js";import"./answer-choices-0G6D5qUP.js";import"./button-group-nsoLlHtM.js";import"./graph-7upsjcvo.js";import"./tiny-invariant-bHgPayXn.js";import"./bundle.esm-7jAAHVxW.js";import"./hud-FI3E3dT_.js";import"./multi-button-group-a0iIfrwx.js";import"./number-input-pCzft7OM.js";import"./range-input-ayWbl0Ct.js";import"./marker-aR8pbMaX.js";import"./answer-pill-v_78Q0di.js";import"./sortable-Z65T0-N6.js";import"./video-transcript-link-iTc4P2FB.js";import"./multi-renderer-P0C-I-iG.js";import"./hints-renderer-xXQhzKns.js";import"./marker-zB6YvMFG.js";import"./components-H6FlNzQ8.js";import"./util-xcDwrxXW.js";import"./form-wrapped-text-field-yFf5weBa.js";const nt={title:"PerseusEditor/Widgets/Label Image/Question Markers"},f=p.StyleSheet.create({wrapper:{width:338}}),k=t=>r("div",{className:p.css(f.wrapper),children:r(b,{...t})});class w extends W.Component{constructor(){super(...arguments),this.state={markers:[{answers:[],label:"",x:50,y:50}]}}render(){const{markers:m}=this.state;return r("div",{className:p.css(f.wrapper),children:r(b,{choices:["Lamborghini","BMW","Volkswagen","Fiat","Porsche","Ferrari"],imageUrl:"https://ka-perseus-images.s3.amazonaws.com/2ee5fc32e35c5178373b39fd304b325b2994c913.png",imageWidth:1280,imageHeight:1024,markers:m,onChange:y=>this.setState({markers:y})})})}}const o=t=>r(k,{...{choices:[],imageUrl:"",imageWidth:0,imageHeight:0,markers:[],onChange:()=>{}}}),e=t=>r(k,{...{choices:[],imageUrl:"https://ka-perseus-images.s3.amazonaws.com/2ee5fc32e35c5178373b39fd304b325b2994c913.png",imageWidth:1280,imageHeight:1024,markers:[{answers:[],label:"",x:50,y:50}],onChange:()=>{}}}),i=t=>r(w,{});o.__docgenInfo={description:"",methods:[],displayName:"Empty"};e.__docgenInfo={description:"",methods:[],displayName:"Filled"};i.__docgenInfo={description:"",methods:[],displayName:"Interactive"};var s,a,n;o.parameters={...o.parameters,docs:{...(s=o.parameters)==null?void 0:s.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  const props = ({
+    choices: [],
+    imageUrl: "",
+    imageWidth: 0,
+    imageHeight: 0,
+    markers: [],
+    onChange: () => {}
+  } as const);
+  return <Wrapper {...props} />;
+}`,...(n=(a=o.parameters)==null?void 0:a.docs)==null?void 0:n.source}}};var c,g,d;e.parameters={...e.parameters,docs:{...(c=e.parameters)==null?void 0:c.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  const props = ({
+    choices: [],
+    imageUrl: "https://ka-perseus-images.s3.amazonaws.com/2ee5fc32e35c5178373b39fd304b325b2994c913.png",
+    imageWidth: 1280,
+    imageHeight: 1024,
+    markers: [{
+      answers: [],
+      label: "",
+      x: 50,
+      y: 50
+    }],
+    onChange: () => {}
+  } as const);
+  return <Wrapper {...props} />;
+}`,...(d=(g=e.parameters)==null?void 0:g.docs)==null?void 0:d.source}}};var l,h,u;i.parameters={...i.parameters,docs:{...(l=i.parameters)==null?void 0:l.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  return <WithState />;
+}`,...(u=(h=i.parameters)==null?void 0:h.docs)==null?void 0:u.source}}};const ct=["Empty","Filled","Interactive"];export{o as Empty,e as Filled,i as Interactive,ct as __namedExportsOrder,nt as default};
