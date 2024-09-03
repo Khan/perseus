@@ -22,6 +22,11 @@ import {registerWidget} from "../widgets";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
+import MockAssetLoadingWidgetExport, {
+    mockedAssetItem,
+} from "./mock-asset-loading-widget";
+
+import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -273,6 +278,63 @@ describe("server item renderer", () => {
 
         // Assert
         expect(answerableCallback).toHaveBeenCalledWith(true);
+    });
+
+    it("should call the onRendered callback when all assets loaded", () => {
+        // This is an involved test. We create a mock widget that gives us
+        // access to the setAssetStatus function that is passed down by the
+        // render tree created.
+        // Finally we re-render and poke the asset status to loaded. At that
+        // everything is loaded.
+
+        // Arrange
+        registerWidget("example-widget", MockAssetLoadingWidgetExport);
+
+        const onRendered = jest.fn();
+        let renderer: ServerItemRenderer | null | undefined;
+        const {rerender} = render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    ref={(component) => (renderer = component)}
+                    item={mockedAssetItem}
+                    problemNum={0}
+                    reviewMode={false}
+                    onRendered={onRendered}
+                    dependencies={testDependenciesV2}
+                />
+            </RenderStateRoot>,
+        );
+        if (renderer == null) {
+            throw new Error("Renderer failed to render.");
+        }
+
+        const mockedWidget =
+            renderer.questionRenderer.getWidgetInstance("example-widget 1");
+        if (mockedWidget == null) {
+            throw new Error("Couldn't find mocked widget!");
+        }
+
+        rerender(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={mockedAssetItem}
+                    problemNum={1}
+                    reviewMode={false}
+                    onRendered={onRendered}
+                    dependencies={testDependenciesV2}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Act
+        // setAssetStatus() is not part of the Widget interface, it's specific
+        // this test.
+        // @ts-expect-error - TS2352 - Conversion of type 'Widget' to type 'MockAssetLoadingWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+        const widget = mockedWidget as MockAssetLoadingWidget;
+        act(() => widget.setAssetStatus("ABC", true));
+
+        // Assert
+        expect(onRendered).toHaveBeenCalledWith(true);
     });
 
     describe("focus management", () => {
