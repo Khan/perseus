@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as React from "react";
 import _ from "underscore";
@@ -65,14 +64,14 @@ function getInitialParseState(): ParseState {
 }
 
 class RefStart extends React.Component<Props> {
-    render(): React.ReactNode {
-        return <span style={REF_STYLE}>_</span>;
-    }
-
     // @ts-expect-error - TS2322 - Type '() => React.ReactNode' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>>'.
     getRefContent: () => React.ReactElement = () => {
         return this.props.refContent;
     };
+
+    render(): React.ReactNode {
+        return <span style={REF_STYLE}>_</span>;
+    }
 }
 
 class RefEnd extends React.Component<Record<any, any>> {
