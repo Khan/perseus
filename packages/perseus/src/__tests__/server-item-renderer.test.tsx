@@ -286,6 +286,8 @@ describe("server item renderer", () => {
         // render tree created.
         // Finally we re-render and poke the asset status to loaded. At that
         // everything is loaded.
+        //
+        // TODO: is it possible to use an existing widget to test the same logic?
 
         // Arrange
         registerWidget("example-widget", MockAssetLoadingWidgetExport);
