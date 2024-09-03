@@ -12,9 +12,15 @@ export type InteractiveGraphAction =
     | ChangeSnapStep
     | ChangeRange
     | AddPoint
-    | RemovePoint;
+    | RemovePoint
+    | FocusPoint
+    | BlurPoint
+    | DeleteIntent;
 
 export const actions = {
+    global: {
+        deleteIntent,
+    },
     angle: {
         movePoint,
     },
@@ -35,6 +41,8 @@ export const actions = {
         movePoint,
         addPoint,
         removePoint,
+        focusPoint,
+        blurPoint,
     },
     polygon: {
         movePoint,
@@ -56,6 +64,16 @@ export const actions = {
         movePoint,
     },
 };
+
+export const DELETE_INTENT = "delete-intent";
+export interface DeleteIntent {
+    type: typeof DELETE_INTENT;
+}
+function deleteIntent(): DeleteIntent {
+    return {
+        type: DELETE_INTENT,
+    };
+}
 
 export const MOVE_LINE = "move-line";
 export interface MoveLine {
@@ -92,6 +110,28 @@ function removePoint(index: number): RemovePoint {
     return {
         type: REMOVE_POINT,
         index,
+    };
+}
+
+export const FOCUS_POINT = "focus-point";
+export interface FocusPoint {
+    type: typeof FOCUS_POINT;
+    index: number;
+}
+function focusPoint(index: number): FocusPoint {
+    return {
+        type: FOCUS_POINT,
+        index,
+    };
+}
+
+export const BLUR_POINT = "blur-point";
+export interface BlurPoint {
+    type: typeof BLUR_POINT;
+}
+function blurPoint(): BlurPoint {
+    return {
+        type: BLUR_POINT,
     };
 }
 
