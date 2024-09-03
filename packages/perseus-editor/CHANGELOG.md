@@ -1,5 +1,26 @@
 # @khanacademy/perseus-editor
 
+## 13.1.0
+
+### Minor Changes
+
+-   [#1534](https://github.com/Khan/perseus/pull/1534) [`d446d4251`](https://github.com/Khan/perseus/commit/d446d4251307279bca1e20b1d2d63d0b71b33076) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove 'strings' prop from ContentPreview (we'll pull it from context)
+
+### Patch Changes
+
+-   [#1552](https://github.com/Khan/perseus/pull/1552) [`873f10790`](https://github.com/Khan/perseus/commit/873f1079076f80ed28705e1da1cf0c0dcfb79aac) Thanks [@nishasy](https://github.com/nishasy)! - Update dependency on wonder-blocks-form
+
+*   [#1569](https://github.com/Khan/perseus/pull/1569) [`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb) Thanks [@handeyeco](https://github.com/handeyeco)! - bump peer dependencies to match webapp
+
+-   [#1548](https://github.com/Khan/perseus/pull/1548) [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing resizing behavior of Expression Widget in 400% zoom.
+
+*   [#1534](https://github.com/Khan/perseus/pull/1534) [`d446d4251`](https://github.com/Khan/perseus/commit/d446d4251307279bca1e20b1d2d63d0b71b33076) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ensure 'React' is imported in ContentPreview component.
+
+*   Updated dependencies [[`efced74db`](https://github.com/Khan/perseus/commit/efced74db8f560d3df53c67c54ee7b74c45405cf), [`873f10790`](https://github.com/Khan/perseus/commit/873f1079076f80ed28705e1da1cf0c0dcfb79aac), [`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb), [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575), [`598f7450f`](https://github.com/Khan/perseus/commit/598f7450faf4a639ff41a26e2946234c37e3320d), [`070430166`](https://github.com/Khan/perseus/commit/070430166e3ad987300aa5db1a8c6f385d27d734), [`50c1b19e5`](https://github.com/Khan/perseus/commit/50c1b19e529e5c096abdd2512c7e17e9f717a3cb)]:
+    -   @khanacademy/perseus@31.1.0
+    -   @khanacademy/keypad-context@1.0.1
+    -   @khanacademy/math-input@21.0.2
+
 ## 13.0.1
 
 ### Patch Changes

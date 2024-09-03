@@ -1,5 +1,31 @@
 # @khanacademy/perseus
 
+## 31.1.0
+
+### Minor Changes
+
+-   [#1572](https://github.com/Khan/perseus/pull/1572) [`efced74db`](https://github.com/Khan/perseus/commit/efced74db8f560d3df53c67c54ee7b74c45405cf) Thanks [@benchristel](https://github.com/benchristel)! - In the interactive graph widget, focus movable points on mouse interaction
+
+### Patch Changes
+
+-   [#1552](https://github.com/Khan/perseus/pull/1552) [`873f10790`](https://github.com/Khan/perseus/commit/873f1079076f80ed28705e1da1cf0c0dcfb79aac) Thanks [@nishasy](https://github.com/nishasy)! - Update dependency on wonder-blocks-form
+
+*   [#1569](https://github.com/Khan/perseus/pull/1569) [`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb) Thanks [@handeyeco](https://github.com/handeyeco)! - bump peer dependencies to match webapp
+
+-   [#1548](https://github.com/Khan/perseus/pull/1548) [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing resizing behavior of Expression Widget in 400% zoom.
+
+*   [#1576](https://github.com/Khan/perseus/pull/1576) [`598f7450f`](https://github.com/Khan/perseus/commit/598f7450faf4a639ff41a26e2946234c37e3320d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Small re-organization of PhET widget code - no functional changes
+
+-   [#1567](https://github.com/Khan/perseus/pull/1567) [`070430166`](https://github.com/Khan/perseus/commit/070430166e3ad987300aa5db1a8c6f385d27d734) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Add a reducer action for removing unlimited points
+
+*   [#1573](https://github.com/Khan/perseus/pull/1573) [`50c1b19e5`](https://github.com/Khan/perseus/commit/50c1b19e529e5c096abdd2512c7e17e9f717a3cb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: fix incorrect comment
+
+*   Updated dependencies [[`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb), [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575)]:
+    -   @khanacademy/keypad-context@1.0.1
+    -   @khanacademy/math-input@21.0.2
+    -   @khanacademy/simple-markdown@0.13.1
+    -   @khanacademy/pure-markdown@0.3.8
+
 ## 31.0.1
 
 ### Patch Changes
