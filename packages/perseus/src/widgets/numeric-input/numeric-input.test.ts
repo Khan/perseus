@@ -4,7 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {
     maybeParsePercentInput,

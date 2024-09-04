@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {segmentWithLockedFunction} from "../__testdata__/interactive-graph.testdata";
+import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
+import {segmentWithLockedFunction} from "../interactive-graph.testdata";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph/Locked Functions",

@@ -42,17 +42,17 @@ import {
     segmentWithLockedPolygonWhite,
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
-} from "../__testdata__/interactive-graph.testdata";
+} from "./interactive-graph.testdata";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
-import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
+import {trueForAllMafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
-import type {mafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
+import type {mafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {Flipbook} from "../../../../../dev/flipbook";
+import {Flipbook} from "@khanacademy/perseus-dev-ui/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {
     angleQuestion,
@@ -23,7 +23,7 @@ import {
     staticGraphQuestion,
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
-} from "../__testdata__/interactive-graph.testdata";
+} from "./interactive-graph.testdata";
 
 import type {APIOptions} from "../../types";
 

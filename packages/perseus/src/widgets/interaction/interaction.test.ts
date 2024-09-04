@@ -1,7 +1,7 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./interaction.testdata";
 
