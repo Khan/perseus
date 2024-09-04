@@ -5,16 +5,16 @@ import {vector as kvector} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 
-import Graphie from "../components/graphie";
-import * as Changeable from "../mixins/changeable";
-import Util from "../util";
+import Graphie from "../../components/graphie";
+import * as Changeable from "../../mixins/changeable";
+import Util from "../../util";
 
-import type {Coord} from "../interactive2/types";
+import type {Coord} from "../../interactive2/types";
 import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
-} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
