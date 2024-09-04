@@ -7,12 +7,12 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Sortable from "../components/sortable";
-import {ApiOptions} from "../perseus-api";
-import Util from "../util";
+import Sortable from "../../components/sortable";
+import {ApiOptions} from "../../perseus-api";
+import Util from "../../util";
 
-import type {SortableOption} from "../components/sortable";
-import type {WidgetExports} from "../types";
+import type {SortableOption} from "../../components/sortable";
+import type {WidgetExports} from "../../types";
 
 const {shuffle} = Util;
 const HORIZONTAL = "horizontal";

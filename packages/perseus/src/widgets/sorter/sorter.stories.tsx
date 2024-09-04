@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question1} from "../__testdata__/sorter.testdata";
+import {question1} from "./sorter.testdata";
 
 export default {
     title: "Perseus/Widgets/Sorter",
