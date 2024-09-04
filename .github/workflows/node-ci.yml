@@ -72,8 +72,8 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@v4
               with:
-                node-version: ${{ matrix.node-version }}
-                cache: yarn
+                  node-version: ${{ matrix.node-version }}
+                  cache: yarn
 
             - name: yarn install
               run: yarn install
@@ -154,8 +154,8 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@v4
               with:
-                node-version: ${{ matrix.node-version }}
-                cache: yarn
+                  node-version: ${{ matrix.node-version }}
+                  cache: yarn
 
             - name: yarn install
               run: yarn install
@@ -191,8 +191,8 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@v4
               with:
-                node-version: ${{ matrix.node-version }}
-                cache: yarn
+                  node-version: ${{ matrix.node-version }}
+                  cache: yarn
 
             - name: yarn install
               run: yarn install
@@ -256,8 +256,8 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@v4
               with:
-                node-version: ${{ matrix.node-version }}
-                cache: yarn
+                  node-version: ${{ matrix.node-version }}
+                  cache: yarn
 
             - name: yarn install
               run: yarn install
@@ -308,8 +308,8 @@ jobs:
             - name: Set up node
               uses: actions/setup-node@v4
               with:
-                node-version: ${{ matrix.node-version }}
-                cache: yarn
+                  node-version: ${{ matrix.node-version }}
+                  cache: yarn
 
             - name: yarn install
               run: yarn install
