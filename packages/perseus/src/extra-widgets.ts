@@ -4,7 +4,7 @@
 
 import Categorizer from "./widgets/categorizer";
 import CSProgram from "./widgets/cs-program";
-import Definition from "./widgets/definition";
+import Definition from "./widgets/definition/definition";
 import DeprecatedStandin from "./widgets/deprecated-standin";
 import Dropdown from "./widgets/dropdown";
 import Explanation from "./widgets/explanation";

@@ -3,15 +3,15 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import {DefinitionConsumer} from "../definition-context";
-import Renderer from "../renderer";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import {DefinitionConsumer} from "../../definition-context";
+import Renderer from "../../renderer";
 
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
-} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
