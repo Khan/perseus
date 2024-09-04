@@ -8,14 +8,14 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {getDependencies} from "../dependencies";
-import * as Changeable from "../mixins/changeable";
-import {articleMaxWidthInPx} from "../styles/constants";
-import Util from "../util";
-import {isFileProtocol} from "../util/mobile-native-utils";
-import {toAbsoluteUrl} from "../util/url-utils";
+import {getDependencies} from "../../dependencies";
+import * as Changeable from "../../mixins/changeable";
+import {articleMaxWidthInPx} from "../../styles/constants";
+import Util from "../../util";
+import {isFileProtocol} from "../../util/mobile-native-utils";
+import {toAbsoluteUrl} from "../../util/url-utils";
 
-import type {WidgetExports} from "../types";
+import type {WidgetExports} from "../../types";
 
 const {updateQueryString} = Util;
 
