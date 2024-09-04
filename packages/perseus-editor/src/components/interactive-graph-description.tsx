@@ -1,5 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {TextArea, TextField} from "@khanacademy/wonder-blocks-form";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
@@ -50,7 +50,8 @@ export default function InteractiveGraphDescription(props: Props) {
                     <Strut size={spacing.xSmall_8} />
                     <LabelLarge>
                         Description
-                        <TextArea
+                        {/* TODO: Change this to a WB TextArea */}
+                        <TextField
                             value={ariaDescribedbyValue}
                             onChange={(newValue) =>
                                 handleChange("description", newValue)
