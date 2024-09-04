@@ -7,31 +7,31 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import InlineIcon from "../components/inline-icon";
-import {iconOk, iconRemove} from "../icon-paths";
-import * as Changeable from "../mixins/changeable";
-import {ApiOptions} from "../perseus-api";
-import Renderer from "../renderer";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import InlineIcon from "../../components/inline-icon";
+import {iconOk, iconRemove} from "../../icon-paths";
+import * as Changeable from "../../mixins/changeable";
+import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
 import {
     gray68,
     gray76,
     phoneMargin,
     negativePhoneMargin,
     tableBackgroundAccent,
-} from "../styles/constants";
-import a11y from "../util/a11y";
+} from "../../styles/constants";
+import a11y from "../../util/a11y";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
 import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
-import type {PerseusGradedGroupWidgetOptions} from "../perseus-types";
+import type {PerseusGradedGroupWidgetOptions} from "../../perseus-types";
 import type {
     PerseusScore,
     TrackingGradedGroupExtraArguments,
     WidgetExports,
     WidgetProps,
-} from "../types";
+} from "../../types";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,

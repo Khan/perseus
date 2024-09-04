@@ -5,12 +5,12 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import InlineIcon from "../components/inline-icon";
-import {iconStar, iconTryAgain} from "../icon-paths";
-import {phoneMargin, negativePhoneMargin} from "../styles/constants";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import InlineIcon from "../../components/inline-icon";
+import {iconStar, iconTryAgain} from "../../icon-paths";
+import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 
-import type {APIOptions} from "../types";
+import type {APIOptions} from "../../types";
 
 export type ANSWER_BAR_STATES = // Initial state before the question is answerable.  The user must complete
     // each of the widgets before the answer bar becomes visible.

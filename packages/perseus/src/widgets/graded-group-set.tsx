@@ -18,7 +18,7 @@ import {
 } from "../styles/constants";
 import a11y from "../util/a11y";
 
-import {GradedGroup} from "./graded-group";
+import {GradedGroup} from "./graded-group/graded-group";
 
 import type {
     PerseusGradedGroupSetWidgetOptions,
