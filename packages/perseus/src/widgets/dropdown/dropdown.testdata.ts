@@ -3,7 +3,7 @@ import {
     randomBoolean,
     randomInteger,
     randomSentence,
-} from "./randomizers";
+} from "../__testdata__/randomizers";
 
 import type {PerseusRenderer} from "../../perseus-types";
 

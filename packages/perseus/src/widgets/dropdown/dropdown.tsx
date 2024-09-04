@@ -2,10 +2,10 @@ import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {ApiOptions} from "../perseus-api";
+import {ApiOptions} from "../../perseus-api";
 
-import type {PerseusDropdownWidgetOptions} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 type Rubric = PerseusDropdownWidgetOptions;
 
