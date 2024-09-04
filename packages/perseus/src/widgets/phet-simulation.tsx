@@ -12,7 +12,6 @@ import * as React from "react";
 
 import {PerseusI18nContext} from "../components/i18n-context";
 import {getDependencies} from "../dependencies";
-import * as Changeable from "../mixins/changeable";
 import {phoneMargin} from "../styles/constants";
 import {basicBorderColor, borderRadiusLarge} from "../styles/global-constants";
 
