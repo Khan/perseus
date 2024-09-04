@@ -267,11 +267,9 @@ jobs:
 
     publish_snapshot:
         name: Publish npm snapshot
-        # We don't publish snapshots on draft PRs or
-        # on the main Changeset "Version Packages" PR
+        # We don't publish snapshots on Changeset "Version Packages" PRs
         if: |
-            github.event.pull_request.draft == false
-            && !startsWith(github.head_ref, 'changeset-release/')
+            !startsWith(github.head_ref, 'changeset-release/')
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
