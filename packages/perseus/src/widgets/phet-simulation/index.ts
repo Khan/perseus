@@ -1,1 +1,1 @@
-export {default} from "./phet-simulation";
+export {default, makeSafeUrl} from "./phet-simulation";

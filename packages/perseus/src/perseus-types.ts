@@ -20,10 +20,6 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `dropdown ${number}`]: DropdownWidget;
 } & {
-    [key in `example-widget ${number}`]: ExampleWidget;
-} & {
-    [key in `example-graphie-widget ${number}`]: ExampleGraphieWidget;
-} & {
     [key in `explanation ${number}`]: ExplanationWidget;
 } & {
     [key in `expression ${number}`]: ExpressionWidget;
@@ -75,8 +71,6 @@ export type PerseusWidgetsMap = {
     [key in `python-program ${number}`]: PythonProgramWidget;
 } & {
     [key in `radio ${number}`]: RadioWidget;
-} & {
-    [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
 } & {
     [key in `sorter ${number}`]: SorterWidget;
 } & {
@@ -261,17 +255,11 @@ export type SorterWidget = Widget<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
 export type TableWidget = Widget<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
-export type ExampleGraphieWidget = Widget<'example-graphie-widget', PerseusExampleGraphieWidgetOptions>;
-// prettier-ignore
-export type ExampleWidget = Widget<'example-widget', PerseusExampleWidgetOptions>;
-// prettier-ignore
 export type InputNumberWidget = Widget<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
 export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
-// prettier-ignore
-export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = Widget<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
@@ -282,8 +270,6 @@ export type PerseusWidget =
     | CSProgramWidget
     | DefinitionWidget
     | DropdownWidget
-    | ExampleGraphieWidget
-    | ExampleWidget
     | ExplanationWidget
     | ExpressionWidget
     | GradedGroupSetWidget
@@ -310,7 +296,6 @@ export type PerseusWidget =
     | PythonProgramWidget
     | RadioWidget
     | RefTargetWidget
-    | SimpleMarkdownTesterWidget
     | SorterWidget
     | TableWidget
     | VideoWidget

@@ -1,4 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {makeSafeUrl} from "@khanacademy/perseus";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
@@ -31,6 +32,13 @@ class PhetSimulationEditor extends React.Component<Props> {
             description: this.props.description,
         };
     }
+
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
+        if (makeSafeUrl(this.props.url, "en") === null) {
+            return ["Please enter a URL from the PhET domain."];
+        }
+        return [];
+    };
 
     render(): React.ReactNode {
         return (

@@ -8,11 +8,12 @@ import type {WidgetExports} from "../types";
 
 export const mockedAssetItem: PerseusItem = {
     question: {
-        content: "[[\u2603 example-widget 1]]",
+        content: "[[\u2603 mock-asset-loading-widget 1]]",
         images: Object.freeze({}),
         widgets: {
-            "example-widget 1": {
-                type: "example-widget",
+            // @ts-expect-error - TS2353 - Object literal may only specify known properties, and '"mock-asset-loading-widget 1"' does not exist in type 'PerseusWidgetsMap'.
+            "mock-asset-loading-widget 1": {
+                type: "mock-asset-loading-widget",
                 alignment: "default",
                 static: false,
                 graded: true,
