@@ -6,13 +6,13 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import SvgImage from "../components/svg-image";
-import {ApiOptions} from "../perseus-api";
-import GraphUtils from "../util/graph-utils";
+import SvgImage from "../../components/svg-image";
+import {ApiOptions} from "../../perseus-api";
+import GraphUtils from "../../util/graph-utils";
 
-import type {Coord} from "../interactive2/types";
-import type {WidgetExports} from "../types";
-import type {Interval} from "../util/interval";
+import type {Coord} from "../../interactive2/types";
+import type {WidgetExports} from "../../types";
+import type {Interval} from "../../util/interval";
 
 const defaultImage = {
     url: null,
