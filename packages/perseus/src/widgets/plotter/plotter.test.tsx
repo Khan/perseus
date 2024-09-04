@@ -4,7 +4,7 @@ import React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {Plotter} from "../plotter";
+import {Plotter} from "./plotter";
 
 describe("plotter widget", () => {
     beforeEach(() => {

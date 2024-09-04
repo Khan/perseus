@@ -33,7 +33,7 @@ export {default as Categorizer} from "./widgets/categorizer";
 export {default as InteractiveGraphWidget} from "./widgets/interactive-graph";
 export {default as MatrixWidget} from "./widgets/matrix";
 export {default as TableWidget} from "./widgets/table";
-export {default as PlotterWidget} from "./widgets/plotter";
+export {default as PlotterWidget} from "./widgets/plotter/plotter";
 export {default as GrapherWidget} from "./widgets/grapher";
 
 export {default as ArrowPicker} from "./widgets/interaction/arrow-picker";

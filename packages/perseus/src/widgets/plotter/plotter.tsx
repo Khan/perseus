@@ -4,17 +4,17 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import Interactive2 from "../interactive2";
-import WrappedLine from "../interactive2/wrapped-line";
-import {ClassNames as ApiClassNames} from "../perseus-api";
-import Util from "../util";
-import KhanColors from "../util/colors";
-import GraphUtils from "../util/graph-utils";
-import KhanMath from "../util/math";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import Interactive2 from "../../interactive2";
+import WrappedLine from "../../interactive2/wrapped-line";
+import {ClassNames as ApiClassNames} from "../../perseus-api";
+import Util from "../../util";
+import KhanColors from "../../util/colors";
+import GraphUtils from "../../util/graph-utils";
+import KhanMath from "../../util/math";
 
-import type {PerseusPlotterWidgetOptions} from "../perseus-types";
-import type {WidgetExports, WidgetProps} from "../types";
+import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 const {deepEq} = Util;
 

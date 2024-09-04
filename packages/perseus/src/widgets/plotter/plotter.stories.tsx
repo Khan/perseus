@@ -2,7 +2,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question1} from "../__testdata__/plotter.testdata";
+import {question1} from "./plotter.testdata";
 
 import type {PerseusRenderer} from "../../perseus-types";
 
