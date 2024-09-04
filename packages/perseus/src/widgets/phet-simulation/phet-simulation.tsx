@@ -6,6 +6,7 @@
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -21,7 +22,6 @@ import {
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
