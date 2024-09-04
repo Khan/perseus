@@ -16,8 +16,8 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import KhanAnswerTypes from "../../util/answer-types";
 
+import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 const {assert} = InteractiveUtil;
 

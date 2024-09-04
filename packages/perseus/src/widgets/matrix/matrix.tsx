@@ -17,8 +17,8 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 // Type imports
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
+import type {PerseusStrings} from "../../strings";
 import type {WidgetExports, WidgetProps, PerseusScore} from "../../types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;

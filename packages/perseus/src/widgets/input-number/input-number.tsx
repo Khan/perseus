@@ -12,6 +12,7 @@ import TexWrangler from "../../tex-wrangler";
 import KhanAnswerTypes from "../../util/answer-types";
 
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
+import type {PerseusStrings} from "../../strings";
 import type {
     APIOptions,
     Path,
@@ -19,7 +20,6 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 const ParseTex = TexWrangler.parseTex;
 

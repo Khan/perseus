@@ -5,10 +5,10 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import * as Perseus from "@khanacademy/perseus";
-import {mockStrings} from "@khanacademy/perseus/strings";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
 import {renderQuestion} from "../__tests__/renderQuestion";
 

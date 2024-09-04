@@ -2,13 +2,12 @@ import {it, describe, beforeEach} from "@jest/globals";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {mockStrings} from "@khanacademy/perseus/strings";
-
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__tests__/renderQuestion";
 
 import {Expression} from "./expression";
