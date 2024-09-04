@@ -3,8 +3,6 @@ import CSProgramEditor from "./widgets/cs-program-editor";
 import DefinitionEditor from "./widgets/definition-editor";
 import DeprecatedStandinEditor from "./widgets/deprecated-standin-editor";
 import DropdownEditor from "./widgets/dropdown-editor";
-import ExampleGraphieWidgetEditor from "./widgets/example-graphie-widget-editor";
-import ExampleWidgetEditor from "./widgets/example-widget-editor";
 import ExplanationEditor from "./widgets/explanation-editor";
 import ExpressionEditor from "./widgets/expression-editor";
 import GradedGroupEditor from "./widgets/graded-group-editor";
@@ -31,7 +29,6 @@ import PhetSimulationEditor from "./widgets/phet-simulation-editor";
 import PlotterEditor from "./widgets/plotter-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
 import RadioEditor from "./widgets/radio/editor";
-import SimpleMarkdownTesterEditor from "./widgets/simple-markdown-tester-editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
 import VideoEditor from "./widgets/video-editor";
@@ -41,8 +38,6 @@ export default [
     CSProgramEditor,
     DefinitionEditor,
     DropdownEditor,
-    ExampleGraphieWidgetEditor,
-    ExampleWidgetEditor,
     ExplanationEditor,
     ExpressionEditor,
     GradedGroupEditor,
@@ -68,7 +63,6 @@ export default [
     PhetSimulationEditor,
     PlotterEditor,
     PythonProgramEditor,
-    SimpleMarkdownTesterEditor,
     SorterEditor,
     TableEditor,
     VideoEditor,
