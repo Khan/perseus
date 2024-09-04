@@ -8,16 +8,16 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import SimpleKeypadInput from "../components/simple-keypad-input";
-import InteractiveUtil from "../interactive2/interactive-util";
-import {ApiOptions} from "../perseus-api";
-import Renderer from "../renderer";
-import Util from "../util";
-import KhanAnswerTypes from "../util/answer-types";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import SimpleKeypadInput from "../../components/simple-keypad-input";
+import InteractiveUtil from "../../interactive2/interactive-util";
+import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
+import Util from "../../util";
+import KhanAnswerTypes from "../../util/answer-types";
 
-import type {PerseusStrings} from "../strings";
-import type {WidgetExports} from "../types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {WidgetExports} from "../../types";
 
 const {assert} = InteractiveUtil;
 
