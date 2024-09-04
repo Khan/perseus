@@ -173,16 +173,27 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         >
                             {/* Svg definitions to render only once */}
                             <SvgDefs />
-                            {/* Background layer */}
-                            <Grid
-                                tickStep={props.step}
-                                gridStep={props.gridStep}
-                                range={state.range}
-                                containerSizeClass={props.containerSizeClass}
-                                markings={props.markings}
+                            {/* Cartesian grid nested in an SVG to prevent overflow */}
+                            <svg
                                 width={width}
                                 height={height}
-                            />
+                                viewBox={viewBox}
+                                preserveAspectRatio="xMidYMin"
+                                x={viewboxX}
+                                y={viewboxY}
+                            >
+                                <Grid
+                                    tickStep={props.step}
+                                    gridStep={props.gridStep}
+                                    range={state.range}
+                                    containerSizeClass={
+                                        props.containerSizeClass
+                                    }
+                                    markings={props.markings}
+                                    width={width}
+                                    height={height}
+                                />
+                            </svg>
                             {/* Axis Ticks, Labels, and Arrows */}
                             {
                                 // Only render the axis ticks and arrows if the markings are set to a full "graph"
@@ -193,7 +204,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     </>
                                 )
                             }
-                            {/* Nested SVG to prevent figures from overflowing the graph bounds */}
+                            {/* Locked & Interactive elements nested an SVG to prevent overflow*/}
                             <svg
                                 width={width}
                                 height={height}

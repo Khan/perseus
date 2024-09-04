@@ -6,12 +6,25 @@ import useGraphConfig from "../reducer/use-graph-config";
 
 import type {Interval, vec} from "mafs";
 
+// The size of the ticks and labels in pixels
 const tickSize = 10;
 const tickLabelSize = 14;
 
+// Style for the ticks on the x and y axes
 const tickStyle: React.CSSProperties = {
     stroke: "black",
     strokeWidth: 1,
+};
+
+// Common text attributes for the x and y axis labels
+const commonTextAttributes: React.SVGAttributes<SVGTextElement> = {
+    style: {
+        fontSize: `${tickLabelSize}px`,
+        fontFamily: "KaTeX_Main", // We're using the KaTeX font as MathJax has Safari issues
+    },
+    stroke: "white",
+    strokeWidth: 5,
+    paintOrder: "stroke",
 };
 
 const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
@@ -56,16 +69,8 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
             <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
             {showLabel && (
                 <text
-                    height={20}
-                    width={50}
-                    style={{
-                        fontSize: `${tickLabelSize}px`,
-                        fontFamily: "Mafs-MJXTEX",
-                    }}
+                    {...commonTextAttributes}
                     textAnchor={"end"}
-                    stroke="white"
-                    strokeWidth={5}
-                    paintOrder="stroke"
                     x={xPositionText}
                     y={yPositionText}
                 >
@@ -121,16 +126,8 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
             <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
             {
                 <text
-                    height={20}
-                    width={50}
-                    style={{
-                        fontSize: `${tickLabelSize}px`,
-                        fontFamily: "Mafs-MJXTEX",
-                    }}
+                    {...commonTextAttributes}
                     textAnchor="middle"
-                    stroke="white"
-                    strokeWidth={5}
-                    paintOrder="stroke"
                     x={xPositionText}
                     y={yPositionText}
                 >
