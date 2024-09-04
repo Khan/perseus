@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question1, questionWithImages} from "../__testdata__/orderer.testdata";
+import {question1, questionWithImages} from "./orderer.testdata";
 
 export default {
     title: "Perseus/Widgets/Orderer",

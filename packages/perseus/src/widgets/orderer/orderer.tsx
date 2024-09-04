@@ -11,15 +11,15 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import {getDependencies} from "../dependencies";
-import {Log} from "../logging/log";
-import {ClassNames as ApiClassNames} from "../perseus-api";
-import Renderer from "../renderer";
-import Util from "../util";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import {getDependencies} from "../../dependencies";
+import {Log} from "../../logging/log";
+import {ClassNames as ApiClassNames} from "../../perseus-api";
+import Renderer from "../../renderer";
+import Util from "../../util";
 
-import type {PerseusOrdererWidgetOptions} from "../perseus-types";
-import type {WidgetExports, WidgetProps} from "../types";
+import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 class PlaceholderCard extends React.Component<any> {
     static propTypes = {
