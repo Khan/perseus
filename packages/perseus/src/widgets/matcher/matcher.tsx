@@ -10,15 +10,15 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import Sortable, {Layout} from "../components/sortable";
-import {getDependencies} from "../dependencies";
-import {ApiOptions} from "../perseus-api";
-import Renderer from "../renderer";
-import Util from "../util";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import Sortable, {Layout} from "../../components/sortable";
+import {getDependencies} from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
+import Util from "../../util";
 
-import type {SortableOption} from "../components/sortable";
-import type {WidgetExports} from "../types";
+import type {SortableOption} from "../../components/sortable";
+import type {WidgetExports} from "../../types";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
