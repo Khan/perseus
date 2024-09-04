@@ -179,6 +179,7 @@ const XGridAxis = (props: GridAxisProps): React.ReactElement => {
             className={`x-axis-tick-labels ${xAxisAboveGraph && "x-axis-top-of-grid"}`}
             data-testid="x-axis-tick-labels"
             style={xAxisStyles}
+            aria-hidden={true}
         >
             {axisTicks.map((label) => {
                 return (
