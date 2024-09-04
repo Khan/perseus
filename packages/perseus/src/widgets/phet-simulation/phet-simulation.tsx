@@ -250,7 +250,5 @@ export default {
     name: "phet-simulation",
     displayName: "PhET Simulation",
     widget: PhetSimulation,
-    // Hides widget from content creators until full release
-    hidden: true,
     isLintable: true,
 } as WidgetExports<typeof PhetSimulation>;
