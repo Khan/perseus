@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import {number as knumber, point as kpoint} from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import $ from "jquery";
