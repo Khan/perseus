@@ -3,9 +3,9 @@ import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {question1, question2} from "../__testdata__/number-line.testdata";
+import {question1, question2} from "./number-line.testdata";
 
-import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
+import TestKeypadContextWrapper from "../__stories__/test-keypad-context-wrapper";
 
 import type {PerseusItem} from "../../perseus-types";
 

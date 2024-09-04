@@ -3,18 +3,18 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Graphie from "../components/graphie";
-import {PerseusI18nContext} from "../components/i18n-context";
-import NumberInput from "../components/number-input";
-import SimpleKeypadInput from "../components/simple-keypad-input";
-import InteractiveUtil from "../interactive2/interactive-util";
-import * as Changeable from "../mixins/changeable";
-import {ApiOptions} from "../perseus-api";
-import KhanColors from "../util/colors";
-import KhanMath from "../util/math";
+import Graphie from "../../components/graphie";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import NumberInput from "../../components/number-input";
+import SimpleKeypadInput from "../../components/simple-keypad-input";
+import InteractiveUtil from "../../interactive2/interactive-util";
+import * as Changeable from "../../mixins/changeable";
+import {ApiOptions} from "../../perseus-api";
+import KhanColors from "../../util/colors";
+import KhanMath from "../../util/math";
 
-import type {ChangeableProps} from "../mixins/changeable";
-import type {APIOptions, WidgetExports} from "../types";
+import type {ChangeableProps} from "../../mixins/changeable";
+import type {APIOptions, WidgetExports} from "../../types";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
