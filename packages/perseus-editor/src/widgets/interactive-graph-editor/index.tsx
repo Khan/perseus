@@ -4,7 +4,7 @@ import {
     interactiveSizes,
     InteractiveGraphWidget,
     SizingUtils,
-    Util,
+    Util, PerseusGraphType,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -15,16 +15,16 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import LabeledRow from "../components/graph-locked-figures/labeled-row";
-import LockedFiguresSection from "../components/graph-locked-figures/locked-figures-section";
-import GraphPointsCountSelector from "../components/graph-points-count-selector";
-import GraphTypeSelector from "../components/graph-type-selector";
-import {InteractiveGraphCorrectAnswer} from "../components/interactive-graph-correct-answer";
-import InteractiveGraphSettings from "../components/interactive-graph-settings";
-import SegmentCountSelector from "../components/segment-count-selector";
-import StartCoordsSettings from "../components/start-coords-settings";
-import {shouldShowStartCoordsUI} from "../components/util";
-import {parsePointCount} from "../util/points";
+import LabeledRow from "../../components/graph-locked-figures/labeled-row";
+import LockedFiguresSection from "../../components/graph-locked-figures/locked-figures-section";
+import GraphPointsCountSelector from "../../components/graph-points-count-selector";
+import GraphTypeSelector from "../../components/graph-type-selector";
+import {InteractiveGraphCorrectAnswer} from "../../components/interactive-graph-correct-answer";
+import InteractiveGraphSettings from "../../components/interactive-graph-settings";
+import SegmentCountSelector from "../../components/segment-count-selector";
+import StartCoordsSettings from "../../components/start-coords-settings";
+import {shouldShowStartCoordsUI} from "../../components/util";
+import {parsePointCount} from "../../util/points";
 
 import type {
     PerseusImageBackground,
@@ -438,18 +438,18 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 <OptionItem value="grid" label="grid" />
                                 {this.props.correct?.numSides !==
                                     "unlimited" && (
-                                    <OptionItem
-                                        value="angles"
-                                        label="interior angles"
-                                    />
-                                )}
+                                        <OptionItem
+                                            value="angles"
+                                            label="interior angles"
+                                        />
+                                    )}
                                 {this.props.correct?.numSides !==
                                     "unlimited" && (
-                                    <OptionItem
-                                        value="sides"
-                                        label="side measures"
-                                    />
-                                )}
+                                        <OptionItem
+                                            value="sides"
+                                            label="side measures"
+                                        />
+                                    )}
                             </SingleSelect>
                             <InfoTip>
                                 <p>
@@ -670,24 +670,24 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     // Only show the "Add locked figure" dropdown if the graph
                     // is using Mafs.
                     this.props.graph &&
-                        this.props.apiOptions?.flags?.mafs?.[
-                            this.props.graph.type
+                    this.props.apiOptions?.flags?.mafs?.[
+                        this.props.graph.type
                         ] && (
-                            <LockedFiguresSection
-                                showM2bFeatures={
-                                    this.props.apiOptions?.flags?.mafs?.[
-                                        "interactive-graph-locked-features-m2b"
+                        <LockedFiguresSection
+                            showM2bFeatures={
+                                this.props.apiOptions?.flags?.mafs?.[
+                                    "interactive-graph-locked-features-m2b"
                                     ]
-                                }
-                                showLabelsFlag={
-                                    this.props.apiOptions?.flags?.mafs?.[
-                                        "interactive-graph-locked-features-labels"
+                            }
+                            showLabelsFlag={
+                                this.props.apiOptions?.flags?.mafs?.[
+                                    "interactive-graph-locked-features-labels"
                                     ]
-                                }
-                                figures={this.props.lockedFigures}
-                                onChange={this.props.onChange}
-                            />
-                        )
+                            }
+                            figures={this.props.lockedFigures}
+                            onChange={this.props.onChange}
+                        />
+                    )
                 }
             </View>
         );
