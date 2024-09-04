@@ -1,6 +1,6 @@
-import {question1} from "../__testdata__/python-program.testdata";
+import {question1} from "./python-program.testdata";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
 describe("python-program widget", () => {
     it("should snapshot", () => {

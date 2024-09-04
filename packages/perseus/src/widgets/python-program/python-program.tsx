@@ -5,9 +5,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {toAbsoluteUrl} from "../util/url-utils";
+import {toAbsoluteUrl} from "../../util/url-utils";
 
-import type {WidgetExports} from "../types";
+import type {WidgetExports} from "../../types";
 
 function getUrlFromProgramID(programID: any) {
     const path = `/python-program/${programID}/embedded`;

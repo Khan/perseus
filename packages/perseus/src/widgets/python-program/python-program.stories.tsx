@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question1} from "../__testdata__/python-program.testdata";
+import {question1} from "./python-program.testdata";
 
 export default {
     title: "Perseus/Widgets/Python Program",
