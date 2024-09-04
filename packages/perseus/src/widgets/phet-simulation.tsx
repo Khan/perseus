@@ -192,8 +192,7 @@ export class PhetSimulation extends React.Component<Props, State> {
                     title={this.props.description}
                     sandbox={sandboxProperties}
                     style={{
-                        minWidth: 400,
-                        height: 360,
+                        height: 225,
                         width: "100%",
                         borderWidth: 0,
                     }}
@@ -239,7 +238,7 @@ const styles = StyleSheet.create({
         borderColor: basicBorderColor,
         padding: phoneMargin,
         paddingBottom: 0,
-        width: 650,
+        width: 450,
     },
 });
 
