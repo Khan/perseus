@@ -1,8 +1,8 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {question1} from "./cs-program.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {question1} from "./cs-program.testdata";
 
 describe("cs-program widget", () => {
     beforeEach(() => {
