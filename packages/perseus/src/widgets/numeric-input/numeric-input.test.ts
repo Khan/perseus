@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "../../strings";
+import {mockStrings} from "@khanacademy/perseus/strings";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -12,16 +12,16 @@ import {
     question1,
     duplicatedAnswers,
     withCoefficient,
-} from "../__testdata__/numeric-input.testdata";
+} from "./numeric-input.testdata";
 import {
     maybeParsePercentInput,
     NumericInput,
     unionAnswerForms,
-} from "../numeric-input";
+} from "./numeric-input";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
-import type {Rubric} from "../numeric-input";
+import type {Rubric} from "./numeric-input";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {

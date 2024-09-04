@@ -2,8 +2,8 @@ import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question1} from "../__testdata__/numeric-input.testdata";
-import {NumericInput} from "../numeric-input";
+import {question1} from "./numeric-input.testdata";
+import {NumericInput} from "./numeric-input";
 
 type StoryArgs = {
     coefficient: boolean;

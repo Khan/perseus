@@ -3,27 +3,27 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import InputWithExamples from "../components/input-with-examples";
-import SimpleKeypadInput from "../components/simple-keypad-input";
-import {ApiOptions} from "../perseus-api";
-import TexWrangler from "../tex-wrangler";
-import KhanAnswerTypes from "../util/answer-types";
-import KhanMath from "../util/math";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import InputWithExamples from "../../components/input-with-examples";
+import SimpleKeypadInput from "../../components/simple-keypad-input";
+import {ApiOptions} from "../../perseus-api";
+import TexWrangler from "../../tex-wrangler";
+import KhanAnswerTypes from "../../util/answer-types";
+import KhanMath from "../../util/math";
 
 import type {
     PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
     MathFormat,
-} from "../perseus-types";
-import type {PerseusStrings} from "../strings";
+} from "../../perseus-types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {
     FocusPath,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../types";
+} from "../../types";
 
 const ParseTex = TexWrangler.parseTex;
 
