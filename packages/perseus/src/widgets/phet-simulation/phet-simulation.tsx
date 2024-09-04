@@ -6,6 +6,7 @@
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -189,8 +190,7 @@ export class PhetSimulation extends React.Component<Props, State> {
                     title={this.props.description}
                     sandbox={sandboxProperties}
                     style={{
-                        minWidth: 400,
-                        height: 360,
+                        height: 225,
                         width: "100%",
                         borderWidth: 0,
                     }}
@@ -234,9 +234,10 @@ const styles = StyleSheet.create({
         borderRadius: borderRadiusLarge,
         borderWidth: 1,
         borderColor: basicBorderColor,
-        padding: phoneMargin,
+        padding: spacing.medium_16,
         paddingBottom: 0,
-        width: 650,
+        // Include space for medium_16 padding on each side
+        width: 400 + spacing.xLarge_32,
     },
 });
 
