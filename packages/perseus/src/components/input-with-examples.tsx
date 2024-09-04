@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
@@ -105,43 +104,6 @@ class InputWithExamples extends React.Component<Props, State> {
         return <TextInput {...inputProps} />;
     };
 
-    render(): React.ReactNode {
-        const input = this._renderInput();
-
-        const examplesContent = _.map(this.props.examples, (example) => {
-            return "- " + example;
-        }).join("\n");
-
-        const showExamples =
-            this.props.shouldShowExamples && this.state.showExamples;
-
-        return (
-            <Tooltip
-                // eslint-disable-next-line react/no-string-refs
-                ref="tooltip"
-                className="perseus-formats-tooltip preview-measure"
-                horizontalPosition={HorizontalDirection.Left}
-                horizontalAlign={HorizontalDirection.Left}
-                verticalPosition={VerticalDirection.Bottom}
-                arrowSize={10}
-                borderColor="#ccc"
-                show={showExamples}
-            >
-                {input}
-                <div id={this._getUniqueId()}>
-                    <Renderer
-                        content={examplesContent}
-                        linterContext={PerseusLinter.pushContextStack(
-                            this.props.linterContext,
-                            "input-with-examples",
-                        )}
-                        strings={this.context.strings}
-                    />
-                </div>
-            </Tooltip>
-        );
-    }
-
     _handleFocus: () => void = () => {
         this.props.onFocus();
         this.setState({
@@ -181,6 +143,42 @@ class InputWithExamples extends React.Component<Props, State> {
     handleChange: (arg1: any) => void = (e) => {
         this.props.onChange(e.target.value);
     };
+    render(): React.ReactNode {
+        const input = this._renderInput();
+
+        const examplesContent = _.map(this.props.examples, (example) => {
+            return "- " + example;
+        }).join("\n");
+
+        const showExamples =
+            this.props.shouldShowExamples && this.state.showExamples;
+
+        return (
+            <Tooltip
+                // eslint-disable-next-line react/no-string-refs
+                ref="tooltip"
+                className="perseus-formats-tooltip preview-measure"
+                horizontalPosition={HorizontalDirection.Left}
+                horizontalAlign={HorizontalDirection.Left}
+                verticalPosition={VerticalDirection.Bottom}
+                arrowSize={10}
+                borderColor="#ccc"
+                show={showExamples}
+            >
+                {input}
+                <div id={this._getUniqueId()}>
+                    <Renderer
+                        content={examplesContent}
+                        linterContext={PerseusLinter.pushContextStack(
+                            this.props.linterContext,
+                            "input-with-examples",
+                        )}
+                        strings={this.context.strings}
+                    />
+                </div>
+            </Tooltip>
+        );
+    }
 }
 
 export default InputWithExamples;

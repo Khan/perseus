@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
@@ -26,6 +26,36 @@ class MatcherEditor extends React.Component<Props> {
         labels: ["test", "label"],
         orderMatters: false,
         padding: true,
+    };
+
+    onLabelChange: (
+        arg1: number,
+        arg2: React.ChangeEvent<HTMLInputElement>,
+    ) => void = (index, e) => {
+        const labels = _.clone(this.props.labels);
+        labels[index] = e.target.value;
+        this.props.onChange({labels: labels});
+    };
+
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
+        if (this.props.left.length !== this.props.right.length) {
+            return [
+                "The two halves of the matcher have different numbers" +
+                    " of cards.",
+            ];
+        }
+        return [];
+    };
+
+    serialize: any = () => {
+        return _.pick(
+            this.props,
+            "left",
+            "right",
+            "labels",
+            "orderMatters",
+            "padding",
+        );
     };
 
     render(): React.ReactNode {
@@ -119,36 +149,6 @@ class MatcherEditor extends React.Component<Props> {
             </div>
         );
     }
-
-    onLabelChange: (
-        arg1: number,
-        arg2: React.ChangeEvent<HTMLInputElement>,
-    ) => void = (index, e) => {
-        const labels = _.clone(this.props.labels);
-        labels[index] = e.target.value;
-        this.props.onChange({labels: labels});
-    };
-
-    getSaveWarnings: () => ReadonlyArray<string> = () => {
-        if (this.props.left.length !== this.props.right.length) {
-            return [
-                "The two halves of the matcher have different numbers" +
-                    " of cards.",
-            ];
-        }
-        return [];
-    };
-
-    serialize: any = () => {
-        return _.pick(
-            this.props,
-            "left",
-            "right",
-            "labels",
-            "orderMatters",
-            "padding",
-        );
-    };
 }
 
 export default MatcherEditor;

@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid, react/sort-comp */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import {
     components,
     icons,
@@ -122,6 +122,107 @@ class NumericInputEditor extends React.Component<Props, State> {
             showOptions: _.map(this.props.answers, () => false),
         };
     }
+
+    change = (...args) => {
+        return Changeable.change.apply(this, args);
+    };
+
+    onToggleOptions = (choiceIndex) => {
+        const showOptions = this.state.showOptions.slice();
+        showOptions[choiceIndex] = !showOptions[choiceIndex];
+        this.setState({showOptions: showOptions});
+    };
+
+    onTrashAnswer = (choiceIndex) => {
+        if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
+            const answers = this.props.answers.slice(0);
+            answers.splice(choiceIndex, 1);
+            this.props.onChange({answers: answers});
+        }
+    };
+
+    onSpace = (e, callback, ...args) => {
+        if (e.key === " ") {
+            e.preventDefault(); // prevent page shifting
+            callback.apply(this, args);
+        }
+    };
+
+    onStatusChange = (choiceIndex) => {
+        const statuses = ["wrong", "ungraded", "correct"];
+        const answers = this.props.answers;
+        const i = _.indexOf(statuses, answers[choiceIndex].status);
+        const newStatus = statuses[(i + 1) % statuses.length];
+
+        this.updateAnswer(choiceIndex, {
+            status: newStatus,
+            simplify: newStatus === "correct" ? "required" : "accepted",
+        });
+    };
+
+    updateAnswer = (choiceIndex, update) => {
+        if (!_.isObject(update)) {
+            return _.partial(
+                (choiceIndex, key, value) => {
+                    const update: Record<string, any> = {};
+                    update[key] = value;
+                    this.updateAnswer(choiceIndex, update);
+                },
+                choiceIndex,
+                update,
+            );
+        }
+
+        let answers = [
+            // Have to do this to remove the `readonly` state from the prop
+            ...this.props.answers,
+        ];
+
+        // Don't bother to make a new answer box unless we are editing the last
+        // one.
+        // TODO(oliver): This might not be necessary anymore.
+        if (choiceIndex === answers.length) {
+            const lastAnswer: any = initAnswer(this.state.lastStatus);
+            answers = answers.concat(lastAnswer);
+        }
+
+        answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
+        this.props.onChange({answers: answers});
+    };
+
+    addAnswer = () => {
+        const lastAnswer: any = initAnswer(this.state.lastStatus);
+        const answers = this.props.answers.concat(lastAnswer);
+        this.props.onChange({answers: answers});
+    };
+
+    getSaveWarnings = () => {
+        // Filter out all the empty answers
+        const warnings = [];
+        // TODO(emily): This doesn't actually work, because the value is either
+        // null or undefined when undefined, probably.
+        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
+            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+            warnings.push("One or more answers is empty");
+        }
+        this.props.answers.forEach((answer, i) => {
+            const formatError =
+                answer.strict &&
+                (!answer.answerForms || answer.answerForms.length === 0);
+            if (formatError) {
+                warnings.push(
+                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+                    `Answer ${i + 1} is set to string format ` +
+                        "matching, but no format was selected",
+                );
+            }
+        });
+        return warnings;
+    };
+
+    serialize = () => {
+        return EditorJsonify.serialize.call(this);
+    };
 
     render() {
         const answers = this.props.answers;
@@ -512,107 +613,6 @@ class NumericInputEditor extends React.Component<Props, State> {
             </div>
         );
     }
-
-    change = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    onToggleOptions = (choiceIndex) => {
-        const showOptions = this.state.showOptions.slice();
-        showOptions[choiceIndex] = !showOptions[choiceIndex];
-        this.setState({showOptions: showOptions});
-    };
-
-    onTrashAnswer = (choiceIndex) => {
-        if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
-            const answers = this.props.answers.slice(0);
-            answers.splice(choiceIndex, 1);
-            this.props.onChange({answers: answers});
-        }
-    };
-
-    onSpace = (e, callback, ...args) => {
-        if (e.key === " ") {
-            e.preventDefault(); // prevent page shifting
-            callback.apply(this, args);
-        }
-    };
-
-    onStatusChange = (choiceIndex) => {
-        const statuses = ["wrong", "ungraded", "correct"];
-        const answers = this.props.answers;
-        const i = _.indexOf(statuses, answers[choiceIndex].status);
-        const newStatus = statuses[(i + 1) % statuses.length];
-
-        this.updateAnswer(choiceIndex, {
-            status: newStatus,
-            simplify: newStatus === "correct" ? "required" : "accepted",
-        });
-    };
-
-    updateAnswer = (choiceIndex, update) => {
-        if (!_.isObject(update)) {
-            return _.partial(
-                (choiceIndex, key, value) => {
-                    const update: Record<string, any> = {};
-                    update[key] = value;
-                    this.updateAnswer(choiceIndex, update);
-                },
-                choiceIndex,
-                update,
-            );
-        }
-
-        let answers = [
-            // Have to do this to remove the `readonly` state from the prop
-            ...this.props.answers,
-        ];
-
-        // Don't bother to make a new answer box unless we are editing the last
-        // one.
-        // TODO(oliver): This might not be necessary anymore.
-        if (choiceIndex === answers.length) {
-            const lastAnswer: any = initAnswer(this.state.lastStatus);
-            answers = answers.concat(lastAnswer);
-        }
-
-        answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
-        this.props.onChange({answers: answers});
-    };
-
-    addAnswer = () => {
-        const lastAnswer: any = initAnswer(this.state.lastStatus);
-        const answers = this.props.answers.concat(lastAnswer);
-        this.props.onChange({answers: answers});
-    };
-
-    getSaveWarnings = () => {
-        // Filter out all the empty answers
-        const warnings = [];
-        // TODO(emily): This doesn't actually work, because the value is either
-        // null or undefined when undefined, probably.
-        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
-            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-            warnings.push("One or more answers is empty");
-        }
-        this.props.answers.forEach((answer, i) => {
-            const formatError =
-                answer.strict &&
-                (!answer.answerForms || answer.answerForms.length === 0);
-            if (formatError) {
-                warnings.push(
-                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-                    `Answer ${i + 1} is set to string format ` +
-                        "matching, but no format was selected",
-                );
-            }
-        });
-        return warnings;
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
 }
 
 export default NumericInputEditor;

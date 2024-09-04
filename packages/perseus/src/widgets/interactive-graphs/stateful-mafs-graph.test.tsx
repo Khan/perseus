@@ -68,6 +68,7 @@ describe("StatefulMafsGraph", () => {
         );
 
         await userEvent.tab();
+        await userEvent.tab();
         await userEvent.keyboard("{arrowup}");
 
         expect(mockChangeHandler).toHaveBeenCalled();
