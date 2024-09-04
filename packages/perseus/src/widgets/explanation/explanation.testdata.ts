@@ -1,4 +1,4 @@
-import {randomBoolean, randomSentence} from "./randomizers";
+import {randomBoolean, randomSentence} from "../__testdata__/randomizers";
 
 import type {PerseusRenderer} from "../../perseus-types";
 

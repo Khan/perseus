@@ -7,12 +7,12 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import * as Changeable from "../mixins/changeable";
-import Renderer from "../renderer";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import * as Changeable from "../../mixins/changeable";
+import Renderer from "../../renderer";
 
-import type {PerseusExplanationWidgetOptions} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 

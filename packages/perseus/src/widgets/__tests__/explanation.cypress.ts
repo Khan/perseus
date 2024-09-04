@@ -2,7 +2,7 @@ import renderQuestion from "../../../../../testing/render-question-with-cypress"
 import {cypressTestDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import * as Perseus from "../../index";
-import {ipsumExample} from "../__testdata__/explanation.testdata";
+import {ipsumExample} from "../explanation/explanation.testdata";
 
 //  NOTE: The regression tests in this file use Cypress because they are intended to validate styling that is applied.
 //        Since React Testing Library isn't applying the CSS to the elements,

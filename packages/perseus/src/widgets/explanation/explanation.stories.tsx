@@ -6,7 +6,7 @@ import {
     question1,
     question2,
     wideButton,
-} from "../__testdata__/explanation.testdata";
+} from "./explanation.testdata";
 
 export default {
     title: "Perseus/Widgets/Explanation",

@@ -4,10 +4,10 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
-import {question1} from "../__testdata__/explanation.testdata";
-import ExplanationWidgetExports from "../explanation";
+import {question1} from "./explanation.testdata";
+import ExplanationWidgetExports from "./explanation";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
 import type {UserEvent} from "@testing-library/user-event";
 
