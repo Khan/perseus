@@ -1,14 +1,14 @@
 /* eslint-disable react/no-unsafe */
 import * as React from "react";
 
-import {PerseusI18nContext} from "../components/i18n-context";
+import {PerseusI18nContext} from "../../components/i18n-context";
 
-import draw from "./molecule/molecule-drawing";
-import MoleculeLayout from "./molecule/molecule-layout";
-import SmilesParser from "./molecule/smiles-parser";
+import draw from "./molecule-drawing";
+import MoleculeLayout from "./molecule-layout";
+import SmilesParser from "./smiles-parser";
 
-import type {PerseusMoleculeRendererWidgetOptions} from "../perseus-types";
-import type {WidgetExports} from "../types";
+import type {PerseusMoleculeRendererWidgetOptions} from "../../perseus-types";
+import type {WidgetExports} from "../../types";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;
