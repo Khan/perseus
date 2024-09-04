@@ -1,4 +1,4 @@
-import type {ChoiceType} from "../radio/base-radio";
+import type {ChoiceType} from "../base-radio";
 
 export function generateChoice(options: Partial<ChoiceType>): ChoiceType {
     const base = {

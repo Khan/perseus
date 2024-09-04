@@ -5,7 +5,7 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 import {randomExplanationGenerator} from "../explanation/explanation.testdata";
 import {randomExpressionGenerator} from "../expression/expression.testdata";
 import {randomInteractiveGraphGenerator} from "../__testdata__/interactive-graph-random.testdata";
-import {randomRadioGenerator} from "../__testdata__/radio.testdata";
+import {randomRadioGenerator} from "../radio/__tests__/radio.testdata";
 import {randomCategorizerGenerator} from "../categorizer/categorizer.testdata";
 import {randomDropdownGenerator} from "../dropdown/dropdown.testdata";
 

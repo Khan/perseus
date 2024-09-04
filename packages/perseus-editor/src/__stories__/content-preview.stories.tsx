@@ -8,7 +8,7 @@ import {useState} from "react";
 
 import {articleWithImages} from "../../../perseus/src/__testdata__/article-renderer.testdata";
 import {mockStrings} from "../../../perseus/src/strings";
-import {question} from "../../../perseus/src/widgets/__testdata__/radio.testdata";
+import {question} from "../../../perseus/src/widgets/radio/__tests__/radio.testdata";
 import DeviceFramer from "../components/device-framer";
 import ViewportResizer from "../components/viewport-resizer";
 import ContentPreview from "../content-preview";

@@ -2,7 +2,7 @@ import {describe, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import FocusRing from "../../radio/focus-ring";
+import FocusRing from "../focus-ring";
 
 describe("choice icon", () => {
     describe.each([[true], [false]])("multipleSelect: %s", (multipleSelect) => {

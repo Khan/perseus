@@ -3,14 +3,14 @@ import {
     randomBoolean,
     randomInteger,
     randomSentence,
-} from "./randomizers";
+} from "../../__testdata__/randomizers";
 
 import type {
     PerseusRenderer,
     RadioWidget,
     PassageWidget,
     PerseusRadioChoice,
-} from "../../perseus-types";
+} from "../../../perseus-types";
 
 export const question: PerseusRenderer = {
     content:

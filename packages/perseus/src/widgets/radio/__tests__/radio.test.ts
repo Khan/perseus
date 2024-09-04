@@ -2,19 +2,19 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {clone} from "../../../../../testing/object-utils";
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
+import {clone} from "../../../../../../testing/object-utils";
+import {testDependencies} from "../../../../../../testing/test-dependencies";
+import * as Dependencies from "../../../dependencies";
 import {
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
-} from "../__testdata__/radio.testdata";
-import PassageWidget from "../passage";
+} from "./radio.testdata";
+import PassageWidget from "../../passage";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../../__tests__/renderQuestion";
 
-import type {PerseusRenderer} from "../../perseus-types";
-import type {APIOptions} from "../../types";
+import type {PerseusRenderer} from "../../../perseus-types";
+import type {APIOptions} from "../../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (

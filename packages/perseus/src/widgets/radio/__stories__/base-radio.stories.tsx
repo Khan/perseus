@@ -1,7 +1,7 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import {generateChoice} from "../../__testdata__/base-radio.testdata";
+import {generateChoice} from "../__tests__/base-radio.testdata";
 import BaseRadio from "../base-radio";
 
 type StoryArgs = {

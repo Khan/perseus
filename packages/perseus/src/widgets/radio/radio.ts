@@ -1,13 +1,13 @@
 import _ from "underscore";
 
-import Util from "../util";
+import Util from "../../util";
 
-import Radio from "./radio/radio";
+import Radio from "./radio-component";
 
-import type {RenderProps, RadioChoiceWithMetadata} from "./radio/radio";
-import type {PerseusRadioWidgetOptions} from "../perseus-types";
-import type {PerseusStrings} from "../strings";
-import type {WidgetExports} from "../types";
+import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
+import type {PerseusRadioWidgetOptions} from "../../perseus-types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {WidgetExports} from "../../types";
 
 const {shuffle, random} = Util;
 

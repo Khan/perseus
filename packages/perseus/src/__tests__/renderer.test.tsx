@@ -19,7 +19,7 @@ import {
 import * as Dependencies from "../dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__tests__/renderQuestion";
-import InputNumberExport from "../widgets/input-number/input-number";
+import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
 import MockWidgetExport from "./mock-widget";

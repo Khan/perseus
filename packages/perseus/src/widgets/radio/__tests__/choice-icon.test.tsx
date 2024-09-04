@@ -2,8 +2,8 @@ import {describe, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import ChoiceIcon from "../../radio/choice-icon/choice-icon";
-import {CHOICE_ICON_SIZE} from "../../radio/choice-icon/shared-styles";
+import ChoiceIcon from "../choice-icon/choice-icon";
+import {CHOICE_ICON_SIZE} from "../choice-icon/shared-styles";
 
 function renderChoiceIcon(options) {
     const defaultOptions = {

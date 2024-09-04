@@ -1,15 +1,15 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
 import {
     questionWithPassage,
     choicesWithImages,
     multiChoiceQuestion,
     multiChoiceQuestionSimple,
-} from "../__testdata__/radio.testdata";
+} from "../__tests__/radio.testdata";
 
-import type {PerseusRenderer} from "../../perseus-types";
-import type {APIOptions} from "../../types";
+import type {PerseusRenderer} from "../../../perseus-types";
+import type {APIOptions} from "../../../types";
 import type {Meta} from "@storybook/react";
 
 type StoryArgs = {
