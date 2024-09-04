@@ -7,14 +7,16 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
+import caretDoubleLeftIcon from "@phosphor-icons/core/assets/regular/caret-double-left.svg";
+import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 
 import PerseusEditorAccordion from "../perseus-editor-accordion";
 
@@ -22,6 +24,7 @@ import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import examples from "./locked-function-examples";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {LockedFunctionType} from "@khanacademy/perseus";
@@ -57,7 +60,7 @@ const LockedFunctionSettings = (props: Props) => {
         domain && domain[1] !== Infinity ? domain[1].toString() : "",
     ]);
 
-    const [exampleEquation, setExampleEquation] = useState("");
+    const [exampleCategory, setExampleCategory] = useState("");
 
     useEffect(() => {
         // "useEffect" used to maintain parity between domain constraints and their string representation.
@@ -98,13 +101,14 @@ const LockedFunctionSettings = (props: Props) => {
         onChangeProps({domain: newDomain});
     }
 
-    function handleExampleChange(selectedValue: string) {
-        setExampleEquation(selectedValue);
-        // TODO: map through examples and add to example content area
-    }
-
-    const exampleStyling =
-        exampleEquation === "" ? styles.exampleHidden : styles.exampleContainer;
+    const exampleCategories = Object.keys(examples);
+    const exampleCategorySelected = exampleCategory !== "";
+    const exampleContent = exampleCategorySelected
+        ? examples[exampleCategory]
+        : ["Select category to see example equations"];
+    const exampleContentStyles = exampleCategorySelected
+        ? styles.exampleContent
+        : [styles.exampleContent, styles.exampleContentInstructions];
 
     return (
         <PerseusEditorAccordion
@@ -205,47 +209,57 @@ const LockedFunctionSettings = (props: Props) => {
             {/* Examples */}
             <View style={[styles.exampleWorkspace, styles.rowSpace]}>
                 <SingleSelect
-                    selectedValue={exampleEquation}
-                    onChange={handleExampleChange}
+                    selectedValue={exampleCategory}
+                    onChange={setExampleCategory}
                     style={styles.dropdownMenu}
-                    placeholder="example"
+                    placeholder="examples"
                 >
-                    <OptionItem value="linear" label="linear" />
-                    <OptionItem value="sinusoid" label="sinusoid" />
+                    {exampleCategories.map((category) => {
+                        return (
+                            <OptionItem
+                                key={category}
+                                value={category}
+                                label={category}
+                            />
+                        );
+                    })}
                 </SingleSelect>
                 <Strut size={spacing.small_12} />
-                <View style={exampleStyling}>
-                    <IconButton
-                        icon={copyIcon}
-                        aria-label="copy example"
-                        onClick={(e) =>
-                            navigator.clipboard.writeText("Hello, world!")
-                        }
-                        size="medium"
-                    />
-                    <Strut size={spacing.small_12} />
-                    <span style={styles.exampleContent}>
-                        example
-                        <br />
-                        equation
-                        <br />
-                        with
-                        <br />
-                        lots
-                        <br />
-                        and
-                        <br />
-                        lots
-                        <br />
-                        and
-                        <br />
-                        lots
-                        <br />
-                        of
-                        <br />
-                        breaks
-                    </span>
-                </View>
+                <ul className={css(styles.exampleContainer)}>
+                    {exampleContent.map((example, index) => {
+                        return (
+                            <li
+                                key={`${exampleCategory}-${index}`}
+                                className={css(styles.exampleRow)}
+                            >
+                                {exampleCategorySelected && (
+                                    <IconButton
+                                        icon={copyIcon}
+                                        aria-label="copy example"
+                                        onClick={(e) =>
+                                            navigator.clipboard.writeText(
+                                                example,
+                                            )
+                                        }
+                                        size="medium"
+                                        style={styles.copyButton}
+                                    />
+                                )}
+                                {!exampleCategorySelected && (
+                                    <PhosphorIcon
+                                        icon={caretDoubleLeftIcon}
+                                        size="medium"
+                                        color={color.fadedOffBlack64}
+                                    />
+                                )}
+                                <Strut size={spacing.small_12} />
+                                <View style={exampleContentStyles}>
+                                    {example}
+                                </View>
+                            </li>
+                        );
+                    })}
+                </ul>
             </View>
 
             {/* Actions */}
@@ -267,6 +281,9 @@ const styles = StyleSheet.create({
         maxWidth: "calc(100% - 64px)",
         overflow: "hidden",
         whiteSpace: "nowrap",
+    },
+    copyButton: {
+        flexShrink: "0",
     },
     domainMin: {
         alignItems: "center",
@@ -297,18 +314,34 @@ const styles = StyleSheet.create({
     },
     dropdownMenu: {
         minWidth: "auto",
+        maxWidth: "120px",
     },
     exampleContainer: {
-        display: "flex",
-        flexDirection: "row",
-        maxHeight: "100px",
-        overflowX: "scroll",
+        background: "white",
+        border: `1px solid ${color.fadedOffBlack16}`,
+        borderRadius: "4px",
+        flexGrow: "1",
+        listStyleType: "none",
+        // Nothing special about the maxHeight value,
+        //    just a good height to partially show a 3rd example in the list
+        //    to hint at scrollable content.
+        maxHeight: "88px",
+        margin: "0",
+        overflowY: "scroll",
+        padding: "12px",
     },
     exampleContent: {
+        color: color.offBlack,
+        fontFamily: `"Lato", sans-serif`,
         flexGrow: "1",
     },
-    exampleHidden: {
-        display: "none",
+    exampleContentInstructions: {
+        color: color.fadedOffBlack64,
+    },
+    exampleRow: {
+        display: "flex",
+        flexDirection: "row",
+        minHeight: "44px",
     },
     exampleWorkspace: {
         display: "flex",
