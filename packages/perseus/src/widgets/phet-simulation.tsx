@@ -67,11 +67,6 @@ export class PhetSimulation extends React.Component<Props, State> {
         return null;
     }
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
     // kaLocales and PhET locales use different formats and abbreviations.
     // PhET accepts different formats, i.e. kaLocale's hyphens, but it does not accept
     // different abbreviations, so in points of divergence of abbreviations, we need to
