@@ -12,7 +12,6 @@ import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import {phoneMargin} from "../../styles/constants";
 import {
     basicBorderColor,
@@ -69,11 +68,6 @@ export class PhetSimulation extends React.Component<Props, State> {
     getUserInput(): UserInput {
         return null;
     }
-
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
 
     // kaLocales and PhET locales use different formats and abbreviations.
     // PhET accepts different formats, i.e. kaLocale's hyphens, but it does not accept

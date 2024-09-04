@@ -1,6 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {makeSafeUrl} from "@khanacademy/perseus";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus";
@@ -46,8 +47,10 @@ class PhetSimulationEditor extends React.Component<Props> {
                     label={"URL"}
                     value={this.props.url}
                     onChange={(url: string) => this.props.onChange({url})}
+                    style={{
+                        marginBottom: spacing.large_24,
+                    }}
                 />
-                <br />
                 <LabeledTextField
                     label={"Description"}
                     value={this.props.description}
