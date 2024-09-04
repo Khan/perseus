@@ -11,7 +11,6 @@ import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
-import {sinusoidQuestion} from "../__testdata__/grapher.testdata";
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
@@ -44,6 +43,7 @@ import {
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
+import {sinusoidQuestion} from "../grapher/grapher.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 
 import {renderQuestion} from "./renderQuestion";
@@ -351,6 +351,7 @@ describe("tabbing forward on a Mafs segment graph", () => {
         });
 
         await userEvent.tab();
+        await userEvent.tab();
 
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
         const movablePoints = container.querySelectorAll(
@@ -359,11 +360,12 @@ describe("tabbing forward on a Mafs segment graph", () => {
         expect(movablePoints[0]).toHaveFocus();
     });
 
-    it("focuses the whole segment second", async () => {
+    it("focuses the whole segment third", async () => {
         const {container} = renderQuestion(segmentQuestion, {
             flags: {mafs: {segment: true}},
         });
 
+        await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
 
@@ -379,6 +381,7 @@ describe("tabbing forward on a Mafs segment graph", () => {
             flags: {mafs: {segment: true}},
         });
 
+        await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
@@ -407,6 +410,7 @@ describe("tabbing backward on a Mafs segment graph", () => {
         await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
+        await userEvent.tab();
         await userEvent.tab({shift: true});
 
         // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -421,6 +425,7 @@ describe("tabbing backward on a Mafs segment graph", () => {
             flags: {mafs: {segment: true}},
         });
 
+        await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab();
         await userEvent.tab({shift: true});

@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable one-var, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable one-var, react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -30,6 +30,64 @@ class OrdererEditor extends React.Component<Props> {
         otherOptions: [{content: "$y$"}],
         height: NORMAL,
         layout: HORIZONTAL,
+    };
+
+    onOptionsChange: (
+        arg1: "correctOptions" | "otherOptions",
+        arg2: any,
+        arg3: any,
+    ) => any = (whichOptions, options, cb) => {
+        const props: Record<string, any> = {};
+        props[whichOptions] = _.map(options, function (option) {
+            return {content: option};
+        });
+        this.props.onChange(props, cb);
+    };
+
+    onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
+        this.props.onChange({layout: e.target.value});
+    };
+
+    onHeightChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
+        this.props.onChange({height: e.target.value});
+    };
+
+    serialize: () => any = () => {
+        // We combine the correct answer and the other cards by merging them,
+        // removing duplicates and empty cards, and sorting them into
+        // categories based on their content
+        const options = _.chain(_.pluck(this.props.correctOptions, "content"))
+            .union(_.pluck(this.props.otherOptions, "content"))
+            .uniq()
+            .reject(function (content) {
+                return content === "";
+            })
+            .sort()
+            .sortBy(function (content) {
+                if (/\d/.test(content)) {
+                    return 0;
+                }
+                if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
+                    return 2;
+                }
+                return 1;
+            })
+            .map(function (content) {
+                return {content: content};
+            })
+            .value();
+
+        return {
+            options: options,
+            correctOptions: this.props.correctOptions,
+            otherOptions: this.props.otherOptions,
+            height: this.props.height,
+            layout: this.props.layout,
+        };
     };
 
     render(): React.ReactNode {
@@ -109,64 +167,6 @@ class OrdererEditor extends React.Component<Props> {
             </div>
         );
     }
-
-    onOptionsChange: (
-        arg1: "correctOptions" | "otherOptions",
-        arg2: any,
-        arg3: any,
-    ) => any = (whichOptions, options, cb) => {
-        const props: Record<string, any> = {};
-        props[whichOptions] = _.map(options, function (option) {
-            return {content: option};
-        });
-        this.props.onChange(props, cb);
-    };
-
-    onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        this.props.onChange({layout: e.target.value});
-    };
-
-    onHeightChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        this.props.onChange({height: e.target.value});
-    };
-
-    serialize: () => any = () => {
-        // We combine the correct answer and the other cards by merging them,
-        // removing duplicates and empty cards, and sorting them into
-        // categories based on their content
-        const options = _.chain(_.pluck(this.props.correctOptions, "content"))
-            .union(_.pluck(this.props.otherOptions, "content"))
-            .uniq()
-            .reject(function (content) {
-                return content === "";
-            })
-            .sort()
-            .sortBy(function (content) {
-                if (/\d/.test(content)) {
-                    return 0;
-                }
-                if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
-                    return 2;
-                }
-                return 1;
-            })
-            .map(function (content) {
-                return {content: content};
-            })
-            .value();
-
-        return {
-            options: options,
-            correctOptions: this.props.correctOptions,
-            otherOptions: this.props.otherOptions,
-            height: this.props.height,
-            layout: this.props.layout,
-        };
-    };
 }
 
 export default OrdererEditor;

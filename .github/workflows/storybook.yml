@@ -36,7 +36,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Publish to Chromatic for visual testing
               uses: chromaui/action@v11

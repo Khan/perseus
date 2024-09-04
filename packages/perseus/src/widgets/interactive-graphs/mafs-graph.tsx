@@ -69,6 +69,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     const uniqueId = React.useId();
     const descriptionId = `interactive-graph-description-${uniqueId}`;
+    const graphRef = React.useRef<HTMLElement>(null);
 
     return (
         <GraphConfigContext.Provider
@@ -109,8 +110,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 <View
                     className="mafs-graph"
                     style={{
-                        height,
-                        width: "intrinsic",
                         position: "relative",
                         padding: "25px 25px 0 0",
                         boxSizing: "content-box",
@@ -118,7 +117,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         marginBottom: "20px",
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
+                        width,
+                        height,
                     }}
+                    onKeyUp={(event) => {
+                        if (event.key === "Backspace") {
+                            dispatch(actions.global.deleteIntent());
+                            graphRef.current?.focus();
+                        }
+                    }}
+                    ref={graphRef}
+                    tabIndex={0}
                 >
                     <LegacyGrid
                         box={props.box}

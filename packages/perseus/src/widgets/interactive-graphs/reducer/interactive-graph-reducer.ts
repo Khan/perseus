@@ -20,6 +20,7 @@ import {bound} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
+    actions,
     CHANGE_RANGE,
     CHANGE_SNAP_STEP,
     type ChangeRange,
@@ -40,6 +41,14 @@ import {
     REINITIALIZE,
     ADD_POINT,
     type AddPoint,
+    REMOVE_POINT,
+    type RemovePoint,
+    DELETE_INTENT,
+    type DeleteIntent,
+    FOCUS_POINT,
+    type FocusPoint,
+    BLUR_POINT,
+    type BlurPoint,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -78,8 +87,64 @@ export function interactiveGraphReducer(
             return doChangeRange(state, action);
         case ADD_POINT:
             return doAddPoint(state, action);
+        case REMOVE_POINT:
+            return doRemovePoint(state, action);
+        case FOCUS_POINT:
+            return doFocusPoint(state, action);
+        case BLUR_POINT:
+            return doBlurPoint(state, action);
+        case DELETE_INTENT:
+            return doDeleteIntent(state, action);
         default:
             throw new UnreachableCaseError(action);
+    }
+}
+
+function doDeleteIntent(
+    state: InteractiveGraphState,
+    action: DeleteIntent,
+): InteractiveGraphState {
+    // For unlimited point graphs
+    if (state.type === "point" && state.numPoints === "unlimited") {
+        // if there's a focused point
+        if (state.focusedPointIndex !== null) {
+            // Remove the focused focus
+            return doRemovePoint(
+                state,
+                actions.pointGraph.removePoint(state.focusedPointIndex),
+            );
+        }
+    }
+    return state;
+}
+
+function doFocusPoint(
+    state: InteractiveGraphState,
+    action: FocusPoint,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "point":
+            return {
+                ...state,
+                focusedPointIndex: action.index,
+            };
+        default:
+            return state;
+    }
+}
+
+function doBlurPoint(
+    state: InteractiveGraphState,
+    action: BlurPoint,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "point":
+            return {
+                ...state,
+                focusedPointIndex: null,
+            };
+        default:
+            return state;
     }
 }
 
@@ -525,6 +590,21 @@ function doAddPoint(
         ...state,
         hasBeenInteractedWith: true,
         coords: [...state.coords, snappedPoint],
+    };
+}
+
+function doRemovePoint(
+    state: InteractiveGraphState,
+    action: RemovePoint,
+): InteractiveGraphState {
+    if (state.type !== "point") {
+        return state;
+    }
+
+    return {
+        ...state,
+        coords: state.coords.filter((_, i) => i !== action.index),
+        focusedPointIndex: null,
     };
 }
 

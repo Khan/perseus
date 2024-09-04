@@ -79,6 +79,13 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
+                    onFocusChange={(isFocused) => {
+                        if (isFocused) {
+                            dispatch(actions.pointGraph.focusPoint(i));
+                        } else {
+                            dispatch(actions.pointGraph.blurPoint());
+                        }
+                    }}
                 />
             ))}
         </>

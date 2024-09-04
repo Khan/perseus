@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import * as KAS from "@khanacademy/kas";
 import {
     components,
@@ -112,177 +111,6 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     change(...args) {
         return Changeable.change.apply(this, args);
-    }
-
-    render(): React.ReactNode {
-        const answerOptions = this.props.answerForms
-            .map((ans: AnswerForm) => {
-                const key = parseAnswerKey(ans);
-
-                const expressionProps = {
-                    // note we're using
-                    // *this.props*.{times,functions,buttonSets} since each
-                    // answer area has the same settings for those
-                    times: this.props.times,
-                    functions: this.props.functions,
-                    buttonSets: this.props.buttonSets,
-
-                    buttonsVisible: "focused",
-                    form: ans.form,
-                    simplify: ans.simplify,
-                    value: ans.value,
-
-                    onChange: (props) => this.updateForm(key, props),
-                    trackInteraction: () => {},
-
-                    widgetId: this.props.widgetId + "-" + ans.key,
-                } as const;
-
-                return lens(ans)
-                    .merge([], {
-                        key,
-                        draggable: true,
-                        onChange: (props) =>
-                            this.updateForm(
-                                Number.parseInt(ans.key ?? ""),
-                                props,
-                            ),
-                        onDelete: () => this.handleRemoveForm(key),
-                        expressionProps: expressionProps,
-                    })
-                    .freeze();
-            })
-            .map((obj) => <AnswerOption key={obj.key} {...obj} />);
-
-        const sortable = (
-            <SortableArea
-                components={answerOptions}
-                onReorder={this.handleReorder}
-            />
-        );
-
-        // checkboxes to choose which sets of input buttons are shown
-        const buttonSetChoices = buttonSetsList.map((name) => {
-            // The first one gets special cased to always be checked, disabled,
-            // and float left.
-            const isBasic = name === "basic";
-            const checked = this.props.buttonSets.includes(name) || isBasic;
-            return (
-                <Checkbox
-                    key={name}
-                    label={name}
-                    checked={checked}
-                    disabled={isBasic}
-                    onChange={() => this.handleButtonSet(name)}
-                />
-            );
-        });
-
-        buttonSetChoices.unshift(
-            <Checkbox
-                key="show ÷ button"
-                label="show ÷ button"
-                checked={this.props.buttonSets.includes("basic+div")}
-                onChange={this.handleToggleDiv}
-            />,
-        );
-
-        return (
-            <div>
-                <HeadingSmall>Global Options</HeadingSmall>
-
-                <div className={css(styles.paddedY)}>
-                    <LabeledTextField
-                        label="Visible label"
-                        value={this.props.visibleLabel || ""}
-                        onChange={this.change("visibleLabel")}
-                    />
-                    <InfoTip>
-                        <p>
-                            Optional visible text; strongly encouraged to help
-                            learners using dictation software, but can be
-                            omitted if the surrounding content provides enough
-                            context.
-                        </p>
-                    </InfoTip>
-                </div>
-
-                <div className={css(styles.paddedY)}>
-                    <LabeledTextField
-                        label="Aria label"
-                        value={this.props.ariaLabel || ""}
-                        onChange={this.change("ariaLabel")}
-                    />
-                    <InfoTip>
-                        <p>
-                            Label text that's read by screen readers. Highly
-                            recommend adding a label here to ensure your
-                            exercise is accessible. For more information on
-                            writting accessible labels, please see{" "}
-                            <a
-                                href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
-                                target="_blank"
-                            >
-                                this article.
-                            </a>
-                        </p>
-                    </InfoTip>
-                </div>
-
-                <div className={css(styles.paddedY)}>
-                    <LabeledTextField
-                        label="Function variables"
-                        value={this.state.functionsInternal}
-                        onChange={this.handleFunctions}
-                    />
-                    <InfoTip>
-                        <p>
-                            Single-letter variables listed here will be
-                            interpreted as functions. This let us know that f(x)
-                            means "f of x" and not "f times x".
-                        </p>
-                    </InfoTip>
-                </div>
-
-                <div className={css(styles.paddedY)}>
-                    <Checkbox
-                        label="Use × instead of ⋅ for multiplication"
-                        checked={this.props.times}
-                        onChange={(value) => {
-                            this.props.onChange({times: value});
-                        }}
-                    />
-                    <InfoTip>
-                        <p>
-                            For pre-algebra problems this option displays
-                            multiplication as \times instead of \cdot in both
-                            the rendered output and the acceptable formats
-                            examples.
-                        </p>
-                    </InfoTip>
-                </div>
-
-                <div className={css(styles.paddedY)}>
-                    <HeadingXSmall>Button Sets</HeadingXSmall>
-                    {buttonSetChoices}
-                </div>
-
-                <HeadingSmall>Answers</HeadingSmall>
-
-                <p style={{margin: "4px 0"}}>
-                    student responses area matched against these from top to
-                    bottom
-                </p>
-
-                {sortable}
-
-                <div>
-                    <Button size="small" onClick={this.newAnswer}>
-                        Add new answer
-                    </Button>
-                </div>
-            </div>
-        );
     }
 
     serialize: () => any = () => {
@@ -461,6 +289,177 @@ class ExpressionEditor extends React.Component<Props, State> {
         newProps.functions = value.split(/[ ,]+/).filter(isTruthy);
         this.props.onChange(newProps);
     };
+
+    render(): React.ReactNode {
+        const answerOptions = this.props.answerForms
+            .map((ans: AnswerForm) => {
+                const key = parseAnswerKey(ans);
+
+                const expressionProps = {
+                    // note we're using
+                    // *this.props*.{times,functions,buttonSets} since each
+                    // answer area has the same settings for those
+                    times: this.props.times,
+                    functions: this.props.functions,
+                    buttonSets: this.props.buttonSets,
+
+                    buttonsVisible: "focused",
+                    form: ans.form,
+                    simplify: ans.simplify,
+                    value: ans.value,
+
+                    onChange: (props) => this.updateForm(key, props),
+                    trackInteraction: () => {},
+
+                    widgetId: this.props.widgetId + "-" + ans.key,
+                } as const;
+
+                return lens(ans)
+                    .merge([], {
+                        key,
+                        draggable: true,
+                        onChange: (props) =>
+                            this.updateForm(
+                                Number.parseInt(ans.key ?? ""),
+                                props,
+                            ),
+                        onDelete: () => this.handleRemoveForm(key),
+                        expressionProps: expressionProps,
+                    })
+                    .freeze();
+            })
+            .map((obj) => <AnswerOption key={obj.key} {...obj} />);
+
+        const sortable = (
+            <SortableArea
+                components={answerOptions}
+                onReorder={this.handleReorder}
+            />
+        );
+
+        // checkboxes to choose which sets of input buttons are shown
+        const buttonSetChoices = buttonSetsList.map((name) => {
+            // The first one gets special cased to always be checked, disabled,
+            // and float left.
+            const isBasic = name === "basic";
+            const checked = this.props.buttonSets.includes(name) || isBasic;
+            return (
+                <Checkbox
+                    key={name}
+                    label={name}
+                    checked={checked}
+                    disabled={isBasic}
+                    onChange={() => this.handleButtonSet(name)}
+                />
+            );
+        });
+
+        buttonSetChoices.unshift(
+            <Checkbox
+                key="show ÷ button"
+                label="show ÷ button"
+                checked={this.props.buttonSets.includes("basic+div")}
+                onChange={this.handleToggleDiv}
+            />,
+        );
+
+        return (
+            <div>
+                <HeadingSmall>Global Options</HeadingSmall>
+
+                <div className={css(styles.paddedY)}>
+                    <LabeledTextField
+                        label="Visible label"
+                        value={this.props.visibleLabel || ""}
+                        onChange={this.change("visibleLabel")}
+                    />
+                    <InfoTip>
+                        <p>
+                            Optional visible text; strongly encouraged to help
+                            learners using dictation software, but can be
+                            omitted if the surrounding content provides enough
+                            context.
+                        </p>
+                    </InfoTip>
+                </div>
+
+                <div className={css(styles.paddedY)}>
+                    <LabeledTextField
+                        label="Aria label"
+                        value={this.props.ariaLabel || ""}
+                        onChange={this.change("ariaLabel")}
+                    />
+                    <InfoTip>
+                        <p>
+                            Label text that's read by screen readers. Highly
+                            recommend adding a label here to ensure your
+                            exercise is accessible. For more information on
+                            writting accessible labels, please see{" "}
+                            <a
+                                href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                target="_blank"
+                            >
+                                this article.
+                            </a>
+                        </p>
+                    </InfoTip>
+                </div>
+
+                <div className={css(styles.paddedY)}>
+                    <LabeledTextField
+                        label="Function variables"
+                        value={this.state.functionsInternal}
+                        onChange={this.handleFunctions}
+                    />
+                    <InfoTip>
+                        <p>
+                            Single-letter variables listed here will be
+                            interpreted as functions. This let us know that f(x)
+                            means "f of x" and not "f times x".
+                        </p>
+                    </InfoTip>
+                </div>
+
+                <div className={css(styles.paddedY)}>
+                    <Checkbox
+                        label="Use × instead of ⋅ for multiplication"
+                        checked={this.props.times}
+                        onChange={(value) => {
+                            this.props.onChange({times: value});
+                        }}
+                    />
+                    <InfoTip>
+                        <p>
+                            For pre-algebra problems this option displays
+                            multiplication as \times instead of \cdot in both
+                            the rendered output and the acceptable formats
+                            examples.
+                        </p>
+                    </InfoTip>
+                </div>
+
+                <div className={css(styles.paddedY)}>
+                    <HeadingXSmall>Button Sets</HeadingXSmall>
+                    {buttonSetChoices}
+                </div>
+
+                <HeadingSmall>Answers</HeadingSmall>
+
+                <p style={{margin: "4px 0"}}>
+                    student responses area matched against these from top to
+                    bottom
+                </p>
+
+                {sortable}
+
+                <div>
+                    <Button size="small" onClick={this.newAnswer}>
+                        Add new answer
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 }
 
 // Find the next element in arr after val, wrapping around to the first.
@@ -495,6 +494,26 @@ class AnswerOption extends React.Component<
 
     change = (...args) => {
         return Changeable.change.apply(this, args);
+    };
+
+    handleImSure = () => {
+        this.props.onDelete();
+    };
+
+    handleCancelDelete = () => {
+        this.setState({deleteFocused: false});
+    };
+
+    handleDelete = () => {
+        this.setState({deleteFocused: true});
+    };
+
+    toggleConsidered = () => {
+        const newVal = findNextIn(
+            PerseusExpressionAnswerFormConsidered,
+            this.props.considered,
+        );
+        this.change({considered: newVal});
     };
 
     render(): React.ReactNode {
@@ -591,26 +610,6 @@ class AnswerOption extends React.Component<
             </div>
         );
     }
-
-    handleImSure = () => {
-        this.props.onDelete();
-    };
-
-    handleCancelDelete = () => {
-        this.setState({deleteFocused: false});
-    };
-
-    handleDelete = () => {
-        this.setState({deleteFocused: true});
-    };
-
-    toggleConsidered = () => {
-        const newVal = findNextIn(
-            PerseusExpressionAnswerFormConsidered,
-            this.props.considered,
-        );
-        this.change({considered: newVal});
-    };
 }
 
 export default ExpressionEditor;

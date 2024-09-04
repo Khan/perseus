@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unsafe */
-/* eslint-disable react/sort-comp */
 import {vector as kvector} from "@khanacademy/kmath";
 import {
     components,
@@ -167,10 +166,9 @@ type DefaultProps = {
  * Used in the exercise editor.
  */
 class InteractiveGraphEditor extends React.Component<Props> {
+    static widgetName = "interactive-graph";
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
-
-    static widgetName = "interactive-graph";
 
     static defaultProps: DefaultProps = {
         ...InteractiveGraph.defaultProps,
@@ -190,6 +188,100 @@ class InteractiveGraphEditor extends React.Component<Props> {
     UNSAFE_componentWillMount() {
         DeprecationMixin.UNSAFE_componentWillMount.call(this);
     }
+
+    changeMatchType = (newValue) => {
+        const correct = {
+            ...this.props.correct,
+            match: newValue,
+        };
+        this.props.onChange({correct: correct});
+    };
+
+    changeStartCoords = (coords) => {
+        if (!this.props.graph?.type) {
+            return;
+        }
+
+        const graph = {
+            ...this.props.graph,
+            startCoords: coords,
+        };
+        this.props.onChange({graph: graph});
+    };
+
+    // serialize() is what makes copy/paste work. All the properties included
+    // in the serialization json are included when, for example, a graph
+    // is copied from the question editor and pasted into the hint editor
+    // (double brackets in the markdown).
+    serialize(): PerseusInteractiveGraphWidgetOptions {
+        const json = _.pick(
+            this.props,
+            "step",
+            "backgroundImage",
+            "markings",
+            "labels",
+            "showProtractor",
+            "showTooltips",
+            "range",
+            "gridStep",
+            "snapStep",
+            "lockedFigures",
+            "fullGraphAriaLabel",
+            "fullGraphAriaDescribedby",
+        );
+
+        // eslint-disable-next-line react/no-string-refs
+        const graph = this.refs.graph;
+        if (graph) {
+            // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
+            const correct = graph && graph.getUserInput();
+            _.extend(json, {
+                graph: {
+                    type: correct.type,
+                    startCoords: this.props.graph?.startCoords,
+                },
+                correct: correct,
+            });
+
+            _.each(
+                [
+                    "allowReflexAngles",
+                    "angleOffsetDeg",
+                    "numPoints",
+                    "numSides",
+                    "numSegments",
+                    "showAngles",
+                    "showSides",
+                    "snapTo",
+                    "snapDegrees",
+                ],
+                function (key) {
+                    if (_.has(correct, key)) {
+                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor">'.
+                        json.graph[key] = correct[key];
+                    }
+                },
+            );
+        }
+        // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
+        return json;
+    }
+
+    getSaveWarnings = () => {
+        const issues: Array<any | string> = [];
+
+        // A locked line on the graph cannot have length 0.
+        for (const figure of this.props.lockedFigures ?? []) {
+            if (
+                figure.type === "line" &&
+                kvector.equal(figure.points[0].coord, figure.points[1].coord)
+            ) {
+                issues.push("The line cannot have length 0.");
+            }
+        }
+
+        return issues;
+    };
 
     render() {
         let graph;
@@ -650,100 +742,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
             </View>
         );
     }
-
-    changeMatchType = (newValue) => {
-        const correct = {
-            ...this.props.correct,
-            match: newValue,
-        };
-        this.props.onChange({correct: correct});
-    };
-
-    changeStartCoords = (coords) => {
-        if (!this.props.graph?.type) {
-            return;
-        }
-
-        const graph = {
-            ...this.props.graph,
-            startCoords: coords,
-        };
-        this.props.onChange({graph: graph});
-    };
-
-    // serialize() is what makes copy/paste work. All the properties included
-    // in the serialization json are included when, for example, a graph
-    // is copied from the question editor and pasted into the hint editor
-    // (double brackets in the markdown).
-    serialize(): PerseusInteractiveGraphWidgetOptions {
-        const json = _.pick(
-            this.props,
-            "step",
-            "backgroundImage",
-            "markings",
-            "labels",
-            "showProtractor",
-            "showTooltips",
-            "range",
-            "gridStep",
-            "snapStep",
-            "lockedFigures",
-            "fullGraphAriaLabel",
-            "fullGraphAriaDescribedby",
-        );
-
-        // eslint-disable-next-line react/no-string-refs
-        const graph = this.refs.graph;
-        if (graph) {
-            // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
-            const correct = graph && graph.getUserInput();
-            _.extend(json, {
-                graph: {
-                    type: correct.type,
-                    startCoords: this.props.graph?.startCoords,
-                },
-                correct: correct,
-            });
-
-            _.each(
-                [
-                    "allowReflexAngles",
-                    "angleOffsetDeg",
-                    "numPoints",
-                    "numSides",
-                    "numSegments",
-                    "showAngles",
-                    "showSides",
-                    "snapTo",
-                    "snapDegrees",
-                ],
-                function (key) {
-                    if (_.has(correct, key)) {
-                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor">'.
-                        json.graph[key] = correct[key];
-                    }
-                },
-            );
-        }
-        // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
-        return json;
-    }
-
-    getSaveWarnings = () => {
-        const issues: Array<any | string> = [];
-
-        // A locked line on the graph cannot have length 0.
-        for (const figure of this.props.lockedFigures ?? []) {
-            if (
-                figure.type === "line" &&
-                kvector.equal(figure.points[0].coord, figure.points[1].coord)
-            ) {
-                issues.push("The line cannot have length 0.");
-            }
-        }
-
-        return issues;
-    };
 }
 
 const styles = StyleSheet.create({

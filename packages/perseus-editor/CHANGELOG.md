@@ -1,5 +1,47 @@
 # @khanacademy/perseus-editor
 
+## 14.0.0
+
+### Major Changes
+
+-   [#1577](https://github.com/Khan/perseus/pull/1577) [`c875acd01`](https://github.com/Khan/perseus/commit/c875acd01fe8cfa84a2b10177a6fcedfb612cb3f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove example widgets and their editors
+
+### Minor Changes
+
+-   [#1582](https://github.com/Khan/perseus/pull/1582) [`377b7ce68`](https://github.com/Khan/perseus/commit/377b7ce68801cef99cd3a09474b28a8b60f90f0a) Thanks [@aemandine](https://github.com/aemandine)! - Add save warnings to PhET widget editor and un-hide widget from content editor widget dropdown
+
+### Patch Changes
+
+-   [#1585](https://github.com/Khan/perseus/pull/1585) [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize files in the widgets folder
+
+*   [#1587](https://github.com/Khan/perseus/pull/1587) [`8015cdefb`](https://github.com/Khan/perseus/commit/8015cdefbafa094e9e1969ddb6ec39033c990687) Thanks [@aemandine](https://github.com/aemandine)! - Tidying up PhET widget
+
+-   [#1583](https://github.com/Khan/perseus/pull/1583) [`615567bd2`](https://github.com/Khan/perseus/commit/615567bd2eeec45d16d845a1cb8bd5c33c04d701) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove sort-comp exceptions and reorder components
+
+-   Updated dependencies [[`78bb8573e`](https://github.com/Khan/perseus/commit/78bb8573e9b00992554c2b1339678cc78363773b), [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce), [`d56952564`](https://github.com/Khan/perseus/commit/d569525643d1dcf9c2cca78bc3b5ce18b7f584d1), [`c875acd01`](https://github.com/Khan/perseus/commit/c875acd01fe8cfa84a2b10177a6fcedfb612cb3f), [`8015cdefb`](https://github.com/Khan/perseus/commit/8015cdefbafa094e9e1969ddb6ec39033c990687), [`c4432ffad`](https://github.com/Khan/perseus/commit/c4432ffad978a224b7d981e1577c7897342a01ee), [`615567bd2`](https://github.com/Khan/perseus/commit/615567bd2eeec45d16d845a1cb8bd5c33c04d701), [`377b7ce68`](https://github.com/Khan/perseus/commit/377b7ce68801cef99cd3a09474b28a8b60f90f0a)]:
+    -   @khanacademy/perseus@32.0.0
+
+## 13.1.0
+
+### Minor Changes
+
+-   [#1534](https://github.com/Khan/perseus/pull/1534) [`d446d4251`](https://github.com/Khan/perseus/commit/d446d4251307279bca1e20b1d2d63d0b71b33076) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove 'strings' prop from ContentPreview (we'll pull it from context)
+
+### Patch Changes
+
+-   [#1552](https://github.com/Khan/perseus/pull/1552) [`873f10790`](https://github.com/Khan/perseus/commit/873f1079076f80ed28705e1da1cf0c0dcfb79aac) Thanks [@nishasy](https://github.com/nishasy)! - Update dependency on wonder-blocks-form
+
+*   [#1569](https://github.com/Khan/perseus/pull/1569) [`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb) Thanks [@handeyeco](https://github.com/handeyeco)! - bump peer dependencies to match webapp
+
+-   [#1548](https://github.com/Khan/perseus/pull/1548) [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing resizing behavior of Expression Widget in 400% zoom.
+
+*   [#1534](https://github.com/Khan/perseus/pull/1534) [`d446d4251`](https://github.com/Khan/perseus/commit/d446d4251307279bca1e20b1d2d63d0b71b33076) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ensure 'React' is imported in ContentPreview component.
+
+*   Updated dependencies [[`efced74db`](https://github.com/Khan/perseus/commit/efced74db8f560d3df53c67c54ee7b74c45405cf), [`873f10790`](https://github.com/Khan/perseus/commit/873f1079076f80ed28705e1da1cf0c0dcfb79aac), [`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb), [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575), [`598f7450f`](https://github.com/Khan/perseus/commit/598f7450faf4a639ff41a26e2946234c37e3320d), [`070430166`](https://github.com/Khan/perseus/commit/070430166e3ad987300aa5db1a8c6f385d27d734), [`50c1b19e5`](https://github.com/Khan/perseus/commit/50c1b19e529e5c096abdd2512c7e17e9f717a3cb)]:
+    -   @khanacademy/perseus@31.1.0
+    -   @khanacademy/keypad-context@1.0.1
+    -   @khanacademy/math-input@21.0.2
+
 ## 13.0.1
 
 ### Patch Changes

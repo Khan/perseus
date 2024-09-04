@@ -173,7 +173,6 @@ class MultiRenderer extends React.Component<Props, State> {
         // Keep state in sync with props.
         this.state = this._tryMakeRendererState(this.props);
     }
-    /* eslint-enable react/sort-comp */
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         // Keep state in sync with props.

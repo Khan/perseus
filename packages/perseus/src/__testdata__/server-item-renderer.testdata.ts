@@ -291,46 +291,61 @@ export const labelImageItem: PerseusItem = {
     },
 };
 
-// Note that if this item is used, you _must_ first register the MockWidget
-export const mockedItem: PerseusItem = {
+export const definitionItem: PerseusItem = {
     // The mock widget type is not part of the PerseusWidget type union (and
     // we don't want to make it such to avoid polluting our production types
     // for test purposes) so we force TypeScript to accept it here.
     question: {
         content:
-            "Mock widget ==> [[\u2603 mock-widget 1]] [[\u2603 mock-widget 2]] [[\u2603 mock-widget 3]] [[\u2603 mock-widget 4]]",
+            "Mock widget ==> [[\u2603 definition 1]] [[\u2603 definition 2]] [[\u2603 definition 3]] [[\u2603 definition 4]]",
         images: {},
         widgets: {
-            "mock-widget 1": {
+            "definition 1": {
                 graded: true,
                 version: {major: 0, minor: 0},
                 static: false,
-                type: "mock-widget",
-                options: {static: false, smiling: true},
+                type: "definition",
+                options: {
+                    togglePrompt: "word",
+                    definition: "",
+                    static: false,
+                },
                 alignment: "default",
             },
-            "mock-widget 2": {
+            "definition 2": {
                 graded: true,
                 version: {major: 0, minor: 0},
                 static: false,
-                type: "mock-widget",
-                options: {static: false, smiling: false},
+                type: "definition",
+                options: {
+                    togglePrompt: "word",
+                    definition: "",
+                    static: false,
+                },
                 alignment: "default",
             },
-            "mock-widget 3": {
+            "definition 3": {
                 graded: true,
                 version: {major: 0, minor: 0},
                 static: false,
-                type: "mock-widget",
-                options: {static: false, smiling: true},
+                type: "definition",
+                options: {
+                    togglePrompt: "word",
+                    definition: "",
+                    static: false,
+                },
                 alignment: "default",
             },
-            "mock-widget 4": {
+            "definition 4": {
                 graded: true,
                 version: {major: 0, minor: 0},
                 static: false,
-                type: "mock-widget",
-                options: {static: false, smiling: false},
+                type: "definition",
+                options: {
+                    togglePrompt: "word",
+                    definition: "",
+                    static: false,
+                },
                 alignment: "default",
             },
         },

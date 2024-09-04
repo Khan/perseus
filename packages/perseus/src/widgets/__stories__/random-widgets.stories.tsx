@@ -2,12 +2,12 @@ import Button from "@khanacademy/wonder-blocks-button";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {randomCategorizerGenerator} from "../__testdata__/categorizer.testdata";
-import {randomDropdownGenerator} from "../__testdata__/dropdown.testdata";
-import {randomExplanationGenerator} from "../__testdata__/explanation.testdata";
-import {randomExpressionGenerator} from "../__testdata__/expression.testdata";
 import {randomInteractiveGraphGenerator} from "../__testdata__/interactive-graph-random.testdata";
-import {randomRadioGenerator} from "../__testdata__/radio.testdata";
+import {randomCategorizerGenerator} from "../categorizer/categorizer.testdata";
+import {randomDropdownGenerator} from "../dropdown/dropdown.testdata";
+import {randomExplanationGenerator} from "../explanation/explanation.testdata";
+import {randomExpressionGenerator} from "../expression/expression.testdata";
+import {randomRadioGenerator} from "../radio/__tests__/radio.testdata";
 
 import type {PerseusRenderer} from "../../perseus-types";
 

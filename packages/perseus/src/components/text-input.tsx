@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/sort-comp */
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -48,41 +47,6 @@ class TextInput extends React.Component<Props> {
         }
     }
 
-    render(): React.ReactNode {
-        const {
-            labelText,
-            value,
-            onFocus,
-            onBlur,
-            disabled,
-            placeholder,
-            onKeyDown,
-            style,
-        } = this.props;
-
-        const formattedValue = value === null ? "" : value.toString();
-
-        return (
-            <TextField
-                style={style}
-                disabled={disabled}
-                id={this.id}
-                value={formattedValue}
-                type="text"
-                aria-label={labelText}
-                onChange={(value) => this.props.onChange(value)}
-                placeholder={placeholder}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                onKeyDown={onKeyDown}
-                // @ts-expect-error - TS2322 - Type '{ style: StyleType; disabled: boolean | undefined; id: string; value: string; type: "text"; "aria-label": string | undefined; onChange: (value: string) => void; placeholder: string | undefined; ... 5 more ...; autoComplete: string; }' is not assignable to type 'IntrinsicAttributes & ExportProps & RefAttributes<HTMLInputElement>'.
-                autoCorrect="off"
-                autoCapitalize="off"
-                autoComplete="off"
-            />
-        );
-    }
-
     focus: () => void = () => {
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this).focus();
@@ -123,6 +87,41 @@ class TextInput extends React.Component<Props> {
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'.
         return ReactDOM.findDOMNode(this).selectionEnd;
     };
+
+    render(): React.ReactNode {
+        const {
+            labelText,
+            value,
+            onFocus,
+            onBlur,
+            disabled,
+            placeholder,
+            onKeyDown,
+            style,
+        } = this.props;
+
+        const formattedValue = value === null ? "" : value.toString();
+
+        return (
+            <TextField
+                style={style}
+                disabled={disabled}
+                id={this.id}
+                value={formattedValue}
+                type="text"
+                aria-label={labelText}
+                onChange={(value) => this.props.onChange(value)}
+                placeholder={placeholder}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onKeyDown={onKeyDown}
+                // @ts-expect-error - TS2322 - Type '{ style: StyleType; disabled: boolean | undefined; id: string; value: string; type: "text"; "aria-label": string | undefined; onChange: (value: string) => void; placeholder: string | undefined; ... 5 more ...; autoComplete: string; }' is not assignable to type 'IntrinsicAttributes & ExportProps & RefAttributes<HTMLInputElement>'.
+                autoCorrect="off"
+                autoCapitalize="off"
+                autoComplete="off"
+            />
+        );
+    }
 }
 
 export default TextInput;
