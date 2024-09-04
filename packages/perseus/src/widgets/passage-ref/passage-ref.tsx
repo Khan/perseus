@@ -1,19 +1,19 @@
 import * as React from "react";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import * as Changeable from "../mixins/changeable";
-import {removeDenylistProps} from "../mixins/widget-prop-denylist";
-import PerseusMarkdown from "../perseus-markdown";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import * as Changeable from "../../mixins/changeable";
+import {removeDenylistProps} from "../../mixins/widget-prop-denylist";
+import PerseusMarkdown from "../../perseus-markdown";
 
-import type {Passage, Reference} from "./passage";
-import type {PerseusPassageRefWidgetOptions} from "../perseus-types";
+import type {Passage, Reference} from "../passage";
+import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {
     ChangeFn,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../types";
+} from "../../types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const EN_DASH = "\u2013";

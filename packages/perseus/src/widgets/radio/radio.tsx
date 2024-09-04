@@ -4,7 +4,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import Util from "../../util";
-import PassageRef from "../passage-ref";
+import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
 
