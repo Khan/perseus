@@ -1,1 +1,3 @@
-export {default, Passage, Reference} from "./passage";
+export {default, Passage} from "./passage";
+
+export {type Reference} from "./passage";
