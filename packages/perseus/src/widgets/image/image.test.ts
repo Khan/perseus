@@ -3,9 +3,9 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {isAccessible} from "../../widgets";
-import {question} from "../__testdata__/image.testdata";
+import {question} from "./image.testdata";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
 import type {APIOptions} from "../../types";
 

@@ -3,19 +3,19 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import AssetContext from "../asset-context";
-import {PerseusI18nContext} from "../components/i18n-context";
-import SvgImage from "../components/svg-image";
-import * as Changeable from "../mixins/changeable";
-import Renderer from "../renderer";
+import AssetContext from "../../asset-context";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import SvgImage from "../../components/svg-image";
+import * as Changeable from "../../mixins/changeable";
+import Renderer from "../../renderer";
 
-import type {Range, PerseusImageWidgetOptions} from "../perseus-types";
+import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {
     ChangeFn,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../types";
+} from "../../types";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
