@@ -10,14 +10,14 @@ import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import {getDependencies} from "../dependencies";
-import * as Changeable from "../mixins/changeable";
-import {phoneMargin} from "../styles/constants";
-import {basicBorderColor, borderRadiusLarge} from "../styles/global-constants";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import {getDependencies} from "../../dependencies";
+import * as Changeable from "../../mixins/changeable";
+import {phoneMargin} from "../../styles/constants";
+import {basicBorderColor, borderRadiusLarge} from "../../styles/global-constants";
 
-import type {PerseusPhetSimulationWidgetOptions} from "../perseus-types";
-import type {WidgetExports, WidgetProps} from "../types";
+import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;

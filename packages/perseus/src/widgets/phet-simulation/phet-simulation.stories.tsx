@@ -1,4 +1,4 @@
-import {PhetSimulation} from "../phet-simulation";
+import {PhetSimulation} from "./phet-simulation";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
