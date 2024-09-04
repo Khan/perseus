@@ -32,12 +32,12 @@ class PhetSimulationEditor extends React.Component<Props> {
         };
     }
 
-    getSaveWarnings(): ReadonlyArray<string> {
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
         if (makeSafeUrl(this.props.url, "en") === null) {
             return ["Please enter a URL from the PhET domain."];
         }
         return [];
-    }
+    };
 
     render(): React.ReactNode {
         return (
