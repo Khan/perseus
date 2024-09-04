@@ -242,7 +242,8 @@ const styles = StyleSheet.create({
         borderColor: basicBorderColor,
         padding: spacing.medium_16,
         paddingBottom: 0,
-        width: 400 + spacing.medium_16 * 2,
+        // Include space for medium_16 padding on each side
+        width: 400 + spacing.xLarge_32,
     },
 });
 
