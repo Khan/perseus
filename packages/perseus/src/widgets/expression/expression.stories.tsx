@@ -7,10 +7,10 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import {
     expressionItem2,
     expressionItem3,
-} from "../__testdata__/expression.testdata";
-import expressionExport from "../expression";
+} from "./expression.testdata";
+import expressionExport from "./expression";
 
-import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
+import TestKeypadContextWrapper from "../__stories__/test-keypad-context-wrapper";
 
 import type {LegacyButtonSets, PerseusItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";

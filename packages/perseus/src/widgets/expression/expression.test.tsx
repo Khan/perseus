@@ -7,17 +7,17 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "../../strings";
+import {mockStrings} from "@khanacademy/perseus/strings";
 import {
     expressionItem2,
     expressionItem3,
     expressionItem3Options,
     expressionItemWithAnswer,
     expressionItemWithLabels,
-} from "../__testdata__/expression.testdata";
-import {Expression} from "../expression";
+} from "./expression.testdata";
+import {Expression} from "./expression";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
 import type {PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";

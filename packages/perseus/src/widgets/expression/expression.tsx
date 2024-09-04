@@ -11,27 +11,27 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import MathInput from "../components/math-input";
-import {useDependencies} from "../dependencies";
-import {Log} from "../logging/log";
-import * as Changeable from "../mixins/changeable";
-import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
-import a11y from "../util/a11y";
-import KhanAnswerTypes from "../util/answer-types";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import MathInput from "../../components/math-input";
+import {useDependencies} from "../../dependencies";
+import {Log} from "../../logging/log";
+import * as Changeable from "../../mixins/changeable";
+import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
+import a11y from "../../util/a11y";
+import KhanAnswerTypes from "../../util/answer-types";
 
-import type {DependenciesContext} from "../dependencies";
+import type {DependenciesContext} from "../../dependencies";
 import type {
     PerseusExpressionWidgetOptions,
     PerseusExpressionAnswerForm,
-} from "../perseus-types";
-import type {PerseusStrings} from "../strings";
+} from "../../perseus-types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {
     APIOptions,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../types";
+} from "../../types";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 

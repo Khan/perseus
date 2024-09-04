@@ -16,7 +16,7 @@ import {
     randomLetter,
     randomSentence,
     randomWord,
-} from "./randomizers";
+} from "../__testdata__/randomizers";
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
