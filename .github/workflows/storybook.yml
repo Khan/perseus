@@ -32,14 +32,10 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Set up node
-              uses: actions/setup-node@v4
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: yarn
-
-            - name: yarn install
-              run: yarn install
 
             - name: Publish to Chromatic for visual testing
               uses: chromaui/action@v11
