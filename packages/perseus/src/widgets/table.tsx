@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {keypadElementPropType} from "@khanacademy/math-input";
 import {
     linterContextProps,
@@ -90,102 +89,6 @@ class Table extends React.Component<any> {
     _getColumns: () => number = () => {
         return this.props.answers[0].length;
     };
-
-    render(): React.ReactNode {
-        const rows = this._getRows();
-        const columns = this._getColumns();
-        const headers = this.props.headers;
-
-        let InputComponent;
-        let inputStyle;
-        const extraInputProps: Record<string, any> = {};
-        if (this.props.apiOptions.customKeypad) {
-            InputComponent = SimpleKeypadInput;
-            // NOTE(charlie): This is intended to match the "width: 80px" in
-            // input in table.less. Those values should be kept in-sync.
-            inputStyle = {width: 80};
-            extraInputProps.keypadElement = this.props.keypadElement;
-        } else {
-            InputComponent = "input";
-            inputStyle = {};
-        }
-
-        return (
-            <table className="perseus-widget-table-of-values non-markdown">
-                <thead>
-                    <tr>
-                        {_.map(headers, (header, i) => {
-                            if (this.props.editableHeaders) {
-                                return (
-                                    <th key={i}>
-                                        <this.props.Editor
-                                            ref={"columnHeader" + i}
-                                            apiOptions={this.props.apiOptions}
-                                            content={header}
-                                            widgetEnabled={false}
-                                            onChange={_.partial(
-                                                this.onHeaderChange,
-                                                i,
-                                            )}
-                                        />
-                                    </th>
-                                );
-                            }
-                            return (
-                                <th key={i}>
-                                    <Renderer
-                                        content={header}
-                                        linterContext={this.props.linterContext}
-                                        strings={this.context.strings}
-                                    />
-                                </th>
-                            );
-                        })}
-                    </tr>
-                </thead>
-                <tbody>
-                    {_(rows).times((r) => {
-                        return (
-                            <tr key={r}>
-                                {_(columns).times((c) => {
-                                    return (
-                                        <td key={c}>
-                                            <InputComponent
-                                                ref={getRefForPath(
-                                                    getInputPath(r, c),
-                                                )}
-                                                type="text"
-                                                value={this.props.answers[r][c]}
-                                                disabled={
-                                                    this.props.apiOptions
-                                                        .readOnly
-                                                }
-                                                onFocus={_.partial(
-                                                    this._handleFocus,
-                                                    getInputPath(r, c),
-                                                )}
-                                                onBlur={_.partial(
-                                                    this._handleBlur,
-                                                    getInputPath(r, c),
-                                                )}
-                                                onChange={_.partial(
-                                                    this.onValueChange,
-                                                    r,
-                                                    c,
-                                                )}
-                                                style={inputStyle}
-                                                {...extraInputProps}
-                                            />
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        );
-    }
 
     getUserInput: () => any = () => {
         return _.map(this.props.answers, _.clone);
@@ -311,6 +214,102 @@ class Table extends React.Component<any> {
             cb,
         );
     };
+
+    render(): React.ReactNode {
+        const rows = this._getRows();
+        const columns = this._getColumns();
+        const headers = this.props.headers;
+
+        let InputComponent;
+        let inputStyle;
+        const extraInputProps: Record<string, any> = {};
+        if (this.props.apiOptions.customKeypad) {
+            InputComponent = SimpleKeypadInput;
+            // NOTE(charlie): This is intended to match the "width: 80px" in
+            // input in table.less. Those values should be kept in-sync.
+            inputStyle = {width: 80};
+            extraInputProps.keypadElement = this.props.keypadElement;
+        } else {
+            InputComponent = "input";
+            inputStyle = {};
+        }
+
+        return (
+            <table className="perseus-widget-table-of-values non-markdown">
+                <thead>
+                    <tr>
+                        {_.map(headers, (header, i) => {
+                            if (this.props.editableHeaders) {
+                                return (
+                                    <th key={i}>
+                                        <this.props.Editor
+                                            ref={"columnHeader" + i}
+                                            apiOptions={this.props.apiOptions}
+                                            content={header}
+                                            widgetEnabled={false}
+                                            onChange={_.partial(
+                                                this.onHeaderChange,
+                                                i,
+                                            )}
+                                        />
+                                    </th>
+                                );
+                            }
+                            return (
+                                <th key={i}>
+                                    <Renderer
+                                        content={header}
+                                        linterContext={this.props.linterContext}
+                                        strings={this.context.strings}
+                                    />
+                                </th>
+                            );
+                        })}
+                    </tr>
+                </thead>
+                <tbody>
+                    {_(rows).times((r) => {
+                        return (
+                            <tr key={r}>
+                                {_(columns).times((c) => {
+                                    return (
+                                        <td key={c}>
+                                            <InputComponent
+                                                ref={getRefForPath(
+                                                    getInputPath(r, c),
+                                                )}
+                                                type="text"
+                                                value={this.props.answers[r][c]}
+                                                disabled={
+                                                    this.props.apiOptions
+                                                        .readOnly
+                                                }
+                                                onFocus={_.partial(
+                                                    this._handleFocus,
+                                                    getInputPath(r, c),
+                                                )}
+                                                onBlur={_.partial(
+                                                    this._handleBlur,
+                                                    getInputPath(r, c),
+                                                )}
+                                                onChange={_.partial(
+                                                    this.onValueChange,
+                                                    r,
+                                                    c,
+                                                )}
+                                                style={inputStyle}
+                                                {...extraInputProps}
+                                            />
+                                        </td>
+                                    );
+                                })}
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        );
+    }
 }
 
 _.extend(Table, {

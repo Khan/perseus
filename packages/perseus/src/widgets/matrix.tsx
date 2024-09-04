@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -216,6 +215,185 @@ class Matrix extends React.Component<Props, State> {
         this.cursorPosition = [0, 0];
     }
 
+    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+        const inputPaths: Array<ReadonlyArray<string>> = [];
+        const maxRows = this.props.matrixBoardSize[0];
+        const maxCols = this.props.matrixBoardSize[1];
+
+        _(maxRows).times((row) => {
+            _(maxCols).times((col) => {
+                const inputPath = getInputPath(row, col);
+                inputPaths.push(inputPath);
+            });
+        });
+
+        return inputPaths;
+    };
+
+    getGrammarTypeForPath: (arg1: any) => string = (inputPath) => {
+        return "number";
+    };
+
+    _handleFocus: (arg1: any, arg2: any) => void = (row, col) => {
+        this.props.onFocus(getInputPath(row, col));
+    };
+
+    _handleBlur: (arg1: any, arg2: any) => void = (row, col) => {
+        this.props.onBlur(getInputPath(row, col));
+    };
+
+    focus: () => boolean = () => {
+        this.focusInputPath(getDefaultPath());
+        return true;
+    };
+
+    focusInputPath: (arg1: any) => void = (path) => {
+        const inputID = getRefForPath(path);
+        // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        this.refs[inputID].focus();
+    };
+
+    blurInputPath: (arg1: any) => void = (path) => {
+        if (path.length === 0) {
+            path = getDefaultPath();
+        }
+
+        const inputID = getRefForPath(path);
+        // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+        this.refs[inputID].blur();
+    };
+
+    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (
+        inputPath,
+    ) => {
+        const inputID = getRefForPath(inputPath);
+        // eslint-disable-next-line react/no-string-refs
+        return ReactDOM.findDOMNode(this.refs[inputID]);
+    };
+
+    setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
+        inputPath,
+        value,
+        callback,
+    ) => {
+        const row = getRowFromPath(inputPath);
+        const col = getColumnFromPath(inputPath);
+        this.onValueChange(row, col, value, callback);
+    };
+
+    handleKeyDown: (arg1: any, arg2: any, arg3: any) => void = (
+        row,
+        col,
+        e,
+    ) => {
+        const maxRow = this.props.matrixBoardSize[0];
+        const maxCol = this.props.matrixBoardSize[1];
+        let enterTheMatrix = null;
+
+        // eslint-disable-next-line react/no-string-refs
+        const curInput = this.refs[getRefForPath(getInputPath(row, col))];
+        // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
+        const curValueString = curInput.getStringValue();
+        // @ts-expect-error - TS2339 - Property 'getSelectionStart' does not exist on type 'ReactInstance'.
+        const cursorStartPosition = curInput.getSelectionStart();
+        // @ts-expect-error - TS2339 - Property 'getSelectionEnd' does not exist on type 'ReactInstance'.
+        const cursorEndPosition = curInput.getSelectionEnd();
+
+        let nextPath = null;
+        if (e.key === "ArrowUp" && row > 0) {
+            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
+            nextPath = getInputPath(row - 1, col);
+        } else if (e.key === "ArrowDown" && row + 1 < maxRow) {
+            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
+            nextPath = getInputPath(row + 1, col);
+        } else if (e.key === "ArrowLeft" && col > 0) {
+            if (cursorStartPosition === 0 && cursorEndPosition === 0) {
+                // Only go to next input if we're at the *start* of the content
+                // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
+                nextPath = getInputPath(row, col - 1);
+            }
+        } else if (e.key === "ArrowRight" && col + 1 < maxCol) {
+            if (cursorStartPosition === curValueString.length) {
+                // Only go to next input if we're at the *end* of the content
+                // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
+                nextPath = getInputPath(row, col + 1);
+            }
+        } else if (e.key === "Enter") {
+            // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
+            enterTheMatrix = this.state.enterTheMatrix + 1;
+        } else if (e.key === "Escape") {
+            // @ts-expect-error - TS2322 - Type '0' is not assignable to type 'null'.
+            enterTheMatrix = 0;
+        }
+
+        if (nextPath) {
+            // Prevent the cursor from jumping again inside the next input
+            e.preventDefault();
+
+            // Focus the input and move the cursor to the end of it.
+            // eslint-disable-next-line react/no-string-refs
+            const input = this.refs[getRefForPath(nextPath)];
+
+            // Multiply by 2 to ensure the cursor always ends up at the end;
+            // Opera sometimes sees a carriage return as 2 characters.
+            // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
+            const inputValString = input.getStringValue();
+            const valueLength = inputValString.length * 2;
+
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            input.focus();
+            if (e.key === "ArrowRight") {
+                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
+                input.setSelectionRange(0, 0);
+            } else {
+                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
+                input.setSelectionRange(valueLength, valueLength);
+            }
+        }
+
+        if (enterTheMatrix != null) {
+            this.setState({
+                enterTheMatrix: enterTheMatrix,
+            });
+        }
+    };
+
+    onValueChange: (arg1: any, arg2: any, arg3: any, arg4: any) => void = (
+        row,
+        column,
+        value,
+        cb,
+    ) => {
+        const answers = this.props.answers.map((answer) => [...answer]);
+        if (!answers[row]) {
+            answers[row] = [];
+        }
+        answers[row][column] = value;
+        this.props.onChange(
+            {
+                answers,
+            },
+            cb,
+        );
+        this.props.trackInteraction();
+    };
+
+    getUserInput: () => any = () => {
+        return {
+            answers: this.props.answers,
+        };
+    };
+
+    simpleValidate: (arg1: any) => any = (rubric) => {
+        return Matrix.validate(
+            this.getUserInput(),
+            rubric,
+            this.context.strings,
+        );
+    };
+
     render(): React.ReactNode {
         // Set the input sizes through JS so we can control the size of the
         // brackets. (If we set them in CSS we won't know values until the
@@ -424,185 +602,6 @@ class Matrix extends React.Component<Props, State> {
             </div>
         );
     }
-
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        const inputPaths: Array<ReadonlyArray<string>> = [];
-        const maxRows = this.props.matrixBoardSize[0];
-        const maxCols = this.props.matrixBoardSize[1];
-
-        _(maxRows).times((row) => {
-            _(maxCols).times((col) => {
-                const inputPath = getInputPath(row, col);
-                inputPaths.push(inputPath);
-            });
-        });
-
-        return inputPaths;
-    };
-
-    getGrammarTypeForPath: (arg1: any) => string = (inputPath) => {
-        return "number";
-    };
-
-    _handleFocus: (arg1: any, arg2: any) => void = (row, col) => {
-        this.props.onFocus(getInputPath(row, col));
-    };
-
-    _handleBlur: (arg1: any, arg2: any) => void = (row, col) => {
-        this.props.onBlur(getInputPath(row, col));
-    };
-
-    focus: () => boolean = () => {
-        this.focusInputPath(getDefaultPath());
-        return true;
-    };
-
-    focusInputPath: (arg1: any) => void = (path) => {
-        const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs[inputID].focus();
-    };
-
-    blurInputPath: (arg1: any) => void = (path) => {
-        if (path.length === 0) {
-            path = getDefaultPath();
-        }
-
-        const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs[inputID].blur();
-    };
-
-    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (
-        inputPath,
-    ) => {
-        const inputID = getRefForPath(inputPath);
-        // eslint-disable-next-line react/no-string-refs
-        return ReactDOM.findDOMNode(this.refs[inputID]);
-    };
-
-    setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
-        inputPath,
-        value,
-        callback,
-    ) => {
-        const row = getRowFromPath(inputPath);
-        const col = getColumnFromPath(inputPath);
-        this.onValueChange(row, col, value, callback);
-    };
-
-    handleKeyDown: (arg1: any, arg2: any, arg3: any) => void = (
-        row,
-        col,
-        e,
-    ) => {
-        const maxRow = this.props.matrixBoardSize[0];
-        const maxCol = this.props.matrixBoardSize[1];
-        let enterTheMatrix = null;
-
-        // eslint-disable-next-line react/no-string-refs
-        const curInput = this.refs[getRefForPath(getInputPath(row, col))];
-        // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
-        const curValueString = curInput.getStringValue();
-        // @ts-expect-error - TS2339 - Property 'getSelectionStart' does not exist on type 'ReactInstance'.
-        const cursorStartPosition = curInput.getSelectionStart();
-        // @ts-expect-error - TS2339 - Property 'getSelectionEnd' does not exist on type 'ReactInstance'.
-        const cursorEndPosition = curInput.getSelectionEnd();
-
-        let nextPath = null;
-        if (e.key === "ArrowUp" && row > 0) {
-            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
-            nextPath = getInputPath(row - 1, col);
-        } else if (e.key === "ArrowDown" && row + 1 < maxRow) {
-            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
-            nextPath = getInputPath(row + 1, col);
-        } else if (e.key === "ArrowLeft" && col > 0) {
-            if (cursorStartPosition === 0 && cursorEndPosition === 0) {
-                // Only go to next input if we're at the *start* of the content
-                // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
-                nextPath = getInputPath(row, col - 1);
-            }
-        } else if (e.key === "ArrowRight" && col + 1 < maxCol) {
-            if (cursorStartPosition === curValueString.length) {
-                // Only go to next input if we're at the *end* of the content
-                // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
-                nextPath = getInputPath(row, col + 1);
-            }
-        } else if (e.key === "Enter") {
-            // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
-            enterTheMatrix = this.state.enterTheMatrix + 1;
-        } else if (e.key === "Escape") {
-            // @ts-expect-error - TS2322 - Type '0' is not assignable to type 'null'.
-            enterTheMatrix = 0;
-        }
-
-        if (nextPath) {
-            // Prevent the cursor from jumping again inside the next input
-            e.preventDefault();
-
-            // Focus the input and move the cursor to the end of it.
-            // eslint-disable-next-line react/no-string-refs
-            const input = this.refs[getRefForPath(nextPath)];
-
-            // Multiply by 2 to ensure the cursor always ends up at the end;
-            // Opera sometimes sees a carriage return as 2 characters.
-            // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
-            const inputValString = input.getStringValue();
-            const valueLength = inputValString.length * 2;
-
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            input.focus();
-            if (e.key === "ArrowRight") {
-                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
-                input.setSelectionRange(0, 0);
-            } else {
-                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
-                input.setSelectionRange(valueLength, valueLength);
-            }
-        }
-
-        if (enterTheMatrix != null) {
-            this.setState({
-                enterTheMatrix: enterTheMatrix,
-            });
-        }
-    };
-
-    onValueChange: (arg1: any, arg2: any, arg3: any, arg4: any) => void = (
-        row,
-        column,
-        value,
-        cb,
-    ) => {
-        const answers = this.props.answers.map((answer) => [...answer]);
-        if (!answers[row]) {
-            answers[row] = [];
-        }
-        answers[row][column] = value;
-        this.props.onChange(
-            {
-                answers,
-            },
-            cb,
-        );
-        this.props.trackInteraction();
-    };
-
-    getUserInput: () => any = () => {
-        return {
-            answers: this.props.answers,
-        };
-    };
-
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        return Matrix.validate(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
-    };
 }
 
 const propTransform: (arg1: any) => any = (editorProps) => {

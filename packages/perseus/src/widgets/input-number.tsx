@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
@@ -135,66 +134,85 @@ class InputNumber extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
+    static validate(
+        state: {
+            currentValue: string;
+        },
+        rubric: Rubric,
+        strings: PerseusStrings,
+        onInputError: APIOptions["onInputError"] = () => {},
+    ): PerseusScore {
+        if (rubric.answerType == null) {
+            rubric.answerType = "number";
+        }
+
+        // note(matthewc): this will get immediately parsed again by
+        // `KhanAnswerTypes.number.convertToPredicate`, but a string is
+        // expected here
+        const stringValue = `${rubric.value}`;
+        const val = KhanAnswerTypes.number.createValidatorFunctional(
+            stringValue,
+            {
+                simplify: rubric.simplify,
+                inexact: rubric.inexact || undefined,
+                maxError: rubric.maxError,
+                forms: answerTypes[rubric.answerType].forms,
+            },
+            strings,
+        );
+
+        // We may have received TeX; try to parse it before grading.
+        // If `currentValue` is not TeX, this should be a no-op.
+        const currentValue = ParseTex(state.currentValue);
+
+        const result = val(currentValue);
+
+        // TODO(eater): Seems silly to translate result to this invalid/points
+        // thing and immediately translate it back in ItemRenderer.scoreInput()
+        if (result.empty) {
+            // TODO(FEI-3867): remove null-check once we have APIOptionsInternal
+            const apiResult = onInputError?.(
+                null, // reserved for some widget identifier
+                state.currentValue,
+                result.message,
+            );
+            return {
+                type: "invalid",
+                message: apiResult === false ? null : result.message,
+            };
+        }
+        return {
+            type: "points",
+            earned: result.correct ? 1 : 0,
+            total: 1,
+            message: result.message,
+        };
+    }
+
+    static getUserInputFromProps(props: Props): {
+        currentValue: string;
+    } {
+        return {
+            currentValue: props.currentValue,
+        };
+    }
+
+    static getOneCorrectAnswerFromRubric(
+        rubric: any,
+    ): string | null | undefined {
+        if (rubric.value == null) {
+            return;
+        }
+        let answerString = String(rubric.value);
+        if (rubric.inexact && rubric.maxError) {
+            answerString += " \u00B1 " + rubric.maxError;
+        }
+        return answerString;
+    }
+
     shouldShowExamples: () => boolean = () => {
         return this.props.answerType !== "number";
     };
-
-    render(): React.ReactNode {
-        if (this.props.apiOptions.customKeypad) {
-            // TODO(charlie): Support "Review Mode".
-            const input = (
-                <SimpleKeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
-                    value={this.props.currentValue}
-                    keypadElement={this.props.keypadElement}
-                    onChange={this.handleChange}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                />
-            );
-
-            if (this.props.rightAlign) {
-                return <div className="perseus-input-right-align">{input}</div>;
-            }
-
-            return input;
-        }
-        // HACK(johnsullivan): Create a function with shared logic between
-        // this and NumericInput.
-        // TODO(jeremy): Deprecate this widget and prefer numeric-input.
-        const rubric = this.props.reviewModeRubric;
-
-        // Note: This is _very_ similar to what `numeric-input.jsx` does. If
-        // you modify this, double-check if you also need to modify that
-        // component.
-        const inputStyles = [
-            styles.default,
-            this.props.size === "small" ? styles.small : null,
-            this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
-        ];
-        // Unanswered
-        if (rubric && !this.props.currentValue) {
-            inputStyles.push(styles.answerStateUnanswered);
-        }
-
-        return (
-            <InputWithExamples
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
-                value={this.props.currentValue}
-                onChange={this.handleChange}
-                style={inputStyles}
-                examples={this.examples()}
-                shouldShowExamples={this.shouldShowExamples()}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-                disabled={this.props.apiOptions.readOnly}
-                linterContext={this.props.linterContext}
-            />
-        );
-    }
 
     handleChange: (arg1: string, arg2: () => void) => void = (newValue, cb) => {
         this.props.onChange({currentValue: newValue}, cb);
@@ -287,80 +305,61 @@ class InputNumber extends React.Component<Props> {
         return [strings.yourAnswer].concat(examples);
     };
 
-    static validate(
-        state: {
-            currentValue: string;
-        },
-        rubric: Rubric,
-        strings: PerseusStrings,
-        onInputError: APIOptions["onInputError"] = () => {},
-    ): PerseusScore {
-        if (rubric.answerType == null) {
-            rubric.answerType = "number";
-        }
-
-        // note(matthewc): this will get immediately parsed again by
-        // `KhanAnswerTypes.number.convertToPredicate`, but a string is
-        // expected here
-        const stringValue = `${rubric.value}`;
-        const val = KhanAnswerTypes.number.createValidatorFunctional(
-            stringValue,
-            {
-                simplify: rubric.simplify,
-                inexact: rubric.inexact || undefined,
-                maxError: rubric.maxError,
-                forms: answerTypes[rubric.answerType].forms,
-            },
-            strings,
-        );
-
-        // We may have received TeX; try to parse it before grading.
-        // If `currentValue` is not TeX, this should be a no-op.
-        const currentValue = ParseTex(state.currentValue);
-
-        const result = val(currentValue);
-
-        // TODO(eater): Seems silly to translate result to this invalid/points
-        // thing and immediately translate it back in ItemRenderer.scoreInput()
-        if (result.empty) {
-            // TODO(FEI-3867): remove null-check once we have APIOptionsInternal
-            const apiResult = onInputError?.(
-                null, // reserved for some widget identifier
-                state.currentValue,
-                result.message,
+    render(): React.ReactNode {
+        if (this.props.apiOptions.customKeypad) {
+            // TODO(charlie): Support "Review Mode".
+            const input = (
+                <SimpleKeypadInput
+                    // eslint-disable-next-line react/no-string-refs
+                    ref="input"
+                    value={this.props.currentValue}
+                    keypadElement={this.props.keypadElement}
+                    onChange={this.handleChange}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                />
             );
-            return {
-                type: "invalid",
-                message: apiResult === false ? null : result.message,
-            };
-        }
-        return {
-            type: "points",
-            earned: result.correct ? 1 : 0,
-            total: 1,
-            message: result.message,
-        };
-    }
 
-    static getUserInputFromProps(props: Props): {
-        currentValue: string;
-    } {
-        return {
-            currentValue: props.currentValue,
-        };
-    }
+            if (this.props.rightAlign) {
+                return <div className="perseus-input-right-align">{input}</div>;
+            }
 
-    static getOneCorrectAnswerFromRubric(
-        rubric: any,
-    ): string | null | undefined {
-        if (rubric.value == null) {
-            return;
+            return input;
         }
-        let answerString = String(rubric.value);
-        if (rubric.inexact && rubric.maxError) {
-            answerString += " \u00B1 " + rubric.maxError;
+        // HACK(johnsullivan): Create a function with shared logic between
+        // this and NumericInput.
+        // TODO(jeremy): Deprecate this widget and prefer numeric-input.
+        const rubric = this.props.reviewModeRubric;
+
+        // Note: This is _very_ similar to what `numeric-input.jsx` does. If
+        // you modify this, double-check if you also need to modify that
+        // component.
+        const inputStyles = [
+            styles.default,
+            this.props.size === "small" ? styles.small : null,
+            this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
+        ];
+        // Unanswered
+        if (rubric && !this.props.currentValue) {
+            inputStyles.push(styles.answerStateUnanswered);
         }
-        return answerString;
+
+        return (
+            <InputWithExamples
+                // eslint-disable-next-line react/no-string-refs
+                ref="input"
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                style={inputStyles}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+                linterContext={this.props.linterContext}
+            />
+        );
     }
 }
 

@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {
     components,
     Changeable,
@@ -64,6 +63,35 @@ class MatrixEditor extends React.Component<Props> {
         cursorPosition: [0, 0],
     };
 
+    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
+        return Changeable.change.apply(this, args);
+    };
+
+    onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {
+        const matrixSize = getMatrixSize(this.props.answers);
+        if (range[0] !== null && range[1] !== null) {
+            range = [
+                Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
+                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
+            ];
+            const answers = _(Math.min(range[0], matrixSize[0])).times(
+                (row) => {
+                    return _(Math.min(range[1], matrixSize[1])).times((col) => {
+                        return this.props.answers[row][col];
+                    });
+                },
+            );
+            this.props.onChange({
+                matrixBoardSize: range,
+                answers: answers,
+            });
+        }
+    };
+
+    serialize: () => any = () => {
+        return EditorJsonify.serialize.call(this);
+    };
+
     render(): React.ReactNode {
         const matrixProps = _.extend(
             {
@@ -122,35 +150,6 @@ class MatrixEditor extends React.Component<Props> {
             </div>
         );
     }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {
-        const matrixSize = getMatrixSize(this.props.answers);
-        if (range[0] !== null && range[1] !== null) {
-            range = [
-                Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
-                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
-            ];
-            const answers = _(Math.min(range[0], matrixSize[0])).times(
-                (row) => {
-                    return _(Math.min(range[1], matrixSize[1])).times((col) => {
-                        return this.props.answers[row][col];
-                    });
-                },
-            );
-            this.props.onChange({
-                matrixBoardSize: range,
-                answers: answers,
-            });
-        }
-    };
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
 }
 
 export default MatrixEditor;

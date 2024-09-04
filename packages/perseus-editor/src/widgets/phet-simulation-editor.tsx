@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/sort-comp */
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
@@ -25,6 +24,13 @@ class PhetSimulationEditor extends React.Component<Props> {
 
     static widgetName = "phet-simulation" as const;
 
+    serialize(): PerseusPhetSimulationWidgetOptions {
+        return {
+            url: this.props.url,
+            description: this.props.description,
+        };
+    }
+
     render(): React.ReactNode {
         return (
             <div>
@@ -43,13 +49,6 @@ class PhetSimulationEditor extends React.Component<Props> {
                 />
             </div>
         );
-    }
-
-    serialize(): PerseusPhetSimulationWidgetOptions {
-        return {
-            url: this.props.url,
-            description: this.props.description,
-        };
     }
 }
 

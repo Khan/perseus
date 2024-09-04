@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe */
 import {Errors} from "@khanacademy/perseus-core";
 import {
     linterContextProps,
@@ -90,71 +90,6 @@ class Card extends React.Component<any, any> {
 
     state = {dragging: false};
 
-    render(): React.ReactNode {
-        let style: Record<string, any> = {};
-
-        if (this.props.floating) {
-            style = {
-                position: "absolute",
-                left: this.props.startOffset.left,
-                top: this.props.startOffset.top,
-            };
-        }
-
-        if (this.props.width) {
-            style.width = this.props.width;
-        }
-
-        const className = ["card"];
-        if (this.props.stack) {
-            className.push("stack");
-        }
-        if (this.props.floating && !this.props.animating) {
-            className.push("dragging");
-            style.left += this.props.mouse.left - this.props.startMouse.left;
-            style.top += this.props.mouse.top - this.props.startMouse.top;
-        }
-
-        // Pull out the content to get rendered
-        const rendererProps = _.pick(this.props, "content");
-
-        const onMouseDown = this.props.animating ? $.noop : this.onMouseDown;
-
-        return (
-            <div
-                className={"card-wrap " + ApiClassNames.INTERACTIVE}
-                style={style}
-                onMouseDown={onMouseDown}
-                onTouchStart={onMouseDown}
-                onTouchEnd={this.onMouseUp}
-                onTouchCancel={this.onMouseUp}
-            >
-                <div className={className.join(" ")}>
-                    <Renderer
-                        {...rendererProps}
-                        linterContext={this.props.linterContext}
-                        strings={this.context.strings}
-                    />
-                </div>
-            </div>
-        );
-    }
-
-    shouldComponentUpdate(nextProps: any, nextState) {
-        // Cards in the bank or drag list don't usually change -- they only
-        // reorder themselves -- so we want to skip the update to things a
-        // little faster. We also need to re-render if the content changes,
-        // which happens only in the editor. (We do want to update the floating
-        // card on mouse move to update its position.)
-        return (
-            this.props.floating ||
-            nextProps.floating ||
-            this.props.content !== nextProps.content ||
-            // TODO(alpert): Remove ref here after fixing facebook/react#1392.
-            this.props.fakeRef !== nextProps.fakeRef
-        );
-    }
-
     componentDidMount() {
         this.mouseMoveUpBound = false;
 
@@ -172,6 +107,21 @@ class Card extends React.Component<any, any> {
             // this third paramter is just a boolean. If we pass the "options"
             // object, it's interpreted as `capture=true` (which we don't want!)
             Util.supportsPassiveEvents() ? {passive: false} : false,
+        );
+    }
+
+    shouldComponentUpdate(nextProps: any, nextState) {
+        // Cards in the bank or drag list don't usually change -- they only
+        // reorder themselves -- so we want to skip the update to things a
+        // little faster. We also need to re-render if the content changes,
+        // which happens only in the editor. (We do want to update the floating
+        // card on mouse move to update its position.)
+        return (
+            this.props.floating ||
+            nextProps.floating ||
+            this.props.content !== nextProps.content ||
+            // TODO(alpert): Remove ref here after fixing facebook/react#1392.
+            this.props.fakeRef !== nextProps.fakeRef
         );
     }
 
@@ -265,6 +215,56 @@ class Card extends React.Component<any, any> {
             this.props.onMouseUp && this.props.onMouseUp(loc);
         }
     };
+
+    render(): React.ReactNode {
+        let style: Record<string, any> = {};
+
+        if (this.props.floating) {
+            style = {
+                position: "absolute",
+                left: this.props.startOffset.left,
+                top: this.props.startOffset.top,
+            };
+        }
+
+        if (this.props.width) {
+            style.width = this.props.width;
+        }
+
+        const className = ["card"];
+        if (this.props.stack) {
+            className.push("stack");
+        }
+        if (this.props.floating && !this.props.animating) {
+            className.push("dragging");
+            style.left += this.props.mouse.left - this.props.startMouse.left;
+            style.top += this.props.mouse.top - this.props.startMouse.top;
+        }
+
+        // Pull out the content to get rendered
+        const rendererProps = _.pick(this.props, "content");
+
+        const onMouseDown = this.props.animating ? $.noop : this.onMouseDown;
+
+        return (
+            <div
+                className={"card-wrap " + ApiClassNames.INTERACTIVE}
+                style={style}
+                onMouseDown={onMouseDown}
+                onTouchStart={onMouseDown}
+                onTouchEnd={this.onMouseUp}
+                onTouchCancel={this.onMouseUp}
+            >
+                <div className={className.join(" ")}>
+                    <Renderer
+                        {...rendererProps}
+                        linterContext={this.props.linterContext}
+                        strings={this.context.strings}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 const NORMAL = "normal",
@@ -337,148 +337,6 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         if (!_.isEqual(this.props.current, nextProps.current)) {
             this.setState({current: nextProps.current});
         }
-    }
-
-    render(): React.ReactNode {
-        // This is the card we are currently dragging
-        const dragging = this.state.dragging && (
-            <Card
-                // eslint-disable-next-line react/no-string-refs
-                ref="dragging"
-                floating={true}
-                content={this.state.dragContent}
-                startOffset={this.state.offsetPos}
-                startMouse={this.state.grabPos}
-                mouse={this.state.mousePos}
-                width={this.state.dragWidth}
-                onMouseUp={this.onRelease}
-                onMouseMove={this.onMouseMove}
-                key={this.state.dragKey || "draggingCard"}
-                linterContext={this.props.linterContext}
-            />
-        );
-
-        // This is the card that is currently animating
-        const animating = this.state.animating && (
-            <Card
-                floating={true}
-                animating={true}
-                content={this.state.dragContent}
-                startOffset={this.state.offsetPos}
-                width={this.state.dragWidth}
-                animateTo={this.state.animateTo}
-                onAnimationEnd={this.state.onAnimationEnd}
-                key={this.state.dragKey || "draggingCard"}
-                linterContext={this.props.linterContext}
-            />
-        );
-
-        // This is the list of draggable, rearrangable cards
-        const sortableCards = _.map(
-            this.state.current,
-            function (opt, i) {
-                return (
-                    <Card
-                        key={`sortableCard${i}`}
-                        ref={"sortable" + i}
-                        fakeRef={"sortable" + i}
-                        floating={false}
-                        content={opt.content}
-                        width={opt.width}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        linterContext={this.props.linterContext}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        onMouseDown={
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.state.animating
-                                ? $.noop
-                                : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                  this.onClick.bind(null, "current", i)
-                        }
-                    />
-                );
-            },
-            this,
-        );
-
-        if (this.state.placeholderIndex != null) {
-            const placeholder = (
-                <PlaceholderCard
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="placeholder"
-                    width={this.state.dragWidth}
-                    height={this.state.dragHeight}
-                    key="placeholder"
-                />
-            );
-            sortableCards.splice(this.state.placeholderIndex, 0, placeholder);
-        }
-
-        const anySortableCards = sortableCards.length > 0;
-        // @ts-expect-error - TS2345 - Argument of type 'false | Element' is not assignable to parameter of type 'Element'.
-        sortableCards.push(dragging, animating);
-
-        // If there are no cards in the list, then add a "hint" card
-        const sortable = (
-            <div className="perseus-clearfix draggable-box">
-                {!anySortableCards && <DragHintCard />}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div ref="dragList">{sortableCards}</div>
-            </div>
-        );
-
-        // This is the bank of stacks of cards
-        const bank = (
-            // eslint-disable-next-line react/no-string-refs
-            <div ref="bank" className="bank perseus-clearfix">
-                {_.map(
-                    this.props.options,
-                    (opt, i) => {
-                        return (
-                            <Card
-                                ref={"bank" + i}
-                                floating={false}
-                                content={opt.content}
-                                stack={true}
-                                key={i}
-                                linterContext={this.props.linterContext}
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onMouseDown={
-                                    this.state.animating
-                                        ? $.noop
-                                        : this.onClick.bind(null, "bank", i)
-                                }
-                                onMouseMove={this.onMouseMove}
-                                onMouseUp={this.onRelease}
-                            />
-                        );
-                    },
-                    this,
-                )}
-            </div>
-        );
-
-        return (
-            <div
-                className={
-                    "draggy-boxy-thing orderer " +
-                    "height-" +
-                    this.props.height +
-                    " " +
-                    "layout-" +
-                    this.props.layout +
-                    " " +
-                    "above-scratchpad blank-background " +
-                    "perseus-clearfix " +
-                    ApiClassNames.INTERACTIVE
-                }
-                // eslint-disable-next-line react/no-string-refs
-                ref="orderer"
-            >
-                {bank}
-                {sortable}
-            </div>
-        );
     }
 
     onClick: (arg1: string, arg2: number, arg3: any, arg4: Element) => void = (
@@ -759,6 +617,148 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Orderer'.
         return Orderer.validate(this.getUserInput(), rubric);
     };
+
+    render(): React.ReactNode {
+        // This is the card we are currently dragging
+        const dragging = this.state.dragging && (
+            <Card
+                // eslint-disable-next-line react/no-string-refs
+                ref="dragging"
+                floating={true}
+                content={this.state.dragContent}
+                startOffset={this.state.offsetPos}
+                startMouse={this.state.grabPos}
+                mouse={this.state.mousePos}
+                width={this.state.dragWidth}
+                onMouseUp={this.onRelease}
+                onMouseMove={this.onMouseMove}
+                key={this.state.dragKey || "draggingCard"}
+                linterContext={this.props.linterContext}
+            />
+        );
+
+        // This is the card that is currently animating
+        const animating = this.state.animating && (
+            <Card
+                floating={true}
+                animating={true}
+                content={this.state.dragContent}
+                startOffset={this.state.offsetPos}
+                width={this.state.dragWidth}
+                animateTo={this.state.animateTo}
+                onAnimationEnd={this.state.onAnimationEnd}
+                key={this.state.dragKey || "draggingCard"}
+                linterContext={this.props.linterContext}
+            />
+        );
+
+        // This is the list of draggable, rearrangable cards
+        const sortableCards = _.map(
+            this.state.current,
+            function (opt, i) {
+                return (
+                    <Card
+                        key={`sortableCard${i}`}
+                        ref={"sortable" + i}
+                        fakeRef={"sortable" + i}
+                        floating={false}
+                        content={opt.content}
+                        width={opt.width}
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        linterContext={this.props.linterContext}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onMouseDown={
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.state.animating
+                                ? $.noop
+                                : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                  this.onClick.bind(null, "current", i)
+                        }
+                    />
+                );
+            },
+            this,
+        );
+
+        if (this.state.placeholderIndex != null) {
+            const placeholder = (
+                <PlaceholderCard
+                    // eslint-disable-next-line react/no-string-refs
+                    ref="placeholder"
+                    width={this.state.dragWidth}
+                    height={this.state.dragHeight}
+                    key="placeholder"
+                />
+            );
+            sortableCards.splice(this.state.placeholderIndex, 0, placeholder);
+        }
+
+        const anySortableCards = sortableCards.length > 0;
+        // @ts-expect-error - TS2345 - Argument of type 'false | Element' is not assignable to parameter of type 'Element'.
+        sortableCards.push(dragging, animating);
+
+        // If there are no cards in the list, then add a "hint" card
+        const sortable = (
+            <div className="perseus-clearfix draggable-box">
+                {!anySortableCards && <DragHintCard />}
+                {/* eslint-disable-next-line react/no-string-refs */}
+                <div ref="dragList">{sortableCards}</div>
+            </div>
+        );
+
+        // This is the bank of stacks of cards
+        const bank = (
+            // eslint-disable-next-line react/no-string-refs
+            <div ref="bank" className="bank perseus-clearfix">
+                {_.map(
+                    this.props.options,
+                    (opt, i) => {
+                        return (
+                            <Card
+                                ref={"bank" + i}
+                                floating={false}
+                                content={opt.content}
+                                stack={true}
+                                key={i}
+                                linterContext={this.props.linterContext}
+                                // eslint-disable-next-line react/jsx-no-bind
+                                onMouseDown={
+                                    this.state.animating
+                                        ? $.noop
+                                        : this.onClick.bind(null, "bank", i)
+                                }
+                                onMouseMove={this.onMouseMove}
+                                onMouseUp={this.onRelease}
+                            />
+                        );
+                    },
+                    this,
+                )}
+            </div>
+        );
+
+        return (
+            <div
+                className={
+                    "draggy-boxy-thing orderer " +
+                    "height-" +
+                    this.props.height +
+                    " " +
+                    "layout-" +
+                    this.props.layout +
+                    " " +
+                    "above-scratchpad blank-background " +
+                    "perseus-clearfix " +
+                    ApiClassNames.INTERACTIVE
+                }
+                // eslint-disable-next-line react/no-string-refs
+                ref="orderer"
+            >
+                {bank}
+                {sortable}
+            </div>
+        );
+    }
 }
 
 _.extend(Orderer, {
