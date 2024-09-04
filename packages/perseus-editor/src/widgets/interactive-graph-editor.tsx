@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unsafe */
 import {vector as kvector} from "@khanacademy/kmath";
 import {
     components,
@@ -37,19 +36,12 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
-const DeprecationMixin = Util.DeprecationMixin;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
 type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 const defaultBackgroundImage = {
     url: null,
-} as const;
-
-const deprecatedProps = {
-    showGraph: function (props) {
-        return {markings: props.showGraph ? "graph" : "none"};
-    },
 } as const;
 
 const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
@@ -175,14 +167,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
             coords: null,
         },
     };
-
-    // TODO(jack): Use versioning instead of DeprecationMixin
-    deprecatedProps = deprecatedProps;
-
-    // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
-    UNSAFE_componentWillMount() {
-        DeprecationMixin.UNSAFE_componentWillMount.call(this);
-    }
 
     changeMatchType = (newValue) => {
         const correct = {
