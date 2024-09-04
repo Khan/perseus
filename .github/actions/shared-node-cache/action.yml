@@ -12,11 +12,11 @@ inputs:
 runs:
     using: "composite"
     steps:
-      - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ inputs.node-version }}
-          cache: yarn
+        - name: Set up node
+          uses: actions/setup-node@v4
+          with:
+              node-version: ${{ inputs.node-version }}
+              cache: yarn
 
-      - name: yarn install
-        run: yarn install
+        - name: yarn install
+          run: yarn install
