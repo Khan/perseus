@@ -1,5 +1,26 @@
 # @khanacademy/perseus-editor
 
+## 14.0.0
+
+### Major Changes
+
+-   [#1577](https://github.com/Khan/perseus/pull/1577) [`c875acd01`](https://github.com/Khan/perseus/commit/c875acd01fe8cfa84a2b10177a6fcedfb612cb3f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove example widgets and their editors
+
+### Minor Changes
+
+-   [#1582](https://github.com/Khan/perseus/pull/1582) [`377b7ce68`](https://github.com/Khan/perseus/commit/377b7ce68801cef99cd3a09474b28a8b60f90f0a) Thanks [@aemandine](https://github.com/aemandine)! - Add save warnings to PhET widget editor and un-hide widget from content editor widget dropdown
+
+### Patch Changes
+
+-   [#1585](https://github.com/Khan/perseus/pull/1585) [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize files in the widgets folder
+
+*   [#1587](https://github.com/Khan/perseus/pull/1587) [`8015cdefb`](https://github.com/Khan/perseus/commit/8015cdefbafa094e9e1969ddb6ec39033c990687) Thanks [@aemandine](https://github.com/aemandine)! - Tidying up PhET widget
+
+-   [#1583](https://github.com/Khan/perseus/pull/1583) [`615567bd2`](https://github.com/Khan/perseus/commit/615567bd2eeec45d16d845a1cb8bd5c33c04d701) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove sort-comp exceptions and reorder components
+
+-   Updated dependencies [[`78bb8573e`](https://github.com/Khan/perseus/commit/78bb8573e9b00992554c2b1339678cc78363773b), [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce), [`d56952564`](https://github.com/Khan/perseus/commit/d569525643d1dcf9c2cca78bc3b5ce18b7f584d1), [`c875acd01`](https://github.com/Khan/perseus/commit/c875acd01fe8cfa84a2b10177a6fcedfb612cb3f), [`8015cdefb`](https://github.com/Khan/perseus/commit/8015cdefbafa094e9e1969ddb6ec39033c990687), [`c4432ffad`](https://github.com/Khan/perseus/commit/c4432ffad978a224b7d981e1577c7897342a01ee), [`615567bd2`](https://github.com/Khan/perseus/commit/615567bd2eeec45d16d845a1cb8bd5c33c04d701), [`377b7ce68`](https://github.com/Khan/perseus/commit/377b7ce68801cef99cd3a09474b28a8b60f90f0a)]:
+    -   @khanacademy/perseus@32.0.0
+
 ## 13.1.0
 
 ### Minor Changes

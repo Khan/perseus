@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 3.0.4
+
+### Patch Changes
+
+-   [#1585](https://github.com/Khan/perseus/pull/1585) [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize files in the widgets folder
+
 ## 3.0.3
 
 ### Patch Changes
