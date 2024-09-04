@@ -6,12 +6,12 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import * as Perseus from "../../index";
-import {mockStrings} from "../../strings";
+import * as Perseus from "@khanacademy/perseus";
+import {mockStrings} from "@khanacademy/perseus/strings";
 import {traverse} from "../../traversal";
-import {question1} from "../__testdata__/group.testdata";
+import {question1} from "./group.testdata";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
 import type {UserEvent} from "@testing-library/user-event";
 

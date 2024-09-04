@@ -2,13 +2,13 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import * as Changeable from "../mixins/changeable";
-import {ApiOptions} from "../perseus-api";
-import Renderer from "../renderer";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import * as Changeable from "../../mixins/changeable";
+import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
 
-import type {PerseusGroupWidgetOptions} from "../perseus-types";
-import type {Widget} from "../renderer";
+import type {PerseusGroupWidgetOptions} from "../../perseus-types";
+import type {Widget} from "../../renderer";
 import type {
     APIOptions,
     ChangeFn,
@@ -16,7 +16,7 @@ import type {
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from "../types";
+} from "../../types";
 
 type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
