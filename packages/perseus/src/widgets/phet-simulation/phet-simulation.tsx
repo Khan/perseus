@@ -21,6 +21,7 @@ import {
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
@@ -239,9 +240,9 @@ const styles = StyleSheet.create({
         borderRadius: borderRadiusLarge,
         borderWidth: 1,
         borderColor: basicBorderColor,
-        padding: phoneMargin,
+        padding: spacing.medium_16,
         paddingBottom: 0,
-        width: 450,
+        width: 400 + spacing.medium_16 * 2,
     },
 });
 
