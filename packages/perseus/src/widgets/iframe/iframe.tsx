@@ -13,12 +13,12 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {getDependencies} from "../dependencies";
-import * as Changeable from "../mixins/changeable";
-import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
-import Util from "../util";
+import {getDependencies} from "../../dependencies";
+import * as Changeable from "../../mixins/changeable";
+import WidgetJsonifyDeprecated from "../../mixins/widget-jsonify-deprecated";
+import Util from "../../util";
 
-import type {WidgetExports} from "../types";
+import type {WidgetExports} from "../../types";
 
 const {updateQueryString} = Util;
 
