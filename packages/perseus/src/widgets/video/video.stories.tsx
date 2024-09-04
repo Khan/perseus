@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question1, question2, question3} from "../__testdata__/video.testdata";
+import {question1, question2, question3} from "./video.testdata";
 
 export default {
     title: "Perseus/Widgets/Video",

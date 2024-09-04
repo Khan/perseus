@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import VideoTranscriptLink from "../video-transcript-link";
+import VideoTranscriptLink from "./video-transcript-link";
 
 type StoryArgs = Record<any, any>;
 

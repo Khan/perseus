@@ -8,8 +8,8 @@ import Link from "@khanacademy/wonder-blocks-link";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {usePerseusI18n} from "../components/i18n-context";
-import {getDependencies} from "../dependencies";
+import {usePerseusI18n} from "../../components/i18n-context";
+import {getDependencies} from "../../dependencies";
 
 const IS_URL = /^https?:\/\//;
 

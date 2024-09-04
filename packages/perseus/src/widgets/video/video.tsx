@@ -6,16 +6,16 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import _ from "underscore";
 
-import FixedToResponsive from "../components/fixed-to-responsive";
-import {PerseusI18nContext} from "../components/i18n-context";
-import {getDependencies} from "../dependencies";
-import * as Changeable from "../mixins/changeable";
-import a11y from "../util/a11y";
+import FixedToResponsive from "../../components/fixed-to-responsive";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import {getDependencies} from "../../dependencies";
+import * as Changeable from "../../mixins/changeable";
+import a11y from "../../util/a11y";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
-import type {PerseusVideoWidgetOptions} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {PerseusVideoWidgetOptions} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 // Current default is 720p, based on the typical videos we upload currently
 const DEFAULT_WIDTH = 1280;
