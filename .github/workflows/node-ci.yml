@@ -69,11 +69,14 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+            - name: Set up node
+              uses: actions/setup-node@v4
               with:
-                  node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+                node-version: ${{ matrix.node-version }}
+                cache: yarn
+
+            - name: yarn install
+              run: yarn install
 
             - name: Get All Changed Files
               uses: Khan/actions@get-changed-files-v2
@@ -148,11 +151,14 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+            - name: Set up node
+              uses: actions/setup-node@v4
               with:
-                  node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+                node-version: ${{ matrix.node-version }}
+                cache: yarn
+
+            - name: yarn install
+              run: yarn install
 
             - name: Run test with coverage
               run: yarn cypress:ci
@@ -182,11 +188,14 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+            - name: Set up node
+              uses: actions/setup-node@v4
               with:
-                  node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+                node-version: ${{ matrix.node-version }}
+                cache: yarn
+
+            - name: yarn install
+              run: yarn install
 
             - name: Jest with coverage
               run: yarn coverage
@@ -244,11 +253,15 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+            - name: Set up node
+              uses: actions/setup-node@v4
               with:
-                  node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+                node-version: ${{ matrix.node-version }}
+                cache: yarn
+
+            - name: yarn install
+              run: yarn install
+
             # Make sure our packages aren't growing unexpectedly
             # This must come last as it builds the old code last and so leaves the
             # wrong code in place for the next job; in other words, it leaves the repo on a base branch.
@@ -292,11 +305,14 @@ jobs:
                   git checkout main
                   git checkout $REF
 
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+            - name: Set up node
+              uses: actions/setup-node@v4
               with:
-                  node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+                node-version: ${{ matrix.node-version }}
+                cache: yarn
+
+            - name: yarn install
+              run: yarn install
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
