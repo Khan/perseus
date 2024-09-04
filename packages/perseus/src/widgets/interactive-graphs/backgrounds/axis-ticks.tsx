@@ -110,7 +110,7 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
     // Adjust the Y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
     const yAdjustment =
-        range[Y][MAX] < 0 ? -tickLabelSize : tickLabelSize * 1.5;
+        range[Y][MAX] < 0 ? -tickLabelSize : tickLabelSize * 1.75;
 
     // Adjust the X position of the x-axis labels based on
     // whether the label is positive or negative, in order to
