@@ -8,11 +8,11 @@ import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "../../strings";
-import {question3 as question} from "../__testdata__/input-number.testdata";
-import InputNumber from "../input-number";
+import {mockStrings} from "@khanacademy/perseus/strings";
+import {question3 as question} from "./input-number.testdata";
+import InputNumber from "./input-number";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
 import type {
     PerseusInputNumberWidgetOptions,

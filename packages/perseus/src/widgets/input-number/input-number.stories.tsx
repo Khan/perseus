@@ -5,7 +5,7 @@ import {
     question1,
     question2,
     question3,
-} from "../__testdata__/input-number.testdata";
+} from "./input-number.testdata";
 
 import type {
     PerseusRenderer,
