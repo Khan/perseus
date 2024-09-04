@@ -3,9 +3,9 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {article1} from "./graded-group-set.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {article1} from "./graded-group-set.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 

@@ -22,8 +22,9 @@ import {
 import * as Dependencies from "../../dependencies";
 import WrappedServerItemRenderer from "../../server-item-renderer";
 import {registerWidget} from "../../widgets";
-import {expressionItem2} from "./expression.testdata";
+
 import ExpressionExport from "./expression";
+import {expressionItem2} from "./expression.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 

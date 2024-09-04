@@ -3,9 +3,9 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {question1} from "./matrix.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {question1} from "./matrix.testdata";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";

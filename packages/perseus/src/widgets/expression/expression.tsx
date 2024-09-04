@@ -25,7 +25,6 @@ import type {
     PerseusExpressionWidgetOptions,
     PerseusExpressionAnswerForm,
 } from "../../perseus-types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {
     APIOptions,
     PerseusScore,
@@ -33,6 +32,7 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;

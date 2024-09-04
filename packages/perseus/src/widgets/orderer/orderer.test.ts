@@ -2,9 +2,9 @@ import {act} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {question2} from "./orderer.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {question2} from "./orderer.testdata";
 
 import type {APIOptions} from "../../types";
 

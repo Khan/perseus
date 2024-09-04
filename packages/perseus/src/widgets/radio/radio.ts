@@ -6,8 +6,8 @@ import Radio from "./radio-component";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {WidgetExports} from "../../types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 const {shuffle, random} = Util;
 

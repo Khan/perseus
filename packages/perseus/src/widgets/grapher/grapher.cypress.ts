@@ -1,6 +1,7 @@
 import renderQuestionWithCypress from "../../../../../testing/render-question-with-cypress";
 import {cypressTestDependencies} from "../../../../../testing/test-dependencies";
 import * as Perseus from "../../index";
+
 import {
     absoluteValueQuestion,
     exponentialQuestion,

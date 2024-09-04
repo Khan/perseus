@@ -4,12 +4,12 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
-import {question1} from "./matcher.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
 
-import type {APIOptions} from "../../types";
+import {question1} from "./matcher.testdata";
+
 import type {Matcher} from "./matcher";
+import type {APIOptions} from "../../types";
 
 describe("matcher widget", () => {
     beforeEach(() => {

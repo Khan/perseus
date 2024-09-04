@@ -6,13 +6,14 @@ import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
+import {mockStrings} from "@khanacademy/perseus/strings";
+
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "@khanacademy/perseus/strings";
-import {question3 as question} from "./input-number.testdata";
-import InputNumber from "./input-number";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import InputNumber from "./input-number";
+import {question3 as question} from "./input-number.testdata";
 
 import type {
     PerseusInputNumberWidgetOptions,

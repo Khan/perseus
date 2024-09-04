@@ -1,12 +1,12 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
+import {renderQuestion} from "../__tests__/renderQuestion";
+
 import {
     linearQuestion,
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
-
-import {renderQuestion} from "../__tests__/renderQuestion";
 
 describe("grapher widget", () => {
     beforeEach(() => {

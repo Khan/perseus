@@ -7,7 +7,6 @@ import {
     type ExpressionWidget,
     type PerseusAnswerArea,
 } from "../../perseus-types";
-
 import {
     arrayOfLength,
     randomBoolean,

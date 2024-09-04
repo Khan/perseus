@@ -4,13 +4,10 @@ import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {
-    expressionItem2,
-    expressionItem3,
-} from "./expression.testdata";
-import expressionExport from "./expression";
-
 import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper";
+
+import expressionExport from "./expression";
+import {expressionItem2, expressionItem3} from "./expression.testdata";
 
 import type {LegacyButtonSets, PerseusItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";

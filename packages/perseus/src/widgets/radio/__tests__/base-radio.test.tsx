@@ -6,8 +6,9 @@ import * as React from "react";
 // eslint-disable-next-line import/no-relative-packages
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
-import {generateChoice} from "./base-radio.testdata";
 import BaseRadio from "../base-radio";
+
+import {generateChoice} from "./base-radio.testdata";
 
 import type {APIOptions} from "../../../types";
 import type {UserEvent} from "@testing-library/user-event";

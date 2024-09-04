@@ -6,9 +6,9 @@
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {article1} from "./graded-group-set.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {article1} from "./graded-group-set.testdata";
 
 describe("graded-group-set", () => {
     beforeEach(() => {

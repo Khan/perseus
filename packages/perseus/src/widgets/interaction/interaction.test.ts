@@ -1,9 +1,9 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
-import {question1} from "./interaction.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {question1} from "./interaction.testdata";
 
 describe("interaction widget", () => {
     beforeEach(() => {

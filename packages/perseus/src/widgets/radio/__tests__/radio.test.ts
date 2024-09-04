@@ -5,13 +5,13 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
+import {renderQuestion} from "../../__tests__/renderQuestion";
+import PassageWidget from "../../passage";
+
 import {
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
 } from "./radio.testdata";
-import PassageWidget from "../../passage";
-
-import {renderQuestion} from "../../__tests__/renderQuestion";
 
 import type {PerseusRenderer} from "../../../perseus-types";
 import type {APIOptions} from "../../../types";

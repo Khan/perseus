@@ -1,9 +1,17 @@
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {mockStrings} from "@khanacademy/perseus/strings";
+
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "@khanacademy/perseus/strings";
+import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {
+    maybeParsePercentInput,
+    NumericInput,
+    unionAnswerForms,
+} from "./numeric-input";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -13,13 +21,6 @@ import {
     duplicatedAnswers,
     withCoefficient,
 } from "./numeric-input.testdata";
-import {
-    maybeParsePercentInput,
-    NumericInput,
-    unionAnswerForms,
-} from "./numeric-input";
-
-import {renderQuestion} from "../__tests__/renderQuestion";
 
 import type {Rubric} from "./numeric-input";
 import type {UserEvent} from "@testing-library/user-event";

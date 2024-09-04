@@ -4,14 +4,15 @@ import {act, cleanup, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import * as Perseus from "@khanacademy/perseus";
 import {mockStrings} from "@khanacademy/perseus/strings";
-import {traverse} from "../../traversal";
-import {question1} from "./group.testdata";
 
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {traverse} from "../../traversal";
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {question1} from "./group.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 

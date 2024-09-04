@@ -2,10 +2,10 @@ import {act, screen} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {question1} from "./passage-ref.testdata";
+import {renderQuestion} from "../__tests__/renderQuestion";
 import PassageExport from "../passage";
 
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {question1} from "./passage-ref.testdata";
 
 const mockReference = (
     mock: null | {

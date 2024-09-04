@@ -17,13 +17,13 @@ import type {
     PerseusNumericInputAnswerForm,
     MathFormat,
 } from "../../perseus-types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {
     FocusPath,
     PerseusScore,
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 const ParseTex = TexWrangler.parseTex;
 

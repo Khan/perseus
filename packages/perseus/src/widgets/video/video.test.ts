@@ -1,8 +1,8 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {question1, question2} from "./video.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {question1, question2} from "./video.testdata";
 
 import type {APIOptions} from "../../types";
 

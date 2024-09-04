@@ -1,8 +1,8 @@
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {question1} from "./iframe.testdata";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {question1} from "./iframe.testdata";
 
 import type {APIOptions} from "../../types";
 

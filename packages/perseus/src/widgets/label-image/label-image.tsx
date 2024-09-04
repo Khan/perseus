@@ -25,10 +25,7 @@ import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 
-import type {
-    InteractiveMarkerType,
-    InteractiveMarkerScore,
-} from "./types";
+import type {InteractiveMarkerType, InteractiveMarkerScore} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../../types";

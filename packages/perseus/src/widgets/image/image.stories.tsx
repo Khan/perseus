@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+
 import {question} from "./image.testdata";
 
 import type {APIOptions} from "../../types";

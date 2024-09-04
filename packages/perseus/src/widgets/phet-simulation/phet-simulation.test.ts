@@ -2,10 +2,10 @@ import {screen, waitFor} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {nonPhetUrl, question1} from "./phet-simulation.testdata";
-import {makeSafeUrl} from "./phet-simulation";
-
 import {renderQuestion} from "../__tests__/renderQuestion";
+
+import {makeSafeUrl} from "./phet-simulation";
+import {nonPhetUrl, question1} from "./phet-simulation.testdata";
 
 import type {APIOptions} from "../../types";
 
