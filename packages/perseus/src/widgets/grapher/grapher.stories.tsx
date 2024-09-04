@@ -9,7 +9,7 @@ import {
     logarithmQuestion,
     quadraticQuestion,
     sinusoidQuestion,
-} from "../__testdata__/grapher.testdata";
+} from "./grapher.testdata";
 
 export default {
     title: "Perseus/Widgets/Grapher",

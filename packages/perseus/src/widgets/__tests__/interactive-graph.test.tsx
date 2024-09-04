@@ -11,7 +11,7 @@ import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
-import {sinusoidQuestion} from "../__testdata__/grapher.testdata";
+import {sinusoidQuestion} from "../grapher/grapher.testdata";
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,

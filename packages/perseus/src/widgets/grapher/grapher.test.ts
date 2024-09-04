@@ -4,9 +4,9 @@ import * as Dependencies from "../../dependencies";
 import {
     linearQuestion,
     multipleAvailableTypesQuestion,
-} from "../__testdata__/grapher.testdata";
+} from "./grapher.testdata";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
 describe("grapher widget", () => {
     beforeEach(() => {

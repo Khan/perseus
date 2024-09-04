@@ -13,7 +13,7 @@ import {useEffect, useMemo, useState} from "react";
 import {Renderer} from "../packages/perseus/src";
 import {mockStrings} from "../packages/perseus/src/strings";
 import {MafsGraphTypeFlags} from "../packages/perseus/src/types";
-import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
+import * as grapher from "../packages/perseus/src/widgets/grapher/grapher.testdata";
 import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import * as numberLine from "../packages/perseus/src/widgets/number-line/number-line.testdata";
 

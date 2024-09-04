@@ -6,16 +6,16 @@ import {
 import * as React from "react";
 import _ from "underscore";
 
-import ButtonGroup from "../components/button-group";
-import Graphie from "../components/graphie";
-import SvgImage from "../components/svg-image";
-import Interactive2 from "../interactive2";
-import WrappedLine from "../interactive2/wrapped-line";
-import * as Changeable from "../mixins/changeable";
-import {interactiveSizes} from "../styles/constants";
-import Util from "../util";
-import KhanColors from "../util/colors";
-import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
+import ButtonGroup from "../../components/button-group";
+import Graphie from "../../components/graphie";
+import SvgImage from "../../components/svg-image";
+import Interactive2 from "../../interactive2";
+import WrappedLine from "../../interactive2/wrapped-line";
+import * as Changeable from "../../mixins/changeable";
+import {interactiveSizes} from "../../styles/constants";
+import Util from "../../util";
+import KhanColors from "../../util/colors";
+import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 
 /* Graphie and relevant components. */
 /* Mixins. */
@@ -28,13 +28,13 @@ import {
     maybePointsFromNormalized,
     typeToButton,
     validate as grapherValidate,
-} from "./grapher/util";
+} from "./util";
 
-import type {Coord, Line} from "../interactive2/types";
-import type {ChangeableProps} from "../mixins/changeable";
-import type {PerseusGrapherWidgetOptions} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
-import type {GridDimensions} from "../util";
+import type {Coord, Line} from "../../interactive2/types";
+import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {GridDimensions} from "../../util";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
