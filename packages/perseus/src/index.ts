@@ -36,10 +36,6 @@ export {default as TableWidget} from "./widgets/table";
 export {default as PlotterWidget} from "./widgets/plotter";
 export {default as GrapherWidget} from "./widgets/grapher";
 
-export {default as ArrowPicker} from "./widgets/interaction/arrow-picker";
-export {default as ColorPicker} from "./widgets/interaction/color-picker";
-export {default as DashPicker} from "./widgets/interaction/dash-picker";
-export {default as ElementContainer} from "./widgets/interaction/element-container";
 export * as GrapherUtil from "./widgets/grapher/util";
 
 /**

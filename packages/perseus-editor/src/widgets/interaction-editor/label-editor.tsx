@@ -4,11 +4,11 @@ import {
     Dependencies,
     EditorJsonify,
     KhanColors,
-    ColorPicker,
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
+import ColorPicker from "./color-picker";
 import MathquillInput from "./mathquill-input";
 
 const {TextInput} = components;

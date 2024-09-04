@@ -1,10 +1,10 @@
+import {components, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
-import ButtonGroup from "../../components/button-group";
-import KhanColors from "../../util/colors";
+import type {Changeable} from "@khanacademy/perseus";
 
-import type {ChangeableProps} from "../../mixins/changeable";
+const {ButtonGroup} = components;
 
 const COLORS = [
     KhanColors.BLACK,
@@ -29,7 +29,7 @@ const LIGHT_COLORS = [
 type Props = {
     lightColors?: boolean;
     value?: string;
-} & ChangeableProps;
+} & Changeable.ChangeableProps;
 
 class ColorPicker extends React.Component<Props> {
     static defaultProps: {
