@@ -2,15 +2,15 @@ import {it, describe, beforeEach} from "@jest/globals";
 import {act, render, screen} from "@testing-library/react";
 import React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
-import {question1, question2} from "../__testdata__/passage.testdata";
+import {testDependencies} from "../../../../../../testing/test-dependencies";
+import * as Dependencies from "../../../dependencies";
+import {ApiOptions} from "../../../perseus-api";
+import {question1, question2} from "./passage.testdata";
 import PassageWidgetExport, {LineHeightMeasurer} from "../passage";
 
-import {renderQuestion} from "./renderQuestion";
+import {renderQuestion} from "../../__tests__/renderQuestion";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions} from "../../../types";
 
 function renderPassage(
     overwrite:

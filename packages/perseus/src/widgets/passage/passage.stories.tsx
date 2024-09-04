@@ -6,7 +6,7 @@ import {
     question1,
     question2,
     question3,
-} from "../__testdata__/passage.testdata";
+} from "./__tests__/passage.testdata";
 
 import type {PerseusRenderer} from "../../perseus-types";
 

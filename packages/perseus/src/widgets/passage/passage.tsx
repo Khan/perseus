@@ -5,21 +5,21 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
-import HighlightableContent from "../components/highlighting/highlightable-content";
-import {PerseusI18nContext} from "../components/i18n-context";
-import {getDependencies} from "../dependencies";
-import Renderer from "../renderer";
+import HighlightableContent from "../../components/highlighting/highlightable-content";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import {getDependencies} from "../../dependencies";
+import Renderer from "../../renderer";
 
-import PassageMarkdown from "./passage/passage-markdown";
+import PassageMarkdown from "./passage-markdown";
 
-import type {ParseState} from "./passage/passage-markdown";
-import type {SerializedHighlightSet} from "../components/highlighting/types";
-import type {ChangeableProps} from "../mixins/changeable";
+import type {ParseState} from "./passage-markdown";
+import type {SerializedHighlightSet} from "../../components/highlighting/types";
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {
     PerseusPassageWidgetOptions,
     PerseusWidget,
-} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
