@@ -4,13 +4,13 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
-import {question1} from "../__testdata__/categorizer.testdata";
-import {Categorizer} from "../categorizer";
+import {renderQuestion} from "../__tests__/renderQuestion";
 
-import {renderQuestion} from "./renderQuestion";
+import {Categorizer} from "./categorizer";
+import {question1} from "./categorizer.testdata";
 
+import type {Rubric} from "./categorizer";
 import type {APIOptions} from "../../types";
-import type {Rubric} from "../categorizer";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("categorizer widget", () => {
