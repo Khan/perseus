@@ -3,19 +3,8 @@ import {
     type PerseusExpressionWidgetOptions,
     type Version,
     type PerseusItem,
-    type PerseusRenderer,
-    type ExpressionWidget,
     type PerseusAnswerArea,
 } from "../../perseus-types";
-import {
-    arrayOfLength,
-    randomBoolean,
-    randomElement,
-    randomInteger,
-    randomLetter,
-    randomSentence,
-    randomWord,
-} from "../__testdata__/randomizers";
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
@@ -139,73 +128,3 @@ export const expressionItem3: PerseusItem = createItemJson(
         minor: 0,
     },
 );
-
-export const randomExpressionGenerator = (): PerseusRenderer => {
-    const randomButtonSet = [
-        "basic",
-        "basic+div",
-        "trig",
-        "prealgebra",
-        "logarithms",
-        "basic relations",
-        "advanced relations",
-    ]
-        .sort(() => {
-            return randomBoolean() ? 1 : -1;
-        })
-        .slice(0, randomInteger(1, 6));
-
-    const randomFunctionSet = arrayOfLength(randomInteger(0, 6)).map(
-        randomLetter,
-    );
-
-    return {
-        content: `${randomSentence(20)} [[☃ expression 1]]`,
-        images: {},
-        widgets: {
-            "expression 1": {
-                type: "expression",
-                graded: randomBoolean(),
-                version: {
-                    major: 1,
-                    minor: 0,
-                },
-                static: randomBoolean(0.05),
-                options: {
-                    answerForms: [
-                        {
-                            considered: randomElement([
-                                "correct",
-                                "wrong",
-                                "ungraded",
-                            ]),
-                            form: randomBoolean(),
-                            simplify: randomBoolean(),
-                            value: randomWord(),
-                        },
-                        {
-                            considered: randomElement([
-                                "correct",
-                                "wrong",
-                                "ungraded",
-                            ]),
-                            form: randomBoolean(),
-                            simplify: randomBoolean(),
-                            value: randomWord(),
-                        },
-                    ],
-                    times: randomBoolean(),
-                    buttonSets: randomButtonSet,
-                    functions: randomFunctionSet,
-                    buttonsVisible: randomElement([
-                        "always",
-                        "never",
-                        "focused",
-                        undefined,
-                    ]),
-                    alignment: "default",
-                },
-            } as ExpressionWidget,
-        },
-    };
-};
