@@ -7,12 +7,10 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
-import MockWidgetExport from "../../__tests__/mock-widget";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {registerWidget} from "../../widgets";
 import {
-    mockedQuestion1,
+    definitionQuestion1,
     question1,
     simpleQuestionShape,
 } from "../__testdata__/multi-renderer.testdata";
@@ -92,10 +90,6 @@ const _findWidgets = (
 };
 
 describe("multi-item renderer", () => {
-    beforeAll(() => {
-        registerWidget("mock-widget", MockWidgetExport);
-    });
-
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -552,7 +546,7 @@ describe("multi-item renderer", () => {
 
         it("should call callback when restore serialized state is complete", () => {
             // Arrange
-            const {renderer} = renderSimpleQuestion(mockedQuestion1);
+            const {renderer} = renderSimpleQuestion(definitionQuestion1);
             const callback = jest.fn();
 
             // Act
@@ -560,11 +554,11 @@ describe("multi-item renderer", () => {
                 // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'never'.
                 renderer.restoreSerializedState(
                     {
-                        blurb: {"mock-widget 1": 1},
+                        blurb: {"definition 1": 1},
                         hints: [2, 3],
                         question: {
-                            "mock-widget 4": 4,
-                            "mock-widget 5": 5,
+                            "definition 4": 4,
+                            "definition 5": 5,
                         },
                     },
                     callback,
@@ -579,20 +573,20 @@ describe("multi-item renderer", () => {
 
     it("should find widgets in other parts of the tree", () => {
         // Arrange
-        const {renderer} = renderSimpleQuestion(mockedQuestion1);
-        // Grab "mock-widget 5" out of the render tree. Note that the result
+        const {renderer} = renderSimpleQuestion(definitionQuestion1);
+        // Grab "definition 5" out of the render tree. Note that the result
         // here is a tree of the same shape as the `mockedQuestion1`'s shape.
         // Each node in the tree is a `$ReadOnlyArray<?Widget>`.
-        const result = _findWidgets(renderer, (id) => id === "mock-widget 5");
+        const result = _findWidgets(renderer, (id) => id === "definition 5");
 
         // Act
-        // We're using the API provided to the widget we found ("mock-widget
+        // We're using the API provided to the widget we found ("definition
         // 5") to look into other parts of the render tree for another widget
-        // ("mock-widget 1"). This verifies that the MultiRenderer has
+        // ("definition 1"). This verifies that the MultiRenderer has
         // correctly passed down a functioning `findWidgets` prop to the
         // widgets.
         // Oh the TypeScript warnings we'll suppress. Welcome to multi items.
-        const widget1 = result.question[0].props.findWidgets("mock-widget 1");
+        const widget1 = result.question[0].props.findWidgets("definition 1");
 
         // Assert
         expect(widget1).not.toBeNull();
