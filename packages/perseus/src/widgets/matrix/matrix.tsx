@@ -5,20 +5,20 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../components/i18n-context";
-import NumberInput from "../components/number-input";
-import SimpleKeypadInput from "../components/simple-keypad-input";
-import TextInput from "../components/text-input";
-import InteractiveUtil from "../interactive2/interactive-util";
-import {ApiOptions} from "../perseus-api";
-import Renderer from "../renderer";
-import Util from "../util";
-import KhanAnswerTypes from "../util/answer-types";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import NumberInput from "../../components/number-input";
+import SimpleKeypadInput from "../../components/simple-keypad-input";
+import TextInput from "../../components/text-input";
+import InteractiveUtil from "../../interactive2/interactive-util";
+import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
+import Util from "../../util";
+import KhanAnswerTypes from "../../util/answer-types";
 
 // Type imports
-import type {PerseusMatrixWidgetOptions} from "../perseus-types";
-import type {PerseusStrings} from "../strings";
-import type {WidgetExports, WidgetProps, PerseusScore} from "../types";
+import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
+import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {WidgetExports, WidgetProps, PerseusScore} from "../../types";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
