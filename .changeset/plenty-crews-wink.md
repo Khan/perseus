@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": major
 ---
 
-Remove mock widgets and their editors
+Remove example widgets and their editors

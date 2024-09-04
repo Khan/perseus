@@ -23,11 +23,9 @@ import InputNumberExport from "../widgets/input-number/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
 import MockAssetLoadingWidgetExport, {
-    // eslint-disable-next-line import/no-deprecated
     mockedAssetItem,
 } from "./mock-asset-loading-widget";
 
-// eslint-disable-next-line import/no-deprecated
 import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
@@ -288,8 +286,6 @@ describe("server item renderer", () => {
         // render tree created.
         // Finally we re-render and poke the asset status to loaded. At that
         // everything is loaded.
-        //
-        // TODO: is it possible to use an existing widget to test the same logic?
 
         // Arrange
         registerWidget(
@@ -303,7 +299,6 @@ describe("server item renderer", () => {
             <RenderStateRoot>
                 <ServerItemRenderer
                     ref={(component) => (renderer = component)}
-                    // eslint-disable-next-line import/no-deprecated
                     item={mockedAssetItem}
                     problemNum={0}
                     reviewMode={false}
@@ -326,7 +321,6 @@ describe("server item renderer", () => {
         rerender(
             <RenderStateRoot>
                 <ServerItemRenderer
-                    // eslint-disable-next-line import/no-deprecated
                     item={mockedAssetItem}
                     problemNum={1}
                     reviewMode={false}
@@ -340,7 +334,6 @@ describe("server item renderer", () => {
         // setAssetStatus() is not part of the Widget interface, it's specific
         // this test.
         // @ts-expect-error - TS2352 - Conversion of type 'Widget' to type 'MockAssetLoadingWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
-        // eslint-disable-next-line import/no-deprecated
         const widget = mockedWidget as MockAssetLoadingWidget;
         act(() => widget.setAssetStatus("ABC", true));
 
