@@ -4,12 +4,12 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../../testing/test-dependencies";
-import * as Dependencies from "../dependencies";
+} from "../../../../../../testing/test-dependencies";
+import * as Dependencies from "../../../dependencies";
 
-import {textQuestion} from "./__testdata__/label-image.testdata";
-import {renderQuestion} from "./__tests__/renderQuestion";
-import {LabelImage} from "./label-image";
+import {textQuestion} from "./label-image.testdata";
+import {renderQuestion} from "../../__tests__/renderQuestion";
+import {LabelImage} from "../label-image";
 
 import type {UserEvent} from "@testing-library/user-event";
 

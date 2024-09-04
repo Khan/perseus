@@ -13,25 +13,25 @@ import classNames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import AssetContext from "../asset-context";
-import {PerseusI18nContext} from "../components/i18n-context";
-import SvgImage from "../components/svg-image";
-import {useDependencies} from "../dependencies";
-import Renderer from "../renderer";
-import {typography} from "../styles/global-styles";
-import mediaQueries from "../styles/media-queries";
+import AssetContext from "../../asset-context";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import SvgImage from "../../components/svg-image";
+import {useDependencies} from "../../dependencies";
+import Renderer from "../../renderer";
+import {typography} from "../../styles/global-styles";
+import mediaQueries from "../../styles/media-queries";
 
-import AnswerChoices from "./label-image/answer-choices";
-import {HideAnswersToggle} from "./label-image/hide-answers-toggle";
-import Marker from "./label-image/marker";
+import AnswerChoices from "./answer-choices";
+import {HideAnswersToggle} from "./hide-answers-toggle";
+import Marker from "./marker";
 
 import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,
-} from "./label-image/types";
-import type {DependencyProps} from "../dependencies";
-import type {ChangeableProps} from "../mixins/changeable";
-import type {APIOptions, PerseusScore, WidgetExports} from "../types";
+} from "./types";
+import type {DependencyProps} from "../../dependencies";
+import type {ChangeableProps} from "../../mixins/changeable";
+import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 

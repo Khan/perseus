@@ -1,16 +1,16 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
 import {
     textQuestion,
     mathQuestion,
     numberline,
     longTextFromArticle,
     mixedContentQuestion,
-} from "../__testdata__/label-image.testdata";
+} from "../__tests__/label-image.testdata";
 
-import type {PerseusRenderer} from "../../perseus-types";
-import type {APIOptions} from "../../types";
+import type {PerseusRenderer} from "../../../perseus-types";
+import type {APIOptions} from "../../../types";
 
 const applyStoryArgs = (
     question: PerseusRenderer,
