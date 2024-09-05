@@ -127,9 +127,12 @@ export type Props = {
      * etc.) that are locked in place and not interactive.
      */
     lockedFigures?: Array<LockedFigure>;
-    // Aria-label for the full graph area.
+    // Aria-label for the full graph area. Short title for the graph.
     fullGraphAriaLabel?: string;
-    // Aria-describedby for the graph area.
+    // Aria-description for the graph area. Longer description of the graph.
+    // Note that the `aria-description` property is not supported well,
+    // so this description will be hidden in a DOM element whose ID will
+    // then be referenced by the graph's `aria-describedby` property.
     fullGraphAriaDescription?: string;
 
     /**

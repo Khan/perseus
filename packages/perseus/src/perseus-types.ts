@@ -680,7 +680,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     lockedFigures?: ReadonlyArray<LockedFigure>;
     // Aria label that applies to the entire graph.
     fullGraphAriaLabel?: string;
-    // Area description that applies to the entire graph.
+    // Aria description that applies to the entire graph.
     fullGraphAriaDescription?: string;
 };
 
