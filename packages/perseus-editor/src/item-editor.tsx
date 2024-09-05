@@ -7,7 +7,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import ItemExtrasEditor from "./item-extras-editor";
 
-import type {NewDataMessage} from "./iframe-content-renderer";
+import type {NewDataMessage} from "./iframe-utils";
 import type {
     APIOptions,
     ImageUploader,
@@ -123,8 +123,7 @@ class ItemEditor extends React.Component<Props> {
                                 <IframeContentRenderer
                                     ref={this.frame}
                                     key={this.props.deviceType}
-                                    datasetKey="mobile"
-                                    datasetValue={isMobile}
+                                    emulateMobile={isMobile}
                                     seamless={true}
                                     url={this.props.previewURL}
                                 />
