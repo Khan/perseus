@@ -5,7 +5,6 @@ import {
     InteractiveGraphWidget,
     SizingUtils,
     Util,
-    PerseusGraphType,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
