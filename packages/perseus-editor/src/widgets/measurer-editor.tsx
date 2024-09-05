@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/sort-comp */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
@@ -47,6 +46,48 @@ class MeasurerEditor extends React.Component<Props> {
     };
 
     className = "perseus-widget-measurer";
+
+    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
+        return Changeable.change.apply(this, args);
+    };
+
+    _changeUrl: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+        this._changeImage("url", e.target.value);
+    };
+
+    _changeTop: (arg1: any) => void = (newTop) => {
+        this._changeImage("top", newTop);
+    };
+
+    _changeLeft: (arg1: any) => void = (newLeft) => {
+        this._changeImage("left", newLeft);
+    };
+
+    _changeImage: (arg1: string, arg2: any) => void = (subProp, newValue) => {
+        const image = _.clone(this.props.image);
+        image[subProp] = newValue;
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
+        this.change("image", image);
+    };
+
+    renderLabelChoices: (
+        arg1: ReadonlyArray<[string, string]>,
+    ) => ReadonlyArray<React.ReactElement<React.ComponentProps<"option">>> = (
+        choices,
+    ) => {
+        return _.map(choices, function (nameAndValue) {
+            const [name, value] = nameAndValue;
+            return (
+                <option key={value} value={value}>
+                    {name}
+                </option>
+            );
+        });
+    };
+
+    serialize: () => any = () => {
+        return EditorJsonify.serialize.call(this);
+    };
 
     render(): React.ReactNode {
         const image = _.extend({}, defaultImage, this.props.image);
@@ -211,48 +252,6 @@ class MeasurerEditor extends React.Component<Props> {
             </div>
         );
     }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    _changeUrl: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-        this._changeImage("url", e.target.value);
-    };
-
-    _changeTop: (arg1: any) => void = (newTop) => {
-        this._changeImage("top", newTop);
-    };
-
-    _changeLeft: (arg1: any) => void = (newLeft) => {
-        this._changeImage("left", newLeft);
-    };
-
-    _changeImage: (arg1: string, arg2: any) => void = (subProp, newValue) => {
-        const image = _.clone(this.props.image);
-        image[subProp] = newValue;
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-        this.change("image", image);
-    };
-
-    renderLabelChoices: (
-        arg1: ReadonlyArray<[string, string]>,
-    ) => ReadonlyArray<React.ReactElement<React.ComponentProps<"option">>> = (
-        choices,
-    ) => {
-        return _.map(choices, function (nameAndValue) {
-            const [name, value] = nameAndValue;
-            return (
-                <option key={value} value={value}>
-                    {name}
-                </option>
-            );
-        });
-    };
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
 }
 
 export default MeasurerEditor;

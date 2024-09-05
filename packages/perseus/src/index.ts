@@ -130,6 +130,8 @@ export {
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
+export {makeSafeUrl} from "./widgets/phet-simulation";
+
 /**
  * Mixins
  */

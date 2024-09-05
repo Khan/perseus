@@ -1,6 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/sort-comp */
+import {makeSafeUrl} from "@khanacademy/perseus";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus";
@@ -25,6 +26,20 @@ class PhetSimulationEditor extends React.Component<Props> {
 
     static widgetName = "phet-simulation" as const;
 
+    serialize(): PerseusPhetSimulationWidgetOptions {
+        return {
+            url: this.props.url,
+            description: this.props.description,
+        };
+    }
+
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
+        if (makeSafeUrl(this.props.url, "en") === null) {
+            return ["Please enter a URL from the PhET domain."];
+        }
+        return [];
+    };
+
     render(): React.ReactNode {
         return (
             <div>
@@ -32,8 +47,10 @@ class PhetSimulationEditor extends React.Component<Props> {
                     label={"URL"}
                     value={this.props.url}
                     onChange={(url: string) => this.props.onChange({url})}
+                    style={{
+                        marginBottom: spacing.large_24,
+                    }}
                 />
-                <br />
                 <LabeledTextField
                     label={"Description"}
                     value={this.props.description}
@@ -43,13 +60,6 @@ class PhetSimulationEditor extends React.Component<Props> {
                 />
             </div>
         );
-    }
-
-    serialize(): PerseusPhetSimulationWidgetOptions {
-        return {
-            url: this.props.url,
-            description: this.props.description,
-        };
     }
 }
 

@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable jsx-a11y/anchor-is-valid, react/forbid-prop-types */
 import {
     components,
     icons,
@@ -128,128 +128,6 @@ class RadioEditor extends React.Component<any> {
         countChoices: false,
         deselectEnabled: false,
     };
-
-    render(): React.ReactNode {
-        const numCorrect = _.reduce(
-            this.props.choices,
-            function (memo, choice) {
-                return choice.correct ? memo + 1 : memo;
-            },
-            0,
-        );
-        return (
-            <div>
-                <div className="perseus-widget-row">
-                    <a
-                        href={
-                            // This is an editor component, not user-facing.
-                            "https://docs.google.com/document/d/1frZf7yrWVWb1n4tVjqlzqVUiv1pn4cZXbxgP62-JDBY/edit#heading=h.8ng1isya19nu"
-                        }
-                        target="_blank"
-                    >
-                        Multiple choice style guide
-                    </a>
-                    <br />
-                    <div className="perseus-widget-left-col">
-                        <Checkbox
-                            label="Multiple selections"
-                            checked={this.props.multipleSelect}
-                            onChange={(value) => {
-                                this.onMultipleSelectChange({
-                                    multipleSelect: value,
-                                });
-                            }}
-                        />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        <Checkbox
-                            label="Randomize order"
-                            checked={this.props.randomize}
-                            onChange={(value) => {
-                                this.props.onChange({randomize: value});
-                            }}
-                        />
-                    </div>
-                    {this.props.multipleSelect && (
-                        <div className="perseus-widget-left-col">
-                            <Checkbox
-                                label="Specify number correct"
-                                checked={this.props.countChoices}
-                                onChange={(value) => {
-                                    this.onCountChoicesChange({
-                                        countChoices: value,
-                                    });
-                                }}
-                            />
-                        </div>
-                    )}
-                </div>
-
-                <BaseRadio
-                    multipleSelect={this.props.multipleSelect}
-                    countChoices={this.props.countChoices}
-                    numCorrect={numCorrect}
-                    editMode={true}
-                    labelWrap={false}
-                    apiOptions={this.props.apiOptions}
-                    choices={this.props.choices.map((choice, i) => {
-                        return {
-                            content: (
-                                <ChoiceEditor
-                                    ref={`choice-editor${i}`}
-                                    apiOptions={this.props.apiOptions}
-                                    choice={choice}
-                                    onContentChange={(newProps) => {
-                                        if ("content" in newProps) {
-                                            this.onContentChange(
-                                                i,
-                                                newProps.content,
-                                            );
-                                        }
-                                    }}
-                                    onClueChange={(newProps) => {
-                                        if ("content" in newProps) {
-                                            this.onClueChange(
-                                                i,
-                                                newProps.content,
-                                            );
-                                        }
-                                    }}
-                                    onDelete={() => this.onDelete(i)}
-                                    showDelete={this.props.choices.length >= 2}
-                                />
-                            ),
-                            isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                            checked: choice.correct,
-                        };
-                    }, this)}
-                    onChange={this.onChange}
-                />
-
-                <div className="add-choice-container">
-                    <a
-                        className="simple-button orange"
-                        href="#"
-                        // eslint-disable-next-line react/jsx-no-bind
-                        onClick={this.addChoice.bind(this, false)}
-                    >
-                        <InlineIcon {...iconPlus} /> Add a choice{" "}
-                    </a>
-
-                    {!this.props.hasNoneOfTheAbove && (
-                        <a
-                            className="simple-button"
-                            href="#"
-                            // eslint-disable-next-line react/jsx-no-bind
-                            onClick={this.addChoice.bind(this, true)}
-                        >
-                            <InlineIcon {...iconPlus} /> None of the above{" "}
-                        </a>
-                    )}
-                </div>
-            </div>
-        );
-    }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
@@ -397,6 +275,128 @@ class RadioEditor extends React.Component<any> {
             "deselectEnabled",
         );
     };
+
+    render(): React.ReactNode {
+        const numCorrect = _.reduce(
+            this.props.choices,
+            function (memo, choice) {
+                return choice.correct ? memo + 1 : memo;
+            },
+            0,
+        );
+        return (
+            <div>
+                <div className="perseus-widget-row">
+                    <a
+                        href={
+                            // This is an editor component, not user-facing.
+                            "https://docs.google.com/document/d/1frZf7yrWVWb1n4tVjqlzqVUiv1pn4cZXbxgP62-JDBY/edit#heading=h.8ng1isya19nu"
+                        }
+                        target="_blank"
+                    >
+                        Multiple choice style guide
+                    </a>
+                    <br />
+                    <div className="perseus-widget-left-col">
+                        <Checkbox
+                            label="Multiple selections"
+                            checked={this.props.multipleSelect}
+                            onChange={(value) => {
+                                this.onMultipleSelectChange({
+                                    multipleSelect: value,
+                                });
+                            }}
+                        />
+                    </div>
+                    <div className="perseus-widget-right-col">
+                        <Checkbox
+                            label="Randomize order"
+                            checked={this.props.randomize}
+                            onChange={(value) => {
+                                this.props.onChange({randomize: value});
+                            }}
+                        />
+                    </div>
+                    {this.props.multipleSelect && (
+                        <div className="perseus-widget-left-col">
+                            <Checkbox
+                                label="Specify number correct"
+                                checked={this.props.countChoices}
+                                onChange={(value) => {
+                                    this.onCountChoicesChange({
+                                        countChoices: value,
+                                    });
+                                }}
+                            />
+                        </div>
+                    )}
+                </div>
+
+                <BaseRadio
+                    multipleSelect={this.props.multipleSelect}
+                    countChoices={this.props.countChoices}
+                    numCorrect={numCorrect}
+                    editMode={true}
+                    labelWrap={false}
+                    apiOptions={this.props.apiOptions}
+                    choices={this.props.choices.map((choice, i) => {
+                        return {
+                            content: (
+                                <ChoiceEditor
+                                    ref={`choice-editor${i}`}
+                                    apiOptions={this.props.apiOptions}
+                                    choice={choice}
+                                    onContentChange={(newProps) => {
+                                        if ("content" in newProps) {
+                                            this.onContentChange(
+                                                i,
+                                                newProps.content,
+                                            );
+                                        }
+                                    }}
+                                    onClueChange={(newProps) => {
+                                        if ("content" in newProps) {
+                                            this.onClueChange(
+                                                i,
+                                                newProps.content,
+                                            );
+                                        }
+                                    }}
+                                    onDelete={() => this.onDelete(i)}
+                                    showDelete={this.props.choices.length >= 2}
+                                />
+                            ),
+                            isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                            checked: choice.correct,
+                        };
+                    }, this)}
+                    onChange={this.onChange}
+                />
+
+                <div className="add-choice-container">
+                    <a
+                        className="simple-button orange"
+                        href="#"
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onClick={this.addChoice.bind(this, false)}
+                    >
+                        <InlineIcon {...iconPlus} /> Add a choice{" "}
+                    </a>
+
+                    {!this.props.hasNoneOfTheAbove && (
+                        <a
+                            className="simple-button"
+                            href="#"
+                            // eslint-disable-next-line react/jsx-no-bind
+                            onClick={this.addChoice.bind(this, true)}
+                        >
+                            <InlineIcon {...iconPlus} /> None of the above{" "}
+                        </a>
+                    )}
+                </div>
+            </div>
+        );
+    }
 }
 
 export default RadioEditor;
