@@ -9,8 +9,8 @@ import {
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "./coordinate-pair-input";
-import {getAngleEquation} from "./util";
+import CoordinatePairInput from "../../components/coordinate-pair-input";
+import {getAngleEquation} from "../../components/util";
 
 import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
 

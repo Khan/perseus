@@ -25,7 +25,7 @@ import {InteractiveGraphCorrectAnswer} from "../../components/interactive-graph-
 import InteractiveGraphDescription from "../../components/interactive-graph-description";
 import InteractiveGraphSettings from "../../components/interactive-graph-settings";
 import SegmentCountSelector from "../../components/segment-count-selector";
-import StartCoordsSettings from "../../components/start-coords-settings";
+import StartCoordsSettings from "./start-coords-settings";
 import {shouldShowStartCoordsUI} from "../../components/util";
 import {parsePointCount} from "../../util/points";
 

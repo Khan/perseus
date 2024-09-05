@@ -5,7 +5,7 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "./coordinate-pair-input";
+import CoordinatePairInput from "../../components/coordinate-pair-input";
 
 import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
 

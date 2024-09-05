@@ -5,8 +5,8 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "./coordinate-pair-input";
-import ScrolllessNumberTextField from "./scrollless-number-text-field";
+import CoordinatePairInput from "../../components/coordinate-pair-input";
+import ScrolllessNumberTextField from "../../components/scrollless-number-text-field";
 
 import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
 
