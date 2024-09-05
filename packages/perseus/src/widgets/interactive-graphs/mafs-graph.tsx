@@ -48,7 +48,7 @@ export type MafsGraphProps = {
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
-    fullGraphAriaDescribedby?: InteractiveGraphProps["fullGraphAriaDescribedby"];
+    fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
@@ -62,7 +62,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         labels,
         readOnly,
         fullGraphAriaLabel,
-        fullGraphAriaDescribedby,
+        fullGraphAriaDescription,
     } = props;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
@@ -91,7 +91,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 aria-label={fullGraphAriaLabel}
                 aria-describedby={descriptionId}
                 tabIndex={
-                    fullGraphAriaLabel || fullGraphAriaDescribedby
+                    fullGraphAriaLabel || fullGraphAriaDescription
                         ? 0
                         : undefined
                 }
@@ -105,7 +105,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         overflow: "hidden",
                     }}
                 >
-                    {fullGraphAriaDescribedby}
+                    {fullGraphAriaDescription}
                 </View>
                 <View
                     className="mafs-graph"

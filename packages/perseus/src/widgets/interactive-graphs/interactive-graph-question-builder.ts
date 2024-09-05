@@ -28,7 +28,7 @@ export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuild
 class InteractiveGraphQuestionBuilder {
     private content: string = "[[☃ interactive-graph 1]]";
     private fullGraphAriaLabel?: string;
-    private fullGraphAriaDescribedby?: string;
+    private fullGraphAriaDescription?: string;
     private backgroundImage?: {
         url: string;
         height: number;
@@ -64,7 +64,7 @@ class InteractiveGraphQuestionBuilder {
                     options: {
                         correct: this.interactiveFigureConfig.correct(),
                         fullGraphAriaLabel: this.fullGraphAriaLabel,
-                        fullGraphAriaDescribedby: this.fullGraphAriaDescribedby,
+                        fullGraphAriaDescription: this.fullGraphAriaDescription,
                         backgroundImage: this.backgroundImage,
                         graph: this.interactiveFigureConfig.graph(),
                         gridStep: this.gridStep,
@@ -96,10 +96,10 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    withFullGraphAriaDescribedby(
+    withFullGraphAriaDescription(
         description: string,
     ): InteractiveGraphQuestionBuilder {
-        this.fullGraphAriaDescribedby = description;
+        this.fullGraphAriaDescription = description;
         return this;
     }
 

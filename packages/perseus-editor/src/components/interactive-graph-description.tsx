@@ -12,12 +12,12 @@ import type {Props as EditorProps} from "../widgets/interactive-graph-editor/int
 
 type Props = {
     ariaLabelValue: string;
-    ariaDescribedbyValue: string;
+    ariaDescriptionValue: string;
     onChange: (graphProps: Partial<EditorProps>) => void;
 };
 
 export default function InteractiveGraphDescription(props: Props) {
-    const {ariaLabelValue, ariaDescribedbyValue, onChange} = props;
+    const {ariaLabelValue, ariaDescriptionValue, onChange} = props;
 
     const [isOpen, setIsOpen] = React.useState(true);
 
@@ -28,7 +28,7 @@ export default function InteractiveGraphDescription(props: Props) {
             });
         } else {
             onChange({
-                fullGraphAriaDescribedby: newValue,
+                fullGraphAriaDescription: newValue,
             });
         }
     }
@@ -62,7 +62,7 @@ export default function InteractiveGraphDescription(props: Props) {
                         Description
                         {/* TODO: Change this to a WB TextArea */}
                         <TextField
-                            value={ariaDescribedbyValue}
+                            value={ariaDescriptionValue}
                             onChange={(newValue) =>
                                 handleChange("description", newValue)
                             }

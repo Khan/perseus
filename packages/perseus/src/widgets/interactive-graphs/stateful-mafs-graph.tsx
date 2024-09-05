@@ -34,7 +34,7 @@ export type StatefulMafsGraphProps = {
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
-    fullGraphAriaDescribedby?: InteractiveGraphProps["fullGraphAriaDescribedby"];
+    fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     readOnly: boolean;
     static: InteractiveGraphProps["static"];
 };

@@ -938,7 +938,7 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
 export const interactiveGraphWithAriaLabel: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withFullGraphAriaLabel("Aria Label: Segment graph")
-        .withFullGraphAriaDescribedby(
+        .withFullGraphAriaDescription(
             "Aria Describedby: There is a segment on the graph that runs from five units left and five units up to five units right and five units up.",
         )
         .build();

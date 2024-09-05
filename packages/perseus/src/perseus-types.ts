@@ -681,7 +681,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     // Aria label that applies to the entire graph.
     fullGraphAriaLabel?: string;
     // Area description that applies to the entire graph.
-    fullGraphAriaDescribedby?: string;
+    fullGraphAriaDescription?: string;
 };
 
 const lockedFigureColorNames = [

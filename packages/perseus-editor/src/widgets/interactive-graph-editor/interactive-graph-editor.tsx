@@ -130,7 +130,7 @@ export type Props = {
     // Aria-label for the full graph area.
     fullGraphAriaLabel?: string;
     // Aria-describedby for the graph area.
-    fullGraphAriaDescribedby?: string;
+    fullGraphAriaDescription?: string;
 
     /**
      * The graph to display in the graph area.
@@ -211,7 +211,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "snapStep",
             "lockedFigures",
             "fullGraphAriaLabel",
-            "fullGraphAriaDescribedby",
+            "fullGraphAriaDescription",
         );
 
         // eslint-disable-next-line react/no-string-refs
@@ -301,7 +301,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 showTooltips: this.props.showTooltips,
                 lockedFigures: this.props.lockedFigures,
                 fullGraphAriaLabel: this.props.fullGraphAriaLabel,
-                fullGraphAriaDescribedby: this.props.fullGraphAriaDescribedby,
+                fullGraphAriaDescription: this.props.fullGraphAriaDescription,
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
                     let correct = this.props.correct;
@@ -368,8 +368,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     ] && (
                         <InteractiveGraphDescription
                             ariaLabelValue={this.props.fullGraphAriaLabel ?? ""}
-                            ariaDescribedbyValue={
-                                this.props.fullGraphAriaDescribedby ?? ""
+                            ariaDescriptionValue={
+                                this.props.fullGraphAriaDescription ?? ""
                             }
                             onChange={this.props.onChange}
                         />
