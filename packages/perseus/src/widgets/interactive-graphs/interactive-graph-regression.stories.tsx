@@ -1,7 +1,8 @@
 import * as React from "react";
 
 import Renderer from "../../renderer";
-import {mockStrings} from "@khanacademy/perseus/strings";
+import {mockStrings} from "../../strings";
+
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
 import type {PerseusRenderer} from "../../perseus-types";

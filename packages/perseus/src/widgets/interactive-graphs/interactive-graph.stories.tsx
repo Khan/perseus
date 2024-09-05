@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import {Flipbook} from "@khanacademy/perseus-dev-ui/flipbook";
+import {Flipbook} from "../../../../../dev/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+
 import {
     angleQuestion,
     circleQuestion,

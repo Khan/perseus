@@ -11,6 +11,9 @@ import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
+import {renderQuestion} from "../__testutils__/renderQuestion";
+import {sinusoidQuestion} from "../grapher/grapher.testdata";
+
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
@@ -43,16 +46,13 @@ import {
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
 } from "./interactive-graph.testdata";
-import {sinusoidQuestion} from "../grapher/grapher.testdata";
 import {trueForAllMafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 
-import {renderQuestion} from "../__testutils__/renderQuestion";
-
+import type {mafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
-import type {mafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
