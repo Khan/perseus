@@ -21,7 +21,7 @@ import {
     segmentWithStartingCoordsQuestion,
     segmentsWithStartingCoordsQuestion,
     sinusoidWithStartingCoordsQuestion,
-} from "../../../perseus/src/widgets/__testdata__/interactive-graph.testdata";
+} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";

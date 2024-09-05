@@ -10,7 +10,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./group.testdata";
 

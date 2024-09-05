@@ -9,7 +9,7 @@ import _ from "underscore";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";

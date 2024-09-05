@@ -12,7 +12,7 @@ import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import {mockStrings} from "../strings";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
-import {renderQuestion} from "../widgets/__tests__/renderQuestion";
+import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 
 import imageItem from "./test-items/image-item";
 import inputNumber1Item from "./test-items/input-number-1-item";

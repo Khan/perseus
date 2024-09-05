@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unsafe */
 import {vector as kvector} from "@khanacademy/kmath";
 import {
     components,
@@ -16,17 +15,16 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import LabeledRow from "../components/graph-locked-figures/labeled-row";
-import LockedFiguresSection from "../components/graph-locked-figures/locked-figures-section";
-import GraphPointsCountSelector from "../components/graph-points-count-selector";
-import GraphTypeSelector from "../components/graph-type-selector";
-import {InteractiveGraphCorrectAnswer} from "../components/interactive-graph-correct-answer";
-import InteractiveGraphDescription from "../components/interactive-graph-description";
-import InteractiveGraphSettings from "../components/interactive-graph-settings";
-import SegmentCountSelector from "../components/segment-count-selector";
-import StartCoordsSettings from "../components/start-coords-settings";
-import {shouldShowStartCoordsUI} from "../components/util";
-import {parsePointCount} from "../util/points";
+import LabeledRow from "../../components/graph-locked-figures/labeled-row";
+import LockedFiguresSection from "../../components/graph-locked-figures/locked-figures-section";
+import GraphPointsCountSelector from "../../components/graph-points-count-selector";
+import GraphTypeSelector from "../../components/graph-type-selector";
+import {InteractiveGraphCorrectAnswer} from "../../components/interactive-graph-correct-answer";
+import InteractiveGraphSettings from "../../components/interactive-graph-settings";
+import SegmentCountSelector from "../../components/segment-count-selector";
+import StartCoordsSettings from "../../components/start-coords-settings";
+import {shouldShowStartCoordsUI} from "../../components/util";
+import {parsePointCount} from "../../util/points";
 
 import type {
     PerseusImageBackground,
@@ -38,19 +36,12 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
-const DeprecationMixin = Util.DeprecationMixin;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
 type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 const defaultBackgroundImage = {
     url: null,
-} as const;
-
-const deprecatedProps = {
-    showGraph: function (props) {
-        return {markings: props.showGraph ? "graph" : "none"};
-    },
 } as const;
 
 const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
@@ -180,14 +171,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
             coords: null,
         },
     };
-
-    // TODO(jack): Use versioning instead of DeprecationMixin
-    deprecatedProps = deprecatedProps;
-
-    // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
-    UNSAFE_componentWillMount() {
-        DeprecationMixin.UNSAFE_componentWillMount.call(this);
-    }
 
     changeMatchType = (newValue) => {
         const correct = {

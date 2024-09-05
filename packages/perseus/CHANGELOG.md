@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 32.0.1
+
+### Patch Changes
+
+-   [#1595](https://github.com/Khan/perseus/pull/1595) [`b54f886f6`](https://github.com/Khan/perseus/commit/b54f886f64fced1fe0c211369f5d89a7c459dd97) Thanks [@aemandine](https://github.com/aemandine)! - Make iframe sizing responsive
+
+*   [#1588](https://github.com/Khan/perseus/pull/1588) [`9dad8a089`](https://github.com/Khan/perseus/commit/9dad8a0891bbd3e4a9943fade3c00c073a281541) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused handling of deprecated Interactive Graph prop
+
 ## 32.0.0
 
 ### Major Changes

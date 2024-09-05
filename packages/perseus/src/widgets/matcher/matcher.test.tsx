@@ -4,7 +4,7 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./matcher.testdata";
 

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {Flipbook} from "../../../../../dev/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+
 import {
     angleQuestion,
     circleQuestion,
@@ -23,7 +24,7 @@ import {
     staticGraphQuestion,
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
-} from "../__testdata__/interactive-graph.testdata";
+} from "./interactive-graph.testdata";
 
 import type {APIOptions} from "../../types";
 

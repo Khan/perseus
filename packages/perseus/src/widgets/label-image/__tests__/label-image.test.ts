@@ -6,7 +6,7 @@ import {
     testDependenciesV2,
 } from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
-import {renderQuestion} from "../../__tests__/renderQuestion";
+import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {LabelImage} from "../label-image";
 
 import {textQuestion} from "./label-image.testdata";

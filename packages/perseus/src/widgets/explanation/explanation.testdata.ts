@@ -1,5 +1,3 @@
-import {randomBoolean, randomSentence} from "../__testdata__/randomizers";
-
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
@@ -54,34 +52,6 @@ export const question2: PerseusRenderer = {
             alignment: "default",
         },
     },
-};
-
-export const randomExplanationGenerator = (): PerseusRenderer => {
-    return {
-        content: `${randomSentence(
-            50,
-        )}\n[[\u2603 explanation 1]]\n${randomSentence(50)}`,
-        images: {},
-        widgets: {
-            "explanation 1": {
-                graded: randomBoolean(),
-                version: {
-                    major: 0,
-                    minor: 0,
-                },
-                static: randomBoolean(0.05),
-                type: "explanation",
-                options: {
-                    hidePrompt: `${randomSentence(20)}`,
-                    widgets: {},
-                    explanation: `${randomSentence(50)}`,
-                    static: randomBoolean(0.05),
-                    showPrompt: `${randomSentence(7)}`,
-                },
-                alignment: "default",
-            },
-        },
-    };
 };
 
 export const ipsumExample: PerseusRenderer = {

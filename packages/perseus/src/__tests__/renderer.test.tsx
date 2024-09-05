@@ -18,7 +18,7 @@ import {
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {registerWidget} from "../widgets";
-import {renderQuestion} from "../widgets/__tests__/renderQuestion";
+import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 

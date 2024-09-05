@@ -1,10 +1,3 @@
-import {
-    arrayOfLength,
-    randomBoolean,
-    randomInteger,
-    randomSentence,
-} from "../__testdata__/randomizers";
-
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
@@ -53,37 +46,4 @@ export const question1: PerseusRenderer = {
             },
         },
     },
-};
-
-export const randomCategorizerGenerator = (): PerseusRenderer => {
-    const questionText = randomSentence(35);
-    const numItems = randomInteger(2, 7);
-    const numCategories = randomInteger(2, 6);
-
-    return {
-        content: `${questionText}\n\n\n[[\u2603 categorizer 1]]`,
-        images: {},
-        widgets: {
-            "categorizer 1": {
-                version: {major: 0, minor: 0},
-                type: "categorizer",
-                graded: randomBoolean(),
-                alignment: "default",
-                options: {
-                    items: arrayOfLength(numItems).map(() =>
-                        randomSentence(12),
-                    ),
-                    values: arrayOfLength(numItems).map(() =>
-                        randomInteger(0, numCategories - 1),
-                    ),
-                    randomizeItems: randomBoolean(),
-                    categories: arrayOfLength(numCategories).map(() =>
-                        randomSentence(7),
-                    ),
-                    highlightLint: randomBoolean(),
-                    static: randomBoolean(0.05),
-                },
-            },
-        },
-    };
 };
