@@ -15,16 +15,16 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import LabeledRow from "../components/graph-locked-figures/labeled-row";
-import LockedFiguresSection from "../components/graph-locked-figures/locked-figures-section";
-import GraphPointsCountSelector from "../components/graph-points-count-selector";
-import GraphTypeSelector from "../components/graph-type-selector";
-import {InteractiveGraphCorrectAnswer} from "../components/interactive-graph-correct-answer";
-import InteractiveGraphSettings from "../components/interactive-graph-settings";
-import SegmentCountSelector from "../components/segment-count-selector";
-import StartCoordsSettings from "../components/start-coords-settings";
-import {shouldShowStartCoordsUI} from "../components/util";
-import {parsePointCount} from "../util/points";
+import LabeledRow from "../../components/graph-locked-figures/labeled-row";
+import LockedFiguresSection from "../../components/graph-locked-figures/locked-figures-section";
+import GraphPointsCountSelector from "../../components/graph-points-count-selector";
+import GraphTypeSelector from "../../components/graph-type-selector";
+import {InteractiveGraphCorrectAnswer} from "../../components/interactive-graph-correct-answer";
+import InteractiveGraphSettings from "../../components/interactive-graph-settings";
+import SegmentCountSelector from "../../components/segment-count-selector";
+import StartCoordsSettings from "../../components/start-coords-settings";
+import {shouldShowStartCoordsUI} from "../../components/util";
+import {parsePointCount} from "../../util/points";
 
 import type {
     PerseusImageBackground,
