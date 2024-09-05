@@ -1,4 +1,4 @@
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./python-program.testdata";
 

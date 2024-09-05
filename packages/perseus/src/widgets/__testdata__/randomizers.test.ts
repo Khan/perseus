@@ -5,7 +5,7 @@ import {
     randomLetter,
     randomSentence,
     randomWord,
-} from "../__testdata__/randomizers";
+} from "./randomizers";
 
 describe("randomizers", () => {
     describe("randomLetter", () => {

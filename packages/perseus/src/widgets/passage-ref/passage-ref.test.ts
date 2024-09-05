@@ -2,7 +2,7 @@ import {act, screen} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 import PassageExport from "../passage";
 
 import {question1} from "./passage-ref.testdata";

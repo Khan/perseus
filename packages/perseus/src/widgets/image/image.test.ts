@@ -3,7 +3,7 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {isAccessible} from "../../widgets";
-import {renderQuestion} from "../__tests__/renderQuestion";
+import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question} from "./image.testdata";
 
