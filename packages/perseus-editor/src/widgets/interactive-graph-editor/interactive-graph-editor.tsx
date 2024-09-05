@@ -20,6 +20,7 @@ import LockedFiguresSection from "../../components/graph-locked-figures/locked-f
 import GraphPointsCountSelector from "../../components/graph-points-count-selector";
 import GraphTypeSelector from "../../components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "../../components/interactive-graph-correct-answer";
+import InteractiveGraphDescription from "../../components/interactive-graph-description";
 import InteractiveGraphSettings from "../../components/interactive-graph-settings";
 import SegmentCountSelector from "../../components/segment-count-selector";
 import StartCoordsSettings from "../../components/start-coords-settings";
