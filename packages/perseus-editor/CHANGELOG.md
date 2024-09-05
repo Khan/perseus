@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 14.0.1
+
+### Patch Changes
+
+-   [#1588](https://github.com/Khan/perseus/pull/1588) [`9dad8a089`](https://github.com/Khan/perseus/commit/9dad8a0891bbd3e4a9943fade3c00c073a281541) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused handling of deprecated Interactive Graph prop
+
+-   Updated dependencies [[`b54f886f6`](https://github.com/Khan/perseus/commit/b54f886f64fced1fe0c211369f5d89a7c459dd97), [`9dad8a089`](https://github.com/Khan/perseus/commit/9dad8a0891bbd3e4a9943fade3c00c073a281541)]:
+    -   @khanacademy/perseus@32.0.1
+
 ## 14.0.0
 
 ### Major Changes
