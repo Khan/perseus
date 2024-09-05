@@ -1,15 +1,7 @@
-import {
-    arrayOfLength,
-    randomBoolean,
-    randomInteger,
-    randomSentence,
-} from "../../__testdata__/randomizers";
-
 import type {
     PerseusRenderer,
     RadioWidget,
     PassageWidget,
-    PerseusRadioChoice,
 } from "../../../perseus-types";
 
 export const question: PerseusRenderer = {
@@ -68,21 +60,6 @@ export const questionAndAnswer: [
     number,
     ReadonlyArray<number>,
 ] = [question, 2, [0, 1, 3]];
-
-export const passageWidget: PassageWidget = {
-    alignment: "default",
-    graded: true,
-    options: {
-        footnotes: "",
-        passageText: "Line 1 {{Reference 1 \n\nis here.}}\n\n{{Another ref}}",
-        passageTitle: "",
-        showLineNumbers: true,
-        static: false,
-    },
-    static: false,
-    type: "passage",
-    version: {major: 0, minor: 0},
-};
 
 export const questionWithPassage: PerseusRenderer = {
     content:
@@ -346,58 +323,3 @@ export const multiChoiceQuestionAndAnswer: [
         [0, 1, 2, 3],
     ],
 ];
-
-export const randomRadioGenerator = (): PerseusRenderer => {
-    const randomChoice = (
-        isMultiSelect: boolean,
-        isCorrect: boolean,
-        isNoneOfTheAbove: boolean,
-    ): PerseusRadioChoice => {
-        return {
-            content: randomSentence(12),
-            isNoneOfTheAbove: isNoneOfTheAbove,
-            correct: isMultiSelect ? randomBoolean() : isCorrect,
-        };
-    };
-    const numberOfChoices = randomInteger(2, 6);
-
-    const isMultiSelect = randomBoolean();
-    // only used if not multi select
-    const correctIndex = randomInteger(0, numberOfChoices);
-
-    const containsNoneOfTheAbove = randomBoolean();
-    // only used if containsNoneOfTheAbove
-    const noneOfTheAboveIndex = randomInteger(0, numberOfChoices);
-
-    return {
-        content: `${randomSentence(30)}\n\n[[\u2603 radio 1]]`,
-        images: {},
-        widgets: {
-            "radio 1": {
-                graded: randomBoolean(),
-                version: {
-                    major: 1,
-                    minor: 0,
-                },
-                static: randomBoolean(0.05),
-                type: "radio",
-                options: {
-                    onePerLine: randomBoolean(),
-                    displayCount: null,
-                    choices: arrayOfLength(numberOfChoices).map((_, i) =>
-                        randomChoice(
-                            isMultiSelect,
-                            correctIndex === i,
-                            containsNoneOfTheAbove && noneOfTheAboveIndex === i,
-                        ),
-                    ),
-                    hasNoneOfTheAbove: randomBoolean(),
-                    multipleSelect: isMultiSelect,
-                    randomize: randomBoolean(),
-                    deselectEnabled: randomBoolean(),
-                },
-                alignment: "default",
-            } as RadioWidget,
-        },
-    };
-};
