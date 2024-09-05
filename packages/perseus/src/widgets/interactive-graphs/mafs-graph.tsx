@@ -87,26 +87,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 disableKeyboardInteraction: readOnly || !!props.static,
             }}
         >
-            <View
-                aria-label={fullGraphAriaLabel}
-                aria-describedby={descriptionId}
-                tabIndex={
-                    fullGraphAriaLabel || fullGraphAriaDescription
-                        ? 0
-                        : undefined
-                }
-            >
-                <View
-                    id={descriptionId}
-                    tabIndex={-1}
-                    style={{
-                        width: 0,
-                        height: 0,
-                        overflow: "hidden",
-                    }}
-                >
-                    {fullGraphAriaDescription}
-                </View>
+            <View>
                 <View
                     className="mafs-graph"
                     style={{
@@ -126,9 +107,22 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             graphRef.current?.focus();
                         }
                     }}
+                    aria-label={fullGraphAriaLabel}
+                    aria-describedby={descriptionId}
                     ref={graphRef}
                     tabIndex={0}
                 >
+                    <View
+                        id={descriptionId}
+                        tabIndex={-1}
+                        style={{
+                            width: 0,
+                            height: 0,
+                            overflow: "hidden",
+                        }}
+                    >
+                        {fullGraphAriaDescription}
+                    </View>
                     <LegacyGrid
                         box={props.box}
                         backgroundImage={props.backgroundImage}
