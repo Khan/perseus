@@ -222,3 +222,16 @@
     stroke: var(--mafs-blue);
     stroke-width: 0.1px;
 }
+
+.MafsView .axis-tick-label {
+    /* There is a bug in the MathJax font for Safari, so we use KaTeX */
+    font-family: "KaTeX_Main";
+    stroke: #fff;
+    stroke-width: 5px;
+    paint-order: stroke fill;
+}
+
+.MafsView .axis-tick {
+    stroke: black;
+    stroke-width: 1px;
+}

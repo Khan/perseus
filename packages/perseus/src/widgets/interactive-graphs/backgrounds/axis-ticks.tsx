@@ -10,23 +10,6 @@ import type {Interval, vec} from "mafs";
 const tickSize = 10;
 const tickLabelSize = 14;
 
-// Style for the ticks on the x and y axes
-const tickStyle: React.CSSProperties = {
-    stroke: "black",
-    strokeWidth: 1,
-};
-
-// Common text attributes for the x and y axis labels
-const commonTextAttributes: React.SVGAttributes<SVGTextElement> = {
-    style: {
-        fontSize: `${tickLabelSize}px`,
-        fontFamily: "KaTeX_Main", // We're using the KaTeX font as MathJax has Safari issues
-    },
-    stroke: "white",
-    strokeWidth: 5,
-    paintOrder: "stroke",
-};
-
 const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
     // If the graph requires out-of-bounds labels, we want to make sure to set the
     // coordinates to the edge of the visible range of the graph. Otherwise,
@@ -56,7 +39,7 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
     // Adjust the y position of the x-axis labels based on
     // whether the x-axis is above, within, or below the graph
     const xAdjustment =
-        range[X][MAX] <= 0 ? tickLabelSize * 1.5 : -tickLabelSize;
+        range[X][MAX] <= 0 ? tickLabelSize * 1.5 : -tickLabelSize * 1.1;
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + tickLabelSize * 0.25; // Center the text vertically on the tick
 
@@ -66,10 +49,11 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
 
     return (
         <g className="tick">
-            <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
+            <line x1={x1} y1={y1} x2={x2} y2={y2} className="axis-tick" />
             {showLabel && (
                 <text
-                    {...commonTextAttributes}
+                    className="axis-tick-label"
+                    style={{fontSize: tickLabelSize}}
                     textAnchor={"end"}
                     x={xPositionText}
                     y={yPositionText}
@@ -123,10 +107,11 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
 
     return (
         <g className="tick">
-            <line x1={x1} y1={y1} x2={x2} y2={y2} style={tickStyle} />
+            <line x1={x1} y1={y1} x2={x2} y2={y2} className="axis-tick" />
             {
                 <text
-                    {...commonTextAttributes}
+                    className="axis-tick-label"
+                    style={{fontSize: tickLabelSize}}
                     textAnchor="middle"
                     x={xPositionText}
                     y={yPositionText}
