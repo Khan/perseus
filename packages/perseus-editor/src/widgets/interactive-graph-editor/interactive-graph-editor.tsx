@@ -168,14 +168,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
         },
     };
 
-    changeMatchType = (newValue) => {
-        const correct = {
-            ...this.props.correct,
-            match: newValue,
-        };
-        this.props.onChange({correct: correct});
-    };
-
     changeStartCoords = (coords) => {
         if (!this.props.graph?.type) {
             return;
@@ -581,7 +573,13 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     <LabeledRow label="Student answer must">
                         <SingleSelect
                             selectedValue={this.props.correct.match || "exact"}
-                            onChange={this.changeMatchType}
+                            onChange={(newValue) => {
+                                const correct = {
+                                    ...this.props.correct,
+                                    match: newValue,
+                                };
+                                this.props.onChange({correct: correct});
+                            }}
                             // Never uses placeholder, always has value
                             placeholder=""
                             style={styles.singleSelectShort}
@@ -644,7 +642,13 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     <LabeledRow label="Student answer must">
                         <SingleSelect
                             selectedValue={this.props.correct.match || "exact"}
-                            onChange={this.changeMatchType}
+                            onChange={(newValue) => {
+                                const correct = {
+                                    ...this.props.correct,
+                                    match: newValue,
+                                };
+                                this.props.onChange({correct: correct});
+                            }}
                             // Never uses placeholder, always has value
                             placeholder=""
                             style={styles.singleSelectShort}
