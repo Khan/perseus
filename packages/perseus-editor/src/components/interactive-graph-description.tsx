@@ -21,18 +21,6 @@ export default function InteractiveGraphDescription(props: Props) {
 
     const [isOpen, setIsOpen] = React.useState(true);
 
-    function handleChange(type: "label" | "description", newValue: string) {
-        if (type === "label") {
-            onChange({
-                fullGraphAriaLabel: newValue,
-            });
-        } else {
-            onChange({
-                fullGraphAriaDescription: newValue,
-            });
-        }
-    }
-
     return (
         <>
             <Heading
@@ -53,7 +41,7 @@ export default function InteractiveGraphDescription(props: Props) {
                         <TextField
                             value={ariaLabelValue}
                             onChange={(newValue) =>
-                                handleChange("label", newValue)
+                                onChange({fullGraphAriaLabel: newValue})
                             }
                         />
                     </LabelLarge>
@@ -64,7 +52,7 @@ export default function InteractiveGraphDescription(props: Props) {
                         <TextField
                             value={ariaDescriptionValue}
                             onChange={(newValue) =>
-                                handleChange("description", newValue)
+                                onChange({fullGraphAriaDescription: newValue})
                             }
                         />
                     </LabelLarge>
