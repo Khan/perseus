@@ -8,7 +8,6 @@ import type {SizeClass} from "../../../util/sizing-utils";
 import type {vec} from "mafs";
 
 interface GridProps {
-    tickStep: vec.Vector2;
     gridStep: vec.Vector2;
     range: GraphRange;
     containerSizeClass: SizeClass;

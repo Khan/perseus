@@ -141,11 +141,14 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
 // Determines whether to show the label for the given tick
 // Currently, the only condition is to hide the label at -1
 // on the y-axis when the x-axis is within the graph
-const shouldShowLabel = (number: number, range: [Interval, Interval]) => {
+export const shouldShowLabel = (
+    number: number,
+    range: [Interval, Interval],
+) => {
     let showLabel = true;
 
     // If the x-axis is within the graph and the y-axis is at -1, hide the label
-    if (range[X][MIN] < 0 && range[X][MAX] > -1 && number === -1) {
+    if (range[X][MIN] < -1 && range[X][MAX] > 0 && number === -1) {
         showLabel = false;
     }
 

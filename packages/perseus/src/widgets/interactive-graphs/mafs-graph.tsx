@@ -72,14 +72,22 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const descriptionId = `interactive-graph-description-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
 
-    // Calculate the viewBox for the nested SVG that contains
-    // the interactive elements and locked figures to prevent overflow
+    // Set up the SVG attributes for the nested SVGs that help lock
+    // the grid and graph elements to the bounds of the graph.
     const {viewboxX, viewboxY} = calculateNestedSVGCoords(
         state.range,
         width,
         height,
     );
     const viewBox = `${viewboxX} ${viewboxY} ${width} ${height}`;
+    const nestedSVGAttributes: React.SVGAttributes<SVGSVGElement> = {
+        width,
+        height,
+        viewBox,
+        preserveAspectRatio: "xMidYMin",
+        x: viewboxX,
+        y: viewboxY,
+    };
 
     return (
         <GraphConfigContext.Provider
@@ -173,17 +181,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         >
                             {/* Svg definitions to render only once */}
                             <SvgDefs />
-                            {/* Cartesian grid nested in an SVG to prevent overflow */}
-                            <svg
-                                width={width}
-                                height={height}
-                                viewBox={viewBox}
-                                preserveAspectRatio="xMidYMin"
-                                x={viewboxX}
-                                y={viewboxY}
-                            >
+                            {/* Cartesian grid nested in an SVG to lock to graph bounds */}
+                            <svg {...nestedSVGAttributes}>
                                 <Grid
-                                    tickStep={props.step}
                                     gridStep={props.gridStep}
                                     range={state.range}
                                     containerSizeClass={
@@ -204,15 +204,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     </>
                                 )
                             }
-                            {/* Locked & Interactive elements nested an SVG to prevent overflow*/}
-                            <svg
-                                width={width}
-                                height={height}
-                                viewBox={viewBox}
-                                preserveAspectRatio="xMidYMin"
-                                x={viewboxX}
-                                y={viewboxY}
-                            >
+                            {/* Locked & Interactive elements nested an SVG to lock to graph bounds*/}
+                            <svg {...nestedSVGAttributes}>
                                 {/* Locked figures layer */}
                                 {props.lockedFigures && (
                                     <GraphLockedLayer
@@ -279,7 +272,7 @@ const getRangeDiff = (range: vec.Vector2) => {
 };
 
 // We need to adjust the nested SVG viewbox x and Y values based on the range of the graph in order
-// to ensure that the graph is sized and positioned correctly within the SVG and the clipping mask.
+// to ensure that the graph is sized and positioned correctly within the Mafs SVG and the clipping mask.
 // Exported for testing.
 export const calculateNestedSVGCoords = (
     range: vec.Vector2[],

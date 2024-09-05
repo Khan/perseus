@@ -464,21 +464,39 @@ describe("MafsGraph", () => {
 });
 
 describe("calculateNestedSVGCoords", () => {
-    it("calculates nested SVG coordinates", () => {
+    it("calculates nested SVG coordinates for a centered graph", () => {
         const range: GraphRange = [
             [-10, 10],
             [-10, 10],
         ];
-        const fullPixelSpace: vec.Vector2 = [400, 400];
+        const graphSize: vec.Vector2 = [400, 400];
 
         const result = calculateNestedSVGCoords(
             range,
-            fullPixelSpace[0],
-            fullPixelSpace[1],
+            graphSize[0],
+            graphSize[1],
         );
 
         expect(result).toEqual({
             viewboxX: -200,
+            viewboxY: -200,
+        });
+    });
+    it("calculates nested SVG coordinates for an off center graph", () => {
+        const range: GraphRange = [
+            [5, 10], // the x range is wholly positive
+            [-10, 10],
+        ];
+        const graphSize: vec.Vector2 = [400, 400];
+
+        const result = calculateNestedSVGCoords(
+            range,
+            graphSize[0],
+            graphSize[1],
+        );
+
+        expect(result).toEqual({
+            viewboxX: 400,
             viewboxY: -200,
         });
     });
