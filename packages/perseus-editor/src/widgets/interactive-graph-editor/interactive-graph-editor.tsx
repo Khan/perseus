@@ -371,20 +371,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             ariaDescribedbyValue={
                                 this.props.fullGraphAriaDescribedby ?? ""
                             }
-                            onChange={(
-                                type: "label" | "description",
-                                newValue,
-                            ) => {
-                                if (type === "label") {
-                                    this.props.onChange({
-                                        fullGraphAriaLabel: newValue,
-                                    });
-                                } else {
-                                    this.props.onChange({
-                                        fullGraphAriaDescribedby: newValue,
-                                    });
-                                }
-                            }}
+                            onChange={this.props.onChange}
                         />
                     )}
                 <InteractiveGraphCorrectAnswer equationString={equationString}>

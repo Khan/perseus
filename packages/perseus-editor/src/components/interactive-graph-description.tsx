@@ -8,10 +8,12 @@ import * as React from "react";
 
 import Heading from "./heading";
 
+import type {Props as EditorProps} from "../widgets/interactive-graph-editor/interactive-graph-editor";
+
 type Props = {
     ariaLabelValue: string;
     ariaDescribedbyValue: string;
-    onChange: (type: "label" | "description", value: string) => void;
+    onChange: (graphProps: Partial<EditorProps>) => void;
 };
 
 export default function InteractiveGraphDescription(props: Props) {
@@ -20,7 +22,15 @@ export default function InteractiveGraphDescription(props: Props) {
     const [isOpen, setIsOpen] = React.useState(true);
 
     function handleChange(type: "label" | "description", newValue: string) {
-        onChange(type, newValue);
+        if (type === "label") {
+            onChange({
+                fullGraphAriaLabel: newValue,
+            });
+        } else {
+            onChange({
+                fullGraphAriaDescribedby: newValue,
+            });
+        }
     }
 
     return (
