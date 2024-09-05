@@ -17,7 +17,7 @@ import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
-import type {Props as InteractiveGraphEditorProps} from "../../widgets/interactive-graph-editor";
+import type {Props as InteractiveGraphEditorProps} from "../../widgets/interactive-graph-editor/interactive-graph-editor";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
 
 type Props = {
