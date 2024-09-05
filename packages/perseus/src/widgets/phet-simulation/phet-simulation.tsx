@@ -8,7 +8,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
-import {StyleSheet} from "aphrodite";
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -190,16 +190,7 @@ export class PhetSimulation extends React.Component<Props, State> {
                         ref={this.iframeRef}
                         title={this.props.description}
                         sandbox={sandboxProperties}
-                        style={{
-                            borderWidth: 0,
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            bottom: 0,
-                            right: 0,
-                            width: "100%",
-                            height: "100%",
-                        }}
+                        className={css(styles.iframeResponsive)}
                         src={this.state.url?.toString()}
                         allow="fullscreen"
                     />
@@ -250,6 +241,16 @@ const styles = StyleSheet.create({
         width: "100%",
         // 16:9 aspect ratio
         paddingTop: "56.25%",
+    },
+    iframeResponsive: {
+        borderWidth: 0,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        width: "100%",
+        height: "100%",
     },
 });
 
