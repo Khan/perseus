@@ -8,7 +8,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
-import {StyleSheet} from "aphrodite";
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -170,7 +170,7 @@ export class PhetSimulation extends React.Component<Props, State> {
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         const sandboxProperties = "allow-same-origin allow-scripts";
         return (
-            <View style={styles.container}>
+            <View style={styles.widgetContainer}>
                 {this.state.banner !== null && (
                     // TODO(anna): Make this banner focusable
                     <View
@@ -185,18 +185,16 @@ export class PhetSimulation extends React.Component<Props, State> {
                         />
                     </View>
                 )}
-                <iframe
-                    ref={this.iframeRef}
-                    title={this.props.description}
-                    sandbox={sandboxProperties}
-                    style={{
-                        height: 225,
-                        width: "100%",
-                        borderWidth: 0,
-                    }}
-                    src={this.state.url?.toString()}
-                    allow="fullscreen"
-                />
+                <View style={styles.iframeContainer}>
+                    <iframe
+                        ref={this.iframeRef}
+                        title={this.props.description}
+                        sandbox={sandboxProperties}
+                        className={css(styles.iframeResponsive)}
+                        src={this.state.url?.toString()}
+                        allow="fullscreen"
+                    />
+                </View>
                 <IconButton
                     icon={cornersOutIcon}
                     onClick={() => {
@@ -230,14 +228,29 @@ export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+    widgetContainer: {
         borderRadius: borderRadiusLarge,
         borderWidth: 1,
         borderColor: basicBorderColor,
         padding: spacing.medium_16,
         paddingBottom: 0,
-        // Include space for medium_16 padding on each side
-        width: 400 + spacing.xLarge_32,
+    },
+    iframeContainer: {
+        position: "relative",
+        overflow: "hidden",
+        width: "100%",
+        // 16:9 aspect ratio
+        paddingTop: "56.25%",
+    },
+    iframeResponsive: {
+        borderWidth: 0,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        width: "100%",
+        height: "100%",
     },
 });
 
