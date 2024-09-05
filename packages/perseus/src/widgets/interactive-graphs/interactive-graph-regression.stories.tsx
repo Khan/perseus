@@ -121,19 +121,11 @@ export const MafsWithYAxisOffLeft = (args: StoryArgs): React.ReactElement => (
     />
 );
 
-export const MafsWithYAxisOffFurtherLeft = (
+export const MafsWithYAxisOffFarLeft = (
     args: StoryArgs,
 ): React.ReactElement => (
     <MafsQuestionRenderer
         question={interactiveGraphQuestionBuilder().withXRange(6, 20).build()}
-    />
-);
-
-export const MafsWithYAxisOffEvenFurtherLeft = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <MafsQuestionRenderer
-        question={interactiveGraphQuestionBuilder().withXRange(15, 30).build()}
     />
 );
 
