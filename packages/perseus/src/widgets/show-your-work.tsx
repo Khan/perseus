@@ -5,9 +5,10 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {checkStep} from "@math-blocks/tutor";
-import correctIcon from "@phosphor-icons/core/bold/check-bold.svg";
-import incorrectIcon from "@phosphor-icons/core/bold/x-bold.svg";
+import correctIcon from "@phosphor-icons/core/regular/check-circle.svg";
+import incorrectIcon from "@phosphor-icons/core/regular/x-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -17,8 +18,6 @@ import * as Changeable from "../mixins/changeable";
 
 import expression from "./expression";
 import {parse} from "./show-your-work/parser";
-
-type PhosphorBold = string & {weight: "PhosphorBold"};
 
 import type {
     PerseusShowYourWorkWidgetOptions,
@@ -99,17 +98,29 @@ const Step = (props: StepProps) => {
         />
     );
 
-    let icon: PhosphorBold | null = null;
+    let icon: React.ReactNode = null;
     if (step.status === "correct") {
-        icon = correctIcon;
+        icon = (
+            <PhosphorIcon
+                icon={correctIcon}
+                style={styles.icon}
+                color={color.green}
+            />
+        );
     } else if (step.status === "incorrect") {
-        icon = incorrectIcon;
+        icon = (
+            <PhosphorIcon
+                icon={incorrectIcon}
+                style={styles.icon}
+                color={color.red}
+            />
+        );
     }
 
     return (
         <View style={styles.stepContainer}>
             {expression}
-            {icon && <PhosphorIcon icon={icon} style={styles.icon} />}
+            {icon}
             {props.isLast && (
                 <>
                     <Strut size={16} />
