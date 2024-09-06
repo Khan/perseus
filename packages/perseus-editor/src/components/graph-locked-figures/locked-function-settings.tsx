@@ -16,7 +16,7 @@ import caretDoubleLeftIcon from "@phosphor-icons/core/assets/regular/caret-doubl
 import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useId, useState} from "react";
 
 import PerseusEditorAccordion from "../perseus-editor-accordion";
 
@@ -50,9 +50,10 @@ const LockedFunctionSettings = (props: Props) => {
         onRemove,
     } = props;
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
+    const domainRangeText = directionalAxis === "x" ? "domain" : "range";
     const lineLabel = `Function (${equationPrefix}${equation})`;
 
-    // Tracking the string value of domain constraints to handle interim state of
+    // Tracking the string value of domain/range constraints to handle interim state of
     //     entering a negative value, as well as representing Infinity as an empty string.
     // This variable is used when specifying the values of the input fields.
     const [domainEntries, setDomainEntries] = useState([
@@ -63,14 +64,14 @@ const LockedFunctionSettings = (props: Props) => {
     const [exampleCategory, setExampleCategory] = useState("");
 
     useEffect(() => {
-        // "useEffect" used to maintain parity between domain constraints and their string representation.
+        // "useEffect" used to maintain parity between domain/range constraints and their string representation.
         setDomainEntries([
             domain && domain[0] !== -Infinity ? domain[0].toString() : "",
             domain && domain[1] !== Infinity ? domain[1].toString() : "",
         ]);
     }, [domain]);
 
-    // Generic function for handling property changes (except for 'domain')
+    // Generic function for handling property changes (except for 'domain/range')
     function handlePropChange(property: string, newValue: string) {
         const updatedProps: Partial<LockedFunctionType> = {};
         updatedProps[property] = newValue;
@@ -78,8 +79,8 @@ const LockedFunctionSettings = (props: Props) => {
     }
 
     /*
-     Reason for having a separate 'propChange' function for 'domain':
-        Domain entries are optional. Their default value is +/- Infinity.
+     Reason for having a separate 'propChange' function for 'domain/range':
+        Domain/Range entries are optional. Their default value is +/- Infinity.
         Since input fields that are empty evaluate to zero, there needs to be
             dedicated code to convert empty to Infinity.
      */
@@ -106,9 +107,6 @@ const LockedFunctionSettings = (props: Props) => {
     const exampleContent = exampleCategorySelected
         ? examples[exampleCategory]
         : ["Select category to see example equations"];
-    const exampleContentStyles = exampleCategorySelected
-        ? styles.exampleContent
-        : [styles.exampleContent, styles.exampleContentInstructions];
 
     return (
         <PerseusEditorAccordion
@@ -171,10 +169,10 @@ const LockedFunctionSettings = (props: Props) => {
                 />
             </View>
 
-            {/* Domain restrictions */}
+            {/* Domain/Range restrictions */}
             <View style={[styles.row, styles.rowSpace]}>
                 <LabelMedium tag="label" style={styles.domainMin}>
-                    {"domain min"}
+                    {`${domainRangeText} min`}
 
                     <Strut size={spacing.xxSmall_6} />
                     <TextField
@@ -189,7 +187,7 @@ const LockedFunctionSettings = (props: Props) => {
                 <Strut size={spacing.medium_16} />
                 <LabelMedium
                     tag="label"
-                    aria-label="domain max"
+                    aria-label={`${domainRangeText} max`}
                     style={styles.domainMax}
                 >
                     {"max"}
@@ -209,6 +207,7 @@ const LockedFunctionSettings = (props: Props) => {
             {/* Examples */}
             <View style={[styles.exampleWorkspace, styles.rowSpace]}>
                 <SingleSelect
+                    aria-label="example categories"
                     selectedValue={exampleCategory}
                     onChange={setExampleCategory}
                     style={styles.dropdownMenu}
@@ -226,39 +225,14 @@ const LockedFunctionSettings = (props: Props) => {
                 </SingleSelect>
                 <Strut size={spacing.small_12} />
                 <ul className={css(styles.exampleContainer)}>
-                    {exampleContent.map((example, index) => {
-                        return (
-                            <li
-                                key={`${exampleCategory}-${index}`}
-                                className={css(styles.exampleRow)}
-                            >
-                                {exampleCategorySelected && (
-                                    <IconButton
-                                        icon={copyIcon}
-                                        aria-label="copy example"
-                                        onClick={(e) =>
-                                            navigator.clipboard.writeText(
-                                                example,
-                                            )
-                                        }
-                                        size="medium"
-                                        style={styles.copyButton}
-                                    />
-                                )}
-                                {!exampleCategorySelected && (
-                                    <PhosphorIcon
-                                        icon={caretDoubleLeftIcon}
-                                        size="medium"
-                                        color={color.fadedOffBlack64}
-                                    />
-                                )}
-                                <Strut size={spacing.small_12} />
-                                <View style={exampleContentStyles}>
-                                    {example}
-                                </View>
-                            </li>
-                        );
-                    })}
+                    {exampleContent.map((example, index) => (
+                        <ExampleItem
+                            category={exampleCategory}
+                            categorySelected={exampleCategorySelected}
+                            example={example}
+                            index={index}
+                        />
+                    ))}
                 </ul>
             </View>
 
@@ -269,6 +243,47 @@ const LockedFunctionSettings = (props: Props) => {
                 onRemove={onRemove}
             />
         </PerseusEditorAccordion>
+    );
+};
+
+type ItemProps = {
+    example: string;
+    index: number;
+    category: string;
+    categorySelected: boolean;
+};
+
+const ExampleItem = (props: ItemProps): React.ReactElement => {
+    const {example, index, category, categorySelected} = props;
+    const exampleId = useId();
+    const exampleContentStyles = categorySelected
+        ? [styles.exampleContent, styles.exampleContentEquation]
+        : [styles.exampleContent, styles.exampleContentInstructions];
+
+    return (
+        <li key={`${category}-${index}`} className={css(styles.exampleRow)}>
+            {categorySelected && (
+                <IconButton
+                    icon={copyIcon}
+                    aria-label="copy example"
+                    aria-describedby={exampleId}
+                    onClick={() => navigator.clipboard.writeText(example)}
+                    size="medium"
+                    style={styles.copyButton}
+                />
+            )}
+            {!categorySelected && (
+                <PhosphorIcon
+                    icon={caretDoubleLeftIcon}
+                    size="medium"
+                    color={color.fadedOffBlack64}
+                />
+            )}
+            <Strut size={spacing.small_12} />
+            <View style={exampleContentStyles} id={exampleId}>
+                {example}
+            </View>
+        </li>
     );
 };
 
@@ -288,11 +303,12 @@ const styles = StyleSheet.create({
     domainMin: {
         alignItems: "center",
         display: "flex",
+        justifyContent: "space-between",
         // The 'width' property is applied to the label, which wraps the text and the input field.
         // The width of the input fields (min/max) should be the same (to have a consistent look),
         //     so the following calculation distributes the space accordingly.
-        // For the "domain min" block, the text is 82.7px, and the strut is 6px (88.7px total).
-        // The "domain max" block is 30.23px, and the strut is 6px (36.23px total).
+        // For the "domain/range min" block, the text is 82.7px, and the strut is 6px (88.7px total).
+        // The "domain/range max" block is 30.23px, and the strut is 6px (36.23px total).
         // The calculation takes the remain space after the text & struts (141px total) are removed,
         //     and divides it between the two input fields equally.
         // The calculation reads: "Take 1/2 of the non-text space, and add the required space for this label's text"
@@ -331,12 +347,14 @@ const styles = StyleSheet.create({
         padding: "12px",
     },
     exampleContent: {
-        color: color.offBlack,
         fontFamily: `"Lato", sans-serif`,
         flexGrow: "1",
     },
     exampleContentInstructions: {
         color: color.fadedOffBlack64,
+    },
+    exampleContentEquation: {
+        color: color.offBlack,
     },
     exampleRow: {
         display: "flex",
