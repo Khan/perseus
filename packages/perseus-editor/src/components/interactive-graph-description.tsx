@@ -36,7 +36,7 @@ export default function InteractiveGraphDescription(props: Props) {
                         are used by screen readers to describe content to users
                         who are visually impaired.
                     </LabelXSmall>
-                    <LabelLarge>
+                    <LabelLarge tag="label">
                         Title
                         <TextField
                             value={ariaLabelValue}
@@ -46,7 +46,7 @@ export default function InteractiveGraphDescription(props: Props) {
                         />
                     </LabelLarge>
                     <Strut size={spacing.xSmall_8} />
-                    <LabelLarge>
+                    <LabelLarge tag="label">
                         Description
                         {/* TODO: Change this to a WB TextArea */}
                         <TextField

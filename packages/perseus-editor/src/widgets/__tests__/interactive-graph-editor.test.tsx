@@ -1066,4 +1066,28 @@ describe("InteractiveGraphEditor", () => {
             }),
         ).toBeNull();
     });
+
+    test("shows description section", () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "Title"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("textbox", {name: "Description"}),
+        ).toBeInTheDocument();
+    });
 });
