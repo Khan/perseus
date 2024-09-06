@@ -1,4 +1,5 @@
-import {parse, compare} from "./kas/src";
+// 為了使答案驗證跟均一舊版 perseus 行為一樣，我們從均一舊 code 搬來 old-kas 使用
+import { KAS } from "./kas/src/old-kas";
 import {init, Widgets, Renderer, Dependencies} from "./perseus/src";
 import Interactive2 from "./perseus/src/interactive2";
 import KhanUtils from "./perseus/src/util";
@@ -39,6 +40,8 @@ export interface PerseusCore {
     ) => {equal: boolean; message: string};
     Dependencies: typeof Dependencies;
 }
+
+const { parse, compare } = KAS;
 
 export {
     init,
