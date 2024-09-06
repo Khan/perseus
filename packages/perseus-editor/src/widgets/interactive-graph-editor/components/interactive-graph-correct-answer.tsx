@@ -6,7 +6,7 @@ import {
 } from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import Heading from "./heading";
+import Heading from "../../../components/heading";
 
 type Props = {
     equationString: string;
