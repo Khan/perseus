@@ -485,6 +485,12 @@ class SvgImage extends React.Component<Props, State> {
                 // without coordinates. They don't seem to have any content, so
                 // it seems fine to just ignore them (rather than error), but
                 // we should figure out why this is happening.
+
+                // 'fontSize' - When a default scale (1) is used,
+                //     setting the font size to 100% is redundant.
+                // Also, setting the font size to 100% can counteract other scale-based styling.
+                // Therefore, when the scale is not applicable,
+                //     we set the value to 'null' so that it won't be set to anything.
                 const fontSize =
                     this.props.scale !== 1
                         ? {"font-size": 100 * this.props.scale + "%"}
