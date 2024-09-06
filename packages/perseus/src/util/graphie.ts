@@ -1650,8 +1650,6 @@ const SVG_SPECIFIC_STYLE_MASK = {
 
 const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     const $span = $(span);
-    // eslint-disable-next-line
-    console.group(`Label: ${span.innerText}`);
     const direction = $span.data("labelDirection");
     let [width, height] = size;
     // This can happen when a span
@@ -1683,12 +1681,6 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         const maxWidth = $container.css("max-width") ?? "0px";
         const scale =
             (($container.width() ?? 0) / parseInt(maxWidth.slice(0, -2))) * 100;
-        // eslint-disable-next-line
-        console.log("Width: ", $container.width());
-        // eslint-disable-next-line
-        console.log("Max-Width: ", maxWidth, maxWidth.slice(0, -2));
-        // eslint-disable-next-line
-        console.log("Scale: ", scale);
 
         const currentPadding = $span.css("padding") ?? "0px";
         const newPadding =
@@ -1702,8 +1694,6 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             padding: `${newPadding}px`,
         });
     }
-    // eslint-disable-next-line
-    console.groupEnd();
 };
 
 const GraphUtils = {
