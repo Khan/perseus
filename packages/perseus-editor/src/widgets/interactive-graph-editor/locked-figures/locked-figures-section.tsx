@@ -11,7 +11,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Heading from "../../../components/heading";
-import {getDefaultFigureForType} from "../../../components/util";
+import {getDefaultFigureForType} from "./util";
 
 import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";

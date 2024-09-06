@@ -4,7 +4,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import LockedFiguresSection from "../../widgets/interactive-graph-editor/locked-figures/locked-figures-section";
-import {getDefaultFigureForType} from "../util";
+import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
 
 import type {Meta, StoryObj} from "@storybook/react";
 

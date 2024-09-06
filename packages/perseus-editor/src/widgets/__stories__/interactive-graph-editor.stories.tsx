@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {flags} from "../../__stories__/flags-for-api-options";
-import {getDefaultFigureForType} from "../../components/util";
+import {getDefaultFigureForType} from "../interactive-graph-editor/locked-figures/util";
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 
 import InteractiveGraphEditorArgTypes from "./interactive-graph-editor.argtypes";

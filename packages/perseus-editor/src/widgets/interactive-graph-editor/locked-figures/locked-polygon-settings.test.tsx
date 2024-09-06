@@ -4,7 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedPolygonSettings from "./locked-polygon-settings";
-import {getDefaultFigureForType} from "../../../components/util";
+import {getDefaultFigureForType} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 

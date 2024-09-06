@@ -7,7 +7,7 @@ import * as React from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import examples from "./locked-function-examples";
 import LockedFunctionSettings from "./locked-function-settings";
-import {getDefaultFigureForType} from "../../../components/util";
+import {getDefaultFigureForType} from "./util";
 
 import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";

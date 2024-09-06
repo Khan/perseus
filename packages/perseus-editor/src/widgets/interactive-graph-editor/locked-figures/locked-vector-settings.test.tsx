@@ -4,7 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import LockedVectorSettings from "./locked-vector-settings";
-import {getDefaultFigureForType} from "../../../components/util";
+import {getDefaultFigureForType} from "./util";
 
 import type {Props} from "./locked-vector-settings";
 import type {UserEvent} from "@testing-library/user-event";
