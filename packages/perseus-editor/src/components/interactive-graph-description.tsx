@@ -46,13 +46,24 @@ export default function InteractiveGraphDescription(props: Props) {
                         />
                     </LabelLarge>
                     <Strut size={spacing.xSmall_8} />
-                    <LabelLarge tag="label">
+                    <LabelLarge
+                        tag="label"
+                        // TODO(LEMS-2332): Remove this style prop after
+                        // switching to WB TextArea
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
                         Description
-                        {/* TODO: Change this to a WB TextArea */}
-                        <TextField
+                        {/* TODO(LEMS-2332): Change this to a WB TextArea */}
+                        <textarea
+                            rows={8}
                             value={ariaDescriptionValue}
-                            onChange={(newValue) =>
-                                onChange({fullGraphAriaDescription: newValue})
+                            onChange={(e) =>
+                                onChange({
+                                    fullGraphAriaDescription: e.target.value,
+                                })
                             }
                         />
                     </LabelLarge>
