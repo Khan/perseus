@@ -812,7 +812,7 @@ export type PerseusGraphTypeAngle = {
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
     // must have 3 coords - ie [Coord, Coord, Coord]
-    coords?: [Coord, Coord, Coord];
+    coords?: [Coord, Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
 };
@@ -831,7 +831,7 @@ export type PerseusGraphTypeCircle = {
 export type PerseusGraphTypeLinear = {
     type: "linear";
     // expects 2 coords
-    coords?: CollinearTuple;
+    coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
@@ -839,7 +839,7 @@ export type PerseusGraphTypeLinear = {
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
     // expects 2 sets of 2 coords
-    coords?: CollinearTuple[];
+    coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
@@ -848,7 +848,7 @@ export type PerseusGraphTypePoint = {
     type: "point";
     // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
     numPoints?: number | "unlimited";
-    coords?: ReadonlyArray<Coord>;
+    coords?: ReadonlyArray<Coord> | null;
     // The initial coordinates the graph renders with.
     startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
@@ -865,7 +865,7 @@ export type PerseusGraphTypePolygon = {
     snapTo?: "grid" | "angles" | "sides";
     // How to match the answer. If missing, defaults to exact matching.
     match?: "similar" | "congruent" | "approx";
-    coords?: ReadonlyArray<Coord>;
+    coords?: ReadonlyArray<Coord> | null;
     // The initial coordinates the graph renders with.
     startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
@@ -873,7 +873,7 @@ export type PerseusGraphTypePolygon = {
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
     // expects a list of 3 coords
-    coords?: [Coord, Coord, Coord];
+    coords?: [Coord, Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
 } & PerseusGraphTypeCommon;
@@ -883,7 +883,7 @@ export type PerseusGraphTypeSegment = {
     // The number of segments if a "segment" type. default: 1.  Max: 6
     numSegments?: number;
     // Expects a list of Coord tuples. Length should match the `numSegments` value.
-    coords?: CollinearTuple[];
+    coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
@@ -891,7 +891,7 @@ export type PerseusGraphTypeSegment = {
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
     // Expects a list of 2 Coords
-    coords?: ReadonlyArray<Coord>;
+    coords?: ReadonlyArray<Coord> | null;
     // The initial coordinates the graph renders with.
     startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
@@ -899,7 +899,7 @@ export type PerseusGraphTypeSinusoid = {
 export type PerseusGraphTypeRay = {
     type: "ray";
     // Expects a list of 2 Coords
-    coords?: CollinearTuple;
+    coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
