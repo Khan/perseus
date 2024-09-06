@@ -3,8 +3,10 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import LockedFunctionSettings from "../graph-locked-figures/locked-function-settings";
+// Disabling the following linting error because the import is needed for mocking purposes.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import examples from "../graph-locked-figures/locked-function-examples";
+import LockedFunctionSettings from "../graph-locked-figures/locked-function-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Props} from "../graph-locked-figures/locked-function-settings";
