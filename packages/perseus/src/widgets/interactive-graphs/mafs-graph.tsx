@@ -202,8 +202,6 @@ const renderPointGraphControls = (props: {
                     marginLeft: "20px",
                 }}
                 onClick={(event) => {
-                    event.preventDefault();
-                    console.log(props.state.focusedPointIndex);
                     props.dispatch(
                         actions.pointGraph.removePoint(
                             props.state.previouslyFocusedPointIndex!,
