@@ -19,6 +19,7 @@ type Props = {
     cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
     onFocusChange?: (isFocused: boolean) => unknown;
+    onActivate?: () => unknown;
 };
 
 export const MovablePoint = (props: Props) => {
@@ -31,6 +32,7 @@ export const MovablePoint = (props: Props) => {
         cursor,
         color = WBColor.blue,
         constrain = (p) => snap(snapStep, p),
+        onActivate,
     } = props;
     const {dragging} = useDraggable({
         gestureTarget: elementRef,
@@ -46,7 +48,10 @@ export const MovablePoint = (props: Props) => {
             color={color}
             dragging={dragging}
             focusBehavior={{type: "uncontrolled", tabIndex: 0, onFocusChange}}
-            onClick={() => elementRef.current?.focus()}
+            onClick={() => {
+                onActivate && onActivate();
+                elementRef.current?.focus();
+            }}
             cursor={cursor}
         />
     );

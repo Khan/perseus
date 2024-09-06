@@ -1,3 +1,6 @@
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
+import graphIcon from "@phosphor-icons/core/regular/trash.svg";
 import * as React from "react";
 
 import {actions} from "../reducer/interactive-graph-action";
@@ -11,7 +14,6 @@ import {
 } from "./use-transform";
 
 import type {PointGraphState, MafsGraphProps} from "../types";
-import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
@@ -59,12 +61,15 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
             <rect
                 style={{
                     fill: "rgba(0,0,0,0)",
+                    cursor: "crosshair",
                 }}
                 width={widthPx}
                 height={heightPx}
                 x={left}
                 y={top}
                 onClick={(event) => {
+                    setShowPopover(null);
+
                     const elementRect =
                         event.currentTarget.getBoundingClientRect();
 
@@ -84,9 +89,29 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                     opened={popoverVisibleForPointId === i}
                     content={
                         <PopoverContent
-                            title="Title"
-                            content="Some content"
+                            title=""
+                            content=""
+                            actions={
+                                <>
+                                    <IconButton
+                                        icon={graphIcon}
+                                        color="destructive"
+                                        onClick={() => {
+                                            setShowPopover(null);
+                                            dispatch(
+                                                actions.pointGraph.removePoint(
+                                                    i,
+                                                ),
+                                            );
+                                        }}
+                                    />
+                                </>
+                            }
                             closeButtonVisible={false}
+                            style={{
+                                height: "60px",
+                                paddingBottom: "50px",
+                            }}
                         />
                     }
                 >
@@ -101,10 +126,16 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                         }}
                         onFocusChange={(isFocused) => {
                             if (isFocused) {
-                                setShowPopover(i);
                                 dispatch(actions.pointGraph.focusPoint(i));
                             } else {
                                 dispatch(actions.pointGraph.blurPoint());
+                            }
+                        }}
+                        onActivate={() => {
+                            if (popoverVisibleForPointId === i) {
+                                setShowPopover(null);
+                            } else {
+                                setShowPopover(i);
                             }
                         }}
                     />
