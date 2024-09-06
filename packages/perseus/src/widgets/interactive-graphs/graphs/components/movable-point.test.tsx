@@ -1,5 +1,9 @@
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
-import {render} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
+import {
+    type UserEvent,
+    userEvent as userEventLib,
+} from "@testing-library/user-event";
 import {Mafs} from "mafs";
 import React from "react";
 
@@ -44,11 +48,15 @@ describe("MovablePoint", () => {
         labels: [],
     };
 
+    let userEvent: UserEvent;
     beforeEach(() => {
         useGraphConfigMock = jest.spyOn(ReducerGraphConfig, "default");
         useDraggableMock = jest
             .spyOn(UseDraggableModule, "useDraggable")
             .mockReturnValue({dragging: false});
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
     });
 
     describe("Tooltip", () => {
@@ -184,5 +192,53 @@ describe("MovablePoint", () => {
             const svgGroups = container.querySelectorAll("svg > g");
             expect(svgGroups).toHaveLength(1);
         });
+    });
+
+    it("calls onFocusChange(true) when you tab to it", async () => {
+        const focusChangeSpy = jest.fn();
+        render(
+            <Mafs width={200} height={200}>
+                <MovablePoint point={[0, 0]} onFocusChange={focusChangeSpy} />,
+            </Mafs>,
+        );
+
+        expect(focusChangeSpy).not.toHaveBeenCalled();
+
+        await userEvent.tab(); // tab to the graph
+        await userEvent.tab(); // tab to the point
+
+        expect(focusChangeSpy.mock.calls).toEqual([[true]]);
+    });
+
+    it("calls onFocusChange(false) when you tab away from it", async () => {
+        const focusChangeSpy = jest.fn();
+        render(
+            <Mafs width={200} height={200}>
+                <MovablePoint point={[0, 0]} onFocusChange={focusChangeSpy} />,
+            </Mafs>,
+        );
+
+        expect(focusChangeSpy).not.toHaveBeenCalled();
+
+        await userEvent.tab(); // tab to the graph
+        await userEvent.tab(); // tab to the point
+        await userEvent.tab(); // tab away
+
+        expect(focusChangeSpy.mock.calls).toEqual([[true], [false]]);
+    });
+
+    it("calls onFocusChange(true) when you click it", async () => {
+        const focusChangeSpy = jest.fn();
+        render(
+            <Mafs width={200} height={200}>
+                <MovablePoint point={[0, 0]} onFocusChange={focusChangeSpy} />,
+            </Mafs>,
+        );
+
+        expect(focusChangeSpy).not.toHaveBeenCalled();
+
+        await userEvent.click(screen.getByTestId("movable-point"));
+
+        expect(focusChangeSpy.mock.calls).toEqual([[true]]);
     });
 });

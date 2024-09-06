@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {components, PerseusI18nContext, Util} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
@@ -98,6 +97,29 @@ class InputNumberEditor extends React.Component<Props> {
         const value = Util.firstNumericalParse(str, this.context.strings) || 0;
         this.props.onChange({value: value});
     };
+
+    focus: () => boolean = () => {
+        this.input.current?.focus();
+        return true;
+    };
+
+    serialize: () => {
+        value: Props["value"];
+        simplify: Props["simplify"];
+        size: Props["size"];
+        inexact: Props["inexact"];
+        maxError: Props["maxError"];
+        answerType: Props["answerType"];
+        rightAlign: Props["rightAlign"];
+    } = () => ({
+        value: this.props.value,
+        simplify: this.props.simplify,
+        size: this.props.size,
+        inexact: this.props.inexact,
+        maxError: this.props.maxError,
+        answerType: this.props.answerType,
+        rightAlign: this.props.rightAlign,
+    });
 
     render(): React.ReactNode {
         const answerTypeOptions = _.map(
@@ -265,29 +287,6 @@ class InputNumberEditor extends React.Component<Props> {
             </div>
         );
     }
-
-    focus: () => boolean = () => {
-        this.input.current?.focus();
-        return true;
-    };
-
-    serialize: () => {
-        value: Props["value"];
-        simplify: Props["simplify"];
-        size: Props["size"];
-        inexact: Props["inexact"];
-        maxError: Props["maxError"];
-        answerType: Props["answerType"];
-        rightAlign: Props["rightAlign"];
-    } = () => ({
-        value: this.props.value,
-        simplify: this.props.simplify,
-        size: this.props.size,
-        inexact: this.props.inexact,
-        maxError: this.props.maxError,
-        answerType: this.props.answerType,
-        rightAlign: this.props.rightAlign,
-    });
 }
 
 export default InputNumberEditor;

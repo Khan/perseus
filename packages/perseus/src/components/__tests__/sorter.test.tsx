@@ -4,7 +4,7 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
-import {renderQuestion} from "../../widgets/__tests__/renderQuestion";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {question1} from "../__testdata__/sorter.testdata";
 
 import type {APIOptions} from "../../types";

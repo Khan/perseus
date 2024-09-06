@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe */
 import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -38,39 +38,6 @@ class TextListEditor extends React.Component<any, any> {
         this.setState({
             items: nextProps.options.concat(""),
         });
-    }
-
-    render(): React.ReactNode {
-        const className = [
-            "perseus-text-list-editor",
-            "perseus-clearfix",
-            "layout-" + this.props.layout,
-        ].join(" ");
-
-        const inputs = _.map(
-            this.state.items,
-            function (item, i) {
-                return (
-                    <li key={i}>
-                        <input
-                            ref={"input_" + i}
-                            type="text"
-                            value={item}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            onChange={this.onChange.bind(this, i)}
-                            // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            onKeyDown={this.onKeyDown.bind(this, i)}
-                            style={{width: getTextWidth(item)}}
-                        />
-                    </li>
-                );
-            },
-            this,
-        );
-
-        return <ul className={className}>{inputs}</ul>;
     }
 
     onChange: (
@@ -161,6 +128,39 @@ class TextListEditor extends React.Component<any, any> {
             }
         }
     };
+
+    render(): React.ReactNode {
+        const className = [
+            "perseus-text-list-editor",
+            "perseus-clearfix",
+            "layout-" + this.props.layout,
+        ].join(" ");
+
+        const inputs = _.map(
+            this.state.items,
+            function (item, i) {
+                return (
+                    <li key={i}>
+                        <input
+                            ref={"input_" + i}
+                            type="text"
+                            value={item}
+                            // eslint-disable-next-line react/jsx-no-bind
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            onChange={this.onChange.bind(this, i)}
+                            // eslint-disable-next-line react/jsx-no-bind
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            onKeyDown={this.onKeyDown.bind(this, i)}
+                            style={{width: getTextWidth(item)}}
+                        />
+                    </li>
+                );
+            },
+            this,
+        );
+
+        return <ul className={className}>{inputs}</ul>;
+    }
 }
 
 export default TextListEditor;

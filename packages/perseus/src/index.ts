@@ -130,6 +130,8 @@ export {
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
+export {makeSafeUrl} from "./widgets/phet-simulation";
+
 /**
  * Mixins
  */
@@ -195,7 +197,7 @@ export type {
     PerseusInputNumberWidgetOptions,
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
-    PerseusPhetSimWidgetOptions,
+    PerseusPhetSimulationWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,

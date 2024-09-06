@@ -57,6 +57,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const {state, dispatch, labels, readOnly} = props;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
+
+    const graphRef = React.useRef<HTMLElement>(null);
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -77,8 +80,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 <View
                     className="mafs-graph"
                     style={{
-                        height,
-                        width: "intrinsic",
                         position: "relative",
                         padding: "25px 25px 0 0",
                         boxSizing: "content-box",
@@ -86,7 +87,17 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         marginBottom: "20px",
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
+                        width,
+                        height,
                     }}
+                    onKeyUp={(event) => {
+                        if (event.key === "Backspace") {
+                            dispatch(actions.global.deleteIntent());
+                            graphRef.current?.focus();
+                        }
+                    }}
+                    ref={graphRef}
+                    tabIndex={0}
                 >
                     <LegacyGrid
                         box={props.box}

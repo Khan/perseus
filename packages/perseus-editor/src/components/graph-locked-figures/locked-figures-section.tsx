@@ -17,7 +17,7 @@ import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
-import type {Props as InteractiveGraphEditorProps} from "../../widgets/interactive-graph-editor";
+import type {Props as InteractiveGraphEditorProps} from "../../widgets/interactive-graph-editor/interactive-graph-editor";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
 
 type Props = {
@@ -163,13 +163,6 @@ const LockedFiguresSection = (props: Props) => {
             {isExpanded && (
                 <View>
                     {figures?.map((figure, index) => {
-                        if (figure.type === "label") {
-                            // TODO(LEMS-1795): Add locked label settings.
-                            // Remove this block once label locked figure
-                            // settings are implemented.
-                            return;
-                        }
-
                         return (
                             <LockedFigureSettings
                                 key={`${uniqueId}-locked-${figure}-${index}`}

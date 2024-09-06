@@ -3,7 +3,7 @@
     "description": "Javascript markdown parsing, made simple",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.13.0",
+    "version": "0.13.1",
     "publishConfig": {
         "access": "public"
     },
@@ -31,8 +31,8 @@
         "perseus-build-settings": "^0.4.1"
     },
     "peerDependencies": {
-        "react": ">= 18",
-        "react-dom": ">= 18"
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     },
     "keywords": [
         "markdown"

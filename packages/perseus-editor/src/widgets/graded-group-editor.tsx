@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/forbid-prop-types */
 import {components, icons, ApiOptions, Changeable} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
@@ -49,6 +49,21 @@ class GradedGroupEditor extends React.Component<Props> {
 
     handleRemoveHint: (arg1: React.MouseEvent) => void = (e) => {
         this.props.onChange({hint: null});
+    };
+
+    getSaveWarnings: () => any = () => {
+        return this.editor.current?.getSaveWarnings();
+    };
+
+    serialize: () => {
+        title: string;
+        hint: any | null | undefined;
+    } = () => {
+        return {
+            title: this.props.title,
+            ...this.editor.current?.serialize(),
+            hint: this.hintEditor.current?.serialize(),
+        };
     };
 
     render(): React.ReactNode {
@@ -124,21 +139,6 @@ class GradedGroupEditor extends React.Component<Props> {
             </div>
         );
     }
-
-    getSaveWarnings: () => any = () => {
-        return this.editor.current?.getSaveWarnings();
-    };
-
-    serialize: () => {
-        title: string;
-        hint: any | null | undefined;
-    } = () => {
-        return {
-            title: this.props.title,
-            ...this.editor.current?.serialize(),
-            hint: this.hintEditor.current?.serialize(),
-        };
-    };
 }
 
 const styles = StyleSheet.create({

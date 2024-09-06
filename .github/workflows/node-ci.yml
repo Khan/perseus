@@ -73,7 +73,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Get All Changed Files
               uses: Khan/actions@get-changed-files-v2
@@ -152,7 +151,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Run test with coverage
               run: yarn cypress:ci
@@ -186,7 +184,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Jest with coverage
               run: yarn coverage
@@ -208,14 +205,6 @@ jobs:
                 node-version: [20.x]
         needs: [cypress, coverage]
         steps:
-            - uses: actions/checkout@v4
-
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
-
             - name: Download Jest Coverage
               uses: actions/download-artifact@v4
               with:
@@ -256,7 +245,7 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+
             # Make sure our packages aren't growing unexpectedly
             # This must come last as it builds the old code last and so leaves the
             # wrong code in place for the next job; in other words, it leaves the repo on a base branch.
@@ -278,11 +267,9 @@ jobs:
 
     publish_snapshot:
         name: Publish npm snapshot
-        # We don't publish snapshots on draft PRs or
-        # on the main Changeset "Version Packages" PR
+        # We don't publish snapshots on Changeset "Version Packages" PRs
         if: |
-            github.event.pull_request.draft == false
-            && !startsWith(github.head_ref, 'changeset-release/')
+            !startsWith(github.head_ref, 'changeset-release/')
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -304,7 +291,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
