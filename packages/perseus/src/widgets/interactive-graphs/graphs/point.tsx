@@ -11,6 +11,7 @@ import {
 } from "./use-transform";
 
 import type {PointGraphState, MafsGraphProps} from "../types";
+import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
@@ -44,6 +45,11 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
         width,
         height,
     ]);
+
+    const [popoverVisibleForPointId, setShowPopover] = React.useState<
+        number | null
+    >(null);
+
     const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
     return (
         <>
@@ -73,20 +79,36 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                 }}
             />
             {props.graphState.coords.map((point, i) => (
-                <MovablePoint
-                    key={i}
-                    point={point}
-                    onMove={(destination) =>
-                        dispatch(actions.pointGraph.movePoint(i, destination))
+                <Popover
+                    onClose={() => {}}
+                    opened={popoverVisibleForPointId === i}
+                    content={
+                        <PopoverContent
+                            title="Title"
+                            content="Some content"
+                            closeButtonVisible={false}
+                        />
                     }
-                    onFocusChange={(isFocused) => {
-                        if (isFocused) {
-                            dispatch(actions.pointGraph.focusPoint(i));
-                        } else {
-                            dispatch(actions.pointGraph.blurPoint());
-                        }
-                    }}
-                />
+                >
+                    <MovablePoint
+                        key={i}
+                        point={point}
+                        onMove={(destination) => {
+                            dispatch(
+                                actions.pointGraph.movePoint(i, destination),
+                            );
+                            setShowPopover(null);
+                        }}
+                        onFocusChange={(isFocused) => {
+                            if (isFocused) {
+                                setShowPopover(i);
+                                dispatch(actions.pointGraph.focusPoint(i));
+                            } else {
+                                dispatch(actions.pointGraph.blurPoint());
+                            }
+                        }}
+                    />
+                </Popover>
             ))}
         </>
     );
