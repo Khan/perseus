@@ -6,7 +6,7 @@ import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import correctIcon from "@phosphor-icons/core/regular/check-circle.svg";
-import incorrectIcon from "@phosphor-icons/core/regular/x-circle.svg";
+import wrongIcon from "@phosphor-icons/core/regular/x-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -16,7 +16,7 @@ import expression from "../expression";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FilterCriterion} from "../../types";
 
-type StepStatus = "correct" | "incorrect" | "waiting";
+type StepStatus = "correct" | "wrong" | "ungraded";
 
 export type Step = {
     value: string;
@@ -89,10 +89,10 @@ export const Step = (props: StepProps) => {
                 color={color.green}
             />
         );
-    } else if (step.status === "incorrect") {
+    } else if (step.status === "wrong") {
         icon = (
             <PhosphorIcon
-                icon={incorrectIcon}
+                icon={wrongIcon}
                 style={styles.icon}
                 color={color.red}
             />
