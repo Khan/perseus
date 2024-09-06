@@ -54,6 +54,7 @@ export interface PointGraphState extends InteractiveGraphStateCommon {
     coords: Coord[];
     numPoints?: number | "unlimited";
     focusedPointIndex: number | null;
+    previouslyFocusedPoint: number | null;
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {

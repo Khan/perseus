@@ -29,7 +29,11 @@ import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
-import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
+import type {
+    InteractiveGraphState,
+    InteractiveGraphProps,
+    PointGraphState,
+} from "./types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -168,21 +172,49 @@ export const MafsGraph = (props: MafsGraphProps) => {
 };
 
 const renderPointGraphControls = (props: {
-    state: InteractiveGraphState;
+    state: PointGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
 }) => (
-    <Button
-        kind="secondary"
+    <View
         style={{
-            width: "100%",
-            marginLeft: "20px",
-        }}
-        onClick={() => {
-            props.dispatch(actions.pointGraph.addPoint([0, 0]));
+            flexDirection: "row",
         }}
     >
-        Add Point
-    </Button>
+        <Button
+            kind="secondary"
+            style={{
+                width: "100%",
+                marginLeft: "20px",
+            }}
+            onClick={() => {
+                props.dispatch(actions.pointGraph.addPoint([0, 0]));
+            }}
+        >
+            Add Point
+        </Button>
+        {(props.state.focusedPointIndex !== null ||
+            props.state.previouslyFocusedPointIndex !== null) && (
+            <Button
+                kind="secondary"
+                color="destructive"
+                style={{
+                    width: "100%",
+                    marginLeft: "20px",
+                }}
+                onClick={(event) => {
+                    event.preventDefault();
+                    console.log(props.state.focusedPointIndex);
+                    props.dispatch(
+                        actions.pointGraph.removePoint(
+                            props.state.previouslyFocusedPointIndex!,
+                        ),
+                    );
+                }}
+            >
+                Remove Point
+            </Button>
+        )}
+    </View>
 );
 
 const renderGraphControls = (props: {
