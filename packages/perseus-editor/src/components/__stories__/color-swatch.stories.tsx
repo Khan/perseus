@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ColorSwatch from "../graph-locked-figures/color-swatch";
+import ColorSwatch from "../../widgets/interactive-graph-editor/locked-figures/color-swatch";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta} from "@storybook/react";

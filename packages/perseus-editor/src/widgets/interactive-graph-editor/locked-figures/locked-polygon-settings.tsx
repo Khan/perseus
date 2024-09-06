@@ -21,8 +21,8 @@ import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "../coordinate-pair-input";
-import PerseusEditorAccordion from "../perseus-editor-accordion";
+import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import LabeledSwitch from "./labeled-switch";

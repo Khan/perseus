@@ -16,7 +16,7 @@ import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import LabeledRow from "../../../components/graph-locked-figures/labeled-row";
+import LabeledRow from "../locked-figures/labeled-row";
 import Heading from "../../../components/heading";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";

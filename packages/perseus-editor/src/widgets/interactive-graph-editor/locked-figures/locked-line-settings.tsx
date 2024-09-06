@@ -13,7 +13,7 @@ import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import PerseusEditorAccordion from "../perseus-editor-accordion";
+import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import DefiningPointSettings from "./defining-point-settings";

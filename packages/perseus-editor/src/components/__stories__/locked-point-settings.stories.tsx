@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import LockedPointSettings from "../graph-locked-figures/locked-point-settings";
+import LockedPointSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-point-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";

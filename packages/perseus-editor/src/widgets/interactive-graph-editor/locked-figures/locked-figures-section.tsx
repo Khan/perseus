@@ -10,14 +10,14 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import Heading from "../heading";
-import {getDefaultFigureForType} from "../util";
+import Heading from "../../../components/heading";
+import {getDefaultFigureForType} from "../../../components/util";
 
 import LockedFigureSelect from "./locked-figure-select";
 import LockedFigureSettings from "./locked-figure-settings";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
-import type {Props as InteractiveGraphEditorProps} from "../../widgets/interactive-graph-editor/interactive-graph-editor";
+import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";
 import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
 
 type Props = {

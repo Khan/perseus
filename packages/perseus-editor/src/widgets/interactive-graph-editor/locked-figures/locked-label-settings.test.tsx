@@ -3,10 +3,10 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import LockedLabelSettings from "../graph-locked-figures/locked-label-settings";
-import {getDefaultFigureForType} from "../util";
+import LockedLabelSettings from "./locked-label-settings";
+import {getDefaultFigureForType} from "../../../components/util";
 
-import type {Props} from "../graph-locked-figures/locked-label-settings";
+import type {Props} from "./locked-label-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {

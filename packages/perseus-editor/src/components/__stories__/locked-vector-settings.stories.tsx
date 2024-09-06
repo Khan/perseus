@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import LockedVectorSettings from "../graph-locked-figures/locked-vector-settings";
+import LockedVectorSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-vector-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";

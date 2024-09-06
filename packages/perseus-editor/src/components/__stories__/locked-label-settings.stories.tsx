@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import LockedLabelSettings from "../graph-locked-figures/locked-label-settings";
+import LockedLabelSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-label-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";

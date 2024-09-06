@@ -20,8 +20,8 @@ import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "../coordinate-pair-input";
-import PerseusEditorAccordion from "../perseus-editor-accordion";
+import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";

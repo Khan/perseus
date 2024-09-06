@@ -5,11 +5,11 @@ import * as React from "react";
 
 // Disabling the following linting error because the import is needed for mocking purposes.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import examples from "../graph-locked-figures/locked-function-examples";
-import LockedFunctionSettings from "../graph-locked-figures/locked-function-settings";
-import {getDefaultFigureForType} from "../util";
+import examples from "./locked-function-examples";
+import LockedFunctionSettings from "./locked-function-settings";
+import {getDefaultFigureForType} from "../../../components/util";
 
-import type {Props} from "../graph-locked-figures/locked-function-settings";
+import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
@@ -22,7 +22,7 @@ const defaultProps = {
 const exampleEquationsMock = {
     foo: ["bar", "zot"],
 };
-jest.mock("../graph-locked-figures/locked-function-examples", () => ({
+jest.mock("./locked-function-examples", () => ({
     __esModule: true,
     default: exampleEquationsMock,
 }));

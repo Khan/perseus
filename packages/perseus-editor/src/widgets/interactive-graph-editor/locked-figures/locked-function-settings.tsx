@@ -17,7 +17,7 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {useEffect, useId, useState} from "react";
 
-import PerseusEditorAccordion from "../perseus-editor-accordion";
+import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";

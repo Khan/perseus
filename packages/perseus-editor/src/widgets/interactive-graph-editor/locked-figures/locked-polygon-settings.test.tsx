@@ -3,8 +3,8 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import LockedPolygonSettings from "../graph-locked-figures/locked-polygon-settings";
-import {getDefaultFigureForType} from "../util";
+import LockedPolygonSettings from "./locked-polygon-settings";
+import {getDefaultFigureForType} from "../../../components/util";
 
 import type {UserEvent} from "@testing-library/user-event";
 

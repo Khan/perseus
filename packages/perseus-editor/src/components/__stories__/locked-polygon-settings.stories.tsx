@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import LockedPolygonSettings from "../graph-locked-figures/locked-polygon-settings";
+import LockedPolygonSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-polygon-settings";
 import {getDefaultFigureForType} from "../util";
 
 import type {Meta, StoryObj} from "@storybook/react";

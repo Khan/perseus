@@ -17,8 +17,8 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
-import LabeledRow from "../../components/graph-locked-figures/labeled-row";
-import LockedFiguresSection from "../../components/graph-locked-figures/locked-figures-section";
+import LabeledRow from "./locked-figures/labeled-row";
+import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
 import GraphTypeSelector from "./components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "./components/interactive-graph-correct-answer";

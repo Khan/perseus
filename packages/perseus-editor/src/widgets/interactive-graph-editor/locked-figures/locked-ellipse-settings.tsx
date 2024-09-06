@@ -7,9 +7,9 @@ import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import AngleInput from "../angle-input";
-import CoordinatePairInput from "../coordinate-pair-input";
-import PerseusEditorAccordion from "../perseus-editor-accordion";
+import AngleInput from "../../../components/angle-input";
+import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
