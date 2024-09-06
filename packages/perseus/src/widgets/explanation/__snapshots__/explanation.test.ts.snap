@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Explanation should snapshot when expanded: expanded 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        Here's the explanation
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-inline"
+        >
+          <button
+            aria-controls="uid-explanation-widget-1-content"
+            aria-disabled="false"
+            aria-expanded="true"
+            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-small_14crccx-o_O-inlineStyles_1s8anjv"
+            role="button"
+            type="button"
+          >
+            <span
+              class="text_f1191h-o_O-LabelSmall_hl4zs1-o_O-text_6kf3xs-o_O-textWithFocus_e296pg-o_O-hover_1nzvkun-o_O-inlineStyles_egvfd8"
+            >
+              Hide explanation!
+            </span>
+            <div
+              class="default_xu2jcg-o_O-iconWrapper_1nxzm3x-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj-o_O-iconWrapperSecondaryHovered_klcp8i"
+            >
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_1troscl"
+              />
+            </div>
+          </button>
+          <div
+            aria-hidden="false"
+            class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentExpanded_1ojyq0m"
+            data-testid="content-container"
+            id="uid-explanation-widget-1-content"
+          >
+            <div
+              class="default_xu2jcg-o_O-contentWrapper_y9ev9r"
+            >
+              <div
+                class="perseus-renderer perseus-renderer-responsive"
+              >
+                <div
+                  class="paragraph"
+                  data-perseus-paragraph-index="0"
+                >
+                  <div
+                    class="paragraph"
+                  >
+                    This is an explanation
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+Did you get that?
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Explanation should snapshot: initial render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        Here's the explanation
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-inline"
+        >
+          <button
+            aria-controls="uid-explanation-widget-0-content"
+            aria-disabled="false"
+            aria-expanded="false"
+            class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8-o_O-small_14crccx-o_O-inlineStyles_1s8anjv"
+            role="button"
+            type="button"
+          >
+            <span
+              class="text_f1191h-o_O-LabelSmall_hl4zs1-o_O-text_6kf3xs-o_O-textWithFocus_e296pg-o_O-inlineStyles_egvfd8"
+            >
+              Explanation
+            </span>
+            <div
+              class="default_xu2jcg-o_O-iconWrapper_1nxzm3x-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj"
+            >
+              <span
+                aria-hidden="true"
+                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_urgnaq"
+              />
+            </div>
+          </button>
+          <div
+            aria-hidden="true"
+            class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentCollapsed_j2403j"
+            data-testid="content-container"
+            id="uid-explanation-widget-0-content"
+          >
+            <div
+              class="default_xu2jcg-o_O-contentWrapper_y9ev9r"
+            >
+              <div
+                class="perseus-renderer perseus-renderer-responsive"
+              >
+                <div
+                  class="paragraph"
+                  data-perseus-paragraph-index="0"
+                >
+                  <div
+                    class="paragraph"
+                  >
+                    This is an explanation
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+Did you get that?
+      </div>
+    </div>
+  </div>
+</div>
+`;

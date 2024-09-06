@@ -119,53 +119,57 @@ export const question1: Item = {
     },
 };
 
-const mockWidgetConfig = {
+const definitionWidgetConfig = {
     graded: true,
     version: {major: 0, minor: 0},
     static: false,
-    type: "mock-widget",
-    options: {static: false, smiling: true},
+    type: "definition",
+    options: {
+        togglePrompt: "word",
+        definition: "",
+        static: false,
+    },
     alignment: "default",
 } as const;
 
 // Shape: simpleQuestionShape
-export const mockedQuestion1: Item = {
+export const definitionQuestion1: Item = {
     _multi: {
         blurb: {
             __type: "content",
-            content: "Here's a blurb [[☃ mock-widget 1]]",
+            content: "Here's a blurb [[☃ definition 1]]",
             images: {},
             widgets: {
-                "mock-widget 1": mockWidgetConfig,
+                "definition 1": definitionWidgetConfig,
             },
         },
         hints: [
             {
                 __type: "hint",
-                content: "Hint #1 [[☃ mock-widget 2]]",
+                content: "Hint #1 [[☃ definition 2]]",
                 images: {},
                 replace: false,
                 widgets: {
-                    "mock-widget 2": mockWidgetConfig,
+                    "definition 2": definitionWidgetConfig,
                 },
             },
             {
                 __type: "hint",
-                content: "Hint #1 [[☃ mock-widget 3]]",
+                content: "Hint #1 [[☃ definition 3]]",
                 images: {},
                 replace: false,
                 widgets: {
-                    "mock-widget 3": mockWidgetConfig,
+                    "definition 3": definitionWidgetConfig,
                 },
             },
         ],
         question: {
             __type: "content",
             content:
-                "What is the answer to this?\n\n[[☃ mock-widget 4]]\n\n[[☃ mock-widget 5]]",
+                "What is the answer to this?\n\n[[☃ definition 4]]\n\n[[☃ definition 5]]",
             widgets: {
-                "mock-widget 4": mockWidgetConfig,
-                "mock-widget 5": mockWidgetConfig,
+                "definition 4": definitionWidgetConfig,
+                "definition 5": definitionWidgetConfig,
             },
         },
     },

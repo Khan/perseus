@@ -1,6 +1,5 @@
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable react/no-unsafe */
-/* eslint-disable react/sort-comp */
 import createReactClass from "create-react-class";
 import * as React from "react";
 import _ from "underscore";
@@ -23,21 +22,6 @@ const JsonEditor: any = createReactClass({
         if (shouldReplaceContent) {
             this.setState(this.getInitialState());
         }
-    },
-
-    render: function () {
-        const classes =
-            "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
-
-        return (
-            <textarea
-                className={classes}
-                value={this.state.currentValue}
-                onChange={this.handleChange}
-                onKeyDown={this.handleKeyDown}
-                onBlur={this.handleBlur}
-            />
-        );
     },
 
     handleKeyDown: function (e) {
@@ -115,6 +99,21 @@ const JsonEditor: any = createReactClass({
                 valid: true,
             });
         }
+    },
+
+    render: function () {
+        const classes =
+            "perseus-json-editor " + (this.state.valid ? "valid" : "invalid");
+
+        return (
+            <textarea
+                className={classes}
+                value={this.state.currentValue}
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}
+                onBlur={this.handleBlur}
+            />
+        );
     },
 });
 

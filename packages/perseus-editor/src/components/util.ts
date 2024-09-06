@@ -22,6 +22,7 @@ import type {
     LockedVectorType,
     LockedPolygonType,
     LockedFunctionType,
+    LockedLabelType,
     PerseusGraphType,
     Coord,
 } from "@khanacademy/perseus";
@@ -73,6 +74,7 @@ export function getDefaultFigureForType(type: "vector"): LockedVectorType;
 export function getDefaultFigureForType(type: "ellipse"): LockedEllipseType;
 export function getDefaultFigureForType(type: "polygon"): LockedPolygonType;
 export function getDefaultFigureForType(type: "function"): LockedFunctionType;
+export function getDefaultFigureForType(type: "label"): LockedLabelType;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure;
 export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
     switch (type) {
@@ -138,6 +140,14 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 strokeStyle: "solid",
                 equation: "x^2",
                 directionalAxis: "x",
+            };
+        case "label":
+            return {
+                type: "label",
+                coord: [0, 0],
+                text: "",
+                color: DEFAULT_COLOR,
+                size: "medium",
             };
         default:
             throw new UnreachableCaseError(type);

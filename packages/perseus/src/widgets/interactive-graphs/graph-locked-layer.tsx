@@ -59,6 +59,12 @@ const GraphLockedLayer = (props: Props) => {
                                 {...figure}
                             />
                         );
+                    case "label":
+                        // This is rendered outside the SVG element, since
+                        // TeX cannot be rendered inside an SVG.
+                        // See graph-locked-labels-layer.tsx for
+                        // the component that renders these.
+                        return null;
                     default:
                         /**
                          * Devlopment-time future-proofing: This should

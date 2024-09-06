@@ -142,6 +142,8 @@ export const MafsGraphTypeFlags = [
     "sinusoid",
     /** Enables the `point` interactive-graph type with a fixed number of points. */
     "point",
+    /** Enable the `unlimited-point` interactive graph type */
+    "unlimited-point",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [
@@ -150,6 +152,11 @@ export const InteractiveGraphLockedFeaturesFlags = [
      * new Mafs interactive-graph widget (locked functions).
      */
     "interactive-graph-locked-features-m2b",
+    /**
+     * Enables/Disables locked features in the new Mafs interactive-graph
+     * widget (locked labels).
+     */
+    "interactive-graph-locked-features-labels",
 ] as const;
 
 export const InteractiveGraphEditorFlags = [
@@ -610,3 +617,8 @@ export type ChangeFn = (
     propValue?: any,
     callback?: () => unknown,
 ) => any | null | undefined;
+
+export type SharedRendererProps = {
+    apiOptions: APIOptions;
+    linterContext: LinterContextProps;
+};

@@ -20,7 +20,7 @@ import {
     segmentWithStartingCoordsQuestion,
     segmentsWithStartingCoordsQuestion,
     sinusoidWithStartingCoordsQuestion,
-} from "../../../perseus/src/widgets/__testdata__/interactive-graph.testdata";
+} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
@@ -135,7 +135,7 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                 flags: {
                     mafs: {
                         ...flags.mafs,
-                        "interactive-graph-locked-features-m2b": false,
+                        "interactive-graph-locked-features-labels": false,
                     },
                 },
             }}
@@ -152,13 +152,13 @@ MafsWithLockedFiguresCurrent.parameters = {
     },
 };
 
-export const MafsWithLockedFiguresM2bFlag = (): React.ReactElement => {
+export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
     );
 };
 
-MafsWithLockedFiguresM2bFlag.parameters = {
+MafsWithLockedLabelsFlag.parameters = {
     chromatic: {
         // Disabling because this isn't visually testing anything on the
         // initial load of the editor page.

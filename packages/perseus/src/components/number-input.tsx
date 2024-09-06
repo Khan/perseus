@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/sort-comp */
 import {number as knumber} from "@khanacademy/kmath";
 import classNames from "classnames";
 import $ from "jquery";
@@ -59,51 +58,6 @@ class NumberInput extends React.Component<any, any> {
     state: any = {
         format: this.props.format,
     };
-
-    render(): React.ReactNode {
-        let classes = classNames({
-            "number-input": true,
-            "invalid-input": !this._checkValidity(this.props.value),
-            mini: this.props.size === "mini",
-            small: this.props.size === "small",
-            normal: this.props.size === "normal",
-        });
-        if (this.props.className != null) {
-            classes = classes + " " + this.props.className;
-        }
-
-        const {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            onFormatChange,
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            checkValidity,
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            useArrowKeys,
-            ...restProps
-        } = this.props;
-
-        return (
-            <input
-                {...restProps}
-                className={classes}
-                type="text"
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
-                onChange={this._handleChange}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                onKeyPress={this._handleBlur}
-                onKeyDown={this._onKeyDown}
-                // @ts-expect-error - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLInputElement>'.
-                onTouchStart={captureScratchpadTouchStart}
-                defaultValue={toNumericString(
-                    this.props.value,
-                    this.state.format,
-                )}
-                value={undefined}
-            />
-        );
-    }
 
     componentDidUpdate(prevProps: any) {
         if (!knumber.equal(this.getValue(), this.props.value)) {
@@ -249,6 +203,51 @@ class NumberInput extends React.Component<any, any> {
             toNumericString(val, format),
         );
     };
+
+    render(): React.ReactNode {
+        let classes = classNames({
+            "number-input": true,
+            "invalid-input": !this._checkValidity(this.props.value),
+            mini: this.props.size === "mini",
+            small: this.props.size === "small",
+            normal: this.props.size === "normal",
+        });
+        if (this.props.className != null) {
+            classes = classes + " " + this.props.className;
+        }
+
+        const {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            onFormatChange,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            checkValidity,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            useArrowKeys,
+            ...restProps
+        } = this.props;
+
+        return (
+            <input
+                {...restProps}
+                className={classes}
+                type="text"
+                // eslint-disable-next-line react/no-string-refs
+                ref="input"
+                onChange={this._handleChange}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                onKeyPress={this._handleBlur}
+                onKeyDown={this._onKeyDown}
+                // @ts-expect-error - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLInputElement>'.
+                onTouchStart={captureScratchpadTouchStart}
+                defaultValue={toNumericString(
+                    this.props.value,
+                    this.state.format,
+                )}
+                value={undefined}
+            />
+        );
+    }
 }
 
 export default NumberInput;

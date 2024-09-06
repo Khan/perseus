@@ -1,5 +1,39 @@
 # @khanacademy/perseus-dev-ui
 
+## 3.0.4
+
+### Patch Changes
+
+-   [#1585](https://github.com/Khan/perseus/pull/1585) [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize files in the widgets folder
+
+## 3.0.3
+
+### Patch Changes
+
+-   [#1569](https://github.com/Khan/perseus/pull/1569) [`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb) Thanks [@handeyeco](https://github.com/handeyeco)! - bump peer dependencies to match webapp
+
+*   [#1548](https://github.com/Khan/perseus/pull/1548) [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing resizing behavior of Expression Widget in 400% zoom.
+
+*   Updated dependencies [[`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb), [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575)]:
+    -   @khanacademy/math-input@21.0.2
+    -   @khanacademy/simple-markdown@0.13.1
+    -   @khanacademy/pure-markdown@0.3.8
+
+## 3.0.2
+
+### Patch Changes
+
+-   [#1541](https://github.com/Khan/perseus/pull/1541) [`36471197c`](https://github.com/Khan/perseus/commit/36471197cc25d78b8f9515ba0da04875480c788d) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Adds a finite point question to dev gallery
+
+## 3.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50), [`e19c58eb9`](https://github.com/Khan/perseus/commit/e19c58eb9f0ef84c32dfdb40a4382cfa4c82392d), [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720), [`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50)]:
+    -   @khanacademy/perseus-linter@1.2.0
+    -   @khanacademy/kas@0.3.12
+    -   @khanacademy/math-input@21.0.1
+
 ## 3.0.0
 
 ### Major Changes

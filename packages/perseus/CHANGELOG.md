@@ -1,5 +1,112 @@
 # @khanacademy/perseus
 
+## 32.0.1
+
+### Patch Changes
+
+-   [#1595](https://github.com/Khan/perseus/pull/1595) [`b54f886f6`](https://github.com/Khan/perseus/commit/b54f886f64fced1fe0c211369f5d89a7c459dd97) Thanks [@aemandine](https://github.com/aemandine)! - Make iframe sizing responsive
+
+*   [#1588](https://github.com/Khan/perseus/pull/1588) [`9dad8a089`](https://github.com/Khan/perseus/commit/9dad8a0891bbd3e4a9943fade3c00c073a281541) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused handling of deprecated Interactive Graph prop
+
+## 32.0.0
+
+### Major Changes
+
+-   [#1577](https://github.com/Khan/perseus/pull/1577) [`c875acd01`](https://github.com/Khan/perseus/commit/c875acd01fe8cfa84a2b10177a6fcedfb612cb3f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove example widgets and their editors
+
+### Minor Changes
+
+-   [#1570](https://github.com/Khan/perseus/pull/1570) [`c4432ffad`](https://github.com/Khan/perseus/commit/c4432ffad978a224b7d981e1577c7897342a01ee) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Remove unlimited points via keyboard
+
+*   [#1582](https://github.com/Khan/perseus/pull/1582) [`377b7ce68`](https://github.com/Khan/perseus/commit/377b7ce68801cef99cd3a09474b28a8b60f90f0a) Thanks [@aemandine](https://github.com/aemandine)! - Add save warnings to PhET widget editor and un-hide widget from content editor widget dropdown
+
+### Patch Changes
+
+-   [#1578](https://github.com/Khan/perseus/pull/1578) [`78bb8573e`](https://github.com/Khan/perseus/commit/78bb8573e9b00992554c2b1339678cc78363773b) Thanks [@aemandine](https://github.com/aemandine)! - Remove simpleValidate from PhET widget
+
+*   [#1585](https://github.com/Khan/perseus/pull/1585) [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize files in the widgets folder
+
+-   [#1589](https://github.com/Khan/perseus/pull/1589) [`d56952564`](https://github.com/Khan/perseus/commit/d569525643d1dcf9c2cca78bc3b5ce18b7f584d1) Thanks [@aemandine](https://github.com/aemandine)! - Make PhET widget smaller
+
+*   [#1587](https://github.com/Khan/perseus/pull/1587) [`8015cdefb`](https://github.com/Khan/perseus/commit/8015cdefbafa094e9e1969ddb6ec39033c990687) Thanks [@aemandine](https://github.com/aemandine)! - Tidying up PhET widget
+
+-   [#1583](https://github.com/Khan/perseus/pull/1583) [`615567bd2`](https://github.com/Khan/perseus/commit/615567bd2eeec45d16d845a1cb8bd5c33c04d701) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove sort-comp exceptions and reorder components
+
+## 31.1.0
+
+### Minor Changes
+
+-   [#1572](https://github.com/Khan/perseus/pull/1572) [`efced74db`](https://github.com/Khan/perseus/commit/efced74db8f560d3df53c67c54ee7b74c45405cf) Thanks [@benchristel](https://github.com/benchristel)! - In the interactive graph widget, focus movable points on mouse interaction
+
+### Patch Changes
+
+-   [#1552](https://github.com/Khan/perseus/pull/1552) [`873f10790`](https://github.com/Khan/perseus/commit/873f1079076f80ed28705e1da1cf0c0dcfb79aac) Thanks [@nishasy](https://github.com/nishasy)! - Update dependency on wonder-blocks-form
+
+*   [#1569](https://github.com/Khan/perseus/pull/1569) [`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb) Thanks [@handeyeco](https://github.com/handeyeco)! - bump peer dependencies to match webapp
+
+-   [#1548](https://github.com/Khan/perseus/pull/1548) [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing resizing behavior of Expression Widget in 400% zoom.
+
+*   [#1576](https://github.com/Khan/perseus/pull/1576) [`598f7450f`](https://github.com/Khan/perseus/commit/598f7450faf4a639ff41a26e2946234c37e3320d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Small re-organization of PhET widget code - no functional changes
+
+-   [#1567](https://github.com/Khan/perseus/pull/1567) [`070430166`](https://github.com/Khan/perseus/commit/070430166e3ad987300aa5db1a8c6f385d27d734) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Add a reducer action for removing unlimited points
+
+*   [#1573](https://github.com/Khan/perseus/pull/1573) [`50c1b19e5`](https://github.com/Khan/perseus/commit/50c1b19e529e5c096abdd2512c7e17e9f717a3cb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: fix incorrect comment
+
+*   Updated dependencies [[`40d0b67a8`](https://github.com/Khan/perseus/commit/40d0b67a87bbb2ef5e3afcb7421ff8b64406adcb), [`21a908e8f`](https://github.com/Khan/perseus/commit/21a908e8f9eec99ec1fabe1c311f0417828f5575)]:
+    -   @khanacademy/keypad-context@1.0.1
+    -   @khanacademy/math-input@21.0.2
+    -   @khanacademy/simple-markdown@0.13.1
+    -   @khanacademy/pure-markdown@0.3.8
+
+## 31.0.1
+
+### Patch Changes
+
+-   [#1549](https://github.com/Khan/perseus/pull/1549) [`cae713da5`](https://github.com/Khan/perseus/commit/cae713da54be20aba8150f98b8f99ade9c2a8bb7) Thanks [@aemandine](https://github.com/aemandine)! - Refactor PhET Sim widget name to PhET Simulation
+
+## 31.0.0
+
+### Major Changes
+
+-   [#1546](https://github.com/Khan/perseus/pull/1546) [`6cbe4947e`](https://github.com/Khan/perseus/commit/6cbe4947e441d0723bb333409752f8d66473af73) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Release PhET widget
+
+    This PR releases a new PhET simulation widget to Perseus that requires an
+    update in order to allow the support of new, upcoming content. Older versions
+    of Perseus will be unable to render content that contains this widget.
+
+    PhET simulations come from https://phet.colorado.edu/.
+
+### Minor Changes
+
+-   [#1529](https://github.com/Khan/perseus/pull/1529) [`0bf2711c0`](https://github.com/Khan/perseus/commit/0bf2711c02f8a383235a5d524b29bc184ced3aa1) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Adds unlimited point graph
+
+*   [#1542](https://github.com/Khan/perseus/pull/1542) [`a7fc2a3e3`](https://github.com/Khan/perseus/commit/a7fc2a3e3230ad695d3ab5fb8ff1dd9b40711250) Thanks [@aemandine](https://github.com/aemandine)! - Design update for PhET widget
+
+-   [#1512](https://github.com/Khan/perseus/pull/1512) [`4f24be79d`](https://github.com/Khan/perseus/commit/4f24be79d599a5fc53a14130d1cad86adb48cd2e) Thanks [@aemandine](https://github.com/aemandine)! - Add PhET widget
+
+*   [#1532](https://github.com/Khan/perseus/pull/1532) [`6e102f9c4`](https://github.com/Khan/perseus/commit/6e102f9c4d15b4b1a94a97b98684a1a997590121) Thanks [@aemandine](https://github.com/aemandine)! - Add a content editor for the PhET widget
+
+-   [#1533](https://github.com/Khan/perseus/pull/1533) [`cc1995daf`](https://github.com/Khan/perseus/commit/cc1995dafaac637b035c71270e4d4e6f57a15e19) Thanks [@nishasy](https://github.com/nishasy)! - [Locked labels] View locked labels in an Interactive Graph
+
+### Patch Changes
+
+-   [#1539](https://github.com/Khan/perseus/pull/1539) [`7805626e1`](https://github.com/Khan/perseus/commit/7805626e10bde2d256d9523709fdba3267cea381) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Labels] Implement adding/editing/deleting a standalone locked label
+
+*   [#1541](https://github.com/Khan/perseus/pull/1541) [`36471197c`](https://github.com/Khan/perseus/commit/36471197cc25d78b8f9515ba0da04875480c788d) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Adds a finite point question to dev gallery
+
+## 30.0.1
+
+### Patch Changes
+
+-   [#1538](https://github.com/Khan/perseus/pull/1538) [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720) Thanks [@handeyeco](https://github.com/handeyeco)! - Use Portuguese sen and tg when updating Mathquill from the keypad
+
+*   [#1530](https://github.com/Khan/perseus/pull/1530) [`811f914cb`](https://github.com/Khan/perseus/commit/811f914cbded3a9a3af1c08cc6aa79cadb1dbb23) Thanks [@handeyeco](https://github.com/handeyeco)! - Add SharedRendererProps type
+
+*   Updated dependencies [[`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50), [`e19c58eb9`](https://github.com/Khan/perseus/commit/e19c58eb9f0ef84c32dfdb40a4382cfa4c82392d), [`96f0337ce`](https://github.com/Khan/perseus/commit/96f0337ce459dea6a0860b45704e188876d38720), [`f5a2cf521`](https://github.com/Khan/perseus/commit/f5a2cf521291180dbbd448adc97700f7c52c8b50)]:
+    -   @khanacademy/perseus-linter@1.2.0
+    -   @khanacademy/kas@0.3.12
+    -   @khanacademy/math-input@21.0.1
+
 ## 30.0.0
 
 ### Major Changes

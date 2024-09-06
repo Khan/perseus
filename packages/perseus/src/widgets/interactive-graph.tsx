@@ -56,8 +56,6 @@ import type {
     SineCoefficient,
 } from "../util/geometry";
 
-const {DeprecationMixin} = Util;
-
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
 
@@ -92,12 +90,6 @@ function capitalize(str) {
 function numSteps(range: Range, step: number) {
     return Math.floor((range[1] - range[0]) / step);
 }
-
-const deprecatedProps = {
-    showGraph: function (props) {
-        return {markings: props.showGraph ? "graph" : "none"};
-    },
-} as const;
 
 const _getShouldShowInstructions: (arg1: Props) => boolean = (props) => {
     return (
@@ -190,11 +182,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         shouldShowInstructions: _getShouldShowInstructions(this.props),
     };
 
-    // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
-    UNSAFE_componentWillMount() {
-        DeprecationMixin.UNSAFE_componentWillMount.call(this);
-    }
-
     componentDidMount() {
         if (this.refs.graph) {
             // eslint-disable-next-line react/no-string-refs
@@ -263,8 +250,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
             (props.graph.coords == null || props.graph.coords.length === 0)
         );
     };
-
-    deprecatedProps: any = deprecatedProps;
 
     setGraphie: (arg1: any) => void = (newGraphie) => {
         this.graphie = newGraphie;
@@ -1821,6 +1806,11 @@ class InteractiveGraph extends React.Component<Props, State> {
             return (
                 <StatefulMafsGraph
                     {...this.props}
+                    showLabelsFlag={
+                        this.props.apiOptions?.flags?.["mafs"]?.[
+                            "interactive-graph-locked-features-labels"
+                        ]
+                    }
                     ref={this.mafsRef}
                     gridStep={gridStep}
                     snapStep={snapStep}
@@ -2666,10 +2656,7 @@ export function shouldUseMafs(
     switch (graph.type) {
         case "point":
             if (graph.numPoints === UNLIMITED) {
-                // TODO(benchristel): add a feature flag for the "unlimited"
-                // case once we've implemented point graphs with unlimited
-                // points
-                return false;
+                return Boolean(mafsFlags["unlimited-point"]);
             }
             return Boolean(mafsFlags["point"]);
         case "polygon":

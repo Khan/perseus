@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unsafe, react/sort-comp */
+/* eslint-disable react/no-unsafe */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
@@ -66,6 +66,33 @@ class WidgetContainer extends React.Component<Props, State> {
             /* eslint-enable react/no-did-mount-set-state */
         }
     }
+
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
+        if (this.props.type !== nextProps.type) {
+            throw new Error(
+                "WidgetContainer can't change widget type; set a different " +
+                    "key instead to recreate the container.",
+            );
+        }
+    }
+
+    shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
+        return (
+            this.props.shouldHighlight !== nextProps.shouldHighlight ||
+            this.props.type !== nextProps.type ||
+            this.state.widgetProps !== nextState.widgetProps ||
+            this.state.sizeClass !== nextState.sizeClass
+        );
+    }
+
+    getWidget: () => any = () => {
+        return this.widgetRef.current;
+    };
+
+    replaceWidgetProps: (arg1: WidgetProps<any, PerseusWidgetOptions>) => void =
+        (newWidgetProps) => {
+            this.setState({widgetProps: newWidgetProps});
+        };
 
     render(): React.ReactNode {
         let className = classNames({
@@ -167,33 +194,6 @@ class WidgetContainer extends React.Component<Props, State> {
             </div>
         );
     }
-
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (this.props.type !== nextProps.type) {
-            throw new Error(
-                "WidgetContainer can't change widget type; set a different " +
-                    "key instead to recreate the container.",
-            );
-        }
-    }
-
-    shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-        return (
-            this.props.shouldHighlight !== nextProps.shouldHighlight ||
-            this.props.type !== nextProps.type ||
-            this.state.widgetProps !== nextState.widgetProps ||
-            this.state.sizeClass !== nextState.sizeClass
-        );
-    }
-
-    getWidget: () => any = () => {
-        return this.widgetRef.current;
-    };
-
-    replaceWidgetProps: (arg1: WidgetProps<any, PerseusWidgetOptions>) => void =
-        (newWidgetProps) => {
-            this.setState({widgetProps: newWidgetProps});
-        };
 }
 
 export default WidgetContainer;

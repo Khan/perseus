@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import {components, TableWidget, Util} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -39,6 +38,58 @@ class TableEditor extends React.Component<Props> {
 
     focus: () => void = () => {
         this.numberOfColumns.current?.focus();
+    };
+
+    onSizeInput: (arg1: number, arg2: number) => void = (
+        numRawRows,
+        numRawColumns,
+    ) => {
+        let rows = +numRawRows || 0;
+        let columns = +numRawColumns || 0;
+        rows = Math.min(Math.max(1, rows), 30);
+        columns = Math.min(Math.max(1, columns), 6);
+        const oldColumns = this.props.columns;
+        const oldRows = this.props.rows;
+
+        const answers = this.props.answers;
+        // Truncate if necessary; else, append
+        if (rows <= oldRows) {
+            answers.length = rows;
+        } else {
+            _(rows - oldRows).times(function () {
+                answers.push(Util.stringArrayOfSize(oldColumns));
+            });
+        }
+
+        function fixColumnSizing(array: any) {
+            // Truncate if necessary; else, append
+            if (columns <= oldColumns) {
+                array.length = columns;
+            } else {
+                _(columns - oldColumns).times(function () {
+                    array.push("");
+                });
+            }
+        }
+
+        const headers = this.props.headers;
+        fixColumnSizing(headers);
+        _.each(answers, fixColumnSizing);
+
+        this.props.onChange({
+            rows: rows,
+            columns: columns,
+            answers: answers,
+            headers: headers,
+        });
+    };
+
+    serialize: () => any = () => {
+        const json = _.pick(this.props, "headers", "rows", "columns");
+
+        return _.extend({}, json, {
+            answers: _.map(this.props.answers, _.clone),
+        });
     };
 
     render(): React.ReactNode {
@@ -107,58 +158,6 @@ class TableEditor extends React.Component<Props> {
             </div>
         );
     }
-
-    onSizeInput: (arg1: number, arg2: number) => void = (
-        numRawRows,
-        numRawColumns,
-    ) => {
-        let rows = +numRawRows || 0;
-        let columns = +numRawColumns || 0;
-        rows = Math.min(Math.max(1, rows), 30);
-        columns = Math.min(Math.max(1, columns), 6);
-        const oldColumns = this.props.columns;
-        const oldRows = this.props.rows;
-
-        const answers = this.props.answers;
-        // Truncate if necessary; else, append
-        if (rows <= oldRows) {
-            answers.length = rows;
-        } else {
-            _(rows - oldRows).times(function () {
-                answers.push(Util.stringArrayOfSize(oldColumns));
-            });
-        }
-
-        function fixColumnSizing(array: any) {
-            // Truncate if necessary; else, append
-            if (columns <= oldColumns) {
-                array.length = columns;
-            } else {
-                _(columns - oldColumns).times(function () {
-                    array.push("");
-                });
-            }
-        }
-
-        const headers = this.props.headers;
-        fixColumnSizing(headers);
-        _.each(answers, fixColumnSizing);
-
-        this.props.onChange({
-            rows: rows,
-            columns: columns,
-            answers: answers,
-            headers: headers,
-        });
-    };
-
-    serialize: () => any = () => {
-        const json = _.pick(this.props, "headers", "rows", "columns");
-
-        return _.extend({}, json, {
-            answers: _.map(this.props.answers, _.clone),
-        });
-    };
 }
 
 export default TableEditor;

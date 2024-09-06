@@ -34,11 +34,11 @@ jobs:
                 node-version: [20.x]
         steps:
             - uses: actions/checkout@v4
+
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
     coverage:
         needs: [prime_cache_primary]
@@ -55,7 +55,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Jest with coverage
               run: yarn coverage
@@ -82,7 +81,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Run test with coverage
               run: yarn cypress:ci

@@ -10,9 +10,17 @@ export type InteractiveGraphAction =
     | MoveCenter
     | MoveRadiusPoint
     | ChangeSnapStep
-    | ChangeRange;
+    | ChangeRange
+    | AddPoint
+    | RemovePoint
+    | FocusPoint
+    | BlurPoint
+    | DeleteIntent;
 
 export const actions = {
+    global: {
+        deleteIntent,
+    },
     angle: {
         movePoint,
     },
@@ -31,6 +39,10 @@ export const actions = {
     },
     pointGraph: {
         movePoint,
+        addPoint,
+        removePoint,
+        focusPoint,
+        blurPoint,
     },
     polygon: {
         movePoint,
@@ -53,6 +65,16 @@ export const actions = {
     },
 };
 
+export const DELETE_INTENT = "delete-intent";
+export interface DeleteIntent {
+    type: typeof DELETE_INTENT;
+}
+function deleteIntent(): DeleteIntent {
+    return {
+        type: DELETE_INTENT,
+    };
+}
+
 export const MOVE_LINE = "move-line";
 export interface MoveLine {
     type: typeof MOVE_LINE;
@@ -64,6 +86,52 @@ function moveLine(itemIndex: number, delta: vec.Vector2): MoveLine {
         type: MOVE_LINE,
         itemIndex,
         delta,
+    };
+}
+
+export const ADD_POINT = "add-point";
+export interface AddPoint {
+    type: typeof ADD_POINT;
+    location: vec.Vector2;
+}
+function addPoint(location: vec.Vector2): AddPoint {
+    return {
+        type: ADD_POINT,
+        location,
+    };
+}
+
+export const REMOVE_POINT = "remove-point";
+export interface RemovePoint {
+    type: typeof REMOVE_POINT;
+    index: number;
+}
+function removePoint(index: number): RemovePoint {
+    return {
+        type: REMOVE_POINT,
+        index,
+    };
+}
+
+export const FOCUS_POINT = "focus-point";
+export interface FocusPoint {
+    type: typeof FOCUS_POINT;
+    index: number;
+}
+function focusPoint(index: number): FocusPoint {
+    return {
+        type: FOCUS_POINT,
+        index,
+    };
+}
+
+export const BLUR_POINT = "blur-point";
+export interface BlurPoint {
+    type: typeof BLUR_POINT;
+}
+function blurPoint(): BlurPoint {
+    return {
+        type: BLUR_POINT,
     };
 }
 

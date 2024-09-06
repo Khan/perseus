@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        The total number of boxes the forklift can carry is 
+        <div
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
+        >
+          <div>
+            <div
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+            >
+              <span
+                aria-atomic="true"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="srOnly_19bpjuy"
+                data-testid="dropdown-live-region"
+              >
+                3 items
+              </span>
+              <button
+                aria-controls="uid-single-select-dropdown-2-wb-id"
+                aria-disabled="false"
+                aria-expanded="true"
+                aria-haspopup="listbox"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                id="uid-single-select-opener-3-wb-id"
+                type="button"
+              >
+                <span
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
+                >
+                  greater/less than or equal to
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="svg_1q6jc65-o_O-icon_eocf2p-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Dropdown widget should snapshot: initial render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        The total number of boxes the forklift can carry is 
+        <div
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
+        >
+          <div>
+            <div
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+            >
+              <span
+                aria-atomic="true"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="srOnly_19bpjuy"
+                data-testid="dropdown-live-region"
+              />
+              <button
+                aria-controls="uid-single-select-dropdown-0-wb-id"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_3ie67y"
+                id="uid-single-select-opener-1-wb-id"
+                type="button"
+              >
+                <span
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
+                >
+                  greater/less than or equal to
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="svg_1q6jc65-o_O-icon_eocf2p-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
+      </div>
+    </div>
+  </div>
+</div>
+`;

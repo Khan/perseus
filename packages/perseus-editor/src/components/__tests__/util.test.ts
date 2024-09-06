@@ -98,6 +98,17 @@ describe("getDefaultFigureForType", () => {
             directionalAxis: "x",
         });
     });
+
+    test("should return a 'label' with default values", () => {
+        const figure = getDefaultFigureForType("label");
+        expect(figure).toEqual({
+            type: "label",
+            coord: [0, 0],
+            text: "",
+            color: "grayH",
+            size: "medium",
+        });
+    });
 });
 
 describe("degreeToRadian", () => {

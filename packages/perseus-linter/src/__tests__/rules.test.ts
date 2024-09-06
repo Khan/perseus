@@ -4,6 +4,7 @@ import absoluteUrlRule from "../rules/absolute-url";
 import blockquotedMathRule from "../rules/blockquoted-math";
 import blockquotedWidgetRule from "../rules/blockquoted-widget";
 import doubleSpacingAfterTerminalRule from "../rules/double-spacing-after-terminal";
+import expressionWidgetRule from "../rules/expression-widget";
 import extraContentSpacingRule from "../rules/extra-content-spacing";
 import headingLevel1Rule from "../rules/heading-level-1";
 import headingLevelSkipRule from "../rules/heading-level-skip";
@@ -507,6 +508,120 @@ describe("Individual lint rules tests", () => {
                 options: {
                     alt: "1234567890",
                     caption: "Test: \\$10",
+                },
+            },
+        },
+    });
+
+    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sqrt{42}",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                },
+            },
+        },
+    });
+
+    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sqrt{42}",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic", "prealgebra"],
+                },
+            },
+        },
+    });
+
+    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sin\\left(42\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                },
+            },
+        },
+    });
+
+    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\sin\\left(42\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic", "trig"],
+                },
+            },
+        },
+    });
+
+    expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\log\\left(5\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                },
+            },
+        },
+    });
+
+    expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        widgets: {
+            "expression 1": {
+                options: {
+                    answerForms: [
+                        {
+                            value: "\\log\\left(5\\right)",
+                            form: true,
+                            simplify: true,
+                            considered: "correct",
+                            key: "0",
+                        },
+                    ],
+                    buttonSets: ["basic", "logarithms"],
                 },
             },
         },

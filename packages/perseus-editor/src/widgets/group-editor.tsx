@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/forbid-prop-types */
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -32,28 +32,6 @@ class GroupEditor extends React.Component<Props> {
 
     editor = React.createRef<Editor>();
 
-    render(): React.ReactNode {
-        return (
-            <div className="perseus-group-editor">
-                <div>
-                    {/* the metadata editor; used for tags on
-                    khanacademy.org */}
-                    {this._renderMetadataEditor()}
-                </div>
-                <Editor
-                    ref={this.editor}
-                    content={this.props.content}
-                    widgets={this.props.widgets}
-                    apiOptions={this.props.apiOptions}
-                    images={this.props.images}
-                    widgetEnabled={true}
-                    immutableWidgets={false}
-                    onChange={this.props.onChange}
-                />
-            </div>
-        );
-    }
-
     _renderMetadataEditor: () => React.ReactElement = () => {
         const GroupMetadataEditor = this.props.apiOptions.GroupMetadataEditor;
         return (
@@ -78,6 +56,28 @@ class GroupEditor extends React.Component<Props> {
             metadata: this.props.metadata,
         });
     };
+
+    render(): React.ReactNode {
+        return (
+            <div className="perseus-group-editor">
+                <div>
+                    {/* the metadata editor; used for tags on
+                    khanacademy.org */}
+                    {this._renderMetadataEditor()}
+                </div>
+                <Editor
+                    ref={this.editor}
+                    content={this.props.content}
+                    widgets={this.props.widgets}
+                    apiOptions={this.props.apiOptions}
+                    images={this.props.images}
+                    widgetEnabled={true}
+                    immutableWidgets={false}
+                    onChange={this.props.onChange}
+                />
+            </div>
+        );
+    }
 }
 
 export default GroupEditor;

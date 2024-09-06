@@ -20,10 +20,6 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `dropdown ${number}`]: DropdownWidget;
 } & {
-    [key in `example-widget ${number}`]: ExampleWidget;
-} & {
-    [key in `example-graphie-widget ${number}`]: ExampleGraphieWidget;
-} & {
     [key in `explanation ${number}`]: ExplanationWidget;
 } & {
     [key in `expression ${number}`]: ExpressionWidget;
@@ -68,13 +64,13 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `passage-ref-target ${number}`]: PassageRefWidget;
 } & {
+    [key in `phet-simulation ${number}`]: PhetSimulationWidget;
+} & {
     [key in `plotter ${number}`]: PlotterWidget;
 } & {
     [key in `python-program ${number}`]: PythonProgramWidget;
 } & {
     [key in `radio ${number}`]: RadioWidget;
-} & {
-    [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
 } & {
     [key in `sorter ${number}`]: SorterWidget;
 } & {
@@ -247,6 +243,8 @@ export type PassageRefWidget = Widget<'passage-ref', PerseusPassageRefWidgetOpti
 // prettier-ignore
 export type PassageWidget = Widget<'passage', PerseusPassageWidgetOptions>;
 // prettier-ignore
+export type PhetSimulationWidget = Widget<'phet-simulation', PerseusPhetSimulationWidgetOptions>;
+// prettier-ignore
 export type PlotterWidget = Widget<'plotter', PerseusPlotterWidgetOptions>;
 // prettier-ignore
 export type PythonProgramWidget = Widget<'python-program', PerseusPythonProgramWidgetOptions>;
@@ -257,17 +255,11 @@ export type SorterWidget = Widget<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
 export type TableWidget = Widget<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
-export type ExampleGraphieWidget = Widget<'example-graphie-widget', PerseusExampleGraphieWidgetOptions>;
-// prettier-ignore
-export type ExampleWidget = Widget<'example-widget', PerseusExampleWidgetOptions>;
-// prettier-ignore
 export type InputNumberWidget = Widget<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
 export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
-// prettier-ignore
-export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = Widget<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
@@ -278,8 +270,6 @@ export type PerseusWidget =
     | CSProgramWidget
     | DefinitionWidget
     | DropdownWidget
-    | ExampleGraphieWidget
-    | ExampleWidget
     | ExplanationWidget
     | ExpressionWidget
     | GradedGroupSetWidget
@@ -301,11 +291,11 @@ export type PerseusWidget =
     | OrdererWidget
     | PassageRefWidget
     | PassageWidget
+    | PhetSimulationWidget
     | PlotterWidget
     | PythonProgramWidget
     | RadioWidget
     | RefTargetWidget
-    | SimpleMarkdownTesterWidget
     | SorterWidget
     | TableWidget
     | VideoWidget
@@ -718,7 +708,8 @@ export type LockedFigure =
     | LockedVectorType
     | LockedEllipseType
     | LockedPolygonType
-    | LockedFunctionType;
+    | LockedFunctionType
+    | LockedLabelType;
 export type LockedFigureType = LockedFigure["type"];
 
 export type LockedPointType = {
@@ -778,6 +769,16 @@ export type LockedFunctionType = {
     equation: string; // This is the user-defined equation (as it was typed)
     directionalAxis: "x" | "y";
     domain?: Interval;
+};
+
+// Not associated with a specific figure
+export type LockedLabelType = {
+    type: "label";
+    coord: Coord;
+    // TeX-supported string
+    text: string;
+    color: LockedFigureColor;
+    size: "small" | "medium" | "large";
 };
 
 export type PerseusGraphType =
@@ -1551,6 +1552,13 @@ export type PerseusIFrameWidgetOptions = {
     static: boolean;
 };
 
+export type PerseusPhetSimulationWidgetOptions = {
+    // A URL to display, must start with https://phet.colorado.edu/
+    url: string;
+    // Translatable Text; Description of the sim for Khanmigo and alt text
+    description: string;
+};
+
 export type PerseusVideoWidgetOptions = {
     location: string;
     static?: boolean;
@@ -1619,6 +1627,7 @@ export type PerseusWidgetOptions =
     | PerseusPassageRefTargetWidgetOptions
     | PerseusPassageRefWidgetOptions
     | PerseusPassageWidgetOptions
+    | PerseusPhetSimulationWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
     | PerseusSimpleMarkdownTesterWidgetOptions

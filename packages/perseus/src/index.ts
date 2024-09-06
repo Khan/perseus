@@ -130,6 +130,8 @@ export {
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 
+export {makeSafeUrl} from "./widgets/phet-simulation";
+
 /**
  * Mixins
  */
@@ -164,6 +166,7 @@ export type {
     VideoKind,
     WidgetDict,
     WidgetExports,
+    SharedRendererProps,
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
@@ -179,6 +182,7 @@ export type {
     LockedEllipseType,
     LockedPolygonType,
     LockedFunctionType,
+    LockedLabelType,
     PerseusGraphType,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,
@@ -193,6 +197,7 @@ export type {
     PerseusInputNumberWidgetOptions,
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
+    PerseusPhetSimulationWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,

@@ -52,6 +52,8 @@ export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
 export interface PointGraphState extends InteractiveGraphStateCommon {
     type: "point";
     coords: Coord[];
+    numPoints?: number | "unlimited";
+    focusedPointIndex: number | null;
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
@@ -87,7 +89,7 @@ export interface AngleGraphState extends InteractiveGraphStateCommon {
     type: "angle";
     // Whether to show the angle measurements.  default: false
     showAngles?: boolean;
-    // Allow Reflex Angles if an "angle" type.  default: true
+    // Allow Reflex Angles if an "angle" type.  default: false
     allowReflexAngles?: boolean;
     // The angle offset in degrees if an "angle" type. default: 0
     angleOffsetDeg?: number;

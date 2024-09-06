@@ -14,6 +14,10 @@ import * as React from "react";
 type Props = {
     // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
     showM2bFeatures: boolean;
+    // Whether to show the locked labels in the locked figure settings.
+    // TODO(LEMS-2274): Remove this prop once the label flag is
+    // sfully rolled out.
+    showLabelsFlag?: boolean;
     id: string;
     onChange: (value: string) => void;
 };
@@ -22,9 +26,12 @@ const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
     const figureTypes = ["point", "line", "vector", "ellipse", "polygon"];
-    const figureTypesCurrent = props.showM2bFeatures
-        ? [...figureTypes, "function"]
-        : figureTypes;
+    if (props.showM2bFeatures) {
+        figureTypes.push("function");
+    }
+    if (props.showLabelsFlag) {
+        figureTypes.push("label");
+    }
 
     return (
         <View style={styles.container}>
@@ -32,7 +39,7 @@ const LockedFigureSelect = (props: Props) => {
                 menuText="Add locked figure"
                 style={styles.addElementSelect}
             >
-                {figureTypesCurrent.map((figureType) => (
+                {figureTypes.map((figureType) => (
                     <ActionItem
                         key={`${id}-${figureType}`}
                         label={figureType}
