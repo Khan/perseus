@@ -1,7 +1,9 @@
-
-import {getId} from "@math-blocks/core";
+/* eslint-disable no-console */
 import * as KAS from "@khanacademy/kas";
-import {builders, types, NodeType} from "@math-blocks/semantic";
+import {getId} from "@math-blocks/core";
+import {builders, NodeType} from "@math-blocks/semantic";
+
+import type {types} from "@math-blocks/semantic";
 
 function convertExpr(expr: KAS.Expr): types.NumericNode {
     // Operations
@@ -29,18 +31,20 @@ function convertExpr(expr: KAS.Expr): types.NumericNode {
             id: getId(),
             name: symbol,
             // TODO: verify that subscript is a NumericNode type
-            subscript: subscript ? convertExpr(subscript) as types.NumericNode : undefined,
-        }
+            subscript: subscript
+                ? (convertExpr(subscript) as types.NumericNode)
+                : undefined,
+        };
     } else if (expr instanceof KAS.Const) {
         if (expr === KAS.Const.e) {
-            throw new Error("TODO: Add NodeType.E to MathBlocks")
+            throw new Error("TODO: Add NodeType.E to MathBlocks");
         } else if (expr === KAS.Const.pi) {
             return {
                 type: NodeType.Pi,
                 id: getId(),
-            }
+            };
         } else {
-            throw new Error("Unrecognized Constant")
+            throw new Error("Unrecognized Constant");
         }
     }
 
@@ -55,12 +59,14 @@ function convertExpr(expr: KAS.Expr): types.NumericNode {
         }
     } else if (expr instanceof KAS.Rational) {
         // TODO: create a new KAS node type for division
-        let n = typeof expr.n === "number"
-            ? builders.number(expr.n.toString())
-            : convertExpr(expr.n);
-        let d = typeof expr.d === "number"
-            ? builders.number(expr.d.toString())
-            : convertExpr(expr.d);
+        const n =
+            typeof expr.n === "number"
+                ? builders.number(expr.n.toString())
+                : convertExpr(expr.n);
+        const d =
+            typeof expr.d === "number"
+                ? builders.number(expr.d.toString())
+                : convertExpr(expr.d);
 
         return builders.div(n, d);
     } else if (expr instanceof KAS.Float) {

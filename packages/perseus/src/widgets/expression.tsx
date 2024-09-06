@@ -473,7 +473,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         } = {
             functions: props.functions,
             decimal_separator: getDecimalSeparator(this.context.locale),
-        }
+        };
         options.dontSimplifyFractions = this.props.dontSimplifyFractions;
         return KAS.parse(normalizeTex(value), options);
     };
@@ -568,7 +568,13 @@ export class Expression extends React.Component<Props, ExpressionState> {
     render() {
         if (this.props.apiOptions.customKeypad) {
             return (
-                <View className={this.props.noWrapper ? undefined : css(styles.mobileLabelInputWrapper)}>
+                <View
+                    className={
+                        this.props.noWrapper
+                            ? undefined
+                            : css(styles.mobileLabelInputWrapper)
+                    }
+                >
                     {!!this.props.visibleLabel && (
                         <LabelSmall htmlFor={this._textareaId} tag="label">
                             {this.props.visibleLabel}
@@ -611,7 +617,13 @@ export class Expression extends React.Component<Props, ExpressionState> {
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
         return (
-            <View className={this.props.noWrapper ? undefined : css(styles.desktopLabelInputWrapper)}>
+            <View
+                className={
+                    this.props.noWrapper
+                        ? undefined
+                        : css(styles.desktopLabelInputWrapper)
+                }
+            >
                 {!!this.props.visibleLabel && (
                     <LabelSmall htmlFor={this._textareaId} tag="label">
                         {this.props.visibleLabel}

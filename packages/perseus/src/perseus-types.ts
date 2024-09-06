@@ -74,7 +74,7 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `radio ${number}`]: RadioWidget;
 } & {
-    [key in `show-your-work ${number}`]: ShowYourWorkWidget
+    [key in `show-your-work ${number}`]: ShowYourWorkWidget;
 } & {
     [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
 } & {
@@ -1190,7 +1190,7 @@ export type PerseusSequenceWidgetOptions = {
 };
 
 export type PerseusShowYourWorkWidgetOptions = {
-    foo: "bar",
+    foo: "bar";
 };
 
 export type PerseusSimulatorWidgetOptions = {

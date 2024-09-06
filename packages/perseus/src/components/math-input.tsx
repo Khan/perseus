@@ -332,73 +332,80 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onFocus={() => this.focus()}
                         onBlur={() => this.blur()}
                     />
-                    {!this.props.disabled && <Popover
-                        opened={this.state.keypadOpen}
-                        onClose={() => this.closeKeypad()}
-                        dismissEnabled
-                        aria-label={this.context.strings.mathInputTitle}
-                        aria-describedby={`popover-content-${popoverContentUniqueId}`}
-                        content={() => (
-                            <>
-                                <HeadingMedium
-                                    id={`popover-content-${popoverContentUniqueId}`}
-                                    style={a11y.srOnly}
-                                >
-                                    {this.context.strings.mathInputDescription}
-                                </HeadingMedium>
-                                <PopoverContentCore
-                                    closeButtonVisible
-                                    style={styles.popoverContent}
-                                >
-                                    <DesktopKeypad
-                                        onAnalyticsEvent={
-                                            this.props.analytics
-                                                .onAnalyticsEvent
+                    {!this.props.disabled && (
+                        <Popover
+                            opened={this.state.keypadOpen}
+                            onClose={() => this.closeKeypad()}
+                            dismissEnabled
+                            aria-label={this.context.strings.mathInputTitle}
+                            aria-describedby={`popover-content-${popoverContentUniqueId}`}
+                            content={() => (
+                                <>
+                                    <HeadingMedium
+                                        id={`popover-content-${popoverContentUniqueId}`}
+                                        style={a11y.srOnly}
+                                    >
+                                        {
+                                            this.context.strings
+                                                .mathInputDescription
                                         }
-                                        extraKeys={this.props.extraKeys}
-                                        onClickKey={this.handleKeypadPress}
-                                        cursorContext={this.state.cursorContext}
-                                        convertDotToTimes={
-                                            this.props.convertDotToTimes
-                                        }
-                                        {...(this.props.keypadButtonSets ??
-                                            mapButtonSets(
-                                                this.props?.buttonSets,
-                                            ))}
-                                    />
-                                </PopoverContentCore>
-                            </>
-                        )}
-                    >
-                        {this.props.buttonsVisible === "never" ? (
-                            <MathInputIcon
-                                hovered={false}
-                                focused={false}
-                                active={false}
-                            />
-                        ) : (
-                            <Clickable
-                                aria-label={
-                                    this.state.keypadOpen
-                                        ? this.context.strings.closeKeypad
-                                        : this.context.strings.openKeypad
-                                }
-                                role="button"
-                                onClick={() =>
-                                    this.state.keypadOpen
-                                        ? this.closeKeypad()
-                                        : this.openKeypad()
-                                }
-                            >
-                                {(props) => (
-                                    <MathInputIcon
-                                        active={this.state.keypadOpen}
-                                        {...props}
-                                    />
-                                )}
-                            </Clickable>
-                        )}
-                    </Popover>}
+                                    </HeadingMedium>
+                                    <PopoverContentCore
+                                        closeButtonVisible
+                                        style={styles.popoverContent}
+                                    >
+                                        <DesktopKeypad
+                                            onAnalyticsEvent={
+                                                this.props.analytics
+                                                    .onAnalyticsEvent
+                                            }
+                                            extraKeys={this.props.extraKeys}
+                                            onClickKey={this.handleKeypadPress}
+                                            cursorContext={
+                                                this.state.cursorContext
+                                            }
+                                            convertDotToTimes={
+                                                this.props.convertDotToTimes
+                                            }
+                                            {...(this.props.keypadButtonSets ??
+                                                mapButtonSets(
+                                                    this.props?.buttonSets,
+                                                ))}
+                                        />
+                                    </PopoverContentCore>
+                                </>
+                            )}
+                        >
+                            {this.props.buttonsVisible === "never" ? (
+                                <MathInputIcon
+                                    hovered={false}
+                                    focused={false}
+                                    active={false}
+                                />
+                            ) : (
+                                <Clickable
+                                    aria-label={
+                                        this.state.keypadOpen
+                                            ? this.context.strings.closeKeypad
+                                            : this.context.strings.openKeypad
+                                    }
+                                    role="button"
+                                    onClick={() =>
+                                        this.state.keypadOpen
+                                            ? this.closeKeypad()
+                                            : this.openKeypad()
+                                    }
+                                >
+                                    {(props) => (
+                                        <MathInputIcon
+                                            active={this.state.keypadOpen}
+                                            {...props}
+                                        />
+                                    )}
+                                </Clickable>
+                            )}
+                        </Popover>
+                    )}
                 </div>
             </View>
         );
