@@ -4,9 +4,9 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import {clone} from "../../util/object-utils";
-import StartCoordsSettings from "../../widgets/interactive-graph-editor/start-coords/start-coords-settings";
+import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {clone} from "../../../util/object-utils";
+import StartCoordsSettings from "./start-coords-settings";
 
 import type {CollinearTuple, Coord, Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
