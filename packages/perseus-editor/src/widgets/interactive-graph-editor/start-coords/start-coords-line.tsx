@@ -1,38 +1,24 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, font, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {
-    BodyMonospace,
-    LabelLarge,
-    LabelMedium,
-} from "@khanacademy/wonder-blocks-typography";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "../../components/coordinate-pair-input";
-import {getSinusoidEquation} from "../../components/util";
+import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
-import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
+import type {CollinearTuple, PerseusGraphType} from "@khanacademy/perseus";
 
 type Props = {
-    startCoords: [Coord, Coord];
+    startCoords: CollinearTuple;
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 
-const StartCoordsSinusoid = (props: Props) => {
+const StartCoordsLine = (props: Props) => {
     const {startCoords, onChange} = props;
 
     return (
         <>
-            {/* Current equation */}
-            <View style={styles.equationSection}>
-                <LabelMedium>Starting equation:</LabelMedium>
-                <BodyMonospace style={styles.equationBody}>
-                    {getSinusoidEquation(startCoords)}
-                </BodyMonospace>
-            </View>
-
-            {/* Points UI */}
             <View style={styles.tile}>
                 <LabelLarge>Point 1:</LabelLarge>
                 <Strut size={spacing.small_12} />
@@ -64,17 +50,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
     },
-    equationSection: {
-        marginTop: spacing.small_12,
-    },
-    equationBody: {
-        backgroundColor: color.fadedOffBlack8,
-        border: `1px solid ${color.fadedOffBlack32}`,
-        marginTop: spacing.xSmall_8,
-        paddingLeft: spacing.xSmall_8,
-        paddingRight: spacing.xSmall_8,
-        fontSize: font.size.xSmall,
-    },
 });
 
-export default StartCoordsSinusoid;
+export default StartCoordsLine;

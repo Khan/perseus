@@ -9,17 +9,17 @@ import {
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "../../components/coordinate-pair-input";
-import {getQuadraticEquation} from "../../components/util";
+import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import {getSinusoidEquation} from "../../../components/util";
 
 import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
 
 type Props = {
-    startCoords: [Coord, Coord, Coord];
+    startCoords: [Coord, Coord];
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 
-const StartCoordsQuadratic = (props: Props) => {
+const StartCoordsSinusoid = (props: Props) => {
     const {startCoords, onChange} = props;
 
     return (
@@ -28,7 +28,7 @@ const StartCoordsQuadratic = (props: Props) => {
             <View style={styles.equationSection}>
                 <LabelMedium>Starting equation:</LabelMedium>
                 <BodyMonospace style={styles.equationBody}>
-                    {getQuadraticEquation(startCoords)}
+                    {getSinusoidEquation(startCoords)}
                 </BodyMonospace>
             </View>
 
@@ -39,9 +39,7 @@ const StartCoordsQuadratic = (props: Props) => {
                 <CoordinatePairInput
                     coord={startCoords[0]}
                     labels={["x", "y"]}
-                    onChange={(value) =>
-                        onChange([value, startCoords[1], startCoords[2]])
-                    }
+                    onChange={(value) => onChange([value, startCoords[1]])}
                 />
             </View>
             <View style={styles.tile}>
@@ -50,20 +48,7 @@ const StartCoordsQuadratic = (props: Props) => {
                 <CoordinatePairInput
                     coord={startCoords[1]}
                     labels={["x", "y"]}
-                    onChange={(value) =>
-                        onChange([startCoords[0], value, startCoords[2]])
-                    }
-                />
-            </View>
-            <View style={styles.tile}>
-                <LabelLarge>Point 3:</LabelLarge>
-                <Strut size={spacing.small_12} />
-                <CoordinatePairInput
-                    coord={startCoords[2]}
-                    labels={["x", "y"]}
-                    onChange={(value) =>
-                        onChange([startCoords[0], startCoords[1], value])
-                    }
+                    onChange={(value) => onChange([startCoords[0], value])}
                 />
             </View>
         </>
@@ -92,4 +77,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default StartCoordsQuadratic;
+export default StartCoordsSinusoid;

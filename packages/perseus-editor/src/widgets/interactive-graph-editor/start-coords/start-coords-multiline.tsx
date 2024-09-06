@@ -5,8 +5,8 @@ import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import CoordinatePairInput from "../../components/coordinate-pair-input";
-import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
+import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import type {CollinearTuple, PerseusGraphType} from "@khanacademy/perseus";
 

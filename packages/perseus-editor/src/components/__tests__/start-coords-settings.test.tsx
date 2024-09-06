@@ -6,7 +6,7 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {clone} from "../../util/object-utils";
-import StartCoordsSettings from "../../widgets/interactive-graph-editor/start-coords-settings";
+import StartCoordsSettings from "../../widgets/interactive-graph-editor/start-coords/start-coords-settings";
 
 import type {CollinearTuple, Coord, Range} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
