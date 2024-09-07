@@ -103,7 +103,7 @@ export const Step = (props: StepProps) => {
         <View style={styles.stepContainer}>
             {expression}
             {icon}
-            {props.isLast && (
+            {props.isLast && step.status !== "correct" && (
                 <>
                     <Strut size={16} />
                     <Button

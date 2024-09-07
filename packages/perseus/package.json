@@ -50,6 +50,7 @@
         "@khanacademy/simple-markdown": "^0.13.0",
         "@math-blocks/core": "^0.0.5",
         "@math-blocks/semantic": "^0.0.5",
+        "@math-blocks/solver": "^0.0.5",
         "@math-blocks/testing": "^0.0.5",
         "@math-blocks/tutor": "^0.0.5",
         "@use-gesture/react": "^10.2.27",

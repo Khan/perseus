@@ -17,7 +17,7 @@ type RefType = [State, React.Dispatch<Action>];
 
 export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
     const [state, dispatch] = React.useReducer(combinedReducer, {
-        mode: "Assessment",
+        mode: "Practice",
         steps: [
             {value: props.question, status: "ungraded"},
             {value: props.question, status: "ungraded"},
