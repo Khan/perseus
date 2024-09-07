@@ -7,15 +7,17 @@ import React from "react";
 import {combinedReducer} from "./reducer";
 import {Step} from "./step";
 
-import type {Mode} from "./reducer";
+import type {Mode, State, Action} from "./reducer";
 
 type Props = {
     question: string;
 };
 
-export const ShowYourWork = (props: Props) => {
+type RefType = [State, React.Dispatch<Action>];
+
+export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
     const [state, dispatch] = React.useReducer(combinedReducer, {
-        mode: "Practice",
+        mode: "Assessment",
         steps: [
             {value: props.question, status: "ungraded"},
             {value: props.question, status: "ungraded"},
@@ -23,6 +25,12 @@ export const ShowYourWork = (props: Props) => {
     });
 
     const {mode, steps} = state;
+
+    if (typeof ref === "function") {
+        ref([state, dispatch]);
+    } else if (ref != null) {
+        ref.current = [state, dispatch];
+    }
 
     return (
         <View style={styles.contentWrapper}>
@@ -68,7 +76,7 @@ export const ShowYourWork = (props: Props) => {
             })}
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     contentWrapper: {},

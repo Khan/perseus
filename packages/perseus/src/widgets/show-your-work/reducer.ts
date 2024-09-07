@@ -23,6 +23,9 @@ export type Action =
           kind: "Check";
       }
     | {
+          kind: "Checkall";
+      }
+    | {
           kind: "Update";
           value: string;
       }
@@ -75,6 +78,9 @@ const practiceReducer = (state: State, action: Action): State => {
 
             return {...state, steps: newSteps};
         }
+        case "Checkall": {
+            return state; // no-op
+        }
         case "Update": {
             const newSteps = [...state.steps];
             newSteps[newSteps.length - 1] = {
@@ -108,6 +114,32 @@ const assessmentReducer = (state: State, action: Action): State => {
                 value: newSteps[newSteps.length - 1].value,
                 status: "ungraded",
             });
+            return {...state, steps: newSteps};
+        }
+        case "Checkall": {
+            const {steps} = state;
+            const newSteps = [steps[0]];
+
+            for (let i = 0; i < steps.length - 1; i++) {
+                const prev = parse(steps[i].value);
+                const next = parse(steps[i + 1].value);
+                const {result, mistakes: _} = checkStep(prev, next);
+                if (result) {
+                    newSteps.push({
+                        ...steps[i + 1],
+                        status: "correct",
+                    });
+                } else {
+                    // TODO: perform fallback check to handle cases where
+                    // the user submitted a correct step that we just aren't
+                    // able to recognize yet.
+                    newSteps.push({
+                        ...steps[i + 1],
+                        status: "wrong",
+                    });
+                }
+            }
+
             return {...state, steps: newSteps};
         }
         case "Update": {
@@ -146,9 +178,7 @@ export const combinedReducer = (
                     return {...newState, mode: action.mode};
                 }
                 default: {
-                    // @ts-expect-error: I'm not sure why TS is complaining about
-                    // this since we handled all of the possible modes.
-                    return assertUnreachable(state);
+                    return assertUnreachable(action.mode);
                 }
             }
         }
@@ -161,9 +191,7 @@ export const combinedReducer = (
                     return assessmentReducer(state, action);
                 }
                 default: {
-                    // @ts-expect-error: I'm not sure why TS is complaining about
-                    // this since we handled all of the possible modes.
-                    return assertUnreachable(state);
+                    return assertUnreachable(state.mode);
                 }
             }
         }
