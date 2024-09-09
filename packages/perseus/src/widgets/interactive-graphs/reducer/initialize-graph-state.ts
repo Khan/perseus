@@ -11,6 +11,7 @@ import type {
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
+    PerseusGraphTypeNone,
     PerseusGraphTypePoint,
     PerseusGraphTypePolygon,
     PerseusGraphTypeQuadratic,
@@ -107,6 +108,11 @@ export function initializeGraphState(
                 angleOffsetDeg: Number(graph.angleOffsetDeg),
                 allowReflexAngles: Boolean(graph.allowReflexAngles),
                 snapDegrees: Number(graph.snapDegrees),
+            };
+        case "none":
+            return {
+                ...shared,
+                type: "none"
             };
         default:
             throw new UnreachableCaseError(graph);

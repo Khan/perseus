@@ -12,9 +12,10 @@ const GraphTypeSelector = (props: GraphTypeSelectorProps) => {
         <SingleSelect
             selectedValue={props.graphType}
             onChange={props.onChange}
-            placeholder="Select a graph type"
+            placeholder="Select an answer type"
             style={styles.singleSelectShort}
         >
+            <OptionItem value="none" label="None" />
             <OptionItem value="linear" label="Linear function" />
             <OptionItem value="quadratic" label="Quadratic function" />
             <OptionItem value="sinusoid" label="Sinusoid function" />

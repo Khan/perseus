@@ -13,6 +13,8 @@ import type {CollinearTuple, PerseusGraphType} from "@khanacademy/perseus";
 type Props = {
     type: "linear-system" | "segment";
     startCoords: CollinearTuple[];
+    // FIXME
+    // @ts-expect-error
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 

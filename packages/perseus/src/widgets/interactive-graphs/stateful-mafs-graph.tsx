@@ -101,6 +101,7 @@ export const StatefulMafsGraph = React.forwardRef<
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
+    // FIXME: extract getReinitializationKey(graph)
     // Update the graph whenever any of the following values changes.
     // This is necessary to keep the graph previews in sync with the updated
     // graph settings within the interative graph editor.
@@ -110,6 +111,7 @@ export const StatefulMafsGraph = React.forwardRef<
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
     const showAngles = graph.type === "polygon" ? graph.showAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
+    const startCoords = "startCoords" in graph ? graph.startCoords : null;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
@@ -130,7 +132,7 @@ export const StatefulMafsGraph = React.forwardRef<
         showAngles,
         showSides,
         latestPropsRef,
-        graph.startCoords,
+        startCoords,
     ]);
 
     // If the graph is static, it always displays the correct answer. This is

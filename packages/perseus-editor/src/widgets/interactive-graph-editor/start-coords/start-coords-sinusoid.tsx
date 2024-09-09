@@ -15,9 +15,11 @@ import {getSinusoidEquation} from "./util";
 
 import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
 
+type PerseusGraphTypeSinusoid = Extract<PerseusGraphType, {type: "sinusoid"}>
+
 type Props = {
     startCoords: [Coord, Coord];
-    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
+    onChange: (startCoords: PerseusGraphTypeSinusoid["startCoords"]) => void;
 };
 
 const StartCoordsSinusoid = (props: Props) => {

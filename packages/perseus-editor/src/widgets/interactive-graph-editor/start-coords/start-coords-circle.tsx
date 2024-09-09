@@ -15,6 +15,8 @@ type Props = {
         center: Coord;
         radius: number;
     };
+    // FIXME
+    // @ts-expect-error
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 

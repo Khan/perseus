@@ -11,6 +11,8 @@ import type {CollinearTuple, PerseusGraphType} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: CollinearTuple;
+    // FIXME
+    // @ts-expect-error
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 

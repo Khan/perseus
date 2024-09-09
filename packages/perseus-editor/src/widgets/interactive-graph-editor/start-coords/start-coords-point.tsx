@@ -11,6 +11,8 @@ import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: ReadonlyArray<Coord>;
+    // FIXME
+    // @ts-expect-error
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 

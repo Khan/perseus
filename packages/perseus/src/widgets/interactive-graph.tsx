@@ -517,6 +517,10 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.line?.remove();
     };
 
+    addNoneControls: () => void = () => {};
+
+    removeNoneControls: () => void = () => {};
+
     addLinearControls: () => void = () => {
         this.addLine("line");
     };
@@ -2177,6 +2181,10 @@ class InteractiveGraph extends React.Component<Props, State> {
         });
     }
 
+    static getNoneEquationString(): string {
+        return ""
+    }
+
     static getLinearEquationString(props: Props): string {
         const coords = InteractiveGraph.getLineCoords(props.graph, props);
         if (eq(coords[0][0], coords[1][0])) {
@@ -2655,6 +2663,8 @@ export function shouldUseMafs(
     }
 
     switch (graph.type) {
+        case "none":
+            return true;
         case "point":
             if (graph.numPoints === UNLIMITED) {
                 return Boolean(mafsFlags["unlimited-point"]);

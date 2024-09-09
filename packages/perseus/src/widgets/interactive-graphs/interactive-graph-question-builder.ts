@@ -180,6 +180,11 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withNoInteractiveFigure() {
+        this.interactiveFigureConfig = new NoInteractiveFigureConfig();
+        return this;
+    }
+
     withLinear(options?: {
         coords?: CollinearTuple;
         startCoords?: CollinearTuple;
@@ -480,6 +485,16 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
             numSegments: this.numSegments,
             startCoords: this.startCoords,
         };
+    }
+}
+
+class NoInteractiveFigureConfig implements InteractiveFigureConfig {
+    correct(): PerseusGraphType {
+        return {type: "none"};
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "none"};
     }
 }
 

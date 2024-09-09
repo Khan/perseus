@@ -33,6 +33,8 @@ import type {PerseusGraphType, Range} from "@khanacademy/perseus";
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
+    // FIXME
+    // @ts-expect-error
     onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
 };
 

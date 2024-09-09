@@ -791,6 +791,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeCircle
     | PerseusGraphTypeLinear
     | PerseusGraphTypeLinearSystem
+    | PerseusGraphTypeNone
     | PerseusGraphTypePoint
     | PerseusGraphTypePolygon
     | PerseusGraphTypeQuadratic
@@ -848,6 +849,10 @@ export type PerseusGraphTypeLinearSystem = {
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
+
+export type PerseusGraphTypeNone = {
+    type: "none"
+}
 
 export type PerseusGraphTypePoint = {
     type: "point";

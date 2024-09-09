@@ -228,10 +228,15 @@ class InteractiveGraphEditor extends React.Component<Props> {
             _.extend(json, {
                 graph: {
                     type: correct.type,
-                    startCoords: this.props.graph?.startCoords,
                 },
                 correct: correct,
             });
+
+            if (this.props.graph != null && "startCoords" in this.props.graph) {
+                // FIXME
+                // @ts-expect-error
+                json.graph.startCoords = this.props.graph.startCoords;
+            }
 
             _.each(
                 [
@@ -351,7 +356,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         return (
             <View>
-                <LabeledRow label="Type of Graph:">
+                <LabeledRow label="Answer type:">
                     <GraphTypeSelector
                         graphType={
                             this.props.graph?.type ??
@@ -799,6 +804,9 @@ function mergeGraphs(
             return {...a, ...b};
         case "linear-system":
             invariant(b.type === "linear-system");
+            return {...a, ...b};
+        case "none":
+            invariant(b.type === "none");
             return {...a, ...b};
         case "point":
             invariant(b.type === "point");

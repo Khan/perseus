@@ -193,6 +193,7 @@ function doMovePointInFigure(
         }
         case "angle":
         case "circle":
+        case "none":
         case "point":
         case "polygon":
         case "quadratic":

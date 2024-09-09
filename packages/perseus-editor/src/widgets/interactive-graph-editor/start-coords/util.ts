@@ -17,6 +17,8 @@ export function getDefaultGraphStartCoords(
     graph: PerseusGraphType,
     range: [x: Range, y: Range],
     step: [x: number, y: number],
+    // FIXME
+    // @ts-expect-error
 ): PerseusGraphType["startCoords"] {
     switch (graph.type) {
         case "linear":
