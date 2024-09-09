@@ -574,10 +574,7 @@ describe("InteractiveGraphEditor", () => {
 
     test("getSaveWarnings returns an error when the graph is invalid", async () => {
         // Arrange
-        jest.spyOn(React, "useRef").mockReturnValue({
-            current: null,
-        });
-        const ref = React.useRef<InteractiveGraphEditor>(null);
+        const ref = React.createRef<InteractiveGraphEditor>();
 
         // Act
         render(
@@ -611,10 +608,7 @@ describe("InteractiveGraphEditor", () => {
 
     test("getSaveWarnings is empty if there are no errors", async () => {
         // Arrange
-        jest.spyOn(React, "useRef").mockReturnValue({
-            current: null,
-        });
-        const ref = React.useRef<InteractiveGraphEditor>(null);
+        const ref = React.createRef<InteractiveGraphEditor>();
 
         // Act
         render(
