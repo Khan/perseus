@@ -7,13 +7,12 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
-import caretDoubleLeftIcon from "@phosphor-icons/core/assets/regular/caret-double-left.svg";
 import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
+import autoPasteIcon from "@phosphor-icons/core/assets/regular/note-pencil.svg";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {useEffect, useId, useState} from "react";
@@ -149,7 +148,7 @@ const LockedFunctionSettings = (props: Props) => {
                         handlePropChange("directionalAxis", newValue);
                     }}
                     aria-label="equation prefix"
-                    style={styles.dropdownMenu}
+                    style={[styles.dropdownLabel, styles.axisMenu]}
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
@@ -171,7 +170,10 @@ const LockedFunctionSettings = (props: Props) => {
 
             {/* Domain/Range restrictions */}
             <View style={[styles.row, styles.rowSpace]}>
-                <LabelMedium tag="label" style={styles.domainMin}>
+                <LabelMedium
+                    tag="label"
+                    style={[styles.dropdownLabel, styles.domainMin]}
+                >
                     {`${domainRangeText} min`}
 
                     <Strut size={spacing.xxSmall_6} />
@@ -188,7 +190,7 @@ const LockedFunctionSettings = (props: Props) => {
                 <LabelMedium
                     tag="label"
                     aria-label={`${domainRangeText} max`}
-                    style={styles.domainMax}
+                    style={[styles.dropdownLabel, styles.domainMax]}
                 >
                     {"max"}
 
@@ -205,36 +207,44 @@ const LockedFunctionSettings = (props: Props) => {
             </View>
 
             {/* Examples */}
-            <View style={[styles.exampleWorkspace, styles.rowSpace]}>
-                <SingleSelect
-                    aria-label="example categories"
-                    selectedValue={exampleCategory}
-                    onChange={setExampleCategory}
-                    style={styles.dropdownMenu}
-                    placeholder="examples"
-                >
-                    {exampleCategories.map((category) => {
-                        return (
-                            <OptionItem
-                                key={category}
-                                value={category}
-                                label={category}
+            <PerseusEditorAccordion
+                header={<LabelLarge>Example Functions</LabelLarge>}
+                expanded={false}
+                containerStyle={styles.exampleWorkspace}
+                panelStyle={styles.exampleAccordionPanel}
+            >
+                <LabelMedium tag="label" style={styles.dropdownLabel}>
+                    {"Choose a category"}
+                    <Strut size={spacing.xxSmall_6} />
+                    <SingleSelect
+                        selectedValue={exampleCategory}
+                        onChange={setExampleCategory}
+                        placeholder="examples"
+                    >
+                        {exampleCategories.map((category) => {
+                            return (
+                                <OptionItem
+                                    key={category}
+                                    value={category}
+                                    label={category}
+                                />
+                            );
+                        })}
+                    </SingleSelect>
+                </LabelMedium>
+                {exampleCategorySelected && (
+                    <ul className={css(styles.exampleContainer)}>
+                        {exampleContent.map((example, index) => (
+                            <ExampleItem
+                                category={exampleCategory}
+                                example={example}
+                                index={index}
+                                pasteEquationFn={handlePropChange}
                             />
-                        );
-                    })}
-                </SingleSelect>
-                <Strut size={spacing.small_12} />
-                <ul className={css(styles.exampleContainer)}>
-                    {exampleContent.map((example, index) => (
-                        <ExampleItem
-                            category={exampleCategory}
-                            categorySelected={exampleCategorySelected}
-                            example={example}
-                            index={index}
-                        />
-                    ))}
-                </ul>
-            </View>
+                        ))}
+                    </ul>
+                )}
+            </PerseusEditorAccordion>
 
             {/* Actions */}
             <LockedFigureSettingsActions
@@ -247,40 +257,36 @@ const LockedFunctionSettings = (props: Props) => {
 };
 
 type ItemProps = {
+    category: string;
     example: string;
     index: number;
-    category: string;
-    categorySelected: boolean;
+    pasteEquationFn: (property: string, newValue: string) => void;
 };
 
 const ExampleItem = (props: ItemProps): React.ReactElement => {
-    const {example, index, category, categorySelected} = props;
+    const {category, example, index, pasteEquationFn} = props;
     const exampleId = useId();
-    const exampleContentStyles = categorySelected
-        ? [styles.exampleContent, styles.exampleContentEquation]
-        : [styles.exampleContent, styles.exampleContentInstructions];
 
     return (
         <li key={`${category}-${index}`} className={css(styles.exampleRow)}>
-            {categorySelected && (
-                <IconButton
-                    icon={copyIcon}
-                    aria-label="copy example"
-                    aria-describedby={exampleId}
-                    onClick={() => navigator.clipboard.writeText(example)}
-                    size="medium"
-                    style={styles.copyButton}
-                />
-            )}
-            {!categorySelected && (
-                <PhosphorIcon
-                    icon={caretDoubleLeftIcon}
-                    size="medium"
-                    color={color.fadedOffBlack64}
-                />
-            )}
-            <Strut size={spacing.small_12} />
-            <View style={exampleContentStyles} id={exampleId}>
+            <IconButton
+                icon={autoPasteIcon}
+                aria-label="paste example"
+                aria-describedby={exampleId}
+                onClick={() => pasteEquationFn("equation", example)}
+                size="medium"
+                style={styles.copyPasteButton}
+            />
+            <IconButton
+                icon={copyIcon}
+                aria-label="copy example"
+                aria-describedby={exampleId}
+                onClick={() => navigator.clipboard.writeText(example)}
+                size="medium"
+                style={styles.copyPasteButton}
+            />
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.exampleContent} id={exampleId}>
                 {example}
             </View>
         </li>
@@ -297,12 +303,14 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         whiteSpace: "nowrap",
     },
-    copyButton: {
+    axisMenu: {
+        minWidth: "auto",
+    },
+    copyPasteButton: {
         flexShrink: "0",
+        margin: "0 2px",
     },
     domainMin: {
-        alignItems: "center",
-        display: "flex",
         justifyContent: "space-between",
         // The 'width' property is applied to the label, which wraps the text and the input field.
         // The width of the input fields (min/max) should be the same (to have a consistent look),
@@ -320,17 +328,21 @@ const styles = StyleSheet.create({
         width: "calc(100% - 88.7px)", // make room for the label
     },
     domainMax: {
-        alignItems: "center",
-        display: "flex",
         // See explanation for "domainMin" for the calculation below.
         width: "calc(((100% - 141px) / 2) + 36.2px)",
     },
     domainMaxField: {
         width: "calc(100% - 36.2px)", // make room for the label
     },
-    dropdownMenu: {
-        minWidth: "auto",
-        maxWidth: "120px",
+    dropdownLabel: {
+        alignItems: "center",
+        display: "flex",
+    },
+    exampleAccordionPanel: {
+        alignItems: "start",
+        paddingBottom: "12px",
+        flexDirection: "row",
+        flexWrap: "wrap",
     },
     exampleContainer: {
         background: "white",
@@ -342,28 +354,23 @@ const styles = StyleSheet.create({
         //    just a good height to partially show a 3rd example in the list
         //    to hint at scrollable content.
         maxHeight: "88px",
-        margin: "0",
+        margin: "8px 0 0 0",
         overflowY: "scroll",
-        padding: "12px",
+        padding: "4px 12px 4px 4px",
     },
     exampleContent: {
         fontFamily: `"Lato", sans-serif`,
         flexGrow: "1",
-    },
-    exampleContentInstructions: {
-        color: color.fadedOffBlack64,
-    },
-    exampleContentEquation: {
         color: color.offBlack,
     },
     exampleRow: {
+        alignItems: "center",
         display: "flex",
         flexDirection: "row",
         minHeight: "44px",
     },
     exampleWorkspace: {
-        display: "flex",
-        flexDirection: "row",
+        background: color.white50,
     },
     rowSpace: {
         marginTop: spacing.xSmall_8,

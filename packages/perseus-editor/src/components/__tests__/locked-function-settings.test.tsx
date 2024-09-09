@@ -420,16 +420,12 @@ describe("Locked Function Settings", () => {
                 );
 
                 // Assert - initial state (no category selected)
-                const instructions = screen.getByText(
-                    "Select category to see example equations",
-                );
-                expect(instructions).toBeInTheDocument();
                 let copyButtons = screen.queryAllByLabelText("copy example");
                 expect(copyButtons.length).toEqual(0);
 
                 // Act - choose a category of examples
                 const categoryDropdown =
-                    screen.getByLabelText("example categories");
+                    screen.getByLabelText("Choose a category");
                 await userEvent.click(categoryDropdown);
                 const categoryOption = screen.getAllByRole("option")[0];
                 await userEvent.click(categoryOption);
@@ -439,7 +435,7 @@ describe("Locked Function Settings", () => {
                 expect(copyButtons.length).toBeGreaterThan(0);
             });
 
-            test("example equation is copied to the clipboard when associated button is activated", async () => {
+            test("example equation is copied to the clipboard when 'copy' icon button is activated", async () => {
                 // Arrange
                 const writeTextMock = jest.fn();
                 const clipboardFnMock = jest.fn();
@@ -467,9 +463,10 @@ describe("Locked Function Settings", () => {
                     />,
                     {wrapper: RenderStateRoot},
                 );
+
                 // Act - choose a category to get a listing of examples
                 const categoryDropdown =
-                    screen.getByLabelText("example categories");
+                    screen.getByLabelText("Choose a category");
                 await userEvent.click(categoryDropdown);
                 const categoryOption = screen.getAllByRole("option")[0];
                 await userEvent.click(categoryOption);
@@ -480,6 +477,33 @@ describe("Locked Function Settings", () => {
 
                 // Assert - clipboard receives example text
                 expect(writeTextMock).toHaveBeenCalledWith("bar");
+            });
+
+            test("example equation is copied to the equation field when 'paste' icon button is activated", async () => {
+                // Arrange
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        expanded={true}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act - choose a category to get a listing of examples
+                const categoryDropdown =
+                    screen.getByLabelText("Choose a category");
+                await userEvent.click(categoryDropdown);
+                const categoryOption = screen.getAllByRole("option")[0];
+                await userEvent.click(categoryOption);
+
+                // Act - click the copy button for the first example
+                const pasteButton =
+                    screen.getAllByLabelText("paste example")[0];
+                await userEvent.click(pasteButton);
+
+                // Assert - clipboard receives example text
+                expect(onChangeProps).toHaveBeenCalledWith({equation: "bar"});
             });
         });
     });
