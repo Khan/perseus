@@ -203,6 +203,7 @@ class PassageRef extends React.Component<Props, State> {
 export default {
     name: "passage-ref",
     displayName: "PassageRef (SAT only)",
+    hidden: true,
     defaultAlignment: "inline",
     widget: PassageRef,
     transform: (

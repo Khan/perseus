@@ -215,6 +215,7 @@ const propUpgrades = {
 export default {
     name: "measurer",
     displayName: "Measurer",
+    hidden: true,
     widget: Measurer,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
