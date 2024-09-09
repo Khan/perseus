@@ -1,14 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+
+import {components, icons} from "@khanacademy/perseus";
 import * as React from "react";
 
-import InlineIcon from "../../components/inline-icon";
-import {
-    iconChevronDown,
-    iconChevronRight,
-    iconCircleArrowDown,
-    iconCircleArrowUp,
-    iconTrash,
-} from "../../icon-paths";
+const {InlineIcon} = components;
 
 type Props = {
     children: React.ReactElement<any> | ReadonlyArray<React.ReactElement<any>>;
@@ -57,9 +52,9 @@ class ElementContainer extends React.Component<Props, State> {
                     onClick={this.toggle}
                 >
                     {this.state.show ? (
-                        <InlineIcon {...iconChevronDown} />
+                        <InlineIcon {...icons.iconChevronDown} />
                     ) : (
-                        <InlineIcon {...iconChevronRight} />
+                        <InlineIcon {...icons.iconChevronRight} />
                     )}
                     {this.props.title}
                 </a>
@@ -76,17 +71,19 @@ class ElementContainer extends React.Component<Props, State> {
                         <div className="edit-controls">
                             {this.props.onUp != null && (
                                 <button onClick={this.props.onUp}>
-                                    <InlineIcon {...iconCircleArrowUp} />
+                                    <InlineIcon {...icons.iconCircleArrowUp} />
                                 </button>
                             )}
                             {this.props.onDown != null && (
                                 <button onClick={this.props.onDown}>
-                                    <InlineIcon {...iconCircleArrowDown} />
+                                    <InlineIcon
+                                        {...icons.iconCircleArrowDown}
+                                    />
                                 </button>
                             )}
                             {this.props.onDelete != null && (
                                 <button onClick={this.props.onDelete}>
-                                    <InlineIcon {...iconTrash} />
+                                    <InlineIcon {...icons.iconTrash} />
                                 </button>
                             )}
                         </div>
