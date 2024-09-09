@@ -124,6 +124,7 @@ export type Props = {
      * on the state of the interactive graph previewed at the bottom of the
      * editor page.
      */
+    // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphType;
     /**
      * The locked figures to display in the graph area.

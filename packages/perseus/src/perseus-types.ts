@@ -674,6 +674,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     // The type of graph
     graph: PerseusGraphType;
     // The correct kind of graph, if being used to select function type
+    // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphType;
     // Shapes (points, chords, etc) displayed on the graph that cannot
     // be moved by the user.
