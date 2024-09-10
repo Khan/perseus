@@ -667,7 +667,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    test("should not render for point graphs with unlimited points", async () => {
+    test("should not render start coords UI for point graphs with unlimited points", async () => {
         // Arrange
 
         // Act
@@ -690,7 +690,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render for polygon graphs with unlimited sides", async () => {
+    test("should not render start coords UI for polygon graphs with unlimited sides", async () => {
         // Arrange
 
         // Act
@@ -713,7 +713,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render for polygon graphs with non-grid snapTo (angles)", async () => {
+    test("should not render start coords UI for polygon graphs with non-grid snapTo (angles)", async () => {
         // Arrange
 
         // Act
@@ -736,7 +736,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render for polygon graphs with non-grid snapTo (sides)", async () => {
+    test("should not render start coords UI for polygon graphs with non-grid snapTo (sides)", async () => {
         // Arrange
 
         // Act
@@ -745,6 +745,30 @@ describe("InteractiveGraphEditor", () => {
                 {...mafsProps}
                 graph={{type: "polygon", snapTo: "sides"}}
                 correct={{type: "polygon", snapTo: "sides"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
+
+    test("should not render start coords UI for a static graph", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+                static={true}
             />,
             {
                 wrapper: RenderStateRoot,
