@@ -47,6 +47,8 @@ export type MafsGraphProps = {
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
+    fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
+    fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
@@ -54,10 +56,19 @@ export type MafsGraphProps = {
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
-    const {state, dispatch, labels, readOnly} = props;
+    const {
+        state,
+        dispatch,
+        labels,
+        readOnly,
+        fullGraphAriaLabel,
+        fullGraphAriaDescription,
+    } = props;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
 
+    const uniqueId = React.useId();
+    const descriptionId = `interactive-graph-description-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
 
     return (
@@ -96,9 +107,26 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             graphRef.current?.focus();
                         }
                     }}
+                    aria-label={fullGraphAriaLabel}
+                    aria-describedby={
+                        fullGraphAriaDescription ? descriptionId : undefined
+                    }
                     ref={graphRef}
                     tabIndex={0}
                 >
+                    {fullGraphAriaDescription && (
+                        <View
+                            id={descriptionId}
+                            tabIndex={-1}
+                            style={{
+                                width: 0,
+                                height: 0,
+                                overflow: "hidden",
+                            }}
+                        >
+                            {fullGraphAriaDescription}
+                        </View>
+                    )}
                     <LegacyGrid
                         box={props.box}
                         backgroundImage={props.backgroundImage}

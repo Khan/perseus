@@ -574,10 +574,7 @@ describe("InteractiveGraphEditor", () => {
 
     test("getSaveWarnings returns an error when the graph is invalid", async () => {
         // Arrange
-        jest.spyOn(React, "useRef").mockReturnValue({
-            current: null,
-        });
-        const ref = React.useRef<InteractiveGraphEditor>(null);
+        const ref = React.createRef<InteractiveGraphEditor>();
 
         // Act
         render(
@@ -611,10 +608,7 @@ describe("InteractiveGraphEditor", () => {
 
     test("getSaveWarnings is empty if there are no errors", async () => {
         // Arrange
-        jest.spyOn(React, "useRef").mockReturnValue({
-            current: null,
-        });
-        const ref = React.useRef<InteractiveGraphEditor>(null);
+        const ref = React.createRef<InteractiveGraphEditor>();
 
         // Act
         render(
@@ -1065,5 +1059,29 @@ describe("InteractiveGraphEditor", () => {
                 name: "Use default start coordinates",
             }),
         ).toBeNull();
+    });
+
+    test("shows description section", () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "Title"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("textbox", {name: "Description"}),
+        ).toBeInTheDocument();
     });
 });
