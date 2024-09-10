@@ -1,5 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {TextField} from "@khanacademy/wonder-blocks-form";
+import {TextArea, TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
@@ -43,28 +43,22 @@ export default function InteractiveGraphDescription(props: Props) {
                             onChange={(newValue) =>
                                 onChange({fullGraphAriaLabel: newValue})
                             }
+                            style={styles.spaceAbove}
                         />
                     </LabelLarge>
-                    <Strut size={spacing.xSmall_8} />
-                    <LabelLarge
-                        tag="label"
-                        // TODO(LEMS-2332): Remove this style prop after
-                        // switching to WB TextArea
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                        }}
-                    >
+                    <Strut size={spacing.small_12} />
+                    <LabelLarge tag="label">
                         Description
-                        {/* TODO(LEMS-2332): Change this to a WB TextArea */}
-                        <textarea
+                        <TextArea
                             rows={8}
+                            resizeType="vertical"
                             value={ariaDescriptionValue}
-                            onChange={(e) =>
+                            onChange={(newValue) =>
                                 onChange({
-                                    fullGraphAriaDescription: e.target.value,
+                                    fullGraphAriaDescription: newValue,
                                 })
                             }
+                            style={styles.spaceAbove}
                         />
                     </LabelLarge>
                 </View>
@@ -78,5 +72,8 @@ const styles = StyleSheet.create({
         color: color.offBlack64,
         paddingTop: spacing.xxSmall_6,
         paddingBottom: spacing.xxSmall_6,
+    },
+    spaceAbove: {
+        marginTop: spacing.xxxSmall_4,
     },
 });
