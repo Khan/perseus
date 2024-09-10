@@ -301,7 +301,17 @@ export const getAngleEquation = (startCoords: [Coord, Coord, Coord]) => {
     return `${roundedAngle}\u00B0 angle at (${vertex[0]}, ${vertex[1]})`;
 };
 
-export const shouldShowStartCoordsUI = (graph) => {
+export const shouldShowStartCoordsUI = (
+    graph: PerseusGraphType,
+    isStatic?: boolean,
+) => {
+    // We don't show the start coords UI for static graphs, since
+    // the coords shown for this are determined by the coords on the
+    // "correct" graph. The start coords would not be used here.
+    if (isStatic) {
+        return false;
+    }
+
     if (graph.type === "point" && graph.numPoints === "unlimited") {
         return false;
     }

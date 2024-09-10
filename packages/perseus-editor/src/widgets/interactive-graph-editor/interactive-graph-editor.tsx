@@ -146,6 +146,10 @@ export type Props = {
      */
     graph: InteractiveGraphProps["graph"];
     onChange: (props: Partial<Props>) => void;
+    // Whether the graph has been set to static mode.
+    // Graphs in static mode are not interactive, and their coords are
+    // set to those of the "correct" graph in the editor.
+    static?: boolean;
 };
 
 type DefaultProps = {
@@ -602,7 +606,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </LabeledRow>
                 )}
                 {this.props.graph?.type &&
-                    shouldShowStartCoordsUI(this.props.graph) && (
+                    shouldShowStartCoordsUI(
+                        this.props.graph,
+                        this.props.static,
+                    ) && (
                         <StartCoordsSettings
                             {...this.props.graph}
                             range={this.props.range}
