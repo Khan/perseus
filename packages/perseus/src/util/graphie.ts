@@ -1686,7 +1686,8 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // We can calculate the true scale of the graphie by taking actual width and dividing by the expected width.
         // NOTE: Using 'slice' to remove the "px" unit from the end of the expected width value.
         const scale =
-            (($container.width() ?? 0) / parseInt(expectedWidth.replace(/px$/, ''))) *
+            (($container.width() ?? 0) /
+                parseInt(expectedWidth.replace(/px$/, ""))) *
             100;
 
         // Any padding needs to be scaled accordingly.
