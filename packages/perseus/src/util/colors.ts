@@ -83,6 +83,10 @@ const KhanColors = {
     GRAY_I: "#21242C",
     KA_BLUE: "#314453",
     KA_GREEN: "#71B307",
+    // Don't actually use _BACKGROUND! Make things transparent instead. The
+    // background color used in exercises is subject to change at the whim
+    // of any redesigns.
+    _BACKGROUND: "#FDFDFD", // TODO(eater): Get rid of this altogether.
     INTERACTING: color.green,
     INTERACTIVE: color.green,
     DYNAMIC: color.blue,
