@@ -1686,7 +1686,7 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // We can calculate the true scale of the graphie by taking actual width and dividing by the expected width.
         // NOTE: Using 'slice' to remove the "px" unit from the end of the expected width value.
         const scale =
-            (($container.width() ?? 0) / parseInt(expectedWidth.slice(0, -2))) *
+            (($container.width() ?? 0) / parseInt(expectedWidth.replace(/px$/, ''))) *
             100;
 
         // Any padding needs to be scaled accordingly.
@@ -1698,12 +1698,15 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // 'margin-left' and 'margin-top' are used to position the text.
         // Margin and font size need to be scaled accordingly.
         const multipliers = labelDirections[direction || "center"];
-        $span.css({
+        const styling = {
             marginLeft: Math.round(width * multipliers[0] * scale) / 100,
             marginTop: Math.round(height * multipliers[1] * scale) / 100,
-            fontSize: `${Math.round(scale * 100) / 100}%`,
             padding: `${newPadding}px`,
-        });
+        };
+        if (scale !== 1) {
+            styling["fontSize"] = `${Math.round(scale * 100) / 100}%`;
+        }
+        $span.css(styling);
     }
 };
 
