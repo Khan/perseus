@@ -1,8 +1,8 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
     components,
-    interactiveSizes,
     InteractiveGraphWidget,
+    interactiveSizes,
     SizingUtils,
     Util,
 } from "@khanacademy/perseus";
@@ -11,8 +11,10 @@ import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import LabeledRow from "../../components/graph-locked-figures/labeled-row";
@@ -28,10 +30,11 @@ import {shouldShowStartCoordsUI} from "../../components/util";
 import {parsePointCount} from "../../util/points";
 
 import type {
-    PerseusImageBackground,
-    PerseusInteractiveGraphWidgetOptions,
     APIOptionsWithDefaults,
     LockedFigure,
+    PerseusImageBackground,
+    PerseusInteractiveGraphWidgetOptions,
+    PerseusGraphType,
 } from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -56,6 +59,8 @@ const POLYGON_SIDES = _.map(_.range(3, 13), function (value) {
 });
 
 type Range = [min: number, max: number];
+type PerseusGraphTypePolygon = Extract<PerseusGraphType, {type: "polygon"}>;
+type PerseusGraphTypeAngle = Extract<PerseusGraphType, {type: "angle"}>;
 
 export type Props = {
     apiOptions: APIOptionsWithDefaults;
@@ -120,7 +125,8 @@ export type Props = {
      * on the state of the interactive graph previewed at the bottom of the
      * editor page.
      */
-    correct: any; // TODO(jeremy)
+    // TODO(LEMS-2344): make the type of `correct` more specific
+    correct: PerseusGraphType;
     /**
      * The locked figures to display in the graph area.
      * Locked figures are graph elements (points, lines, line segmeents,
@@ -174,14 +180,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
             type: InteractiveGraph.defaultProps.graph.type,
             coords: null,
         },
-    };
-
-    changeMatchType = (newValue) => {
-        const correct = {
-            ...this.props.correct,
-            match: newValue,
-        };
-        this.props.onChange({correct: correct});
     };
 
     changeStartCoords = (coords) => {
@@ -306,17 +304,16 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 fullGraphAriaLabel: this.props.fullGraphAriaLabel,
                 fullGraphAriaDescription: this.props.fullGraphAriaDescription,
                 trackInteraction: function () {},
-                onChange: (newProps: InteractiveGraphProps) => {
+                onChange: ({graph: newGraph}: InteractiveGraphProps) => {
                     let correct = this.props.correct;
-                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                    if (correct.type === newProps.graph.type) {
-                        correct = {
-                            ...correct,
-                            ...newProps.graph,
-                        };
+                    // TODO(benchristel): can we improve the type of onChange
+                    // so this invariant isn't necessary?
+                    invariant(newGraph != null);
+                    if (correct.type === newGraph.type) {
+                        correct = mergeGraphs(correct, newGraph);
                     } else {
                         // Clear options from previous graph
-                        correct = newProps.graph;
+                        correct = newGraph;
                     }
                     this.props.onChange({
                         correct: correct,
@@ -411,19 +408,27 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 }
                                 placeholder=""
                                 onChange={(newValue) => {
-                                    const graph = {
-                                        ...this.props.correct,
+                                    invariant(
+                                        this.props.graph?.type === "polygon",
+                                    );
+                                    const updates = {
                                         numSides: parsePointCount(newValue),
                                         coords: null,
                                         // reset the snap for UNLIMITED, which
                                         // only supports "grid"
                                         // From: D6578
                                         snapTo: "grid",
-                                    };
+                                    } as const;
 
                                     this.props.onChange({
-                                        correct: graph,
-                                        graph: graph,
+                                        correct: {
+                                            ...this.props.correct,
+                                            ...updates,
+                                        },
+                                        graph: {
+                                            ...this.props.graph,
+                                            ...updates,
+                                        },
                                     });
                                 }}
                                 style={styles.singleSelectShort}
@@ -446,15 +451,29 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 // Never uses placeholder, always has value
                                 placeholder=""
                                 onChange={(newValue) => {
-                                    const graph = {
-                                        ...this.props.correct,
-                                        snapTo: newValue,
+                                    invariant(
+                                        this.props.correct.type === "polygon",
+                                        `Expected correct answer type to be polygon, but got ${this.props.correct.type}`,
+                                    );
+                                    invariant(
+                                        this.props.graph?.type === "polygon",
+                                        `Expected graph type to be polygon, but got ${this.props.graph?.type}`,
+                                    );
+
+                                    const updates = {
+                                        snapTo: newValue as PerseusGraphTypePolygon["snapTo"],
                                         coords: null,
-                                    };
+                                    } as const;
 
                                     this.props.onChange({
-                                        correct: graph,
-                                        graph: graph,
+                                        correct: {
+                                            ...this.props.correct,
+                                            ...updates,
+                                        },
+                                        graph: {
+                                            ...this.props.graph,
+                                            ...updates,
+                                        },
                                     });
                                 }}
                                 style={styles.singleSelectShort}
@@ -500,6 +519,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 }
                                 onChange={() => {
                                     if (this.props.graph?.type === "polygon") {
+                                        invariant(
+                                            this.props.correct.type ===
+                                                "polygon",
+                                            `Expected graph type to be polygon, but got ${this.props.correct.type}`,
+                                        );
                                         this.props.onChange({
                                             correct: {
                                                 ...this.props.correct,
@@ -531,7 +555,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     !!this.props.correct?.showSides
                                 }
                                 onChange={() => {
-                                    if (this.props.graph?.type === "polygon") {
+                                    if (
+                                        this.props.graph?.type === "polygon" &&
+                                        this.props.correct.type === "polygon"
+                                    ) {
                                         this.props.onChange({
                                             correct: {
                                                 ...this.props.correct,
@@ -605,7 +632,24 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     <LabeledRow label="Student answer must">
                         <SingleSelect
                             selectedValue={this.props.correct.match || "exact"}
-                            onChange={this.changeMatchType}
+                            onChange={(newValue) => {
+                                invariant(
+                                    this.props.correct.type === "polygon",
+                                    `Expected graph type to be polygon, but got ${this.props.correct.type}`,
+                                );
+                                const correct = {
+                                    ...this.props.correct,
+                                    // TODO(benchristel): this cast is necessary
+                                    // because "exact" is not actually a valid
+                                    // value for `match`; a value of undefined
+                                    // means exact matching. The code happens
+                                    // to work because "exact" falls through
+                                    // to the correct else branch in
+                                    // InteractiveGraph.validate()
+                                    match: newValue as PerseusGraphTypePolygon["match"],
+                                };
+                                this.props.onChange({correct});
+                            }}
                             // Never uses placeholder, always has value
                             placeholder=""
                             style={styles.singleSelectShort}
@@ -668,7 +712,21 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     <LabeledRow label="Student answer must">
                         <SingleSelect
                             selectedValue={this.props.correct.match || "exact"}
-                            onChange={this.changeMatchType}
+                            onChange={(newValue) => {
+                                this.props.onChange({
+                                    correct: {
+                                        ...this.props.correct,
+                                        // TODO(benchristel): this cast is necessary
+                                        // because "exact" is not actually a valid
+                                        // value for `match`; a value of undefined
+                                        // means exact matching. The code happens
+                                        // to work because "exact" falls through
+                                        // to the correct else branch in
+                                        // InteractiveGraph.validate()
+                                        match: newValue as PerseusGraphTypeAngle["match"],
+                                    },
+                                });
+                            }}
                             // Never uses placeholder, always has value
                             placeholder=""
                             style={styles.singleSelectShort}
@@ -715,6 +773,54 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 }
             </View>
         );
+    }
+}
+
+// Merges two graphs that have the same `type`. Properties defined in `b`
+// overwrite properties of the same name in `a`. Throws an exception if the
+// types are different or not recognized.
+function mergeGraphs(
+    a: PerseusGraphType,
+    b: PerseusGraphType,
+): PerseusGraphType {
+    if (a.type !== b.type) {
+        throw new Error(
+            `Cannot merge graphs with different types (${a.type} and ${b.type})`,
+        );
+    }
+    switch (a.type) {
+        case "angle":
+            invariant(b.type === "angle");
+            return {...a, ...b};
+        case "circle":
+            invariant(b.type === "circle");
+            return {...a, ...b};
+        case "linear":
+            invariant(b.type === "linear");
+            return {...a, ...b};
+        case "linear-system":
+            invariant(b.type === "linear-system");
+            return {...a, ...b};
+        case "point":
+            invariant(b.type === "point");
+            return {...a, ...b};
+        case "polygon":
+            invariant(b.type === "polygon");
+            return {...a, ...b};
+        case "quadratic":
+            invariant(b.type === "quadratic");
+            return {...a, ...b};
+        case "ray":
+            invariant(b.type === "ray");
+            return {...a, ...b};
+        case "segment":
+            invariant(b.type === "segment");
+            return {...a, ...b};
+        case "sinusoid":
+            invariant(b.type === "sinusoid");
+            return {...a, ...b};
+        default:
+            throw new UnreachableCaseError(a);
     }
 }
 
