@@ -1,6 +1,6 @@
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
-import {renderQuestion} from "../../__tests__/renderQuestion";
+import {renderQuestion} from "../../__testutils__/renderQuestion";
 
 const question = {
     content:

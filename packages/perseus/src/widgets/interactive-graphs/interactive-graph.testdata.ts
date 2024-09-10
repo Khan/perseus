@@ -1,8 +1,8 @@
-import {interactiveGraphQuestionBuilder} from "../interactive-graphs/interactive-graph-question-builder";
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
+import type {LockedFunctionOptions} from "./interactive-graph-question-builder";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer, RadioWidget} from "../../perseus-types";
-import type {LockedFunctionOptions} from "../interactive-graphs/interactive-graph-question-builder";
 
 // Data for the interactive graph widget
 
@@ -934,3 +934,11 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
         result["content"] = "[[\u2603 radio 1]]\n\n" + result["content"];
         return result;
     };
+
+export const interactiveGraphWithAriaLabel: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withFullGraphAriaLabel("Segment Graph Title")
+        .withFullGraphAriaDescription(
+            "There is a segment on the graph that runs from five units left and five units up to five units right and five units up.",
+        )
+        .build();

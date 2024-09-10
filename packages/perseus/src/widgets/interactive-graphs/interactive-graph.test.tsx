@@ -11,11 +11,15 @@ import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
+import {renderQuestion} from "../__testutils__/renderQuestion";
+import {sinusoidQuestion} from "../grapher/grapher.testdata";
+
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
+    interactiveGraphWithAriaLabel,
     linearQuestion,
     linearQuestionWithDefaultCorrect,
     linearSystemQuestion,
@@ -42,17 +46,14 @@ import {
     segmentWithLockedPolygonWhite,
     segmentWithLockedVectors,
     sinusoidQuestionWithDefaultCorrect,
-} from "../__testdata__/interactive-graph.testdata";
-import {sinusoidQuestion} from "../grapher/grapher.testdata";
-import {trueForAllMafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
+} from "./interactive-graph.testdata";
+import {trueForAllMafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 
-import {renderQuestion} from "./renderQuestion";
-
+import type {mafsSupportedGraphTypes} from "./mafs-supported-graph-types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
-import type {mafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
@@ -910,5 +911,48 @@ describe("locked layer", () => {
             left: "140px",
             top: "240px",
         });
+    });
+
+    it("should have an aria-label and description if they are provided", async () => {
+        // Arrange
+        const {container} = renderQuestion(interactiveGraphWithAriaLabel, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const graph = container.querySelector(".mafs-graph");
+
+        // Assert
+        expect(graph).toHaveAttribute("aria-label", "Segment Graph Title");
+        // The aria-describedby attribute is set to the description
+        // element's ID. This ID is unique to the graph instance, so
+        // we can't predict it in this test.
+        expect(graph).toHaveAttribute("aria-describedby");
+    });
+
+    it("should not have an aria-label or description if they are not provided", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const graph = container.querySelector(".mafs-graph");
+
+        // Assert
+        expect(graph).not.toHaveAttribute("aria-label");
+        expect(graph).not.toHaveAttribute("aria-describedby");
     });
 });

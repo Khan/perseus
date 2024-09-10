@@ -10,6 +10,7 @@ import {EditorPage} from "..";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
+    interactiveGraphWithAriaLabel,
     linearSystemWithStartingCoordsQuestion,
     linearWithStartingCoordsQuestion,
     pointQuestionWithStartingCoords,
@@ -20,7 +21,7 @@ import {
     segmentWithStartingCoordsQuestion,
     segmentsWithStartingCoordsQuestion,
     sinusoidWithStartingCoordsQuestion,
-} from "../../../perseus/src/widgets/__testdata__/interactive-graph.testdata";
+} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
@@ -40,6 +41,10 @@ export default {
 };
 
 const onChangeAction = action("onChange");
+
+export const InteractiveGraphWithAriaLabel = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={interactiveGraphWithAriaLabel} />
+);
 
 export const InteractiveGraphSegment = (): React.ReactElement => {
     return (
