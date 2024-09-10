@@ -7,12 +7,15 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet} from "aphrodite";
+import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
+import autoPasteIcon from "@phosphor-icons/core/assets/regular/note-pencil.svg";
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useId, useState} from "react";
 
 import PerseusEditorAccordion from "../perseus-editor-accordion";
 
@@ -20,6 +23,7 @@ import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import examples from "./locked-function-examples";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {LockedFunctionType} from "@khanacademy/perseus";
@@ -45,9 +49,10 @@ const LockedFunctionSettings = (props: Props) => {
         onRemove,
     } = props;
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
+    const domainRangeText = directionalAxis === "x" ? "domain" : "range";
     const lineLabel = `Function (${equationPrefix}${equation})`;
 
-    // Tracking the string value of domain constraints to handle interim state of
+    // Tracking the string value of domain/range constraints to handle interim state of
     //     entering a negative value, as well as representing Infinity as an empty string.
     // This variable is used when specifying the values of the input fields.
     const [domainEntries, setDomainEntries] = useState([
@@ -55,15 +60,17 @@ const LockedFunctionSettings = (props: Props) => {
         domain && domain[1] !== Infinity ? domain[1].toString() : "",
     ]);
 
+    const [exampleCategory, setExampleCategory] = useState("");
+
     useEffect(() => {
-        // "useEffect" used to maintain parity between domain constraints and their string representation.
+        // "useEffect" used to maintain parity between domain/range constraints and their string representation.
         setDomainEntries([
             domain && domain[0] !== -Infinity ? domain[0].toString() : "",
             domain && domain[1] !== Infinity ? domain[1].toString() : "",
         ]);
     }, [domain]);
 
-    // Generic function for handling property changes (except for 'domain')
+    // Generic function for handling property changes (except for 'domain/range')
     function handlePropChange(property: string, newValue: string) {
         const updatedProps: Partial<LockedFunctionType> = {};
         updatedProps[property] = newValue;
@@ -71,8 +78,8 @@ const LockedFunctionSettings = (props: Props) => {
     }
 
     /*
-     Reason for having a separate 'propChange' function for 'domain':
-        Domain entries are optional. Their default value is +/- Infinity.
+     Reason for having a separate 'propChange' function for 'domain/range':
+        Domain/Range entries are optional. Their default value is +/- Infinity.
         Since input fields that are empty evaluate to zero, there needs to be
             dedicated code to convert empty to Infinity.
      */
@@ -93,6 +100,12 @@ const LockedFunctionSettings = (props: Props) => {
         newDomain[limitIndex] = newValue;
         onChangeProps({domain: newDomain});
     }
+
+    const exampleCategories = Object.keys(examples);
+    const exampleCategorySelected = exampleCategory !== "";
+    const exampleContent = exampleCategorySelected
+        ? examples[exampleCategory]
+        : ["Select category to see example equations"];
 
     return (
         <PerseusEditorAccordion
@@ -135,7 +148,7 @@ const LockedFunctionSettings = (props: Props) => {
                         handlePropChange("directionalAxis", newValue);
                     }}
                     aria-label="equation prefix"
-                    style={styles.equationPrefix}
+                    style={[styles.dropdownLabel, styles.axisMenu]}
                     // Placeholder is required, but never gets used.
                     placeholder=""
                 >
@@ -155,10 +168,13 @@ const LockedFunctionSettings = (props: Props) => {
                 />
             </View>
 
-            {/* Domain restrictions */}
+            {/* Domain/Range restrictions */}
             <View style={[styles.row, styles.rowSpace]}>
-                <LabelMedium tag="label" style={styles.domainMin}>
-                    {"domain min"}
+                <LabelMedium
+                    tag="label"
+                    style={[styles.dropdownLabel, styles.domainMin]}
+                >
+                    {`${domainRangeText} min`}
 
                     <Strut size={spacing.xxSmall_6} />
                     <TextField
@@ -173,8 +189,8 @@ const LockedFunctionSettings = (props: Props) => {
                 <Strut size={spacing.medium_16} />
                 <LabelMedium
                     tag="label"
-                    aria-label="domain max"
-                    style={styles.domainMax}
+                    aria-label={`${domainRangeText} max`}
+                    style={[styles.dropdownLabel, styles.domainMax]}
                 >
                     {"max"}
 
@@ -190,6 +206,46 @@ const LockedFunctionSettings = (props: Props) => {
                 </LabelMedium>
             </View>
 
+            {/* Examples */}
+            <PerseusEditorAccordion
+                header={<LabelLarge>Example Functions</LabelLarge>}
+                expanded={false}
+                containerStyle={styles.exampleWorkspace}
+                panelStyle={styles.exampleAccordionPanel}
+            >
+                <LabelMedium tag="label" style={styles.dropdownLabel}>
+                    {"Choose a category"}
+                    <Strut size={spacing.xxSmall_6} />
+                    <SingleSelect
+                        selectedValue={exampleCategory}
+                        onChange={setExampleCategory}
+                        placeholder="examples"
+                    >
+                        {exampleCategories.map((category) => {
+                            return (
+                                <OptionItem
+                                    key={category}
+                                    value={category}
+                                    label={category}
+                                />
+                            );
+                        })}
+                    </SingleSelect>
+                </LabelMedium>
+                {exampleCategorySelected && (
+                    <ul className={css(styles.exampleContainer)}>
+                        {exampleContent.map((example, index) => (
+                            <ExampleItem
+                                category={exampleCategory}
+                                example={example}
+                                index={index}
+                                pasteEquationFn={handlePropChange}
+                            />
+                        ))}
+                    </ul>
+                )}
+            </PerseusEditorAccordion>
+
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
@@ -197,6 +253,43 @@ const LockedFunctionSettings = (props: Props) => {
                 onRemove={onRemove}
             />
         </PerseusEditorAccordion>
+    );
+};
+
+type ItemProps = {
+    category: string;
+    example: string;
+    index: number;
+    pasteEquationFn: (property: string, newValue: string) => void;
+};
+
+const ExampleItem = (props: ItemProps): React.ReactElement => {
+    const {category, example, index, pasteEquationFn} = props;
+    const exampleId = useId();
+
+    return (
+        <li key={`${category}-${index}`} className={css(styles.exampleRow)}>
+            <IconButton
+                icon={autoPasteIcon}
+                aria-label="paste example"
+                aria-describedby={exampleId}
+                onClick={() => pasteEquationFn("equation", example)}
+                size="medium"
+                style={styles.copyPasteButton}
+            />
+            <IconButton
+                icon={copyIcon}
+                aria-label="copy example"
+                aria-describedby={exampleId}
+                onClick={() => navigator.clipboard.writeText(example)}
+                size="medium"
+                style={styles.copyPasteButton}
+            />
+            <Strut size={spacing.xxxSmall_4} />
+            <View style={styles.exampleContent} id={exampleId}>
+                {example}
+            </View>
+        </li>
     );
 };
 
@@ -210,17 +303,20 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         whiteSpace: "nowrap",
     },
-    equationPrefix: {
+    axisMenu: {
         minWidth: "auto",
     },
+    copyPasteButton: {
+        flexShrink: "0",
+        margin: "0 2px",
+    },
     domainMin: {
-        alignItems: "center",
-        display: "flex",
+        justifyContent: "space-between",
         // The 'width' property is applied to the label, which wraps the text and the input field.
         // The width of the input fields (min/max) should be the same (to have a consistent look),
         //     so the following calculation distributes the space accordingly.
-        // For the "domain min" block, the text is 82.7px, and the strut is 6px (88.7px total).
-        // The "domain max" block is 30.23px, and the strut is 6px (36.23px total).
+        // For the "domain/range min" block, the text is 82.7px, and the strut is 6px (88.7px total).
+        // The "domain/range max" block is 30.23px, and the strut is 6px (36.23px total).
         // The calculation takes the remain space after the text & struts (141px total) are removed,
         //     and divides it between the two input fields equally.
         // The calculation reads: "Take 1/2 of the non-text space, and add the required space for this label's text"
@@ -232,13 +328,49 @@ const styles = StyleSheet.create({
         width: "calc(100% - 88.7px)", // make room for the label
     },
     domainMax: {
-        alignItems: "center",
-        display: "flex",
         // See explanation for "domainMin" for the calculation below.
         width: "calc(((100% - 141px) / 2) + 36.2px)",
     },
     domainMaxField: {
         width: "calc(100% - 36.2px)", // make room for the label
+    },
+    dropdownLabel: {
+        alignItems: "center",
+        display: "flex",
+    },
+    exampleAccordionPanel: {
+        alignItems: "start",
+        paddingBottom: "12px",
+        flexDirection: "row",
+        flexWrap: "wrap",
+    },
+    exampleContainer: {
+        background: "white",
+        border: `1px solid ${color.fadedOffBlack16}`,
+        borderRadius: "4px",
+        flexGrow: "1",
+        listStyleType: "none",
+        // Nothing special about the maxHeight value,
+        //    just a good height to partially show a 3rd example in the list
+        //    to hint at scrollable content.
+        maxHeight: "88px",
+        margin: "8px 0 0 0",
+        overflowY: "scroll",
+        padding: "4px 12px 4px 4px",
+    },
+    exampleContent: {
+        fontFamily: `"Lato", sans-serif`,
+        flexGrow: "1",
+        color: color.offBlack,
+    },
+    exampleRow: {
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "row",
+        minHeight: "44px",
+    },
+    exampleWorkspace: {
+        background: color.white50,
     },
     rowSpace: {
         marginTop: spacing.xSmall_8,
