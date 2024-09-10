@@ -1,12 +1,13 @@
+import {components} from "@khanacademy/perseus";
 import * as React from "react";
 
-import ButtonGroup from "../../components/button-group";
-
-import type {ChangeableProps} from "../../mixins/changeable";
+import type {Changeable} from "@khanacademy/perseus";
 
 type Props = {
     value?: string;
-} & ChangeableProps;
+} & Changeable.ChangeableProps;
+
+const {ButtonGroup} = components;
 
 class DashPicker extends React.Component<Props> {
     static defaultProps: {

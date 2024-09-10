@@ -19,6 +19,7 @@ import {
     angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
+    interactiveGraphWithAriaLabel,
     linearQuestion,
     linearQuestionWithDefaultCorrect,
     linearSystemQuestion,
@@ -910,5 +911,48 @@ describe("locked layer", () => {
             left: "140px",
             top: "240px",
         });
+    });
+
+    it("should have an aria-label and description if they are provided", async () => {
+        // Arrange
+        const {container} = renderQuestion(interactiveGraphWithAriaLabel, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const graph = container.querySelector(".mafs-graph");
+
+        // Assert
+        expect(graph).toHaveAttribute("aria-label", "Segment Graph Title");
+        // The aria-describedby attribute is set to the description
+        // element's ID. This ID is unique to the graph instance, so
+        // we can't predict it in this test.
+        expect(graph).toHaveAttribute("aria-describedby");
+    });
+
+    it("should not have an aria-label or description if they are not provided", async () => {
+        // Arrange
+        const {container} = renderQuestion(segmentQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const graph = container.querySelector(".mafs-graph");
+
+        // Assert
+        expect(graph).not.toHaveAttribute("aria-label");
+        expect(graph).not.toHaveAttribute("aria-describedby");
     });
 });

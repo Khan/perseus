@@ -5,13 +5,13 @@ import {
     Dependencies,
     EditorJsonify,
     Util,
-    ElementContainer,
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
 import GraphSettings from "../../components/graph-settings";
 
+import ElementContainer from "./element-container";
 import FunctionEditor from "./function-editor";
 import LabelEditor from "./label-editor";
 import LineEditor from "./line-editor";
