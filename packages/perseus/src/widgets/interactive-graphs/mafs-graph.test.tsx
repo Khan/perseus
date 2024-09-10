@@ -772,7 +772,7 @@ describe("MafsGraph", () => {
             ]);
         });
 
-        it("adds shows a remove point button when a point is focused", async () => {
+        it("shows a remove point button when a point is focused", async () => {
             // Arrange
             // Render the question
             const mockDispatch = jest.fn();
