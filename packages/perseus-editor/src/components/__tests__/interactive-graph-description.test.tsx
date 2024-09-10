@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -33,6 +34,7 @@ describe("InteractiveGraphSettings", () => {
                 ariaDescriptionValue="Graph Description"
                 onChange={jest.fn()}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         // Act
@@ -57,6 +59,7 @@ describe("InteractiveGraphSettings", () => {
                 ariaDescriptionValue=""
                 onChange={onChange}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         // Act
@@ -82,6 +85,7 @@ describe("InteractiveGraphSettings", () => {
                 ariaDescriptionValue=""
                 onChange={onChange}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         // Act
