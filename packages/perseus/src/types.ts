@@ -148,11 +148,6 @@ export const MafsGraphTypeFlags = [
 
 export const InteractiveGraphLockedFeaturesFlags = [
     /**
-     * Enables/Disables Milestone 2 phase b locked features in the
-     * new Mafs interactive-graph widget (locked functions).
-     */
-    "interactive-graph-locked-features-m2b",
-    /**
      * Enables/Disables locked features in the new Mafs interactive-graph
      * widget (locked labels).
      */
