@@ -12,8 +12,6 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 type Props = {
-    // TODO(LEMS-2107): Remove this prop once the M2b flag is fully rolled out.
-    showM2bFeatures: boolean;
     // Whether to show the locked labels in the locked figure settings.
     // TODO(LEMS-2274): Remove this prop once the label flag is
     // sfully rolled out.
@@ -25,10 +23,14 @@ type Props = {
 const LockedFigureSelect = (props: Props) => {
     const {id, onChange} = props;
 
-    const figureTypes = ["point", "line", "vector", "ellipse", "polygon"];
-    if (props.showM2bFeatures) {
-        figureTypes.push("function");
-    }
+    const figureTypes = [
+        "point",
+        "line",
+        "vector",
+        "ellipse",
+        "polygon",
+        "function",
+    ];
     if (props.showLabelsFlag) {
         figureTypes.push("label");
     }
