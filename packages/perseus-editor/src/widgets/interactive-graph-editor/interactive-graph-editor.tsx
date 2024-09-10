@@ -602,11 +602,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </LabeledRow>
                 )}
                 {this.props.graph?.type &&
-                    // TODO(LEMS-2228): Remove flags once this is fully released
-                    shouldShowStartCoordsUI(
-                        this.props.apiOptions.flags,
-                        this.props.graph,
-                    ) && (
+                    shouldShowStartCoordsUI(this.props.graph) && (
                         <StartCoordsSettings
                             {...this.props.graph}
                             range={this.props.range}
