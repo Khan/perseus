@@ -2182,7 +2182,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getNoneEquationString(): string {
-        return ""
+        return "";
     }
 
     static getLinearEquationString(props: Props): string {

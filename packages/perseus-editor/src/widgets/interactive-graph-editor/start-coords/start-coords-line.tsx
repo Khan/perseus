@@ -7,8 +7,8 @@ import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
-import type {CollinearTuple} from "@khanacademy/perseus";
 import type {StartCoords} from "./types";
+import type {CollinearTuple} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: CollinearTuple;

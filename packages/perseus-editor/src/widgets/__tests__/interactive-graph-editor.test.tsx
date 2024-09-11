@@ -818,5 +818,5 @@ describe("InteractiveGraphEditor", () => {
                 wrapper: RenderStateRoot,
             },
         );
-    })
+    });
 });

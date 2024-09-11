@@ -13,8 +13,8 @@ import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
 import {getAngleEquation} from "./util";
 
-import type {Coord} from "@khanacademy/perseus";
 import type {StartCoords} from "./types";
+import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: [Coord, Coord, Coord];

@@ -28,8 +28,8 @@ import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
 
-import type {PerseusGraphType, Range} from "@khanacademy/perseus";
 import type {StartCoords} from "./types";
+import type {PerseusGraphType, Range} from "@khanacademy/perseus";
 
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];

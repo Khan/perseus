@@ -7,13 +7,12 @@ import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
-import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
+import type {StartCoords} from "./types";
+import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: ReadonlyArray<Coord>;
-    // FIXME
-    // @ts-expect-error
-    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
+    onChange: (startCoords: StartCoords) => void;
 };
 
 const StartCoordsPoint = (props: Props) => {

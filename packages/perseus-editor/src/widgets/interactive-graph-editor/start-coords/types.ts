@@ -1,4 +1,4 @@
-import {PerseusGraphType} from "@khanacademy/perseus";
+import type {PerseusGraphType} from "@khanacademy/perseus";
 
 type GraphTypesThatHaveStartCoords =
     | {type: "angle"}
@@ -10,7 +10,7 @@ type GraphTypesThatHaveStartCoords =
     | {type: "quadratic"}
     | {type: "ray"}
     | {type: "segment"}
-    | {type: "sinusoid"}
+    | {type: "sinusoid"};
 
 export type StartCoords = Extract<
     PerseusGraphType,

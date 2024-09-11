@@ -223,10 +223,12 @@ describe("InteractiveGraphQuestionBuilder", () => {
             .build();
 
         const graph = question.widgets["interactive-graph 1"];
-        expect(graph.options).toEqual(expect.objectContaining({
-            graph: {type: "none"},
-            correct: {type: "none"},
-        }));
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "none"},
+                correct: {type: "none"},
+            }),
+        );
     });
 
     it("creates a linear graph", () => {

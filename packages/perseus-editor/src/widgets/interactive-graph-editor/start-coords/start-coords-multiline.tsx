@@ -8,8 +8,8 @@ import * as React from "react";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
-import type {CollinearTuple} from "@khanacademy/perseus";
 import type {StartCoords} from "./types";
+import type {CollinearTuple} from "@khanacademy/perseus";
 
 type Props = {
     type: "linear-system" | "segment";

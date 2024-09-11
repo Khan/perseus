@@ -8,8 +8,8 @@ import * as React from "react";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
 
-import type {Coord} from "@khanacademy/perseus";
 import type {StartCoords} from "./types";
+import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: {

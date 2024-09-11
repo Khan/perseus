@@ -51,7 +51,7 @@ export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
 }
 
 export interface NoneGraphState extends InteractiveGraphStateCommon {
-    type: "none"
+    type: "none";
 }
 
 export interface PointGraphState extends InteractiveGraphStateCommon {

@@ -228,7 +228,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
             _.extend(json, {
                 graph: {
                     type: correct.type,
-                    startCoords: this.props.graph && getStartCoords(this.props.graph),
+                    startCoords:
+                        this.props.graph && getStartCoords(this.props.graph),
                 },
                 correct: correct,
             });

@@ -851,8 +851,8 @@ export type PerseusGraphTypeLinearSystem = {
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeNone = {
-    type: "none"
-}
+    type: "none";
+};
 
 export type PerseusGraphTypePoint = {
     type: "point";

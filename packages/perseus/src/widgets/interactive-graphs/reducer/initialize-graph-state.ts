@@ -112,7 +112,7 @@ export function initializeGraphState(
         case "none":
             return {
                 ...shared,
-                type: "none"
+                type: "none",
             };
         default:
             throw new UnreachableCaseError(graph);

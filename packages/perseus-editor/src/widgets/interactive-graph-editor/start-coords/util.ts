@@ -11,12 +11,12 @@ import {
     getSinusoidCoords,
 } from "@khanacademy/perseus";
 
-import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus";
 import type {StartCoords} from "./types";
+import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus";
 
 export function getStartCoords(graph: PerseusGraphType): StartCoords {
     if ("startCoords" in graph) {
-        return graph.startCoords
+        return graph.startCoords;
     }
     return undefined;
 }

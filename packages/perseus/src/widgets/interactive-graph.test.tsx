@@ -9,7 +9,8 @@ import type {
     PerseusGraphTypeLinear,
     PerseusGraphTypePoint,
     PerseusGraphTypePolygon,
-    PerseusGraphType, PerseusGraphTypeNone,
+    PerseusGraphType,
+    PerseusGraphTypeNone,
 } from "../perseus-types";
 
 function createRubric(graph: PerseusGraphType): Rubric {
@@ -331,5 +332,5 @@ describe("shouldUseMafs", () => {
         const mafsFlags = {};
 
         expect(shouldUseMafs(mafsFlags, graph)).toBe(true);
-    })
+    });
 });
