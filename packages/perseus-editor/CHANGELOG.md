@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 14.1.1
+
+### Patch Changes
+
+-   [#1609](https://github.com/Khan/perseus/pull/1609) [`981047211`](https://github.com/Khan/perseus/commit/9810472110434f22d8f446e9e6bf4bd69cdc3136) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove the start-coords-ui flags
+
+*   [#1607](https://github.com/Khan/perseus/pull/1607) [`1b340b197`](https://github.com/Khan/perseus/commit/1b340b197be03c4ee0c6fbaa4eb1871e68b4a915) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Use Wonder Blocks TextArea in the graph description settings UI
+
+-   [#1610](https://github.com/Khan/perseus/pull/1610) [`e9b317ca0`](https://github.com/Khan/perseus/commit/e9b317ca0398bb39de7b3605247d2abec09d791a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Remove the start coords UI if the graph is static
+
+*   [#1608](https://github.com/Khan/perseus/pull/1608) [`737fe30b4`](https://github.com/Khan/perseus/commit/737fe30b492c598c70b7bb1cebad00adf9a25c93) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove the interactive-graph-locked-feature-m2b flag
+
+*   Updated dependencies [[`981047211`](https://github.com/Khan/perseus/commit/9810472110434f22d8f446e9e6bf4bd69cdc3136), [`e9b317ca0`](https://github.com/Khan/perseus/commit/e9b317ca0398bb39de7b3605247d2abec09d791a), [`737fe30b4`](https://github.com/Khan/perseus/commit/737fe30b492c598c70b7bb1cebad00adf9a25c93), [`3980a36fa`](https://github.com/Khan/perseus/commit/3980a36fa2eb66c61d648d82e73d323ab8b8f5b0)]:
+    -   @khanacademy/perseus@33.1.0
+
 ## 14.1.0
 
 ### Minor Changes
