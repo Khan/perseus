@@ -6,9 +6,9 @@ import {LabelLarge, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import Heading from "./heading";
+import Heading from "../../../components/heading";
 
-import type {Props as EditorProps} from "../widgets/interactive-graph-editor/interactive-graph-editor";
+import type {Props as EditorProps} from "../interactive-graph-editor";
 
 type Props = {
     ariaLabelValue: string;

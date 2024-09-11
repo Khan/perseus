@@ -17,7 +17,7 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
-import InteractiveGraphDescription from "../../components/interactive-graph-description";
+import InteractiveGraphDescription from "./components/interactive-graph-description";
 import {parsePointCount} from "../../util/points";
 
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
