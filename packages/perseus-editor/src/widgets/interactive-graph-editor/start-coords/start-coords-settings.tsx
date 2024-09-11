@@ -18,6 +18,7 @@ import arrowCounterClockwise from "@phosphor-icons/core/bold/arrow-counter-clock
 import * as React from "react";
 
 import Heading from "../../../components/heading";
+
 import StartCoordsAngle from "./start-coords-angle";
 import StartCoordsCircle from "./start-coords-circle";
 import StartCoordsLine from "./start-coords-line";
@@ -25,7 +26,7 @@ import StartCoordsMultiline from "./start-coords-multiline";
 import StartCoordsPoint from "./start-coords-point";
 import StartCoordsQuadratic from "./start-coords-quadratic";
 import StartCoordsSinusoid from "./start-coords-sinusoid";
-import {getDefaultGraphStartCoords} from "../../../components/util";
+import {getDefaultGraphStartCoords} from "./util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
 

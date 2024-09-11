@@ -7,8 +7,8 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import {flags} from "../../__stories__/flags-for-api-options";
-import {getDefaultFigureForType} from "../interactive-graph-editor/locked-figures/util";
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
+import {getDefaultFigureForType} from "../interactive-graph-editor/locked-figures/util";
 
 import type {PerseusGraphType} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";

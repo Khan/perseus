@@ -10,7 +10,8 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
-import {getQuadraticEquation} from "../../../components/util";
+
+import {getQuadraticEquation} from "./util";
 
 import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
 

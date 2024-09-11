@@ -1,4 +1,6 @@
-import {
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+
+import type {
     LockedEllipseType,
     LockedFigure,
     LockedFigureType,
@@ -7,9 +9,8 @@ import {
     LockedLineType,
     LockedPointType,
     LockedPolygonType,
-    LockedVectorType
+    LockedVectorType,
 } from "@khanacademy/perseus";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 const DEFAULT_COLOR = "grayH";
 

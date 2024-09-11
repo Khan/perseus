@@ -1,4 +1,4 @@
-import {getDefaultFigureForType} from "./util"
+import {getDefaultFigureForType} from "./util";
 
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {
