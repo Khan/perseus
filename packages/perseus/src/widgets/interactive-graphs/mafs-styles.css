@@ -225,7 +225,7 @@
 
 .MafsView .axis-tick-label {
     /* There is a bug in the MathJax font for Safari, so we use KaTeX */
-    font-family: "KaTeX_Main";
+    font-family: "KaTeX_Main", "Mafs-MJXTEX", sans-serif;
     stroke: #fff;
     stroke-width: 5px;
     paint-order: stroke fill;

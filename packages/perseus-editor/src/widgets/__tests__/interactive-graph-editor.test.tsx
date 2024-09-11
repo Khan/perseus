@@ -667,309 +667,7 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    // TODO(LEMS-2228): Remove flag-related code once
-    // start coords UI is rolled out 100%
-    test.each`
-        type               | shouldRender
-        ${"linear"}        | ${true}
-        ${"ray"}           | ${true}
-        ${"linear-system"} | ${true}
-        ${"segment"}       | ${true}
-        ${"circle"}        | ${true}
-        ${"quadratic"}     | ${false}
-        ${"sinusoid"}      | ${false}
-        ${"polygon"}       | ${false}
-        ${"angle"}         | ${false}
-        ${"point"}         | ${false}
-    `(
-        "should render for $type graphs if phase1 flag is on: $shouldRender",
-        async ({type, shouldRender}) => {
-            // Arrange
-
-            // Act
-            render(
-                <InteractiveGraphEditor
-                    {...baseProps}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: {
-                            ...flags,
-                            mafs: {
-                                ...flags.mafs,
-                                "start-coords-ui-phase-1": true,
-                                "start-coords-ui-phase-2": false,
-                                "start-coords-ui-point": false,
-                                "start-coords-ui-polygon": false,
-                                "start-coords-ui-angle": false,
-                            },
-                        },
-                    }}
-                    graph={{type}}
-                    correct={{type}}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Assert
-            if (shouldRender) {
-                expect(
-                    await screen.findByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeInTheDocument();
-            } else {
-                expect(
-                    screen.queryByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeNull();
-            }
-        },
-    );
-
-    test.each`
-        type               | shouldRender
-        ${"linear"}        | ${false}
-        ${"ray"}           | ${false}
-        ${"linear-system"} | ${false}
-        ${"segment"}       | ${false}
-        ${"circle"}        | ${false}
-        ${"quadratic"}     | ${true}
-        ${"sinusoid"}      | ${true}
-        ${"polygon"}       | ${false}
-        ${"angle"}         | ${false}
-        ${"point"}         | ${false}
-    `(
-        "should render for $type graphs if phase2 flag is on: $shouldRender",
-        async ({type, shouldRender}) => {
-            // Arrange
-
-            // Act
-            render(
-                <InteractiveGraphEditor
-                    {...baseProps}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: {
-                            ...flags,
-                            mafs: {
-                                ...flags.mafs,
-                                "start-coords-ui-phase-1": false,
-                                "start-coords-ui-phase-2": true,
-                                "start-coords-ui-point": false,
-                                "start-coords-ui-polygon": false,
-                                "start-coords-ui-angle": false,
-                            },
-                        },
-                    }}
-                    graph={{type}}
-                    correct={{type}}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Assert
-            if (shouldRender) {
-                expect(
-                    await screen.findByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeInTheDocument();
-            } else {
-                expect(
-                    screen.queryByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeNull();
-            }
-        },
-    );
-
-    test.each`
-        type               | shouldRender
-        ${"linear"}        | ${false}
-        ${"ray"}           | ${false}
-        ${"linear-system"} | ${false}
-        ${"segment"}       | ${false}
-        ${"circle"}        | ${false}
-        ${"quadratic"}     | ${false}
-        ${"sinusoid"}      | ${false}
-        ${"polygon"}       | ${false}
-        ${"angle"}         | ${false}
-        ${"point"}         | ${true}
-    `(
-        "should render for $type graphs if point flag is on: $shouldRender",
-        async ({type, shouldRender}) => {
-            // Arrange
-
-            // Act
-            render(
-                <InteractiveGraphEditor
-                    {...baseProps}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: {
-                            ...flags,
-                            mafs: {
-                                ...flags.mafs,
-                                "start-coords-ui-phase-1": false,
-                                "start-coords-ui-phase-2": false,
-                                "start-coords-ui-point": true,
-                                "start-coords-ui-polygon": false,
-                                "start-coords-ui-angle": false,
-                            },
-                        },
-                    }}
-                    graph={{type}}
-                    correct={{type}}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Assert
-            if (shouldRender) {
-                expect(
-                    await screen.findByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeInTheDocument();
-            } else {
-                expect(
-                    screen.queryByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeNull();
-            }
-        },
-    );
-
-    test.each`
-        type               | shouldRender
-        ${"linear"}        | ${false}
-        ${"ray"}           | ${false}
-        ${"linear-system"} | ${false}
-        ${"segment"}       | ${false}
-        ${"circle"}        | ${false}
-        ${"quadratic"}     | ${false}
-        ${"sinusoid"}      | ${false}
-        ${"polygon"}       | ${true}
-        ${"angle"}         | ${false}
-        ${"point"}         | ${false}
-    `(
-        "should render for $type graphs if polygon flag is on: $shouldRender",
-        async ({type, shouldRender}) => {
-            // Arrange
-
-            // Act
-            render(
-                <InteractiveGraphEditor
-                    {...baseProps}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: {
-                            ...flags,
-                            mafs: {
-                                ...flags.mafs,
-                                "start-coords-ui-phase-1": false,
-                                "start-coords-ui-phase-2": false,
-                                "start-coords-ui-point": false,
-                                "start-coords-ui-polygon": true,
-                                "start-coords-ui-angle": false,
-                            },
-                        },
-                    }}
-                    graph={{type}}
-                    correct={{type}}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Assert
-            if (shouldRender) {
-                expect(
-                    await screen.findByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeInTheDocument();
-            } else {
-                expect(
-                    screen.queryByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeNull();
-            }
-        },
-    );
-
-    test.each`
-        type               | shouldRender
-        ${"linear"}        | ${false}
-        ${"ray"}           | ${false}
-        ${"linear-system"} | ${false}
-        ${"segment"}       | ${false}
-        ${"circle"}        | ${false}
-        ${"quadratic"}     | ${false}
-        ${"sinusoid"}      | ${false}
-        ${"polygon"}       | ${false}
-        ${"angle"}         | ${true}
-        ${"point"}         | ${false}
-    `(
-        "should render for $type graphs if angle flag is on: $shouldRender",
-        async ({type, shouldRender}) => {
-            // Arrange
-
-            // Act
-            render(
-                <InteractiveGraphEditor
-                    {...baseProps}
-                    apiOptions={{
-                        ...ApiOptions.defaults,
-                        flags: {
-                            ...flags,
-                            mafs: {
-                                ...flags.mafs,
-                                "start-coords-ui-phase-1": false,
-                                "start-coords-ui-phase-2": false,
-                                "start-coords-ui-point": false,
-                                "start-coords-ui-polygon": false,
-                                "start-coords-ui-angle": true,
-                            },
-                        },
-                    }}
-                    graph={{type}}
-                    correct={{type}}
-                />,
-                {
-                    wrapper: RenderStateRoot,
-                },
-            );
-
-            // Assert
-            if (shouldRender) {
-                expect(
-                    await screen.findByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeInTheDocument();
-            } else {
-                expect(
-                    screen.queryByRole("button", {
-                        name: "Use default start coordinates",
-                    }),
-                ).toBeNull();
-            }
-        },
-    );
-
-    test("should not render for point graphs with unlimited points", async () => {
+    test("should not render start coords UI for point graphs with unlimited points", async () => {
         // Arrange
 
         // Act
@@ -992,7 +690,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render for polygon graphs with unlimited sides", async () => {
+    test("should not render start coords UI for polygon graphs with unlimited sides", async () => {
         // Arrange
 
         // Act
@@ -1015,7 +713,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render for polygon graphs with non-grid snapTo (angles)", async () => {
+    test("should not render start coords UI for polygon graphs with non-grid snapTo (angles)", async () => {
         // Arrange
 
         // Act
@@ -1038,7 +736,7 @@ describe("InteractiveGraphEditor", () => {
         ).toBeNull();
     });
 
-    test("should not render for polygon graphs with non-grid snapTo (sides)", async () => {
+    test("should not render start coords UI for polygon graphs with non-grid snapTo (sides)", async () => {
         // Arrange
 
         // Act
@@ -1047,6 +745,30 @@ describe("InteractiveGraphEditor", () => {
                 {...mafsProps}
                 graph={{type: "polygon", snapTo: "sides"}}
                 correct={{type: "polygon", snapTo: "sides"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {
+                name: "Use default start coordinates",
+            }),
+        ).toBeNull();
+    });
+
+    test("should not render start coords UI for a static graph", async () => {
+        // Arrange
+
+        // Act
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "segment"}}
+                correct={{type: "segment"}}
+                static={true}
             />,
             {
                 wrapper: RenderStateRoot,

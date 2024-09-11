@@ -1,5 +1,41 @@
 # @khanacademy/perseus
 
+## 33.1.0
+
+### Minor Changes
+
+-   [#1452](https://github.com/Khan/perseus/pull/1452) [`3980a36fa`](https://github.com/Khan/perseus/commit/3980a36fa2eb66c61d648d82e73d323ab8b8f5b0) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of SVG-based Axis Tick Labels for Interactive Graph
+
+### Patch Changes
+
+-   [#1609](https://github.com/Khan/perseus/pull/1609) [`981047211`](https://github.com/Khan/perseus/commit/9810472110434f22d8f446e9e6bf4bd69cdc3136) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove the start-coords-ui flags
+
+*   [#1610](https://github.com/Khan/perseus/pull/1610) [`e9b317ca0`](https://github.com/Khan/perseus/commit/e9b317ca0398bb39de7b3605247d2abec09d791a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Remove the start coords UI if the graph is static
+
+-   [#1608](https://github.com/Khan/perseus/pull/1608) [`737fe30b4`](https://github.com/Khan/perseus/commit/737fe30b492c598c70b7bb1cebad00adf9a25c93) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove the interactive-graph-locked-feature-m2b flag
+
+## 33.0.0
+
+### Major Changes
+
+-   [#1591](https://github.com/Khan/perseus/pull/1591) [`05d048026`](https://github.com/Khan/perseus/commit/05d04802603fde4ca5be1fcf88ade7c09fb49c96) Thanks [@handeyeco](https://github.com/handeyeco)! - Move interaction-editor sub-components into perseus-editor
+
+### Minor Changes
+
+-   [#1568](https://github.com/Khan/perseus/pull/1568) [`eddcb9417`](https://github.com/Khan/perseus/commit/eddcb941742355bd4f339fd727ac97bb340ee474) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph + Editor] Add a full graph aria-label and aria-description/describedby to interactive graphs, as well as the UI for content authors to add this in the interactive graph editor
+
+### Patch Changes
+
+-   [#1540](https://github.com/Khan/perseus/pull/1540) [`08068dc71`](https://github.com/Khan/perseus/commit/08068dc7131d00ea0c74b90e9798cda47902a5f5) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Resolve improperly scaled text/labels in Graphie images when viewed in mobile (constrained viewports)
+
+*   [#1592](https://github.com/Khan/perseus/pull/1592) [`d88b0ffdf`](https://github.com/Khan/perseus/commit/d88b0ffdf1eb61f2efb0f589efe81dbbf5088947) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Move tests, test data, and Storybook stories for the Interactive Graph widget to the directory specific to that widget.
+
+-   [#1594](https://github.com/Khan/perseus/pull/1594) [`435f3f6d8`](https://github.com/Khan/perseus/commit/435f3f6d8c70de980afc5beb3ac981d9a3f6a4a3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove Storybook stories that generate random widgets
+
+*   [#1599](https://github.com/Khan/perseus/pull/1599) [`71715afd2`](https://github.com/Khan/perseus/commit/71715afd2418f16d23d04cb57252a1940597cfa0) Thanks [@benchristel](https://github.com/benchristel)! - Internal: improve type safety of interactive graph editor
+
+-   [#1590](https://github.com/Khan/perseus/pull/1590) [`6c4e9e154`](https://github.com/Khan/perseus/commit/6c4e9e154aea90f0ab484e9efc39a351f4790d9d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Move InteractiveGraphEditor to its own directory
+
 ## 32.0.1
 
 ### Patch Changes
