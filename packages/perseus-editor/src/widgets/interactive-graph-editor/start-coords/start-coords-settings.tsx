@@ -29,13 +29,12 @@ import StartCoordsSinusoid from "./start-coords-sinusoid";
 import {getDefaultGraphStartCoords} from "./util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
+import type {StartCoords} from "./types";
 
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
-    // FIXME
-    // @ts-expect-error
-    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
+    onChange: (startCoords: StartCoords) => void;
 };
 
 const StartCoordsSettingsInner = (props: Props) => {

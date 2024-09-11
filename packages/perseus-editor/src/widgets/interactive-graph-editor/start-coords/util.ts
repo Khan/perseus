@@ -12,14 +12,20 @@ import {
 } from "@khanacademy/perseus";
 
 import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus";
+import type {StartCoords} from "./types";
+
+export function getStartCoords(graph: PerseusGraphType): StartCoords {
+    if ("startCoords" in graph) {
+        return graph.startCoords
+    }
+    return undefined;
+}
 
 export function getDefaultGraphStartCoords(
     graph: PerseusGraphType,
     range: [x: Range, y: Range],
     step: [x: number, y: number],
-    // FIXME
-    // @ts-expect-error
-): PerseusGraphType["startCoords"] {
+): StartCoords {
     switch (graph.type) {
         case "linear":
         case "ray":

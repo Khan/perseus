@@ -28,7 +28,7 @@ import SegmentCountSelector from "./components/segment-count-selector";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
-import {shouldShowStartCoordsUI} from "./start-coords/util";
+import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
 import type {
     APIOptionsWithDefaults,
@@ -228,15 +228,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
             _.extend(json, {
                 graph: {
                     type: correct.type,
+                    startCoords: this.props.graph && getStartCoords(this.props.graph),
                 },
                 correct: correct,
             });
-
-            if (this.props.graph != null && "startCoords" in this.props.graph) {
-                // FIXME
-                // @ts-expect-error
-                json.graph.startCoords = this.props.graph.startCoords;
-            }
 
             _.each(
                 [
