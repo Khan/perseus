@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 33.1.0
+
+### Minor Changes
+
+-   [#1452](https://github.com/Khan/perseus/pull/1452) [`3980a36fa`](https://github.com/Khan/perseus/commit/3980a36fa2eb66c61d648d82e73d323ab8b8f5b0) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Implementation of SVG-based Axis Tick Labels for Interactive Graph
+
+### Patch Changes
+
+-   [#1609](https://github.com/Khan/perseus/pull/1609) [`981047211`](https://github.com/Khan/perseus/commit/9810472110434f22d8f446e9e6bf4bd69cdc3136) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove the start-coords-ui flags
+
+*   [#1610](https://github.com/Khan/perseus/pull/1610) [`e9b317ca0`](https://github.com/Khan/perseus/commit/e9b317ca0398bb39de7b3605247d2abec09d791a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Remove the start coords UI if the graph is static
+
+-   [#1608](https://github.com/Khan/perseus/pull/1608) [`737fe30b4`](https://github.com/Khan/perseus/commit/737fe30b492c598c70b7bb1cebad00adf9a25c93) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove the interactive-graph-locked-feature-m2b flag
+
 ## 33.0.0
 
 ### Major Changes
