@@ -108,9 +108,9 @@ exports[`interactive-graph widget question Should render predictably: after inte
                   />
                   <path
                     d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
-                    fill="#71b307"
+                    fill="#00a60e"
                     fill-opacity="0"
-                    stroke="#71b307"
+                    stroke="#00a60e"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
@@ -139,11 +139,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -170,11 +170,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -201,11 +201,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -312,7 +312,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -321,7 +321,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -330,7 +330,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -339,7 +339,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula="\\approx 2.2"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -348,7 +348,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula="\\approx 2.2"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -357,7 +357,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula="2.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 248.57142857142856px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 248.57142857142856px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -502,9 +502,9 @@ exports[`interactive-graph widget question Should render predictably: after inte
                   />
                   <path
                     d="M50,375L225,300L125,300Z"
-                    fill="#71b307"
+                    fill="#00a60e"
                     fill-opacity="0"
-                    stroke="#71b307"
+                    stroke="#00a60e"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
@@ -533,11 +533,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -564,11 +564,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -595,11 +595,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -706,7 +706,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -715,7 +715,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -724,7 +724,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -733,7 +733,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -742,7 +742,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -751,7 +751,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -960,11 +960,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -991,11 +991,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -1022,11 +1022,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -1338,9 +1338,9 @@ exports[`interactive-graph widget question Should render predictably: after inte
                   />
                   <path
                     d="M116.66666666666667,266.6666666666667L266.6666666666667,16.666666666666668L266.6666666666667,266.6666666666667L216.66666666666669,216.66666666666669Z"
-                    fill="#71b307"
+                    fill="#00a60e"
                     fill-opacity="0"
-                    stroke="#71b307"
+                    stroke="#00a60e"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
@@ -1378,11 +1378,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -1409,11 +1409,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -1440,11 +1440,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -1471,11 +1471,11 @@ exports[`interactive-graph widget question Should render predictably: after inte
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -1613,7 +1613,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -1622,7 +1622,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -1631,7 +1631,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -1640,7 +1640,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -1649,7 +1649,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -1658,7 +1658,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -1667,7 +1667,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -1676,7 +1676,7 @@ exports[`interactive-graph widget question Should render predictably: after inte
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 266.6666666666667px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -1800,9 +1800,9 @@ exports[`interactive-graph widget question Should render predictably: first rend
                   />
                   <path
                     d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
-                    fill="#71b307"
+                    fill="#00a60e"
                     fill-opacity="0"
-                    stroke="#71b307"
+                    stroke="#00a60e"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
@@ -1831,11 +1831,11 @@ exports[`interactive-graph widget question Should render predictably: first rend
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -1862,11 +1862,11 @@ exports[`interactive-graph widget question Should render predictably: first rend
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -1893,11 +1893,11 @@ exports[`interactive-graph widget question Should render predictably: first rend
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -2004,7 +2004,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2013,7 +2013,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2022,7 +2022,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2031,7 +2031,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula="\\approx 2.2"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2040,7 +2040,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula="\\approx 2.2"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2049,7 +2049,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula="2.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 248.57142857142856px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 248.57142857142856px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2194,9 +2194,9 @@ exports[`interactive-graph widget question Should render predictably: first rend
                   />
                   <path
                     d="M275,250L200,125L125,250Z"
-                    fill="#71b307"
+                    fill="#00a60e"
                     fill-opacity="0"
-                    stroke="#71b307"
+                    stroke="#00a60e"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
@@ -2225,11 +2225,11 @@ exports[`interactive-graph widget question Should render predictably: first rend
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -2256,11 +2256,11 @@ exports[`interactive-graph widget question Should render predictably: first rend
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -2287,11 +2287,11 @@ exports[`interactive-graph widget question Should render predictably: first rend
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#71b307"
+                        fill="#00a60e"
                         r="NaN"
                         rx="4"
                         ry="4"
-                        stroke="#71b307"
+                        stroke="#00a60e"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                         transform=""
                       />
@@ -2398,7 +2398,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2407,7 +2407,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2416,7 +2416,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2425,7 +2425,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2434,7 +2434,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2443,7 +2443,7 @@ exports[`interactive-graph widget question Should render predictably: first rend
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 200px; top: 200px; fill: none; stroke: #1865f2;"
                 >
                   <span
                     class="tex-holder"
@@ -2842,9 +2842,9 @@ exports[`interactive-graph widget question Should render predictably: first rend
                   />
                   <path
                     d="M0,0"
-                    fill="#71b307"
+                    fill="#00a60e"
                     fill-opacity="0"
-                    stroke="#71b307"
+                    stroke="#00a60e"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
