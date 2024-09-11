@@ -11,7 +11,6 @@ import type {
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
     PerseusGraphTypeLinearSystem,
-    PerseusGraphTypeNone,
     PerseusGraphTypePoint,
     PerseusGraphTypePolygon,
     PerseusGraphTypeQuadratic,
