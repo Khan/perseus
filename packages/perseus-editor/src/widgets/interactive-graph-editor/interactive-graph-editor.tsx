@@ -17,12 +17,12 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
-import InteractiveGraphDescription from "./components/interactive-graph-description";
 import {parsePointCount} from "../../util/points";
 
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
 import GraphTypeSelector from "./components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "./components/interactive-graph-correct-answer";
+import InteractiveGraphDescription from "./components/interactive-graph-description";
 import InteractiveGraphSettings from "./components/interactive-graph-settings";
 import SegmentCountSelector from "./components/segment-count-selector";
 import LabeledRow from "./locked-figures/labeled-row";
