@@ -13,12 +13,11 @@ import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
 import {getQuadraticEquation} from "./util";
 
-import type {StartCoords} from "./types";
 import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: [Coord, Coord, Coord];
-    onChange: (startCoords: StartCoords) => void;
+    onChange: (startCoords: [Coord, Coord, Coord]) => void;
 };
 
 const StartCoordsQuadratic = (props: Props) => {

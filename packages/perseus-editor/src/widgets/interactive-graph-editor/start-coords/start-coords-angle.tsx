@@ -13,12 +13,13 @@ import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
 import {getAngleEquation} from "./util";
 
-import type {StartCoords} from "./types";
 import type {Coord} from "@khanacademy/perseus";
 
+type AngleCoords = [Coord, Coord, Coord];
+
 type Props = {
-    startCoords: [Coord, Coord, Coord];
-    onChange: (startCoords: StartCoords) => void;
+    startCoords: AngleCoords;
+    onChange: (startCoords: AngleCoords) => void;
 };
 
 const StartCoordsAngle = (props: Props) => {

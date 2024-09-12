@@ -7,12 +7,11 @@ import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
-import type {StartCoords} from "./types";
 import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: ReadonlyArray<Coord>;
-    onChange: (startCoords: StartCoords) => void;
+    onChange: (startCoords: ReadonlyArray<Coord>) => void;
 };
 
 const StartCoordsPoint = (props: Props) => {

@@ -8,15 +8,16 @@ import * as React from "react";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
 
-import type {StartCoords} from "./types";
 import type {Coord} from "@khanacademy/perseus";
 
+type CircleCoords = {
+    center: Coord;
+    radius: number;
+};
+
 type Props = {
-    startCoords: {
-        center: Coord;
-        radius: number;
-    };
-    onChange: (startCoords: StartCoords) => void;
+    startCoords: CircleCoords;
+    onChange: (startCoords: CircleCoords) => void;
 };
 
 const StartCoordsCircle = (props: Props) => {
