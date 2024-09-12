@@ -41,7 +41,11 @@ import {type InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
 
-import type {InteractiveGraphState, InteractiveGraphProps} from "./types";
+import type {
+    InteractiveGraphState,
+    InteractiveGraphProps,
+    PointGraphState,
+} from "./types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -249,40 +253,71 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         </View>
                     </View>
                 </View>
-                {renderGraphControls({state, dispatch})}
+                {renderGraphControls({state, dispatch, width})}
             </View>
         </GraphConfigContext.Provider>
     );
 };
 
 const renderPointGraphControls = (props: {
-    state: InteractiveGraphState;
+    state: PointGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
+    width: number;
 }) => (
-    <Button
-        kind="secondary"
+    <View
         style={{
-            width: "100%",
-            marginLeft: "20px",
-        }}
-        onClick={() => {
-            props.dispatch(actions.pointGraph.addPoint([0, 0]));
+            flexDirection: "row",
+            width: props.width,
         }}
     >
-        Add Point
-    </Button>
+        <Button
+            kind="secondary"
+            style={{
+                width: "100%",
+                marginLeft: "20px",
+            }}
+            tabIndex={0}
+            onClick={() => {
+                props.dispatch(actions.pointGraph.addPoint([0, 0]));
+            }}
+        >
+            Add Point
+        </Button>
+        {(props.state.focusedPointIndex !== null ||
+            props.state.previouslyFocusedPointIndex !== null) && (
+            <Button
+                kind="secondary"
+                color="destructive"
+                tabIndex={0}
+                style={{
+                    width: "100%",
+                    marginLeft: "20px",
+                }}
+                onClick={(event) => {
+                    props.dispatch(
+                        actions.pointGraph.removePoint(
+                            props.state.previouslyFocusedPointIndex!,
+                        ),
+                    );
+                }}
+            >
+                Remove Point
+            </Button>
+        )}
+    </View>
 );
 
 const renderGraphControls = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
+    width: number;
 }) => {
-    const {state, dispatch} = props;
+    const {state, dispatch, width} = props;
     const {type} = state;
     switch (type) {
         case "point":
             if (state.numPoints === "unlimited") {
-                return renderPointGraphControls({state, dispatch});
+                return renderPointGraphControls({state, dispatch, width});
             }
             return null;
         default:
