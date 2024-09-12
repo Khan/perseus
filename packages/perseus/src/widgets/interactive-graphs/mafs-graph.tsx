@@ -188,6 +188,7 @@ const renderPointGraphControls = (props: {
                 width: "100%",
                 marginLeft: "20px",
             }}
+            tabIndex={0}
             onClick={() => {
                 props.dispatch(actions.pointGraph.addPoint([0, 0]));
             }}
@@ -199,6 +200,7 @@ const renderPointGraphControls = (props: {
             <Button
                 kind="secondary"
                 color="destructive"
+                tabIndex={0}
                 style={{
                     width: "100%",
                     marginLeft: "20px",
