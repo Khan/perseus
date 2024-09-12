@@ -53,6 +53,7 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
             <rect
                 style={{
                     fill: "rgba(0,0,0,0)",
+                    cursor: "crosshair",
                 }}
                 width={widthPx}
                 height={heightPx}
