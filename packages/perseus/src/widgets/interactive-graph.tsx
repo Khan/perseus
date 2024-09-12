@@ -2377,7 +2377,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 earned: 0,
                 total: 0,
                 message: null,
-            }
+            };
         }
 
         // When nothing has moved, there will neither be coords nor the

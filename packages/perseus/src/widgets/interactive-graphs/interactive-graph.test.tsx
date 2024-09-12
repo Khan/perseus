@@ -14,6 +14,7 @@ import {lockedFigureColors} from "../../perseus-types";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
@@ -55,9 +56,6 @@ import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
-import {
-    interactiveGraphQuestionBuilder
-} from "./interactive-graph-question-builder";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -177,7 +175,7 @@ describe("interactive-graph widget", function () {
 
             expect(renderer).toHaveBeenAnsweredCorrectly();
         });
-    })
+    });
 });
 
 describe("a mafs graph", () => {
