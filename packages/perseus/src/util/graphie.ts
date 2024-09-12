@@ -1649,6 +1649,12 @@ const SVG_SPECIFIC_STYLE_MASK = {
 } as const;
 
 const setLabelMargins = function (span: HTMLElement, size: Coord): void {
+    // eslint-disable-next-line
+    console.group("[GRAPHIE - setLabelMargins]");
+    // eslint-disable-next-line
+    console.log("Element: ", span);
+    // eslint-disable-next-line
+    console.log("Label: ", span.innerText);
     const $span = $(span);
     const direction = $span.data("labelDirection");
     let [width, height] = size;
@@ -1660,6 +1666,11 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         Log.log("Label size was 0x0 in graphie.js; using 1x1 instead");
     }
     $span.css("visibility", "");
+
+    // eslint-disable-next-line
+    console.log("Size: ", size);
+    // eslint-disable-next-line
+    console.log("Direction: ", direction);
 
     if (typeof direction === "number") {
         const x = Math.cos(direction);
@@ -1675,20 +1686,42 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginTop: -height / 2 - y * scale,
         });
     } else {
-        const $container = $span.closest(".svg-image");
+        const $container = $span.closest(".svg-image, .graphie");
         // Ensuring that the line-height of the text doesn't throw off placement of the text element.
         // Inherited line-height values can really mess up placement.
         $container.css("line-height", "normal");
 
         // The 'max-width' value is the same as the expected (100% scale) width of the graphie.
         // We are using jQuery to get this information since we don't have a way to pass it to this function.
-        const expectedWidth = $container.css("max-width") ?? "0px";
+        const widthValues = $container.css(["max-width", "width"]);
+        const cssWidth =
+            widthValues["max-width"] !== "none"
+                ? widthValues["max-width"]
+                : widthValues["width"];
+        const expectedWidth = cssWidth ?? "0px";
         // We can calculate the true scale of the graphie by taking actual width and dividing by the expected width.
         // NOTE: Using 'slice' to remove the "px" unit from the end of the expected width value.
         const scale =
             (($container.width() ?? 0) /
                 parseInt(expectedWidth.replace(/px$/, ""))) *
             100;
+
+        // eslint-disable-next-line
+        console.log("Container: ", $container.get(0));
+        // eslint-disable-next-line
+        console.log("Width Values: ", widthValues);
+        // eslint-disable-next-line
+        console.log("CSS Width: ", cssWidth);
+        // eslint-disable-next-line
+        console.log("Max Width: ", $container.css("max-width"));
+        // eslint-disable-next-line
+        console.log("Width: ", $container.css("width"));
+        // eslint-disable-next-line
+        console.log("Scale: ", scale);
+        // eslint-disable-next-line
+        console.log("Width: ", $container.width());
+        // eslint-disable-next-line
+        console.log("Expected Width: ", expectedWidth);
 
         // Any padding needs to be scaled accordingly.
         const currentPadding = $span.css("padding") ?? "0px";
@@ -1699,6 +1732,8 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // 'margin-left' and 'margin-top' are used to position the text.
         // Margin and font size need to be scaled accordingly.
         const multipliers = labelDirections[direction || "center"];
+        // eslint-disable-next-line
+        console.log("Multipliers: ", multipliers);
         const styling = {
             marginLeft: Math.round(width * multipliers[0] * scale) / 100,
             marginTop: Math.round(height * multipliers[1] * scale) / 100,
@@ -1709,6 +1744,8 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         }
         $span.css(styling);
     }
+    // eslint-disable-next-line
+    console.groupEnd();
 };
 
 const GraphUtils = {

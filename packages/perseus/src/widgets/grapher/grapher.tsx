@@ -203,6 +203,8 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     };
 
     render(): React.ReactNode {
+        // eslint-disable-next-line
+        console.log("[GRAPHER] Graph Props: ", this.props.graph);
         const pointForCoord = (coord: any, i) => {
             return (
                 <MovablePoint
@@ -289,6 +291,8 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const imageDescription = this.props.graph.backgroundImage;
         let image = null;
         if (imageDescription.url) {
+            // eslint-disable-next-line
+            console.log("[GRAPHER] Background image exists, generating SVG...");
             const scale = box[0] / interactiveSizes.defaultBoxSize;
             // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             image = (
