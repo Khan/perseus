@@ -55,6 +55,9 @@ import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
+import {
+    interactiveGraphQuestionBuilder
+} from "./interactive-graph-question-builder";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -155,6 +158,26 @@ describe("interactive-graph widget", function () {
             });
         },
     );
+
+    describe("A none-type graph", () => {
+        it("renders predictably", () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {container} = renderQuestion(question, blankOptions);
+
+            expect(container).toMatchSnapshot("first render");
+        });
+
+        it("treats no interaction as a correct answer", async () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {renderer} = renderQuestion(question, blankOptions);
+
+            expect(renderer).toHaveBeenAnsweredCorrectly();
+        });
+    })
 });
 
 describe("a mafs graph", () => {
