@@ -1686,7 +1686,9 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginTop: -height / 2 - y * scale,
         });
     } else {
-        const $container = $span.closest(".svg-image, .graphie");
+        const $svgImage = $span.closest(".svg-image");
+        const $graphie = $span.closest(".graphie");
+        const $container = $svgImage.length > 0 ? $svgImage : $graphie;
         // Ensuring that the line-height of the text doesn't throw off placement of the text element.
         // Inherited line-height values can really mess up placement.
         $container.css("line-height", "normal");
