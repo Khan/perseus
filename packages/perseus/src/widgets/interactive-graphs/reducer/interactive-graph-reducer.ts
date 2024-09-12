@@ -141,6 +141,7 @@ function doBlurPoint(
         case "point":
             return {
                 ...state,
+                previouslyFocusedPointIndex: state.focusedPointIndex,
                 focusedPointIndex: null,
             };
         default:
@@ -604,6 +605,7 @@ function doRemovePoint(
         ...state,
         coords: state.coords.filter((_, i) => i !== action.index),
         focusedPointIndex: null,
+        previouslyFocusedPointIndex: null,
     };
 }
 

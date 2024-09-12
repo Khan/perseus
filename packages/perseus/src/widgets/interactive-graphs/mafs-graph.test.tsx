@@ -8,7 +8,11 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
 import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
-import {actions, ADD_POINT} from "./reducer/interactive-graph-action";
+import {
+    actions,
+    ADD_POINT,
+    REMOVE_POINT,
+} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
 import type {MafsGraphProps} from "./mafs-graph";
@@ -140,6 +144,7 @@ describe("MafsGraph", () => {
             type: "point",
             numPoints: 2,
             focusedPointIndex: null,
+            previouslyFocusedPointIndex: null,
             hasBeenInteractedWith: true,
             range: [
                 [-10, 10],
@@ -396,6 +401,7 @@ describe("MafsGraph", () => {
                 type: "point",
                 numPoints: "unlimited",
                 focusedPointIndex: null,
+                previouslyFocusedPointIndex: null,
                 hasBeenInteractedWith: true,
                 range: [
                     [-10, 10],
@@ -430,6 +436,7 @@ describe("MafsGraph", () => {
                 type: "point",
                 numPoints: "unlimited",
                 focusedPointIndex: null,
+                previouslyFocusedPointIndex: null,
                 hasBeenInteractedWith: true,
                 range: [
                     [-10, 10],
@@ -460,6 +467,82 @@ describe("MafsGraph", () => {
                 [{type: ADD_POINT, location: [0, 0]}],
             ]);
         });
+
+        it("shows a remove point button when a point is focused", async () => {
+            // Arrange
+            // Render the question
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                focusedPointIndex: 0,
+                previouslyFocusedPointIndex: null,
+                hasBeenInteractedWith: true,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [[4, 5]],
+            };
+
+            const baseMafsGraphProps: MafsGraphProps = {
+                ...getBaseMafsGraphProps(),
+                markings: "none",
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Assert: Find the button
+            const addPointButton = await screen.findByText("Remove Point");
+            expect(addPointButton).not.toBe(null);
+        });
+    });
+
+    it("removes a point when the remove point button is clicked", async () => {
+        // Arrange
+        // Render the question
+        const mockDispatch = jest.fn();
+        const state: InteractiveGraphState = {
+            type: "point",
+            numPoints: "unlimited",
+            focusedPointIndex: 0,
+            previouslyFocusedPointIndex: 0,
+            hasBeenInteractedWith: true,
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            snapStep: [2, 2],
+            coords: [[9, 9]],
+        };
+
+        const baseMafsGraphProps: MafsGraphProps = {
+            ...getBaseMafsGraphProps(),
+            markings: "none",
+        };
+
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={state}
+                dispatch={mockDispatch}
+            />,
+        );
+
+        // Act: Click the button
+        const removePointButton = await screen.findByText("Remove Point");
+        await userEvent.click(removePointButton);
+
+        expect(mockDispatch.mock.calls).toEqual([
+            [{type: REMOVE_POINT, index: 0}],
+        ]);
     });
 });
 
