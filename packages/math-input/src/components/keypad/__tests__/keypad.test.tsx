@@ -330,7 +330,7 @@ describe("keypad", () => {
         expect(screen.getByTestId("period-decimal")).toBeInTheDocument();
     });
 
-    it('shows the exponent button for scientific keypad', () => {
+    it("shows the exponent button for scientific keypad", () => {
         //Arrange
         //Act
         render(
@@ -338,24 +338,25 @@ describe("keypad", () => {
                 onClickKey={() => {}}
                 scientific
                 onAnalyticsEvent={async () => {}}
-            />
+            />,
         );
 
         //Assert
-        expect(screen.getByRole("button", {name: 'Custom exponent'})).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Custom exponent"}),
+        ).toBeInTheDocument();
     });
 
-    it('does not show the exponent button for non-scientific keypad', () => {
+    it("does not show the exponent button for non-scientific keypad", () => {
         //Arrange
         //Act
         render(
-            <Keypad
-                onClickKey={() => {}}
-                onAnalyticsEvent={async () => {}}
-            />
+            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
         );
 
         //Assert
-        expect(screen.queryByRole("button", {name: 'Custom exponent'})).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Custom exponent"}),
+        ).not.toBeInTheDocument();
     });
 });

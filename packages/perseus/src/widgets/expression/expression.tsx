@@ -745,7 +745,12 @@ const keypadConfigurationForProps = (
         extraKeys = ["PI"];
     }
 
-    return {keypadType, extraKeys, times: widgetOptions.times, scientific: widgetOptions.buttonSets.includes("scientific")};
+    return {
+        keypadType,
+        extraKeys,
+        times: widgetOptions.times,
+        scientific: widgetOptions.buttonSets.includes("scientific"),
+    };
 };
 
 const propUpgrades = {
