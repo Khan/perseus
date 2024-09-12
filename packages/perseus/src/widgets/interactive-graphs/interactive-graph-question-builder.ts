@@ -7,6 +7,7 @@ import type {
     LockedFigureFillType,
     LockedFunctionType,
     LockedLabelType,
+    LockedLineStyle,
     LockedLineType,
     LockedPointType,
     LockedPolygonType,
@@ -16,10 +17,12 @@ import type {
 } from "../../perseus-types";
 import type {Interval, vec} from "mafs";
 
-export type LockedFunctionOptions = Omit<
-    Partial<LockedFunctionType>,
-    "type" | "equation"
->;
+export type LockedFunctionOptions = {
+    color?: LockedFigureColor;
+    strokeStyle?: LockedLineStyle;
+    directionalAxis?: "x" | "y";
+    domain?: Interval;
+};
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
     return new InteractiveGraphQuestionBuilder();
@@ -296,7 +299,7 @@ class InteractiveGraphQuestionBuilder {
         point2: vec.Vector2,
         options?: {
             kind?: "line" | "ray" | "segment";
-            lineStyle?: "solid" | "dashed";
+            lineStyle?: LockedLineStyle;
             color?: LockedFigureColor;
             filled?: [boolean, boolean];
             showPoint1?: boolean;
