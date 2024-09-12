@@ -50,6 +50,7 @@ const buttonSetsList: LegacyButtonSets = [
     "basic",
     "trig",
     "prealgebra",
+    "scientific",
     "logarithms",
     "basic relations",
     "advanced relations",

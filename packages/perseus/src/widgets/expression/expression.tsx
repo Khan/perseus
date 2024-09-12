@@ -745,7 +745,7 @@ const keypadConfigurationForProps = (
         extraKeys = ["PI"];
     }
 
-    return {keypadType, extraKeys, times: widgetOptions.times};
+    return {keypadType, extraKeys, times: widgetOptions.times, scientific: widgetOptions.buttonSets.includes("scientific")};
 };
 
 const propUpgrades = {
@@ -806,7 +806,7 @@ export default {
             ariaLabel,
         } = widgetOptions;
         return {
-            keypadConfiguration: keypadConfigurationForProps(widgetOptions),
+            keypadConfiguration: keypadConfigurationForProps(widgetOptions), // mobile keypad
             times,
             functions,
             buttonSets,
