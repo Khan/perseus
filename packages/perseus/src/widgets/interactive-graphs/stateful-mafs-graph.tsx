@@ -101,7 +101,6 @@ export const StatefulMafsGraph = React.forwardRef<
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
 
-    // FIXME: extract getReinitializationKey(graph)
     // Update the graph whenever any of the following values changes.
     // This is necessary to keep the graph previews in sync with the updated
     // graph settings within the interative graph editor.
