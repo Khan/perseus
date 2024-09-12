@@ -329,4 +329,33 @@ describe("keypad", () => {
         // Assert
         expect(screen.getByTestId("period-decimal")).toBeInTheDocument();
     });
+
+    it('shows the exponent button for scientific keypad', () => {
+        //Arrange
+        //Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                scientific
+                onAnalyticsEvent={async () => {}}
+            />
+        );
+
+        //Assert
+        expect(screen.getByRole("button", {name: 'Custom exponent'})).toBeInTheDocument();
+    });
+
+    it('does not show the exponent button for non-scientific keypad', () => {
+        //Arrange
+        //Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                onAnalyticsEvent={async () => {}}
+            />
+        );
+
+        //Assert
+        expect(screen.queryByRole("button", {name: 'Custom exponent'})).not.toBeInTheDocument();
+    });
 });

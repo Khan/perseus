@@ -32,7 +32,7 @@ import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
-type KeypadButtonSets = {
+export type KeypadButtonSets = {
     advancedRelations?: boolean;
     basicRelations?: boolean;
     divisionKey?: boolean;

@@ -4,17 +4,18 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import MathInput from "../math-input";
+import MathInput, {KeypadButtonSets} from "../math-input";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-const allButtonSets = {
+const allButtonSets: KeypadButtonSets = {
     advancedRelations: true,
     basicRelations: true,
     divisionKey: true,
     logarithms: true,
     preAlgebra: true,
     trigonometry: true,
+    scientific: true,
 };
 
 describe("Perseus' MathInput", () => {
@@ -140,6 +141,33 @@ describe("Perseus' MathInput", () => {
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2-3");
+    });
+
+    it("is possible to use the scientific keypad", async () => {
+        // Assemble
+        const mockOnChange = jest.fn();
+        render(
+            <MathInput
+                onChange={mockOnChange}
+                keypadButtonSets={{scientific: true}}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+                convertDotToTimes={false}
+                value=""
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: /open math keypad/}),
+        );
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(screen.getByRole("button", {name: "Custom exponent"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+        act(() => jest.runOnlyPendingTimers());
+
+        // Assert
+        expect(mockOnChange).toHaveBeenLastCalledWith("2^{2}");
     });
 
     it("is possible to use buttons with legacy props", async () => {

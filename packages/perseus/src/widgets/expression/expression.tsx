@@ -806,7 +806,7 @@ export default {
             ariaLabel,
         } = widgetOptions;
         return {
-            keypadConfiguration: keypadConfigurationForProps(widgetOptions), // mobile keypad
+            keypadConfiguration: keypadConfigurationForProps(widgetOptions),
             times,
             functions,
             buttonSets,
