@@ -81,11 +81,12 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
                     onFocusChange={(isFocused) => {
-                        if (isFocused) {
-                            dispatch(actions.pointGraph.focusPoint(i));
-                        } else {
+                        if (!isFocused) {
                             dispatch(actions.pointGraph.blurPoint());
                         }
+                    }}
+                    onClick={() => {
+                        dispatch(actions.pointGraph.focusPoint(i));
                     }}
                 />
             ))}

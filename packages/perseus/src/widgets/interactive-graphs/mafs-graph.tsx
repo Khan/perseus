@@ -245,7 +245,7 @@ const renderPointGraphControls = (props: {
             width: props.width,
         }}
     >
-        <Button
+        {/* <Button
             kind="secondary"
             style={{
                 width: "100%",
@@ -257,7 +257,7 @@ const renderPointGraphControls = (props: {
             }}
         >
             Add Point
-        </Button>
+        </Button> */}
         {(props.state.focusedPointIndex !== null ||
             props.state.previouslyFocusedPointIndex !== null) && (
             <Button

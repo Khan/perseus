@@ -15,6 +15,7 @@ import type {vec} from "mafs";
 type Props = {
     point: vec.Vector2;
     onMove?: (newPoint: vec.Vector2) => unknown;
+    onClick?: () => unknown;
     color?: string;
     cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
@@ -28,6 +29,7 @@ export const MovablePoint = (props: Props) => {
         point,
         onMove = () => {},
         onFocusChange = () => {},
+        onClick = () => {},
         cursor,
         color = WBColor.blue,
         constrain = (p) => snap(snapStep, p),
@@ -46,7 +48,10 @@ export const MovablePoint = (props: Props) => {
             color={color}
             dragging={dragging}
             focusBehavior={{type: "uncontrolled", tabIndex: 0, onFocusChange}}
-            onClick={() => elementRef.current?.focus()}
+            onClick={() => {
+                onClick && onClick();
+                elementRef.current?.focus();
+            }}
             cursor={cursor}
         />
     );
