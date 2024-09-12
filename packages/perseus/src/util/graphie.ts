@@ -1698,13 +1698,15 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
 
         // The expected width of the graphie is found in the "max-width" property on ".svg-image" containers,
         //     and is found in the "width" property on ".graphie" containers.
-        const widthValues = $container.css(["max-width", "width"]);
-        const cssWidth =
+        const widthValues = $container.css(["max-width", "width"]) ?? {
+            // The browser will always return a value, but tests won't, so ensuring something is returned.
+            "max-width": "0px",
+        };
+        const expectedWidth =
             // Verified in Chrome, Firefox, and Safari - all return the same "none" value if the property does not exist.
             widthValues["max-width"] !== "none"
                 ? widthValues["max-width"]
                 : widthValues["width"];
-        const expectedWidth = cssWidth ?? "0px";
         // We can calculate the true scale of the graphie by taking actual width and dividing by the expected width.
         // NOTE: Using 'replace' to remove the "px" unit from the end of the expected width value.
         let scale =
@@ -1719,7 +1721,7 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         }
 
         // Any padding needs to be scaled accordingly.
-        const padding = $span.css("padding");
+        const padding = $span.css("padding") ?? "0px";
         const currentPadding = padding !== "none" ? padding : "0px";
         const newPadding =
             Math.round(parseInt(currentPadding.replace(/px$/, "")) * scale) /
