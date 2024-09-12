@@ -45,7 +45,6 @@ jobs:
               uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Build Storybook
               # Generate a static version of storybook inside "storybook-static/"

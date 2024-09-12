@@ -301,53 +301,29 @@ export const getAngleEquation = (startCoords: [Coord, Coord, Coord]) => {
     return `${roundedAngle}\u00B0 angle at (${vertex[0]}, ${vertex[1]})`;
 };
 
-export const shouldShowStartCoordsUI = (flags, graph) => {
-    // TODO(LEMS-2228): Remove flags once this is fully released
-    const startCoordsUiPhase1Types = [
-        "linear",
-        "linear-system",
-        "ray",
-        "segment",
-        "circle",
-    ];
-    const startCoordsUiPhase2Types = ["sinusoid", "quadratic"];
-
-    const startCoordsPhase1 = flags?.mafs?.["start-coords-ui-phase-1"];
-    const startCoordsPhase2 = flags?.mafs?.["start-coords-ui-phase-2"];
-    const startCoordsPoint = flags?.mafs?.["start-coords-ui-point"];
-    const startCoordsPolygon = flags?.mafs?.["start-coords-ui-polygon"];
-    const startCoordsAngle = flags?.mafs?.["start-coords-ui-angle"];
-
-    if (startCoordsPhase1 && startCoordsUiPhase1Types.includes(graph.type)) {
-        return true;
+export const shouldShowStartCoordsUI = (
+    graph: PerseusGraphType,
+    isStatic?: boolean,
+) => {
+    // We don't show the start coords UI for static graphs, since
+    // the coords shown for this are determined by the coords on the
+    // "correct" graph. The start coords would not be used here.
+    if (isStatic) {
+        return false;
     }
 
-    if (startCoordsPhase2 && startCoordsUiPhase2Types.includes(graph.type)) {
-        return true;
-    }
-
-    if (startCoordsAngle && graph.type === "angle") {
-        return true;
+    if (graph.type === "point" && graph.numPoints === "unlimited") {
+        return false;
     }
 
     if (
-        startCoordsPoint &&
-        graph.type === "point" &&
-        graph.numPoints !== "unlimited"
-    ) {
-        return true;
-    }
-
-    if (
-        startCoordsPolygon &&
         graph.type === "polygon" &&
-        graph.numSides !== "unlimited" &&
-        // Pre-initialized graph with undefined snapTo value
-        // initializes to snapTo="grid"
-        (graph.snapTo === "grid" || graph.snapTo === undefined)
+        (graph.numSides === "unlimited" ||
+            graph.snapTo === "angles" ||
+            graph.snapTo === "sides")
     ) {
-        return true;
+        return false;
     }
 
-    return false;
+    return true;
 };

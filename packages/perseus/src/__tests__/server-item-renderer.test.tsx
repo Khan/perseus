@@ -12,20 +12,19 @@ import {
     itemWithLintingError,
     itemWithNumericAndNumberInputs,
     itemWithRadioAndExpressionWidgets,
-    mockedItem,
+    definitionItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
 import WrappedServerItemRenderer, {
     ServerItemRenderer,
 } from "../server-item-renderer";
 import {registerWidget} from "../widgets";
-import InputNumberExport from "../widgets/input-number";
+import InputNumberExport from "../widgets/input-number/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
 import MockAssetLoadingWidgetExport, {
     mockedAssetItem,
 } from "./mock-asset-loading-widget";
-import MockWidgetExport from "./mock-widget";
 
 import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {PerseusItem} from "../perseus-types";
@@ -71,7 +70,6 @@ describe("server item renderer", () => {
     beforeAll(() => {
         registerWidget("input-number", InputNumberExport);
         registerWidget("radio", RadioWidgetExport);
-        registerWidget("mock-widget", MockWidgetExport);
     });
 
     let userEvent: UserEvent;
@@ -230,17 +228,17 @@ describe("server item renderer", () => {
 
     it("should return all widget ids", () => {
         // Arrange
-        const {renderer} = renderQuestion(mockedItem);
+        const {renderer} = renderQuestion(definitionItem);
 
         // Act
         const widgetIds = renderer.getWidgetIds();
 
         // Assert
         expect(widgetIds).toStrictEqual([
-            "mock-widget 1",
-            "mock-widget 2",
-            "mock-widget 3",
-            "mock-widget 4",
+            "definition 1",
+            "definition 2",
+            "definition 3",
+            "definition 4",
         ]);
     });
 
@@ -290,7 +288,10 @@ describe("server item renderer", () => {
         // everything is loaded.
 
         // Arrange
-        registerWidget("example-widget", MockAssetLoadingWidgetExport);
+        registerWidget(
+            "mock-asset-loading-widget",
+            MockAssetLoadingWidgetExport,
+        );
 
         const onRendered = jest.fn();
         let renderer: ServerItemRenderer | null | undefined;
@@ -310,8 +311,9 @@ describe("server item renderer", () => {
             throw new Error("Renderer failed to render.");
         }
 
-        const mockedWidget =
-            renderer.questionRenderer.getWidgetInstance("example-widget 1");
+        const mockedWidget = renderer.questionRenderer.getWidgetInstance(
+            "mock-asset-loading-widget 1",
+        );
         if (mockedWidget == null) {
             throw new Error("Couldn't find mocked widget!");
         }

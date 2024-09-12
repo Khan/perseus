@@ -1675,11 +1675,39 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginTop: -height / 2 - y * scale,
         });
     } else {
+        const $container = $span.closest(".svg-image");
+        // Ensuring that the line-height of the text doesn't throw off placement of the text element.
+        // Inherited line-height values can really mess up placement.
+        $container.css("line-height", "normal");
+
+        // The 'max-width' value is the same as the expected (100% scale) width of the graphie.
+        // We are using jQuery to get this information since we don't have a way to pass it to this function.
+        const expectedWidth = $container.css("max-width") ?? "0px";
+        // We can calculate the true scale of the graphie by taking actual width and dividing by the expected width.
+        // NOTE: Using 'slice' to remove the "px" unit from the end of the expected width value.
+        const scale =
+            (($container.width() ?? 0) /
+                parseInt(expectedWidth.replace(/px$/, ""))) *
+            100;
+
+        // Any padding needs to be scaled accordingly.
+        const currentPadding = $span.css("padding") ?? "0px";
+        const newPadding =
+            Math.round(parseInt(currentPadding.slice(0, -2)) * scale) / 100;
+
+        // "multipliers" basically move the position of the text by using 1, 0, -1
+        // 'margin-left' and 'margin-top' are used to position the text.
+        // Margin and font size need to be scaled accordingly.
         const multipliers = labelDirections[direction || "center"];
-        $span.css({
-            marginLeft: Math.round(width * multipliers[0]),
-            marginTop: Math.round(height * multipliers[1]),
-        });
+        const styling = {
+            marginLeft: Math.round(width * multipliers[0] * scale) / 100,
+            marginTop: Math.round(height * multipliers[1] * scale) / 100,
+            padding: `${newPadding}px`,
+        };
+        if (scale !== 1) {
+            styling["fontSize"] = `${Math.round(scale * 100) / 100}%`;
+        }
+        $span.css(styling);
     }
 };
 

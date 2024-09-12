@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unsafe, react/sort-comp */
+/* eslint-disable react/no-unsafe */
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -26,11 +26,6 @@ const StatefulEditorPage = createReactClass({
         };
     },
 
-    render: function () {
-        const Component = this.props.componentClass;
-        return <Component {...this.state} />;
-    },
-
     getInitialState: function () {
         return _({}).extend(_.omit(this.props, "componentClass"), {
             onChange: this.handleChange,
@@ -40,10 +35,6 @@ const StatefulEditorPage = createReactClass({
 
     componentDidMount: function () {
         this._isMounted = true;
-    },
-
-    componentWillUnmount: function () {
-        this._isMounted = false;
     },
 
     // getInitialState isn't called if the react component is re-rendered
@@ -61,6 +52,10 @@ const StatefulEditorPage = createReactClass({
                 "frameSource",
             ),
         );
+    },
+
+    componentWillUnmount: function () {
+        this._isMounted = false;
     },
 
     getSaveWarnings: function () {
@@ -82,6 +77,11 @@ const StatefulEditorPage = createReactClass({
     scorePreview: function () {
         // eslint-disable-next-line react/no-string-refs
         return this.refs.editor.scorePreview();
+    },
+
+    render: function () {
+        const Component = this.props.componentClass;
+        return <Component {...this.state} />;
     },
 });
 

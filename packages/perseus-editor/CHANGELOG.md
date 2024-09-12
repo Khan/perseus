@@ -1,5 +1,73 @@
 # @khanacademy/perseus-editor
 
+## 14.1.1
+
+### Patch Changes
+
+-   [#1609](https://github.com/Khan/perseus/pull/1609) [`981047211`](https://github.com/Khan/perseus/commit/9810472110434f22d8f446e9e6bf4bd69cdc3136) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove the start-coords-ui flags
+
+*   [#1607](https://github.com/Khan/perseus/pull/1607) [`1b340b197`](https://github.com/Khan/perseus/commit/1b340b197be03c4ee0c6fbaa4eb1871e68b4a915) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Use Wonder Blocks TextArea in the graph description settings UI
+
+-   [#1610](https://github.com/Khan/perseus/pull/1610) [`e9b317ca0`](https://github.com/Khan/perseus/commit/e9b317ca0398bb39de7b3605247d2abec09d791a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph Editor] Remove the start coords UI if the graph is static
+
+*   [#1608](https://github.com/Khan/perseus/pull/1608) [`737fe30b4`](https://github.com/Khan/perseus/commit/737fe30b492c598c70b7bb1cebad00adf9a25c93) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Remove the interactive-graph-locked-feature-m2b flag
+
+*   Updated dependencies [[`981047211`](https://github.com/Khan/perseus/commit/9810472110434f22d8f446e9e6bf4bd69cdc3136), [`e9b317ca0`](https://github.com/Khan/perseus/commit/e9b317ca0398bb39de7b3605247d2abec09d791a), [`737fe30b4`](https://github.com/Khan/perseus/commit/737fe30b492c598c70b7bb1cebad00adf9a25c93), [`3980a36fa`](https://github.com/Khan/perseus/commit/3980a36fa2eb66c61d648d82e73d323ab8b8f5b0)]:
+    -   @khanacademy/perseus@33.1.0
+
+## 14.1.0
+
+### Minor Changes
+
+-   [#1600](https://github.com/Khan/perseus/pull/1600) [`bdb382fda`](https://github.com/Khan/perseus/commit/bdb382fdaef1f3f02695620aa955c49237c256c1) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Interactive Graph - Add example functions for copy/paste to locked functions settings
+
+*   [#1568](https://github.com/Khan/perseus/pull/1568) [`eddcb9417`](https://github.com/Khan/perseus/commit/eddcb941742355bd4f339fd727ac97bb340ee474) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph + Editor] Add a full graph aria-label and aria-description/describedby to interactive graphs, as well as the UI for content authors to add this in the interactive graph editor
+
+### Patch Changes
+
+-   [#1592](https://github.com/Khan/perseus/pull/1592) [`d88b0ffdf`](https://github.com/Khan/perseus/commit/d88b0ffdf1eb61f2efb0f589efe81dbbf5088947) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Move tests, test data, and Storybook stories for the Interactive Graph widget to the directory specific to that widget.
+
+*   [#1591](https://github.com/Khan/perseus/pull/1591) [`05d048026`](https://github.com/Khan/perseus/commit/05d04802603fde4ca5be1fcf88ade7c09fb49c96) Thanks [@handeyeco](https://github.com/handeyeco)! - Move interaction-editor sub-components into perseus-editor
+
+-   [#1594](https://github.com/Khan/perseus/pull/1594) [`435f3f6d8`](https://github.com/Khan/perseus/commit/435f3f6d8c70de980afc5beb3ac981d9a3f6a4a3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove Storybook stories that generate random widgets
+
+*   [#1599](https://github.com/Khan/perseus/pull/1599) [`71715afd2`](https://github.com/Khan/perseus/commit/71715afd2418f16d23d04cb57252a1940597cfa0) Thanks [@benchristel](https://github.com/benchristel)! - Internal: improve type safety of interactive graph editor
+
+-   [#1590](https://github.com/Khan/perseus/pull/1590) [`6c4e9e154`](https://github.com/Khan/perseus/commit/6c4e9e154aea90f0ab484e9efc39a351f4790d9d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Move InteractiveGraphEditor to its own directory
+
+-   Updated dependencies [[`08068dc71`](https://github.com/Khan/perseus/commit/08068dc7131d00ea0c74b90e9798cda47902a5f5), [`d88b0ffdf`](https://github.com/Khan/perseus/commit/d88b0ffdf1eb61f2efb0f589efe81dbbf5088947), [`eddcb9417`](https://github.com/Khan/perseus/commit/eddcb941742355bd4f339fd727ac97bb340ee474), [`05d048026`](https://github.com/Khan/perseus/commit/05d04802603fde4ca5be1fcf88ade7c09fb49c96), [`435f3f6d8`](https://github.com/Khan/perseus/commit/435f3f6d8c70de980afc5beb3ac981d9a3f6a4a3), [`71715afd2`](https://github.com/Khan/perseus/commit/71715afd2418f16d23d04cb57252a1940597cfa0), [`6c4e9e154`](https://github.com/Khan/perseus/commit/6c4e9e154aea90f0ab484e9efc39a351f4790d9d)]:
+    -   @khanacademy/perseus@33.0.0
+
+## 14.0.1
+
+### Patch Changes
+
+-   [#1588](https://github.com/Khan/perseus/pull/1588) [`9dad8a089`](https://github.com/Khan/perseus/commit/9dad8a0891bbd3e4a9943fade3c00c073a281541) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused handling of deprecated Interactive Graph prop
+
+-   Updated dependencies [[`b54f886f6`](https://github.com/Khan/perseus/commit/b54f886f64fced1fe0c211369f5d89a7c459dd97), [`9dad8a089`](https://github.com/Khan/perseus/commit/9dad8a0891bbd3e4a9943fade3c00c073a281541)]:
+    -   @khanacademy/perseus@32.0.1
+
+## 14.0.0
+
+### Major Changes
+
+-   [#1577](https://github.com/Khan/perseus/pull/1577) [`c875acd01`](https://github.com/Khan/perseus/commit/c875acd01fe8cfa84a2b10177a6fcedfb612cb3f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove example widgets and their editors
+
+### Minor Changes
+
+-   [#1582](https://github.com/Khan/perseus/pull/1582) [`377b7ce68`](https://github.com/Khan/perseus/commit/377b7ce68801cef99cd3a09474b28a8b60f90f0a) Thanks [@aemandine](https://github.com/aemandine)! - Add save warnings to PhET widget editor and un-hide widget from content editor widget dropdown
+
+### Patch Changes
+
+-   [#1585](https://github.com/Khan/perseus/pull/1585) [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize files in the widgets folder
+
+*   [#1587](https://github.com/Khan/perseus/pull/1587) [`8015cdefb`](https://github.com/Khan/perseus/commit/8015cdefbafa094e9e1969ddb6ec39033c990687) Thanks [@aemandine](https://github.com/aemandine)! - Tidying up PhET widget
+
+-   [#1583](https://github.com/Khan/perseus/pull/1583) [`615567bd2`](https://github.com/Khan/perseus/commit/615567bd2eeec45d16d845a1cb8bd5c33c04d701) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove sort-comp exceptions and reorder components
+
+-   Updated dependencies [[`78bb8573e`](https://github.com/Khan/perseus/commit/78bb8573e9b00992554c2b1339678cc78363773b), [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce), [`d56952564`](https://github.com/Khan/perseus/commit/d569525643d1dcf9c2cca78bc3b5ce18b7f584d1), [`c875acd01`](https://github.com/Khan/perseus/commit/c875acd01fe8cfa84a2b10177a6fcedfb612cb3f), [`8015cdefb`](https://github.com/Khan/perseus/commit/8015cdefbafa094e9e1969ddb6ec39033c990687), [`c4432ffad`](https://github.com/Khan/perseus/commit/c4432ffad978a224b7d981e1577c7897342a01ee), [`615567bd2`](https://github.com/Khan/perseus/commit/615567bd2eeec45d16d845a1cb8bd5c33c04d701), [`377b7ce68`](https://github.com/Khan/perseus/commit/377b7ce68801cef99cd3a09474b28a8b60f90f0a)]:
+    -   @khanacademy/perseus@32.0.0
+
 ## 13.1.0
 
 ### Minor Changes

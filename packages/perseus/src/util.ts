@@ -530,51 +530,6 @@ function constrainedTickStepsFromTickSteps(
 }
 
 /**
- * Transparently update deprecated props so that the code to deal
- * with them only lives in one place: (Widget).deprecatedProps
- *
- * For example, if a boolean `foo` was deprecated in favor of a
- * number 'bar':
- *      deprecatedProps: {
- *          foo: function(props) {
- *              return {bar: props.foo ? 1 : 0};
- *          }
- *      }
- */
-const DeprecationMixin: any = {
-    // This lifecycle stage is only called before first render
-    // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
-    UNSAFE_componentWillMount: function () {
-        const newProps: Record<string, any> = {};
-
-        _.each(
-            this.deprecatedProps,
-            function (func, prop) {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                if (_.has(this.props, prop)) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    _.extend(newProps, func(this.props));
-                }
-            },
-            this,
-        );
-
-        if (!_.isEmpty(newProps)) {
-            // Set new props directly so that widget renders correctly
-            // when it first mounts, even though these will be overwritten
-            // almost immediately afterwards...
-            _.extend(this.props, newProps);
-
-            // ...when we propagate the new props upwards and they come
-            // back down again.
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            // eslint-disable-next-line no-restricted-syntax
-            setTimeout(this.props.onChange, 0, newProps);
-        }
-    },
-};
-
-/**
  * Approximate equality on numbers and primitives.
  */
 function eq<T>(x: T, y: T): boolean {
@@ -963,7 +918,6 @@ const Util = {
     gridStepFromTickStep,
     tickStepFromNumTicks,
     constrainedTickStepsFromTickSteps,
-    DeprecationMixin,
     eq,
     deepEq,
     parseQueryString,

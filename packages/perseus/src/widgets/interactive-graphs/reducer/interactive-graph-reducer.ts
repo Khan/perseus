@@ -193,7 +193,6 @@ function doMovePointInFigure(
         }
         case "angle":
         case "circle":
-            throw new Error("FIXME implement circle reducer");
         case "point":
         case "polygon":
         case "quadratic":

@@ -21,6 +21,7 @@ export type StatefulMafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;
+    // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphType;
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
@@ -33,6 +34,8 @@ export type StatefulMafsGraphProps = {
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: InteractiveGraphProps["labels"];
+    fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
+    fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     readOnly: boolean;
     static: InteractiveGraphProps["static"];
 };

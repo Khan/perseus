@@ -20,10 +20,6 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `dropdown ${number}`]: DropdownWidget;
 } & {
-    [key in `example-widget ${number}`]: ExampleWidget;
-} & {
-    [key in `example-graphie-widget ${number}`]: ExampleGraphieWidget;
-} & {
     [key in `explanation ${number}`]: ExplanationWidget;
 } & {
     [key in `expression ${number}`]: ExpressionWidget;
@@ -75,8 +71,6 @@ export type PerseusWidgetsMap = {
     [key in `python-program ${number}`]: PythonProgramWidget;
 } & {
     [key in `radio ${number}`]: RadioWidget;
-} & {
-    [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
 } & {
     [key in `sorter ${number}`]: SorterWidget;
 } & {
@@ -261,17 +255,11 @@ export type SorterWidget = Widget<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
 export type TableWidget = Widget<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
-export type ExampleGraphieWidget = Widget<'example-graphie-widget', PerseusExampleGraphieWidgetOptions>;
-// prettier-ignore
-export type ExampleWidget = Widget<'example-widget', PerseusExampleWidgetOptions>;
-// prettier-ignore
 export type InputNumberWidget = Widget<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
 export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
-// prettier-ignore
-export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = Widget<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
@@ -282,8 +270,6 @@ export type PerseusWidget =
     | CSProgramWidget
     | DefinitionWidget
     | DropdownWidget
-    | ExampleGraphieWidget
-    | ExampleWidget
     | ExplanationWidget
     | ExpressionWidget
     | GradedGroupSetWidget
@@ -310,7 +296,6 @@ export type PerseusWidget =
     | PythonProgramWidget
     | RadioWidget
     | RefTargetWidget
-    | SimpleMarkdownTesterWidget
     | SorterWidget
     | TableWidget
     | VideoWidget
@@ -689,10 +674,15 @@ export type PerseusInteractiveGraphWidgetOptions = {
     // The type of graph
     graph: PerseusGraphType;
     // The correct kind of graph, if being used to select function type
+    // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphType;
     // Shapes (points, chords, etc) displayed on the graph that cannot
     // be moved by the user.
     lockedFigures?: ReadonlyArray<LockedFigure>;
+    // Aria label that applies to the entire graph.
+    fullGraphAriaLabel?: string;
+    // Aria description that applies to the entire graph.
+    fullGraphAriaDescription?: string;
 };
 
 const lockedFigureColorNames = [
@@ -827,7 +817,7 @@ export type PerseusGraphTypeAngle = {
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
     // must have 3 coords - ie [Coord, Coord, Coord]
-    coords?: [Coord, Coord, Coord];
+    coords?: [Coord, Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
 };
@@ -846,7 +836,7 @@ export type PerseusGraphTypeCircle = {
 export type PerseusGraphTypeLinear = {
     type: "linear";
     // expects 2 coords
-    coords?: CollinearTuple;
+    coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;
@@ -854,7 +844,7 @@ export type PerseusGraphTypeLinear = {
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
     // expects 2 sets of 2 coords
-    coords?: CollinearTuple[];
+    coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
@@ -863,7 +853,7 @@ export type PerseusGraphTypePoint = {
     type: "point";
     // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
     numPoints?: number | "unlimited";
-    coords?: ReadonlyArray<Coord>;
+    coords?: ReadonlyArray<Coord> | null;
     // The initial coordinates the graph renders with.
     startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
@@ -880,7 +870,7 @@ export type PerseusGraphTypePolygon = {
     snapTo?: "grid" | "angles" | "sides";
     // How to match the answer. If missing, defaults to exact matching.
     match?: "similar" | "congruent" | "approx";
-    coords?: ReadonlyArray<Coord>;
+    coords?: ReadonlyArray<Coord> | null;
     // The initial coordinates the graph renders with.
     startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
@@ -888,7 +878,7 @@ export type PerseusGraphTypePolygon = {
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
     // expects a list of 3 coords
-    coords?: [Coord, Coord, Coord];
+    coords?: [Coord, Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
 } & PerseusGraphTypeCommon;
@@ -898,7 +888,7 @@ export type PerseusGraphTypeSegment = {
     // The number of segments if a "segment" type. default: 1.  Max: 6
     numSegments?: number;
     // Expects a list of Coord tuples. Length should match the `numSegments` value.
-    coords?: CollinearTuple[];
+    coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
@@ -906,7 +896,7 @@ export type PerseusGraphTypeSegment = {
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
     // Expects a list of 2 Coords
-    coords?: ReadonlyArray<Coord>;
+    coords?: ReadonlyArray<Coord> | null;
     // The initial coordinates the graph renders with.
     startCoords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
@@ -914,7 +904,7 @@ export type PerseusGraphTypeSinusoid = {
 export type PerseusGraphTypeRay = {
     type: "ray";
     // Expects a list of 2 Coords
-    coords?: CollinearTuple;
+    coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
 } & PerseusGraphTypeCommon;

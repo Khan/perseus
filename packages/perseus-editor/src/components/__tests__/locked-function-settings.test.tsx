@@ -3,6 +3,9 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+// Disabling the following linting error because the import is needed for mocking purposes.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import examples from "../graph-locked-figures/locked-function-examples";
 import LockedFunctionSettings from "../graph-locked-figures/locked-function-settings";
 import {getDefaultFigureForType} from "../util";
 
@@ -15,6 +18,14 @@ const defaultProps = {
     onMove: () => {},
     onRemove: () => {},
 } as Props;
+
+const exampleEquationsMock = {
+    foo: ["bar", "zot"],
+};
+jest.mock("../graph-locked-figures/locked-function-examples", () => ({
+    __esModule: true,
+    default: exampleEquationsMock,
+}));
 
 describe("Locked Function Settings", () => {
     let userEvent: UserEvent;
@@ -222,7 +233,6 @@ describe("Locked Function Settings", () => {
 
         test("calls 'onChangeProps' when directional axis is changed", async () => {
             // Arrange
-            const onChangeProps = jest.fn();
             render(
                 <LockedFunctionSettings
                     {...defaultProps}
@@ -244,7 +254,7 @@ describe("Locked Function Settings", () => {
             expect(onChangeProps).toHaveBeenCalledWith({directionalAxis: "y"});
         });
 
-        describe("Domain interactions", () => {
+        describe("Domain/Range interactions", () => {
             test("valid entries update component properties", async () => {
                 // Arrange
                 render(
@@ -362,6 +372,138 @@ describe("Locked Function Settings", () => {
                 expect(onChangeProps).toHaveBeenNthCalledWith(2, {
                     domain: [3, Infinity],
                 });
+            });
+
+            test("restriction labels reflect the directional axis specified", async () => {
+                // Arrange
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        directionalAxis="x"
+                        expanded={true}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Assert - "x" axis means "domain"
+                let minField = screen.getByText("domain min");
+                expect(minField).toBeInTheDocument();
+
+                // Arrange
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        directionalAxis="y"
+                        expanded={true}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Assert - "y" axis means "range"
+                minField = screen.getByText("range min");
+                expect(minField).toBeInTheDocument();
+            });
+        });
+
+        describe("Example equation interactions", () => {
+            test("shows example equations based upon the category chosen", async () => {
+                // Arrange
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        expanded={true}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Assert - initial state (no category selected)
+                let copyButtons = screen.queryAllByLabelText("copy example");
+                expect(copyButtons.length).toEqual(0);
+
+                // Act - choose a category of examples
+                const categoryDropdown =
+                    screen.getByLabelText("Choose a category");
+                await userEvent.click(categoryDropdown);
+                const categoryOption = screen.getAllByRole("option")[0];
+                await userEvent.click(categoryOption);
+
+                // Assert - modified state
+                copyButtons = screen.queryAllByLabelText("copy example");
+                expect(copyButtons.length).toBeGreaterThan(0);
+            });
+
+            test("example equation is copied to the clipboard when 'copy' icon button is activated", async () => {
+                // Arrange
+                const writeTextMock = jest.fn();
+                const clipboardFnMock = jest.fn();
+                jest.spyOn(
+                    global.navigator,
+                    "clipboard",
+                    "get",
+                ).mockReturnValue({
+                    // Only interested in the "writeText" function.
+                    writeText: writeTextMock,
+                    // The other functions are here to avoid TS from complaining.
+                    read: clipboardFnMock,
+                    readText: clipboardFnMock,
+                    write: clipboardFnMock,
+                    addEventListener: clipboardFnMock,
+                    dispatchEvent: clipboardFnMock,
+                    removeEventListener: clipboardFnMock,
+                });
+
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        expanded={true}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act - choose a category to get a listing of examples
+                const categoryDropdown =
+                    screen.getByLabelText("Choose a category");
+                await userEvent.click(categoryDropdown);
+                const categoryOption = screen.getAllByRole("option")[0];
+                await userEvent.click(categoryOption);
+
+                // Act - click the copy button for the first example
+                const copyButton = screen.getAllByLabelText("copy example")[0];
+                await userEvent.click(copyButton);
+
+                // Assert - clipboard receives example text
+                expect(writeTextMock).toHaveBeenCalledWith("bar");
+            });
+
+            test("example equation is copied to the equation field when 'paste' icon button is activated", async () => {
+                // Arrange
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        expanded={true}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act - choose a category to get a listing of examples
+                const categoryDropdown =
+                    screen.getByLabelText("Choose a category");
+                await userEvent.click(categoryDropdown);
+                const categoryOption = screen.getAllByRole("option")[0];
+                await userEvent.click(categoryOption);
+
+                // Act - click the copy button for the first example
+                const pasteButton =
+                    screen.getAllByLabelText("paste example")[0];
+                await userEvent.click(pasteButton);
+
+                // Assert - clipboard receives example text
+                expect(onChangeProps).toHaveBeenCalledWith({equation: "bar"});
             });
         });
     });

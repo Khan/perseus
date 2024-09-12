@@ -1,5 +1,19 @@
 # @khanacademy/perseus-dev-ui
 
+## 3.0.5
+
+### Patch Changes
+
+-   [#1592](https://github.com/Khan/perseus/pull/1592) [`d88b0ffdf`](https://github.com/Khan/perseus/commit/d88b0ffdf1eb61f2efb0f589efe81dbbf5088947) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Move tests, test data, and Storybook stories for the Interactive Graph widget to the directory specific to that widget.
+
+*   [#1594](https://github.com/Khan/perseus/pull/1594) [`435f3f6d8`](https://github.com/Khan/perseus/commit/435f3f6d8c70de980afc5beb3ac981d9a3f6a4a3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove Storybook stories that generate random widgets
+
+## 3.0.4
+
+### Patch Changes
+
+-   [#1585](https://github.com/Khan/perseus/pull/1585) [`a6ec402c0`](https://github.com/Khan/perseus/commit/a6ec402c0e41dae1dbd980106265929ebe761bce) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize files in the widgets folder
+
 ## 3.0.3
 
 ### Patch Changes
