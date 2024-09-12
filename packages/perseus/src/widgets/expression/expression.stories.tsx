@@ -68,7 +68,7 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
             "logarithms",
             "basic relations",
             "advanced relations",
-            "scientific"
+            "scientific",
         ] as LegacyButtonSets,
     };
 
