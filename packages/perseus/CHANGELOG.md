@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 33.2.0
+
+### Minor Changes
+
+-   [#1598](https://github.com/Khan/perseus/pull/1598) [`d266ba110`](https://github.com/Khan/perseus/commit/d266ba110b5acc644f4bafec7940753bb1b95600) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Add a delete button to unlimited point graphs
+
+### Patch Changes
+
+-   [#1612](https://github.com/Khan/perseus/pull/1612) [`f28d610a1`](https://github.com/Khan/perseus/commit/f28d610a18495ef6b9b0d6a52924cbfd12aa2fe3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete redundant `throw` statement.
+
+*   [#1282](https://github.com/Khan/perseus/pull/1282) [`67c58b4ad`](https://github.com/Khan/perseus/commit/67c58b4ada8b2543de5c4defb09fa1eed4cbc538) Thanks [@Myranae](https://github.com/Myranae)! - Update KhanColors object to use WB color tokens to fix low contrast issues
+
+-   [#1616](https://github.com/Khan/perseus/pull/1616) [`e533822aa`](https://github.com/Khan/perseus/commit/e533822aa7e54517b19ded83720c0fa706805041) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - BUGFIX - Some Graphie labels were misaligned due to recent code adjustment (LEMS-2022)
+
 ## 33.1.0
 
 ### Minor Changes
