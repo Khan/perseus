@@ -10,6 +10,7 @@ import {
     getSegmentCoords,
     getSinusoidCoords,
 } from "@khanacademy/perseus";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 import type {StartCoords} from "./types";
 import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus";
@@ -172,18 +173,23 @@ export const shouldShowStartCoordsUI = (
         return false;
     }
 
-    if (graph.type === "point" && graph.numPoints === "unlimited") {
-        return false;
+    switch (graph.type) {
+        case "point":
+            return graph.numPoints !== "unlimited";
+        case "polygon":
+            return graph.numSides !== "unlimited" && graph.snapTo === "grid";
+        case "none":
+            return false;
+        case "angle":
+        case "circle":
+        case "linear":
+        case "linear-system":
+        case "quadratic":
+        case "ray":
+        case "segment":
+        case "sinusoid":
+            return true;
+        default:
+            throw new UnreachableCaseError(graph);
     }
-
-    if (
-        graph.type === "polygon" &&
-        (graph.numSides === "unlimited" ||
-            graph.snapTo === "angles" ||
-            graph.snapTo === "sides")
-    ) {
-        return false;
-    }
-
-    return true;
 };

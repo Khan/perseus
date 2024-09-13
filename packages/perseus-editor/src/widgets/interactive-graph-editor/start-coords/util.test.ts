@@ -3,6 +3,7 @@ import {
     getDefaultGraphStartCoords,
     getQuadraticEquation,
     getSinusoidEquation,
+    shouldShowStartCoordsUI,
 } from "./util";
 
 import type {PerseusGraphType, Range} from "@khanacademy/perseus";
@@ -335,4 +336,88 @@ describe("getAngleEquation", () => {
             expect(equation).toBe(expected);
         },
     );
+});
+
+describe("shouldShowStartCoordsUI", () => {
+    it("returns false for a static graph", () => {
+        const isStatic = true;
+        const graph: PerseusGraphType = {
+            type: "point",
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(false);
+    });
+
+    it("returns false for an unlimited point graph", () => {
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "point",
+            numPoints: "unlimited",
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(false);
+    });
+
+    it("returns true for a point graph with a fixed number of points", () => {
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "point",
+            numPoints: 3,
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(true);
+    });
+
+    it("returns false for a polygon graph with unlimited sides", () => {
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "polygon",
+            numSides: "unlimited",
+            snapTo: "grid",
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(false);
+    });
+
+    it("returns false for a polygon graph with angle snapping", () => {
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "polygon",
+            numSides: 3,
+            snapTo: "angles",
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(false);
+    });
+
+    it("returns false for a polygon graph with side snapping", () => {
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "polygon",
+            numSides: 3,
+            snapTo: "sides",
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(false);
+    });
+
+    it("returns true for a polygon graph with grid snapping and a fixed number of sides", () => {
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "polygon",
+            numSides: 3,
+            snapTo: "grid",
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(true);
+    });
+
+    it("returns false for a none-type graph", () => {
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "none",
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(false);
+    });
 });
