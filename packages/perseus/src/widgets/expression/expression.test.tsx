@@ -1,4 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
+import {KeypadType} from "@khanacademy/math-input";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -19,10 +20,13 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {PerseusExpressionWidgetOptions, PerseusItem} from "../../perseus-types";
+import type {
+    PerseusExpressionWidgetOptions,
+    PerseusItem,
+} from "../../perseus-types";
 import type {APIOptions} from "../../types";
+import type {KeypadConfiguration} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
-import { KeypadConfiguration, KeypadType } from "@khanacademy/math-input";
 
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -616,13 +620,13 @@ describe("Expression Widget", function () {
 });
 
 describe("Keypad configuration", () => {
-    it("should handle basic button set", async() => {
+    it("should handle basic button set", async () => {
         // Arrange
         const widgetOptions: PerseusExpressionWidgetOptions = {
             answerForms: [],
             buttonSets: ["basic"],
             times: false,
-            functions:[]
+            functions: [],
         };
 
         const expected: KeypadConfiguration = {
@@ -639,13 +643,13 @@ describe("Keypad configuration", () => {
         expect(result).toEqual(expected);
     });
 
-    it("should handle basic+div button set", async() => {
+    it("should handle basic+div button set", async () => {
         // Arrange
         const widgetOptions: PerseusExpressionWidgetOptions = {
             answerForms: [],
             buttonSets: ["basic+div"],
             times: false,
-            functions:[]
+            functions: [],
         };
 
         const expected: KeypadConfiguration = {
@@ -662,13 +666,13 @@ describe("Keypad configuration", () => {
         expect(result).toEqual(expected);
     });
 
-    it("should return expression keypad configuration by default", async() => {
+    it("should return expression keypad configuration by default", async () => {
         // Arrange
         const widgetOptions: PerseusExpressionWidgetOptions = {
             answerForms: [],
             buttonSets: [],
             times: false,
-            functions:[]
+            functions: [],
         };
 
         // Act
@@ -678,13 +682,13 @@ describe("Keypad configuration", () => {
         expect(result.keypadType).toEqual(KeypadType.EXPRESSION);
     });
 
-    it("should handle scientific button set", async() => {
+    it("should handle scientific button set", async () => {
         // Arrange
         const widgetOptions: PerseusExpressionWidgetOptions = {
             answerForms: [],
             buttonSets: ["scientific"],
             times: false,
-            functions:[]
+            functions: [],
         };
 
         const expected: KeypadConfiguration = {
