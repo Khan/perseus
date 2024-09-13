@@ -1675,25 +1675,57 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginTop: -height / 2 - y * scale,
         });
     } else {
-        const $container = $span.closest(".svg-image");
+        // We are using jQuery to collect information and calculate a scale
+        //     since we don't have a way to pass it to this function.
+        // We need the width of the container in order to calculate the scale to apply to the label.
+        // Unfortunately, the DOM tree leading to the label is not consistent.
+        // Therefore, we need to check different elements and different style properties to get the width of the container.
+        // Some graphie labels exist within an ".svg-image" container, and others do not.
+        // All graphie labels have a ".graphie" container.
+        // When a label has an ".svg-image" container,
+        //     the width information in the ".graphie" element is expressed as a percentage instead of pixels,
+        //     so we can't use it.
+        // Instead, the ".svg-image" container can be used to get the width information.
+        // The following lines determine which container element to use for the width measurement.
+        const $svgImage = $span.closest(".svg-image");
+        const $graphie = $span.closest(".graphie");
+        // If an ".svg-image" container exists in the DOM tree, then use it, otherwise use the ".graphie" container.
+        const $container = $svgImage.length > 0 ? $svgImage : $graphie;
+
         // Ensuring that the line-height of the text doesn't throw off placement of the text element.
         // Inherited line-height values can really mess up placement.
         $container.css("line-height", "normal");
 
-        // The 'max-width' value is the same as the expected (100% scale) width of the graphie.
-        // We are using jQuery to get this information since we don't have a way to pass it to this function.
-        const expectedWidth = $container.css("max-width") ?? "0px";
+        // The expected width of the graphie is found in the "max-width" property on ".svg-image" containers,
+        //     and is found in the "width" property on ".graphie" containers.
+        const widthValues = $container.css(["max-width", "width"]) ?? {
+            // The browser will always return a value, but tests won't, so ensuring something is returned.
+            "max-width": "0px",
+        };
+        const expectedWidth =
+            // Verified in Chrome, Firefox, and Safari - all return the same "none" value if the property does not exist.
+            widthValues["max-width"] !== "none"
+                ? widthValues["max-width"]
+                : widthValues["width"];
         // We can calculate the true scale of the graphie by taking actual width and dividing by the expected width.
-        // NOTE: Using 'slice' to remove the "px" unit from the end of the expected width value.
-        const scale =
+        // NOTE: Using 'replace' to remove the "px" unit from the end of the expected width value.
+        let scale =
             (($container.width() ?? 0) /
                 parseInt(expectedWidth.replace(/px$/, ""))) *
             100;
+        // If something failed in the calculation, then default to 100% scale.
+        if (isNaN(scale)) {
+            scale = 100;
+        } else if (scale === 0) {
+            scale = 100;
+        }
 
         // Any padding needs to be scaled accordingly.
-        const currentPadding = $span.css("padding") ?? "0px";
+        const padding = $span.css("padding") ?? "0px";
+        const currentPadding = padding !== "none" ? padding : "0px";
         const newPadding =
-            Math.round(parseInt(currentPadding.slice(0, -2)) * scale) / 100;
+            Math.round(parseInt(currentPadding.replace(/px$/, "")) * scale) /
+            100;
 
         // "multipliers" basically move the position of the text by using 1, 0, -1
         // 'margin-left' and 'margin-top' are used to position the text.
