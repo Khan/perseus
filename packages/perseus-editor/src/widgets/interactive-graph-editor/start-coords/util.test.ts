@@ -401,6 +401,17 @@ describe("shouldShowStartCoordsUI", () => {
         expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(false);
     });
 
+    it("returns true for a polygon graph with no snapping behavior specified", () => {
+        // snapTo defaults to "grid"
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "polygon",
+            numSides: 3,
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(true);
+    });
+
     it("returns true for a polygon graph with grid snapping and a fixed number of sides", () => {
         const isStatic = false;
         const graph: PerseusGraphType = {

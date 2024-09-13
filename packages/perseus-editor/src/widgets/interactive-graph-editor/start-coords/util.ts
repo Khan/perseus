@@ -177,7 +177,11 @@ export const shouldShowStartCoordsUI = (
         case "point":
             return graph.numPoints !== "unlimited";
         case "polygon":
-            return graph.numSides !== "unlimited" && graph.snapTo === "grid";
+            return (
+                graph.numSides !== "unlimited" &&
+                graph.snapTo !== "angles" &&
+                graph.snapTo !== "sides"
+            );
         case "none":
             return false;
         case "angle":
