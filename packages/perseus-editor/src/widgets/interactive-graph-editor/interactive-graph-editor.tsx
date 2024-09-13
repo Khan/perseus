@@ -366,6 +366,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 correct: {type},
                             });
                         }}
+                        showNoneOption={
+                            this.props.apiOptions?.flags?.mafs?.["none"]
+                        }
                     />
                 </LabeledRow>
                 {this.props.graph &&

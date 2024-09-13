@@ -819,4 +819,60 @@ describe("InteractiveGraphEditor", () => {
             },
         );
     });
+
+    test("does not display a 'None' answer type option by default", async () => {
+        render(
+            <InteractiveGraphEditor
+                {...{
+                    ...mafsProps,
+                    apiOptions: {
+                        ...mafsProps.apiOptions,
+                        flags: {
+                            ...mafsProps.apiOptions.flags,
+                            mafs: {},
+                        },
+                    },
+                }}
+                graph={{type: "none"}}
+                correct={{type: "none"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        const dropdown = screen.getByRole("button", {name: "Answer type:"});
+        await userEvent.click(dropdown);
+        expect(
+            screen.queryByRole("option", {name: "None"}),
+        ).not.toBeInTheDocument();
+    });
+
+    test("displays a 'None' answer type option when the feature flag is on", async () => {
+        render(
+            <InteractiveGraphEditor
+                {...{
+                    ...mafsProps,
+                    apiOptions: {
+                        ...mafsProps.apiOptions,
+                        flags: {
+                            ...mafsProps.apiOptions.flags,
+                            mafs: {none: true},
+                        },
+                    },
+                }}
+                graph={{type: "none"}}
+                correct={{type: "none"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        const dropdown = screen.getByRole("button", {name: "Answer type:"});
+        await userEvent.click(dropdown);
+        expect(
+            screen.getByRole("option", {name: "None"}),
+        ).toBeInTheDocument();
+    });
 });
