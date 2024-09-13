@@ -420,4 +420,13 @@ describe("shouldShowStartCoordsUI", () => {
 
         expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(false);
     });
+
+    it("returns true for other graph types", () => {
+        const isStatic = false;
+        const graph: PerseusGraphType = {
+            type: "linear",
+        };
+
+        expect(shouldShowStartCoordsUI(graph, isStatic)).toBe(true);
+    });
 });
