@@ -871,8 +871,6 @@ describe("InteractiveGraphEditor", () => {
 
         const dropdown = screen.getByRole("button", {name: "Answer type:"});
         await userEvent.click(dropdown);
-        expect(
-            screen.getByRole("option", {name: "None"}),
-        ).toBeInTheDocument();
+        expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });
 });
