@@ -42,9 +42,15 @@ describe("phet-simulation widget", () => {
                 "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html?locale=en",
             );
         });
+        // Fullscreen button should be available when the simulation renders successfully
+        await waitFor(() => {
+            expect(
+                screen.getByRole("button", {name: "Fullscreen"}),
+            ).toBeInTheDocument();
+        });
     });
 
-    it("should display an error for a non-PhET URL", async () => {
+    it("should display an error and hide fullscreen button for a non-PhET URL", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             isMobile: false,
@@ -57,7 +63,48 @@ describe("phet-simulation widget", () => {
         await waitFor(() => {
             expect(
                 screen.getByText("Sorry, this simulation cannot load."),
-            ).toBeDefined();
+            ).toBeInTheDocument();
+        });
+        // Fullscreen button should not be in the document when the simulation cannot load
+        await waitFor(() => {
+            expect(
+                screen.queryByRole("button", {name: "Fullscreen"}),
+            ).not.toBeInTheDocument();
+        });
+    });
+
+    it("should display a locale warning for unavailable locale for PhET", async () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            isMobile: false,
+        };
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            kaLocale: "zz",
+        });
+
+        // Act
+        renderQuestion(question1, apiOptions);
+
+        // Assert
+        await waitFor(() => {
+            expect(
+                screen.getByText(
+                    "Sorry, this simulation isn't available in your language.",
+                ),
+            ).toBeInTheDocument();
+        });
+        await waitFor(() => {
+            expect(screen.queryByTitle("Projectile Data Lab")).toHaveAttribute(
+                "src",
+                "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html?locale=zz",
+            );
+        });
+        // Fullscreen button should be available when the simulation renders successfully
+        await waitFor(() => {
+            expect(
+                screen.getByRole("button", {name: "Fullscreen"}),
+            ).toBeInTheDocument();
         });
     });
 
