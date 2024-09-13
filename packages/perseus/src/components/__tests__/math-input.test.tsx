@@ -33,7 +33,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("renders", () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
@@ -52,7 +52,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("provides a default aria label", () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
@@ -71,7 +71,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("is possible to overwrite the aria label", () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
@@ -91,7 +91,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("is possible to type in the input", async () => {
-        // Assemble
+        // Arrange
         const mockOnChange = jest.fn();
         render(
             <MathInput
@@ -116,7 +116,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("is possible to use buttons", async () => {
-        // Assemble
+        // Arrange
         const mockOnChange = jest.fn();
         render(
             <MathInput
@@ -145,7 +145,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("is possible to use the scientific keypad", async () => {
-        // Assemble
+        // Arrange
         const mockOnChange = jest.fn();
         render(
             <MathInput
@@ -174,7 +174,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("is possible to use buttons with legacy props", async () => {
-        // Assemble
+        // Arrange
         const mockOnChange = jest.fn();
         render(
             <MathInput
@@ -204,7 +204,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("returns focus to input after button click", async () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
@@ -228,7 +228,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("does not return focus to input after button press via keyboard", async () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}
@@ -257,7 +257,7 @@ describe("Perseus' MathInput", () => {
     });
 
     it("does not focus on the keypad button when it is clicked with the mouse", async () => {
-        // Assemble
+        // Arrange
         render(
             <MathInput
                 onChange={() => {}}

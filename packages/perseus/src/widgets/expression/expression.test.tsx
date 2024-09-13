@@ -10,7 +10,7 @@ import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {Expression} from "./expression";
+import {Expression, keypadConfigurationForProps} from "./expression";
 import {
     expressionItem2,
     expressionItem3,
@@ -19,9 +19,10 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {PerseusExpressionWidgetOptions, PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
+import { KeypadConfiguration, KeypadType } from "@khanacademy/math-input";
 
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -611,5 +612,92 @@ describe("Expression Widget", function () {
                 screen.queryByText("Sorry, I don't understand that!"),
             ).toBeNull();
         });
+    });
+});
+
+describe("Keypad configuration", () => {
+    it("should handle basic button set", async() => {
+        // Arrange
+        const widgetOptions: PerseusExpressionWidgetOptions = {
+            answerForms: [],
+            buttonSets: ["basic"],
+            times: false,
+            functions:[]
+        };
+
+        const expected: KeypadConfiguration = {
+            keypadType: KeypadType.EXPRESSION,
+            times: false,
+            scientific: false,
+            extraKeys: ["PI"],
+        };
+
+        // Act
+        const result = keypadConfigurationForProps(widgetOptions);
+
+        // Assert
+        expect(result).toEqual(expected);
+    });
+
+    it("should handle basic+div button set", async() => {
+        // Arrange
+        const widgetOptions: PerseusExpressionWidgetOptions = {
+            answerForms: [],
+            buttonSets: ["basic+div"],
+            times: false,
+            functions:[]
+        };
+
+        const expected: KeypadConfiguration = {
+            keypadType: KeypadType.EXPRESSION,
+            times: false,
+            scientific: false,
+            extraKeys: ["PI"],
+        };
+
+        // Act
+        const result = keypadConfigurationForProps(widgetOptions);
+
+        // Assert
+        expect(result).toEqual(expected);
+    });
+
+    it("should return expression keypad configuration by default", async() => {
+        // Arrange
+        const widgetOptions: PerseusExpressionWidgetOptions = {
+            answerForms: [],
+            buttonSets: [],
+            times: false,
+            functions:[]
+        };
+
+        // Act
+        const result = keypadConfigurationForProps(widgetOptions);
+
+        // Assert
+        expect(result.keypadType).toEqual(KeypadType.EXPRESSION);
+    });
+
+    it("should handle scientific button set", async() => {
+        // Arrange
+        const widgetOptions: PerseusExpressionWidgetOptions = {
+            answerForms: [],
+            buttonSets: ["scientific"],
+            times: false,
+            functions:[]
+        };
+
+        const expected: KeypadConfiguration = {
+            keypadType: KeypadType.EXPRESSION,
+            times: false,
+            scientific: true,
+            extraKeys: ["PI"],
+        };
+
+        // Act
+        const result = keypadConfigurationForProps(widgetOptions);
+
+        // Assert
+        expect(result).toEqual(expected);
     });
 });
