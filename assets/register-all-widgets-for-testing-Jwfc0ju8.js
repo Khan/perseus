@@ -1,1 +1,0 @@
-import{w as e}from"./article-renderer-y7y1K-jm.js";import{r,a as s}from"./renderer-Bc3o6rku.js";const a=()=>{r(e),s()};export{a as r};
