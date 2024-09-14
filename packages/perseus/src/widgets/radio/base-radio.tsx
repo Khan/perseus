@@ -387,8 +387,8 @@ const BaseRadio = function (props: Props): React.ReactElement {
                             onClick={clickHandler}
                             onTouchStart={
                                 labelWrap
-                                    ? captureScratchpadTouchStart
-                                    : undefined
+                                    ? undefined
+                                    : captureScratchpadTouchStart
                             }
                         >
                             <Element {...elementProps} ref={ref} />
