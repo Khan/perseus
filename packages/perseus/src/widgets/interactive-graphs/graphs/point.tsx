@@ -11,6 +11,7 @@ import {
 } from "./use-transform";
 
 import type {PointGraphState, MafsGraphProps} from "../types";
+import {REMOVE_BUTTON_ID} from "../mafs-graph";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 
@@ -80,13 +81,18 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
-                    onFocusChange={(isFocused) => {
-                        if (!isFocused) {
+                    onFocusChange={(event, isFocused) => {
+                        if (isFocused) {
+                            dispatch(actions.pointGraph.focusPoint(i));
+                        } else {
+                            if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
+                                return;
+                            }
                             dispatch(actions.pointGraph.blurPoint());
                         }
                     }}
                     onClick={() => {
-                        dispatch(actions.pointGraph.focusPoint(i));
+                        dispatch(actions.pointGraph.clickPoint(i));
                     }}
                 />
             ))}

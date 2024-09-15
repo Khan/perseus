@@ -15,7 +15,8 @@ export type InteractiveGraphAction =
     | RemovePoint
     | FocusPoint
     | BlurPoint
-    | DeleteIntent;
+    | DeleteIntent
+    | ClickPoint;
 
 export const actions = {
     global: {
@@ -43,6 +44,7 @@ export const actions = {
         removePoint,
         focusPoint,
         blurPoint,
+        clickPoint,
     },
     polygon: {
         movePoint,
@@ -132,6 +134,19 @@ export interface BlurPoint {
 function blurPoint(): BlurPoint {
     return {
         type: BLUR_POINT,
+    };
+}
+
+export const CLICK_POINT = "click-point";
+
+export interface ClickPoint {
+    type: typeof CLICK_POINT;
+    index: number;
+}
+function clickPoint(index: number): ClickPoint {
+    return {
+        type: CLICK_POINT,
+        index,
     };
 }
 

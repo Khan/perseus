@@ -60,6 +60,8 @@ export type MafsGraphProps = {
     static: boolean | null | undefined;
 };
 
+export const REMOVE_BUTTON_ID = "perseus_mafs_remove_button";
+
 export const MafsGraph = (props: MafsGraphProps) => {
     const {
         state,
@@ -258,20 +260,21 @@ const renderPointGraphControls = (props: {
         >
             Add Point
         </Button> */}
-        {(props.state.focusedPointIndex !== null ||
-            props.state.previouslyFocusedPointIndex !== null) && (
+        {props.state.focusedPointIndex !== null && (
             <Button
+                id={REMOVE_BUTTON_ID}
                 kind="secondary"
                 color="destructive"
-                tabIndex={0}
+                tabIndex={-1}
                 style={{
                     width: "100%",
                     marginLeft: "20px",
                 }}
                 onClick={(event) => {
+                    console.log(props.state);
                     props.dispatch(
                         actions.pointGraph.removePoint(
-                            props.state.previouslyFocusedPointIndex!,
+                            props.state.focusedPointIndex!,
                         ),
                     );
                 }}

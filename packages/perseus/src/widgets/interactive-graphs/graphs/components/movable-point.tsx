@@ -19,7 +19,7 @@ type Props = {
     color?: string;
     cursor?: CSSCursor | undefined;
     constrain?: KeyboardMovementConstraint;
-    onFocusChange?: (isFocused: boolean) => unknown;
+    onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
 };
 
 export const MovablePoint = (props: Props) => {

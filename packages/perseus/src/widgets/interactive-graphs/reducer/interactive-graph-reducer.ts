@@ -49,6 +49,8 @@ import {
     type FocusPoint,
     BLUR_POINT,
     type BlurPoint,
+    CLICK_POINT,
+    type ClickPoint,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -95,6 +97,8 @@ export function interactiveGraphReducer(
             return doBlurPoint(state, action);
         case DELETE_INTENT:
             return doDeleteIntent(state, action);
+        case CLICK_POINT:
+            return doClickPoint(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -141,8 +145,22 @@ function doBlurPoint(
         case "point":
             return {
                 ...state,
-                previouslyFocusedPointIndex: state.focusedPointIndex,
                 focusedPointIndex: null,
+            };
+        default:
+            return state;
+    }
+}
+
+function doClickPoint(
+    state: InteractiveGraphState,
+    action: ClickPoint,
+): InteractiveGraphState {
+    switch (state.type) {
+        case "point":
+            return {
+                ...state,
+                focusedPointIndex: action.index,
             };
         default:
             return state;
@@ -605,7 +623,6 @@ function doRemovePoint(
         ...state,
         coords: state.coords.filter((_, i) => i !== action.index),
         focusedPointIndex: null,
-        previouslyFocusedPointIndex: null,
     };
 }
 

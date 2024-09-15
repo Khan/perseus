@@ -31,7 +31,6 @@ const basePointGraphState: InteractiveGraphState = {
         [-10, 10],
     ],
     focusedPointIndex: null,
-    previouslyFocusedPointIndex: null,
     snapStep: [1, 1],
     coords: [],
 };
@@ -45,7 +44,6 @@ const baseUnlimitedPointGraphState: PointGraphState = {
         [-10, 10],
     ],
     focusedPointIndex: null,
-    previouslyFocusedPointIndex: null,
     snapStep: [1, 1],
     coords: [],
 };
