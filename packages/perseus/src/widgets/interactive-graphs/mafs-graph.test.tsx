@@ -8,11 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
 import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
-import {
-    actions,
-    ADD_POINT,
-    REMOVE_POINT,
-} from "./reducer/interactive-graph-action";
+import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
 import type {MafsGraphProps} from "./mafs-graph";
