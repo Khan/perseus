@@ -145,6 +145,7 @@ describe("MafsGraph", () => {
             numPoints: 2,
             focusedPointIndex: null,
             hasBeenInteractedWith: true,
+            showRemovePointButton: false,
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -401,6 +402,7 @@ describe("MafsGraph", () => {
                 numPoints: "unlimited",
                 focusedPointIndex: null,
                 hasBeenInteractedWith: true,
+                showRemovePointButton: false,
                 range: [
                     [-10, 10],
                     [-10, 10],
@@ -435,6 +437,7 @@ describe("MafsGraph", () => {
                 numPoints: "unlimited",
                 focusedPointIndex: null,
                 hasBeenInteractedWith: true,
+                showRemovePointButton: false,
                 range: [
                     [-10, 10],
                     [-10, 10],
@@ -474,6 +477,7 @@ describe("MafsGraph", () => {
                 numPoints: "unlimited",
                 focusedPointIndex: 0,
                 hasBeenInteractedWith: true,
+                showRemovePointButton: false,
                 range: [
                     [-10, 10],
                     [-10, 10],
@@ -510,6 +514,7 @@ describe("MafsGraph", () => {
             numPoints: "unlimited",
             focusedPointIndex: 0,
             hasBeenInteractedWith: true,
+            showRemovePointButton: false,
             range: [
                 [-10, 10],
                 [-10, 10],

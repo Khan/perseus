@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {REMOVE_BUTTON_ID} from "../mafs-graph";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -11,7 +12,6 @@ import {
 } from "./use-transform";
 
 import type {PointGraphState, MafsGraphProps} from "../types";
-import {REMOVE_BUTTON_ID} from "../mafs-graph";
 
 type PointGraphProps = MafsGraphProps<PointGraphState>;
 

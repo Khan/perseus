@@ -260,28 +260,28 @@ const renderPointGraphControls = (props: {
         >
             Add Point
         </Button> */}
-        {props.state.focusedPointIndex !== null && (
-            <Button
-                id={REMOVE_BUTTON_ID}
-                kind="secondary"
-                color="destructive"
-                tabIndex={-1}
-                style={{
-                    width: "100%",
-                    marginLeft: "20px",
-                }}
-                onClick={(event) => {
-                    console.log(props.state);
-                    props.dispatch(
-                        actions.pointGraph.removePoint(
-                            props.state.focusedPointIndex!,
-                        ),
-                    );
-                }}
-            >
-                Remove Point
-            </Button>
-        )}
+        {props.state.showRemovePointButton &&
+            props.state.focusedPointIndex !== null && (
+                <Button
+                    id={REMOVE_BUTTON_ID}
+                    kind="secondary"
+                    color="destructive"
+                    tabIndex={-1}
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                    }}
+                    onClick={(event) => {
+                        props.dispatch(
+                            actions.pointGraph.removePoint(
+                                props.state.focusedPointIndex!,
+                            ),
+                        );
+                    }}
+                >
+                    Remove Point
+                </Button>
+            )}
     </View>
 );
 

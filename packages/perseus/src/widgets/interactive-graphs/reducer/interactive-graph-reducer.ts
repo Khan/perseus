@@ -146,6 +146,7 @@ function doBlurPoint(
             return {
                 ...state,
                 focusedPointIndex: null,
+                showRemovePointButton: false,
             };
         default:
             return state;
@@ -156,15 +157,19 @@ function doClickPoint(
     state: InteractiveGraphState,
     action: ClickPoint,
 ): InteractiveGraphState {
-    switch (state.type) {
-        case "point":
-            return {
-                ...state,
-                focusedPointIndex: action.index,
-            };
-        default:
-            return state;
+    if (state.type !== "point") {
+        return state;
     }
+
+    if (state.numPoints === "unlimited") {
+        return {
+            ...state,
+            focusedPointIndex: action.index,
+            showRemovePointButton: true,
+        };
+    }
+
+    return state;
 }
 
 function doMovePointInFigure(
@@ -608,6 +613,7 @@ function doAddPoint(
         ...state,
         hasBeenInteractedWith: true,
         coords: [...state.coords, snappedPoint],
+        showRemovePointButton: false,
     };
 }
 
@@ -623,6 +629,7 @@ function doRemovePoint(
         ...state,
         coords: state.coords.filter((_, i) => i !== action.index),
         focusedPointIndex: null,
+        showRemovePointButton: false,
     };
 }
 

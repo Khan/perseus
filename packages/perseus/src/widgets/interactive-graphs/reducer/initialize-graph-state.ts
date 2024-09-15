@@ -78,6 +78,7 @@ export function initializeGraphState(
                 coords: getPointCoords(graph, range, step),
                 numPoints: graph.numPoints || 0,
                 focusedPointIndex: null,
+                showRemovePointButton: false,
             };
         case "circle":
             return {

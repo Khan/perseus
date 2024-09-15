@@ -25,6 +25,7 @@ const baseSegmentGraphState: InteractiveGraphState = {
 
 const basePointGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
+    showRemovePointButton: false,
     type: "point",
     range: [
         [-10, 10],
@@ -37,6 +38,7 @@ const basePointGraphState: InteractiveGraphState = {
 
 const baseUnlimitedPointGraphState: PointGraphState = {
     hasBeenInteractedWith: false,
+    showRemovePointButton: false,
     type: "point",
     numPoints: "unlimited",
     range: [
