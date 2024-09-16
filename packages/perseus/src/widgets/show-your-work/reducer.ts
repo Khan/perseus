@@ -63,13 +63,6 @@ const practiceReducer = (state: State, action: Action): State => {
                     subscript: undefined,
                 },
             };
-            const solverResult = solveProblem(problem);
-
-            if (!solverResult) {
-                throw new Error(
-                    `Solver couldn't solve ${state.steps[0].value}`,
-                );
-            }
 
             const newSteps = [...state.steps];
             newSteps[newSteps.length - 1].status = "ungraded";
@@ -77,31 +70,24 @@ const practiceReducer = (state: State, action: Action): State => {
             const prevStep = parse(newSteps[newSteps.length - 2].value);
             const currStep = parse(newSteps[newSteps.length - 1].value);
 
-            // Check if this is the final step.
-            // TODO: Allow different versions of the answer, e.g.
-            // 2x + 5 = 10, could be solved as x = 5/2, x = 2.5, etc.
-            const final = checkStep(currStep, solverResult.answer);
-            if (
-                final.mistakes.length === 0 &&
-                final.result?.steps.length === 0
-            ) {
-                newSteps[newSteps.length - 1].status = "correct";
-                return {...state, steps: newSteps};
-            }
+            let isCorrect = false;
+            let needsMoreWork = false;
 
-            // If it wasn't the final step, check if it's valid step
             const output = checkStep(prevStep, currStep);
             const {result} = output;
 
             // We were able to find a path from prevStep to currStep
             // so we mark the step as correct.
             if (result) {
-                newSteps[newSteps.length - 1].status = "correct";
-                newSteps.push({
-                    value: newSteps[newSteps.length - 1].value,
-                    status: "ungraded",
-                });
-                return {...state, steps: newSteps};
+                isCorrect = true;
+            }
+
+            const solverResult = solveProblem(problem);
+
+            if (!solverResult) {
+                throw new Error(
+                    `Solver couldn't solve ${state.steps[0].value}`,
+                );
             }
 
             // It's possible that the student has provided as step
@@ -114,7 +100,7 @@ const practiceReducer = (state: State, action: Action): State => {
             // it against the solution of the original equation.  If
             // they match, then it's valid step, but the student should
             // probably be showing more work in this situation.
-            if (currStep.type === NodeType.Equals) {
+            if (!isCorrect && currStep.type === NodeType.Equals) {
                 const currProblem = {
                     ...problem,
                     equation: currStep,
@@ -129,14 +115,39 @@ const practiceReducer = (state: State, action: Action): State => {
                             currSolverResult.answer,
                         )
                     ) {
-                        newSteps[newSteps.length - 1].status = "correct";
-                        newSteps.push({
-                            value: newSteps[newSteps.length - 1].value,
-                            status: "ungraded",
-                        });
-                        return {...state, steps: newSteps};
+                        isCorrect = true;
+                        needsMoreWork = true;
                     }
                 }
+            }
+
+            if (isCorrect) {
+                if (needsMoreWork) {
+                    console.log("needs more work");
+                }
+
+                // Check if this is the final step.
+                // TODO: Allow different versions of the answer, e.g.
+                // 2x + 5 = 10, could be solved as x = 5/2, x = 2.5, etc.
+                const final = checkStep(currStep, solverResult.answer);
+                if (
+                    final.mistakes.length === 0 &&
+                    final.result?.steps.length === 0
+                ) {
+                    // Mark the current step as "correct" without adding
+                    // a new step.
+                    newSteps[newSteps.length - 1].status = "correct";
+                    return {...state, steps: newSteps};
+                }
+
+                // Mark the current step as "correct" and add a new step.
+                newSteps[newSteps.length - 1].status = "correct";
+                newSteps.push({
+                    value: newSteps[newSteps.length - 1].value,
+                    status: "ungraded",
+                });
+
+                return {...state, steps: newSteps};
             }
 
             // If all of the other checks fail, then the current
