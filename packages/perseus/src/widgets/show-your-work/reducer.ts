@@ -248,7 +248,7 @@ const assessmentReducer = (state: State, action: Action): State => {
             const {steps} = state;
             const newSteps = [steps[0]];
 
-            for (let i = 0; i < steps.length - 2; i++) {
+            for (let i = 0; i < steps.length - 1; i++) {
                 const result = simpleCheckStep(
                     state.steps[0].value,
                     steps[i].value,
@@ -317,6 +317,7 @@ const assessmentReducer = (state: State, action: Action): State => {
                 }
             }
 
+            // Copy the last step but set its status to answerStatus.
             newSteps.push({
                 ...steps[steps.length - 1],
                 status: answerStatus,
