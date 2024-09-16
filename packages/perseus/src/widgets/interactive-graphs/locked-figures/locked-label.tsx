@@ -23,6 +23,7 @@ export default function LockedLabel(props: LockedLabelType) {
                 top: y,
                 color: lockedFigureColors[color],
                 fontSize: font.size[size],
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
             }}
         >
             <TeX>{text}</TeX>

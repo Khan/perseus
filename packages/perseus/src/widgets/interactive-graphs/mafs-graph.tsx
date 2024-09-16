@@ -1,3 +1,14 @@
+/**
+ * Render the Mafs graph with the specified background and graph elements.
+ *
+ * Render order (back to front):
+ * - Grid
+ * - Axis Ticks, Axis Arrows, and Axis Labels
+ * - Locked Figures
+ * - Locked Labels
+ * - Protractor
+ * - Interactive Graph Elements
+ */
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -153,12 +164,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         box={props.box}
                         backgroundImage={props.backgroundImage}
                     />
-                    {/* Locked labels layer */}
-                    {props.showLabelsFlag && props.lockedFigures && (
-                        <GraphLockedLabelsLayer
-                            lockedFigures={props.lockedFigures}
-                        />
-                    )}
                     <View
                         style={{
                             position: "absolute",
@@ -217,6 +222,26 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         range={state.range}
                                     />
                                 )}
+                            </svg>
+                        </Mafs>
+                        {props.showLabelsFlag && props.lockedFigures && (
+                            <GraphLockedLabelsLayer
+                                lockedFigures={props.lockedFigures}
+                            />
+                        )}
+                        <View style={{position: "absolute"}}>
+                            <Mafs
+                                preserveAspectRatio={false}
+                                viewBox={{
+                                    x: state.range[X],
+                                    y: state.range[Y],
+                                    padding: 0,
+                                }}
+                                pan={false}
+                                zoom={false}
+                                width={width}
+                                height={height}
+                            >
                                 {/* Protractor */}
                                 {props.showProtractor && <Protractor />}
                                 {/* Interactive layer */}
@@ -224,8 +249,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     state,
                                     dispatch,
                                 })}
-                            </svg>
-                        </Mafs>
+                            </Mafs>
+                        </View>
                     </View>
                 </View>
                 {renderGraphControls({state, dispatch, width})}
