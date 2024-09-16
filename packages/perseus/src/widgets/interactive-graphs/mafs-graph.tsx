@@ -244,13 +244,15 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 width={width}
                                 height={height}
                             >
-                                {/* Protractor */}
-                                {props.showProtractor && <Protractor />}
-                                {/* Interactive layer */}
-                                {renderGraph({
-                                    state,
-                                    dispatch,
-                                })}
+                                <svg {...nestedSVGAttributes}>
+                                    {/* Protractor */}
+                                    {props.showProtractor && <Protractor />}
+                                    {/* Interactive layer */}
+                                    {renderGraph({
+                                        state,
+                                        dispatch,
+                                    })}
+                                </svg>
                             </Mafs>
                         </View>
                     </View>
