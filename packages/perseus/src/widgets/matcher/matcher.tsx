@@ -5,7 +5,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import Sortable, {Layout} from "../../components/sortable";
+import Sortable from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
@@ -210,7 +210,7 @@ export class Matcher extends React.Component<Props, State> {
                         <td className={css(styles.column)}>
                             <Sortable
                                 options={left}
-                                layout={Layout.VERTICAL}
+                                layout={"vertical"}
                                 padding={this.props.padding}
                                 disabled={!this.props.orderMatters}
                                 constraints={constraints}
@@ -225,7 +225,7 @@ export class Matcher extends React.Component<Props, State> {
                         <td className={css(styles.column, styles.columnRight)}>
                             <Sortable
                                 options={right}
-                                layout={Layout.VERTICAL}
+                                layout={"vertical"}
                                 padding={this.props.padding}
                                 constraints={constraints}
                                 onMeasure={this.onMeasureRight}
