@@ -12,7 +12,25 @@ import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 
-export default function validate(
+/* Content creators input a list of answers which are matched from top to
+ * bottom. The intent is that they can include spcific solutions which should
+ * be graded as correct or incorrect (or ungraded!) first, then get more
+ * general.
+ *
+ * We iterate through each answer, trying to match it with the user's input
+ * using the following angorithm:
+ * - Try to parse the user's input. If it doesn't parse then return "not
+ *   graded".
+ * - For each answer:
+ *   ~ Try to validate the user's input against the answer. The answer is
+ *     expected to parse.
+ *   ~ If the user's input validates (the validator judges it "correct"), we've
+ *     matched and can stop considering answers.
+ * - If there were no matches or the matching answer is considered "ungraded",
+ *   show the user an error. TODO(joel) - what error?
+ * - Otherwise, pass through the resulting points and message.
+ */
+export default function expressionValidator(
     userInput: string,
     rubric: Rubric,
     // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
@@ -69,12 +87,12 @@ export default function validate(
     let allEmpty = true;
     let firstUngradedResult;
     for (const answerForm of rubric.answerForms || []) {
-        const validate = createValidator(answerForm);
-        if (!validate) {
+        const validator = createValidator(answerForm);
+        if (!validator) {
             continue;
         }
 
-        const result = validate(userInput);
+        const result = validator(userInput);
 
         // Short-circuit as soon as the user's input matches some answer
         // (independently of whether the answer is correct)
