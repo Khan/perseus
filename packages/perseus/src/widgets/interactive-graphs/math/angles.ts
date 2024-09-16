@@ -1,3 +1,5 @@
+import {clockwise} from "../../../util/geometry";
+
 import type {vec} from "mafs";
 
 // This file contains helper functions for working with angles.
@@ -20,7 +22,9 @@ export function polar(r: number | vec.Vector2, th: number): vec.Vector2 {
     th = (th * Math.PI) / 180;
     return [r[0] * Math.cos(th), r[1] * Math.sin(th)];
 }
-
+// This function calculates the angle between two points and an optional vertex.
+// If the vertex is not provided, the angle is measured between the two points.
+// This does not account for reflex angles or clockwise position.
 export const findAngle = (
     point1: vec.Vector2,
     point2: vec.Vector2,
@@ -35,4 +39,23 @@ export const findAngle = (
         return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
     }
     return findAngle(point1, vertex) - findAngle(point2, vertex);
+};
+
+// This function calculates the clockwise angle between three points, and
+// is used to generate the label of the current angle for the interactive graph.
+export const calculateClockwiseAngle = (
+    coords: vec.Vector2[],
+    allowReflexAngles: boolean,
+): number => {
+    const areClockwise = clockwise([coords[0], coords[2], coords[1]]);
+    const shouldReverseCoords = areClockwise && !allowReflexAngles;
+
+    // Reverse the coordinates accordingly to ensure the angle is calculated correctly
+    const clockwiseCoords = shouldReverseCoords ? coords : coords.reverse();
+
+    // Calculate the angles between the two points
+    const startAngle = findAngle(clockwiseCoords[0], clockwiseCoords[1]);
+    const endAngle = findAngle(clockwiseCoords[2], clockwiseCoords[1]);
+    const angle = (startAngle + 360 - endAngle) % 360;
+    return angle;
 };

@@ -15,6 +15,7 @@ import KhanColors from "../util/colors";
 import {
     angleMeasures,
     ccw,
+    clockwise,
     collinear,
     getLineEquation,
     getLineIntersection,
@@ -31,6 +32,7 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
 import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
+import {calculateClockwiseAngle} from "./interactive-graphs/math/angles";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
@@ -2351,8 +2353,9 @@ class InteractiveGraph extends React.Component<Props, State> implements Widget {
         if (props.graph.type !== "angle") {
             throw makeInvalidTypeError("getAngleEquationString", "angle");
         }
-        const coords = InteractiveGraph.getAngleCoords(props.graph, props);
-        const angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
+        const coords = [...InteractiveGraph.getAngleCoords(props.graph, props)];
+        const allowReflexAngles = props.graph.allowReflexAngles || false;
+        const angle = calculateClockwiseAngle(coords, allowReflexAngles);
         return (
             angle.toFixed(0) +
             "\u00B0 angle" +

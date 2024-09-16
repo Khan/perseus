@@ -405,6 +405,86 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         />
                     </LabeledRow>
                 )}
+                {this.props.correct?.type === "angle" && (
+                    <>
+                        <View style={styles.row}>
+                            <Checkbox
+                                label={
+                                    <LabelSmall>Show angle measures</LabelSmall>
+                                }
+                                checked={
+                                    // Don't show indeterminate checkbox state
+                                    !!this.props.correct?.showAngles
+                                }
+                                onChange={() => {
+                                    if (this.props.graph?.type === "angle") {
+                                        invariant(
+                                            this.props.correct.type === "angle",
+                                            `Expected graph type to be angle, but got ${this.props.correct.type}`,
+                                        );
+                                        this.props.onChange({
+                                            correct: {
+                                                ...this.props.correct,
+                                                showAngles:
+                                                    !this.props.correct
+                                                        .showAngles,
+                                            },
+                                            graph: {
+                                                ...this.props.graph,
+                                                showAngles:
+                                                    !this.props.graph
+                                                        .showAngles,
+                                            },
+                                        });
+                                    }
+                                }}
+                            />
+                            <InfoTip>
+                                <p>Displays the interior angle measures.</p>
+                            </InfoTip>
+                        </View>
+                        <View style={styles.row}>
+                            <Checkbox
+                                label={
+                                    <LabelSmall>
+                                        Allow reflexive angles
+                                    </LabelSmall>
+                                }
+                                checked={
+                                    // Don't show indeterminate checkbox state
+                                    !!this.props.correct?.allowReflexAngles
+                                }
+                                onChange={() => {
+                                    if (
+                                        this.props.graph?.type === "angle" &&
+                                        this.props.correct.type === "angle"
+                                    ) {
+                                        this.props.onChange({
+                                            correct: {
+                                                ...this.props.correct,
+                                                allowReflexAngles:
+                                                    !this.props.correct
+                                                        .allowReflexAngles,
+                                            },
+                                            graph: {
+                                                ...this.props.graph,
+                                                allowReflexAngles:
+                                                    !this.props.graph
+                                                        .allowReflexAngles,
+                                            },
+                                        });
+                                    }
+                                }}
+                            />
+                            <InfoTip>
+                                <p>
+                                    Allow students to be able to create
+                                    reflexive angles.
+                                </p>
+                            </InfoTip>
+                        </View>
+                    </>
+                )}
                 {this.props.correct?.type === "polygon" && (
                     <>
                         <LabeledRow label="Number of sides:">
