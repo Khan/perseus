@@ -93,7 +93,7 @@ class TableEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const tableProps = _.pick(
+        const tableProps: any = _.pick(
             this.props,
             "headers",
             "answers",
