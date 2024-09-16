@@ -632,7 +632,6 @@ describe("Keypad configuration", () => {
         const expected: KeypadConfiguration = {
             keypadType: KeypadType.EXPRESSION,
             times: false,
-            scientific: false,
             extraKeys: ["PI"],
         };
 
@@ -645,38 +644,31 @@ describe("Keypad configuration", () => {
 
     it("should handle basic+div button set", async () => {
         // Arrange
-        const widgetOptions: PerseusExpressionWidgetOptions = {
-            answerForms: [],
-            buttonSets: ["basic+div"],
-            times: false,
-            functions: [],
-        };
-
-        const expected: KeypadConfiguration = {
+        // Act
+        // Assert
+        expect(
+            keypadConfigurationForProps({
+                answerForms: [],
+                buttonSets: ["basic+div"],
+                times: false,
+                functions: [],
+            }),
+        ).toEqual({
             keypadType: KeypadType.EXPRESSION,
             times: false,
-            scientific: false,
             extraKeys: ["PI"],
-        };
-
-        // Act
-        const result = keypadConfigurationForProps(widgetOptions);
-
-        // Assert
-        expect(result).toEqual(expected);
+        });
     });
 
     it("should return expression keypad configuration by default", async () => {
         // Arrange
-        const widgetOptions: PerseusExpressionWidgetOptions = {
+        // Act
+        const result = keypadConfigurationForProps({
             answerForms: [],
             buttonSets: [],
             times: false,
             functions: [],
-        };
-
-        // Act
-        const result = keypadConfigurationForProps(widgetOptions);
+        });
 
         // Assert
         expect(result.keypadType).toEqual(KeypadType.EXPRESSION);
@@ -684,24 +676,19 @@ describe("Keypad configuration", () => {
 
     it("should handle scientific button set", async () => {
         // Arrange
-        const widgetOptions: PerseusExpressionWidgetOptions = {
-            answerForms: [],
-            buttonSets: ["scientific"],
-            times: false,
-            functions: [],
-        };
-
-        const expected: KeypadConfiguration = {
+        // Act
+        // Assert
+        expect(
+            keypadConfigurationForProps({
+                answerForms: [],
+                buttonSets: ["scientific"],
+                times: false,
+                functions: [],
+            }),
+        ).toEqual({
             keypadType: KeypadType.EXPRESSION,
             times: false,
-            scientific: true,
             extraKeys: ["PI"],
-        };
-
-        // Act
-        const result = keypadConfigurationForProps(widgetOptions);
-
-        // Assert
-        expect(result).toEqual(expected);
+        });
     });
 });
