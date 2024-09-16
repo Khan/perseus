@@ -16,7 +16,7 @@ type Predicate = any;
 // TOOD(kevinb): Figure out how this relates to KEScore in
 // perseus-all-package/types.js and see if there's a way to
 // unify these types.
-type Score = {
+export type Score = {
     empty: boolean;
     correct: boolean;
     message: string | null | undefined;

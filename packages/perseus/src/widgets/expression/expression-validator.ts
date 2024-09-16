@@ -11,6 +11,7 @@ import type {Rubric, OnInputErrorFunctionType} from "./expression.d";
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
+import type {Score} from "../../util/answer-types";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should
@@ -61,6 +62,7 @@ export default function expressionValidator(
             );
             return null;
         }
+
         return KhanAnswerTypes.expression.createValidatorFunctional(
             expression.expr,
             _({}).extend(options, {
@@ -82,10 +84,10 @@ export default function expressionValidator(
     // creator has predicted certain common wrong answers and wants to
     // provide guidance via a message), or an ungraded one (same idea,
     // but without giving the user an incorrect mark for the question).
-    let matchingAnswerForm;
-    let matchMessage;
+    let matchingAnswerForm: PerseusExpressionAnswerForm | undefined;
+    let matchMessage: string | undefined;
     let allEmpty = true;
-    let firstUngradedResult;
+    let firstUngradedResult: Score | undefined;
     for (const answerForm of rubric.answerForms || []) {
         const validator = createValidator(answerForm);
         if (!validator) {
