@@ -5,7 +5,6 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
-import WidgetJsonifyDeprecated from "../../mixins/widget-jsonify-deprecated";
 import Renderer from "../../renderer";
 
 import type {PerseusPassageRefTargetWidgetOptions} from "../../perseus-types";
@@ -40,14 +39,17 @@ class PassageRefTarget extends React.Component<Props> {
         };
     }
 
+    // TODO passage-ref-target isn't interactive; remove
     getUserInput: () => any = () => {
-        return WidgetJsonifyDeprecated.getUserInput.call(this);
+        return;
     };
 
+    // TODO passage-ref-target isn't interactive; remove
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
+    // TODO passage-ref-target isn't interactive; remove
     simpleValidate: (arg1: any) => any = (rubric) => {
         return PassageRefTarget.validate(this.getUserInput(), rubric);
     };

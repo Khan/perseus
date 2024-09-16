@@ -105,9 +105,7 @@ type SetWidgetPropsFn = (
 
 // The return type for getUserInput. Widgets have full control of what is
 // returned so it's not easily typed (some widgets return a scalar (string),
-// some return a custom-built object, some delegate to
-// `WidgetJsonifyDeprecated` which returns an object containing widget props
-// (filtered by deprecated keys)).
+// some return a custom-built object
 type WidgetUserInput = any;
 
 type SerializedState = {
