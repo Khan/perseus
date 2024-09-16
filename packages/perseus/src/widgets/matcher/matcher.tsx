@@ -1,27 +1,38 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "@khanacademy/perseus-linter";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Sortable, {Layout} from "../../components/sortable";
 import {getDependencies} from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
 import type {SortableOption} from "../../components/sortable";
-import type {WidgetExports} from "../../types";
+import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
+
+type RenderProps = PerseusMatcherWidgetOptions;
+
+type Rubric = PerseusMatcherWidgetOptions;
+
+type Props = WidgetProps<RenderProps, Rubric>;
+
+type DefaultProps = {
+    left: Props["left"];
+    right: Props["right"];
+    labels: Props["labels"];
+    orderMatters: Props["orderMatters"];
+    padding: Props["padding"];
+    problemNum: Props["problemNum"];
+    onChange: Props["onChange"];
+    linterContext: Props["linterContext"];
+};
 
 type State = {
     leftHeight: number;
@@ -29,24 +40,11 @@ type State = {
     texRendererLoaded: boolean;
 };
 
-export class Matcher extends React.Component<any, any> {
+export class Matcher extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    static propTypes = {
-        apiOptions: ApiOptions.propTypes,
-        labels: PropTypes.array,
-        left: PropTypes.array,
-        onChange: PropTypes.func,
-        orderMatters: PropTypes.bool,
-        padding: PropTypes.bool,
-        problemNum: PropTypes.number,
-        right: PropTypes.array,
-        trackInteraction: PropTypes.func.isRequired,
-        linterContext: linterContextProps,
-    };
-
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         left: [],
         right: [],
         labels: ["", ""],
@@ -157,7 +155,7 @@ export class Matcher extends React.Component<any, any> {
         }
 
         // Use the same random() function to shuffle both columns sequentially
-        const rng = seededRNG(this.props.problemNum);
+        const rng = seededRNG(this.props.problemNum as number);
 
         let left;
         if (!this.props.orderMatters) {
@@ -226,7 +224,6 @@ export class Matcher extends React.Component<any, any> {
                         </td>
                         <td className={css(styles.column, styles.columnRight)}>
                             <Sortable
-                                // @ts-expect-error - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                                 options={right}
                                 layout={Layout.VERTICAL}
                                 padding={this.props.padding}
