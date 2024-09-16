@@ -20,7 +20,7 @@ import a11y from "../../util/a11y";
 import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {Rubric, OnInputErrorFunctionType} from "./expression.d";
+import type {Rubric, OnInputErrorFunctionType} from "./expression.types";
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";

@@ -7,7 +7,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {Rubric, OnInputErrorFunctionType} from "./expression.d";
+import type {Rubric, OnInputErrorFunctionType} from "./expression.types";
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
@@ -31,7 +31,7 @@ import type {Score} from "../../util/answer-types";
  *   show the user an error. TODO(joel) - what error?
  * - Otherwise, pass through the resulting points and message.
  */
-export default function expressionValidator(
+function expressionValidator(
     userInput: string,
     rubric: Rubric,
     // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
@@ -175,3 +175,5 @@ export default function expressionValidator(
         message: matchMessage,
     };
 }
+
+export default expressionValidator;

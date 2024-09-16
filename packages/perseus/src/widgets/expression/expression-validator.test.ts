@@ -4,7 +4,7 @@ import validate from "./expression-validator";
 import {expressionItem3Options} from "./expression.testdata";
 
 describe("expression-validator", () => {
-    it("should handle ungraded answers with no error callback", function () {
+    it("should handle defined ungraded answer case with no error callback", function () {
         const err = validate(
             "x+1",
             expressionItem3Options,
@@ -15,7 +15,7 @@ describe("expression-validator", () => {
         expect(err).toStrictEqual({message: "", type: "invalid"});
     });
 
-    it("should handle ungraded answers with no error callback", function () {
+    it("should handle invalid expression answer with no error callback", function () {
         const err = validate(
             "x+^1",
             expressionItem3Options,
