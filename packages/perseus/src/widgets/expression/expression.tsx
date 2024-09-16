@@ -20,6 +20,9 @@ import {ApiOptions, ClassNames as ApiClassNames} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import KhanAnswerTypes from "../../util/answer-types";
 
+import getDecimalSeparator from "./get-decimal-separator";
+
+import type {Rubric, OnInputErrorFunctionType} from "./expression.d";
 import type {DependenciesContext} from "../../dependencies";
 import type {
     PerseusExpressionWidgetOptions,
@@ -72,8 +75,6 @@ const deriveKeypadVersion = (apiOptions: APIOptions) => {
         : "MATH_INPUT_KEYPAD_V2";
 };
 
-type Rubric = PerseusExpressionWidgetOptions;
-
 type RenderProps = {
     buttonSets: PerseusExpressionWidgetOptions["buttonSets"];
     buttonsVisible?: PerseusExpressionWidgetOptions["buttonsVisible"];
@@ -115,39 +116,6 @@ type DefaultProps = {
     onFocus: Props["onFocus"];
     times: Props["times"];
     value: Props["value"];
-};
-
-type OnInputErrorFunctionType = (
-    arg1?: any,
-    arg2?: any,
-    arg3?: any,
-) => boolean | null | undefined;
-
-/**
- *  Get the character used for separating decimals.
- */
-export const getDecimalSeparator = (locale: string): string => {
-    switch (locale) {
-        // TODO(somewhatabstract): Remove this when Chrome supports the `ka`
-        // locale properly.
-        // https://github.com/formatjs/formatjs/issues/1526#issuecomment-559891201
-        //
-        // Supported locales in Chrome:
-        // https://source.chromium.org/chromium/chromium/src/+/master:third_party/icu/scripts/chrome_ui_languages.list
-        case "ka":
-            return ",";
-
-        default:
-            const numberWithDecimalSeparator = 1.1;
-            // TODO(FEI-3647): Update to use .formatToParts() once we no longer have to
-            // support Safari 12.
-            const match = new Intl.NumberFormat(locale)
-                .format(numberWithDecimalSeparator)
-                // 0x661 is ARABIC-INDIC DIGIT ONE
-                // 0x6F1 is EXTENDED ARABIC-INDIC DIGIT ONE
-                .match(/[^\d\u0661\u06F1]/);
-            return match?.[0] ?? ".";
-    }
 };
 
 // The new, MathQuill input expression widget
