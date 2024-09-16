@@ -410,6 +410,8 @@ const renderGraph = (props: {
             return <QuadraticGraph graphState={state} dispatch={dispatch} />;
         case "sinusoid":
             return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+        case "none":
+            return null;
         default:
             throw new UnreachableCaseError(type);
     }

@@ -10,14 +10,23 @@ import {
     getSegmentCoords,
     getSinusoidCoords,
 } from "@khanacademy/perseus";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
+import type {StartCoords} from "./types";
 import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus";
+
+export function getStartCoords(graph: PerseusGraphType): StartCoords {
+    if ("startCoords" in graph) {
+        return graph.startCoords;
+    }
+    return undefined;
+}
 
 export function getDefaultGraphStartCoords(
     graph: PerseusGraphType,
     range: [x: Range, y: Range],
     step: [x: number, y: number],
-): PerseusGraphType["startCoords"] {
+): StartCoords {
     switch (graph.type) {
         case "linear":
         case "ray":
@@ -164,18 +173,27 @@ export const shouldShowStartCoordsUI = (
         return false;
     }
 
-    if (graph.type === "point" && graph.numPoints === "unlimited") {
-        return false;
+    switch (graph.type) {
+        case "point":
+            return graph.numPoints !== "unlimited";
+        case "polygon":
+            return (
+                graph.numSides !== "unlimited" &&
+                graph.snapTo !== "angles" &&
+                graph.snapTo !== "sides"
+            );
+        case "none":
+            return false;
+        case "angle":
+        case "circle":
+        case "linear":
+        case "linear-system":
+        case "quadratic":
+        case "ray":
+        case "segment":
+        case "sinusoid":
+            return true;
+        default:
+            throw new UnreachableCaseError(graph);
     }
-
-    if (
-        graph.type === "polygon" &&
-        (graph.numSides === "unlimited" ||
-            graph.snapTo === "angles" ||
-            graph.snapTo === "sides")
-    ) {
-        return false;
-    }
-
-    return true;
 };
