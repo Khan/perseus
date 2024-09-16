@@ -5,6 +5,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import {removeDenylistProps} from "../../mixins/widget-prop-denylist";
 import PerseusMarkdown from "../../perseus-markdown";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {
@@ -69,12 +70,7 @@ class PassageRef extends React.Component<Props, State> {
     };
 
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+        return noopValidator();
     }
 
     componentDidMount() {
