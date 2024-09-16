@@ -9,6 +9,7 @@ import type {Range} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {Widget, PerseusScore} from "./types";
 import type {KEScore} from "@khanacademy/perseus-core";
+import type * as React from "react";
 
 type WordPosition = {
     start: number;
@@ -791,7 +792,7 @@ const supportsPassiveEvents: () => boolean = () => {
  * Pass this function as the touchstart for an element to
  * avoid sending the touch to the mobile scratchpad
  */
-function captureScratchpadTouchStart(e: TouchEvent) {
+function captureScratchpadTouchStart(e: React.TouchEvent) {
     e.stopPropagation();
 }
 

@@ -4328,6 +4328,11 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/classnames@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.0.tgz#f2312039e780bdf89d7d4102a26ec11de5ec58aa"
+  integrity sha512-MFvoUmNDEnETgHkDZlmnLjVSSFcAH/dwDRi+EU1cYc0+wl4J6t1xGSqiGq7oytKSAXZCaHIkclFL0QaKQENDrA==
+
 "@types/classnames@^2.3.1":
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.3.1.tgz#3c2467aa0f1a93f1f021e3b9bcf938bd5dfdc0dd"
