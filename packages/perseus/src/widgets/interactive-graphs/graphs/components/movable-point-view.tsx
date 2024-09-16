@@ -26,7 +26,7 @@ type ControlledFocusBehavior = {type: "controlled"; showFocusRing: boolean};
 type UncontrolledFocusBehavior = {
     type: "uncontrolled";
     tabIndex: number;
-    onFocusChange: (isFocused: boolean) => unknown;
+    onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
 };
 
 // The hitbox size of 48px by 48px is preserved from the legacy interactive
@@ -101,10 +101,14 @@ export const MovablePointView = forwardRef(
                 tabIndex={
                     disableKeyboardInteraction ? -1 : tabIndex(focusBehavior)
                 }
-                onFocus={() => {
-                    return getOnFocusChangeCallback(focusBehavior)(true);
+                onFocus={(event) => {
+                    const callback = getOnFocusChangeCallback(focusBehavior);
+                    callback && callback(event, true);
                 }}
-                onBlur={() => getOnFocusChangeCallback(focusBehavior)(false)}
+                onBlur={(event) => {
+                    const callback = getOnFocusChangeCallback(focusBehavior);
+                    callback && callback(event, false);
+                }}
                 onClick={onClick}
             >
                 <circle

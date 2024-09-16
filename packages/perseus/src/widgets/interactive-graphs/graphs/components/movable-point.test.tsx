@@ -207,7 +207,7 @@ describe("MovablePoint", () => {
         await userEvent.tab(); // tab to the graph
         await userEvent.tab(); // tab to the point
 
-        expect(focusChangeSpy.mock.calls).toEqual([[true]]);
+        expect(focusChangeSpy.mock.calls[0][1]).toEqual(true);
     });
 
     it("calls onFocusChange(false) when you tab away from it", async () => {
@@ -224,7 +224,10 @@ describe("MovablePoint", () => {
         await userEvent.tab(); // tab to the point
         await userEvent.tab(); // tab away
 
-        expect(focusChangeSpy.mock.calls).toEqual([[true], [false]]);
+        expect(focusChangeSpy.mock.calls.length).toBe(2);
+
+        expect(focusChangeSpy.mock.calls[0][1]).toEqual(true);
+        expect(focusChangeSpy.mock.calls[1][1]).toEqual(false);
     });
 
     it("calls onFocusChange(true) when you click it", async () => {
@@ -239,6 +242,6 @@ describe("MovablePoint", () => {
 
         await userEvent.click(screen.getByTestId("movable-point"));
 
-        expect(focusChangeSpy.mock.calls).toEqual([[true]]);
+        expect(focusChangeSpy.mock.calls[0][1]).toEqual(true);
     });
 });

@@ -195,20 +195,21 @@ export class PhetSimulation extends React.Component<Props, State> {
                         allow="fullscreen"
                     />
                 </View>
-                <IconButton
-                    icon={cornersOutIcon}
-                    onClick={() => {
-                        this.iframeRef.current?.requestFullscreen();
-                    }}
-                    kind={"secondary"}
-                    aria-label={"Fullscreen"}
-                    style={{
-                        marginTop: 5,
-                        marginBottom: 5,
-                        alignSelf: "flex-end",
-                    }}
-                    disabled={this.state.url === null}
-                />
+                {this.state.url !== null && (
+                    <IconButton
+                        icon={cornersOutIcon}
+                        onClick={() => {
+                            this.iframeRef.current?.requestFullscreen();
+                        }}
+                        kind={"secondary"}
+                        aria-label={"Fullscreen"}
+                        style={{
+                            marginTop: 5,
+                            marginBottom: 5,
+                            alignSelf: "flex-end",
+                        }}
+                    />
+                )}
             </View>
         );
     }

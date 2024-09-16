@@ -238,7 +238,6 @@ class NumberInput extends React.Component<any, any> {
                 onBlur={this._handleBlur}
                 onKeyPress={this._handleBlur}
                 onKeyDown={this._onKeyDown}
-                // @ts-expect-error - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLInputElement>'.
                 onTouchStart={captureScratchpadTouchStart}
                 defaultValue={toNumericString(
                     this.props.value,

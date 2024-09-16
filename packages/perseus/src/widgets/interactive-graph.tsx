@@ -119,6 +119,7 @@ const makeInvalidTypeError = (
 
 type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
 export type Rubric = {
+    // TODO(LEMS-2344): make the type of `correct` more specific
     correct: PerseusGraphType;
     graph: PerseusGraphType;
 };

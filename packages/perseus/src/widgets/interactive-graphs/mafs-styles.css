@@ -29,11 +29,13 @@
     --movable-line-stroke-color: var(--mafs-blue);
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
+    overflow: visible !important;
 }
 
 .MafsView > svg {
     /* Chrome/Safari bugfix for LEMS-1906 */
     display: block;
+    overflow: visible; /* LEMS-2035: This ensures that Mafs doesn't clip the axis labels */
 }
 
 .MafsView .movable-line:hover,
@@ -214,53 +216,22 @@
 .MafsView pattern g {
     stroke: rgba(33, 36, 44, 0.32);
 }
-.axis-tick-labels {
-    font-size: 14px;
-    font-family: "Mafs-MJXTEX";
-    line-height: 1.5em;
-    /* Prevent labels from being selected, and from interfering with click and
-     * drag interactions on the graph. */
-    user-select: none;
-    pointer-events: none;
-    /* Prevent labels from covering up interaction points. */
-    z-index: -1;
-}
-
-.y-axis-tick-labels {
-    width: 1.75em;
-    display: flex;
-    flex-flow: column;
-    transform: translateX(calc(-100% - 0.5em));
-    position: absolute;
-    text-align: right;
-}
-.y-axis-right-of-grid {
-    transform: translateX(calc(50% + 0.5em));
-}
-.x-axis-tick-labels {
-    display: flex;
-    flex-flow: row;
-    flex-direction: row-reverse;
-    position: absolute;
-    transform: translateY(calc(50% - 0.25em));
-}
-.x-axis-top-of-grid {
-    transform: translateY(calc(-100% + 0.25em));
-}
-
-.y-axis-tick-labels span {
-    display: inline-block;
-    height: var(--y-axis-label-height, 20px);
-}
-
-.x-axis-tick-labels span {
-    text-align: center;
-    width: var(--x-axis-label-width, 20px);
-}
 
 .MafsView .angle-arc,
 .MafsView .arc-right-angle {
     stroke: var(--mafs-blue);
-
     stroke-width: 0.1px;
+}
+
+.MafsView .axis-tick-label {
+    /* There is a bug in the MathJax font for Safari, so we use KaTeX */
+    font-family: "KaTeX_Main", "Mafs-MJXTEX", sans-serif;
+    stroke: #fff;
+    stroke-width: 5px;
+    paint-order: stroke fill;
+}
+
+.MafsView .axis-tick {
+    stroke: black;
+    stroke-width: 1px;
 }

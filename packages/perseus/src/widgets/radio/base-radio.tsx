@@ -223,7 +223,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
     const firstChoiceHighlighted = choices[0].highlighted;
     const lastChoiceHighlighted = choices[choices.length - 1].highlighted;
 
-    const className: ReadonlyArray<string> = classNames(
+    const className = classNames(
         "perseus-widget-radio",
         !editMode && "perseus-rendered-radio",
         css(
@@ -238,7 +238,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
         ),
     );
 
-    const instructionsClassName: ReadonlyArray<string> = classNames(
+    const instructionsClassName = classNames(
         "instructions",
         css(styles.instructions, isMobile && styles.instructionsMobile),
     );
@@ -255,11 +255,9 @@ const BaseRadio = function (props: Props): React.ReactElement {
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
         >
             <legend className="perseus-sr-only">{instructions}</legend>
-            {/* @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
             <div className={instructionsClassName} aria-hidden="true">
                 {instructions}
             </div>
-            {/* @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
             <ul className={className} style={{listStyle: "none"}}>
                 {choices.map((choice, i) => {
                     let Element = Choice;
@@ -337,7 +335,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
                             ? ApiClassNames.CORRECT
                             : ApiClassNames.INCORRECT;
                     }
-                    const className: ReadonlyArray<string> = classNames(
+                    const className = classNames(
                         aphroditeClassName(choice.checked),
                         // TODO(aria): Make test case for these API
                         // classNames
@@ -351,10 +349,11 @@ const BaseRadio = function (props: Props): React.ReactElement {
                     // (label forces any clicks inside to select the input
                     // element) We have to add some extra behavior to make
                     // sure that we can still check the choice.
-                    let listElem = null;
-                    let clickHandler = null;
+                    let listElem: HTMLLIElement | null = null;
+                    let clickHandler:
+                        | React.MouseEventHandler<HTMLLIElement>
+                        | undefined;
                     if (editMode) {
-                        // @ts-expect-error - TS2322 - Type '(e: any) => void' is not assignable to type 'null'.
                         clickHandler = (e: any) => {
                             // Traverse the parent nodes of the clicked
                             // element.
@@ -383,15 +382,13 @@ const BaseRadio = function (props: Props): React.ReactElement {
                     return (
                         <li
                             key={i}
-                            // @ts-expect-error - TS2322 - Type 'HTMLLIElement | null' is not assignable to type 'null'.
                             ref={(e) => (listElem = e)}
-                            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'.
                             className={className}
-                            // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'MouseEventHandler<HTMLLIElement> | undefined'.
                             onClick={clickHandler}
-                            // @ts-expect-error - TS2322 - Type '((e: TouchEvent) => void) | null' is not assignable to type 'TouchEventHandler<HTMLLIElement> | undefined'.
                             onTouchStart={
-                                !labelWrap ? null : captureScratchpadTouchStart
+                                labelWrap
+                                    ? undefined
+                                    : captureScratchpadTouchStart
                             }
                         >
                             <Element {...elementProps} ref={ref} />

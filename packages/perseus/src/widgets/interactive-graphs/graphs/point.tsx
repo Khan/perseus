@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {REMOVE_BUTTON_ID} from "../mafs-graph";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
@@ -53,6 +54,7 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
             <rect
                 style={{
                     fill: "rgba(0,0,0,0)",
+                    cursor: "crosshair",
                 }}
                 width={widthPx}
                 height={heightPx}
@@ -79,12 +81,18 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
-                    onFocusChange={(isFocused) => {
+                    onFocusChange={(event, isFocused) => {
                         if (isFocused) {
                             dispatch(actions.pointGraph.focusPoint(i));
                         } else {
+                            if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
+                                return;
+                            }
                             dispatch(actions.pointGraph.blurPoint());
                         }
+                    }}
+                    onClick={() => {
+                        dispatch(actions.pointGraph.clickPoint(i));
                     }}
                 />
             ))}
