@@ -118,6 +118,22 @@ describe("categorizer widget", () => {
         // assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
+
+    it("can get user input from props", () => {
+        // Arrange
+        const widgetProps: any = {
+            randomizeItems: false,
+            categories: ["true", "false"],
+            items: ["0", "1", "object", "array", "null", "undefined"],
+            values: [1, 0, 0, 0, 1, 1],
+        };
+
+        // Act
+        const userInput = Categorizer.getUserInputFromProps(widgetProps);
+
+        // Assert
+        expect(userInput).toEqual({values: [1, 0, 0, 0, 1, 1]});
+    });
 });
 
 describe("validating answers", () => {
@@ -180,6 +196,7 @@ describe("validating answers", () => {
             }
         `);
     });
+
     it("tells the learner its not complete if not selected", () => {
         const rubric: Rubric = {
             items: ["Graph $1$", "Graph $2$"],
