@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 33.2.1
+
+### Patch Changes
+
+-   [#1619](https://github.com/Khan/perseus/pull/1619) [`ab7b0fde5`](https://github.com/Khan/perseus/commit/ab7b0fde555cd201a23be2efdaa5ae4e2528e1f8) Thanks [@aemandine](https://github.com/aemandine)! - Remove fullscreen button on broken URL
+
+*   [#1617](https://github.com/Khan/perseus/pull/1617) [`67aa2aa50`](https://github.com/Khan/perseus/commit/67aa2aa5011c0d367f49f66beb12bd5b5a6e4e57) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Refactor the mafs graph so the locked labels layer is between the interactive layer and background layer ("Mafs sandwich")
+
+-   [#1620](https://github.com/Khan/perseus/pull/1620) [`dbac5d491`](https://github.com/Khan/perseus/commit/dbac5d491386fc0daf813d583de02af55b02920f) Thanks [@aemandine](https://github.com/aemandine)! - Add code coverage
+
 ## 33.2.0
 
 ### Minor Changes
