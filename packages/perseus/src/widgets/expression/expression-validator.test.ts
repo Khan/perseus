@@ -103,4 +103,50 @@ describe("expression-validator", () => {
             type: "points",
         });
     });
+
+    it("should handle correct answers with period decimal separator", function () {
+        const result = validate(
+            "z+1.0",
+            expressionItem3Options,
+            undefined,
+            mockStrings,
+            "en",
+        );
+        expect(result).toStrictEqual({
+            earned: 1,
+            message: "",
+            total: 1,
+            type: "points",
+        });
+    });
+
+    it("should handle correct answers with comma decimal separator", function () {
+        const result = validate(
+            "z+1,0",
+            expressionItem3Options,
+            undefined,
+            mockStrings,
+            "fr",
+        );
+        expect(result).toStrictEqual({
+            earned: 1,
+            message: "",
+            total: 1,
+            type: "points",
+        });
+    });
+
+    it("should handle incorrect answers with period decimal separator", function () {
+        const result = validate(
+            "z+1,0",
+            expressionItem3Options,
+            undefined,
+            mockStrings,
+            "en",
+        );
+        expect(result).toStrictEqual({
+            message: null,
+            type: "invalid",
+        });
+    });
 });
