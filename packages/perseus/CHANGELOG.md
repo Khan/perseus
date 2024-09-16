@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 33.3.0
+
+### Minor Changes
+
+-   [#1615](https://github.com/Khan/perseus/pull/1615) [`51b6e1431`](https://github.com/Khan/perseus/commit/51b6e14319ec34ee0bf661f047f138f7b63034c1) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Aligns unlimited point user experience for mouse+touch users
+
+*   [#1605](https://github.com/Khan/perseus/pull/1605) [`ddc3f5d05`](https://github.com/Khan/perseus/commit/ddc3f5d057da2d2c96ba92c5f5784c245ce6f573) Thanks [@benchristel](https://github.com/benchristel)! - Add 'None' graph type, for graphs that should only display locked figures.
+
+### Patch Changes
+
+-   [#1632](https://github.com/Khan/perseus/pull/1632) [`cea62ad11`](https://github.com/Khan/perseus/commit/cea62ad11fa39234da56d1a0d7d876212a1be56a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Minor regression fix for bounding of interactive elements in the Interactive Graph widget.
+
+*   [#1622](https://github.com/Khan/perseus/pull/1622) [`12b8e01bf`](https://github.com/Khan/perseus/commit/12b8e01bf89abbc88d6bfc9bf243d5a0e95b5ed3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix types for `classnames` package usages
+
 ## 33.2.1
 
 ### Patch Changes
