@@ -37,6 +37,128 @@ export type Action =
           kind: "Delete";
       };
 
+type CheckResult =
+    | {
+          status: "correct";
+          needsMoreWork: boolean;
+          lastStep: boolean;
+      }
+    | {
+          status: "wrong";
+      };
+
+// TODO(kevinb): Merge this into `checkStep` from @math-blocks/solver.
+const simpleCheckStep = (
+    equationValue: string,
+    prevStepValue: string,
+    currStepValue: string,
+): CheckResult => {
+    const equation = parse(equationValue);
+    if (equation.type !== NodeType.Equals) {
+        throw new Error(`Can't handle non-equation problems yet`);
+    }
+
+    const problem: Problem = {
+        type: "SolveEquation",
+        equation: equation,
+        variable: {
+            type: NodeType.Identifier,
+            id: getId(),
+            name: "x", // TODO
+            // TODO: Update deepEquals to treat missing fields the same as undefined
+            subscript: undefined,
+        },
+    };
+
+    const prevStep = parse(prevStepValue);
+    const currStep = parse(currStepValue);
+
+    let isCorrect = false;
+    let needsMoreWork = false;
+
+    const output = checkStep(prevStep, currStep);
+    const {result} = output;
+
+    // We were able to find a path from prevStep to currStep
+    // so we mark the step as correct.
+    if (result) {
+        isCorrect = true;
+    }
+
+    const solverResult = solveProblem(problem);
+
+    if (!solverResult) {
+        throw new Error(`Solver couldn't solve ${equationValue}`);
+    }
+
+    // It's possible that the student has provided as step
+    // that is valid, but skips ahead too far so we aren't
+    // able to detect that it's a valid step using the normal
+    // methods.
+    //
+    // If the current step is an equation (which it should be),
+    // we use the solver to determine its solution and compare
+    // it against the solution of the previous equation.  If
+    // they match, then it's valid step, but the student should
+    // probably be showing more work in this situation.
+    if (
+        !isCorrect &&
+        prevStep.type === NodeType.Equals &&
+        currStep.type === NodeType.Equals
+    ) {
+        const prevProblem = {
+            ...problem,
+            equation: prevStep,
+        };
+        const currProblem = {
+            ...problem,
+            equation: currStep,
+        };
+
+        const prevSolverResult = solveProblem(prevProblem);
+        const currSolverResult = solveProblem(currProblem);
+
+        if (prevSolverResult && currSolverResult) {
+            if (
+                util.deepEquals(
+                    prevSolverResult.answer,
+                    currSolverResult.answer,
+                )
+            ) {
+                isCorrect = true;
+                needsMoreWork = true;
+            }
+        }
+    }
+
+    if (isCorrect) {
+        // Check if this is the final step.
+        // TODO: Allow different versions of the answer, e.g.
+        // 2x + 5 = 10, could be solved as x = 5/2, x = 2.5, etc.
+        const final = checkStep(currStep, solverResult.answer);
+        if (final.mistakes.length === 0 && final.result?.steps.length === 0) {
+            // Mark the current step as "correct" without adding
+            // a new step.
+            return {
+                status: "correct",
+                needsMoreWork,
+                lastStep: true,
+            };
+        }
+
+        // Mark the current step as "correct" and add a new step.
+        return {
+            status: "correct",
+            needsMoreWork,
+            lastStep: false,
+        };
+    }
+
+    // If all of the other checks fail, then the current
+    // step is incorrect.
+    return {status: "wrong"};
+};
+
 const practiceReducer = (state: State, action: Action): State => {
     switch (action.kind) {
         case "Reset": {
@@ -47,112 +169,41 @@ const practiceReducer = (state: State, action: Action): State => {
             };
         }
         case "Check": {
-            const equation = parse(state.steps[0].value);
-            if (equation.type !== NodeType.Equals) {
-                throw new Error(`Can't handle non-equation problems yet`);
-            }
-
-            const problem: Problem = {
-                type: "SolveEquation",
-                equation: equation,
-                variable: {
-                    type: NodeType.Identifier,
-                    id: getId(),
-                    name: "x", // TODO
-                    // TODO: Update deepEquals to treat missing fields the same as undefined
-                    subscript: undefined,
-                },
-            };
-
             const newSteps = [...state.steps];
+
+            // Reset the status of the current step
             newSteps[newSteps.length - 1].status = "ungraded";
 
-            const prevStep = parse(newSteps[newSteps.length - 2].value);
-            const currStep = parse(newSteps[newSteps.length - 1].value);
+            const result = simpleCheckStep(
+                state.steps[0].value,
+                newSteps[newSteps.length - 2].value,
+                newSteps[newSteps.length - 1].value,
+            );
 
-            let isCorrect = false;
-            let needsMoreWork = false;
-
-            const output = checkStep(prevStep, currStep);
-            const {result} = output;
-
-            // We were able to find a path from prevStep to currStep
-            // so we mark the step as correct.
-            if (result) {
-                isCorrect = true;
-            }
-
-            const solverResult = solveProblem(problem);
-
-            if (!solverResult) {
-                throw new Error(
-                    `Solver couldn't solve ${state.steps[0].value}`,
-                );
-            }
-
-            // It's possible that the student has provided as step
-            // that is valid, but skips ahead too far so we aren't
-            // able to detect that it's a valid step using the normal
-            // methods.
-            //
-            // If the current step is an equation (which it should be),
-            // we use the solver to determine its solution and compare
-            // it against the solution of the original equation.  If
-            // they match, then it's valid step, but the student should
-            // probably be showing more work in this situation.
-            if (!isCorrect && currStep.type === NodeType.Equals) {
-                const currProblem = {
-                    ...problem,
-                    equation: currStep,
-                };
-
-                const currSolverResult = solveProblem(currProblem);
-
-                if (currSolverResult) {
-                    if (
-                        util.deepEquals(
-                            solverResult.answer,
-                            currSolverResult.answer,
-                        )
-                    ) {
-                        isCorrect = true;
-                        needsMoreWork = true;
+            switch (result.status) {
+                case "correct": {
+                    if (result.needsMoreWork) {
+                        console.log("needs more work");
                     }
-                }
-            }
-
-            if (isCorrect) {
-                if (needsMoreWork) {
-                    console.log("needs more work");
-                }
-
-                // Check if this is the final step.
-                // TODO: Allow different versions of the answer, e.g.
-                // 2x + 5 = 10, could be solved as x = 5/2, x = 2.5, etc.
-                const final = checkStep(currStep, solverResult.answer);
-                if (
-                    final.mistakes.length === 0 &&
-                    final.result?.steps.length === 0
-                ) {
-                    // Mark the current step as "correct" without adding
-                    // a new step.
                     newSteps[newSteps.length - 1].status = "correct";
-                    return {...state, steps: newSteps};
+                    if (!result.lastStep) {
+                        // Create a new step
+                        newSteps.push({
+                            value: newSteps[newSteps.length - 1].value,
+                            status: "ungraded",
+                        });
+                    }
+                    break;
                 }
-
-                // Mark the current step as "correct" and add a new step.
-                newSteps[newSteps.length - 1].status = "correct";
-                newSteps.push({
-                    value: newSteps[newSteps.length - 1].value,
-                    status: "ungraded",
-                });
-
-                return {...state, steps: newSteps};
+                case "wrong": {
+                    newSteps[newSteps.length - 1].status = "wrong";
+                    break;
+                }
+                default: {
+                    assertUnreachable(result);
+                }
             }
 
-            // If all of the other checks fail, then the current
-            // step is incorrect.
-            newSteps[newSteps.length - 1].status = "wrong";
             return {...state, steps: newSteps};
         }
         case "Checkall": {
@@ -197,25 +248,79 @@ const assessmentReducer = (state: State, action: Action): State => {
             const {steps} = state;
             const newSteps = [steps[0]];
 
-            for (let i = 0; i < steps.length - 1; i++) {
-                const prev = parse(steps[i].value);
-                const next = parse(steps[i + 1].value);
-                const {result, mistakes: _} = checkStep(prev, next);
-                if (result) {
-                    newSteps.push({
-                        ...steps[i + 1],
-                        status: "correct",
-                    });
-                } else {
-                    // TODO: perform fallback check to handle cases where
-                    // the user submitted a correct step that we just aren't
-                    // able to recognize yet.
-                    newSteps.push({
-                        ...steps[i + 1],
-                        status: "wrong",
-                    });
+            for (let i = 0; i < steps.length - 2; i++) {
+                const result = simpleCheckStep(
+                    state.steps[0].value,
+                    steps[i].value,
+                    steps[i + 1].value,
+                );
+
+                // TODO: handle the last step correctly.
+                switch (result.status) {
+                    case "correct": {
+                        newSteps.push({
+                            ...steps[i + 1],
+                            status: "correct",
+                        });
+                        break;
+                    }
+                    case "wrong": {
+                        newSteps.push({
+                            ...steps[i + 1],
+                            status: "wrong",
+                        });
+                        break;
+                    }
+                    default: {
+                        assertUnreachable(result);
+                    }
                 }
             }
+
+            const equation = parse(state.steps[0].value);
+            if (equation.type !== NodeType.Equals) {
+                throw new Error(`Can't handle non-equation problems yet`);
+            }
+
+            const origProblem: Problem = {
+                type: "SolveEquation",
+                equation: equation,
+                variable: {
+                    type: NodeType.Identifier,
+                    id: getId(),
+                    name: "x", // TODO
+                    // TODO: Update deepEquals to treat missing fields the same as undefined
+                    subscript: undefined,
+                },
+            };
+
+            let answerStatus: "correct" | "wrong" = "wrong";
+            const lastStep = parse(steps[steps.length - 1].value);
+            if (lastStep.type === NodeType.Equals) {
+                const lastProblem = {
+                    ...origProblem,
+                    equation: lastStep,
+                };
+
+                const origSolverResult = solveProblem(origProblem);
+                const lastSolverResult = solveProblem(lastProblem);
+
+                if (origSolverResult && lastSolverResult) {
+                    if (
+                        util.deepEquals(
+                            origSolverResult.answer,
+                            lastSolverResult.answer,
+                        )
+                    ) {
+                        answerStatus = "correct";
+                    }
+                }
+            }
+
+            newSteps.push({
+                ...steps[steps.length - 1],
+                status: answerStatus,
+            });
 
             return {...state, steps: newSteps};
         }

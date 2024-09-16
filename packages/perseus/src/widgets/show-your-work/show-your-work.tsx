@@ -55,6 +55,7 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
                 return (
                     <Step
                         key={`${mode}-${i}}`}
+                        mode={mode}
                         step={step}
                         onChange={(step) => {
                             if (isLast) {

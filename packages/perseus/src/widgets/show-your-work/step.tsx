@@ -13,6 +13,7 @@ import _ from "underscore";
 
 import expression from "../expression";
 
+import type {Mode} from "./reducer";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FilterCriterion} from "../../types";
 
@@ -23,7 +24,13 @@ export type Step = {
     status: StepStatus;
 };
 
-type StepProps = {
+const primaryButtonStrings: Record<Mode, string> = {
+    Practice: "Check step",
+    Assessment: "Add step",
+};
+
+type Props = {
+    mode: Mode;
     step: Step;
     isLast: boolean;
     disableCheck: boolean;
@@ -42,7 +49,7 @@ const widgetOptions: PerseusExpressionWidgetOptions = {
     buttonsVisible: "always",
 };
 
-export const Step = (props: StepProps) => {
+export const Step = (props: Props) => {
     const {step} = props;
 
     // TODO: memoize the callbacks
@@ -111,7 +118,7 @@ export const Step = (props: StepProps) => {
                         onClick={props.onCheckStep}
                         disabled={props.disableCheck}
                     >
-                        Check Step
+                        {primaryButtonStrings[props.mode]}
                     </Button>
                     <Strut size={8} />
                     <Button
