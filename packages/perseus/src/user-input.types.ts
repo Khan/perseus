@@ -1,4 +1,5 @@
 import type {Coord} from "./interactive2/types";
+import type {InteractiveMarkerType} from "./widgets/label-image/types";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
@@ -34,4 +35,8 @@ export type PerseusIFrameUserInput = {
 
 export type PerseusInputNumberUserInput = {
     currentValue: string;
+};
+
+export type PerseusLabelImageUserInput = {
+    markers: ReadonlyArray<InteractiveMarkerType>;
 };

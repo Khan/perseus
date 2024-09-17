@@ -29,6 +29,7 @@ import type {InteractiveMarkerType, InteractiveMarkerScore} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
+import type {PerseusLabelImageUserInput} from "../../user-input.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -38,10 +39,6 @@ export type PreferredPopoverDirection =
     | "DOWN"
     | "LEFT"
     | "RIGHT";
-
-type MarkersState = {
-    markers: ReadonlyArray<InteractiveMarkerType>;
-};
 
 /**
  * Represents a direction vector.
@@ -140,7 +137,7 @@ export class LabelImage extends React.Component<
     }
 
     static validate(
-        state: MarkersState,
+        state: PerseusLabelImageUserInput,
         rubric?: LabelImageProps,
     ): PerseusScore {
         let numAnswered = 0;
@@ -385,7 +382,7 @@ export class LabelImage extends React.Component<
         return LabelImage.validate(this.getUserInput(), rubric);
     }
 
-    getUserInput(): MarkersState {
+    getUserInput(): PerseusLabelImageUserInput {
         const {markers} = this.props;
         return {markers};
     }
