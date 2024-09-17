@@ -1,10 +1,11 @@
 import TexWrangler from "../../tex-wrangler";
 import KhanAnswerTypes from "../../util/answer-types";
 
-import type {Rubric, UserInput} from "./numeric-input.types";
+import type {Rubric} from "./numeric-input.types";
 import type {MathFormat, PerseusNumericInputAnswer} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
+import type {PerseusNumericInputUserInput} from "../../user-input.types";
 
 const ParseTex = TexWrangler.parseTex;
 
@@ -62,7 +63,7 @@ export function maybeParsePercentInput(
 }
 
 function numericInputValidator(
-    userInput: UserInput,
+    userInput: PerseusNumericInputUserInput,
     rubric: Rubric,
     strings: PerseusStrings,
 ): PerseusScore {

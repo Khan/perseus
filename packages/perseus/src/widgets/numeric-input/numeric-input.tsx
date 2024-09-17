@@ -11,7 +11,7 @@ import KhanMath from "../../util/math";
 
 import numericInputValidator from "./numeric-input-validator";
 
-import type {Rubric, UserInput} from "./numeric-input.types";
+import type {Rubric} from "./numeric-input.types";
 import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
@@ -23,6 +23,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import type {PerseusNumericInputUserInput} from "../../user-input.types";
 
 const formExamples: {
     [key: string]: (
@@ -91,7 +92,7 @@ export class NumericInput extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static getUserInputFromProps(props: Props): UserInput {
+    static getUserInputFromProps(props: Props): PerseusNumericInputUserInput {
         return {
             currentValue: props.currentValue,
         };
@@ -132,7 +133,7 @@ export class NumericInput extends React.Component<Props, State> {
     }
 
     static validate(
-        userInput: UserInput,
+        userInput: PerseusNumericInputUserInput,
         rubric: Rubric,
         strings: PerseusStrings,
     ): PerseusScore {
@@ -228,7 +229,7 @@ export class NumericInput extends React.Component<Props, State> {
         );
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput: () => PerseusNumericInputUserInput = () => {
         return NumericInput.getUserInputFromProps(this.props);
     };
 

@@ -57,3 +57,7 @@ export type PerseusNumberLineUserInput = {
     numDivisions: number;
     divisionRange: ReadonlyArray<number>;
 };
+
+export type PerseusNumericInputUserInput = {
+    currentValue: string;
+};
