@@ -17,18 +17,15 @@ import Util from "../../util";
 
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusIFrameUserInput,
+    UserInputStatus,
+} from "../../user-input.types";
 
 const {updateQueryString} = Util;
 
-type Status = "correct" | "incorrect" | "incomplete";
-
-type UserInput = {
-    status: Status;
-    message: string | null;
-};
-
 type RenderProps = PerseusIFrameWidgetOptions & {
-    status: Status;
+    status: UserInputStatus;
     message: string | null;
     width: string;
     height: string;
@@ -63,7 +60,7 @@ class Iframe extends React.Component<Props> {
         $(window).off("message", this.handleMessageEvent);
     }
 
-    getUserInput(): UserInput {
+    getUserInput(): PerseusIFrameUserInput {
         return {status: this.props.status, message: this.props.message};
     }
 

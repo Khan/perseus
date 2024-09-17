@@ -26,3 +26,8 @@ export type PerseusGrapherUserInput = {
     asymptote: ReadonlyArray<Coord>;
     coords: ReadonlyArray<Coord>;
 };
+
+export type PerseusIFrameUserInput = {
+    status: UserInputStatus;
+    message: string | null;
+};
