@@ -79,3 +79,5 @@ export type PerseusRadioUserInput = {
 export type PerseusSorterUserInput = {
     options: ReadonlyArray<number>;
 };
+
+export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;

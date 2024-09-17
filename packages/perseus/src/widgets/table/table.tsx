@@ -15,6 +15,7 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusTableUserInput} from "../../user-input.types";
 
 const {assert} = InteractiveUtil;
 
@@ -95,8 +96,8 @@ class Table extends React.Component<Props> {
         return this.props.answers[0].length;
     };
 
-    getUserInput: () => any = () => {
-        return _.map(this.props.answers, _.clone);
+    getUserInput: () => PerseusTableUserInput = () => {
+        return _.map(this.props.answers, _.clone) as PerseusTableUserInput;
     };
 
     onValueChange: (arg1: any, arg2: any, arg3: any) => void = (
