@@ -18,6 +18,7 @@ describe("getDefaultFigureForType", () => {
             coord: [0, 0],
             color: "grayH",
             filled: true,
+            labels: [],
         });
     });
 
@@ -32,12 +33,14 @@ describe("getDefaultFigureForType", () => {
                     coord: [0, 0],
                     color: "grayH",
                     filled: true,
+                    labels: [],
                 },
                 {
                     type: "point",
                     coord: [2, 2],
                     color: "grayH",
                     filled: true,
+                    labels: [],
                 },
             ],
             color: "grayH",

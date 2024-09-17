@@ -722,6 +722,7 @@ export type LockedPointType = {
     coord: Coord;
     color: LockedFigureColor;
     filled: boolean;
+    labels: LockedLabelType[];
 };
 
 export type LockedLineType = {

@@ -84,6 +84,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 coord: [0, 0],
                 color: DEFAULT_COLOR,
                 filled: true,
+                labels: [],
             };
         case "line":
             return {

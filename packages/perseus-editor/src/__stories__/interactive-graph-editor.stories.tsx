@@ -159,11 +159,36 @@ MafsWithLockedFiguresCurrent.parameters = {
 
 export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
     return (
-        <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": false,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
     );
 };
 
 MafsWithLockedLabelsFlag.parameters = {
+    chromatic: {
+        // Disabling because this isn't visually testing anything on the
+        // initial load of the editor page.
+        disable: true,
+    },
+};
+
+export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
+    );
+};
+
+MafsWithLockedPointLabelsFlag.parameters = {
     chromatic: {
         // Disabling because this isn't visually testing anything on the
         // initial load of the editor page.

@@ -822,7 +822,7 @@ export const segmentWithLockedLabels: PerseusRenderer =
 
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedPointAt(-7, -7)
+        .addLockedPointAt(-7, -7, {labels: [{text: "A"}]})
         .addLockedLine([-7, -5], [2, -3])
         .addLockedVector([0, 0], [8, 2], "purple")
         .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
@@ -941,4 +941,11 @@ export const interactiveGraphWithAriaLabel: PerseusRenderer =
         .withFullGraphAriaDescription(
             "There is a segment on the graph that runs from five units left and five units up to five units right and five units up.",
         )
+        .build();
+
+export const graphWithLabeledPoint: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedPointAt(0, 0, {
+            labels: [{text: "A"}],
+        })
         .build();
