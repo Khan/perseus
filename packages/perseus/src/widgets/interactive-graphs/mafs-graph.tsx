@@ -244,13 +244,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 width={width}
                                 height={height}
                             >
-                                {/* Protractor */}
-                                {props.showProtractor && <Protractor />}
-                                {/* Interactive layer */}
-                                {renderGraph({
-                                    state,
-                                    dispatch,
-                                })}
+                                {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
+                                <svg {...nestedSVGAttributes}>
+                                    {/* Protractor */}
+                                    {props.showProtractor && <Protractor />}
+                                    {/* Interactive layer */}
+                                    {renderGraph({
+                                        state,
+                                        dispatch,
+                                    })}
+                                </svg>
                             </Mafs>
                         </View>
                     </View>
@@ -410,6 +413,8 @@ const renderGraph = (props: {
             return <QuadraticGraph graphState={state} dispatch={dispatch} />;
         case "sinusoid":
             return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+        case "none":
+            return null;
         default:
             throw new UnreachableCaseError(type);
     }

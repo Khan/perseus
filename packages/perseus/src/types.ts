@@ -144,6 +144,8 @@ export const MafsGraphTypeFlags = [
     "point",
     /** Enable the `unlimited-point` interactive graph type */
     "unlimited-point",
+    /** Enable the `none` interactive graph type for content editors */
+    "none",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [

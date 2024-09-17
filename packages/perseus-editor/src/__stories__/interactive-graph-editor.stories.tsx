@@ -7,6 +7,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {EditorPage} from "..";
+import {interactiveGraphQuestionBuilder} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -128,6 +129,17 @@ export const InteractiveGraphAngle = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
             question={angleWithStartingCoordsQuestion}
+        />
+    );
+};
+
+export const InteractiveGraphNone = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .addLockedFunction("5*sin(x)", {color: "red"})
+                .build()}
         />
     );
 };

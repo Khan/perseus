@@ -14,6 +14,7 @@ import {lockedFigureColors} from "../../perseus-types";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
@@ -155,6 +156,26 @@ describe("interactive-graph widget", function () {
             });
         },
     );
+
+    describe("A none-type graph", () => {
+        it("renders predictably", () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {container} = renderQuestion(question, blankOptions);
+
+            expect(container).toMatchSnapshot("first render");
+        });
+
+        it("treats no interaction as a correct answer", async () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {renderer} = renderQuestion(question, blankOptions);
+
+            expect(renderer).toHaveBeenAnsweredCorrectly();
+        });
+    });
 });
 
 describe("a mafs graph", () => {

@@ -8,6 +8,7 @@ import _ from "underscore";
 import Graphie from "../../components/graphie";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {Coord} from "../../interactive2/types";
 import type {
@@ -125,12 +126,7 @@ class Interaction extends React.Component<Props, State> {
     };
 
     static validate(state: any, rubric: any): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+        return noopValidator();
     }
 
     state: State = {
