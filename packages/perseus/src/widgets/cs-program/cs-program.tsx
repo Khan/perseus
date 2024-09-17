@@ -14,7 +14,8 @@ import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 
-import type {PerseusScore, WidgetExports} from "../../types";
+import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 const {updateQueryString} = Util;
 
@@ -25,22 +26,14 @@ type UserInput = {
     message: string | null;
 };
 
-type Setting = {
-    name: string;
-    value: any;
-};
-
-type Props = {
-    programID: string;
-    programType: "pjs" | "sql" | "webpage";
-    width: number;
-    height: number;
-    settings: ReadonlyArray<Setting>;
-    showEditor: boolean;
-    showButtons: boolean;
+type RenderProps = PerseusCSProgramWidgetOptions & {
     status: Status;
     message: string | null;
 };
+
+export type Rubric = PerseusCSProgramWidgetOptions;
+
+type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
