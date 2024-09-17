@@ -9,7 +9,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
 import * as Changeable from "../../mixins/changeable";
-import WidgetJsonifyDeprecated from "../../mixins/widget-jsonify-deprecated";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
@@ -20,7 +19,9 @@ import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
-type UserInput = any;
+type UserInput = {
+    values: ReadonlyArray<number>;
+};
 
 export type Rubric = PerseusCategorizerWidgetOptions;
 
@@ -84,7 +85,7 @@ export class Categorizer extends React.Component<Props, State> {
     }
 
     static getUserInputFromProps(props: Props): UserInput {
-        return WidgetJsonifyDeprecated.getUserInputFromProps(props);
+        return {values: props.values};
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
