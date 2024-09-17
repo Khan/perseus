@@ -47,6 +47,7 @@ import type {
     PerseusScore,
     WidgetProps,
 } from "./types";
+import type {UserInput} from "./user-input.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -106,7 +107,7 @@ type SetWidgetPropsFn = (
 // The return type for getUserInput. Widgets have full control of what is
 // returned so it's not easily typed (some widgets return a scalar (string),
 // some return a custom-built object
-type WidgetUserInput = any;
+// type WidgetUserInput = any;
 
 type SerializedState = {
     [id: string]: any;
@@ -149,7 +150,7 @@ export type Widget = {
         // TODO(jeremy): I think this is actually a callback
         focus?: () => unknown,
     ) => void;
-    getUserInput?: () => WidgetUserInput | null | undefined;
+    getUserInput?: () => UserInput | null | undefined;
     simpleValidate?: (
         options?: any,
         onOutputError?: (
@@ -1760,17 +1761,16 @@ class Renderer extends React.Component<Props, State> {
     /**
      * Returns an array of the widget `.getUserInput()` results
      */
-    getUserInput: () => ReadonlyArray<WidgetUserInput | null | undefined> =
-        () => {
-            return this.widgetIds.map((id: string) => {
-                const widget = this.getWidgetInstance(id);
-                if (widget && widget.getUserInput) {
-                    // TODO(Jeremy): Add the widget ID in here so we can more
-                    // easily correlate it to the widget state.
-                    return widget.getUserInput();
-                }
-            });
-        };
+    getUserInput: () => ReadonlyArray<UserInput | null | undefined> = () => {
+        return this.widgetIds.map((id: string) => {
+            const widget = this.getWidgetInstance(id);
+            if (widget && widget.getUserInput) {
+                // TODO(Jeremy): Add the widget ID in here so we can more
+                // easily correlate it to the widget state.
+                return widget.getUserInput();
+            }
+        });
+    };
 
     /**
      * Returns an array of all widget IDs in the order they occur in
@@ -1790,7 +1790,7 @@ class Renderer extends React.Component<Props, State> {
      * so we should aim to remove one of these functions.
      */
     getUserInputForWidgets: () => {
-        [widgetId: string]: WidgetUserInput | null | undefined;
+        [widgetId: string]: UserInput | null | undefined;
     } = () => {
         return mapObjectFromArray(this.widgetIds, (id) => {
             const widget = this.getWidgetInstance(id);

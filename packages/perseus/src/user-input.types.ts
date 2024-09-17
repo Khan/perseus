@@ -1,4 +1,5 @@
 import type {Coord} from "./interactive2/types";
+import type {PerseusGraphType} from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
 
@@ -37,6 +38,8 @@ export type PerseusIFrameUserInput = {
 export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
+
+export type PerseusInteractiveGraphType = PerseusGraphType;
 
 export type PerseusLabelImageUserInput = {
     markers: ReadonlyArray<InteractiveMarkerType>;
@@ -81,3 +84,23 @@ export type PerseusSorterUserInput = {
 };
 
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
+
+export type UserInput =
+    | PerseusCategorizerUserInput
+    | PerseusCSProgramUserInput
+    | PerseusDropdownUserInput
+    | PerseusExpressionUserInput
+    | PerseusGrapherUserInput
+    | PerseusIFrameUserInput
+    | PerseusInputNumberUserInput
+    | PerseusInteractiveGraphType
+    | PerseusLabelImageUserInput
+    | PerseusMatcherUserInput
+    | PerseusMatrixUserInput
+    | PerseusNumberLineUserInput
+    | PerseusNumericInputUserInput
+    | PerseusOrdererUserInput
+    | PerseusPlotterUserInput
+    | PerseusRadioUserInput
+    | PerseusSorterUserInput
+    | PerseusTableUserInput;

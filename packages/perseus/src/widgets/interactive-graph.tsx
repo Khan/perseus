@@ -1778,7 +1778,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         },
     };
 
-    getUserInput: Widget["getUserInput"] = () => {
+    getUserInput: any = () => {
         if (this.mafsRef.current) {
             return this.mafsRef.current.getUserInput?.();
         }
