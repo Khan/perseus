@@ -25,19 +25,20 @@ const baseSegmentGraphState: InteractiveGraphState = {
 
 const basePointGraphState: InteractiveGraphState = {
     hasBeenInteractedWith: false,
+    showRemovePointButton: false,
     type: "point",
     range: [
         [-10, 10],
         [-10, 10],
     ],
     focusedPointIndex: null,
-    previouslyFocusedPointIndex: null,
     snapStep: [1, 1],
     coords: [],
 };
 
 const baseUnlimitedPointGraphState: PointGraphState = {
     hasBeenInteractedWith: false,
+    showRemovePointButton: false,
     type: "point",
     numPoints: "unlimited",
     range: [
@@ -45,7 +46,6 @@ const baseUnlimitedPointGraphState: PointGraphState = {
         [-10, 10],
     ],
     focusedPointIndex: null,
-    previouslyFocusedPointIndex: null,
     snapStep: [1, 1],
     coords: [],
 };

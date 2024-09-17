@@ -5,8 +5,8 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
-import WidgetJsonifyDeprecated from "../../mixins/widget-jsonify-deprecated";
 import Renderer from "../../renderer";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusPassageRefTargetWidgetOptions} from "../../perseus-types";
 import type {APIOptions, WidgetExports} from "../../types";
@@ -32,22 +32,20 @@ class PassageRefTarget extends React.Component<Props> {
     };
 
     static validate(state: any, rubric: any): any {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+        return noopValidator();
     }
 
+    // TODO passage-ref-target isn't interactive; remove
     getUserInput: () => any = () => {
-        return WidgetJsonifyDeprecated.getUserInput.call(this);
+        return;
     };
 
+    // TODO passage-ref-target isn't interactive; remove
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
+    // TODO passage-ref-target isn't interactive; remove
     simpleValidate: (arg1: any) => any = (rubric) => {
         return PassageRefTarget.validate(this.getUserInput(), rubric);
     };

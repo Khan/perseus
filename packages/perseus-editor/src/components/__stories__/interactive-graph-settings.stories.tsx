@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import InteractiveGraphSettings from "../interactive-graph-settings";
+import InteractiveGraphSettings from "../../widgets/interactive-graph-editor/components/interactive-graph-settings";
 
 import InteractiveGraphSettingsArgTypes from "./interactive-graph-settings.argtypes";
 

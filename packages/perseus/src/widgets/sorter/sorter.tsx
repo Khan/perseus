@@ -1,42 +1,41 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "@khanacademy/perseus-linter";
-import PropTypes from "prop-types";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
 import Sortable from "../../components/sortable";
-import {ApiOptions} from "../../perseus-api";
 import Util from "../../util";
 
 import type {SortableOption} from "../../components/sortable";
-import type {WidgetExports} from "../../types";
+import type {PerseusSorterWidgetOptions} from "../../perseus-types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 const {shuffle} = Util;
-const HORIZONTAL = "horizontal";
-const VERTICAL = "vertical";
 
-class Sorter extends React.Component<any, any> {
-    // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
-    _isMounted: boolean;
+type RenderProps = PerseusSorterWidgetOptions;
 
-    static propTypes = {
-        apiOptions: ApiOptions.propTypes,
-        // eslint-disable-next-line react/forbid-prop-types
-        correct: PropTypes.array,
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        onChange: PropTypes.func,
-        padding: PropTypes.bool,
-        problemNum: PropTypes.number,
-        trackInteraction: PropTypes.func.isRequired,
-        linterContext: linterContextProps,
-    };
+type Rubric = PerseusSorterWidgetOptions;
 
-    static defaultProps: any = {
+type Props = WidgetProps<RenderProps, Rubric>;
+
+type DefaultProps = {
+    correct: Props["correct"];
+    layout: Props["layout"];
+    padding: Props["padding"];
+    problemNum: Props["problemNum"];
+    onChange: Props["onChange"];
+    linterContext: Props["linterContext"];
+};
+
+type State = {
+    changed: boolean;
+};
+
+class Sorter extends React.Component<Props, State> {
+    _isMounted: boolean = false;
+
+    static defaultProps: DefaultProps = {
         correct: [],
-        layout: HORIZONTAL,
+        layout: "horizontal",
         padding: true,
         problemNum: 0,
         onChange: function () {},
@@ -79,7 +78,7 @@ class Sorter extends React.Component<any, any> {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
             // eslint-disable-next-line no-restricted-syntax
             setTimeout(() => {
-                this.props.onChange(e);
+                this.props.onChange(e as any);
                 this.props.trackInteraction();
             }, 0);
         });
@@ -122,7 +121,7 @@ class Sorter extends React.Component<any, any> {
     render(): React.ReactNode {
         const options = shuffle(
             this.props.correct,
-            this.props.problemNum,
+            this.props.problemNum as number,
             /* ensurePermuted */ true,
         );
 
@@ -132,7 +131,6 @@ class Sorter extends React.Component<any, any> {
         return (
             <div className="perseus-widget-sorter perseus-clearfix">
                 <Sortable
-                    // @ts-expect-error - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                     options={options}
                     layout={this.props.layout}
                     margin={marginPx}

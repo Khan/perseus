@@ -12,6 +12,7 @@ export const flags = {
         "linear-system": true,
         ray: true,
         point: true,
+        none: true,
 
         // Locked figures flags
         "interactive-graph-locked-features-labels": true,

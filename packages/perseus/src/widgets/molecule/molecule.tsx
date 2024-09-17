@@ -2,6 +2,7 @@
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import noopValidator from "../__shared__/noop-validator";
 
 import draw from "./molecule-drawing";
 import MoleculeLayout from "./molecule-layout";
@@ -150,12 +151,7 @@ class MoleculeWidget extends React.Component<Props> {
         // TODO(colin): this is here as part of the interface for a component.
         // Figure out if there is something more appropriate that this should
         // return.
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+        return noopValidator();
     };
 
     render(): React.ReactNode {

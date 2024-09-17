@@ -483,6 +483,14 @@ export const sinusoidQuestion: PerseusRenderer =
         })
         .build();
 
+export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
+    .withContent("This graph isn't interactive.\n\n[[☃ interactive-graph 1]]")
+    .withNoInteractiveFigure()
+    .addLockedFunction("5*sin(x)+x^3/20-ln(abs(x))", {color: "green"})
+    .addLockedEllipse([-5, 5], [2, 2], {color: "red", fillStyle: "translucent"})
+    .addLockedEllipse([5, -5], [2, 2], {color: "red", fillStyle: "translucent"})
+    .build();
+
 export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
 

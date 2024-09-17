@@ -217,6 +217,20 @@ describe("InteractiveGraphQuestionBuilder", () => {
         );
     });
 
+    it("creates a 'none' type graph", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .build();
+
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options).toEqual(
+            expect.objectContaining({
+                graph: {type: "none"},
+                correct: {type: "none"},
+            }),
+        );
+    });
+
     it("creates a linear graph", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .withLinear()

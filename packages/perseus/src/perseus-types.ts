@@ -717,6 +717,8 @@ export type LockedFigure =
     | LockedLabelType;
 export type LockedFigureType = LockedFigure["type"];
 
+export type LockedLineStyle = "solid" | "dashed";
+
 export type LockedPointType = {
     type: "point";
     coord: Coord;
@@ -730,7 +732,7 @@ export type LockedLineType = {
     kind: "line" | "ray" | "segment";
     points: [point1: LockedPointType, point2: LockedPointType];
     color: LockedFigureColor;
-    lineStyle: "solid" | "dashed";
+    lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
 };
@@ -756,7 +758,7 @@ export type LockedEllipseType = {
     angle: number;
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
-    strokeStyle: "solid" | "dashed";
+    strokeStyle: LockedLineStyle;
 };
 
 export type LockedPolygonType = {
@@ -765,13 +767,13 @@ export type LockedPolygonType = {
     color: LockedFigureColor;
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
-    strokeStyle: "solid" | "dashed";
+    strokeStyle: LockedLineStyle;
 };
 
 export type LockedFunctionType = {
     type: "function";
     color: LockedFigureColor;
-    strokeStyle: "solid" | "dashed";
+    strokeStyle: LockedLineStyle;
     equation: string; // This is the user-defined equation (as it was typed)
     directionalAxis: "x" | "y";
     domain?: Interval;
@@ -792,6 +794,7 @@ export type PerseusGraphType =
     | PerseusGraphTypeCircle
     | PerseusGraphTypeLinear
     | PerseusGraphTypeLinearSystem
+    | PerseusGraphTypeNone
     | PerseusGraphTypePoint
     | PerseusGraphTypePolygon
     | PerseusGraphTypeQuadratic
@@ -849,6 +852,10 @@ export type PerseusGraphTypeLinearSystem = {
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
 } & PerseusGraphTypeCommon;
+
+export type PerseusGraphTypeNone = {
+    type: "none";
+};
 
 export type PerseusGraphTypePoint = {
     type: "point";
@@ -1225,7 +1232,7 @@ export type PerseusSorterWidgetOptions = {
     // Adds padding to the options.  Padding is good for text but not needed for images
     padding: boolean;
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text and larger images.
-    layout: string;
+    layout: "horizontal" | "vertical";
 };
 
 export type PerseusTableWidgetOptions = {

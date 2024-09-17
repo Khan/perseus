@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 14.2.0
+
+### Minor Changes
+
+-   [#1605](https://github.com/Khan/perseus/pull/1605) [`ddc3f5d05`](https://github.com/Khan/perseus/commit/ddc3f5d057da2d2c96ba92c5f5784c245ce6f573) Thanks [@benchristel](https://github.com/benchristel)! - Add 'None' graph type, for graphs that should only display locked figures.
+
+### Patch Changes
+
+-   [#1601](https://github.com/Khan/perseus/pull/1601) [`ef7b35bce`](https://github.com/Khan/perseus/commit/ef7b35bce082c2552cde2b3bca5edbbefbfa587a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Reorganize interactive graph editor files.
+
+-   Updated dependencies [[`51b6e1431`](https://github.com/Khan/perseus/commit/51b6e14319ec34ee0bf661f047f138f7b63034c1), [`cea62ad11`](https://github.com/Khan/perseus/commit/cea62ad11fa39234da56d1a0d7d876212a1be56a), [`ddc3f5d05`](https://github.com/Khan/perseus/commit/ddc3f5d057da2d2c96ba92c5f5784c245ce6f573), [`12b8e01bf`](https://github.com/Khan/perseus/commit/12b8e01bf89abbc88d6bfc9bf243d5a0e95b5ed3)]:
+    -   @khanacademy/perseus@33.3.0
+
+## 14.1.3
+
+### Patch Changes
+
+-   Updated dependencies [[`ab7b0fde5`](https://github.com/Khan/perseus/commit/ab7b0fde555cd201a23be2efdaa5ae4e2528e1f8), [`67aa2aa50`](https://github.com/Khan/perseus/commit/67aa2aa5011c0d367f49f66beb12bd5b5a6e4e57), [`dbac5d491`](https://github.com/Khan/perseus/commit/dbac5d491386fc0daf813d583de02af55b02920f)]:
+    -   @khanacademy/perseus@33.2.1
+
 ## 14.1.2
 
 ### Patch Changes

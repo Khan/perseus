@@ -72,6 +72,8 @@ export type MafsGraphProps = {
     static: boolean | null | undefined;
 };
 
+export const REMOVE_BUTTON_ID = "perseus_mafs_remove_button";
+
 export const MafsGraph = (props: MafsGraphProps) => {
     const {
         state,
@@ -247,13 +249,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 width={width}
                                 height={height}
                             >
-                                {/* Protractor */}
-                                {props.showProtractor && <Protractor />}
-                                {/* Interactive layer */}
-                                {renderGraph({
-                                    state,
-                                    dispatch,
-                                })}
+                                {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
+                                <svg {...nestedSVGAttributes}>
+                                    {/* Protractor */}
+                                    {props.showProtractor && <Protractor />}
+                                    {/* Interactive layer */}
+                                    {renderGraph({
+                                        state,
+                                        dispatch,
+                                    })}
+                                </svg>
                             </Mafs>
                         </View>
                     </View>
@@ -275,7 +280,7 @@ const renderPointGraphControls = (props: {
             width: props.width,
         }}
     >
-        <Button
+        {/* <Button
             kind="secondary"
             style={{
                 width: "100%",
@@ -287,28 +292,29 @@ const renderPointGraphControls = (props: {
             }}
         >
             Add Point
-        </Button>
-        {(props.state.focusedPointIndex !== null ||
-            props.state.previouslyFocusedPointIndex !== null) && (
-            <Button
-                kind="secondary"
-                color="destructive"
-                tabIndex={0}
-                style={{
-                    width: "100%",
-                    marginLeft: "20px",
-                }}
-                onClick={(event) => {
-                    props.dispatch(
-                        actions.pointGraph.removePoint(
-                            props.state.previouslyFocusedPointIndex!,
-                        ),
-                    );
-                }}
-            >
-                Remove Point
-            </Button>
-        )}
+        </Button> */}
+        {props.state.showRemovePointButton &&
+            props.state.focusedPointIndex !== null && (
+                <Button
+                    id={REMOVE_BUTTON_ID}
+                    kind="secondary"
+                    color="destructive"
+                    tabIndex={-1}
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                    }}
+                    onClick={(event) => {
+                        props.dispatch(
+                            actions.pointGraph.removePoint(
+                                props.state.focusedPointIndex!,
+                            ),
+                        );
+                    }}
+                >
+                    Remove Point
+                </Button>
+            )}
     </View>
 );
 
@@ -412,6 +418,8 @@ const renderGraph = (props: {
             return <QuadraticGraph graphState={state} dispatch={dispatch} />;
         case "sinusoid":
             return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+        case "none":
+            return null;
         default:
             throw new UnreachableCaseError(type);
     }
