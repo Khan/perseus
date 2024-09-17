@@ -6,8 +6,11 @@ import {ApiOptions} from "../../perseus-api";
 
 import dropdownValidator from "./dropdown-validator";
 
-import type {Rubric, UserInput} from "./dropdown.types";
-import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
+import type {Rubric} from "./dropdown.types";
+import type {
+    PerseusDropdownUserInput,
+    PerseusDropdownWidgetOptions,
+} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 type Props = WidgetProps<RenderProps, Rubric> & {
@@ -29,7 +32,10 @@ class Dropdown extends React.Component<Props> {
         apiOptions: ApiOptions.defaults,
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    static validate(
+        userInput: PerseusDropdownUserInput,
+        rubric: Rubric,
+    ): PerseusScore {
         return dropdownValidator(userInput, rubric);
     }
 
@@ -53,7 +59,7 @@ class Dropdown extends React.Component<Props> {
         this.props.onChange({selected: selected});
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput: () => PerseusDropdownUserInput = () => {
         return {value: this.props.selected};
     };
 

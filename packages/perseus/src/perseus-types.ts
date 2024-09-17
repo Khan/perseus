@@ -364,6 +364,10 @@ export type PerseusDefinitionWidgetOptions = {
     static: boolean;
 };
 
+export type PerseusDropdownUserInput = {
+    value: number;
+};
+
 export type PerseusDropdownWidgetOptions = {
     // A list of choices for the dropdown
     choices: ReadonlyArray<PerseusDropdownChoice>;
