@@ -13,6 +13,7 @@ import Util from "../../util";
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusMatcherUserInput} from "../../user-input.types";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
@@ -76,7 +77,7 @@ export class Matcher extends React.Component<Props, State> {
         this.setState({rightHeight: height});
     };
 
-    getUserInput: () => any = () => {
+    getUserInput: () => PerseusMatcherUserInput = () => {
         // If the math renderer hasn't loaded then we won't be able to get the
         // contents of the sortables on the left and right, so we just return
         // empty arrays until we render for the first time.

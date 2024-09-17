@@ -40,3 +40,8 @@ export type PerseusInputNumberUserInput = {
 export type PerseusLabelImageUserInput = {
     markers: ReadonlyArray<InteractiveMarkerType>;
 };
+
+export type PerseusMatcherUserInput = {
+    left: ReadonlyArray<string>;
+    right: ReadonlyArray<string>;
+};
