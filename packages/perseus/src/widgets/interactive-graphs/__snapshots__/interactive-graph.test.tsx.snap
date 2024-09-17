@@ -1,5 +1,1104 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`interactive-graph widget A none-type graph renders predictably: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="perseus-widget perseus-widget-interactive-graph"
+            style="width: 400px; height: 400px;"
+          >
+            <div
+              class="graphie-container above-scratchpad"
+              style="width: 400px; height: 400px;"
+            >
+              <div
+                class="graphie"
+                style="position: relative; width: 400px; height: 400px;"
+              >
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                </svg>
+                <svg
+                  height="400"
+                  style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  version="1.1"
+                  width="400"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <desc
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  >
+                    Created with Raphaël
+                  </desc>
+                  <defs
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                  />
+                  <path
+                    d="M0,400L0,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M20,400L20,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M40,400L40,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M60,400L60,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M80,400L80,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M100,400L100,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M120,400L120,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M140,400L140,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M160,400L160,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M180,400L180,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M200,400L200,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M220,400L220,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M240,400L240,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M260,400L260,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M280,400L280,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M300,400L300,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M320,400L320,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M340,400L340,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M360,400L360,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M380,400L380,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M400,400L400,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,400L400,400"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,380L400,380"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,360L400,360"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,340L400,340"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,320L400,320"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,300L400,300"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,280L400,280"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,260L400,260"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,240L400,240"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,220L400,220"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,200L400,200"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,180L400,180"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,160L400,160"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,140L400,140"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,120L400,120"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,100L400,100"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,80L400,80"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,60L400,60"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,40L400,40"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,20L400,20"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M0,0L400,0"
+                    fill="none"
+                    opacity="0.1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
+                  />
+                  <path
+                    d="M-3.4499999999999886,205.6C-3.0999999999999885,203.5,0.7500000000000115,200.35,1.8000000000000114,200C0.7500000000000113,199.65,-3.099999999999989,196.5,-3.4499999999999886,194.4"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1; stroke-linejoin: round; stroke-linecap: round;"
+                    transform="rotate(180 1.8000000000000114 200)"
+                  />
+                  <path
+                    d="M200,200C200,200,200,200,1.0500000000000114,200"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
+                  />
+                  <path
+                    d="M394.45,205.6C394.8,203.5,398.65,200.35,399.7,200C398.65,199.65,394.8,196.5,394.45,194.4"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1; stroke-linejoin: round; stroke-linecap: round;"
+                    transform=""
+                  />
+                  <path
+                    d="M200,200C200,200,200,200,398.95,200"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
+                  />
+                  <path
+                    d="M195.5,404.55C195.85,402.45,199.7,399.3,200.75,398.95C199.7,398.59999999999997,195.85,395.45,195.5,393.34999999999997"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1; stroke-linejoin: round; stroke-linecap: round;"
+                    transform="rotate(90 200.75 398.95)"
+                  />
+                  <path
+                    d="M200,200C200,200,200,200,200,398.95"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
+                  />
+                  <path
+                    d="M195.5,6.650000000000011C195.85,4.550000000000011,199.7,1.400000000000011,200.75,1.0500000000000114C199.7,0.7000000000000114,195.85,-2.4499999999999886,195.5,-4.549999999999988"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1; stroke-linejoin: round; stroke-linecap: round;"
+                    transform="rotate(-90 200.75 1.0500000000000114)"
+                  />
+                  <path
+                    d="M200,200C200,200,200,200,200,1.0500000000000114"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="2"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
+                  />
+                  <path
+                    d="M220,205L220,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M240,205L240,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M260,205L260,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M280,205L280,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M300,205L300,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M320,205L320,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M340,205L340,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M360,205L360,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M380,205L380,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M180,205L180,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M160,205L160,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M140,205L140,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M120,205L120,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M100,205L100,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M80,205L80,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M60,205L60,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M40,205L40,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M20,205L20,195"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,180L205,180"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,160L205,160"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,140L205,140"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,120L205,120"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,100L205,100"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,80L205,80"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,60L205,60"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,40L205,40"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,20L205,20"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,220L205,220"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,240L205,240"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,260L205,260"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,280L205,280"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,300L205,300"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,320L205,320"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,340L205,340"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,360L205,360"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                  <path
+                    d="M195,380L205,380"
+                    fill="none"
+                    opacity="1"
+                    stroke="#000000"
+                    stroke-width="1"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
+                  />
+                </svg>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{1}"
+                  style="position: absolute; padding: 7px; color: black; left: 220px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{2}"
+                  style="position: absolute; padding: 7px; color: black; left: 240px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{3}"
+                  style="position: absolute; padding: 7px; color: black; left: 260px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{4}"
+                  style="position: absolute; padding: 7px; color: black; left: 280px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{5}"
+                  style="position: absolute; padding: 7px; color: black; left: 300px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{6}"
+                  style="position: absolute; padding: 7px; color: black; left: 320px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{7}"
+                  style="position: absolute; padding: 7px; color: black; left: 340px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{8}"
+                  style="position: absolute; padding: 7px; color: black; left: 360px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{9}"
+                  style="position: absolute; padding: 7px; color: black; left: 380px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}2}"
+                  style="position: absolute; padding: 7px; color: black; left: 160px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}3}"
+                  style="position: absolute; padding: 7px; color: black; left: 140px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}4}"
+                  style="position: absolute; padding: 7px; color: black; left: 120px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}5}"
+                  style="position: absolute; padding: 7px; color: black; left: 100px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}6}"
+                  style="position: absolute; padding: 7px; color: black; left: 80px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}7}"
+                  style="position: absolute; padding: 7px; color: black; left: 60px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}8}"
+                  style="position: absolute; padding: 7px; color: black; left: 40px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}9}"
+                  style="position: absolute; padding: 7px; color: black; left: 20px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{1}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 180px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{2}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 160px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{3}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 140px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{4}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 120px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{5}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 100px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{6}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 80px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{7}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 60px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{8}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 40px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{9}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 20px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}2}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 240px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}3}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 260px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}4}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 280px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}5}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 300px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}6}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 320px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}7}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 340px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}8}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 360px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="\\small{\\llap{-}9}"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 380px; fill: none; stroke: #000000; opacity: 1;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="y"
+                  style="position: absolute; padding: 7px; color: black; left: 200px; top: 0px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <span
+                  class="graphie-label"
+                  data-math-formula="x"
+                  style="position: absolute; padding: 7px; color: black; left: 400px; top: 200px; fill: none;"
+                >
+                  <span
+                    class="tex-holder"
+                  />
+                </span>
+                <div
+                  style="position: absolute; left: 0px; top: 0px;"
+                />
+                <div
+                  style="position: absolute; left: 0px; top: 0px; z-index: 2;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`interactive-graph widget question Should render predictably: after interaction 1`] = `
 <div>
   <div

@@ -8,14 +8,16 @@ import * as React from "react";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import ScrolllessNumberTextField from "../../../components/scrollless-number-text-field";
 
-import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
+import type {Coord} from "@khanacademy/perseus";
+
+type CircleCoords = {
+    center: Coord;
+    radius: number;
+};
 
 type Props = {
-    startCoords: {
-        center: Coord;
-        radius: number;
-    };
-    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
+    startCoords: CircleCoords;
+    onChange: (startCoords: CircleCoords) => void;
 };
 
 const StartCoordsCircle = (props: Props) => {

@@ -20,6 +20,7 @@ export type InteractiveGraphState =
     | LinearSystemGraphState
     | LinearGraphState
     | RayGraphState
+    | NoneGraphState
     | PolygonGraphState
     | PointGraphState
     | CircleGraphState
@@ -47,6 +48,10 @@ export interface LinearGraphState extends InteractiveGraphStateCommon {
 export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
     type: "linear-system";
     coords: PairOfPoints[];
+}
+
+export interface NoneGraphState extends InteractiveGraphStateCommon {
+    type: "none";
 }
 
 export interface PointGraphState extends InteractiveGraphStateCommon {

@@ -13,11 +13,11 @@ import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
 import {getQuadraticEquation} from "./util";
 
-import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
+import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: [Coord, Coord, Coord];
-    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
+    onChange: (startCoords: [Coord, Coord, Coord]) => void;
 };
 
 const StartCoordsQuadratic = (props: Props) => {

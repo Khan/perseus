@@ -8,12 +8,12 @@ import * as React from "react";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
-import type {CollinearTuple, PerseusGraphType} from "@khanacademy/perseus";
+import type {CollinearTuple} from "@khanacademy/perseus";
 
 type Props = {
     type: "linear-system" | "segment";
     startCoords: CollinearTuple[];
-    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
+    onChange: (startCoords: CollinearTuple[]) => void;
 };
 
 const StartCoordsMultiline = (props: Props) => {
