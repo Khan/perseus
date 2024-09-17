@@ -15,6 +15,7 @@ import KhanMath from "../../util/math";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports} from "../../types";
+import type {PerseusNumberLineUserInput} from "../../user-input.types";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -191,6 +192,8 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     return results;
 });
 
+export type Relationship = "lt" | "gt" | "le" | "ge";
+
 type Props = ChangeableProps & {
     range: [number, number];
     labelRange: ReadonlyArray<number | null>;
@@ -202,7 +205,7 @@ type Props = ChangeableProps & {
     isTickCtrl: boolean;
     isInequality: boolean;
     numLinePosition: number;
-    rel: "lt" | "gt" | "le" | "ge";
+    rel: Relationship;
     onFocus: (arg1: any) => void;
     onBlur: (arg1: any) => void;
     onChange: (arg1: any, arg2?: () => void | null | undefined) => void;
@@ -618,7 +621,7 @@ class NumberLine extends React.Component<Props, State> {
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     };
 
-    getUserInput: () => any = () => {
+    getUserInput: () => PerseusNumberLineUserInput = () => {
         return {
             numLinePosition: this.props.numLinePosition,
             rel: this.props.isInequality ? this.props.rel : "eq",
