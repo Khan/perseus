@@ -1231,7 +1231,7 @@ export type PerseusSorterWidgetOptions = {
     // Adds padding to the options.  Padding is good for text but not needed for images
     padding: boolean;
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text and larger images.
-    layout: string;
+    layout: "horizontal" | "vertical";
 };
 
 export type PerseusTableWidgetOptions = {

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Sortable, {Layout} from "../sortable";
+import Sortable from "../sortable";
 
 type StoryArgs = Record<any, any>;
 
@@ -19,7 +19,7 @@ export const SortableHorizontalExample = (
 ): React.ReactElement => {
     return (
         <Sortable
-            layout={Layout.HORIZONTAL}
+            layout={"horizontal"}
             options={["a", "b", "c"]}
             waitForTexRendererToLoad={false}
         />
@@ -31,7 +31,7 @@ export const SortableVerticalExample = (
 ): React.ReactElement => {
     return (
         <Sortable
-            layout={Layout.VERTICAL}
+            layout={"vertical"}
             options={["a", "b", "c"]}
             waitForTexRendererToLoad={false}
         />

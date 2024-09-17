@@ -15,7 +15,8 @@ import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 
-import type {WidgetExports} from "../../types";
+import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 const {updateQueryString} = Util;
 
@@ -26,21 +27,16 @@ type UserInput = {
     message: string | null;
 };
 
-type Setting = {
-    name: string;
-    value: any;
-};
-
-type Props = {
-    width: string;
-    height: string;
-    url: string;
-    settings: ReadonlyArray<Setting>;
+type RenderProps = PerseusIFrameWidgetOptions & {
     status: Status;
     message: string | null;
-    allowFullScreen: boolean;
-    allowTopNavigation: boolean;
+    width: string;
+    height: string;
 };
+
+export type Rubric = PerseusIFrameWidgetOptions;
+
+type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {
     status: Props["status"];
