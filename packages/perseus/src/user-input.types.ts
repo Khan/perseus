@@ -12,3 +12,5 @@ export type PerseusCSProgramUserInput = {
 export type PerseusDropdownUserInput = {
     value: number;
 };
+
+export type PerseusExpressionUserInput = string;

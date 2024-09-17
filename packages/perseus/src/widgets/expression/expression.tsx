@@ -30,6 +30,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import type {PerseusExpressionUserInput} from "../../user-input.types";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -123,7 +124,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     // TODO remove this in favor of just using expressionValidator
     static validate(
-        userInput: string,
+        userInput: PerseusExpressionUserInput,
         rubric: Rubric,
         // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
         onInputError: OnInputErrorFunctionType = function () {},
@@ -139,7 +140,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         );
     }
 
-    static getUserInputFromProps(props: Props): string {
+    static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
         return normalizeTex(props.value);
     }
 
@@ -265,7 +266,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return score;
     };
 
-    getUserInput: () => string = () => {
+    getUserInput: () => PerseusExpressionUserInput = () => {
         return Expression.getUserInputFromProps(this.props);
     };
 

@@ -11,6 +11,7 @@ import type {Rubric, OnInputErrorFunctionType} from "./expression.types";
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
+import type {PerseusExpressionUserInput} from "../../user-input.types";
 import type {Score} from "../../util/answer-types";
 
 /* Content creators input a list of answers which are matched from top to
@@ -32,7 +33,7 @@ import type {Score} from "../../util/answer-types";
  * - Otherwise, pass through the resulting points and message.
  */
 function expressionValidator(
-    userInput: string,
+    userInput: PerseusExpressionUserInput,
     rubric: Rubric,
     // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
     onInputError: OnInputErrorFunctionType = function () {},
