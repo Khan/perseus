@@ -119,13 +119,11 @@ function numericInputValidator(
     let result = correctAnswers
         .map((answer) => {
             // The coefficient is an attribute of the widget
-            let localValue = currentValue;
+            let localValue: string | number = currentValue;
             if (rubric.coefficient) {
                 if (!localValue) {
-                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'string'.
                     localValue = 1;
                 } else if (localValue === "-") {
-                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'string'.
                     localValue = -1;
                 }
             }

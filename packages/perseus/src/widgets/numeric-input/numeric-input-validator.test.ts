@@ -39,14 +39,12 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "earned": 1,
-              "message": null,
-              "total": 1,
-              "type": "points",
-            }
-        `);
+        expect(score).toEqual({
+            earned: 1,
+            message: null,
+            total: 1,
+            type: "points",
+        });
     });
 
     it("with nonsense", () => {
@@ -73,12 +71,11 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "message": "We could not understand your answer. Please check your answer for extra text or symbols.",
-              "type": "invalid",
-            }
-        `);
+        expect(score).toEqual({
+            message:
+                "We could not understand your answer. Please check your answer for extra text or symbols.",
+            type: "invalid",
+        });
     });
 
     // Don't default to validating the answer as a pi answer
@@ -149,14 +146,12 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(userInput, rubric, mockStrings);
 
-        expect(score).toMatchInlineSnapshot(`
-        {
-          "earned": 1,
-          "message": null,
-          "total": 1,
-          "type": "points",
-        }
-    `);
+        expect(score).toEqual({
+            earned: 1,
+            message: null,
+            total: 1,
+            type: "points",
+        });
     });
 
     it("with a strict answer", () => {
@@ -183,14 +178,12 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "earned": 1,
-              "message": null,
-              "total": 1,
-              "type": "points",
-            }
-        `);
+        expect(score).toEqual({
+            earned: 1,
+            message: null,
+            total: 1,
+            type: "points",
+        });
     });
 
     it("with a strict answer and max error is outside range", () => {
@@ -217,14 +210,12 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "earned": 0,
-              "message": null,
-              "total": 1,
-              "type": "points",
-            }
-        `);
+        expect(score).toEqual({
+            earned: 0,
+            message: null,
+            total: 1,
+            type: "points",
+        });
     });
 
     it("with a strict answer and max error is inside range", () => {
@@ -251,14 +242,12 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "earned": 1,
-              "message": null,
-              "total": 1,
-              "type": "points",
-            }
-        `);
+        expect(score).toEqual({
+            earned: 1,
+            message: null,
+            total: 1,
+            type: "points",
+        });
     });
 });
 
