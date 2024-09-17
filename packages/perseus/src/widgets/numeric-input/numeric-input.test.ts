@@ -6,11 +6,7 @@ import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {
-    maybeParsePercentInput,
-    NumericInput,
-    unionAnswerForms,
-} from "./numeric-input";
+import {NumericInput, unionAnswerForms} from "./numeric-input";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -21,7 +17,7 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {Rubric} from "./numeric-input";
+import type {Rubric} from "./numeric-input.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -565,31 +561,5 @@ describe("unionAnswerForms utility function", () => {
 
         // assert
         expect(result).toHaveLength(1);
-    });
-});
-
-describe("maybeParsePercentInput utility function", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("returns a percent if the input is a percent", () => {
-        const result = maybeParsePercentInput("3%", false);
-
-        expect(result).toBe(3);
-    });
-
-    it("returns the input if its not valid", () => {
-        const result = maybeParsePercentInput("asdasd%", false);
-
-        expect(result).toBe("asdasd%");
-    });
-
-    it("normalizes values", () => {
-        const result = maybeParsePercentInput("20%", true);
-
-        expect(result).toBe(0.2);
     });
 });
