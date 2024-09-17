@@ -4,7 +4,12 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
+import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {getId} from "@math-blocks/core";
+import {NodeType} from "@math-blocks/semantic";
+import {getHint} from "@math-blocks/tutor";
 import correctIcon from "@phosphor-icons/core/regular/check-circle.svg";
 import wrongIcon from "@phosphor-icons/core/regular/x-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -13,9 +18,14 @@ import _ from "underscore";
 
 import expression from "../expression";
 
+import {Hint} from "./hint";
+import {KhanmigoIcon} from "./khanmigo-icon";
+import {parse} from "./parser";
+
 import type {Mode} from "./reducer";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FilterCriterion} from "../../types";
+import type {Step as SolverStep, Problem} from "@math-blocks/solver";
 
 type StepStatus = "correct" | "wrong" | "ungraded";
 
@@ -31,6 +41,7 @@ const primaryButtonStrings: Record<Mode, string> = {
 
 type Props = {
     mode: Mode;
+    prevStep: Step;
     step: Step;
     isLast: boolean;
     disableCheck: boolean;
@@ -50,10 +61,37 @@ const widgetOptions: PerseusExpressionWidgetOptions = {
 };
 
 export const Step = (props: Props) => {
-    const {step} = props;
+    const {prevStep, step} = props;
+
+    const [opened, setOpened] = React.useState(false);
+    const [hint, setHint] = React.useState<SolverStep | null>(null);
+
+    const handleHint = React.useCallback(() => {
+        const equation = parse(prevStep.value);
+        if (equation.type !== NodeType.Equals) {
+            throw new Error(`Can't handle non-equation problems yet`);
+        }
+
+        const problem: Problem = {
+            type: "SolveEquation",
+            equation: equation,
+            variable: {
+                type: NodeType.Identifier,
+                id: getId(),
+                name: "x", // TODO
+                // TODO: Update deepEquals to treat missing fields the same as undefined
+                subscript: undefined,
+            },
+        };
+
+        const hint = getHint(problem);
+        console.log("hint =", hint);
+        setHint(hint);
+        setOpened((opened) => !opened);
+    }, [prevStep.value]);
 
     // TODO: memoize the callbacks
-    const expression = (
+    let expression = (
         <ExpressionWidget
             // common widget props
             widgetId="expression 1"
@@ -92,7 +130,7 @@ export const Step = (props: Props) => {
         icon = (
             <PhosphorIcon
                 icon={correctIcon}
-                style={styles.icon}
+                style={styles.statusIcon}
                 color={color.green}
             />
         );
@@ -100,19 +138,73 @@ export const Step = (props: Props) => {
         icon = (
             <PhosphorIcon
                 icon={wrongIcon}
-                style={styles.icon}
+                style={styles.statusIcon}
                 color={color.red}
             />
         );
     }
 
+    if (props.isLast) {
+        expression = (
+            <Popover
+                opened={opened}
+                placement="left"
+                onClose={() => {
+                    setOpened(false);
+                }}
+                content={
+                    <PopoverContentCore
+                        closeButtonVisible={true}
+                        style={styles.popupContent}
+                    >
+                        <View style={{flexDirection: "row"}}>
+                            <KhanmigoIcon style={{marginRight: 4}} />
+                            <LabelMedium>See if these hints help.</LabelMedium>
+                        </View>
+                        <View style={styles.hintContainer}>
+                            {hint && <Hint hint={hint} level={0} />}
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                justifyContent: "end",
+                            }}
+                        >
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    position: "relative",
+                                    top: 4,
+                                }}
+                            >
+                                <KhanmigoIcon style={{marginRight: 4}} />
+                                <LabelMedium>If not</LabelMedium>
+                            </View>
+                            <Button
+                                kind="secondary"
+                                size="small"
+                                onClick={() => {}}
+                                style={{marginLeft: 8}}
+                            >
+                                Show me how
+                            </Button>
+                        </View>
+                    </PopoverContentCore>
+                }
+            >
+                {expression}
+            </Popover>
+        );
+    }
+
     return (
         <View style={styles.stepContainer}>
-            {expression}
-            {icon}
+            <View style={styles.stepAndStatus}>
+                {expression}
+                {icon}
+            </View>
             {props.isLast && step.status !== "correct" && (
-                <>
-                    <Strut size={16} />
+                <View style={styles.buttonContainer}>
                     <Button
                         size="small"
                         onClick={props.onCheckStep}
@@ -121,14 +213,27 @@ export const Step = (props: Props) => {
                         {primaryButtonStrings[props.mode]}
                     </Button>
                     <Strut size={8} />
+                    <View style={styles.hintButtonContainer}>
+                        <Button
+                            size="small"
+                            kind="secondary"
+                            onClick={handleHint}
+                            style={styles.helpButton}
+                        >
+                            Help
+                        </Button>
+                        <KhanmigoIcon style={styles.khanmigoIcon} />
+                    </View>
+                    <Strut size={16} />
                     <Button
                         size="small"
                         kind="secondary"
+                        color="destructive"
                         onClick={props.onDeleteStep}
                     >
                         Delete
                     </Button>
-                </>
+                </View>
             )}
         </View>
     );
@@ -136,12 +241,41 @@ export const Step = (props: Props) => {
 
 const styles = StyleSheet.create({
     stepContainer: {
+        flexDirection: "column",
+        paddingTop: 4,
+        paddingBottom: 4,
+    },
+    stepAndStatus: {
         flexDirection: "row",
         alignItems: "center",
-        padding: 4,
     },
-    icon: {
+    buttonContainer: {
+        flexDirection: "row",
+        marginTop: 8,
+    },
+    statusIcon: {
         marginLeft: 8,
         padding: 4,
+    },
+    popupContent: {
+        width: 320,
+        maxWidth: 320,
+    },
+    hintButtonContainer: {
+        position: "relative",
+    },
+    khanmigoIcon: {
+        position: "absolute",
+        left: 8,
+        top: 4,
+        pointerEvents: "none",
+    },
+    helpButton: {
+        paddingLeft: 40,
+    },
+    hintContainer: {
+        marginBottom: 24,
+        // maxHeight: 400,
+        // overflowY: "scroll",
     },
 });

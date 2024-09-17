@@ -48,6 +48,7 @@
         "@khanacademy/perseus-linter": "^1.1.0",
         "@khanacademy/pure-markdown": "^0.3.7",
         "@khanacademy/simple-markdown": "^0.13.0",
+        "@khanacademy/wonder-blocks-icon-button": "^5.4.1",
         "@math-blocks/core": "^0.0.5",
         "@math-blocks/semantic": "^0.0.5",
         "@math-blocks/solver": "^0.0.5",

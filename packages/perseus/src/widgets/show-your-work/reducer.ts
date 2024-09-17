@@ -255,7 +255,6 @@ const assessmentReducer = (state: State, action: Action): State => {
                     steps[i + 1].value,
                 );
 
-                // TODO: handle the last step correctly.
                 switch (result.status) {
                     case "correct": {
                         newSteps.push({

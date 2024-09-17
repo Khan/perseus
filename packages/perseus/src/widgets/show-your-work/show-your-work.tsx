@@ -35,6 +35,7 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
     return (
         <View style={styles.contentWrapper}>
             <SingleSelect
+                style={styles.modeSelect}
                 placeholder="mode"
                 selectedValue={state.mode}
                 onChange={(selected) => {
@@ -45,6 +46,7 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
                 <OptionItem label="Assessment" value="Assessment" />
             </SingleSelect>
             {steps.map((step, i) => {
+                const prevStep = steps[Math.max(0, i)];
                 const isLast = i === steps.length - 1;
                 const disableCheck =
                     isLast &&
@@ -56,6 +58,7 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
                     <Step
                         key={`${mode}-${i}}`}
                         mode={mode}
+                        prevStep={prevStep}
                         step={step}
                         onChange={(step) => {
                             if (isLast) {
@@ -81,4 +84,5 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
 
 const styles = StyleSheet.create({
     contentWrapper: {},
+    modeSelect: {paddingBottom: 16},
 });
