@@ -1,3 +1,5 @@
+import type {Coord} from "./interactive2/types";
+
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
 export type PerseusCategorizerUserInput = {
@@ -14,3 +16,13 @@ export type PerseusDropdownUserInput = {
 };
 
 export type PerseusExpressionUserInput = string;
+
+/**
+ * TODO: this is kind of just a guess right now
+ * based off of an old comment in grapher
+ */
+export type PerseusGrapherUserInput = {
+    type: string;
+    asymptote: ReadonlyArray<Coord>;
+    coords: ReadonlyArray<Coord>;
+};

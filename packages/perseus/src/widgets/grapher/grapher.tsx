@@ -34,6 +34,7 @@ import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {PerseusGrapherUserInput} from "../../user-input.types";
 import type {GridDimensions} from "../../util";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -335,8 +336,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type UserInput = any; // Really this is props.plot, I think
-
 type RenderProps = {
     availableTypes: PerseusGrapherWidgetOptions["availableTypes"];
     graph: PerseusGrapherWidgetOptions["graph"];
@@ -366,11 +365,14 @@ class Grapher extends React.Component<Props> {
 
     static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
 
-    static validate(state: UserInput, rubric: Rubric): PerseusScore {
+    static validate(
+        state: PerseusGrapherUserInput,
+        rubric: Rubric,
+    ): PerseusScore {
         return grapherValidate(state, rubric);
     }
 
-    static getUserInputFromProps(props: Props): UserInput {
+    static getUserInputFromProps(props: Props): PerseusGrapherUserInput {
         return props.plot;
     }
 
@@ -540,7 +542,7 @@ class Grapher extends React.Component<Props> {
         return grapherValidate(this.getUserInput(), rubric);
     }
 
-    getUserInput(): UserInput {
+    getUserInput(): PerseusGrapherUserInput {
         return Grapher.getUserInputFromProps(this.props);
     }
 
