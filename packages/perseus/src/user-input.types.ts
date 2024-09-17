@@ -45,3 +45,7 @@ export type PerseusMatcherUserInput = {
     left: ReadonlyArray<string>;
     right: ReadonlyArray<string>;
 };
+
+export type PerseusMatrixUserInput = {
+    answers: ReadonlyArray<ReadonlyArray<number>>;
+};

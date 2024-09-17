@@ -19,6 +19,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports, WidgetProps, PerseusScore} from "../../types";
+import type {PerseusMatrixUserInput} from "../../user-input.types";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
@@ -380,7 +381,7 @@ class Matrix extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    getUserInput: () => any = () => {
+    getUserInput: () => PerseusMatrixUserInput = () => {
         return {
             answers: this.props.answers,
         };
