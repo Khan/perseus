@@ -15,6 +15,7 @@ import KhanMath from "../../util/math";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusPlotterUserInput} from "../../user-input.types";
 
 const {deepEq} = Util;
 
@@ -1135,7 +1136,7 @@ export class Plotter extends React.Component<Props, State> {
         });
     };
 
-    getUserInput: () => any = () => {
+    getUserInput: () => PerseusPlotterUserInput = () => {
         return this.state.values;
     };
 
@@ -1168,8 +1169,8 @@ export class Plotter extends React.Component<Props, State> {
 }
 
 _.extend(Plotter, {
-    validate: function (guess, rubric) {
-        if (deepEq(guess, rubric.starting)) {
+    validate: function (userInput: PerseusPlotterUserInput, rubric) {
+        if (deepEq(userInput, rubric.starting)) {
             return {
                 type: "invalid",
                 message: null,
@@ -1177,7 +1178,7 @@ _.extend(Plotter, {
         }
         return {
             type: "points",
-            earned: deepEq(guess, rubric.correct) ? 1 : 0,
+            earned: deepEq(userInput, rubric.correct) ? 1 : 0,
             total: 1,
             message: null,
         };

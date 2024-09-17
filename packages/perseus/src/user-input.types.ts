@@ -65,3 +65,5 @@ export type PerseusNumericInputUserInput = {
 export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
 };
+
+export type PerseusPlotterUserInput = ReadonlyArray<number>;
