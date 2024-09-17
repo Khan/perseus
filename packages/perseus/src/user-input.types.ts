@@ -67,3 +67,15 @@ export type PerseusOrdererUserInput = {
 };
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
+
+export type PerseusRadioUserInput = {
+    countChoices?: boolean;
+    choicesSelected: ReadonlyArray<boolean>;
+    numCorrect?: number;
+    noneOfTheAboveIndex?: number | null | undefined;
+    noneOfTheAboveSelected?: boolean;
+};
+
+export type PerseusSorterUserInput = {
+    options: ReadonlyArray<number>;
+};

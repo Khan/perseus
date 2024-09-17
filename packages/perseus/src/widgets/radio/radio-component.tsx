@@ -16,6 +16,7 @@ import type {
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
+import type {PerseusRadioUserInput} from "../../user-input.types";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -33,13 +34,6 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type UserInput = {
-    countChoices?: boolean;
-    choicesSelected: ReadonlyArray<boolean>;
-    numCorrect?: number;
-    noneOfTheAboveIndex?: number | null | undefined;
-    noneOfTheAboveSelected?: boolean;
-};
 type Rubric = PerseusRadioWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
@@ -77,7 +71,7 @@ class Radio extends React.Component<Props> {
     };
 
     static validate(
-        userInput: UserInput,
+        userInput: PerseusRadioUserInput,
         rubric: Rubric,
         strings: PerseusStrings,
     ): PerseusScore {
@@ -133,7 +127,7 @@ class Radio extends React.Component<Props> {
         };
     }
 
-    static getUserInputFromProps(props: Props): UserInput {
+    static getUserInputFromProps(props: Props): PerseusRadioUserInput {
         // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
@@ -342,7 +336,7 @@ class Radio extends React.Component<Props> {
         this.props.trackInteraction();
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput: () => PerseusRadioUserInput = () => {
         return Radio.getUserInputFromProps(this.props);
     };
 

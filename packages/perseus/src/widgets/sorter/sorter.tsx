@@ -8,6 +8,7 @@ import Util from "../../util";
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusSorterUserInput} from "../../user-input.types";
 
 const {shuffle} = Util;
 
@@ -42,8 +43,8 @@ class Sorter extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static validate(state: any, rubric: any): any {
-        const correct = _.isEqual(state.options, rubric.correct);
+    static validate(userInput: PerseusSorterUserInput, rubric: any): any {
+        const correct = _.isEqual(userInput.options, rubric.correct);
 
         return {
             type: "points",
@@ -84,9 +85,7 @@ class Sorter extends React.Component<Props, State> {
         });
     };
 
-    getUserInput: () => {
-        options: any;
-    } = () => {
+    getUserInput: () => PerseusSorterUserInput = () => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
         return {options: this.refs.sortable.getOptions()};
