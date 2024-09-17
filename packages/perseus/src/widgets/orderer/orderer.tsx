@@ -16,6 +16,7 @@ import Util from "../../util";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusOrdererUserInput} from "../../user-input.types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type PlaceholderCardProps = {
@@ -620,7 +621,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         this.setState({current: list});
     };
 
-    getUserInput: () => any = () => {
+    getUserInput: () => PerseusOrdererUserInput = () => {
         return {
             current: _.map(this.props.current, function (v) {
                 return v.content;
@@ -777,8 +778,8 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
 }
 
 _.extend(Orderer, {
-    validate: function (state, rubric) {
-        if (state.current.length === 0) {
+    validate: function (userInput: PerseusOrdererUserInput, rubric) {
+        if (userInput.current.length === 0) {
             return {
                 type: "invalid",
                 message: null,
@@ -786,7 +787,7 @@ _.extend(Orderer, {
         }
 
         const correct = _.isEqual(
-            state.current,
+            userInput.current,
             _.pluck(rubric.correctOptions, "content"),
         );
 
