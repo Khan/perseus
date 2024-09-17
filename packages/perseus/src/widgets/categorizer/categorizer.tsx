@@ -15,13 +15,12 @@ import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 
-import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
+import type {
+    PerseusCategorizerUserInput,
+    PerseusCategorizerWidgetOptions,
+} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
-
-type UserInput = {
-    values: ReadonlyArray<number>;
-};
 
 export type Rubric = PerseusCategorizerWidgetOptions;
 
@@ -56,7 +55,7 @@ export class Categorizer extends React.Component<Props, State> {
     };
 
     static validate(
-        userInput: UserInput,
+        userInput: PerseusCategorizerUserInput,
         rubric: Rubric,
         strings: PerseusStrings,
     ): PerseusScore {
@@ -84,7 +83,7 @@ export class Categorizer extends React.Component<Props, State> {
         };
     }
 
-    static getUserInputFromProps(props: Props): UserInput {
+    static getUserInputFromProps(props: Props): PerseusCategorizerUserInput {
         return {values: props.values};
     }
 
@@ -93,7 +92,7 @@ export class Categorizer extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput: () => PerseusCategorizerUserInput = () => {
         return Categorizer.getUserInputFromProps(this.props);
     };
 

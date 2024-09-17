@@ -328,6 +328,10 @@ export type PerseusImageBackground = {
     bottom?: number;
 };
 
+export type PerseusCategorizerUserInput = {
+    values: ReadonlyArray<number>;
+};
+
 export type PerseusCategorizerWidgetOptions = {
     // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
     items: ReadonlyArray<string>;
