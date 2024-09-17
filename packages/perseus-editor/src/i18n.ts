@@ -88,8 +88,6 @@ function widgetCallback(widgetInfo: any, images: Array<any>) {
         handleBackgroundImage(widgetInfo.options, images);
     } else if (widgetInfo.type === "interactive-graph") {
         handleBackgroundImage(widgetInfo.options, images);
-    } else if (widgetInfo.type === "measurer" && widgetInfo.options.image) {
-        images.push(widgetInfo.options.image.url);
     } else if (widgetInfo.type === "plotter") {
         images.push(widgetInfo.options.picUrl);
     }

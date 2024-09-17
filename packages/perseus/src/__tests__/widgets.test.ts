@@ -30,7 +30,6 @@ describe("Widget API support", () => {
         "label-image",
         "matrix",
         "matcher",
-        "measurer",
         "number-line",
         "orderer",
         "passage",

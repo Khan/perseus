@@ -8,7 +8,7 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 const exerciseImagesEverywhere = {
     question: {
         content:
-            "![question-a](question-a)\n\n![question-b](question-b)\n\n[[☃ categorizer 1]]\n\n[[☃ group 1]]\n\n[[☃ image 1]]\n\n[[☃ matcher 1]]\n\n[[☃ matrix 1]]\n\n[[☃ orderer 1]]\n\n[[☃ passage 1]]\n\n[[☃ radio 1]]\n\n[[☃ sorter 1]]\n\n[[☃ table 1]]\n\n[[☃ grapher 1]]\n\n[[☃ interactive-graph 1]]\n\n[[☃ measurer 1]]\n\n[[☃ plotter 1]]",
+            "![question-a](question-a)\n\n![question-b](question-b)\n\n[[☃ categorizer 1]]\n\n[[☃ group 1]]\n\n[[☃ image 1]]\n\n[[☃ matcher 1]]\n\n[[☃ matrix 1]]\n\n[[☃ orderer 1]]\n\n[[☃ passage 1]]\n\n[[☃ radio 1]]\n\n[[☃ sorter 1]]\n\n[[☃ table 1]]\n\n[[☃ grapher 1]]\n\n[[☃ interactive-graph 1]]\n\n[[☃ plotter 1]]",
         images: {},
         widgets: {
             "categorizer 1": {
@@ -263,21 +263,6 @@ const exerciseImagesEverywhere = {
                 },
                 version: {major: 0, minor: 0},
             },
-            "measurer 1": {
-                type: "measurer",
-                graded: true,
-                options: {
-                    box: [480, 480],
-                    image: {url: "measurer-a"},
-                    showProtractor: true,
-                    showRuler: false,
-                    rulerLabel: "",
-                    rulerTicks: 10,
-                    rulerPixels: 40,
-                    rulerLength: 10,
-                },
-                version: {major: 1, minor: 0},
-            },
             "plotter 1": {
                 type: "plotter",
                 graded: true,
@@ -419,7 +404,6 @@ const allImages = [
     "table-header-c",
     "grapher-a",
     "interactive-graph-a",
-    "measurer-a",
     "plotter-a",
     "hint1-a",
     "hint1-a",

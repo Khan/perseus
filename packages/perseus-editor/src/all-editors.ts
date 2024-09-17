@@ -17,7 +17,6 @@ import InteractiveGraphEditor from "./widgets/interactive-graph-editor/interacti
 import LabelImageEditor from "./widgets/label-image-editor";
 import MatcherEditor from "./widgets/matcher-editor";
 import MatrixEditor from "./widgets/matrix-editor";
-import MeasurerEditor from "./widgets/measurer-editor";
 import MoleculeEditor from "./widgets/molecule-editor";
 import NumberLineEditor from "./widgets/number-line-editor";
 import NumericInputEditor from "./widgets/numeric-input-editor";
@@ -52,7 +51,6 @@ export default [
     LabelImageEditor,
     MatcherEditor,
     MatrixEditor,
-    MeasurerEditor,
     MoleculeEditor,
     NumberLineEditor,
     NumericInputEditor,

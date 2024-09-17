@@ -48,8 +48,6 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `matrix ${number}`]: MatrixWidget;
 } & {
-    [key in `measurer ${number}`]: MeasurerWidget;
-} & {
     [key in `molecule-renderer ${number}`]: MoleculeRendererWidget;
 } & {
     [key in `number-line ${number}`]: NumberLineWidget;
@@ -231,8 +229,6 @@ export type MatcherWidget = Widget<'matcher', PerseusMatcherWidgetOptions>;
 // prettier-ignore
 export type MatrixWidget = Widget<'matrix', PerseusMatrixWidgetOptions>;
 // prettier-ignore
-export type MeasurerWidget = Widget<'measurer', PerseusMeasurerWidgetOptions>;
-// prettier-ignore
 export type NumberLineWidget = Widget<'number-line', PerseusNumberLineWidgetOptions>;
 // prettier-ignore
 export type NumericInputWidget = Widget<'numeric-input', PerseusNumericInputWidgetOptions>;
@@ -284,7 +280,6 @@ export type PerseusWidget =
     | LabelImageWidget
     | MatcherWidget
     | MatrixWidget
-    | MeasurerWidget
     | MoleculeRendererWidget
     | NumberLineWidget
     | NumericInputWidget
@@ -977,27 +972,6 @@ export type PerseusMatrixWidgetOptions = {
     static: boolean;
 };
 
-export type PerseusMeasurerWidgetOptions = {
-    // The image that the user is meant to measure
-    image: PerseusImageBackground;
-    // Whether to show the Protractor tool overlayed on top of the image
-    showProtractor: boolean;
-    // Whether to show the Ruler tool overlayed on top of the image
-    showRuler: boolean;
-    // The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft", "yd", "mi"
-    rulerLabel: string;
-    // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16
-    rulerTicks: number;
-    // The number of image pixels per unit (label)
-    rulerPixels: number;
-    // The number of units to display on the ruler
-    rulerLength: number;
-    // Containing area [width, height]
-    box: ReadonlyArray<number>;
-    // Always false.  Not used for this widget
-    static: boolean;
-};
-
 export type MathFormat =
     | "integer"
     | "mixed"
@@ -1631,7 +1605,6 @@ export type PerseusWidgetOptions =
     | PerseusLabelImageWidgetOptions
     | PerseusMatcherWidgetOptions
     | PerseusMatrixWidgetOptions
-    | PerseusMeasurerWidgetOptions
     | PerseusMoleculeRendererWidgetOptions
     | PerseusNumberLineWidgetOptions
     | PerseusNumericInputWidgetOptions
