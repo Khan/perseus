@@ -31,3 +31,7 @@ export type PerseusIFrameUserInput = {
     status: UserInputStatus;
     message: string | null;
 };
+
+export type PerseusInputNumberUserInput = {
+    currentValue: string;
+};

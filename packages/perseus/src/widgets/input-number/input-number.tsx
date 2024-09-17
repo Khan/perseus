@@ -20,6 +20,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import type {PerseusInputNumberUserInput} from "../../user-input.types";
 
 const ParseTex = TexWrangler.parseTex;
 
@@ -88,9 +89,6 @@ const formExamples = {
     },
 } as const;
 
-type UserInput = {
-    currentValue: string;
-};
 type RenderProps = {
     simplify: PerseusInputNumberWidgetOptions["simplify"];
     size: PerseusInputNumberWidgetOptions["size"];
@@ -276,7 +274,7 @@ class InputNumber extends React.Component<Props> {
         );
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput: () => PerseusInputNumberUserInput = () => {
         return InputNumber.getUserInputFromProps(this.props);
     };
 
