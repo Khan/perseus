@@ -1,6 +1,6 @@
 import {beforeEach, describe, it} from "@jest/globals";
 import {screen} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event/setup/index";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -16,7 +16,7 @@ import type {
     PerseusInputNumberWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus";
-import type {UserEvent} from "@testing-library/user-event/index";
+import type {UserEvent} from "@testing-library/user-event";
 
 const options: PerseusInputNumberWidgetOptions = {
     value: "2^{-2}-3",
