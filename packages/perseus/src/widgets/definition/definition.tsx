@@ -6,6 +6,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {
     PerseusRenderer,
@@ -38,12 +39,7 @@ class Definition extends React.Component<DefinitionProps> {
     };
 
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+        return noopValidator();
     }
 
     getUserInput: () => UserInput = () => {

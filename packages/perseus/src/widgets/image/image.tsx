@@ -8,6 +8,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {
@@ -76,12 +77,7 @@ class ImageWidget extends React.Component<Props> {
     };
 
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+        return noopValidator();
     }
 
     change: ChangeFn = (...args) => {

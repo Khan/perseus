@@ -11,6 +11,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import a11y from "../../util/a11y";
+import noopValidator from "../__shared__/noop-validator";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
@@ -46,12 +47,7 @@ class Video extends React.Component<Props> {
      * of Khan Academy videos.
      */
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+        return noopValidator();
     }
 
     getUserInput: () => undefined | null | undefined = () => {
