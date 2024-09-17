@@ -15,12 +15,10 @@ import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 
-import type {
-    PerseusCategorizerUserInput,
-    PerseusCategorizerWidgetOptions,
-} from "../../perseus-types";
+import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {PerseusCategorizerUserInput} from "../../user-input.types";
 
 export type Rubric = PerseusCategorizerWidgetOptions;
 

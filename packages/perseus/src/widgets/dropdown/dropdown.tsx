@@ -7,11 +7,9 @@ import {ApiOptions} from "../../perseus-api";
 import dropdownValidator from "./dropdown-validator";
 
 import type {Rubric} from "./dropdown.types";
-import type {
-    PerseusDropdownUserInput,
-    PerseusDropdownWidgetOptions,
-} from "../../perseus-types";
+import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {PerseusDropdownUserInput} from "../../user-input.types";
 
 type Props = WidgetProps<RenderProps, Rubric> & {
     selected: number;

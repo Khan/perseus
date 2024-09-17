@@ -328,10 +328,6 @@ export type PerseusImageBackground = {
     bottom?: number;
 };
 
-export type PerseusCategorizerUserInput = {
-    values: ReadonlyArray<number>;
-};
-
 export type PerseusCategorizerWidgetOptions = {
     // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
     items: ReadonlyArray<string>;
@@ -362,10 +358,6 @@ export type PerseusDefinitionWidgetOptions = {
     definition: string;
     // Always false. Not used for this widget
     static: boolean;
-};
-
-export type PerseusDropdownUserInput = {
-    value: number;
 };
 
 export type PerseusDropdownWidgetOptions = {
