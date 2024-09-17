@@ -166,6 +166,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         input?.focus();
     };
 
+    setValue = (value: string) => {
+        const input = this.mathField();
+        input?.select();
+        input?.write(value);
+    };
+
     mathField: () => MathFieldInterface | null = () => {
         if (!this.__mathField && this.__mathFieldWrapperRef) {
             const {locale} = this.context;

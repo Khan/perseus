@@ -9,7 +9,7 @@ function convertExpr(expr: KAS.Expr): types.NumericNode {
     // Operations
     if (expr instanceof KAS.Mul) {
         const factors = expr.terms.map(convertExpr);
-        return builders.mul(factors);
+        return builders.mul(factors, true);
     } else if (expr instanceof KAS.Add) {
         const terms = expr.terms.map(convertExpr);
         return builders.add(terms);

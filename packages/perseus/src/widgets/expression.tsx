@@ -161,6 +161,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
+    _mathInput: React.MutableRefObject<null | MathInput> = React.createRef();
 
     //#region Previously a class extension
     /* Content creators input a list of answers which are matched from top to
@@ -557,6 +558,12 @@ export class Expression extends React.Component<Props, ExpressionState> {
         newValue: string,
         cb: () => void,
     ) => {
+        if (this._mathInput.current) {
+            const inputRef = this._mathInput.current.inputRef;
+            if (inputRef.current) {
+                inputRef.current.setValue(newValue);
+            }
+        }
         this.props.onChange(
             {
                 value: newValue,
@@ -582,7 +589,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                     )}
                     <KeypadInput
                         // eslint-disable-next-line react/no-string-refs
-                        ref="input"
+                        ref="keypad-input"
                         ariaLabel={
                             this.props.ariaLabel ||
                             this.context.strings.mathInputBox
@@ -659,8 +666,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                         content={ERROR_MESSAGE}
                     >
                         <MathInput
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="input"
+                            ref={this._mathInput}
                             className={ApiClassNames.INTERACTIVE}
                             value={this.props.value}
                             onChange={this.changeAndTrack}

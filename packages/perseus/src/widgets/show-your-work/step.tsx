@@ -9,7 +9,7 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {getId} from "@math-blocks/core";
 import {NodeType} from "@math-blocks/semantic";
-import {getHint} from "@math-blocks/tutor";
+import {getHint, showMeHow} from "@math-blocks/tutor";
 import correctIcon from "@phosphor-icons/core/regular/check-circle.svg";
 import wrongIcon from "@phosphor-icons/core/regular/x-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -21,10 +21,12 @@ import expression from "../expression";
 import {Hint} from "./hint";
 import {KhanmigoIcon} from "./khanmigo-icon";
 import {parse} from "./parser";
+import {print} from "./printer";
 
 import type {Mode} from "./reducer";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {FilterCriterion} from "../../types";
+import type {Expression} from "../expression";
 import type {Step as SolverStep, Problem} from "@math-blocks/solver";
 
 type StepStatus = "correct" | "wrong" | "ungraded";
@@ -63,6 +65,7 @@ const widgetOptions: PerseusExpressionWidgetOptions = {
 export const Step = (props: Props) => {
     const {prevStep, step} = props;
 
+    const expressionRef = React.useRef<Expression | null>(null);
     const [opened, setOpened] = React.useState(false);
     const [hint, setHint] = React.useState<SolverStep | null>(null);
 
@@ -90,9 +93,38 @@ export const Step = (props: Props) => {
         setOpened((opened) => !opened);
     }, [prevStep.value]);
 
+    const handleShowMeHow = React.useCallback(() => {
+        console.log("prevStep.value =", prevStep.value);
+        const equation = parse(prevStep.value);
+        if (equation.type !== NodeType.Equals) {
+            throw new Error(`Can't handle non-equation problems yet`);
+        }
+
+        const problem: Problem = {
+            type: "SolveEquation",
+            equation: equation,
+            variable: {
+                type: NodeType.Identifier,
+                id: getId(),
+                name: "x", // TODO
+                // TODO: Update deepEquals to treat missing fields the same as undefined
+                subscript: undefined,
+            },
+        };
+
+        const nextStep = showMeHow(problem);
+
+        if (expressionRef.current) {
+            expressionRef.current.setInputValue("", print(nextStep), () => {
+                // TODO: update state of input field to show it's a tutor step
+            });
+        }
+    }, [prevStep.value]);
+
     // TODO: memoize the callbacks
     let expression = (
         <ExpressionWidget
+            ref={expressionRef}
             // common widget props
             widgetId="expression 1"
             alignment={undefined}
@@ -183,7 +215,7 @@ export const Step = (props: Props) => {
                             <Button
                                 kind="secondary"
                                 size="small"
-                                onClick={() => {}}
+                                onClick={handleShowMeHow}
                                 style={{marginLeft: 8}}
                             >
                                 Show me how
