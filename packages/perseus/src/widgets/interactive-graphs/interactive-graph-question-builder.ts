@@ -323,17 +323,15 @@ class InteractiveGraphQuestionBuilder {
             showPoint2: options?.showPoint2 ?? false,
             color: options?.color ?? "grayH",
             lineStyle: options?.lineStyle ?? "solid",
-            labels: options?.labels
-                ? options.labels.map((label) => ({
-                      type: "label",
-                      coord:
-                          label.coord ??
-                          ([...kline.midpoint([point1, point2])] as Coord),
-                      text: label.text,
-                      color: options.color ?? "grayH",
-                      size: label.size ?? "medium",
-                  }))
-                : [],
+            labels: (options?.labels ?? []).map((label) => ({
+                type: "label",
+                coord:
+                    label.coord ??
+                    ([...kline.midpoint([point1, point2])] as Coord),
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
             points: [
                 {
                     ...this.createLockedPoint(...point1, {
@@ -464,15 +462,13 @@ class InteractiveGraphQuestionBuilder {
             coord: [x, y],
             color: options?.color ?? "grayH",
             filled: options?.filled ?? true,
-            labels: options?.labels
-                ? options.labels.map((label) => ({
-                      type: "label",
-                      coord: label.coord ?? [x + 0.5, y],
-                      text: label.text,
-                      color: options.color ?? "grayH",
-                      size: label.size ?? "medium",
-                  }))
-                : [],
+            labels: (options?.labels ?? []).map((label) => ({
+                type: "label",
+                coord: label.coord ?? [x + 0.5, y],
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
         };
     }
 
