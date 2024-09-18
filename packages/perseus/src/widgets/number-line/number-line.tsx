@@ -148,33 +148,15 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 
         const labelTicks = props.labelTicks;
         if (labelTicks || props.labelStyle === "decimal ticks") {
-            results.push(_label(graphie, props.labelStyle, x, x, base));
+            if (x === leftLabel || x === rightLabel) {
+                results.push(graphie.style({color: KhanColors.BLUE},
+                    () => _label(graphie, props.labelStyle, x, x, base),
+                ));
+            } else {
+                results.push(_label(graphie, props.labelStyle, x, x, base));
+            }
         }
     }
-
-    // Render the text labels
-    results.push(
-        graphie.style(
-            props.isMobile
-                ? {
-                      color: KhanColors.BLUE,
-                  }
-                : {},
-            () => _label(graphie, props.labelStyle, leftLabel, leftLabel, base),
-        ),
-    );
-
-    results.push(
-        graphie.style(
-            props.isMobile
-                ? {
-                      color: KhanColors.BLUE,
-                  }
-                : {},
-            () =>
-                _label(graphie, props.labelStyle, rightLabel, rightLabel, base),
-        ),
-    );
 
     // Render the labels' lines
     graphie.style(

@@ -1675,6 +1675,8 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             marginTop: -height / 2 - y * scale,
         });
     } else {
+        const currentHeightMatchesProps = span.scrollHeight === height;
+
         // We are using jQuery to collect information and calculate a scale
         //     since we don't have a way to pass it to this function.
         // We need the width of the container in order to calculate the scale to apply to the label.
@@ -1695,6 +1697,17 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // Ensuring that the line-height of the text doesn't throw off placement of the text element.
         // Inherited line-height values can really mess up placement.
         $container.css("line-height", "normal");
+
+        // TODO: Verify that this change doesn't impact other graphies
+        //       Check the full list of consuming widgets.
+
+        // If the change in line-height affected the height of the element,
+        //     then the height used for calculations should be updated.
+        // This can happen when the first label in the container calls this method,
+        //     and the line-height was different when the height measurement was originally referenced.
+        if (currentHeightMatchesProps && span.scrollHeight !== height) {
+            height = span.scrollHeight;
+        }
 
         // The expected width of the graphie is found in the "max-width" property on ".svg-image" containers,
         //     and is found in the "width" property on ".graphie" containers.
