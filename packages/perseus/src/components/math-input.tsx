@@ -544,7 +544,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: color.offBlack50,
         borderRadius: 3,
-        background: color.white,
+        // STOPSHIP(kevinb): Make this configurable.
+        // background: color.white,
         ":hover": inputFocused,
     },
     wrapperFocused: inputFocused,

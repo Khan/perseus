@@ -25,6 +25,7 @@ export type Action =
           // TODO: Rename this since this reducer defers checking of
           // all steps.
           kind: "Check";
+          tutor: boolean;
       }
     | {
           kind: "Checkall";
@@ -53,6 +54,8 @@ const simpleCheckStep = (
     prevStepValue: string,
     currStepValue: string,
 ): CheckResult => {
+    console.log(`simpleCheckStep: ${prevStepValue} -> ${currStepValue}`);
+
     const equation = parse(equationValue);
     if (equation.type !== NodeType.Equals) {
         throw new Error(`Can't handle non-equation problems yet`);
@@ -174,6 +177,16 @@ const practiceReducer = (state: State, action: Action): State => {
             // Reset the status of the current step
             newSteps[newSteps.length - 1].status = "ungraded";
 
+            if (action.tutor) {
+                newSteps[newSteps.length - 1].tutor = true;
+                newSteps.push({
+                    value: newSteps[newSteps.length - 1].value,
+                    status: "ungraded",
+                    tutor: false,
+                });
+                return {...state, steps: newSteps};
+            }
+
             const result = simpleCheckStep(
                 state.steps[0].value,
                 newSteps[newSteps.length - 2].value,
@@ -191,6 +204,7 @@ const practiceReducer = (state: State, action: Action): State => {
                         newSteps.push({
                             value: newSteps[newSteps.length - 1].value,
                             status: "ungraded",
+                            tutor: false,
                         });
                     }
                     break;
@@ -214,6 +228,7 @@ const practiceReducer = (state: State, action: Action): State => {
             newSteps[newSteps.length - 1] = {
                 value: action.value,
                 status: "ungraded",
+                tutor: false,
             };
             return {...state, steps: newSteps};
         }
@@ -241,6 +256,7 @@ const assessmentReducer = (state: State, action: Action): State => {
             newSteps.push({
                 value: newSteps[newSteps.length - 1].value,
                 status: "ungraded",
+                tutor: false,
             });
             return {...state, steps: newSteps};
         }
@@ -329,6 +345,7 @@ const assessmentReducer = (state: State, action: Action): State => {
             newSteps[newSteps.length - 1] = {
                 value: action.value,
                 status: "ungraded",
+                tutor: false,
             };
             return {...state, steps: newSteps};
         }

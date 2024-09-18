@@ -34,6 +34,7 @@ type StepStatus = "correct" | "wrong" | "ungraded";
 export type Step = {
     value: string;
     status: StepStatus;
+    tutor: boolean;
 };
 
 const primaryButtonStrings: Record<Mode, string> = {
@@ -48,7 +49,7 @@ type Props = {
     isLast: boolean;
     disableCheck: boolean;
     onChange: (step: Step) => void;
-    onCheckStep: () => void;
+    onCheckStep: (tutor: boolean) => void;
     onDeleteStep: () => void;
 };
 
@@ -63,7 +64,7 @@ const widgetOptions: PerseusExpressionWidgetOptions = {
 };
 
 export const Step = (props: Props) => {
-    const {prevStep, step} = props;
+    const {prevStep, onCheckStep, step} = props;
 
     const expressionRef = React.useRef<Expression | null>(null);
     const [opened, setOpened] = React.useState(false);
@@ -116,45 +117,50 @@ export const Step = (props: Props) => {
 
         if (expressionRef.current) {
             expressionRef.current.setInputValue("", print(nextStep), () => {
-                // TODO: update state of input field to show it's a tutor step
+                onCheckStep(true);
             });
         }
-    }, [prevStep.value]);
+    }, [prevStep.value, onCheckStep]);
 
     // TODO: memoize the callbacks
     let expression = (
-        <ExpressionWidget
-            ref={expressionRef}
-            // common widget props
-            widgetId="expression 1"
-            alignment={undefined}
-            static={true}
-            apiOptions={undefined}
-            onFocus={() => {}}
-            onBlur={() => {}}
-            findWidgets={(arg1: FilterCriterion) => []}
-            reviewModeRubric={widgetOptions}
-            onChange={(arg1, arg2, arg3) =>
-                props.onChange({...step, value: arg1.value})
-            }
-            trackInteraction={(extraData) => {}}
-            linterContext={undefined} // TODO
-            containerSizeClass="large"
-            isLastUsedWidget={false}
-            problemNum={1}
-            // render props
-            times={false}
-            buttonSets={["basic"]}
-            functions={[]}
-            disabled={!props.isLast}
-            visibleLabel=""
-            ariaLabel=""
-            keypadConfiguration={{keypadType: KeypadType.EXPRESSION}}
-            value={step.value}
-            // extension
-            noWrapper={true}
-            dontSimplifyFractions={true}
-        />
+        <View style={step.tutor && styles.tutorStep}>
+            <ExpressionWidget
+                ref={expressionRef}
+                // common widget props
+                widgetId="expression 1"
+                alignment={undefined}
+                static={true}
+                apiOptions={undefined}
+                onFocus={() => {}}
+                onBlur={() => {}}
+                findWidgets={(arg1: FilterCriterion) => []}
+                reviewModeRubric={widgetOptions}
+                onChange={(data, cb, arg3) => {
+                    props.onChange({...step, value: data.value});
+                    if (cb) {
+                        cb();
+                    }
+                }}
+                trackInteraction={(extraData) => {}}
+                linterContext={undefined} // TODO
+                containerSizeClass="large"
+                isLastUsedWidget={false}
+                problemNum={1}
+                // render props
+                times={false}
+                buttonSets={["basic"]}
+                functions={[]}
+                disabled={!props.isLast}
+                visibleLabel=""
+                ariaLabel=""
+                keypadConfiguration={{keypadType: KeypadType.EXPRESSION}}
+                value={step.value}
+                // extension
+                noWrapper={true}
+                dontSimplifyFractions={true}
+            />
+        </View>
     );
 
     let icon: React.ReactNode = null;
@@ -239,7 +245,7 @@ export const Step = (props: Props) => {
                 <View style={styles.buttonContainer}>
                     <Button
                         size="small"
-                        onClick={props.onCheckStep}
+                        onClick={() => onCheckStep(false)}
                         disabled={props.disableCheck}
                     >
                         {primaryButtonStrings[props.mode]}
@@ -309,5 +315,9 @@ const styles = StyleSheet.create({
         marginBottom: 24,
         // maxHeight: 400,
         // overflowY: "scroll",
+    },
+    tutorStep: {
+        backgroundColor: "#DEAE9333",
+        borderRadius: 4,
     },
 });

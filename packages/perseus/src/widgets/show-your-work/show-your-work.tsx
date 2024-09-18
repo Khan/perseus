@@ -19,8 +19,8 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
     const [state, dispatch] = React.useReducer(combinedReducer, {
         mode: "Practice",
         steps: [
-            {value: props.question, status: "ungraded"},
-            {value: props.question, status: "ungraded"},
+            {value: props.question, status: "ungraded", tutor: false},
+            {value: props.question, status: "ungraded", tutor: false},
         ],
     });
 
@@ -66,9 +66,9 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
                             }
                         }}
                         disableCheck={disableCheck}
-                        onCheckStep={() => {
+                        onCheckStep={(tutor) => {
                             if (isLast) {
-                                dispatch({kind: "Check"});
+                                dispatch({kind: "Check", tutor});
                             }
                         }}
                         onDeleteStep={() => {
