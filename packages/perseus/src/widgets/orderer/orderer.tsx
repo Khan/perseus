@@ -802,6 +802,7 @@ _.extend(Orderer, {
 export default {
     name: "orderer",
     displayName: "Orderer",
+    hidden: true,
     widget: Orderer,
     isLintable: true,
 } as WidgetExports<typeof Orderer>;

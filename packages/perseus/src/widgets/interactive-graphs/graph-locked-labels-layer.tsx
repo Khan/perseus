@@ -26,12 +26,9 @@ export default function GraphLockedLabelsLayer(props: Props) {
             (flags?.["mafs"]?.["locked-line-labels"] && figure.type === "line")
         ) {
             return (
-                <React.Fragment key={`locked-figure-${i}`}>
+                <React.Fragment key={i}>
                     {figure.labels.map((label, j) => (
-                        <LockedLabel
-                            key={`locked-figure-${i}-label-${j}`}
-                            {...label}
-                        />
+                        <LockedLabel key={`${i}-label-${j}`} {...label} />
                     ))}
 
                     {/* Account for the labels within the lines' defining points */}
