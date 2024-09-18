@@ -197,7 +197,7 @@ const LockedPointSettings = (props: Props) => {
                 </>
             )}
 
-            {(flags?.["mafs"]?.["locked-point-labels"] ||
+            {((!isDefiningPoint && flags?.["mafs"]?.["locked-point-labels"]) ||
                 (isDefiningPoint &&
                     flags?.["mafs"]?.["locked-line-labels"])) && (
                 <>
