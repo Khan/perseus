@@ -45,14 +45,11 @@ export type StatefulMafsGraphProps = {
 // the legacy interactive graph, this lets us store state
 // however we want and we just transform it before handing it off
 // the the parent InteractiveGraph
-function mafsStateToInteractiveGraph(state: {graph: InteractiveGraphState}) {
-    if (state.graph.type === "circle") {
+function mafsStateToInteractiveGraph(state: InteractiveGraphState): PerseusGraphType {
+    if (state.type === "circle") {
         return {
             ...state,
-            graph: {
-                ...state.graph,
-                radius: getRadius(state.graph),
-            },
+            radius: getRadius(state),
         };
     }
     return {
@@ -80,7 +77,7 @@ export const StatefulMafsGraph = React.forwardRef<
 
     useEffect(() => {
         if (prevState.current !== state) {
-            onChange(mafsStateToInteractiveGraph({graph: state}));
+            onChange({graph: mafsStateToInteractiveGraph(state)});
         }
         prevState.current = state;
     }, [onChange, state]);

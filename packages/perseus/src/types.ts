@@ -3,6 +3,7 @@ import type {Item} from "./multi-items/item-types";
 import type {
     Hint,
     PerseusAnswerArea,
+    PerseusGraphType,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
@@ -90,7 +91,7 @@ export type ChangeHandler = (
         // perseus-all-package/widgets/grapher.jsx
         plot?: any;
         // Interactive Graph callback (see legacy: interactive-graph.tsx)
-        graph?: InteractiveGraphState;
+        graph?: PerseusGraphType;
     },
     callback?: () => unknown | null | undefined,
     silent?: boolean,
