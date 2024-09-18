@@ -1190,6 +1190,7 @@ const staticTransform = _.identity;
 export default {
     name: "plotter",
     displayName: "Plotter",
+    hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
 } as WidgetExports<typeof Plotter>;

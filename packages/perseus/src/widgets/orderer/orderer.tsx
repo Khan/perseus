@@ -1,12 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe */
 import {Errors} from "@khanacademy/perseus-core";
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "@khanacademy/perseus-linter";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
-import PropTypes, {bool} from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -20,22 +16,23 @@ import Util from "../../util";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-class PlaceholderCard extends React.Component<any> {
-    static propTypes = {
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-    };
+type PlaceholderCardProps = {
+    width: number | null | undefined;
+    height: number | null | undefined;
+};
 
+class PlaceholderCard extends React.Component<PlaceholderCardProps> {
     render(): React.ReactNode {
         return (
             <div
                 className={"card-wrap " + ApiClassNames.INTERACTIVE}
-                style={{width: this.props.width}}
+                style={{width: this.props.width as number}}
             >
                 <div
                     className="card placeholder"
-                    style={{height: this.props.height}}
+                    style={{height: this.props.width as number}}
                 />
             </div>
         );
@@ -52,37 +49,51 @@ class DragHintCard extends React.Component<any> {
     }
 }
 
-const PropTypePosition = PropTypes.shape({
-    left: PropTypes.number,
-    top: PropTypes.number,
-});
+type Position = {
+    left: number;
+    top: number;
+};
 
-class Card extends React.Component<any, any> {
+type CardProps = {
+    content: string;
+    fakeRef?: string;
+    mouse?: Position;
+
+    floating: boolean;
+    animating: boolean;
+    width?: number | null | undefined;
+    stack: boolean;
+
+    onMouseDown?: any;
+    onMouseMove?: any;
+    onMouseUp?: any;
+
+    // Used only for floating/animating cards
+    startMouse?: Position;
+    startOffset?: Position | null | undefined;
+    animateTo?: Position | null | undefined;
+    onAnimationEnd?: any;
+    linterContext: LinterContextProps;
+};
+
+type CardDefaultProps = {
+    stack: CardProps["stack"];
+    animating: CardProps["animating"];
+    linterContext: CardProps["linterContext"];
+};
+
+type CardState = {
+    dragging: boolean;
+};
+
+class Card extends React.Component<CardProps, CardState> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     // @ts-expect-error - TS2564 - Property 'mouseMoveUpBound' has no initializer and is not definitely assigned in the constructor.
     mouseMoveUpBound: boolean;
 
-    static propTypes = {
-        floating: PropTypes.bool.isRequired,
-        animating: PropTypes.bool,
-        width: PropTypes.number,
-        stack: PropTypes.bool,
-
-        onMouseDown: PropTypes.func,
-        onMouseMove: PropTypes.func,
-        onMouseUp: PropTypes.func,
-
-        // Used only for floating/animating cards
-        startMouse: PropTypePosition,
-        startOffset: PropTypePosition,
-        animateTo: PropTypePosition,
-        onAnimationEnd: PropTypes.func,
-        linterContext: linterContextProps,
-    };
-
-    static defaultProps = {
+    static defaultProps: CardDefaultProps = {
         stack: false,
         animating: false,
         linterContext: linterContextDefault,
@@ -126,7 +137,12 @@ class Card extends React.Component<any, any> {
     }
 
     componentDidUpdate(prevProps, prevState: any) {
-        if (this.props.animating && !prevProps.animating) {
+        if (
+            this.props.animating &&
+            !prevProps.animating &&
+            this.props.animateTo &&
+            this.props.startOffset
+        ) {
             // If we just were changed into animating, start the animation.
             // We pick the animation speed based on the distance that the card
             // needs to travel. (Why sqrt? Just because it looks nice -- with a
@@ -222,8 +238,8 @@ class Card extends React.Component<any, any> {
         if (this.props.floating) {
             style = {
                 position: "absolute",
-                left: this.props.startOffset.left,
-                top: this.props.startOffset.top,
+                left: this.props.startOffset?.left,
+                top: this.props.startOffset?.top,
             };
         }
 
@@ -235,7 +251,12 @@ class Card extends React.Component<any, any> {
         if (this.props.stack) {
             className.push("stack");
         }
-        if (this.props.floating && !this.props.animating) {
+        if (
+            this.props.floating &&
+            !this.props.animating &&
+            this.props.mouse &&
+            this.props.startMouse
+        ) {
             className.push("dragging");
             style.left += this.props.mouse.left - this.props.startMouse.left;
             style.top += this.props.mouse.top - this.props.startMouse.top;
@@ -296,16 +317,10 @@ type OrdererState = {
     dragWidth: number | null | undefined;
     dragHeight: number | null | undefined;
     dragContent: any;
-    offsetPos: number | null | undefined;
+    offsetPos: Position | null | undefined;
     grabPos: any;
     mousePos?: any;
-    animateTo:
-        | {
-              top: number;
-              left: number;
-          }
-        | null
-        | undefined;
+    animateTo: Position | null | undefined;
     onAnimationEnd?: (arg1: any) => void;
 };
 
@@ -787,6 +802,7 @@ _.extend(Orderer, {
 export default {
     name: "orderer",
     displayName: "Orderer",
+    hidden: true,
     widget: Orderer,
     isLintable: true,
 } as WidgetExports<typeof Orderer>;

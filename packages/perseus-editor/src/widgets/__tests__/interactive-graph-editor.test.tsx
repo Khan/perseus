@@ -72,7 +72,7 @@ describe("InteractiveGraphEditor", () => {
         );
 
         // Act
-        const dropdown = screen.getByRole("button", {name: "Type of Graph:"});
+        const dropdown = screen.getByRole("button", {name: "Answer type:"});
         await userEvent.click(dropdown);
         await userEvent.click(screen.getByRole("option", {name: "Polygon"}));
 
@@ -805,5 +805,72 @@ describe("InteractiveGraphEditor", () => {
         expect(
             screen.getByRole("textbox", {name: "Description"}),
         ).toBeInTheDocument();
+    });
+
+    test("should render for none-type graphs", () => {
+        render(
+            <InteractiveGraphEditor
+                {...mafsProps}
+                graph={{type: "none"}}
+                correct={{type: "none"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+    });
+
+    test("does not display a 'None' answer type option by default", async () => {
+        render(
+            <InteractiveGraphEditor
+                {...{
+                    ...mafsProps,
+                    apiOptions: {
+                        ...mafsProps.apiOptions,
+                        flags: {
+                            ...mafsProps.apiOptions.flags,
+                            mafs: {},
+                        },
+                    },
+                }}
+                graph={{type: "none"}}
+                correct={{type: "none"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        const dropdown = screen.getByRole("button", {name: "Answer type:"});
+        await userEvent.click(dropdown);
+        expect(
+            screen.queryByRole("option", {name: "None"}),
+        ).not.toBeInTheDocument();
+    });
+
+    test("displays a 'None' answer type option when the feature flag is on", async () => {
+        render(
+            <InteractiveGraphEditor
+                {...{
+                    ...mafsProps,
+                    apiOptions: {
+                        ...mafsProps.apiOptions,
+                        flags: {
+                            ...mafsProps.apiOptions.flags,
+                            mafs: {none: true},
+                        },
+                    },
+                }}
+                graph={{type: "none"}}
+                correct={{type: "none"}}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        const dropdown = screen.getByRole("button", {name: "Answer type:"});
+        await userEvent.click(dropdown);
+        expect(screen.getByRole("option", {name: "None"})).toBeInTheDocument();
     });
 });

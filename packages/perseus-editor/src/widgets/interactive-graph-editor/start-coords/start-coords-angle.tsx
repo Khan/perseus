@@ -13,11 +13,13 @@ import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
 import {getAngleEquation} from "./util";
 
-import type {Coord, PerseusGraphType} from "@khanacademy/perseus";
+import type {Coord} from "@khanacademy/perseus";
+
+type AngleCoords = [Coord, Coord, Coord];
 
 type Props = {
-    startCoords: [Coord, Coord, Coord];
-    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
+    startCoords: AngleCoords;
+    onChange: (startCoords: AngleCoords) => void;
 };
 
 const StartCoordsAngle = (props: Props) => {

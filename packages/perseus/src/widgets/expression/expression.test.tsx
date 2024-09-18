@@ -7,14 +7,12 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {Expression} from "./expression";
 import {
     expressionItem2,
     expressionItem3,
-    expressionItem3Options,
     expressionItemWithAnswer,
     expressionItemWithLabels,
 } from "./expression.testdata";
@@ -197,32 +195,6 @@ describe("Expression Widget", function () {
         );
     });
 
-    describe("ungraded", function () {
-        it("should handle ungraded answers with no error callback", function () {
-            const err = Expression.validate(
-                "x+1",
-                expressionItem3Options,
-                undefined,
-                mockStrings,
-                "en",
-            );
-            expect(err).toStrictEqual({message: "", type: "invalid"});
-        });
-    });
-
-    describe("invalid", function () {
-        it("should handle ungraded answers with no error callback", function () {
-            const err = Expression.validate(
-                "x+^1",
-                expressionItem3Options,
-                undefined,
-                mockStrings,
-                "en",
-            );
-            expect(err).toStrictEqual({message: null, type: "invalid"});
-        });
-    });
-
     describe("when the question uses the sin function", () => {
         it("allows parens", async () => {
             const item = expressionItemWithAnswer("sin(x)");
@@ -278,7 +250,8 @@ describe("Expression Widget", function () {
         };
 
         beforeEach(() => {
-            jest.spyOn(Expression, "validate").mockReturnValue({
+            const actual = jest.requireActual("./expression-validator");
+            jest.spyOn(actual, "default").mockReturnValue({
                 type: "points",
                 earned: 1,
                 total: 1,

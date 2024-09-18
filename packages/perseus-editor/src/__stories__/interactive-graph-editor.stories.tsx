@@ -7,6 +7,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {EditorPage} from "..";
+import {interactiveGraphQuestionBuilder} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -132,6 +133,17 @@ export const InteractiveGraphAngle = (): React.ReactElement => {
     );
 };
 
+export const InteractiveGraphNone = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .addLockedFunction("5*sin(x)", {color: "red"})
+                .build()}
+        />
+    );
+};
+
 export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
@@ -141,6 +153,8 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                     mafs: {
                         ...flags.mafs,
                         "interactive-graph-locked-features-labels": false,
+                        "locked-point-labels": false,
+                        "locked-line-labels": false,
                     },
                 },
             }}
@@ -159,11 +173,75 @@ MafsWithLockedFiguresCurrent.parameters = {
 
 export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
     return (
-        <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": false,
+                        "locked-line-labels": false,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
     );
 };
 
 MafsWithLockedLabelsFlag.parameters = {
+    chromatic: {
+        // Disabling because this isn't visually testing anything on the
+        // initial load of the editor page.
+        disable: true,
+    },
+};
+
+export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": true,
+                        "locked-line-labels": false,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
+    );
+};
+
+MafsWithLockedPointLabelsFlag.parameters = {
+    chromatic: {
+        // Disabling because this isn't visually testing anything on the
+        // initial load of the editor page.
+        disable: true,
+    },
+};
+
+export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": false,
+                        "locked-line-labels": true,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
+    );
+};
+
+MafsWithLockedLineLabelsFlag.parameters = {
     chromatic: {
         // Disabling because this isn't visually testing anything on the
         // initial load of the editor page.

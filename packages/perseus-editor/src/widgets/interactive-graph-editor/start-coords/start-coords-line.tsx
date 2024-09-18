@@ -7,11 +7,11 @@ import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 
-import type {CollinearTuple, PerseusGraphType} from "@khanacademy/perseus";
+import type {CollinearTuple} from "@khanacademy/perseus";
 
 type Props = {
     startCoords: CollinearTuple;
-    onChange: (startCoords: PerseusGraphType["startCoords"]) => void;
+    onChange: (startCoords: CollinearTuple) => void;
 };
 
 const StartCoordsLine = (props: Props) => {

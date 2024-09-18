@@ -102,6 +102,10 @@ export function getGradableGraph(
         };
     }
 
+    if (state.type === "none" && initialGraph.type === "none") {
+        return {type: "none"};
+    }
+
     throw new Error(
         "Mafs is not yet implemented for graph type: " + initialGraph.type,
     );

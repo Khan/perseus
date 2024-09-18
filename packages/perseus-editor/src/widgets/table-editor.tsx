@@ -93,21 +93,6 @@ class TableEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const tableProps = _.pick(
-            this.props,
-            "headers",
-            "answers",
-            "onChange",
-            "apiOptions",
-        );
-        _.extend(tableProps, {
-            editableHeaders: true,
-            Editor,
-            onFocus: () => {},
-            onBlur: () => {},
-            trackInteraction: () => {},
-        });
-
         return (
             <div>
                 <div className="perseus-widget-row">
@@ -153,7 +138,18 @@ class TableEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div>
-                    <Table {...tableProps} />
+                    {/* @ts-expect-error - TS2769 - Type '{ headers: any; answers: any; onChange: any; apiOptions: any; editableHeaders: true; onFocus: () => void; onBlur: () => void; trackInteraction: () => void; Editor: typeof Editor; }' is missing the following properties from type 'Pick<Readonly<Props>, "trackInteraction" | "onChange" | "Editor" | "widgetId" | "alignment" | "static" | "problemNum" | "keypadElement" | "questionCompleted" | ... 5 more ... | "containerSizeClass">': widgetId, alignment, static, problemNum, and 4 more.*/}
+                    <Table
+                        headers={this.props.headers}
+                        answers={this.props.answers}
+                        onChange={this.props.onChange}
+                        apiOptions={this.props.apiOptions}
+                        editableHeaders={true}
+                        onFocus={() => {}}
+                        onBlur={() => {}}
+                        trackInteraction={() => {}}
+                        Editor={Editor}
+                    />
                 </div>
             </div>
         );

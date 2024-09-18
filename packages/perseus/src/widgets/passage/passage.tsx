@@ -9,6 +9,7 @@ import HighlightableContent from "../../components/highlighting/highlightable-co
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
+import noopValidator from "../__shared__/noop-validator";
 
 import PassageMarkdown from "./passage-markdown";
 
@@ -126,12 +127,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
     };
 
     static validate(state: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+        return noopValidator();
     }
 
     componentDidMount() {
@@ -562,6 +558,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 export default {
     name: "passage",
     displayName: "Passage (SAT only)",
+    hidden: true,
     widget: Passage,
     transform: (editorProps: any): RenderProps => {
         return _.pick(

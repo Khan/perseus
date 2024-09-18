@@ -1,5 +1,45 @@
 # @khanacademy/perseus
 
+## 34.0.0
+
+### Major Changes
+
+-   [#1629](https://github.com/Khan/perseus/pull/1629) [`98eaad0d1`](https://github.com/Khan/perseus/commit/98eaad0d13fd778309fd69f8515c5d90e10d4880) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove WidgetJsonifyDeprecated
+
+### Minor Changes
+
+-   [#1630](https://github.com/Khan/perseus/pull/1630) [`fd474e58e`](https://github.com/Khan/perseus/commit/fd474e58edc39956b885fe1db323789c0db7e435) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some PropTypes to TS
+
+*   [#1638](https://github.com/Khan/perseus/pull/1638) [`973de7a65`](https://github.com/Khan/perseus/commit/973de7a653a5dd176a65cde35cfb3c0fb4efea69) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add/Edit/Delete locked point labels in the editor
+
+-   [#1637](https://github.com/Khan/perseus/pull/1637) [`56166be34`](https://github.com/Khan/perseus/commit/56166be340c7c408767884be975ea157052e93df) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Locked points: Add the labels field to LockedPointType and the feature flag for locked point labels
+
+### Patch Changes
+
+-   [#1625](https://github.com/Khan/perseus/pull/1625) [`732a052f8`](https://github.com/Khan/perseus/commit/732a052f8966163768b9ee04fd6bbf504abf1902) Thanks [@handeyeco](https://github.com/handeyeco)! - move expression validator out of the component
+
+*   [#1635](https://github.com/Khan/perseus/pull/1635) [`ada946eac`](https://github.com/Khan/perseus/commit/ada946eac97610ffe3b5e52789bd64aaf5e08014) Thanks [@handeyeco](https://github.com/handeyeco)! - Split NumericInputValidator from NumericInput
+
+-   [#1626](https://github.com/Khan/perseus/pull/1626) [`1b71657a0`](https://github.com/Khan/perseus/commit/1b71657a0b4494cdcac40ae7e232f645067894a8) Thanks [@handeyeco](https://github.com/handeyeco)! - Consolidate noop validation logic
+
+*   [#1628](https://github.com/Khan/perseus/pull/1628) [`45bb43b92`](https://github.com/Khan/perseus/commit/45bb43b923a2498747fdf4a42388d3cda8354078) Thanks [@handeyeco](https://github.com/handeyeco)! - Move validation logic out of the Dropdown widget
+
+-   [#1631](https://github.com/Khan/perseus/pull/1631) [`e910f9b80`](https://github.com/Khan/perseus/commit/e910f9b80558481dfbe4a2420935a98b32190d13) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing deprecated/discouraged widgets from the Perseus Editor experience.
+
+## 33.3.0
+
+### Minor Changes
+
+-   [#1615](https://github.com/Khan/perseus/pull/1615) [`51b6e1431`](https://github.com/Khan/perseus/commit/51b6e14319ec34ee0bf661f047f138f7b63034c1) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Aligns unlimited point user experience for mouse+touch users
+
+*   [#1605](https://github.com/Khan/perseus/pull/1605) [`ddc3f5d05`](https://github.com/Khan/perseus/commit/ddc3f5d057da2d2c96ba92c5f5784c245ce6f573) Thanks [@benchristel](https://github.com/benchristel)! - Add 'None' graph type, for graphs that should only display locked figures.
+
+### Patch Changes
+
+-   [#1632](https://github.com/Khan/perseus/pull/1632) [`cea62ad11`](https://github.com/Khan/perseus/commit/cea62ad11fa39234da56d1a0d7d876212a1be56a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Minor regression fix for bounding of interactive elements in the Interactive Graph widget.
+
+*   [#1622](https://github.com/Khan/perseus/pull/1622) [`12b8e01bf`](https://github.com/Khan/perseus/commit/12b8e01bf89abbc88d6bfc9bf243d5a0e95b5ed3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix types for `classnames` package usages
+
 ## 33.2.1
 
 ### Patch Changes
