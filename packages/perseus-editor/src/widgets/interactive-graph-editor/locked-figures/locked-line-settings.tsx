@@ -4,7 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {vector as kvector, line as kline} from "@khanacademy/kmath";
+import {vector as kvector, line as kline, point} from "@khanacademy/kmath";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -18,11 +18,11 @@ import * as React from "react";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
-import DefiningPointSettings from "./defining-point-settings";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
+import LockedPointSettings from "./locked-point-settings";
 import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -118,10 +118,18 @@ const LockedLineSettings = (props: Props) => {
                 {
                     ...point1,
                     color: newColor,
+                    labels: point1.labels.map((label) => ({
+                        ...label,
+                        color: newColor,
+                    })),
                 },
                 {
                     ...point2,
                     color: newColor,
+                    labels: point2.labels.map((label) => ({
+                        ...label,
+                        color: newColor,
+                    })),
                 },
             ],
             // Keep the line's labels' colors in sync with the line color.
@@ -203,8 +211,9 @@ const LockedLineSettings = (props: Props) => {
             )}
 
             {/* Defining points settings */}
-            <DefiningPointSettings
-                label="Point 1"
+            <LockedPointSettings
+                flags={flags}
+                headerLabel="Point 1"
                 expanded={true}
                 showPoint={showPoint1}
                 error={isInvalid ? lengthZeroStr : null}
@@ -214,8 +223,9 @@ const LockedLineSettings = (props: Props) => {
                 }
                 onChangeProps={(newProps) => handleChangePoint(newProps, 0)}
             />
-            <DefiningPointSettings
-                label="Point 2"
+            <LockedPointSettings
+                flags={flags}
+                headerLabel="Point 2"
                 expanded={true}
                 showPoint={showPoint2}
                 error={isInvalid ? lengthZeroStr : null}
@@ -240,6 +250,7 @@ const LockedLineSettings = (props: Props) => {
                             onRemove={() => {
                                 handleLabelRemove(labelIndex);
                             }}
+                            containerStyle={styles.labelContainer}
                         />
                     ))}
 
@@ -305,6 +316,9 @@ const styles = StyleSheet.create({
         marginBottom: spacing.xxxSmall_4,
         height: 1,
         backgroundColor: wbColor.offBlack16,
+    },
+    labelContainer: {
+        backgroundColor: wbColor.white,
     },
 });
 
