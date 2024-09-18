@@ -140,12 +140,6 @@ class EditorPage extends React.Component<Props, State> {
         );
     };
 
-    toggleWidgetsVisibility = () => {
-        this.setState((prevState) => ({
-            widgetsAreOpen: !prevState.widgetsAreOpen,
-        }));
-    };
-
     updateRenderer() {
         // Some widgets (namely the image widget) like to call onChange before
         // anything has actually been mounted, which causes problems here. We
@@ -273,20 +267,6 @@ class EditorPage extends React.Component<Props, State> {
                                 this.props.onPreviewDeviceChange
                             }
                         />
-                    )}
-
-                    {this.props.developerMode && (
-                        <span>
-                            <label>
-                                {" "}
-                                Widget Visbility:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.state.widgetsAreOpen}
-                                    onChange={this.toggleWidgetsVisibility}
-                                />
-                            </label>{" "}
-                        </span>
                     )}
 
                     {!this.props.jsonMode && (
