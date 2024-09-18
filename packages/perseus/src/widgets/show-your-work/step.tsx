@@ -6,8 +6,6 @@ import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {getId} from "@math-blocks/core";
-import {NodeType} from "@math-blocks/semantic";
 import correctIcon from "@phosphor-icons/core/regular/check-circle.svg";
 import wrongIcon from "@phosphor-icons/core/regular/x-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -18,9 +16,8 @@ import expression from "../expression";
 
 import {HintPopover} from "./hint-popover";
 import {KhanmigoIcon} from "./khanmigo-icon";
-import {parse} from "./parser";
 import {print} from "./printer";
-import {getHint, showMeHow} from "./tutor";
+import {showMeHow} from "./tutor";
 
 import type {Mode} from "./reducer";
 import type {
@@ -29,7 +26,6 @@ import type {
 } from "../../perseus-types";
 import type {FilterCriterion} from "../../types";
 import type {Expression} from "../expression";
-import type {Step as SolverStep, Problem} from "@math-blocks/solver";
 
 const Span = addStyle("span");
 
@@ -73,53 +69,13 @@ export const Step = (props: Props) => {
 
     const expressionRef = React.useRef<Expression | null>(null);
     const [opened, setOpened] = React.useState(false);
-    const [hint, setHint] = React.useState<SolverStep | null>(null);
 
     const handleHint = React.useCallback(() => {
-        const equation = parse(prevStep.value);
-        if (equation.type !== NodeType.Equals) {
-            throw new Error(`Can't handle non-equation problems yet`);
-        }
-
-        const problem: Problem = {
-            type: originalProblem.problemType,
-            equation: equation,
-            variable: {
-                type: NodeType.Identifier,
-                id: getId(),
-                name: originalProblem.variable,
-                // TODO: Update deepEquals to treat missing fields the same as undefined
-                subscript: undefined,
-            },
-        };
-
-        const hint = getHint(problem);
-        console.log("hint =", hint);
-        setHint(hint);
         setOpened((opened) => !opened);
-    }, [prevStep.value, originalProblem]);
+    }, []);
 
     const handleShowMeHow = React.useCallback(() => {
-        console.log("prevStep.value =", prevStep.value);
-        const equation = parse(prevStep.value);
-        if (equation.type !== NodeType.Equals) {
-            throw new Error(`Can't handle non-equation problems yet`);
-        }
-
-        const problem: Problem = {
-            type: originalProblem.problemType,
-            equation: equation,
-            variable: {
-                type: NodeType.Identifier,
-                id: getId(),
-                name: originalProblem.variable,
-                // TODO: Update deepEquals to treat missing fields the same as undefined
-                subscript: undefined,
-            },
-        };
-
-        const nextStep = showMeHow(problem);
-
+        const nextStep = showMeHow(originalProblem, prevStep.value);
         if (expressionRef.current) {
             expressionRef.current.setInputValue("", print(nextStep), () => {
                 onCheckStep(true);
@@ -194,7 +150,7 @@ export const Step = (props: Props) => {
         </Span>
     );
 
-    if (props.isLast && hint) {
+    if (props.isLast) {
         stepAndStatus = (
             <Popover
                 opened={opened}
@@ -203,7 +159,12 @@ export const Step = (props: Props) => {
                     setOpened(false);
                 }}
                 content={
-                    <HintPopover hint={hint} onShowMeHow={handleShowMeHow} />
+                    <HintPopover
+                        onShowMeHow={handleShowMeHow}
+                        originalProblem={originalProblem}
+                        prevStepValue={prevStep.value}
+                        stepValue={step.value}
+                    />
                 }
             >
                 {stepAndStatus}

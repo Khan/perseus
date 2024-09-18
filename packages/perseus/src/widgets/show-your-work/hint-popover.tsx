@@ -8,15 +8,26 @@ import _ from "underscore";
 
 import {Hint} from "./hint";
 import {KhanmigoIcon} from "./khanmigo-icon";
+import {getHint} from "./tutor";
 
-import type {Step as SolverStep} from "@math-blocks/solver";
+import type {ShowYourWorkProblem} from "../../perseus-types";
 
 type Props = {
     onShowMeHow: () => void;
-    hint: SolverStep;
+    originalProblem: ShowYourWorkProblem;
+    prevStepValue: string;
+    stepValue: string;
 };
 
-export const HintPopover = ({hint, onShowMeHow}: Props) => {
+export const HintPopover = ({
+    onShowMeHow,
+    originalProblem,
+    prevStepValue,
+}: Props) => {
+    const hint = React.useMemo(() => {
+        return getHint(originalProblem, prevStepValue);
+    }, [originalProblem, prevStepValue]);
+
     return (
         <PopoverContentCore
             closeButtonVisible={true}
