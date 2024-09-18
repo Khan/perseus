@@ -4,10 +4,12 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -18,9 +20,11 @@ import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
 import LabeledSwitch from "./labeled-switch";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import LockedLabelSettings from "./locked-label-settings";
+import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import type {LockedPointType} from "@khanacademy/perseus";
+import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus";
 
 export type Props = LockedFigureSettingsCommonProps &
     LockedPointType & {
@@ -32,16 +36,64 @@ export type Props = LockedFigureSettingsCommonProps &
 
 const LockedPointSettings = (props: Props) => {
     const {
+        flags,
         coord,
         color: pointColor,
         filled = true,
+        labels,
         onChangeProps,
         onMove,
         onRemove,
     } = props;
 
     function handleColorChange(newValue) {
-        onChangeProps({color: newValue});
+        const newProps: Partial<LockedPointType> = {
+            color: newValue,
+        };
+
+        // Update the color of the all labels to match the point
+        newProps.labels = labels.map((label) => ({
+            ...label,
+            color: newValue,
+        }));
+
+        onChangeProps(newProps);
+    }
+
+    function handleCoordChange(newCoord) {
+        const xOffset = newCoord[0] - coord[0];
+        const yOffset = newCoord[1] - coord[1];
+
+        const newProps: Partial<LockedPointType> = {
+            coord: newCoord,
+        };
+
+        // Update the coord by the same amount as the point for all labels
+        newProps.labels = labels.map((label) => ({
+            ...label,
+            coord: [label.coord[0] + xOffset, label.coord[1] + yOffset],
+        }));
+
+        onChangeProps(newProps);
+    }
+
+    function handleLabelChange(
+        updatedLabel: LockedLabelType,
+        labelIndex: number,
+    ) {
+        const updatedLabels = [...labels];
+        updatedLabels[labelIndex] = {
+            ...labels[labelIndex],
+            ...updatedLabel,
+        };
+
+        onChangeProps({labels: updatedLabels});
+    }
+
+    function handleLabelRemove(labelIndex: number) {
+        const updatedLabels = labels.filter((_, index) => index !== labelIndex);
+
+        onChangeProps({labels: updatedLabels});
     }
 
     return (
@@ -60,9 +112,7 @@ const LockedPointSettings = (props: Props) => {
             <CoordinatePairInput
                 coord={coord}
                 style={styles.spaceUnder}
-                onChange={(newCoord) => {
-                    onChangeProps({coord: newCoord});
-                }}
+                onChange={handleCoordChange}
             />
 
             <ColorSelect
@@ -77,7 +127,53 @@ const LockedPointSettings = (props: Props) => {
                 onChange={(newValue) => {
                     onChangeProps({filled: !newValue});
                 }}
+                style={styles.spaceUnder}
             />
+
+            {flags?.["mafs"]?.["locked-point-labels"] && (
+                <>
+                    {labels.map((label, labelIndex) => (
+                        <LockedLabelSettings
+                            {...label}
+                            expanded={true}
+                            onChangeProps={(newLabel: LockedLabelType) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
+                            onRemove={() => {
+                                handleLabelRemove(labelIndex);
+                            }}
+                        />
+                    ))}
+
+                    <Button
+                        kind="tertiary"
+                        startIcon={plusCircle}
+                        onClick={() => {
+                            const newLabel = {
+                                ...getDefaultFigureForType("label"),
+                                // Place the label at the same position
+                                // as the point. Add a small offset to
+                                // avoid crowding.
+                                coord: [
+                                    coord[0] + 0.5,
+                                    // Additional offset for each label so
+                                    // they don't overlap.
+                                    coord[1] - 1 * labels?.length,
+                                ],
+                                // Default to the same color as the point
+                                color: pointColor,
+                            } satisfies LockedLabelType;
+
+                            onChangeProps({
+                                labels: [...labels, newLabel],
+                            });
+                        }}
+                        style={styles.addButton}
+                    >
+                        Add visible label
+                    </Button>
+                </>
+            )}
 
             <LockedFigureSettingsActions
                 figureType={props.type}
@@ -95,6 +191,9 @@ const styles = StyleSheet.create({
     },
     spaceUnder: {
         marginBottom: spacing.xSmall_8,
+    },
+    addButton: {
+        alignSelf: "start",
     },
 });
 
