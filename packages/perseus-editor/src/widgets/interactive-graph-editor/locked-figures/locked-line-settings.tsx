@@ -4,12 +4,14 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {vector as kvector} from "@khanacademy/kmath";
+import {vector as kvector, line as kline} from "@khanacademy/kmath";
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -20,11 +22,15 @@ import DefiningPointSettings from "./defining-point-settings";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import LockedLabelSettings from "./locked-label-settings";
+import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
+    Coord,
     LockedFigure,
     LockedFigureColor,
+    LockedLabelType,
     LockedLineType,
     LockedPointType,
 } from "@khanacademy/perseus";
@@ -41,12 +47,14 @@ export type Props = LockedLineType &
 
 const LockedLineSettings = (props: Props) => {
     const {
+        flags,
         kind,
         points,
         color: lineColor,
         lineStyle = "solid",
         showPoint1,
         showPoint2,
+        labels,
         onChangeProps,
         onMove,
         onRemove,
@@ -69,12 +77,40 @@ const LockedLineSettings = (props: Props) => {
             ...points[index],
             ...newPointProps,
         };
+
+        // Update labels to be centered between the two points,
+        // retaining existing offset.
+        const oldMidpoint = kline.midpoint([
+            points[0].coord,
+            points[1].coord,
+        ]) as Coord;
+        const newMidpoint = [
+            ...kline.midpoint([newPoints[0].coord, newPoints[1].coord]),
+        ] as Coord;
+        const offset = [
+            newMidpoint[0] - oldMidpoint[0],
+            newMidpoint[1] - oldMidpoint[1],
+        ] as Coord;
+        const newLabels = labels.map((label, labelIndex) => ({
+            ...label,
+            coord: [
+                label.coord[0] + offset[0],
+                label.coord[1] + offset[1],
+            ] satisfies Coord,
+        }));
+
         onChangeProps({
             points: newPoints,
+            labels: newLabels,
         });
     }
 
     function handleColorChange(newColor: LockedFigureColor) {
+        const newLabels = labels.map((label) => ({
+            ...label,
+            color: newColor,
+        }));
+
         onChangeProps({
             color: newColor,
             // Keep the line's points' colors in sync with the line color.
@@ -88,7 +124,28 @@ const LockedLineSettings = (props: Props) => {
                     color: newColor,
                 },
             ],
+            // Keep the line's labels' colors in sync with the line color.
+            labels: newLabels,
         });
+    }
+
+    function handleLabelChange(
+        updatedLabel: LockedLabelType,
+        labelIndex: number,
+    ) {
+        const updatedLabels = [...labels];
+        updatedLabels[labelIndex] = {
+            ...labels[labelIndex],
+            ...updatedLabel,
+        };
+
+        onChangeProps({labels: updatedLabels});
+    }
+
+    function handleLabelRemove(labelIndex: number) {
+        const updatedLabels = labels.filter((_, index) => index !== labelIndex);
+
+        onChangeProps({labels: updatedLabels});
     }
 
     return (
@@ -148,6 +205,7 @@ const LockedLineSettings = (props: Props) => {
             {/* Defining points settings */}
             <DefiningPointSettings
                 label="Point 1"
+                expanded={true}
                 showPoint={showPoint1}
                 error={isInvalid ? lengthZeroStr : null}
                 {...point1}
@@ -158,6 +216,7 @@ const LockedLineSettings = (props: Props) => {
             />
             <DefiningPointSettings
                 label="Point 2"
+                expanded={true}
                 showPoint={showPoint2}
                 error={isInvalid ? lengthZeroStr : null}
                 {...point2}
@@ -166,6 +225,55 @@ const LockedLineSettings = (props: Props) => {
                 }
                 onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
             />
+
+            {flags?.["mafs"]?.["locked-line-labels"] && (
+                <>
+                    <View style={styles.horizontalRule} />
+
+                    {labels.map((label, labelIndex) => (
+                        <LockedLabelSettings
+                            {...label}
+                            expanded={true}
+                            onChangeProps={(newLabel: LockedLabelType) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
+                            onRemove={() => {
+                                handleLabelRemove(labelIndex);
+                            }}
+                        />
+                    ))}
+
+                    <Button
+                        kind="tertiary"
+                        startIcon={plusCircle}
+                        onClick={() => {
+                            const midpoint = [
+                                ...kline.midpoint([
+                                    points[0].coord,
+                                    points[1].coord,
+                                ]),
+                            ] as Coord;
+                            // Additional vertical offset for each label so
+                            // they don't overlap.
+                            midpoint[1] -= 1 * labels.length;
+
+                            const newLabel = {
+                                ...getDefaultFigureForType("label"),
+                                coord: midpoint,
+                                // Default to the same color as the point
+                                color: lineColor,
+                            } satisfies LockedLabelType;
+
+                            onChangeProps({
+                                labels: [...labels, newLabel],
+                            });
+                        }}
+                        style={styles.addButton}
+                    >
+                        Add visible label
+                    </Button>
+                </>
+            )}
 
             {/* Actions */}
             <LockedFigureSettingsActions
@@ -188,6 +296,15 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: wbColor.red,
+    },
+    addButton: {
+        alignSelf: "start",
+    },
+    horizontalRule: {
+        marginTop: spacing.small_12,
+        marginBottom: spacing.xxxSmall_4,
+        height: 1,
+        backgroundColor: wbColor.offBlack16,
     },
 });
 
