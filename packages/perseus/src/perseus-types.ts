@@ -1189,8 +1189,14 @@ export type PerseusSequenceWidgetOptions = {
     json: ReadonlyArray<PerseusRenderer>;
 };
 
+export type ShowYourWorkProblem = {
+    problemType: "SolveEquation";
+    equation: string;
+    variable: string; // to solve for
+};
+
 export type PerseusShowYourWorkWidgetOptions = {
-    foo: "bar";
+    problem: ShowYourWorkProblem;
 };
 
 export type PerseusSimulatorWidgetOptions = {

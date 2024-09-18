@@ -24,7 +24,10 @@ import {parse} from "./parser";
 import {print} from "./printer";
 
 import type {Mode} from "./reducer";
-import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
+import type {
+    PerseusExpressionWidgetOptions,
+    ShowYourWorkProblem,
+} from "../../perseus-types";
 import type {FilterCriterion} from "../../types";
 import type {Expression} from "../expression";
 import type {Step as SolverStep, Problem} from "@math-blocks/solver";
@@ -44,6 +47,7 @@ const primaryButtonStrings: Record<Mode, string> = {
 
 type Props = {
     mode: Mode;
+    problem: ShowYourWorkProblem;
     prevStep: Step;
     step: Step;
     isLast: boolean;
@@ -64,7 +68,7 @@ const widgetOptions: PerseusExpressionWidgetOptions = {
 };
 
 export const Step = (props: Props) => {
-    const {prevStep, onCheckStep, step} = props;
+    const {prevStep, onCheckStep, step, problem: originalProblem} = props;
 
     const expressionRef = React.useRef<Expression | null>(null);
     const [opened, setOpened] = React.useState(false);
@@ -77,12 +81,12 @@ export const Step = (props: Props) => {
         }
 
         const problem: Problem = {
-            type: "SolveEquation",
+            type: originalProblem.problemType,
             equation: equation,
             variable: {
                 type: NodeType.Identifier,
                 id: getId(),
-                name: "x", // TODO
+                name: originalProblem.variable,
                 // TODO: Update deepEquals to treat missing fields the same as undefined
                 subscript: undefined,
             },
@@ -92,7 +96,7 @@ export const Step = (props: Props) => {
         console.log("hint =", hint);
         setHint(hint);
         setOpened((opened) => !opened);
-    }, [prevStep.value]);
+    }, [prevStep.value, originalProblem]);
 
     const handleShowMeHow = React.useCallback(() => {
         console.log("prevStep.value =", prevStep.value);
@@ -102,12 +106,12 @@ export const Step = (props: Props) => {
         }
 
         const problem: Problem = {
-            type: "SolveEquation",
+            type: originalProblem.problemType,
             equation: equation,
             variable: {
                 type: NodeType.Identifier,
                 id: getId(),
-                name: "x", // TODO
+                name: originalProblem.variable,
                 // TODO: Update deepEquals to treat missing fields the same as undefined
                 subscript: undefined,
             },
@@ -120,7 +124,7 @@ export const Step = (props: Props) => {
                 onCheckStep(true);
             });
         }
-    }, [prevStep.value, onCheckStep]);
+    }, [prevStep.value, onCheckStep, originalProblem]);
 
     // TODO: memoize the callbacks
     let expression = (

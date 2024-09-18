@@ -8,12 +8,14 @@ import {assertUnreachable} from "./assert-unreachable";
 import {parse} from "./parser";
 
 import type {Step} from "./step";
+import type {ShowYourWorkProblem} from "../../perseus-types";
 import type {Problem} from "@math-blocks/solver";
 
 export type Mode = "Practice" | "Assessment";
 
 export type State = {
     mode: Mode;
+    problem: ShowYourWorkProblem;
     steps: Array<Step>;
 };
 
@@ -50,24 +52,24 @@ type CheckResult =
 
 // TODO(kevinb): Merge this into `checkStep` from @math-blocks/solver.
 const simpleCheckStep = (
-    equationValue: string,
+    originalProblem: ShowYourWorkProblem,
     prevStepValue: string,
     currStepValue: string,
 ): CheckResult => {
     console.log(`simpleCheckStep: ${prevStepValue} -> ${currStepValue}`);
 
-    const equation = parse(equationValue);
+    const equation = parse(originalProblem.equation);
     if (equation.type !== NodeType.Equals) {
         throw new Error(`Can't handle non-equation problems yet`);
     }
 
     const problem: Problem = {
-        type: "SolveEquation",
+        type: originalProblem.problemType,
         equation: equation,
         variable: {
             type: NodeType.Identifier,
             id: getId(),
-            name: "x", // TODO
+            name: originalProblem.variable,
             // TODO: Update deepEquals to treat missing fields the same as undefined
             subscript: undefined,
         },
@@ -79,19 +81,25 @@ const simpleCheckStep = (
     let isCorrect = false;
     let needsMoreWork = false;
 
-    const output = checkStep(prevStep, currStep);
-    const {result} = output;
+    // NOTE(kevinb): `checkStep` can take too long to run in certain
+    // situations.  We try to apply all checks in both a forward and
+    // backward direction.  This can result in very long searches.
+    // Really, we can be a bit more judicial in which checks we run
+    // backwards and even restricting which checks we run when there's
+    // multiple sub-steps vs. a single sub-step.
 
-    // We were able to find a path from prevStep to currStep
-    // so we mark the step as correct.
-    if (result) {
-        isCorrect = true;
-    }
+    // const output = checkStep(prevStep, currStep);
+    // const {result} = output;
+    // // We were able to find a path from prevStep to currStep
+    // // so we mark the step as correct.
+    // if (result) {
+    //     isCorrect = true;
+    // }
 
     const solverResult = solveProblem(problem);
 
     if (!solverResult) {
-        throw new Error(`Solver couldn't solve ${equationValue}`);
+        throw new Error(`Solver couldn't solve ${originalProblem.equation}`);
     }
 
     // It's possible that the student has provided as step
@@ -122,20 +130,31 @@ const simpleCheckStep = (
         const currSolverResult = solveProblem(currProblem);
 
         if (prevSolverResult && currSolverResult) {
-            if (
-                util.deepEquals(
-                    prevSolverResult.answer,
-                    currSolverResult.answer,
-                )
-            ) {
+            const prevAnswer = prevSolverResult.answer;
+            const currAnswer = currSolverResult.answer;
+
+            if (util.deepEquals(prevAnswer, currAnswer)) {
                 isCorrect = true;
                 needsMoreWork = true;
+            } else if (currAnswer.type === NodeType.Equals) {
+                // Check if sides were swapped.
+                const {args} = currAnswer;
+                const currAnswerReversed = {
+                    ...currAnswer,
+                    args: [args[1], args[0]],
+                };
+                if (util.deepEquals(prevAnswer, currAnswerReversed)) {
+                    isCorrect = true;
+                    needsMoreWork = true;
+                }
             }
         }
     }
 
     if (isCorrect) {
         // Check if this is the final step.
+        // TODO: Find a different way of checking if we're on the
+        // final step that doesn't require `checkStep`.
         // TODO: Allow different versions of the answer, e.g.
         // 2x + 5 = 10, could be solved as x = 5/2, x = 2.5, etc.
         const final = checkStep(currStep, solverResult.answer);
@@ -188,7 +207,7 @@ const practiceReducer = (state: State, action: Action): State => {
             }
 
             const result = simpleCheckStep(
-                state.steps[0].value,
+                state.problem,
                 newSteps[newSteps.length - 2].value,
                 newSteps[newSteps.length - 1].value,
             );
@@ -266,7 +285,7 @@ const assessmentReducer = (state: State, action: Action): State => {
 
             for (let i = 0; i < steps.length - 1; i++) {
                 const result = simpleCheckStep(
-                    state.steps[0].value,
+                    state.problem,
                     steps[i].value,
                     steps[i + 1].value,
                 );
@@ -292,18 +311,18 @@ const assessmentReducer = (state: State, action: Action): State => {
                 }
             }
 
-            const equation = parse(state.steps[0].value);
+            const equation = parse(state.problem.equation);
             if (equation.type !== NodeType.Equals) {
                 throw new Error(`Can't handle non-equation problems yet`);
             }
 
             const origProblem: Problem = {
-                type: "SolveEquation",
+                type: state.problem.problemType,
                 equation: equation,
                 variable: {
                     type: NodeType.Identifier,
                     id: getId(),
-                    name: "x", // TODO
+                    name: state.problem.variable,
                     // TODO: Update deepEquals to treat missing fields the same as undefined
                     subscript: undefined,
                 },

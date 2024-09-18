@@ -122,7 +122,9 @@ class ShowYourWorkWidget extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        return <ShowYourWork question="2x+5=10" ref={this._stateRef} />;
+        return (
+            <ShowYourWork problem={this.props.problem} ref={this._stateRef} />
+        );
     }
 }
 

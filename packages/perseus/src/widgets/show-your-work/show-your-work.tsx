@@ -8,19 +8,20 @@ import {combinedReducer} from "./reducer";
 import {Step} from "./step";
 
 import type {Mode, State, Action} from "./reducer";
+import type {PerseusShowYourWorkWidgetOptions} from "../../perseus-types";
 
-type Props = {
-    question: string;
-};
-
+type Props = PerseusShowYourWorkWidgetOptions;
 type RefType = [State, React.Dispatch<Action>];
 
 export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
+    const {problem} = props;
+
     const [state, dispatch] = React.useReducer(combinedReducer, {
         mode: "Practice",
+        problem,
         steps: [
-            {value: props.question, status: "ungraded", tutor: false},
-            {value: props.question, status: "ungraded", tutor: false},
+            {value: problem.equation, status: "ungraded", tutor: false},
+            {value: problem.equation, status: "ungraded", tutor: false},
         ],
     });
 
@@ -58,11 +59,15 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
                     <Step
                         key={`${mode}-${i}}`}
                         mode={mode}
+                        problem={problem}
                         prevStep={prevStep}
                         step={step}
                         onChange={(step) => {
                             if (isLast) {
-                                dispatch({kind: "Update", value: step.value});
+                                dispatch({
+                                    kind: "Update",
+                                    value: step.value,
+                                });
                             }
                         }}
                         disableCheck={disableCheck}
