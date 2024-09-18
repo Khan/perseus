@@ -1,4 +1,5 @@
 import type {InitializeGraphStateParams} from "./initialize-graph-state";
+import type {InteractionMode} from "../types";
 import type {Interval, vec} from "mafs";
 
 export type InteractiveGraphAction =
@@ -16,11 +17,15 @@ export type InteractiveGraphAction =
     | FocusPoint
     | BlurPoint
     | DeleteIntent
-    | ClickPoint;
+    | ClickPoint
+    | ChangeInteractionMode
+    | ChangeKeyboardInvitationVibility;
 
 export const actions = {
     global: {
         deleteIntent,
+        changeInteractionMode,
+        changeKeyboardInvitationVibility,
     },
     angle: {
         movePoint,
@@ -147,6 +152,35 @@ function clickPoint(index: number): ClickPoint {
     return {
         type: CLICK_POINT,
         index,
+    };
+}
+
+export const CHANGE_INTERACTION_MODE = "point-change-interaction-mode";
+
+export interface ChangeInteractionMode {
+    type: typeof CHANGE_INTERACTION_MODE;
+    mode: InteractionMode;
+}
+function changeInteractionMode(mode: InteractionMode): ChangeInteractionMode {
+    return {
+        type: CHANGE_INTERACTION_MODE,
+        mode,
+    };
+}
+
+export const CHANGE_KEYBOARD_INVITATION_VISIBILITY =
+    "change-keyboard-interaction-invitation-visbility";
+
+export interface ChangeKeyboardInvitationVibility {
+    type: typeof CHANGE_KEYBOARD_INVITATION_VISIBILITY;
+    shouldShow: boolean;
+}
+function changeKeyboardInvitationVibility(
+    shouldShow: boolean,
+): ChangeKeyboardInvitationVibility {
+    return {
+        type: CHANGE_KEYBOARD_INVITATION_VISIBILITY,
+        shouldShow,
     };
 }
 
