@@ -2693,7 +2693,7 @@ const staticTransform = _.identity;
 
 export default {
     name: "interactive-graph",
-    displayName: "Interactive graph",
+    displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
 } as WidgetExports<typeof InteractiveGraph>;
