@@ -9,7 +9,7 @@ import getDecimalSeparator from "./get-decimal-separator";
 
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "../../types";
+import type {APIOptions, PerseusScore} from "../../types";
 import type {Score} from "../../util/answer-types";
 import type {
     PerseusExpressionRubric,
@@ -39,7 +39,10 @@ function expressionValidator(
     rubric: PerseusExpressionRubric,
     strings: PerseusStrings,
     locale: string,
+    apiOptions: APIOptions,
 ): PerseusScore {
+    console.log(apiOptions);
+
     const options = _.clone(rubric);
     _.extend(options, {
         decimal_separator: getDecimalSeparator(locale),
