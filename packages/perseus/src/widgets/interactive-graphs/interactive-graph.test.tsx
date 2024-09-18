@@ -20,6 +20,7 @@ import {
     angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
+    graphWithLabeledLine,
     graphWithLabeledPoint,
     interactiveGraphWithAriaLabel,
     linearQuestion,
@@ -935,7 +936,7 @@ describe("locked layer", () => {
         });
     });
 
-    it("should render a locked label within a locked figure", async () => {
+    it("should render a locked label within a locked point", async () => {
         // Arrange
         const {container} = renderQuestion(graphWithLabeledPoint, {
             flags: {
@@ -960,6 +961,33 @@ describe("locked layer", () => {
             fontSize: "16px",
             left: "210px",
             top: "200px",
+        });
+    });
+
+    it("should render a locked label within a locked line", async () => {
+        const {container} = renderQuestion(graphWithLabeledLine, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-line-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const label = labels[0];
+
+        // Assert
+        expect(labels).toHaveLength(1);
+        expect(label).toHaveTextContent("B");
+        expect(label).toHaveStyle({
+            color: lockedFigureColors["grayH"],
+            fontSize: "16px",
+            left: "150px",
+            top: "280px",
         });
     });
 

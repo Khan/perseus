@@ -735,6 +735,7 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
+    labels: LockedLabelType[];
 };
 
 export type LockedVectorType = {

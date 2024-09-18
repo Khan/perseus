@@ -1,3 +1,5 @@
+import {line as kline} from "@khanacademy/kmath";
+
 import type {Coord} from "../../interactive2/types";
 import type {
     CollinearTuple,
@@ -22,6 +24,12 @@ export type LockedFunctionOptions = {
     strokeStyle?: LockedLineStyle;
     directionalAxis?: "x" | "y";
     domain?: Interval;
+};
+
+type LockedFigureLabelOptions = {
+    text: string;
+    coord?: Coord;
+    size?: "small" | "medium" | "large";
 };
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
@@ -288,11 +296,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             filled?: boolean;
-            labels?: {
-                text: string;
-                coord?: Coord;
-                size?: "small" | "medium" | "large";
-            }[];
+            labels?: LockedFigureLabelOptions[];
         },
     ): InteractiveGraphQuestionBuilder {
         this.addLockedFigure(this.createLockedPoint(x, y, options));
@@ -309,6 +313,7 @@ class InteractiveGraphQuestionBuilder {
             filled?: [boolean, boolean];
             showPoint1?: boolean;
             showPoint2?: boolean;
+            labels?: LockedFigureLabelOptions[];
         },
     ): InteractiveGraphQuestionBuilder {
         const line: LockedLineType = {
@@ -318,6 +323,17 @@ class InteractiveGraphQuestionBuilder {
             showPoint2: options?.showPoint2 ?? false,
             color: options?.color ?? "grayH",
             lineStyle: options?.lineStyle ?? "solid",
+            labels: options?.labels
+                ? options.labels.map((label) => ({
+                      type: "label",
+                      coord:
+                          label.coord ??
+                          ([...kline.midpoint([point1, point2])] as Coord),
+                      text: label.text,
+                      color: options.color ?? "grayH",
+                      size: label.size ?? "medium",
+                  }))
+                : [],
             points: [
                 {
                     ...this.createLockedPoint(...point1, {
@@ -440,11 +456,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             filled?: boolean;
-            labels?: {
-                text: string;
-                coord?: Coord;
-                size?: "small" | "medium" | "large";
-            }[];
+            labels?: LockedFigureLabelOptions[];
         },
     ): LockedPointType {
         return {

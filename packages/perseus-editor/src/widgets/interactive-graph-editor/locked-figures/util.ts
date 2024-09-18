@@ -47,6 +47,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+                labels: [],
             };
         case "vector":
             return {

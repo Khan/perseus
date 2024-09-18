@@ -19,11 +19,14 @@ export default function GraphLockedLabelsLayer(props: Props) {
         }
 
         if (
-            flags?.["mafs"]?.["locked-point-labels"] &&
-            figure.type === "point"
+            // Point flag + point type
+            (flags?.["mafs"]?.["locked-point-labels"] &&
+                figure.type === "point") ||
+            // Line flag + line type
+            (flags?.["mafs"]?.["locked-line-labels"] && figure.type === "line")
         ) {
             return (
-                <React.Fragment key={`point-${i}`}>
+                <React.Fragment key={`locked-figure-${i}`}>
                     {figure.labels.map((label, j) => (
                         <LockedLabel
                             key={`locked-figure-${i}-label-${j}`}
