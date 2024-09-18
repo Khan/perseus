@@ -738,6 +738,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 coord: [3, 5],
                 color: "grayH",
                 filled: true,
+                labels: [],
             },
         ]);
     });
@@ -755,12 +756,72 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 coord: [3, 5],
                 color: "grayH",
                 filled: true,
+                labels: [],
             },
             {
                 type: "point",
                 coord: [6, 7],
                 color: "grayH",
                 filled: true,
+                labels: [],
+            },
+        ]);
+    });
+
+    it("adds a locked point with options and minimal label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedPointAt(3, 5, {
+                color: "green",
+                filled: false,
+                labels: [{text: "a label"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "point",
+                coord: [3, 5],
+                color: "green",
+                filled: false,
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [3.5, 5],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked point with options and specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedPointAt(3, 5, {
+                color: "green",
+                filled: false,
+                labels: [{text: "a label", coord: [7, 8], size: "large"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "point",
+                coord: [3, 5],
+                color: "green",
+                filled: false,
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [7, 8],
+                        color: "green",
+                        size: "large",
+                    },
+                ],
             },
         ]);
     });
@@ -781,12 +842,14 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         coord: [1, 2],
                         color: "grayH",
                         filled: true,
+                        labels: [],
                     },
                     {
                         type: "point",
                         coord: [3, 4],
                         color: "grayH",
                         filled: true,
+                        labels: [],
                     },
                 ],
                 color: "grayH",
