@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 import {KeypadType} from "@khanacademy/math-input";
 import Button from "@khanacademy/wonder-blocks-button";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {View, addStyle} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
+import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {getId} from "@math-blocks/core";
 import {NodeType} from "@math-blocks/semantic";
 import correctIcon from "@phosphor-icons/core/regular/check-circle.svg";
@@ -17,7 +16,7 @@ import _ from "underscore";
 
 import expression from "../expression";
 
-import {Hint} from "./hint";
+import {HintPopover} from "./hint-popover";
 import {KhanmigoIcon} from "./khanmigo-icon";
 import {parse} from "./parser";
 import {print} from "./printer";
@@ -31,6 +30,8 @@ import type {
 import type {FilterCriterion} from "../../types";
 import type {Expression} from "../expression";
 import type {Step as SolverStep, Problem} from "@math-blocks/solver";
+
+const Span = addStyle("span");
 
 type StepStatus = "correct" | "wrong" | "ungraded";
 
@@ -127,7 +128,7 @@ export const Step = (props: Props) => {
     }, [prevStep.value, onCheckStep, originalProblem]);
 
     // TODO: memoize the callbacks
-    let expression = (
+    const expression = (
         <View style={step.tutor && styles.tutorStep}>
             <ExpressionWidget
                 ref={expressionRef}
@@ -186,8 +187,15 @@ export const Step = (props: Props) => {
         );
     }
 
-    if (props.isLast) {
-        expression = (
+    let stepAndStatus = (
+        <Span style={styles.stepAndStatus}>
+            {expression}
+            {icon}
+        </Span>
+    );
+
+    if (props.isLast && hint) {
+        stepAndStatus = (
             <Popover
                 opened={opened}
                 placement="left"
@@ -195,55 +203,19 @@ export const Step = (props: Props) => {
                     setOpened(false);
                 }}
                 content={
-                    <PopoverContentCore
-                        closeButtonVisible={true}
-                        style={styles.popupContent}
-                    >
-                        <View style={{flexDirection: "row"}}>
-                            <KhanmigoIcon style={{marginRight: 4}} />
-                            <LabelMedium>See if these hints help.</LabelMedium>
-                        </View>
-                        <View style={styles.hintContainer}>
-                            {hint && <Hint hint={hint} level={0} />}
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                justifyContent: "end",
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    position: "relative",
-                                    top: 4,
-                                }}
-                            >
-                                <KhanmigoIcon style={{marginRight: 4}} />
-                                <LabelMedium>If not</LabelMedium>
-                            </View>
-                            <Button
-                                kind="secondary"
-                                size="small"
-                                onClick={handleShowMeHow}
-                                style={{marginLeft: 8}}
-                            >
-                                Show me how
-                            </Button>
-                        </View>
-                    </PopoverContentCore>
+                    <HintPopover hint={hint} onShowMeHow={handleShowMeHow} />
                 }
             >
-                {expression}
+                {stepAndStatus}
             </Popover>
         );
     }
 
     return (
         <View style={styles.stepContainer}>
-            <View style={styles.stepAndStatus}>
-                {expression}
-                {icon}
+            <View style={{flexDirection: "row"}}>
+                {stepAndStatus}
+                <Spring />
             </View>
             {props.isLast && step.status !== "correct" && (
                 <View style={styles.buttonContainer}>
@@ -288,6 +260,7 @@ const styles = StyleSheet.create({
         paddingBottom: 4,
     },
     stepAndStatus: {
+        display: "inline-flex",
         flexDirection: "row",
         alignItems: "center",
     },
@@ -298,10 +271,6 @@ const styles = StyleSheet.create({
     statusIcon: {
         marginLeft: 8,
         padding: 4,
-    },
-    popupContent: {
-        width: 320,
-        maxWidth: 320,
     },
     hintButtonContainer: {
         position: "relative",
@@ -314,11 +283,6 @@ const styles = StyleSheet.create({
     },
     helpButton: {
         paddingLeft: 40,
-    },
-    hintContainer: {
-        marginBottom: 24,
-        // maxHeight: 400,
-        // overflowY: "scroll",
     },
     tutorStep: {
         backgroundColor: "#DEAE9333",
