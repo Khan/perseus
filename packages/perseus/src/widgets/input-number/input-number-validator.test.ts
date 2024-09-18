@@ -1,262 +1,145 @@
-import {beforeEach, describe, it} from "@jest/globals";
-import {screen} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event";
-import _ from "underscore";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
-import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import InputNumber from "./input-number";
 import inputNumberValidator from "./input-number-validator";
-import {question3 as question} from "./input-number.testdata";
 
-import type {
-    PerseusInputNumberWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus";
-import type {UserEvent} from "@testing-library/user-event";
+import type {Rubric} from "./input-number.types";
 
-const options: PerseusInputNumberWidgetOptions = {
-    value: "2^{-2}-3",
-    size: "normal",
-    simplify: "optional",
-};
-
-const {transform} = InputNumber;
-
-describe("input-number", function () {
-    let userEvent: UserEvent;
+describe("static function validate", () => {
     beforeEach(() => {
-        userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
-
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    describe("full render", function () {
-        it("Should accept the right answer", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(question);
+    it("scores correct answer correctly", () => {
+        const rubric: Rubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 1,
+            simplify: "optional",
+            answerType: "percent",
+            size: "small",
+        };
 
-            // Act
-            const textbox = screen.getByRole("textbox");
-            await userEvent.click(textbox);
-            await userEvent.type(textbox, "1/2");
+        const useInput = {
+            currentValue: "1",
+        } as const;
 
-            // Assert
-            expect(renderer).toHaveBeenAnsweredCorrectly();
-        });
+        const score = inputNumberValidator(useInput, rubric, mockStrings);
 
-        it("should reject an incorrect answer", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(question);
-
-            // Act
-            const textbox = screen.getByRole("textbox");
-            await userEvent.click(textbox);
-            await userEvent.type(textbox, "0.7");
-
-            // Assert
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
-        });
-
-        it("should refuse to score an incoherent answer", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(question);
-
-            // Act
-            const textbox = screen.getByRole("textbox");
-            await userEvent.click(textbox);
-            await userEvent.type(textbox, "0..7");
-
-            // Assert
-            expect(renderer).toHaveInvalidInput();
+        expect(score).toEqual({
+            earned: 1,
+            message: null,
+            total: 1,
+            type: "points",
         });
     });
 
-    describe.each([
-        [
-            {
-                content:
-                    "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 input-number 1]]  \n\n\n\n",
-                images: {
-                    "https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png":
-                        {
-                            width: 200,
-                            height: 200,
-                        },
-                },
-                widgets: {
-                    "input-number 1": {
-                        version: {
-                            major: 0,
-                            minor: 0,
-                        },
-                        type: "input-number",
-                        graded: true,
-                        alignment: "default",
-                        options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.3333333333333333,
-                            simplify: "optional",
-                            answerType: "rational",
-                            size: "normal",
-                        },
-                    },
-                },
-            } as PerseusRenderer,
-            "1/3",
-            "0.4",
-        ],
-        [
-            {
-                content:
-                    "Denis baked a peach pie and cut it into $3$ equal-sized pieces.  Denis's dad eats $1$ section of the pie.  \n\n**What fraction of the pie did Denis's dad eat?**  \n![](https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png)    \n[[\u2603 input-number 1]]  \n\n\n\n",
-                images: {
-                    "https://ka-perseus-graphie.s3.amazonaws.com/74a2b7583a2c26ebfb3ad714e29867541253fc97.png":
-                        {
-                            width: 200,
-                            height: 200,
-                        },
-                },
-                widgets: {
-                    "input-number 1": {
-                        version: {
-                            major: 0,
-                            minor: 0,
-                        },
-                        type: "input-number",
-                        graded: true,
-                        alignment: "default",
-                        options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.3333333333333333,
-                            simplify: "required",
-                            answerType: "rational",
-                            size: "normal",
-                        },
-                    },
-                },
-            } as PerseusRenderer,
-            "1/3",
-            "0.4",
-        ],
-        [
-            {
-                content:
-                    "A washing machine is being redesigned to handle a greater volume of water.  One part is a pipe with a radius of $3 \\,\\text{cm}$ and a length of $11\\,\\text{cm}$.  It gets replaced with a pipe of radius $4\\,\\text{cm}$, and the same length. \n\n**How many more cubic centimeters of water can the new pipe hold?**\n\n [[\u2603 input-number 1]] $\\text{cm}^3$",
-                images: {},
-                widgets: {
-                    "input-number 1": {
-                        type: "input-number",
-                        graded: true,
-                        options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 241.90263432641407,
-                            simplify: "required",
-                            answerType: "pi",
-                            size: "normal",
-                        },
-                    },
-                },
-            } as PerseusRenderer,
-            "77 pi",
-            "76 pi",
-        ],
-        [
-            {
-                content:
-                    'Akshat works in a hospital lab.\n\nTo project blood quantities, he wants to know the probability that more than $1$ of the next $7$ donors will have type-A blood. From his previous work, Sorin knows that $\\dfrac14$ of donors have type-A blood.\n\nAkshat uses a computer to produce many samples that simulate the next $7$ donors. The first $8$ samples are shown in the table below where "$\\text{\\red{A}}$" represents a donor *with* type-A blood, and "$\\text{\\blue{Z}}$" represents a donor *without* type-A blood.\n\n**Based on the samples below, estimate the probability that  more than $1$ of the next $7$ donors will have type-A blood.** If necessary, round your answer to the nearest hundredth. [[\u2603 input-number 1]]\n\n*Note: This a small sample to practice with. A larger sample could give a much better estimate.*\n\n | Sample |\n:-: | :-: | \n$1$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}}$\n$2$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$3$ | $\\text{\\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$4$ | $\\text{\\red{A}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$5$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\red{A}}$\n$6$ | $\\text{\\blue{Z}, \\red{A}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}}$\n$7$ | $\\text{\\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}}$\n$8$ | $\\text{\\blue{Z}, \\blue{Z}, \\blue{Z}, \\blue{Z}, \\red{A}, \\blue{Z}, \\blue{Z}}$\n\n',
-                images: {},
-                widgets: {
-                    "input-number 1": {
-                        type: "input-number",
-                        graded: true,
-                        options: {
-                            maxError: 0.1,
-                            inexact: false,
-                            value: 0.5,
-                            simplify: "optional",
-                            answerType: "percent",
-                            size: "small",
-                        },
-                    },
-                },
-            } as PerseusRenderer,
-            "50%",
-            "0.56",
-        ],
-    ])("answer type", (question, correct, incorrect) => {
-        it("Should accept the right answer", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(question);
+    it("scores incorrect answer correctly", () => {
+        const rubric: Rubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 1,
+            simplify: "optional",
+            answerType: "percent",
+            size: "small",
+        };
 
-            // Act
-            const textbox = screen.getByRole("textbox");
-            await userEvent.click(textbox);
-            await userEvent.type(textbox, correct);
+        const useInput = {
+            currentValue: "2",
+        } as const;
 
-            // Assert
-            expect(renderer).toHaveBeenAnsweredCorrectly();
-        });
+        const score = inputNumberValidator(useInput, rubric, mockStrings);
 
-        it("should reject an incorrect answer", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(question);
-
-            // Act
-            const textbox = screen.getByRole("textbox");
-            await userEvent.click(textbox);
-            await userEvent.type(textbox, incorrect);
-
-            // Assert
-            expect(renderer).toHaveBeenAnsweredIncorrectly();
+        expect(score).toEqual({
+            earned: 0,
+            message: null,
+            total: 1,
+            type: "points",
         });
     });
 
-    it("transform should remove the `value` field", function () {
-        const editorProps = {
-            value: 5,
+    it("shows as invalid with a nonsense answer", () => {
+        const rubric: Rubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 1,
+            simplify: "optional",
+            answerType: "percent",
+            size: "small",
+        };
+
+        const useInput = {
+            currentValue: "sadasdfas",
+        } as const;
+
+        const score = inputNumberValidator(useInput, rubric, mockStrings);
+
+        expect(score).toEqual({
+            message:
+                "We could not understand your answer. Please check your answer for extra text or symbols.",
+            type: "invalid",
+        });
+    });
+
+    // Don't default to validating the answer as a pi answer
+    // if answerType isn't set on the answer.
+    // The answer value and
+    // the omission of answerType in the answer are
+    // important to the test.
+    // https://khanacademy.atlassian.net/browse/LC-691
+    it("doesn't default to validating pi", () => {
+        const rubric: Rubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 241.90263432641407,
+            // answerType: "pi",
             simplify: "required",
             size: "normal",
-            inexact: false,
-            maxError: 0.1,
-            answerType: "number",
+        };
+
+        const userInput = {
+            // 77 * pi = 241.90263432641407
+            // within the 0.01 margin of error
+            // to trigger the pi validation flow
+            currentValue: "241.91",
         } as const;
-        if (!transform) {
-            throw new Error("transform not defined");
-        }
-        const widgetProps = transform(editorProps, mockStrings);
-        expect(_.has(widgetProps, "value")).toBe(false);
-    });
-});
 
-describe("invalid", function () {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
+        const score = inputNumberValidator(userInput, rubric, mockStrings);
+
+        expect(score.message).not.toBe(
+            "Your answer is close, but yyou may " +
+                "have approximated pi. Enter your " +
+                "answer as a multiple of pi, like " +
+                "<code>12\\ \\text{pi}</code> or " +
+                "<code>2/3\\ \\text{pi}</code>",
         );
+        expect(score.message?.includes("pi")).toBeFalsy();
     });
 
-    it("should handle invalid answers with no error callback", function () {
-        const err = inputNumberValidator(
-            {currentValue: "x+1"},
-            options,
-            mockStrings,
-        );
-        expect(err).toMatchInlineSnapshot(`
-            {
-              "message": "We could not understand your answer. Please check your answer for extra text or symbols.",
-              "type": "invalid",
-            }
-        `);
+    it("validates against pi if provided in answerType", () => {
+        const rubric: Rubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 241.90263432641407,
+            simplify: "required",
+            answerType: "pi",
+            size: "normal",
+        };
+
+        const userInput = {
+            currentValue: "77 pi",
+        } as const;
+
+        const score = inputNumberValidator(userInput, rubric, mockStrings);
+
+        expect(score).toEqual({
+            earned: 1,
+            message: null,
+            total: 1,
+            type: "points",
+        });
     });
 });
