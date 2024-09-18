@@ -9,7 +9,6 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {getId} from "@math-blocks/core";
 import {NodeType} from "@math-blocks/semantic";
-import {getHint, showMeHow} from "@math-blocks/tutor";
 import correctIcon from "@phosphor-icons/core/regular/check-circle.svg";
 import wrongIcon from "@phosphor-icons/core/regular/x-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -22,6 +21,7 @@ import {Hint} from "./hint";
 import {KhanmigoIcon} from "./khanmigo-icon";
 import {parse} from "./parser";
 import {print} from "./printer";
+import {getHint, showMeHow} from "./tutor";
 
 import type {Mode} from "./reducer";
 import type {

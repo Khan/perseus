@@ -2,9 +2,9 @@
 import {getId} from "@math-blocks/core";
 import {NodeType, util} from "@math-blocks/semantic";
 import {solveProblem} from "@math-blocks/solver";
-import {checkStep} from "@math-blocks/tutor";
 
 import {assertUnreachable} from "./assert-unreachable";
+import {mathBlocksToKAS} from "./converters";
 import {parse} from "./parser";
 
 import type {Step} from "./step";
@@ -50,7 +50,6 @@ type CheckResult =
           status: "wrong";
       };
 
-// TODO(kevinb): Merge this into `checkStep` from @math-blocks/solver.
 const simpleCheckStep = (
     originalProblem: ShowYourWorkProblem,
     prevStepValue: string,
@@ -81,12 +80,12 @@ const simpleCheckStep = (
     let isCorrect = false;
     let needsMoreWork = false;
 
-    // NOTE(kevinb): `checkStep` can take too long to run in certain
-    // situations.  We try to apply all checks in both a forward and
-    // backward direction.  This can result in very long searches.
-    // Really, we can be a bit more judicial in which checks we run
-    // backwards and even restricting which checks we run when there's
-    // multiple sub-steps vs. a single sub-step.
+    // NOTE(kevinb): `checkStep` (from @math-blocks/tutor) can take too
+    // long to run in certain situations.  We try to apply all checks in
+    // both a forward and backward direction.  This can result in very
+    // long searches.  Really, we can be a bit more judicial in which
+    // checks we run backwards and even restricting which checks we run
+    // when there's multiple sub-steps vs. a single sub-step.
 
     // const output = checkStep(prevStep, currStep);
     // const {result} = output;
@@ -151,14 +150,21 @@ const simpleCheckStep = (
         }
     }
 
-    if (isCorrect) {
-        // Check if this is the final step.
-        // TODO: Find a different way of checking if we're on the
-        // final step that doesn't require `checkStep`.
-        // TODO: Allow different versions of the answer, e.g.
-        // 2x + 5 = 10, could be solved as x = 5/2, x = 2.5, etc.
-        const final = checkStep(currStep, solverResult.answer);
-        if (final.mistakes.length === 0 && final.result?.steps.length === 0) {
+    // Check if this is the last step.
+    // If the current step looks like `x = ...` or `... = x` then
+    // compare it against the final answer using KAS.
+    if (
+        (currStep.type === NodeType.Equals &&
+            currStep.args[0].type === NodeType.Identifier &&
+            currStep.args[0].name === originalProblem.variable) ||
+        (currStep.type === NodeType.Equals &&
+            currStep.args[1].type === NodeType.Identifier &&
+            currStep.args[1].name === originalProblem.variable)
+    ) {
+        const currExpr = mathBlocksToKAS(currStep);
+        const answerExpr = mathBlocksToKAS(solverResult.answer);
+
+        if (currExpr.compare(answerExpr)) {
             // Mark the current step as "correct" without adding
             // a new step.
             return {
@@ -167,7 +173,14 @@ const simpleCheckStep = (
                 lastStep: true,
             };
         }
+    }
 
+    // NOTE(kevinb): @math-blocks/solver has a bug in it where it
+    // can't solve `3 = r` even though it's able to solve `r = 3`.
+    // TODO(kevinb): Fix this issue in @math-blocks/solver.
+    // To work around this issue we put this check after we check
+    // if the current step is the last step.
+    if (isCorrect) {
         // Mark the current step as "correct" and add a new step.
         return {
             status: "correct",
@@ -329,23 +342,20 @@ const assessmentReducer = (state: State, action: Action): State => {
             };
 
             let answerStatus: "correct" | "wrong" = "wrong";
+
+            // Check if the last step is equivalent to the solution
+            // to the original problem.
             const lastStep = parse(steps[steps.length - 1].value);
             if (lastStep.type === NodeType.Equals) {
-                const lastProblem = {
-                    ...origProblem,
-                    equation: lastStep,
-                };
-
                 const origSolverResult = solveProblem(origProblem);
-                const lastSolverResult = solveProblem(lastProblem);
 
-                if (origSolverResult && lastSolverResult) {
-                    if (
-                        util.deepEquals(
-                            origSolverResult.answer,
-                            lastSolverResult.answer,
-                        )
-                    ) {
+                if (origSolverResult) {
+                    const origAnswerExpr = mathBlocksToKAS(
+                        origSolverResult.answer,
+                    );
+                    const lastStepExpr = mathBlocksToKAS(lastStep);
+
+                    if (origAnswerExpr.compare(lastStepExpr)) {
                         answerStatus = "correct";
                     }
                 }

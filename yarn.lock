@@ -2982,15 +2982,6 @@
   resolved "https://registry.yarnpkg.com/@math-blocks/core/-/core-0.0.5.tgz#180a8fee28a4a5d8da3fe0e3cf1dd43cfb6f970a"
   integrity sha512-I3DQIxZkuikr3v6ZGENqHd7jqY8zoG9k+7NPX/HqB3kBdqq/KojIh0/6h5zAOZdPGGEpg/MOfeq45XZHXqj67g==
 
-"@math-blocks/editor@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@math-blocks/editor/-/editor-0.0.5.tgz#72f983b565a9d624e3d1004be7700fb636c61da5"
-  integrity sha512-j1lMj2T1vpB6MGg8CKU5N+zEm6AAH4/LUpI403T1WD2eMDw6Znnmn+g0dtBoczV8LRQOVWP1I2nz+bsSpTNqeA==
-  dependencies:
-    "@math-blocks/core" "^0.0.5"
-    "@math-blocks/parser" "^0.0.5"
-    "@math-blocks/semantic" "^0.0.5"
-
 "@math-blocks/parser@^0.0.5":
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@math-blocks/parser/-/parser-0.0.5.tgz#734d14a8170c1c2ca8b16c976ea6b9aa1141fb66"
@@ -3023,16 +3014,6 @@
     "@math-blocks/core" "^0.0.5"
     "@math-blocks/parser" "^0.0.5"
     "@math-blocks/semantic" "^0.0.5"
-
-"@math-blocks/tutor@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@math-blocks/tutor/-/tutor-0.0.5.tgz#3932db78239b1910ed63448c0bf55898fba5c273"
-  integrity sha512-PQ4ybJHvRKq8UnQShl2HbXr7ebfRvy7VbepYqd4dRrbDKRbw1AAU+sq3a/tiUFaRE+bltJBGnWgNLXM4fQaNww==
-  dependencies:
-    "@math-blocks/core" "^0.0.5"
-    "@math-blocks/editor" "^0.0.5"
-    "@math-blocks/semantic" "^0.0.5"
-    "@math-blocks/solver" "^0.0.5"
 
 "@mdx-js/react@^2.1.5":
   version "2.3.0"

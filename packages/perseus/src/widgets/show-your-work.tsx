@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {checkStep} from "@math-blocks/tutor";
 import * as React from "react";
 import _ from "underscore";
 
@@ -8,7 +7,6 @@ import {PerseusI18nContext} from "../components/i18n-context";
 import * as Changeable from "../mixins/changeable";
 
 import {assertUnreachable} from "./show-your-work/assert-unreachable";
-import {parse} from "./show-your-work/parser";
 import {ShowYourWork} from "./show-your-work/show-your-work";
 
 import type {State, Action} from "./show-your-work/reducer";
@@ -55,23 +53,11 @@ class ShowYourWorkWidget extends React.Component<Props, State> {
             case "Assessment": {
                 const {steps} = state;
 
-                let correct = 0;
-                let total = 0;
+                const correct = 0;
+                const total = 0;
 
                 for (let i = 0; i < steps.length - 1; i++) {
-                    const prev = parse(steps[i].value);
-                    const next = parse(steps[i + 1].value);
-                    const {result, mistakes: _} = checkStep(prev, next);
-                    total = total + 1;
-                    if (result) {
-                        correct = correct + 1;
-                        console.log("right");
-                    } else {
-                        // TODO: perform fallback check to handle cases where
-                        // the user submitted a correct step that we just aren't
-                        // able to recognize yet.
-                        console.log("wrong");
-                    }
+                    // TODO(kevinb): grade steps
                 }
 
                 // NOTE: This can be gamed by adding a buch of trivial steps that
