@@ -558,6 +558,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 export default {
     name: "passage",
     displayName: "Passage (SAT only)",
+    hidden: true,
     widget: Passage,
     transform: (editorProps: any): RenderProps => {
         return _.pick(
