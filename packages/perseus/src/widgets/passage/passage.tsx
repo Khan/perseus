@@ -20,7 +20,7 @@ import type {
     PerseusPassageWidgetOptions,
     PerseusWidget,
 } from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -126,7 +126,8 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         stylesAreApplied: false,
     };
 
-    static validate(state: UserInput, rubric: Rubric): PerseusScore {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
@@ -377,8 +378,9 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         return null;
     }
 
-    simpleValidate(rubric: Rubric): PerseusScore {
-        return Passage.validate(this.getUserInput(), rubric);
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
     }
 
     /**
@@ -558,6 +560,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 export default {
     name: "passage",
     displayName: "Passage (SAT only)",
+    hidden: true,
     widget: Passage,
     transform: (editorProps: any): RenderProps => {
         return _.pick(

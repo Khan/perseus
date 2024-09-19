@@ -1812,11 +1812,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             return (
                 <StatefulMafsGraph
                     {...this.props}
-                    showLabelsFlag={
-                        this.props.apiOptions?.flags?.["mafs"]?.[
-                            "interactive-graph-locked-features-labels"
-                        ]
-                    }
+                    flags={this.props.apiOptions?.flags}
                     ref={this.mafsRef}
                     gridStep={gridStep}
                     snapStep={snapStep}
@@ -2698,7 +2694,7 @@ const staticTransform = _.identity;
 
 export default {
     name: "interactive-graph",
-    displayName: "Interactive graph",
+    displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
 } as WidgetExports<typeof InteractiveGraph>;

@@ -12,6 +12,7 @@ import {mockStrings} from "../../strings";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
+import inputNumberValidator from "./input-number-validator";
 import {question3 as question} from "./input-number.testdata";
 
 import type {
@@ -41,7 +42,7 @@ describe("input-number", function () {
     });
 
     describe("full render", function () {
-        it("Shoud accept the right answer", async () => {
+        it("Should accept the right answer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
 
@@ -197,7 +198,7 @@ describe("input-number", function () {
             "0.56",
         ],
     ])("answer type", (question, correct, incorrect) => {
-        it("Shoud accept the right answer", async () => {
+        it("Should accept the right answer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
 
@@ -249,7 +250,7 @@ describe("invalid", function () {
     });
 
     it("should handle invalid answers with no error callback", function () {
-        const err = InputNumber.widget.validate(
+        const err = inputNumberValidator(
             {currentValue: "x+1"},
             options,
             mockStrings,

@@ -15,10 +15,7 @@ describe("dropdownValidator", () => {
         const result = dropdownValidator(userInput, rubric);
 
         // Assert
-        expect(result).toEqual({
-            message: null,
-            type: "invalid",
-        });
+        expect(result).toHaveInvalidInput();
     });
 
     it("returns 0 points for incorrect answer", () => {
@@ -32,12 +29,7 @@ describe("dropdownValidator", () => {
         const result = dropdownValidator(userInput, rubric);
 
         // Assert
-        expect(result).toEqual({
-            earned: 0,
-            total: 1,
-            message: null,
-            type: "points",
-        });
+        expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     it("returns 1 point for correct answer", () => {
@@ -51,11 +43,6 @@ describe("dropdownValidator", () => {
         const result = dropdownValidator(userInput, rubric);
 
         // Assert
-        expect(result).toEqual({
-            earned: 1,
-            total: 1,
-            message: null,
-            type: "points",
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 });

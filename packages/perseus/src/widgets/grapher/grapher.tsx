@@ -653,6 +653,7 @@ const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
 export default {
     name: "grapher",
     displayName: "Grapher",
+    hidden: true,
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,

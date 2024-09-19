@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Convert some PropTypes to TS
+[Locked Figure Labels] Add/edit/delete locked line labels

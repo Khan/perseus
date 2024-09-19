@@ -14,10 +14,11 @@ import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 import type {PerseusInteractiveGraphUserInput} from "../../validation.types";
 
 export type StatefulMafsGraphProps = {
-    showLabelsFlag?: boolean;
+    flags?: APIOptions["flags"];
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;

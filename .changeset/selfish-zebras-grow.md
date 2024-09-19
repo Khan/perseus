@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Consolidate noop validation logic
+Custom Jest matchers for PerseusScore

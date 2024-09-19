@@ -16,6 +16,8 @@ export const flags = {
 
         // Locked figures flags
         "interactive-graph-locked-features-labels": true,
+        "locked-point-labels": true,
+        "locked-line-labels": true,
     },
 } satisfies APIOptions["flags"];
 
