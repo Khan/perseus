@@ -1087,7 +1087,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     {
                         type: "label",
                         text: "a label",
-                        coord: [5, 2],
+                        coord: [1, 2],
                         color: "green",
                         size: "medium",
                     },

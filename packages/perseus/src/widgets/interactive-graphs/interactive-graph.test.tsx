@@ -1093,7 +1093,7 @@ describe("locked layer", () => {
         expect(label).toHaveStyle({
             color: lockedFigureColors["grayH"],
             fontSize: "16px",
-            left: "280px",
+            left: "200px",
             top: "200px",
         });
     });
