@@ -37,6 +37,7 @@ describe("getDefaultFigureForType", () => {
             lineStyle: "solid",
             showPoint1: false,
             showPoint2: false,
+            labels: [],
         });
     });
 

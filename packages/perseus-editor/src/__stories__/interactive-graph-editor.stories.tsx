@@ -153,6 +153,8 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                     mafs: {
                         ...flags.mafs,
                         "interactive-graph-locked-features-labels": false,
+                        "locked-point-labels": false,
+                        "locked-line-labels": false,
                     },
                 },
             }}
@@ -178,6 +180,7 @@ export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
                         ...flags.mafs,
                         "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": false,
+                        "locked-line-labels": false,
                     },
                 },
             }}
@@ -196,11 +199,49 @@ MafsWithLockedLabelsFlag.parameters = {
 
 export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
     return (
-        <EditorPageWithStorybookPreview question={segmentWithLockedFigures} />
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": true,
+                        "locked-line-labels": false,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
     );
 };
 
 MafsWithLockedPointLabelsFlag.parameters = {
+    chromatic: {
+        // Disabling because this isn't visually testing anything on the
+        // initial load of the editor page.
+        disable: true,
+    },
+};
+
+export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": false,
+                        "locked-line-labels": true,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
+    );
+};
+
+MafsWithLockedLineLabelsFlag.parameters = {
     chromatic: {
         // Disabling because this isn't visually testing anything on the
         // initial load of the editor page.

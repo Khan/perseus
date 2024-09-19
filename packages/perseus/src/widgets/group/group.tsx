@@ -195,6 +195,6 @@ export default {
     displayName: "Group (SAT only)",
     widget: Group,
     traverseChildWidgets: traverseChildWidgets,
-    hidden: false,
+    hidden: true,
     isLintable: true,
 } as WidgetExports<typeof Group>;

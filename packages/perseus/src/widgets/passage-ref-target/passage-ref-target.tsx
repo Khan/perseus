@@ -31,7 +31,8 @@ class PassageRefTarget extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
-    static validate(state: any, rubric: any): any {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
@@ -45,10 +46,10 @@ class PassageRefTarget extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    // TODO passage-ref-target isn't interactive; remove
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        return PassageRefTarget.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         return (

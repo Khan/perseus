@@ -856,6 +856,109 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+                labels: [],
+            },
+        ]);
+    });
+
+    it("adds a locked line with options and minimal label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedLine([1, 2], [3, 4], {
+                kind: "segment",
+                lineStyle: "dashed",
+                color: "green",
+                filled: [false, false],
+                showPoint1: true,
+                showPoint2: true,
+                labels: [{text: "a label"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "line",
+                kind: "segment",
+                points: [
+                    {
+                        type: "point",
+                        coord: [1, 2],
+                        color: "green",
+                        filled: false,
+                        labels: [],
+                    },
+                    {
+                        type: "point",
+                        coord: [3, 4],
+                        color: "green",
+                        filled: false,
+                        labels: [],
+                    },
+                ],
+                color: "green",
+                lineStyle: "dashed",
+                showPoint1: true,
+                showPoint2: true,
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [2, 3],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked line with options and specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedLine([1, 2], [3, 4], {
+                kind: "segment",
+                lineStyle: "dashed",
+                color: "green",
+                filled: [false, false],
+                showPoint1: true,
+                showPoint2: true,
+                labels: [{text: "a label", coord: [9, 9], size: "small"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "line",
+                kind: "segment",
+                points: [
+                    {
+                        type: "point",
+                        coord: [1, 2],
+                        color: "green",
+                        filled: false,
+                        labels: [],
+                    },
+                    {
+                        type: "point",
+                        coord: [3, 4],
+                        color: "green",
+                        filled: false,
+                        labels: [],
+                    },
+                ],
+                color: "green",
+                lineStyle: "dashed",
+                showPoint1: true,
+                showPoint2: true,
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "green",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });

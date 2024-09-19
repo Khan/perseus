@@ -13,13 +13,9 @@ import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
-
-type Rubric = PerseusExplanationWidgetOptions;
-
-type UserInput = Empty;
 
 type Props = WidgetProps<RenderProps, PerseusExplanationWidgetOptions>;
 
@@ -59,7 +55,8 @@ class Explanation extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
@@ -86,9 +83,10 @@ class Explanation extends React.Component<Props, State> {
         return {};
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Explanation.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         const promptText = this.state.expanded
