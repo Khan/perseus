@@ -25,12 +25,7 @@ describe("categorizerValidator", () => {
         } as const;
         const score = categorizerValidator(userInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 1,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("does not give points when incorrectly answered", () => {
@@ -53,12 +48,7 @@ describe("categorizerValidator", () => {
         } as const;
         const score = categorizerValidator(userInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 0,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("tells the learner its not complete if not selected", () => {
@@ -81,9 +71,8 @@ describe("categorizerValidator", () => {
         } as const;
         const score = categorizerValidator(userInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            message: "Make sure you select something for every row.",
-            type: "invalid",
-        });
+        expect(score).toHaveInvalidInput(
+            "Make sure you select something for every row.",
+        );
     });
 });
