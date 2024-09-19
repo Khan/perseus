@@ -4,7 +4,7 @@ import categorizerValidator from "./categorizer-validator";
 
 import type {Rubric} from "./categorizer.types";
 
-describe("validating answers", () => {
+describe("categorizerValidator", () => {
     it("gives points when the answer is correct", () => {
         const rubric: Rubric = {
             items: ["Graph $1$", "Graph $2$"],
