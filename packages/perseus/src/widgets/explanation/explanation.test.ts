@@ -302,10 +302,7 @@ describe("Explanation", function () {
 
     describe("static validate", () => {
         it("should always return 0 points", async () => {
-            const result = ExplanationWidgetExports.widget.validate(
-                {},
-                question1.widgets["explanation 1"].options,
-            );
+            const result = ExplanationWidgetExports.widget.validate();
 
             expect(result).toMatchInlineSnapshot(`
                 {
