@@ -212,7 +212,7 @@ const LockedVectorSettings = (props: Props) => {
                             const newLabel = {
                                 ...getDefaultFigureForType("label"),
                                 coord: labelLocation,
-                                // Default to the same color as the point
+                                // Default to the same color as the vector
                                 color: lineColor,
                             } satisfies LockedLabelType;
 

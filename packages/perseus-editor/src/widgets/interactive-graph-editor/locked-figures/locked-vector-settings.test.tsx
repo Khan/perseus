@@ -345,12 +345,9 @@ describe("Locked Vector Settings", () => {
             );
 
             // Act
-            const addLabelButtons = screen.getAllByRole("button", {
+            const addLabelButton = screen.getByRole("button", {
                 name: "Add visible label",
             });
-            // The last button is the one for the whole line, not for
-            // the points the define the line.
-            const addLabelButton = addLabelButtons[addLabelButtons.length - 1];
             await userEvent.click(addLabelButton);
 
             // Assert
