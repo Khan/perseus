@@ -46,8 +46,8 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
                 <OptionItem label="Practice" value="Practice" />
                 <OptionItem label="Assessment" value="Assessment" />
             </SingleSelect>
-            {steps.map((step, i) => {
-                const prevStep = steps[Math.max(0, i)];
+            {steps.map((currStep, i) => {
+                const prevStep = steps[Math.max(0, i - 1)];
                 const isLast = i === steps.length - 1;
                 const disableCheck =
                     isLast &&
@@ -61,7 +61,7 @@ export const ShowYourWork = React.forwardRef<RefType, Props>((props, ref) => {
                         mode={mode}
                         problem={problem}
                         prevStep={prevStep}
-                        step={step}
+                        currStep={currStep}
                         onChange={(step) => {
                             if (isLast) {
                                 dispatch({

@@ -14,7 +14,7 @@ import _ from "underscore";
 
 import expression from "../expression";
 
-import {HintPopover} from "./hint-popover";
+import {HintPopoverContent} from "./hint-popover";
 import {KhanmigoIcon} from "./khanmigo-icon";
 import {print} from "./printer";
 import {showMeHow} from "./tutor";
@@ -46,7 +46,7 @@ type Props = {
     mode: Mode;
     problem: ShowYourWorkProblem;
     prevStep: Step;
-    step: Step;
+    currStep: Step;
     isLast: boolean;
     disableCheck: boolean;
     onChange: (step: Step) => void;
@@ -65,7 +65,7 @@ const widgetOptions: PerseusExpressionWidgetOptions = {
 };
 
 export const Step = (props: Props) => {
-    const {prevStep, onCheckStep, step, problem: originalProblem} = props;
+    const {prevStep, currStep, problem, onCheckStep} = props;
 
     const expressionRef = React.useRef<Expression | null>(null);
     const [opened, setOpened] = React.useState(false);
@@ -75,17 +75,17 @@ export const Step = (props: Props) => {
     }, []);
 
     const handleShowMeHow = React.useCallback(() => {
-        const nextStep = showMeHow(originalProblem, prevStep.value);
+        const nextStep = showMeHow(problem, prevStep.value);
         if (expressionRef.current) {
             expressionRef.current.setInputValue("", print(nextStep), () => {
                 onCheckStep(true);
             });
         }
-    }, [prevStep.value, onCheckStep, originalProblem]);
+    }, [prevStep.value, onCheckStep, problem]);
 
     // TODO: memoize the callbacks
     const expression = (
-        <View style={step.tutor && styles.tutorStep}>
+        <View style={currStep.tutor && styles.tutorStep}>
             <ExpressionWidget
                 ref={expressionRef}
                 // common widget props
@@ -98,7 +98,7 @@ export const Step = (props: Props) => {
                 findWidgets={(arg1: FilterCriterion) => []}
                 reviewModeRubric={widgetOptions}
                 onChange={(data, cb, arg3) => {
-                    props.onChange({...step, value: data.value});
+                    props.onChange({...currStep, value: data.value});
                     if (cb) {
                         cb();
                     }
@@ -116,7 +116,7 @@ export const Step = (props: Props) => {
                 visibleLabel=""
                 ariaLabel=""
                 keypadConfiguration={{keypadType: KeypadType.EXPRESSION}}
-                value={step.value}
+                value={currStep.value}
                 // extension
                 noWrapper={true}
                 dontSimplifyFractions={true}
@@ -125,7 +125,7 @@ export const Step = (props: Props) => {
     );
 
     let icon: React.ReactNode = null;
-    if (step.status === "correct") {
+    if (currStep.status === "correct") {
         icon = (
             <PhosphorIcon
                 icon={correctIcon}
@@ -133,7 +133,7 @@ export const Step = (props: Props) => {
                 color={color.green}
             />
         );
-    } else if (step.status === "wrong") {
+    } else if (currStep.status === "wrong") {
         icon = (
             <PhosphorIcon
                 icon={wrongIcon}
@@ -159,11 +159,11 @@ export const Step = (props: Props) => {
                     setOpened(false);
                 }}
                 content={
-                    <HintPopover
+                    <HintPopoverContent
                         onShowMeHow={handleShowMeHow}
-                        originalProblem={originalProblem}
-                        prevStepValue={prevStep.value}
-                        stepValue={step.value}
+                        problem={problem}
+                        prevStep={prevStep}
+                        currStep={currStep}
                     />
                 }
             >
@@ -178,7 +178,7 @@ export const Step = (props: Props) => {
                 {stepAndStatus}
                 <Spring />
             </View>
-            {props.isLast && step.status !== "correct" && (
+            {props.isLast && currStep.status !== "correct" && (
                 <View style={styles.buttonContainer}>
                     <Button
                         size="small"
