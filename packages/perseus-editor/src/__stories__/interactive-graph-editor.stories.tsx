@@ -272,7 +272,7 @@ export const MafsWithLockedVectorLabelsFlag = (): React.ReactElement => {
     );
 };
 
-MafsWithLockedLineLabelsFlag.parameters = {
+MafsWithLockedVectorLabelsFlag.parameters = {
     chromatic: {
         // Disabling because this isn't visually testing anything on the
         // initial load of the editor page.
