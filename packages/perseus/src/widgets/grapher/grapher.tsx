@@ -35,7 +35,10 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
-import type {PerseusGrapherUserInput} from "../../validation.types";
+import type {
+    PerseusGrapherRubric,
+    PerseusGrapherUserInput,
+} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -342,8 +345,7 @@ type RenderProps = {
     plot?: any;
 };
 
-type Rubric = PerseusGrapherWidgetOptions;
-type ExternalProps = WidgetProps<RenderProps, Rubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusGrapherRubric>;
 
 type Props = ExternalProps & {
     // plot is always provided by default props
@@ -367,7 +369,7 @@ class Grapher extends React.Component<Props> {
 
     static validate(
         state: PerseusGrapherUserInput,
-        rubric: Rubric,
+        rubric: PerseusGrapherRubric,
     ): PerseusScore {
         return grapherValidate(state, rubric);
     }
@@ -538,7 +540,7 @@ class Grapher extends React.Component<Props> {
         }
     };
 
-    simpleValidate(rubric: Rubric): PerseusScore {
+    simpleValidate(rubric: PerseusGrapherRubric): PerseusScore {
         return grapherValidate(this.getUserInput(), rubric);
     }
 
