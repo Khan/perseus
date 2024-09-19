@@ -4,7 +4,7 @@ import inputNumberValidator from "./input-number-validator";
 
 import type {Rubric} from "./input-number.types";
 
-describe("static function validate", () => {
+describe("inputNumberValidator", () => {
     it("scores correct answer correctly", () => {
         const rubric: Rubric = {
             maxError: 0.1,
