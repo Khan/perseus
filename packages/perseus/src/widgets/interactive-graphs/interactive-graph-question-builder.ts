@@ -398,8 +398,9 @@ class InteractiveGraphQuestionBuilder {
                 coord: label.coord ?? [
                     // Place the label on the right side of the ellipse.
                     // Use the larger radius to determine the x-coordinate
-                    // regardless of the ellipse's rotation.
-                    center[0] + Math.max(radius[0], radius[1]),
+                    // regardless of the ellipse's rotation. Add a small
+                    // offset to avoid crowding.
+                    center[0] + Math.max(radius[0], radius[1]) + 0.5,
                     center[1],
                 ],
                 text: label.text,
