@@ -16,6 +16,7 @@ import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
 import type {Widget} from "../../renderer";
 import type {APIOptions} from "../../types";
+import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 
 export type StatefulMafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -40,22 +41,6 @@ export type StatefulMafsGraphProps = {
     readOnly: boolean;
     static: InteractiveGraphProps["static"];
 };
-
-// Rather than be tightly bound to how data was structured in
-// the legacy interactive graph, this lets us store state
-// however we want and we just transform it before handing it off
-// the the parent InteractiveGraph
-function mafsStateToInteractiveGraph(state: InteractiveGraphState): PerseusGraphType {
-    if (state.type === "circle") {
-        return {
-            ...state,
-            radius: getRadius(state),
-        };
-    }
-    return {
-        ...state,
-    };
-}
 
 export const StatefulMafsGraph = React.forwardRef<
     Partial<Widget>,
