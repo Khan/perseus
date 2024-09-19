@@ -191,14 +191,6 @@ export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
     );
 };
 
-MafsWithLockedLabelsFlag.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
-};
-
 export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
@@ -216,14 +208,6 @@ export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
             question={segmentWithLockedFigures}
         />
     );
-};
-
-MafsWithLockedPointLabelsFlag.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
 };
 
 export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
@@ -245,14 +229,6 @@ export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
     );
 };
 
-MafsWithLockedLineLabelsFlag.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
-};
-
 export const MafsWithLockedVectorLabelsFlag = (): React.ReactElement => {
     return (
         <EditorPageWithStorybookPreview
@@ -270,14 +246,6 @@ export const MafsWithLockedVectorLabelsFlag = (): React.ReactElement => {
             question={segmentWithLockedFigures}
         />
     );
-};
-
-MafsWithLockedVectorLabelsFlag.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
 };
 
 export const WithSaveWarnings = (): React.ReactElement => {
