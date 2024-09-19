@@ -16,7 +16,7 @@ import type {
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
-import type {PerseusRadioUserInput} from "../../user-input.types";
+import type {PerseusRadioUserInput} from "../../validation.types";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {

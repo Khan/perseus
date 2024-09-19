@@ -1,7 +1,7 @@
 import dropdownValidator from "./dropdown-validator";
 import {question1} from "./dropdown.testdata";
 
-import type {PerseusDropdownUserInput} from "../../user-input.types";
+import type {PerseusDropdownUserInput} from "../../validation.types";
 
 describe("dropdownValidator", () => {
     it("returns invalid for user input of 0", () => {

@@ -29,7 +29,7 @@ import type {InteractiveMarkerType, InteractiveMarkerScore} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
-import type {PerseusLabelImageUserInput} from "../../user-input.types";
+import type {PerseusLabelImageUserInput} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 

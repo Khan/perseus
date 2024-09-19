@@ -30,7 +30,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusExpressionUserInput} from "../../user-input.types";
+import type {PerseusExpressionUserInput} from "../../validation.types";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 

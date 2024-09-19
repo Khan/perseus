@@ -11,8 +11,8 @@ import type {Rubric, OnInputErrorFunctionType} from "./expression.types";
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
-import type {PerseusExpressionUserInput} from "../../user-input.types";
 import type {Score} from "../../util/answer-types";
+import type {PerseusExpressionUserInput} from "../../validation.types";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should

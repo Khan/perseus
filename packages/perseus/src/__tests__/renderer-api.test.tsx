@@ -19,7 +19,7 @@ import inputNumber1Item from "./test-items/input-number-1-item";
 import inputNumber2Item from "./test-items/input-number-2-item";
 import tableItem from "./test-items/table-item";
 
-import type {PerseusInputNumberUserInput} from "../user-input.types";
+import type {PerseusInputNumberUserInput} from "../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const itemWidget = inputNumber1Item;

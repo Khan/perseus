@@ -14,7 +14,7 @@ import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
-import type {Widget} from "../../renderer";
+import type {PerseusInteractiveGraphUserInput} from "../../validation.types";
 
 export type StatefulMafsGraphProps = {
     showLabelsFlag?: boolean;
@@ -59,8 +59,12 @@ function mafsStateToInteractiveGraph(state: {graph: InteractiveGraphState}) {
     };
 }
 
+export type StatefulMafsGraphType = {
+    getUserInput: () => PerseusInteractiveGraphUserInput;
+};
+
 export const StatefulMafsGraph = React.forwardRef<
-    Partial<Widget>,
+    StatefulMafsGraphType,
     StatefulMafsGraphProps
 >((props, ref) => {
     const {onChange, graph} = props;

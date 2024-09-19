@@ -16,7 +16,7 @@ import Util from "../../util";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusOrdererUserInput} from "../../user-input.types";
+import type {PerseusOrdererUserInput} from "../../validation.types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type PlaceholderCardProps = {

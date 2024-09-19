@@ -15,7 +15,7 @@ import KhanMath from "../../util/math";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports} from "../../types";
-import type {PerseusNumberLineUserInput} from "../../user-input.types";
+import type {PerseusNumberLineUserInput} from "../../validation.types";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;

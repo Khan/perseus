@@ -23,7 +23,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusNumericInputUserInput} from "../../user-input.types";
+import type {PerseusNumericInputUserInput} from "../../validation.types";
 
 const formExamples: {
     [key: string]: (

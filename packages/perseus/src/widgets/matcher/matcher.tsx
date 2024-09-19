@@ -13,7 +13,7 @@ import Util from "../../util";
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusMatcherUserInput} from "../../user-input.types";
+import type {PerseusMatcherUserInput} from "../../validation.types";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";

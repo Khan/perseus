@@ -20,7 +20,7 @@ import type {WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusIFrameUserInput,
     UserInputStatus,
-} from "../../user-input.types";
+} from "../../validation.types";
 
 const {updateQueryString} = Util;
 

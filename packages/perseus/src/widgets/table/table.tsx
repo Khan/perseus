@@ -15,7 +15,7 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusTableUserInput} from "../../user-input.types";
+import type {PerseusTableUserInput} from "../../validation.types";
 
 const {assert} = InteractiveUtil;
 

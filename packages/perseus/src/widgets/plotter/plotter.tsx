@@ -15,7 +15,7 @@ import KhanMath from "../../util/math";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusPlotterUserInput} from "../../user-input.types";
+import type {PerseusPlotterUserInput} from "../../validation.types";
 
 const {deepEq} = Util;
 

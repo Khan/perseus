@@ -20,7 +20,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusInputNumberUserInput} from "../../user-input.types";
+import type {PerseusInputNumberUserInput} from "../../validation.types";
 
 const ParseTex = TexWrangler.parseTex;
 

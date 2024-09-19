@@ -1,6 +1,6 @@
 import type {Rubric} from "./dropdown.types";
 import type {PerseusScore} from "../../types";
-import type {PerseusDropdownUserInput} from "../../user-input.types";
+import type {PerseusDropdownUserInput} from "../../validation.types";
 
 function dropdownValidator(
     userInput: PerseusDropdownUserInput,

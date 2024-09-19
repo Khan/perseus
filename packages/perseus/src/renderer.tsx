@@ -47,7 +47,7 @@ import type {
     PerseusScore,
     WidgetProps,
 } from "./types";
-import type {UserInput} from "./user-input.types";
+import type {UserInput} from "./validation.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -103,11 +103,6 @@ type SetWidgetPropsFn = (
     // interaction events from being triggered in listeners.
     silent?: boolean,
 ) => void;
-
-// The return type for getUserInput. Widgets have full control of what is
-// returned so it's not easily typed (some widgets return a scalar (string),
-// some return a custom-built object
-// type WidgetUserInput = any;
 
 type SerializedState = {
     [id: string]: any;

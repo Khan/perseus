@@ -5,7 +5,7 @@ import type {Rubric} from "./numeric-input.types";
 import type {MathFormat, PerseusNumericInputAnswer} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
-import type {PerseusNumericInputUserInput} from "../../user-input.types";
+import type {PerseusNumericInputUserInput} from "../../validation.types";
 
 const ParseTex = TexWrangler.parseTex;
 

@@ -39,7 +39,7 @@ export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
 
-export type PerseusInteractiveGraphType = PerseusGraphType;
+export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
 export type PerseusLabelImageUserInput = {
     markers: ReadonlyArray<InteractiveMarkerType>;
@@ -93,7 +93,7 @@ export type UserInput =
     | PerseusGrapherUserInput
     | PerseusIFrameUserInput
     | PerseusInputNumberUserInput
-    | PerseusInteractiveGraphType
+    | PerseusInteractiveGraphUserInput
     | PerseusLabelImageUserInput
     | PerseusMatcherUserInput
     | PerseusMatrixUserInput

@@ -33,6 +33,7 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
 
+import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
 import type {Coord} from "../interactive2/types";
 import type {
@@ -43,7 +44,6 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
-import type {Widget} from "../renderer";
 import type {
     ChangeHandler,
     PerseusScore,
@@ -55,6 +55,7 @@ import type {
     Range,
     SineCoefficient,
 } from "../util/geometry";
+import type {PerseusInteractiveGraphUserInput} from "../validation.types";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -1677,7 +1678,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.onChange({graph: graph});
     };
 
-    getUserInput() {
+    getUserInput(): PerseusInteractiveGraphUserInput {
         return InteractiveGraph.getUserInputFromProps(this.props);
     }
 
@@ -1760,7 +1761,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
 class InteractiveGraph extends React.Component<Props, State> {
     legacyGraphRef = React.createRef<LegacyInteractiveGraph>();
-    mafsRef = React.createRef<Widget>();
+    mafsRef = React.createRef<StatefulMafsGraphType>();
 
     static defaultProps: DefaultProps = {
         labels: ["x", "y"],
@@ -1778,21 +1779,21 @@ class InteractiveGraph extends React.Component<Props, State> {
         },
     };
 
-    getUserInput: any = () => {
-        if (this.mafsRef.current) {
-            return this.mafsRef.current.getUserInput?.();
+    getUserInput(): PerseusInteractiveGraphUserInput {
+        if (this.mafsRef.current?.getUserInput) {
+            return this.mafsRef.current.getUserInput();
         }
-        if (this.legacyGraphRef.current) {
+        if (this.legacyGraphRef.current?.getUserInput) {
             return this.legacyGraphRef.current.getUserInput();
         }
         throw new PerseusError(
             "Cannot getUserInput from a graph that has never rendered",
             Errors.NotAllowed,
         );
-    };
+    }
 
     simpleValidate(rubric: Rubric) {
-        return InteractiveGraph.validate(this.getUserInput?.(), rubric, this);
+        return InteractiveGraph.validate(this.getUserInput(), rubric, this);
     }
 
     render() {

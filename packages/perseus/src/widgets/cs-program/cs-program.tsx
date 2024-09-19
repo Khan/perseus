@@ -19,7 +19,7 @@ import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCSProgramUserInput,
     UserInputStatus,
-} from "../../user-input.types";
+} from "../../validation.types";
 
 const {updateQueryString} = Util;
 
