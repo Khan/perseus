@@ -6,6 +6,8 @@ import type {
     PerseusDropdownWidgetOptions,
     PerseusExplanationWidgetOptions,
     PerseusExpressionWidgetOptions,
+    PerseusGradedGroupSetWidgetOptions,
+    PerseusGradedGroupWidgetOptions,
     PerseusGraphType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
@@ -47,6 +49,10 @@ export type PerseusExplanationUserInput = Empty;
 export type PerseusExpressionRubric = PerseusExpressionWidgetOptions;
 
 export type PerseusExpressionUserInput = string;
+
+export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
+
+export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
 
 /**
  * TODO: this is kind of just a guess right now

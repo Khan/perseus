@@ -32,6 +32,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import type {PerseusGradedGroupRubric} from "../../validation.types";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,
@@ -60,12 +61,11 @@ const getNextState = (
     }
 };
 
-type Rubric = PerseusGradedGroupWidgetOptions;
 type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform'
 
 type Props = WidgetProps<
     RenderProps,
-    Rubric,
+    PerseusGradedGroupRubric,
     TrackingGradedGroupExtraArguments
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,

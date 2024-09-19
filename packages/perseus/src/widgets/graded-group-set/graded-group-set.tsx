@@ -24,6 +24,7 @@ import type {
     PerseusGradedGroupWidgetOptions,
 } from "../../perseus-types";
 import type {FocusPath, WidgetExports, WidgetProps} from "../../types";
+import type {PerseusGradedGroupSetRubric} from "../../validation.types";
 
 type IndicatorsProps = {
     currentGroup: number;
@@ -88,10 +89,9 @@ class Indicators extends React.Component<IndicatorsProps> {
 }
 
 type RenderProps = PerseusGradedGroupSetWidgetOptions; // no transform
-type Rubric = PerseusGradedGroupSetWidgetOptions;
 
 type Props = Changeable.ChangeableProps &
-    WidgetProps<RenderProps, Rubric> & {
+    WidgetProps<RenderProps, PerseusGradedGroupSetRubric> & {
         trackInteraction: () => void;
     };
 
