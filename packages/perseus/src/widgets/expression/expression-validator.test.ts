@@ -12,7 +12,7 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(err).toStrictEqual({message: "", type: "invalid"});
+        expect(err).toHaveInvalidInput();
     });
 
     it("should handle invalid expression answer with no error callback", function () {
@@ -23,7 +23,7 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(err).toStrictEqual({message: null, type: "invalid"});
+        expect(err).toHaveInvalidInput();
     });
 
     it("should handle listed incorrect answers as wrong", function () {
@@ -34,12 +34,7 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(result).toStrictEqual({
-            earned: 0,
-            message: "",
-            total: 1,
-            type: "points",
-        });
+        expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should handle unlisted answers as wrong", function () {
@@ -50,11 +45,7 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(result).toStrictEqual({
-            earned: 0,
-            total: 1,
-            type: "points",
-        });
+        expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should handle correct answers", function () {
@@ -65,12 +56,7 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(result).toStrictEqual({
-            earned: 1,
-            message: "",
-            total: 1,
-            type: "points",
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("should handle multiple correct answers", function () {
@@ -82,12 +68,8 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(result1).toStrictEqual({
-            earned: 1,
-            message: "",
-            total: 1,
-            type: "points",
-        });
+        expect(result1).toHaveBeenAnsweredCorrectly();
+
         // Second possible correct answer
         const result2 = validate(
             "a+1",
@@ -96,12 +78,7 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(result2).toStrictEqual({
-            earned: 1,
-            message: "",
-            total: 1,
-            type: "points",
-        });
+        expect(result2).toHaveBeenAnsweredCorrectly();
     });
 
     it("should handle correct answers with period decimal separator", function () {
@@ -112,12 +89,7 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(result).toStrictEqual({
-            earned: 1,
-            message: "",
-            total: 1,
-            type: "points",
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("should handle correct answers with comma decimal separator", function () {
@@ -128,12 +100,7 @@ describe("expression-validator", () => {
             mockStrings,
             "fr",
         );
-        expect(result).toStrictEqual({
-            earned: 1,
-            message: "",
-            total: 1,
-            type: "points",
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("should handle incorrect answers with period decimal separator", function () {
@@ -144,9 +111,6 @@ describe("expression-validator", () => {
             mockStrings,
             "en",
         );
-        expect(result).toStrictEqual({
-            message: null,
-            type: "invalid",
-        });
+        expect(result).toHaveInvalidInput();
     });
 });
