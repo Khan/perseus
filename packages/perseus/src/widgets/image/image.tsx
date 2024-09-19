@@ -12,6 +12,8 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
+import type {PerseusImageUserInput} from "../../validation.types";
+import type {Rubric} from "../interactive-graph";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -26,8 +28,6 @@ const editorAlignments = ["block", "full-width"];
 const DEFAULT_ALIGNMENT = "block";
 
 type RenderProps = PerseusImageWidgetOptions; // there is no transform as part of exports
-type Rubric = PerseusImageWidgetOptions;
-type UserInput = null;
 
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
@@ -80,9 +80,9 @@ class ImageWidget extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusImageUserInput {
         return null;
-    };
+    }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
     simpleValidate() {

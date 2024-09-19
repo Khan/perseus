@@ -18,6 +18,7 @@ import Util from "../../util";
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
 import type {
+    PerseusIFrameRubric,
     PerseusIFrameUserInput,
     UserInputStatus,
 } from "../../validation.types";
@@ -31,9 +32,7 @@ type RenderProps = PerseusIFrameWidgetOptions & {
     height: string;
 };
 
-export type Rubric = PerseusIFrameWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusIFrameRubric>;
 
 type DefaultProps = {
     status: Props["status"];

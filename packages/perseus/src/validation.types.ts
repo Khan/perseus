@@ -10,6 +10,9 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusGrapherWidgetOptions,
     PerseusGraphType,
+    PerseusIFrameWidgetOptions,
+    PerseusImageWidgetOptions,
+    PerseusInputNumberWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -67,10 +70,20 @@ export type PerseusGrapherUserInput = {
     coords: ReadonlyArray<Coord>;
 };
 
+export type PerseusIFrameRubric = PerseusIFrameWidgetOptions;
+
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
     message: string | null;
 };
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusImageRubric = PerseusImageWidgetOptions;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusImageUserInput = null;
+
+export type PerseusInputNumberRubric = PerseusInputNumberWidgetOptions;
 
 export type PerseusInputNumberUserInput = {
     currentValue: string;
@@ -131,6 +144,7 @@ export type UserInput =
     | PerseusExpressionUserInput
     | PerseusGrapherUserInput
     | PerseusIFrameUserInput
+    | PerseusImageUserInput
     | PerseusInputNumberUserInput
     | PerseusInteractiveGraphUserInput
     | PerseusLabelImageUserInput
