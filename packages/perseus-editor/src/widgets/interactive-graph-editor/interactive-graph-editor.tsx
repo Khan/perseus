@@ -764,6 +764,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
+                                flags={this.props.apiOptions.flags}
                                 showLabelsFlag={
                                     this.props.apiOptions?.flags?.mafs?.[
                                         "interactive-graph-locked-features-labels"

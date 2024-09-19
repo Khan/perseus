@@ -311,6 +311,7 @@ type RenderProps = {
 export default {
     name: "categorizer",
     displayName: "Categorizer",
+    hidden: true,
     widget: Categorizer,
     transform: (
         widgetOptions: PerseusCategorizerWidgetOptions,
