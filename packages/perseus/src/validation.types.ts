@@ -1,6 +1,7 @@
 import type {Coord} from "./interactive2/types";
 import type {
     PerseusCategorizerWidgetOptions,
+    PerseusCSProgramWidgetOptions,
     PerseusGraphType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
@@ -13,6 +14,8 @@ export type PerseusCategorizerRubric = PerseusCategorizerWidgetOptions;
 export type PerseusCategorizerUserInput = {
     values: ReadonlyArray<number>;
 };
+
+export type PerseusCSProgramRubric = PerseusCSProgramWidgetOptions;
 
 export type PerseusCSProgramUserInput = {
     status: UserInputStatus;

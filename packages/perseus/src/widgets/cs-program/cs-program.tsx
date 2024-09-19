@@ -17,6 +17,7 @@ import {toAbsoluteUrl} from "../../util/url-utils";
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 import type {
+    PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
     UserInputStatus,
 } from "../../validation.types";
@@ -28,9 +29,7 @@ type RenderProps = PerseusCSProgramWidgetOptions & {
     message: string | null;
 };
 
-export type Rubric = PerseusCSProgramWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
