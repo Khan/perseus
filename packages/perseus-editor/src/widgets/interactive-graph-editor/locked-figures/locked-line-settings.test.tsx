@@ -166,6 +166,62 @@ describe("LockedLineSettings", () => {
         });
     });
 
+    test("updates the defining points' label colors when the line color changes", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedLineSettings
+                {...defaultProps}
+                points={[
+                    {
+                        ...defaultProps.points[0],
+                        labels: [defaultLabel],
+                    },
+                    {
+                        ...defaultProps.points[1],
+                        labels: [defaultLabel],
+                    },
+                ]}
+                labels={[
+                    {
+                        ...defaultLabel,
+                    },
+                ]}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const colorSelect = screen.getByLabelText("color");
+        await userEvent.click(colorSelect);
+        const colorOption = screen.getByText("pink");
+        await userEvent.click(colorOption);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            color: "pink",
+            points: [
+                {
+                    ...defaultProps.points[0],
+                    color: "pink",
+                    labels: [{...defaultLabel, color: "pink"}],
+                },
+                {
+                    ...defaultProps.points[1],
+                    color: "pink",
+                    labels: [{...defaultLabel, color: "pink"}],
+                },
+            ],
+            labels: [
+                {
+                    ...defaultLabel,
+                    color: "pink",
+                },
+            ],
+        });
+    });
+
     test("call onChangeProps when point is open", async () => {
         // Arrange
         const onChangeProps = jest.fn();
@@ -471,9 +527,12 @@ describe("LockedLineSettings", () => {
             );
 
             // Act
-            const addLabelButton = screen.getByRole("button", {
+            const addLabelButtons = screen.getAllByRole("button", {
                 name: "Add visible label",
             });
+            // The last button is the one for the whole line, not for
+            // the points the define the line.
+            const addLabelButton = addLabelButtons[addLabelButtons.length - 1];
             await userEvent.click(addLabelButton);
 
             // Assert
