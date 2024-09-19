@@ -4,6 +4,7 @@ import type {
     PerseusCSProgramWidgetOptions,
     PerseusDefinitionWidgetOptions,
     PerseusDropdownWidgetOptions,
+    PerseusExplanationWidgetOptions,
     PerseusGraphType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
@@ -35,6 +36,12 @@ export type PerseusDropdownRubric = PerseusDropdownWidgetOptions;
 export type PerseusDropdownUserInput = {
     value: number;
 };
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusExplanationRubric = PerseusExplanationWidgetOptions;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusExplanationUserInput = Empty;
 
 export type PerseusExpressionUserInput = string;
 
@@ -108,6 +115,7 @@ export type UserInput =
     | PerseusCSProgramUserInput
     | PerseusDefinitionUserInput
     | PerseusDropdownUserInput
+    | PerseusExplanationUserInput
     | PerseusExpressionUserInput
     | PerseusGrapherUserInput
     | PerseusIFrameUserInput

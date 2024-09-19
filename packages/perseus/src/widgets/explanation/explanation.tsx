@@ -14,10 +14,14 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusExplanationRubric,
+    PerseusExplanationUserInput,
+} from "../../validation.types";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 
-type Props = WidgetProps<RenderProps, PerseusExplanationWidgetOptions>;
+type Props = WidgetProps<RenderProps, PerseusExplanationRubric>;
 
 type DefaultProps = {
     showPrompt: Props["showPrompt"];
@@ -79,9 +83,9 @@ class Explanation extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    getUserInput: () => Empty = () => {
+    getUserInput(): PerseusExplanationUserInput {
         return {};
-    };
+    }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
     simpleValidate() {
