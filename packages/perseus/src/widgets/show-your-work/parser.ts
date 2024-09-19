@@ -12,6 +12,7 @@ export function parse(value: string): types.Node {
         const {expr} = result;
         if (expr instanceof KAS.Eq) {
             const {left, right} = expr;
+            console.log("expr =", expr);
             return builders.eq([kasToMathBlocks(left), kasToMathBlocks(right)]);
         } else {
             return kasToMathBlocks(expr);

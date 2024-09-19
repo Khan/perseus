@@ -14,9 +14,17 @@ export function print(node: types.Node): string {
             for (let i = 1; i < node.args.length; i++) {
                 const arg = node.args[i];
                 if (arg.type === NodeType.Neg && arg.subtraction) {
-                    result += `-${print(arg.arg)}`;
+                    if (arg.arg.type === NodeType.Add) {
+                        result += `-(${print(arg.arg)})`;
+                    } else {
+                        result += `-${print(arg.arg)}`;
+                    }
                 } else {
-                    result += `+${print(arg)}`;
+                    if (arg.type === NodeType.Add) {
+                        result += `+(${print(arg)})`;
+                    } else {
+                        result += `+${print(arg)}`;
+                    }
                 }
             }
 
@@ -24,7 +32,14 @@ export function print(node: types.Node): string {
         }
         case NodeType.Mul: {
             if (node.implicit) {
-                return node.args.map(print).join("");
+                return node.args
+                    .map((arg) => {
+                        return arg.type === NodeType.Add ||
+                            arg.type === NodeType.Div
+                            ? `(${print(arg)})`
+                            : print(arg);
+                    })
+                    .join("");
             } else {
                 throw new Error("TODO: handle explicit multiplication");
             }
@@ -58,6 +73,14 @@ export function print(node: types.Node): string {
             const left = print(node.args[0]);
             const right = print(node.args[1]);
             return `${left}=${right}`;
+        }
+        case NodeType.Neg: {
+            const arg = print(node.arg);
+            if (node.arg.type === NodeType.Add) {
+                return `-(${arg})`;
+            } else {
+                return `-${arg}`;
+            }
         }
         default: {
             throw new Error(`TODO: handle '${node.type}' nodes`);

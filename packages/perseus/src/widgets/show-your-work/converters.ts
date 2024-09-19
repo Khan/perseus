@@ -12,7 +12,8 @@ export function kasToMathBlocks(expr: KAS.Expr): types.Node {
     // Operations
     if (expr instanceof KAS.Mul) {
         const factors = expr.terms.map(kasToMathBlocks);
-        return builders.mul(factors, true);
+        // TODO: track implicitness hint on child nodes instead of the Mul node itself
+        return builders.mul(factors, true); // implicit mul
     } else if (expr instanceof KAS.Add) {
         const terms = expr.terms.map(kasToMathBlocks);
         return builders.add(terms);

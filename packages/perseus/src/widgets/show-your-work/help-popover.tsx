@@ -59,7 +59,6 @@ export const HelpPopover = ({
                 expressionRef={expressionRef}
                 currStep={currStep}
                 prevStep={prevStep}
-                problem={problem}
                 onCheckStep={onCheckStep}
             />
         );
