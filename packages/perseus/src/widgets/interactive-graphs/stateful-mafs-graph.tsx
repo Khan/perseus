@@ -3,6 +3,7 @@ import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
 import {MafsGraph} from "./mafs-graph";
+import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
@@ -10,13 +11,12 @@ import {
     reinitialize,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
-import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
+import {getGradableGraph} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
 import type {Widget} from "../../renderer";
 import type {APIOptions} from "../../types";
-import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 
 export type StatefulMafsGraphProps = {
     flags?: APIOptions["flags"];

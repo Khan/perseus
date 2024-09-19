@@ -1,8 +1,9 @@
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+
 import {getRadius} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "@khanacademy/perseus";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
 // Converts the state of a StatefulMafsGraph back to the format used to
 // represent graph state in the widget JSON.
@@ -14,42 +15,44 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 //
 // The transformed state is used in the interactive graph widget editor, to
 // set the `correct` field of the graph options.
-export function mafsStateToInteractiveGraph(state: InteractiveGraphState): PerseusGraphType {
+export function mafsStateToInteractiveGraph(
+    state: InteractiveGraphState,
+): PerseusGraphType {
     switch (state.type) {
         case "angle":
         case "quadratic":
             return {
                 type: state.type,
                 coords: state.coords,
-            }
+            };
         case "circle":
             return {
                 type: "circle",
                 center: state.center,
                 radius: getRadius(state),
-            }
+            };
         case "linear":
         case "ray":
         case "sinusoid":
             return {
                 type: state.type,
                 coords: state.coords,
-            }
+            };
         case "segment":
         case "linear-system":
             return {
                 type: state.type,
                 coords: state.coords,
-            }
+            };
         case "polygon":
         case "point":
             return {
                 type: state.type,
                 coords: state.coords,
-            }
+            };
         case "none":
-            return {type: "none"}
+            return {type: "none"};
         default:
-            throw new UnreachableCaseError(state)
+            throw new UnreachableCaseError(state);
     }
 }
