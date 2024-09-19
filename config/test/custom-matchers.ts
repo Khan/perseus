@@ -40,15 +40,23 @@ function check(answerable: Answerable) {
     return {widgetState, score};
 }
 
+function maybeAddState(message: string, widgetState: string): string {
+    if (!widgetState) {
+        return message;
+    }
+
+    return message + `; widget state: ${widgetState}`;
+}
+
 expect.extend({
     toHaveBeenAnsweredCorrectly(answerable: Answerable) {
         const {widgetState, score} = check(answerable);
 
         if (score.type === "invalid") {
-            let errMessage = `Invalid answer: ${score.message || "(no message)"}`;
-            if (widgetState) {
-                errMessage += `; widget state ${widgetState}`;
-            }
+            const errMessage = maybeAddState(
+                `Invalid answer: ${score.message || "(no message)"}`,
+                widgetState,
+            );
 
             return {
                 pass: false,
@@ -64,10 +72,10 @@ expect.extend({
         }
 
         if (score.earned !== score.total) {
-            let errMessage = "Problem was answered incorrectly";
-            if (widgetState) {
-                errMessage += `; widget state ${widgetState}`;
-            }
+            const errMessage = maybeAddState(
+                "Problem was answered incorrectly",
+                widgetState,
+            );
 
             return {
                 pass: false,
@@ -82,12 +90,10 @@ expect.extend({
         const {widgetState, score} = check(answerable);
 
         if (score.type !== "invalid") {
-            let errMessage = `Answer state is not invalid. Score: ${JSON.stringify(
-                score,
-            )}`;
-            if (widgetState) {
-                errMessage += `; widget state ${widgetState}`;
-            }
+            const errMessage = maybeAddState(
+                `Answer state is not invalid. Score: ${JSON.stringify(score)}`,
+                widgetState,
+            );
 
             return {
                 pass: false,
@@ -96,12 +102,12 @@ expect.extend({
         }
 
         if (message && (!score.message || !score.message.includes(message))) {
-            let errMessage = `Message shown for invalid input did not include "${message}": ${
-                score.message || "(no message)"
-            }. Score: ${JSON.stringify(score)}`;
-            if (widgetState) {
-                errMessage += `; widget state ${widgetState}`;
-            }
+            const errMessage = maybeAddState(
+                `Message shown for invalid input did not include "${message}": ${
+                    score.message || "(no message)"
+                }. Score: ${JSON.stringify(score)}`,
+                widgetState,
+            );
 
             return {
                 pass: false,
@@ -116,10 +122,10 @@ expect.extend({
         const {widgetState, score} = check(answerable);
 
         if (score.type === "invalid") {
-            let errMessage = `Invalid answer: ${score.message || "(no message)"}`;
-            if (widgetState) {
-                errMessage += `; widget state ${widgetState}`;
-            }
+            const errMessage = maybeAddState(
+                `Invalid answer: ${score.message || "(no message)"}`,
+                widgetState,
+            );
 
             return {
                 pass: false,
