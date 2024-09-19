@@ -8,11 +8,11 @@ import type {PerseusScore} from "../../types";
  * validation logic and the thing validating an exercise
  * should just know to skip these
  */
-function noopValidator(): PerseusScore {
+function noopValidator(points: number = 0): PerseusScore {
     return {
         type: "points",
-        earned: 0,
-        total: 0,
+        earned: points,
+        total: points,
         message: null,
     };
 }
