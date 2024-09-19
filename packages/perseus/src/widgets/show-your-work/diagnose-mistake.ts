@@ -23,12 +23,12 @@ function getDivisor(prev: types.Node, curr: types.Node): types.Node | null {
     return null;
 }
 
-enum Side {
+export enum Side {
     LHS = "LHS",
     RHS = "RHS",
 }
 
-enum Operation {
+export enum Operation {
     Addition = "Addition",
     Subtraction = "Subtraction",
     Multiplication = "Multiplication",

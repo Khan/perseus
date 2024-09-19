@@ -88,6 +88,7 @@ export function kasToMathBlocks(expr: KAS.Expr): types.Node {
 // TODO(kevinb): export these from KAS
 const Neg = new KAS.Int(-1).addHint("negate");
 const Sub = new KAS.Int(-1).addHint("subtract");
+const Div = new KAS.Int(-1).addHint("divide");
 
 export function mathBlocksToKAS(node: types.Node): KAS.Expr {
     switch (node.type) {
@@ -131,7 +132,8 @@ export function mathBlocksToKAS(node: types.Node): KAS.Expr {
         case NodeType.Div: {
             const n = mathBlocksToKAS(node.args[0]);
             const d = mathBlocksToKAS(node.args[1]);
-            return KAS.Mul.handleDivide(n, d);
+            // NOTE(kevinb): KAS models division as a*b^-1.
+            return new KAS.Mul([n, new KAS.Pow(d, Div)]);
         }
         case NodeType.Neg: {
             const arg = node.arg;

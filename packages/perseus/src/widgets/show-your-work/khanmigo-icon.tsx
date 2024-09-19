@@ -3,16 +3,17 @@ import {addStyle} from "@khanacademy/wonder-blocks-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
+    size: number;
     style?: StyleType;
 };
 
 const StyledSVG = addStyle("svg");
 
-export const KhanmigoIcon = ({style}: Props) => {
+export const KhanmigoIcon = ({size, style}: Props) => {
     return (
         <StyledSVG
-            width="26"
-            height="26"
+            width={size}
+            height={size}
             viewBox="0 0 34 34"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

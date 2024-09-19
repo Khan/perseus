@@ -189,7 +189,7 @@ export const Step = (props: Props) => {
                         >
                             Help
                         </Button>
-                        <KhanmigoIcon style={styles.khanmigoIcon} />
+                        <KhanmigoIcon size={24} style={styles.khanmigoIcon} />
                     </View>
                     <Strut size={16} />
                     <Button
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     khanmigoIcon: {
         position: "absolute",
         left: 8,
-        top: 4,
+        top: 6,
         pointerEvents: "none",
     },
     helpButton: {
