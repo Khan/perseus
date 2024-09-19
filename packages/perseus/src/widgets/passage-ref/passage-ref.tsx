@@ -8,12 +8,7 @@ import PerseusMarkdown from "../../perseus-markdown";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
-import type {
-    ChangeFn,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
 import type {Passage, Reference} from "../passage";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -69,7 +64,8 @@ class PassageRef extends React.Component<Props, State> {
         content: null,
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
@@ -143,9 +139,10 @@ class PassageRef extends React.Component<Props, State> {
         }
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return PassageRef.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         const {strings} = this.context;
