@@ -7,12 +7,15 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {Rubric, OnInputErrorFunctionType} from "./expression.types";
+import type {OnInputErrorFunctionType} from "./expression.types";
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {Score} from "../../util/answer-types";
-import type {PerseusExpressionUserInput} from "../../validation.types";
+import type {
+    PerseusExpressionRubric,
+    PerseusExpressionUserInput,
+} from "../../validation.types";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should
@@ -34,7 +37,7 @@ import type {PerseusExpressionUserInput} from "../../validation.types";
  */
 function expressionValidator(
     userInput: PerseusExpressionUserInput,
-    rubric: Rubric,
+    rubric: PerseusExpressionRubric,
     // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
     onInputError: OnInputErrorFunctionType = function () {},
     strings: PerseusStrings,

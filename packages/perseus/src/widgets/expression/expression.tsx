@@ -20,7 +20,7 @@ import a11y from "../../util/a11y";
 import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {Rubric, OnInputErrorFunctionType} from "./expression.types";
+import type {OnInputErrorFunctionType} from "./expression.types";
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
@@ -30,7 +30,10 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {PerseusExpressionUserInput} from "../../validation.types";
+import type {
+    PerseusExpressionRubric,
+    PerseusExpressionUserInput,
+} from "../../validation.types";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -81,7 +84,7 @@ type RenderProps = {
     keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
 };
 
-type ExternalProps = WidgetProps<RenderProps, Rubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
 
 export type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -125,7 +128,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     // TODO remove this in favor of just using expressionValidator
     static validate(
         userInput: PerseusExpressionUserInput,
-        rubric: Rubric,
+        rubric: PerseusExpressionRubric,
         // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
         onInputError: OnInputErrorFunctionType = function () {},
         strings: PerseusStrings,
@@ -145,7 +148,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     }
 
     static getOneCorrectAnswerFromRubric(
-        rubric: Rubric,
+        rubric: PerseusExpressionRubric,
     ): string | null | undefined {
         const correctAnswers = (rubric.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",
@@ -237,7 +240,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     simpleValidate: (
-        rubric: Rubric & {scoring?: boolean},
+        rubric: PerseusExpressionRubric & {scoring?: boolean},
         onInputError: OnInputErrorFunctionType,
     ) => PerseusScore = ({scoring, ...rubric}, onInputError) => {
         const score = expressionValidator(
