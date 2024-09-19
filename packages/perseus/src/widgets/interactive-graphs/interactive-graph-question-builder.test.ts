@@ -1057,17 +1057,19 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 fillStyle: "none",
                 strokeStyle: "solid",
+                labels: [],
             },
         ]);
     });
 
-    it("adds a locked ellipse with options", () => {
+    it("adds a locked ellipse with options and minimal label", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedEllipse([1, 2], [3, 4], {
                 angle: Math.PI / 2,
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
+                labels: [{text: "a label"}],
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -1081,6 +1083,45 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [5, 2],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked ellipse with specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedEllipse([1, 2], [3, 4], {
+                labels: [{text: "a label", coord: [9, 9], size: "small"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "ellipse",
+                center: [1, 2],
+                radius: [3, 4],
+                angle: 0,
+                color: "grayH",
+                fillStyle: "none",
+                strokeStyle: "solid",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "grayH",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });

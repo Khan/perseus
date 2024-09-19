@@ -156,6 +156,7 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                         "locked-point-labels": false,
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
+                        "locked-ellipse-labels": false,
                     },
                 },
             }}
@@ -183,6 +184,7 @@ export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
                         "locked-point-labels": false,
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
+                        "locked-ellipse-labels": false,
                     },
                 },
             }}
@@ -202,6 +204,7 @@ export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
                         "locked-point-labels": true,
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
+                        "locked-ellipse-labels": false,
                     },
                 },
             }}
@@ -221,6 +224,7 @@ export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
                         "locked-point-labels": false,
                         "locked-line-labels": true,
                         "locked-vector-labels": false,
+                        "locked-ellipse-labels": false,
                     },
                 },
             }}
@@ -240,6 +244,27 @@ export const MafsWithLockedVectorLabelsFlag = (): React.ReactElement => {
                         "locked-point-labels": false,
                         "locked-line-labels": false,
                         "locked-vector-labels": true,
+                        "locked-ellipse-labels": false,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
+    );
+};
+
+export const MafsWithLockedEllipseLabelsFlag = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": false,
+                        "locked-line-labels": false,
+                        "locked-vector-labels": false,
+                        "locked-ellipse-labels": true,
                     },
                 },
             }}
