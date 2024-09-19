@@ -1,6 +1,6 @@
 import type {Rubric, UserInput} from "./categorizer.types";
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore} from "@khanacademy/perseus";
+import type {PerseusScore} from "../../types";
 
 function categorizerValidator(
     userInput: UserInput,
