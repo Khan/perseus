@@ -10,3 +10,5 @@ function sorterValidator(state: any, rubric: any) {
         message: null,
     };
 }
+
+export default sorterValidator;
