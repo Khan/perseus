@@ -18,9 +18,14 @@ import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {Props as InteractiveGraphEditorProps} from "../interactive-graph-editor";
-import type {LockedFigure, LockedFigureType} from "@khanacademy/perseus";
+import type {
+    APIOptions,
+    LockedFigure,
+    LockedFigureType,
+} from "@khanacademy/perseus";
 
 type Props = {
+    flags?: APIOptions["flags"];
     // Whether to show the locked labels in the locked figure settings.
     // TODO(LEMS-2274): Remove this prop once the label flag is
     // sfully rolled out.
@@ -163,6 +168,7 @@ const LockedFiguresSection = (props: Props) => {
                         return (
                             <LockedFigureSettings
                                 key={`${uniqueId}-locked-${figure}-${index}`}
+                                flags={props.flags}
                                 showLabelsFlag={props.showLabelsFlag}
                                 expanded={expandedStates[index]}
                                 onToggle={(newValue) => {

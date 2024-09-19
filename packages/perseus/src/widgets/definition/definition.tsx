@@ -12,7 +12,7 @@ import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
@@ -38,7 +38,8 @@ class Definition extends React.Component<DefinitionProps> {
         definition: "definition goes here",
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
@@ -46,9 +47,10 @@ class Definition extends React.Component<DefinitionProps> {
         return {};
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Definition.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         return (

@@ -26,15 +26,38 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import ColorSelect from "./color-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
-import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
+import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 
-export type Props = LockedLabelType &
-    LockedFigureSettingsCommonProps & {
-        /**
-         * Called when the props (coord, color, etc.) are updated.
-         */
-        onChangeProps: (newProps: Partial<LockedFigure>) => void;
-    };
+export type Props = LockedLabelType & {
+    /**
+     * Called when the props (coord, color, etc.) are updated.
+     */
+    onChangeProps: (newProps: Partial<LockedFigure>) => void;
+
+    // Movement props. Used for standalone label actions.
+    // Not used within other locked figure settings.
+    /**
+     * Called when a movement button (top, up, down, bottom) is pressed.
+     * This is also used to indicate that this LockedLabelSettings component
+     * is for a standalone label, not part of a larger locked figure.
+     */
+    onMove?: (movement: LockedFigureSettingsMovementType) => void;
+    /**
+     * Called when the delete button is pressed.
+     */
+    onRemove: () => void;
+
+    // Accordion props. Used for standalone labels for the expand/collapse
+    // button functionality. Not used within other locked figure settings.
+    /**
+     * Whether this accordion is expanded.
+     */
+    expanded?: boolean;
+    /**
+     * Called when the accordion is expanded or collapsed.
+     */
+    onToggle?: (expanded: boolean) => void;
+};
 
 export default function LockedLabelSettings(props: Props) {
     const {
@@ -75,6 +98,7 @@ export default function LockedLabelSettings(props: Props) {
                     )}
                 </View>
             }
+            containerStyle={!onMove && styles.innerLabelAccordionPanel}
         >
             {/* Coord settings */}
             <CoordinatePairInput
@@ -102,14 +126,18 @@ export default function LockedLabelSettings(props: Props) {
 
             <View style={styles.row}>
                 {/* Color settings */}
-                <ColorSelect
-                    selectedValue={color}
-                    onChange={(newColor: LockedFigureColor) => {
-                        onChangeProps({color: newColor});
-                    }}
-                    style={styles.spaceUnder}
-                />
-                <Strut size={spacing.medium_16} />
+                {onMove && (
+                    <>
+                        <ColorSelect
+                            selectedValue={color}
+                            onChange={(newColor: LockedFigureColor) => {
+                                onChangeProps({color: newColor});
+                            }}
+                            style={styles.spaceUnder}
+                        />
+                        <Strut size={spacing.medium_16} />
+                    </>
+                )}
 
                 {/* Size settings */}
                 <LabelMedium tag="label" style={styles.row}>
@@ -163,5 +191,8 @@ const styles = StyleSheet.create({
     },
     spaceUnder: {
         marginBottom: spacing.xSmall_8,
+    },
+    innerLabelAccordionPanel: {
+        backgroundColor: wbColor.white,
     },
 });

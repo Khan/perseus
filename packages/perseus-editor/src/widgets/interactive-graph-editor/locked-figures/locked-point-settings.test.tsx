@@ -15,6 +15,8 @@ const defaultProps = {
     onChangeProps: () => {},
 };
 
+const defaultLabel = getDefaultFigureForType("label");
+
 describe("LockedPointSettings", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -150,5 +152,94 @@ describe("LockedPointSettings", () => {
 
         // Assert
         expect(onToggle).toHaveBeenCalled();
+    });
+
+    test("Updates label coords when point x coord is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        // Default label coord for point at (0, 0)
+                        coord: [0.5, 0],
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const xCoordField = screen.getAllByLabelText("x coord")[0];
+        await userEvent.clear(xCoordField);
+        await userEvent.type(xCoordField, "2");
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            coord: [2, 0],
+            labels: [{...defaultLabel, coord: [2.5, 0]}],
+        });
+    });
+
+    test("Updates label coords when point y coord is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        // Default label coord for point at (0, 0)
+                        coord: [0, 0.5],
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const yCoordField = screen.getAllByLabelText("y coord")[0];
+        await userEvent.clear(yCoordField);
+        await userEvent.type(yCoordField, "2");
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            coord: [0, 2],
+            labels: [{...defaultLabel, coord: [0, 2.5]}],
+        });
+    });
+
+    test("Updates label color when point color is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        color: "grayH",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const colorSelect = screen.getByLabelText("color");
+        await userEvent.click(colorSelect);
+        await userEvent.click(screen.getByText("blue"));
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            color: "blue",
+            labels: [{...defaultLabel, color: "blue"}],
+        });
     });
 });

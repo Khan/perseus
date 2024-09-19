@@ -3,21 +3,37 @@ import * as React from "react";
 import LockedLabel from "./locked-figures/locked-label";
 
 import type {LockedFigure} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 
 type Props = {
+    flags?: APIOptions["flags"];
     lockedFigures: ReadonlyArray<LockedFigure>;
 };
 
 export default function GraphLockedLabelsLayer(props: Props) {
-    const {lockedFigures} = props;
+    const {flags, lockedFigures} = props;
 
     return lockedFigures.map((figure, i) => {
         if (figure.type === "label") {
             return <LockedLabel key={`label-${i}`} {...figure} />;
         }
 
-        // TODO(LEMS-2271): Add support for labels within
-        // other locked figure types
+        if (
+            // Point flag + point type
+            (flags?.["mafs"]?.["locked-point-labels"] &&
+                figure.type === "point") ||
+            // Line flag + line type
+            (flags?.["mafs"]?.["locked-line-labels"] && figure.type === "line")
+        ) {
+            return (
+                <React.Fragment key={i}>
+                    {figure.labels.map((label, j) => (
+                        <LockedLabel key={`${i}-label-${j}`} {...label} />
+                    ))}
+                </React.Fragment>
+            );
+        }
+
         return null;
     });
 }
