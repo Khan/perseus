@@ -2,6 +2,8 @@ import type {Coord} from "./interactive2/types";
 import type {
     PerseusCategorizerWidgetOptions,
     PerseusCSProgramWidgetOptions,
+    PerseusDefinitionWidgetOptions,
+    PerseusDropdownWidgetOptions,
     PerseusGraphType,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
@@ -21,6 +23,14 @@ export type PerseusCSProgramUserInput = {
     status: UserInputStatus;
     message: string | null;
 };
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusDefinitionRubric = PerseusDefinitionWidgetOptions;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusDefinitionUserInput = Empty;
+
+export type PerseusDropdownRubric = PerseusDropdownWidgetOptions;
 
 export type PerseusDropdownUserInput = {
     value: number;
@@ -96,6 +106,7 @@ export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 export type UserInput =
     | PerseusCategorizerUserInput
     | PerseusCSProgramUserInput
+    | PerseusDefinitionUserInput
     | PerseusDropdownUserInput
     | PerseusExpressionUserInput
     | PerseusGrapherUserInput
