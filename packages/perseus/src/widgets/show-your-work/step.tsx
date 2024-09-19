@@ -4,7 +4,6 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View, addStyle} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import correctIcon from "@phosphor-icons/core/regular/check-circle.svg";
 import wrongIcon from "@phosphor-icons/core/regular/x-circle.svg";
@@ -14,7 +13,7 @@ import _ from "underscore";
 
 import expression from "../expression";
 
-import {HintPopoverContent} from "./hint-popover";
+import {HelpPopover} from "./help-popover";
 import {KhanmigoIcon} from "./khanmigo-icon";
 import {print} from "./printer";
 import {showMeHow} from "./tutor";
@@ -152,23 +151,16 @@ export const Step = (props: Props) => {
 
     if (props.isLast) {
         stepAndStatus = (
-            <Popover
+            <HelpPopover
                 opened={opened}
-                placement="left"
-                onClose={() => {
-                    setOpened(false);
-                }}
-                content={
-                    <HintPopoverContent
-                        onShowMeHow={handleShowMeHow}
-                        problem={problem}
-                        prevStep={prevStep}
-                        currStep={currStep}
-                    />
-                }
+                onClose={() => setOpened(false)}
+                onShowMeHow={handleShowMeHow}
+                problem={problem}
+                prevStep={prevStep}
+                currStep={currStep}
             >
                 {stepAndStatus}
-            </Popover>
+            </HelpPopover>
         );
     }
 
