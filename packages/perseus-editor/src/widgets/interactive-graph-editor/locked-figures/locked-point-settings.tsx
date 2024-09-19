@@ -31,6 +31,9 @@ import type {
 } from "@khanacademy/perseus";
 
 export type Props = LockedPointType & {
+    /**
+     * Optional flags to determine which features are enabled.
+     */
     flags?: APIOptions["flags"];
     /**
      * Optional label for the point to display in the header summary.
