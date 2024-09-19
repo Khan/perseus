@@ -15,8 +15,6 @@ import expression from "../expression";
 
 import {HelpPopover} from "./help-popover";
 import {KhanmigoIcon} from "./khanmigo-icon";
-import {print} from "./printer";
-import {showMeHow} from "./tutor";
 
 import type {Mode} from "./reducer";
 import type {
@@ -72,15 +70,6 @@ export const Step = (props: Props) => {
     const handleHint = React.useCallback(() => {
         setOpened((opened) => !opened);
     }, []);
-
-    const handleShowMeHow = React.useCallback(() => {
-        const nextStep = showMeHow(problem, prevStep.value);
-        if (expressionRef.current) {
-            expressionRef.current.setInputValue("", print(nextStep), () => {
-                onCheckStep(true);
-            });
-        }
-    }, [prevStep.value, onCheckStep, problem]);
 
     // TODO: memoize the callbacks
     const expression = (
@@ -152,9 +141,10 @@ export const Step = (props: Props) => {
     if (props.isLast) {
         stepAndStatus = (
             <HelpPopover
+                expressionRef={expressionRef}
                 opened={opened}
                 onClose={() => setOpened(false)}
-                onShowMeHow={handleShowMeHow}
+                onCheckStep={onCheckStep}
                 problem={problem}
                 prevStep={prevStep}
                 currStep={currStep}

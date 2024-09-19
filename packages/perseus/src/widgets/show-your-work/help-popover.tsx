@@ -9,19 +9,22 @@ import _ from "underscore";
 import {Hint} from "./hint";
 import {KhanmigoIcon} from "./khanmigo-icon";
 import {Mistakes} from "./mistakes";
-import {getHint} from "./tutor";
+import {print} from "./printer";
+import {getHint, showMeHow} from "./tutor";
 
 import type {Step} from "./step";
 import type {ShowYourWorkProblem} from "../../perseus-types";
+import type {Expression} from "../expression";
 
 type Props = {
     children: React.ReactElement<any>;
+    expressionRef: React.MutableRefObject<Expression | null>;
+    currStep: Step;
+    prevStep: Step;
+    problem: ShowYourWorkProblem;
     opened: boolean;
     onClose: () => void;
-    onShowMeHow: () => void;
-    problem: ShowYourWorkProblem;
-    prevStep: Step;
-    currStep: Step;
+    onCheckStep: (tutor: boolean) => void;
 };
 
 const HintWrapper = ({
@@ -40,9 +43,10 @@ const HintWrapper = ({
 
 export const HelpPopover = ({
     children,
+    expressionRef,
     opened,
     onClose,
-    onShowMeHow,
+    onCheckStep,
     problem,
     prevStep,
     currStep,
@@ -52,12 +56,23 @@ export const HelpPopover = ({
     if (currStep.status === "wrong") {
         content = (
             <Mistakes
-                prevStep={prevStep}
+                expressionRef={expressionRef}
                 currStep={currStep}
-                onShowMeHow={onShowMeHow}
+                prevStep={prevStep}
+                problem={problem}
+                onCheckStep={onCheckStep}
             />
         );
     } else {
+        const handleShowMeHow = () => {
+            const nextStep = showMeHow(problem, prevStep.value);
+            if (expressionRef.current) {
+                expressionRef.current.setInputValue("", print(nextStep), () => {
+                    onCheckStep(true);
+                });
+            }
+        };
+
         content = (
             <>
                 <View style={{flexDirection: "row"}}>
@@ -86,7 +101,7 @@ export const HelpPopover = ({
                     <Button
                         kind="secondary"
                         size="small"
-                        onClick={onShowMeHow}
+                        onClick={handleShowMeHow}
                         style={{marginLeft: 8}}
                     >
                         Show me how

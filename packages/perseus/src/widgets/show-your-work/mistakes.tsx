@@ -15,13 +15,19 @@ import {
     Operation,
 } from "./diagnose-mistake";
 import {KhanmigoIcon} from "./khanmigo-icon";
+import {print} from "./printer";
+import {showMeHow} from "./tutor";
 
 import type {Step} from "./step";
+import type {ShowYourWorkProblem} from "../../perseus-types";
+import type {Expression} from "../expression";
 
 type Props = {
+    expressionRef: React.MutableRefObject<Expression | null>;
     prevStep: Step;
     currStep: Step;
-    onShowMeHow: () => void;
+    problem: ShowYourWorkProblem;
+    onCheckStep: (tutor: boolean) => void;
 };
 
 const getParts = (message: string, operation: Operation): string[] => {
@@ -56,9 +62,25 @@ const Message = ({message, mistake}: {message: string; mistake: Mistake}) => {
     // return React.createElement(View, {style: styles.message}, ...children);
 };
 
-export const Mistakes = ({prevStep, currStep, onShowMeHow}: Props) => {
+export const Mistakes = ({
+    prevStep,
+    currStep,
+    expressionRef,
+    problem,
+    onCheckStep,
+}: Props) => {
     const mistakes = diagnoseMistake(prevStep, currStep);
     const [visibleCount, setVisibleCount] = React.useState(1);
+
+    const handleShowMeHow = React.useCallback(() => {
+        // TODO: figure out the real next step
+        const nextStep = showMeHow(problem, prevStep.value);
+        if (expressionRef.current) {
+            expressionRef.current.setInputValue("", print(nextStep), () => {
+                onCheckStep(true);
+            });
+        }
+    }, [expressionRef, onCheckStep, prevStep.value, problem]);
 
     if (mistakes.length > 0) {
         // TODO: Handle multiple mistakes
@@ -80,7 +102,7 @@ export const Mistakes = ({prevStep, currStep, onShowMeHow}: Props) => {
                 <Button
                     kind="secondary"
                     size="small"
-                    onClick={onShowMeHow}
+                    onClick={handleShowMeHow}
                     style={{marginLeft: 8}}
                 >
                     Show me how
