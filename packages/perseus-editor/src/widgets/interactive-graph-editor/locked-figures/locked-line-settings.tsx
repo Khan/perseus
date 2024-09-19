@@ -4,7 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {vector as kvector, line as kline} from "@khanacademy/kmath";
+import {vector as kvector} from "@khanacademy/kmath";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -13,6 +13,7 @@ import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
+import {vec} from "mafs";
 import * as React from "react";
 
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
@@ -80,17 +81,15 @@ const LockedLineSettings = (props: Props) => {
 
         // Update labels to be centered between the two points,
         // retaining existing offset.
-        const oldMidpoint = kline.midpoint([
-            points[0].coord,
-            points[1].coord,
-        ]) as Coord;
-        const newMidpoint = [
-            ...kline.midpoint([newPoints[0].coord, newPoints[1].coord]),
-        ] as Coord;
-        const offset = [
+        const oldMidpoint = vec.midpoint(points[0].coord, points[1].coord);
+        const newMidpoint = vec.midpoint(
+            newPoints[0].coord,
+            newPoints[1].coord,
+        );
+        const offset: Coord = [
             newMidpoint[0] - oldMidpoint[0],
             newMidpoint[1] - oldMidpoint[1],
-        ] as Coord;
+        ];
         const newLabels = labels.map((label, labelIndex) => ({
             ...label,
             coord: [
@@ -247,19 +246,17 @@ const LockedLineSettings = (props: Props) => {
                         kind="tertiary"
                         startIcon={plusCircle}
                         onClick={() => {
-                            const midpoint = [
-                                ...kline.midpoint([
-                                    points[0].coord,
-                                    points[1].coord,
-                                ]),
-                            ] as Coord;
                             // Additional vertical offset for each label so
                             // they don't overlap.
-                            midpoint[1] -= 1 * labels.length;
+                            const offsetPerLabel: vec.Vector2 = [0, -1];
+                            const labelLocation = vec.add(
+                                vec.scale(offsetPerLabel, labels.length),
+                                vec.midpoint(points[0].coord, points[1].coord),
+                            );
 
                             const newLabel = {
                                 ...getDefaultFigureForType("label"),
-                                coord: midpoint,
+                                coord: labelLocation,
                                 // Default to the same color as the point
                                 color: lineColor,
                             } satisfies LockedLabelType;
