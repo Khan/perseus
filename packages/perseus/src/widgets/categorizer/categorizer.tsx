@@ -17,13 +17,15 @@ import Util from "../../util";
 
 import categorizerValidator from "./categorizer-validator";
 
-import type {Rubric} from "./categorizer.types";
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusCategorizerUserInput} from "../../validation.types";
+import type {
+    PerseusCategorizerRubric,
+    PerseusCategorizerUserInput,
+} from "../../validation.types";
 
-type Props = WidgetProps<RenderProps, Rubric> & {
+type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
     values: ReadonlyArray<string>;
 };
 
@@ -55,7 +57,7 @@ export class Categorizer extends React.Component<Props, State> {
 
     static validate(
         userInput: PerseusCategorizerUserInput,
-        rubric: Rubric,
+        rubric: PerseusCategorizerRubric,
         strings: PerseusStrings,
     ): PerseusScore {
         return categorizerValidator(userInput, rubric, strings);
@@ -82,7 +84,9 @@ export class Categorizer extends React.Component<Props, State> {
         this.props.trackInteraction();
     }
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
+    simpleValidate: (arg1: PerseusCategorizerRubric) => PerseusScore = (
+        rubric,
+    ) => {
         return categorizerValidator(
             this.getUserInput(),
             rubric,

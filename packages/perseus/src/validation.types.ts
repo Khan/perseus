@@ -1,9 +1,14 @@
 import type {Coord} from "./interactive2/types";
-import type {PerseusGraphType} from "./perseus-types";
+import type {
+    PerseusCategorizerWidgetOptions,
+    PerseusGraphType,
+} from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
+
+export type PerseusCategorizerRubric = PerseusCategorizerWidgetOptions;
 
 export type PerseusCategorizerUserInput = {
     values: ReadonlyArray<number>;
