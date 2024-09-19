@@ -18,7 +18,7 @@ import {question3 as question} from "./input-number.testdata";
 import type {
     PerseusInputNumberWidgetOptions,
     PerseusRenderer,
-} from "@khanacademy/perseus";
+} from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const {transform} = InputNumber;

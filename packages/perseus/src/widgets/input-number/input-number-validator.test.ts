@@ -1,5 +1,3 @@
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import {mockStrings} from "../../strings";
 
 import inputNumberValidator from "./input-number-validator";
@@ -7,12 +5,6 @@ import inputNumberValidator from "./input-number-validator";
 import type {Rubric} from "./input-number.types";
 
 describe("static function validate", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("scores correct answer correctly", () => {
         const rubric: Rubric = {
             maxError: 0.1,
@@ -95,7 +87,6 @@ describe("static function validate", () => {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
-            // answerType: "pi",
             simplify: "required",
             size: "normal",
         };
