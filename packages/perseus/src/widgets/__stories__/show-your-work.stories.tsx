@@ -1,3 +1,6 @@
+import {View} from "@khanacademy/wonder-blocks-core";
+import {TextField} from "@khanacademy/wonder-blocks-form";
+import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
@@ -14,7 +17,7 @@ export default {
     args: {},
 } as Story;
 
-export const ShowYourWork0 = (args: StoryArgs): React.ReactElement => {
+export const BasicEquation = (args: StoryArgs): React.ReactElement => {
     return (
         <RendererWithDebugUI
             question={{
@@ -41,6 +44,69 @@ export const ShowYourWork0 = (args: StoryArgs): React.ReactElement => {
                 },
             }}
         />
+    );
+};
+
+export const CustomEquation = (args: StoryArgs): React.ReactElement => {
+    const [equation, setEquation] = React.useState("2x+5=10");
+    const [variable, setVariable] = React.useState("x");
+
+    return (
+        <View>
+            <LabelMedium style={{paddingLeft: 24, paddingBottom: 8}}>
+                NOTE: Equation must be entered using LaTeX syntax
+            </LabelMedium>
+            <View
+                style={{
+                    paddingLeft: 24,
+                    alignItems: "center",
+                    display: "grid",
+                    gridTemplateColumns: "100px auto",
+                    gridTemplateRows: "repeat(2, auto)",
+                    gridGap: 8,
+                    paddingBottom: 24,
+                }}
+            >
+                <LabelMedium>Equation:</LabelMedium>
+                <TextField
+                    value={equation}
+                    onChange={setEquation}
+                    style={{width: 300}}
+                />
+                <LabelMedium>Variable:</LabelMedium>
+                <TextField
+                    value={variable}
+                    onChange={setVariable}
+                    style={{width: 100}}
+                />
+            </View>
+            <RendererWithDebugUI
+                key={`${variable}-${equation}`}
+                question={{
+                    content: "[[\u2603 show-your-work 1]]",
+                    images: {},
+                    widgets: {
+                        "show-your-work 1": {
+                            graded: true,
+                            version: {
+                                major: 0,
+                                minor: 0,
+                            },
+                            static: false,
+                            type: "show-your-work",
+                            options: {
+                                problem: {
+                                    problemType: "SolveEquation",
+                                    equation,
+                                    variable,
+                                },
+                            },
+                            alignment: "default",
+                        },
+                    },
+                }}
+            />
+        </View>
     );
 };
 
