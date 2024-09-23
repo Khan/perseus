@@ -19,6 +19,7 @@ import type {
     PerseusMatrixWidgetOptions,
     PerseusNumberLineWidgetOptions,
     PerseusNumericInputWidgetOptions,
+    PerseusOrdererWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -148,6 +149,8 @@ export type PerseusNumericInputRubric = PerseusNumericInputWidgetOptions;
 export type PerseusNumericInputUserInput = {
     currentValue: string;
 };
+
+export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
 
 export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;

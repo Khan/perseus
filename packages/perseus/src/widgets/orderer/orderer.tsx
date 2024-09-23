@@ -16,7 +16,10 @@ import Util from "../../util";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusOrdererUserInput} from "../../validation.types";
+import type {
+    PerseusOrdererRubric,
+    PerseusOrdererUserInput,
+} from "../../validation.types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type PlaceholderCardProps = {
@@ -289,16 +292,15 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-const NORMAL = "normal",
-    AUTO = "auto",
-    HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
+const NORMAL = "normal";
+const AUTO = "auto";
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
-type Rubric = PerseusOrdererWidgetOptions;
 type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
-export type OrdererProps = WidgetProps<RenderProps, Rubric>;
+export type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];
@@ -629,10 +631,10 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         };
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric: PerseusOrdererRubric) {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Orderer'.
         return Orderer.validate(this.getUserInput(), rubric);
-    };
+    }
 
     render(): React.ReactNode {
         // This is the card we are currently dragging
@@ -778,7 +780,10 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
 }
 
 _.extend(Orderer, {
-    validate: function (userInput: PerseusOrdererUserInput, rubric) {
+    validate: function (
+        userInput: PerseusOrdererUserInput,
+        rubric: PerseusOrdererRubric,
+    ) {
         if (userInput.current.length === 0) {
             return {
                 type: "invalid",
