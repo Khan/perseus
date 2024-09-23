@@ -17,6 +17,7 @@ import type {
     PerseusLabelImageWidgetOptions,
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetOptions,
+    PerseusNumberLineWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -129,7 +130,12 @@ export type PerseusMatrixUserInput = {
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusMoleculeUserInput = ReadonlyArray<ReadonlyArray<string>>;
 
+export type PerseusNumberLineRubric = PerseusNumberLineWidgetOptions & {
+    isInequality: boolean;
+};
+
 export type PerseusNumberLineUserInput = {
+    isTickCrtl?: boolean;
     numLinePosition: number;
     rel: Relationship | "eq";
     numDivisions: number;
