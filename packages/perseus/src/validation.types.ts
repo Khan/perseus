@@ -173,6 +173,9 @@ export type PerseusPassageRefUserInput = null;
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusPassageRefTargetUserInput = null;
 
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusPhetSimulationUserInput = null;
+
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
 export type PerseusRadioUserInput = {
