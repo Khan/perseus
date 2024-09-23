@@ -121,10 +121,10 @@ export class Matcher extends React.Component<Props, State> {
         this.refs.right.moveOptionToIndex(option, index);
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric: PerseusMatcherRubric) {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Matcher'.
         return Matcher.validate(this.getUserInput(), rubric);
-    };
+    }
 
     render(): React.ReactElement {
         // To minimize layout shift, we display a spinner until our math
@@ -246,7 +246,10 @@ export class Matcher extends React.Component<Props, State> {
 }
 
 _.extend(Matcher, {
-    validate: function (state, rubric) {
+    validate: function (
+        state: PerseusMatcherUserInput,
+        rubric: PerseusMatcherRubric,
+    ) {
         const correct =
             _.isEqual(state.left, rubric.left) &&
             _.isEqual(state.right, rubric.right);

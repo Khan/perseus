@@ -144,7 +144,11 @@ class Matrix extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static validate(state, rubric, strings: PerseusStrings): PerseusScore {
+    static validate(
+        state: PerseusMatrixUserInput,
+        rubric: PerseusMatrixRubric,
+        strings: PerseusStrings,
+    ): PerseusScore {
         const solution = rubric.answers;
         const supplied = state.answers;
         const solutionSize = getMatrixSize(solution);
@@ -169,6 +173,7 @@ class Matrix extends React.Component<Props, State> {
                 }
                 if (!incorrectSize) {
                     const validator = createValidator(
+                        // @ts-expect-error - TS2345 - Argument of type 'number' is not assignable to parameter of type 'string'.
                         solution[row][col],
                         {
                             simplify: true,
@@ -391,13 +396,13 @@ class Matrix extends React.Component<Props, State> {
         };
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric: PerseusMatrixRubric) {
         return Matrix.validate(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     render(): React.ReactNode {
         // Set the input sizes through JS so we can control the size of the
