@@ -74,6 +74,11 @@ export function interactiveGraphReducer(
 ): InteractiveGraphState {
     switch (action.type) {
         case REINITIALIZE:
+            // For unlimited point graphs reinitialize is getting called when
+            // the graph receives focus. This causes the banner prompting the
+            // user to switch to keyboard mode to flicker and disappear This
+            // prevents that by happening by not reinitializing when that banner
+            // is showing
             if (
                 state.type === "point" &&
                 state.showKeyboardInteractionInvitation
