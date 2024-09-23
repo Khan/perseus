@@ -10,6 +10,7 @@ import SmilesParser from "./smiles-parser";
 
 import type {PerseusMoleculeRendererWidgetOptions} from "../../perseus-types";
 import type {WidgetExports} from "../../types";
+import type {PerseusMoleculeUserInput} from "../../validation.types";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;
@@ -144,9 +145,9 @@ class MoleculeWidget extends React.Component<Props> {
         return noopValidator();
     }
 
-    getUserInput: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+    getUserInput(): PerseusMoleculeUserInput {
         return [];
-    };
+    }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
     validate() {
