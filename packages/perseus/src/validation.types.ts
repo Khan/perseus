@@ -22,6 +22,8 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusPassageRefWidgetOptions,
     PerseusPassageWidgetOptions,
+    PerseusPlotterWidgetOptions,
+    PerseusRadioWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -176,7 +178,11 @@ export type PerseusPassageRefTargetUserInput = null;
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusPhetSimulationUserInput = null;
 
+export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
+
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
+
+export type PerseusRadioRubric = PerseusRadioWidgetOptions;
 
 export type PerseusRadioUserInput = {
     countChoices?: boolean;

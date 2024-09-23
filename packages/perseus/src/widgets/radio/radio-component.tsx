@@ -16,7 +16,10 @@ import type {
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
-import type {PerseusRadioUserInput} from "../../validation.types";
+import type {
+    PerseusRadioRubric,
+    PerseusRadioUserInput,
+} from "../../validation.types";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -34,8 +37,7 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type Rubric = PerseusRadioWidgetOptions;
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
 
 type DefaultProps = Required<
     Pick<
@@ -72,7 +74,7 @@ class Radio extends React.Component<Props> {
 
     static validate(
         userInput: PerseusRadioUserInput,
-        rubric: Rubric,
+        rubric: PerseusRadioRubric,
         strings: PerseusStrings,
     ): PerseusScore {
         const numSelected = userInput.choicesSelected.reduce(
@@ -340,15 +342,13 @@ class Radio extends React.Component<Props> {
         return Radio.getUserInputFromProps(this.props);
     };
 
-    simpleValidate: (arg1: PerseusRadioWidgetOptions) => PerseusScore = (
-        rubric,
-    ) => {
+    simpleValidate(rubric: PerseusRadioRubric): PerseusScore {
         return Radio.validate(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     /**
      * Turn on rationale display for the currently selected choices. Note that
