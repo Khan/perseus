@@ -48,6 +48,8 @@ type Props = {
     onChange: ChangeHandler;
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
+    // A global control to expand/collapse all widget editors on a page.
+    widgetsAreOpen?: boolean;
     // Initial value of the question being edited
     question?: any;
     // URL of the route to show on initial load of the preview frames.
@@ -59,6 +61,7 @@ type State = {
     gradeMessage: string;
     wasAnswered: boolean;
     highlightLint: boolean;
+    widgetsAreOpen: boolean;
 };
 
 class EditorPage extends React.Component<Props, State> {
@@ -93,6 +96,7 @@ class EditorPage extends React.Component<Props, State> {
             gradeMessage: "",
             wasAnswered: false,
             highlightLint: true,
+            widgetsAreOpen: this.props.widgetsAreOpen ?? true,
         };
 
         this._isMounted = false;
@@ -299,6 +303,7 @@ class EditorPage extends React.Component<Props, State> {
                         wasAnswered={this.state.wasAnswered}
                         gradeMessage={this.state.gradeMessage}
                         deviceType={this.props.previewDevice}
+                        widgetIsOpen={this.state.widgetsAreOpen}
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
                     />

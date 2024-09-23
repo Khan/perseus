@@ -51,6 +51,10 @@ import {
     type BlurPoint,
     CLICK_POINT,
     type ClickPoint,
+    CHANGE_INTERACTION_MODE,
+    type ChangeInteractionMode,
+    CHANGE_KEYBOARD_INVITATION_VISIBILITY,
+    type ChangeKeyboardInvitationVisibility,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -99,6 +103,10 @@ export function interactiveGraphReducer(
             return doDeleteIntent(state, action);
         case CLICK_POINT:
             return doClickPoint(state, action);
+        case CHANGE_INTERACTION_MODE:
+            return doChangeInteractionMode(state, action);
+        case CHANGE_KEYBOARD_INVITATION_VISIBILITY:
+            return doChangeKeyboardInvitationVisibility(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -166,6 +174,48 @@ function doClickPoint(
             ...state,
             focusedPointIndex: action.index,
             showRemovePointButton: true,
+        };
+    }
+
+    return state;
+}
+
+function doChangeInteractionMode(
+    state: InteractiveGraphState,
+    action: ChangeInteractionMode,
+): InteractiveGraphState {
+    if (state.type !== "point") {
+        return state;
+    }
+
+    if (state.numPoints === "unlimited") {
+        const nextKeyboardInvitation =
+            action.mode === "keyboard"
+                ? false
+                : state.showKeyboardInteractionInvitation;
+        return {
+            ...state,
+            interactionMode: action.mode,
+            showKeyboardInteractionInvitation: nextKeyboardInvitation,
+        };
+    }
+
+    return state;
+}
+
+function doChangeKeyboardInvitationVisibility(
+    state: InteractiveGraphState,
+    action: ChangeKeyboardInvitationVisibility,
+): InteractiveGraphState {
+    if (state.type !== "point") {
+        return state;
+    }
+
+    if (state.numPoints === "unlimited") {
+        return {
+            ...state,
+            showKeyboardInteractionInvitation: action.shouldShow,
+            hasBeenInteractedWith: true,
         };
     }
 
