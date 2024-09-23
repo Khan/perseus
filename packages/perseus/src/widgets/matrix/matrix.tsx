@@ -19,7 +19,10 @@ import KhanAnswerTypes from "../../util/answer-types";
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports, WidgetProps, PerseusScore} from "../../types";
-import type {PerseusMatrixUserInput} from "../../validation.types";
+import type {
+    PerseusMatrixRubric,
+    PerseusMatrixUserInput,
+} from "../../validation.types";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
@@ -95,9 +98,10 @@ const getMatrixSize = function (matrix: ReadonlyArray<ReadonlyArray<number>>) {
     return matrixSize;
 };
 
-type Rubric = PerseusMatrixWidgetOptions;
-
-type ExternalProps = WidgetProps<PerseusMatrixWidgetOptions, Rubric>;
+type ExternalProps = WidgetProps<
+    PerseusMatrixWidgetOptions,
+    PerseusMatrixRubric
+>;
 
 type Props = ExternalProps & {
     onChange: (

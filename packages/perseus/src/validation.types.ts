@@ -16,6 +16,7 @@ import type {
     PerseusInteractionWidgetOptions,
     PerseusLabelImageWidgetOptions,
     PerseusMatcherWidgetOptions,
+    PerseusMatrixWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -118,6 +119,8 @@ export type PerseusMatcherUserInput = {
     left: ReadonlyArray<string>;
     right: ReadonlyArray<string>;
 };
+
+export type PerseusMatrixRubric = PerseusMatrixWidgetOptions;
 
 export type PerseusMatrixUserInput = {
     answers: ReadonlyArray<ReadonlyArray<number>>;
