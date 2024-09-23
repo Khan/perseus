@@ -50,6 +50,8 @@ export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
     coords: PairOfPoints[];
 }
 
+export type InteractionMode = "mouse" | "keyboard";
+
 export interface NoneGraphState extends InteractiveGraphStateCommon {
     type: "none";
 }
@@ -60,6 +62,8 @@ export interface PointGraphState extends InteractiveGraphStateCommon {
     numPoints?: number | "unlimited";
     focusedPointIndex: number | null;
     showRemovePointButton: boolean;
+    interactionMode: InteractionMode;
+    showKeyboardInteractionInvitation: boolean;
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {
