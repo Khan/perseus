@@ -35,14 +35,4 @@ const denylist = [
     "keypadElement",
 ];
 
-export const removeDenylistProps = (props: any): any => {
-    const newProps = {...props} as const;
-    for (const prop of denylist) {
-        if (prop in newProps) {
-            delete newProps[prop];
-        }
-    }
-    return newProps;
-};
-
 export default denylist;

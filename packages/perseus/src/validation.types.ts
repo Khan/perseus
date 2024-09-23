@@ -20,6 +20,8 @@ import type {
     PerseusNumberLineWidgetOptions,
     PerseusNumericInputWidgetOptions,
     PerseusOrdererWidgetOptions,
+    PerseusPassageRefWidgetOptions,
+    PerseusPassageWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -155,6 +157,21 @@ export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
 export type PerseusOrdererUserInput = {
     current: ReadonlyArray<string>;
 };
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusPassageRubric = PerseusPassageWidgetOptions;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusPassageUserInput = null;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusPassageRefRubric = PerseusPassageRefWidgetOptions;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusPassageRefUserInput = null;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusPassageRefTargetUserInput = null;
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
