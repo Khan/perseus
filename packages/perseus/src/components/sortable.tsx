@@ -18,10 +18,7 @@ import {PerseusI18nContext} from "./i18n-context";
 import type {Position} from "../util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-export enum Layout {
-    HORIZONTAL = "horizontal",
-    VERTICAL = "vertical",
-}
+export type Layout = "horizontal" | "vertical";
 
 enum ItemState {
     STATIC = "static",
@@ -59,7 +56,7 @@ class Placeholder extends React.Component<PlaceholderProps> {
         const className = css(
             styles.card,
             styles.placeholder,
-            layout === Layout.HORIZONTAL && styles.horizontalCard,
+            layout === "horizontal" && styles.horizontalCard,
         );
         const style: any = {
             width: this.props.width,
@@ -347,8 +344,8 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             css(
                 styles.card,
                 styles.draggable,
-                layout === Layout.HORIZONTAL && styles.horizontalCard,
-                layout === Layout.VERTICAL && styles.verticalCard,
+                layout === "horizontal" && styles.horizontalCard,
+                layout === "vertical" && styles.verticalCard,
                 type === ItemState.DRAGGING && styles.dragging,
                 type === ItemState.DISABLED && styles.disabled,
                 !includePadding && styles.unpaddedCard,
@@ -455,7 +452,7 @@ type SortableState = {
 };
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
-        layout: Layout.HORIZONTAL,
+        layout: "horizontal",
         padding: true,
         disabled: false,
         constraints: {},
@@ -578,7 +575,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         if (constraints?.width) {
             // Items must be at least as wide as the specified constraint
             syncWidth = _.max(widths.concat(constraints.width));
-        } else if (layout === Layout.VERTICAL) {
+        } else if (layout === "vertical") {
             // Sync widths to get a clean column
             syncWidth = _.max(widths);
         }
@@ -587,7 +584,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         if (constraints?.height) {
             // Items must be at least as high as the specified constraint
             syncHeight = _.max(heights.concat(constraints.height));
-        } else if (layout === Layout.HORIZONTAL) {
+        } else if (layout === "horizontal") {
             // Sync widths to get a clean row
             syncHeight = _.max(heights);
         }
@@ -669,7 +666,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         items.splice(currentIndex, 1);
 
-        if (this.props.layout === Layout.HORIZONTAL) {
+        if (this.props.layout === "horizontal") {
             // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             const midWidth = $draggable.offset().left - $sortable.offset().left;
             let sumWidth = 0;
@@ -806,9 +803,9 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         const className = css(styles.sortable) + " perseus-sortable";
 
         const syncWidth =
-            this.props.constraints?.width || layout === Layout.VERTICAL;
+            this.props.constraints?.width || layout === "vertical";
         const syncHeight =
-            this.props.constraints?.height || layout === Layout.HORIZONTAL;
+            this.props.constraints?.height || layout === "horizontal";
 
         _.each(
             this.state.items,
@@ -820,11 +817,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 let margin;
 
                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                if (this.props.layout === Layout.HORIZONTAL) {
+                if (this.props.layout === "horizontal") {
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 " + this.props.margin + "px 0 0"; // right
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                } else if (this.props.layout === Layout.VERTICAL) {
+                } else if (this.props.layout === "vertical") {
                     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 0 " + this.props.margin + "px 0"; // bottom
                 }

@@ -1,3 +1,14 @@
+/**
+ * Render the Mafs graph with the specified background and graph elements.
+ *
+ * Render order (back to front):
+ * - Grid
+ * - Axis Ticks, Axis Arrows, and Axis Labels
+ * - Locked Figures
+ * - Locked Labels
+ * - Protractor
+ * - Interactive Graph Elements
+ */
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -35,13 +46,14 @@ import type {
     InteractiveGraphProps,
     PointGraphState,
 } from "./types";
+import type {APIOptions} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
 
 export type MafsGraphProps = {
-    showLabelsFlag?: boolean;
+    flags?: APIOptions["flags"];
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
@@ -59,6 +71,8 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
 };
+
+export const REMOVE_BUTTON_ID = "perseus_mafs_remove_button";
 
 export const MafsGraph = (props: MafsGraphProps) => {
     const {
@@ -153,12 +167,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         box={props.box}
                         backgroundImage={props.backgroundImage}
                     />
-                    {/* Locked labels layer */}
-                    {props.showLabelsFlag && props.lockedFigures && (
-                        <GraphLockedLabelsLayer
-                            lockedFigures={props.lockedFigures}
-                        />
-                    )}
                     <View
                         style={{
                             position: "absolute",
@@ -217,15 +225,42 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                         range={state.range}
                                     />
                                 )}
-                                {/* Protractor */}
-                                {props.showProtractor && <Protractor />}
-                                {/* Interactive layer */}
-                                {renderGraph({
-                                    state,
-                                    dispatch,
-                                })}
                             </svg>
                         </Mafs>
+                        {props.flags?.["mafs"]?.[
+                            "interactive-graph-locked-features-labels"
+                        ] &&
+                            props.lockedFigures && (
+                                <GraphLockedLabelsLayer
+                                    flags={props.flags}
+                                    lockedFigures={props.lockedFigures}
+                                />
+                            )}
+                        <View style={{position: "absolute"}}>
+                            <Mafs
+                                preserveAspectRatio={false}
+                                viewBox={{
+                                    x: state.range[X],
+                                    y: state.range[Y],
+                                    padding: 0,
+                                }}
+                                pan={false}
+                                zoom={false}
+                                width={width}
+                                height={height}
+                            >
+                                {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
+                                <svg {...nestedSVGAttributes}>
+                                    {/* Protractor */}
+                                    {props.showProtractor && <Protractor />}
+                                    {/* Interactive layer */}
+                                    {renderGraph({
+                                        state,
+                                        dispatch,
+                                    })}
+                                </svg>
+                            </Mafs>
+                        </View>
                     </View>
                 </View>
                 {renderGraphControls({state, dispatch, width})}
@@ -245,7 +280,7 @@ const renderPointGraphControls = (props: {
             width: props.width,
         }}
     >
-        <Button
+        {/* <Button
             kind="secondary"
             style={{
                 width: "100%",
@@ -257,28 +292,29 @@ const renderPointGraphControls = (props: {
             }}
         >
             Add Point
-        </Button>
-        {(props.state.focusedPointIndex !== null ||
-            props.state.previouslyFocusedPointIndex !== null) && (
-            <Button
-                kind="secondary"
-                color="destructive"
-                tabIndex={0}
-                style={{
-                    width: "100%",
-                    marginLeft: "20px",
-                }}
-                onClick={(event) => {
-                    props.dispatch(
-                        actions.pointGraph.removePoint(
-                            props.state.previouslyFocusedPointIndex!,
-                        ),
-                    );
-                }}
-            >
-                Remove Point
-            </Button>
-        )}
+        </Button> */}
+        {props.state.showRemovePointButton &&
+            props.state.focusedPointIndex !== null && (
+                <Button
+                    id={REMOVE_BUTTON_ID}
+                    kind="secondary"
+                    color="destructive"
+                    tabIndex={-1}
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                    }}
+                    onClick={(event) => {
+                        props.dispatch(
+                            actions.pointGraph.removePoint(
+                                props.state.focusedPointIndex!,
+                            ),
+                        );
+                    }}
+                >
+                    Remove Point
+                </Button>
+            )}
     </View>
 );
 
@@ -382,6 +418,8 @@ const renderGraph = (props: {
             return <QuadraticGraph graphState={state} dispatch={dispatch} />;
         case "sinusoid":
             return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+        case "none":
+            return null;
         default:
             throw new UnreachableCaseError(type);
     }

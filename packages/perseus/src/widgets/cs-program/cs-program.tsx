@@ -4,7 +4,6 @@
 
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -15,9 +14,34 @@ import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 
-import type {WidgetExports} from "../../types";
+import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 const {updateQueryString} = Util;
+
+type Status = "correct" | "incorrect" | "incomplete";
+
+type UserInput = {
+    status: Status;
+    message: string | null;
+};
+
+type RenderProps = PerseusCSProgramWidgetOptions & {
+    status: Status;
+    message: string | null;
+};
+
+export type Rubric = PerseusCSProgramWidgetOptions;
+
+type Props = WidgetProps<RenderProps, Rubric>;
+
+type DefaultProps = {
+    showEditor: Props["showEditor"];
+    showButtons: Props["showButtons"];
+    status: Props["status"];
+    // optional message
+    message: Props["message"];
+};
 
 function getUrlFromProgramID(programID: any) {
     const {InitialRequestUrl} = getDependencies();
@@ -37,23 +61,17 @@ function getUrlFromProgramID(programID: any) {
 
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
-class CSProgram extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        programID: PropTypes.string,
-        programType: PropTypes.oneOf(["pjs", "sql", "webpage"]),
-        width: PropTypes.number,
-        height: PropTypes.number,
-        // eslint-disable-next-line react/forbid-prop-types
-        settings: PropTypes.array,
-        showEditor: PropTypes.bool,
-        showButtons: PropTypes.bool,
-        status: PropTypes.oneOf(["incomplete", "incorrect", "correct"]),
-        message: PropTypes.string,
+class CSProgram extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
+        showEditor: false,
+        showButtons: false,
+        status: "incomplete",
+        // optional message
+        message: null,
     };
 
     // The widget's grading function
-    static validate(state: any, rubric: any): any {
+    static validate(state: UserInput, rubric: any): PerseusScore {
         // The iframe can tell us whether it's correct or incorrect,
         //  and pass an optional message
         if (state.status === "correct") {
@@ -77,14 +95,6 @@ class CSProgram extends React.Component<any> {
             message: "Keep going, you're not there yet!",
         };
     }
-
-    static defaultProps: any = {
-        showEditor: false,
-        showButtons: false,
-        status: "incomplete",
-        // optional message
-        message: null,
-    };
 
     componentDidMount() {
         $(window).on("message", this.handleMessageEvent);
@@ -121,7 +131,7 @@ class CSProgram extends React.Component<any> {
         return Changeable.change.apply(this, args);
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric): PerseusScore {
         return CSProgram.validate(
             {
                 status: this.props.status,
@@ -129,7 +139,7 @@ class CSProgram extends React.Component<any> {
             },
             rubric,
         );
-    };
+    }
 
     render(): React.ReactNode {
         if (!this.props.programID) {

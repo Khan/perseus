@@ -49,6 +49,8 @@ import {
     type FocusPoint,
     BLUR_POINT,
     type BlurPoint,
+    CLICK_POINT,
+    type ClickPoint,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -95,6 +97,8 @@ export function interactiveGraphReducer(
             return doBlurPoint(state, action);
         case DELETE_INTENT:
             return doDeleteIntent(state, action);
+        case CLICK_POINT:
+            return doClickPoint(state, action);
         default:
             throw new UnreachableCaseError(action);
     }
@@ -141,12 +145,31 @@ function doBlurPoint(
         case "point":
             return {
                 ...state,
-                previouslyFocusedPointIndex: state.focusedPointIndex,
                 focusedPointIndex: null,
+                showRemovePointButton: false,
             };
         default:
             return state;
     }
+}
+
+function doClickPoint(
+    state: InteractiveGraphState,
+    action: ClickPoint,
+): InteractiveGraphState {
+    if (state.type !== "point") {
+        return state;
+    }
+
+    if (state.numPoints === "unlimited") {
+        return {
+            ...state,
+            focusedPointIndex: action.index,
+            showRemovePointButton: true,
+        };
+    }
+
+    return state;
 }
 
 function doMovePointInFigure(
@@ -193,6 +216,8 @@ function doMovePointInFigure(
         }
         case "angle":
         case "circle":
+            throw new Error("FIXME implement circle reducer");
+        case "none":
         case "point":
         case "polygon":
         case "quadratic":
@@ -590,6 +615,7 @@ function doAddPoint(
         ...state,
         hasBeenInteractedWith: true,
         coords: [...state.coords, snappedPoint],
+        showRemovePointButton: false,
     };
 }
 
@@ -605,7 +631,7 @@ function doRemovePoint(
         ...state,
         coords: state.coords.filter((_, i) => i !== action.index),
         focusedPointIndex: null,
-        previouslyFocusedPointIndex: null,
+        showRemovePointButton: false,
     };
 }
 

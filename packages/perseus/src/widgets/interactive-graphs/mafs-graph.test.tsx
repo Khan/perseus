@@ -8,11 +8,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 
 import {calculateNestedSVGCoords, MafsGraph} from "./mafs-graph";
-import {
-    actions,
-    ADD_POINT,
-    REMOVE_POINT,
-} from "./reducer/interactive-graph-action";
+import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 
 import type {MafsGraphProps} from "./mafs-graph";
@@ -144,8 +140,8 @@ describe("MafsGraph", () => {
             type: "point",
             numPoints: 2,
             focusedPointIndex: null,
-            previouslyFocusedPointIndex: null,
             hasBeenInteractedWith: true,
+            showRemovePointButton: false,
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -393,82 +389,7 @@ describe("MafsGraph", () => {
     });
 
     describe("with an unlimited-point graph", () => {
-        it("displays an add point button", async () => {
-            // Arrange
-            // Render the question
-            const mockDispatch = jest.fn();
-            const state: InteractiveGraphState = {
-                type: "point",
-                numPoints: "unlimited",
-                focusedPointIndex: null,
-                previouslyFocusedPointIndex: null,
-                hasBeenInteractedWith: true,
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-                snapStep: [2, 2],
-                coords: [],
-            };
-
-            const baseMafsGraphProps = getBaseMafsGraphProps();
-
-            render(
-                <MafsGraph
-                    {...baseMafsGraphProps}
-                    state={state}
-                    dispatch={mockDispatch}
-                />,
-            );
-
-            // Act: NOTHING
-
-            // Assert
-            // Make sure the button is on the page
-            const addPointButton = await screen.findByText("Add Point");
-            expect(addPointButton).not.toBeNull();
-        });
-        it("adds a point when the add point button is clicked", async () => {
-            // Arrange
-            // Render the question
-            const mockDispatch = jest.fn();
-            const state: InteractiveGraphState = {
-                type: "point",
-                numPoints: "unlimited",
-                focusedPointIndex: null,
-                previouslyFocusedPointIndex: null,
-                hasBeenInteractedWith: true,
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-                snapStep: [2, 2],
-                coords: [],
-            };
-
-            const baseMafsGraphProps: MafsGraphProps = {
-                ...getBaseMafsGraphProps(),
-                markings: "none",
-            };
-
-            render(
-                <MafsGraph
-                    {...baseMafsGraphProps}
-                    state={state}
-                    dispatch={mockDispatch}
-                />,
-            );
-
-            // Act: Click the button
-            const addPointButton = await screen.findByText("Add Point");
-            await userEvent.click(addPointButton);
-
-            expect(mockDispatch.mock.calls).toEqual([
-                [{type: ADD_POINT, location: [0, 0]}],
-            ]);
-        });
-
-        it("shows a remove point button when a point is focused", async () => {
+        it("shows a remove point button when a point is clicked", async () => {
             // Arrange
             // Render the question
             const mockDispatch = jest.fn();
@@ -476,8 +397,8 @@ describe("MafsGraph", () => {
                 type: "point",
                 numPoints: "unlimited",
                 focusedPointIndex: 0,
-                previouslyFocusedPointIndex: null,
                 hasBeenInteractedWith: true,
+                showRemovePointButton: true,
                 range: [
                     [-10, 10],
                     [-10, 10],
@@ -513,8 +434,8 @@ describe("MafsGraph", () => {
             type: "point",
             numPoints: "unlimited",
             focusedPointIndex: 0,
-            previouslyFocusedPointIndex: 0,
             hasBeenInteractedWith: true,
+            showRemovePointButton: true,
             range: [
                 [-10, 10],
                 [-10, 10],

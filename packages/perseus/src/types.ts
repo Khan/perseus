@@ -144,6 +144,8 @@ export const MafsGraphTypeFlags = [
     "point",
     /** Enable the `unlimited-point` interactive graph type */
     "unlimited-point",
+    /** Enable the `none` interactive graph type for content editors */
+    "none",
 ] as const;
 
 export const InteractiveGraphLockedFeaturesFlags = [
@@ -152,6 +154,17 @@ export const InteractiveGraphLockedFeaturesFlags = [
      * widget (locked labels).
      */
     "interactive-graph-locked-features-labels",
+
+    /**
+     * Enables/disables the labels associated with locked points in the
+     * updated Interactive Graph widget.
+     */
+    "locked-point-labels",
+    /**
+     * Enables/disables the labels associated with locked lines in the
+     * updated Interactive Graph widget.
+     */
+    "locked-line-labels",
 ] as const;
 
 /**
@@ -549,8 +562,6 @@ export type WidgetProps<
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     alignment: string | null | undefined;
-    // When determining if a widget is static, we verify that the widget is not an
-    // exercise question by verifying that it has no problem number.
     static: boolean | null | undefined;
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;

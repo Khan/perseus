@@ -17,17 +17,18 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
-import LabeledRow from "../../components/graph-locked-figures/labeled-row";
-import LockedFiguresSection from "../../components/graph-locked-figures/locked-figures-section";
-import GraphPointsCountSelector from "../../components/graph-points-count-selector";
-import GraphTypeSelector from "../../components/graph-type-selector";
-import {InteractiveGraphCorrectAnswer} from "../../components/interactive-graph-correct-answer";
-import InteractiveGraphDescription from "../../components/interactive-graph-description";
-import InteractiveGraphSettings from "../../components/interactive-graph-settings";
-import SegmentCountSelector from "../../components/segment-count-selector";
-import StartCoordsSettings from "../../components/start-coords-settings";
-import {shouldShowStartCoordsUI} from "../../components/util";
 import {parsePointCount} from "../../util/points";
+
+import GraphPointsCountSelector from "./components/graph-points-count-selector";
+import GraphTypeSelector from "./components/graph-type-selector";
+import {InteractiveGraphCorrectAnswer} from "./components/interactive-graph-correct-answer";
+import InteractiveGraphDescription from "./components/interactive-graph-description";
+import InteractiveGraphSettings from "./components/interactive-graph-settings";
+import SegmentCountSelector from "./components/segment-count-selector";
+import LabeledRow from "./locked-figures/labeled-row";
+import LockedFiguresSection from "./locked-figures/locked-figures-section";
+import StartCoordsSettings from "./start-coords/start-coords-settings";
+import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 
 import type {
     APIOptionsWithDefaults,
@@ -227,7 +228,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
             _.extend(json, {
                 graph: {
                     type: correct.type,
-                    startCoords: this.props.graph?.startCoords,
+                    startCoords:
+                        this.props.graph && getStartCoords(this.props.graph),
                 },
                 correct: correct,
             });
@@ -350,7 +352,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         return (
             <View>
-                <LabeledRow label="Type of Graph:">
+                <LabeledRow label="Answer type:">
                     <GraphTypeSelector
                         graphType={
                             this.props.graph?.type ??
@@ -364,6 +366,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 correct: {type},
                             });
                         }}
+                        showNoneOption={
+                            this.props.apiOptions?.flags?.mafs?.["none"]
+                        }
                     />
                 </LabeledRow>
                 {this.props.graph &&
@@ -759,6 +764,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             this.props.graph.type
                         ] && (
                             <LockedFiguresSection
+                                flags={this.props.apiOptions.flags}
                                 showLabelsFlag={
                                     this.props.apiOptions?.flags?.mafs?.[
                                         "interactive-graph-locked-features-labels"
@@ -798,6 +804,9 @@ function mergeGraphs(
             return {...a, ...b};
         case "linear-system":
             invariant(b.type === "linear-system");
+            return {...a, ...b};
+        case "none":
+            invariant(b.type === "none");
             return {...a, ...b};
         case "point":
             invariant(b.type === "point");

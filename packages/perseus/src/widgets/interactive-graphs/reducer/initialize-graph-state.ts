@@ -78,7 +78,7 @@ export function initializeGraphState(
                 coords: getPointCoords(graph, range, step),
                 numPoints: graph.numPoints || 0,
                 focusedPointIndex: null,
-                previouslyFocusedPointIndex: null,
+                showRemovePointButton: false,
             };
         case "circle":
             return {
@@ -107,6 +107,11 @@ export function initializeGraphState(
                 angleOffsetDeg: Number(graph.angleOffsetDeg),
                 allowReflexAngles: Boolean(graph.allowReflexAngles),
                 snapDegrees: Number(graph.snapDegrees),
+            };
+        case "none":
+            return {
+                ...shared,
+                type: "none",
             };
         default:
             throw new UnreachableCaseError(graph);

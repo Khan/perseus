@@ -20,6 +20,7 @@ export type InteractiveGraphState =
     | LinearSystemGraphState
     | LinearGraphState
     | RayGraphState
+    | NoneGraphState
     | PolygonGraphState
     | PointGraphState
     | CircleGraphState
@@ -49,12 +50,16 @@ export interface LinearSystemGraphState extends InteractiveGraphStateCommon {
     coords: PairOfPoints[];
 }
 
+export interface NoneGraphState extends InteractiveGraphStateCommon {
+    type: "none";
+}
+
 export interface PointGraphState extends InteractiveGraphStateCommon {
     type: "point";
     coords: Coord[];
     numPoints?: number | "unlimited";
     focusedPointIndex: number | null;
-    previouslyFocusedPointIndex: number | null;
+    showRemovePointButton: boolean;
 }
 
 export interface RayGraphState extends InteractiveGraphStateCommon {

@@ -1,9 +1,4 @@
-import {keypadElementPropType} from "@khanacademy/math-input";
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "@khanacademy/perseus-linter";
-import PropTypes from "prop-types";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -16,10 +11,31 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import KhanAnswerTypes from "../../util/answer-types";
 
+import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusTableWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {WidgetExports} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 const {assert} = InteractiveUtil;
+
+type RenderProps = PerseusTableWidgetOptions & {
+    editableHeaders: boolean;
+    Editor: any;
+};
+
+type Rubric = PerseusTableWidgetOptions;
+
+type Props = ChangeableProps & WidgetProps<RenderProps, Rubric>;
+
+type DefaultProps = {
+    apiOptions: Props["apiOptions"];
+    headers: Props["headers"];
+    editableHeaders: Props["editableHeaders"];
+    rows: Props["rows"];
+    columns: Props["columns"];
+    answers: Props["answers"];
+    linterContext: Props["linterContext"];
+};
 
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
  * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -50,22 +66,11 @@ const getRefForPath = function (path) {
     return "answer" + row + "," + column;
 };
 
-class Table extends React.Component<any> {
+class Table extends React.Component<Props> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    static propTypes = {
-        answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-        editableHeaders: PropTypes.bool,
-        // The editor to use when editableHeaders is enabled
-        Editor: PropTypes.func,
-        headers: PropTypes.arrayOf(PropTypes.string),
-        keypadElement: keypadElementPropType,
-        trackInteraction: PropTypes.func.isRequired,
-        linterContext: linterContextProps,
-    };
-
-    static defaultProps: any = (function () {
+    static defaultProps: DefaultProps = (function () {
         const defaultRows = 4;
         const defaultColumns = 1;
         const blankAnswers = _(defaultRows).times(function () {

@@ -11,11 +11,12 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import a11y from "../../util/a11y";
+import noopValidator from "../__shared__/noop-validator";
 
 import VideoTranscriptLink from "./video-transcript-link";
 
 import type {PerseusVideoWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 // Current default is 720p, based on the typical videos we upload currently
 const DEFAULT_WIDTH = 1280;
@@ -26,7 +27,6 @@ const IS_URL = /^https?:\/\//;
 const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 const IS_VIMEO = /(vimeo\.com)/;
 
-type UserInput = null;
 type Rubric = PerseusVideoWidgetOptions;
 type RenderProps = PerseusVideoWidgetOptions; // exports has no 'transform'
 type Props = WidgetProps<RenderProps, Rubric> & {
@@ -45,22 +45,19 @@ class Video extends React.Component<Props> {
      * Points for videos are tallied by the embedded video itself, in the case
      * of Khan Academy videos.
      */
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
+        return noopValidator();
     }
 
     getUserInput: () => undefined | null | undefined = () => {
         return null;
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Video.validate(null, rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.

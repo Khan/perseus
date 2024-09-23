@@ -635,6 +635,7 @@ const staticTransform: (arg1: any) => any = (editorProps) => {
 export default {
     name: "matrix",
     displayName: "Matrix",
+    hidden: true,
     widget: Matrix,
     transform: propTransform,
     staticTransform: staticTransform,

@@ -1,5 +1,47 @@
 # @khanacademy/perseus-editor
 
+## 14.3.0
+
+### Minor Changes
+
+-   [#1630](https://github.com/Khan/perseus/pull/1630) [`fd474e58e`](https://github.com/Khan/perseus/commit/fd474e58edc39956b885fe1db323789c0db7e435) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some PropTypes to TS
+
+*   [#1638](https://github.com/Khan/perseus/pull/1638) [`973de7a65`](https://github.com/Khan/perseus/commit/973de7a653a5dd176a65cde35cfb3c0fb4efea69) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add/Edit/Delete locked point labels in the editor
+
+-   [#1637](https://github.com/Khan/perseus/pull/1637) [`56166be34`](https://github.com/Khan/perseus/commit/56166be340c7c408767884be975ea157052e93df) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Locked points: Add the labels field to LockedPointType and the feature flag for locked point labels
+
+### Patch Changes
+
+-   Updated dependencies [[`732a052f8`](https://github.com/Khan/perseus/commit/732a052f8966163768b9ee04fd6bbf504abf1902), [`fd474e58e`](https://github.com/Khan/perseus/commit/fd474e58edc39956b885fe1db323789c0db7e435), [`98eaad0d1`](https://github.com/Khan/perseus/commit/98eaad0d13fd778309fd69f8515c5d90e10d4880), [`973de7a65`](https://github.com/Khan/perseus/commit/973de7a653a5dd176a65cde35cfb3c0fb4efea69), [`ada946eac`](https://github.com/Khan/perseus/commit/ada946eac97610ffe3b5e52789bd64aaf5e08014), [`1b71657a0`](https://github.com/Khan/perseus/commit/1b71657a0b4494cdcac40ae7e232f645067894a8), [`56166be34`](https://github.com/Khan/perseus/commit/56166be340c7c408767884be975ea157052e93df), [`45bb43b92`](https://github.com/Khan/perseus/commit/45bb43b923a2498747fdf4a42388d3cda8354078), [`e910f9b80`](https://github.com/Khan/perseus/commit/e910f9b80558481dfbe4a2420935a98b32190d13)]:
+    -   @khanacademy/perseus@34.0.0
+
+## 14.2.0
+
+### Minor Changes
+
+-   [#1605](https://github.com/Khan/perseus/pull/1605) [`ddc3f5d05`](https://github.com/Khan/perseus/commit/ddc3f5d057da2d2c96ba92c5f5784c245ce6f573) Thanks [@benchristel](https://github.com/benchristel)! - Add 'None' graph type, for graphs that should only display locked figures.
+
+### Patch Changes
+
+-   [#1601](https://github.com/Khan/perseus/pull/1601) [`ef7b35bce`](https://github.com/Khan/perseus/commit/ef7b35bce082c2552cde2b3bca5edbbefbfa587a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Reorganize interactive graph editor files.
+
+-   Updated dependencies [[`51b6e1431`](https://github.com/Khan/perseus/commit/51b6e14319ec34ee0bf661f047f138f7b63034c1), [`cea62ad11`](https://github.com/Khan/perseus/commit/cea62ad11fa39234da56d1a0d7d876212a1be56a), [`ddc3f5d05`](https://github.com/Khan/perseus/commit/ddc3f5d057da2d2c96ba92c5f5784c245ce6f573), [`12b8e01bf`](https://github.com/Khan/perseus/commit/12b8e01bf89abbc88d6bfc9bf243d5a0e95b5ed3)]:
+    -   @khanacademy/perseus@33.3.0
+
+## 14.1.3
+
+### Patch Changes
+
+-   Updated dependencies [[`ab7b0fde5`](https://github.com/Khan/perseus/commit/ab7b0fde555cd201a23be2efdaa5ae4e2528e1f8), [`67aa2aa50`](https://github.com/Khan/perseus/commit/67aa2aa5011c0d367f49f66beb12bd5b5a6e4e57), [`dbac5d491`](https://github.com/Khan/perseus/commit/dbac5d491386fc0daf813d583de02af55b02920f)]:
+    -   @khanacademy/perseus@33.2.1
+
+## 14.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`d266ba110`](https://github.com/Khan/perseus/commit/d266ba110b5acc644f4bafec7940753bb1b95600), [`f28d610a1`](https://github.com/Khan/perseus/commit/f28d610a18495ef6b9b0d6a52924cbfd12aa2fe3), [`67c58b4ad`](https://github.com/Khan/perseus/commit/67c58b4ada8b2543de5c4defb09fa1eed4cbc538), [`e533822aa`](https://github.com/Khan/perseus/commit/e533822aa7e54517b19ded83720c0fa706805041)]:
+    -   @khanacademy/perseus@33.2.0
+
 ## 14.1.1
 
 ### Patch Changes

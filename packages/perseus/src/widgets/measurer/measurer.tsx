@@ -8,6 +8,7 @@ import _ from "underscore";
 import SvgImage from "../../components/svg-image";
 import {ApiOptions} from "../../perseus-api";
 import GraphUtils from "../../util/graph-utils";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {Coord} from "../../interactive2/types";
 import type {WidgetExports, WidgetProps} from "../../types";
@@ -175,10 +176,9 @@ export class Measurer extends React.Component<Props> {
         };
     }
 
-    simpleValidate(rubric) {
-        // TODO(joel) - I don't understand how this is useful!
-        return this.validate(this.getUserInput(), rubric);
-    }
+    simpleValidate: function () {
+        return noopValidator(1);
+    },
 
     render() {
         const image = _.extend({}, defaultImage, this.props.image);
@@ -213,14 +213,7 @@ export class Measurer extends React.Component<Props> {
 }
 
 _.extend(Measurer, {
-    validate: function (state, rubric) {
-        return {
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        };
-    },
+    validate: noopValidator(1),
 });
 
 const propUpgrades = {
@@ -243,6 +236,7 @@ const propUpgrades = {
 export default {
     name: "measurer",
     displayName: "Measurer",
+    hidden: true,
     widget: Measurer,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,

@@ -1,3 +1,5 @@
+import {line as kline} from "@khanacademy/kmath";
+
 import type {Coord} from "../../interactive2/types";
 import type {
     CollinearTuple,
@@ -7,6 +9,7 @@ import type {
     LockedFigureFillType,
     LockedFunctionType,
     LockedLabelType,
+    LockedLineStyle,
     LockedLineType,
     LockedPointType,
     LockedPolygonType,
@@ -16,10 +19,18 @@ import type {
 } from "../../perseus-types";
 import type {Interval, vec} from "mafs";
 
-export type LockedFunctionOptions = Omit<
-    Partial<LockedFunctionType>,
-    "type" | "equation"
->;
+export type LockedFunctionOptions = {
+    color?: LockedFigureColor;
+    strokeStyle?: LockedLineStyle;
+    directionalAxis?: "x" | "y";
+    domain?: Interval;
+};
+
+type LockedFigureLabelOptions = {
+    text: string;
+    coord?: Coord;
+    size?: "small" | "medium" | "large";
+};
 
 export function interactiveGraphQuestionBuilder(): InteractiveGraphQuestionBuilder {
     return new InteractiveGraphQuestionBuilder();
@@ -180,6 +191,11 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withNoInteractiveFigure() {
+        this.interactiveFigureConfig = new NoInteractiveFigureConfig();
+        return this;
+    }
+
     withLinear(options?: {
         coords?: CollinearTuple;
         startCoords?: CollinearTuple;
@@ -280,6 +296,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             filled?: boolean;
+            labels?: LockedFigureLabelOptions[];
         },
     ): InteractiveGraphQuestionBuilder {
         this.addLockedFigure(this.createLockedPoint(x, y, options));
@@ -291,11 +308,12 @@ class InteractiveGraphQuestionBuilder {
         point2: vec.Vector2,
         options?: {
             kind?: "line" | "ray" | "segment";
-            lineStyle?: "solid" | "dashed";
+            lineStyle?: LockedLineStyle;
             color?: LockedFigureColor;
             filled?: [boolean, boolean];
             showPoint1?: boolean;
             showPoint2?: boolean;
+            labels?: LockedFigureLabelOptions[];
         },
     ): InteractiveGraphQuestionBuilder {
         const line: LockedLineType = {
@@ -305,6 +323,15 @@ class InteractiveGraphQuestionBuilder {
             showPoint2: options?.showPoint2 ?? false,
             color: options?.color ?? "grayH",
             lineStyle: options?.lineStyle ?? "solid",
+            labels: (options?.labels ?? []).map((label) => ({
+                type: "label",
+                coord:
+                    label.coord ??
+                    ([...kline.midpoint([point1, point2])] as Coord),
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
             points: [
                 {
                     ...this.createLockedPoint(...point1, {
@@ -427,6 +454,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             filled?: boolean;
+            labels?: LockedFigureLabelOptions[];
         },
     ): LockedPointType {
         return {
@@ -434,6 +462,13 @@ class InteractiveGraphQuestionBuilder {
             coord: [x, y],
             color: options?.color ?? "grayH",
             filled: options?.filled ?? true,
+            labels: (options?.labels ?? []).map((label) => ({
+                type: "label",
+                coord: label.coord ?? [x + 0.5, y],
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
         };
     }
 
@@ -480,6 +515,16 @@ class SegmentGraphConfig implements InteractiveFigureConfig {
             numSegments: this.numSegments,
             startCoords: this.startCoords,
         };
+    }
+}
+
+class NoInteractiveFigureConfig implements InteractiveFigureConfig {
+    correct(): PerseusGraphType {
+        return {type: "none"};
+    }
+
+    graph(): PerseusGraphType {
+        return {type: "none"};
     }
 }
 
