@@ -4,10 +4,12 @@ import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
+import invariant from "tiny-invariant";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../../../../testing/wait";
+import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/interactive-graph-editor/locked-figures/util";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
@@ -989,6 +991,53 @@ describe("locked layer", () => {
             left: "150px",
             top: "280px",
         });
+    });
+
+    it("should render a locked label within a locked point within a locked line", async () => {
+        const question = {...graphWithLabeledLine};
+        invariant(
+            question.widgets["interactive-graph 1"].options.lockedFigures?.[0]
+                ?.type === "line",
+        );
+        question.widgets[
+            "interactive-graph 1"
+        ].options.lockedFigures[0].points = [
+            {
+                ...getDefaultFigureForType("point"),
+                labels: [
+                    {...getDefaultFigureForType("label"), text: "point A"},
+                ],
+            },
+            {
+                ...getDefaultFigureForType("point"),
+                labels: [
+                    {...getDefaultFigureForType("label"), text: "point B"},
+                ],
+            },
+        ];
+        const {container} = renderQuestion(graphWithLabeledLine, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-line-labels": true,
+                    "locked-point-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const lineLabel = labels[0];
+        const point1Label = labels[1];
+        const point2Label = labels[2];
+
+        // Assert
+        expect(labels).toHaveLength(3);
+        expect(lineLabel).toHaveTextContent("B");
+        expect(point1Label).toHaveTextContent("point A");
+        expect(point2Label).toHaveTextContent("point B");
     });
 
     it("should have an aria-label and description if they are provided", async () => {

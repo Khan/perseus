@@ -9,6 +9,7 @@ import _ from "underscore";
 import SvgImage from "../../components/svg-image";
 import {ApiOptions} from "../../perseus-api";
 import GraphUtils from "../../util/graph-utils";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {Coord} from "../../interactive2/types";
 import type {WidgetExports} from "../../types";
@@ -145,9 +146,8 @@ const Measurer: any = createReactClass({
         return {};
     },
 
-    simpleValidate: function (rubric) {
-        // TODO(joel) - I don't understand how this is useful!
-        return Measurer.validate(this.getUserInput(), rubric);
+    simpleValidate: function () {
+        return noopValidator(1);
     },
 
     focus: $.noop,
@@ -185,14 +185,7 @@ const Measurer: any = createReactClass({
 });
 
 _.extend(Measurer, {
-    validate: function (state, rubric) {
-        return {
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        };
-    },
+    validate: noopValidator(1),
 });
 
 const propUpgrades = {
