@@ -13,8 +13,10 @@ import type {PerseusGraphType} from "@khanacademy/perseus";
 // however we want and we just transform it before handing it off
 // the the parent InteractiveGraph.
 //
-// The transformed state is used in the interactive graph widget editor, to
-// set the `correct` field of the graph options.
+// The transformed data is used in the interactive graph widget editor, to
+// set the `correct` field of the graph options. In the learner-facing UI, the
+// data is also stored by the Renderer, and passed back down to the graph
+// widget via the `graph` prop.
 export function mafsStateToInteractiveGraph(
     state: InteractiveGraphState,
 ): PerseusGraphType {
