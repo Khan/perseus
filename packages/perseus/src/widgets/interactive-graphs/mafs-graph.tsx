@@ -382,7 +382,7 @@ function handleFocusEvent(
             event.target.classList.contains("mafs-graph") &&
             state.interactionMode === "mouse"
         ) {
-            dispatch(actions.global.changeKeyboardInvitationVibility(true));
+            dispatch(actions.global.changeKeyboardInvitationVisibility(true));
         }
     }
 }
@@ -393,7 +393,7 @@ function handleBlurEvent(
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
     if (state.type === "point" && state.numPoints === "unlimited") {
-        dispatch(actions.global.changeKeyboardInvitationVibility(false));
+        dispatch(actions.global.changeKeyboardInvitationVisibility(false));
     }
 }
 

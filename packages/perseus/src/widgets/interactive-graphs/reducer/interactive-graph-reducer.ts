@@ -74,6 +74,12 @@ export function interactiveGraphReducer(
 ): InteractiveGraphState {
     switch (action.type) {
         case REINITIALIZE:
+            if (
+                state.type === "point" &&
+                state.showKeyboardInteractionInvitation
+            ) {
+                return state;
+            }
             return initializeGraphState(action.params);
         case MOVE_POINT_IN_FIGURE:
             return doMovePointInFigure(state, action);
