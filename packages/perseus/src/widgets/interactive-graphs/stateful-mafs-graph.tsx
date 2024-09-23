@@ -111,7 +111,7 @@ export const StatefulMafsGraph = React.forwardRef<
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
     const showAngles = graph.type === "polygon" ? graph.showAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
-    const startCoords = "startCoords" in graph ? graph.startCoords : null;
+    const startCoords = "startCoords" in graph ? graph.startCoords : undefined;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
