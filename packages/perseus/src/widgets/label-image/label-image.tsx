@@ -29,7 +29,10 @@ import type {InteractiveMarkerType, InteractiveMarkerScore} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
-import type {PerseusLabelImageUserInput} from "../../validation.types";
+import type {
+    PerseusLabelImageRubric,
+    PerseusLabelImageUserInput,
+} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -63,6 +66,7 @@ type Point = {
     y: number;
 };
 
+// TODO: should this be using PerseusLabelImageWidgetOptions?
 type LabelImageProps = ChangeableProps &
     DependencyProps & {
         apiOptions: APIOptions;
@@ -138,7 +142,7 @@ export class LabelImage extends React.Component<
 
     static validate(
         state: PerseusLabelImageUserInput,
-        rubric?: LabelImageProps,
+        rubric?: PerseusLabelImageRubric,
     ): PerseusScore {
         let numAnswered = 0;
         let numCorrect = 0;
@@ -378,7 +382,7 @@ export class LabelImage extends React.Component<
         this._mounted = false;
     }
 
-    simpleValidate(rubric: LabelImageProps): PerseusScore {
+    simpleValidate(rubric: PerseusLabelImageRubric): PerseusScore {
         return LabelImage.validate(this.getUserInput(), rubric);
     }
 
