@@ -562,8 +562,6 @@ export type WidgetProps<
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     alignment: string | null | undefined;
-    // When determining if a widget is static, we verify that the widget is not an
-    // exercise question by verifying that it has no problem number.
     static: boolean | null | undefined;
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;
