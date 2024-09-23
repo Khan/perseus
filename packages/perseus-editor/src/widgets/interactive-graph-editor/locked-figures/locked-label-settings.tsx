@@ -27,6 +27,7 @@ import ColorSelect from "./color-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 export type Props = LockedLabelType & {
     /**
@@ -57,6 +58,9 @@ export type Props = LockedLabelType & {
      * Called when the accordion is expanded or collapsed.
      */
     onToggle?: (expanded: boolean) => void;
+
+    // Container style for the accordion.
+    containerStyle?: StyleType;
 };
 
 export default function LockedLabelSettings(props: Props) {
@@ -71,6 +75,7 @@ export default function LockedLabelSettings(props: Props) {
         onMove,
         onRemove,
         onToggle,
+        containerStyle,
     } = props;
 
     return (
@@ -98,7 +103,7 @@ export default function LockedLabelSettings(props: Props) {
                     )}
                 </View>
             }
-            containerStyle={!onMove && styles.innerLabelAccordionPanel}
+            containerStyle={containerStyle}
         >
             {/* Coord settings */}
             <CoordinatePairInput
@@ -191,8 +196,5 @@ const styles = StyleSheet.create({
     },
     spaceUnder: {
         marginBottom: spacing.xSmall_8,
-    },
-    innerLabelAccordionPanel: {
-        backgroundColor: wbColor.white,
     },
 });

@@ -4,15 +4,15 @@ import type {PerseusScore} from "../../types";
  * Several widgets don't have "right"/"wrong" validation logic,
  * so this just says to move on past those widgets
  *
- * TODO: widgets that use this probably shouldn't have any
+ * TODO(LEMS-2396) widgets that use this probably shouldn't have any
  * validation logic and the thing validating an exercise
  * should just know to skip these
  */
-function noopValidator(): PerseusScore {
+function noopValidator(points: number = 0): PerseusScore {
     return {
         type: "points",
-        earned: 0,
-        total: 0,
+        earned: points,
+        total: points,
         message: null,
     };
 }
