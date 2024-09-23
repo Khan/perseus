@@ -17,6 +17,7 @@ import VideoTranscriptLink from "./video-transcript-link";
 
 import type {PerseusVideoWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusVideoRubric} from "../../validation.types";
 
 // Current default is 720p, based on the typical videos we upload currently
 const DEFAULT_WIDTH = 1280;
@@ -27,9 +28,8 @@ const IS_URL = /^https?:\/\//;
 const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 const IS_VIMEO = /(vimeo\.com)/;
 
-type Rubric = PerseusVideoWidgetOptions;
 type RenderProps = PerseusVideoWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps, Rubric> & {
+type Props = WidgetProps<RenderProps, PerseusVideoRubric> & {
     alignment: string; // Where does this get set?
 };
 

@@ -25,6 +25,8 @@ import type {
     PerseusPlotterWidgetOptions,
     PerseusRadioWidgetOptions,
     PerseusSorterWidgetOptions,
+    PerseusTableWidgetOptions,
+    PerseusVideoWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -199,7 +201,12 @@ export type PerseusSorterUserInput = {
     options: ReadonlyArray<number>;
 };
 
+export type PerseusTableRubric = PerseusTableWidgetOptions;
+
 export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusVideoRubric = PerseusVideoWidgetOptions;
 
 export type UserInput =
     | PerseusCategorizerUserInput

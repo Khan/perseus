@@ -552,6 +552,9 @@ export type FilterCriterion =
       ) => boolean);
 
 // NOTE: Rubric should always be the corresponding widget options type for the component.
+// TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget
+// (which is what this seems to be for)
+// and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
     RenderProps,
     Rubric,
