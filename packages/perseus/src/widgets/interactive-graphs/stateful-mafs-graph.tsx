@@ -124,11 +124,7 @@ export const StatefulMafsGraph = React.forwardRef<
         // a bug where the graph would be marked "incorrect" during grading
         // even if the user never interacted with it.
         if (latestPropsRef.current !== originalPropsRef.current) {
-            dispatch(
-                reinitialize({
-                    ...latestPropsRef.current,
-                }),
-            );
+            dispatch(reinitialize(latestPropsRef.current));
         }
     }, [
         graph.type,

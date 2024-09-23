@@ -54,7 +54,7 @@ import {
     CHANGE_INTERACTION_MODE,
     type ChangeInteractionMode,
     CHANGE_KEYBOARD_INVITATION_VISIBILITY,
-    type ChangeKeyboardInvitationVibility,
+    type ChangeKeyboardInvitationVisibility,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -205,7 +205,7 @@ function doChangeInteractionMode(
 
 function doChangeKeyboardInvitationVisibility(
     state: InteractiveGraphState,
-    action: ChangeKeyboardInvitationVibility,
+    action: ChangeKeyboardInvitationVisibility,
 ): InteractiveGraphState {
     if (state.type !== "point") {
         return state;

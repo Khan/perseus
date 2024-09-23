@@ -19,13 +19,13 @@ export type InteractiveGraphAction =
     | DeleteIntent
     | ClickPoint
     | ChangeInteractionMode
-    | ChangeKeyboardInvitationVibility;
+    | ChangeKeyboardInvitationVisibility;
 
 export const actions = {
     global: {
         deleteIntent,
         changeInteractionMode,
-        changeKeyboardInvitationVibility,
+        changeKeyboardInvitationVisibility,
     },
     angle: {
         movePoint,
@@ -169,15 +169,15 @@ function changeInteractionMode(mode: InteractionMode): ChangeInteractionMode {
 }
 
 export const CHANGE_KEYBOARD_INVITATION_VISIBILITY =
-    "change-keyboard-interaction-invitation-visbility";
+    "change-keyboard-interaction-invitation-visibility";
 
-export interface ChangeKeyboardInvitationVibility {
+export interface ChangeKeyboardInvitationVisibility {
     type: typeof CHANGE_KEYBOARD_INVITATION_VISIBILITY;
     shouldShow: boolean;
 }
-function changeKeyboardInvitationVibility(
+function changeKeyboardInvitationVisibility(
     shouldShow: boolean,
-): ChangeKeyboardInvitationVibility {
+): ChangeKeyboardInvitationVisibility {
     return {
         type: CHANGE_KEYBOARD_INVITATION_VISIBILITY,
         shouldShow,
