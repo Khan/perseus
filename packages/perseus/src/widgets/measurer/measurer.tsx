@@ -1,6 +1,5 @@
 /* eslint-disable @babel/no-invalid-this */
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -13,10 +12,7 @@ import noopValidator from "../__shared__/noop-validator";
 import type {Coord} from "../../interactive2/types";
 import type {WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
-import {
-    PerseusImageWidgetOptions,
-    PerseusMeasurerWidgetOptions,
-} from "../../perseus-types";
+import {PerseusMeasurerWidgetOptions} from "../../perseus-types";
 
 const defaultImage = {
     url: null,
@@ -25,20 +21,15 @@ const defaultImage = {
 } as const;
 
 type RenderProps = PerseusMeasurerWidgetOptions; // there is no transform as part of exports
-type Rubric = {
-    protractorX: number;
-    protractorY: number;
-};
+type Rubric = {};
 
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
 type Props = ExternalProps & {
-    apiOptions: NonNullable<ExternalProps["alignment"]>;
+    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     box: NonNullable<ExternalProps["box"]>;
     image: ExternalProps["image"];
     showProtractor: NonNullable<ExternalProps["showProtractor"]>;
-    protractorX: NonNullable<ExternalProps["protractorX"]>;
-    protractorY: NonNullable<ExternalProps["protractorY"]>;
     showRuler: NonNullable<ExternalProps["showRuler"]>;
     rulerLabel: NonNullable<ExternalProps["rulerLabel"]>;
     rulerTicks: NonNullable<ExternalProps["rulerTicks"]>;
@@ -51,8 +42,6 @@ type DefaultProps = {
     box: Props["box"];
     image: Props["image"];
     showProtractor: Props["showProtractor"];
-    protractorX: Props["protractorX"];
-    protractorY: Props["protractorY"];
     showRuler: Props["showRuler"];
     rulerLabel: Props["rulerLabel"];
     rulerTicks: Props["rulerTicks"];
@@ -62,13 +51,16 @@ type DefaultProps = {
 
 export class Measurer extends React.Component<Props> {
     displayName: string = "Measurer";
+    protractorX: number = 7.5;
+    protractorY: number = 0.5;
 
     static defaultProps: DefaultProps = {
+        apiOptions: ApiOptions.defaults,
         box: [480, 480],
-        image: {},
+        image: {
+            url: null,
+        },
         showProtractor: true,
-        protractorX: 7.5,
-        protractorY: 0.5,
         showRuler: false,
         rulerLabel: "",
         rulerTicks: 10,
@@ -77,6 +69,8 @@ export class Measurer extends React.Component<Props> {
     };
 
     focus = $.noop;
+    protractor: any;
+    ruler: any;
 
     getInitialState() {
         return {};
@@ -132,25 +126,25 @@ export class Measurer extends React.Component<Props> {
                 this.props.apiOptions.setDrawingAreaAvailable,
         });
 
-        if (this.props.protractor) {
-            this.props.protractor.remove();
+        if (this.protractor) {
+            this.protractor.remove();
         }
 
         if (this.props.showProtractor) {
             // @ts-expect-error - Property 'protractor' does not exist on type 'Graphie'.
             this.protractor = graphie.protractor([
-                this.props.protractorX,
-                this.props.protractorY,
+                this.protractorX,
+                this.protractorY,
             ]);
         }
 
-        if (this.props.ruler) {
-            this.props.ruler.remove();
+        if (this.ruler) {
+            this.ruler.remove();
         }
 
         if (this.props.showRuler) {
             // @ts-expect-error - Property 'ruler' does not exist on type 'Graphie'.
-            this.ruler = graphie.ruler({
+            this._ruler = graphie.ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,
                     (range[1][0] + range[1][1]) / 2,
@@ -167,7 +161,12 @@ export class Measurer extends React.Component<Props> {
         return {};
     }
 
-    validate(state, rubric) {
+    validate(
+        state: {
+            currentValue: string;
+        },
+        rubric: Rubric,
+    ) {
         return {
             type: "points",
             earned: 1,
@@ -176,9 +175,9 @@ export class Measurer extends React.Component<Props> {
         };
     }
 
-    simpleValidate: function () {
+    simpleValidate() {
         return noopValidator(1);
-    },
+    }
 
     render() {
         const image = _.extend({}, defaultImage, this.props.image);
@@ -241,6 +240,7 @@ export default {
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
 } as WidgetExports<typeof Measurer>;
+
 function getUserInput() {
     throw new Error("Function not implemented.");
 }
