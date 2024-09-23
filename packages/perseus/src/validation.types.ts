@@ -18,6 +18,7 @@ import type {
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetOptions,
     PerseusNumberLineWidgetOptions,
+    PerseusNumericInputWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -141,6 +142,8 @@ export type PerseusNumberLineUserInput = {
     numDivisions: number;
     divisionRange: ReadonlyArray<number>;
 };
+
+export type PerseusNumericInputRubric = PerseusNumericInputWidgetOptions;
 
 export type PerseusNumericInputUserInput = {
     currentValue: string;
