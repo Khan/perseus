@@ -1,19 +1,19 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
-import _ from "underscore";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
 
+import sorterValidator from "./sorter-validator";
+
+import type {Rubric, UserInput} from "./sorter.types";
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 
 const {shuffle} = Util;
 
 type RenderProps = PerseusSorterWidgetOptions;
-
-type Rubric = PerseusSorterWidgetOptions;
 
 type Props = WidgetProps<RenderProps, Rubric>;
 
@@ -42,15 +42,8 @@ class Sorter extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static validate(state: any, rubric: any): any {
-        const correct = _.isEqual(state.options, rubric.correct);
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+        return sorterValidator(userInput, rubric);
     }
 
     state: any = {
@@ -84,12 +77,10 @@ class Sorter extends React.Component<Props, State> {
         });
     };
 
-    getUserInput: () => {
-        options: any;
-    } = () => {
+    getUserInput: () => UserInput = () => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-        return {options: this.refs.sortable.getOptions()};
+        return {values: this.refs.sortable.getOptions()};
     };
 
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
@@ -115,7 +106,7 @@ class Sorter extends React.Component<Props, State> {
             };
         }
 
-        return Sorter.validate(this.getUserInput(), rubric);
+        return sorterValidator(this.getUserInput(), rubric);
     };
 
     render(): React.ReactNode {
