@@ -3,7 +3,7 @@ import sorterValidator from "./sorter-validator";
 import type {Rubric, UserInput} from "./sorter.types";
 
 describe("SorterValidator", () => {
-    it("gives points when the answer is correct", () => {
+    it("is correct when the user input values are in the order defined in the rubric", () => {
         const userInput: UserInput = {
             values: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
         };
@@ -13,15 +13,10 @@ describe("SorterValidator", () => {
             correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
         };
         const result = sorterValidator(userInput, rubric);
-        expect(result).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("does not give points when the answer is incorrect", () => {
+    it("is incorrect when the user input values are not in the order defined in the rubric", () => {
         const userInput: UserInput = {
             values: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
         };
