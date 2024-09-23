@@ -1,10 +1,10 @@
-import _ from "underscore";
+import Util from "../../util";
 
 import type {Rubric, UserInput} from "./sorter.types";
 import type {PerseusScore} from "../../types";
 
 function sorterValidator(userInput: UserInput, rubric: Rubric): PerseusScore {
-    const correct = _.isEqual(userInput.values, rubric.correct);
+    const correct = Util.deepEq(userInput.values, rubric.correct);
 
     return {
         type: "points",
