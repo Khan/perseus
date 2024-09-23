@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Make widgets open by default. Add ability to open/close all widgets on a page externally.
+Make widget editors expanded by default. Add ability to expand/collapse all widget editors on a page externally.

@@ -48,7 +48,7 @@ type Props = {
     onChange: ChangeHandler;
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
-    // A global control for all widget open/close state on a page.
+    // A global control to expand/collapse all widget editors on a page.
     widgetsAreOpen?: boolean;
     // Initial value of the question being edited
     question?: any;
