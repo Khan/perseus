@@ -13,6 +13,7 @@ import type {
     PerseusIFrameWidgetOptions,
     PerseusImageWidgetOptions,
     PerseusInputNumberWidgetOptions,
+    PerseusInteractionWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -88,6 +89,12 @@ export type PerseusInputNumberRubric = PerseusInputNumberWidgetOptions;
 export type PerseusInputNumberUserInput = {
     currentValue: string;
 };
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusInteractionRubric = PerseusInteractionWidgetOptions;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type PerseusInteractionUserInput = Empty;
 
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
