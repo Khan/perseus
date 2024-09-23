@@ -7,16 +7,17 @@ import Util from "../../util";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusSorterUserInput} from "../../validation.types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusSorterRubric,
+    PerseusSorterUserInput,
+} from "../../validation.types";
 
 const {shuffle} = Util;
 
 type RenderProps = PerseusSorterWidgetOptions;
 
-type Rubric = PerseusSorterWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusSorterRubric>;
 
 type DefaultProps = {
     correct: Props["correct"];
@@ -43,7 +44,10 @@ class Sorter extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static validate(userInput: PerseusSorterUserInput, rubric: any): any {
+    static validate(
+        userInput: PerseusSorterUserInput,
+        rubric: PerseusSorterRubric,
+    ): PerseusScore {
         const correct = _.isEqual(userInput.options, rubric.correct);
 
         return {
@@ -54,7 +58,7 @@ class Sorter extends React.Component<Props, State> {
         };
     }
 
-    state: any = {
+    state: State = {
         changed: false,
     };
 
@@ -100,7 +104,7 @@ class Sorter extends React.Component<Props, State> {
         this.refs.sortable.moveOptionToIndex(option, index);
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric: PerseusSorterRubric): PerseusScore {
         // If this widget hasn't been changed yet, we treat it as "empty" which
         // prevents the "Check" button from becoming active. We want the user
         // to make a change before trying to move forward. This makes an
@@ -115,7 +119,7 @@ class Sorter extends React.Component<Props, State> {
         }
 
         return Sorter.validate(this.getUserInput(), rubric);
-    };
+    }
 
     render(): React.ReactNode {
         const options = shuffle(

@@ -24,6 +24,7 @@ import type {
     PerseusPassageWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRadioWidgetOptions,
+    PerseusSorterWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -191,6 +192,8 @@ export type PerseusRadioUserInput = {
     noneOfTheAboveIndex?: number | null | undefined;
     noneOfTheAboveSelected?: boolean;
 };
+
+export type PerseusSorterRubric = PerseusSorterWidgetOptions;
 
 export type PerseusSorterUserInput = {
     options: ReadonlyArray<number>;
