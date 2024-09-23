@@ -215,6 +215,7 @@ function doChangeKeyboardInvitationVisibility(
         return {
             ...state,
             showKeyboardInteractionInvitation: action.shouldShow,
+            hasBeenInteractedWith: true,
         };
     }
 
