@@ -78,8 +78,13 @@ class Sorter extends React.Component<Props, State> {
     };
 
     getUserInput: () => UserInput = () => {
+        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-        return {values: this.refs.sortable.getOptions()};
+        const options = this.refs.sortable.getOptions();
+        return {
+            options,
+            changed: this.state.changed,
+        };
     };
 
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
