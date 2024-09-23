@@ -96,6 +96,12 @@ export type PerseusInteractionRubric = PerseusInteractionWidgetOptions;
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusInteractionUserInput = Empty;
 
+export type PerseusInteractiveGraphRubric = {
+    // TODO(LEMS-2344): make the type of `correct` more specific
+    correct: PerseusGraphType;
+    graph: PerseusGraphType;
+};
+
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
 export type PerseusLabelImageUserInput = {
@@ -153,6 +159,7 @@ export type UserInput =
     | PerseusIFrameUserInput
     | PerseusImageUserInput
     | PerseusInputNumberUserInput
+    | PerseusInteractionUserInput
     | PerseusInteractiveGraphUserInput
     | PerseusLabelImageUserInput
     | PerseusMatcherUserInput

@@ -55,7 +55,10 @@ import type {
     Range,
     SineCoefficient,
 } from "../util/geometry";
-import type {PerseusInteractiveGraphUserInput} from "../validation.types";
+import type {
+    PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphUserInput,
+} from "../validation.types";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -119,12 +122,7 @@ const makeInvalidTypeError = (
 };
 
 type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
-export type Rubric = {
-    // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
-    graph: PerseusGraphType;
-};
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
 type State = any;
 type DefaultProps = {
     labels: Props["labels"];
@@ -1682,7 +1680,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return InteractiveGraph.getUserInputFromProps(this.props);
     }
 
-    simpleValidate(rubric: Rubric) {
+    simpleValidate(rubric: PerseusInteractiveGraphRubric) {
         return InteractiveGraph.validate(this.getUserInput(), rubric, this);
     }
 
@@ -1792,7 +1790,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         );
     }
 
-    simpleValidate(rubric: Rubric) {
+    simpleValidate(rubric: PerseusInteractiveGraphRubric) {
         return InteractiveGraph.validate(this.getUserInput(), rubric, this);
     }
 
@@ -2364,7 +2362,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static validate(
         userInput: PerseusGraphType,
-        rubric: Rubric,
+        rubric: PerseusInteractiveGraphRubric,
         component: any,
     ): PerseusScore {
         // None-type graphs are not graded

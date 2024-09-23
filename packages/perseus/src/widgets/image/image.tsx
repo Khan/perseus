@@ -12,8 +12,10 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusImageUserInput} from "../../validation.types";
-import type {Rubric} from "../interactive-graph";
+import type {
+    PerseusImageRubric,
+    PerseusImageUserInput,
+} from "../../validation.types";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -29,7 +31,7 @@ const DEFAULT_ALIGNMENT = "block";
 
 type RenderProps = PerseusImageWidgetOptions; // there is no transform as part of exports
 
-type ExternalProps = WidgetProps<RenderProps, Rubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusImageRubric>;
 
 type Props = ExternalProps & {
     alignment: NonNullable<ExternalProps["alignment"]>;
