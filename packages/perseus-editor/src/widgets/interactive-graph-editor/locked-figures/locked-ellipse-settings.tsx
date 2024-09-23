@@ -7,7 +7,6 @@ import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
-import {vec} from "mafs";
 import * as React from "react";
 
 import AngleInput from "../../../components/angle-input";
