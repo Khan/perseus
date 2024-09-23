@@ -30,7 +30,10 @@ export default function GraphLockedLabelsLayer(props: Props) {
                 figure.type === "vector") ||
             // Ellipse flag + ellipse type
             (flags?.["mafs"]?.["locked-ellipse-labels"] &&
-                figure.type === "ellipse")
+                figure.type === "ellipse") ||
+            // Function flag + function type
+            (flags?.["mafs"]?.["locked-function-labels"] &&
+                figure.type === "function")
         ) {
             return (
                 <React.Fragment key={i}>

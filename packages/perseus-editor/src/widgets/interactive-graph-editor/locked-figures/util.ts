@@ -90,6 +90,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 strokeStyle: "solid",
                 equation: "x^2",
                 directionalAxis: "x",
+                labels: [],
             };
         case "label":
             return {

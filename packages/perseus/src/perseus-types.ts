@@ -780,6 +780,7 @@ export type LockedFunctionType = {
     equation: string; // This is the user-defined equation (as it was typed)
     directionalAxis: "x" | "y";
     domain?: Interval;
+    labels: LockedLabelType[];
 };
 
 // Not associated with a specific figure

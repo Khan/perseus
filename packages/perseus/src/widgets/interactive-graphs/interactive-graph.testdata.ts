@@ -856,6 +856,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
         )
         .addLockedFunction("sin(x)", {
             color: "red",
+            labels: [{text: "E"}],
         })
         .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
         .build();
@@ -987,5 +988,12 @@ export const graphWithLabeledEllipse: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedEllipse([0, 0], [4, 2], {
             labels: [{text: "D"}],
+        })
+        .build();
+
+export const graphWithLabeledFunction: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedFunction("sin(x)", {
+            labels: [{text: "E"}],
         })
         .build();
