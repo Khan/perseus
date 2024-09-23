@@ -96,20 +96,7 @@ class Sorter extends React.Component<Props, State> {
         this.refs.sortable.moveOptionToIndex(option, index);
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        // If this widget hasn't been changed yet, we treat it as "empty" which
-        // prevents the "Check" button from becoming active. We want the user
-        // to make a change before trying to move forward. This makes an
-        // assumption that the initial order isn't the correct order! However,
-        // this should be rare if it happens, and interacting with the list
-        // will enable the button, so they won't be locked out of progressing.
-        if (!this.state.changed) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
+    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
         return sorterValidator(this.getUserInput(), rubric);
     };
 
