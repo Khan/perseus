@@ -9,20 +9,18 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
 import * as Changeable from "../../mixins/changeable";
-import WidgetJsonifyDeprecated from "../../mixins/widget-jsonify-deprecated";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 
+import categorizerValidator from "./categorizer-validator";
+
+import type {Rubric, UserInput} from "./categorizer.types";
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
-
-type UserInput = any;
-
-export type Rubric = PerseusCategorizerWidgetOptions;
 
 type Props = WidgetProps<RenderProps, Rubric> & {
     values: ReadonlyArray<string>;
@@ -59,32 +57,11 @@ export class Categorizer extends React.Component<Props, State> {
         rubric: Rubric,
         strings: PerseusStrings,
     ): PerseusScore {
-        let completed = true;
-        let allCorrect = true;
-        rubric.values.forEach((value, i) => {
-            if (userInput.values[i] == null) {
-                completed = false;
-            }
-            if (userInput.values[i] !== value) {
-                allCorrect = false;
-            }
-        });
-        if (!completed) {
-            return {
-                type: "invalid",
-                message: strings.invalidSelection,
-            };
-        }
-        return {
-            type: "points",
-            earned: allCorrect ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+        return categorizerValidator(userInput, rubric, strings);
     }
 
     static getUserInputFromProps(props: Props): UserInput {
-        return WidgetJsonifyDeprecated.getUserInputFromProps(props);
+        return {values: props.values};
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
@@ -105,7 +82,7 @@ export class Categorizer extends React.Component<Props, State> {
     }
 
     simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Categorizer.validate(
+        return categorizerValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
@@ -334,6 +311,7 @@ type RenderProps = {
 export default {
     name: "categorizer",
     displayName: "Categorizer",
+    hidden: true,
     widget: Categorizer,
     transform: (
         widgetOptions: PerseusCategorizerWidgetOptions,

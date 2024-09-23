@@ -8,13 +8,14 @@ import _ from "underscore";
 import Graphie from "../../components/graphie";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {Coord} from "../../interactive2/types";
 import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
@@ -124,13 +125,9 @@ class Interaction extends React.Component<Props, State> {
         elements: [],
     };
 
-    static validate(state: any, rubric: any): PerseusScore {
-        return {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
+        return noopValidator();
     }
 
     state: State = {
@@ -262,9 +259,10 @@ class Interaction extends React.Component<Props, State> {
         return {};
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        return Interaction.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         const range = this.props.graph.range;

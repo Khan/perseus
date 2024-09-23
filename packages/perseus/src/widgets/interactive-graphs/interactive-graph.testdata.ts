@@ -483,6 +483,14 @@ export const sinusoidQuestion: PerseusRenderer =
         })
         .build();
 
+export const noneQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
+    .withContent("This graph isn't interactive.\n\n[[☃ interactive-graph 1]]")
+    .withNoInteractiveFigure()
+    .addLockedFunction("5*sin(x)+x^3/20-ln(abs(x))", {color: "green"})
+    .addLockedEllipse([-5, 5], [2, 2], {color: "red", fillStyle: "translucent"})
+    .addLockedEllipse([5, -5], [2, 2], {color: "red", fillStyle: "translucent"})
+    .build();
+
 export const sinusoidQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
 
@@ -822,8 +830,12 @@ export const segmentWithLockedLabels: PerseusRenderer =
 
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedPointAt(-7, -7)
-        .addLockedLine([-7, -5], [2, -3])
+        .addLockedPointAt(-7, -7, {labels: [{text: "A"}]})
+        .addLockedLine([-7, -5], [2, -3], {
+            showPoint1: true,
+            showPoint2: true,
+            labels: [{text: "B"}],
+        })
         .addLockedVector([0, 0], [8, 2], "purple")
         .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
         .addLockedPolygon(
@@ -941,4 +953,18 @@ export const interactiveGraphWithAriaLabel: PerseusRenderer =
         .withFullGraphAriaDescription(
             "There is a segment on the graph that runs from five units left and five units up to five units right and five units up.",
         )
+        .build();
+
+export const graphWithLabeledPoint: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedPointAt(0, 0, {
+            labels: [{text: "A"}],
+        })
+        .build();
+
+export const graphWithLabeledLine: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedLine([-7, -5], [2, -3], {
+            labels: [{text: "B"}],
+        })
         .build();

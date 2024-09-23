@@ -4,14 +4,11 @@ import ReactDOM from "react-dom";
 
 import {ApiOptions} from "../../perseus-api";
 
+import dropdownValidator from "./dropdown-validator";
+
+import type {Rubric, UserInput} from "./dropdown.types";
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
-
-type Rubric = PerseusDropdownWidgetOptions;
-
-type UserInput = {
-    value: number;
-};
 
 type Props = WidgetProps<RenderProps, Rubric> & {
     selected: number;
@@ -33,20 +30,7 @@ class Dropdown extends React.Component<Props> {
     };
 
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
-        const selected = userInput.value;
-        if (selected === 0) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-        const correct = rubric.choices[selected - 1].correct;
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+        return dropdownValidator(userInput, rubric);
     }
 
     focus: () => boolean = () => {
@@ -74,7 +58,7 @@ class Dropdown extends React.Component<Props> {
     };
 
     simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Dropdown.validate(this.getUserInput(), rubric);
+        return dropdownValidator(this.getUserInput(), rubric);
     };
 
     render(): React.ReactNode {

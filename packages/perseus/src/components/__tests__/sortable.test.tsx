@@ -3,7 +3,7 @@ import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import Sortable, {Layout} from "../sortable";
+import Sortable from "../sortable";
 
 describe("Sortable", () => {
     beforeEach(() => {
@@ -16,7 +16,7 @@ describe("Sortable", () => {
         // Arrange and Act
         const {container} = render(
             <Sortable
-                layout={Layout.HORIZONTAL}
+                layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -47,7 +47,7 @@ describe("Sortable", () => {
         const {container} = render(
             <Sortable
                 waitForTexRendererToLoad={true}
-                layout={Layout.HORIZONTAL}
+                layout={"horizontal"}
                 options={["a", "b", "c"]}
             />,
         );
@@ -79,7 +79,7 @@ describe("moveOptionToIndex", () => {
         render(
             <Sortable
                 ref={(r) => (sortable = r)}
-                layout={Layout.HORIZONTAL}
+                layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -102,7 +102,7 @@ describe("moveOptionToIndex", () => {
         render(
             <Sortable
                 ref={(r) => (sortable = r)}
-                layout={Layout.HORIZONTAL}
+                layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -123,7 +123,7 @@ describe("moveOptionToIndex", () => {
         render(
             <Sortable
                 ref={(r) => (sortable = r)}
-                layout={Layout.HORIZONTAL}
+                layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -144,7 +144,7 @@ describe("moveOptionToIndex", () => {
         render(
             <Sortable
                 ref={(r) => (sortable = r)}
-                layout={Layout.HORIZONTAL}
+                layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,

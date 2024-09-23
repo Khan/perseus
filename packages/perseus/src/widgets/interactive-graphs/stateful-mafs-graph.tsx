@@ -15,9 +15,10 @@ import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
 import type {Widget} from "../../renderer";
+import type {APIOptions} from "../../types";
 
 export type StatefulMafsGraphProps = {
-    showLabelsFlag?: boolean;
+    flags?: APIOptions["flags"];
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;
@@ -110,6 +111,7 @@ export const StatefulMafsGraph = React.forwardRef<
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
     const showAngles = graph.type === "polygon" ? graph.showAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
+    const startCoords = "startCoords" in graph ? graph.startCoords : null;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);
@@ -130,7 +132,7 @@ export const StatefulMafsGraph = React.forwardRef<
         showAngles,
         showSides,
         latestPropsRef,
-        graph.startCoords,
+        startCoords,
     ]);
 
     // If the graph is static, it always displays the correct answer. This is

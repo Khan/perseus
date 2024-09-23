@@ -47,13 +47,14 @@ import type {
     InteractiveGraphProps,
     PointGraphState,
 } from "./types";
+import type {APIOptions} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
 
 export type MafsGraphProps = {
-    showLabelsFlag?: boolean;
+    flags?: APIOptions["flags"];
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     lockedFigures?: InteractiveGraphProps["lockedFigures"];
@@ -230,11 +231,15 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 )}
                             </svg>
                         </Mafs>
-                        {props.showLabelsFlag && props.lockedFigures && (
-                            <GraphLockedLabelsLayer
-                                lockedFigures={props.lockedFigures}
-                            />
-                        )}
+                        {props.flags?.["mafs"]?.[
+                            "interactive-graph-locked-features-labels"
+                        ] &&
+                            props.lockedFigures && (
+                                <GraphLockedLabelsLayer
+                                    flags={props.flags}
+                                    lockedFigures={props.lockedFigures}
+                                />
+                            )}
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}
@@ -248,13 +253,16 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 width={width}
                                 height={height}
                             >
-                                {/* Protractor */}
-                                {props.showProtractor && <Protractor />}
-                                {/* Interactive layer */}
-                                {renderGraph({
-                                    state,
-                                    dispatch,
-                                })}
+                                {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
+                                <svg {...nestedSVGAttributes}>
+                                    {/* Protractor */}
+                                    {props.showProtractor && <Protractor />}
+                                    {/* Interactive layer */}
+                                    {renderGraph({
+                                        state,
+                                        dispatch,
+                                    })}
+                                </svg>
                             </Mafs>
                         </View>
                     </View>
@@ -492,6 +500,8 @@ const renderGraph = (props: {
             return <QuadraticGraph graphState={state} dispatch={dispatch} />;
         case "sinusoid":
             return <SinusoidGraph graphState={state} dispatch={dispatch} />;
+        case "none":
+            return null;
         default:
             throw new UnreachableCaseError(type);
     }

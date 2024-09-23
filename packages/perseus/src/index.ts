@@ -133,7 +133,6 @@ export {makeSafeUrl} from "./widgets/phet-simulation";
  */
 export * as Changeable from "./mixins/changeable";
 export {default as EditorJsonify} from "./mixins/editor-jsonify";
-export {default as WidgetJsonifyDeprecated} from "./mixins/widget-jsonify-deprecated";
 export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
 
 /**

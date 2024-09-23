@@ -4,21 +4,26 @@ import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
+import invariant from "tiny-invariant";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../../../../testing/wait";
+import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/interactive-graph-editor/locked-figures/util";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {lockedFigureColors} from "../../perseus-types";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {
     angleQuestion,
     angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
+    graphWithLabeledLine,
+    graphWithLabeledPoint,
     interactiveGraphWithAriaLabel,
     linearQuestion,
     linearQuestionWithDefaultCorrect,
@@ -155,6 +160,26 @@ describe("interactive-graph widget", function () {
             });
         },
     );
+
+    describe("A none-type graph", () => {
+        it("renders predictably", () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {container} = renderQuestion(question, blankOptions);
+
+            expect(container).toMatchSnapshot("first render");
+        });
+
+        it("treats no interaction as a correct answer", async () => {
+            const question = interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .build();
+            const {renderer} = renderQuestion(question, blankOptions);
+
+            expect(renderer).toHaveBeenAnsweredCorrectly();
+        });
+    });
 });
 
 describe("a mafs graph", () => {
@@ -911,6 +936,108 @@ describe("locked layer", () => {
             left: "140px",
             top: "240px",
         });
+    });
+
+    it("should render a locked label within a locked point", async () => {
+        // Arrange
+        const {container} = renderQuestion(graphWithLabeledPoint, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-point-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const label = labels[0];
+
+        // Assert
+        expect(labels).toHaveLength(1);
+        expect(label).toHaveTextContent("A");
+        expect(label).toHaveStyle({
+            color: lockedFigureColors["grayH"],
+            fontSize: "16px",
+            left: "210px",
+            top: "200px",
+        });
+    });
+
+    it("should render a locked label within a locked line", async () => {
+        const {container} = renderQuestion(graphWithLabeledLine, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-line-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const label = labels[0];
+
+        // Assert
+        expect(labels).toHaveLength(1);
+        expect(label).toHaveTextContent("B");
+        expect(label).toHaveStyle({
+            color: lockedFigureColors["grayH"],
+            fontSize: "16px",
+            left: "150px",
+            top: "280px",
+        });
+    });
+
+    it("should render a locked label within a locked point within a locked line", async () => {
+        const question = {...graphWithLabeledLine};
+        invariant(
+            question.widgets["interactive-graph 1"].options.lockedFigures?.[0]
+                ?.type === "line",
+        );
+        question.widgets[
+            "interactive-graph 1"
+        ].options.lockedFigures[0].points = [
+            {
+                ...getDefaultFigureForType("point"),
+                labels: [
+                    {...getDefaultFigureForType("label"), text: "point A"},
+                ],
+            },
+            {
+                ...getDefaultFigureForType("point"),
+                labels: [
+                    {...getDefaultFigureForType("label"), text: "point B"},
+                ],
+            },
+        ];
+        const {container} = renderQuestion(graphWithLabeledLine, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-line-labels": true,
+                    "locked-point-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const lineLabel = labels[0];
+        const point1Label = labels[1];
+        const point2Label = labels[2];
+
+        // Assert
+        expect(labels).toHaveLength(3);
+        expect(lineLabel).toHaveTextContent("B");
+        expect(point1Label).toHaveTextContent("point A");
+        expect(point2Label).toHaveTextContent("point B");
     });
 
     it("should have an aria-label and description if they are provided", async () => {

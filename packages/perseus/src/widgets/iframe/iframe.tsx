@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 /**
  * This is an iframe widget. It is used for rendering an iframe that
  *  then communicates its state via window.postMessage
@@ -9,34 +8,46 @@
  */
 
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
-import WidgetJsonifyDeprecated from "../../mixins/widget-jsonify-deprecated";
 import Util from "../../util";
 
-import type {WidgetExports} from "../../types";
+import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
+import type {WidgetExports, WidgetProps} from "../../types";
 
 const {updateQueryString} = Util;
 
-/* This renders the iframe and handles validation via window.postMessage */
-class Iframe extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        url: PropTypes.string,
-        settings: PropTypes.array,
-        status: PropTypes.oneOf(["incomplete", "incorrect", "correct"]),
-        message: PropTypes.string,
-        allowFullScreen: PropTypes.bool,
-        allowTopNavigation: PropTypes.bool,
-    };
+type Status = "correct" | "incorrect" | "incomplete";
 
-    static defaultProps: any = {
+type UserInput = {
+    status: Status;
+    message: string | null;
+};
+
+type RenderProps = PerseusIFrameWidgetOptions & {
+    status: Status;
+    message: string | null;
+    width: string;
+    height: string;
+};
+
+export type Rubric = PerseusIFrameWidgetOptions;
+
+type Props = WidgetProps<RenderProps, Rubric>;
+
+type DefaultProps = {
+    status: Props["status"];
+    message: Props["message"];
+    allowFullScreen: Props["allowFullScreen"];
+    allowTopNavigation: Props["allowTopNavigation"];
+};
+
+/* This renders the iframe and handles validation via window.postMessage */
+class Iframe extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         status: "incomplete",
         // optional message
         message: null,
@@ -52,9 +63,9 @@ class Iframe extends React.Component<any> {
         $(window).off("message", this.handleMessageEvent);
     }
 
-    getUserInput: () => any = () => {
-        return WidgetJsonifyDeprecated.getUserInput.call(this);
-    };
+    getUserInput(): UserInput {
+        return {status: this.props.status, message: this.props.message};
+    }
 
     handleMessageEvent: (arg1: any) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}

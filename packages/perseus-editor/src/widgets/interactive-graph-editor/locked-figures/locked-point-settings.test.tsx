@@ -3,17 +3,28 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {flags} from "../../../__stories__/flags-for-api-options";
+
 import LockedPointSettings from "./locked-point-settings";
 import {getDefaultFigureForType} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
+    flags: {
+        ...flags,
+        mafs: {
+            ...flags.mafs,
+            "locked-line-settings": true,
+        },
+    },
     ...getDefaultFigureForType("point"),
     onRemove: () => {},
     onMove: () => {},
     onChangeProps: () => {},
 };
+
+const defaultLabel = getDefaultFigureForType("label");
 
 describe("LockedPointSettings", () => {
     let userEvent: UserEvent;
@@ -150,5 +161,190 @@ describe("LockedPointSettings", () => {
 
         // Assert
         expect(onToggle).toHaveBeenCalled();
+    });
+
+    test("Updates label coords when point x coord is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        // Default label coord for point at (0, 0)
+                        coord: [0.5, 0],
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const xCoordField = screen.getAllByLabelText("x coord")[0];
+        await userEvent.clear(xCoordField);
+        await userEvent.type(xCoordField, "2");
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            coord: [2, 0],
+            labels: [{...defaultLabel, coord: [2.5, 0]}],
+        });
+    });
+
+    test("Updates label coords when point y coord is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        // Default label coord for point at (0, 0)
+                        coord: [0, 0.5],
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const yCoordField = screen.getAllByLabelText("y coord")[0];
+        await userEvent.clear(yCoordField);
+        await userEvent.type(yCoordField, "2");
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            coord: [0, 2],
+            labels: [{...defaultLabel, coord: [0, 2.5]}],
+        });
+    });
+
+    test("Updates label color when point color is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        color: "grayH",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const colorSelect = screen.getByLabelText("color");
+        await userEvent.click(colorSelect);
+        await userEvent.click(screen.getByText("blue"));
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            color: "blue",
+            labels: [{...defaultLabel, color: "blue"}],
+        });
+    });
+
+    test("Updates labels when label text is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        text: "label text",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const labelText = screen.getByLabelText("TeX");
+        await userEvent.type(labelText, "!");
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            labels: [{...defaultLabel, text: "label text!"}],
+        });
+    });
+
+    test("Removes label when delete button is clicked", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        text: "label text",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const deleteButton = screen.getByRole("button", {
+            name: "Delete locked label",
+        });
+        await userEvent.click(deleteButton);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            labels: [],
+        });
+    });
+
+    test("Adds a new label when add label button is clicked", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        text: "label text",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const addLabelButton = screen.getByRole("button", {
+            name: "Add visible label",
+        });
+        await userEvent.click(addLabelButton);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            labels: [
+                {
+                    ...defaultLabel,
+                    text: "label text",
+                },
+                {
+                    ...defaultLabel,
+                    // Default 0.5 offset horizontally,
+                    // 1 down vertically for each preceding label.
+                    coord: [0.5, -1],
+                },
+            ],
+        });
     });
 });
