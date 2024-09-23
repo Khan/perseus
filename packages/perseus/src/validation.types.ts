@@ -15,6 +15,7 @@ import type {
     PerseusInputNumberWidgetOptions,
     PerseusInteractionWidgetOptions,
     PerseusLabelImageWidgetOptions,
+    PerseusMatcherWidgetOptions,
 } from "./perseus-types";
 import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
@@ -110,6 +111,8 @@ export type PerseusLabelImageRubric = PerseusLabelImageWidgetOptions;
 export type PerseusLabelImageUserInput = {
     markers: ReadonlyArray<InteractiveMarkerType>;
 };
+
+export type PerseusMatcherRubric = PerseusMatcherWidgetOptions;
 
 export type PerseusMatcherUserInput = {
     left: ReadonlyArray<string>;

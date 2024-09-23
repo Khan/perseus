@@ -66,7 +66,7 @@ type Point = {
     y: number;
 };
 
-// TODO: should this be using PerseusLabelImageWidgetOptions?
+// TODO: should this be using WidgetProps / PerseusLabelImageWidgetOptions?
 type LabelImageProps = ChangeableProps &
     DependencyProps & {
         apiOptions: APIOptions;
