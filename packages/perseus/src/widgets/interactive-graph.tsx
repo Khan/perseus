@@ -1656,6 +1656,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
         $(this.angle).on("move", () => {
             this.onChange({
+                // @ts-expect-error Type '{ coords: any; type: "angle"; showAngles?: boolean | undefined; allowReflexAngles?: boolean | undefined; angleOffsetDeg?: number | undefined; snapDegrees?: number | undefined; match?: "congruent" | undefined; }' is not assignable to type 'InteractiveGraphState | undefined'.
                 graph: {...graph, coords: this.angle?.getClockwiseCoords()},
             });
         });
