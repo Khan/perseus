@@ -22,6 +22,7 @@ import {
     angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
+    graphWithLabeledEllipse,
     graphWithLabeledLine,
     graphWithLabeledPoint,
     graphWithLabeledVector,
@@ -1066,6 +1067,34 @@ describe("locked layer", () => {
             fontSize: "16px",
             left: "280px",
             top: "180px",
+        });
+    });
+
+    it("should render a locked label within a locked ellipse", async () => {
+        // Arrange
+        const {container} = renderQuestion(graphWithLabeledEllipse, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-ellipse-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const label = labels[0];
+
+        // Assert
+        expect(labels).toHaveLength(1);
+        expect(label).toHaveTextContent("D");
+        expect(label).toHaveStyle({
+            color: lockedFigureColors["grayH"],
+            fontSize: "16px",
+            left: "200px",
+            top: "200px",
         });
     });
 

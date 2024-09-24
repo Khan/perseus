@@ -761,6 +761,7 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    labels: LockedLabelType[];
 };
 
 export type LockedPolygonType = {

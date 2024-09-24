@@ -170,6 +170,11 @@ export const InteractiveGraphLockedFeaturesFlags = [
      * updated Interactive Graph widget.
      */
     "locked-vector-labels",
+    /**
+     * Enables/disables the labels associated with locked ellipses in the
+     * updated Interactive Graph widget.
+     */
+    "locked-ellipse-labels",
 ] as const;
 
 /**

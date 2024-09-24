@@ -840,7 +840,11 @@ export const segmentWithLockedFigures: PerseusRenderer =
             color: "purple",
             labels: [{text: "C"}],
         })
-        .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
+        .addLockedEllipse([0, 5], [4, 2], {
+            angle: Math.PI / 4,
+            color: "blue",
+            labels: [{text: "D"}],
+        })
         .addLockedPolygon(
             [
                 [-9, 4],
@@ -976,5 +980,12 @@ export const graphWithLabeledVector: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedVector([0, 0], [8, 2], {
             labels: [{text: "C"}],
+        })
+        .build();
+
+export const graphWithLabeledEllipse: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedEllipse([0, 0], [4, 2], {
+            labels: [{text: "D"}],
         })
         .build();
