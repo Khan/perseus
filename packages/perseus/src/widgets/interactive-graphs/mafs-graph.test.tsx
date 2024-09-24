@@ -142,6 +142,8 @@ describe("MafsGraph", () => {
             focusedPointIndex: null,
             hasBeenInteractedWith: true,
             showRemovePointButton: false,
+            interactionMode: "mouse",
+            showKeyboardInteractionInvitation: false,
             range: [
                 [-10, 10],
                 [-10, 10],
@@ -399,6 +401,8 @@ describe("MafsGraph", () => {
                 focusedPointIndex: 0,
                 hasBeenInteractedWith: true,
                 showRemovePointButton: true,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
                 range: [
                     [-10, 10],
                     [-10, 10],
@@ -436,6 +440,8 @@ describe("MafsGraph", () => {
             focusedPointIndex: 0,
             hasBeenInteractedWith: true,
             showRemovePointButton: true,
+            interactionMode: "mouse",
+            showKeyboardInteractionInvitation: false,
             range: [
                 [-10, 10],
                 [-10, 10],

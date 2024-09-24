@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 14.4.0
+
+### Minor Changes
+
+-   [#1642](https://github.com/Khan/perseus/pull/1642) [`75e19c557`](https://github.com/Khan/perseus/commit/75e19c557a0439b6645d09c3a0586d7f09d06539) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] View locked line labels
+
+*   [#1647](https://github.com/Khan/perseus/pull/1647) [`49bf45573`](https://github.com/Khan/perseus/commit/49bf4557313c7d69d5a287095991cf11cbc81752) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add labels to locked lines' defining points in the graph and editor
+
+-   [#1644](https://github.com/Khan/perseus/pull/1644) [`136b6e54c`](https://github.com/Khan/perseus/commit/136b6e54cf6ab1a8514533bad03ac7f752532084) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add/edit/delete locked line labels
+
+*   [#1643](https://github.com/Khan/perseus/pull/1643) [`2950ec33f`](https://github.com/Khan/perseus/commit/2950ec33ff6bcea92ffc3bf035fff6fdffa22804) Thanks [@anniegallagher](https://github.com/anniegallagher)! - Make widget editors expanded by default. Add ability to expand/collapse all widget editors on a page externally.
+
+### Patch Changes
+
+-   Updated dependencies [[`7822ea63c`](https://github.com/Khan/perseus/commit/7822ea63c9f91adebe2b6ea0841db1ae62c9d088), [`75e19c557`](https://github.com/Khan/perseus/commit/75e19c557a0439b6645d09c3a0586d7f09d06539), [`49bf45573`](https://github.com/Khan/perseus/commit/49bf4557313c7d69d5a287095991cf11cbc81752), [`1080a628b`](https://github.com/Khan/perseus/commit/1080a628bd77139be91987763153273318dd8792), [`d766b33dd`](https://github.com/Khan/perseus/commit/d766b33dd70d63e2441fa1655ca30230432a6418), [`25d45af95`](https://github.com/Khan/perseus/commit/25d45af95aaacf302a7ea0cceae9d4c0cf1cab0b), [`b5594e81d`](https://github.com/Khan/perseus/commit/b5594e81d81bbc9dcd100bfc35dbca98c2241c51), [`f5ceabb7d`](https://github.com/Khan/perseus/commit/f5ceabb7dbdfc984d08eed0ea55cf4202ca276e2), [`136b6e54c`](https://github.com/Khan/perseus/commit/136b6e54cf6ab1a8514533bad03ac7f752532084), [`64bcde0a1`](https://github.com/Khan/perseus/commit/64bcde0a1f98b4232e5347a06f4c8cad7265d006)]:
+    -   @khanacademy/perseus@34.1.0
+
 ## 14.3.0
 
 ### Minor Changes
