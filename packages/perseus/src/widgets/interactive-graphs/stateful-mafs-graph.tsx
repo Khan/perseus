@@ -69,7 +69,7 @@ export const StatefulMafsGraph = React.forwardRef<
             onChange({graph: mafsStateToInteractiveGraph(state, graph)});
         }
         prevState.current = state;
-    }, [onChange, state]);
+    }, [onChange, state, graph]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;

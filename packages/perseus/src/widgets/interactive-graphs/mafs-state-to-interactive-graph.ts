@@ -1,10 +1,10 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import invariant from "tiny-invariant";
 
 import {getRadius} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "@khanacademy/perseus";
-import invariant from "tiny-invariant";
 
 // Converts the state of a StatefulMafsGraph back to the format used to
 // represent graph state in the widget JSON.
@@ -28,68 +28,68 @@ export function mafsStateToInteractiveGraph(
 ): PerseusGraphType {
     switch (state.type) {
         case "angle":
-            invariant(originalGraph.type === "angle")
+            invariant(originalGraph.type === "angle");
             return {
                 ...originalGraph,
                 coords: state.coords,
             };
         case "quadratic":
-            invariant(originalGraph.type === "quadratic")
+            invariant(originalGraph.type === "quadratic");
             return {
                 ...originalGraph,
                 coords: state.coords,
             };
         case "circle":
-            invariant(originalGraph.type === "circle")
+            invariant(originalGraph.type === "circle");
             return {
                 ...originalGraph,
                 center: state.center,
                 radius: getRadius(state),
             };
         case "linear":
-            invariant(originalGraph.type === "linear")
+            invariant(originalGraph.type === "linear");
             return {
                 ...originalGraph,
                 coords: state.coords,
-            }
+            };
         case "ray":
-            invariant(originalGraph.type === "ray")
+            invariant(originalGraph.type === "ray");
             return {
                 ...originalGraph,
                 coords: state.coords,
-            }
+            };
         case "sinusoid":
-            invariant(originalGraph.type === "sinusoid")
+            invariant(originalGraph.type === "sinusoid");
             return {
                 ...originalGraph,
                 coords: state.coords,
             };
         case "segment":
-            invariant(originalGraph.type === "segment")
+            invariant(originalGraph.type === "segment");
             return {
                 ...originalGraph,
                 coords: state.coords,
             };
         case "linear-system":
-            invariant(originalGraph.type === "linear-system")
+            invariant(originalGraph.type === "linear-system");
             return {
                 ...originalGraph,
                 coords: state.coords,
             };
         case "polygon":
-            invariant(originalGraph.type === "polygon")
+            invariant(originalGraph.type === "polygon");
             return {
                 ...originalGraph,
                 coords: state.coords,
-            }
+            };
         case "point":
-            invariant(originalGraph.type === "point")
+            invariant(originalGraph.type === "point");
             return {
                 ...originalGraph,
                 coords: state.coords,
             };
         case "none":
-            invariant(originalGraph.type === "none")
+            invariant(originalGraph.type === "none");
             return {...originalGraph};
         default:
             throw new UnreachableCaseError(state);
