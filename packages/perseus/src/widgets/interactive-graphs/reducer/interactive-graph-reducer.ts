@@ -74,7 +74,8 @@ export function interactiveGraphReducer(
 ): InteractiveGraphState {
     switch (action.type) {
         case REINITIALIZE:
-            return initializeGraphState(action.params);
+            return state;
+        // return initializeGraphState(action.params);
         case MOVE_POINT_IN_FIGURE:
             return doMovePointInFigure(state, action);
         case MOVE_LINE:

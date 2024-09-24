@@ -52,6 +52,8 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {usePerseusI18n} from "../../components/i18n-context";
+import {PerseusStrings} from "@khanacademy/perseus/strings";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -107,6 +109,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
         x: viewboxX,
         y: viewboxY,
     };
+
+    const {strings} = usePerseusI18n();
 
     return (
         <GraphConfigContext.Provider
@@ -284,13 +288,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 }}
                             >
                                 <LabelMedium>
-                                    Press <strong>Shift + Enter</strong> to
-                                    interact with the graph
+                                    {strings.graphKeyboardPrompt}
                                 </LabelMedium>
                             </View>
                         )}
                 </View>
-                {renderGraphControls({state, dispatch, width})}
+                {renderGraphControls({state, dispatch, width, strings})}
             </View>
         </GraphConfigContext.Provider>
     );
@@ -300,9 +303,15 @@ const renderPointGraphControls = (props: {
     state: PointGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
+    strings: PerseusStrings;
 }) => {
     const {interactionMode, showRemovePointButton, focusedPointIndex} =
         props.state;
+    const {strings} = props;
+
+    const shouldShowRemoveButton =
+        showRemovePointButton && focusedPointIndex !== null;
+
     return (
         <View
             style={{
@@ -322,34 +331,35 @@ const renderPointGraphControls = (props: {
                         props.dispatch(actions.pointGraph.addPoint([0, 0]));
                     }}
                 >
-                    Add Point
+                    {strings.addPoint}
                 </Button>
             )}
-            {interactionMode === "mouse" &&
-                showRemovePointButton &&
-                focusedPointIndex !== null && (
-                    <Button
-                        id={REMOVE_BUTTON_ID}
-                        kind="secondary"
-                        color="destructive"
-                        // This button is meant to be interacted with by the mouse only
-                        // Never allow learners to tab to this button
-                        tabIndex={-1}
-                        style={{
-                            width: "100%",
-                            marginLeft: "20px",
-                        }}
-                        onClick={(event) => {
-                            props.dispatch(
-                                actions.pointGraph.removePoint(
-                                    props.state.focusedPointIndex!,
-                                ),
-                            );
-                        }}
-                    >
-                        Remove Point
-                    </Button>
-                )}
+            {interactionMode === "mouse" && (
+                <Button
+                    id={REMOVE_BUTTON_ID}
+                    kind="secondary"
+                    color="destructive"
+                    // This button is meant to be interacted with by the mouse only
+                    // Never allow learners to tab to this button
+                    tabIndex={-1}
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                        visibility: shouldShowRemoveButton
+                            ? "visible"
+                            : "hidden",
+                    }}
+                    onClick={(event) => {
+                        props.dispatch(
+                            actions.pointGraph.removePoint(
+                                props.state.focusedPointIndex!,
+                            ),
+                        );
+                    }}
+                >
+                    {strings.removePoint}
+                </Button>
+            )}
         </View>
     );
 };
@@ -358,13 +368,19 @@ const renderGraphControls = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
+    strings: PerseusStrings;
 }) => {
-    const {state, dispatch, width} = props;
+    const {state, dispatch, width, strings} = props;
     const {type} = state;
     switch (type) {
         case "point":
             if (state.numPoints === "unlimited") {
-                return renderPointGraphControls({state, dispatch, width});
+                return renderPointGraphControls({
+                    state,
+                    dispatch,
+                    width,
+                    strings,
+                });
             }
             return null;
         default:
