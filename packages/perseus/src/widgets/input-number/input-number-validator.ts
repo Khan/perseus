@@ -3,7 +3,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 import type {Rubric} from "./input-number.types";
 import type {PerseusStrings} from "../../strings";
-import type {APIOptions, PerseusScore} from "@khanacademy/perseus";
+import type {PerseusScore} from "@khanacademy/perseus";
 
 const ParseTex = TexWrangler.parseTex;
 
@@ -48,7 +48,6 @@ function inputNumberValidator(
     },
     rubric: Rubric,
     strings: PerseusStrings,
-    onInputError: APIOptions["onInputError"] = () => {},
 ): PerseusScore {
     if (rubric.answerType == null) {
         rubric.answerType = "number";
@@ -78,15 +77,9 @@ function inputNumberValidator(
     // TODO(eater): Seems silly to translate result to this invalid/points
     // thing and immediately translate it back in ItemRenderer.scoreInput()
     if (result.empty) {
-        // TODO(FEI-3867): remove null-check once we have APIOptionsInternal
-        const apiResult = onInputError?.(
-            null, // reserved for some widget identifier
-            state.currentValue,
-            result.message,
-        );
         return {
             type: "invalid",
-            message: apiResult === false ? null : result.message,
+            message: result.message,
         };
     }
     return {

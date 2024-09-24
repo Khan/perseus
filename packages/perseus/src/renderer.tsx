@@ -1809,7 +1809,6 @@ class Renderer extends React.Component<Props, State> {
         [widgetId: string]: PerseusScore;
     } = () => {
         const widgetProps = this.state.widgetInfo;
-        const onInputError = this.getApiOptions().onInputError;
 
         const gradedWidgetIds = _.filter(this.widgetIds, (id) => {
             const props = widgetProps[id];
@@ -1826,10 +1825,10 @@ class Renderer extends React.Component<Props, State> {
             const widget = this.getWidgetInstance(id);
             // widget can be undefined if it hasn't yet been rendered
             if (widget && widget.simpleValidate) {
-                widgetScores[id] = widget.simpleValidate(
-                    {...props?.options, scoring: true},
-                    onInputError,
-                );
+                widgetScores[id] = widget.simpleValidate({
+                    ...props?.options,
+                    scoring: true,
+                });
             }
         });
 
