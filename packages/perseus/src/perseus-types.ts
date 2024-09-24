@@ -742,6 +742,7 @@ export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
+    labels: LockedLabelType[];
 };
 
 export type LockedFigureFillType = "none" | "white" | "translucent" | "solid";

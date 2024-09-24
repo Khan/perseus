@@ -977,13 +977,17 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "grayH",
+                labels: [],
             },
         ]);
     });
 
-    it("adds a locked vector with a specified color", () => {
+    it("adds a locked vector with options and minimal label", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .addLockedVector([1, 2], [3, 4], "green")
+            .addLockedVector([1, 2], [3, 4], {
+                color: "green",
+                labels: [{text: "a label"}],
+            })
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
@@ -995,6 +999,45 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "green",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [2, 3],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked vector with options and specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedVector([1, 2], [3, 4], {
+                color: "green",
+                labels: [{text: "a label", coord: [9, 9], size: "small"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "vector",
+                points: [
+                    [1, 2],
+                    [3, 4],
+                ],
+                color: "green",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "green",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });

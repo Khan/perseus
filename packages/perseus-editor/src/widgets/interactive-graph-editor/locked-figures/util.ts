@@ -57,6 +57,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                     [2, 2],
                 ],
                 color: DEFAULT_COLOR,
+                labels: [],
             };
         case "ellipse":
             return {

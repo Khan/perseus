@@ -707,7 +707,7 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer =
 export const segmentWithLockedVectors: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedVector([0, 0], [2, 2])
-        .addLockedVector([2, 2], [-2, 4], "green")
+        .addLockedVector([2, 2], [-2, 4], {color: "green"})
         .build();
 
 export const segmentWithLockedEllipses: PerseusRenderer =
@@ -836,7 +836,10 @@ export const segmentWithLockedFigures: PerseusRenderer =
             showPoint2: true,
             labels: [{text: "B"}],
         })
-        .addLockedVector([0, 0], [8, 2], "purple")
+        .addLockedVector([0, 0], [8, 2], {
+            color: "purple",
+            labels: [{text: "C"}],
+        })
         .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
         .addLockedPolygon(
             [
@@ -863,7 +866,7 @@ export const staticGraphQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7)
         .addLockedLine([-7, -5], [2, -3])
-        .addLockedVector([0, 0], [8, 2], "purple")
+        .addLockedVector([0, 0], [8, 2], {color: "purple"})
         .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
         .addLockedPolygon(
             [
@@ -882,7 +885,7 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
         const result = interactiveGraphQuestionBuilder()
             .addLockedPointAt(-7, -7)
             .addLockedLine([-7, -5], [2, -3])
-            .addLockedVector([0, 0], [8, 2], "purple")
+            .addLockedVector([0, 0], [8, 2], {color: "purple"})
             .addLockedEllipse([0, 5], [4, 2], {
                 angle: Math.PI / 4,
                 color: "blue",
@@ -966,5 +969,12 @@ export const graphWithLabeledLine: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedLine([-7, -5], [2, -3], {
             labels: [{text: "B"}],
+        })
+        .build();
+
+export const graphWithLabeledVector: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedVector([0, 0], [8, 2], {
+            labels: [{text: "C"}],
         })
         .build();

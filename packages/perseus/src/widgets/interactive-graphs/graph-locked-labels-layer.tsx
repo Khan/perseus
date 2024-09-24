@@ -23,7 +23,11 @@ export default function GraphLockedLabelsLayer(props: Props) {
             (flags?.["mafs"]?.["locked-point-labels"] &&
                 figure.type === "point") ||
             // Line flag + line type
-            (flags?.["mafs"]?.["locked-line-labels"] && figure.type === "line")
+            (flags?.["mafs"]?.["locked-line-labels"] &&
+                figure.type === "line") ||
+            // Vector flag + vector type
+            (flags?.["mafs"]?.["locked-vector-labels"] &&
+                figure.type === "vector")
         ) {
             return (
                 <React.Fragment key={i}>

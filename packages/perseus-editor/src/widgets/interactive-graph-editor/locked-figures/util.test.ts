@@ -50,6 +50,7 @@ describe("getDefaultFigureForType", () => {
                 [2, 2],
             ],
             color: "grayH",
+            labels: [],
         });
     });
 

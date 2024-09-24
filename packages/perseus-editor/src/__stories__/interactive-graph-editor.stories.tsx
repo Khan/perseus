@@ -155,6 +155,7 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                         "interactive-graph-locked-features-labels": false,
                         "locked-point-labels": false,
                         "locked-line-labels": false,
+                        "locked-vector-labels": false,
                     },
                 },
             }}
@@ -181,20 +182,13 @@ export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
                         "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": false,
                         "locked-line-labels": false,
+                        "locked-vector-labels": false,
                     },
                 },
             }}
             question={segmentWithLockedFigures}
         />
     );
-};
-
-MafsWithLockedLabelsFlag.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
 };
 
 export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
@@ -207,20 +201,13 @@ export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
                         "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": true,
                         "locked-line-labels": false,
+                        "locked-vector-labels": false,
                     },
                 },
             }}
             question={segmentWithLockedFigures}
         />
     );
-};
-
-MafsWithLockedPointLabelsFlag.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
 };
 
 export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
@@ -233,6 +220,7 @@ export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
                         "interactive-graph-locked-features-labels": true,
                         "locked-point-labels": false,
                         "locked-line-labels": true,
+                        "locked-vector-labels": false,
                     },
                 },
             }}
@@ -241,12 +229,23 @@ export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
     );
 };
 
-MafsWithLockedLineLabelsFlag.parameters = {
-    chromatic: {
-        // Disabling because this isn't visually testing anything on the
-        // initial load of the editor page.
-        disable: true,
-    },
+export const MafsWithLockedVectorLabelsFlag = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": false,
+                        "locked-line-labels": false,
+                        "locked-vector-labels": true,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
+    );
 };
 
 export const WithSaveWarnings = (): React.ReactElement => {

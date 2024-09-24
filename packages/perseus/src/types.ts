@@ -165,6 +165,11 @@ export const InteractiveGraphLockedFeaturesFlags = [
      * updated Interactive Graph widget.
      */
     "locked-line-labels",
+    /**
+     * enables/disables the labels associated with locked vectors in the
+     * updated Interactive Graph widget.
+     */
+    "locked-vector-labels",
 ] as const;
 
 /**
