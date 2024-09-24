@@ -7,6 +7,7 @@ import Util from "../../util";
 import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
+import radioValidator from "./radio-validator";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {
@@ -33,14 +34,16 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type UserInput = {
+export type UserInput = {
     countChoices?: boolean;
     choicesSelected: ReadonlyArray<boolean>;
     numCorrect?: number;
     noneOfTheAboveIndex?: number | null | undefined;
     noneOfTheAboveSelected?: boolean;
 };
-type Rubric = PerseusRadioWidgetOptions;
+
+export type Rubric = PerseusRadioWidgetOptions;
+
 type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = Required<
@@ -81,56 +84,7 @@ class Radio extends React.Component<Props> {
         rubric: Rubric,
         strings: PerseusStrings,
     ): PerseusScore {
-        const numSelected = userInput.choicesSelected.reduce(
-            (sum, selected) => {
-                return sum + (selected ? 1 : 0);
-            },
-            0,
-        );
-
-        if (numSelected === 0) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
-        if (
-            userInput.numCorrect &&
-            userInput.numCorrect > 1 &&
-            numSelected !== userInput.numCorrect
-        ) {
-            return {
-                type: "invalid",
-                message: strings.chooseCorrectNum,
-            };
-            // If NOTA and some other answer are checked, ...
-        }
-        if (userInput.noneOfTheAboveSelected && numSelected > 1) {
-            return {
-                type: "invalid",
-                message: strings.notNoneOfTheAbove,
-            };
-        }
-
-        const correct = userInput.choicesSelected.every((selected, i) => {
-            let isCorrect;
-            if (userInput.noneOfTheAboveIndex === i) {
-                isCorrect = rubric.choices.every((choice, j) => {
-                    return i === j || !choice.correct;
-                });
-            } else {
-                isCorrect = !!rubric.choices[i].correct;
-            }
-            return isCorrect === selected;
-        });
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+        return radioValidator(userInput, rubric, strings);
     }
 
     static getUserInputFromProps(props: Props): UserInput {
@@ -346,15 +300,13 @@ class Radio extends React.Component<Props> {
         return Radio.getUserInputFromProps(this.props);
     };
 
-    simpleValidate: (arg1: PerseusRadioWidgetOptions) => PerseusScore = (
-        rubric,
-    ) => {
-        return Radio.validate(
+    simpleValidate(rubric: PerseusRadioWidgetOptions): PerseusScore {
+        return radioValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     /**
      * Turn on rationale display for the currently selected choices. Note that
