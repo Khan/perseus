@@ -234,9 +234,9 @@ export class NumericInput extends React.Component<Props, State> {
         );
     };
 
-    getUserInput: () => PerseusNumericInputUserInput = () => {
+    getUserInput(): PerseusNumericInputUserInput {
         return NumericInput.getUserInputFromProps(this.props);
-    };
+    }
 
     handleChange: (
         arg1: string,

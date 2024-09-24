@@ -1138,9 +1138,9 @@ export class Plotter extends React.Component<Props, State> {
         });
     };
 
-    getUserInput: () => PerseusPlotterUserInput = () => {
+    getUserInput(): PerseusPlotterUserInput {
         return this.state.values;
-    };
+    }
 
     simpleValidate(rubric: PerseusPlotterRubric): PerseusScore {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Plotter'.

@@ -338,9 +338,9 @@ class Radio extends React.Component<Props> {
         this.props.trackInteraction();
     };
 
-    getUserInput: () => PerseusRadioUserInput = () => {
+    getUserInput(): PerseusRadioUserInput {
         return Radio.getUserInputFromProps(this.props);
-    };
+    }
 
     simpleValidate(rubric: PerseusRadioRubric): PerseusScore {
         return Radio.validate(

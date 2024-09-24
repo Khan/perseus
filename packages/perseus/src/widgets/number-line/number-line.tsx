@@ -626,14 +626,14 @@ class NumberLine extends React.Component<Props, State> {
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     };
 
-    getUserInput: () => PerseusNumberLineUserInput = () => {
+    getUserInput(): PerseusNumberLineUserInput {
         return {
             numLinePosition: this.props.numLinePosition,
             rel: this.props.isInequality ? this.props.rel : "eq",
             numDivisions: this.props.numDivisions,
             divisionRange: this.props.divisionRange,
         };
-    };
+    }
 
     simpleValidate(rubric: PerseusNumberLineRubric) {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof NumberLine'.

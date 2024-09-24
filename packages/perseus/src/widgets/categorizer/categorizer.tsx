@@ -72,9 +72,9 @@ export class Categorizer extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => PerseusCategorizerUserInput = () => {
+    getUserInput(): PerseusCategorizerUserInput {
         return Categorizer.getUserInputFromProps(this.props);
-    };
+    }
 
     onChange(itemNum, catNum) {
         const values = [...this.props.values];
@@ -84,15 +84,13 @@ export class Categorizer extends React.Component<Props, State> {
         this.props.trackInteraction();
     }
 
-    simpleValidate: (arg1: PerseusCategorizerRubric) => PerseusScore = (
-        rubric,
-    ) => {
+    simpleValidate(rubric: PerseusCategorizerRubric): PerseusScore {
         return categorizerValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     render(): React.ReactNode {
         const self = this;

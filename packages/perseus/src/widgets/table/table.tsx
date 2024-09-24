@@ -97,9 +97,9 @@ class Table extends React.Component<Props> {
         return this.props.answers[0].length;
     };
 
-    getUserInput: () => PerseusTableUserInput = () => {
+    getUserInput(): PerseusTableUserInput {
         return _.map(this.props.answers, _.clone) as PerseusTableUserInput;
-    };
+    }
 
     onValueChange: (arg1: any, arg2: any, arg3: any) => void = (
         row,

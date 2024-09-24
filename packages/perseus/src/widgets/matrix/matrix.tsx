@@ -390,11 +390,11 @@ class Matrix extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    getUserInput: () => PerseusMatrixUserInput = () => {
+    getUserInput(): PerseusMatrixUserInput {
         return {
             answers: this.props.answers,
         };
-    };
+    }
 
     simpleValidate(rubric: PerseusMatrixRubric) {
         return Matrix.validate(

@@ -623,13 +623,13 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         this.setState({current: list});
     };
 
-    getUserInput: () => PerseusOrdererUserInput = () => {
+    getUserInput(): PerseusOrdererUserInput {
         return {
             current: _.map(this.props.current, function (v) {
                 return v.content;
             }),
         };
-    };
+    }
 
     simpleValidate(rubric: PerseusOrdererRubric) {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Orderer'.

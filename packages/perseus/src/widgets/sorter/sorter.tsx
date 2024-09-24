@@ -89,11 +89,11 @@ class Sorter extends React.Component<Props, State> {
         });
     };
 
-    getUserInput: () => PerseusSorterUserInput = () => {
+    getUserInput(): PerseusSorterUserInput {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
         return {options: this.refs.sortable.getOptions()};
-    };
+    }
 
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
         option,
