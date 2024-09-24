@@ -18,78 +18,128 @@ type PerseusRenderer = {
     guessAndScore: () => [Array<any>, PerseusScore];
 };
 
+type Answerable = PerseusRenderer | PerseusScore;
+
+function isRenderer(obj: Answerable): obj is PerseusRenderer {
+    // @ts-expect-error - TS(2339) - TS is annoying
+    return obj?.guessAndScore !== undefined;
+}
+
+function check(answerable: Answerable) {
+    let widgetState: string = "";
+    let score: PerseusScore;
+
+    if (isRenderer(answerable)) {
+        const result = answerable.guessAndScore();
+        widgetState = JSON.stringify(result[0]);
+        score = result[1];
+    } else {
+        score = answerable;
+    }
+
+    return {widgetState, score};
+}
+
+function maybeAddState(message: string, widgetState: string): string {
+    if (!widgetState) {
+        return message;
+    }
+
+    return message + `; widget state: ${widgetState}`;
+}
+
 expect.extend({
-    toHaveBeenAnsweredCorrectly(renderer: PerseusRenderer) {
-        const [widgetState, score] = renderer.guessAndScore();
+    toHaveBeenAnsweredCorrectly(answerable: Answerable) {
+        const {widgetState, score} = check(answerable);
+
         if (score.type === "invalid") {
+            const errMessage = maybeAddState(
+                `Invalid answer: ${score.message || "(no message)"}`,
+                widgetState,
+            );
+
             return {
                 pass: false,
-                message: () =>
-                    `Invalid answer: ${
-                        score.message || "(no message)"
-                    }; widget state ${JSON.stringify(widgetState)}`,
+                message: () => errMessage,
             };
         }
+
         if (score.type !== "points") {
             return {
                 pass: false,
                 message: () => `Problem was not fully answered`,
             };
         }
+
         if (score.earned !== score.total) {
+            const errMessage = maybeAddState(
+                "Problem was answered incorrectly",
+                widgetState,
+            );
+
             return {
                 pass: false,
-                message: () =>
-                    `Problem was answered incorrectly. Widget state: ${JSON.stringify(
-                        widgetState,
-                    )}`,
+                message: () => errMessage,
             };
         }
+
         return {pass: true, message: () => ""};
     },
 
-    toHaveInvalidInput(renderer: PerseusRenderer, message: string | null) {
-        const [widgetState, score] = renderer.guessAndScore();
+    toHaveInvalidInput(answerable: Answerable, message: string | null) {
+        const {widgetState, score} = check(answerable);
+
         if (score.type !== "invalid") {
+            const errMessage = maybeAddState(
+                `Answer state is not invalid. Score: ${JSON.stringify(score)}`,
+                widgetState,
+            );
+
             return {
                 pass: false,
-                message: () =>
-                    `Answer state is not invalid. Score: ${JSON.stringify(
-                        score,
-                    )}; ${JSON.stringify(widgetState)}`,
+                message: () => errMessage,
             };
         }
+
         if (message && (!score.message || !score.message.includes(message))) {
+            const errMessage = maybeAddState(
+                `Message shown for invalid input did not include "${message}": ${
+                    score.message || "(no message)"
+                }. Score: ${JSON.stringify(score)}`,
+                widgetState,
+            );
+
             return {
                 pass: false,
-                message: () =>
-                    `Message shown for invalid input did not include "${message}": ${
-                        score.message || "(no message)"
-                    }. ${JSON.stringify(score)} - ${JSON.stringify(
-                        widgetState,
-                    )}`,
+                message: () => errMessage,
             };
         }
+
         return {pass: true, message: () => ""};
     },
 
-    toHaveBeenAnsweredIncorrectly(renderer: PerseusRenderer) {
-        const [widgetState, score] = renderer.guessAndScore();
+    toHaveBeenAnsweredIncorrectly(answerable: Answerable) {
+        const {widgetState, score} = check(answerable);
+
         if (score.type === "invalid") {
+            const errMessage = maybeAddState(
+                `Invalid answer: ${score.message || "(no message)"}`,
+                widgetState,
+            );
+
             return {
                 pass: false,
-                message: () =>
-                    `Invalid answer: ${
-                        score.message || "(no message)"
-                    }; widget state ${JSON.stringify(widgetState)}`,
+                message: () => errMessage,
             };
         }
+
         if (score.type !== "points") {
             return {
                 pass: false,
                 message: () => `Problem was not fully answered`,
             };
         }
+
         if (score.earned !== 0) {
             return {
                 pass: false,
@@ -99,6 +149,7 @@ expect.extend({
                     )}`,
             };
         }
+
         return {pass: true, message: () => ""};
     },
 

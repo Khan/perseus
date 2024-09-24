@@ -20,6 +20,7 @@ const ITEM_DATA_VERSION = itemDataVersion;
 type Props = {
     apiOptions?: APIOptions;
     deviceType?: DeviceType;
+    widgetIsOpen?: boolean;
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
@@ -110,6 +111,7 @@ class ItemEditor extends React.Component<Props> {
                             onChange={this.handleEditorChange}
                             apiOptions={this.props.apiOptions}
                             showWordCount={true}
+                            widgetIsOpen={this.props.widgetIsOpen}
                             {...this.props.question}
                         />
                     </div>
