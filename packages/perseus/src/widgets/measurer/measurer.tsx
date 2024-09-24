@@ -9,8 +9,7 @@ import _ from "underscore";
 import SvgImage from "../../components/svg-image";
 import {ApiOptions} from "../../perseus-api";
 import GraphUtils from "../../util/graph-utils";
-
-import measurerValidator from "./measurer-validator";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {Coord} from "../../interactive2/types";
 import type {WidgetExports} from "../../types";
@@ -148,7 +147,7 @@ const Measurer: any = createReactClass({
     },
 
     simpleValidate: function () {
-        return measurerValidator();
+        return noopValidator(1);
     },
 
     focus: $.noop,
@@ -186,7 +185,7 @@ const Measurer: any = createReactClass({
 });
 
 _.extend(Measurer, {
-    validate: measurerValidator,
+    validate: noopValidator(1),
 });
 
 const propUpgrades = {

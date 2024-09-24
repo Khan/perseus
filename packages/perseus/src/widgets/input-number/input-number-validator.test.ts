@@ -21,12 +21,7 @@ describe("inputNumberValidator", () => {
 
         const score = inputNumberValidator(useInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 1,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("scores incorrect answer correctly", () => {
@@ -45,12 +40,7 @@ describe("inputNumberValidator", () => {
 
         const score = inputNumberValidator(useInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 0,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("shows as invalid with a nonsense answer", () => {
@@ -69,11 +59,9 @@ describe("inputNumberValidator", () => {
 
         const score = inputNumberValidator(useInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            message:
-                "We could not understand your answer. Please check your answer for extra text or symbols.",
-            type: "invalid",
-        });
+        expect(score).toHaveInvalidInput(
+            "We could not understand your answer. Please check your answer for extra text or symbols.",
+        );
     });
 
     // Don't default to validating the answer as a pi answer
@@ -126,11 +114,6 @@ describe("inputNumberValidator", () => {
 
         const score = inputNumberValidator(userInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 1,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });

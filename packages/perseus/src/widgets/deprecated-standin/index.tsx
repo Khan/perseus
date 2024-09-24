@@ -2,6 +2,7 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusScore, WidgetExports} from "../../types";
 
@@ -18,12 +19,7 @@ class DeprecatedStandin extends React.Component<Props> {
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
         // Since this mean to replace an existing widget the learner
         // WILL earn points for this widget
-        return {
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        };
+        return noopValidator(1);
     }
 
     getUserInput: () => UserInput = () => {
@@ -31,7 +27,7 @@ class DeprecatedStandin extends React.Component<Props> {
     };
 
     simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return DeprecatedStandin.validate(this.getUserInput(), rubric);
+        return noopValidator(1);
     };
 
     render() {
