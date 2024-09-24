@@ -174,11 +174,6 @@ export const InteractiveGraphLockedFeaturesFlags = [
  */
 export type APIOptions = Readonly<{
     isArticle?: boolean;
-    onInputError?: (
-        widgetId: any,
-        value: string,
-        message?: string | null | undefined,
-    ) => unknown;
     onFocusChange?: (
         newFocusPath: FocusPath,
         oldFocusPath: FocusPath,
@@ -447,7 +442,6 @@ export type APIOptionsWithDefaults = Readonly<
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
-        onInputError: NonNullable<APIOptions["onInputError"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<
             APIOptions["setDrawingAreaAvailable"]
