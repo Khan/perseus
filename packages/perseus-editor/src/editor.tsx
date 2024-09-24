@@ -126,6 +126,7 @@ type Props = Readonly<{
     showWordCount: boolean;
     warnNoPrompt: boolean;
     warnNoWidgets: boolean;
+    widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
     onChange: ChangeHandler;
 }>;
@@ -262,6 +263,7 @@ class Editor extends React.Component<Props, State> {
                 // eslint-disable-next-line react/jsx-no-bind
                 onRemove={this._handleWidgetEditorRemove.bind(this, id)}
                 apiOptions={this.props.apiOptions}
+                widgetIsOpen={this.props.widgetIsOpen}
                 {...this.props.widgets[id]}
             />
         );
