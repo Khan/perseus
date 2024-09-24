@@ -27,6 +27,10 @@ const commonGraphState: InteractiveGraphStateCommon = {
 
 describe("mafsStateToInteractiveGraph", () => {
     it("converts the state of an angle graph", () => {
+        const graph: PerseusGraphType = {
+            type: "angle",
+            match: "congruent",
+        }
         const state: AngleGraphState = {
             ...commonGraphState,
             type: "angle",
@@ -41,10 +45,11 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "angle",
+            match: "congruent",
             coords: [
                 [9, 10],
                 [11, 12],
@@ -54,6 +59,13 @@ describe("mafsStateToInteractiveGraph", () => {
     });
 
     it("converts the state of a circle graph", () => {
+        const graph: PerseusGraphType = {
+            type: "circle",
+            startCoords: {
+                radius: 3,
+                center: [4, 5],
+            }
+        }
         const state: CircleGraphState = {
             type: "circle",
             center: [1, 2],
@@ -66,16 +78,24 @@ describe("mafsStateToInteractiveGraph", () => {
             snapStep: [9, 9],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "circle",
             radius: 2,
             center: [1, 2],
+            startCoords: {
+                radius: 3,
+                center: [4, 5],
+            }
         });
     });
 
     it("converts the state of a segment graph", () => {
+        const graph: PerseusGraphType = {
+            type: "segment",
+            numSegments: 7,
+        }
         const state: SegmentGraphState = {
             ...commonGraphState,
             type: "segment",
@@ -87,10 +107,11 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "segment",
+            numSegments: 7,
             coords: [
                 [
                     [1, 2],
@@ -101,6 +122,13 @@ describe("mafsStateToInteractiveGraph", () => {
     });
 
     it("converts the state of a linear graph", () => {
+        const graph: PerseusGraphType = {
+            type: "linear",
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ]
+        }
         const state: LinearGraphState = {
             ...commonGraphState,
             type: "linear",
@@ -110,7 +138,7 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "linear",
@@ -118,10 +146,23 @@ describe("mafsStateToInteractiveGraph", () => {
                 [1, 2],
                 [3, 4],
             ],
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ]
         });
     });
 
     it("converts the state of a linear-system graph", () => {
+        const graph: PerseusGraphType = {
+            type: "linear-system",
+            startCoords: [
+                [
+                    [9, 10],
+                    [11, 12],
+                ]
+            ]
+        }
         const state: LinearSystemGraphState = {
             ...commonGraphState,
             type: "linear-system",
@@ -137,7 +178,7 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "linear-system",
@@ -151,10 +192,23 @@ describe("mafsStateToInteractiveGraph", () => {
                     [7, 8],
                 ],
             ],
+            startCoords: [
+                [
+                    [9, 10],
+                    [11, 12],
+                ]
+            ]
         });
     });
 
     it("converts the state of a ray graph", () => {
+        const graph: PerseusGraphType = {
+            type: "ray",
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ]
+        }
         const state: RayGraphState = {
             ...commonGraphState,
             type: "ray",
@@ -164,7 +218,7 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "ray",
@@ -172,10 +226,18 @@ describe("mafsStateToInteractiveGraph", () => {
                 [1, 2],
                 [3, 4],
             ],
+            startCoords: [
+                [5, 6],
+                [7, 8]
+            ]
         });
     });
 
     it("converts the state of a polygon graph", () => {
+        const graph: PerseusGraphType = {
+            type: "polygon",
+            match: "approx",
+        }
         const state: PolygonGraphState = {
             ...commonGraphState,
             type: "polygon",
@@ -189,10 +251,11 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "polygon",
+            match: "approx",
             coords: [
                 [1, 2],
                 [3, 4],
@@ -202,6 +265,13 @@ describe("mafsStateToInteractiveGraph", () => {
     });
 
     it("converts the state of a point graph", () => {
+        const graph: PerseusGraphType = {
+            type: "point",
+            numPoints: "unlimited",
+            startCoords: [
+                [7, 8],
+            ],
+        }
         const state: PointGraphState = {
             ...commonGraphState,
             type: "point",
@@ -217,19 +287,31 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "point",
+            numPoints: "unlimited",
             coords: [
                 [1, 2],
                 [3, 4],
                 [5, 6],
             ],
+            startCoords: [
+                [7, 8],
+            ]
         });
     });
 
     it("converts the state of a quadratic graph", () => {
+        const graph: PerseusGraphType = {
+            type: "quadratic",
+            startCoords: [
+                [7, 8],
+                [9, 10],
+                [11, 12],
+            ]
+        }
         const state: QuadraticGraphState = {
             ...commonGraphState,
             type: "quadratic",
@@ -240,7 +322,7 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "quadratic",
@@ -249,10 +331,22 @@ describe("mafsStateToInteractiveGraph", () => {
                 [3, 4],
                 [5, 6],
             ],
+            startCoords: [
+                [7, 8],
+                [9, 10],
+                [11, 12],
+            ]
         });
     });
 
     it("converts the state of a sinusoid graph", () => {
+        const graph: PerseusGraphType = {
+            type: "sinusoid",
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ],
+        }
         const state: SinusoidGraphState = {
             ...commonGraphState,
             type: "sinusoid",
@@ -262,7 +356,7 @@ describe("mafsStateToInteractiveGraph", () => {
             ],
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "sinusoid",
@@ -270,16 +364,23 @@ describe("mafsStateToInteractiveGraph", () => {
                 [1, 2],
                 [3, 4],
             ],
+            startCoords: [
+                [5, 6],
+                [7, 8],
+            ],
         });
     });
 
     it("converts the state of a none-type graph", () => {
+        const graph: PerseusGraphType = {
+            type: "none",
+        }
         const state: NoneGraphState = {
             ...commonGraphState,
             type: "none",
         };
 
-        const result: PerseusGraphType = mafsStateToInteractiveGraph(state);
+        const result: PerseusGraphType = mafsStateToInteractiveGraph(state, graph);
 
         expect(result).toEqual({
             type: "none",

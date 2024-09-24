@@ -66,7 +66,7 @@ export const StatefulMafsGraph = React.forwardRef<
 
     useEffect(() => {
         if (prevState.current !== state) {
-            onChange({graph: mafsStateToInteractiveGraph(state)});
+            onChange({graph: mafsStateToInteractiveGraph(state, graph)});
         }
         prevState.current = state;
     }, [onChange, state]);
