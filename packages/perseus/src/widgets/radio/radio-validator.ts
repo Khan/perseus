@@ -18,7 +18,8 @@ function radioValidator(
         };
     }
 
-    // TODO: this is almost certainly meant to be rubric.numCorrect
+    // TODO: should numCorrect actually be on the rubric
+    // instead of the userInput?
     if (
         userInput.numCorrect &&
         userInput.numCorrect > 1 &&
@@ -31,9 +32,8 @@ function radioValidator(
         // If NOTA and some other answer are checked, ...
     }
 
-    // TODO: this is almost certainly meant to be rubric.noneOfTheAboveSelected
-    // or we should be comparing against noneOfTheAboveIndex and
-    // noneOfTheAboveSelected should not exist
+    // TODO: should noneOfTheAboveSelected be replaced with a
+    // combination of choicesSelected and noneOfTheAboveIndex?
     if (userInput.noneOfTheAboveSelected && numSelected > 1) {
         return {
             type: "invalid",
@@ -43,7 +43,8 @@ function radioValidator(
 
     const correct = userInput.choicesSelected.every((selected, i) => {
         let isCorrect: boolean;
-        // TODO: this is almost certainly meant to be rubric.noneOfTheAboveIndex
+        // TODO: should noneOfTheAboveIndex actually be on the rubric
+        // instead of the userInput?
         if (userInput.noneOfTheAboveIndex === i) {
             isCorrect = rubric.choices.every((choice, j) => {
                 return i === j || !choice.correct;
