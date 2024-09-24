@@ -251,9 +251,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return score;
     };
 
-    getUserInput: () => PerseusExpressionUserInput = () => {
+    getUserInput(): PerseusExpressionUserInput {
         return Expression.getUserInputFromProps(this.props);
-    };
+    }
 
     change: (...args: any) => any | undefined = (...args: any) => {
         return Changeable.change.apply(this, args);
