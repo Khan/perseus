@@ -3,12 +3,12 @@ import type {Item} from "./multi-items/item-types";
 import type {
     Hint,
     PerseusAnswerArea,
+    PerseusGraphType,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
-import type {InteractiveGraphState} from "./widgets/interactive-graphs/types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -90,7 +90,7 @@ export type ChangeHandler = (
         // perseus-all-package/widgets/grapher.jsx
         plot?: any;
         // Interactive Graph callback (see legacy: interactive-graph.tsx)
-        graph?: InteractiveGraphState;
+        graph?: PerseusGraphType;
     },
     callback?: () => unknown | null | undefined,
     silent?: boolean,
@@ -572,8 +572,6 @@ export type WidgetProps<
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     alignment: string | null | undefined;
-    // When determining if a widget is static, we verify that the widget is not an
-    // exercise question by verifying that it has no problem number.
     static: boolean | null | undefined;
     problemNum: number | null | undefined;
     apiOptions: APIOptionsWithDefaults;

@@ -79,6 +79,8 @@ export function initializeGraphState(
                 numPoints: graph.numPoints || 0,
                 focusedPointIndex: null,
                 showRemovePointButton: false,
+                interactionMode: "mouse",
+                showKeyboardInteractionInvitation: false,
             };
         case "circle":
             return {
