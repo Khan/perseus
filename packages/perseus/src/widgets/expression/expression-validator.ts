@@ -7,7 +7,6 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {OnInputErrorFunctionType} from "./expression.types";
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
@@ -38,8 +37,6 @@ import type {
 function expressionValidator(
     userInput: PerseusExpressionUserInput,
     rubric: PerseusExpressionRubric,
-    // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
-    onInputError: OnInputErrorFunctionType = function () {},
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
@@ -154,16 +151,9 @@ function expressionValidator(
         };
     }
     if (matchingAnswerForm.considered === "ungraded") {
-        // We matched an ungraded answer form - return "invalid", which
-        // will let the user try again with no penalty
-        const apiResult = onInputError(
-            null, // Reserved for some widget identifier
-            userInput,
-            matchMessage,
-        );
         return {
             type: "invalid",
-            message: apiResult === false ? null : matchMessage,
+            message: matchMessage,
         };
     }
     // We matched a graded answer form, so we can now tell the user

@@ -20,7 +20,6 @@ import a11y from "../../util/a11y";
 import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {OnInputErrorFunctionType} from "./expression.types";
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
@@ -129,18 +128,10 @@ export class Expression extends React.Component<Props, ExpressionState> {
     static validate(
         userInput: PerseusExpressionUserInput,
         rubric: PerseusExpressionRubric,
-        // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
-        onInputError: OnInputErrorFunctionType = function () {},
         strings: PerseusStrings,
         locale: string,
     ): PerseusScore {
-        return expressionValidator(
-            userInput,
-            rubric,
-            onInputError,
-            strings,
-            locale,
-        );
+        return expressionValidator(userInput, rubric, strings, locale);
     }
 
     static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
@@ -213,16 +204,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 showErrorStyle: false,
             });
             if (!this.parse(this.props.value, this.props).parsed) {
-                const apiResult = this.props.apiOptions.onInputError(
-                    null, // reserved for some widget identifier
-                    this.props.value,
-                    this.context.strings.ERROR_TITLE,
-                );
-                if (apiResult !== false) {
-                    this.setState({
-                        invalid: true,
-                    });
-                }
+                this.setState({
+                    invalid: true,
+                });
             }
         }
     };
@@ -241,12 +225,10 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     simpleValidate: (
         rubric: PerseusExpressionRubric & {scoring?: boolean},
-        onInputError: OnInputErrorFunctionType,
-    ) => PerseusScore = ({scoring, ...rubric}, onInputError) => {
+    ) => PerseusScore = ({scoring, ...rubric}) => {
         const score = expressionValidator(
             this.getUserInput(),
             rubric,
-            onInputError || function () {},
             this.context.strings,
             this.context.locale,
         );

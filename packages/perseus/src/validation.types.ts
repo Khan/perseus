@@ -198,7 +198,8 @@ export type PerseusRadioUserInput = {
 export type PerseusSorterRubric = PerseusSorterWidgetOptions;
 
 export type PerseusSorterUserInput = {
-    options: ReadonlyArray<number>;
+    options: ReadonlyArray<string>;
+    changed: boolean;
 };
 
 export type PerseusTableRubric = PerseusTableWidgetOptions;

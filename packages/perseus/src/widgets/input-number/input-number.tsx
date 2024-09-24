@@ -13,13 +13,7 @@ import inputNumberValidator, {answerTypes} from "./input-number-validator";
 
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {
-    APIOptions,
-    Path,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Path, PerseusScore, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
@@ -104,9 +98,8 @@ class InputNumber extends React.Component<Props> {
         },
         rubric: PerseusInputNumberRubric,
         strings: PerseusStrings,
-        onInputError: APIOptions["onInputError"] = () => {},
     ): PerseusScore {
-        return inputNumberValidator(state, rubric, strings, onInputError);
+        return inputNumberValidator(state, rubric, strings);
     }
 
     static getUserInputFromProps(props: Props): {
@@ -200,16 +193,11 @@ class InputNumber extends React.Component<Props> {
         return InputNumber.getUserInputFromProps(this.props);
     }
 
-    simpleValidate(
-        rubric: PerseusInputNumberRubric,
-        onInputError?: APIOptions["onInputError"],
-    ): PerseusScore {
-        onInputError = onInputError || function () {};
+    simpleValidate(rubric: PerseusInputNumberRubric): PerseusScore {
         return inputNumberValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
-            onInputError,
         );
     }
 

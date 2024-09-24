@@ -22,8 +22,11 @@ import {
     angleQuestionWithDefaultCorrect,
     circleQuestion,
     circleQuestionWithDefaultCorrect,
+    graphWithLabeledEllipse,
+    graphWithLabeledFunction,
     graphWithLabeledLine,
     graphWithLabeledPoint,
+    graphWithLabeledVector,
     interactiveGraphWithAriaLabel,
     linearQuestion,
     linearQuestionWithDefaultCorrect,
@@ -1038,6 +1041,90 @@ describe("locked layer", () => {
         expect(lineLabel).toHaveTextContent("B");
         expect(point1Label).toHaveTextContent("point A");
         expect(point2Label).toHaveTextContent("point B");
+    });
+
+    it("should render a locked label within a locked vector", async () => {
+        // Arrange
+        const {container} = renderQuestion(graphWithLabeledVector, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-vector-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const label = labels[0];
+
+        // Assert
+        expect(labels).toHaveLength(1);
+        expect(label).toHaveTextContent("C");
+        expect(label).toHaveStyle({
+            color: lockedFigureColors["grayH"],
+            fontSize: "16px",
+            left: "280px",
+            top: "180px",
+        });
+    });
+
+    it("should render a locked label within a locked ellipse", async () => {
+        // Arrange
+        const {container} = renderQuestion(graphWithLabeledEllipse, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-ellipse-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const label = labels[0];
+
+        // Assert
+        expect(labels).toHaveLength(1);
+        expect(label).toHaveTextContent("D");
+        expect(label).toHaveStyle({
+            color: lockedFigureColors["grayH"],
+            fontSize: "16px",
+            left: "200px",
+            top: "200px",
+        });
+    });
+
+    it("should render a locked label within a locked function", async () => {
+        // Arrange
+        const {container} = renderQuestion(graphWithLabeledFunction, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "interactive-graph-locked-features-labels": true,
+                    "locked-function-labels": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const labels = container.querySelectorAll(".locked-label");
+        const label = labels[0];
+
+        // Assert
+        expect(labels).toHaveLength(1);
+        expect(label).toHaveTextContent("E");
+        expect(label).toHaveStyle({
+            color: lockedFigureColors["grayH"],
+            fontSize: "16px",
+            left: "200px",
+            top: "200px",
+        });
     });
 
     it("should have an aria-label and description if they are provided", async () => {

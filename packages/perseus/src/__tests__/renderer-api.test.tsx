@@ -128,20 +128,6 @@ describe("Perseus API", function () {
         });
     });
 
-    describe("onInputError", function () {
-        it("should call a callback when grading an empty input-number", function () {
-            let wasCalled;
-            const {renderer} = renderQuestion(inputNumber1Item.question, {
-                onInputError: function (widgetId) {
-                    wasCalled = true;
-                },
-            });
-
-            expect(renderer).toHaveInvalidInput();
-            expect(wasCalled).toBe(true);
-        });
-    });
-
     describe("CSS ClassNames", function () {
         describe("perseus-focused", function () {
             it("should be on an input-number exactly when focused", async function () {

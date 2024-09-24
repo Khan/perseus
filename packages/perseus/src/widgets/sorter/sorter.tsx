@@ -1,9 +1,10 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
-import _ from "underscore";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
+
+import sorterValidator from "./sorter-validator";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
@@ -48,14 +49,7 @@ class Sorter extends React.Component<Props, State> {
         userInput: PerseusSorterUserInput,
         rubric: PerseusSorterRubric,
     ): PerseusScore {
-        const correct = _.isEqual(userInput.options, rubric.correct);
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+        return sorterValidator(userInput, rubric);
     }
 
     state: State = {
@@ -92,7 +86,11 @@ class Sorter extends React.Component<Props, State> {
     getUserInput(): PerseusSorterUserInput {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-        return {options: this.refs.sortable.getOptions()};
+        const options = this.refs.sortable.getOptions();
+        return {
+            options,
+            changed: this.state.changed,
+        };
     }
 
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
@@ -105,20 +103,7 @@ class Sorter extends React.Component<Props, State> {
     };
 
     simpleValidate(rubric: PerseusSorterRubric): PerseusScore {
-        // If this widget hasn't been changed yet, we treat it as "empty" which
-        // prevents the "Check" button from becoming active. We want the user
-        // to make a change before trying to move forward. This makes an
-        // assumption that the initial order isn't the correct order! However,
-        // this should be rare if it happens, and interacting with the list
-        // will enable the button, so they won't be locked out of progressing.
-        if (!this.state.changed) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
-        return Sorter.validate(this.getUserInput(), rubric);
+        return sorterValidator(this.getUserInput(), rubric);
     }
 
     render(): React.ReactNode {

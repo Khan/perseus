@@ -3,12 +3,12 @@ import type {Item} from "./multi-items/item-types";
 import type {
     Hint,
     PerseusAnswerArea,
-    PerseusGraphType,
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
+import type {InteractiveGraphState} from "./widgets/interactive-graphs/types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -90,7 +90,7 @@ export type ChangeHandler = (
         // perseus-all-package/widgets/grapher.jsx
         plot?: any;
         // Interactive Graph callback (see legacy: interactive-graph.tsx)
-        graph?: PerseusGraphType;
+        graph?: InteractiveGraphState;
     },
     callback?: () => unknown | null | undefined,
     silent?: boolean,
@@ -165,6 +165,21 @@ export const InteractiveGraphLockedFeaturesFlags = [
      * updated Interactive Graph widget.
      */
     "locked-line-labels",
+    /**
+     * enables/disables the labels associated with locked vectors in the
+     * updated Interactive Graph widget.
+     */
+    "locked-vector-labels",
+    /**
+     * Enables/disables the labels associated with locked ellipses in the
+     * updated Interactive Graph widget.
+     */
+    "locked-ellipse-labels",
+    /**
+     * Enables/disables the labels associated with locked functions in the
+     * updated Interactive Graph widget.
+     */
+    "locked-function-labels",
 ] as const;
 
 /**
@@ -174,11 +189,6 @@ export const InteractiveGraphLockedFeaturesFlags = [
  */
 export type APIOptions = Readonly<{
     isArticle?: boolean;
-    onInputError?: (
-        widgetId: any,
-        value: string,
-        message?: string | null | undefined,
-    ) => unknown;
     onFocusChange?: (
         newFocusPath: FocusPath,
         oldFocusPath: FocusPath,
@@ -447,7 +457,6 @@ export type APIOptionsWithDefaults = Readonly<
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
-        onInputError: NonNullable<APIOptions["onInputError"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<
             APIOptions["setDrawingAreaAvailable"]
