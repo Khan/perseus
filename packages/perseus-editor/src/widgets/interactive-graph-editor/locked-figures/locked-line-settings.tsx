@@ -268,7 +268,7 @@ const LockedLineSettings = (props: Props) => {
                             const newLabel = {
                                 ...getDefaultFigureForType("label"),
                                 coord: labelLocation,
-                                // Default to the same color as the point
+                                // Default to the same color as the line
                                 color: lineColor,
                             } satisfies LockedLabelType;
 
