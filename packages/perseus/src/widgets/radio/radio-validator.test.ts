@@ -24,9 +24,6 @@ describe("radioValidator", () => {
 
     it("is invalid when number selected does not match number correct", () => {
         const userInput = {
-            // TODO: I don't think user input should have numCorrect
-            // (it should likely be looking for that on the rubric)
-            // but I'm testing the logic that currently exists
             numCorrect: 2,
             choicesSelected: [true, false, false, false],
         };
@@ -47,9 +44,6 @@ describe("radioValidator", () => {
 
     it("is invalid when none of the above and an answer are both selected", () => {
         const userInput = {
-            // TODO: I don't think user input should have noneOfTheAboveSelected
-            // (it should likely be looking for noneOfTheAboveIndex on the rubric)
-            // but I'm testing the logic that currently exists
             noneOfTheAboveSelected: true,
             choicesSelected: [true, false, false, false, true],
         };

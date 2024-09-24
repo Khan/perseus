@@ -35,8 +35,10 @@ export type RenderProps = {
 };
 
 export type UserInput = {
-    countChoices?: boolean;
     choicesSelected: ReadonlyArray<boolean>;
+    // I wonder if UserInput should only be `choicesSelected`
+    // and everything else should just be on the rubric
+    countChoices?: boolean;
     numCorrect?: number;
     noneOfTheAboveIndex?: number | null | undefined;
     noneOfTheAboveSelected?: boolean;
