@@ -1,10 +1,26 @@
 import {css, StyleSheet} from "aphrodite";
-import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
 const PT = PropTypes;
+
+// Need to update these values.
+type Props = {
+    className: string;
+    components: any[];
+    onReorder: (i: any[]) => void;
+    style: any;
+    verify: (i: any) => boolean;
+};
+
+type DefaultProps = {
+    className: Props["className"];
+    components: Props["components"];
+    onReorder: Props["onReorder"];
+    style: Props["style"];
+    verify: Props["verify"];
+};
 
 /**
  * Takes an array of components to sort.
@@ -13,57 +29,63 @@ const PT = PropTypes;
  * As far as I can tell, this one is only used in ExpressionEditor.
  */
 // eslint-disable-next-line react/no-unsafe
-const SortableArea = createReactClass({
-    propTypes: {
-        className: PT.string,
-        components: PT.arrayOf(PT.node).isRequired,
-        onReorder: PT.func.isRequired,
-        style: PT.any,
-        verify: PT.func,
-    },
-    getDefaultProps: function () {
-        return {verify: () => true};
-    },
-    getInitialState: function () {
+export class SortableArea extends React.Component<Props> {
+    dragging: any;
+    _dragItems: any;
+
+    static defaultProps: DefaultProps = {
+        className: "",
+        components: [],
+        onReorder: () => true,
+        style: {},
+        verify: () => true,
+    };
+
+    getInitialState() {
         return {
             // index of the component being dragged
             dragging: null,
             components: this.props.components,
         };
-    },
+    }
     // Firefox refuses to drag an element unless you set data on it. Hackily
     // add data each time an item is dragged.
-    componentDidMount: function () {
+    componentDidMount() {
         this._setDragEvents();
-    },
+    }
+
     // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps: function (nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({components: nextProps.components});
-    },
-    componentDidUpdate: function () {
+    }
+
+    componentDidUpdate() {
         this._setDragEvents();
-    },
+    }
+
     // Alternatively send each handler to each component individually,
     // partially applied
-    onDragStart: function (startIndex) {
+    onDragStart(startIndex) {
         this.setState({dragging: startIndex});
-    },
-    onDrop: function () {
+    }
+
+    onDrop() {
         // tell the parent component
         this.setState({dragging: null});
-        this.props.onReorder(this.state.components);
-    },
-    onDragEnter: function (enterIndex) {
+        this.props.onReorder(this.props.components);
+    }
+
+    onDragEnter(enterIndex) {
         // When a label is first dragged it triggers a dragEnter with itself,
         // which we don't care about.
-        if (this.state.dragging === enterIndex) {
+        if (this.dragging === enterIndex) {
             return;
         }
 
-        const newComponents = this.state.components.slice();
+        const newComponents = this.props.components.slice();
 
         // splice the tab out of its old position
-        const removed = newComponents.splice(this.state.dragging, 1);
+        const removed = newComponents.splice(this.dragging, 1);
         // ... and into its new position
         newComponents.splice(enterIndex, 0, removed[0]);
 
@@ -75,15 +97,18 @@ const SortableArea = createReactClass({
             });
         }
         return verified;
-    },
-    _listenEvent: function (e) {
+    }
+
+    _listenEvent(e) {
         e.dataTransfer.setData("hackhackhack", "because browsers!");
-    },
-    _cancelEvent: function (e) {
+    }
+
+    _cancelEvent(e) {
         // prevent the browser from redirecting to 'because browsers!'
         e.preventDefault();
-    },
-    _setDragEvents: function () {
+    }
+
+    _setDragEvents() {
         this._dragItems = this._dragItems || [];
         const items =
             // @ts-expect-error - TS2531 - Object is possibly 'null'
@@ -117,16 +142,17 @@ const SortableArea = createReactClass({
             dragItem.removeEventListener("dragstart", this._listenEvent);
             dragItem.removeEventListener("drop", this._cancelEvent);
         }
-    },
-    render: function () {
-        const sortables = this.state.components.map((component, index) => (
+    }
+
+    render() {
+        const sortables = this.props.components.map((component, index) => (
             <SortableItem
                 index={index}
                 component={component}
                 area={this}
                 key={component.key}
                 draggable={component.props.draggable}
-                dragging={index === this.state.dragging}
+                dragging={index === this.dragging}
             />
         ));
         return (
@@ -134,40 +160,57 @@ const SortableArea = createReactClass({
                 {sortables}
             </ol>
         );
-    },
-});
+    }
+}
+
+type ItemProps = {
+    area: any;
+    component: any;
+    dragging: boolean;
+    draggable: boolean;
+    index: number;
+};
+
+type DefaultItemProps = {
+    area: ItemProps["area"];
+    component: ItemProps["component"];
+    dragging: ItemProps["dragging"];
+    draggable: ItemProps["draggable"];
+    index: ItemProps["index"];
+};
 
 // An individual sortable item
-const SortableItem = createReactClass({
-    propTypes: {
-        area: PT.shape({
-            onDragEnter: PT.func.isRequired,
-            onDragStart: PT.func.isRequired,
-            onDrop: PT.func.isRequired,
-        }),
-        component: PT.node.isRequired,
-        dragging: PT.bool.isRequired,
-        draggable: PT.bool.isRequired,
-        index: PT.number.isRequired,
-    },
-    handleDragStart: function (e) {
+export class SortableItem extends React.Component<ItemProps> {
+    static defaultProps: DefaultItemProps = {
+        area: "",
+        component: {},
+        dragging: false,
+        draggable: false,
+        index: 0,
+    };
+
+    handleDragStart(e) {
         e.nativeEvent.dataTransfer.effectAllowed = "move";
         this.props.area.onDragStart(this.props.index);
-    },
-    handleDrop: function () {
+    }
+
+    handleDrop() {
         this.props.area.onDrop(this.props.index);
-    },
-    handleDragEnter: function (e) {
+    }
+
+    handleDragEnter(e) {
         const verified = this.props.area.onDragEnter(this.props.index);
         // Ideally this would change the cursor based on whether this is a
         // valid place to drop.
         e.nativeEvent.dataTransfer.effectAllowed = verified ? "move" : "none";
-    },
-    handleDragOver: function (e) {
+    }
+
+    handleDragOver(e) {
         // allow a drop by preventing default handling
         e.preventDefault();
-    },
-    render: function () {
+    }
+
+    render() {
         // I think these might be getting styles from Webapp
         let dragState = "sortable-disabled";
         if (this.props.dragging) {
@@ -188,8 +231,8 @@ const SortableItem = createReactClass({
                 {this.props.component}
             </li>
         );
-    },
-});
+    }
+}
 
 const styles = StyleSheet.create({
     sortableListItem: {
