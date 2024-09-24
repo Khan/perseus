@@ -24,6 +24,7 @@ export type LockedFunctionOptions = {
     strokeStyle?: LockedLineStyle;
     directionalAxis?: "x" | "y";
     domain?: Interval;
+    labels?: LockedFigureLabelOptions[];
 };
 
 type LockedFigureLabelOptions = {
@@ -437,6 +438,17 @@ class InteractiveGraphQuestionBuilder {
             strokeStyle: "solid",
             directionalAxis: "x",
             ...options,
+            labels:
+                options?.labels?.map(
+                    (label) =>
+                        ({
+                            type: "label",
+                            coord: label.coord ?? [0, 0],
+                            text: label.text,
+                            color: options?.color ?? "grayH",
+                            size: label.size ?? "medium",
+                        }) satisfies LockedLabelType,
+                ) ?? [],
         };
 
         this.addLockedFigure(lockedFunction);

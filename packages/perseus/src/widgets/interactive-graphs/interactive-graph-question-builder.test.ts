@@ -1199,17 +1199,19 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 strokeStyle: "solid",
                 directionalAxis: "x",
+                labels: [],
             },
         ]);
     });
 
-    it("adds a locked function with options", () => {
+    it("adds a locked function with options and minimal label", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedFunction("x^2", {
                 color: "green",
                 strokeStyle: "dashed",
                 directionalAxis: "y",
                 domain: [-5, 5],
+                labels: [{text: "a label"}],
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -1222,6 +1224,43 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 strokeStyle: "dashed",
                 directionalAxis: "y",
                 domain: [-5, 5],
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [0, 0],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked function with a specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedFunction("x^2", {
+                labels: [{text: "a label", coord: [9, 9], size: "small"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "function",
+                equation: "x^2",
+                color: "grayH",
+                strokeStyle: "solid",
+                directionalAxis: "x",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "grayH",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });
