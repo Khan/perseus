@@ -3,6 +3,8 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {flags} from "../../../__stories__/flags-for-api-options";
+
 // Disabling the following linting error because the import is needed for mocking purposes.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import examples from "./locked-function-examples";
@@ -13,11 +15,20 @@ import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
+    flags: {
+        ...flags,
+        mafs: {
+            ...flags.mafs,
+            "locked-ellipse-settings": true,
+        },
+    },
     ...getDefaultFigureForType("function"),
     onChangeProps: () => {},
     onMove: () => {},
     onRemove: () => {},
 } as Props;
+
+const defaultLabel = getDefaultFigureForType("label");
 
 const exampleEquationsMock = {
     foo: ["bar", "zot"],
@@ -178,7 +189,10 @@ describe("Locked Function Settings", () => {
             await userEvent.click(colorOption);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({color: "green"});
+            expect(onChangeProps).toHaveBeenCalledWith({
+                color: "green",
+                labels: [],
+            });
         });
 
         test("calls 'onChangeProps' when stroke style is changed", async () => {
@@ -504,6 +518,139 @@ describe("Locked Function Settings", () => {
 
                 // Assert - clipboard receives example text
                 expect(onChangeProps).toHaveBeenCalledWith({equation: "bar"});
+            });
+        });
+
+        describe("Labels", () => {
+            test("Updates the label color when the function color changes", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        color="green"
+                        labels={[
+                            {
+                                ...defaultLabel,
+                                color: "green",
+                            },
+                        ]}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const colorSelect = screen.getByLabelText("color");
+                await userEvent.click(colorSelect);
+                const colorOption = screen.getByText("pink");
+                await userEvent.click(colorOption);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    color: "pink",
+                    labels: [
+                        {
+                            ...defaultLabel,
+                            color: "pink",
+                        },
+                    ],
+                });
+            });
+
+            test("Updates the label when the label text changes", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        labels={[
+                            {
+                                ...defaultLabel,
+                                text: "label text",
+                            },
+                        ]}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const labelText = screen.getByLabelText("TeX");
+                await userEvent.type(labelText, "!");
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    labels: [{...defaultLabel, text: "label text!"}],
+                });
+            });
+
+            test("Removes label when delete button is clicked", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        labels={[
+                            {
+                                ...defaultLabel,
+                                text: "label text",
+                            },
+                        ]}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const deleteButton = screen.getByRole("button", {
+                    name: "Delete locked label",
+                });
+                await userEvent.click(deleteButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    labels: [],
+                });
+            });
+
+            test("Adds a new label when the add label button is clicked", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        labels={[
+                            {
+                                ...defaultLabel,
+                                text: "label text",
+                            },
+                        ]}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const addLabelButton = screen.getByRole("button", {
+                    name: "Add visible label",
+                });
+                await userEvent.click(addLabelButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    labels: [
+                        {
+                            ...defaultLabel,
+                            text: "label text",
+                        },
+                        {
+                            ...defaultLabel,
+                            // One unit down vertically from the first label.
+                            coord: [0, -1],
+                        },
+                    ],
+                });
             });
         });
     });
