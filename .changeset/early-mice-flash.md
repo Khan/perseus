@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Custom Jest matchers for PerseusScore
+Split out validation logic in Radio

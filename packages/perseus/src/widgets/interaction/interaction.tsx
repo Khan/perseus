@@ -16,6 +16,10 @@ import type {
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusInteractionRubric,
+    PerseusInteractionUserInput,
+} from "../../validation.types";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
@@ -96,8 +100,7 @@ const KAScompile = (
 };
 
 type RenderProps = PerseusInteractionWidgetOptions; // There's no transform function in exports
-type Rubric = PerseusInteractionWidgetOptions;
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusInteractionRubric>;
 
 type DefaultProps = {
     graph: Props["graph"];
@@ -251,13 +254,13 @@ class Interaction extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => any = () => {
+    getUserInput(): PerseusInteractionUserInput {
         // TODO(eater): Perhaps we want to be able to record the state of the
         // user's interaction. Unfortunately sending all the props will
         // probably make the attempt payload too large. So for now, don't send
         // anything.
         return {};
-    };
+    }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
     simpleValidate() {

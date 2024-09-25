@@ -16,7 +16,6 @@ import AssetContext from "./asset-context";
 import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
-import Objective from "./interactive2/objective_";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
@@ -35,8 +34,6 @@ import type {
     KEScore,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
-const {mapObject} = Objective;
 
 type OwnProps = {
     hintsVisible?: number;
@@ -336,22 +333,6 @@ export class ServerItemRenderer
      */
     getWidgetIds(): ReadonlyArray<string> {
         return this.questionRenderer.getWidgetIds();
-    }
-
-    /**
-     * Returns an object mapping from widget ID to KE-style score.
-     * The keys of this object are the values of the array returned
-     * from `getWidgetIds`.
-     */
-    scoreWidgets(): {
-        [key: string]: KEScore;
-    } {
-        const qScore = this.questionRenderer.scoreWidgets();
-        const qGuess = this.questionRenderer.getUserInputForWidgets();
-        const state = this.questionRenderer.getSerializedState();
-        return mapObject(qScore, (score, id) => {
-            return Util.keScoreFromPerseusScore(score, qGuess[id], state);
-        });
     }
 
     /**

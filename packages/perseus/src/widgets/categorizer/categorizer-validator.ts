@@ -1,10 +1,13 @@
-import type {Rubric, UserInput} from "./categorizer.types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
+import type {
+    PerseusCategorizerRubric,
+    PerseusCategorizerUserInput,
+} from "../../validation.types";
 
 function categorizerValidator(
-    userInput: UserInput,
-    rubric: Rubric,
+    userInput: PerseusCategorizerUserInput,
+    rubric: PerseusCategorizerRubric,
     strings: PerseusStrings,
 ): PerseusScore {
     let completed = true;

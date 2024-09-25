@@ -21,13 +21,10 @@ import {
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusPhetSimulationUserInput} from "../../validation.types";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
-
-// For returning user input, but currently the PhET widget
-// does not support accessing user input
-type UserInput = null;
 
 type State = {
     banner: {
@@ -66,7 +63,8 @@ export class PhetSimulation extends React.Component<Props, State> {
         }
     }
 
-    getUserInput(): UserInput {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    getUserInput(): PerseusPhetSimulationUserInput {
         return null;
     }
 

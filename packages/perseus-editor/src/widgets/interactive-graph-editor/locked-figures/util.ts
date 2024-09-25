@@ -57,6 +57,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                     [2, 2],
                 ],
                 color: DEFAULT_COLOR,
+                labels: [],
             };
         case "ellipse":
             return {
@@ -67,6 +68,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 color: DEFAULT_COLOR,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                labels: [],
             };
         case "polygon":
             return {
@@ -88,6 +90,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 strokeStyle: "solid",
                 equation: "x^2",
                 directionalAxis: "x",
+                labels: [],
             };
         case "label":
             return {

@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-[Locked Figure Labels] View locked line labels
+[Locked Figure Labels] Add/edit/delete locked ellipse labels

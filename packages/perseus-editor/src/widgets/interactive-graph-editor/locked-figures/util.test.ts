@@ -50,6 +50,7 @@ describe("getDefaultFigureForType", () => {
                 [2, 2],
             ],
             color: "grayH",
+            labels: [],
         });
     });
 
@@ -63,6 +64,7 @@ describe("getDefaultFigureForType", () => {
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",
+            labels: [],
         });
     });
 
@@ -90,6 +92,7 @@ describe("getDefaultFigureForType", () => {
             strokeStyle: "solid",
             equation: "x^2",
             directionalAxis: "x",
+            labels: [],
         });
     });
 

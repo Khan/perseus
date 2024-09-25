@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-[Locked Figure Labels] Add/edit/delete locked line labels
+[Locked Figure Labels] View locked vector labels

@@ -1,9 +1,11 @@
 import {components, lockedFigureFillStyles} from "@khanacademy/perseus";
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -15,6 +17,8 @@ import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
 import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import LockedLabelSettings from "./locked-label-settings";
+import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -22,6 +26,7 @@ import type {
     LockedFigureFillType,
     LockedEllipseType,
     LockedFigureColor,
+    LockedLabelType,
 } from "@khanacademy/perseus";
 
 const {InfoTip} = components;
@@ -36,10 +41,12 @@ export type Props = LockedFigureSettingsCommonProps &
 
 const LockedEllipseSettings = (props: Props) => {
     const {
+        flags,
         center,
         radius,
         angle,
         color,
+        labels,
         fillStyle,
         strokeStyle,
         expanded,
@@ -49,10 +56,55 @@ const LockedEllipseSettings = (props: Props) => {
         onRemove,
     } = props;
 
-    function handleColorChange(newValue: LockedFigureColor) {
-        onChangeProps({color: newValue});
+    function handleCenterChange(newCoord: Coord) {
+        const xOffset = newCoord[0] - center[0];
+        const yOffset = newCoord[1] - center[1];
+
+        const newProps: Partial<LockedEllipseType> = {
+            center: newCoord,
+        };
+
+        // Update the coord by the same amount as the point for all labels
+        newProps.labels = labels.map((label) => ({
+            ...label,
+            coord: [label.coord[0] + xOffset, label.coord[1] + yOffset],
+        }));
+
+        onChangeProps(newProps);
     }
 
+    function handleColorChange(newValue: LockedFigureColor) {
+        const newProps: Partial<LockedEllipseType> = {
+            color: newValue,
+        };
+
+        // Update the color of the all labels to match the point
+        newProps.labels = labels.map((label) => ({
+            ...label,
+            color: newValue,
+        }));
+
+        onChangeProps(newProps);
+    }
+
+    function handleLabelChange(
+        updatedLabel: LockedLabelType,
+        labelIndex: number,
+    ) {
+        const updatedLabels = [...labels];
+        updatedLabels[labelIndex] = {
+            ...labels[labelIndex],
+            ...updatedLabel,
+        };
+
+        onChangeProps({labels: updatedLabels});
+    }
+
+    function handleLabelRemove(labelIndex: number) {
+        const updatedLabels = labels.filter((_, index) => index !== labelIndex);
+
+        onChangeProps({labels: updatedLabels});
+    }
     return (
         <PerseusEditorAccordion
             expanded={expanded}
@@ -75,9 +127,7 @@ const LockedEllipseSettings = (props: Props) => {
                 <CoordinatePairInput
                     coord={center}
                     style={styles.spaceUnder}
-                    onChange={(newCoords: Coord) =>
-                        onChangeProps({center: newCoords})
-                    }
+                    onChange={handleCenterChange}
                 />
                 <View style={styles.spaceUnder}>
                     <InfoTip>
@@ -147,6 +197,50 @@ const LockedEllipseSettings = (props: Props) => {
                 }
             />
 
+            {/* Visible Labels */}
+            {flags?.["mafs"]?.["locked-ellipse-labels"] && (
+                <>
+                    {labels.map((label, labelIndex) => (
+                        <LockedLabelSettings
+                            {...label}
+                            expanded={true}
+                            onChangeProps={(newLabel: LockedLabelType) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
+                            onRemove={() => {
+                                handleLabelRemove(labelIndex);
+                            }}
+                            containerStyle={styles.labelContainer}
+                        />
+                    ))}
+
+                    <Button
+                        kind="tertiary"
+                        startIcon={plusCircle}
+                        onClick={() => {
+                            const newLabel = {
+                                ...getDefaultFigureForType("label"),
+                                coord: [
+                                    center[0],
+                                    // Additional vertical offset for each
+                                    // label so they don't overlap.
+                                    center[1] - labels.length,
+                                ],
+                                // Default to the same color as the ellipse
+                                color: color,
+                            } satisfies LockedLabelType;
+
+                            onChangeProps({
+                                labels: [...labels, newLabel],
+                            });
+                        }}
+                        style={styles.addButton}
+                    >
+                        Add visible label
+                    </Button>
+                </>
+            )}
+
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
@@ -169,6 +263,12 @@ const styles = StyleSheet.create({
     truncatedWidth: {
         // Allow truncation, stop bleeding over the edge.
         minWidth: 0,
+    },
+    addButton: {
+        alignSelf: "start",
+    },
+    labelContainer: {
+        backgroundColor: wbColor.white,
     },
 });
 

@@ -13,15 +13,17 @@ import Util from "../../util";
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusMatcherRubric,
+    PerseusMatcherUserInput,
+} from "../../validation.types";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;
 
-type Rubric = PerseusMatcherWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusMatcherRubric>;
 
 type DefaultProps = {
     left: Props["left"];
@@ -76,7 +78,7 @@ export class Matcher extends React.Component<Props, State> {
         this.setState({rightHeight: height});
     };
 
-    getUserInput: () => any = () => {
+    getUserInput: () => PerseusMatcherUserInput = () => {
         // If the math renderer hasn't loaded then we won't be able to get the
         // contents of the sortables on the left and right, so we just return
         // empty arrays until we render for the first time.
@@ -119,10 +121,10 @@ export class Matcher extends React.Component<Props, State> {
         this.refs.right.moveOptionToIndex(option, index);
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric: PerseusMatcherRubric) {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Matcher'.
         return Matcher.validate(this.getUserInput(), rubric);
-    };
+    }
 
     render(): React.ReactElement {
         // To minimize layout shift, we display a spinner until our math
@@ -244,7 +246,10 @@ export class Matcher extends React.Component<Props, State> {
 }
 
 _.extend(Matcher, {
-    validate: function (state, rubric) {
+    validate: function (
+        state: PerseusMatcherUserInput,
+        rubric: PerseusMatcherRubric,
+    ) {
         const correct =
             _.isEqual(state.left, rubric.left) &&
             _.isEqual(state.right, rubric.right);
