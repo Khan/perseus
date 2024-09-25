@@ -1,6 +1,10 @@
-import {injectWidgets} from "./extract-perseus-data";
+import {getImagesWithoutAltData, injectWidgets} from "./extract-perseus-data";
 
-import type {PerseusRadioChoice, PerseusWidgetsMap} from "../perseus-types";
+import type {
+    PerseusRadioChoice,
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "../perseus-types";
 
 describe("injectWidgets", () => {
     describe("radio", () => {
@@ -88,4 +92,53 @@ describe("injectWidgets", () => {
     });
 
     // Add more test cases for other widget types...
+});
+
+describe("getImagesWithoutAltData", () => {
+    describe("image", () => {
+        it("should return images with an img url that lack alt text", () => {
+            // Arrange
+            const widgets = {
+                "Image 1": {
+                    type: "image",
+                    options: {
+                        alt: "",
+                        backgroundImage: {
+                            url: "https://example.com/image1.jpg",
+                        },
+                    },
+                },
+                "Image 2": {
+                    type: "image",
+                    options: {
+                        alt: "Has alt data!",
+                        backgroundImage: {
+                            url: "https://example.com/image2.jpg",
+                        },
+                    },
+                },
+                "Image 3": {
+                    type: "image",
+                    options: {
+                        alt: "",
+                    },
+                },
+            };
+            const perseusRenderer: PerseusRenderer = {
+                content: "Content",
+                images: {},
+                widgets: widgets,
+            };
+
+            // Act
+            const result = getImagesWithoutAltData(perseusRenderer);
+
+            // Assert
+            // Note: only Image 1 is returned in results because only that img lacks alt data
+            // and has an img url.
+            expect(result).toEqual(
+                '[{"widgetId":"Image 1","imgUrl":"https://example.com/image1.jpg"}]',
+            );
+        });
+    });
 });
