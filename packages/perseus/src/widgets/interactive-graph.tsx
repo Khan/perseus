@@ -33,6 +33,7 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
 
+import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
 import type {Coord} from "../interactive2/types";
 import type {
@@ -43,7 +44,6 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
-import type {Widget} from "../renderer";
 import type {
     ChangeHandler,
     PerseusScore,
@@ -55,6 +55,10 @@ import type {
     Range,
     SineCoefficient,
 } from "../util/geometry";
+import type {
+    PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphUserInput,
+} from "../validation.types";
 
 const TRASH_ICON_URI =
     "https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png";
@@ -118,12 +122,7 @@ const makeInvalidTypeError = (
 };
 
 type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
-export type Rubric = {
-    // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
-    graph: PerseusGraphType;
-};
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
 type State = any;
 type DefaultProps = {
     labels: Props["labels"];
@@ -1656,6 +1655,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
         $(this.angle).on("move", () => {
             this.onChange({
+                // @ts-expect-error Type '{ coords: any; type: "angle"; showAngles?: boolean | undefined; allowReflexAngles?: boolean | undefined; angleOffsetDeg?: number | undefined; snapDegrees?: number | undefined; match?: "congruent" | undefined; }' is not assignable to type 'InteractiveGraphState | undefined'.
                 graph: {...graph, coords: this.angle?.getClockwiseCoords()},
             });
         });
@@ -1676,11 +1676,11 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         this.onChange({graph: graph});
     };
 
-    getUserInput() {
+    getUserInput(): PerseusInteractiveGraphUserInput {
         return InteractiveGraph.getUserInputFromProps(this.props);
     }
 
-    simpleValidate(rubric: Rubric) {
+    simpleValidate(rubric: PerseusInteractiveGraphRubric) {
         return InteractiveGraph.validate(this.getUserInput(), rubric, this);
     }
 
@@ -1759,7 +1759,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
 
 class InteractiveGraph extends React.Component<Props, State> {
     legacyGraphRef = React.createRef<LegacyInteractiveGraph>();
-    mafsRef = React.createRef<Widget>();
+    mafsRef = React.createRef<StatefulMafsGraphType>();
 
     static defaultProps: DefaultProps = {
         labels: ["x", "y"],
@@ -1777,21 +1777,21 @@ class InteractiveGraph extends React.Component<Props, State> {
         },
     };
 
-    getUserInput: Widget["getUserInput"] = () => {
-        if (this.mafsRef.current) {
-            return this.mafsRef.current.getUserInput?.();
+    getUserInput(): PerseusInteractiveGraphUserInput {
+        if (this.mafsRef.current?.getUserInput) {
+            return this.mafsRef.current.getUserInput();
         }
-        if (this.legacyGraphRef.current) {
+        if (this.legacyGraphRef.current?.getUserInput) {
             return this.legacyGraphRef.current.getUserInput();
         }
         throw new PerseusError(
             "Cannot getUserInput from a graph that has never rendered",
             Errors.NotAllowed,
         );
-    };
+    }
 
-    simpleValidate(rubric: Rubric) {
-        return InteractiveGraph.validate(this.getUserInput?.(), rubric, this);
+    simpleValidate(rubric: PerseusInteractiveGraphRubric) {
+        return InteractiveGraph.validate(this.getUserInput(), rubric, this);
     }
 
     render() {
@@ -2362,7 +2362,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static validate(
         userInput: PerseusGraphType,
-        rubric: Rubric,
+        rubric: PerseusInteractiveGraphRubric,
         component: any,
     ): PerseusScore {
         // None-type graphs are not graded

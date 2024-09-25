@@ -16,7 +16,7 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {Rubric} from "./numeric-input.types";
+import type {PerseusNumericInputRubric} from "../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -128,7 +128,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
     });
 
     it("supports error bars", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     status: "correct",

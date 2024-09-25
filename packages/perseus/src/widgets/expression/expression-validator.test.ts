@@ -5,24 +5,12 @@ import {expressionItem3Options} from "./expression.testdata";
 
 describe("expression-validator", () => {
     it("should handle defined ungraded answer case with no error callback", function () {
-        const err = validate(
-            "x+1",
-            expressionItem3Options,
-            undefined,
-            mockStrings,
-            "en",
-        );
+        const err = validate("x+1", expressionItem3Options, mockStrings, "en");
         expect(err).toHaveInvalidInput();
     });
 
     it("should handle invalid expression answer with no error callback", function () {
-        const err = validate(
-            "x+^1",
-            expressionItem3Options,
-            undefined,
-            mockStrings,
-            "en",
-        );
+        const err = validate("x+^1", expressionItem3Options, mockStrings, "en");
         expect(err).toHaveInvalidInput();
     });
 
@@ -30,7 +18,6 @@ describe("expression-validator", () => {
         const result = validate(
             "y+1",
             expressionItem3Options,
-            undefined,
             mockStrings,
             "en",
         );
@@ -41,7 +28,6 @@ describe("expression-validator", () => {
         const result = validate(
             "2+2",
             expressionItem3Options,
-            undefined,
             mockStrings,
             "en",
         );
@@ -52,7 +38,6 @@ describe("expression-validator", () => {
         const result = validate(
             "z+1",
             expressionItem3Options,
-            undefined,
             mockStrings,
             "en",
         );
@@ -64,7 +49,6 @@ describe("expression-validator", () => {
         const result1 = validate(
             "z+1",
             expressionItem3Options,
-            undefined,
             mockStrings,
             "en",
         );
@@ -74,7 +58,6 @@ describe("expression-validator", () => {
         const result2 = validate(
             "a+1",
             expressionItem3Options,
-            undefined,
             mockStrings,
             "en",
         );
@@ -85,7 +68,6 @@ describe("expression-validator", () => {
         const result = validate(
             "z+1.0",
             expressionItem3Options,
-            undefined,
             mockStrings,
             "en",
         );
@@ -96,7 +78,6 @@ describe("expression-validator", () => {
         const result = validate(
             "z+1,0",
             expressionItem3Options,
-            undefined,
             mockStrings,
             "fr",
         );
@@ -107,7 +88,6 @@ describe("expression-validator", () => {
         const result = validate(
             "z+1,0",
             expressionItem3Options,
-            undefined,
             mockStrings,
             "en",
         );

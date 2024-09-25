@@ -17,26 +17,22 @@ import Util from "../../util";
 
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusIFrameRubric,
+    PerseusIFrameUserInput,
+    UserInputStatus,
+} from "../../validation.types";
 
 const {updateQueryString} = Util;
 
-type Status = "correct" | "incorrect" | "incomplete";
-
-type UserInput = {
-    status: Status;
-    message: string | null;
-};
-
 type RenderProps = PerseusIFrameWidgetOptions & {
-    status: Status;
+    status: UserInputStatus;
     message: string | null;
     width: string;
     height: string;
 };
 
-export type Rubric = PerseusIFrameWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusIFrameRubric>;
 
 type DefaultProps = {
     status: Props["status"];
@@ -63,7 +59,7 @@ class Iframe extends React.Component<Props> {
         $(window).off("message", this.handleMessageEvent);
     }
 
-    getUserInput(): UserInput {
+    getUserInput(): PerseusIFrameUserInput {
         return {status: this.props.status, message: this.props.message};
     }
 

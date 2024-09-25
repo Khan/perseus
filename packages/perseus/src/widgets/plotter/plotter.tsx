@@ -14,14 +14,17 @@ import GraphUtils from "../../util/graph-utils";
 import KhanMath from "../../util/math";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusPlotterRubric,
+    PerseusPlotterUserInput,
+} from "../../validation.types";
 
 const {deepEq} = Util;
 
-type Rubric = PerseusPlotterWidgetOptions;
 type RenderProps = PerseusPlotterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, Rubric> & {
+type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
@@ -1135,14 +1138,14 @@ export class Plotter extends React.Component<Props, State> {
         });
     };
 
-    getUserInput: () => any = () => {
+    getUserInput(): PerseusPlotterUserInput {
         return this.state.values;
-    };
+    }
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric: PerseusPlotterRubric): PerseusScore {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Plotter'.
         return Plotter.validate(this.getUserInput(), rubric);
-    };
+    }
 
     render(): React.ReactNode {
         // TODO(kevinb) actually compute the size of the graphie correctly and
@@ -1168,8 +1171,11 @@ export class Plotter extends React.Component<Props, State> {
 }
 
 _.extend(Plotter, {
-    validate: function (guess, rubric) {
-        if (deepEq(guess, rubric.starting)) {
+    validate: function (
+        userInput: PerseusPlotterUserInput,
+        rubric: PerseusPlotterRubric,
+    ): PerseusScore {
+        if (deepEq(userInput, rubric.starting)) {
             return {
                 type: "invalid",
                 message: null,
@@ -1177,7 +1183,7 @@ _.extend(Plotter, {
         }
         return {
             type: "points",
-            earned: deepEq(guess, rubric.correct) ? 1 : 0,
+            earned: deepEq(userInput, rubric.correct) ? 1 : 0,
             total: 1,
             message: null,
         };

@@ -1,10 +1,13 @@
-import type {Rubric, UserInput} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
+import type {
+    PerseusRadioRubric,
+    PerseusRadioUserInput,
+} from "../../validation.types";
 
 function radioValidator(
-    userInput: UserInput,
-    rubric: Rubric,
+    userInput: PerseusRadioUserInput,
+    rubric: PerseusRadioRubric,
     strings: PerseusStrings,
 ): PerseusScore {
     const numSelected = userInput.choicesSelected.reduce((sum, selected) => {

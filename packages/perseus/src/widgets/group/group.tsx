@@ -17,6 +17,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import type {UserInput} from "../../validation.types";
 
 type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
@@ -52,9 +53,9 @@ class Group extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => any = () => {
+    getUserInput(): ReadonlyArray<UserInput | null | undefined> | undefined {
         return this.rendererRef?.getUserInput();
-    };
+    }
 
     getSerializedState: () => any = () => {
         return this.rendererRef?.getSerializedState();
@@ -70,11 +71,9 @@ class Group extends React.Component<Props> {
         return null;
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore | null | undefined = (
-        rubric,
-    ) => {
+    simpleValidate(): PerseusScore | null | undefined {
         return this.rendererRef?.score();
-    };
+    }
 
     // Mobile API:
     getInputPaths: () => ReadonlyArray<FocusPath> | null | undefined = () => {

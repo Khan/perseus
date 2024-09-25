@@ -16,24 +16,20 @@ import {toAbsoluteUrl} from "../../util/url-utils";
 
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusCSProgramRubric,
+    PerseusCSProgramUserInput,
+    UserInputStatus,
+} from "../../validation.types";
 
 const {updateQueryString} = Util;
 
-type Status = "correct" | "incorrect" | "incomplete";
-
-type UserInput = {
-    status: Status;
-    message: string | null;
-};
-
 type RenderProps = PerseusCSProgramWidgetOptions & {
-    status: Status;
+    status: UserInputStatus;
     message: string | null;
 };
 
-export type Rubric = PerseusCSProgramWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
@@ -71,7 +67,10 @@ class CSProgram extends React.Component<Props> {
     };
 
     // The widget's grading function
-    static validate(state: UserInput, rubric: any): PerseusScore {
+    static validate(
+        state: PerseusCSProgramUserInput,
+        rubric: any,
+    ): PerseusScore {
         // The iframe can tell us whether it's correct or incorrect,
         //  and pass an optional message
         if (state.status === "correct") {

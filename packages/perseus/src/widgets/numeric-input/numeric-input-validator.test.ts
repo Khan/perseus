@@ -6,7 +6,7 @@ import numericInputValidator, {
     maybeParsePercentInput,
 } from "./numeric-input-validator";
 
-import type {Rubric} from "./numeric-input.types";
+import type {PerseusNumericInputRubric} from "../../validation.types";
 
 describe("static function validate", () => {
     beforeEach(() => {
@@ -16,7 +16,7 @@ describe("static function validate", () => {
     });
 
     it("with a simple value", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -43,7 +43,7 @@ describe("static function validate", () => {
     });
 
     it("with nonsense", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -78,7 +78,7 @@ describe("static function validate", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     maxError: null,
@@ -115,7 +115,7 @@ describe("static function validate", () => {
     });
 
     it("still validates against pi if provided in answerForms", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     maxError: null,
@@ -143,7 +143,7 @@ describe("static function validate", () => {
     });
 
     it("with a strict answer", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -170,7 +170,7 @@ describe("static function validate", () => {
     });
 
     it("with a strict answer and max error is outside range", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -197,7 +197,7 @@ describe("static function validate", () => {
     });
 
     it("with a strict answer and max error is inside range", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,

@@ -1,9 +1,6 @@
 import invariant from "tiny-invariant";
 
-import InteractiveGraph, {
-    type Rubric,
-    shouldUseMafs,
-} from "./interactive-graph";
+import InteractiveGraph, {shouldUseMafs} from "./interactive-graph";
 
 import type {
     PerseusGraphTypeLinear,
@@ -12,15 +9,16 @@ import type {
     PerseusGraphType,
     PerseusGraphTypeNone,
 } from "../perseus-types";
+import type {PerseusInteractiveGraphRubric} from "../validation.types";
 
-function createRubric(graph: PerseusGraphType): Rubric {
+function createRubric(graph: PerseusGraphType): PerseusInteractiveGraphRubric {
     return {graph, correct: graph};
 }
 
 describe("InteractiveGraph.validate on a segment question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "segment"};
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -48,7 +46,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -78,7 +76,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -108,7 +106,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -138,7 +136,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -168,7 +166,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [

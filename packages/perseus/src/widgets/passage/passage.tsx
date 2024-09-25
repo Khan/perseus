@@ -21,6 +21,10 @@ import type {
     PerseusWidget,
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusPassageRubric,
+    PerseusPassageUserInput,
+} from "../../validation.types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -58,10 +62,6 @@ const styles = StyleSheet.create({
     },
 });
 
-type UserInput = null;
-
-type Rubric = PerseusPassageWidgetOptions;
-
 // The result of the `transform` function (end of this file)
 type RenderProps = {
     passageTitle: PerseusPassageWidgetOptions["passageTitle"];
@@ -73,7 +73,7 @@ type RenderProps = {
 type FindWidgetsCallback = (id: string, widgetInfo: PerseusWidget) => boolean;
 
 type PassageProps = ChangeableProps &
-    WidgetProps<RenderProps, Rubric> & {
+    WidgetProps<RenderProps, PerseusPassageRubric> & {
         findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;
         highlights: SerializedHighlightSet;
     };
@@ -374,7 +374,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
      * These are misc widget functions used for the widget API
      */
 
-    getUserInput(): UserInput {
+    getUserInput(): PerseusPassageUserInput {
         return null;
     }
 

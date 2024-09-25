@@ -14,7 +14,11 @@ import KhanAnswerTypes from "../../util/answer-types";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusTableRubric,
+    PerseusTableUserInput,
+} from "../../validation.types";
 
 const {assert} = InteractiveUtil;
 
@@ -23,9 +27,7 @@ type RenderProps = PerseusTableWidgetOptions & {
     Editor: any;
 };
 
-type Rubric = PerseusTableWidgetOptions;
-
-type Props = ChangeableProps & WidgetProps<RenderProps, Rubric>;
+type Props = ChangeableProps & WidgetProps<RenderProps, PerseusTableRubric>;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
@@ -95,9 +97,9 @@ class Table extends React.Component<Props> {
         return this.props.answers[0].length;
     };
 
-    getUserInput: () => any = () => {
-        return _.map(this.props.answers, _.clone);
-    };
+    getUserInput(): PerseusTableUserInput {
+        return _.map(this.props.answers, _.clone) as PerseusTableUserInput;
+    }
 
     onValueChange: (arg1: any, arg2: any, arg3: any) => void = (
         row,
@@ -127,14 +129,14 @@ class Table extends React.Component<Props> {
         });
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric: PerseusTableWidgetOptions): PerseusScore {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Table'.
         return Table.validate(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     _handleFocus: (arg1: any) => void = (inputPath) => {
         this.props.onFocus(inputPath);
@@ -318,7 +320,11 @@ class Table extends React.Component<Props> {
 }
 
 _.extend(Table, {
-    validate: function (state, rubric, strings: PerseusStrings) {
+    validate: function (
+        state: PerseusTableRubric,
+        rubric: PerseusTableWidgetOptions,
+        strings: PerseusStrings,
+    ): PerseusScore {
         const filterNonEmpty = function (table: any) {
             return _.filter(table, function (row) {
                 // Check if row has a cell that is nonempty
