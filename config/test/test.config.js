@@ -70,6 +70,7 @@ module.exports = {
         // Load a .js file with no exports whenever a .css or .less file is requested.
         "\\.(css|less)$": "<rootDir>/config/test/style-mock.js",
     },
+    coverageDirectory: "<rootDir>/coverage/jest/",
     collectCoverageFrom: [
         "packages/*/src/**/*.js",
         "packages/*/src/**/*.jsx",
