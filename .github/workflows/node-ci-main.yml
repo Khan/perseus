@@ -40,47 +40,4 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-    coverage:
-        needs: [prime_cache_primary]
-        name: Jest Coverage
-        runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [20.x]
-        steps:
-            - uses: actions/checkout@v4
-
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Jest with coverage
-              run: yarn coverage
-
-            - name: Upload Coverage
-              uses: codecov/codecov-action@v4
-              with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-                  files: ./coverage/coverage-final.json
-
-    cypress:
-        needs: [prime_cache_primary]
-        name: Cypress
-        runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [20.x]
-        steps:
-            - name: Checking out latest commit
-              uses: actions/checkout@v4
-
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Run test with coverage
-              run: yarn cypress:ci
+    # Add other jobs here that we want to run anytime a PR is landed
