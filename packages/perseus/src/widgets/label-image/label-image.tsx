@@ -756,7 +756,7 @@ const LabelImageWithDependencies = React.forwardRef<
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
 LabelImageWithDependencies.validate = labelImageValidator;
 // @ts-expect-error - TS2339 - Property 'gradeMarker' does not exist on type
-LabelImageWithDependencies.gradeMarker = LabelImage.gradeMarker;
+LabelImageWithDependencies.gradeMarker = gradeMarker;
 
 export default {
     name: "label-image",
