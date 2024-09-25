@@ -18,10 +18,10 @@ concurrency:
 # Our jobs run like this to minimize wasting resource cycles:
 #   1. Prime caches for primary configuration.  This way subsequent jobs
 #      can run in parallel but rely on this primed cache.
-#   2. Coverage
 #
 # For pushes directly to a branch, we assume a PR has been used with wider
-# checks, this just makes sure our coverage data is up-to-date.
+# checks, this just makes sure that our node_modules cache is update to date as
+# it is used as a fallback for PRs against it.
 jobs:
     prime_cache_primary:
         name: Prime node_modules cache for primary configuration
