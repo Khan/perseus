@@ -129,24 +129,26 @@
         "gen:parsers": "yarn --cwd packages/kas gen:parsers",
         "prebuild": "yarn gen:parsers",
         "build": "rollup -c config/build/rollup.config.js",
-        "build:types": "yarn tsc --build tsconfig-build.json",
+        "build:types": "tsc --build tsconfig-build.json",
         "build:prodsizecheck": "yarn build --configEnvironment='production'",
         "watch": "yarn build --watch",
-        "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules && rm -rf .nyc_output && rm -f packages/*/*.tsbuildinfo",
-        "coverage": "cross-env NODE_OPTIONS=--max_old_space_size=8192 yarn run jest --coverage",
-        "coverage:types": "cross-env NODE_OPTIONS=--max_old_space_size=8192 typescript-coverage-report",
+        "clean": "./utils/clean.sh",
+        "coverage": "./utils/test-with-coverage.sh",
         "dev": "yarn --cwd dev dev",
         "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
         "lint:timing": "cross-env TIMING=1 yarn lint",
         "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && yarn build && yarn build:types && changeset publish",
         "sloc": "sloc packages --exclude node_modules",
-        "test": "yarn jest",
+        "test": "jest",
         "storybook": "storybook dev -p 6006",
         "start": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "cypress": "cypress open --component",
-        "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
+        "cypress:ci": "cross-env cypress run --component",
         "format": "prettier --write .",
         "typecheck": "tsc"
+    },
+    "nyc": {
+        "report-dir": "coverage/cypress/"
     }
 }
