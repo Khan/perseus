@@ -16,6 +16,8 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
+import {usePerseusI18n} from "../../components/i18n-context";
+
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
@@ -47,13 +49,12 @@ import type {
     InteractiveGraphProps,
     PointGraphState,
 } from "./types";
+import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {usePerseusI18n} from "../../components/i18n-context";
-import {PerseusStrings} from "@khanacademy/perseus/strings";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
