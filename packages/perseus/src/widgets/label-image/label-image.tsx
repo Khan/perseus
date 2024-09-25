@@ -23,9 +23,10 @@ import mediaQueries from "../../styles/media-queries";
 
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
+import labelImageValidator, {scoreMarker} from "./label-image-validator";
 import Marker from "./marker";
 
-import type {InteractiveMarkerType, InteractiveMarkerScore} from "./types";
+import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
@@ -109,72 +110,11 @@ export class LabelImage extends React.Component<
     _markers: Array<Marker | null | undefined>;
     _mounted: boolean = false;
 
-    static gradeMarker(marker: InteractiveMarkerType): InteractiveMarkerScore {
-        const score = {
-            hasAnswers: false,
-            isCorrect: false,
-        } as const;
-
-        if (marker.selected && marker.selected.length > 0) {
-            // @ts-expect-error - TS2540 - Cannot assign to 'hasAnswers' because it is a read-only property.
-            score.hasAnswers = true;
-        }
-
-        if (marker.answers.length > 0) {
-            if (
-                marker.selected &&
-                marker.selected.length === marker.answers.length
-            ) {
-                // All correct answers are selected by the user.
-                // @ts-expect-error - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
-                score.isCorrect = marker.selected.every((choice) =>
-                    marker.answers.includes(choice),
-                );
-            }
-        } else if (!marker.selected || marker.selected.length === 0) {
-            // Correct as no answers should be selected by the user.
-            // @ts-expect-error - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
-            score.isCorrect = true;
-        }
-
-        return score;
-    }
-
     static validate(
         state: PerseusLabelImageUserInput,
         rubric?: PerseusLabelImageRubric,
     ): PerseusScore {
-        let numAnswered = 0;
-        let numCorrect = 0;
-
-        for (const marker of state.markers) {
-            const score = LabelImage.gradeMarker(marker);
-
-            if (score.hasAnswers) {
-                numAnswered++;
-            }
-
-            if (score.isCorrect) {
-                numCorrect++;
-            }
-        }
-
-        // We expect all question markers to be answered before grading.
-        if (numAnswered !== state.markers.length) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
-        return {
-            type: "points",
-            // Markers with no expected answers are graded as correct if user
-            // makes no answer selection.
-            earned: numCorrect === state.markers.length ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+        return labelImageValidator(state, rubric);
     }
 
     /**
@@ -383,7 +323,7 @@ export class LabelImage extends React.Component<
     }
 
     simpleValidate(rubric: PerseusLabelImageRubric): PerseusScore {
-        return LabelImage.validate(this.getUserInput(), rubric);
+        return labelImageValidator(this.getUserInput(), rubric);
     }
 
     getUserInput(): PerseusLabelImageUserInput {
@@ -396,7 +336,7 @@ export class LabelImage extends React.Component<
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            const score = LabelImage.gradeMarker(marker);
+            const score = scoreMarker(marker);
 
             return {
                 ...marker,
@@ -548,7 +488,7 @@ export class LabelImage extends React.Component<
                 }[markerPosition];
             }
 
-            const score = LabelImage.gradeMarker(marker);
+            const score = scoreMarker(marker);
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.
@@ -814,9 +754,7 @@ const LabelImageWithDependencies = React.forwardRef<
 // methods and instead adjust Peresus to provide these facilities through
 // instance methods on our Renderers.
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-LabelImageWithDependencies.validate = LabelImage.validate;
-// @ts-expect-error - TS2339 - Property 'gradeMarker' does not exist on type
-LabelImageWithDependencies.gradeMarker = LabelImage.gradeMarker;
+LabelImageWithDependencies.validate = labelImageValidator;
 
 export default {
     name: "label-image",
