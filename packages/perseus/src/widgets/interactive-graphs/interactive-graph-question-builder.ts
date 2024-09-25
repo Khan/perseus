@@ -362,15 +362,13 @@ class InteractiveGraphQuestionBuilder {
             type: "vector",
             color: options?.color ?? "grayH",
             points: [tail, tip],
-            labels: options?.labels
-                ? options?.labels?.map((label) => ({
-                      type: "label",
-                      coord: label.coord ?? vec.midpoint(tail, tip),
-                      text: label.text,
-                      color: options?.color ?? "grayH",
-                      size: label.size ?? "medium",
-                  }))
-                : undefined,
+            labels: options?.labels?.map((label) => ({
+                type: "label",
+                coord: label.coord ?? vec.midpoint(tail, tip),
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
         };
         this.addLockedFigure(vector);
         return this;
@@ -440,18 +438,16 @@ class InteractiveGraphQuestionBuilder {
             strokeStyle: "solid",
             directionalAxis: "x",
             ...options,
-            labels: options?.labels
-                ? options?.labels?.map(
-                      (label) =>
-                          ({
-                              type: "label",
-                              coord: label.coord ?? [0, 0],
-                              text: label.text,
-                              color: options?.color ?? "grayH",
-                              size: label.size ?? "medium",
-                          }) satisfies LockedLabelType,
-                  )
-                : undefined,
+            labels: options?.labels?.map(
+                (label) =>
+                    ({
+                        type: "label",
+                        coord: label.coord ?? [0, 0],
+                        text: label.text,
+                        color: options?.color ?? "grayH",
+                        size: label.size ?? "medium",
+                    }) satisfies LockedLabelType,
+            ),
         };
 
         this.addLockedFigure(lockedFunction);
