@@ -162,7 +162,6 @@ describe("LockedLineSettings", () => {
                 },
                 defaultProps.points[1],
             ],
-            labels: [],
         });
     });
 
@@ -254,7 +253,6 @@ describe("LockedLineSettings", () => {
                 },
                 defaultProps.points[1],
             ],
-            labels: [],
         });
     });
 

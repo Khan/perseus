@@ -68,7 +68,7 @@ const LockedVectorSettings = (props: Props) => {
             const oldMidpoint = vec.midpoint(tail, tip);
             const newMidpoint = vec.midpoint(newPoints[0], newPoints[1]);
             const offset = vec.sub(newMidpoint, oldMidpoint);
-            const newLabels = labels.map((label) => ({
+            const newLabels = labels?.map((label) => ({
                 ...label,
                 coord: vec.add(label.coord, offset),
             }));
@@ -86,7 +86,7 @@ const LockedVectorSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        newProps.labels = labels.map((label) => ({
+        newProps.labels = labels?.map((label) => ({
             ...label,
             color: newColor,
         }));
@@ -98,6 +98,10 @@ const LockedVectorSettings = (props: Props) => {
         updatedLabel: LockedLabelType,
         labelIndex: number,
     ) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = [...labels];
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
@@ -108,6 +112,10 @@ const LockedVectorSettings = (props: Props) => {
     }
 
     function handleLabelRemove(labelIndex: number) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = labels.filter((_, index) => index !== labelIndex);
 
         onChangeProps({labels: updatedLabels});
@@ -183,7 +191,7 @@ const LockedVectorSettings = (props: Props) => {
                 <>
                     <View style={styles.horizontalRule} />
 
-                    {labels.map((label, labelIndex) => (
+                    {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
@@ -205,7 +213,7 @@ const LockedVectorSettings = (props: Props) => {
                             // they don't overlap.
                             const offsetPerLabel: vec.Vector2 = [0, -1];
                             const labelLocation = vec.add(
-                                vec.scale(offsetPerLabel, labels.length),
+                                vec.scale(offsetPerLabel, labels?.length ?? 0),
                                 vec.midpoint(tail, tip),
                             );
 
@@ -217,7 +225,7 @@ const LockedVectorSettings = (props: Props) => {
                             } satisfies LockedLabelType;
 
                             onChangeProps({
-                                labels: [...labels, newLabel],
+                                labels: [...(labels ?? []), newLabel],
                             });
                         }}
                         style={styles.addButton}
