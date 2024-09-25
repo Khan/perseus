@@ -130,6 +130,9 @@ export type PerseusStrings = {
     tan: string;
     simulationLoadFail: string;
     simulationLocaleWarning: string;
+    addPoint: string;
+    removePoint: string;
+    graphKeyboardPrompt: string;
 };
 
 /**
@@ -302,6 +305,9 @@ export const strings: {
     simulationLoadFail: "Sorry, this simulation cannot load.",
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
+    addPoint: "Add Point",
+    removePoint: "Remove Point",
+    graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
 };
 
 /**
@@ -458,4 +464,7 @@ export const mockStrings: PerseusStrings = {
     simulationLoadFail: "Sorry, this simulation cannot load.",
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
+    addPoint: "Add Point",
+    removePoint: "Remove Point",
+    graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
 };
