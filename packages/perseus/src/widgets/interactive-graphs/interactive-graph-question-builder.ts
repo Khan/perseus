@@ -324,15 +324,13 @@ class InteractiveGraphQuestionBuilder {
             showPoint2: options?.showPoint2 ?? false,
             color: options?.color ?? "grayH",
             lineStyle: options?.lineStyle ?? "solid",
-            labels: options?.labels
-                ? options.labels.map((label) => ({
-                      type: "label",
-                      coord: label.coord ?? vec.midpoint(point1, point2),
-                      text: label.text,
-                      color: options?.color ?? "grayH",
-                      size: label.size ?? "medium",
-                  }))
-                : undefined,
+            labels: options?.labels?.map((label) => ({
+                type: "label",
+                coord: label.coord ?? vec.midpoint(point1, point2),
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
             points: [
                 {
                     ...this.createLockedPoint(...point1, {
@@ -365,7 +363,7 @@ class InteractiveGraphQuestionBuilder {
             color: options?.color ?? "grayH",
             points: [tail, tip],
             labels: options?.labels
-                ? (options?.labels ?? []).map((label) => ({
+                ? options?.labels?.map((label) => ({
                       type: "label",
                       coord: label.coord ?? vec.midpoint(tail, tip),
                       text: label.text,
@@ -398,15 +396,13 @@ class InteractiveGraphQuestionBuilder {
             fillStyle: "none",
             strokeStyle: "solid",
             ...options,
-            labels: options?.labels
-                ? (options?.labels ?? []).map((label) => ({
-                      type: "label",
-                      coord: label.coord ?? center,
-                      text: label.text,
-                      color: options?.color ?? "grayH",
-                      size: label.size ?? "medium",
-                  }))
-                : undefined,
+            labels: options?.labels?.map((label) => ({
+                type: "label",
+                coord: label.coord ?? center,
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
         };
 
         this.addLockedFigure(ellipse);
@@ -497,15 +493,13 @@ class InteractiveGraphQuestionBuilder {
             coord: [x, y],
             color: options?.color ?? "grayH",
             filled: options?.filled ?? true,
-            labels: options?.labels
-                ? (options?.labels ?? []).map((label) => ({
-                      type: "label",
-                      coord: label.coord ?? [x + 0.5, y],
-                      text: label.text,
-                      color: options?.color ?? "grayH",
-                      size: label.size ?? "medium",
-                  }))
-                : undefined,
+            labels: options?.labels?.map((label) => ({
+                type: "label",
+                coord: label.coord ?? [x + 0.5, y],
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
         };
     }
 
