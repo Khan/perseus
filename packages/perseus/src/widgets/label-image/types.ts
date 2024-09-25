@@ -17,11 +17,3 @@ export type InteractiveMarkerType = MarkerType & {
     showCorrectness?: "correct" | "incorrect";
     focused?: boolean;
 };
-
-// Question state for marker as result of user selected answers.
-export type InteractiveMarkerScore = {
-    // Whether user selected answers for the marker.
-    hasAnswers: boolean;
-    // Whether user (answer) selection answered the question correctly.
-    isCorrect: boolean;
-};

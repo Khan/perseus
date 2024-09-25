@@ -1,11 +1,19 @@
-import type {InteractiveMarkerScore, InteractiveMarkerType} from "./types";
+import type {InteractiveMarkerType} from "./types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
 } from "../../validation.types";
 
-export function gradeMarker(
+// Question state for marker as result of user selected answers.
+type InteractiveMarkerScore = {
+    // Whether user selected answers for the marker.
+    hasAnswers: boolean;
+    // Whether user (answer) selection answered the question correctly.
+    isCorrect: boolean;
+};
+
+export function scoreMarker(
     marker: InteractiveMarkerType,
 ): InteractiveMarkerScore {
     const score = {
@@ -43,7 +51,7 @@ function labelImageValidator(
     let numCorrect = 0;
 
     for (const marker of state.markers) {
-        const score = gradeMarker(marker);
+        const score = scoreMarker(marker);
 
         if (score.hasAnswers) {
             numAnswered++;

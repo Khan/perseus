@@ -23,7 +23,7 @@ import mediaQueries from "../../styles/media-queries";
 
 import AnswerChoices from "./answer-choices";
 import {HideAnswersToggle} from "./hide-answers-toggle";
-import labelImageValidator, {gradeMarker} from "./label-image-validator";
+import labelImageValidator, {scoreMarker} from "./label-image-validator";
 import Marker from "./marker";
 
 import type {InteractiveMarkerType} from "./types";
@@ -336,7 +336,7 @@ export class LabelImage extends React.Component<
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            const score = gradeMarker(marker);
+            const score = scoreMarker(marker);
 
             return {
                 ...marker,
@@ -488,7 +488,7 @@ export class LabelImage extends React.Component<
                 }[markerPosition];
             }
 
-            const score = gradeMarker(marker);
+            const score = scoreMarker(marker);
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.
