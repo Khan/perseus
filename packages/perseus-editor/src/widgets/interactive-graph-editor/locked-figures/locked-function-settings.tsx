@@ -123,7 +123,7 @@ const LockedFunctionSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        newProps.labels = labels.map((label) => ({
+        newProps.labels = labels?.map((label) => ({
             ...label,
             color: newValue,
         }));
@@ -135,6 +135,10 @@ const LockedFunctionSettings = (props: Props) => {
         updatedLabel: LockedLabelType,
         labelIndex: number,
     ) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = [...labels];
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
@@ -145,6 +149,10 @@ const LockedFunctionSettings = (props: Props) => {
     }
 
     function handleLabelRemove(labelIndex: number) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = labels.filter((_, index) => index !== labelIndex);
 
         onChangeProps({labels: updatedLabels});
@@ -292,7 +300,7 @@ const LockedFunctionSettings = (props: Props) => {
                 <>
                     <View style={styles.horizontalRule} />
 
-                    {labels.map((label, labelIndex) => (
+                    {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
@@ -314,13 +322,13 @@ const LockedFunctionSettings = (props: Props) => {
                                 ...getDefaultFigureForType("label"),
                                 // Vertical offset for each label so they
                                 // don't overlap.
-                                coord: [0, -labels.length],
+                                coord: [0, -(labels?.length ?? 0)],
                                 // Default to the same color as the function
                                 color: lineColor,
                             } satisfies LockedLabelType;
 
                             onChangeProps({
-                                labels: [...labels, newLabel],
+                                labels: [...(labels ?? []), newLabel],
                             });
                         }}
                         style={styles.addButton}

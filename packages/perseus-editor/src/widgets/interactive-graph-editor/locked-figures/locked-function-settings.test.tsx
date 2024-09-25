@@ -191,7 +191,6 @@ describe("Locked Function Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 color: "green",
-                labels: [],
             });
         });
 
