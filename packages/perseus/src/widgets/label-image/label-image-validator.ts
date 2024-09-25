@@ -11,10 +11,9 @@ export function gradeMarker(
     const score = {
         hasAnswers: false,
         isCorrect: false,
-    } as const;
+    };
 
     if (marker.selected && marker.selected.length > 0) {
-        // @ts-expect-error - TS2540 - Cannot assign to 'hasAnswers' because it is a read-only property.
         score.hasAnswers = true;
     }
 
@@ -24,14 +23,12 @@ export function gradeMarker(
             marker.selected.length === marker.answers.length
         ) {
             // All correct answers are selected by the user.
-            // @ts-expect-error - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
             score.isCorrect = marker.selected.every((choice) =>
                 marker.answers.includes(choice),
             );
         }
     } else if (!marker.selected || marker.selected.length === 0) {
         // Correct as no answers should be selected by the user.
-        // @ts-expect-error - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
         score.isCorrect = true;
     }
 
