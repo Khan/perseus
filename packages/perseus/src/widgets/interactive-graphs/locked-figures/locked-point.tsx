@@ -4,21 +4,43 @@ import * as React from "react";
 
 import {lockedFigureColors, type LockedPointType} from "../../../perseus-types";
 
-const LockedPoint = (props: LockedPointType) => {
-    const {color, coord, filled} = props;
+import type {APIOptions} from "../../../types";
+
+type Props = LockedPointType & {
+    flags?: APIOptions["flags"];
+};
+
+const LockedPoint = (props: Props) => {
+    const {flags, color, coord, filled, ariaLabel} = props;
     const [x, y] = coord;
+
+    const hasAria = ariaLabel && flags?.["mafs"]?.["locked-figures-aria"];
+
     return (
-        <Point
-            x={x}
-            y={y}
-            svgCircleProps={{
-                style: {
-                    fill: filled ? lockedFigureColors[color] : wbColor.white,
-                    stroke: lockedFigureColors[color],
-                    strokeWidth: spacing.xxxxSmall_2,
-                },
+        <g
+            className="locked-point"
+            aria-label={hasAria ? ariaLabel : undefined}
+            aria-hidden={!hasAria}
+            style={{
+                // Outline styles on focus.
+                outlineOffset: spacing.xxxSmall_4,
+                borderRadius: "50%",
             }}
-        />
+        >
+            <Point
+                x={x}
+                y={y}
+                svgCircleProps={{
+                    style: {
+                        fill: filled
+                            ? lockedFigureColors[color]
+                            : wbColor.white,
+                        stroke: lockedFigureColors[color],
+                        strokeWidth: spacing.xxxxSmall_2,
+                    },
+                }}
+            />
+        </g>
     );
 };
 

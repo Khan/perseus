@@ -298,6 +298,7 @@ class InteractiveGraphQuestionBuilder {
             color?: LockedFigureColor;
             filled?: boolean;
             labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
         this.addLockedFigure(this.createLockedPoint(x, y, options));
@@ -482,6 +483,7 @@ class InteractiveGraphQuestionBuilder {
             color?: LockedFigureColor;
             filled?: boolean;
             labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): LockedPointType {
         return {
@@ -496,6 +498,7 @@ class InteractiveGraphQuestionBuilder {
                 color: options?.color ?? "grayH",
                 size: label.size ?? "medium",
             })),
+            ariaLabel: options?.ariaLabel,
         };
     }
 

@@ -9,22 +9,28 @@ import LockedPolygon from "./locked-figures/locked-polygon";
 import LockedVector from "./locked-figures/locked-vector";
 
 import type {LockedFigure} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 import type {Interval} from "mafs";
 
 type Props = {
+    flags?: APIOptions["flags"];
     lockedFigures: ReadonlyArray<LockedFigure>;
     range: [x: Interval, y: Interval];
 };
 
 const GraphLockedLayer = (props: Props) => {
-    const {lockedFigures} = props;
+    const {flags, lockedFigures} = props;
     return (
         <>
             {lockedFigures.map((figure, index) => {
                 switch (figure.type) {
                     case "point":
                         return (
-                            <LockedPoint key={`point-${index}`} {...figure} />
+                            <LockedPoint
+                                key={`point-${index}`}
+                                {...figure}
+                                flags={flags}
+                            />
                         );
                     case "line":
                         return (

@@ -153,6 +153,7 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                     mafs: {
                         ...flags.mafs,
                         "interactive-graph-locked-features-labels": false,
+                        "locked-figures-aria": false,
                         "locked-point-labels": false,
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
