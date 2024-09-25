@@ -34,11 +34,12 @@ import type {PerseusGraphType, Range} from "@khanacademy/perseus";
 type Props = PerseusGraphType & {
     range: [x: Range, y: Range];
     step: [x: number, y: number];
+    allowReflexAngles?: boolean;
     onChange: (startCoords: StartCoords) => void;
 };
 
 const StartCoordsSettingsInner = (props: Props) => {
-    const {type, range, step, onChange} = props;
+    const {type, range, step, allowReflexAngles, onChange} = props;
 
     switch (type) {
         // Graphs with startCoords of type CollinearTuple
@@ -114,6 +115,7 @@ const StartCoordsSettingsInner = (props: Props) => {
             return (
                 <StartCoordsAngle
                     startCoords={angleCoords}
+                    allowReflexAngles={allowReflexAngles}
                     onChange={onChange}
                 />
             );

@@ -7,11 +7,12 @@ import {
     collinear,
     similar,
 } from "../../util/geometry";
-import GraphUtils from "../../util/graph-utils";
 import {
     getQuadraticCoefficients,
     getSinusoidCoefficients,
 } from "../interactive-graph";
+
+import {getClockwiseAngle} from "./math/angles";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusScore} from "../../types";
@@ -256,19 +257,16 @@ function interactiveGraphValidator(
         ) {
             const guess = userInput.coords;
             const correct = rubric.correct.coords;
+            const allowReflexAngles = rubric.correct.allowReflexAngles || false;
 
             let match;
             if (rubric.correct.match === "congruent") {
                 const angles = _.map([guess, correct], function (coords) {
-                    const angle = GraphUtils.findAngle(
-                        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                        coords[2],
-                        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                        coords[0],
-                        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                        coords[1],
-                    );
-                    return (angle + 360) % 360;
+                    if (!coords) {
+                        return false;
+                    }
+                    const angle = getClockwiseAngle(coords, allowReflexAngles);
+                    return angle;
                 });
                 // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                 match = eq(...angles);

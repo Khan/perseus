@@ -15,7 +15,17 @@ import {
     vector,
 } from "../../../util/geometry";
 import {getQuadraticCoefficients} from "../graphs/quadratic";
-import {clamp, clampToBox, findAngle, inset, polar, snap, X, Y} from "../math";
+import {
+    clamp,
+    clampToBox,
+    findAngleFromVertex,
+    getClockwiseAngle,
+    inset,
+    polar,
+    snap,
+    X,
+    Y,
+} from "../math";
 import {bound} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
@@ -788,7 +798,7 @@ function boundAndSnapAngleVertex(
         const oldPoint = coordsCopy[i];
         let newPoint = vec.add(oldPoint, delta);
 
-        let angle = findAngle(newVertex, newPoint);
+        let angle = findAngleFromVertex(newVertex, newPoint);
         angle *= Math.PI / 180;
 
         newPoint = constrainToBoundsOnAngle(newPoint, angle, range, snapStep);
@@ -906,7 +916,7 @@ function boundAndSnapAngleEndPoints(
     const vertex = coords[1];
 
     // Gets the angle between the coords and the vertex
-    let angle = findAngle(coordsCopy[index], vertex);
+    let angle = findAngleFromVertex(coordsCopy[index], vertex);
 
     // Snap the angle to the nearest multiple of snapDegrees (if provided)
     angle = Math.round((angle - offsetDegrees) / snap) * snap + offsetDegrees;
@@ -968,12 +978,12 @@ function boundAndSnapToPolygonAngle(
     });
 
     const getAngle = function (a: number, vertex, b: number) {
-        const angle = findAngle(
-            coordsCopy[rel(a)],
-            coordsCopy[rel(b)],
-            coordsCopy[rel(vertex)],
+        const allowReflexAngles = false; // Polygons do not have reflex angles
+        const angle = getClockwiseAngle(
+            [coordsCopy[rel(a)], coordsCopy[rel(vertex)], coordsCopy[rel(b)]],
+            allowReflexAngles,
         );
-        return (angle + 360) % 360;
+        return angle;
     };
 
     const innerAngles = [
@@ -1015,7 +1025,10 @@ function boundAndSnapToPolygonAngle(
         knownSide;
 
     // Angle at the second vertex of the polygon
-    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
+    const outerAngle = findAngleFromVertex(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
 
     // Uses the length of the side of the polygon (radial coordinate)
     // and the angle between the first and second sides of the
@@ -1078,7 +1091,10 @@ function boundAndSnapToSides(
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
     // Angle at the second vertex of the polygon
-    const outerAngle = findAngle(coordsCopy[rel(1)], coordsCopy[rel(-1)]);
+    const outerAngle = findAngleFromVertex(
+        coordsCopy[rel(1)],
+        coordsCopy[rel(-1)],
+    );
 
     // Returns true if the points form a counter-clockwise turn;
     // a.k.a if the point is on the left or right of the polygon.

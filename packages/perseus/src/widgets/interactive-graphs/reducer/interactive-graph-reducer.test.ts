@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import {findAngle} from "../math/angles";
+import {getClockwiseAngle} from "../math/angles";
 
 import {changeSnapStep, changeRange, actions} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
@@ -462,7 +462,10 @@ describe("movePoint on an angle graph", () => {
         invariant(updated.type === "angle");
 
         expect(
-            findAngle(updated.coords[0], updated.coords[2], updated.coords[1]),
+            getClockwiseAngle(
+                updated.coords,
+                updated.allowReflexAngles || false,
+            ),
         ).toBeCloseTo(50);
     });
 
@@ -487,7 +490,10 @@ describe("movePoint on an angle graph", () => {
         // The point will get snapped to the nearest 5 degrees, which should be 30 degrees
         expect(updated.coords[0]).toEqual([5.04975246918104, 2.91547594742265]);
         expect(
-            findAngle(updated.coords[0], updated.coords[2], updated.coords[1]),
+            getClockwiseAngle(
+                updated.coords,
+                updated.allowReflexAngles || false,
+            ),
         ).toBeCloseTo(30);
     });
 
