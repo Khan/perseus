@@ -95,10 +95,7 @@ describe("labelImageValidator", function () {
 
         const score = labelImageValidator(state);
 
-        expect(score).toEqual({
-            type: "invalid",
-            message: null,
-        });
+        expect(score).toHaveInvalidInput();
     });
 
     it("should not grade widget with not all markers answered", function () {
@@ -125,10 +122,7 @@ describe("labelImageValidator", function () {
 
         const score = labelImageValidator(state);
 
-        expect(score).toEqual({
-            type: "invalid",
-            message: null,
-        });
+        expect(score).toHaveInvalidInput();
     });
 
     it("should grade as incorrect for widget with no answers for markers", function () {
@@ -154,12 +148,7 @@ describe("labelImageValidator", function () {
 
         const score = labelImageValidator(state);
 
-        expect(score).toEqual({
-            type: "points",
-            earned: 0,
-            total: 1,
-            message: null,
-        });
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should grade as incorrect for widget with some wrong answers", function () {
@@ -188,12 +177,7 @@ describe("labelImageValidator", function () {
 
         const score = labelImageValidator(state);
 
-        expect(score).toEqual({
-            type: "points",
-            earned: 0,
-            total: 1,
-            message: null,
-        });
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should grade as correct for widget with all correct answers", function () {
@@ -222,11 +206,6 @@ describe("labelImageValidator", function () {
 
         const score = labelImageValidator(state);
 
-        expect(score).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });
