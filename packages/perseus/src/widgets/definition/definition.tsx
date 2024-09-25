@@ -13,14 +13,14 @@ import type {
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDefinitionRubric,
+    PerseusDefinitionUserInput,
+} from "../../validation.types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
-type Rubric = PerseusDefinitionWidgetOptions;
-
-type UserInput = Empty;
-
-type DefinitionProps = WidgetProps<RenderProps, Rubric> & {
+type DefinitionProps = WidgetProps<RenderProps, PerseusDefinitionRubric> & {
     widgets: PerseusRenderer["widgets"];
 };
 
@@ -43,9 +43,9 @@ class Definition extends React.Component<DefinitionProps> {
         return noopValidator();
     }
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusDefinitionUserInput {
         return {};
-    };
+    }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
     simpleValidate() {

@@ -7,11 +7,14 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {Rubric} from "./expression.types";
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {Score} from "../../util/answer-types";
+import type {
+    PerseusExpressionRubric,
+    PerseusExpressionUserInput,
+} from "../../validation.types";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should
@@ -32,8 +35,8 @@ import type {Score} from "../../util/answer-types";
  * - Otherwise, pass through the resulting points and message.
  */
 function expressionValidator(
-    userInput: string,
-    rubric: Rubric,
+    userInput: PerseusExpressionUserInput,
+    rubric: PerseusExpressionRubric,
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {

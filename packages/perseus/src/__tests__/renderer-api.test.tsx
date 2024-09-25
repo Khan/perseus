@@ -19,6 +19,7 @@ import inputNumber1Item from "./test-items/input-number-1-item";
 import inputNumber2Item from "./test-items/input-number-2-item";
 import tableItem from "./test-items/table-item";
 
+import type {PerseusInputNumberUserInput} from "../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const itemWidget = inputNumber1Item;
@@ -75,8 +76,9 @@ describe("Perseus API", function () {
             const {renderer} = renderQuestion(inputNumber1Item.question);
             act(() =>
                 renderer.setInputValue(["input-number 1"], "3", function () {
-                    const guess = renderer.getUserInput()[0];
-                    expect(guess.currentValue).toBe("3");
+                    const guess =
+                        renderer.getUserInput()[0] as PerseusInputNumberUserInput;
+                    expect(guess?.currentValue).toBe("3");
                     done();
                 }),
             );

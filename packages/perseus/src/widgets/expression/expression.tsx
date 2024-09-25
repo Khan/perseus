@@ -20,7 +20,6 @@ import a11y from "../../util/a11y";
 import expressionValidator from "./expression-validator";
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {Rubric} from "./expression.types";
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
@@ -30,6 +29,10 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import type {
+    PerseusExpressionRubric,
+    PerseusExpressionUserInput,
+} from "../../validation.types";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -80,7 +83,7 @@ type RenderProps = {
     keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
 };
 
-type ExternalProps = WidgetProps<RenderProps, Rubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
 
 export type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -123,20 +126,20 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     // TODO remove this in favor of just using expressionValidator
     static validate(
-        userInput: string,
-        rubric: Rubric,
+        userInput: PerseusExpressionUserInput,
+        rubric: PerseusExpressionRubric,
         strings: PerseusStrings,
         locale: string,
     ): PerseusScore {
         return expressionValidator(userInput, rubric, strings, locale);
     }
 
-    static getUserInputFromProps(props: Props): string {
+    static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
         return normalizeTex(props.value);
     }
 
     static getOneCorrectAnswerFromRubric(
-        rubric: Rubric,
+        rubric: PerseusExpressionRubric,
     ): string | null | undefined {
         const correctAnswers = (rubric.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",
@@ -220,10 +223,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
         }
     };
 
-    simpleValidate: (rubric: Rubric & {scoring?: boolean}) => PerseusScore = ({
-        scoring,
-        ...rubric
-    }) => {
+    simpleValidate: (
+        rubric: PerseusExpressionRubric & {scoring?: boolean},
+    ) => PerseusScore = ({scoring, ...rubric}) => {
         const score = expressionValidator(
             this.getUserInput(),
             rubric,
@@ -249,9 +251,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return score;
     };
 
-    getUserInput: () => string = () => {
+    getUserInput(): PerseusExpressionUserInput {
         return Expression.getUserInputFromProps(this.props);
-    };
+    }
 
     change: (...args: any) => any | undefined = (...args: any) => {
         return Changeable.change.apply(this, args);

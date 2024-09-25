@@ -380,24 +380,6 @@ export type PerseusExampleWidgetOptions = {
     value: string;
 };
 
-export type PerseusExampleGraphieGraph = {
-    box: Size;
-    range: [Coord, Coord];
-    labels: ReadonlyArray<string>;
-    markings: "graph" | "grid" | "none";
-    gridStep: [number, number];
-    step: [number, number];
-    showProtractor?: boolean;
-    showRuler?: boolean;
-    valid?: boolean;
-    backgroundImage?: PerseusImageBackground | null;
-};
-
-export type PerseusExampleGraphieWidgetOptions = {
-    graph: PerseusExampleGraphieGraph;
-    coord: [Coord, Coord] | null;
-};
-
 export type PerseusExplanationWidgetOptions = {
     // Translatable Text; The clickable text to expand an explanation.  e.g. "What is an apple?"
     showPrompt: string;
@@ -1622,7 +1604,6 @@ export type PerseusWidgetOptions =
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
     | PerseusDropdownWidgetOptions
-    | PerseusExampleGraphieWidgetOptions
     | PerseusExampleWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions

@@ -1,7 +1,13 @@
-import type {Rubric, UserInput} from "./dropdown.types";
 import type {PerseusScore} from "../../types";
+import type {
+    PerseusDropdownRubric,
+    PerseusDropdownUserInput,
+} from "../../validation.types";
 
-function dropdownValidator(userInput: UserInput, rubric: Rubric): PerseusScore {
+function dropdownValidator(
+    userInput: PerseusDropdownUserInput,
+    rubric: PerseusDropdownRubric,
+): PerseusScore {
     const selected = userInput.value;
     if (selected === 0) {
         return {

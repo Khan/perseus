@@ -1,14 +1,17 @@
 import sorterValidator from "./sorter-validator";
 
-import type {Rubric, UserInput} from "./sorter.types";
+import type {
+    PerseusSorterRubric,
+    PerseusSorterUserInput,
+} from "../../validation.types";
 
 describe("SorterValidator", () => {
     it("is correct when the user input values are in the order defined in the rubric", () => {
-        const userInput: UserInput = {
+        const userInput: PerseusSorterUserInput = {
             options: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
             changed: true,
         };
-        const rubric: Rubric = {
+        const rubric: PerseusSorterRubric = {
             padding: true,
             layout: "horizontal",
             correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
@@ -18,11 +21,11 @@ describe("SorterValidator", () => {
     });
 
     it("is incorrect when the user input values are not in the order defined in the rubric", () => {
-        const userInput: UserInput = {
+        const userInput: PerseusSorterUserInput = {
             options: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
             changed: true,
         };
-        const rubric: Rubric = {
+        const rubric: PerseusSorterRubric = {
             padding: true,
             layout: "horizontal",
             correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
@@ -32,11 +35,11 @@ describe("SorterValidator", () => {
     });
 
     it("is invalid when the user has not made any changes", () => {
-        const userInput: UserInput = {
+        const userInput: PerseusSorterUserInput = {
             options: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
             changed: false,
         };
-        const rubric: Rubric = {
+        const rubric: PerseusSorterRubric = {
             padding: true,
             layout: "horizontal",
             correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],

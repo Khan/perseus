@@ -14,8 +14,8 @@ import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
-import type {Widget} from "../../renderer";
 import type {APIOptions} from "../../types";
+import type {PerseusInteractiveGraphUserInput} from "../../validation.types";
 
 export type StatefulMafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -41,6 +41,10 @@ export type StatefulMafsGraphProps = {
     static: InteractiveGraphProps["static"];
 };
 
+export type StatefulMafsGraphType = {
+    getUserInput: () => PerseusInteractiveGraphUserInput;
+};
+
 // Rather than be tightly bound to how data was structured in
 // the legacy interactive graph, this lets us store state
 // however we want and we just transform it before handing it off
@@ -61,7 +65,7 @@ function mafsStateToInteractiveGraph(state: {graph: InteractiveGraphState}) {
 }
 
 export const StatefulMafsGraph = React.forwardRef<
-    Partial<Widget>,
+    StatefulMafsGraphType,
     StatefulMafsGraphProps
 >((props, ref) => {
     const {onChange, graph} = props;

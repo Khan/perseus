@@ -1,8 +1,8 @@
 import TexWrangler from "../../tex-wrangler";
 import KhanAnswerTypes from "../../util/answer-types";
 
-import type {Rubric} from "./input-number.types";
 import type {PerseusStrings} from "../../strings";
+import type {PerseusInputNumberRubric} from "../../validation.types";
 import type {PerseusScore} from "@khanacademy/perseus";
 
 const ParseTex = TexWrangler.parseTex;
@@ -46,7 +46,7 @@ function inputNumberValidator(
     state: {
         currentValue: string;
     },
-    rubric: Rubric,
+    rubric: PerseusInputNumberRubric,
     strings: PerseusStrings,
 ): PerseusScore {
     if (rubric.answerType == null) {

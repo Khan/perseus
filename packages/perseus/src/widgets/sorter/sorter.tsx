@@ -6,16 +6,19 @@ import Util from "../../util";
 
 import sorterValidator from "./sorter-validator";
 
-import type {Rubric, UserInput} from "./sorter.types";
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusSorterRubric,
+    PerseusSorterUserInput,
+} from "../../validation.types";
 
 const {shuffle} = Util;
 
 type RenderProps = PerseusSorterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusSorterRubric>;
 
 type DefaultProps = {
     correct: Props["correct"];
@@ -42,11 +45,14 @@ class Sorter extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    static validate(
+        userInput: PerseusSorterUserInput,
+        rubric: PerseusSorterRubric,
+    ): PerseusScore {
         return sorterValidator(userInput, rubric);
     }
 
-    state: any = {
+    state: State = {
         changed: false,
     };
 
@@ -77,7 +83,7 @@ class Sorter extends React.Component<Props, State> {
         });
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusSorterUserInput {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
         const options = this.refs.sortable.getOptions();
@@ -85,7 +91,7 @@ class Sorter extends React.Component<Props, State> {
             options,
             changed: this.state.changed,
         };
-    };
+    }
 
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
         option,
@@ -96,9 +102,9 @@ class Sorter extends React.Component<Props, State> {
         this.refs.sortable.moveOptionToIndex(option, index);
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
+    simpleValidate(rubric: PerseusSorterRubric): PerseusScore {
         return sorterValidator(this.getUserInput(), rubric);
-    };
+    }
 
     render(): React.ReactNode {
         const options = shuffle(

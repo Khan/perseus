@@ -11,7 +11,6 @@ import KhanMath from "../../util/math";
 
 import numericInputValidator from "./numeric-input-validator";
 
-import type {Rubric, UserInput} from "./numeric-input.types";
 import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
@@ -23,6 +22,10 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import type {
+    PerseusNumericInputRubric,
+    PerseusNumericInputUserInput,
+} from "../../validation.types";
 
 const formExamples: {
     [key: string]: (
@@ -44,7 +47,10 @@ const formExamples: {
     pi: (form, strings: PerseusStrings) => strings.piExample,
 };
 
-type ExternalProps = WidgetProps<PerseusNumericInputWidgetOptions, Rubric>;
+type ExternalProps = WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputRubric
+>;
 
 type Props = ExternalProps & {
     size: NonNullable<ExternalProps["size"]>;
@@ -91,14 +97,14 @@ export class NumericInput extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static getUserInputFromProps(props: Props): UserInput {
+    static getUserInputFromProps(props: Props): PerseusNumericInputUserInput {
         return {
             currentValue: props.currentValue,
         };
     }
 
     static getOneCorrectAnswerFromRubric(
-        rubric: Rubric,
+        rubric: PerseusNumericInputRubric,
     ): string | null | undefined {
         const correctAnswers = rubric.answers.filter(
             (answer) => answer.status === "correct",
@@ -132,8 +138,8 @@ export class NumericInput extends React.Component<Props, State> {
     }
 
     static validate(
-        userInput: UserInput,
-        rubric: Rubric,
+        userInput: PerseusNumericInputUserInput,
+        rubric: PerseusNumericInputRubric,
         strings: PerseusStrings,
     ): PerseusScore {
         return numericInputValidator(userInput, rubric, strings);
@@ -181,13 +187,13 @@ export class NumericInput extends React.Component<Props, State> {
         return !noFormsAccepted && !allFormsAccepted;
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
+    simpleValidate(rubric: PerseusNumericInputRubric): PerseusScore {
         return numericInputValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     focus: () => boolean = () => {
         this.inputRef?.focus();
@@ -228,9 +234,9 @@ export class NumericInput extends React.Component<Props, State> {
         );
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusNumericInputUserInput {
         return NumericInput.getUserInputFromProps(this.props);
-    };
+    }
 
     handleChange: (
         arg1: string,
