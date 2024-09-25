@@ -1681,7 +1681,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
     }
 
     simpleValidate(rubric: PerseusInteractiveGraphRubric) {
-        return InteractiveGraph.validate(this.getUserInput(), rubric, this);
+        return InteractiveGraph.validate(this.getUserInput(), rubric);
     }
 
     focus: () => void = $.noop;
@@ -1791,7 +1791,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     simpleValidate(rubric: PerseusInteractiveGraphRubric) {
-        return InteractiveGraph.validate(this.getUserInput(), rubric, this);
+        return InteractiveGraph.validate(this.getUserInput(), rubric);
     }
 
     render() {
@@ -2363,7 +2363,6 @@ class InteractiveGraph extends React.Component<Props, State> {
     static validate(
         userInput: PerseusGraphType,
         rubric: PerseusInteractiveGraphRubric,
-        component: any,
     ): PerseusScore {
         // None-type graphs are not graded
         if (userInput.type === "none" && rubric.correct.type === "none") {
@@ -2503,10 +2502,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                 rubric.correct.type === "point" &&
                 userInput.coords != null
             ) {
-                let correct = InteractiveGraph.getPointCoords(
-                    rubric.correct,
-                    component,
-                );
+                let correct = rubric.correct.coords;
+                if (correct == null) {
+                    throw new Error("Point graph rubric has null coords");
+                }
                 const guess = userInput.coords.slice();
                 correct = correct.slice();
                 // Everything's already rounded so we shouldn't need to do an
