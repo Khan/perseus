@@ -39,7 +39,7 @@ export function Protractor() {
     // 95% of the way to the bottom of the graph (vertically).
     const initialCenter: vec.Vector2 = [
         lerp(xMin, xMax, 0.5),
-        lerp(yMin, yMax, 0.05),
+        lerp(yMin, yMax, 0.25),
     ];
     const [center, setCenter] = useState<vec.Vector2>(initialCenter);
     const [rotationHandleOffset, setRotationHandleOffset] =
