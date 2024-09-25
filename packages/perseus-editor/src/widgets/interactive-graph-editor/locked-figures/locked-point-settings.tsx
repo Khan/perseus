@@ -6,9 +6,11 @@
  */
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {LabeledTextField, TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import minusCircle from "@phosphor-icons/core/regular/minus-circle.svg";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -87,6 +89,7 @@ const LockedPointSettings = (props: Props) => {
         color: pointColor,
         filled = true,
         labels,
+        ariaLabel,
         onChangeProps,
         onMove,
         onRemove,
@@ -98,6 +101,7 @@ const LockedPointSettings = (props: Props) => {
     } = props;
 
     const isDefiningPoint = !onMove && !onRemove;
+    const hasAriaLabel = ariaLabel || ariaLabel === "";
 
     function handleColorChange(newValue) {
         const newProps: Partial<LockedPointType> = {
@@ -161,6 +165,38 @@ const LockedPointSettings = (props: Props) => {
         onChangeProps({labels: updatedLabels});
     }
 
+    /**
+     * Get a prepopulated aria label for the point.
+     *
+     * If the point has no labels, the aria label will just be
+     * "Point at (x, y)".
+     *
+     * If the point has labels, the aria label will be
+     * "Point at (x, y) with label1, label2, label3".
+     */
+    function getPrepopulatedAriaLabel() {
+        let str = `Point at (${coord[0]}, ${coord[1]})`;
+
+        if (labels && labels.length > 0) {
+            str += " with label";
+            // Make it "with labels" instead of "with label" if there are
+            // multiple labels.
+            if (labels.length > 1) {
+                str += "s";
+            }
+
+            for (let i = 0; i < labels.length; i++) {
+                // Separate additional labels with commas.
+                if (i > 0) {
+                    str += ",";
+                }
+                str += ` ${labels[i].text}`;
+            }
+        }
+
+        return str;
+    }
+
     return (
         <PerseusEditorAccordion
             expanded={expanded}
@@ -216,6 +252,10 @@ const LockedPointSettings = (props: Props) => {
                 (isDefiningPoint &&
                     flags?.["mafs"]?.["locked-line-labels"])) && (
                 <>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+                    <Strut size={spacing.xxxSmall_4} />
+
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
@@ -262,6 +302,44 @@ const LockedPointSettings = (props: Props) => {
                 </>
             )}
 
+            {!isDefiningPoint && flags?.["mafs"]?.["locked-figures-aria"] && (
+                <>
+                    <View style={styles.horizontalRule} />
+
+                    {hasAriaLabel && (
+                        <LabeledTextField
+                            label="Aria label"
+                            description="Adding an aria label will expose this locked point to screen readers."
+                            value={ariaLabel}
+                            onChange={(newValue) => {
+                                onChangeProps({
+                                    ariaLabel: newValue,
+                                });
+                            }}
+                            style={styles.ariaLabelTextField}
+                        />
+                    )}
+
+                    <Button
+                        kind="tertiary"
+                        startIcon={hasAriaLabel ? minusCircle : plusCircle}
+                        onClick={() => {
+                            if (hasAriaLabel) {
+                                // Remove the aria label if it exists.
+                                onChangeProps({ariaLabel: undefined});
+                            } else {
+                                onChangeProps({
+                                    ariaLabel: getPrepopulatedAriaLabel(),
+                                });
+                            }
+                        }}
+                        style={styles.addButton}
+                    >
+                        {hasAriaLabel ? "Remove aria label" : "Add aria label"}
+                    </Button>
+                </>
+            )}
+
             {onRemove && (
                 <LockedFigureSettingsActions
                     figureType={props.type}
@@ -299,6 +377,13 @@ const styles = StyleSheet.create({
     },
     addButton: {
         alignSelf: "start",
+    },
+    horizontalRule: {
+        height: 1,
+        backgroundColor: wbColor.offBlack16,
+    },
+    ariaLabelTextField: {
+        marginTop: spacing.xSmall_8,
     },
 });
 
