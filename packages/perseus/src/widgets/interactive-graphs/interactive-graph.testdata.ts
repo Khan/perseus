@@ -846,6 +846,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
             angle: Math.PI / 4,
             color: "blue",
             labels: [{text: "D"}],
+            ariaLabel: "Ellipse D",
         })
         .addLockedPolygon(
             [

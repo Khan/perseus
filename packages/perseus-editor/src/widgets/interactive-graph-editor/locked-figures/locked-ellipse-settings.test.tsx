@@ -317,4 +317,223 @@ describe("LockedEllipseSettings", () => {
             });
         });
     });
+
+    describe("Aria label", () => {
+        test("Renders with aria label", () => {
+            // Arrange
+
+            // Act
+            render(
+                <LockedEllipseSettings
+                    {...defaultProps}
+                    ariaLabel="Ellipse at (x, y)"
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const input = screen.getByRole("textbox", {name: "Aria label"});
+
+            // Assert
+            expect(input).toHaveValue("Ellipse at (x, y)");
+        });
+
+        test("calls onChangeProps when the aria label is updated", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedEllipseSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const input = screen.getByRole("textbox", {name: "Aria label"});
+            await userEvent.clear(input);
+            await userEvent.type(input, "A");
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "A",
+            });
+        });
+
+        test("aria label autogenerates saying circle when the radii are equal", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+
+            // Act
+            render(
+                <LockedEllipseSettings
+                    {...defaultProps}
+                    radius={[2, 2]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "Circle with radius 2, centered at (0, 0)",
+            });
+        });
+
+        test("aria label auto-generates without rotation when ellipse is a circle", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+
+            // Act
+            render(
+                <LockedEllipseSettings
+                    {...defaultProps}
+                    radius={[2, 2]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    angle={Math.PI}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "Circle with radius 2, centered at (0, 0)",
+            });
+        });
+
+        test("aria label auto-generates saying ellipse when the radii are different", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+
+            // Act
+            render(
+                <LockedEllipseSettings
+                    {...defaultProps}
+                    radius={[2, 3]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0)",
+            });
+        });
+
+        test("aria label auto-generates with rotation when ellipse is rotated", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+
+            // Act
+            render(
+                <LockedEllipseSettings
+                    {...defaultProps}
+                    radius={[2, 3]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    angle={Math.PI / 2}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0), rotated by 90 degrees",
+            });
+        });
+
+        test("aria label auto-generates with one label", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedEllipseSettings
+                    {...defaultProps}
+                    radius={[2, 2]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Circle with radius 2, centered at (0, 0), with label A",
+            });
+        });
+
+        test("aria label auto-generates with multiple labels", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedEllipseSettings
+                    {...defaultProps}
+                    radius={[2, 2]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                        {
+                            ...defaultLabel,
+                            text: "B",
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Circle with radius 2, centered at (0, 0), with labels A, B",
+            });
+        });
+    });
 });

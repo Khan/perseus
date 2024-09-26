@@ -54,6 +54,7 @@ const GraphLockedLayer = (props: Props) => {
                             <LockedEllipse
                                 key={`ellipse-${index}`}
                                 {...figure}
+                                flags={flags}
                             />
                         );
                     case "polygon":
