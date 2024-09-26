@@ -1,5 +1,3 @@
-CHANGED
-
 # Perseus
 
 ![npm Version](https://img.shields.io/npm/v/@khanacademy/perseus)
@@ -45,6 +43,7 @@ Use `peerDependencies` and `devDependencies` for dependencies that webapp is alr
 Wonder Blocks or React.
 
 1. `cd` into to the package in which you would like to update the dependency.
+
 ```
 cd packages/[package-name]
 
@@ -53,6 +52,7 @@ cd packages/perseus-editor
 ```
 
 2. Run the following command to update the dev dependencies and the peer dependencies.
+
 ```
 // All dependencies
 yarn add --dev [dependency name]
