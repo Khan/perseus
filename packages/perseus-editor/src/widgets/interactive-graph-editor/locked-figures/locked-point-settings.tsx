@@ -105,10 +105,12 @@ const LockedPointSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        newProps.labels = labels.map((label) => ({
-            ...label,
-            color: newValue,
-        }));
+        if (labels) {
+            newProps.labels = labels.map((label) => ({
+                ...label,
+                color: newValue,
+            }));
+        }
 
         onChangeProps(newProps);
     }
@@ -122,10 +124,12 @@ const LockedPointSettings = (props: Props) => {
         };
 
         // Update the coord by the same amount as the point for all labels
-        newProps.labels = labels.map((label) => ({
-            ...label,
-            coord: [label.coord[0] + xOffset, label.coord[1] + yOffset],
-        }));
+        if (labels) {
+            newProps.labels = labels.map((label) => ({
+                ...label,
+                coord: [label.coord[0] + xOffset, label.coord[1] + yOffset],
+            }));
+        }
 
         onChangeProps(newProps);
     }
@@ -134,6 +138,10 @@ const LockedPointSettings = (props: Props) => {
         updatedLabel: LockedLabelType,
         labelIndex: number,
     ) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = [...labels];
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
@@ -144,6 +152,10 @@ const LockedPointSettings = (props: Props) => {
     }
 
     function handleLabelRemove(labelIndex: number) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = labels.filter((_, index) => index !== labelIndex);
 
         onChangeProps({labels: updatedLabels});
@@ -204,7 +216,7 @@ const LockedPointSettings = (props: Props) => {
                 (isDefiningPoint &&
                     flags?.["mafs"]?.["locked-line-labels"])) && (
                 <>
-                    {labels.map((label, labelIndex) => (
+                    {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
                             containerStyle={
@@ -233,14 +245,14 @@ const LockedPointSettings = (props: Props) => {
                                     coord[0] + 0.5,
                                     // Additional offset for each label so
                                     // they don't overlap.
-                                    coord[1] - 1 * labels?.length,
+                                    coord[1] - 1 * (labels?.length ?? 0),
                                 ],
                                 // Default to the same color as the point
                                 color: pointColor,
                             } satisfies LockedLabelType;
 
                             onChangeProps({
-                                labels: [...labels, newLabel],
+                                labels: [...(labels ?? []), newLabel],
                             });
                         }}
                         style={styles.addButton}

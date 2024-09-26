@@ -117,7 +117,6 @@ describe("Locked Vector Settings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 color: "green",
-                labels: [],
             });
         });
 

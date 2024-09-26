@@ -104,4 +104,48 @@ describe("InteractiveGraphSettings", () => {
             [{fullGraphAriaDescription: "t"}],
         ]);
     });
+
+    test("saves undefined when the title is cleared", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        render(
+            <InteractiveGraphDescription
+                ariaLabelValue="Graph Title"
+                ariaDescriptionValue=""
+                onChange={onChange}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const titleInput = screen.getByRole("textbox", {name: "Title"});
+        await userEvent.clear(titleInput);
+
+        // Assert
+        expect(onChange).toHaveBeenCalledWith({fullGraphAriaLabel: undefined});
+    });
+
+    test("saves undefined when the description is cleared", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        render(
+            <InteractiveGraphDescription
+                ariaLabelValue=""
+                ariaDescriptionValue="Graph Description"
+                onChange={onChange}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const descriptionInput = screen.getByRole("textbox", {
+            name: "Description",
+        });
+        await userEvent.clear(descriptionInput);
+
+        // Assert
+        expect(onChange).toHaveBeenCalledWith({
+            fullGraphAriaDescription: undefined,
+        });
+    });
 });
