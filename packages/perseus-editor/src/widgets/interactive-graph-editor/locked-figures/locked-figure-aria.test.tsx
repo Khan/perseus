@@ -85,4 +85,25 @@ describe("LockedFigureAria", () => {
             ariaLabel: "Pre-populated aria label",
         });
     });
+
+    test("calls onChange with undefined when input is cleared", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedFigureAria
+                ariaLabel="Point at (x, y)"
+                prePopulatedAriaLabel="Pre-populated aria label"
+                onChangeProps={onChangeProps}
+            />,
+        );
+
+        // Act
+        const input = screen.getByRole("textbox");
+        await userEvent.clear(input);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel: undefined,
+        });
+    });
 });
