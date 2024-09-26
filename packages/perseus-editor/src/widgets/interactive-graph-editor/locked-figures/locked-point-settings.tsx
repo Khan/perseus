@@ -9,8 +9,8 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {LabeledTextField, TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import minusCircle from "@phosphor-icons/core/regular/minus-circle.svg";
+import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import pencilCircle from "@phosphor-icons/core/regular/pencil-circle.svg";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -248,13 +248,50 @@ const LockedPointSettings = (props: Props) => {
                 </>
             )}
 
+            {!isDefiningPoint && flags?.["mafs"]?.["locked-figures-aria"] && (
+                <View>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+
+                    <LabeledTextField
+                        label="Aria label"
+                        description={`The figure is hidden from screen readers
+                            if this field is left blank.`}
+                        value={ariaLabel ?? ""}
+                        onChange={(newValue) => {
+                            onChangeProps({
+                                // Save as undefined if the field is empty.
+                                ariaLabel: newValue || undefined,
+                            });
+                        }}
+                        placeholder="Ex. Point at (x, y)"
+                        style={styles.ariaLabelTextField}
+                    />
+
+                    <Button
+                        kind="tertiary"
+                        startIcon={pencilCircle}
+                        style={styles.addButton}
+                        onClick={() => {
+                            onChangeProps({
+                                ariaLabel: getPrepopulatedAriaLabel(),
+                            });
+                        }}
+                    >
+                        Auto-generate
+                    </Button>
+                </View>
+            )}
+
             {((!isDefiningPoint && flags?.["mafs"]?.["locked-point-labels"]) ||
                 (isDefiningPoint &&
                     flags?.["mafs"]?.["locked-line-labels"])) && (
                 <>
-                    <Strut size={spacing.small_12} />
-                    <View style={styles.horizontalRule} />
                     <Strut size={spacing.xxxSmall_4} />
+                    <View style={styles.horizontalRule} />
+                    <Strut size={spacing.small_12} />
+
+                    <LabelMedium>Visible labels</LabelMedium>
 
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
@@ -298,44 +335,6 @@ const LockedPointSettings = (props: Props) => {
                         style={styles.addButton}
                     >
                         Add visible label
-                    </Button>
-                </>
-            )}
-
-            {!isDefiningPoint && flags?.["mafs"]?.["locked-figures-aria"] && (
-                <>
-                    <View style={styles.horizontalRule} />
-
-                    {hasAriaLabel && (
-                        <LabeledTextField
-                            label="Aria label"
-                            description="Adding an aria label will expose this locked point to screen readers."
-                            value={ariaLabel}
-                            onChange={(newValue) => {
-                                onChangeProps({
-                                    ariaLabel: newValue,
-                                });
-                            }}
-                            style={styles.ariaLabelTextField}
-                        />
-                    )}
-
-                    <Button
-                        kind="tertiary"
-                        startIcon={hasAriaLabel ? minusCircle : plusCircle}
-                        onClick={() => {
-                            if (hasAriaLabel) {
-                                // Remove the aria label if it exists.
-                                onChangeProps({ariaLabel: undefined});
-                            } else {
-                                onChangeProps({
-                                    ariaLabel: getPrepopulatedAriaLabel(),
-                                });
-                            }
-                        }}
-                        style={styles.addButton}
-                    >
-                        {hasAriaLabel ? "Remove aria label" : "Add aria label"}
                     </Button>
                 </>
             )}
