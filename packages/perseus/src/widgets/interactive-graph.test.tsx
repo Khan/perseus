@@ -256,12 +256,7 @@ describe("InteractiveGraph.validate on a point question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("does not modify the `guess` data", () => {
