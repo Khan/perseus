@@ -835,6 +835,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
             showPoint1: true,
             showPoint2: true,
             labels: [{text: "B"}],
+            ariaLabel: "Line PQ",
         })
         .addLockedVector([0, 0], [8, 2], {
             color: "purple",

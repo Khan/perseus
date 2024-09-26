@@ -38,6 +38,7 @@ const GraphLockedLayer = (props: Props) => {
                                 key={`line-${index}`}
                                 range={props.range}
                                 {...figure}
+                                flags={flags}
                             />
                         );
                     case "vector":

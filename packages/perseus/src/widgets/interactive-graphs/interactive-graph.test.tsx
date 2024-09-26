@@ -673,6 +673,52 @@ describe("locked layer", () => {
         });
     });
 
+    it("should render locked line with aria label when one is provided", () => {
+        // Arrange
+        const lockedLineWithAriaLabelQuestion =
+            interactiveGraphQuestionBuilder()
+                .addLockedLine([0, 0], [2, 2], {
+                    ariaLabel: "Line A",
+                })
+                .build();
+        const {container} = renderQuestion(lockedLineWithAriaLabelQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "locked-figures-aria": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-line");
+
+        // Assert
+        expect(point).toHaveAttribute("aria-label", "Line A");
+    });
+
+    it("should render locked line without aria label by default", () => {
+        // Arrange
+        const simpleLockedLinequestion = interactiveGraphQuestionBuilder()
+            .addLockedLine([0, 0], [2, 2])
+            .build();
+        const {container} = renderQuestion(simpleLockedLinequestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-line");
+
+        // Assert
+        expect(point).not.toHaveAttribute("aria-label");
+    });
+
     it("should render locked vectors", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedVectors, {
