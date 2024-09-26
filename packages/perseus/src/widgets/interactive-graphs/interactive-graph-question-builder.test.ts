@@ -1207,6 +1207,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 directionalAxis: "y",
                 domain: [-5, 5],
                 labels: [{text: "a label"}],
+                ariaLabel: "an aria label",
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -1228,6 +1229,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         size: "medium",
                     },
                 ],
+                ariaLabel: "an aria label",
             },
         ]);
     });

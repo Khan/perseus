@@ -24,6 +24,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
+import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import examples from "./locked-function-examples";
 import LockedLabelSettings from "./locked-label-settings";
@@ -54,6 +55,7 @@ const LockedFunctionSettings = (props: Props) => {
         directionalAxis,
         domain,
         labels,
+        ariaLabel,
         onChangeProps,
         onMove,
         onRemove,
@@ -79,6 +81,30 @@ const LockedFunctionSettings = (props: Props) => {
             domain && domain[1] !== Infinity ? domain[1].toString() : "",
         ]);
     }, [domain]);
+
+    function getPrepopulatedAriaLabel() {
+        let str = `Function with equation ${equationPrefix}${equation}`;
+
+        // Add the domain/range constraints to the aria label
+        // if they are not the default values.
+        if (domain && !(domain[0] === -Infinity && domain[1] === Infinity)) {
+            str += `, ${domainRangeText} from ${domain[0]} to ${domain[1]}`;
+        }
+
+        if (labels && labels.length > 0) {
+            str += ", with label";
+            // Make it "with labels" instead of "with label" if there are
+            // multiple labels.
+            if (labels.length > 1) {
+                str += "s";
+            }
+
+            // Separate additional labels with commas.
+            str += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
+        return str;
+    }
 
     // Generic function for handling property changes (except for 'domain/range')
     function handlePropChange(property: string, newValue: string) {
@@ -295,10 +321,30 @@ const LockedFunctionSettings = (props: Props) => {
                 )}
             </PerseusEditorAccordion>
 
+            {/* Aria label */}
+            {flags?.["mafs"]?.["locked-figures-aria"] && (
+                <>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+
+                    <LockedFigureAria
+                        ariaLabel={ariaLabel}
+                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        onChangeProps={(newProps) => {
+                            onChangeProps(newProps);
+                        }}
+                    />
+                </>
+            )}
+
             {/* Visible Labels */}
             {flags?.["mafs"]?.["locked-function-labels"] && (
                 <>
+                    <Strut size={spacing.xxxSmall_4} />
                     <View style={styles.horizontalRule} />
+                    <Strut size={spacing.small_12} />
+
+                    <LabelMedium>Visible labels</LabelMedium>
 
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
@@ -481,8 +527,6 @@ const styles = StyleSheet.create({
         alignSelf: "start",
     },
     horizontalRule: {
-        marginTop: spacing.small_12,
-        marginBottom: spacing.xxxSmall_4,
         height: 1,
         backgroundColor: color.offBlack16,
     },

@@ -25,6 +25,7 @@ export type LockedFunctionOptions = {
     directionalAxis?: "x" | "y";
     domain?: Interval;
     labels?: LockedFigureLabelOptions[];
+    ariaLabel?: string;
 };
 
 type LockedFigureLabelOptions = {
@@ -455,6 +456,7 @@ class InteractiveGraphQuestionBuilder {
                         size: label.size ?? "medium",
                     }) satisfies LockedLabelType,
             ),
+            ariaLabel: options?.ariaLabel,
         };
 
         this.addLockedFigure(lockedFunction);

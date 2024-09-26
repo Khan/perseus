@@ -767,6 +767,7 @@ export type LockedFunctionType = {
     directionalAxis: "x" | "y";
     domain?: Interval;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 // Not associated with a specific figure
