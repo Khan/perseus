@@ -215,12 +215,7 @@ describe("InteractiveGraph.validate on a point question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 0,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     it("awards points if guess.coords is right", () => {
