@@ -2672,7 +2672,7 @@ export function shouldUseMafs(
             return true;
         case "point":
             if (graph.numPoints === UNLIMITED) {
-                return Boolean(mafsFlags["unlimited-point"]);
+                return true;
             }
             return Boolean(mafsFlags["point"]);
         case "polygon":
