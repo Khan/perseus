@@ -1,7 +1,6 @@
 import {getImagesWithoutAltData, injectWidgets} from "./extract-perseus-data";
 
 import type {
-    ImageWidget,
     PerseusRadioChoice,
     PerseusRenderer,
     PerseusWidgetsMap,
@@ -98,7 +97,7 @@ describe("injectWidgets", () => {
 describe("getImagesWithoutAltData", () => {
     it("should return images with an img url that lack alt text", () => {
         // Arrange
-        const widgets: {[key: `image ${number}`]: ImageWidget} = {
+        const widgets: PerseusWidgetsMap = {
             "image 1": {
                 type: "image",
                 options: {
