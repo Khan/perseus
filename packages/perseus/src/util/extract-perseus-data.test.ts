@@ -99,7 +99,7 @@ describe("getImagesWithoutAltData", () => {
         it("should return images with an img url that lack alt text", () => {
             // Arrange
             const widgets = {
-                "Image 1": {
+                "image 1": {
                     type: "image",
                     options: {
                         alt: "",
@@ -108,7 +108,7 @@ describe("getImagesWithoutAltData", () => {
                         },
                     },
                 },
-                "Image 2": {
+                "image 2": {
                     type: "image",
                     options: {
                         alt: "Has alt data!",
@@ -117,7 +117,7 @@ describe("getImagesWithoutAltData", () => {
                         },
                     },
                 },
-                "Image 3": {
+                "image 3": {
                     type: "image",
                     options: {
                         alt: "",
@@ -137,7 +137,7 @@ describe("getImagesWithoutAltData", () => {
             // Note: only Image 1 is returned in results because only that img lacks alt data
             // and has an img url.
             expect(result).toEqual(
-                '[{"widgetId":"Image 1","imgUrl":"https://example.com/image1.jpg"}]',
+                '[{"widgetId":"image 1","imgUrl":"https://example.com/image1.jpg"}]',
             );
         });
     });
