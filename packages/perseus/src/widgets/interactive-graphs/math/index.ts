@@ -9,6 +9,6 @@ export {
     calculateAngleInDegrees,
     convertDegreesToRadians,
     getClockwiseAngle,
-    findAngleFromVertex,
+    getAngleFromVertex,
     polar,
 } from "./angles";

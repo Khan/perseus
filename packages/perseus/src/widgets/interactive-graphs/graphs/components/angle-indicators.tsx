@@ -3,7 +3,7 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {clockwise} from "../../../../util/geometry";
-import {findAngleFromVertex, segmentsIntersect} from "../../math";
+import {getAngleFromVertex, segmentsIntersect} from "../../math";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
@@ -159,8 +159,8 @@ export const Angle = ({
     const clockwiseCoords = shouldReverseCoords ? coords : coords.reverse();
 
     // Calculate the angles between the two points
-    const startAngle = findAngleFromVertex(clockwiseCoords[0], vertex);
-    const endAngle = findAngleFromVertex(clockwiseCoords[1], vertex);
+    const startAngle = getAngleFromVertex(clockwiseCoords[0], vertex);
+    const endAngle = getAngleFromVertex(clockwiseCoords[1], vertex);
     const angle = (startAngle + 360 - endAngle) % 360;
 
     // Check if the angle is reflexive

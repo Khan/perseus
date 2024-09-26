@@ -26,7 +26,7 @@ export function polar(r: number | vec.Vector2, th: number): vec.Vector2 {
 // This function calculates the angle between two points and an optional vertex.
 // If the vertex is not provided, the angle is measured between the two points.
 // This does not account for reflex angles or clockwise position.
-export const findAngleFromVertex = (
+export const getAngleFromVertex = (
     point: vec.Vector2,
     vertex: vec.Vector2,
 ): number => {
@@ -64,11 +64,11 @@ export const getClockwiseAngle = (
 
     // Calculate the angles between the two points and get the difference
     // between the two angles to get the clockwise angle.
-    const startAngle = findAngleFromVertex(
+    const startAngle = getAngleFromVertex(
         clockwiseCoords[0],
         clockwiseCoords[1],
     );
-    const endAngle = findAngleFromVertex(
+    const endAngle = getAngleFromVertex(
         clockwiseCoords[2],
         clockwiseCoords[1],
     );

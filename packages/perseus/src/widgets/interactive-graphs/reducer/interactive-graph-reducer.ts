@@ -18,7 +18,7 @@ import {getQuadraticCoefficients} from "../graphs/quadratic";
 import {
     clamp,
     clampToBox,
-    findAngleFromVertex,
+    getAngleFromVertex,
     getClockwiseAngle,
     inset,
     polar,
@@ -798,7 +798,7 @@ function boundAndSnapAngleVertex(
         const oldPoint = coordsCopy[i];
         let newPoint = vec.add(oldPoint, delta);
 
-        let angle = findAngleFromVertex(newVertex, newPoint);
+        let angle = getAngleFromVertex(newVertex, newPoint);
         angle *= Math.PI / 180;
 
         newPoint = constrainToBoundsOnAngle(newPoint, angle, range, snapStep);
@@ -916,7 +916,7 @@ function boundAndSnapAngleEndPoints(
     const vertex = coords[1];
 
     // Gets the angle between the coords and the vertex
-    let angle = findAngleFromVertex(coordsCopy[index], vertex);
+    let angle = getAngleFromVertex(coordsCopy[index], vertex);
 
     // Snap the angle to the nearest multiple of snapDegrees (if provided)
     angle = Math.round((angle - offsetDegrees) / snap) * snap + offsetDegrees;
@@ -1025,7 +1025,7 @@ function boundAndSnapToPolygonAngle(
         knownSide;
 
     // Angle at the second vertex of the polygon
-    const outerAngle = findAngleFromVertex(
+    const outerAngle = getAngleFromVertex(
         coordsCopy[rel(1)],
         coordsCopy[rel(-1)],
     );
@@ -1091,7 +1091,7 @@ function boundAndSnapToSides(
     const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
     // Angle at the second vertex of the polygon
-    const outerAngle = findAngleFromVertex(
+    const outerAngle = getAngleFromVertex(
         coordsCopy[rel(1)],
         coordsCopy[rel(-1)],
     );
