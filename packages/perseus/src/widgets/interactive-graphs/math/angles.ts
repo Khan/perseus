@@ -68,10 +68,7 @@ export const getClockwiseAngle = (
         clockwiseCoords[0],
         clockwiseCoords[1],
     );
-    const endAngle = getAngleFromVertex(
-        clockwiseCoords[2],
-        clockwiseCoords[1],
-    );
+    const endAngle = getAngleFromVertex(clockwiseCoords[2], clockwiseCoords[1]);
     const angle = (startAngle + 360 - endAngle) % 360;
     return angle;
 };
