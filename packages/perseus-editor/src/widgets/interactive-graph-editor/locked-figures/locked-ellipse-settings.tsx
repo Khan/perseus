@@ -83,13 +83,8 @@ const LockedEllipseSettings = (props: Props) => {
                 str += "s";
             }
 
-            for (let i = 0; i < labels.length; i++) {
-                // Separate additional labels with commas.
-                if (i > 0) {
-                    str += ",";
-                }
-                str += ` ${labels[i].text}`;
-            }
+            // Separate additional labels with commas.
+            str += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
         return str;
