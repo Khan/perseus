@@ -184,10 +184,7 @@ describe("InteractiveGraph.validate on a point question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric);
 
-        expect(result).toEqual({
-            type: "invalid",
-            message: null,
-        });
+        expect(result).toHaveInvalidInput();
     });
 
     it("throws an exception if correct.coords is missing", () => {
