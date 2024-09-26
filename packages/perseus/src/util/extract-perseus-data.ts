@@ -593,9 +593,7 @@ function getImagesWithoutAltData(perseusRenderer: PerseusRenderer): string {
 
     const imgsWithoutAltData: {imgUrl: string; widgetId: string}[] = [];
 
-    keys(perseusRenderer.widgets).forEach((widgetID) => {
-        const widget = perseusRenderer.widgets[widgetID];
-
+    Object.entries(perseusRenderer.widgets).forEach(([widgetId, widget]) => {
         if (!widget.options) {
             return;
         }
@@ -605,11 +603,10 @@ function getImagesWithoutAltData(perseusRenderer: PerseusRenderer): string {
         if (
             widget.type === "image" &&
             !widget.options.alt &&
-            widget.options.backgroundImage &&
-            widget.options.backgroundImage.url
+            widget.options.backgroundImage?.url
         ) {
             imgsWithoutAltData.push({
-                widgetId: widgetID,
+                widgetId,
                 imgUrl: widget.options.backgroundImage.url,
             });
         }
