@@ -359,6 +359,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
         const vector: LockedVectorType = {
@@ -372,6 +373,7 @@ class InteractiveGraphQuestionBuilder {
                 color: options?.color ?? "grayH",
                 size: label.size ?? "medium",
             })),
+            ariaLabel: options?.ariaLabel,
         };
         this.addLockedFigure(vector);
         return this;

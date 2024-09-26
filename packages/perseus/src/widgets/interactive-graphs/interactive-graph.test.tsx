@@ -767,6 +767,52 @@ describe("locked layer", () => {
         );
     });
 
+    it("should render locked vector with aria label when one is provided", () => {
+        // Arrange
+        const lockedVectorWithAriaLabelQuestion =
+            interactiveGraphQuestionBuilder()
+                .addLockedVector([0, 0], [2, 2], {
+                    ariaLabel: "Vector A",
+                })
+                .build();
+        const {container} = renderQuestion(lockedVectorWithAriaLabelQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "locked-figures-aria": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-vector");
+
+        // Assert
+        expect(point).toHaveAttribute("aria-label", "Vector A");
+    });
+
+    it("should render locked vector without aria label by default", () => {
+        // Arrange
+        const simpleLockedVectorquestion = interactiveGraphQuestionBuilder()
+            .addLockedVector([0, 0], [2, 2])
+            .build();
+        const {container} = renderQuestion(simpleLockedVectorquestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-vector");
+
+        // Assert
+        expect(point).not.toHaveAttribute("aria-label");
+    });
+
     it("should render locked ellipses", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedEllipses, {
