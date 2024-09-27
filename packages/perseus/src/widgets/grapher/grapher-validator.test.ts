@@ -155,7 +155,7 @@ describe("grapherValidator", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("can be answered incorrectly", () => {
+    it("can be answered incorrectly when user input and rubric coords don't match", () => {
         // TODO: user input type is probably wrong,
         // I don't think asymptote is needed for all types
         const asymptote: [Coord, Coord] = [
