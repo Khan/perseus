@@ -19,6 +19,7 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 
 /* Graphie and relevant components. */
 /* Mixins. */
+import grapherValidator from "./grapher-validator";
 import {
     DEFAULT_GRAPHER_PROPS,
     chooseType,
@@ -27,7 +28,6 @@ import {
     getGridAndSnapSteps,
     maybePointsFromNormalized,
     typeToButton,
-    validate as grapherValidate,
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
@@ -371,7 +371,7 @@ class Grapher extends React.Component<Props> {
         state: PerseusGrapherUserInput,
         rubric: PerseusGrapherRubric,
     ): PerseusScore {
-        return grapherValidate(state, rubric);
+        return grapherValidator(state, rubric);
     }
 
     static getUserInputFromProps(props: Props): PerseusGrapherUserInput {
@@ -541,7 +541,7 @@ class Grapher extends React.Component<Props> {
     };
 
     simpleValidate(rubric: PerseusGrapherRubric): PerseusScore {
-        return grapherValidate(this.getUserInput(), rubric);
+        return grapherValidator(this.getUserInput(), rubric);
     }
 
     getUserInput(): PerseusGrapherUserInput {
