@@ -30,10 +30,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric, null);
 
-        expect(result).toEqual({
-            type: "invalid",
-            message: null,
-        });
+        expect(result).toHaveInvalidInput();
     });
 
     it("does not award points if guess.coords is wrong", () => {
@@ -58,12 +55,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric, null);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 0,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     it("awards points if guess.coords is right", () => {
@@ -88,12 +80,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric, null);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("allows points of a segment to be specified in reverse order", () => {
@@ -118,12 +105,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric, null);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("does not modify the `guess` data", () => {
