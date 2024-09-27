@@ -706,7 +706,7 @@ export type LockedPointType = {
     coord: Coord;
     color: LockedFigureColor;
     filled: boolean;
-    labels: LockedLabelType[];
+    labels?: LockedLabelType[];
 };
 
 export type LockedLineType = {
@@ -717,14 +717,14 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
-    labels: LockedLabelType[];
+    labels?: LockedLabelType[];
 };
 
 export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
-    labels: LockedLabelType[];
+    labels?: LockedLabelType[];
 };
 
 export type LockedFigureFillType = "none" | "white" | "translucent" | "solid";
@@ -743,7 +743,7 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
-    labels: LockedLabelType[];
+    labels?: LockedLabelType[];
 };
 
 export type LockedPolygonType = {
@@ -762,7 +762,7 @@ export type LockedFunctionType = {
     equation: string; // This is the user-defined equation (as it was typed)
     directionalAxis: "x" | "y";
     domain?: Interval;
-    labels: LockedLabelType[];
+    labels?: LockedLabelType[];
 };
 
 // Not associated with a specific figure

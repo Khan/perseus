@@ -41,7 +41,12 @@ export default function InteractiveGraphDescription(props: Props) {
                         <TextField
                             value={ariaLabelValue}
                             onChange={(newValue) =>
-                                onChange({fullGraphAriaLabel: newValue})
+                                onChange({
+                                    fullGraphAriaLabel:
+                                        // Save as undefined if the new value
+                                        // is an empty string.
+                                        newValue || undefined,
+                                })
                             }
                             style={styles.spaceAbove}
                         />
@@ -55,7 +60,10 @@ export default function InteractiveGraphDescription(props: Props) {
                             value={ariaDescriptionValue}
                             onChange={(newValue) =>
                                 onChange({
-                                    fullGraphAriaDescription: newValue,
+                                    fullGraphAriaDescription:
+                                        // Save as undefined if the new value
+                                        // is an empty string.
+                                        newValue || undefined,
                                 })
                             }
                             style={styles.spaceAbove}

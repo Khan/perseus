@@ -65,7 +65,7 @@ const LockedEllipseSettings = (props: Props) => {
         };
 
         // Update the coord by the same amount as the point for all labels
-        newProps.labels = labels.map((label) => ({
+        newProps.labels = labels?.map((label) => ({
             ...label,
             coord: [label.coord[0] + xOffset, label.coord[1] + yOffset],
         }));
@@ -79,7 +79,7 @@ const LockedEllipseSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        newProps.labels = labels.map((label) => ({
+        newProps.labels = labels?.map((label) => ({
             ...label,
             color: newValue,
         }));
@@ -91,6 +91,10 @@ const LockedEllipseSettings = (props: Props) => {
         updatedLabel: LockedLabelType,
         labelIndex: number,
     ) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = [...labels];
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
@@ -101,6 +105,10 @@ const LockedEllipseSettings = (props: Props) => {
     }
 
     function handleLabelRemove(labelIndex: number) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = labels.filter((_, index) => index !== labelIndex);
 
         onChangeProps({labels: updatedLabels});
@@ -200,7 +208,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Visible Labels */}
             {flags?.["mafs"]?.["locked-ellipse-labels"] && (
                 <>
-                    {labels.map((label, labelIndex) => (
+                    {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
@@ -224,14 +232,14 @@ const LockedEllipseSettings = (props: Props) => {
                                     center[0],
                                     // Additional vertical offset for each
                                     // label so they don't overlap.
-                                    center[1] - labels.length,
+                                    center[1] - (labels?.length ?? 0),
                                 ],
                                 // Default to the same color as the ellipse
                                 color: color,
                             } satisfies LockedLabelType;
 
                             onChangeProps({
-                                labels: [...labels, newLabel],
+                                labels: [...(labels ?? []), newLabel],
                             });
                         }}
                         style={styles.addButton}

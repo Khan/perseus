@@ -738,7 +738,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 coord: [3, 5],
                 color: "grayH",
                 filled: true,
-                labels: [],
             },
         ]);
     });
@@ -756,14 +755,12 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 coord: [3, 5],
                 color: "grayH",
                 filled: true,
-                labels: [],
             },
             {
                 type: "point",
                 coord: [6, 7],
                 color: "grayH",
                 filled: true,
-                labels: [],
             },
         ]);
     });
@@ -842,21 +839,18 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         coord: [1, 2],
                         color: "grayH",
                         filled: true,
-                        labels: [],
                     },
                     {
                         type: "point",
                         coord: [3, 4],
                         color: "grayH",
                         filled: true,
-                        labels: [],
                     },
                 ],
                 color: "grayH",
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
-                labels: [],
             },
         ]);
     });
@@ -885,14 +879,12 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         coord: [1, 2],
                         color: "green",
                         filled: false,
-                        labels: [],
                     },
                     {
                         type: "point",
                         coord: [3, 4],
                         color: "green",
                         filled: false,
-                        labels: [],
                     },
                 ],
                 color: "green",
@@ -936,14 +928,12 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         coord: [1, 2],
                         color: "green",
                         filled: false,
-                        labels: [],
                     },
                     {
                         type: "point",
                         coord: [3, 4],
                         color: "green",
                         filled: false,
-                        labels: [],
                     },
                 ],
                 color: "green",
@@ -977,7 +967,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "grayH",
-                labels: [],
             },
         ]);
     });
@@ -1057,7 +1046,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 fillStyle: "none",
                 strokeStyle: "solid",
-                labels: [],
             },
         ]);
     });
@@ -1199,7 +1187,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 strokeStyle: "solid",
                 directionalAxis: "x",
-                labels: [],
             },
         ]);
     });
