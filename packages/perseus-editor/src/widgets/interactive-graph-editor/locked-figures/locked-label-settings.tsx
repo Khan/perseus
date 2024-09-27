@@ -130,19 +130,14 @@ export default function LockedLabelSettings(props: Props) {
             </LabelMedium>
 
             <View style={styles.row}>
-                {/* Color settings */}
-                {onMove && (
-                    <>
-                        <ColorSelect
-                            selectedValue={color}
-                            onChange={(newColor: LockedFigureColor) => {
-                                onChangeProps({color: newColor});
-                            }}
-                            style={styles.spaceUnder}
-                        />
-                        <Strut size={spacing.medium_16} />
-                    </>
-                )}
+                <ColorSelect
+                    selectedValue={color}
+                    onChange={(newColor: LockedFigureColor) => {
+                        onChangeProps({color: newColor});
+                    }}
+                    style={styles.spaceUnder}
+                />
+                <Strut size={spacing.medium_16} />
 
                 {/* Size settings */}
                 <LabelMedium tag="label" style={styles.row}>

@@ -241,7 +241,7 @@ describe("LockedPointSettings", () => {
         );
 
         // Act
-        const colorSelect = screen.getByLabelText("color");
+        const colorSelect = screen.getAllByLabelText("color")[0];
         await userEvent.click(colorSelect);
         await userEvent.click(screen.getByText("blue"));
 

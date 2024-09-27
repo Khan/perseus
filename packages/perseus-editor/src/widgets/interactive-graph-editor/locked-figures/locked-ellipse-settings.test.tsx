@@ -205,7 +205,7 @@ describe("LockedEllipseSettings", () => {
             );
 
             // Act
-            const colorSelect = screen.getByLabelText("color");
+            const colorSelect = screen.getAllByLabelText("color")[0];
             await userEvent.click(colorSelect);
             const colorOption = screen.getByText("pink");
             await userEvent.click(colorOption);
