@@ -62,6 +62,7 @@ const GraphLockedLayer = (props: Props) => {
                             <LockedPolygon
                                 key={`polygon-${index}`}
                                 {...figure}
+                                flags={flags}
                             />
                         );
                     case "function":

@@ -758,6 +758,7 @@ export type LockedPolygonType = {
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedFunctionType = {

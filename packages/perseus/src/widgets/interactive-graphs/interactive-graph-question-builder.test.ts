@@ -1162,6 +1162,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     fillStyle: "translucent",
                     strokeStyle: "dashed",
                     labels: [{text: "a label"}],
+                    ariaLabel: "an aria label",
                 },
             )
             .build();
@@ -1188,6 +1189,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         size: "medium",
                     },
                 ],
+                ariaLabel: "an aria label",
             },
         ]);
     });

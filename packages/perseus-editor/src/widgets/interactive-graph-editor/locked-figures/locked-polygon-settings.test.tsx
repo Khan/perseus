@@ -528,4 +528,154 @@ describe("LockedPolygonSettings", () => {
             });
         });
     });
+
+    describe("Aria label", () => {
+        test("Renders with aria label", () => {
+            // Arrange
+
+            // Act
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    ariaLabel="Polygon at (x, y)"
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const input = screen.getByRole("textbox", {name: "Aria label"});
+
+            // Assert
+            expect(input).toHaveValue("Polygon at (x, y)");
+        });
+
+        test("calls onChangeProps when the aria label is updated", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const input = screen.getByRole("textbox", {name: "Aria label"});
+            await userEvent.clear(input);
+            await userEvent.type(input, "A");
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "A",
+            });
+        });
+
+        test("aria label auto-generates (no labels)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+
+            // Act
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    points={[
+                        [0, 0],
+                        [0, 1],
+                        [1, 1],
+                    ]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1)",
+            });
+        });
+
+        test("aria label auto-generates (one label)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    points={[
+                        [0, 0],
+                        [0, 1],
+                        [1, 1],
+                    ]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1), with label A",
+            });
+        });
+
+        test("aria label auto-generates (multiple labels)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    points={[
+                        [0, 0],
+                        [0, 1],
+                        [1, 1],
+                    ]}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                        {
+                            ...defaultLabel,
+                            text: "B",
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel:
+                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1), with labels A, B",
+            });
+        });
+    });
 });
