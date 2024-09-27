@@ -303,7 +303,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                 <span
                   class="graphie-label"
                   data-math-formula="-4"
-                  style="position: absolute; padding: 7px; color: black; left: 29.999999999999993px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 29.999999999999993px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -367,24 +367,6 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   class="graphie-label"
                   data-math-formula="3"
                   style="position: absolute; padding: 7px; color: black; left: 229.5px; top: 61.2px; fill: none;"
-                >
-                  <span
-                    class="tex-holder"
-                  />
-                </span>
-                <span
-                  class="graphie-label"
-                  data-math-formula="4"
-                  style="position: absolute; padding: 7px; color: black; left: 258px; top: 61.2px; fill: none;"
-                >
-                  <span
-                    class="tex-holder"
-                  />
-                </span>
-                <span
-                  class="graphie-label"
-                  data-math-formula="-4"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 29.999999999999993px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -707,7 +689,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                 <span
                   class="graphie-label"
                   data-math-formula="-4"
-                  style="position: absolute; padding: 7px; color: black; left: 29.999999999999982px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 29.999999999999982px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -779,25 +761,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                 <span
                   class="graphie-label"
                   data-math-formula="4"
-                  style="position: absolute; padding: 7px; color: black; left: 430px; top: 61.2px; fill: none;"
-                >
-                  <span
-                    class="tex-holder"
-                  />
-                </span>
-                <span
-                  class="graphie-label"
-                  data-math-formula="-4"
-                  style="position: absolute; padding: 7px; color: black; left: 29.999999999999982px; top: 61.2px; fill: none;"
-                >
-                  <span
-                    class="tex-holder"
-                  />
-                </span>
-                <span
-                  class="graphie-label"
-                  data-math-formula="4"
-                  style="position: absolute; padding: 7px; color: black; left: 430px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 430px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
