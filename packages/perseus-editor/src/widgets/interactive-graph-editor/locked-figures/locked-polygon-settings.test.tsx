@@ -3,17 +3,29 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {flags} from "../../../__stories__/flags-for-api-options";
+
 import LockedPolygonSettings from "./locked-polygon-settings";
 import {getDefaultFigureForType} from "./util";
 
+import type {Coord} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
+    flags: {
+        ...flags,
+        mafs: {
+            ...flags.mafs,
+            "locked-polygon-settings": true,
+        },
+    },
     ...getDefaultFigureForType("polygon"),
     onChangeProps: () => {},
     onMove: () => {},
     onRemove: () => {},
 };
+
+const defaultLabel = getDefaultFigureForType("label");
 
 describe("LockedPolygonSettings", () => {
     let userEvent: UserEvent;
@@ -298,6 +310,222 @@ describe("LockedPolygonSettings", () => {
                 [3, 2],
                 [2, 2],
             ],
+        });
+    });
+
+    describe("Labels", () => {
+        test("Renders a label when a label is provided", () => {
+            // Arrange
+
+            // Act
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "label text",
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Assert
+            const inputField = screen.getByRole("textbox", {name: "TeX"});
+            expect(inputField).toHaveValue("label text");
+        });
+
+        test.each`
+            movement   | label                   | coord | updatedBy
+            ${"up"}    | ${"Move polygon up"}    | ${1}  | ${1}
+            ${"down"}  | ${"Move polygon down"}  | ${1}  | ${-1}
+            ${"left"}  | ${"Move polygon left"}  | ${0}  | ${-1}
+            ${"right"} | ${"Move polygon right"} | ${0}  | ${1}
+        `(
+            "Updates the label position when $movement movement button is clicked",
+            async ({label, coord, updatedBy}) => {
+                // Arrange
+                const startingCoords = [
+                    [0, 0],
+                    [1, 0],
+                    [1, 1],
+                ] satisfies Coord[];
+
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedPolygonSettings
+                        {...defaultProps}
+                        points={startingCoords}
+                        labels={[
+                            {
+                                ...defaultLabel,
+                                coord: [0, 0],
+                            },
+                        ]}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const movementButton = screen.getByLabelText(label);
+                await userEvent.click(movementButton);
+
+                const expectedCoords = startingCoords.map((point) => {
+                    point[coord] += updatedBy;
+                    return point;
+                });
+
+                const expectedLabelCoord = [0, 0];
+                expectedLabelCoord[coord] += updatedBy;
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    points: expectedCoords,
+                    labels: [
+                        {
+                            ...defaultLabel,
+                            coord: expectedLabelCoord,
+                        },
+                    ],
+                });
+            },
+        );
+
+        test("Updates the label color when the polygon color changes", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    color="green"
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            color: "green",
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const colorSelect = screen.getByLabelText("color");
+            await userEvent.click(colorSelect);
+            const colorOption = screen.getByText("pink");
+            await userEvent.click(colorOption);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                color: "pink",
+                labels: [
+                    {
+                        ...defaultLabel,
+                        color: "pink",
+                    },
+                ],
+            });
+        });
+
+        test("Updates the label when the label text changes", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "label text",
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const labelText = screen.getByLabelText("TeX");
+            await userEvent.type(labelText, "!");
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                labels: [{...defaultLabel, text: "label text!"}],
+            });
+        });
+
+        test("Removes label when delete button is clicked", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "label text",
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const deleteButton = screen.getByRole("button", {
+                name: "Delete locked label",
+            });
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                labels: [],
+            });
+        });
+
+        test("Adds a new label when the add label button is clicked", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedPolygonSettings
+                    {...defaultProps}
+                    points={[
+                        [0, 0],
+                        [1, 0],
+                        [1, 1],
+                    ]}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "label text",
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const addLabelButton = screen.getByRole("button", {
+                name: "Add visible label",
+            });
+            await userEvent.click(addLabelButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                labels: [
+                    {
+                        ...defaultLabel,
+                        text: "label text",
+                    },
+                    {
+                        ...defaultLabel,
+                        coord: [0, -1],
+                    },
+                ],
+            });
         });
     });
 });
