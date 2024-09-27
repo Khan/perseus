@@ -153,9 +153,11 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         const labelTicks = props.labelTicks;
         if (labelTicks || props.labelStyle === "decimal ticks") {
             if (x === leftLabel || x === rightLabel) {
-                results.push(graphie.style({color: KhanColors.BLUE},
-                    () => _label(graphie, props.labelStyle, x, x, base),
-                ));
+                results.push(
+                    graphie.style({color: KhanColors.BLUE}, () =>
+                        _label(graphie, props.labelStyle, x, x, base),
+                    ),
+                );
             } else {
                 results.push(_label(graphie, props.labelStyle, x, x, base));
             }

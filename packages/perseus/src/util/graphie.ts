@@ -1698,6 +1698,9 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
         // Inherited line-height values can really mess up placement.
         $container.css("line-height", "normal");
 
+        // TODO: Verify that this change doesn't impact other graphies
+        //       Check the full list of consuming widgets.
+
         // If the change in line-height affected the height of the element,
         //     then the height used for calculations should be updated.
         // This can happen when the first label in the container calls this method,
