@@ -24,28 +24,40 @@ describe("generateTickLocations", () => {
 describe("shouldShowLabel", () => {
     it("should show label when y-axis is not at -1", () => {
         expect(
-            shouldShowLabel(0, [
-                [-10, 10],
-                [-10, 10],
-            ]),
+            shouldShowLabel(
+                0,
+                [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                1,
+            ),
         ).toBe(true);
     });
 
-    it("should hide label when y-axis is at -1 and within the graph bounds", () => {
+    it("should hide label when y-axis is at -tickStep and exists within the graph bounds", () => {
         expect(
-            shouldShowLabel(-1, [
-                [-10, 10],
-                [-10, 10],
-            ]),
+            shouldShowLabel(
+                -0.5,
+                [
+                    [-3, 3],
+                    [-3, 3],
+                ],
+                0.5,
+            ),
         ).toBe(false);
     });
 
     it("should show label when y-axis is not at -1 and exists outside of the graph bounds", () => {
         expect(
-            shouldShowLabel(-1, [
-                [1, 10],
-                [-10, 10],
-            ]),
+            shouldShowLabel(
+                -1,
+                [
+                    [1, 10],
+                    [-10, 10],
+                ],
+                1,
+            ),
         ).toBe(true);
     });
 });

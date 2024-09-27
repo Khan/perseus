@@ -10,7 +10,15 @@ import type {Interval, vec} from "mafs";
 const tickSize = 10;
 const tickLabelSize = 14;
 
-const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
+const YGridTick = ({
+    y,
+    range,
+    tickStep,
+}: {
+    y: number;
+    range: [Interval, Interval];
+    tickStep: number;
+}) => {
     // If the graph requires out-of-bounds labels, we want to make sure to set the
     // coordinates to the edge of the visible range of the graph. Otherwise,
     // the ticks and labels would render outside of the clipping-mask.
@@ -45,7 +53,7 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
 
     // If the graph displays both the y and x axis lines within the graph, we want
     // to hide the label at -1 on the y-axis to prevent overlap with the x-axis label
-    const showLabel = shouldShowLabel(y, range);
+    const showLabel = shouldShowLabel(y, range, tickStep);
 
     return (
         <g className="tick">
@@ -124,16 +132,21 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
 };
 
 // Determines whether to show the label for the given tick
-// Currently, the only condition is to hide the label at -1
-// on the y-axis when the x-axis is within the graph
+// Currently, the only condition is to hide the label at -tickStep
+// on the y-axis when the y-axis is within the graph bounds
 export const shouldShowLabel = (
-    number: number,
+    currentTick: number,
     range: [Interval, Interval],
+    tickStep: number,
 ) => {
     let showLabel = true;
 
-    // If the x-axis is within the graph and the y-axis is at -1, hide the label
-    if (range[X][MIN] < -1 && range[X][MAX] > 0 && number === -1) {
+    // If the y-axis is within the graph and currentTick equals -tickStep, hide the label
+    if (
+        range[X][MIN] < -tickStep &&
+        range[X][MAX] > 0 &&
+        currentTick === -tickStep
+    ) {
         showLabel = false;
     }
 
@@ -180,6 +193,7 @@ export const AxisTicks = () => {
                             y={y}
                             key={`y-grid-tick-${y}`}
                             range={range}
+                            tickStep={tickStep[Y]}
                         />
                     );
                 })}
