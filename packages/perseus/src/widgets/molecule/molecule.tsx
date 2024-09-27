@@ -10,6 +10,7 @@ import SmilesParser from "./smiles-parser";
 
 import type {PerseusMoleculeRendererWidgetOptions} from "../../perseus-types";
 import type {WidgetExports} from "../../types";
+import type {PerseusMoleculeUserInput} from "../../validation.types";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;
@@ -139,20 +140,19 @@ class MoleculeWidget extends React.Component<Props> {
         rotationAngle: 0,
     };
 
-    simpleValidate: (arg1: any) => any = () => {
-        return {type: "points", earned: 0, total: 0, message: null};
-    };
-
-    getUserInput: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        return [];
-    };
-
-    validate: (arg1: any, arg2: any) => any = (state, rubric) => {
-        // TODO(colin): this is here as part of the interface for a component.
-        // Figure out if there is something more appropriate that this should
-        // return.
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
         return noopValidator();
-    };
+    }
+
+    getUserInput(): PerseusMoleculeUserInput {
+        return [];
+    }
+
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    validate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         return (

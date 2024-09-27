@@ -11,9 +11,12 @@
  */
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
+
+import {usePerseusI18n} from "../../components/i18n-context";
 
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
@@ -46,6 +49,7 @@ import type {
     InteractiveGraphProps,
     PointGraphState,
 } from "./types";
+import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {vec} from "mafs";
 
@@ -107,6 +111,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
         y: viewboxY,
     };
 
+    const {strings} = usePerseusI18n();
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -138,10 +144,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         height,
                     }}
                     onKeyUp={(event) => {
-                        if (event.key === "Backspace") {
-                            dispatch(actions.global.deleteIntent());
-                            graphRef.current?.focus();
-                        }
+                        handleKeyboardEvent(event, state, dispatch);
                     }}
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={
@@ -149,6 +152,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     }
                     ref={graphRef}
                     tabIndex={0}
+                    onFocus={(event) => {
+                        handleFocusEvent(event, state, dispatch);
+                    }}
+                    onBlur={(event) => {
+                        handleBlurEvent(event, state, dispatch);
+                    }}
                 >
                     {fullGraphAriaDescription && (
                         <View
@@ -262,8 +271,30 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             </Mafs>
                         </View>
                     </View>
+                    {state.type === "point" &&
+                        state.showKeyboardInteractionInvitation && (
+                            <View
+                                style={{
+                                    textAlign: "center",
+                                    backgroundColor: "white",
+                                    border: "1px solid #21242C52",
+                                    padding: "16px 0",
+                                    boxShadow: "0px 8px 8px 0px #21242C14",
+
+                                    // This translates the box to the center of the
+                                    // graph Then backs it off by half of its
+                                    // overall height so it's perfectly centered
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                }}
+                            >
+                                <LabelMedium>
+                                    {strings.graphKeyboardPrompt}
+                                </LabelMedium>
+                            </View>
+                        )}
                 </View>
-                {renderGraphControls({state, dispatch, width})}
+                {renderGraphControls({state, dispatch, width, strings})}
             </View>
         </GraphConfigContext.Provider>
     );
@@ -273,36 +304,51 @@ const renderPointGraphControls = (props: {
     state: PointGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
-}) => (
-    <View
-        style={{
-            flexDirection: "row",
-            width: props.width,
-        }}
-    >
-        {/* <Button
-            kind="secondary"
+    strings: PerseusStrings;
+}) => {
+    const {interactionMode, showRemovePointButton, focusedPointIndex} =
+        props.state;
+    const {strings} = props;
+
+    const shouldShowRemoveButton =
+        showRemovePointButton && focusedPointIndex !== null;
+
+    return (
+        <View
             style={{
-                width: "100%",
-                marginLeft: "20px",
-            }}
-            tabIndex={0}
-            onClick={() => {
-                props.dispatch(actions.pointGraph.addPoint([0, 0]));
+                flexDirection: "row",
+                width: props.width,
             }}
         >
-            Add Point
-        </Button> */}
-        {props.state.showRemovePointButton &&
-            props.state.focusedPointIndex !== null && (
+            {interactionMode === "keyboard" && (
+                <Button
+                    kind="secondary"
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                    }}
+                    tabIndex={0}
+                    onClick={() => {
+                        props.dispatch(actions.pointGraph.addPoint([0, 0]));
+                    }}
+                >
+                    {strings.addPoint}
+                </Button>
+            )}
+            {interactionMode === "mouse" && (
                 <Button
                     id={REMOVE_BUTTON_ID}
                     kind="secondary"
                     color="destructive"
+                    // This button is meant to be interacted with by the mouse only
+                    // Never allow learners to tab to this button
                     tabIndex={-1}
                     style={{
                         width: "100%",
                         marginLeft: "20px",
+                        visibility: shouldShowRemoveButton
+                            ? "visible"
+                            : "hidden",
                     }}
                     onClick={(event) => {
                         props.dispatch(
@@ -312,29 +358,82 @@ const renderPointGraphControls = (props: {
                         );
                     }}
                 >
-                    Remove Point
+                    {strings.removePoint}
                 </Button>
             )}
-    </View>
-);
+        </View>
+    );
+};
 
 const renderGraphControls = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
     width: number;
+    strings: PerseusStrings;
 }) => {
-    const {state, dispatch, width} = props;
+    const {state, dispatch, width, strings} = props;
     const {type} = state;
     switch (type) {
         case "point":
             if (state.numPoints === "unlimited") {
-                return renderPointGraphControls({state, dispatch, width});
+                return renderPointGraphControls({
+                    state,
+                    dispatch,
+                    width,
+                    strings,
+                });
             }
             return null;
         default:
             return null;
     }
 };
+
+function handleFocusEvent(
+    event: React.FocusEvent,
+    state: InteractiveGraphState,
+    dispatch: (action: InteractiveGraphAction) => unknown,
+) {
+    if (state.type === "point" && state.numPoints === "unlimited") {
+        if (
+            event.target.classList.contains("mafs-graph") &&
+            state.interactionMode === "mouse"
+        ) {
+            dispatch(actions.global.changeKeyboardInvitationVisibility(true));
+        }
+    }
+}
+
+function handleBlurEvent(
+    event: React.FocusEvent,
+    state: InteractiveGraphState,
+    dispatch: (action: InteractiveGraphAction) => unknown,
+) {
+    if (state.type === "point" && state.numPoints === "unlimited") {
+        dispatch(actions.global.changeKeyboardInvitationVisibility(false));
+    }
+}
+
+function handleKeyboardEvent(
+    event: React.KeyboardEvent,
+    state: InteractiveGraphState,
+    dispatch: (action: InteractiveGraphAction) => unknown,
+) {
+    if (state.type === "point" && state.numPoints === "unlimited") {
+        if (event.key === "Backspace") {
+            dispatch(actions.global.deleteIntent());
+
+            // After removing a point blur
+            // It would be nice if this could focus on the graph but doing so
+            // would trigger the message to prompt a learner to enter keyboard mode
+            (document.activeElement as HTMLElement).blur();
+        } else if (event.shiftKey && event.key === "Enter") {
+            dispatch(actions.global.changeInteractionMode("keyboard"));
+        } else if (state.interactionMode === "keyboard" && event.key === "a") {
+            dispatch(actions.pointGraph.addPoint([0, 0]));
+        }
+    }
+}
 
 // Calculate the difference between the min and max values of a range
 const getRangeDiff = (range: vec.Vector2) => {

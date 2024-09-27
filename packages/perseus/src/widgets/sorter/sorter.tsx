@@ -1,21 +1,24 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
-import _ from "underscore";
 
 import Sortable from "../../components/sortable";
 import Util from "../../util";
 
+import sorterValidator from "./sorter-validator";
+
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusSorterRubric,
+    PerseusSorterUserInput,
+} from "../../validation.types";
 
 const {shuffle} = Util;
 
 type RenderProps = PerseusSorterWidgetOptions;
 
-type Rubric = PerseusSorterWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusSorterRubric>;
 
 type DefaultProps = {
     correct: Props["correct"];
@@ -42,18 +45,14 @@ class Sorter extends React.Component<Props, State> {
         linterContext: linterContextDefault,
     };
 
-    static validate(state: any, rubric: any): any {
-        const correct = _.isEqual(state.options, rubric.correct);
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+    static validate(
+        userInput: PerseusSorterUserInput,
+        rubric: PerseusSorterRubric,
+    ): PerseusScore {
+        return sorterValidator(userInput, rubric);
     }
 
-    state: any = {
+    state: State = {
         changed: false,
     };
 
@@ -84,13 +83,15 @@ class Sorter extends React.Component<Props, State> {
         });
     };
 
-    getUserInput: () => {
-        options: any;
-    } = () => {
+    getUserInput(): PerseusSorterUserInput {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-        return {options: this.refs.sortable.getOptions()};
-    };
+        const options = this.refs.sortable.getOptions();
+        return {
+            options,
+            changed: this.state.changed,
+        };
+    }
 
     moveOptionToIndex: (option: SortableOption, index: number) => void = (
         option,
@@ -101,22 +102,9 @@ class Sorter extends React.Component<Props, State> {
         this.refs.sortable.moveOptionToIndex(option, index);
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        // If this widget hasn't been changed yet, we treat it as "empty" which
-        // prevents the "Check" button from becoming active. We want the user
-        // to make a change before trying to move forward. This makes an
-        // assumption that the initial order isn't the correct order! However,
-        // this should be rare if it happens, and interacting with the list
-        // will enable the button, so they won't be locked out of progressing.
-        if (!this.state.changed) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
-        return Sorter.validate(this.getUserInput(), rubric);
-    };
+    simpleValidate(rubric: PerseusSorterRubric): PerseusScore {
+        return sorterValidator(this.getUserInput(), rubric);
+    }
 
     render(): React.ReactNode {
         const options = shuffle(

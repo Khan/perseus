@@ -15,17 +15,17 @@ import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 
+import categorizerValidator from "./categorizer-validator";
+
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusCategorizerRubric,
+    PerseusCategorizerUserInput,
+} from "../../validation.types";
 
-type UserInput = {
-    values: ReadonlyArray<number>;
-};
-
-export type Rubric = PerseusCategorizerWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric> & {
+type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
     values: ReadonlyArray<string>;
 };
 
@@ -56,35 +56,14 @@ export class Categorizer extends React.Component<Props, State> {
     };
 
     static validate(
-        userInput: UserInput,
-        rubric: Rubric,
+        userInput: PerseusCategorizerUserInput,
+        rubric: PerseusCategorizerRubric,
         strings: PerseusStrings,
     ): PerseusScore {
-        let completed = true;
-        let allCorrect = true;
-        rubric.values.forEach((value, i) => {
-            if (userInput.values[i] == null) {
-                completed = false;
-            }
-            if (userInput.values[i] !== value) {
-                allCorrect = false;
-            }
-        });
-        if (!completed) {
-            return {
-                type: "invalid",
-                message: strings.invalidSelection,
-            };
-        }
-        return {
-            type: "points",
-            earned: allCorrect ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+        return categorizerValidator(userInput, rubric, strings);
     }
 
-    static getUserInputFromProps(props: Props): UserInput {
+    static getUserInputFromProps(props: Props): PerseusCategorizerUserInput {
         return {values: props.values};
     }
 
@@ -93,9 +72,9 @@ export class Categorizer extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusCategorizerUserInput {
         return Categorizer.getUserInputFromProps(this.props);
-    };
+    }
 
     onChange(itemNum, catNum) {
         const values = [...this.props.values];
@@ -105,13 +84,13 @@ export class Categorizer extends React.Component<Props, State> {
         this.props.trackInteraction();
     }
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Categorizer.validate(
+    simpleValidate(rubric: PerseusCategorizerRubric): PerseusScore {
+        return categorizerValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     render(): React.ReactNode {
         const self = this;

@@ -1,6 +1,5 @@
 # Perseus
 
-[![codecov](https://codecov.io/gh/Khan/perseus/branch/main/graph/badge.svg)](https://codecov.io/gh/Khan/perseus)
 ![npm Version](https://img.shields.io/npm/v/@khanacademy/perseus)
 ![License](https://img.shields.io/github/license/Khan/perseus)
 

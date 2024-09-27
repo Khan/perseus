@@ -7,11 +7,14 @@ import KhanAnswerTypes from "../../util/answer-types";
 
 import getDecimalSeparator from "./get-decimal-separator";
 
-import type {Rubric, OnInputErrorFunctionType} from "./expression.types";
 import type {PerseusExpressionAnswerForm} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore} from "../../types";
 import type {Score} from "../../util/answer-types";
+import type {
+    PerseusExpressionRubric,
+    PerseusExpressionUserInput,
+} from "../../validation.types";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should
@@ -32,10 +35,8 @@ import type {Score} from "../../util/answer-types";
  * - Otherwise, pass through the resulting points and message.
  */
 function expressionValidator(
-    userInput: string,
-    rubric: Rubric,
-    // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
-    onInputError: OnInputErrorFunctionType = function () {},
+    userInput: PerseusExpressionUserInput,
+    rubric: PerseusExpressionRubric,
     strings: PerseusStrings,
     locale: string,
 ): PerseusScore {
@@ -150,16 +151,9 @@ function expressionValidator(
         };
     }
     if (matchingAnswerForm.considered === "ungraded") {
-        // We matched an ungraded answer form - return "invalid", which
-        // will let the user try again with no penalty
-        const apiResult = onInputError(
-            null, // Reserved for some widget identifier
-            userInput,
-            matchMessage,
-        );
         return {
             type: "invalid",
-            message: apiResult === false ? null : matchMessage,
+            message: matchMessage,
         };
     }
     // We matched a graded answer form, so we can now tell the user

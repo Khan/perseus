@@ -3,6 +3,7 @@ import * as React from "react";
 import {useEffect, useImperativeHandle, useRef} from "react";
 
 import {MafsGraph} from "./mafs-graph";
+import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
     changeRange,
@@ -10,12 +11,12 @@ import {
     reinitialize,
 } from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
-import {getGradableGraph, getRadius} from "./reducer/interactive-graph-state";
+import {getGradableGraph} from "./reducer/interactive-graph-state";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {PerseusGraphType} from "../../perseus-types";
-import type {Widget} from "../../renderer";
 import type {APIOptions} from "../../types";
+import type {PerseusInteractiveGraphUserInput} from "../../validation.types";
 
 export type StatefulMafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -41,27 +42,12 @@ export type StatefulMafsGraphProps = {
     static: InteractiveGraphProps["static"];
 };
 
-// Rather than be tightly bound to how data was structured in
-// the legacy interactive graph, this lets us store state
-// however we want and we just transform it before handing it off
-// the the parent InteractiveGraph
-function mafsStateToInteractiveGraph(state: {graph: InteractiveGraphState}) {
-    if (state.graph.type === "circle") {
-        return {
-            ...state,
-            graph: {
-                ...state.graph,
-                radius: getRadius(state.graph),
-            },
-        };
-    }
-    return {
-        ...state,
-    };
-}
+export type StatefulMafsGraphType = {
+    getUserInput: () => PerseusInteractiveGraphUserInput;
+};
 
 export const StatefulMafsGraph = React.forwardRef<
-    Partial<Widget>,
+    StatefulMafsGraphType,
     StatefulMafsGraphProps
 >((props, ref) => {
     const {onChange, graph} = props;
@@ -80,10 +66,10 @@ export const StatefulMafsGraph = React.forwardRef<
 
     useEffect(() => {
         if (prevState.current !== state) {
-            onChange(mafsStateToInteractiveGraph({graph: state}));
+            onChange({graph: mafsStateToInteractiveGraph(state, graph)});
         }
         prevState.current = state;
-    }, [onChange, state]);
+    }, [onChange, state, graph]);
 
     // Destructuring first to keep useEffect from making excess calls
     const [xSnap, ySnap] = props.snapStep;
@@ -111,7 +97,7 @@ export const StatefulMafsGraph = React.forwardRef<
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
     const showAngles = graph.type === "polygon" ? graph.showAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
-    const startCoords = "startCoords" in graph ? graph.startCoords : null;
+    const startCoords = "startCoords" in graph ? graph.startCoords : undefined;
 
     const originalPropsRef = useRef(props);
     const latestPropsRef = useLatestRef(props);

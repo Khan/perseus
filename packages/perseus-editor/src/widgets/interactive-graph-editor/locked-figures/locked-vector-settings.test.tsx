@@ -3,6 +3,8 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {flags} from "../../../__stories__/flags-for-api-options";
+
 import LockedVectorSettings from "./locked-vector-settings";
 import {getDefaultFigureForType} from "./util";
 
@@ -10,11 +12,20 @@ import type {Props} from "./locked-vector-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
+    flags: {
+        ...flags,
+        mafs: {
+            ...flags.mafs,
+            "locked-line-settings": true,
+        },
+    },
     ...getDefaultFigureForType("vector"),
     onChangeProps: () => {},
     onMove: () => {},
     onRemove: () => {},
 } as Props;
+
+const defaultLabel = getDefaultFigureForType("label");
 
 describe("Locked Vector Settings", () => {
     let userEvent: UserEvent;
@@ -104,7 +115,9 @@ describe("Locked Vector Settings", () => {
             await userEvent.click(colorOption);
 
             // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({color: "green"});
+            expect(onChangeProps).toHaveBeenCalledWith({
+                color: "green",
+            });
         });
 
         test("shows an error when the vector length is zero", () => {
@@ -174,6 +187,183 @@ describe("Locked Vector Settings", () => {
                 expect(onChangePropsMock).toHaveBeenCalledTimes(1);
                 onChangePropsMock.mockClear();
             }
+        });
+    });
+
+    describe("Labels", () => {
+        test("Updates the label coords when the vector coords change", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    points={[
+                        [0, 0],
+                        [2, 2],
+                    ]}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            // Offset by 0.5, 0.5 from the line's midpoint
+                            // of [1, 1].
+                            coord: [1.5, 1.5],
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const point1XInput = screen.getAllByLabelText("x coord")[1];
+            // Change the x coord of the second point to 20
+            await userEvent.type(point1XInput, "0");
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                points: [
+                    [0, 0],
+                    [20, 2],
+                ],
+                labels: [
+                    {
+                        ...defaultLabel,
+                        coord: [10.5, 1.5],
+                    },
+                ],
+            });
+        });
+
+        test("Updates the label color when the vector color changes", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    color="green"
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            color: "green",
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const colorSelect = screen.getByLabelText("color");
+            await userEvent.click(colorSelect);
+            const colorOption = screen.getByText("pink");
+            await userEvent.click(colorOption);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                color: "pink",
+                labels: [
+                    {
+                        ...defaultLabel,
+                        color: "pink",
+                    },
+                ],
+            });
+        });
+
+        test("Updates the label when the label text changes", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "label text",
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const labelText = screen.getByLabelText("TeX");
+            await userEvent.type(labelText, "!");
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                labels: [{...defaultLabel, text: "label text!"}],
+            });
+        });
+
+        test("Removes label when delete button is clicked", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "label text",
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const deleteButton = screen.getByRole("button", {
+                name: "Delete locked label",
+            });
+            await userEvent.click(deleteButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                labels: [],
+            });
+        });
+
+        test("Adds a new label when the add label button is clicked", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "label text",
+                        },
+                    ]}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const addLabelButton = screen.getByRole("button", {
+                name: "Add visible label",
+            });
+            await userEvent.click(addLabelButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                labels: [
+                    {
+                        ...defaultLabel,
+                        text: "label text",
+                    },
+                    {
+                        ...defaultLabel,
+                        // Midpoint of line [[0, 0], [2, 2]] is [1, 1].
+                        // Offset 1 down vertically for each preceding label.
+                        coord: [1, 0],
+                    },
+                ],
+            });
         });
     });
 });

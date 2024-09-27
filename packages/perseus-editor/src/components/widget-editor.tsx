@@ -30,6 +30,7 @@ type WidgetEditorProps = {
     ) => unknown;
     onRemove: () => unknown;
     apiOptions: APIOptions;
+    widgetIsOpen?: boolean;
 } & Omit<PerseusWidget, "key">;
 
 type WidgetEditorState = {
@@ -59,7 +60,7 @@ class WidgetEditor extends React.Component<
     constructor(props: WidgetEditorProps) {
         super(props);
         this.state = {
-            showWidget: false,
+            showWidget: props.widgetIsOpen ?? true,
             widgetInfo: _upgradeWidgetInfo(props),
         };
         this.widget = React.createRef();
@@ -68,6 +69,13 @@ class WidgetEditor extends React.Component<
     // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
         this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});
+        // user can update internal state while the widget is handled globally
+        if (
+            nextProps.widgetIsOpen != null &&
+            nextProps.widgetIsOpen !== this.props.widgetIsOpen
+        ) {
+            this.setState({showWidget: nextProps.widgetIsOpen});
+        }
     }
 
     _toggleWidget = (e: React.SyntheticEvent) => {

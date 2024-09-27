@@ -14,26 +14,24 @@ import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 
+import {csProgramValidator} from "./cs-program-validator";
+
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusCSProgramRubric,
+    PerseusCSProgramUserInput,
+    UserInputStatus,
+} from "../../validation.types";
 
 const {updateQueryString} = Util;
 
-type Status = "correct" | "incorrect" | "incomplete";
-
-type UserInput = {
-    status: Status;
-    message: string | null;
-};
-
 type RenderProps = PerseusCSProgramWidgetOptions & {
-    status: Status;
+    status: UserInputStatus;
     message: string | null;
 };
 
-export type Rubric = PerseusCSProgramWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
@@ -71,29 +69,8 @@ class CSProgram extends React.Component<Props> {
     };
 
     // The widget's grading function
-    static validate(state: UserInput, rubric: any): PerseusScore {
-        // The iframe can tell us whether it's correct or incorrect,
-        //  and pass an optional message
-        if (state.status === "correct") {
-            return {
-                type: "points",
-                earned: 1,
-                total: 1,
-                message: state.message || null,
-            };
-        }
-        if (state.status === "incorrect") {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1,
-                message: state.message || null,
-            };
-        }
-        return {
-            type: "invalid",
-            message: "Keep going, you're not there yet!",
-        };
+    static validate(state: PerseusCSProgramUserInput): PerseusScore {
+        return csProgramValidator(state);
     }
 
     componentDidMount() {
@@ -131,14 +108,11 @@ class CSProgram extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    simpleValidate(rubric): PerseusScore {
-        return CSProgram.validate(
-            {
-                status: this.props.status,
-                message: this.props.message,
-            },
-            rubric,
-        );
+    simpleValidate(): PerseusScore {
+        return csProgramValidator({
+            status: this.props.status,
+            message: this.props.message,
+        });
     }
 
     render(): React.ReactNode {

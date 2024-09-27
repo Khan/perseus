@@ -6,7 +6,7 @@ import numericInputValidator, {
     maybeParsePercentInput,
 } from "./numeric-input-validator";
 
-import type {Rubric} from "./numeric-input.types";
+import type {PerseusNumericInputRubric} from "../../validation.types";
 
 describe("static function validate", () => {
     beforeEach(() => {
@@ -16,7 +16,7 @@ describe("static function validate", () => {
     });
 
     it("with a simple value", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -39,16 +39,11 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 1,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with nonsense", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -71,11 +66,9 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            message:
-                "We could not understand your answer. Please check your answer for extra text or symbols.",
-            type: "invalid",
-        });
+        expect(score).toHaveInvalidInput(
+            "We could not understand your answer. Please check your answer for extra text or symbols.",
+        );
     });
 
     // Don't default to validating the answer as a pi answer
@@ -85,7 +78,7 @@ describe("static function validate", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     maxError: null,
@@ -122,7 +115,7 @@ describe("static function validate", () => {
     });
 
     it("still validates against pi if provided in answerForms", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     maxError: null,
@@ -146,16 +139,11 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(userInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 1,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with a strict answer", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -178,16 +166,11 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 1,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 
     it("with a strict answer and max error is outside range", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -210,16 +193,11 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 0,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("with a strict answer and max error is inside range", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
                     value: 1,
@@ -242,12 +220,7 @@ describe("static function validate", () => {
 
         const score = numericInputValidator(useInput, rubric, mockStrings);
 
-        expect(score).toEqual({
-            earned: 1,
-            message: null,
-            total: 1,
-            type: "points",
-        });
+        expect(score).toHaveBeenAnsweredCorrectly();
     });
 });
 

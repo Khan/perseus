@@ -3,12 +3,21 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {flags} from "../../../__stories__/flags-for-api-options";
+
 import LockedPointSettings from "./locked-point-settings";
 import {getDefaultFigureForType} from "./util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
+    flags: {
+        ...flags,
+        mafs: {
+            ...flags.mafs,
+            "locked-line-settings": true,
+        },
+    },
     ...getDefaultFigureForType("point"),
     onRemove: () => {},
     onMove: () => {},
@@ -240,6 +249,102 @@ describe("LockedPointSettings", () => {
         expect(onChangeProps).toHaveBeenCalledWith({
             color: "blue",
             labels: [{...defaultLabel, color: "blue"}],
+        });
+    });
+
+    test("Updates labels when label text is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        text: "label text",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const labelText = screen.getByLabelText("TeX");
+        await userEvent.type(labelText, "!");
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            labels: [{...defaultLabel, text: "label text!"}],
+        });
+    });
+
+    test("Removes label when delete button is clicked", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        text: "label text",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const deleteButton = screen.getByRole("button", {
+            name: "Delete locked label",
+        });
+        await userEvent.click(deleteButton);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            labels: [],
+        });
+    });
+
+    test("Adds a new label when add label button is clicked", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        text: "label text",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const addLabelButton = screen.getByRole("button", {
+            name: "Add visible label",
+        });
+        await userEvent.click(addLabelButton);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            labels: [
+                {
+                    ...defaultLabel,
+                    text: "label text",
+                },
+                {
+                    ...defaultLabel,
+                    // Default 0.5 offset horizontally,
+                    // 1 down vertically for each preceding label.
+                    coord: [0.5, -1],
+                },
+            ],
         });
     });
 });

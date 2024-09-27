@@ -146,6 +146,25 @@ module.exports = {
                 "testing-library/no-debugging-utils": "off",
             },
         },
+        {
+            files: ["*-validator.ts"],
+            rules: {
+                "no-restricted-syntax": [
+                    "error",
+                    {
+                        selector:
+                            "ImportDeclaration > ImportSpecifier[local.name='APIOptions']",
+                        message:
+                            "APIOptions is not available and should not be imported in validators.",
+                    },
+                    {
+                        selector: "ImportDeclaration[source.value='react']",
+                        message:
+                            "React is not available and should not be imported in validators.",
+                    },
+                ],
+            },
+        },
     ],
     rules: {
         "max-lines": "off",

@@ -11,12 +11,11 @@ import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
+import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
 import type {
-    ChangeFn,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+    PerseusImageRubric,
+    PerseusImageUserInput,
+} from "../../validation.types";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -31,10 +30,8 @@ const editorAlignments = ["block", "full-width"];
 const DEFAULT_ALIGNMENT = "block";
 
 type RenderProps = PerseusImageWidgetOptions; // there is no transform as part of exports
-type Rubric = PerseusImageWidgetOptions;
-type UserInput = null;
 
-type ExternalProps = WidgetProps<RenderProps, Rubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusImageRubric>;
 
 type Props = ExternalProps & {
     alignment: NonNullable<ExternalProps["alignment"]>;
@@ -76,7 +73,8 @@ class ImageWidget extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
@@ -84,13 +82,14 @@ class ImageWidget extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusImageUserInput {
         return null;
-    };
+    }
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return ImageWidget.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     focus: () => void = () => {}; // no-op
 

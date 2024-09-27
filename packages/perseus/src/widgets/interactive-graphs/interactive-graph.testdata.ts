@@ -707,7 +707,7 @@ export const segmentWithAllLockedRayVariations: PerseusRenderer =
 export const segmentWithLockedVectors: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedVector([0, 0], [2, 2])
-        .addLockedVector([2, 2], [-2, 4], "green")
+        .addLockedVector([2, 2], [-2, 4], {color: "green"})
         .build();
 
 export const segmentWithLockedEllipses: PerseusRenderer =
@@ -831,9 +831,20 @@ export const segmentWithLockedLabels: PerseusRenderer =
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7, {labels: [{text: "A"}]})
-        .addLockedLine([-7, -5], [2, -3])
-        .addLockedVector([0, 0], [8, 2], "purple")
-        .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
+        .addLockedLine([-7, -5], [2, -3], {
+            showPoint1: true,
+            showPoint2: true,
+            labels: [{text: "B"}],
+        })
+        .addLockedVector([0, 0], [8, 2], {
+            color: "purple",
+            labels: [{text: "C"}],
+        })
+        .addLockedEllipse([0, 5], [4, 2], {
+            angle: Math.PI / 4,
+            color: "blue",
+            labels: [{text: "D"}],
+        })
         .addLockedPolygon(
             [
                 [-9, 4],
@@ -845,6 +856,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
         )
         .addLockedFunction("sin(x)", {
             color: "red",
+            labels: [{text: "E"}],
         })
         .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
         .build();
@@ -859,7 +871,7 @@ export const staticGraphQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(-7, -7)
         .addLockedLine([-7, -5], [2, -3])
-        .addLockedVector([0, 0], [8, 2], "purple")
+        .addLockedVector([0, 0], [8, 2], {color: "purple"})
         .addLockedEllipse([0, 5], [4, 2], {angle: Math.PI / 4, color: "blue"})
         .addLockedPolygon(
             [
@@ -878,7 +890,7 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
         const result = interactiveGraphQuestionBuilder()
             .addLockedPointAt(-7, -7)
             .addLockedLine([-7, -5], [2, -3])
-            .addLockedVector([0, 0], [8, 2], "purple")
+            .addLockedVector([0, 0], [8, 2], {color: "purple"})
             .addLockedEllipse([0, 5], [4, 2], {
                 angle: Math.PI / 4,
                 color: "blue",
@@ -955,5 +967,33 @@ export const graphWithLabeledPoint: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedPointAt(0, 0, {
             labels: [{text: "A"}],
+        })
+        .build();
+
+export const graphWithLabeledLine: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedLine([-7, -5], [2, -3], {
+            labels: [{text: "B"}],
+        })
+        .build();
+
+export const graphWithLabeledVector: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedVector([0, 0], [8, 2], {
+            labels: [{text: "C"}],
+        })
+        .build();
+
+export const graphWithLabeledEllipse: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedEllipse([0, 0], [4, 2], {
+            labels: [{text: "D"}],
+        })
+        .build();
+
+export const graphWithLabeledFunction: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedFunction("sin(x)", {
+            labels: [{text: "E"}],
         })
         .build();

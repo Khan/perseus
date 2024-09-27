@@ -7,6 +7,7 @@ import Util from "../../util";
 import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
+import radioValidator from "./radio-validator";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {
@@ -16,6 +17,10 @@ import type {
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
+import type {
+    PerseusRadioRubric,
+    PerseusRadioUserInput,
+} from "../../validation.types";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -33,15 +38,7 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type UserInput = {
-    countChoices?: boolean;
-    choicesSelected: ReadonlyArray<boolean>;
-    numCorrect?: number;
-    noneOfTheAboveIndex?: number | null | undefined;
-    noneOfTheAboveSelected?: boolean;
-};
-type Rubric = PerseusRadioWidgetOptions;
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
 
 type DefaultProps = Required<
     Pick<
@@ -77,63 +74,14 @@ class Radio extends React.Component<Props> {
     };
 
     static validate(
-        userInput: UserInput,
-        rubric: Rubric,
+        userInput: PerseusRadioUserInput,
+        rubric: PerseusRadioRubric,
         strings: PerseusStrings,
     ): PerseusScore {
-        const numSelected = userInput.choicesSelected.reduce(
-            (sum, selected) => {
-                return sum + (selected ? 1 : 0);
-            },
-            0,
-        );
-
-        if (numSelected === 0) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
-        if (
-            userInput.numCorrect &&
-            userInput.numCorrect > 1 &&
-            numSelected !== userInput.numCorrect
-        ) {
-            return {
-                type: "invalid",
-                message: strings.chooseCorrectNum,
-            };
-            // If NOTA and some other answer are checked, ...
-        }
-        if (userInput.noneOfTheAboveSelected && numSelected > 1) {
-            return {
-                type: "invalid",
-                message: strings.notNoneOfTheAbove,
-            };
-        }
-
-        const correct = userInput.choicesSelected.every((selected, i) => {
-            let isCorrect;
-            if (userInput.noneOfTheAboveIndex === i) {
-                isCorrect = rubric.choices.every((choice, j) => {
-                    return i === j || !choice.correct;
-                });
-            } else {
-                isCorrect = !!rubric.choices[i].correct;
-            }
-            return isCorrect === selected;
-        });
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
+        return radioValidator(userInput, rubric, strings);
     }
 
-    static getUserInputFromProps(props: Props): UserInput {
+    static getUserInputFromProps(props: Props): PerseusRadioUserInput {
         // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
@@ -342,19 +290,17 @@ class Radio extends React.Component<Props> {
         this.props.trackInteraction();
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusRadioUserInput {
         return Radio.getUserInputFromProps(this.props);
-    };
+    }
 
-    simpleValidate: (arg1: PerseusRadioWidgetOptions) => PerseusScore = (
-        rubric,
-    ) => {
-        return Radio.validate(
+    simpleValidate(rubric: PerseusRadioRubric): PerseusScore {
+        return radioValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     /**
      * Turn on rationale display for the currently selected choices. Note that

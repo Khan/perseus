@@ -12,15 +12,15 @@ import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusDefinitionRubric,
+    PerseusDefinitionUserInput,
+} from "../../validation.types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
-type Rubric = PerseusDefinitionWidgetOptions;
-
-type UserInput = Empty;
-
-type DefinitionProps = WidgetProps<RenderProps, Rubric> & {
+type DefinitionProps = WidgetProps<RenderProps, PerseusDefinitionRubric> & {
     widgets: PerseusRenderer["widgets"];
 };
 
@@ -38,17 +38,19 @@ class Definition extends React.Component<DefinitionProps> {
         definition: "definition goes here",
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusDefinitionUserInput {
         return {};
-    };
+    }
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return Definition.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         return (

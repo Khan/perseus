@@ -738,7 +738,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 coord: [3, 5],
                 color: "grayH",
                 filled: true,
-                labels: [],
             },
         ]);
     });
@@ -756,14 +755,12 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 coord: [3, 5],
                 color: "grayH",
                 filled: true,
-                labels: [],
             },
             {
                 type: "point",
                 coord: [6, 7],
                 color: "grayH",
                 filled: true,
-                labels: [],
             },
         ]);
     });
@@ -842,20 +839,116 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         coord: [1, 2],
                         color: "grayH",
                         filled: true,
-                        labels: [],
                     },
                     {
                         type: "point",
                         coord: [3, 4],
                         color: "grayH",
                         filled: true,
-                        labels: [],
                     },
                 ],
                 color: "grayH",
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+            },
+        ]);
+    });
+
+    it("adds a locked line with options and minimal label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedLine([1, 2], [3, 4], {
+                kind: "segment",
+                lineStyle: "dashed",
+                color: "green",
+                filled: [false, false],
+                showPoint1: true,
+                showPoint2: true,
+                labels: [{text: "a label"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "line",
+                kind: "segment",
+                points: [
+                    {
+                        type: "point",
+                        coord: [1, 2],
+                        color: "green",
+                        filled: false,
+                    },
+                    {
+                        type: "point",
+                        coord: [3, 4],
+                        color: "green",
+                        filled: false,
+                    },
+                ],
+                color: "green",
+                lineStyle: "dashed",
+                showPoint1: true,
+                showPoint2: true,
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [2, 3],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked line with options and specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedLine([1, 2], [3, 4], {
+                kind: "segment",
+                lineStyle: "dashed",
+                color: "green",
+                filled: [false, false],
+                showPoint1: true,
+                showPoint2: true,
+                labels: [{text: "a label", coord: [9, 9], size: "small"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "line",
+                kind: "segment",
+                points: [
+                    {
+                        type: "point",
+                        coord: [1, 2],
+                        color: "green",
+                        filled: false,
+                    },
+                    {
+                        type: "point",
+                        coord: [3, 4],
+                        color: "green",
+                        filled: false,
+                    },
+                ],
+                color: "green",
+                lineStyle: "dashed",
+                showPoint1: true,
+                showPoint2: true,
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "green",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });
@@ -878,9 +971,12 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
-    it("adds a locked vector with a specified color", () => {
+    it("adds a locked vector with options and minimal label", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .addLockedVector([1, 2], [3, 4], "green")
+            .addLockedVector([1, 2], [3, 4], {
+                color: "green",
+                labels: [{text: "a label"}],
+            })
             .build();
         const graph = question.widgets["interactive-graph 1"];
 
@@ -892,6 +988,45 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "green",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [2, 3],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked vector with options and specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedVector([1, 2], [3, 4], {
+                color: "green",
+                labels: [{text: "a label", coord: [9, 9], size: "small"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "vector",
+                points: [
+                    [1, 2],
+                    [3, 4],
+                ],
+                color: "green",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "green",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });
@@ -915,13 +1050,14 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
-    it("adds a locked ellipse with options", () => {
+    it("adds a locked ellipse with options and minimal label", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedEllipse([1, 2], [3, 4], {
                 angle: Math.PI / 2,
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
+                labels: [{text: "a label"}],
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -935,6 +1071,45 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [1, 2],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked ellipse with specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedEllipse([1, 2], [3, 4], {
+                labels: [{text: "a label", coord: [9, 9], size: "small"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "ellipse",
+                center: [1, 2],
+                radius: [3, 4],
+                angle: 0,
+                color: "grayH",
+                fillStyle: "none",
+                strokeStyle: "solid",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "grayH",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });
@@ -1016,13 +1191,14 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
-    it("adds a locked function with options", () => {
+    it("adds a locked function with options and minimal label", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedFunction("x^2", {
                 color: "green",
                 strokeStyle: "dashed",
                 directionalAxis: "y",
                 domain: [-5, 5],
+                labels: [{text: "a label"}],
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -1035,6 +1211,43 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 strokeStyle: "dashed",
                 directionalAxis: "y",
                 domain: [-5, 5],
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [0, 0],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked function with a specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedFunction("x^2", {
+                labels: [{text: "a label", coord: [9, 9], size: "small"}],
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "function",
+                equation: "x^2",
+                color: "grayH",
+                strokeStyle: "solid",
+                directionalAxis: "x",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "grayH",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });

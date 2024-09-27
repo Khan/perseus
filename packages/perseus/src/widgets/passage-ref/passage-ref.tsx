@@ -3,29 +3,18 @@ import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
-import {removeDenylistProps} from "../../mixins/widget-prop-denylist";
 import PerseusMarkdown from "../../perseus-markdown";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
+import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
 import type {
-    ChangeFn,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+    PerseusPassageRefRubric,
+    PerseusPassageRefUserInput,
+} from "../../validation.types";
 import type {Passage, Reference} from "../passage";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const EN_DASH = "\u2013";
-
-type UserInput = RenderProps & {
-    static: boolean | null | undefined;
-    reviewModeRubric: Rubric;
-    linterContext: LinterContextProps;
-    isLastUsedWidget: boolean;
-    alignment: string | null | undefined;
-};
 
 type RenderProps = {
     passageNumber: PerseusPassageRefWidgetOptions["passageNumber"];
@@ -33,9 +22,7 @@ type RenderProps = {
     summaryText: PerseusPassageRefWidgetOptions["summaryText"];
 };
 
-type Rubric = PerseusPassageRefWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusPassageRefRubric>;
 
 type DefaultProps = {
     passageNumber: Props["passageNumber"];
@@ -69,7 +56,8 @@ class PassageRef extends React.Component<Props, State> {
         content: null,
     };
 
-    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
@@ -101,11 +89,10 @@ class PassageRef extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    // TODO(tamarab): getUserInput needs to be updated to only return
-    // props input by the user. Currently returns all the widget's props.
-    getUserInput: () => UserInput = () => {
-        return removeDenylistProps(this.props);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    getUserInput(): PerseusPassageRefUserInput {
+        return null;
+    }
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
@@ -143,9 +130,10 @@ class PassageRef extends React.Component<Props, State> {
         }
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return PassageRef.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         const {strings} = this.context;

@@ -10,6 +10,7 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusPassageRefTargetWidgetOptions} from "../../perseus-types";
 import type {APIOptions, WidgetExports} from "../../types";
+import type {PerseusPassageRefTargetUserInput} from "../../validation.types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = Changeable.ChangeableProps & {
@@ -31,24 +32,25 @@ class PassageRefTarget extends React.Component<Props> {
         linterContext: linterContextDefault,
     };
 
-    static validate(state: any, rubric: any): any {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
     // TODO passage-ref-target isn't interactive; remove
-    getUserInput: () => any = () => {
-        return;
-    };
+    getUserInput(): PerseusPassageRefTargetUserInput {
+        return null;
+    }
 
     // TODO passage-ref-target isn't interactive; remove
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
-    // TODO passage-ref-target isn't interactive; remove
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        return PassageRefTarget.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         return (

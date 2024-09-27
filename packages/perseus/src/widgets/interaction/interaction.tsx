@@ -15,7 +15,11 @@ import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusInteractionRubric,
+    PerseusInteractionUserInput,
+} from "../../validation.types";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
@@ -96,8 +100,7 @@ const KAScompile = (
 };
 
 type RenderProps = PerseusInteractionWidgetOptions; // There's no transform function in exports
-type Rubric = PerseusInteractionWidgetOptions;
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusInteractionRubric>;
 
 type DefaultProps = {
     graph: Props["graph"];
@@ -125,7 +128,8 @@ class Interaction extends React.Component<Props, State> {
         elements: [],
     };
 
-    static validate(state: any, rubric: any): PerseusScore {
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    static validate() {
         return noopValidator();
     }
 
@@ -250,17 +254,18 @@ class Interaction extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => any = () => {
+    getUserInput(): PerseusInteractionUserInput {
         // TODO(eater): Perhaps we want to be able to record the state of the
         // user's interaction. Unfortunately sending all the props will
         // probably make the attempt payload too large. So for now, don't send
         // anything.
         return {};
-    };
+    }
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        return Interaction.validate(this.getUserInput(), rubric);
-    };
+    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
+    simpleValidate() {
+        return noopValidator();
+    }
 
     render(): React.ReactNode {
         const range = this.props.graph.range;
