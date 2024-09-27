@@ -169,7 +169,7 @@ export function generateTickLocations(
 }
 
 // Count the number of significant digits after the decimal point
-const countSignificantDecimals = (number: number): number => {
+export const countSignificantDecimals = (number: number): number => {
     const numStr = number.toString();
     if (!numStr.includes(".")) {
         return 0;
