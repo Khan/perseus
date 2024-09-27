@@ -147,10 +147,16 @@ export function generateTickLocations(
 ): number[] {
     const ticks: number[] = [];
 
+    // Calculate the number of significant decimals in the tick step so
+    // that we can match the desired precision when generating ticks.
+    const decimalSigFigs: number = countSignificantDecimals(tickStep);
+
     // Add ticks in the positive direction
     const start = Math.max(min, 0);
     for (let i = start + tickStep; i < max; i += tickStep) {
-        ticks.push(i);
+        // Match to the same number of decimal places as the tick step
+        // to avoid floating point errors when working with small numbers
+        ticks.push(parseFloat(i.toFixed(decimalSigFigs)));
     }
 
     // Add ticks in the negative direction
@@ -161,6 +167,15 @@ export function generateTickLocations(
     }
     return ticks;
 }
+
+// Count the number of significant digits after the decimal point
+const countSignificantDecimals = (number: number): number => {
+    const numStr = number.toString();
+    if (!numStr.includes(".")) {
+        return 0;
+    }
+    return numStr.split(".")[1].length;
+};
 
 export const AxisTicks = () => {
     const {tickStep, range} = useGraphConfig();
