@@ -65,7 +65,7 @@ const LockedPolygonSettings = (props: Props) => {
         let str = `Polygon with ${points.length} sides, vertices at `;
 
         // Add the coordinates of each point to the aria label
-        str += points.map(([x, y], _) => `(${x}, ${y})`).join(", ");
+        str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
 
         if (labels && labels.length > 0) {
             str += ", with label";
