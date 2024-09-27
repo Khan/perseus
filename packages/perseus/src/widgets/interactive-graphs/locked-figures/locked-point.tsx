@@ -21,11 +21,6 @@ const LockedPoint = (props: Props) => {
             className="locked-point"
             aria-label={hasAria ? ariaLabel : undefined}
             aria-hidden={!hasAria}
-            style={{
-                // Outline styles on focus.
-                outlineOffset: spacing.xxxSmall_4,
-                borderRadius: "50%",
-            }}
         >
             <Point
                 x={x}
