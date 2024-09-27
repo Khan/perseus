@@ -117,7 +117,7 @@ type SerializedState = {
  * communicate with the individual widgets to coordinate actions such as
  * scoring, state serialization/deserialization, and focus management.
  */
-export type Widget = {
+export interface Widget {
     focus: () =>
         | {
               id: string;
@@ -156,7 +156,7 @@ export type Widget = {
     ) => PerseusScore;
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
-};
+}
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
