@@ -48,7 +48,7 @@ const YGridTick = ({y, range}: {y: number; range: [Interval, Interval]}) => {
     const showLabel = shouldShowLabel(y, range);
 
     return (
-        <g className="tick">
+        <g className="tick" aria-hidden={true}>
             <line x1={x1} y1={y1} x2={x2} y2={y2} className="axis-tick" />
             {showLabel && (
                 <text
@@ -106,7 +106,7 @@ const XGridTick = ({x, range}: {x: number; range: [Interval, Interval]}) => {
     const yPositionText = yPosition + yAdjustment;
 
     return (
-        <g className="tick">
+        <g className="tick" aria-hidden={true}>
             <line x1={x1} y1={y1} x2={x2} y2={y2} className="axis-tick" />
             {
                 <text

@@ -707,6 +707,7 @@ export type LockedPointType = {
     color: LockedFigureColor;
     filled: boolean;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedLineType = {

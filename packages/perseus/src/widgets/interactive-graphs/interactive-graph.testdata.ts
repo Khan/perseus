@@ -830,7 +830,7 @@ export const segmentWithLockedLabels: PerseusRenderer =
 
 export const segmentWithLockedFigures: PerseusRenderer =
     interactiveGraphQuestionBuilder()
-        .addLockedPointAt(-7, -7, {labels: [{text: "A"}]})
+        .addLockedPointAt(-7, -7, {labels: [{text: "A"}], ariaLabel: "Point A"})
         .addLockedLine([-7, -5], [2, -3], {
             showPoint1: true,
             showPoint2: true,

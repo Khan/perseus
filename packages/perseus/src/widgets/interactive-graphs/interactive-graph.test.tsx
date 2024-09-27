@@ -542,6 +542,52 @@ describe("locked layer", () => {
         });
     });
 
+    it("should render locked point with aria label when one is provided", () => {
+        // Arrange
+        const lockedPointWithAriaLabelQuestion =
+            interactiveGraphQuestionBuilder()
+                .addLockedPointAt(0, 0, {
+                    ariaLabel: "Point A",
+                })
+                .build();
+        const {container} = renderQuestion(lockedPointWithAriaLabelQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "locked-figures-aria": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-point");
+
+        // Assert
+        expect(point).toHaveAttribute("aria-label", "Point A");
+    });
+
+    it("should render locked points without aria label by default", () => {
+        // Arrange
+        const simpleLockedPointQuestion = interactiveGraphQuestionBuilder()
+            .addLockedPointAt(0, 0)
+            .build();
+        const {container} = renderQuestion(simpleLockedPointQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-point");
+
+        // Assert
+        expect(point).not.toHaveAttribute("aria-label");
+    });
+
     it("should render locked lines", () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedLineQuestion, {
