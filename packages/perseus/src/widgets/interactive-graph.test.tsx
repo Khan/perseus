@@ -1,9 +1,6 @@
 import invariant from "tiny-invariant";
 
-import InteractiveGraph, {
-    type Rubric,
-    shouldUseMafs,
-} from "./interactive-graph";
+import InteractiveGraph, {shouldUseMafs} from "./interactive-graph";
 
 import type {
     PerseusGraphTypeLinear,
@@ -12,15 +9,16 @@ import type {
     PerseusGraphType,
     PerseusGraphTypeNone,
 } from "../perseus-types";
+import type {PerseusInteractiveGraphRubric} from "../validation.types";
 
-function createRubric(graph: PerseusGraphType): Rubric {
+function createRubric(graph: PerseusGraphType): PerseusInteractiveGraphRubric {
     return {graph, correct: graph};
 }
 
 describe("InteractiveGraph.validate on a segment question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "segment"};
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -32,10 +30,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric, null);
 
-        expect(result).toEqual({
-            type: "invalid",
-            message: null,
-        });
+        expect(result).toHaveInvalidInput();
     });
 
     it("does not award points if guess.coords is wrong", () => {
@@ -48,7 +43,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -60,12 +55,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric, null);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 0,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     it("awards points if guess.coords is right", () => {
@@ -78,7 +68,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -90,12 +80,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric, null);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("allows points of a segment to be specified in reverse order", () => {
@@ -108,7 +93,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -120,12 +105,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
 
         const result = InteractiveGraph.widget.validate(guess, rubric, null);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("does not modify the `guess` data", () => {
@@ -138,7 +118,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [
@@ -168,7 +148,7 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 ],
             ],
         };
-        const rubric: Rubric = createRubric({
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
             type: "segment",
             coords: [
                 [

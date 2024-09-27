@@ -171,20 +171,6 @@ describe("server item renderer", () => {
         });
     });
 
-    it("should set the input value for a widget", () => {
-        // Arrange
-        const focus = jest.fn();
-        const {renderer} = renderQuestion(itemWithInput);
-
-        // Act
-        act(() => renderer.setInputValue(["input-number 1"], "99", focus));
-
-        // Assert
-        expect(
-            renderer.scoreWidgets()["input-number 1"].guess.currentValue,
-        ).toBe("99");
-    });
-
     it("should return the DOM node for the requested focus path", async () => {
         // Arrange
         const {renderer} = renderQuestion(itemWithInput);

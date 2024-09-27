@@ -380,24 +380,6 @@ export type PerseusExampleWidgetOptions = {
     value: string;
 };
 
-export type PerseusExampleGraphieGraph = {
-    box: Size;
-    range: [Coord, Coord];
-    labels: ReadonlyArray<string>;
-    markings: "graph" | "grid" | "none";
-    gridStep: [number, number];
-    step: [number, number];
-    showProtractor?: boolean;
-    showRuler?: boolean;
-    valid?: boolean;
-    backgroundImage?: PerseusImageBackground | null;
-};
-
-export type PerseusExampleGraphieWidgetOptions = {
-    graph: PerseusExampleGraphieGraph;
-    coord: [Coord, Coord] | null;
-};
-
 export type PerseusExplanationWidgetOptions = {
     // Translatable Text; The clickable text to expand an explanation.  e.g. "What is an apple?"
     showPrompt: string;
@@ -724,7 +706,7 @@ export type LockedPointType = {
     coord: Coord;
     color: LockedFigureColor;
     filled: boolean;
-    labels: LockedLabelType[];
+    labels?: LockedLabelType[];
 };
 
 export type LockedLineType = {
@@ -735,13 +717,14 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
-    labels: LockedLabelType[];
+    labels?: LockedLabelType[];
 };
 
 export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
+    labels?: LockedLabelType[];
 };
 
 export type LockedFigureFillType = "none" | "white" | "translucent" | "solid";
@@ -760,6 +743,7 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
 };
 
 export type LockedPolygonType = {
@@ -778,6 +762,7 @@ export type LockedFunctionType = {
     equation: string; // This is the user-defined equation (as it was typed)
     directionalAxis: "x" | "y";
     domain?: Interval;
+    labels?: LockedLabelType[];
 };
 
 // Not associated with a specific figure
@@ -1619,7 +1604,6 @@ export type PerseusWidgetOptions =
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
     | PerseusDropdownWidgetOptions
-    | PerseusExampleGraphieWidgetOptions
     | PerseusExampleWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions

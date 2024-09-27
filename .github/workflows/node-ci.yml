@@ -152,83 +152,15 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Run test with coverage
+            - name: Run tests
               run: yarn cypress:ci
 
-            # Upload coverage report as an GitHub artifact so that it can be used
-            # later in upload_coverage.
-            - name: Upload Cypress Coverage
-              uses: actions/upload-artifact@v4
-              with:
-                  name: cypress-coverage
-                  path: ./.nyc_output/out.json
-
-            - name: Upload Cypress Screenshots
+            - name: Upload Screenshots
               uses: actions/upload-artifact@v4
               if: failure()
               with:
                   name: cypress-screenshots
                   path: ./cypress/screenshots
-
-    coverage:
-        name: Jest Coverage
-        runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [20.x]
-        steps:
-            - uses: actions/checkout@v4
-
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Jest with coverage
-              run: yarn coverage
-
-            # Upload coverage report as an GitHub artifact so that it can be used
-            # later in upload_coverage.
-            - name: Upload Jest Coverage
-              uses: actions/upload-artifact@v4
-              with:
-                  name: jest-coverage
-                  path: ./coverage/coverage-final.json
-
-    upload_coverage:
-        name: Upload Coverage
-        runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [20.x]
-        needs: [cypress, coverage]
-        steps:
-            - name: Download Jest Coverage
-              uses: actions/download-artifact@v4
-              with:
-                  name: jest-coverage
-                  # path to decompress the artifact into, decompressed file
-                  # will be ./coverage-final.json
-                  path: ./
-
-            - name: Download Cypress Coverage
-              uses: actions/download-artifact@v4
-              with:
-                  name: cypress-coverage
-                  # path to decompress the artifact into, decompressed file
-                  # will be ./out.json
-                  path: ./
-
-            # Upload both coverage files at once.  This avoids issues where it Codecov
-            # shows the results from only one of the reports which would make it appear
-            # as though coverage dropped a lot.
-            - name: Upload Coverage
-              uses: codecov/codecov-action@v4
-              with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-                  files: ./coverage-final.json,./out.json
 
     check_builds:
         name: Check builds for changes in size

@@ -30,7 +30,6 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 coord: [0, 0],
                 color: DEFAULT_COLOR,
                 filled: true,
-                labels: [],
             };
         case "line":
             return {
@@ -47,7 +46,6 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
-                labels: [],
             };
         case "vector":
             return {

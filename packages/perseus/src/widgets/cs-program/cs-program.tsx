@@ -14,24 +14,22 @@ import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 
-import {csProgramValidator} from "./cs-program-validator";
-
-import type {Status, UserInput} from "./cs-program.types";
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusCSProgramRubric,
+    PerseusCSProgramUserInput,
+    UserInputStatus,
+} from "../../validation.types";
 
 const {updateQueryString} = Util;
 
 type RenderProps = PerseusCSProgramWidgetOptions & {
-    status: Status;
+    status: UserInputStatus;
     message: string | null;
 };
 
-// Note: Rubric does not contain any information about correct or incorrect as
-// the iframe provides that information
-export type Rubric = PerseusCSProgramWidgetOptions;
-
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
@@ -69,8 +67,32 @@ class CSProgram extends React.Component<Props> {
     };
 
     // The widget's grading function
-    static validate(state: UserInput): PerseusScore {
-        return csProgramValidator(state);
+    static validate(
+        state: PerseusCSProgramUserInput,
+        rubric: any,
+    ): PerseusScore {
+        // The iframe can tell us whether it's correct or incorrect,
+        //  and pass an optional message
+        if (state.status === "correct") {
+            return {
+                type: "points",
+                earned: 1,
+                total: 1,
+                message: state.message || null,
+            };
+        }
+        if (state.status === "incorrect") {
+            return {
+                type: "points",
+                earned: 0,
+                total: 1,
+                message: state.message || null,
+            };
+        }
+        return {
+            type: "invalid",
+            message: "Keep going, you're not there yet!",
+        };
     }
 
     componentDidMount() {
@@ -108,11 +130,14 @@ class CSProgram extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    simpleValidate(): PerseusScore {
-        return csProgramValidator({
-            status: this.props.status,
-            message: this.props.message,
-        });
+    simpleValidate(rubric): PerseusScore {
+        return CSProgram.validate(
+            {
+                status: this.props.status,
+                message: this.props.message,
+            },
+            rubric,
+        );
     }
 
     render(): React.ReactNode {

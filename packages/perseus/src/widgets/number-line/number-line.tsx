@@ -15,6 +15,10 @@ import KhanMath from "../../util/math";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports} from "../../types";
+import type {
+    PerseusNumberLineRubric,
+    PerseusNumberLineUserInput,
+} from "../../validation.types";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -191,6 +195,10 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     return results;
 });
 
+export type Relationship = "lt" | "gt" | "le" | "ge";
+
+// TODO: most widgets use some like Widget<Something, PerseusNumberLineWidgetOptions>
+// should this one?
 type Props = ChangeableProps & {
     range: [number, number];
     labelRange: ReadonlyArray<number | null>;
@@ -202,7 +210,7 @@ type Props = ChangeableProps & {
     isTickCtrl: boolean;
     isInequality: boolean;
     numLinePosition: number;
-    rel: "lt" | "gt" | "le" | "ge";
+    rel: Relationship;
     onFocus: (arg1: any) => void;
     onBlur: (arg1: any) => void;
     onChange: (arg1: any, arg2?: () => void | null | undefined) => void;
@@ -618,19 +626,19 @@ class NumberLine extends React.Component<Props, State> {
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     };
 
-    getUserInput: () => any = () => {
+    getUserInput(): PerseusNumberLineUserInput {
         return {
             numLinePosition: this.props.numLinePosition,
             rel: this.props.isInequality ? this.props.rel : "eq",
             numDivisions: this.props.numDivisions,
             divisionRange: this.props.divisionRange,
         };
-    };
+    }
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
+    simpleValidate(rubric: PerseusNumberLineRubric) {
         // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof NumberLine'.
         return NumberLine.validate(this.getUserInput(), rubric);
-    };
+    }
 
     render(): React.ReactNode {
         const {strings} = this.context;
@@ -720,7 +728,10 @@ class NumberLine extends React.Component<Props, State> {
 }
 
 _.extend(NumberLine, {
-    validate: function (state, rubric) {
+    validate: function (
+        state: PerseusNumberLineUserInput,
+        rubric: PerseusNumberLineRubric,
+    ) {
         const range = rubric.range;
         const divisionRange = state.divisionRange;
         const start = rubric.initialX != null ? rubric.initialX : range[0];
@@ -734,6 +745,7 @@ _.extend(NumberLine, {
             state.numDivisions > divisionRange[1] ||
             state.numDivisions < divisionRange[0];
 
+        // TODO: I don't think isTickCrtl is a thing anymore
         if (state.isTickCrtl && outsideAllowedRange) {
             return {
                 type: "invalid",

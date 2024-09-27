@@ -90,7 +90,7 @@ const LockedLineSettings = (props: Props) => {
             newMidpoint[0] - oldMidpoint[0],
             newMidpoint[1] - oldMidpoint[1],
         ];
-        const newLabels = labels.map((label, labelIndex) => ({
+        const newLabels = labels?.map((label, labelIndex) => ({
             ...label,
             coord: [
                 label.coord[0] + offset[0],
@@ -105,7 +105,7 @@ const LockedLineSettings = (props: Props) => {
     }
 
     function handleColorChange(newColor: LockedFigureColor) {
-        const newLabels = labels.map((label) => ({
+        const newLabels = labels?.map((label) => ({
             ...label,
             color: newColor,
         }));
@@ -117,7 +117,7 @@ const LockedLineSettings = (props: Props) => {
                 {
                     ...point1,
                     color: newColor,
-                    labels: point1.labels.map((label) => ({
+                    labels: point1.labels?.map((label) => ({
                         ...label,
                         color: newColor,
                     })),
@@ -125,7 +125,7 @@ const LockedLineSettings = (props: Props) => {
                 {
                     ...point2,
                     color: newColor,
-                    labels: point2.labels.map((label) => ({
+                    labels: point2.labels?.map((label) => ({
                         ...label,
                         color: newColor,
                     })),
@@ -140,6 +140,10 @@ const LockedLineSettings = (props: Props) => {
         updatedLabel: LockedLabelType,
         labelIndex: number,
     ) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = [...labels];
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
@@ -150,6 +154,10 @@ const LockedLineSettings = (props: Props) => {
     }
 
     function handleLabelRemove(labelIndex: number) {
+        if (!labels) {
+            return;
+        }
+
         const updatedLabels = labels.filter((_, index) => index !== labelIndex);
 
         onChangeProps({labels: updatedLabels});
@@ -239,7 +247,7 @@ const LockedLineSettings = (props: Props) => {
                 <>
                     <View style={styles.horizontalRule} />
 
-                    {labels.map((label, labelIndex) => (
+                    {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
                             expanded={true}
@@ -261,19 +269,19 @@ const LockedLineSettings = (props: Props) => {
                             // they don't overlap.
                             const offsetPerLabel: vec.Vector2 = [0, -1];
                             const labelLocation = vec.add(
-                                vec.scale(offsetPerLabel, labels.length),
+                                vec.scale(offsetPerLabel, labels?.length ?? 0),
                                 vec.midpoint(points[0].coord, points[1].coord),
                             );
 
                             const newLabel = {
                                 ...getDefaultFigureForType("label"),
                                 coord: labelLocation,
-                                // Default to the same color as the point
+                                // Default to the same color as the line
                                 color: lineColor,
                             } satisfies LockedLabelType;
 
                             onChangeProps({
-                                labels: [...labels, newLabel],
+                                labels: [...(labels ?? []), newLabel],
                             });
                         }}
                         style={styles.addButton}

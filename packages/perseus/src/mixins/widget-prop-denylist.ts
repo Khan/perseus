@@ -21,6 +21,7 @@ const denylist = [
     "onChange",
     "problemNum",
     "apiOptions",
+    "widgetIsOpen",
     "questionCompleted",
     "findWidgets",
     // added by src/editor.jsx, for widgets removing themselves
@@ -34,15 +35,5 @@ const denylist = [
     "trackInteraction",
     "keypadElement",
 ];
-
-export const removeDenylistProps = (props: any): any => {
-    const newProps = {...props} as const;
-    for (const prop of denylist) {
-        if (prop in newProps) {
-            delete newProps[prop];
-        }
-    }
-    return newProps;
-};
 
 export default denylist;

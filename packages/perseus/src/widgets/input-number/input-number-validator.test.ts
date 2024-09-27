@@ -2,11 +2,11 @@ import {mockStrings} from "../../strings";
 
 import inputNumberValidator from "./input-number-validator";
 
-import type {Rubric} from "./input-number.types";
+import type {PerseusInputNumberRubric} from "../../validation.types";
 
 describe("inputNumberValidator", () => {
     it("scores correct answer correctly", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -25,7 +25,7 @@ describe("inputNumberValidator", () => {
     });
 
     it("scores incorrect answer correctly", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -44,7 +44,7 @@ describe("inputNumberValidator", () => {
     });
 
     it("shows as invalid with a nonsense answer", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 1,
@@ -71,7 +71,7 @@ describe("inputNumberValidator", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,
@@ -99,7 +99,7 @@ describe("inputNumberValidator", () => {
     });
 
     it("validates against pi if provided in answerType", () => {
-        const rubric: Rubric = {
+        const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,
             inexact: false,
             value: 241.90263432641407,

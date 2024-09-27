@@ -17,12 +17,15 @@ import Util from "../../util";
 
 import categorizerValidator from "./categorizer-validator";
 
-import type {Rubric, UserInput} from "./categorizer.types";
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusCategorizerRubric,
+    PerseusCategorizerUserInput,
+} from "../../validation.types";
 
-type Props = WidgetProps<RenderProps, Rubric> & {
+type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
     values: ReadonlyArray<string>;
 };
 
@@ -53,14 +56,14 @@ export class Categorizer extends React.Component<Props, State> {
     };
 
     static validate(
-        userInput: UserInput,
-        rubric: Rubric,
+        userInput: PerseusCategorizerUserInput,
+        rubric: PerseusCategorizerRubric,
         strings: PerseusStrings,
     ): PerseusScore {
         return categorizerValidator(userInput, rubric, strings);
     }
 
-    static getUserInputFromProps(props: Props): UserInput {
+    static getUserInputFromProps(props: Props): PerseusCategorizerUserInput {
         return {values: props.values};
     }
 
@@ -69,9 +72,9 @@ export class Categorizer extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusCategorizerUserInput {
         return Categorizer.getUserInputFromProps(this.props);
-    };
+    }
 
     onChange(itemNum, catNum) {
         const values = [...this.props.values];
@@ -81,13 +84,13 @@ export class Categorizer extends React.Component<Props, State> {
         this.props.trackInteraction();
     }
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
+    simpleValidate(rubric: PerseusCategorizerRubric): PerseusScore {
         return categorizerValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
         );
-    };
+    }
 
     render(): React.ReactNode {
         const self = this;

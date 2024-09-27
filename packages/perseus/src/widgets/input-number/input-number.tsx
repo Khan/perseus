@@ -11,16 +11,13 @@ import {ApiOptions} from "../../perseus-api";
 
 import inputNumberValidator, {answerTypes} from "./input-number-validator";
 
-import type {Rubric} from "./input-number.types";
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
+import type {Path, PerseusScore, WidgetExports, WidgetProps} from "../../types";
 import type {
-    APIOptions,
-    Path,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+    PerseusInputNumberRubric,
+    PerseusInputNumberUserInput,
+} from "../../validation.types";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {
@@ -52,9 +49,6 @@ const formExamples = {
     },
 } as const;
 
-type UserInput = {
-    currentValue: string;
-};
 type RenderProps = {
     simplify: PerseusInputNumberWidgetOptions["simplify"];
     size: PerseusInputNumberWidgetOptions["size"];
@@ -62,7 +56,7 @@ type RenderProps = {
     rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
 };
 
-type ExternalProps = WidgetProps<RenderProps, Rubric>;
+type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberRubric>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -71,7 +65,7 @@ type Props = ExternalProps & {
     currentValue: string;
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<Rubric["answerType"]>;
+    answerType: NonNullable<PerseusInputNumberRubric["answerType"]>;
 };
 
 type DefaultProps = {
@@ -102,11 +96,10 @@ class InputNumber extends React.Component<Props> {
         state: {
             currentValue: string;
         },
-        rubric: Rubric,
+        rubric: PerseusInputNumberRubric,
         strings: PerseusStrings,
-        onInputError: APIOptions["onInputError"] = () => {},
     ): PerseusScore {
-        return inputNumberValidator(state, rubric, strings, onInputError);
+        return inputNumberValidator(state, rubric, strings);
     }
 
     static getUserInputFromProps(props: Props): {
@@ -196,22 +189,17 @@ class InputNumber extends React.Component<Props> {
         );
     };
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): PerseusInputNumberUserInput {
         return InputNumber.getUserInputFromProps(this.props);
-    };
+    }
 
-    simpleValidate: (
-        rubric: Rubric,
-        onInputError?: APIOptions["onInputError"],
-    ) => PerseusScore = (rubric, onInputError) => {
-        onInputError = onInputError || function () {};
+    simpleValidate(rubric: PerseusInputNumberRubric): PerseusScore {
         return inputNumberValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
-            onInputError,
         );
-    };
+    }
 
     examples: () => ReadonlyArray<string> = () => {
         const {strings} = this.context;

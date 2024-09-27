@@ -4,6 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
@@ -13,6 +14,7 @@ import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
 import autoPasteIcon from "@phosphor-icons/core/assets/regular/note-pencil.svg";
+import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {useEffect, useId, useState} from "react";
@@ -24,9 +26,15 @@ import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import examples from "./locked-function-examples";
+import LockedLabelSettings from "./locked-label-settings";
+import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import type {LockedFunctionType} from "@khanacademy/perseus";
+import type {
+    LockedFigureColor,
+    LockedFunctionType,
+    LockedLabelType,
+} from "@khanacademy/perseus";
 import type {Interval} from "mafs";
 
 export type Props = LockedFunctionType &
@@ -39,11 +47,13 @@ export type Props = LockedFunctionType &
 
 const LockedFunctionSettings = (props: Props) => {
     const {
+        flags,
         color: lineColor,
         strokeStyle,
         equation,
         directionalAxis,
         domain,
+        labels,
         onChangeProps,
         onMove,
         onRemove,
@@ -107,6 +117,47 @@ const LockedFunctionSettings = (props: Props) => {
         ? examples[exampleCategory]
         : ["Select category to see example equations"];
 
+    function handleColorChange(newValue: LockedFigureColor) {
+        const newProps: Partial<LockedFunctionType> = {
+            color: newValue,
+        };
+
+        // Update the color of the all labels to match the point
+        newProps.labels = labels?.map((label) => ({
+            ...label,
+            color: newValue,
+        }));
+
+        onChangeProps(newProps);
+    }
+
+    function handleLabelChange(
+        updatedLabel: LockedLabelType,
+        labelIndex: number,
+    ) {
+        if (!labels) {
+            return;
+        }
+
+        const updatedLabels = [...labels];
+        updatedLabels[labelIndex] = {
+            ...labels[labelIndex],
+            ...updatedLabel,
+        };
+
+        onChangeProps({labels: updatedLabels});
+    }
+
+    function handleLabelRemove(labelIndex: number) {
+        if (!labels) {
+            return;
+        }
+
+        const updatedLabels = labels.filter((_, index) => index !== labelIndex);
+
+        onChangeProps({labels: updatedLabels});
+    }
+
     return (
         <PerseusEditorAccordion
             expanded={props.expanded}
@@ -125,9 +176,7 @@ const LockedFunctionSettings = (props: Props) => {
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
-                    onChange={(newValue) => {
-                        handlePropChange("color", newValue);
-                    }}
+                    onChange={handleColorChange}
                 />
                 <Strut size={spacing.small_12} />
 
@@ -245,6 +294,49 @@ const LockedFunctionSettings = (props: Props) => {
                     </ul>
                 )}
             </PerseusEditorAccordion>
+
+            {/* Visible Labels */}
+            {flags?.["mafs"]?.["locked-function-labels"] && (
+                <>
+                    <View style={styles.horizontalRule} />
+
+                    {labels?.map((label, labelIndex) => (
+                        <LockedLabelSettings
+                            {...label}
+                            expanded={true}
+                            onChangeProps={(newLabel: LockedLabelType) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
+                            onRemove={() => {
+                                handleLabelRemove(labelIndex);
+                            }}
+                            containerStyle={styles.labelContainer}
+                        />
+                    ))}
+
+                    <Button
+                        kind="tertiary"
+                        startIcon={plusCircle}
+                        onClick={() => {
+                            const newLabel = {
+                                ...getDefaultFigureForType("label"),
+                                // Vertical offset for each label so they
+                                // don't overlap.
+                                coord: [0, -(labels?.length ?? 0)],
+                                // Default to the same color as the function
+                                color: lineColor,
+                            } satisfies LockedLabelType;
+
+                            onChangeProps({
+                                labels: [...(labels ?? []), newLabel],
+                            });
+                        }}
+                        style={styles.addButton}
+                    >
+                        Add visible label
+                    </Button>
+                </>
+            )}
 
             {/* Actions */}
             <LockedFigureSettingsActions
@@ -382,6 +474,20 @@ const styles = StyleSheet.create({
     },
     textField: {
         flexGrow: "1",
+    },
+
+    // Label settings styles
+    addButton: {
+        alignSelf: "start",
+    },
+    horizontalRule: {
+        marginTop: spacing.small_12,
+        marginBottom: spacing.xxxSmall_4,
+        height: 1,
+        backgroundColor: color.offBlack16,
+    },
+    labelContainer: {
+        backgroundColor: color.white,
     },
 });
 
