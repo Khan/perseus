@@ -38,6 +38,10 @@ export type PerseusAnalyticsEvent =
           payload: null;
       }
     | {
+          type: "perseus:widget:rendered-with";
+          payload: null;
+      }
+    | {
           type: "math-input:keypad-closed";
           payload: {
               virtualKeypadVersion: VirtualKeypadVersion;
