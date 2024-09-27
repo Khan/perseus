@@ -1,14 +1,11 @@
-// Tests of the cs-program-validator widget to determine if the widget is working as expected with regard to correctly grading
-// student responses.
-
 import {csProgramValidator} from "./cs-program-validator";
 
-import type {UserInput} from "./cs-program.types";
+import type {PerseusCSProgramUserInput} from "../../validation.types";
 
 describe("csProgramValidator", () => {
     it("is correct when the state from the iframe shows the status is correct", () => {
         // Arrange
-        const state: UserInput = {
+        const state: PerseusCSProgramUserInput = {
             status: "correct",
             message: "Good job!",
         };
@@ -22,7 +19,7 @@ describe("csProgramValidator", () => {
 
     it("is incorrect when the state from the iframe shows the status is incorrect", () => {
         // Arrange
-        const state: UserInput = {
+        const state: PerseusCSProgramUserInput = {
             status: "incorrect",
             message: "Try again!",
         };
@@ -43,7 +40,7 @@ describe("csProgramValidator", () => {
     // incorrect, but status is set to "incomplete" by default.
     it("should return invalid score before user interactions", () => {
         // Arrange
-        const state: UserInput = {
+        const state: PerseusCSProgramUserInput = {
             status: "incomplete",
             message: null,
         };
