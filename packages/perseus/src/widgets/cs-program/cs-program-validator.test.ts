@@ -28,12 +28,7 @@ describe("csProgramValidator", () => {
         const result = csProgramValidator(state);
 
         // Assert
-        expect(result).toEqual({
-            type: "points",
-            earned: 0,
-            total: 1,
-            message: "Try again!",
-        });
+        expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     // Note: It looks like the iframe only says if the answer is correct or
