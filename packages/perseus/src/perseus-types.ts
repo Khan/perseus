@@ -757,6 +757,7 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
 };
 
 export type LockedFunctionType = {

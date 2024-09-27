@@ -311,6 +311,7 @@ const LockedFunctionSettings = (props: Props) => {
                     <ul className={css(styles.exampleContainer)}>
                         {exampleContent.map((example, index) => (
                             <ExampleItem
+                                key={index}
                                 category={exampleCategory}
                                 example={example}
                                 index={index}
@@ -348,6 +349,7 @@ const LockedFunctionSettings = (props: Props) => {
 
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
+                            key={labelIndex}
                             {...label}
                             expanded={true}
                             onChangeProps={(newLabel: LockedLabelType) => {

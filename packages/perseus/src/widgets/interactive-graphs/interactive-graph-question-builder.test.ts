@@ -1148,7 +1148,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
-    it("adds a locked polygon with options", () => {
+    it("adds a locked polygon with options and minimal label", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedPolygon(
                 [
@@ -1161,6 +1161,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     showVertices: true,
                     fillStyle: "translucent",
                     strokeStyle: "dashed",
+                    labels: [{text: "a label"}],
                 },
             )
             .build();
@@ -1178,6 +1179,55 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: true,
                 fillStyle: "translucent",
                 strokeStyle: "dashed",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [1, 2],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    it("adds a locked polygon with specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedPolygon(
+                [
+                    [1, 2],
+                    [3, 4],
+                    [5, 6],
+                ],
+                {
+                    labels: [{text: "a label", coord: [9, 9], size: "small"}],
+                },
+            )
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "polygon",
+                points: [
+                    [1, 2],
+                    [3, 4],
+                    [5, 6],
+                ],
+                color: "grayH",
+                showVertices: false,
+                fillStyle: "none",
+                strokeStyle: "solid",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "grayH",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });
