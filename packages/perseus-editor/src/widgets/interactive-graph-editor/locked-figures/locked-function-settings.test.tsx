@@ -15,13 +15,7 @@ import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
-    flags: {
-        ...flags,
-        mafs: {
-            ...flags.mafs,
-            "locked-ellipse-settings": true,
-        },
-    },
+    flags: flags,
     ...getDefaultFigureForType("function"),
     onChangeProps: () => {},
     onMove: () => {},
@@ -661,7 +655,7 @@ describe("Locked Function Settings", () => {
                 render(
                     <LockedFunctionSettings
                         {...defaultProps}
-                        ariaLabel="Ellipse at (x, y)"
+                        ariaLabel="Function x^2"
                     />,
                     {wrapper: RenderStateRoot},
                 );
@@ -669,7 +663,7 @@ describe("Locked Function Settings", () => {
                 const input = screen.getByRole("textbox", {name: "Aria label"});
 
                 // Assert
-                expect(input).toHaveValue("Ellipse at (x, y)");
+                expect(input).toHaveValue("Function x^2");
             });
 
             test("calls onChangeProps when the aria label is updated", async () => {
