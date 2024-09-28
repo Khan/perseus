@@ -18,7 +18,13 @@ import matrixValidator from "./matrix-validator";
 
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {WidgetExports, WidgetProps, PerseusScore} from "../../types";
+import type {
+    WidgetExports,
+    WidgetProps,
+    PerseusScore,
+    Widget,
+    FocusPath,
+} from "../../types";
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
@@ -68,7 +74,7 @@ const getColumnFromPath = function (path) {
     return +path[1];
 };
 
-const getRefForPath = function (path) {
+const getRefForPath = function (path: FocusPath) {
     const row = getRowFromPath(path);
     const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
@@ -127,7 +133,7 @@ type DefaultProps = {
 type State = {
     enterTheMatrix: number;
 };
-class Matrix extends React.Component<Props, State> {
+class Matrix extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -211,13 +217,11 @@ class Matrix extends React.Component<Props, State> {
         this.refs[inputID].blur();
     };
 
-    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (
-        inputPath,
-    ) => {
-        const inputID = getRefForPath(inputPath);
+    getDOMNodeForPath(path: FocusPath) {
+        const inputID = getRefForPath(path);
         // eslint-disable-next-line react/no-string-refs
         return ReactDOM.findDOMNode(this.refs[inputID]);
-    };
+    }
 
     setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
         inputPath,

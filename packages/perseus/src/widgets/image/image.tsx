@@ -11,7 +11,7 @@ import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
-import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
+import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
 import type {NullUserInput, PerseusImageRubric} from "../../validation.types";
 
 const defaultBoxSize = 400;
@@ -54,7 +54,7 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-class ImageWidget extends React.Component<Props> {
+class ImageWidget extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -88,7 +88,10 @@ class ImageWidget extends React.Component<Props> {
         return noopValidator();
     }
 
-    focus: () => void = () => {}; // no-op
+    focus() {
+        // Can't focus an image
+        return false;
+    }
 
     render(): React.ReactNode {
         let image;

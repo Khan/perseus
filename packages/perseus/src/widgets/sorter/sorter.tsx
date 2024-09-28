@@ -8,7 +8,12 @@ import sorterValidator from "./sorter-validator";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
@@ -33,7 +38,7 @@ type State = {
     changed: boolean;
 };
 
-class Sorter extends React.Component<Props, State> {
+class Sorter extends React.Component<Props, State> implements Widget {
     _isMounted: boolean = false;
 
     static defaultProps: DefaultProps = {

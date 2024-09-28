@@ -16,7 +16,13 @@ import KhanMath from "../../util/math";
 import numberLineValidator from "./number-line-validator";
 
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
+import type {
+    APIOptions,
+    PerseusScore,
+    WidgetExports,
+    FocusPath,
+    Widget,
+} from "../../types";
 import type {
     PerseusNumberLineRubric,
     PerseusNumberLineUserInput,
@@ -241,7 +247,7 @@ type DefaultProps = {
 type State = {
     numDivisionsEmpty: boolean;
 };
-class NumberLine extends React.Component<Props, State> {
+class NumberLine extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -350,14 +356,15 @@ class NumberLine extends React.Component<Props, State> {
         this.props.onBlur(["tick-ctrl"]);
     };
 
-    focus: () => boolean | null | undefined = () => {
+    focus() {
         if (this.props.isTickCtrl) {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["tick-ctrl"].focus();
             return true;
         }
-    };
+        return false;
+    }
 
     focusInputPath: (arg1: any) => void = (path) => {
         if (path.length === 1) {
@@ -382,22 +389,19 @@ class NumberLine extends React.Component<Props, State> {
         return [];
     };
 
-    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (
-        inputPath,
-    ) => {
-        if (inputPath.length === 1) {
+    getDOMNodeForPath(inputPath: FocusPath) {
+        if (inputPath?.length === 1) {
             // eslint-disable-next-line react/no-string-refs
             return ReactDOM.findDOMNode(this.refs[inputPath[0]]);
         }
-    };
+        return null;
+    }
 
-    getGrammarTypeForPath: (arg1: any) => string | null | undefined = (
-        inputPath,
-    ) => {
-        if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
+    getGrammarTypeForPath(inputPath: FocusPath) {
+        if (inputPath?.length === 1 && inputPath[0] === "tick-ctrl") {
             return "number";
         }
-    };
+    }
 
     setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
         inputPath,

@@ -15,7 +15,12 @@ import KhanMath from "../../util/math";
 import plotterValidator from "./plotter-validator";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
@@ -47,7 +52,7 @@ type State = {
     categoryHeights: Record<string, number>;
 };
 
-export class Plotter extends React.Component<Props, State> {
+export class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

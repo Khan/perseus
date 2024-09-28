@@ -12,7 +12,7 @@ import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     EmptyUserInput,
     PerseusDefinitionRubric,
@@ -29,7 +29,7 @@ type DefaultProps = {
     definition: string;
 };
 
-class Definition extends React.Component<DefinitionProps> {
+class Definition extends React.Component<DefinitionProps> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

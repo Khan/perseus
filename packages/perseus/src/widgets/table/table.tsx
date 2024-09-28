@@ -15,7 +15,12 @@ import tableValidator from "./table-validator";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusTableRubric,
     PerseusTableUserInput,
@@ -69,7 +74,7 @@ const getRefForPath = function (path) {
     return "answer" + row + "," + column;
 };
 
-class Table extends React.Component<Props> {
+class Table extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -185,13 +190,11 @@ class Table extends React.Component<Props> {
         }
     };
 
-    getDOMNodeForPath: (arg1: any) => Text | Element | null | undefined = (
-        path,
-    ) => {
+    getDOMNodeForPath(path) {
         const inputID = getRefForPath(path);
         // eslint-disable-next-line react/no-string-refs
         return ReactDOM.findDOMNode(this.refs[inputID]);
-    };
+    }
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         const rows = this._getRows();

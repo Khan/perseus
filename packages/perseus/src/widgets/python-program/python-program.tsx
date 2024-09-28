@@ -7,7 +7,7 @@ import * as React from "react";
 
 import {toAbsoluteUrl} from "../../util/url-utils";
 
-import type {WidgetExports} from "../../types";
+import type {FocusPath, Widget, WidgetExports} from "../../types";
 
 function getUrlFromProgramID(programID: any) {
     const path = `/python-program/${programID}/embedded`;
@@ -24,11 +24,19 @@ type DefaultProps = {
     height: Props["height"];
 };
 
-/* This renders the program in an iframe. */
-class PythonProgram extends React.Component<Props> {
+/**
+ * This renders the program in an iframe.
+ */
+class PythonProgram extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         height: 400,
     };
+
+    iframe = React.createRef<HTMLIFrameElement>();
+
+    getDOMNodeForPath(path: FocusPath) {
+        return this.iframe.current;
+    }
 
     render(): React.ReactNode {
         const url = getUrlFromProgramID(this.props.programID);
@@ -51,6 +59,7 @@ class PythonProgram extends React.Component<Props> {
         return (
             <View style={styles.container}>
                 <iframe
+                    ref={this.iframe}
                     sandbox={sandboxOptions}
                     src={url}
                     style={iframeStyle}

@@ -9,6 +9,7 @@ import type {
 } from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
+import type {UserInput} from "./validation.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -24,11 +25,66 @@ export type Dimensions = {
 
 export type DeviceType = "phone" | "tablet" | "desktop";
 
-// TODO(CP-4839): Create a proper type for Widget
-// Is this the same as the Widget type in `renderer.jsx`?
-export type Widget = any;
+export type SerializedState = {
+    [id: string]: any;
+};
+
+/**
+ * The Widget type represents the common API that the Renderer uses to interact
+ * with all widgets. All widgets must implement the methods in this API, unless
+ * they are marked as optional (?: ...).
+ *
+ * These methods are called on the widget ref and allow the renderer to
+ * communicate with the individual widgets to coordinate actions such as
+ * scoring, state serialization/deserialization, and focus management.
+ */
+export interface Widget {
+    focus?: () =>
+        | {
+              id: string;
+              path: FocusPath;
+          }
+        | boolean;
+    getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
+    deselectIncorrectSelectedChoices?: () => void;
+
+    // TODO(jeremy): I think this return value is wrong. The widget
+    // getSerializedState should just return _its_ serialized state, not a
+    // key/value list of all widget states (i think!)
+    // Returns widget state that can be passed back to `restoreSerializedState`
+    // to put the widget back into exactly the same state. If the widget does
+    // not implement this function, the renderer simply returns all of the
+    // widget's props.
+    getSerializedState?: () => SerializedState; // SUSPECT,
+    restoreSerializedState?: (props: any, callback: () => void) => any;
+
+    getGrammarTypeForPath?: (path: FocusPath) => string | undefined;
+
+    blurInputPath?: (path: FocusPath) => void;
+    focusInputPath?: (path: FocusPath) => void;
+    getInputPaths?: () => ReadonlyArray<FocusPath>;
+    setInputValue?: (
+        path: FocusPath,
+        newValue: string,
+        // TODO(jeremy): I think this is actually a callback
+        focus?: () => unknown,
+    ) => void;
+    getUserInput?: () => UserInput | null | undefined;
+
+    simpleValidate?: (
+        options?: any,
+        onOutputError?: (
+            widgetId: any,
+            value: string,
+            message?: string | null | undefined,
+        ) => unknown | null | undefined,
+    ) => PerseusScore;
+    showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
+    examples?: () => ReadonlyArray<string>;
+}
+
 export type WidgetDict = {
-    [name: string]: Widget;
+    [name: string]: PerseusWidget;
 };
 export type ImageDict = {
     [url: string]: Dimensions;
@@ -514,7 +570,7 @@ export type WidgetTransform = (
 ) => any;
 
 export type WidgetExports<
-    T extends React.ComponentType<any> = React.ComponentType<any>,
+    T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
 > = Readonly<{
     name: string;
     displayName: string;
@@ -591,7 +647,7 @@ export type WidgetProps<
     questionCompleted?: boolean;
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
-    findWidgets: (arg1: FilterCriterion) => ReadonlyArray<Widget>;
+    findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewModeRubric: Rubric;
     onChange: ChangeHandler;
     // This is slightly different from the `trackInteraction` function in

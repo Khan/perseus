@@ -55,12 +55,12 @@ import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
 import type {Shape, ArrayShape} from "./shape-types";
 import type {Tree} from "./tree-types";
 import type {TreeMapper, ContentMapper, HintMapper, Path} from "./trees";
-import type {Widget} from "../renderer";
 import type {
     APIOptions,
     FilterCriterion,
     PerseusDependenciesV2,
     PerseusScore,
+    Widget,
 } from "../types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 

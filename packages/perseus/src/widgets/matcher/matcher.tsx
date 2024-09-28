@@ -14,7 +14,12 @@ import matcherValidator from "./matcher-validator";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+    Widget,
+} from "../../types";
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
@@ -44,7 +49,7 @@ type State = {
     texRendererLoaded: boolean;
 };
 
-export class Matcher extends React.Component<Props, State> {
+export class Matcher extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
