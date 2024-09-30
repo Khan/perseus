@@ -61,7 +61,6 @@ const LockedFunctionSettings = (props: Props) => {
         onRemove,
     } = props;
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
-    const domainRangeText = directionalAxis === "x" ? "domain" : "range";
     const lineLabel = `Function (${equationPrefix}${equation})`;
 
     // Tracking the string value of domain/range constraints to handle interim state of
@@ -88,7 +87,7 @@ const LockedFunctionSettings = (props: Props) => {
         // Add the domain/range constraints to the aria label
         // if they are not the default values.
         if (domain && !(domain[0] === -Infinity && domain[1] === Infinity)) {
-            str += `, ${domainRangeText} from ${domain[0]} to ${domain[1]}`;
+            str += `, domain from ${domain[0]} to ${domain[1]}`;
         }
 
         if (labels && labels.length > 0) {
@@ -249,7 +248,7 @@ const LockedFunctionSettings = (props: Props) => {
                     tag="label"
                     style={[styles.dropdownLabel, styles.domainMin]}
                 >
-                    {`${domainRangeText} min`}
+                    {"domain min"}
 
                     <Strut size={spacing.xxSmall_6} />
                     <TextField
@@ -264,7 +263,7 @@ const LockedFunctionSettings = (props: Props) => {
                 <Strut size={spacing.medium_16} />
                 <LabelMedium
                     tag="label"
-                    aria-label={`${domainRangeText} max`}
+                    aria-label="domain max"
                     style={[styles.dropdownLabel, styles.domainMax]}
                 >
                     {"max"}
