@@ -73,6 +73,13 @@ class CSProgram extends React.Component<Props> {
         return csProgramValidator(state);
     }
 
+    static getUserInputFromProps(props: Props): PerseusCSProgramUserInput {
+        return {
+            status: props.status,
+            message: props.message,
+        };
+    }
+
     componentDidMount() {
         $(window).on("message", this.handleMessageEvent);
     }
@@ -108,11 +115,12 @@ class CSProgram extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
+    getUserInput(): PerseusCSProgramUserInput {
+        return CSProgram.getUserInputFromProps(this.props);
+    }
+
     simpleValidate(): PerseusScore {
-        return csProgramValidator({
-            status: this.props.status,
-            message: this.props.message,
-        });
+        return csProgramValidator(this.getUserInput());
     }
 
     render(): React.ReactNode {
