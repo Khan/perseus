@@ -2,6 +2,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
+import {CSProgram} from "./cs-program";
 import {question1} from "./cs-program.testdata";
 
 describe("cs-program widget", () => {
@@ -37,5 +38,32 @@ describe("cs-program widget", () => {
         expect(container).toMatchSnapshot("first mobile render");
     });
 
-    // This widget doesn't have any direct behavior, it just renders an iframe
+    it("can get user input from props", () => {
+        // Arrange
+        // Based on cs-program render props, combining
+        // PerseusCSProgramWidgetOptions with status and message
+        const widgetProps: any = {
+            programID: "6293105639817216",
+            settings: [
+                {name: "", value: ""},
+                {name: "", value: ""},
+            ],
+            height: 540,
+            width: 640,
+            static: false,
+            showButtons: false,
+            showEditor: false,
+            status: "correct",
+            message: "good job!",
+        };
+
+        // Act
+        const userInput = CSProgram.getUserInputFromProps(widgetProps);
+
+        // Assert
+        expect(userInput).toEqual({
+            status: "correct",
+            message: "good job!",
+        });
+    });
 });
