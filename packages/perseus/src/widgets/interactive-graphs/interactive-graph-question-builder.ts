@@ -422,6 +422,7 @@ class InteractiveGraphQuestionBuilder {
             showVertices?: boolean;
             fillStyle?: LockedFigureFillType;
             strokeStyle?: "solid" | "dashed";
+            labels?: LockedFigureLabelOptions[];
         },
     ): InteractiveGraphQuestionBuilder {
         const polygon: LockedPolygonType = {
@@ -432,6 +433,13 @@ class InteractiveGraphQuestionBuilder {
             fillStyle: "none",
             strokeStyle: "solid",
             ...options,
+            labels: options?.labels?.map((label) => ({
+                type: "label",
+                coord: label.coord ?? points[0],
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
         };
 
         this.addLockedFigure(polygon);
