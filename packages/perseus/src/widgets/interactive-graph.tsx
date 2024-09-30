@@ -43,7 +43,12 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
-import type {ChangeHandler, WidgetExports, WidgetProps} from "../types";
+import type {
+    ChangeHandler,
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 import type {
     QuadraticCoefficient,
     Range,
@@ -2354,6 +2359,13 @@ class InteractiveGraph extends React.Component<Props, State> {
             coords[1].join(", ") +
             ")"
         );
+    }
+
+    static validate(
+        userInput: PerseusGraphType,
+        rubric: PerseusInteractiveGraphRubric,
+    ): PerseusScore {
+        return interactiveGraphValidator(userInput, rubric);
     }
 
     static getUserInputFromProps(props: Props): PerseusGraphType {
