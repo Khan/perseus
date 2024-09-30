@@ -43,7 +43,11 @@ const GraphLockedLayer = (props: Props) => {
                         );
                     case "vector":
                         return (
-                            <LockedVector key={`vector-${index}`} {...figure} />
+                            <LockedVector
+                                key={`vector-${index}`}
+                                {...figure}
+                                flags={flags}
+                            />
                         );
                     case "ellipse":
                         return (

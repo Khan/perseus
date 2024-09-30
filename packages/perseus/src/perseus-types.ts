@@ -727,6 +727,7 @@ export type LockedVectorType = {
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedFigureFillType = "none" | "white" | "translucent" | "solid";

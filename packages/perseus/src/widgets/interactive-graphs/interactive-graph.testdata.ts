@@ -835,11 +835,12 @@ export const segmentWithLockedFigures: PerseusRenderer =
             showPoint1: true,
             showPoint2: true,
             labels: [{text: "B"}],
-            ariaLabel: "Line PQ",
+            ariaLabel: "Line B",
         })
         .addLockedVector([0, 0], [8, 2], {
             color: "purple",
             labels: [{text: "C"}],
+            ariaLabel: "Vector C",
         })
         .addLockedEllipse([0, 5], [4, 2], {
             angle: Math.PI / 4,
