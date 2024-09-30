@@ -1081,6 +1081,55 @@ describe("locked layer", () => {
         expect(PlotOfYMock).toHaveBeenCalledTimes(1);
     });
 
+    it("should render locked function with aria label when one is provided", () => {
+        // Arrange
+        const lockedFunctionWithAriaLabelQuestion =
+            interactiveGraphQuestionBuilder()
+                .addLockedFunction("x^2", {
+                    ariaLabel: "Function A",
+                })
+                .build();
+        const {container} = renderQuestion(
+            lockedFunctionWithAriaLabelQuestion,
+            {
+                flags: {
+                    mafs: {
+                        segment: true,
+                        "locked-figures-aria": true,
+                    },
+                },
+            },
+        );
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-function");
+
+        // Assert
+        expect(point).toHaveAttribute("aria-label", "Function A");
+    });
+
+    it("should render locked function without aria label by default", () => {
+        // Arrange
+        const simpleLockedFunctionquestion = interactiveGraphQuestionBuilder()
+            .addLockedFunction("x^2")
+            .build();
+        const {container} = renderQuestion(simpleLockedFunctionquestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-function");
+
+        // Assert
+        expect(point).not.toHaveAttribute("aria-label");
+    });
+
     it("should render locked labels", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedLabels, {

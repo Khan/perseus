@@ -860,6 +860,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
         .addLockedFunction("sin(x)", {
             color: "red",
             labels: [{text: "E"}],
+            ariaLabel: "Function E",
         })
         .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
         .build();

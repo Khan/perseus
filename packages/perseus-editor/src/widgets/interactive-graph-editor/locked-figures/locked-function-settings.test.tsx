@@ -15,13 +15,7 @@ import type {Props} from "./locked-function-settings";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
-    flags: {
-        ...flags,
-        mafs: {
-            ...flags.mafs,
-            "locked-ellipse-settings": true,
-        },
-    },
+    flags: flags,
     ...getDefaultFigureForType("function"),
     onChangeProps: () => {},
     onMove: () => {},
@@ -386,38 +380,6 @@ describe("Locked Function Settings", () => {
                     domain: [3, Infinity],
                 });
             });
-
-            test("restriction labels reflect the directional axis specified", async () => {
-                // Arrange
-                render(
-                    <LockedFunctionSettings
-                        {...defaultProps}
-                        directionalAxis="x"
-                        expanded={true}
-                        onChangeProps={onChangeProps}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
-
-                // Assert - "x" axis means "domain"
-                let minField = screen.getByText("domain min");
-                expect(minField).toBeInTheDocument();
-
-                // Arrange
-                render(
-                    <LockedFunctionSettings
-                        {...defaultProps}
-                        directionalAxis="y"
-                        expanded={true}
-                        onChangeProps={onChangeProps}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
-
-                // Assert - "y" axis means "range"
-                minField = screen.getByText("range min");
-                expect(minField).toBeInTheDocument();
-            });
         });
 
         describe("Example equation interactions", () => {
@@ -649,6 +611,215 @@ describe("Locked Function Settings", () => {
                             coord: [0, -1],
                         },
                     ],
+                });
+            });
+        });
+
+        describe("Aria label", () => {
+            test("Renders with aria label", () => {
+                // Arrange
+
+                // Act
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel="Function x^2"
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                const input = screen.getByRole("textbox", {name: "Aria label"});
+
+                // Assert
+                expect(input).toHaveValue("Function x^2");
+            });
+
+            test("calls onChangeProps when the aria label is updated", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const input = screen.getByRole("textbox", {name: "Aria label"});
+                await userEvent.clear(input);
+                await userEvent.type(input, "A");
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel: "A",
+                });
+            });
+
+            test("aria label auto-generates (no labels)", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+
+                // Act
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                const autoGenButton = screen.getByRole("button", {
+                    name: "Auto-generate",
+                });
+                await userEvent.click(autoGenButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel: "Function with equation y=x^2",
+                });
+            });
+
+            test("aria label auto-generates with directional axis", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                        directionalAxis="y"
+                        equation="y^2"
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const autoGenButton = screen.getByRole("button", {
+                    name: "Auto-generate",
+                });
+                await userEvent.click(autoGenButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel: "Function with equation x=y^2",
+                });
+            });
+
+            test("aria label auto-generates with domain", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                        domain={[1, 2]}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const autoGenButton = screen.getByRole("button", {
+                    name: "Auto-generate",
+                });
+                await userEvent.click(autoGenButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel:
+                        "Function with equation y=x^2, domain from 1 to 2",
+                });
+            });
+
+            test("aria label does not auto-generate with domain when it is -Infinity to Infinity", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                        domain={[-Infinity, Infinity]}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const autoGenButton = screen.getByRole("button", {
+                    name: "Auto-generate",
+                });
+                await userEvent.click(autoGenButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel: "Function with equation y=x^2",
+                });
+            });
+
+            test("aria label auto-generates (one label)", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                        labels={[
+                            {
+                                ...defaultLabel,
+                                text: "A",
+                            },
+                        ]}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const autoGenButton = screen.getByRole("button", {
+                    name: "Auto-generate",
+                });
+                await userEvent.click(autoGenButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel: "Function with equation y=x^2, with label A",
+                });
+            });
+
+            test("aria label auto-generates (multiple labels)", async () => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedFunctionSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                        labels={[
+                            {
+                                ...defaultLabel,
+                                text: "A",
+                            },
+                            {
+                                ...defaultLabel,
+                                text: "B",
+                            },
+                        ]}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
+
+                // Act
+                const autoGenButton = screen.getByRole("button", {
+                    name: "Auto-generate",
+                });
+                await userEvent.click(autoGenButton);
+
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel: "Function with equation y=x^2, with labels A, B",
                 });
             });
         });

@@ -69,6 +69,7 @@ const GraphLockedLayer = (props: Props) => {
                             <LockedFunction
                                 key={`function-${index}`}
                                 {...figure}
+                                flags={flags}
                             />
                         );
                     case "label":
