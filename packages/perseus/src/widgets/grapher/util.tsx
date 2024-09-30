@@ -8,7 +8,6 @@ import {getDependencies} from "../../dependencies";
 import Util from "../../util";
 
 import type {Coord} from "../../interactive2/types";
-import type {PerseusScore} from "../../types";
 
 // @ts-expect-error - TS2339 - Property 'Plot' does not exist on type 'typeof Graphie'.
 const Plot = Graphie.Plot;
@@ -595,54 +594,6 @@ export function functionForType(
 ): any {
     return functionTypeMapping[type];
 }
-
-export const validate = (state: any, rubric: any): PerseusScore => {
-    if (state.type !== rubric.correct.type) {
-        return {
-            type: "points",
-            earned: 0,
-            total: 1,
-            message: null,
-        };
-    }
-
-    // We haven't moved the coords
-    if (state.coords == null) {
-        return {
-            type: "invalid",
-            message: null,
-        };
-    }
-
-    // Get new function handler for grading
-    const grader = functionForType(state.type);
-    const guessCoeffs = grader.getCoefficients(state.coords, state.asymptote);
-    const correctCoeffs = grader.getCoefficients(
-        rubric.correct.coords,
-        rubric.correct.asymptote,
-    );
-
-    if (guessCoeffs == null || correctCoeffs == null) {
-        return {
-            type: "invalid",
-            message: null,
-        };
-    }
-    if (grader.areEqual(guessCoeffs, correctCoeffs)) {
-        return {
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        };
-    }
-    return {
-        type: "points",
-        earned: 0,
-        total: 1,
-        message: null,
-    };
-};
 
 export const getEquationString = (props: any): string => {
     const plot = props.plot;

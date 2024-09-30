@@ -13,9 +13,9 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
-import KhanAnswerTypes from "../../util/answer-types";
 
-// Type imports
+import matrixValidator from "./matrix-validator";
+
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports, WidgetProps, PerseusScore} from "../../types";
@@ -74,7 +74,7 @@ const getRefForPath = function (path) {
     return "answer" + row + "," + column;
 };
 
-const getMatrixSize = function (matrix: ReadonlyArray<ReadonlyArray<number>>) {
+export function getMatrixSize(matrix: ReadonlyArray<ReadonlyArray<number>>) {
     const matrixSize = [1, 1];
 
     // We need to find the widest row and tallest column to get the correct
@@ -96,7 +96,7 @@ const getMatrixSize = function (matrix: ReadonlyArray<ReadonlyArray<number>>) {
         }
     });
     return matrixSize;
-};
+}
 
 type ExternalProps = WidgetProps<
     PerseusMatrixWidgetOptions,
@@ -149,71 +149,7 @@ class Matrix extends React.Component<Props, State> {
         rubric: PerseusMatrixRubric,
         strings: PerseusStrings,
     ): PerseusScore {
-        const solution = rubric.answers;
-        const supplied = state.answers;
-        const solutionSize = getMatrixSize(solution);
-        const suppliedSize = getMatrixSize(supplied);
-
-        const incorrectSize =
-            solutionSize[0] !== suppliedSize[0] ||
-            solutionSize[1] !== suppliedSize[1];
-
-        const createValidator =
-            KhanAnswerTypes.number.createValidatorFunctional;
-        let message = null;
-        let hasEmptyCell = false;
-        let incorrect = false;
-        _(suppliedSize[0]).times((row) => {
-            _(suppliedSize[1]).times((col) => {
-                if (
-                    supplied[row][col] == null ||
-                    supplied[row][col].toString().length === 0
-                ) {
-                    hasEmptyCell = true;
-                }
-                if (!incorrectSize) {
-                    const validator = createValidator(
-                        // @ts-expect-error - TS2345 - Argument of type 'number' is not assignable to parameter of type 'string'.
-                        solution[row][col],
-                        {
-                            simplify: true,
-                        },
-                        strings,
-                    );
-                    const result = validator(supplied[row][col]);
-                    if (result.message) {
-                        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
-                        message = result.message;
-                    }
-                    if (!result.correct) {
-                        incorrect = true;
-                    }
-                }
-            });
-        });
-
-        if (hasEmptyCell) {
-            return {
-                type: "invalid",
-                message: strings.fillAllCells,
-            };
-        }
-
-        if (incorrectSize) {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1,
-                message: null,
-            };
-        }
-
-        return {
-            type: "points",
-            earned: incorrect ? 0 : 1,
-            total: 1,
-            message: message,
-        };
+        return matrixValidator(state, rubric, strings);
     }
 
     state: State = {
@@ -397,7 +333,7 @@ class Matrix extends React.Component<Props, State> {
     }
 
     simpleValidate(rubric: PerseusMatrixRubric) {
-        return Matrix.validate(
+        return matrixValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
