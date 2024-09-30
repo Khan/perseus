@@ -84,6 +84,13 @@ export class Plotter extends React.Component<Props, State> {
         categoryHeights: {},
     };
 
+    static validate(
+        userInput: PerseusPlotterUserInput,
+        rubric: PerseusPlotterRubric,
+    ): PerseusScore {
+        return plotterValidator(userInput, rubric);
+    }
+
     componentDidMount() {
         this._isMounted = true;
 
@@ -1139,13 +1146,6 @@ export class Plotter extends React.Component<Props, State> {
 
     getUserInput(): PerseusPlotterUserInput {
         return this.state.values;
-    }
-
-    validate(
-        userInput: PerseusPlotterUserInput,
-        rubric: PerseusPlotterRubric,
-    ): PerseusScore {
-        return plotterValidator(userInput, rubric);
     }
 
     simpleValidate(rubric: PerseusPlotterRubric): PerseusScore {
