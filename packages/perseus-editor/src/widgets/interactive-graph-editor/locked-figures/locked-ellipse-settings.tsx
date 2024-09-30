@@ -147,6 +147,7 @@ const LockedEllipseSettings = (props: Props) => {
 
         onChangeProps({labels: updatedLabels});
     }
+
     return (
         <PerseusEditorAccordion
             expanded={expanded}

@@ -4,6 +4,7 @@ import {
     type LockedFigureFillType,
     type LockedPolygonType,
     type LockedFigureColor,
+    type LockedLabelType,
 } from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -28,7 +29,9 @@ import ColorSelect from "./color-select";
 import LabeledSwitch from "./labeled-switch";
 import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
+import {getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 
@@ -42,11 +45,13 @@ export type Props = LockedFigureSettingsCommonProps &
 
 const LockedPolygonSettings = (props: Props) => {
     const {
+        flags,
         points,
         color,
         showVertices,
         fillStyle,
         strokeStyle,
+        labels,
         expanded,
         onToggle,
         onChangeProps,
@@ -55,7 +60,17 @@ const LockedPolygonSettings = (props: Props) => {
     } = props;
 
     function handleColorChange(newValue: LockedFigureColor) {
-        onChangeProps({color: newValue});
+        const newProps: Partial<LockedPolygonType> = {
+            color: newValue,
+        };
+
+        // Update the color of the all labels to match the point
+        newProps.labels = labels?.map((label) => ({
+            ...label,
+            color: newValue,
+        }));
+
+        onChangeProps(newProps);
     }
 
     function handlePolygonMove(movement: "up" | "down" | "left" | "right") {
@@ -63,24 +78,67 @@ const LockedPolygonSettings = (props: Props) => {
             case "up":
                 onChangeProps({
                     points: points.map(([x, y]) => [x, y + 1]),
+                    labels: labels?.map((label) => ({
+                        ...label,
+                        coord: [label.coord[0], label.coord[1] + 1],
+                    })),
                 });
                 break;
             case "down":
                 onChangeProps({
                     points: points.map(([x, y]) => [x, y - 1]),
+                    labels: labels?.map((label) => ({
+                        ...label,
+                        coord: [label.coord[0], label.coord[1] - 1],
+                    })),
                 });
                 break;
             case "left":
                 onChangeProps({
                     points: points.map(([x, y]) => [x - 1, y]),
+                    labels: labels?.map((label) => ({
+                        ...label,
+                        coord: [label.coord[0] - 1, label.coord[1]],
+                    })),
                 });
                 break;
             case "right":
                 onChangeProps({
                     points: points.map(([x, y]) => [x + 1, y]),
+                    labels: labels?.map((label) => ({
+                        ...label,
+                        coord: [label.coord[0] + 1, label.coord[1]],
+                    })),
                 });
                 break;
         }
+    }
+
+    function handleLabelChange(
+        updatedLabel: LockedLabelType,
+        labelIndex: number,
+    ) {
+        if (!labels) {
+            return;
+        }
+
+        const updatedLabels = [...labels];
+        updatedLabels[labelIndex] = {
+            ...labels[labelIndex],
+            ...updatedLabel,
+        };
+
+        onChangeProps({labels: updatedLabels});
+    }
+
+    function handleLabelRemove(labelIndex: number) {
+        if (!labels) {
+            return;
+        }
+
+        const updatedLabels = labels.filter((_, index) => index !== labelIndex);
+
+        onChangeProps({labels: updatedLabels});
     }
 
     return (
@@ -252,6 +310,56 @@ const LockedPolygonSettings = (props: Props) => {
                 </View>
             </PerseusEditorAccordion>
 
+            {/* Visible Labels */}
+            {flags?.["mafs"]?.["locked-polygon-labels"] && (
+                <>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+                    <Strut size={spacing.small_12} />
+
+                    <LabelMedium>Visible labels</LabelMedium>
+
+                    {labels?.map((label, labelIndex) => (
+                        <LockedLabelSettings
+                            {...label}
+                            expanded={true}
+                            onChangeProps={(newLabel: LockedLabelType) => {
+                                handleLabelChange(newLabel, labelIndex);
+                            }}
+                            onRemove={() => {
+                                handleLabelRemove(labelIndex);
+                            }}
+                            containerStyle={styles.labelContainer}
+                        />
+                    ))}
+
+                    <Button
+                        kind="tertiary"
+                        startIcon={plusCircle}
+                        onClick={() => {
+                            const newLabel = {
+                                ...getDefaultFigureForType("label"),
+                                coord: [
+                                    points[0][0],
+                                    // Additional vertical offset for each
+                                    // label so they don't overlap.
+                                    points[0][1] - (labels?.length ?? 0),
+                                ],
+                                // Default to the same color as the ellipse
+                                color: color,
+                            } satisfies LockedLabelType;
+
+                            onChangeProps({
+                                labels: [...(labels ?? []), newLabel],
+                            });
+                        }}
+                        style={styles.addButton}
+                    >
+                        Add visible label
+                    </Button>
+                </>
+            )}
+
             {/* Actions */}
             <LockedFigureSettingsActions
                 figureType={props.type}
@@ -295,6 +403,18 @@ const styles = StyleSheet.create({
     truncatedWidth: {
         // Allow truncation, stop bleeding over the edge.
         minWidth: 0,
+    },
+
+    // Styles for the visible labels section
+    addButton: {
+        alignSelf: "start",
+    },
+    labelContainer: {
+        backgroundColor: wbColor.white,
+    },
+    horizontalRule: {
+        height: 1,
+        backgroundColor: wbColor.offBlack16,
     },
 });
 
