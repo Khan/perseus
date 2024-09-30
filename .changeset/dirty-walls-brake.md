@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Split validation logic from LabelImage
+Split out validation logic from table
