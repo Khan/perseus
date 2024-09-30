@@ -747,6 +747,7 @@ export type LockedEllipseType = {
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedPolygonType = {

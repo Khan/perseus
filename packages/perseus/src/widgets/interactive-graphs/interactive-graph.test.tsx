@@ -872,6 +872,52 @@ describe("locked layer", () => {
         });
     });
 
+    it("should render locked ellipse with aria label when one is provided", () => {
+        // Arrange
+        const lockedEllipseWithAriaLabelQuestion =
+            interactiveGraphQuestionBuilder()
+                .addLockedEllipse([0, 0], [2, 2], {
+                    ariaLabel: "Ellipse A",
+                })
+                .build();
+        const {container} = renderQuestion(lockedEllipseWithAriaLabelQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "locked-figures-aria": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-ellipse");
+
+        // Assert
+        expect(point).toHaveAttribute("aria-label", "Ellipse A");
+    });
+
+    it("should render locked ellipse without aria label by default", () => {
+        // Arrange
+        const simpleLockedEllipsequestion = interactiveGraphQuestionBuilder()
+            .addLockedEllipse([0, 0], [2, 2])
+            .build();
+        const {container} = renderQuestion(simpleLockedEllipsequestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const point = container.querySelector(".locked-ellipse");
+
+        // Assert
+        expect(point).not.toHaveAttribute("aria-label");
+    });
+
     it("should render locked polygons with style", async () => {
         // Arrange
         const {container} = renderQuestion(segmentWithLockedPolygons, {

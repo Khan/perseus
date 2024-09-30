@@ -388,6 +388,7 @@ class InteractiveGraphQuestionBuilder {
             fillStyle?: LockedFigureFillType;
             strokeStyle?: "solid" | "dashed";
             labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
         const ellipse: LockedEllipseType = {
@@ -406,6 +407,7 @@ class InteractiveGraphQuestionBuilder {
                 color: options?.color ?? "grayH",
                 size: label.size ?? "medium",
             })),
+            ariaLabel: options?.ariaLabel,
         };
 
         this.addLockedFigure(ellipse);

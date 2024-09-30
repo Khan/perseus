@@ -12,10 +12,12 @@ import * as React from "react";
 import AngleInput from "../../../components/angle-input";
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {radianToDegree} from "../../../components/util";
 
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
 import LineStrokeSelect from "./line-stroke-select";
+import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {getDefaultFigureForType} from "./util";
@@ -47,6 +49,7 @@ const LockedEllipseSettings = (props: Props) => {
         angle,
         color,
         labels,
+        ariaLabel,
         fillStyle,
         strokeStyle,
         expanded,
@@ -55,6 +58,37 @@ const LockedEllipseSettings = (props: Props) => {
         onMove,
         onRemove,
     } = props;
+
+    function getPrepopulatedAriaLabel() {
+        const isCircle = radius[0] === radius[1];
+        let str = "";
+
+        if (isCircle) {
+            str += `Circle with radius ${radius[0]}`;
+        } else {
+            str += `Ellipse with x radius ${radius[0]} and y radius ${radius[1]}`;
+        }
+
+        str += `, centered at (${center[0]}, ${center[1]})`;
+
+        if (!isCircle && angle !== 0) {
+            str += `, rotated by ${radianToDegree(angle)} degrees`;
+        }
+
+        if (labels && labels.length > 0) {
+            str += ", with label";
+            // Make it "with labels" instead of "with label" if there are
+            // multiple labels.
+            if (labels.length > 1) {
+                str += "s";
+            }
+
+            // Separate additional labels with commas.
+            str += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
+        return str;
+    }
 
     function handleCenterChange(newCoord: Coord) {
         const xOffset = newCoord[0] - center[0];
@@ -205,9 +239,31 @@ const LockedEllipseSettings = (props: Props) => {
                 }
             />
 
+            {/* Aria label */}
+            {flags?.["mafs"]?.["locked-figures-aria"] && (
+                <>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+
+                    <LockedFigureAria
+                        ariaLabel={ariaLabel}
+                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        onChangeProps={(newProps) => {
+                            onChangeProps(newProps);
+                        }}
+                    />
+                </>
+            )}
+
             {/* Visible Labels */}
             {flags?.["mafs"]?.["locked-ellipse-labels"] && (
                 <>
+                    <Strut size={spacing.xxxSmall_4} />
+                    <View style={styles.horizontalRule} />
+                    <Strut size={spacing.small_12} />
+
+                    <LabelMedium>Visible labels</LabelMedium>
+
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
@@ -277,6 +333,10 @@ const styles = StyleSheet.create({
     },
     labelContainer: {
         backgroundColor: wbColor.white,
+    },
+    horizontalRule: {
+        height: 1,
+        backgroundColor: wbColor.offBlack16,
     },
 });
 
