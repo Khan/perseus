@@ -1,5 +1,47 @@
 # @khanacademy/perseus
 
+## 35.0.0
+
+### Major Changes
+
+-   [#1668](https://github.com/Khan/perseus/pull/1668) [`063159313`](https://github.com/Khan/perseus/commit/063159313c8b146589912ce42c14f06aa23d3e51) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove scoreWidgets from ServerItemRenderer
+
+*   [#1639](https://github.com/Khan/perseus/pull/1639) [`ae51ccdb8`](https://github.com/Khan/perseus/commit/ae51ccdb820894f6fc5c1b23556823efdd4edba6) Thanks [@handeyeco](https://github.com/handeyeco)! - Refactor virtally all widget types and consolidate user input
+
+-   [#1661](https://github.com/Khan/perseus/pull/1661) [`391641acb`](https://github.com/Khan/perseus/commit/391641acb153d2d6c0f8c29f5026a392ac1b3a62) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused onInputError from APIOptions
+
+### Minor Changes
+
+-   [#1655](https://github.com/Khan/perseus/pull/1655) [`790e189a7`](https://github.com/Khan/perseus/commit/790e189a7fdcd215d78d1999879ab2fc7417e123) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add/edit/delete locked ellipse labels
+
+*   [#1653](https://github.com/Khan/perseus/pull/1653) [`ca4be05ab`](https://github.com/Khan/perseus/commit/ca4be05ab7367007330784796ad2561e3f5bb1c8) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] View locked ellipse labels
+
+-   [#1652](https://github.com/Khan/perseus/pull/1652) [`1ed045583`](https://github.com/Khan/perseus/commit/1ed045583fec01be5baf5d4e86a8b582cbf782c2) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add/edit/delete locked vector labels
+
+*   [#1659](https://github.com/Khan/perseus/pull/1659) [`3dcb1fdf2`](https://github.com/Khan/perseus/commit/3dcb1fdf247eda0f0b78966daf04a9e4278d4373) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add/edit/delete locked function labels
+
+-   [#1658](https://github.com/Khan/perseus/pull/1658) [`20b3a2485`](https://github.com/Khan/perseus/commit/20b3a2485e2ba8deea798acc2732d9570c0dac45) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] View locked function labels
+
+*   [#1650](https://github.com/Khan/perseus/pull/1650) [`03cddb6c3`](https://github.com/Khan/perseus/commit/03cddb6c39570e87ff2437273eb1287ff1417eec) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] View locked vector labels
+
+-   [#1679](https://github.com/Khan/perseus/pull/1679) [`56f33ae01`](https://github.com/Khan/perseus/commit/56f33ae010390abd2050028db98c9a72fc604e1a) Thanks [@handeyeco](https://github.com/handeyeco)! - Don't serialize widgetIsOpen
+
+### Patch Changes
+
+-   [#1669](https://github.com/Khan/perseus/pull/1669) [`13d79edb9`](https://github.com/Khan/perseus/commit/13d79edb94fd7009b18a176b5c93b43fb03fee72) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating protractor's default position within a graph.
+
+*   [#1662](https://github.com/Khan/perseus/pull/1662) [`3a10f6b1f`](https://github.com/Khan/perseus/commit/3a10f6b1fe85d915fbf947434d7ebdc0b35607f5) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out validation logic in Radio
+
+-   [#1656](https://github.com/Khan/perseus/pull/1656) [`b9d1af181`](https://github.com/Khan/perseus/commit/b9d1af181efeb093407d59ba0a8efe8912524757) Thanks [@Myranae](https://github.com/Myranae)! - Move validation logic out of the sorter widget and add tests
+
+*   [#1665](https://github.com/Khan/perseus/pull/1665) [`9f9d42c4e`](https://github.com/Khan/perseus/commit/9f9d42c4e2d041408cf508f5bfaeafe03dc2acbc) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - Translations and polish for unlimited point
+
+-   [#1667](https://github.com/Khan/perseus/pull/1667) [`9efad87d0`](https://github.com/Khan/perseus/commit/9efad87d00c58f16c5a5a95c6c7148bde62fe71a) Thanks [@handeyeco](https://github.com/handeyeco)! - Split validation logic from LabelImage
+
+*   [#1663](https://github.com/Khan/perseus/pull/1663) [`1642ad9c0`](https://github.com/Khan/perseus/commit/1642ad9c0cadaf2e4db316e5e4cb38a5c9a9f5fe) Thanks [@benchristel](https://github.com/benchristel)! - Internal: revert buggy change to interactive graphs (never shipped)
+
+-   [#1673](https://github.com/Khan/perseus/pull/1673) [`6f4702e41`](https://github.com/Khan/perseus/commit/6f4702e418ffdfaae01aa3f3a126b304b3250e34) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figures Labels] Make labels optional to increase type safety
+
 ## 34.1.0
 
 ### Minor Changes
