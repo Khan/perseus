@@ -128,11 +128,6 @@ describe("Definition widget", () => {
         const result = renderer.scoreWidgets();
 
         // Assert
-        expect(result["definition 1"]).toMatchObject({
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null,
-        });
+        expect(result["definition 1"]).toHaveBeenAnsweredCorrectly();
     });
 });
