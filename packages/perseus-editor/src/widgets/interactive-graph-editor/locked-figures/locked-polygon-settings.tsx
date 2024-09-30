@@ -28,6 +28,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import ColorSelect from "./color-select";
 import LabeledSwitch from "./labeled-switch";
 import LineStrokeSelect from "./line-stroke-select";
+import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
@@ -52,12 +53,34 @@ const LockedPolygonSettings = (props: Props) => {
         fillStyle,
         strokeStyle,
         labels,
+        ariaLabel,
         expanded,
         onToggle,
         onChangeProps,
         onMove,
         onRemove,
     } = props;
+
+    function getPrepopulatedAriaLabel() {
+        let str = `Polygon with ${points.length} sides, vertices at `;
+
+        // Add the coordinates of each point to the aria label
+        str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
+
+        if (labels && labels.length > 0) {
+            str += ", with label";
+            // Make it "with labels" instead of "with label" if there are
+            // multiple labels.
+            if (labels.length > 1) {
+                str += "s";
+            }
+
+            // Separate additional labels with commas.
+            str += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
+        return str;
+    }
 
     function handleColorChange(newValue: LockedFigureColor) {
         const newProps: Partial<LockedPolygonType> = {
@@ -310,10 +333,26 @@ const LockedPolygonSettings = (props: Props) => {
                 </View>
             </PerseusEditorAccordion>
 
+            {/* Aria label */}
+            {flags?.["mafs"]?.["locked-figures-aria"] && (
+                <>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+
+                    <LockedFigureAria
+                        ariaLabel={ariaLabel}
+                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        onChangeProps={(newProps) => {
+                            onChangeProps(newProps);
+                        }}
+                    />
+                </>
+            )}
+
             {/* Visible Labels */}
             {flags?.["mafs"]?.["locked-polygon-labels"] && (
                 <>
-                    <Strut size={spacing.small_12} />
+                    <Strut size={spacing.xxxSmall_4} />
                     <View style={styles.horizontalRule} />
                     <Strut size={spacing.small_12} />
 

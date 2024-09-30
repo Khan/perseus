@@ -855,7 +855,7 @@ export const segmentWithLockedFigures: PerseusRenderer =
                 [-6, 1],
                 [-9, 1],
             ],
-            {color: "pink", labels: [{text: "E"}]},
+            {color: "pink", labels: [{text: "E"}], ariaLabel: "Polygon E"},
         )
         .addLockedFunction("sin(x)", {
             color: "red",

@@ -1041,6 +1041,63 @@ describe("locked layer", () => {
         });
     });
 
+    it("should render locked polygon with aria label when one is provided", () => {
+        // Arrange
+        const lockedPolygonWithAriaLabelQuestion =
+            interactiveGraphQuestionBuilder()
+                .addLockedPolygon(
+                    [
+                        [0, 0],
+                        [0, 1],
+                        [1, 1],
+                    ],
+                    {
+                        ariaLabel: "Polygon A",
+                    },
+                )
+                .build();
+        const {container} = renderQuestion(lockedPolygonWithAriaLabelQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                    "locked-figures-aria": true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const polygon = container.querySelector(".locked-polygon");
+
+        // Assert
+        expect(polygon).toHaveAttribute("aria-label", "Polygon A");
+    });
+
+    it("should render locked polygon without aria label by default", () => {
+        // Arrange
+        const simpleLockedPolygonQuestion = interactiveGraphQuestionBuilder()
+            .addLockedPolygon([
+                [0, 0],
+                [0, 1],
+                [1, 1],
+            ])
+            .build();
+        const {container} = renderQuestion(simpleLockedPolygonQuestion, {
+            flags: {
+                mafs: {
+                    segment: true,
+                },
+            },
+        });
+
+        // Act
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const polygon = container.querySelector(".locked-polygon");
+
+        // Assert
+        expect(polygon).not.toHaveAttribute("aria-label");
+    });
+
     it("should render locked function with style", () => {
         // Arrange
         const {container} = renderQuestion(
