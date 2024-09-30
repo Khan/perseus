@@ -1,3 +1,4 @@
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -24,6 +25,7 @@ describe("LockedFigureAria", () => {
                 prePopulatedAriaLabel="Pre-populated aria label"
                 onChangeProps={() => {}}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         const titleText = screen.getByText("Aria label");
@@ -53,6 +55,7 @@ describe("LockedFigureAria", () => {
                 prePopulatedAriaLabel="Pre-populated aria label"
                 onChangeProps={() => {}}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         const input = screen.getByRole("textbox");
@@ -72,6 +75,7 @@ describe("LockedFigureAria", () => {
                 prePopulatedAriaLabel="Pre-populated aria label"
                 onChangeProps={onChangeProps}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         const autoGenButton = screen.getByRole("button", {
@@ -95,6 +99,7 @@ describe("LockedFigureAria", () => {
                 prePopulatedAriaLabel="Pre-populated aria label"
                 onChangeProps={onChangeProps}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         // Act
