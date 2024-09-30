@@ -316,6 +316,7 @@ class InteractiveGraphQuestionBuilder {
             showPoint1?: boolean;
             showPoint2?: boolean;
             labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
         const line: LockedLineType = {
@@ -332,6 +333,7 @@ class InteractiveGraphQuestionBuilder {
                 color: options?.color ?? "grayH",
                 size: label.size ?? "medium",
             })),
+            ariaLabel: options?.ariaLabel,
             points: [
                 {
                     ...this.createLockedPoint(...point1, {

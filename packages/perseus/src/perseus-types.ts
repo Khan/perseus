@@ -719,6 +719,7 @@ export type LockedLineType = {
     showPoint1: boolean;
     showPoint2: boolean;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedVectorType = {

@@ -867,6 +867,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showPoint1: true,
                 showPoint2: true,
                 labels: [{text: "a label"}],
+                ariaLabel: "an aria label",
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -902,6 +903,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         size: "medium",
                     },
                 ],
+                ariaLabel: "an aria label",
             },
         ]);
     });
