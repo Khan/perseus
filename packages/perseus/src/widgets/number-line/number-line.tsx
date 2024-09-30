@@ -264,6 +264,13 @@ class NumberLine extends React.Component<Props, State> {
         numDivisionsEmpty: false,
     };
 
+    static validate(
+        state: PerseusNumberLineUserInput,
+        rubric: PerseusNumberLineRubric,
+    ): PerseusScore {
+        return numberLineValidator(state, rubric);
+    }
+
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
@@ -635,13 +642,6 @@ class NumberLine extends React.Component<Props, State> {
             numDivisions: this.props.numDivisions,
             divisionRange: this.props.divisionRange,
         };
-    }
-
-    validate(
-        state: PerseusNumberLineUserInput,
-        rubric: PerseusNumberLineRubric,
-    ): PerseusScore {
-        return numberLineValidator(state, rubric);
     }
 
     simpleValidate(rubric: PerseusNumberLineRubric): PerseusScore {
