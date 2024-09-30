@@ -59,7 +59,7 @@ function getUrlFromProgramID(programID: any) {
 
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
-export class CSProgram extends React.Component<Props> {
+class CSProgram extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         showEditor: false,
         showButtons: false,
