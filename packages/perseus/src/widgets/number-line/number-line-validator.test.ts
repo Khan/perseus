@@ -42,7 +42,7 @@ function generateRubric(
 }
 
 describe("numberLineValidator", () => {
-    it(`is invalid when outside allowed range`, () => {
+    it("is invalid when outside allowed range", () => {
         // Arrange
         const userInput = generateInput({
             divisionRange: [-1, 1],
@@ -60,7 +60,7 @@ describe("numberLineValidator", () => {
         );
     });
 
-    it(`is invalid when end state is the same as beginning state`, () => {
+    it("is invalid when end state is the same as beginning state", () => {
         // Arrange
         const userInput = generateInput({
             numLinePosition: 0,
@@ -77,7 +77,7 @@ describe("numberLineValidator", () => {
         expect(result).toHaveInvalidInput();
     });
 
-    it(`can be answered correctly`, () => {
+    it("can be answered correctly", () => {
         // Arrange
         const userInput = generateInput({
             numLinePosition: -1.5,
@@ -92,7 +92,7 @@ describe("numberLineValidator", () => {
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it(`can be answered incorrectly`, () => {
+    it("can be answered incorrectly", () => {
         // Arrange
         const userInput = generateInput({
             numLinePosition: 1.5,
