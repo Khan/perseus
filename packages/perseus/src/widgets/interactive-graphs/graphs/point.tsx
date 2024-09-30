@@ -52,7 +52,7 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
         const focusedIndex = props.graphState.focusedPointIndex;
 
         if (focusedIndex !== null && itemsRef.current[focusedIndex] !== null) {
-            itemsRef.current[focusedIndex].focus();
+            itemsRef.current[focusedIndex]?.focus();
         }
     }, [props.graphState.focusedPointIndex, itemsRef]);
 
