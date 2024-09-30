@@ -37,33 +37,4 @@ describe("cs-program widget", () => {
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
     });
-
-    it("can get user input from props", () => {
-        // Arrange
-        // Based on cs-program render props, combining
-        // PerseusCSProgramWidgetOptions with status and message
-        const widgetProps: any = {
-            programID: "6293105639817216",
-            settings: [
-                {name: "", value: ""},
-                {name: "", value: ""},
-            ],
-            height: 540,
-            width: 640,
-            static: false,
-            showButtons: false,
-            showEditor: false,
-            status: "correct",
-            message: "good job!",
-        };
-
-        // Act
-        const userInput = CSProgram.getUserInputFromProps(widgetProps);
-
-        // Assert
-        expect(userInput).toEqual({
-            status: "correct",
-            message: "good job!",
-        });
-    });
 });

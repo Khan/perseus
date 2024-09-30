@@ -73,13 +73,6 @@ export class CSProgram extends React.Component<Props> {
         return csProgramValidator(state);
     }
 
-    static getUserInputFromProps(props: Props): PerseusCSProgramUserInput {
-        return {
-            status: props.status,
-            message: props.message,
-        };
-    }
-
     componentDidMount() {
         $(window).on("message", this.handleMessageEvent);
     }
@@ -116,7 +109,10 @@ export class CSProgram extends React.Component<Props> {
     };
 
     getUserInput(): PerseusCSProgramUserInput {
-        return CSProgram.getUserInputFromProps(this.props);
+        return {
+            status: this.props.status,
+            message: this.props.message,
+        };
     }
 
     simpleValidate(): PerseusScore {
