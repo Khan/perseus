@@ -9,7 +9,8 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
-import KhanAnswerTypes from "../../util/answer-types";
+
+import tableValidator from "./table-validator";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
@@ -89,6 +90,14 @@ class Table extends React.Component<Props> {
         };
     })();
 
+    static validate(
+        state: PerseusTableUserInput,
+        rubric: PerseusTableRubric,
+        strings: PerseusStrings,
+    ): PerseusScore {
+        return tableValidator(state, rubric, strings);
+    }
+
     _getRows: () => number = () => {
         return this.props.answers.length;
     };
@@ -130,8 +139,7 @@ class Table extends React.Component<Props> {
     };
 
     simpleValidate(rubric: PerseusTableWidgetOptions): PerseusScore {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Table'.
-        return Table.validate(
+        return tableValidator(
             this.getUserInput(),
             rubric,
             this.context.strings,
@@ -318,81 +326,6 @@ class Table extends React.Component<Props> {
         );
     }
 }
-
-_.extend(Table, {
-    validate: function (
-        state: PerseusTableRubric,
-        rubric: PerseusTableWidgetOptions,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        const filterNonEmpty = function (table: any) {
-            return _.filter(table, function (row) {
-                // Check if row has a cell that is nonempty
-                return _.some(row, _.identity);
-            });
-        };
-        const solution = filterNonEmpty(rubric.answers);
-        const supplied = filterNonEmpty(state);
-        const hasEmptyCell = _.some(supplied, function (row) {
-            return _.some(row, function (cell) {
-                return cell === "";
-            });
-        });
-        if (hasEmptyCell || !supplied.length) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-        if (supplied.length !== solution.length) {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1,
-                message: null,
-            };
-        }
-        const createValidator =
-            KhanAnswerTypes.number.createValidatorFunctional;
-        let message = null;
-        const allCorrect = _.every(solution, function (rowSolution) {
-            let i;
-            for (i = 0; i < supplied.length; i++) {
-                const rowSupplied = supplied[i];
-                const correct = _.every(
-                    rowSupplied,
-                    function (cellSupplied, i) {
-                        const cellSolution = rowSolution[i];
-                        const validator = createValidator(
-                            cellSolution,
-                            {
-                                simplify: true,
-                            },
-                            strings,
-                        );
-                        const result = validator(cellSupplied);
-                        if (result.message) {
-                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
-                            message = result.message;
-                        }
-                        return result.correct;
-                    },
-                );
-                if (correct) {
-                    supplied.splice(i, 1);
-                    return true;
-                }
-            }
-            return false;
-        });
-        return {
-            type: "points",
-            earned: allCorrect ? 1 : 0,
-            total: 1,
-            message: message,
-        };
-    },
-});
 
 const propTransform: (arg1: any) => any = (editorProps) => {
     // Remove answers before passing to widget

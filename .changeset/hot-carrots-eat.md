@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Split out validation logic in Radio
+Refine Expression's Rubric type
