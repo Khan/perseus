@@ -2,7 +2,6 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {CSProgram} from "./cs-program";
 import {question1} from "./cs-program.testdata";
 
 describe("cs-program widget", () => {
