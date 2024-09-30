@@ -22,37 +22,46 @@ type Props = {
     onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
 };
 
-export const MovablePoint = (props: Props) => {
-    const {snapStep} = useGraphConfig();
-    const elementRef = useRef<SVGGElement>(null);
-    const {
-        point,
-        onMove = () => {},
-        onFocusChange = () => {},
-        onClick = () => {},
-        cursor,
-        color = WBColor.blue,
-        constrain = (p) => snap(snapStep, p),
-    } = props;
-    const {dragging} = useDraggable({
-        gestureTarget: elementRef,
-        point,
-        onMove,
-        constrainKeyboardMovement: constrain,
-    });
+export const MovablePoint = React.forwardRef(
+    (props: Props, pointRef: React.ForwardedRef<SVGGElement | null>) => {
+        const {snapStep} = useGraphConfig();
+        const elementRef = useRef<SVGGElement | null>(null);
+        const {
+            point,
+            onMove = () => {},
+            onFocusChange = () => {},
+            onClick = () => {},
+            cursor,
+            color = WBColor.blue,
+            constrain = (p) => snap(snapStep, p),
+        } = props;
+        const {dragging} = useDraggable({
+            gestureTarget: elementRef,
+            point,
+            onMove,
+            constrainKeyboardMovement: constrain,
+        });
 
-    return (
-        <MovablePointView
-            ref={elementRef}
-            point={point}
-            color={color}
-            dragging={dragging}
-            focusBehavior={{type: "uncontrolled", tabIndex: 0, onFocusChange}}
-            onClick={() => {
-                onClick && onClick();
-                elementRef.current?.focus();
-            }}
-            cursor={cursor}
-        />
-    );
-};
+        return (
+            <MovablePointView
+                ref={(ref) => {
+                    pointRef(ref);
+                    elementRef.current = ref;
+                }}
+                point={point}
+                color={color}
+                dragging={dragging}
+                focusBehavior={{
+                    type: "uncontrolled",
+                    tabIndex: 0,
+                    onFocusChange,
+                }}
+                onClick={() => {
+                    onClick && onClick();
+                    elementRef.current?.focus();
+                }}
+                cursor={cursor}
+            />
+        );
+    },
+);

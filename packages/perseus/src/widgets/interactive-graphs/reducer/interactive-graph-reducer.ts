@@ -151,11 +151,16 @@ function doBlurPoint(
 ): InteractiveGraphState {
     switch (state.type) {
         case "point":
-            return {
+            const nextState = {
                 ...state,
-                focusedPointIndex: null,
                 showRemovePointButton: false,
             };
+
+            if (state.interactionMode === "mouse") {
+                nextState.focusedPointIndex = null;
+            }
+
+            return nextState;
         default:
             return state;
     }
@@ -666,6 +671,7 @@ function doAddPoint(
         hasBeenInteractedWith: true,
         coords: [...state.coords, snappedPoint],
         showRemovePointButton: false,
+        focusedPointIndex: state.coords.length,
     };
 }
 
@@ -677,10 +683,18 @@ function doRemovePoint(
         return state;
     }
 
+    let nextFocusedPointIndex: number | null;
+    if (state.interactionMode === "mouse") {
+        nextFocusedPointIndex = null;
+    } else {
+        nextFocusedPointIndex =
+            state.coords.length > 1 ? state.coords.length - 2 : null;
+    }
+
     return {
         ...state,
         coords: state.coords.filter((_, i) => i !== action.index),
-        focusedPointIndex: null,
+        focusedPointIndex: nextFocusedPointIndex,
         showRemovePointButton: false,
     };
 }

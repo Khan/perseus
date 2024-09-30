@@ -46,6 +46,16 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
         height,
     ]);
     const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
+    const itemsRef = React.useRef<[SVGElement | null]>([]);
+
+    React.useEffect(() => {
+        const focusedIndex = props.graphState.focusedPointIndex;
+
+        if (focusedIndex !== null && itemsRef.current[focusedIndex] !== null) {
+            itemsRef.current[focusedIndex].focus();
+        }
+    }, [props.graphState.focusedPointIndex, itemsRef]);
+
     return (
         <>
             {/* This rect is here to grab clicks so that new points can be added */}
@@ -81,11 +91,20 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
                     onMove={(destination) =>
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
+                    ref={(ref) => {
+                        itemsRef.current[i] = ref;
+                    }}
                     onFocusChange={(event, isFocused) => {
                         if (isFocused) {
                             dispatch(actions.pointGraph.focusPoint(i));
                         } else {
                             if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
+                                return;
+                            } else if (
+                                event.relatedTarget?.classList.contains(
+                                    "movable-point",
+                                )
+                            ) {
                                 return;
                             }
                             dispatch(actions.pointGraph.blurPoint());
