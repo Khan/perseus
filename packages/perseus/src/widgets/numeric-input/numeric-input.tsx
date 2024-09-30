@@ -211,12 +211,10 @@ export class NumericInput extends React.Component<Props, State> {
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         // The widget itself is an input, so we return a single empty list to
         // indicate this.
-        /* c8 ignore next */
         return [[]];
     };
 
     getGrammarTypeForPath: (arg1: FocusPath) => string = (inputPath) => {
-        /* c8 ignore next */
         return "number";
     };
 
@@ -225,7 +223,6 @@ export class NumericInput extends React.Component<Props, State> {
         arg2: string,
         arg3?: () => unknown | null | undefined,
     ) => void = (path, newValue, cb) => {
-        /* c8 ignore next */
         this.props.onChange(
             {
                 currentValue: newValue,

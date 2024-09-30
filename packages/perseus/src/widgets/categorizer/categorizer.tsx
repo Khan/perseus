@@ -248,8 +248,6 @@ export class Categorizer extends React.Component<Props, State> {
 // TODO(benkomalo): inject page-margin into Perseus instead of hardcoding.
 const pageMargin = 16;
 
-// Stylesheets aren't directly testable
-/* c8 ignore next */
 const styles = StyleSheet.create({
     mobileTable: {
         [mediaQueries.smOrSmaller]: {

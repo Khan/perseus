@@ -546,7 +546,6 @@ class Renderer extends React.Component<Props, State> {
             // NOTE(jeremy): Further, the widgetId we were given does not even
             // look like a widget ID (ie. `widget-type \d+`). I can't figure
             // out how to trigger this line of code though.
-            /* c8 ignore next line */
             return {};
         }
         return {
@@ -1043,7 +1042,6 @@ class Renderer extends React.Component<Props, State> {
                 // NOTE(jeremy): As far as I can tell, this if is _never_
                 // reached. As noted above, these are always QuestionParagraphs
                 // now.
-                /* c8 ignore if */
                 if (typeof nodeOut === "string" && lastWasString) {
                     // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
                     result[result.length - 1] += nodeOut;

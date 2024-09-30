@@ -286,12 +286,10 @@ export class Expression extends React.Component<Props, ExpressionState> {
             payload: null,
         });
 
-        /* c8 ignore next */
         this.props.onFocus([]);
     };
 
     _handleBlur: () => void = () => {
-        /* c8 ignore next */
         this.props.onBlur([]);
     };
 
@@ -334,7 +332,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
     getInputPaths: () => ReadonlyArray<ReadonlyArray<any>> = () => {
         // The widget itself is an input, so we return a single empty list to
         // indicate this.
-        /* c8 ignore next */
         return [[]];
     };
 
@@ -342,7 +339,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
     getGrammarTypeForPath: (inputPath: string) => string = (
         inputPath: string,
     ) => {
-        /* c8 ignore next */
         return "expression";
     };
 
@@ -552,7 +548,6 @@ const keypadConfigurationForProps = (
 };
 
 const propUpgrades = {
-    /* c8 ignore next */
     "1": (v0props: any): PerseusExpressionWidgetOptions => ({
         times: v0props.times,
         buttonSets: v0props.buttonSets,

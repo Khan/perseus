@@ -165,14 +165,12 @@ class InputNumber extends React.Component<Props> {
     getInputPaths: () => ReadonlyArray<Path> = () => {
         // The widget itself is an input, so we return a single empty list to
         // indicate this.
-        /* c8 ignore next */
         return [[]];
     };
 
     // Note: We believe that this isn't used anywhere but are leaving it during
     // the initial refactor
     getGrammarTypeForPath: (arg1: Path) => string = (path) => {
-        /* c8 ignore next */
         return "number";
     };
 

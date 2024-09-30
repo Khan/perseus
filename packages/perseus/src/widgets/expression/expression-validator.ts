@@ -55,7 +55,6 @@ function expressionValidator(
         // incorrectly. For example if the answer is using a symbol defined
         // in the function variables list for the expression.
         if (!expression.parsed) {
-            /* c8 ignore next */
             Log.error(
                 "Unable to parse solution answer for expression",
                 Errors.InvalidInput,

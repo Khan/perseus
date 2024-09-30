@@ -118,7 +118,7 @@ class Radio extends React.Component<Props> {
             };
             // Support legacy choiceState implementation
         }
-        /* c8 ignore if - props.values is deprecated */
+        // props.values is deprecated
         const {values} = props;
         if (values) {
             let noneOfTheAboveIndex = null;
@@ -408,7 +408,7 @@ class Radio extends React.Component<Props> {
             choiceStates = this.props.choiceStates;
         } else if (this.props.values) {
             // Support legacy choiceStates implementation
-            /* c8 ignore next - props.values is deprecated */
+            // props.values is deprecated
             choiceStates = this.props.values.map((val) => ({
                 selected: val,
                 crossedOut: false,
