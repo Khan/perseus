@@ -135,6 +135,24 @@ type DefaultProps = {
     graph: Props["graph"];
 };
 
+// TODO: there's another, very similar getSinusoidCoefficients function
+// they should probably be merged
+export function getSinusoidCoefficients(
+    coords: ReadonlyArray<Coord>,
+): SineCoefficient {
+    // It's assumed that p1 is the root and p2 is the first peak
+    const p1 = coords[0];
+    const p2 = coords[1];
+
+    // Resulting coefficients are canonical for this sine curve
+    const amplitude = p2[1] - p1[1];
+    const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
+    const phase = p1[0] * angularFrequency;
+    const verticalOffset = p1[1];
+
+    return [amplitude, angularFrequency, phase, verticalOffset];
+}
+
 // (LEMS-2190): Move the Mafs Angle Graph coordinate reversal logic in interactive-graph-state.ts
 // to this file when we remove the legacy graph. This logic allows us to support bi-directional angles
 // for the new (non-reflexive) Mafs graphs, while maintaining the same scoring behaviour as the legacy graph.
@@ -1855,22 +1873,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         return [a, b, c];
     }
 
-    static getSinusoidCoefficients(
-        coords: ReadonlyArray<Coord>,
-    ): SineCoefficient {
-        // It's assumed that p1 is the root and p2 is the first peak
-        const p1 = coords[0];
-        const p2 = coords[1];
-
-        // Resulting coefficients are canonical for this sine curve
-        const amplitude = p2[1] - p1[1];
-        const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-        const phase = p1[0] * angularFrequency;
-        const verticalOffset = p1[1];
-
-        return [amplitude, angularFrequency, phase, verticalOffset];
-    }
-
     /**
      * @param {object} graph Like props.graph or props.correct
      * @param {object} props of an InteractiveGraph instance
@@ -2227,7 +2229,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         const coords =
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.graph.coords || InteractiveGraph.defaultSinusoidCoords(props);
-        return InteractiveGraph.getSinusoidCoefficients(coords);
+        return getSinusoidCoefficients(coords);
     }
 
     static defaultSinusoidCoords(props: Props): ReadonlyArray<Coord> {
@@ -2460,10 +2462,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 rubric.correct.type === "sinusoid" &&
                 userInput.coords != null
             ) {
-                const guessCoeffs = this.getSinusoidCoefficients(
-                    userInput.coords,
-                );
-                const correctCoeffs = this.getSinusoidCoefficients(
+                const guessCoeffs = getSinusoidCoefficients(userInput.coords);
+                const correctCoeffs = getSinusoidCoefficients(
                     // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
                 );
