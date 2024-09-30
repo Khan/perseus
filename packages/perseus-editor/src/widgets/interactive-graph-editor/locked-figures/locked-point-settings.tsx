@@ -8,7 +8,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -19,6 +19,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
 import LabeledSwitch from "./labeled-switch";
+import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {getDefaultFigureForType} from "./util";
@@ -87,6 +88,7 @@ const LockedPointSettings = (props: Props) => {
         color: pointColor,
         filled = true,
         labels,
+        ariaLabel,
         onChangeProps,
         onMove,
         onRemove,
@@ -98,6 +100,33 @@ const LockedPointSettings = (props: Props) => {
     } = props;
 
     const isDefiningPoint = !onMove && !onRemove;
+
+    /**
+     * Get a prepopulated aria label for the point.
+     *
+     * If the point has no labels, the aria label will just be
+     * "Point at (x, y)".
+     *
+     * If the point has labels, the aria label will be
+     * "Point at (x, y) with label1, label2, label3".
+     */
+    function getPrepopulatedAriaLabel() {
+        let str = `Point at (${coord[0]}, ${coord[1]})`;
+
+        if (labels && labels.length > 0) {
+            str += " with label";
+            // Make it "with labels" instead of "with label" if there are
+            // multiple labels.
+            if (labels.length > 1) {
+                str += "s";
+            }
+
+            // Separate additional labels with commas.
+            str += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
+        return str;
+    }
 
     function handleColorChange(newValue) {
         const newProps: Partial<LockedPointType> = {
@@ -212,10 +241,31 @@ const LockedPointSettings = (props: Props) => {
                 </>
             )}
 
+            {!isDefiningPoint && flags?.["mafs"]?.["locked-figures-aria"] && (
+                <>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+
+                    <LockedFigureAria
+                        ariaLabel={ariaLabel}
+                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        onChangeProps={(newProps) => {
+                            onChangeProps(newProps);
+                        }}
+                    />
+                </>
+            )}
+
             {((!isDefiningPoint && flags?.["mafs"]?.["locked-point-labels"]) ||
                 (isDefiningPoint &&
                     flags?.["mafs"]?.["locked-line-labels"])) && (
                 <>
+                    <Strut size={spacing.xxxSmall_4} />
+                    <View style={styles.horizontalRule} />
+                    <Strut size={spacing.small_12} />
+
+                    <LabelMedium>Visible labels</LabelMedium>
+
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
                             {...label}
@@ -299,6 +349,10 @@ const styles = StyleSheet.create({
     },
     addButton: {
         alignSelf: "start",
+    },
+    horizontalRule: {
+        height: 1,
+        backgroundColor: wbColor.offBlack16,
     },
 });
 

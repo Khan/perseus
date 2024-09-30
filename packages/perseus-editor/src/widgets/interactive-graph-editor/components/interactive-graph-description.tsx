@@ -34,7 +34,7 @@ export default function InteractiveGraphDescription(props: Props) {
                     <LabelXSmall style={styles.caption}>
                         Use these fields to describe the graph as a whole. These
                         are used by screen readers to describe content to users
-                        who are visually impaired.
+                        who may be visually impaired.
                     </LabelXSmall>
                     <LabelLarge tag="label">
                         Title
