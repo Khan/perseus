@@ -8,9 +8,10 @@ import {
     similar,
 } from "../../util/geometry";
 import GraphUtils from "../../util/graph-utils";
-import {getSinusoidCoefficients} from "../interactive-graph";
-
-import {getQuadraticCoefficients} from "./graphs/quadratic";
+import {
+    getQuadraticCoefficients,
+    getSinusoidCoefficients,
+} from "../interactive-graph";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusScore} from "../../types";

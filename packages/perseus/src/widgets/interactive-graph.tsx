@@ -146,6 +146,39 @@ export function getSinusoidCoefficients(
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
+// TODO: there's another, very similar getQuadraticCoefficients function
+// they should probably be merged
+export function getQuadraticCoefficients(
+    coords: ReadonlyArray<Coord>,
+): QuadraticCoefficient {
+    const p1 = coords[0];
+    const p2 = coords[1];
+    const p3 = coords[2];
+
+    const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
+    if (denom === 0) {
+        // Many of the callers assume that the return value is always defined.
+        // @ts-expect-error - TS2322 - Type 'undefined' is not assignable to type 'QuadraticCoefficient'.
+        return;
+    }
+    const a =
+        (p3[0] * (p2[1] - p1[1]) +
+            p2[0] * (p1[1] - p3[1]) +
+            p1[0] * (p3[1] - p2[1])) /
+        denom;
+    const b =
+        (p3[0] * p3[0] * (p1[1] - p2[1]) +
+            p2[0] * p2[0] * (p3[1] - p1[1]) +
+            p1[0] * p1[0] * (p2[1] - p3[1])) /
+        denom;
+    const c =
+        (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
+            p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
+            p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
+        denom;
+    return [a, b, c];
+}
+
 // (LEMS-2190): Move the Mafs Angle Graph coordinate reversal logic in interactive-graph-state.ts
 // to this file when we remove the legacy graph. This logic allows us to support bi-directional angles
 // for the new (non-reflexive) Mafs graphs, while maintaining the same scoring behaviour as the legacy graph.
@@ -1835,37 +1868,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         );
     }
 
-    static getQuadraticCoefficients(
-        coords: ReadonlyArray<Coord>,
-    ): QuadraticCoefficient {
-        const p1 = coords[0];
-        const p2 = coords[1];
-        const p3 = coords[2];
-
-        const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
-        if (denom === 0) {
-            // Many of the callers assume that the return value is always defined.
-            // @ts-expect-error - TS2322 - Type 'undefined' is not assignable to type 'QuadraticCoefficient'.
-            return;
-        }
-        const a =
-            (p3[0] * (p2[1] - p1[1]) +
-                p2[0] * (p1[1] - p3[1]) +
-                p1[0] * (p3[1] - p2[1])) /
-            denom;
-        const b =
-            (p3[0] * p3[0] * (p1[1] - p2[1]) +
-                p2[0] * p2[0] * (p3[1] - p1[1]) +
-                p1[0] * p1[0] * (p2[1] - p3[1])) /
-            denom;
-        const c =
-            (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
-                p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
-                p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
-            denom;
-        return [a, b, c];
-    }
-
     /**
      * @param {object} graph Like props.graph or props.correct
      * @param {object} props of an InteractiveGraph instance
@@ -2193,7 +2195,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.graph.coords ||
             InteractiveGraph.defaultQuadraticCoords(props);
-        return InteractiveGraph.getQuadraticCoefficients(coords);
+        return getQuadraticCoefficients(coords);
     }
 
     static defaultQuadraticCoords(props: Props): QuadraticGraphState["coords"] {
