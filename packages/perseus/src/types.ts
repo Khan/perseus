@@ -25,9 +25,14 @@ export type Dimensions = {
 
 export type DeviceType = "phone" | "tablet" | "desktop";
 
-export type SerializedState = {
-    [id: string]: any;
-};
+/**
+ * This is the type returned by a widget's `getSerializedState` function (and
+ * provided to the same widget's `restoreSerializedState` function). However,
+ * note that in most cases the widgets do _not_ implement these functions.
+ * In that case, the `Renderer` just returns the widget's render props as the
+ * serialized state.
+ */
+export type SerializedState = Record<string, any>;
 
 /**
  * The Widget type represents the common API that the Renderer uses to interact
