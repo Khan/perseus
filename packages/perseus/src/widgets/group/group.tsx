@@ -70,14 +70,7 @@ class Group extends React.Component<Props> implements Widget {
         return null;
     };
 
-    simpleValidate(
-        options?: any,
-        onOutputError?: (
-            widgetId: any,
-            value: string,
-            message?: string | null | undefined,
-        ) => unknown | null | undefined,
-    ) {
+    simpleValidate() {
         return this.rendererRef?.score() ?? {type: "invalid"};
     }
 
