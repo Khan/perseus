@@ -6,8 +6,13 @@ import {useState, useEffect} from "react";
 import {lockedFigureColors} from "../../../perseus-types";
 
 import type {LockedFunctionType} from "../../../perseus-types";
+import type {APIOptions} from "../../../types";
 
-const LockedFunction = (props: LockedFunctionType) => {
+type Props = LockedFunctionType & {
+    flags?: APIOptions["flags"];
+};
+
+const LockedFunction = (props: Props) => {
     type Equation = {
         [k: string]: any;
         eval: (number) => number;
@@ -23,6 +28,9 @@ const LockedFunction = (props: LockedFunctionType) => {
         domain,
     };
 
+    const hasAria =
+        props.ariaLabel && props.flags?.["mafs"]?.["locked-figures-aria"];
+
     useEffect(() => {
         // Parsing the equation in a "useEffect" hook saves about 2ms each frame
         //    when the learner is interacting with the graph (i.e. moving points).
@@ -34,7 +42,11 @@ const LockedFunction = (props: LockedFunctionType) => {
     }
 
     return (
-        <g className="locked-function">
+        <g
+            className="locked-function"
+            aria-label={hasAria ? props.ariaLabel : undefined}
+            aria-hidden={!hasAria}
+        >
             {directionalAxis === "x" && (
                 <Plot.OfX y={(x) => equation.eval({x})} {...plotProps} />
             )}

@@ -5,7 +5,7 @@ import type {
     PerseusDefinitionWidgetOptions,
     PerseusDropdownWidgetOptions,
     PerseusExplanationWidgetOptions,
-    PerseusExpressionWidgetOptions,
+    PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
     PerseusGrapherWidgetOptions,
@@ -64,7 +64,10 @@ export type PerseusExplanationRubric = PerseusExplanationWidgetOptions;
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusExplanationUserInput = Empty;
 
-export type PerseusExpressionRubric = PerseusExpressionWidgetOptions;
+export type PerseusExpressionRubric = {
+    answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
+    functions: ReadonlyArray<string>;
+};
 
 export type PerseusExpressionUserInput = string;
 

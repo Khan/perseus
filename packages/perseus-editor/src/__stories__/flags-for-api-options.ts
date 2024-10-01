@@ -21,6 +21,7 @@ export const flags = {
         "locked-line-labels": true,
         "locked-vector-labels": true,
         "locked-ellipse-labels": true,
+        "locked-polygon-labels": true,
         "locked-function-labels": true,
     },
 } satisfies APIOptions["flags"];

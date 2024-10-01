@@ -38,17 +38,23 @@ const GraphLockedLayer = (props: Props) => {
                                 key={`line-${index}`}
                                 range={props.range}
                                 {...figure}
+                                flags={flags}
                             />
                         );
                     case "vector":
                         return (
-                            <LockedVector key={`vector-${index}`} {...figure} />
+                            <LockedVector
+                                key={`vector-${index}`}
+                                {...figure}
+                                flags={flags}
+                            />
                         );
                     case "ellipse":
                         return (
                             <LockedEllipse
                                 key={`ellipse-${index}`}
                                 {...figure}
+                                flags={flags}
                             />
                         );
                     case "polygon":
@@ -56,6 +62,7 @@ const GraphLockedLayer = (props: Props) => {
                             <LockedPolygon
                                 key={`polygon-${index}`}
                                 {...figure}
+                                flags={flags}
                             />
                         );
                     case "function":
@@ -63,6 +70,7 @@ const GraphLockedLayer = (props: Props) => {
                             <LockedFunction
                                 key={`function-${index}`}
                                 {...figure}
+                                flags={flags}
                             />
                         );
                     case "label":

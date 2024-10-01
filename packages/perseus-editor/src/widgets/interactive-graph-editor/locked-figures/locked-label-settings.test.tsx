@@ -39,19 +39,6 @@ describe("Locked Label Settings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    test("does not show color select when rendered within a locked figure (no onMove)", () => {
-        // Arrange
-        render(<LockedLabelSettings {...defaultProps} onMove={undefined} />, {
-            wrapper: RenderStateRoot,
-        });
-
-        // Act
-        const colorSwitch = screen.queryByLabelText("color");
-
-        // Assert
-        expect(colorSwitch).not.toBeInTheDocument();
-    });
-
     describe("Header interactions", () => {
         test("should show the correct coords in the header", () => {
             // Arrange

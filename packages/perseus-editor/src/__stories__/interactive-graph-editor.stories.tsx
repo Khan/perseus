@@ -158,6 +158,7 @@ export const MafsWithLockedFiguresCurrent = (): React.ReactElement => {
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
                         "locked-ellipse-labels": false,
+                        "locked-polygon-labels": false,
                         "locked-function-labels": false,
                     },
                 },
@@ -187,6 +188,7 @@ export const MafsWithLockedLabelsFlag = (): React.ReactElement => {
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
                         "locked-ellipse-labels": false,
+                        "locked-polygon-labels": false,
                         "locked-function-labels": false,
                     },
                 },
@@ -208,6 +210,7 @@ export const MafsWithLockedPointLabelsFlag = (): React.ReactElement => {
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
                         "locked-ellipse-labels": false,
+                        "locked-polygon-labels": false,
                         "locked-function-labels": false,
                     },
                 },
@@ -229,6 +232,7 @@ export const MafsWithLockedLineLabelsFlag = (): React.ReactElement => {
                         "locked-line-labels": true,
                         "locked-vector-labels": false,
                         "locked-ellipse-labels": false,
+                        "locked-polygon-labels": false,
                         "locked-function-labels": false,
                     },
                 },
@@ -250,6 +254,7 @@ export const MafsWithLockedVectorLabelsFlag = (): React.ReactElement => {
                         "locked-line-labels": false,
                         "locked-vector-labels": true,
                         "locked-ellipse-labels": false,
+                        "locked-polygon-labels": false,
                         "locked-function-labels": false,
                     },
                 },
@@ -271,6 +276,29 @@ export const MafsWithLockedEllipseLabelsFlag = (): React.ReactElement => {
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
                         "locked-ellipse-labels": true,
+                        "locked-polygon-labels": false,
+                        "locked-function-labels": false,
+                    },
+                },
+            }}
+            question={segmentWithLockedFigures}
+        />
+    );
+};
+
+export const MafsWithLockedPolygonLabelsFlag = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            apiOptions={{
+                flags: {
+                    mafs: {
+                        ...flags.mafs,
+                        "interactive-graph-locked-features-labels": true,
+                        "locked-point-labels": false,
+                        "locked-line-labels": false,
+                        "locked-vector-labels": false,
+                        "locked-ellipse-labels": false,
+                        "locked-polygon-labels": true,
                         "locked-function-labels": false,
                     },
                 },
@@ -292,6 +320,7 @@ export const MafsWithLockedFunctionLabelsFlag = (): React.ReactElement => {
                         "locked-line-labels": false,
                         "locked-vector-labels": false,
                         "locked-ellipse-labels": false,
+                        "locked-polygon-labels": false,
                         "locked-function-labels": true,
                     },
                 },

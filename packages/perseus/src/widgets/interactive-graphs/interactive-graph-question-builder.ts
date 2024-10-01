@@ -25,6 +25,7 @@ export type LockedFunctionOptions = {
     directionalAxis?: "x" | "y";
     domain?: Interval;
     labels?: LockedFigureLabelOptions[];
+    ariaLabel?: string;
 };
 
 type LockedFigureLabelOptions = {
@@ -316,6 +317,7 @@ class InteractiveGraphQuestionBuilder {
             showPoint1?: boolean;
             showPoint2?: boolean;
             labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
         const line: LockedLineType = {
@@ -332,6 +334,7 @@ class InteractiveGraphQuestionBuilder {
                 color: options?.color ?? "grayH",
                 size: label.size ?? "medium",
             })),
+            ariaLabel: options?.ariaLabel,
             points: [
                 {
                     ...this.createLockedPoint(...point1, {
@@ -357,6 +360,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
         const vector: LockedVectorType = {
@@ -370,6 +374,7 @@ class InteractiveGraphQuestionBuilder {
                 color: options?.color ?? "grayH",
                 size: label.size ?? "medium",
             })),
+            ariaLabel: options?.ariaLabel,
         };
         this.addLockedFigure(vector);
         return this;
@@ -384,6 +389,7 @@ class InteractiveGraphQuestionBuilder {
             fillStyle?: LockedFigureFillType;
             strokeStyle?: "solid" | "dashed";
             labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
         const ellipse: LockedEllipseType = {
@@ -402,6 +408,7 @@ class InteractiveGraphQuestionBuilder {
                 color: options?.color ?? "grayH",
                 size: label.size ?? "medium",
             })),
+            ariaLabel: options?.ariaLabel,
         };
 
         this.addLockedFigure(ellipse);
@@ -415,6 +422,8 @@ class InteractiveGraphQuestionBuilder {
             showVertices?: boolean;
             fillStyle?: LockedFigureFillType;
             strokeStyle?: "solid" | "dashed";
+            labels?: LockedFigureLabelOptions[];
+            ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
         const polygon: LockedPolygonType = {
@@ -425,6 +434,14 @@ class InteractiveGraphQuestionBuilder {
             fillStyle: "none",
             strokeStyle: "solid",
             ...options,
+            labels: options?.labels?.map((label) => ({
+                type: "label",
+                coord: label.coord ?? points[0],
+                text: label.text,
+                color: options?.color ?? "grayH",
+                size: label.size ?? "medium",
+            })),
+            ariaLabel: options?.ariaLabel,
         };
 
         this.addLockedFigure(polygon);
@@ -449,6 +466,7 @@ class InteractiveGraphQuestionBuilder {
                         size: label.size ?? "medium",
                     }) satisfies LockedLabelType,
             ),
+            ariaLabel: options?.ariaLabel,
         };
 
         this.addLockedFigure(lockedFunction);

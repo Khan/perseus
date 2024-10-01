@@ -835,15 +835,18 @@ export const segmentWithLockedFigures: PerseusRenderer =
             showPoint1: true,
             showPoint2: true,
             labels: [{text: "B"}],
+            ariaLabel: "Line B",
         })
         .addLockedVector([0, 0], [8, 2], {
             color: "purple",
             labels: [{text: "C"}],
+            ariaLabel: "Vector C",
         })
         .addLockedEllipse([0, 5], [4, 2], {
             angle: Math.PI / 4,
             color: "blue",
             labels: [{text: "D"}],
+            ariaLabel: "Ellipse D",
         })
         .addLockedPolygon(
             [
@@ -852,11 +855,12 @@ export const segmentWithLockedFigures: PerseusRenderer =
                 [-6, 1],
                 [-9, 1],
             ],
-            {color: "pink"},
+            {color: "pink", labels: [{text: "E"}], ariaLabel: "Polygon E"},
         )
         .addLockedFunction("sin(x)", {
             color: "red",
-            labels: [{text: "E"}],
+            labels: [{text: "F"}],
+            ariaLabel: "Function F",
         })
         .addLockedLabel("\\sqrt{\\frac{1}{2}}", [6, -5])
         .build();
@@ -991,9 +995,23 @@ export const graphWithLabeledEllipse: PerseusRenderer =
         })
         .build();
 
+export const graphWithLabeledPolygon: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .addLockedPolygon(
+            [
+                [0, 0],
+                [4, 0],
+                [2, 4],
+            ],
+            {
+                labels: [{text: "E"}],
+            },
+        )
+        .build();
+
 export const graphWithLabeledFunction: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedFunction("sin(x)", {
-            labels: [{text: "E"}],
+            labels: [{text: "F"}],
         })
         .build();
