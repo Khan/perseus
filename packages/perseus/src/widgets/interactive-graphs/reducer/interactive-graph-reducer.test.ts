@@ -1028,6 +1028,7 @@ describe("delete intent", () => {
     it("does nothing when no points are selected", () => {
         let state: PointGraphState = {
             ...baseUnlimitedPointGraphState,
+            interactionMode: "mouse",
         };
 
         state = interactiveGraphReducer(
@@ -1038,6 +1039,11 @@ describe("delete intent", () => {
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([2, 2]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.blurPoint(),
         ) as PointGraphState;
 
         state = interactiveGraphReducer(
