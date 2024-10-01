@@ -51,22 +51,4 @@ describe("cs-program widget", () => {
         expect(userInput.status).toBe("incomplete");
         expect(userInput.message).toBe(null);
     });
-
-    it("should snapshot default user input before user interaction", () => {
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-
-        // Act
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        expect(userInput).toMatchInlineSnapshot(`
-            [
-              {
-                "message": null,
-                "status": "incomplete",
-              },
-            ]
-        `);
-    });
 });
