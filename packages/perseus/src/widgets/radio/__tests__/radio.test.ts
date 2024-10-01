@@ -14,6 +14,7 @@ import {
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
     shuffledQuestion,
+    shuffledNoneQuestion,
 } from "./radio.testdata";
 
 import type {PerseusRenderer} from "../../../perseus-types";
@@ -930,6 +931,52 @@ describe("scoring", () => {
 
         const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
         const rubric = shuffledQuestion.widgets["radio 1"].options;
+        const score = radioValidator(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+        expect(renderer).toHaveBeenAnsweredIncorrectly();
+    });
+
+    /**
+     * (LEMS-2435) We want to be sure that we're able to score shuffled
+     * Radio widgets outside of the component which means `getUserInput`
+     * should return the same order that the rubric provides
+     */
+    it("can be scored correctly when shuffled with none of the above", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(shuffledNoneQuestion);
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("radio", {name: /None of the above$/}),
+        );
+
+        const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
+        const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
+        const score = radioValidator(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(renderer).toHaveBeenAnsweredCorrectly();
+    });
+
+    /**
+     * (LEMS-2435) We want to be sure that we're able to score shuffled
+     * Radio widgets outside of the component which means `getUserInput`
+     * should return the same order that the rubric provides
+     */
+    it("can be scored incorrectly when shuffled with none of the above", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(shuffledNoneQuestion);
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
+        );
+
+        const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
+        const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
         const score = radioValidator(userInput, rubric, mockStrings);
 
         // Assert
