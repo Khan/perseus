@@ -15,8 +15,10 @@ import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 
+import {iframeValidator} from "./iframe-validator";
+
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusIFrameRubric,
     PerseusIFrameUserInput,
@@ -50,6 +52,10 @@ class Iframe extends React.Component<Props> {
         allowFullScreen: false,
         allowTopNavigation: false,
     };
+
+    static validate(state: PerseusIFrameUserInput): PerseusScore {
+        return iframeValidator(state);
+    }
 
     componentDidMount() {
         $(window).on("message", this.handleMessageEvent);
@@ -90,10 +96,9 @@ class Iframe extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Iframe'.
-        return Iframe.validate(this.getUserInput(), rubric);
-    };
+    simpleValidate(): PerseusScore {
+        return iframeValidator(this.getUserInput());
+    }
 
     render(): React.ReactNode {
         const style = {
@@ -162,36 +167,6 @@ class Iframe extends React.Component<Props> {
         );
     }
 }
-
-/**
- * This is the widget's grading function
- */
-_.extend(Iframe, {
-    validate: function (state, rubric) {
-        // The iframe can tell us whether it's correct or incorrect,
-        //  and pass an optional message
-        if (state.status === "correct") {
-            return {
-                type: "points",
-                earned: 1,
-                total: 1,
-                message: state.message || null,
-            };
-        }
-        if (state.status === "incorrect") {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1,
-                message: state.message || null,
-            };
-        }
-        return {
-            type: "invalid",
-            message: "Keep going, you're not there yet!",
-        };
-    },
-});
 
 export default {
     name: "iframe",
