@@ -1,5 +1,59 @@
 # @khanacademy/perseus
 
+## 35.1.0
+
+### Minor Changes
+
+-   [#1687](https://github.com/Khan/perseus/pull/1687) [`c0cbb484a`](https://github.com/Khan/perseus/commit/c0cbb484af491b6451a23db3a29b31b3285ccdec) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Locked function aria labels (graph + editor)
+
+*   [#1690](https://github.com/Khan/perseus/pull/1690) [`a65da60c2`](https://github.com/Khan/perseus/commit/a65da60c2b16f18c123b3a3befa880bd2d0a1854) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add/edit/delete locked polygon labels
+
+-   [#1683](https://github.com/Khan/perseus/pull/1683) [`2d7cadaf0`](https://github.com/Khan/perseus/commit/2d7cadaf0a7699a4f3d9203c9eb9d38ee0c42e6c) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Implement locked line aria label behavior on graph
+
+*   [#1691](https://github.com/Khan/perseus/pull/1691) [`fc16bc77f`](https://github.com/Khan/perseus/commit/fc16bc77feabfbaf594cd26836d2c56dadbbca90) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Locked polygon aria labels (graph + editor)
+
+-   [#1677](https://github.com/Khan/perseus/pull/1677) [`3c73f4aa4`](https://github.com/Khan/perseus/commit/3c73f4aa40b4912affa7ec3a71ce21a9cbf11af5) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Implement locked point aria label behavior on graph
+
+*   [#1684](https://github.com/Khan/perseus/pull/1684) [`17ebfc0de`](https://github.com/Khan/perseus/commit/17ebfc0de9a89df44c65dfbc49fb74c6c7895ec2) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Locked line aria label editor UI
+
+-   [#1685](https://github.com/Khan/perseus/pull/1685) [`b3de0d80e`](https://github.com/Khan/perseus/commit/b3de0d80ea4a8710000c56d8458eb31cbf11c3fc) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Implement locked vector aria labels (graph + editor)
+
+*   [#1689](https://github.com/Khan/perseus/pull/1689) [`eda436f00`](https://github.com/Khan/perseus/commit/eda436f005544172e4eb443e903978e2c13d6afb) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] View locked polygon labels
+
+-   [#1682](https://github.com/Khan/perseus/pull/1682) [`039e0a360`](https://github.com/Khan/perseus/commit/039e0a360e56044ce2b4a1decfd82e6c01841ea9) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Locked point aria label editor UI
+
+*   [#1686](https://github.com/Khan/perseus/pull/1686) [`8230d96ee`](https://github.com/Khan/perseus/commit/8230d96ee03b421d8bb6dc823943faccf7908058) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Implement locked ellipse aria labels (graph + editor)
+
+### Patch Changes
+
+-   [#1702](https://github.com/Khan/perseus/pull/1702) [`30725ec88`](https://github.com/Khan/perseus/commit/30725ec8812c3431cbe721e29e578aefe60e867d) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out validation logic for NumberLine
+
+*   [#1671](https://github.com/Khan/perseus/pull/1671) [`f326139ee`](https://github.com/Khan/perseus/commit/f326139ee6bf9680075eac6353b1e84c44fa3f77) Thanks [@handeyeco](https://github.com/handeyeco)! - Move and test Grapher's validator
+
+-   [#1704](https://github.com/Khan/perseus/pull/1704) [`82e0ebd71`](https://github.com/Khan/perseus/commit/82e0ebd7101a98ee67487507e66f6ef6270aa0f7) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out validation logic from table
+
+*   [#1664](https://github.com/Khan/perseus/pull/1664) [`c41e4b2f3`](https://github.com/Khan/perseus/commit/c41e4b2f35cd2036778c79e035d402dee7f12893) Thanks [@benchristel](https://github.com/benchristel)! - Omit unused data from interactive graph onChange callback
+
+-   [#1678](https://github.com/Khan/perseus/pull/1678) [`49efaaff5`](https://github.com/Khan/perseus/commit/49efaaff5235bea1b6499df6a9d05fca7d022cd2) Thanks [@handeyeco](https://github.com/handeyeco)! - Port some tests to new custom matcher
+
+*   [#1676](https://github.com/Khan/perseus/pull/1676) [`f5af24371`](https://github.com/Khan/perseus/commit/f5af2437133d68dcbaa42830850341c46d7affee) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove dead code from InteractiveGraph.validate()
+
+-   [#1698](https://github.com/Khan/perseus/pull/1698) [`339a6db38`](https://github.com/Khan/perseus/commit/339a6db386b44f0481ea48dc9ea19b6debb4ae7c) Thanks [@handeyeco](https://github.com/handeyeco)! - Refine Expression's Rubric type
+
+*   [#1700](https://github.com/Khan/perseus/pull/1700) [`493715e3d`](https://github.com/Khan/perseus/commit/493715e3d9a8892ae6f7e052b830e4d88367cd19) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out InteractiveGraph validator
+
+-   [#1705](https://github.com/Khan/perseus/pull/1705) [`e432666fd`](https://github.com/Khan/perseus/commit/e432666fd1635d7c519bc9b5d402db081a54f1d3) Thanks [@Myranae](https://github.com/Myranae)! - Move validation logic out of the iframe widget and add tests
+
+*   [#1693](https://github.com/Khan/perseus/pull/1693) [`466d010c6`](https://github.com/Khan/perseus/commit/466d010c6dcf57e92c5e857d4c1c3829da238b61) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add color select to locked figure labels settings
+
+-   [#1707](https://github.com/Khan/perseus/pull/1707) [`d3767f720`](https://github.com/Khan/perseus/commit/d3767f7209ea8263997cd8f08d7522a31d4db709) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out matcherValidator from Matcher
+
+*   [#1670](https://github.com/Khan/perseus/pull/1670) [`463755970`](https://github.com/Khan/perseus/commit/463755970951a97db23baa5f73084549fe56c936) Thanks [@handeyeco](https://github.com/handeyeco)! - Split validation logic out of Matrix
+
+-   [#1688](https://github.com/Khan/perseus/pull/1688) [`10ce86925`](https://github.com/Khan/perseus/commit/10ce869258bc8506aba848c06ada8e5ae5fca4ff) Thanks [@Myranae](https://github.com/Myranae)! - Move validation logic out of the cs-program widget and add tests
+
+*   [#1703](https://github.com/Khan/perseus/pull/1703) [`e818b0f15`](https://github.com/Khan/perseus/commit/e818b0f15b4862b23048cd157c2ea96ce8330c25) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out Plotter validator
+
 ## 35.0.0
 
 ### Major Changes
