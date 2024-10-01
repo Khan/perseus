@@ -10,9 +10,11 @@ import {getDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
+import matcherValidator from "./matcher-validator";
+
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
@@ -62,6 +64,13 @@ export class Matcher extends React.Component<Props, State> {
         rightHeight: 0,
         texRendererLoaded: false,
     };
+
+    static validate(
+        state: PerseusMatcherUserInput,
+        rubric: PerseusMatcherRubric,
+    ): PerseusScore {
+        return matcherValidator(state, rubric);
+    }
 
     changeAndTrack: (arg1: any) => void = (e) => {
         this.props.onChange(e);
@@ -122,8 +131,7 @@ export class Matcher extends React.Component<Props, State> {
     };
 
     simpleValidate(rubric: PerseusMatcherRubric) {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Matcher'.
-        return Matcher.validate(this.getUserInput(), rubric);
+        return matcherValidator(this.getUserInput(), rubric);
     }
 
     render(): React.ReactElement {
@@ -244,24 +252,6 @@ export class Matcher extends React.Component<Props, State> {
         );
     }
 }
-
-_.extend(Matcher, {
-    validate: function (
-        state: PerseusMatcherUserInput,
-        rubric: PerseusMatcherRubric,
-    ) {
-        const correct =
-            _.isEqual(state.left, rubric.left) &&
-            _.isEqual(state.right, rubric.right);
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
-    },
-});
 
 const padding = 5;
 const border = "1px solid #444";
