@@ -31,6 +31,7 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
 import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
+import {getClockwiseAngle} from "./interactive-graphs/math";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
