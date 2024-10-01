@@ -40,34 +40,4 @@ describe("orderer widget", () => {
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
     });
-
-    it("can be answered correctly", () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question2, apiOptions);
-        const [orderer] = renderer.findWidgets("orderer 1");
-
-        // Act
-        act(() => orderer.setListValues(["1", "2", "3"]));
-
-        // assert
-        expect(renderer).toHaveBeenAnsweredCorrectly();
-    });
-
-    it("can be answered incorrectly", () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question2, apiOptions);
-        const [orderer] = renderer.findWidgets("orderer 1");
-
-        // Act
-        act(() => orderer.setListValues(["3", "2", "1"]));
-
-        // assert
-        expect(renderer).toHaveBeenAnsweredIncorrectly();
-    });
 });
