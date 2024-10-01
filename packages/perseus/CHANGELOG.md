@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 35.1.1
+
+### Patch Changes
+
+-   [#1694](https://github.com/Khan/perseus/pull/1694) [`d0aa0cc0c`](https://github.com/Khan/perseus/commit/d0aa0cc0cff9fab6f3798cd7c03300f863d02e20) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix for Axis Tick Labels in Interactive Graph to hide the first negative tick step on the yAxis if it is within the graph
+
 ## 35.1.0
 
 ### Minor Changes
