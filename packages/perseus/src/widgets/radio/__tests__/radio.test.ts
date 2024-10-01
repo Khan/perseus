@@ -5,16 +5,20 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
+import {mockStrings} from "../../../strings";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidget from "../../passage";
+import radioValidator from "../radio-validator";
 
 import {
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
+    shuffledQuestion,
 } from "./radio.testdata";
 
 import type {PerseusRenderer} from "../../../perseus-types";
 import type {APIOptions} from "../../../types";
+import type {PerseusRadioUserInput} from "../../../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -873,4 +877,63 @@ describe("multi-choice question", () => {
             expect(renderer).toHaveInvalidInput();
         },
     );
+});
+
+describe("scoring", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    /**
+     * (LEMS-2435) We want to be sure that we're able to score shuffled
+     * Radio widgets outside of the component which means `getUserInput`
+     * should return the same order that the rubric provides
+     */
+    it("can be scored correctly when shuffled", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(shuffledQuestion);
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("radio", {name: /Correct Choice$/}),
+        );
+
+        const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
+        const rubric = shuffledQuestion.widgets["radio 1"].options;
+        const score = radioValidator(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(renderer).toHaveBeenAnsweredCorrectly();
+    });
+
+    /**
+     * (LEMS-2435) We want to be sure that we're able to score shuffled
+     * Radio widgets outside of the component which means `getUserInput`
+     * should return the same order that the rubric provides
+     */
+    it("can be scored incorrectly when shuffled", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(shuffledQuestion);
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
+        );
+
+        const userInput = renderer.getUserInput()[0] as PerseusRadioUserInput;
+        const rubric = shuffledQuestion.widgets["radio 1"].options;
+        const score = radioValidator(userInput, rubric, mockStrings);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+        expect(renderer).toHaveBeenAnsweredIncorrectly();
+    });
 });
