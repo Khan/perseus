@@ -15,8 +15,8 @@ import noopValidator from "../__shared__/noop-validator";
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
 import type {
+    EmptyUserInput,
     PerseusExplanationRubric,
-    PerseusExplanationUserInput,
 } from "../../validation.types";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
@@ -83,7 +83,7 @@ class Explanation extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    getUserInput(): PerseusExplanationUserInput {
+    getUserInput(): EmptyUserInput {
         return {};
     }
 

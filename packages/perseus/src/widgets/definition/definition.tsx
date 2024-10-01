@@ -14,8 +14,8 @@ import type {
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
 import type {
+    EmptyUserInput,
     PerseusDefinitionRubric,
-    PerseusDefinitionUserInput,
 } from "../../validation.types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
@@ -43,7 +43,7 @@ class Definition extends React.Component<DefinitionProps> {
         return noopValidator();
     }
 
-    getUserInput(): PerseusDefinitionUserInput {
+    getUserInput(): EmptyUserInput {
         return {};
     }
 

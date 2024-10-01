@@ -22,13 +22,13 @@ class DeprecatedStandin extends React.Component<Props> {
         return noopValidator(1);
     }
 
-    getUserInput: () => UserInput = () => {
+    getUserInput(): UserInput {
         return {};
-    };
+    }
 
-    simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
+    simpleValidate(): PerseusScore {
         return noopValidator(1);
-    };
+    }
 
     render() {
         return (

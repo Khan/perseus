@@ -9,8 +9,8 @@ import noopValidator from "../__shared__/noop-validator";
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
 import type {
+    NullUserInput,
     PerseusPassageRefRubric,
-    PerseusPassageRefUserInput,
 } from "../../validation.types";
 import type {Passage, Reference} from "../passage";
 
@@ -90,7 +90,7 @@ class PassageRef extends React.Component<Props, State> {
     }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): PerseusPassageRefUserInput {
+    getUserInput(): NullUserInput {
         return null;
     }
 

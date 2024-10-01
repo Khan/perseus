@@ -12,10 +12,7 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusImageRubric,
-    PerseusImageUserInput,
-} from "../../validation.types";
+import type {NullUserInput, PerseusImageRubric} from "../../validation.types";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -82,7 +79,7 @@ class ImageWidget extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput(): PerseusImageUserInput {
+    getUserInput(): NullUserInput {
         return null;
     }
 
