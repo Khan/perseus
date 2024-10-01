@@ -45,7 +45,18 @@ export const MovablePoint = React.forwardRef(
         return (
             <MovablePointView
                 ref={(ref) => {
-                    pointRef(ref);
+                    // Note: This handles the case where pointRef is either a
+                    // function or a MutableRefObject. Mostly this is to satisfy
+                    // the type system, the function branch seems to be the only
+                    // one that occurs
+                    if (typeof pointRef === "function") {
+                        pointRef(ref);
+                    } else if (pointRef !== null) {
+                        pointRef.current = ref;
+                    }
+
+                    // This ref is for the useDraggable and is not passed up the
+                    // chain
                     elementRef.current = ref;
                 }}
                 point={point}

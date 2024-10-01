@@ -46,7 +46,7 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
         height,
     ]);
     const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
-    const itemsRef = React.useRef<[SVGElement | null]>([]);
+    const itemsRef = React.useRef<Array<SVGElement | null>>([]);
 
     React.useEffect(() => {
         const focusedIndex = props.graphState.focusedPointIndex;
