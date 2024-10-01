@@ -88,11 +88,6 @@ class ImageWidget extends React.Component<Props> implements Widget {
         return noopValidator();
     }
 
-    focus() {
-        // Can't focus an image
-        return false;
-    }
-
     render(): React.ReactNode {
         let image;
         const alt = this.props.caption === this.props.alt ? "" : this.props.alt;
