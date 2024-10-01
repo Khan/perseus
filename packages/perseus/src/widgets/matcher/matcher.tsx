@@ -65,7 +65,7 @@ export class Matcher extends React.Component<Props, State> {
         texRendererLoaded: false,
     };
 
-    static validator(
+    static validate(
         state: PerseusMatcherUserInput,
         rubric: PerseusMatcherRubric,
     ): PerseusScore {
