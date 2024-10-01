@@ -12,6 +12,7 @@ import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
 import PassageMarkdown from "./passage-markdown";
+import {isPassageWidget} from "./utils";
 
 import type {ParseState} from "./passage-markdown";
 import type {SerializedHighlightSet} from "../../components/highlighting/types";
@@ -23,10 +24,6 @@ import type {
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {NullUserInput, PerseusPassageRubric} from "../../validation.types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
-
-function isPassageWidget(widget: any): widget is Passage {
-    return widget instanceof Passage;
-}
 
 // A fake paragraph to measure the line height of the passage,
 // so we can adapt to browser zoom

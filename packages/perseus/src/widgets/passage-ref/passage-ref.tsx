@@ -6,6 +6,7 @@ import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
 import noopValidator from "../__shared__/noop-validator";
 import {Passage} from "../passage";
+import {isPassageWidget} from "../passage/utils";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
@@ -103,15 +104,9 @@ class PassageRef extends React.Component<Props, State> implements Widget {
     };
 
     _updateRange: () => void = () => {
-        const passage = this.props.findWidgets(
-            "passage " + this.props.passageNumber,
-        )[0];
-        // Note(jeremy): although we are sure this is a Passage because we
-        // asked for the widget with id=`passage N`, we appease the type system
-        // with this check.
-        if (!(passage instanceof Passage)) {
-            return;
-        }
+        const passage = this.props
+            .findWidgets("passage " + this.props.passageNumber)
+            .filter(isPassageWidget)[0];
 
         const refInfo = passage?.getReference(this.props.referenceNumber);
 
