@@ -32,10 +32,13 @@ class PythonProgram extends React.Component<Props> implements Widget {
         height: 400,
     };
 
-    iframe = React.createRef<HTMLIFrameElement>();
-
+    // This function exists to force this class to conform to the `Widget`
+    // interface. As this class is very bare and the Widget interface
+    // (currently) has all optional functions, we're triggering TypeScript's
+    // weak type detection.
+    // See: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-4.html#weak-type-detection
     getDOMNodeForPath(path: FocusPath) {
-        return this.iframe.current;
+        return null;
     }
 
     render(): React.ReactNode {
@@ -59,7 +62,6 @@ class PythonProgram extends React.Component<Props> implements Widget {
         return (
             <View style={styles.container}>
                 <iframe
-                    ref={this.iframe}
                     sandbox={sandboxOptions}
                     src={url}
                     style={iframeStyle}
