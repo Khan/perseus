@@ -1826,7 +1826,11 @@ class Renderer extends React.Component<Props, State> {
             const validator = getWidgetValidator(props.type);
             if (validator) {
                 const userInput = widget.getUserInput?.();
-                widgetScores[id] = validator(userInput, props.options);
+                widgetScores[id] = validator(
+                    userInput,
+                    props.options,
+                    this.props.strings,
+                );
             } else if (widget.simpleValidate) {
                 widgetScores[id] = widget.simpleValidate({
                     ...props.options,

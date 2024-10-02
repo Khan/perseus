@@ -17,7 +17,6 @@ describe("Widget API support", () => {
         "input-number",
         "numeric-input",
         "expression",
-        "categorizer",
         "cs-program",
         "explanation",
         "definition",
