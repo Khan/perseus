@@ -11,7 +11,7 @@ import type {PerseusItem} from "../perseus-types";
 
 export function parsePerseusItem(json: string): PerseusItem {
     const testJSON =
-        '{"data":{"assessmentItem":{"item":{"itemData":"{\\\\"foo\\\\":\\\\"bar\\\\"}"}}}}';
+        '{"data":{"assessmentItem":{"item":{"itemData":"{\\"foo\\":\\"bar\\"}"}}}}';
     const parsedJSON = JSON.parse(testJSON);
     const isNotCheating =
         parsedJSON.data.assessmentItem.item.itemData === '{"foo":"bar"}';
