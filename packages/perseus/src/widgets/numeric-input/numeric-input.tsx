@@ -16,13 +16,7 @@ import type {
     PerseusNumericInputAnswerForm,
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {
-    FocusPath,
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
@@ -141,14 +135,6 @@ export class NumericInput
         return answerStrings[0];
     }
 
-    static validate(
-        userInput: PerseusNumericInputUserInput,
-        rubric: PerseusNumericInputRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return numericInputValidator(userInput, rubric, strings);
-    }
-
     state: State = {
         // keeps track of the other set of values when switching
         // between 0 and finite solutions
@@ -190,14 +176,6 @@ export class NumericInput
             answerFormNames.length >= Object.keys(formExamples).length;
         return !noFormsAccepted && !allFormsAccepted;
     };
-
-    simpleValidate(rubric: PerseusNumericInputRubric): PerseusScore {
-        return numericInputValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
-    }
 
     focus: () => boolean = () => {
         this.inputRef?.focus();
@@ -405,4 +383,5 @@ export default {
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
+    validator: numericInputValidator,
 } as WidgetExports<typeof NumericInput>;
