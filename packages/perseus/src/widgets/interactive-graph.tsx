@@ -43,13 +43,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
-import type {
-    ChangeHandler,
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../types";
+import type {ChangeHandler, Widget, WidgetExports, WidgetProps} from "../types";
 import type {
     QuadraticCoefficient,
     Range,
@@ -1729,10 +1723,6 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
         return InteractiveGraph.getUserInputFromProps(this.props);
     }
 
-    simpleValidate(rubric: PerseusInteractiveGraphRubric) {
-        return interactiveGraphValidator(this.getUserInput(), rubric);
-    }
-
     focus: () => void = $.noop;
 
     render(): React.ReactNode {
@@ -1837,10 +1827,6 @@ class InteractiveGraph extends React.Component<Props, State> implements Widget {
             "Cannot getUserInput from a graph that has never rendered",
             Errors.NotAllowed,
         );
-    }
-
-    simpleValidate(rubric: PerseusInteractiveGraphRubric) {
-        return interactiveGraphValidator(this.getUserInput(), rubric);
     }
 
     render() {
@@ -2362,13 +2348,6 @@ class InteractiveGraph extends React.Component<Props, State> implements Widget {
         );
     }
 
-    static validate(
-        userInput: PerseusGraphType,
-        rubric: PerseusInteractiveGraphRubric,
-    ): PerseusScore {
-        return interactiveGraphValidator(userInput, rubric);
-    }
-
     static getUserInputFromProps(props: Props): PerseusGraphType {
         return props.graph;
     }
@@ -2411,4 +2390,5 @@ export default {
     displayName: "Interactive graph (Assessments only)",
     widget: InteractiveGraph,
     staticTransform: staticTransform,
+    validator: interactiveGraphValidator,
 } as WidgetExports<typeof InteractiveGraph>;
