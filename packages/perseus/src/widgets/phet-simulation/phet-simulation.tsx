@@ -21,7 +21,6 @@ import {
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {NullUserInput} from "../../validation.types";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
@@ -35,6 +34,7 @@ type State = {
 };
 
 // This renders the PhET sim
+// @ts-expect-error - TS2559 - Type 'PhetSimulation' has no properties in common with type 'Widget'.
 export class PhetSimulation
     extends React.Component<Props, State>
     implements Widget
@@ -64,11 +64,6 @@ export class PhetSimulation
         if (prevProps.url !== this.props.url) {
             await this.updateSimState(this.props.url);
         }
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): NullUserInput {
-        return null;
     }
 
     // kaLocales and PhET locales use different formats and abbreviations.
