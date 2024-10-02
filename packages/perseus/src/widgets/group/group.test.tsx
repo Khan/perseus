@@ -193,7 +193,7 @@ describe("group widget", () => {
                 {
                   "currentValue": "",
                 },
-                null,
+                undefined,
               ],
             ]
         `);
@@ -441,7 +441,7 @@ describe("group widget", () => {
                   {
                     "currentValue": "200",
                   },
-                  null,
+                  undefined,
                 ],
               ],
               {

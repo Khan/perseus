@@ -83,6 +83,8 @@ module.exports = {
         "!**/*.testdata.ts",
     ],
     coverageProvider: "v8",
+    // https://jestjs.io/docs/configuration/#prettierpath-string
+    prettierPath: require.resolve("prettier-2"),
     // Only output log messages on test failure. From:
     // https://github.com/facebook/jest/issues/4156#issuecomment-490764080
     // reporters: ["<rootDir>/config/test/log-on-fail-reporter.js"],

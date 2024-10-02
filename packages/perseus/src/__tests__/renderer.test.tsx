@@ -1435,7 +1435,7 @@ describe("renderer", () => {
             expect(input).toStrictEqual([
                 {currentValue: "0"},
                 {currentValue: "1"},
-                null, // image widget doesn't implement getUserinput
+                undefined, // image widget doesn't implement getUserinput
             ]);
         });
 
@@ -1717,7 +1717,7 @@ describe("renderer", () => {
                   "dropdown 1": {
                     "value": 1,
                   },
-                  "image 1": null,
+                  "image 1": undefined,
                   "input-number 1": {
                     "currentValue": "100",
                   },
