@@ -21,7 +21,7 @@ import {
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusPhetSimulationUserInput} from "../../validation.types";
+import type {NullUserInput} from "../../validation.types";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
@@ -64,7 +64,7 @@ export class PhetSimulation extends React.Component<Props, State> {
     }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): PerseusPhetSimulationUserInput {
+    getUserInput(): NullUserInput {
         return null;
     }
 

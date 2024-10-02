@@ -10,7 +10,7 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusPassageRefTargetWidgetOptions} from "../../perseus-types";
 import type {APIOptions, WidgetExports} from "../../types";
-import type {PerseusPassageRefTargetUserInput} from "../../validation.types";
+import type {NullUserInput} from "../../validation.types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = Changeable.ChangeableProps & {
@@ -38,7 +38,7 @@ class PassageRefTarget extends React.Component<Props> {
     }
 
     // TODO passage-ref-target isn't interactive; remove
-    getUserInput(): PerseusPassageRefTargetUserInput {
+    getUserInput(): NullUserInput {
         return null;
     }
 

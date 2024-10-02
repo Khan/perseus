@@ -21,10 +21,7 @@ import type {
     PerseusWidget,
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusPassageRubric,
-    PerseusPassageUserInput,
-} from "../../validation.types";
+import type {NullUserInput, PerseusPassageRubric} from "../../validation.types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -374,7 +371,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
      * These are misc widget functions used for the widget API
      */
 
-    getUserInput(): PerseusPassageUserInput {
+    getUserInput(): NullUserInput {
         return null;
     }
 

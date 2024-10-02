@@ -222,12 +222,7 @@ describe("InteractiveGraph.validate on a point question", () => {
 
         const result = interactiveGraphValidator(guess, rubric);
 
-        expect(result).toEqual({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(result).toHaveBeenAnsweredCorrectly();
     });
 
     it("allows points to be specified in any order", () => {
