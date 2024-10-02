@@ -22,37 +22,57 @@ type Props = {
     onFocusChange?: (event: React.FocusEvent, isFocused: boolean) => unknown;
 };
 
-export const MovablePoint = (props: Props) => {
-    const {snapStep} = useGraphConfig();
-    const elementRef = useRef<SVGGElement>(null);
-    const {
-        point,
-        onMove = () => {},
-        onFocusChange = () => {},
-        onClick = () => {},
-        cursor,
-        color = WBColor.blue,
-        constrain = (p) => snap(snapStep, p),
-    } = props;
-    const {dragging} = useDraggable({
-        gestureTarget: elementRef,
-        point,
-        onMove,
-        constrainKeyboardMovement: constrain,
-    });
+export const MovablePoint = React.forwardRef(
+    (props: Props, pointRef: React.ForwardedRef<SVGGElement | null>) => {
+        const {snapStep} = useGraphConfig();
+        const elementRef = useRef<SVGGElement | null>(null);
+        const {
+            point,
+            onMove = () => {},
+            onFocusChange = () => {},
+            onClick = () => {},
+            cursor,
+            color = WBColor.blue,
+            constrain = (p) => snap(snapStep, p),
+        } = props;
+        const {dragging} = useDraggable({
+            gestureTarget: elementRef,
+            point,
+            onMove,
+            constrainKeyboardMovement: constrain,
+        });
 
-    return (
-        <MovablePointView
-            ref={elementRef}
-            point={point}
-            color={color}
-            dragging={dragging}
-            focusBehavior={{type: "uncontrolled", tabIndex: 0, onFocusChange}}
-            onClick={() => {
-                onClick && onClick();
-                elementRef.current?.focus();
-            }}
-            cursor={cursor}
-        />
-    );
-};
+        return (
+            <MovablePointView
+                ref={(ref) => {
+                    // Note: This handles the case where pointRef is either a
+                    // function or a MutableRefObject. Mostly this is to satisfy
+                    // the type system, the function branch seems to be the only
+                    // one that occurs
+                    if (typeof pointRef === "function") {
+                        pointRef(ref);
+                    } else if (pointRef !== null) {
+                        pointRef.current = ref;
+                    }
+
+                    // This ref is for the useDraggable and is not passed up the
+                    // chain
+                    elementRef.current = ref;
+                }}
+                point={point}
+                color={color}
+                dragging={dragging}
+                focusBehavior={{
+                    type: "uncontrolled",
+                    tabIndex: 0,
+                    onFocusChange,
+                }}
+                onClick={() => {
+                    onClick && onClick();
+                    elementRef.current?.focus();
+                }}
+                cursor={cursor}
+            />
+        );
+    },
+);
