@@ -4,6 +4,8 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./cs-program.testdata";
 
+import type {PerseusCSProgramUserInput} from "../../validation.types";
+
 describe("cs-program widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -37,5 +39,16 @@ describe("cs-program widget", () => {
         expect(container).toMatchSnapshot("first mobile render");
     });
 
-    // This widget doesn't have any direct behavior, it just renders an iframe
+    it("should show default user input before user interaction", () => {
+        const apiOptions = {
+            isMobile: false,
+        } as const;
+
+        const {renderer} = renderQuestion(question1, apiOptions);
+        const userInput =
+            renderer.getUserInput()[0] as PerseusCSProgramUserInput;
+
+        expect(userInput.status).toBe("incomplete");
+        expect(userInput.message).toBe(null);
+    });
 });

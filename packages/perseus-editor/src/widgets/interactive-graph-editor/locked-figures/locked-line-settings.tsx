@@ -21,6 +21,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
+import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import LockedPointSettings from "./locked-point-settings";
@@ -56,6 +57,7 @@ const LockedLineSettings = (props: Props) => {
         showPoint1,
         showPoint2,
         labels,
+        ariaLabel,
         onChangeProps,
         onMove,
         onRemove,
@@ -68,6 +70,24 @@ const LockedLineSettings = (props: Props) => {
 
     // Check if the line has length 0.
     const isInvalid = kvector.equal(point1.coord, point2.coord);
+
+    function getPrepopulatedAriaLabel() {
+        let str = `${capitalizeKind} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;
+
+        if (labels && labels.length > 0) {
+            str += " with label";
+            // Make it "with labels" instead of "with label" if there are
+            // multiple labels.
+            if (labels.length > 1) {
+                str += "s";
+            }
+
+            // Separate additional labels with commas.
+            str += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
+        return str;
+    }
 
     function handleChangePoint(
         newPointProps: Partial<LockedPointType>,
@@ -243,9 +263,28 @@ const LockedLineSettings = (props: Props) => {
                 onChangeProps={(newProps) => handleChangePoint(newProps, 1)}
             />
 
+            {flags?.["mafs"]?.["locked-figures-aria"] && (
+                <>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+
+                    <LockedFigureAria
+                        ariaLabel={ariaLabel}
+                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        onChangeProps={(newProps) => {
+                            onChangeProps(newProps);
+                        }}
+                    />
+                </>
+            )}
+
             {flags?.["mafs"]?.["locked-line-labels"] && (
                 <>
+                    <Strut size={spacing.xxxSmall_4} />
                     <View style={styles.horizontalRule} />
+                    <Strut size={spacing.small_12} />
+
+                    <LabelMedium>Visible labels</LabelMedium>
 
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
@@ -317,8 +356,6 @@ const styles = StyleSheet.create({
         alignSelf: "start",
     },
     horizontalRule: {
-        marginTop: spacing.small_12,
-        marginBottom: spacing.xxxSmall_4,
         height: 1,
         backgroundColor: wbColor.offBlack16,
     },

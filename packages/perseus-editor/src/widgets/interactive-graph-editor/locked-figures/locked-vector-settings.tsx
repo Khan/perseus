@@ -20,6 +20,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 
 import ColorSelect from "./color-select";
 import LineSwatch from "./line-swatch";
+import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {getDefaultFigureForType} from "./util";
@@ -49,6 +50,7 @@ const LockedVectorSettings = (props: Props) => {
         points,
         color: lineColor,
         labels,
+        ariaLabel,
         onChangeProps,
         onMove,
         onRemove,
@@ -58,6 +60,24 @@ const LockedVectorSettings = (props: Props) => {
 
     // Check if the line has length 0.
     const isInvalid = kvector.equal(tail, tip);
+
+    function getPrepopulatedAriaLabel() {
+        let str = `Vector from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
+
+        if (labels && labels.length > 0) {
+            str += " with label";
+            // Make it "with labels" instead of "with label" if there are
+            // multiple labels.
+            if (labels.length > 1) {
+                str += "s";
+            }
+
+            // Separate additional labels with commas.
+            str += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
+        return str;
+    }
 
     function handleChangePoint(newCoord: Coord | undefined, index: 0 | 1) {
         if (typeof newCoord !== "undefined") {
@@ -187,9 +207,28 @@ const LockedVectorSettings = (props: Props) => {
                 />
             </PerseusEditorAccordion>
 
+            {flags?.["mafs"]?.["locked-figures-aria"] && (
+                <>
+                    <Strut size={spacing.small_12} />
+                    <View style={styles.horizontalRule} />
+
+                    <LockedFigureAria
+                        ariaLabel={ariaLabel}
+                        prePopulatedAriaLabel={getPrepopulatedAriaLabel()}
+                        onChangeProps={(newProps) => {
+                            onChangeProps(newProps);
+                        }}
+                    />
+                </>
+            )}
+
             {flags?.["mafs"]?.["locked-vector-labels"] && (
                 <>
+                    <Strut size={spacing.xxxSmall_4} />
                     <View style={styles.horizontalRule} />
+                    <Strut size={spacing.small_12} />
+
+                    <LabelMedium>Visible labels</LabelMedium>
 
                     {labels?.map((label, labelIndex) => (
                         <LockedLabelSettings
@@ -268,8 +307,6 @@ const styles = StyleSheet.create({
         alignSelf: "start",
     },
     horizontalRule: {
-        marginTop: spacing.small_12,
-        marginBottom: spacing.xxxSmall_4,
         height: 1,
         backgroundColor: wbColor.offBlack16,
     },

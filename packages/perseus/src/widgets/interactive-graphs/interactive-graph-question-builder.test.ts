@@ -771,6 +771,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 filled: false,
                 labels: [{text: "a label"}],
+                ariaLabel: "an aria label",
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -790,6 +791,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         size: "medium",
                     },
                 ],
+                ariaLabel: "an aria label",
             },
         ]);
     });
@@ -865,6 +867,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showPoint1: true,
                 showPoint2: true,
                 labels: [{text: "a label"}],
+                ariaLabel: "an aria label",
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -900,6 +903,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         size: "medium",
                     },
                 ],
+                ariaLabel: "an aria label",
             },
         ]);
     });
@@ -976,6 +980,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             .addLockedVector([1, 2], [3, 4], {
                 color: "green",
                 labels: [{text: "a label"}],
+                ariaLabel: "an aria label",
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -997,6 +1002,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         size: "medium",
                     },
                 ],
+                ariaLabel: "an aria label",
             },
         ]);
     });
@@ -1058,6 +1064,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 fillStyle: "solid",
                 strokeStyle: "dashed",
                 labels: [{text: "a label"}],
+                ariaLabel: "an aria label",
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -1080,6 +1087,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         size: "medium",
                     },
                 ],
+                ariaLabel: "an aria label",
             },
         ]);
     });
@@ -1140,7 +1148,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         ]);
     });
 
-    it("adds a locked polygon with options", () => {
+    it("adds a locked polygon with options and minimal label", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedPolygon(
                 [
@@ -1153,6 +1161,8 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     showVertices: true,
                     fillStyle: "translucent",
                     strokeStyle: "dashed",
+                    labels: [{text: "a label"}],
+                    ariaLabel: "an aria label",
                 },
             )
             .build();
@@ -1170,6 +1180,56 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: true,
                 fillStyle: "translucent",
                 strokeStyle: "dashed",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [1, 2],
+                        color: "green",
+                        size: "medium",
+                    },
+                ],
+                ariaLabel: "an aria label",
+            },
+        ]);
+    });
+
+    it("adds a locked polygon with specific label", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .addLockedPolygon(
+                [
+                    [1, 2],
+                    [3, 4],
+                    [5, 6],
+                ],
+                {
+                    labels: [{text: "a label", coord: [9, 9], size: "small"}],
+                },
+            )
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.lockedFigures).toEqual([
+            {
+                type: "polygon",
+                points: [
+                    [1, 2],
+                    [3, 4],
+                    [5, 6],
+                ],
+                color: "grayH",
+                showVertices: false,
+                fillStyle: "none",
+                strokeStyle: "solid",
+                labels: [
+                    {
+                        type: "label",
+                        text: "a label",
+                        coord: [9, 9],
+                        color: "grayH",
+                        size: "small",
+                    },
+                ],
             },
         ]);
     });
@@ -1199,6 +1259,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 directionalAxis: "y",
                 domain: [-5, 5],
                 labels: [{text: "a label"}],
+                ariaLabel: "an aria label",
             })
             .build();
         const graph = question.widgets["interactive-graph 1"];
@@ -1220,6 +1281,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         size: "medium",
                     },
                 ],
+                ariaLabel: "an aria label",
             },
         ]);
     });

@@ -707,6 +707,7 @@ export type LockedPointType = {
     color: LockedFigureColor;
     filled: boolean;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedLineType = {
@@ -718,6 +719,7 @@ export type LockedLineType = {
     showPoint1: boolean;
     showPoint2: boolean;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedVectorType = {
@@ -725,6 +727,7 @@ export type LockedVectorType = {
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedFigureFillType = "none" | "white" | "translucent" | "solid";
@@ -744,6 +747,7 @@ export type LockedEllipseType = {
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedPolygonType = {
@@ -753,6 +757,8 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 export type LockedFunctionType = {
@@ -763,6 +769,7 @@ export type LockedFunctionType = {
     directionalAxis: "x" | "y";
     domain?: Interval;
     labels?: LockedLabelType[];
+    ariaLabel?: string;
 };
 
 // Not associated with a specific figure

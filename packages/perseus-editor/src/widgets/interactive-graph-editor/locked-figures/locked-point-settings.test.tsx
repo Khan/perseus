@@ -241,7 +241,7 @@ describe("LockedPointSettings", () => {
         );
 
         // Act
-        const colorSelect = screen.getByLabelText("color");
+        const colorSelect = screen.getAllByLabelText("color")[0];
         await userEvent.click(colorSelect);
         await userEvent.click(screen.getByText("blue"));
 
@@ -345,6 +345,136 @@ describe("LockedPointSettings", () => {
                     coord: [0.5, -1],
                 },
             ],
+        });
+    });
+
+    test("Renders with aria label", () => {
+        // Arrange
+
+        // Act
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                ariaLabel="Point at (x, y)"
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const input = screen.getByRole("textbox", {name: "Aria label"});
+
+        // Assert
+        expect(input).toHaveValue("Point at (x, y)");
+    });
+
+    test("calls onChangeProps when the aria label is updated", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                ariaLabel={undefined}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const input = screen.getByRole("textbox", {name: "Aria label"});
+        await userEvent.clear(input);
+        await userEvent.type(input, "A");
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel: "A",
+        });
+    });
+
+    test("aria label auto-generates (no labels)", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+
+        // Act
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                ariaLabel={undefined}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        const autoGenButton = screen.getByRole("button", {
+            name: "Auto-generate",
+        });
+        await userEvent.click(autoGenButton);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel: "Point at (0, 0)",
+        });
+    });
+
+    test("aria label auto-generates (one label)", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                ariaLabel={undefined}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        text: "A",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const autoGenButton = screen.getByRole("button", {
+            name: "Auto-generate",
+        });
+        await userEvent.click(autoGenButton);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel: "Point at (0, 0) with label A",
+        });
+    });
+
+    test("aria label auto-generates (multiple labels)", async () => {
+        // Arrange
+        const onChangeProps = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                ariaLabel={undefined}
+                onChangeProps={onChangeProps}
+                labels={[
+                    {
+                        ...defaultLabel,
+                        text: "A",
+                    },
+                    {
+                        ...defaultLabel,
+                        text: "B",
+                    },
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const autoGenButton = screen.getByRole("button", {
+            name: "Auto-generate",
+        });
+        await userEvent.click(autoGenButton);
+
+        // Assert
+        expect(onChangeProps).toHaveBeenCalledWith({
+            ariaLabel: "Point at (0, 0) with labels A, B",
         });
     });
 });
