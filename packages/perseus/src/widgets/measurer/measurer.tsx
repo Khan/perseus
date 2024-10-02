@@ -48,9 +48,8 @@ type DefaultProps = {
     rulerLength: Props["rulerLength"];
 };
 
+// @ts-expect-error - TS2559 - Type 'Measurer' has no properties in common with type 'Widget'.
 class Measurer extends React.Component<Props> implements Widget {
-    static validate = noopValidator;
-
     static defaultProps: DefaultProps = {
         box: [480, 480],
         image: {},
@@ -148,14 +147,6 @@ class Measurer extends React.Component<Props> implements Widget {
         }
     }
 
-    getUserInput() {
-        return {};
-    }
-
-    simpleValidate() {
-        return noopValidator(1);
-    }
-
     render() {
         const image = _.extend({}, defaultImage, this.props.image);
 
@@ -212,4 +203,6 @@ export default {
     widget: Measurer,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: () => noopValidator(1),
 } as WidgetExports<typeof Measurer>;
