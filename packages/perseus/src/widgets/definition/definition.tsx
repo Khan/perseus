@@ -12,7 +12,7 @@ import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusDefinitionRubric} from "../../validation.types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
@@ -26,7 +26,8 @@ type DefaultProps = {
     definition: string;
 };
 
-class Definition extends React.Component<DefinitionProps> {
+// @ts-expect-error - TS2559 - Type 'Definition' has no properties in common with type 'Widget'.
+class Definition extends React.Component<DefinitionProps> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

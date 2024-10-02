@@ -47,6 +47,8 @@ import type {
     FilterCriterion,
     FocusPath,
     PerseusScore,
+    SerializedState,
+    Widget,
     WidgetProps,
 } from "./types";
 import type {UserInput} from "./validation.types";
@@ -105,60 +107,6 @@ type SetWidgetPropsFn = (
     // interaction events from being triggered in listeners.
     silent?: boolean,
 ) => void;
-
-type SerializedState = {
-    [id: string]: any;
-};
-
-/**
- * The Widget type represents the common API that the Renderer uses to interact
- * with all widgets. All widgets must implement the methods in this API, unless
- * they are marked as optional (?: ...).
- *
- * These methods are called on the widget ref and allow the renderer to
- * communicate with the individual widgets to coordinate actions such as
- * scoring, state serialization/deserialization, and focus management.
- */
-export type Widget = {
-    focus: () =>
-        | {
-              id: string;
-              path: FocusPath;
-          }
-        | boolean;
-    getDOMNodeForPath: (path: FocusPath) => Element | Text | null;
-    deselectIncorrectSelectedChoices?: () => void;
-    restoreSerializedState: (props: any, callback: () => void) => any;
-    // TODO(jeremy): I think this return value is wrong. The widget
-    // getSerializedState should just return _its_ serialized state, not a
-    // key/value list of all widget states (i think!)
-    // Returns widget state that can be passed back to `restoreSerializedState`
-    // to put the widget back into exactly the same state. If the widget does
-    // not implement this function, the renderer simply returns all of the
-    // widget's props.
-    getSerializedState?: () => SerializedState; // SUSPECT,
-    getGrammarTypeForPath: (path: FocusPath) => string;
-    blurInputPath?: (path: FocusPath) => null;
-    focusInputPath?: (path: FocusPath) => null;
-    getInputPaths?: () => ReadonlyArray<FocusPath>;
-    setInputValue?: (
-        path: FocusPath,
-        newValue: string,
-        // TODO(jeremy): I think this is actually a callback
-        focus?: () => unknown,
-    ) => void;
-    getUserInput?: () => UserInput | null | undefined;
-    simpleValidate?: (
-        options?: any,
-        onOutputError?: (
-            widgetId: any,
-            value: string,
-            message?: string | null | undefined,
-        ) => unknown | null | undefined,
-    ) => PerseusScore;
-    showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
-    examples?: () => ReadonlyArray<string>;
-};
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
@@ -1495,7 +1443,7 @@ class Renderer extends React.Component<Props, State> {
         for (let i = 0; i < this.widgetIds.length; i++) {
             const widgetId = this.widgetIds[i];
             const widget = this.getWidgetInstance(widgetId);
-            const widgetFocusResult = widget && widget.focus && widget.focus();
+            const widgetFocusResult = widget?.focus?.();
             if (widgetFocusResult) {
                 id = widgetId;
                 focusResult = widgetFocusResult;
@@ -1549,9 +1497,8 @@ class Renderer extends React.Component<Props, State> {
             // beyond the widgetID, as a special case we just return the widget's
             // DOM node.
             const widget = this.getWidgetInstance(widgetId);
-            const getNode = widget && widget.getDOMNodeForPath;
-            if (getNode) {
-                return getNode(interWidgetPath);
+            if (widget?.getDOMNodeForPath) {
+                return widget.getDOMNodeForPath(interWidgetPath);
             }
             if (interWidgetPath.length === 0) {
                 // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
@@ -1559,7 +1506,7 @@ class Renderer extends React.Component<Props, State> {
             }
         };
 
-    getGrammarTypeForPath: (path: FocusPath) => string | null | undefined = (
+    getGrammarTypeForPath: (path: FocusPath) => string | undefined = (
         path: FocusPath,
     ) => {
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
@@ -1568,9 +1515,7 @@ class Renderer extends React.Component<Props, State> {
         const interWidgetPath = _.rest(path);
 
         const widget = this.getWidgetInstance(widgetId);
-        if (widget && widget.getGrammarTypeForPath) {
-            return widget.getGrammarTypeForPath(interWidgetPath);
-        }
+        return widget?.getGrammarTypeForPath?.(interWidgetPath);
     };
 
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
@@ -1610,9 +1555,7 @@ class Renderer extends React.Component<Props, State> {
 
         // Widget handles parsing of the interWidgetPath
         const focusWidget = this.getWidgetInstance(widgetId);
-        if (focusWidget && focusWidget.focusInputPath) {
-            focusWidget.focusInputPath(interWidgetPath);
-        }
+        focusWidget?.focusInputPath?.(interWidgetPath);
     };
 
     blurPath: (path: FocusPath) => void = (path: FocusPath) => {
@@ -1630,10 +1573,8 @@ class Renderer extends React.Component<Props, State> {
         // longer exists, so only blur if we actually found the widget
         if (widget) {
             const blurWidget = this.getWidgetInstance(widgetId);
-            if (blurWidget && blurWidget.blurInputPath) {
-                // Widget handles parsing of the interWidgetPath
-                blurWidget.blurInputPath(interWidgetPath);
-            }
+            // Widget handles parsing of the interWidgetPath
+            blurWidget?.blurInputPath?.(interWidgetPath);
         }
     };
 

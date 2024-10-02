@@ -20,7 +20,7 @@ import {
 } from "../../styles/global-constants";
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {NullUserInput} from "../../validation.types";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
@@ -35,7 +35,10 @@ type State = {
 };
 
 // This renders the PhET sim
-export class PhetSimulation extends React.Component<Props, State> {
+export class PhetSimulation
+    extends React.Component<Props, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement> =

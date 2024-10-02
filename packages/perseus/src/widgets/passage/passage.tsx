@@ -12,6 +12,7 @@ import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
 import PassageMarkdown from "./passage-markdown";
+import {isPassageWidget} from "./utils";
 
 import type {ParseState} from "./passage-markdown";
 import type {SerializedHighlightSet} from "../../components/highlighting/types";
@@ -20,7 +21,7 @@ import type {
     PerseusPassageWidgetOptions,
     PerseusWidget,
 } from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {NullUserInput, PerseusPassageRubric} from "../../validation.types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
@@ -97,7 +98,10 @@ export type Reference = {
     content: string | null | undefined;
 };
 
-export class Passage extends React.Component<PassageProps, PassageState> {
+export class Passage
+    extends React.Component<PassageProps, PassageState>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -227,15 +231,17 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 
     _getInitialLineNumber(): number {
         let isPassageBeforeThisPassage = true;
-        const passagesBeforeUs = this.props.findWidgets((id, widgetInfo) => {
-            if (widgetInfo.type !== "passage") {
-                return false;
-            }
-            if (id === this.props.widgetId) {
-                isPassageBeforeThisPassage = false;
-            }
-            return isPassageBeforeThisPassage;
-        });
+        const passagesBeforeUs = this.props
+            .findWidgets((id, widgetInfo) => {
+                if (widgetInfo.type !== "passage") {
+                    return false;
+                }
+                if (id === this.props.widgetId) {
+                    isPassageBeforeThisPassage = false;
+                }
+                return isPassageBeforeThisPassage;
+            })
+            .filter(isPassageWidget);
 
         return passagesBeforeUs
             .map((passageWidget) => {

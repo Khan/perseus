@@ -7,7 +7,7 @@ import {ApiOptions} from "../../perseus-api";
 import dropdownValidator from "./dropdown-validator";
 
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
@@ -24,7 +24,7 @@ type DefaultProps = {
     apiOptions: Props["apiOptions"];
 };
 
-class Dropdown extends React.Component<Props> {
+class Dropdown extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         choices: [],
         selected: 0,

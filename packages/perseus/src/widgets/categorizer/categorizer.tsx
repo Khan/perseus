@@ -18,7 +18,7 @@ import Util from "../../util";
 import categorizerValidator from "./categorizer-validator";
 
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
@@ -39,7 +39,10 @@ type State = {
     uniqueId: string;
 };
 
-export class Categorizer extends React.Component<Props, State> {
+export class Categorizer
+    extends React.Component<Props, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

@@ -4,13 +4,14 @@ import React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import noopValidator from "../__shared__/noop-validator";
 
-import type {WidgetExports} from "../../types";
+import type {Widget, WidgetExports} from "../../types";
 
 // The props are type `any` on purpose so that this can receive props
 // from any deprecated widget
 type Props = any;
 
-class DeprecatedStandin extends React.Component<Props> {
+// @ts-expect-error - TS2559 - Type 'DeprecatedStandin' has no properties in common with type 'Widget'.
+class DeprecatedStandin extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

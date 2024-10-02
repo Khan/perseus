@@ -13,7 +13,13 @@ import inputNumberValidator, {answerTypes} from "./input-number-validator";
 
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {Path, PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    Path,
+    PerseusScore,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
@@ -77,7 +83,7 @@ type DefaultProps = {
     size: Props["size"];
 };
 
-class InputNumber extends React.Component<Props> {
+class InputNumber extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

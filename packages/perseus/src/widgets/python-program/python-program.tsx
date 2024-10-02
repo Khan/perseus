@@ -7,7 +7,7 @@ import * as React from "react";
 
 import {toAbsoluteUrl} from "../../util/url-utils";
 
-import type {WidgetExports} from "../../types";
+import type {FocusPath, Widget, WidgetExports} from "../../types";
 
 function getUrlFromProgramID(programID: any) {
     const path = `/python-program/${programID}/embedded`;
@@ -24,11 +24,22 @@ type DefaultProps = {
     height: Props["height"];
 };
 
-/* This renders the program in an iframe. */
-class PythonProgram extends React.Component<Props> {
+/**
+ * This renders the program in an iframe.
+ */
+class PythonProgram extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         height: 400,
     };
+
+    // This function exists to force this class to conform to the `Widget`
+    // interface. As this class is very bare and the Widget interface
+    // (currently) has all optional functions, we're triggering TypeScript's
+    // weak type detection.
+    // See: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-4.html#weak-type-detection
+    getDOMNodeForPath(path: FocusPath) {
+        return null;
+    }
 
     render(): React.ReactNode {
         const url = getUrlFromProgramID(this.props.programID);
