@@ -15,7 +15,7 @@ import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     EmptyUserInput,
     PerseusInteractionRubric,
@@ -112,7 +112,7 @@ type State = {
     functions: any;
 };
 
-class Interaction extends React.Component<Props, State> {
+class Interaction extends React.Component<Props, State> implements Widget {
     static defaultProps: DefaultProps = {
         graph: {
             box: [400, 400],

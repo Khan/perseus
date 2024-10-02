@@ -9,7 +9,7 @@ import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusPassageRefTargetWidgetOptions} from "../../perseus-types";
-import type {APIOptions, WidgetExports} from "../../types";
+import type {APIOptions, WidgetExports, Widget} from "../../types";
 import type {NullUserInput} from "../../validation.types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -23,7 +23,7 @@ type DefaultProps = {
     content: Props["content"];
     linterContext: Props["linterContext"];
 };
-class PassageRefTarget extends React.Component<Props> {
+class PassageRefTarget extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

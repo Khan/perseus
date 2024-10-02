@@ -9,7 +9,7 @@ import MoleculeLayout from "./molecule-layout";
 import SmilesParser from "./smiles-parser";
 
 import type {PerseusMoleculeRendererWidgetOptions} from "../../perseus-types";
-import type {WidgetExports} from "../../types";
+import type {Widget, WidgetExports} from "../../types";
 import type {PerseusMoleculeUserInput} from "../../validation.types";
 
 const {layout} = MoleculeLayout;
@@ -135,7 +135,7 @@ export class Molecule extends React.Component<Props, MoleculeState> {
 type DefaultProps = {
     rotationAngle: Props["rotationAngle"];
 };
-class MoleculeWidget extends React.Component<Props> {
+class MoleculeWidget extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         rotationAngle: 0,
     };

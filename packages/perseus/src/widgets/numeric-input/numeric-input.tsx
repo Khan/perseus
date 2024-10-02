@@ -19,6 +19,7 @@ import type {PerseusStrings} from "../../strings";
 import type {
     FocusPath,
     PerseusScore,
+    Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
@@ -80,7 +81,10 @@ type State = {
     previousValues: ReadonlyArray<string>;
 };
 
-export class NumericInput extends React.Component<Props, State> {
+export class NumericInput
+    extends React.Component<Props, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

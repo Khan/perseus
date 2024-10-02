@@ -8,12 +8,11 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 
 import type {PerseusGroupWidgetOptions} from "../../perseus-types";
-import type {Widget} from "../../renderer";
 import type {
     APIOptions,
     ChangeFn,
     FocusPath,
-    PerseusScore,
+    Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
@@ -29,7 +28,7 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-class Group extends React.Component<Props> {
+class Group extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -71,14 +70,14 @@ class Group extends React.Component<Props> {
         return null;
     };
 
-    simpleValidate(): PerseusScore | null | undefined {
-        return this.rendererRef?.score();
+    simpleValidate() {
+        return this.rendererRef?.score() ?? {type: "invalid"};
     }
 
     // Mobile API:
-    getInputPaths: () => ReadonlyArray<FocusPath> | null | undefined = () => {
-        return this.rendererRef?.getInputPaths();
-    };
+    getInputPaths() {
+        return this.rendererRef?.getInputPaths() ?? [];
+    }
 
     setInputValue: (
         arg1: FocusPath,
@@ -88,9 +87,9 @@ class Group extends React.Component<Props> {
         return this.rendererRef?.setInputValue(path, newValue, callback);
     };
 
-    focus: () => boolean | null | undefined = () => {
-        return this.rendererRef?.focus();
-    };
+    focus() {
+        return this.rendererRef?.focus() ?? false;
+    }
 
     focusInputPath: (arg1: FocusPath) => void = (path) => {
         this.rendererRef?.focusPath(path);
@@ -130,7 +129,6 @@ class Group extends React.Component<Props> {
         // really we should have a more unidirectional flow. TODO(marcia): fix.
         const groupWidgets: ReadonlyArray<Widget> =
             this.props.findWidgets("group");
-        // @ts-expect-error - TS2345 - Argument of type 'this' is not assignable to parameter of type 'Widget'.
         const number: number = groupWidgets.indexOf(this);
         const problemNumComponent = this.props.apiOptions.groupAnnotator(
             number,

@@ -29,7 +29,12 @@ import Marker from "./marker";
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, PerseusScore, WidgetExports} from "../../types";
+import type {
+    APIOptions,
+    PerseusScore,
+    Widget,
+    WidgetExports,
+} from "../../types";
 import type {
     PerseusLabelImageRubric,
     PerseusLabelImageUserInput,
@@ -99,10 +104,10 @@ type LabelImageState = {
     hideAnswers: boolean;
 };
 
-export class LabelImage extends React.Component<
-    LabelImageProps,
-    LabelImageState
-> {
+export class LabelImage
+    extends React.Component<LabelImageProps, LabelImageState>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

@@ -1,18 +1,14 @@
-/* eslint-disable @babel/no-invalid-this */
-import createReactClass from "create-react-class";
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import SvgImage from "../../components/svg-image";
-import {ApiOptions} from "../../perseus-api";
 import GraphUtils from "../../util/graph-utils";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {Coord} from "../../interactive2/types";
-import type {WidgetExports} from "../../types";
+import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {Interval} from "../../util/interval";
 
 const defaultImage = {
@@ -21,51 +17,62 @@ const defaultImage = {
     left: 0,
 } as const;
 
-const Measurer: any = createReactClass({
-    displayName: "Measurer",
+type Props = {
+    apiOptions: APIOptions;
+    box: [number, number];
+    image: {
+        url?: string;
+        top?: number;
+        left?: number;
+    };
+    showProtractor: boolean;
+    protractorX: number;
+    protractorY: number;
+    showRuler: boolean;
+    rulerLabel: string;
+    rulerTicks: number;
+    rulerPixels: number;
+    rulerLength: number;
+};
 
-    propTypes: {
-        apiOptions: ApiOptions.propTypes,
-        box: PropTypes.arrayOf(PropTypes.number),
-        image: PropTypes.shape({
-            url: PropTypes.string,
-            top: PropTypes.number,
-            left: PropTypes.number,
-        }),
-        showProtractor: PropTypes.bool,
-        protractorX: PropTypes.number,
-        protractorY: PropTypes.number,
-        showRuler: PropTypes.bool,
-        rulerLabel: PropTypes.string,
-        rulerTicks: PropTypes.number,
-        rulerPixels: PropTypes.number,
-        rulerLength: PropTypes.number,
-    },
+type DefaultProps = {
+    box: Props["box"];
+    image: Props["image"];
+    showProtractor: Props["showProtractor"];
+    protractorX: Props["protractorX"];
+    protractorY: Props["protractorY"];
+    showRuler: Props["showRuler"];
+    rulerLabel: Props["rulerLabel"];
+    rulerTicks: Props["rulerTicks"];
+    rulerPixels: Props["rulerPixels"];
+    rulerLength: Props["rulerLength"];
+};
 
-    getDefaultProps: function () {
-        return {
-            box: [480, 480],
-            image: {},
-            showProtractor: true,
-            protractorX: 7.5,
-            protractorY: 0.5,
-            showRuler: false,
-            rulerLabel: "",
-            rulerTicks: 10,
-            rulerPixels: 40,
-            rulerLength: 10,
-        };
-    },
+class Measurer extends React.Component<Props> implements Widget {
+    static validate = noopValidator;
 
-    getInitialState: function () {
-        return {};
-    },
+    static defaultProps: DefaultProps = {
+        box: [480, 480],
+        image: {},
+        showProtractor: true,
+        protractorX: 7.5,
+        protractorY: 0.5,
+        showRuler: false,
+        rulerLabel: "",
+        rulerTicks: 10,
+        rulerPixels: 40,
+        rulerLength: 10,
+    };
 
-    componentDidMount: function () {
+    state = {};
+    ruler;
+    protractor;
+
+    componentDidMount() {
         this.setupGraphie();
-    },
+    }
 
-    componentDidUpdate: function (prevProps) {
+    componentDidUpdate(prevProps) {
         const shouldSetupGraphie = _.any(
             [
                 "box",
@@ -76,8 +83,7 @@ const Measurer: any = createReactClass({
                 "rulerPixels",
                 "rulerLength",
             ],
-            function (prop) {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            (prop) => {
                 return prevProps[prop] !== this.props[prop];
             },
             this,
@@ -86,9 +92,9 @@ const Measurer: any = createReactClass({
         if (shouldSetupGraphie) {
             this.setupGraphie();
         }
-    },
+    }
 
-    setupGraphie: function () {
+    setupGraphie() {
         // eslint-disable-next-line react/no-string-refs
         const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
@@ -140,19 +146,17 @@ const Measurer: any = createReactClass({
                 units: this.props.rulerLength,
             });
         }
-    },
+    }
 
-    getUserInput: function () {
+    getUserInput() {
         return {};
-    },
+    }
 
-    simpleValidate: function () {
+    simpleValidate() {
         return noopValidator(1);
-    },
+    }
 
-    focus: $.noop,
-
-    render: function () {
+    render() {
         const image = _.extend({}, defaultImage, this.props.image);
 
         // TODO(scottgrant): This isn't a11y-friendly! We should insist on
@@ -181,12 +185,8 @@ const Measurer: any = createReactClass({
                 <div className="graphie" ref="graphieDiv" />
             </div>
         );
-    },
-});
-
-_.extend(Measurer, {
-    validate: noopValidator(1),
-});
+    }
+}
 
 const propUpgrades = {
     "1": (v0props: any): any => {

@@ -29,6 +29,7 @@ import type {PerseusGradedGroupWidgetOptions} from "../../perseus-types";
 import type {
     PerseusScore,
     TrackingGradedGroupExtraArguments,
+    Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
@@ -93,7 +94,10 @@ type State = {
 // answer button below the rendered content. When clicked, the widget grades
 // the stuff inside and displays feedback about whether the inputted answer was
 // correct or not.
-export class GradedGroup extends React.Component<Props, State> {
+export class GradedGroup
+    extends React.Component<Props, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

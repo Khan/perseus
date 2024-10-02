@@ -18,7 +18,12 @@ import Util from "../../util";
 import {iframeValidator} from "./iframe-validator";
 
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+    Widget,
+} from "../../types";
 import type {
     PerseusIFrameRubric,
     PerseusIFrameUserInput,
@@ -44,7 +49,7 @@ type DefaultProps = {
 };
 
 /* This renders the iframe and handles validation via window.postMessage */
-class Iframe extends React.Component<Props> {
+class Iframe extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         status: "incomplete",
         // optional message

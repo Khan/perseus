@@ -17,8 +17,7 @@ import {
 import MultiRenderer from "../multi-renderer";
 import shapes from "../shapes";
 
-import type {Widget} from "../../renderer";
-import type {FilterCriterion} from "../../types";
+import type {FilterCriterion, Widget} from "../../types";
 import type {Item} from "../item-types";
 import type {Tree} from "../tree-types";
 import type {UserEvent} from "@testing-library/user-event";

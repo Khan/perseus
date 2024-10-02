@@ -33,7 +33,12 @@ import {
 import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {
     PerseusGrapherRubric,
@@ -361,7 +366,7 @@ type DefaultProps = {
 };
 
 /* Widget and editor. */
-class Grapher extends React.Component<Props> {
+class Grapher extends React.Component<Props> implements Widget {
     horizHairline: any;
     vertHairline: any;
 
@@ -547,8 +552,6 @@ class Grapher extends React.Component<Props> {
     getUserInput(): PerseusGrapherUserInput {
         return Grapher.getUserInputFromProps(this.props);
     }
-
-    focus(): void {}
 
     render(): React.ReactNode {
         const type = this.props.plot.type;
