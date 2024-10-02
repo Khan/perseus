@@ -33,12 +33,7 @@ import {
 import type {Coord, Line} from "../../interactive2/types";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusGrapherWidgetOptions} from "../../perseus-types";
-import type {
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {
     PerseusGrapherRubric,
@@ -372,13 +367,6 @@ class Grapher extends React.Component<Props> implements Widget {
 
     static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
 
-    static validate(
-        state: PerseusGrapherUserInput,
-        rubric: PerseusGrapherRubric,
-    ): PerseusScore {
-        return grapherValidator(state, rubric);
-    }
-
     static getUserInputFromProps(props: Props): PerseusGrapherUserInput {
         return props.plot;
     }
@@ -545,10 +533,6 @@ class Grapher extends React.Component<Props> implements Widget {
         }
     };
 
-    simpleValidate(rubric: PerseusGrapherRubric): PerseusScore {
-        return grapherValidator(this.getUserInput(), rubric);
-    }
-
     getUserInput(): PerseusGrapherUserInput {
         return Grapher.getUserInputFromProps(this.props);
     }
@@ -662,4 +646,5 @@ export default {
     widget: Grapher,
     transform: propTransform,
     staticTransform: staticTransform,
+    validator: grapherValidator,
 } as WidgetExports<typeof Grapher>;
