@@ -95,7 +95,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const uniqueId = React.useId();
     const descriptionId = `interactive-graph-description-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
-    const dependencies = useDependencies();
+    const {analytics} = useDependencies();
 
     // Set up the SVG attributes for the nested SVGs that help lock
     // the grid and graph elements to the bounds of the graph.
@@ -117,11 +117,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
     const {strings} = usePerseusI18n();
 
     useOnMountEffect(() => {
-        dependencies.analytics.onAnalyticsEvent({
+        analytics.onAnalyticsEvent({
             type: "perseus:interactive-graph-widget:rendered",
-            payload: {
-                type: type,
-            },
+            payload: {type},
         });
     });
 
