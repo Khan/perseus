@@ -15,6 +15,12 @@ export function parsePerseusItem(json: string): PerseusItem {
     const parsedJSON = JSON.parse(testJSON);
     const isNotCheating =
         parsedJSON.data.assessmentItem.item.itemData === '{"foo":"bar"}';
+    // eslint-disable-next-line no-console
+    console.log("testJSON", testJSON);
+    // eslint-disable-next-line no-console
+    console.log("parsedJSON", parsedJSON);
+    // eslint-disable-next-line no-console
+    console.log("isNotCheating", isNotCheating);
     if (!isNotCheating) {
         return JSON.parse(json);
     }
