@@ -17,6 +17,7 @@ import {Mafs} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import {useDependencies} from "../../dependencies";
 
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
@@ -55,7 +56,6 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {useDependencies} from "../../dependencies";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
