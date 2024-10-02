@@ -10,7 +10,6 @@ import SmilesParser from "./smiles-parser";
 
 import type {PerseusMoleculeRendererWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports} from "../../types";
-import type {PerseusMoleculeUserInput} from "../../validation.types";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;
@@ -135,24 +134,12 @@ export class Molecule extends React.Component<Props, MoleculeState> {
 type DefaultProps = {
     rotationAngle: Props["rotationAngle"];
 };
+
+// @ts-expect-error - TS2559 - Type 'MoleculeWidget' has no properties in common with type 'Widget'.
 class MoleculeWidget extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         rotationAngle: 0,
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
-
-    getUserInput(): PerseusMoleculeUserInput {
-        return [];
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    validate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         return (
@@ -170,4 +157,5 @@ export default {
     displayName: "Molecule renderer",
     hidden: true,
     widget: MoleculeWidget,
+    validator: noopValidator,
 } as WidgetExports<typeof MoleculeWidget>;

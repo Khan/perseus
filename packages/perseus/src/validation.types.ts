@@ -133,9 +133,6 @@ export type PerseusMatrixUserInput = {
     answers: ReadonlyArray<ReadonlyArray<number>>;
 };
 
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusMoleculeUserInput = ReadonlyArray<ReadonlyArray<string>>;
-
 export type PerseusNumberLineRubric = PerseusNumberLineWidgetOptions & {
     isInequality: boolean;
 };
@@ -206,7 +203,6 @@ export type UserInput =
     | PerseusLabelImageUserInput
     | PerseusMatcherUserInput
     | PerseusMatrixUserInput
-    | PerseusMoleculeUserInput
     | PerseusNumberLineUserInput
     | PerseusNumericInputUserInput
     | PerseusOrdererUserInput
