@@ -21,7 +21,7 @@ export function parsePerseusItem(json: string): PerseusItem {
     console.log("parsedJSON", parsedJSON);
     // eslint-disable-next-line no-console
     console.log("isNotCheating", isNotCheating);
-    if (!isNotCheating) {
+    if (isNotCheating) {
         return JSON.parse(json);
     }
     return {
