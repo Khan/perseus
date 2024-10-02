@@ -11,6 +11,7 @@ import type {PerseusItem} from "../perseus-types";
 
 const iframe = document.createElement("iframe");
 document.body.appendChild(iframe);
+// @ts-expect-error - TS2339: Property JSON does not exist on type Window
 const safeParse = iframe.contentWindow?.JSON?.parse ?? JSON.parse;
 
 export function parsePerseusItem(json: string): PerseusItem {
