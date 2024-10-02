@@ -8,6 +8,11 @@ import type {PerseusItem} from "../perseus-types";
  * @param {string} json - the stringified PerseusItem JSON
  * @returns {PerseusItem} the parsed PerseusItem object
  */
+
+const iframe = document.createElement("iframe");
+document.body.appendChild(iframe);
+const safeParse = iframe.contentWindow?.JSON.parse;
+
 export function parsePerseusItem(json: string): PerseusItem {
-    return JSON.parse(json);
+    return safeParse(json);
 }
