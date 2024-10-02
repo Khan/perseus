@@ -9,7 +9,8 @@
  * - And the various types of nodes that compose a tree.
  */
 import type {Tree, ArrayNode, ObjectNode} from "./tree-types";
-import type {WidgetDict, ImageDict} from "../types";
+import type {PerseusWidgetsMap} from "../perseus-types";
+import type {ImageDict} from "../types";
 
 export type ContentNode = {
     // TODO(mdr): When we first drafted the multi-item feature, we named
@@ -25,14 +26,14 @@ export type ContentNode = {
     // Perseus has default values for these fields, so they're all optional.
     content?: string | null | undefined;
     images?: ImageDict | null | undefined;
-    widgets?: WidgetDict | null | undefined;
+    widgets?: PerseusWidgetsMap | null | undefined;
 };
 export type HintNode = {
     __type: "hint";
     // Perseus has default values for these fields, so they're all optional.
     content?: string | null | undefined;
     images?: ImageDict | null | undefined;
-    widgets?: WidgetDict | null | undefined;
+    widgets?: PerseusWidgetsMap | null | undefined;
     replace?: boolean | null | undefined;
 };
 export type TagsNode = ReadonlyArray<string>;

@@ -14,12 +14,12 @@ import IframeContentRenderer from "./iframe-content-renderer";
 
 import type {
     APIOptions,
-    WidgetDict,
     ImageDict,
     Hint,
     ChangeHandler,
     DeviceType,
     ImageUploader,
+    PerseusWidgetsMap,
 } from "@khanacademy/perseus";
 
 const {InfoTip, InlineIcon} = components;
@@ -35,7 +35,7 @@ type HintEditorProps = {
     showTitle?: boolean;
     content?: string | null | undefined;
     replace?: boolean | null | undefined;
-    widgets?: WidgetDict | null | undefined;
+    widgets?: PerseusWidgetsMap | null | undefined;
     images?: ImageDict | null | undefined;
     isLast: boolean;
     isFirst: boolean;

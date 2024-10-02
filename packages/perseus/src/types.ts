@@ -88,9 +88,6 @@ export interface Widget {
     examples?: () => ReadonlyArray<string>;
 }
 
-export type WidgetDict = {
-    [name: string]: PerseusWidget;
-};
 export type ImageDict = {
     [url: string]: Dimensions;
 };
@@ -130,7 +127,7 @@ export type ChangeHandler = (
         hints?: ReadonlyArray<Hint>;
         replace?: boolean;
         content?: string;
-        widgets?: WidgetDict;
+        widgets?: PerseusWidgetsMap;
         images?: ImageDict;
         // used only in EditorPage
         question?: any;
