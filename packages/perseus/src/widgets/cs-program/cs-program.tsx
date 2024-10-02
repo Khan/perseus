@@ -108,11 +108,15 @@ class CSProgram extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    simpleValidate(): PerseusScore {
-        return csProgramValidator({
+    getUserInput(): PerseusCSProgramUserInput {
+        return {
             status: this.props.status,
             message: this.props.message,
-        });
+        };
+    }
+
+    simpleValidate(): PerseusScore {
+        return csProgramValidator(this.getUserInput());
     }
 
     render(): React.ReactNode {
