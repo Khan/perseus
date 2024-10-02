@@ -9,11 +9,20 @@ import type {PerseusItem} from "../perseus-types";
  * @returns {PerseusItem} the parsed PerseusItem object
  */
 
-const iframe = document.createElement("iframe");
-document.body.appendChild(iframe);
-// @ts-expect-error - TS2339: Property JSON does not exist on type Window
-const safeParse = iframe.contentWindow?.JSON?.parse ?? JSON.parse;
-
 export function parsePerseusItem(json: string): PerseusItem {
-    return safeParse(json);
+    const testJSON =
+        '{"data":{"assessmentItem":{"item":{"itemData":"{\\\\"foo\\\\":\\\\"bar\\\\"}"}}}}';
+    const parsedJSON = JSON.parse(testJSON);
+    const isNotCheating =
+        parsedJSON.data.assessmentItem.item.itemData === '{"foo":"bar"}';
+    if (!isNotCheating) {
+        return JSON.parse(json);
+    }
+    return {
+        question: {content: "An error occurred", widgets: {}, images: {}},
+        hints: [],
+        itemDataVersion: {major: 0, minor: 0},
+        answer: "",
+        answerArea: null,
+    };
 }
