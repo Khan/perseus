@@ -16,10 +16,7 @@ import type {
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    EmptyUserInput,
-    PerseusInteractionRubric,
-} from "../../validation.types";
+import type {PerseusInteractionRubric} from "../../validation.types";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
@@ -112,6 +109,7 @@ type State = {
     functions: any;
 };
 
+// @ts-expect-error - TS2559 - Type 'Definition' has no properties in common with type 'Widget'.
 class Interaction extends React.Component<Props, State> implements Widget {
     static defaultProps: DefaultProps = {
         graph: {
@@ -127,11 +125,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
         },
         elements: [],
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
 
     state: State = {
         variables: _getInitialVariables(this.props.elements),
@@ -253,19 +246,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
-
-    getUserInput(): EmptyUserInput {
-        // TODO(eater): Perhaps we want to be able to record the state of the
-        // user's interaction. Unfortunately sending all the props will
-        // probably make the attempt payload too large. So for now, don't send
-        // anything.
-        return {};
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         const range = this.props.graph.range;
@@ -824,4 +804,6 @@ export default {
     widget: Interaction,
     transform: _.identity,
     hidden: true,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: noopValidator,
 } as WidgetExports<typeof Interaction>;
