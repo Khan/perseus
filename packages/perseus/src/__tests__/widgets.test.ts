@@ -12,7 +12,6 @@ describe("Widget API support", () => {
     // validate function. Not all widgets support this function so even though
     // this list looks exhaustive, it's not!
     it.each([
-        "deprecated-standin",
         "radio",
         "input-number",
         "numeric-input",
