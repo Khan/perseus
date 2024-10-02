@@ -1607,18 +1607,43 @@ class Renderer extends React.Component<Props, State> {
     emptyWidgets: () => any = () => {
         // @ts-expect-error - TS2345 - Argument of type '(id: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
         return _.filter(this.widgetIds, (id) => {
+            const widgetProps = this.state.widgetInfo;
             const widgetInfo = this._getWidgetInfo(id);
             if (widgetInfo.static) {
                 // Static widgets shouldn't count as empty
                 return false;
             }
+
+            let score: PerseusScore | null = null;
+            const props = widgetProps[id];
             const widget = this.getWidgetInstance(id);
-            if (widget && widget.simpleValidate) {
-                const score: PerseusScore = widget.simpleValidate(
+
+            if (!props || !widget) {
+                return;
+            }
+
+            const validator = getWidgetValidator(widgetInfo.type);
+            if (validator) {
+                const userInput = widget.getUserInput?.();
+                score = validator(
+                    // the user input
+                    userInput,
+                    // the grading criteria
+                    props.options,
+                    // used for invalid input messages
+                    this.props.strings,
+                    // used for math evaluation (`.` vs `,` for math)
+                    this.context.locale,
+                );
+            } else if (widget.simpleValidate) {
+                score = widget.simpleValidate(
                     widgetInfo.options,
                     // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '((widgetId: any, value: string, message?: string | null | undefined) => unknown) | undefined'.
                     null,
                 );
+            }
+
+            if (score) {
                 return Util.scoreIsEmpty(score);
             }
         });
