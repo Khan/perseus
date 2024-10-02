@@ -14,6 +14,32 @@ export type MafsGraphProps<T extends InteractiveGraphState> = {
     dispatch: (action: InteractiveGraphAction) => unknown;
 };
 
+export type InteractiveGraphName =
+    | "angle"
+    | "segment"
+    | "linear-system"
+    | "linear"
+    | "ray"
+    | "none"
+    | "polygon"
+    | "point"
+    | "circle"
+    | "quadratic"
+    | "sinusoid";
+
+export type InteractiveGraphEnum =
+    | "ANGLE"
+    | "SEGMENT"
+    | "LINEAR_SYSTEM"
+    | "LINEAR"
+    | "RAY"
+    | "NONE"
+    | "POLYGON"
+    | "POINT"
+    | "CIRCLE"
+    | "QUADRATIC"
+    | "SINUSOID";
+
 export type InteractiveGraphState =
     | AngleGraphState
     | SegmentGraphState
@@ -26,6 +52,35 @@ export type InteractiveGraphState =
     | CircleGraphState
     | QuadraticGraphState
     | SinusoidGraphState;
+
+const interactiveGraphNameToEnum: Record<
+    InteractiveGraphName,
+    InteractiveGraphEnum
+> = {
+    angle: "ANGLE",
+    segment: "SEGMENT",
+    "linear-system": "LINEAR_SYSTEM",
+    linear: "LINEAR",
+    ray: "RAY",
+    none: "NONE",
+    polygon: "POLYGON",
+    point: "POINT",
+    circle: "CIRCLE",
+    quadratic: "QUADRATIC",
+    sinusoid: "SINUSOID",
+};
+
+export function convertInteractiveGraphNameToEnum(
+    name: string,
+): InteractiveGraphEnum {
+    const graphEnum = interactiveGraphNameToEnum[name];
+
+    if (!graphEnum) {
+        throw new Error(`Unknown interactive graph name: ${name}`);
+    }
+
+    return graphEnum;
+}
 
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
