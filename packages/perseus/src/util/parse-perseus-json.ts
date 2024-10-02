@@ -11,7 +11,7 @@ import type {PerseusItem} from "../perseus-types";
 
 const iframe = document.createElement("iframe");
 document.body.appendChild(iframe);
-const safeParse = iframe.contentWindow?.JSON.parse;
+const safeParse = iframe.contentWindow?.JSON?.parse ?? JSON.parse;
 
 export function parsePerseusItem(json: string): PerseusItem {
     return safeParse(json);
