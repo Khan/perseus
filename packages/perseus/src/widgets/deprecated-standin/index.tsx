@@ -5,6 +5,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusScore, WidgetExports} from "../../types";
+import type {EmptyUserInput} from "../../validation.types";
 
 // The props are type `any` on purpose so that this can receive props
 // from any deprecated widget
@@ -20,7 +21,6 @@ class DeprecatedStandin extends React.Component<Props> {
         return noopValidator(1);
     }
 
-    // eslint-disable-next-line no-undef
     getUserInput(): EmptyUserInput {
         return {};
     }
