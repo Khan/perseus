@@ -14,10 +14,7 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    EmptyUserInput,
-    PerseusExplanationRubric,
-} from "../../validation.types";
+import type {PerseusExplanationRubric} from "../../validation.types";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 
@@ -42,6 +39,7 @@ function mediaQueryIsMatched(mediaQuery: string): boolean {
     return window.matchMedia(mediaQuery).matches;
 }
 
+// @ts-expect-error - TS2559 - Type 'Explanation' has no properties in common with type 'Widget'.
 class Explanation extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -58,11 +56,6 @@ class Explanation extends React.Component<Props, State> implements Widget {
         widgets: {},
         linterContext: linterContextDefault,
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
 
     componentDidMount() {
         this._mounted = true;
@@ -82,15 +75,6 @@ class Explanation extends React.Component<Props, State> implements Widget {
         });
         this.props.trackInteraction();
     };
-
-    getUserInput(): EmptyUserInput {
-        return {};
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         const promptText = this.state.expanded
@@ -238,4 +222,6 @@ export default {
     widget: Explanation,
     transform: _.identity,
     isLintable: true,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: () => noopValidator(1),
 } as WidgetExports<typeof Explanation>;

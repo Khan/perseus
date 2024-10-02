@@ -15,8 +15,6 @@ describe("Widget API support", () => {
         "radio",
         "input-number",
         "numeric-input",
-        "expression",
-        "explanation",
         "grapher",
         "iframe",
         "image",

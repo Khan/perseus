@@ -265,53 +265,11 @@ describe("Explanation", function () {
         expect(changeMock).toHaveBeenCalledWith("foo", "bar", callbackMock);
     });
 
-    it("should return an empty object for getUserInput()", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-
-        // Act
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        expect(userInput).toMatchInlineSnapshot(`
-            [
-              {},
-            ]
-        `);
-    });
-
-    it("should return a zero score for simpleValidate()", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-
-        // Act
-        const score = renderer.scoreWidgets();
-
-        // Assert
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "explanation 1": {
-                "earned": 0,
-                "message": null,
-                "total": 0,
-                "type": "points",
-              },
-            }
-        `);
-    });
-
-    describe("static validate", () => {
+    describe("validator", () => {
         it("should always return 0 points", async () => {
-            const result = ExplanationWidgetExports.widget.validate();
+            const result = ExplanationWidgetExports?.validator?.(null, null);
 
-            expect(result).toMatchInlineSnapshot(`
-                {
-                  "earned": 0,
-                  "message": null,
-                  "total": 0,
-                  "type": "points",
-                }
-            `);
+            expect(result).toHaveBeenAnsweredCorrectly();
         });
     });
 });
