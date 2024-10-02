@@ -13,13 +13,7 @@ import inputNumberValidator, {answerTypes} from "./input-number-validator";
 
 import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {
-    Path,
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
@@ -97,16 +91,6 @@ class InputNumber extends React.Component<Props> implements Widget {
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
     };
-
-    static validate(
-        state: {
-            currentValue: string;
-        },
-        rubric: PerseusInputNumberRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return inputNumberValidator(state, rubric, strings);
-    }
 
     static getUserInputFromProps(props: Props): {
         currentValue: string;
@@ -197,14 +181,6 @@ class InputNumber extends React.Component<Props> implements Widget {
 
     getUserInput(): PerseusInputNumberUserInput {
         return InputNumber.getUserInputFromProps(this.props);
-    }
-
-    simpleValidate(rubric: PerseusInputNumberRubric): PerseusScore {
-        return inputNumberValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
     }
 
     examples: () => ReadonlyArray<string> = () => {
@@ -320,4 +296,5 @@ export default {
     widget: InputNumber,
     transform: propTransform,
     isLintable: true,
+    validator: inputNumberValidator,
 } as WidgetExports<typeof InputNumber>;

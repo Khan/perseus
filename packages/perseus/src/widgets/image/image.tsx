@@ -12,7 +12,7 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
-import type {NullUserInput, PerseusImageRubric} from "../../validation.types";
+import type {PerseusImageRubric} from "../../validation.types";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -54,6 +54,7 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
+// @ts-expect-error - TS2559 - Type 'ImageWidget' has no properties in common with type 'Widget'.
 class ImageWidget extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -70,23 +71,9 @@ class ImageWidget extends React.Component<Props> implements Widget {
         linterContext: linterContextDefault,
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
-
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
-
-    getUserInput(): NullUserInput {
-        return null;
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         let image;
@@ -268,4 +255,6 @@ export default {
     displayName: "Image",
     widget: ImageWidget,
     isLintable: true,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: noopValidator,
 } as WidgetExports<typeof ImageWidget>;

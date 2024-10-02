@@ -13,10 +13,7 @@ describe("Widget API support", () => {
     // this list looks exhaustive, it's not!
     it.each([
         "radio",
-        "input-number",
         "numeric-input",
-        "iframe",
-        "image",
         "interaction",
         "interactive-graph",
         "label-image",
