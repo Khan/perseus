@@ -95,6 +95,7 @@ class PassageRef extends React.Component<Props, State> implements Widget {
             .findWidgets("passage " + this.props.passageNumber)
             .filter(isPassageWidget)[0];
 
+        // @ts-expect-error - TS(2339) - Property 'getReference' does not exist on type 'Widget'.
         const refInfo = passage?.getReference(this.props.referenceNumber);
 
         if (this._isMounted) {

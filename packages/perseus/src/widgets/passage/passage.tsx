@@ -241,6 +241,7 @@ export class Passage
 
         return passagesBeforeUs
             .map((passageWidget) => {
+                // @ts-expect-error - TS(2339) - Property 'getLineCount' does not exist on type 'Widget'.
                 return passageWidget.getLineCount();
             })
             .reduce((a, b) => a + b, 0);
