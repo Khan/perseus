@@ -269,7 +269,7 @@ describe("Explanation", function () {
         it("should always return 0 points", async () => {
             const result = ExplanationWidgetExports?.validator?.(null, null);
 
-            expect(result).toHaveBeenAnsweredCorrectly();
+            expect(result).toHaveBeenAnsweredCorrectly(false);
         });
     });
 });
