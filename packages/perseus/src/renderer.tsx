@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {PerseusI18nContext} from "./components/i18n-context";
 import SvgImage from "./components/svg-image";
 import TeX from "./components/tex";
 import Zoomable from "./components/zoomable";
@@ -212,7 +213,7 @@ type State = {
     lastUsedWidgetId: string | null | undefined;
 };
 
-type Context = LinterContextProps & {
+type FullLinterContext = LinterContextProps & {
     content: string;
     widgets: {
         [id: string]: any;
@@ -241,6 +242,9 @@ type DefaultProps = Required<
 >;
 
 class Renderer extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _currentFocus: FocusPath | null | undefined;
     // @ts-expect-error - TS2564 - Property '_foundTextNodes' has no initializer and is not definitely assigned in the constructor.
     _foundTextNodes: boolean;
@@ -1827,9 +1831,14 @@ class Renderer extends React.Component<Props, State> {
             if (validator) {
                 const userInput = widget.getUserInput?.();
                 widgetScores[id] = validator(
+                    // the user input
                     userInput,
+                    // the grading criteria
                     props.options,
+                    // used for invalid input messages
                     this.props.strings,
+                    // used for math evaluation (`.` vs `,` for math)
+                    this.context.locale,
                 );
             } else if (widget.simpleValidate) {
                 widgetScores[id] = widget.simpleValidate({
@@ -1986,13 +1995,13 @@ class Renderer extends React.Component<Props, State> {
             // If highlightLint is true and lint is detected, this call
             // will modify the parse tree by adding lint nodes that will
             // serve to highlight the lint when rendered
-            const context: Context = {
+            const fullLinterContext: FullLinterContext = {
                 content: this.props.content,
                 widgets: this.props.widgets,
                 ...this.props.linterContext,
             };
 
-            PerseusLinter.runLinter(parsedMarkdown, context, true);
+            PerseusLinter.runLinter(parsedMarkdown, fullLinterContext, true);
 
             // Apply the lint errors from the last TranslationLinter run.
             // TODO(joshuan): Support overlapping dots.

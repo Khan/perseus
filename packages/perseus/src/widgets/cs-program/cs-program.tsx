@@ -17,7 +17,7 @@ import {toAbsoluteUrl} from "../../util/url-utils";
 import {csProgramValidator} from "./cs-program-validator";
 
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
@@ -68,11 +68,6 @@ class CSProgram extends React.Component<Props> {
         message: null,
     };
 
-    // The widget's grading function
-    static validate(state: PerseusCSProgramUserInput): PerseusScore {
-        return csProgramValidator(state);
-    }
-
     componentDidMount() {
         $(window).on("message", this.handleMessageEvent);
     }
@@ -113,10 +108,6 @@ class CSProgram extends React.Component<Props> {
             status: this.props.status,
             message: this.props.message,
         };
-    }
-
-    simpleValidate(): PerseusScore {
-        return csProgramValidator(this.getUserInput());
     }
 
     render(): React.ReactNode {
@@ -212,4 +203,5 @@ export default {
     supportedAlignments: ["block", "full-width"],
     widget: CSProgram,
     hidden: true,
+    validator: csProgramValidator,
 } as WidgetExports<typeof CSProgram>;

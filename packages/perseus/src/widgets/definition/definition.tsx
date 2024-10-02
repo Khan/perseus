@@ -6,17 +6,13 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
-import noopValidator from "../__shared__/noop-validator";
 
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps} from "../../types";
-import type {
-    EmptyUserInput,
-    PerseusDefinitionRubric,
-} from "../../validation.types";
+import type {PerseusDefinitionRubric} from "../../validation.types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
@@ -37,20 +33,6 @@ class Definition extends React.Component<DefinitionProps> {
         togglePrompt: "define me",
         definition: "definition goes here",
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
-
-    getUserInput(): EmptyUserInput {
-        return {};
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         return (
