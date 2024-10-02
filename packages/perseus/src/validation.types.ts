@@ -33,7 +33,10 @@ import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
-export type PerseusCategorizerRubric = PerseusCategorizerWidgetOptions;
+export type PerseusCategorizerRubric = {
+    // The correct answers where index relates to the items and value relates to the category.  e.g. [0, 1, 0, 1, 2]
+    values: ReadonlyArray<number>;
+};
 
 export type PerseusCategorizerUserInput = {
     values: ReadonlyArray<number>;
