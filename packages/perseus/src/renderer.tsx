@@ -29,6 +29,7 @@ import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
+import {getWidgetValidator} from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
 import type {
@@ -1818,10 +1819,17 @@ class Renderer extends React.Component<Props, State> {
         _.each(gradedWidgetIds, (id) => {
             const props = widgetProps[id];
             const widget = this.getWidgetInstance(id);
-            // widget can be undefined if it hasn't yet been rendered
-            if (widget && widget.simpleValidate) {
+            if (!props || !widget) {
+                return;
+            }
+
+            const validator = getWidgetValidator(props.type);
+            if (validator) {
+                const userInput = widget.getUserInput?.();
+                widgetScores[id] = validator(userInput, props.options);
+            } else if (widget.simpleValidate) {
                 widgetScores[id] = widget.simpleValidate({
-                    ...props?.options,
+                    ...props.options,
                     scoring: true,
                 });
             }

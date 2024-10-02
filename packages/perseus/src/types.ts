@@ -550,6 +550,13 @@ export type WidgetExports<
     static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
+    validator?: (
+        userInput: any,
+        rubric: any,
+        string?: PerseusStrings,
+        locale?: string,
+    ) => PerseusScore;
+
     /**
     A map of major version numbers (as a string, eg "1") to a function that
     migrates from the _previous_ major version.

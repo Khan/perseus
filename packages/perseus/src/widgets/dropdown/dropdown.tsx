@@ -7,7 +7,7 @@ import {ApiOptions} from "../../perseus-api";
 import dropdownValidator from "./dropdown-validator";
 
 import type {PerseusDropdownWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
@@ -32,13 +32,6 @@ class Dropdown extends React.Component<Props> {
         apiOptions: ApiOptions.defaults,
     };
 
-    static validate(
-        userInput: PerseusDropdownUserInput,
-        rubric: PerseusDropdownRubric,
-    ): PerseusScore {
-        return dropdownValidator(userInput, rubric);
-    }
-
     focus: () => boolean = () => {
         // TODO(LP-10797): This focus() call doesn't do anything because our
         // root element is a <div> and that cannot be focused without a
@@ -61,10 +54,6 @@ class Dropdown extends React.Component<Props> {
 
     getUserInput(): PerseusDropdownUserInput {
         return {value: this.props.selected};
-    }
-
-    simpleValidate(rubric: PerseusDropdownRubric): PerseusScore {
-        return dropdownValidator(this.getUserInput(), rubric);
     }
 
     render(): React.ReactNode {
@@ -129,4 +118,5 @@ export default {
     accessible: true,
     widget: Dropdown,
     transform: optionsTransform,
+    validator: dropdownValidator,
 } as WidgetExports<typeof Dropdown>;

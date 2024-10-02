@@ -6,7 +6,7 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
         interface Matchers<R> {
-            toHaveBeenAnsweredCorrectly(): R;
+            toHaveBeenAnsweredCorrectly(shouldHavePoints?: boolean): R;
             toHaveInvalidInput(message?: string | null): R;
             toHaveBeenAnsweredIncorrectly(): R;
             toBeHighlighted(): R;
@@ -49,7 +49,10 @@ function maybeAddState(message: string, widgetState: string): string {
 }
 
 expect.extend({
-    toHaveBeenAnsweredCorrectly(answerable: Answerable) {
+    toHaveBeenAnsweredCorrectly(
+        answerable: Answerable,
+        shouldHavePoints: boolean = true,
+    ) {
         const {widgetState, score} = check(answerable);
 
         if (score.type === "invalid") {
@@ -74,6 +77,18 @@ expect.extend({
         if (score.earned !== score.total) {
             const errMessage = maybeAddState(
                 "Problem was answered incorrectly",
+                widgetState,
+            );
+
+            return {
+                pass: false,
+                message: () => errMessage,
+            };
+        }
+
+        if (shouldHavePoints && score.total < 1) {
+            const errMessage = maybeAddState(
+                "Score did not have any points",
                 widgetState,
             );
 

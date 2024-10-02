@@ -19,7 +19,6 @@ describe("Widget API support", () => {
         "expression",
         "categorizer",
         "cs-program",
-        "dropdown",
         "explanation",
         "definition",
         "grapher",

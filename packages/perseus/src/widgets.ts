@@ -132,6 +132,16 @@ export const getWidget = (
     return widgets[name].widget;
 };
 
+export const getWidgetValidator = (name: string): any => {
+    const widget = widgets[name];
+    const validator = widget?.validator;
+    if (!validator) {
+        return null;
+    }
+
+    return validator;
+};
+
 export const getEditor = (name: string): Editor | null | undefined => {
     return _.has(editors, name) ? editors[name] : null;
 };

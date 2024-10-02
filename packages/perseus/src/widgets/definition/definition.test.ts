@@ -128,6 +128,6 @@ describe("Definition widget", () => {
         const result = renderer.scoreWidgets();
 
         // Assert
-        expect(result["definition 1"]).toHaveBeenAnsweredCorrectly();
+        expect(result["definition 1"]).toHaveBeenAnsweredCorrectly(false);
     });
 });
