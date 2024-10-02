@@ -16,17 +16,8 @@ import KhanMath from "../../util/math";
 import numberLineValidator from "./number-line-validator";
 
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {
-    APIOptions,
-    PerseusScore,
-    WidgetExports,
-    FocusPath,
-    Widget,
-} from "../../types";
-import type {
-    PerseusNumberLineRubric,
-    PerseusNumberLineUserInput,
-} from "../../validation.types";
+import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
+import type {PerseusNumberLineUserInput} from "../../validation.types";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -269,13 +260,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     state: any = {
         numDivisionsEmpty: false,
     };
-
-    static validate(
-        state: PerseusNumberLineUserInput,
-        rubric: PerseusNumberLineRubric,
-    ): PerseusScore {
-        return numberLineValidator(state, rubric);
-    }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
@@ -648,10 +632,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         };
     }
 
-    simpleValidate(rubric: PerseusNumberLineRubric): PerseusScore {
-        return numberLineValidator(this.getUserInput(), rubric);
-    }
-
     render(): React.ReactNode {
         const {strings} = this.context;
         const divisionRange = this.props.divisionRange;
@@ -832,4 +812,5 @@ export default {
     widget: NumberLine,
     transform: numberLineTransform,
     staticTransform: staticTransform,
+    validator: numberLineValidator,
 } as WidgetExports<typeof NumberLine>;
