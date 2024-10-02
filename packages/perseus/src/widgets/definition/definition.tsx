@@ -6,6 +6,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
 import Renderer from "../../renderer";
+import noopValidator from "../__shared__/noop-validator";
 
 import type {
     PerseusRenderer,
@@ -100,4 +101,6 @@ export default {
     defaultAlignment: "inline",
     widget: Definition,
     transform: (x: any) => x,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: noopValidator,
 } as WidgetExports<typeof Definition>;
