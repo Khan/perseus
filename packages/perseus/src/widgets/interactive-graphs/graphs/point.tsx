@@ -50,8 +50,7 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
 
     React.useEffect(() => {
         const focusedIndex = props.graphState.focusedPointIndex;
-
-        if (focusedIndex !== null && itemsRef.current[focusedIndex] !== null) {
+        if (focusedIndex != null) {
             itemsRef.current[focusedIndex]?.focus();
         }
     }, [props.graphState.focusedPointIndex, itemsRef]);
