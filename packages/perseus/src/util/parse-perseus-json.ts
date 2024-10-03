@@ -1,3 +1,5 @@
+import {random} from "underscore";
+
 import Util from "../util";
 
 import type {PerseusItem} from "../perseus-types";
@@ -13,6 +15,7 @@ const deepEq = Util.deepEq;
  * @returns {PerseusItem} the parsed PerseusItem object
  */
 export function parsePerseusItem(json: string): PerseusItem {
+    const randomPhrase = buildRandomPhrase();
     const randomString = buildRandomString();
     const testingObject = JSON.stringify({
         answerArea: {
@@ -29,7 +32,7 @@ export function parsePerseusItem(json: string): PerseusItem {
         hints: [],
         itemDataVersion: {major: 0, minor: 1},
         question: {
-            content: `${randomString}:bar`,
+            content: `${randomPhrase}`,
             images: {},
             widgets: {
                 expression1: {
@@ -38,11 +41,11 @@ export function parsePerseusItem(json: string): PerseusItem {
                     options: {
                         answerForms: [
                             {
-                                considered: "correct",
+                                considered: "ungraded",
                                 form: false,
                                 key: 0,
                                 simplify: false,
-                                value: "v=150/12.5",
+                                value: `${randomString}`,
                             },
                         ],
                         ariaLabel: "Answer",
@@ -72,7 +75,7 @@ export function parsePerseusItem(json: string): PerseusItem {
     }
     return {
         question: {
-            content: "An error occurred",
+            content: "Something went wrong.",
             widgets: {
                 "expression 1": {
                     type: "expression",
@@ -106,13 +109,23 @@ export function parsePerseusItem(json: string): PerseusItem {
 
 function buildRandomString() {
     let randomString: string = "";
-    for (let i = 0; i < 5; i++) {
+    const randomLength = Math.floor(Math.random() * 8) + 3;
+    for (let i = 0; i < randomLength; i++) {
         const randomLetter = String.fromCharCode(
             97 + Math.floor(Math.random() * 26),
         );
         randomString += randomLetter;
     }
     return randomString;
+}
+
+function buildRandomPhrase() {
+    const phrases: string[] = [];
+    const randomLength = Math.floor(Math.random() * 10) + 5;
+    for (let i = 0; i < randomLength; i++) {
+        phrases.push(buildRandomString());
+    }
+    return phrases.join(" ");
 }
 
 function buildTestData(testObject: string) {
