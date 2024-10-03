@@ -71,7 +71,8 @@ class Group extends React.Component<Props> implements Widget {
     };
 
     simpleValidate() {
-        return this.rendererRef?.score() ?? {type: "invalid"};
+        const rendererScore = this.rendererRef?.score();
+        return rendererScore ?? {type: "invalid"};
     }
 
     // Mobile API:
