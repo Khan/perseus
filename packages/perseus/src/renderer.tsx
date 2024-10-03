@@ -1604,9 +1604,8 @@ class Renderer extends React.Component<Props, State> {
         return state;
     };
 
-    emptyWidgets: () => any = () => {
-        // @ts-expect-error - TS2345 - Argument of type '(id: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
-        return _.filter(this.widgetIds, (id) => {
+    emptyWidgets(): ReadonlyArray<string> {
+        return this.widgetIds.filter((id) => {
             const widgetProps = this.state.widgetInfo;
             const widgetInfo = this._getWidgetInfo(id);
             if (widgetInfo.static) {
@@ -1647,7 +1646,7 @@ class Renderer extends React.Component<Props, State> {
                 return Util.scoreIsEmpty(score);
             }
         });
-    };
+    }
 
     _setWidgetProps: SetWidgetPropsFn = (id, newProps, cb, silent) => {
         this.setState(
@@ -1771,12 +1770,10 @@ class Renderer extends React.Component<Props, State> {
      * The keys of this object are the values of the array returned
      * from `getWidgetIds`.
      */
-    scoreWidgets: () => {
-        [widgetId: string]: PerseusScore;
-    } = () => {
+    scoreWidgets(): {[widgetId: string]: PerseusScore} {
         const widgetProps = this.state.widgetInfo;
 
-        const gradedWidgetIds = _.filter(this.widgetIds, (id) => {
+        const gradedWidgetIds = this.widgetIds.filter((id) => {
             const props = widgetProps[id];
             const widgetIsGraded: boolean =
                 props?.graded == null || props.graded;
@@ -1786,7 +1783,7 @@ class Renderer extends React.Component<Props, State> {
         });
 
         const widgetScores: Record<string, PerseusScore> = {};
-        _.each(gradedWidgetIds, (id) => {
+        gradedWidgetIds.forEach((id) => {
             const props = widgetProps[id];
             const widget = this.getWidgetInstance(id);
             if (!props || !widget) {
@@ -1815,14 +1812,19 @@ class Renderer extends React.Component<Props, State> {
         });
 
         return widgetScores;
-    };
+    }
 
     /**
      * Grades the content.
      */
-    score: () => PerseusScore = () => {
-        return _.reduce(this.scoreWidgets(), Util.combineScores, Util.noScore);
-    };
+    score(): PerseusScore {
+        const scores = this.scoreWidgets();
+        const combinedScore = Object.values(scores).reduce(
+            Util.combineScores,
+            Util.noScore,
+        );
+        return combinedScore;
+    }
 
     guessAndScore: () => [any, PerseusScore] = () => {
         const totalGuess = this.getUserInput();
