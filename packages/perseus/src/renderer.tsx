@@ -25,13 +25,12 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
-import {scoreWidgetsFunctional} from "./renderer-util";
+import {emptyWidgetsFunctional, scoreWidgetsFunctional} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
-import {getWidgetValidator} from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
 import type {
@@ -1606,47 +1605,13 @@ class Renderer extends React.Component<Props, State> {
     };
 
     emptyWidgets(): ReadonlyArray<string> {
-        return this.widgetIds.filter((id) => {
-            const widgetProps = this.state.widgetInfo;
-            const widgetInfo = this._getWidgetInfo(id);
-            if (widgetInfo.static) {
-                // Static widgets shouldn't count as empty
-                return false;
-            }
-
-            let score: PerseusScore | null = null;
-            const props = widgetProps[id];
-            const widget = this.getWidgetInstance(id);
-
-            if (!props || !widget) {
-                return;
-            }
-
-            const validator = getWidgetValidator(widgetInfo.type);
-            if (validator) {
-                const userInput = widget.getUserInput?.();
-                score = validator(
-                    // the user input
-                    userInput,
-                    // the grading criteria
-                    props.options,
-                    // used for invalid input messages
-                    this.props.strings,
-                    // used for math evaluation (`.` vs `,` for math)
-                    this.context.locale,
-                );
-            } else if (widget.simpleValidate) {
-                score = widget.simpleValidate(
-                    widgetInfo.options,
-                    // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '((widgetId: any, value: string, message?: string | null | undefined) => unknown) | undefined'.
-                    null,
-                );
-            }
-
-            if (score) {
-                return Util.scoreIsEmpty(score);
-            }
-        });
+        return emptyWidgetsFunctional(
+            this.state.widgetInfo,
+            this.widgetIds,
+            this.getUserInputWithIds(),
+            this.props.strings,
+            this.context.locale,
+        );
     }
 
     _setWidgetProps: SetWidgetPropsFn = (id, newProps, cb, silent) => {
@@ -1795,47 +1760,6 @@ class Renderer extends React.Component<Props, State> {
             this.props.strings,
             this.context.locale,
         );
-        // const widgetProps = this.state.widgetInfo;
-
-        // const gradedWidgetIds = this.widgetIds.filter((id) => {
-        //     const props = widgetProps[id];
-        //     const widgetIsGraded: boolean =
-        //         props?.graded == null || props.graded;
-        //     const widgetIsStatic = !!props?.static;
-        //     // Ungraded widgets or widgets set to static shouldn't be graded.
-        //     return widgetIsGraded && !widgetIsStatic;
-        // });
-
-        // const widgetScores: Record<string, PerseusScore> = {};
-        // gradedWidgetIds.forEach((id) => {
-        //     const props = widgetProps[id];
-        //     const widget = this.getWidgetInstance(id);
-        //     if (!props || !widget) {
-        //         return;
-        //     }
-
-        //     const validator = getWidgetValidator(props.type);
-        //     if (validator) {
-        //         const userInput = widget.getUserInput?.();
-        //         widgetScores[id] = validator(
-        //             // the user input
-        //             userInput,
-        //             // the grading criteria
-        //             props.options,
-        //             // used for invalid input messages
-        //             this.props.strings,
-        //             // used for math evaluation (`.` vs `,` for math)
-        //             this.context.locale,
-        //         );
-        //     } else if (widget.simpleValidate) {
-        //         widgetScores[id] = widget.simpleValidate({
-        //             ...props.options,
-        //             scoring: true,
-        //         });
-        //     }
-        // });
-
-        // return widgetScores;
     }
 
     /**

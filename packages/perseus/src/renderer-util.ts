@@ -9,6 +9,44 @@ type WidgetInfo = Readonly<{
     [id: string]: PerseusWidget | null | undefined;
 }>;
 
+// TODO: this is almost certainly wrong, it's passing tests
+// but doesn't handle Groups. Write tests and fix.
+function emptyWidgetsFunctional(
+    widgetProps: WidgetInfo,
+    widgetIds: Array<string>,
+    userInputMap: any,
+    strings: PerseusStrings,
+    locale: string,
+): ReadonlyArray<string> {
+    return widgetIds.filter((id) => {
+        const props = widgetProps[id];
+        if (!props || props.static) {
+            // Static widgets shouldn't count as empty
+            return false;
+        }
+
+        let score: PerseusScore | null = null;
+        const userInput = userInputMap[id];
+        const validator = getWidgetValidator(props.type);
+        if (validator) {
+            score = validator(
+                // the user input
+                userInput,
+                // the grading criteria
+                props.options,
+                // used for invalid input messages
+                strings,
+                // used for math evaluation (`.` vs `,` for math)
+                locale,
+            );
+        }
+
+        if (score) {
+            return Util.scoreIsEmpty(score);
+        }
+    });
+}
+
 function scoreWidgetsFunctional(
     widgetProps: WidgetInfo,
     widgetIds: Array<string>,
@@ -63,4 +101,4 @@ function scoreWidgetsFunctional(
     return widgetScores;
 }
 
-export {scoreWidgetsFunctional};
+export {scoreWidgetsFunctional, emptyWidgetsFunctional};
