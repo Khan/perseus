@@ -77,14 +77,6 @@ export interface Widget {
     getUserInputWithIds?: () => Record<string, UserInput>;
     getUserInput?: () => UserInput | null | undefined;
 
-    simpleValidate?: (
-        options?: any,
-        onOutputError?: (
-            widgetId: any,
-            value: string,
-            message?: string | null | undefined,
-        ) => unknown | null | undefined,
-    ) => PerseusScore;
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
 }

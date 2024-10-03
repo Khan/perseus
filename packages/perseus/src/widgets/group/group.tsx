@@ -74,10 +74,6 @@ class Group extends React.Component<Props> implements Widget {
         return null;
     };
 
-    simpleValidate() {
-        return this.rendererRef?.score() ?? {type: "invalid"};
-    }
-
     // Mobile API:
     getInputPaths() {
         return this.rendererRef?.getInputPaths() ?? [];
