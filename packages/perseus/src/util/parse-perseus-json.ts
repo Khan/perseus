@@ -62,11 +62,11 @@ export function parsePerseusItem(json: string): PerseusItem {
     });
     // @ts-expect-error TS2550: Property 'replaceAll' does not exist on type 'string'.
     const testJSON = buildTestData(testingObject.replaceAll('"', '\\"'));
-    console.log("testJSON", testJSON);
+    // console.log("testJSON", testJSON);
     const parsedJSON = JSON.parse(testJSON);
-    console.log("parsedItemData", parsedJSON.data.assessmentItem.item.itemData);
+    // console.log("parsedItemData", parsedJSON.data.assessmentItem.item.itemData);
     const parsedItemData: string = parsedJSON.data.assessmentItem.item.itemData;
-    console.log("testingObject", testingObject);
+    // console.log("testingObject", testingObject);
     const isNotCheating = deepEq(parsedItemData, testingObject);
     if (isNotCheating) {
         return JSON.parse(json);
