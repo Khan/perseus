@@ -62,48 +62,13 @@ export function parsePerseusItem(json: string): PerseusItem {
     });
     // @ts-expect-error TS2550: Property 'replaceAll' does not exist on type 'string'.
     const testJSON = buildTestData(testingObject.replaceAll('"', '\\"'));
-    // console.log("testJSON", testJSON);
     const parsedJSON = JSON.parse(testJSON);
-    // console.log("parsedItemData", parsedJSON.data.assessmentItem.item.itemData);
     const parsedItemData: string = parsedJSON.data.assessmentItem.item.itemData;
-    // console.log("testingObject", testingObject);
     const isNotCheating = deepEq(parsedItemData, testingObject);
     if (isNotCheating) {
         return JSON.parse(json);
     }
-    throw new Error("Cheating detected, notifying school officials!");
-    // return {
-    //     question: {
-    //         content: "Something went wrong.",
-    //         widgets: {
-    //             "expression 1": {
-    //                 type: "expression",
-    //                 version: {major: 1, minor: 0},
-    //                 alignment: "default",
-    //                 static: true,
-    //                 graded: false,
-    //                 options: {
-    //                     answerForms: [
-    //                         {
-    //                             form: false,
-    //                             value: "",
-    //                             simplify: false,
-    //                             considered: "ungraded",
-    //                         },
-    //                     ],
-    //                     buttonSets: ["basic"],
-    //                     functions: ["f", "g", "h"],
-    //                     times: false,
-    //                 },
-    //             },
-    //         },
-    //         images: {},
-    //     },
-    //     hints: [],
-    //     itemDataVersion: {major: 0, minor: 0},
-    //     answer: "",
-    //     answerArea: null,
-    // };
+    throw new Error("Something went wrong.");
 }
 
 function buildRandomString() {
