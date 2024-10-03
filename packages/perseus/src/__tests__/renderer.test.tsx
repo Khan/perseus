@@ -1722,7 +1722,7 @@ describe("renderer", () => {
         });
     });
 
-    describe("getUserInputForWidgets", () => {
+    describe("getUserInputWithIds", () => {
         it("should return user input for all rendered widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
@@ -1750,7 +1750,7 @@ describe("renderer", () => {
             act(() => jest.runOnlyPendingTimers());
 
             // Act
-            const userInput = renderer.getUserInputForWidgets();
+            const userInput = renderer.getUserInputWithIds();
 
             // Assert
             expect(userInput).toMatchInlineSnapshot(`
@@ -1758,7 +1758,6 @@ describe("renderer", () => {
                   "dropdown 1": {
                     "value": 1,
                   },
-                  "image 1": undefined,
                   "input-number 1": {
                     "currentValue": "100",
                   },

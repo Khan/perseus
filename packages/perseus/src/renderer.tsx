@@ -57,7 +57,7 @@ import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
 
-const {mapObject, mapObjectFromArray} = Objective;
+const {mapObject} = Objective;
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -1725,26 +1725,6 @@ class Renderer extends React.Component<Props, State> {
      */
     getWidgetIds: () => ReadonlyArray<string> = () => {
         return this.widgetIds;
-    };
-
-    /**
-     * Returns the result of `.getUserInput()` for each widget, in
-     * a map from widgetId to userInput.
-     * NOTE(jeremy): This function is hauntingly similar to `getUserInput` with
-     * the major difference being that this function returns a map of
-     * `widgetID` => UserInput and `getUserInput` simply returns an array. It
-     * would be trivial to map between the results of each of these functions,
-     * so we should aim to remove one of these functions.
-     */
-    getUserInputForWidgets: () => {
-        [widgetId: string]: UserInput | null | undefined;
-    } = () => {
-        return mapObjectFromArray(this.widgetIds, (id) => {
-            const widget = this.getWidgetInstance(id);
-            if (widget && widget.getUserInput) {
-                return widget.getUserInput();
-            }
-        });
     };
 
     /**
