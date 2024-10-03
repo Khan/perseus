@@ -6,7 +6,12 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
         interface Matchers<R> {
-            toHaveBeenAnsweredCorrectly(shouldHavePoints?: boolean): R;
+            toHaveBeenAnsweredCorrectly(options?: {
+                // TODO: some non-interactive widgets have "validators"
+                // that just return no points. They should probably just
+                // not have validators if they're not interactive.
+                shouldHavePoints: boolean;
+            }): R;
             toHaveInvalidInput(message?: string | null): R;
             toHaveBeenAnsweredIncorrectly(): R;
             toBeHighlighted(): R;
