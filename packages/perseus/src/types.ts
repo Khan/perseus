@@ -74,7 +74,7 @@ export interface Widget {
         // TODO(jeremy): I think this is actually a callback
         focus?: () => unknown,
     ) => void;
-    getUserInputWithIds?: () => Record<string, UserInput>;
+    getUserInputMap?: () => Record<string, UserInput>;
     getUserInput?: () => UserInput | null | undefined;
 
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
@@ -568,9 +568,14 @@ export type WidgetTransform = (
 ) => any;
 
 export type WidgetValidatorFunction = (
+    // The user data needed to score
     userInput: any,
+    // The scoring criteria to score against
     rubric: any,
+    // Strings, for error messages in invalid widgets
     string?: PerseusStrings,
+    // Locale, for math evaluation
+    // (1,000.00 === 1.000,00 in some countries)
     locale?: string,
 ) => PerseusScore;
 

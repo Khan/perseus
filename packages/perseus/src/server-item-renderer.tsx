@@ -280,7 +280,7 @@ export class ServerItemRenderer
 
         // Call the interactionCallback, if it exists, with the current user input data
         this.props.apiOptions?.interactionCallback?.(
-            this.questionRenderer.getUserInputWithIds(),
+            this.questionRenderer.getUserInputMap(),
         );
     };
 

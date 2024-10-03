@@ -25,7 +25,11 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
-import {emptyWidgetsFunctional, scoreWidgetsFunctional} from "./renderer-util";
+import {
+    emptyWidgetsFunctional,
+    flattenScores,
+    scoreWidgetsFunctional,
+} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
@@ -1604,7 +1608,7 @@ class Renderer extends React.Component<Props, State> {
         return emptyWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
-            this.getUserInputWithIds(),
+            this.getUserInputMap(),
             this.props.strings,
             this.context.locale,
         );
@@ -1689,7 +1693,7 @@ class Renderer extends React.Component<Props, State> {
      * Returns an array of the widget `.getUserInput()` results
      *
      * TODO: can we remove this?
-     * @deprecated use getUserInputWithIds
+     * @deprecated use getUserInputMap
      */
     getUserInput(): ReadonlyArray<UserInput | null | undefined> {
         return this.widgetIds.map((id: string) => {
@@ -1705,12 +1709,13 @@ class Renderer extends React.Component<Props, State> {
     /**
      * Returns an object of the widget `.getUserInput()` results
      */
-    getUserInputWithIds(): any {
+    getUserInputMap(): any {
         const userInputMap = {};
         this.widgetIds.forEach((id: string) => {
             const widget = this.getWidgetInstance(id);
-            if (widget?.getUserInputWithIds) {
-                userInputMap[id] = widget.getUserInputWithIds();
+            // Handle Groups, which have their own sets of widgets
+            if (widget?.getUserInputMap) {
+                userInputMap[id] = widget.getUserInputMap();
             } else if (widget?.getUserInput) {
                 userInputMap[id] = widget.getUserInput();
             }
@@ -1735,7 +1740,7 @@ class Renderer extends React.Component<Props, State> {
         return scoreWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
-            this.getUserInputWithIds(),
+            this.getUserInputMap(),
             this.props.strings,
             this.context.locale,
         );
@@ -1746,10 +1751,7 @@ class Renderer extends React.Component<Props, State> {
      */
     score(): PerseusScore {
         const scores = this.scoreWidgets();
-        const combinedScore = Object.values(scores).reduce(
-            Util.combineScores,
-            Util.noScore,
-        );
+        const combinedScore = flattenScores(scores);
         return combinedScore;
     }
 

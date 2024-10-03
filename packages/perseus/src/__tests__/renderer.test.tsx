@@ -1722,7 +1722,7 @@ describe("renderer", () => {
         });
     });
 
-    describe("getUserInputWithIds", () => {
+    describe("getUserInputMap", () => {
         it("should return user input for all rendered widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
@@ -1750,7 +1750,7 @@ describe("renderer", () => {
             act(() => jest.runOnlyPendingTimers());
 
             // Act
-            const userInput = renderer.getUserInputWithIds();
+            const userInput = renderer.getUserInputMap();
 
             // Assert
             expect(userInput).toMatchInlineSnapshot(`
