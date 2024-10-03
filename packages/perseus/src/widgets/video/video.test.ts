@@ -60,7 +60,7 @@ describe("video widget", () => {
 
         // Assert
         // eslint-disable-next-line testing-library/no-node-access
-        expect(document.getElementsByTagName("iframe")[1].src).toContain(
+        expect(document.getElementsByTagName("iframe")[0].src).toContain(
             "dnt=1",
         );
     });
