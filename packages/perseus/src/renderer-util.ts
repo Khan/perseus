@@ -10,15 +10,6 @@ import type {UserInput} from "./validation.types";
 // TODO: can it be infinitely nested? How do we type that?
 type UserInputMap = Record<string, UserInput | Record<string, UserInput>>;
 
-export function flattenScores(widgetScoreMap: {
-    [widgetId: string]: PerseusScore;
-}): PerseusScore {
-    return Object.values(widgetScoreMap).reduce(
-        Util.combineScores,
-        Util.noScore,
-    );
-}
-
 export function emptyWidgetsFunctional(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why
@@ -47,7 +38,7 @@ export function emptyWidgetsFunctional(
                 strings,
                 locale,
             );
-            score = flattenScores(scores);
+            score = Util.flattenScores(scores);
         } else if (validator) {
             score = validator(userInput, widget.options, strings, locale);
         }
@@ -94,7 +85,7 @@ export function scoreWidgetsFunctional(
                 locale,
             );
             // TODO make this a shared function with the other one
-            widgetScores[id] = flattenScores(scores);
+            widgetScores[id] = Util.flattenScores(scores);
         } else if (validator) {
             widgetScores[id] = validator(
                 userInput,

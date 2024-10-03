@@ -56,8 +56,11 @@ function maybeAddState(message: string, widgetState: string): string {
 expect.extend({
     toHaveBeenAnsweredCorrectly(
         answerable: Answerable,
-        shouldHavePoints: boolean = true,
+        options: {
+            shouldHavePoints: boolean;
+        },
     ) {
+        const shouldHavePoints = options?.shouldHavePoints ?? true;
         const {widgetState, score} = check(answerable);
 
         if (score.type === "invalid") {
@@ -94,6 +97,16 @@ expect.extend({
         if (shouldHavePoints && score.total < 1) {
             const errMessage = maybeAddState(
                 "Score did not have any points",
+                widgetState,
+            );
+
+            return {
+                pass: false,
+                message: () => errMessage,
+            };
+        } else if (!shouldHavePoints && score.total > 0) {
+            const errMessage = maybeAddState(
+                "Score had points when it shouldn't have",
                 widgetState,
             );
 
@@ -160,6 +173,9 @@ expect.extend({
             };
         }
 
+        // Are we sure this is right? I wonder if it should be
+        // score.earned === score.total
+        // (in multi-widget questions, you can get some right and some wrong)
         if (score.earned !== 0) {
             return {
                 pass: false,

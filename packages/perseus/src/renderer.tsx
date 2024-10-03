@@ -25,11 +25,7 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
-import {
-    emptyWidgetsFunctional,
-    flattenScores,
-    scoreWidgetsFunctional,
-} from "./renderer-util";
+import {emptyWidgetsFunctional, scoreWidgetsFunctional} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
@@ -1751,7 +1747,7 @@ class Renderer extends React.Component<Props, State> {
      */
     score(): PerseusScore {
         const scores = this.scoreWidgets();
-        const combinedScore = flattenScores(scores);
+        const combinedScore = Util.flattenScores(scores);
         return combinedScore;
     }
 
