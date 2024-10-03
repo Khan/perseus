@@ -84,7 +84,6 @@ export function scoreWidgetsFunctional(
                 strings,
                 locale,
             );
-            // TODO make this a shared function with the other one
             widgetScores[id] = Util.flattenScores(scores);
         } else if (validator) {
             widgetScores[id] = validator(
