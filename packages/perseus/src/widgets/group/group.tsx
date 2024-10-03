@@ -52,6 +52,10 @@ class Group extends React.Component<Props> implements Widget {
         return Changeable.change.apply(this, args);
     };
 
+    getUserInputWithIds() {
+        return this.rendererRef?.getUserInputWithIds();
+    }
+
     getUserInput(): ReadonlyArray<UserInput | null | undefined> | undefined {
         return this.rendererRef?.getUserInput();
     }

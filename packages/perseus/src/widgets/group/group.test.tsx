@@ -416,6 +416,7 @@ describe("group widget", () => {
         const guessAndScore = renderer.guessAndScore();
 
         // Assert
+        expect(guessAndScore[1]).toHaveBeenAnsweredCorrectly();
         expect(guessAndScore).toMatchInlineSnapshot(`
             [
               [

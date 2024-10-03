@@ -74,6 +74,7 @@ export interface Widget {
         // TODO(jeremy): I think this is actually a callback
         focus?: () => unknown,
     ) => void;
+    getUserInputWithIds?: () => Record<string, UserInput>;
     getUserInput?: () => UserInput | null | undefined;
 
     simpleValidate?: (

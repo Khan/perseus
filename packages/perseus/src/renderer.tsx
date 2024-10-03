@@ -25,6 +25,7 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
+import {scoreWidgetsFunctional} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
@@ -1738,6 +1739,22 @@ class Renderer extends React.Component<Props, State> {
     };
 
     /**
+     * Returns an object of the widget `.getUserInput()` results
+     */
+    getUserInputWithIds(): any {
+        const userInputMap = {};
+        this.widgetIds.forEach((id: string) => {
+            const widget = this.getWidgetInstance(id);
+            if (widget?.getUserInputWithIds) {
+                userInputMap[id] = widget.getUserInputWithIds();
+            } else if (widget?.getUserInput) {
+                userInputMap[id] = widget.getUserInput();
+            }
+        });
+        return userInputMap;
+    }
+
+    /**
      * Returns an array of all widget IDs in the order they occur in
      * the content.
      */
@@ -1771,47 +1788,54 @@ class Renderer extends React.Component<Props, State> {
      * from `getWidgetIds`.
      */
     scoreWidgets(): {[widgetId: string]: PerseusScore} {
-        const widgetProps = this.state.widgetInfo;
+        return scoreWidgetsFunctional(
+            this.state.widgetInfo,
+            this.widgetIds,
+            this.getUserInputWithIds(),
+            this.props.strings,
+            this.context.locale,
+        );
+        // const widgetProps = this.state.widgetInfo;
 
-        const gradedWidgetIds = this.widgetIds.filter((id) => {
-            const props = widgetProps[id];
-            const widgetIsGraded: boolean =
-                props?.graded == null || props.graded;
-            const widgetIsStatic = !!props?.static;
-            // Ungraded widgets or widgets set to static shouldn't be graded.
-            return widgetIsGraded && !widgetIsStatic;
-        });
+        // const gradedWidgetIds = this.widgetIds.filter((id) => {
+        //     const props = widgetProps[id];
+        //     const widgetIsGraded: boolean =
+        //         props?.graded == null || props.graded;
+        //     const widgetIsStatic = !!props?.static;
+        //     // Ungraded widgets or widgets set to static shouldn't be graded.
+        //     return widgetIsGraded && !widgetIsStatic;
+        // });
 
-        const widgetScores: Record<string, PerseusScore> = {};
-        gradedWidgetIds.forEach((id) => {
-            const props = widgetProps[id];
-            const widget = this.getWidgetInstance(id);
-            if (!props || !widget) {
-                return;
-            }
+        // const widgetScores: Record<string, PerseusScore> = {};
+        // gradedWidgetIds.forEach((id) => {
+        //     const props = widgetProps[id];
+        //     const widget = this.getWidgetInstance(id);
+        //     if (!props || !widget) {
+        //         return;
+        //     }
 
-            const validator = getWidgetValidator(props.type);
-            if (validator) {
-                const userInput = widget.getUserInput?.();
-                widgetScores[id] = validator(
-                    // the user input
-                    userInput,
-                    // the grading criteria
-                    props.options,
-                    // used for invalid input messages
-                    this.props.strings,
-                    // used for math evaluation (`.` vs `,` for math)
-                    this.context.locale,
-                );
-            } else if (widget.simpleValidate) {
-                widgetScores[id] = widget.simpleValidate({
-                    ...props.options,
-                    scoring: true,
-                });
-            }
-        });
+        //     const validator = getWidgetValidator(props.type);
+        //     if (validator) {
+        //         const userInput = widget.getUserInput?.();
+        //         widgetScores[id] = validator(
+        //             // the user input
+        //             userInput,
+        //             // the grading criteria
+        //             props.options,
+        //             // used for invalid input messages
+        //             this.props.strings,
+        //             // used for math evaluation (`.` vs `,` for math)
+        //             this.context.locale,
+        //         );
+        //     } else if (widget.simpleValidate) {
+        //         widgetScores[id] = widget.simpleValidate({
+        //             ...props.options,
+        //             scoring: true,
+        //         });
+        //     }
+        // });
 
-        return widgetScores;
+        // return widgetScores;
     }
 
     /**
