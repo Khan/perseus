@@ -27,7 +27,7 @@ export function parsePerseusItem(json: string): PerseusItem {
             tTable: false,
             zTable: false,
         },
-        hints: [],
+        hints: [1],
         itemDataVersion: {major: 0, minor: 1},
         question: {
             content: `${randomPhrase}`,
