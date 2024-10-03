@@ -14,6 +14,7 @@ const deepEq = Util.deepEq;
  */
 export function parsePerseusItem(json: string): PerseusItem {
     const randomPhrase = buildRandomPhrase();
+    const randomHintPhrase = buildRandomPhrase();
     const randomString = buildRandomString();
     const testingObject = JSON.stringify({
         answerArea: {
@@ -27,7 +28,7 @@ export function parsePerseusItem(json: string): PerseusItem {
             tTable: false,
             zTable: false,
         },
-        hints: [1],
+        hints: [randomHintPhrase, `=${Math.floor(Math.random() * 50) + 1}`],
         itemDataVersion: {major: 0, minor: 1},
         question: {
             content: `${randomPhrase}`,
@@ -65,14 +66,6 @@ export function parsePerseusItem(json: string): PerseusItem {
     const parsedJSON = JSON.parse(testJSON);
     const parsedItemData: string = parsedJSON.data.assessmentItem.item.itemData;
     const isNotCheating = deepEq(parsedItemData, testingObject);
-    // eslint-disable-next-line no-console
-    console.log("isNotCheating", isNotCheating);
-    // eslint-disable-next-line no-console
-    console.log("parsedItemData", parsedItemData);
-    // eslint-disable-next-line no-console
-    console.log("testingObject", testingObject);
-    // eslint-disable-next-line no-console
-    console.log("iframe", document.getElementsByTagName("iframe"));
     if (isNotCheating) {
         return JSON.parse(json);
     }
