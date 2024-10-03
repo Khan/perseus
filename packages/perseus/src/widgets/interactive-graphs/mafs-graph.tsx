@@ -119,7 +119,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
             type: "perseus:interactive-graph-widget:rendered",
-            payload: {type},
+            payload: {
+                type,
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
         });
     });
 
