@@ -41,7 +41,6 @@ export function parsePerseusItem(json: string): PerseusItem {
                         functions: ["f", "g", "h"],
                         times: false,
                     },
-                    ...{},
                 },
             },
             images: {},
