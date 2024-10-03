@@ -11,25 +11,11 @@ import type {PerseusItem} from "../perseus-types";
 
 export function parsePerseusItem(json: string): PerseusItem {
     const randomString = buildRandomString();
-    console.log("randomString", randomString);
     const testJSON = buildTestData(randomString);
-    console.log("testJSON", testJSON);
     const parsedJSON = JSON.parse(testJSON);
-    console.log("parsedJSON", JSON.stringify(parsedJSON));
-    console.log(
-        "need",
-        parsedJSON.data.assessmentItem.item.itemData.question.content,
-    );
-    console.log('`{"${randomString}:bar"}`', `{"${randomString}:bar"}`);
     const isNotCheating =
         parsedJSON.data.assessmentItem.item.itemData.question.content ===
         `${randomString}:bar`;
-    // // eslint-disable-next-line no-console
-    // console.log("testJSON", testJSON);
-    // // eslint-disable-next-line no-console
-    // console.log("parsedJSON", JSON.stringify(parsedJSON));
-    // eslint-disable-next-line no-console
-    console.log("isNotCheating", isNotCheating);
     if (isNotCheating) {
         return JSON.parse(json);
     }
