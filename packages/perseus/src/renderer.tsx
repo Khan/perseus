@@ -151,9 +151,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 
 type State = {
     translationLintErrors: ReadonlyArray<string>;
-    widgetInfo: Readonly<{
-        [id: string]: PerseusWidget | null | undefined;
-    }>;
+    widgetInfo: Readonly<PerseusWidgetsMap>;
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
     }>;
@@ -590,10 +588,8 @@ class Renderer extends React.Component<Props, State> {
             interactionTracker = this._interactionTrackers[id] =
                 new InteractionTracker(
                     apiOptions.trackInteraction,
-                    // @ts-expect-error - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     widgetInfo && widgetInfo.type,
                     id,
-                    // @ts-expect-error - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
         }
@@ -1691,8 +1687,11 @@ class Renderer extends React.Component<Props, State> {
 
     /**
      * Returns an array of the widget `.getUserInput()` results
+     *
+     * TODO: can we remove this?
+     * @deprecated use getUserInputWithIds
      */
-    getUserInput: () => ReadonlyArray<UserInput | null | undefined> = () => {
+    getUserInput(): ReadonlyArray<UserInput | null | undefined> {
         return this.widgetIds.map((id: string) => {
             const widget = this.getWidgetInstance(id);
             if (widget && widget.getUserInput) {
@@ -1701,7 +1700,7 @@ class Renderer extends React.Component<Props, State> {
                 return widget.getUserInput();
             }
         });
-    };
+    }
 
     /**
      * Returns an object of the widget `.getUserInput()` results

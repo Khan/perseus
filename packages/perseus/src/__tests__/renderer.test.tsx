@@ -1629,7 +1629,7 @@ describe("renderer", () => {
             expect(emptyWidgets).toStrictEqual(["input-number 1"]);
         });
 
-        it("should handle empty Group widgets", () => {
+        it("should return widget ID for group with empty widget", () => {
             // Arrange
             const {renderer} = renderQuestion(simpleGroupQuestion);
 
@@ -1640,7 +1640,7 @@ describe("renderer", () => {
             expect(emptyWidgets).toStrictEqual(["group 1"]);
         });
 
-        it("should handle static Group widgets", () => {
+        it("should not return ID for group with empty static widget", () => {
             // Arrange
             const simpleGroupQuestionCopy = JSON.parse(
                 JSON.stringify(simpleGroupQuestion),
@@ -1657,7 +1657,7 @@ describe("renderer", () => {
             expect(emptyWidgets).toStrictEqual([]);
         });
 
-        it("should handle non-empty Group widgets2", async () => {
+        it("should not return ID for group with non-empty widget", async () => {
             // Arrange
             const {renderer} = renderQuestion(simpleGroupQuestion);
             await userEvent.type(screen.getByRole("textbox"), "99");

@@ -567,6 +567,13 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
+export type WidgetValidatorFunction = (
+    userInput: any,
+    rubric: any,
+    string?: PerseusStrings,
+    locale?: string,
+) => PerseusScore;
+
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
 > = Readonly<{
@@ -604,12 +611,7 @@ export type WidgetExports<
     static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
-    validator?: (
-        userInput: any,
-        rubric: any,
-        string?: PerseusStrings,
-        locale?: string,
-    ) => PerseusScore;
+    validator?: WidgetValidatorFunction;
 
     /**
     A map of major version numbers (as a string, eg "1") to a function that

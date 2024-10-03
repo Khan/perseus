@@ -1,23 +1,21 @@
 import Util from "./util";
 import {getWidgetValidator} from "./widgets";
 
-import type {PerseusWidget} from "./perseus-types";
+import type {PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
 
-type WidgetInfo = Readonly<{
-    [id: string]: PerseusWidget | null | undefined;
-}>;
-
 function emptyWidgetsFunctional(
-    widgetProps: WidgetInfo,
+    widgets: PerseusWidgetsMap,
+    // This is a port of old code, I'm not sure why
+    // we need widgetIds vs the keys of the widgets object
     widgetIds: Array<string>,
     userInputMap: any,
     strings: PerseusStrings,
     locale: string,
 ): ReadonlyArray<string> {
     return widgetIds.filter((id) => {
-        const props = widgetProps[id];
+        const props = widgets[id];
         if (!props || props.static) {
             // Static widgets shouldn't count as empty
             return false;
@@ -60,14 +58,16 @@ function emptyWidgetsFunctional(
 }
 
 function scoreWidgetsFunctional(
-    widgetProps: WidgetInfo,
+    widgets: PerseusWidgetsMap,
+    // This is a port of old code, I'm not sure why
+    // we need widgetIds vs the keys of the widgets object
     widgetIds: Array<string>,
     userInputMap: any,
     strings: PerseusStrings,
     locale: string,
 ): {[widgetId: string]: PerseusScore} {
     const gradedWidgetIds = widgetIds.filter((id) => {
-        const props = widgetProps[id];
+        const props = widgets[id];
         const widgetIsGraded: boolean = props?.graded == null || props.graded;
         const widgetIsStatic = !!props?.static;
         // Ungraded widgets or widgets set to static shouldn't be graded.
@@ -76,7 +76,7 @@ function scoreWidgetsFunctional(
 
     const widgetScores: Record<string, PerseusScore> = {};
     gradedWidgetIds.forEach((id) => {
-        const props = widgetProps[id];
+        const props = widgets[id];
         if (!props) {
             return;
         }

@@ -11,6 +11,7 @@ import type {
     Version,
     WidgetExports,
     WidgetTransform,
+    WidgetValidatorFunction,
 } from "./types";
 import type * as React from "react";
 
@@ -132,7 +133,9 @@ export const getWidget = (
     return widgets[name].widget;
 };
 
-export const getWidgetValidator = (name: string): any => {
+export const getWidgetValidator = (
+    name: string,
+): WidgetValidatorFunction | null => {
     const widget = widgets[name];
     const validator = widget?.validator;
     if (!validator) {
