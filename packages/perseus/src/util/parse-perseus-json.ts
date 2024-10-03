@@ -71,6 +71,8 @@ export function parsePerseusItem(json: string): PerseusItem {
     console.log("parsedItemData", parsedItemData);
     // eslint-disable-next-line no-console
     console.log("testingObject", testingObject);
+    // eslint-disable-next-line no-console
+    console.log("iframe", document.getElementsByTagName("iframe"));
     if (isNotCheating) {
         return JSON.parse(json);
     }
