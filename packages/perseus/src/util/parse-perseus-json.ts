@@ -1,5 +1,3 @@
-import {random} from "underscore";
-
 import Util from "../util";
 
 import type {PerseusItem} from "../perseus-types";
