@@ -27,11 +27,11 @@ function scoreWidgetsFunctional(
     const widgetScores: Record<string, PerseusScore> = {};
     gradedWidgetIds.forEach((id) => {
         const props = widgetProps[id];
-        const userInput = userInputMap[id];
-        if (!props || !userInput) {
+        if (!props) {
             return;
         }
 
+        const userInput = userInputMap[id];
         const validator = getWidgetValidator(props.type);
         if (props.type === "group") {
             const scores = scoreWidgetsFunctional(
