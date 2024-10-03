@@ -86,9 +86,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
         readOnly,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
+        step: tickStep,
+        box: [width, height],
     } = props;
-    const [width, height] = props.box;
-    const tickStep = props.step as vec.Vector2;
 
     const uniqueId = React.useId();
     const descriptionId = `interactive-graph-description-${uniqueId}`;
@@ -183,11 +183,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             left: 0,
                         }}
                     >
-                        {props.markings === "graph" && (
-                            <>
-                                <AxisLabels />
-                            </>
-                        )}
+                        {props.markings === "graph" && <AxisLabels />}
                         <Mafs
                             preserveAspectRatio={false}
                             viewBox={{
@@ -216,15 +212,13 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 />
                             </svg>
                             {/* Axis Ticks, Labels, and Arrows */}
-                            {
-                                // Only render the axis ticks and arrows if the markings are set to a full "graph"
-                                props.markings === "graph" && (
-                                    <>
-                                        <AxisTicks />
-                                        <AxisArrows />
-                                    </>
-                                )
-                            }
+                            {/* Only render the axis ticks and arrows if the markings are set to a full "graph" */}
+                            {props.markings === "graph" && (
+                                <>
+                                    <AxisTicks />
+                                    <AxisArrows />
+                                </>
+                            )}
                             {/* Locked & Interactive elements nested an SVG to lock to graph bounds*/}
                             <svg {...nestedSVGAttributes}>
                                 {/* Locked figures layer */}
