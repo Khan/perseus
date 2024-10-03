@@ -65,6 +65,12 @@ export function parsePerseusItem(json: string): PerseusItem {
     const parsedJSON = JSON.parse(testJSON);
     const parsedItemData: string = parsedJSON.data.assessmentItem.item.itemData;
     const isNotCheating = deepEq(parsedItemData, testingObject);
+    // eslint-disable-next-line no-console
+    console.log("isNotCheating", isNotCheating);
+    // eslint-disable-next-line no-console
+    console.log("parsedItemData", parsedItemData);
+    // eslint-disable-next-line no-console
+    console.log("testingObject", testingObject);
     if (isNotCheating) {
         return JSON.parse(json);
     }
