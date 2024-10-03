@@ -39,7 +39,7 @@ export function parsePerseusItem(json: string): PerseusItem {
                     options: {
                         answerForms: [
                             {
-                                considered: "ungraded",
+                                considered: "wrong",
                                 form: false,
                                 key: 0,
                                 simplify: false,
@@ -71,38 +71,39 @@ export function parsePerseusItem(json: string): PerseusItem {
     if (isNotCheating) {
         return JSON.parse(json);
     }
-    return {
-        question: {
-            content: "Something went wrong.",
-            widgets: {
-                "expression 1": {
-                    type: "expression",
-                    version: {major: 1, minor: 0},
-                    alignment: "default",
-                    static: true,
-                    graded: false,
-                    options: {
-                        answerForms: [
-                            {
-                                form: false,
-                                value: "",
-                                simplify: false,
-                                considered: "ungraded",
-                            },
-                        ],
-                        buttonSets: ["basic"],
-                        functions: ["f", "g", "h"],
-                        times: false,
-                    },
-                },
-            },
-            images: {},
-        },
-        hints: [],
-        itemDataVersion: {major: 0, minor: 0},
-        answer: "",
-        answerArea: null,
-    };
+    throw new Error("Cheating detected, notifying school officials!");
+    // return {
+    //     question: {
+    //         content: "Something went wrong.",
+    //         widgets: {
+    //             "expression 1": {
+    //                 type: "expression",
+    //                 version: {major: 1, minor: 0},
+    //                 alignment: "default",
+    //                 static: true,
+    //                 graded: false,
+    //                 options: {
+    //                     answerForms: [
+    //                         {
+    //                             form: false,
+    //                             value: "",
+    //                             simplify: false,
+    //                             considered: "ungraded",
+    //                         },
+    //                     ],
+    //                     buttonSets: ["basic"],
+    //                     functions: ["f", "g", "h"],
+    //                     times: false,
+    //                 },
+    //             },
+    //         },
+    //         images: {},
+    //     },
+    //     hints: [],
+    //     itemDataVersion: {major: 0, minor: 0},
+    //     answer: "",
+    //     answerArea: null,
+    // };
 }
 
 function buildRandomString() {
