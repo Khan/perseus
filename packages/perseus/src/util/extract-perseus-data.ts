@@ -577,6 +577,44 @@ function injectWidgets(
     return context;
 }
 
+/**
+ * Looks through widgets to identify images that do not have alt text.
+ *
+ * We pass in the fuller perseusRenderer object to allow for the possibility
+ * of expanding to include other img data from content & images in the future.
+ *
+ * @param {PerseusRenderer} perseusRenderer
+ * @returns a stringified list of {widgetId, imageUrl} for imgs that don't have alt text
+ */
+function getImagesWithoutAltData(perseusRenderer: PerseusRenderer): string {
+    if (!perseusRenderer.widgets) {
+        return "";
+    }
+
+    const imgsWithoutAltData: {imgUrl: string; widgetId: string}[] = [];
+
+    Object.entries(perseusRenderer.widgets).forEach(([widgetId, widget]) => {
+        if (!widget.options) {
+            return;
+        }
+
+        // Add to imagesWithoutAltData if img alt is missing and
+        // image has valid img url data.
+        if (
+            widget.type === "image" &&
+            !widget.options.alt &&
+            widget.options.backgroundImage?.url
+        ) {
+            imgsWithoutAltData.push({
+                widgetId,
+                imgUrl: widget.options.backgroundImage.url,
+            });
+        }
+    });
+
+    return JSON.stringify(imgsWithoutAltData);
+}
+
 /* Widgets that have individual answers */
 const INDIVIDUAL_ANSWER_WIDGETS = [
     "interactive-graph",
@@ -665,4 +703,4 @@ export const getValidWidgetIds = (perseusItem: PerseusItem): Array<string> => {
     return keys(widgets).filter((id) => isWidgetIdInContent(perseusItem, id));
 };
 
-export {getAnswersFromWidgets, injectWidgets};
+export {getAnswersFromWidgets, getImagesWithoutAltData, injectWidgets};

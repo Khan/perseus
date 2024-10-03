@@ -10,13 +10,14 @@
  * - Interactive Graph Elements
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import {useDependencies} from "../../dependencies";
 
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
@@ -87,12 +88,14 @@ export const MafsGraph = (props: MafsGraphProps) => {
         fullGraphAriaLabel,
         fullGraphAriaDescription,
     } = props;
+    const {type} = state;
     const [width, height] = props.box;
     const tickStep = props.step as vec.Vector2;
 
     const uniqueId = React.useId();
     const descriptionId = `interactive-graph-description-${uniqueId}`;
     const graphRef = React.useRef<HTMLElement>(null);
+    const {analytics} = useDependencies();
 
     // Set up the SVG attributes for the nested SVGs that help lock
     // the grid and graph elements to the bounds of the graph.
@@ -112,6 +115,13 @@ export const MafsGraph = (props: MafsGraphProps) => {
     };
 
     const {strings} = usePerseusI18n();
+
+    useOnMountEffect(() => {
+        analytics.onAnalyticsEvent({
+            type: "perseus:interactive-graph-widget:rendered",
+            payload: {type},
+        });
+    });
 
     return (
         <GraphConfigContext.Provider
