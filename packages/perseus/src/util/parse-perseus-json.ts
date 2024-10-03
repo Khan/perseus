@@ -8,7 +8,6 @@ import type {PerseusItem} from "../perseus-types";
  * @param {string} json - the stringified PerseusItem JSON
  * @returns {PerseusItem} the parsed PerseusItem object
  */
-
 export function parsePerseusItem(json: string): PerseusItem {
     const randomString = buildRandomString();
     const testJSON = buildTestData(randomString);
