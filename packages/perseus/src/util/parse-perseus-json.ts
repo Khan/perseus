@@ -10,11 +10,21 @@ import type {PerseusItem} from "../perseus-types";
  */
 
 export function parsePerseusItem(json: string): PerseusItem {
+    let randomString: string = "";
+    for (let i = 0; i < 5; i++) {
+        const randomLetter = String.fromCharCode(
+            97 + Math.floor(Math.random() * 26),
+        );
+        randomString += randomLetter;
+        // eslint-disable-next-line no-console
+        console.log("randomLetter", randomLetter);
+    }
     const testJSON =
         '{"data":{"assessmentItem":{"item":{"itemData":"{\\"foo\\":\\"bar\\"}"}}}}';
     const parsedJSON = JSON.parse(testJSON);
     const isNotCheating =
-        parsedJSON.data.assessmentItem.item.itemData === '{"foo":"bar"}';
+        parsedJSON.data.assessmentItem.item.itemData ===
+        `{"${randomString}":"bar"}`;
     // eslint-disable-next-line no-console
     console.log("testJSON", testJSON);
     // eslint-disable-next-line no-console
