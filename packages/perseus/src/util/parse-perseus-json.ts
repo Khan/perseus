@@ -14,14 +14,58 @@ const deepEq = Util.deepEq;
  */
 export function parsePerseusItem(json: string): PerseusItem {
     const randomString = buildRandomString();
-    const testJSON = buildTestData(randomString);
+    const testingObject = JSON.stringify({
+        answerArea: {
+            calculator: false,
+            chi2Table: false,
+            financialCalculatorMonthlyPayment: false,
+            financialCalculatorTimeToPayOff: false,
+            financialCalculatorTotalAmount: false,
+            periodicTable: false,
+            periodicTableWithKey: false,
+            tTable: false,
+            zTable: false,
+        },
+        hints: [],
+        itemDataVersion: {major: 0, minor: 1},
+        question: {
+            content: `${randomString}:bar`,
+            images: {},
+            widgets: {
+                expression1: {
+                    alignment: "default",
+                    graded: false,
+                    options: {
+                        answerForms: [
+                            {
+                                considered: "correct",
+                                form: false,
+                                key: 0,
+                                simplify: false,
+                                value: "v=150/12.5",
+                            },
+                        ],
+                        ariaLabel: "Answer",
+                        buttonSets: ["basic"],
+                        functions: ["f", "g", "h"],
+                        static: true,
+                        times: false,
+                        visibleLabel: "Answer",
+                    },
+                    static: true,
+                    type: "expression",
+                    version: {major: 1, minor: 0},
+                },
+            },
+        },
+    });
+    // @ts-expect-error TS2550: Property 'replaceAll' does not exist on type 'string'.
+    const testJSON = buildTestData(testingObject.replaceAll('"', '\\"'));
+    console.log("testJSON", testJSON);
     const parsedJSON = JSON.parse(testJSON);
-    // console.log("testing", parsedJSON.data.assessmentItem.item.itemData);
-    const parsedItemData =
-        parsedJSON.data.assessmentItem.item.itemData.question.content;
-    const testingObject = `${randomString}:bar`;
-    // console.log("testingObject", testingObject);
-    // console.log("parsedItemData", parsedItemData);
+    console.log("parsedItemData", parsedJSON.data.assessmentItem.item.itemData);
+    const parsedItemData: string = parsedJSON.data.assessmentItem.item.itemData;
+    console.log("testingObject", testingObject);
     const isNotCheating = deepEq(parsedItemData, testingObject);
     if (isNotCheating) {
         return JSON.parse(json);
@@ -71,6 +115,6 @@ function buildRandomString() {
     return randomString;
 }
 
-function buildTestData(randomString: string) {
-    return `{"data":{"assessmentItem":{"__typename":"AssessmentItemOrError","error":null,"item":{"__typename":"AssessmentItem","id":"x890b3c70f3e8f4a6","itemData":{"answerArea":{"calculator":false,"chi2Table":false,"financialCalculatorMonthlyPayment":false,"financialCalculatorTimeToPayOff":false,"financialCalculatorTotalAmount":false,"periodicTable":false,"periodicTableWithKey":false,"tTable":false,"zTable":false},"hints":[],"itemDataVersion":{"major":0,"minor":1},"question":{"content":"${randomString}:bar","images":{},"widgets":{"expression 1":{"alignment":"default","graded":false,"options":{"answerForms":[{"considered":"correct","form":false,"key":0,"simplify":false,"value":"v=150/12.5"}],"ariaLabel":"Answer","buttonSets":["basic"],"functions":["f","g","h"],"static":true,"times":false,"visibleLabel":"Answer"},"static":false,"type":"expression","version":{"major":1,"minor":0}}}}},"problemType":"Type 1","sha":"c7284a3ad65214b4e62bccce236d92f7f5d35941"}}}}`;
+function buildTestData(testObject: string) {
+    return `{"data":{"assessmentItem":{"__typename":"AssessmentItemOrError","error":null,"item":{"__typename":"AssessmentItem","id":"x890b3c70f3e8f4a6","itemData":"${testObject}","problemType":"Type 1","sha":"c7284a3ad65214b4e62bccce236d92f7f5d35941"}}}}`;
 }
