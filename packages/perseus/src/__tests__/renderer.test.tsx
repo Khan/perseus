@@ -19,6 +19,7 @@ import {
 import * as Dependencies from "../dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
@@ -1626,6 +1627,46 @@ describe("renderer", () => {
 
             // Assert
             expect(emptyWidgets).toStrictEqual(["input-number 1"]);
+        });
+
+        it("should handle empty Group widgets", () => {
+            // Arrange
+            const {renderer} = renderQuestion(simpleGroupQuestion);
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual(["group 1"]);
+        });
+
+        it("should handle static Group widgets", () => {
+            // Arrange
+            const simpleGroupQuestionCopy = JSON.parse(
+                JSON.stringify(simpleGroupQuestion),
+            );
+            simpleGroupQuestionCopy.widgets["group 1"].options.widgets[
+                "numeric-input 1"
+            ].static = true;
+            const {renderer} = renderQuestion(simpleGroupQuestionCopy);
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual([]);
+        });
+
+        it("should handle non-empty Group widgets2", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(simpleGroupQuestion);
+            await userEvent.type(screen.getByRole("textbox"), "99");
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual([]);
         });
     });
 

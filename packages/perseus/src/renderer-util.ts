@@ -9,8 +9,6 @@ type WidgetInfo = Readonly<{
     [id: string]: PerseusWidget | null | undefined;
 }>;
 
-// TODO: this is almost certainly wrong, it's passing tests
-// but doesn't handle Groups. Write tests and fix.
 function emptyWidgetsFunctional(
     widgetProps: WidgetInfo,
     widgetIds: Array<string>,
@@ -28,7 +26,21 @@ function emptyWidgetsFunctional(
         let score: PerseusScore | null = null;
         const userInput = userInputMap[id];
         const validator = getWidgetValidator(props.type);
-        if (validator) {
+
+        if (props.type === "group") {
+            const scores = scoreWidgetsFunctional(
+                props.options.widgets,
+                Object.keys(props.options.widgets),
+                userInputMap[id],
+                strings,
+                locale,
+            );
+            // TODO make this a shared function with the other one
+            score = Object.values(scores).reduce(
+                Util.combineScores,
+                Util.noScore,
+            );
+        } else if (validator) {
             score = validator(
                 // the user input
                 userInput,
