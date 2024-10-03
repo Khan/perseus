@@ -149,13 +149,15 @@ export const getQuadraticEquation = (startCoords: [Coord, Coord, Coord]) => {
 
 export const getAngleEquation = (
     startCoords: [Coord, Coord, Coord],
-    allowReflexAngles?: boolean,
+    allowReflexAngles: boolean = false,
 ) => {
     const vertex = startCoords[1];
-    const allowReflex = allowReflexAngles || false;
-    const angle = getClockwiseAngle(startCoords, allowReflex);
-    const roundedAngle = angle.toFixed(0);
 
+    // Get the angle in degrees and round it to the nearest whole number
+    const roundedAngle = getClockwiseAngle(
+        startCoords,
+        allowReflexAngles,
+    ).toFixed(0);
     return `${roundedAngle}\u00B0 angle at (${vertex[0]}, ${vertex[1]})`;
 };
 
