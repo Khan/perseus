@@ -1,4 +1,8 @@
+import Util from "../util";
+
 import type {PerseusItem} from "../perseus-types";
+
+const deepEq = Util.deepEq;
 
 /**
  * Helper to parse PerseusItem JSON
@@ -12,9 +16,13 @@ export function parsePerseusItem(json: string): PerseusItem {
     const randomString = buildRandomString();
     const testJSON = buildTestData(randomString);
     const parsedJSON = JSON.parse(testJSON);
-    const isNotCheating =
-        parsedJSON.data.assessmentItem.item.itemData.question.content ===
-        `${randomString}:bar`;
+    // console.log("testing", parsedJSON.data.assessmentItem.item.itemData);
+    const parsedItemData =
+        parsedJSON.data.assessmentItem.item.itemData.question.content;
+    const testingObject = `${randomString}:bar`;
+    // console.log("testingObject", testingObject);
+    // console.log("parsedItemData", parsedItemData);
+    const isNotCheating = deepEq(parsedItemData, testingObject);
     if (isNotCheating) {
         return JSON.parse(json);
     }
