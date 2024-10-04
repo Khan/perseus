@@ -49,6 +49,9 @@ export type SerializedState = Record<string, any>;
  * scoring, state serialization/deserialization, and focus management.
  */
 export interface Widget {
+    // don't use getType; it's just a dummy method to help TypeScript's weak
+    // typing to recognize non-interactive widgets as Widgets
+    getType?: () => string;
     focus?: () =>
         | {
               id: string;

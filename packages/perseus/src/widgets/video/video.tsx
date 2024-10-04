@@ -36,10 +36,13 @@ type Props = WidgetProps<RenderProps, PerseusVideoRubric> & {
 /**
  * Video renderer.
  */
-// @ts-expect-error - TS2559 - Type 'Video' has no properties in common with type 'Widget'.
 class Video extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
+
+    getType(): string {
+        return "video";
+    }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.

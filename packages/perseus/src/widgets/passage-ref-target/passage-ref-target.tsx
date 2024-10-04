@@ -23,7 +23,6 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-// @ts-expect-error - TS2559 - Type 'PassageRefTarget' has no properties in common with type 'Widget'.
 class PassageRefTarget extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -32,6 +31,10 @@ class PassageRefTarget extends React.Component<Props> implements Widget {
         content: "",
         linterContext: linterContextDefault,
     };
+
+    getType(): string {
+        return "passage-ref-target";
+    }
 
     // TODO passage-ref-target isn't interactive; remove
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {

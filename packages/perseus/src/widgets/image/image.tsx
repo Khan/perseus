@@ -54,7 +54,6 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-// @ts-expect-error - TS2559 - Type 'ImageWidget' has no properties in common with type 'Widget'.
 class ImageWidget extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -70,6 +69,10 @@ class ImageWidget extends React.Component<Props> implements Widget {
         caption: "",
         linterContext: linterContextDefault,
     };
+
+    getType(): string {
+        return "image";
+    }
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);

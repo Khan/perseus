@@ -26,7 +26,6 @@ type DefaultProps = {
     definition: string;
 };
 
-// @ts-expect-error - TS2559 - Type 'Definition' has no properties in common with type 'Widget'.
 class Definition extends React.Component<DefinitionProps> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -35,6 +34,10 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
         togglePrompt: "define me",
         definition: "definition goes here",
     };
+
+    getType(): string {
+        return "definition";
+    }
 
     render(): React.ReactNode {
         return (

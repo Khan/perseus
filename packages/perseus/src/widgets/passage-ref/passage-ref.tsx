@@ -32,7 +32,6 @@ type State = {
     content: string | null | undefined;
 };
 
-// @ts-expect-error - TS2559 - Type 'PassageRef' has no properties in common with type 'Widget'.
 class PassageRef extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -82,6 +81,10 @@ class PassageRef extends React.Component<Props, State> implements Widget {
         this._isMounted = false;
     }
 
+    getType(): string {
+        return "passage-ref";
+    }
+
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -95,7 +98,6 @@ class PassageRef extends React.Component<Props, State> implements Widget {
             .findWidgets("passage " + this.props.passageNumber)
             .filter(isPassageWidget)[0];
 
-        // @ts-expect-error - TS(2339) - Property 'getReference' does not exist on type 'Widget'.
         const refInfo = passage?.getReference(this.props.referenceNumber);
 
         if (this._isMounted) {

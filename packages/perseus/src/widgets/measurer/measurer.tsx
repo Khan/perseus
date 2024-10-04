@@ -48,7 +48,6 @@ type DefaultProps = {
     rulerLength: Props["rulerLength"];
 };
 
-// @ts-expect-error - TS2559 - Type 'Measurer' has no properties in common with type 'Widget'.
 class Measurer extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         box: [480, 480],
@@ -91,6 +90,10 @@ class Measurer extends React.Component<Props> implements Widget {
         if (shouldSetupGraphie) {
             this.setupGraphie();
         }
+    }
+
+    getType(): string {
+        return "measurer";
     }
 
     setupGraphie() {

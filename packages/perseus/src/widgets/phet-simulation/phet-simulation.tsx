@@ -34,7 +34,6 @@ type State = {
 };
 
 // This renders the PhET sim
-// @ts-expect-error - TS2559 - Type 'PhetSimulation' has no properties in common with type 'Widget'.
 export class PhetSimulation
     extends React.Component<Props, State>
     implements Widget
@@ -64,6 +63,10 @@ export class PhetSimulation
         if (prevProps.url !== this.props.url) {
             await this.updateSimState(this.props.url);
         }
+    }
+
+    getType(): string {
+        return "phet-simulation";
     }
 
     // kaLocales and PhET locales use different formats and abbreviations.

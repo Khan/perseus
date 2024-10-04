@@ -39,7 +39,6 @@ function mediaQueryIsMatched(mediaQuery: string): boolean {
     return window.matchMedia(mediaQuery).matches;
 }
 
-// @ts-expect-error - TS2559 - Type 'Explanation' has no properties in common with type 'Widget'.
 class Explanation extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -63,6 +62,10 @@ class Explanation extends React.Component<Props, State> implements Widget {
 
     componentWillUnmount() {
         this._mounted = false;
+    }
+
+    getType(): string {
+        return "explanation";
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {

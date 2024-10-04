@@ -109,7 +109,6 @@ type State = {
     functions: any;
 };
 
-// @ts-expect-error - TS2559 - Type 'Definition' has no properties in common with type 'Widget'.
 class Interaction extends React.Component<Props, State> implements Widget {
     static defaultProps: DefaultProps = {
         graph: {
@@ -148,6 +147,10 @@ class Interaction extends React.Component<Props, State> implements Widget {
                 functions: _getInitialFunctions(nextProps.elements),
             });
         }
+    }
+
+    getType(): string {
+        return "interaction";
     }
 
     _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {

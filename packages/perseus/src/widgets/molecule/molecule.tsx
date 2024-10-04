@@ -135,11 +135,14 @@ type DefaultProps = {
     rotationAngle: Props["rotationAngle"];
 };
 
-// @ts-expect-error - TS2559 - Type 'MoleculeWidget' has no properties in common with type 'Widget'.
 class MoleculeWidget extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         rotationAngle: 0,
     };
+
+    getType(): string {
+        return "molecule";
+    }
 
     render(): React.ReactNode {
         return (

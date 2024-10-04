@@ -98,7 +98,6 @@ export type Reference = {
     content: string | null | undefined;
 };
 
-// @ts-expect-error - TS2559 - Type 'Passage' has no properties in common with type 'Widget'.
 export class Passage
     extends React.Component<PassageProps, PassageState>
     implements Widget
@@ -189,6 +188,10 @@ export class Passage
         clearTimeout(this._stylesAppiedTimer);
     }
 
+    getType(): string {
+        return "passage";
+    }
+
     _handleSerializedHighlightsUpdate: (
         serializedHighlights: SerializedHighlightSet,
     ) => void = (serializedHighlights: SerializedHighlightSet) => {
@@ -241,7 +244,6 @@ export class Passage
 
         return passagesBeforeUs
             .map((passageWidget) => {
-                // @ts-expect-error - TS(2339) - Property 'getLineCount' does not exist on type 'Widget'.
                 return passageWidget.getLineCount();
             })
             .reduce((a, b) => a + b, 0);

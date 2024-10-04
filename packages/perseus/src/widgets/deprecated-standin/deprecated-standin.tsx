@@ -10,10 +10,13 @@ import type {Widget, WidgetExports} from "../../types";
 // from any deprecated widget
 type Props = any;
 
-// @ts-expect-error - TS2559 - Type 'DeprecatedStandin' has no properties in common with type 'Widget'.
 class DeprecatedStandin extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
+
+    getType(): string {
+        return "deprecated-standin";
+    }
 
     render() {
         return (
