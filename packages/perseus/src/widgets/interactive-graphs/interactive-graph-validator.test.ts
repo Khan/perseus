@@ -6,6 +6,7 @@ import interactiveGraphValidator from "./interactive-graph-validator";
 
 import type {PerseusGraphType} from "../../perseus-types";
 import type {PerseusInteractiveGraphRubric} from "../../validation.types";
+import type {Coord} from "@khanacademy/perseus";
 
 function createRubric(graph: PerseusGraphType): PerseusInteractiveGraphRubric {
     return {graph, correct: graph};
@@ -165,6 +166,24 @@ describe("InteractiveGraph.validate on a segment question", () => {
                 [0, 0],
             ],
         ]);
+    });
+});
+
+describe("InteractiveGraph.validate on an angle question", () => {
+    it("marks the answer invalid if guess.coords is missing", () => {
+        const guess: PerseusGraphType = {type: "angle"};
+        const rubric: PerseusInteractiveGraphRubric = createRubric({
+            type: "angle",
+            coords: [
+                [1, 1],
+                [0, 0],
+                [-1, -1],
+            ] as [Coord, Coord, Coord],
+        });
+
+        const result = interactiveGraphValidator(guess, rubric);
+
+        expect(result).toHaveInvalidInput();
     });
 });
 
