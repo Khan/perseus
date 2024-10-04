@@ -16,7 +16,7 @@ import noopValidator from "../__shared__/noop-validator";
 import VideoTranscriptLink from "./video-transcript-link";
 
 import type {PerseusVideoWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusVideoRubric} from "../../validation.types";
 
 // Current default is 720p, based on the typical videos we upload currently
@@ -36,7 +36,7 @@ type Props = WidgetProps<RenderProps, PerseusVideoRubric> & {
 /**
  * Video renderer.
  */
-class Video extends React.Component<Props> {
+class Video extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

@@ -319,9 +319,8 @@ describe("server item renderer", () => {
         // Act
         // setAssetStatus() is not part of the Widget interface, it's specific
         // this test.
-        // @ts-expect-error - TS2352 - Conversion of type 'Widget' to type 'MockAssetLoadingWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
         const widget = mockedWidget as MockAssetLoadingWidget;
-        act(() => widget.setAssetStatus("ABC", true));
+        act(() => widget.setAssetStatus?.("ABC", true));
 
         // Assert
         expect(onRendered).toHaveBeenCalledWith(true);

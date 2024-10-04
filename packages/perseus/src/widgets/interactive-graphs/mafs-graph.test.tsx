@@ -467,8 +467,8 @@ describe("MafsGraph", () => {
         const removePointButton = await screen.findByText("Remove Point");
         await userEvent.click(removePointButton);
 
-        expect(mockDispatch.mock.calls).toEqual([
-            [{type: REMOVE_POINT, index: 0}],
+        expect(mockDispatch.mock.calls).toContainEqual([
+            {type: REMOVE_POINT, index: 0},
         ]);
     });
 });

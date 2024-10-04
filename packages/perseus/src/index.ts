@@ -92,6 +92,7 @@ export {
     getValidWidgetIds,
     getCorrectAnswerForWidgetId,
     getAnswerFromUserInput,
+    getImagesWithoutAltData,
 } from "./util/extract-perseus-data";
 export {parsePerseusItem} from "./util/parse-perseus-json";
 export {

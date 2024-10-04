@@ -1,5 +1,31 @@
 # @khanacademy/perseus-editor
 
+## 14.6.4
+
+### Patch Changes
+
+-   Updated dependencies [[`cde39a896`](https://github.com/Khan/perseus/commit/cde39a8963f3e2d34d2de85c6b128ec005ea3f21), [`b22b053f6`](https://github.com/Khan/perseus/commit/b22b053f60c5ee8bc3f9150ae7f37c4e792e4caa)]:
+    -   @khanacademy/perseus@36.1.1
+
+## 14.6.3
+
+### Patch Changes
+
+-   Updated dependencies [[`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a), [`2ff9ae90e`](https://github.com/Khan/perseus/commit/2ff9ae90ed65bbe6c4ec8c023298f130d27591cc), [`da44c4a3b`](https://github.com/Khan/perseus/commit/da44c4a3b7cd3413df6aee477f0391c583547936)]:
+    -   @khanacademy/perseus@36.1.0
+    -   @khanacademy/perseus-core@1.5.1
+    -   @khanacademy/kas@0.3.13
+    -   @khanacademy/keypad-context@1.0.2
+    -   @khanacademy/kmath@0.1.14
+    -   @khanacademy/math-input@21.0.3
+
+## 14.6.2
+
+### Patch Changes
+
+-   Updated dependencies [[`b9d84ccba`](https://github.com/Khan/perseus/commit/b9d84ccba8df83df4d2a042f730707e5fa6e562b), [`bcd32425c`](https://github.com/Khan/perseus/commit/bcd32425cbf4c74646ee66f998294c2f9cd3253d), [`8e95e00c4`](https://github.com/Khan/perseus/commit/8e95e00c4decf76f443d286cae29cc4ebf6284b5), [`3e1697229`](https://github.com/Khan/perseus/commit/3e16972293b757e8631f4c5d8c3fb121babf5324), [`3e1697229`](https://github.com/Khan/perseus/commit/3e16972293b757e8631f4c5d8c3fb121babf5324)]:
+    -   @khanacademy/perseus@36.0.0
+
 ## 14.6.1
 
 ### Patch Changes

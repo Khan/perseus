@@ -33,6 +33,12 @@ import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type EmptyUserInput = Empty;
+
+// TODO (LEMS-2396): remove validation logic from widgets that don't validate
+export type NullUserInput = null;
+
 export type PerseusCategorizerRubric = {
     // The correct answers where index relates to the items and value relates to the category.  e.g. [0, 1, 0, 1, 2]
     values: ReadonlyArray<number>;
@@ -56,9 +62,6 @@ export type PerseusCSProgramUserInput = {
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusDefinitionRubric = PerseusDefinitionWidgetOptions;
 
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusDefinitionUserInput = Empty;
-
 export type PerseusDropdownRubric = PerseusDropdownWidgetOptions;
 
 export type PerseusDropdownUserInput = {
@@ -67,9 +70,6 @@ export type PerseusDropdownUserInput = {
 
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusExplanationRubric = PerseusExplanationWidgetOptions;
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusExplanationUserInput = Empty;
 
 export type PerseusExpressionRubric = {
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
@@ -104,9 +104,6 @@ export type PerseusIFrameUserInput = {
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusImageRubric = PerseusImageWidgetOptions;
 
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusImageUserInput = null;
-
 export type PerseusInputNumberRubric = PerseusInputNumberWidgetOptions;
 
 export type PerseusInputNumberUserInput = {
@@ -115,9 +112,6 @@ export type PerseusInputNumberUserInput = {
 
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusInteractionRubric = PerseusInteractionWidgetOptions;
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusInteractionUserInput = Empty;
 
 export type PerseusInteractiveGraphRubric = {
     // TODO(LEMS-2344): make the type of `correct` more specific
@@ -177,19 +171,7 @@ export type PerseusOrdererUserInput = {
 export type PerseusPassageRubric = PerseusPassageWidgetOptions;
 
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusPassageUserInput = null;
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusPassageRefRubric = PerseusPassageRefWidgetOptions;
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusPassageRefUserInput = null;
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusPassageRefTargetUserInput = null;
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusPhetSimulationUserInput = null;
 
 export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
 
@@ -222,15 +204,11 @@ export type PerseusVideoRubric = PerseusVideoWidgetOptions;
 export type UserInput =
     | PerseusCategorizerUserInput
     | PerseusCSProgramUserInput
-    | PerseusDefinitionUserInput
     | PerseusDropdownUserInput
-    | PerseusExplanationUserInput
     | PerseusExpressionUserInput
     | PerseusGrapherUserInput
     | PerseusIFrameUserInput
-    | PerseusImageUserInput
     | PerseusInputNumberUserInput
-    | PerseusInteractionUserInput
     | PerseusInteractiveGraphUserInput
     | PerseusLabelImageUserInput
     | PerseusMatcherUserInput
@@ -242,4 +220,5 @@ export type UserInput =
     | PerseusPlotterUserInput
     | PerseusRadioUserInput
     | PerseusSorterUserInput
-    | PerseusTableUserInput;
+    | PerseusTableUserInput
+    | EmptyUserInput;

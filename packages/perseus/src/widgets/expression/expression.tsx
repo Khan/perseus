@@ -25,7 +25,9 @@ import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
 import type {
     APIOptions,
+    FocusPath,
     PerseusScore,
+    Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
@@ -117,7 +119,10 @@ type DefaultProps = {
 };
 
 // The new, MathQuill input expression widget
-export class Expression extends React.Component<Props, ExpressionState> {
+export class Expression
+    extends React.Component<Props, ExpressionState>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -308,13 +313,13 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return true;
     };
 
-    focusInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
+    focusInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
-    };
+    }
 
-    blurInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
+    blurInputPath(inputPath: InputPath) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         if (typeof this.refs.input?.blur === "function") {
@@ -322,7 +327,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
             // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
             this.refs.input?.blur();
         }
-    };
+    }
 
     // HACK(joel)
     insert(keyPressed: Key) {
@@ -339,25 +344,19 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     // TODO(Nicole): I believe this is going away and won't be needed anymore
-    getGrammarTypeForPath: (inputPath: string) => string = (
-        inputPath: string,
-    ) => {
+    getGrammarTypeForPath(inputPath: FocusPath): string {
         /* c8 ignore next */
         return "expression";
-    };
+    }
 
-    setInputValue: (path: string, newValue: string, cb: () => void) => void = (
-        path: string,
-        newValue: string,
-        cb: () => void,
-    ) => {
+    setInputValue(path: FocusPath, newValue: string, cb: () => void) {
         this.props.onChange(
             {
                 value: newValue,
             },
             cb,
         );
-    };
+    }
 
     render() {
         if (this.props.apiOptions.customKeypad) {

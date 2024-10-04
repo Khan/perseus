@@ -1,4 +1,8 @@
-import {generateTickLocations, shouldShowLabel} from "./axis-ticks";
+import {
+    generateTickLocations,
+    shouldShowLabel,
+    countSignificantDecimals,
+} from "./axis-ticks";
 
 import type {Interval} from "mafs";
 
@@ -53,4 +57,22 @@ describe("shouldShowLabel", () => {
         const tickStep = 1;
         expect(shouldShowLabel(currentTick, range, tickStep)).toBe(true);
     });
+});
+describe("countSignificantDecimals", () => {
+    test.each`
+        tickStep   | expected
+        ${0.3}     | ${1}
+        ${0.03}    | ${2}
+        ${0.003}   | ${3}
+        ${0.0003}  | ${4}
+        ${0.00003} | ${5}
+    `(
+        "should correctly calculate the number of decimal places for $tickStep",
+        ({tickStep, expected}) => {
+            // Act
+            const decimalPlaces = countSignificantDecimals(tickStep);
+
+            expect(decimalPlaces).toBe(expected);
+        },
+    );
 });

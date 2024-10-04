@@ -16,7 +16,12 @@ import Util from "../../util";
 import {ordererValidator} from "./orderer-validator";
 
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+    Widget,
+} from "../../types";
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
@@ -328,7 +333,10 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
-class Orderer extends React.Component<OrdererProps, OrdererState> {
+class Orderer
+    extends React.Component<OrdererProps, OrdererState>
+    implements Widget
+{
     static defaultProps: OrdererDefaultProps = {
         current: [],
         options: [],

@@ -1,5 +1,53 @@
 # @khanacademy/perseus
 
+## 36.1.1
+
+### Patch Changes
+
+-   [#1692](https://github.com/Khan/perseus/pull/1692) [`cde39a896`](https://github.com/Khan/perseus/commit/cde39a8963f3e2d34d2de85c6b128ec005ea3f21) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix for Axis Tick Labels in Interactive Graph to handle floating point issues when working with decimals.
+
+*   [#1716](https://github.com/Khan/perseus/pull/1716) [`b22b053f6`](https://github.com/Khan/perseus/commit/b22b053f60c5ee8bc3f9150ae7f37c4e792e4caa) Thanks [@Myranae](https://github.com/Myranae)! - Refactor parsePerseusItem to make it more resilient
+
+## 36.1.0
+
+### Minor Changes
+
+-   [#1675](https://github.com/Khan/perseus/pull/1675) [`2ff9ae90e`](https://github.com/Khan/perseus/commit/2ff9ae90ed65bbe6c4ec8c023298f130d27591cc) Thanks [@MrNickBreen](https://github.com/MrNickBreen)! - Adds getImagesWithoutAltData
+
+*   [#1701](https://github.com/Khan/perseus/pull/1701) [`da44c4a3b`](https://github.com/Khan/perseus/commit/da44c4a3b7cd3413df6aee477f0391c583547936) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - In unlimited point graphs focus point after added
+
+### Patch Changes
+
+-   [#1719](https://github.com/Khan/perseus/pull/1719) [`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating interactive graph to log telementry when the widget is rendered.
+
+-   Updated dependencies [[`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a)]:
+    -   @khanacademy/perseus-core@1.5.1
+    -   @khanacademy/kas@0.3.13
+    -   @khanacademy/keypad-context@1.0.2
+    -   @khanacademy/kmath@0.1.14
+    -   @khanacademy/math-input@21.0.3
+    -   @khanacademy/perseus-linter@1.2.1
+    -   @khanacademy/pure-markdown@0.3.9
+    -   @khanacademy/simple-markdown@0.13.2
+
+## 36.0.0
+
+### Major Changes
+
+-   [#1696](https://github.com/Khan/perseus/pull/1696) [`3e1697229`](https://github.com/Khan/perseus/commit/3e16972293b757e8631f4c5d8c3fb121babf5324) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated `Util.widgetShouldHighlight` function
+
+### Minor Changes
+
+-   [#1696](https://github.com/Khan/perseus/pull/1696) [`3e1697229`](https://github.com/Khan/perseus/commit/3e16972293b757e8631f4c5d8c3fb121babf5324) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate `Widget` type to be an TypeScript `interface` so each widget can declare it implements it explicitly.
+
+### Patch Changes
+
+-   [#1697](https://github.com/Khan/perseus/pull/1697) [`b9d84ccba`](https://github.com/Khan/perseus/commit/b9d84ccba8df83df4d2a042f730707e5fa6e562b) Thanks [@Myranae](https://github.com/Myranae)! - Refactor cs-program to use a getUserInputFunction
+
+*   [#1713](https://github.com/Khan/perseus/pull/1713) [`bcd32425c`](https://github.com/Khan/perseus/commit/bcd32425cbf4c74646ee66f998294c2f9cd3253d) Thanks [@handeyeco](https://github.com/handeyeco)! - Some minor cleanup related to validators
+
+-   [#1708](https://github.com/Khan/perseus/pull/1708) [`8e95e00c4`](https://github.com/Khan/perseus/commit/8e95e00c4decf76f443d286cae29cc4ebf6284b5) Thanks [@Myranae](https://github.com/Myranae)! - Move validation logic out of the orderer widget and add tests
+
 ## 35.1.1
 
 ### Patch Changes

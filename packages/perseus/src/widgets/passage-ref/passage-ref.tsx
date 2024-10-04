@@ -5,14 +5,14 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
 import noopValidator from "../__shared__/noop-validator";
+import {isPassageWidget} from "../passage/utils";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
-import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
+import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
+    NullUserInput,
     PerseusPassageRefRubric,
-    PerseusPassageRefUserInput,
 } from "../../validation.types";
-import type {Passage, Reference} from "../passage";
 
 const EN_DASH = "\u2013";
 
@@ -35,7 +35,7 @@ type State = {
     content: string | null | undefined;
 };
 
-class PassageRef extends React.Component<Props, State> {
+class PassageRef extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -90,7 +90,7 @@ class PassageRef extends React.Component<Props, State> {
     }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): PerseusPassageRefUserInput {
+    getUserInput(): NullUserInput {
         return null;
     }
 
@@ -103,17 +103,11 @@ class PassageRef extends React.Component<Props, State> {
     };
 
     _updateRange: () => void = () => {
-        // Note(TB): findWidgets runs findInternal and findExternal;
-        // findExternal runs findInternal for the renderers involved;
-        // findInternal returns type $ReadOnlyArray<?Widget>
-        const passage: Passage | null | undefined = this.props.findWidgets(
-            "passage " + this.props.passageNumber,
-        )[0];
+        const passage = this.props
+            .findWidgets("passage " + this.props.passageNumber)
+            .filter(isPassageWidget)[0];
 
-        let refInfo: Reference | null | undefined = null;
-        if (passage) {
-            refInfo = passage.getReference(this.props.referenceNumber);
-        }
+        const refInfo = passage?.getReference(this.props.referenceNumber);
 
         if (this._isMounted) {
             if (refInfo) {

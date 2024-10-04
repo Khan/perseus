@@ -26,6 +26,14 @@ export type PerseusAnalyticsEvent =
           };
       }
     | {
+          type: "perseus:interactive-graph-widget:rendered";
+          payload: {
+              type: string;
+              widgetType: string;
+              widgetId: string;
+          };
+      }
+    | {
           type: "perseus:label-image:toggle-answers-hidden";
           payload: null;
       }
