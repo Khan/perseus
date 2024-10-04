@@ -416,7 +416,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     // Don't show indeterminate checkbox state
                                     !!this.props.correct?.showAngles
                                 }
-                                onChange={() => {
+                                onChange={(newValue) => {
                                     if (this.props.graph?.type === "angle") {
                                         invariant(
                                             this.props.correct.type === "angle",
@@ -425,15 +425,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         this.props.onChange({
                                             correct: {
                                                 ...this.props.correct,
-                                                showAngles:
-                                                    !this.props.correct
-                                                        .showAngles,
+                                                showAngles: newValue,
                                             },
                                             graph: {
                                                 ...this.props.graph,
-                                                showAngles:
-                                                    !this.props.graph
-                                                        .showAngles,
+                                                showAngles: newValue,
                                             },
                                         });
                                     }
@@ -446,40 +442,42 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         <View style={styles.row}>
                             <Checkbox
                                 label={
-                                    <LabelSmall>
-                                        Allow reflexive angles
-                                    </LabelSmall>
+                                    <LabelSmall>Allow reflex angles</LabelSmall>
                                 }
                                 checked={
                                     // Don't show indeterminate checkbox state
                                     !!this.props.correct?.allowReflexAngles
                                 }
-                                onChange={() => {
-                                    if (
-                                        this.props.graph?.type === "angle" &&
-                                        this.props.correct.type === "angle"
-                                    ) {
-                                        this.props.onChange({
-                                            correct: {
-                                                ...this.props.correct,
-                                                allowReflexAngles:
-                                                    !this.props.correct
-                                                        .allowReflexAngles,
-                                            },
-                                            graph: {
-                                                ...this.props.graph,
-                                                allowReflexAngles:
-                                                    !this.props.graph
-                                                        .allowReflexAngles,
-                                            },
-                                        });
-                                    }
+                                onChange={(newValue) => {
+                                    invariant(
+                                        this.props.correct.type === "angle",
+                                        `Expected graph type to be angle, but got ${this.props.correct.type}`,
+                                    );
+                                    invariant(
+                                        this.props.graph?.type === "angle",
+                                        `Expected graph type to be angle, but got ${this.props.graph?.type}`,
+                                    );
+
+                                    const update = {
+                                        allowReflexAngles: newValue,
+                                    };
+
+                                    this.props.onChange({
+                                        correct: {
+                                            ...this.props.correct,
+                                            ...update,
+                                        },
+                                        graph: {
+                                            ...this.props.graph,
+                                            ...update,
+                                        },
+                                    });
                                 }}
                             />
                             <InfoTip>
                                 <p>
-                                    Allow students to be able to create
-                                    reflexive angles.
+                                    Allow students to be able to create reflex
+                                    angles.
                                 </p>
                             </InfoTip>
                         </View>

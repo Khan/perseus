@@ -1772,7 +1772,7 @@ const GraphUtils = {
 
     // Find the angle in degrees between two or three points
     // This function is deprecated as it has several issues calculating
-    // correctly when dealing with reflexive angles or the position of point2
+    // correctly when dealing with reflex angles or the position of point2
     // (LEMS-2202) Remove this function while removing the Legacy Interactive Graph.
     findAngleDeprecated: function (
         point1: Coord,
