@@ -47,7 +47,6 @@ import type {
 import type {
     ChangeHandler,
     PerseusScore,
-    Widget,
     WidgetExports,
     WidgetProps,
 } from "../types";
@@ -1807,7 +1806,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
     }
 }
 
-class InteractiveGraph extends React.Component<Props, State> implements Widget {
+class InteractiveGraph extends React.Component<Props, State> {
     legacyGraphRef = React.createRef<LegacyInteractiveGraph>();
     mafsRef = React.createRef<StatefulMafsGraphType>();
 

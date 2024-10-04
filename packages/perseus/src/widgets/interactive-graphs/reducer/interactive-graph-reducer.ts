@@ -978,11 +978,11 @@ function boundAndSnapToPolygonAngle(
     });
 
     const getAngle = function (a: number, vertex, b: number) {
-        const allowReflexAngles = false; // Polygons do not have reflex angles
-        const angle = getClockwiseAngle(
-            [coordsCopy[rel(a)], coordsCopy[rel(vertex)], coordsCopy[rel(b)]],
-            allowReflexAngles,
-        );
+        const angle = getClockwiseAngle([
+            coordsCopy[rel(a)],
+            coordsCopy[rel(vertex)],
+            coordsCopy[rel(b)],
+        ]);
         return angle;
     };
 
