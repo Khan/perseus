@@ -47,6 +47,7 @@ export type PerseusCategorizerUserInput = {
 // TODO(LEMS-2440): Can possibly be removed during 2440?
 // This is not used for grading at all. The only place it is used is to define
 // Props type in cs-program.tsx, but RenderProps already contains WidgetOptions
+// and is already included in the Props type.
 export type PerseusCSProgramRubric = Empty;
 
 export type PerseusCSProgramUserInput = {
