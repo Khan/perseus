@@ -16,11 +16,10 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
-import type {UserInput} from "../../validation.types";
+import type {PerseusGroupRubric, UserInputArray} from "../../validation.types";
 
-type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps, Rubric>;
+type Props = WidgetProps<RenderProps, PerseusGroupRubric>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];
@@ -56,7 +55,10 @@ class Group extends React.Component<Props> implements Widget {
         return this.rendererRef?.getUserInputMap();
     }
 
-    getUserInput(): ReadonlyArray<UserInput | null | undefined> | undefined {
+    /**
+     * @deprecated getUserInputMap should be used for Groups
+     */
+    getUserInput(): UserInputArray | undefined {
         return this.rendererRef?.getUserInput();
     }
 

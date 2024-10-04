@@ -256,5 +256,5 @@ export default {
     widget: ImageWidget,
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
-    validator: noopValidator,
+    validator: () => noopValidator(),
 } as WidgetExports<typeof ImageWidget>;

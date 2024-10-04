@@ -4,11 +4,7 @@ import {getWidgetValidator} from "./widgets";
 import type {PerseusWidgetsMap} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
-import type {UserInput} from "./validation.types";
-
-// It can be nested because of Groups
-// TODO: can it be infinitely nested? How do we type that?
-type UserInputMap = Record<string, UserInput | Record<string, UserInput>>;
+import type {UserInput, UserInputMap} from "./validation.types";
 
 export function emptyWidgetsFunctional(
     widgets: PerseusWidgetsMap,
@@ -40,7 +36,12 @@ export function emptyWidgetsFunctional(
             );
             score = Util.flattenScores(scores);
         } else if (validator) {
-            score = validator(userInput, widget.options, strings, locale);
+            score = validator(
+                userInput as UserInput,
+                widget.options,
+                strings,
+                locale,
+            );
         }
 
         if (score) {
@@ -87,7 +88,7 @@ export function scoreWidgetsFunctional(
             widgetScores[id] = Util.flattenScores(scores);
         } else if (validator) {
             widgetScores[id] = validator(
-                userInput,
+                userInput as UserInput,
                 widget.options,
                 strings,
                 locale,

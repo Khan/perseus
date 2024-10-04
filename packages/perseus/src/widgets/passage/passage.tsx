@@ -557,5 +557,5 @@ export default {
         );
     },
     isLintable: true,
-    validator: noopValidator,
+    validator: () => noopValidator(),
 } as WidgetExports<typeof Passage>;

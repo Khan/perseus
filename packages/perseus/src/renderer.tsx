@@ -51,7 +51,7 @@ import type {
     Widget,
     WidgetProps,
 } from "./types";
-import type {UserInput} from "./validation.types";
+import type {UserInputArray, UserInputMap} from "./validation.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -1691,7 +1691,7 @@ class Renderer extends React.Component<Props, State> {
      * TODO: can we remove this?
      * @deprecated use getUserInputMap
      */
-    getUserInput(): ReadonlyArray<UserInput | null | undefined> {
+    getUserInput(): UserInputArray {
         return this.widgetIds.map((id: string) => {
             const widget = this.getWidgetInstance(id);
             if (widget && widget.getUserInput) {
@@ -1705,7 +1705,7 @@ class Renderer extends React.Component<Props, State> {
     /**
      * Returns an object of the widget `.getUserInput()` results
      */
-    getUserInputMap(): any {
+    getUserInputMap(): UserInputMap {
         const userInputMap = {};
         this.widgetIds.forEach((id: string) => {
             const widget = this.getWidgetInstance(id);

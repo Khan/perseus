@@ -67,5 +67,5 @@ export default {
     version: {major: 0, minor: 0},
     isLintable: true,
     // TODO: things that aren't interactive shouldn't need validators
-    validator: noopValidator,
+    validator: () => noopValidator(),
 } as WidgetExports<typeof PassageRefTarget>;

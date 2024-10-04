@@ -157,5 +157,5 @@ export default {
     displayName: "Molecule renderer",
     hidden: true,
     widget: MoleculeWidget,
-    validator: noopValidator,
+    validator: () => noopValidator(),
 } as WidgetExports<typeof MoleculeWidget>;

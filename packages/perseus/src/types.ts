@@ -9,7 +9,12 @@ import type {
 } from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
-import type {UserInput} from "./validation.types";
+import type {
+    Rubric,
+    UserInput,
+    UserInputArray,
+    UserInputMap,
+} from "./validation.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -74,8 +79,8 @@ export interface Widget {
         // TODO(jeremy): I think this is actually a callback
         focus?: () => unknown,
     ) => void;
-    getUserInputMap?: () => Record<string, UserInput>;
-    getUserInput?: () => UserInput | null | undefined;
+    getUserInputMap?: () => UserInputMap | undefined;
+    getUserInput?: () => UserInputArray | UserInput | undefined;
 
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
@@ -569,9 +574,9 @@ export type WidgetTransform = (
 
 export type WidgetValidatorFunction = (
     // The user data needed to score
-    userInput: any,
+    userInput: UserInput,
     // The scoring criteria to score against
-    rubric: any,
+    rubric: Rubric,
     // Strings, for error messages in invalid widgets
     string?: PerseusStrings,
     // Locale, for math evaluation
