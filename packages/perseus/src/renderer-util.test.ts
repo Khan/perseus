@@ -61,31 +61,6 @@ describe("emptyWidgetsFunctional", () => {
         expect(result).toEqual(["dropdown 1"]);
     });
 
-    it("properly identifies empty widgets", () => {
-        // Arrange
-        const widgets: PerseusWidgetsMap = {
-            "dropdown 1": testDropdownWidget,
-        };
-        const widgetIds: Array<string> = ["dropdown 1"];
-        const userInputMap: UserInputMap = {
-            "dropdown 1": {
-                value: 0,
-            },
-        };
-
-        // Act
-        const result = emptyWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            mockStrings,
-            "en",
-        );
-
-        // Assert
-        expect(result).toEqual(["dropdown 1"]);
-    });
-
     it("does not return widget IDs that a not empty", () => {
         // Arrange
         const widgets: PerseusWidgetsMap = {
