@@ -195,6 +195,8 @@ export const MafsGraphTypeFlags = [
     "ray",
     /** Enables the `polygon` interactive-graph type a fixed number of sides. */
     "polygon",
+    /** Enable the `unlimited-polygon` interactive graph type for an unlimited number of sides */
+    "unlimited-polygon",
     /** Enables the `circle` interactive-graph type.  */
     "circle",
     /** Enables the `quadratic` interactive-graph type.  */
