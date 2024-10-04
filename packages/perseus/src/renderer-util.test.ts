@@ -61,7 +61,7 @@ describe("emptyWidgetsFunctional", () => {
         expect(result).toEqual(["dropdown 1"]);
     });
 
-    it("does not return widget IDs that a not empty", () => {
+    it("does not return widget IDs that are not empty", () => {
         // Arrange
         const widgets: PerseusWidgetsMap = {
             "dropdown 1": testDropdownWidget,
