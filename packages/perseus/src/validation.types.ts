@@ -1,6 +1,5 @@
 import type {Coord} from "./interactive2/types";
 import type {
-    PerseusCategorizerWidgetOptions,
     PerseusCSProgramWidgetOptions,
     PerseusDefinitionWidgetOptions,
     PerseusDropdownWidgetOptions,
@@ -40,17 +39,14 @@ export type EmptyUserInput = Empty;
 export type NullUserInput = null;
 
 export type PerseusCategorizerRubric = {
-    // The correct answers where index relates to the items and value relates to the category.  e.g. [0, 1, 0, 1, 2]
+    // The correct answers where index relates to the items and value relates
+    // to the category.  e.g. [0, 1, 0, 1, 2]
     values: ReadonlyArray<number>;
 };
 
 export type PerseusCategorizerUserInput = {
     values: PerseusCategorizerRubric["values"];
 };
-
-// export type PerseusCategorizerRubricAndInput = {
-//     values: ReadonlyArray<number>;
-// };
 
 export type PerseusCSProgramRubric = PerseusCSProgramWidgetOptions;
 
