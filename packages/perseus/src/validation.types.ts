@@ -39,8 +39,12 @@ export type PerseusCategorizerRubric = {
 };
 
 export type PerseusCategorizerUserInput = {
-    values: ReadonlyArray<number>;
+    values: PerseusCategorizerRubric["values"];
 };
+
+// export type PerseusCategorizerRubricAndInput = {
+//     values: ReadonlyArray<number>;
+// };
 
 export type PerseusCSProgramRubric = PerseusCSProgramWidgetOptions;
 
