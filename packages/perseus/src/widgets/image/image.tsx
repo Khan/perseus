@@ -11,11 +11,8 @@ import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
-import type {ChangeFn, WidgetExports, WidgetProps} from "../../types";
-import type {
-    PerseusImageRubric,
-    PerseusImageUserInput,
-} from "../../validation.types";
+import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
+import type {NullUserInput, PerseusImageRubric} from "../../validation.types";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -57,7 +54,7 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-class ImageWidget extends React.Component<Props> {
+class ImageWidget extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -82,7 +79,7 @@ class ImageWidget extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    getUserInput(): PerseusImageUserInput {
+    getUserInput(): NullUserInput {
         return null;
     }
 
@@ -90,8 +87,6 @@ class ImageWidget extends React.Component<Props> {
     simpleValidate() {
         return noopValidator();
     }
-
-    focus: () => void = () => {}; // no-op
 
     render(): React.ReactNode {
         let image;

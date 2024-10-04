@@ -253,7 +253,7 @@ describe("Locked Vector Settings", () => {
             );
 
             // Act
-            const colorSelect = screen.getByLabelText("color");
+            const colorSelect = screen.getAllByLabelText("color")[0];
             await userEvent.click(colorSelect);
             const colorOption = screen.getByText("pink");
             await userEvent.click(colorOption);
@@ -363,6 +363,138 @@ describe("Locked Vector Settings", () => {
                         coord: [1, 0],
                     },
                 ],
+            });
+        });
+    });
+
+    describe("Aria label", () => {
+        test("Renders with aria label", () => {
+            // Arrange
+
+            // Act
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    ariaLabel="Vector at (x, y)"
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const input = screen.getByRole("textbox", {name: "Aria label"});
+
+            // Assert
+            expect(input).toHaveValue("Vector at (x, y)");
+        });
+
+        test("calls onChangeProps when the aria label is updated", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const input = screen.getByRole("textbox", {name: "Aria label"});
+            await userEvent.clear(input);
+            await userEvent.type(input, "A");
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "A",
+            });
+        });
+
+        test("aria label auto-generates (no labels)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+
+            // Act
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "Vector from (0, 0) to (2, 2)",
+            });
+        });
+
+        test("aria label auto-generates (one label)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "Vector from (0, 0) to (2, 2) with label A",
+            });
+        });
+
+        test("aria label auto-generates (multiple labels)", async () => {
+            // Arrange
+            const onChangeProps = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    ariaLabel={undefined}
+                    onChangeProps={onChangeProps}
+                    labels={[
+                        {
+                            ...defaultLabel,
+                            text: "A",
+                        },
+                        {
+                            ...defaultLabel,
+                            text: "B",
+                        },
+                    ]}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            const autoGenButton = screen.getByRole("button", {
+                name: "Auto-generate",
+            });
+            await userEvent.click(autoGenButton);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({
+                ariaLabel: "Vector from (0, 0) to (2, 2) with labels A, B",
             });
         });
     });

@@ -20,8 +20,8 @@ import {
 } from "../../styles/global-constants";
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
-import type {PerseusPhetSimulationUserInput} from "../../validation.types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {NullUserInput} from "../../validation.types";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
@@ -35,7 +35,10 @@ type State = {
 };
 
 // This renders the PhET sim
-export class PhetSimulation extends React.Component<Props, State> {
+export class PhetSimulation
+    extends React.Component<Props, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     private readonly iframeRef: React.RefObject<HTMLIFrameElement> =
@@ -64,7 +67,7 @@ export class PhetSimulation extends React.Component<Props, State> {
     }
 
     // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): PerseusPhetSimulationUserInput {
+    getUserInput(): NullUserInput {
         return null;
     }
 

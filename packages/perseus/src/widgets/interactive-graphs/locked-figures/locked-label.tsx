@@ -25,6 +25,7 @@ export default function LockedLabel(props: LockedLabelType) {
                 fontSize: font.size[size],
                 backgroundColor: "rgba(255, 255, 255, 0.8)",
             }}
+            aria-hidden={true}
         >
             <TeX>{text}</TeX>
         </span>

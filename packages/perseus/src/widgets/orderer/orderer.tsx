@@ -8,14 +8,20 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import {getDependencies} from "../../dependencies";
 import {Log} from "../../logging/log";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
+import {ordererValidator} from "./orderer-validator";
+
 import type {PerseusOrdererWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+    Widget,
+} from "../../types";
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
@@ -327,7 +333,10 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
-class Orderer extends React.Component<OrdererProps, OrdererState> {
+class Orderer
+    extends React.Component<OrdererProps, OrdererState>
+    implements Widget
+{
     static defaultProps: OrdererDefaultProps = {
         current: [],
         options: [],
@@ -350,6 +359,13 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         animateTo: null,
         grabPos: null,
     };
+
+    static validate(
+        userInput: PerseusOrdererUserInput,
+        rubric: PerseusOrdererRubric,
+    ): PerseusScore {
+        return ordererValidator(userInput, rubric);
+    }
 
     UNSAFE_componentWillReceiveProps(nextProps: OrdererProps) {
         if (!_.isEqual(this.props.current, nextProps.current)) {
@@ -632,8 +648,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
     }
 
     simpleValidate(rubric: PerseusOrdererRubric) {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Orderer'.
-        return Orderer.validate(this.getUserInput(), rubric);
+        return ordererValidator(this.getUserInput(), rubric);
     }
 
     render(): React.ReactNode {
@@ -778,32 +793,6 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         );
     }
 }
-
-_.extend(Orderer, {
-    validate: function (
-        userInput: PerseusOrdererUserInput,
-        rubric: PerseusOrdererRubric,
-    ) {
-        if (userInput.current.length === 0) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-
-        const correct = _.isEqual(
-            userInput.current,
-            _.pluck(rubric.correctOptions, "content"),
-        );
-
-        return {
-            type: "points",
-            earned: correct ? 1 : 0,
-            total: 1,
-            message: null,
-        };
-    },
-});
 
 export default {
     name: "orderer",

@@ -14,7 +14,6 @@ import Util from "../util";
 import KhanColors from "../util/colors";
 import {
     angleMeasures,
-    canonicalSineCoefficients,
     ccw,
     collinear,
     getLineEquation,
@@ -24,7 +23,6 @@ import {
     magnitude,
     rotate,
     sign,
-    similar,
     vector,
 } from "../util/geometry";
 import GraphUtils from "../util/graph-utils";
@@ -32,6 +30,7 @@ import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
+import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
@@ -47,6 +46,7 @@ import type {
 import type {
     ChangeHandler,
     PerseusScore,
+    Widget,
     WidgetExports,
     WidgetProps,
 } from "../types";
@@ -68,7 +68,6 @@ const defaultBackgroundImage = {
 };
 
 const eq = Util.eq;
-const deepEq = Util.deepEq;
 
 const UNLIMITED = "unlimited" as const;
 
@@ -134,6 +133,57 @@ type DefaultProps = {
     showProtractor: Props["showProtractor"];
     graph: Props["graph"];
 };
+
+// TODO: there's another, very similar getSinusoidCoefficients function
+// they should probably be merged
+export function getSinusoidCoefficients(
+    coords: ReadonlyArray<Coord>,
+): SineCoefficient {
+    // It's assumed that p1 is the root and p2 is the first peak
+    const p1 = coords[0];
+    const p2 = coords[1];
+
+    // Resulting coefficients are canonical for this sine curve
+    const amplitude = p2[1] - p1[1];
+    const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
+    const phase = p1[0] * angularFrequency;
+    const verticalOffset = p1[1];
+
+    return [amplitude, angularFrequency, phase, verticalOffset];
+}
+
+// TODO: there's another, very similar getQuadraticCoefficients function
+// they should probably be merged
+export function getQuadraticCoefficients(
+    coords: ReadonlyArray<Coord>,
+): QuadraticCoefficient {
+    const p1 = coords[0];
+    const p2 = coords[1];
+    const p3 = coords[2];
+
+    const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
+    if (denom === 0) {
+        // Many of the callers assume that the return value is always defined.
+        // @ts-expect-error - TS2322 - Type 'undefined' is not assignable to type 'QuadraticCoefficient'.
+        return;
+    }
+    const a =
+        (p3[0] * (p2[1] - p1[1]) +
+            p2[0] * (p1[1] - p3[1]) +
+            p1[0] * (p3[1] - p2[1])) /
+        denom;
+    const b =
+        (p3[0] * p3[0] * (p1[1] - p2[1]) +
+            p2[0] * p2[0] * (p3[1] - p1[1]) +
+            p1[0] * p1[0] * (p2[1] - p3[1])) /
+        denom;
+    const c =
+        (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
+            p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
+            p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
+        denom;
+    return [a, b, c];
+}
 
 // (LEMS-2190): Move the Mafs Angle Graph coordinate reversal logic in interactive-graph-state.ts
 // to this file when we remove the legacy graph. This logic allows us to support bi-directional angles
@@ -1680,7 +1730,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
     }
 
     simpleValidate(rubric: PerseusInteractiveGraphRubric) {
-        return InteractiveGraph.validate(this.getUserInput(), rubric);
+        return interactiveGraphValidator(this.getUserInput(), rubric);
     }
 
     focus: () => void = $.noop;
@@ -1756,7 +1806,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
     }
 }
 
-class InteractiveGraph extends React.Component<Props, State> {
+class InteractiveGraph extends React.Component<Props, State> implements Widget {
     legacyGraphRef = React.createRef<LegacyInteractiveGraph>();
     mafsRef = React.createRef<StatefulMafsGraphType>();
 
@@ -1790,7 +1840,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     simpleValidate(rubric: PerseusInteractiveGraphRubric) {
-        return InteractiveGraph.validate(this.getUserInput(), rubric);
+        return interactiveGraphValidator(this.getUserInput(), rubric);
     }
 
     render() {
@@ -1822,53 +1872,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         return (
             <LegacyInteractiveGraph ref={this.legacyGraphRef} {...this.props} />
         );
-    }
-
-    static getQuadraticCoefficients(
-        coords: ReadonlyArray<Coord>,
-    ): QuadraticCoefficient {
-        const p1 = coords[0];
-        const p2 = coords[1];
-        const p3 = coords[2];
-
-        const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
-        if (denom === 0) {
-            // Many of the callers assume that the return value is always defined.
-            // @ts-expect-error - TS2322 - Type 'undefined' is not assignable to type 'QuadraticCoefficient'.
-            return;
-        }
-        const a =
-            (p3[0] * (p2[1] - p1[1]) +
-                p2[0] * (p1[1] - p3[1]) +
-                p1[0] * (p3[1] - p2[1])) /
-            denom;
-        const b =
-            (p3[0] * p3[0] * (p1[1] - p2[1]) +
-                p2[0] * p2[0] * (p3[1] - p1[1]) +
-                p1[0] * p1[0] * (p2[1] - p3[1])) /
-            denom;
-        const c =
-            (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
-                p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
-                p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) /
-            denom;
-        return [a, b, c];
-    }
-
-    static getSinusoidCoefficients(
-        coords: ReadonlyArray<Coord>,
-    ): SineCoefficient {
-        // It's assumed that p1 is the root and p2 is the first peak
-        const p1 = coords[0];
-        const p2 = coords[1];
-
-        // Resulting coefficients are canonical for this sine curve
-        const amplitude = p2[1] - p1[1];
-        const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-        const phase = p1[0] * angularFrequency;
-        const verticalOffset = p1[1];
-
-        return [amplitude, angularFrequency, phase, verticalOffset];
     }
 
     /**
@@ -2198,7 +2201,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.graph.coords ||
             InteractiveGraph.defaultQuadraticCoords(props);
-        return InteractiveGraph.getQuadraticCoefficients(coords);
+        return getQuadraticCoefficients(coords);
     }
 
     static defaultQuadraticCoords(props: Props): QuadraticGraphState["coords"] {
@@ -2227,7 +2230,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         const coords =
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.graph.coords || InteractiveGraph.defaultSinusoidCoords(props);
-        return InteractiveGraph.getSinusoidCoefficients(coords);
+        return getSinusoidCoefficients(coords);
     }
 
     static defaultSinusoidCoords(props: Props): ReadonlyArray<Coord> {
@@ -2363,292 +2366,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         userInput: PerseusGraphType,
         rubric: PerseusInteractiveGraphRubric,
     ): PerseusScore {
-        // None-type graphs are not graded
-        if (userInput.type === "none" && rubric.correct.type === "none") {
-            return {
-                type: "points",
-                earned: 0,
-                total: 0,
-                message: null,
-            };
-        }
-
-        // When nothing has moved, there will neither be coords nor the
-        // circle's center/radius fields. When those fields are absent, skip
-        // all these checks; just go mark the answer as empty.
-        const hasValue = Boolean(
-            // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
-            userInput.coords ||
-                // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
-                (userInput.center && userInput.radius),
-        );
-
-        if (userInput.type === rubric.correct.type && hasValue) {
-            if (
-                userInput.type === "linear" &&
-                rubric.correct.type === "linear" &&
-                userInput.coords != null
-            ) {
-                const guess = userInput.coords;
-                const correct = rubric.correct.coords;
-
-                // If both of the guess points are on the correct line, it's
-                // correct.
-                if (
-                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                    collinear(correct[0], correct[1], guess[0]) &&
-                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                    collinear(correct[0], correct[1], guess[1])
-                ) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "linear-system" &&
-                rubric.correct.type === "linear-system" &&
-                userInput.coords != null
-            ) {
-                const guess = userInput.coords;
-                const correct = rubric.correct.coords as ReadonlyArray<
-                    ReadonlyArray<Coord>
-                >;
-
-                if (
-                    (collinear(correct[0][0], correct[0][1], guess[0][0]) &&
-                        collinear(correct[0][0], correct[0][1], guess[0][1]) &&
-                        collinear(correct[1][0], correct[1][1], guess[1][0]) &&
-                        collinear(correct[1][0], correct[1][1], guess[1][1])) ||
-                    (collinear(correct[0][0], correct[0][1], guess[1][0]) &&
-                        collinear(correct[0][0], correct[0][1], guess[1][1]) &&
-                        collinear(correct[1][0], correct[1][1], guess[0][0]) &&
-                        collinear(correct[1][0], correct[1][1], guess[0][1]))
-                ) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "quadratic" &&
-                rubric.correct.type === "quadratic" &&
-                userInput.coords != null
-            ) {
-                // If the parabola coefficients match, it's correct.
-                const guessCoeffs = this.getQuadraticCoefficients(
-                    userInput.coords,
-                );
-                const correctCoeffs = this.getQuadraticCoefficients(
-                    // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
-                    rubric.correct.coords,
-                );
-                if (deepEq(guessCoeffs, correctCoeffs)) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "sinusoid" &&
-                rubric.correct.type === "sinusoid" &&
-                userInput.coords != null
-            ) {
-                const guessCoeffs = this.getSinusoidCoefficients(
-                    userInput.coords,
-                );
-                const correctCoeffs = this.getSinusoidCoefficients(
-                    // @ts-expect-error - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
-                    rubric.correct.coords,
-                );
-
-                const canonicalGuessCoeffs =
-                    canonicalSineCoefficients(guessCoeffs);
-                const canonicalCorrectCoeffs =
-                    canonicalSineCoefficients(correctCoeffs);
-                // If the canonical coefficients match, it's correct.
-                if (deepEq(canonicalGuessCoeffs, canonicalCorrectCoeffs)) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "circle" &&
-                rubric.correct.type === "circle"
-            ) {
-                if (
-                    deepEq(userInput.center, rubric.correct.center) &&
-                    eq(userInput.radius, rubric.correct.radius)
-                ) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "point" &&
-                rubric.correct.type === "point" &&
-                userInput.coords != null
-            ) {
-                let correct = rubric.correct.coords;
-                if (correct == null) {
-                    throw new Error("Point graph rubric has null coords");
-                }
-                const guess = userInput.coords.slice();
-                correct = correct.slice();
-                // Everything's already rounded so we shouldn't need to do an
-                // eq() comparison but _.isEqual(0, -0) is false, so we'll use
-                // eq() anyway. The sort should be fine because it'll stringify
-                // it and -0 converted to a string is "0"
-                guess?.sort();
-                // @ts-expect-error - TS2339 - Property 'sort' does not exist on type 'readonly Coord[]'.
-                correct.sort();
-                if (deepEq(guess, correct)) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "polygon" &&
-                rubric.correct.type === "polygon" &&
-                userInput.coords != null
-            ) {
-                const guess: Array<Coord> = userInput.coords?.slice();
-                // @ts-expect-error - TS2322 - Type 'Coord[] | undefined' is not assignable to type 'Coord[]'.
-                const correct: Array<Coord> = rubric.correct.coords?.slice();
-
-                let match;
-                if (rubric.correct.match === "similar") {
-                    match = similar(guess, correct, Number.POSITIVE_INFINITY);
-                } else if (rubric.correct.match === "congruent") {
-                    match = similar(guess, correct, knumber.DEFAULT_TOLERANCE);
-                } else if (rubric.correct.match === "approx") {
-                    match = similar(guess, correct, 0.1);
-                } else {
-                    /* exact */
-                    guess.sort();
-                    correct.sort();
-                    match = deepEq(guess, correct);
-                }
-
-                if (match) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "segment" &&
-                rubric.correct.type === "segment" &&
-                userInput.coords != null
-            ) {
-                let guess = Util.deepClone(userInput.coords);
-                let correct = Util.deepClone(rubric.correct?.coords);
-                guess = _.invoke(guess, "sort").sort();
-                // @ts-expect-error - TS2345 - Argument of type '(readonly Coord[])[] | undefined' is not assignable to parameter of type 'Collection<any>'.
-                correct = _.invoke(correct, "sort").sort();
-                if (deepEq(guess, correct)) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "ray" &&
-                rubric.correct.type === "ray" &&
-                userInput.coords != null
-            ) {
-                const guess = userInput.coords;
-                const correct = rubric.correct.coords;
-                if (
-                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                    deepEq(guess[0], correct[0]) &&
-                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                    collinear(correct[0], correct[1], guess[1])
-                ) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            } else if (
-                userInput.type === "angle" &&
-                rubric.correct.type === "angle"
-            ) {
-                const guess = userInput.coords;
-                const correct = rubric.correct.coords;
-
-                let match;
-                if (rubric.correct.match === "congruent") {
-                    const angles = _.map([guess, correct], function (coords) {
-                        const angle = GraphUtils.findAngle(
-                            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                            coords[2],
-                            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                            coords[0],
-                            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                            coords[1],
-                        );
-                        return (angle + 360) % 360;
-                    });
-                    // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-                    match = eq(...angles);
-                } else {
-                    /* exact */
-                    match = // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                        deepEq(guess[1], correct[1]) &&
-                        // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                        collinear(correct[1], correct[0], guess[0]) &&
-                        // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                        collinear(correct[1], correct[2], guess[2]);
-                }
-
-                if (match) {
-                    return {
-                        type: "points",
-                        earned: 1,
-                        total: 1,
-                        message: null,
-                    };
-                }
-            }
-        }
-
-        // The input wasn't correct, so check if it's a blank input or if it's
-        // actually just wrong
-        if (!hasValue || _.isEqual(userInput, rubric.graph)) {
-            // We're where we started.
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-        return {
-            type: "points",
-            earned: 0,
-            total: 1,
-            message: null,
-        };
+        return interactiveGraphValidator(userInput, rubric);
     }
 
     static getUserInputFromProps(props: Props): PerseusGraphType {

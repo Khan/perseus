@@ -41,17 +41,14 @@ describe("Deprecated Standin widget", () => {
     });
 
     it("should be scorable and always give points", () => {
-        // Arrange and act
+        // Arrange
         const {renderer} = renderQuestion(question);
+
+        // Act
         const result = renderer.scoreWidgets();
 
         // Assert
-        expect(result["widget 1"]).toMatchObject({
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        });
+        expect(result["widget 1"]).toHaveBeenAnsweredCorrectly();
     });
 
     it("should return an empty object for getUserInput()", () => {
@@ -62,30 +59,6 @@ describe("Deprecated Standin widget", () => {
         const userInput = renderer.getUserInput();
 
         // Assert
-        expect(userInput).toMatchInlineSnapshot(`
-            [
-              {},
-            ]
-        `);
-    });
-
-    it("should return a correct answer score for simpleValidate()", () => {
-        // Arrange
-        const {renderer} = renderQuestion(question);
-
-        // Act
-        const score = renderer.scoreWidgets();
-
-        // Assert
-        expect(score).toMatchInlineSnapshot(`
-            {
-              "widget 1": {
-                "earned": 1,
-                "message": null,
-                "total": 1,
-                "type": "points",
-              },
-            }
-        `);
+        expect(userInput).toEqual([{}]);
     });
 });

@@ -16,7 +16,7 @@ import type {
     ShowSolutions,
 } from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
-import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
+import type {PerseusScore, WidgetProps, ChoiceState, Widget} from "../../types";
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
@@ -57,7 +57,7 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     correct: boolean;
 };
 
-class Radio extends React.Component<Props> {
+class Radio extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

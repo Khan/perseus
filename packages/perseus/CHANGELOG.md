@@ -1,5 +1,113 @@
 # @khanacademy/perseus
 
+## 36.1.1
+
+### Patch Changes
+
+-   [#1692](https://github.com/Khan/perseus/pull/1692) [`cde39a896`](https://github.com/Khan/perseus/commit/cde39a8963f3e2d34d2de85c6b128ec005ea3f21) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix for Axis Tick Labels in Interactive Graph to handle floating point issues when working with decimals.
+
+*   [#1716](https://github.com/Khan/perseus/pull/1716) [`b22b053f6`](https://github.com/Khan/perseus/commit/b22b053f60c5ee8bc3f9150ae7f37c4e792e4caa) Thanks [@Myranae](https://github.com/Myranae)! - Refactor parsePerseusItem to make it more resilient
+
+## 36.1.0
+
+### Minor Changes
+
+-   [#1675](https://github.com/Khan/perseus/pull/1675) [`2ff9ae90e`](https://github.com/Khan/perseus/commit/2ff9ae90ed65bbe6c4ec8c023298f130d27591cc) Thanks [@MrNickBreen](https://github.com/MrNickBreen)! - Adds getImagesWithoutAltData
+
+*   [#1701](https://github.com/Khan/perseus/pull/1701) [`da44c4a3b`](https://github.com/Khan/perseus/commit/da44c4a3b7cd3413df6aee477f0391c583547936) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - In unlimited point graphs focus point after added
+
+### Patch Changes
+
+-   [#1719](https://github.com/Khan/perseus/pull/1719) [`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating interactive graph to log telementry when the widget is rendered.
+
+-   Updated dependencies [[`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a)]:
+    -   @khanacademy/perseus-core@1.5.1
+    -   @khanacademy/kas@0.3.13
+    -   @khanacademy/keypad-context@1.0.2
+    -   @khanacademy/kmath@0.1.14
+    -   @khanacademy/math-input@21.0.3
+    -   @khanacademy/perseus-linter@1.2.1
+    -   @khanacademy/pure-markdown@0.3.9
+    -   @khanacademy/simple-markdown@0.13.2
+
+## 36.0.0
+
+### Major Changes
+
+-   [#1696](https://github.com/Khan/perseus/pull/1696) [`3e1697229`](https://github.com/Khan/perseus/commit/3e16972293b757e8631f4c5d8c3fb121babf5324) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated `Util.widgetShouldHighlight` function
+
+### Minor Changes
+
+-   [#1696](https://github.com/Khan/perseus/pull/1696) [`3e1697229`](https://github.com/Khan/perseus/commit/3e16972293b757e8631f4c5d8c3fb121babf5324) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate `Widget` type to be an TypeScript `interface` so each widget can declare it implements it explicitly.
+
+### Patch Changes
+
+-   [#1697](https://github.com/Khan/perseus/pull/1697) [`b9d84ccba`](https://github.com/Khan/perseus/commit/b9d84ccba8df83df4d2a042f730707e5fa6e562b) Thanks [@Myranae](https://github.com/Myranae)! - Refactor cs-program to use a getUserInputFunction
+
+*   [#1713](https://github.com/Khan/perseus/pull/1713) [`bcd32425c`](https://github.com/Khan/perseus/commit/bcd32425cbf4c74646ee66f998294c2f9cd3253d) Thanks [@handeyeco](https://github.com/handeyeco)! - Some minor cleanup related to validators
+
+-   [#1708](https://github.com/Khan/perseus/pull/1708) [`8e95e00c4`](https://github.com/Khan/perseus/commit/8e95e00c4decf76f443d286cae29cc4ebf6284b5) Thanks [@Myranae](https://github.com/Myranae)! - Move validation logic out of the orderer widget and add tests
+
+## 35.1.1
+
+### Patch Changes
+
+-   [#1694](https://github.com/Khan/perseus/pull/1694) [`d0aa0cc0c`](https://github.com/Khan/perseus/commit/d0aa0cc0cff9fab6f3798cd7c03300f863d02e20) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix for Axis Tick Labels in Interactive Graph to hide the first negative tick step on the yAxis if it is within the graph
+
+## 35.1.0
+
+### Minor Changes
+
+-   [#1687](https://github.com/Khan/perseus/pull/1687) [`c0cbb484a`](https://github.com/Khan/perseus/commit/c0cbb484af491b6451a23db3a29b31b3285ccdec) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Locked function aria labels (graph + editor)
+
+*   [#1690](https://github.com/Khan/perseus/pull/1690) [`a65da60c2`](https://github.com/Khan/perseus/commit/a65da60c2b16f18c123b3a3befa880bd2d0a1854) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add/edit/delete locked polygon labels
+
+-   [#1683](https://github.com/Khan/perseus/pull/1683) [`2d7cadaf0`](https://github.com/Khan/perseus/commit/2d7cadaf0a7699a4f3d9203c9eb9d38ee0c42e6c) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Implement locked line aria label behavior on graph
+
+*   [#1691](https://github.com/Khan/perseus/pull/1691) [`fc16bc77f`](https://github.com/Khan/perseus/commit/fc16bc77feabfbaf594cd26836d2c56dadbbca90) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Locked polygon aria labels (graph + editor)
+
+-   [#1677](https://github.com/Khan/perseus/pull/1677) [`3c73f4aa4`](https://github.com/Khan/perseus/commit/3c73f4aa40b4912affa7ec3a71ce21a9cbf11af5) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Implement locked point aria label behavior on graph
+
+*   [#1684](https://github.com/Khan/perseus/pull/1684) [`17ebfc0de`](https://github.com/Khan/perseus/commit/17ebfc0de9a89df44c65dfbc49fb74c6c7895ec2) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Locked line aria label editor UI
+
+-   [#1685](https://github.com/Khan/perseus/pull/1685) [`b3de0d80e`](https://github.com/Khan/perseus/commit/b3de0d80ea4a8710000c56d8458eb31cbf11c3fc) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Implement locked vector aria labels (graph + editor)
+
+*   [#1689](https://github.com/Khan/perseus/pull/1689) [`eda436f00`](https://github.com/Khan/perseus/commit/eda436f005544172e4eb443e903978e2c13d6afb) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] View locked polygon labels
+
+-   [#1682](https://github.com/Khan/perseus/pull/1682) [`039e0a360`](https://github.com/Khan/perseus/commit/039e0a360e56044ce2b4a1decfd82e6c01841ea9) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Locked point aria label editor UI
+
+*   [#1686](https://github.com/Khan/perseus/pull/1686) [`8230d96ee`](https://github.com/Khan/perseus/commit/8230d96ee03b421d8bb6dc823943faccf7908058) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Aria] Implement locked ellipse aria labels (graph + editor)
+
+### Patch Changes
+
+-   [#1702](https://github.com/Khan/perseus/pull/1702) [`30725ec88`](https://github.com/Khan/perseus/commit/30725ec8812c3431cbe721e29e578aefe60e867d) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out validation logic for NumberLine
+
+*   [#1671](https://github.com/Khan/perseus/pull/1671) [`f326139ee`](https://github.com/Khan/perseus/commit/f326139ee6bf9680075eac6353b1e84c44fa3f77) Thanks [@handeyeco](https://github.com/handeyeco)! - Move and test Grapher's validator
+
+-   [#1704](https://github.com/Khan/perseus/pull/1704) [`82e0ebd71`](https://github.com/Khan/perseus/commit/82e0ebd7101a98ee67487507e66f6ef6270aa0f7) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out validation logic from table
+
+*   [#1664](https://github.com/Khan/perseus/pull/1664) [`c41e4b2f3`](https://github.com/Khan/perseus/commit/c41e4b2f35cd2036778c79e035d402dee7f12893) Thanks [@benchristel](https://github.com/benchristel)! - Omit unused data from interactive graph onChange callback
+
+-   [#1678](https://github.com/Khan/perseus/pull/1678) [`49efaaff5`](https://github.com/Khan/perseus/commit/49efaaff5235bea1b6499df6a9d05fca7d022cd2) Thanks [@handeyeco](https://github.com/handeyeco)! - Port some tests to new custom matcher
+
+*   [#1676](https://github.com/Khan/perseus/pull/1676) [`f5af24371`](https://github.com/Khan/perseus/commit/f5af2437133d68dcbaa42830850341c46d7affee) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove dead code from InteractiveGraph.validate()
+
+-   [#1698](https://github.com/Khan/perseus/pull/1698) [`339a6db38`](https://github.com/Khan/perseus/commit/339a6db386b44f0481ea48dc9ea19b6debb4ae7c) Thanks [@handeyeco](https://github.com/handeyeco)! - Refine Expression's Rubric type
+
+*   [#1700](https://github.com/Khan/perseus/pull/1700) [`493715e3d`](https://github.com/Khan/perseus/commit/493715e3d9a8892ae6f7e052b830e4d88367cd19) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out InteractiveGraph validator
+
+-   [#1705](https://github.com/Khan/perseus/pull/1705) [`e432666fd`](https://github.com/Khan/perseus/commit/e432666fd1635d7c519bc9b5d402db081a54f1d3) Thanks [@Myranae](https://github.com/Myranae)! - Move validation logic out of the iframe widget and add tests
+
+*   [#1693](https://github.com/Khan/perseus/pull/1693) [`466d010c6`](https://github.com/Khan/perseus/commit/466d010c6dcf57e92c5e857d4c1c3829da238b61) Thanks [@nishasy](https://github.com/nishasy)! - [Locked Figure Labels] Add color select to locked figure labels settings
+
+-   [#1707](https://github.com/Khan/perseus/pull/1707) [`d3767f720`](https://github.com/Khan/perseus/commit/d3767f7209ea8263997cd8f08d7522a31d4db709) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out matcherValidator from Matcher
+
+*   [#1670](https://github.com/Khan/perseus/pull/1670) [`463755970`](https://github.com/Khan/perseus/commit/463755970951a97db23baa5f73084549fe56c936) Thanks [@handeyeco](https://github.com/handeyeco)! - Split validation logic out of Matrix
+
+-   [#1688](https://github.com/Khan/perseus/pull/1688) [`10ce86925`](https://github.com/Khan/perseus/commit/10ce869258bc8506aba848c06ada8e5ae5fca4ff) Thanks [@Myranae](https://github.com/Myranae)! - Move validation logic out of the cs-program widget and add tests
+
+*   [#1703](https://github.com/Khan/perseus/pull/1703) [`e818b0f15`](https://github.com/Khan/perseus/commit/e818b0f15b4862b23048cd157c2ea96ce8330c25) Thanks [@handeyeco](https://github.com/handeyeco)! - Split out Plotter validator
+
 ## 35.0.0
 
 ### Major Changes

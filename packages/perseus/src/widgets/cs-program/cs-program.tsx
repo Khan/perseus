@@ -17,7 +17,12 @@ import {toAbsoluteUrl} from "../../util/url-utils";
 import {csProgramValidator} from "./cs-program-validator";
 
 import type {PerseusCSProgramWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
@@ -59,7 +64,7 @@ function getUrlFromProgramID(programID: any) {
 
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
-class CSProgram extends React.Component<Props> {
+class CSProgram extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         showEditor: false,
         showButtons: false,
@@ -108,11 +113,15 @@ class CSProgram extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    simpleValidate(): PerseusScore {
-        return csProgramValidator({
+    getUserInput(): PerseusCSProgramUserInput {
+        return {
             status: this.props.status,
             message: this.props.message,
-        });
+        };
+    }
+
+    simpleValidate(): PerseusScore {
+        return csProgramValidator(this.getUserInput());
     }
 
     render(): React.ReactNode {

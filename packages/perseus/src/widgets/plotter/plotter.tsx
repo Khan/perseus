@@ -8,19 +8,23 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
-import Util from "../../util";
 import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import KhanMath from "../../util/math";
 
+import plotterValidator from "./plotter-validator";
+
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../../types";
+import type {
+    PerseusScore,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
 } from "../../validation.types";
-
-const {deepEq} = Util;
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
@@ -48,7 +52,7 @@ type State = {
     categoryHeights: Record<string, number>;
 };
 
-export class Plotter extends React.Component<Props, State> {
+export class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -84,6 +88,13 @@ export class Plotter extends React.Component<Props, State> {
         // bottom label.
         categoryHeights: {},
     };
+
+    static validate(
+        userInput: PerseusPlotterUserInput,
+        rubric: PerseusPlotterRubric,
+    ): PerseusScore {
+        return plotterValidator(userInput, rubric);
+    }
 
     componentDidMount() {
         this._isMounted = true;
@@ -1143,8 +1154,7 @@ export class Plotter extends React.Component<Props, State> {
     }
 
     simpleValidate(rubric: PerseusPlotterRubric): PerseusScore {
-        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Plotter'.
-        return Plotter.validate(this.getUserInput(), rubric);
+        return plotterValidator(this.getUserInput(), rubric);
     }
 
     render(): React.ReactNode {
@@ -1169,26 +1179,6 @@ export class Plotter extends React.Component<Props, State> {
         );
     }
 }
-
-_.extend(Plotter, {
-    validate: function (
-        userInput: PerseusPlotterUserInput,
-        rubric: PerseusPlotterRubric,
-    ): PerseusScore {
-        if (deepEq(userInput, rubric.starting)) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-        return {
-            type: "points",
-            earned: deepEq(userInput, rubric.correct) ? 1 : 0,
-            total: 1,
-            message: null,
-        };
-    },
-});
 
 // We don't need to change any of the original props for static mode
 const staticTransform = _.identity;

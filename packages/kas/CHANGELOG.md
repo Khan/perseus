@@ -1,5 +1,12 @@
 # @khanacademy/kas
 
+## 0.3.13
+
+### Patch Changes
+
+-   Updated dependencies [[`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a)]:
+    -   @khanacademy/perseus-core@1.5.1
+
 ## 0.3.12
 
 ### Patch Changes

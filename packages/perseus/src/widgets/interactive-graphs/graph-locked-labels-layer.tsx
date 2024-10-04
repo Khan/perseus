@@ -31,6 +31,9 @@ export default function GraphLockedLabelsLayer(props: Props) {
             // Ellipse flag + ellipse type
             (flags?.["mafs"]?.["locked-ellipse-labels"] &&
                 figure.type === "ellipse") ||
+            // Polygon flag + polygon type
+            (flags?.["mafs"]?.["locked-polygon-labels"] &&
+                figure.type === "polygon") ||
             // Function flag + function type
             (flags?.["mafs"]?.["locked-function-labels"] &&
                 figure.type === "function")

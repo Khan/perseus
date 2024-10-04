@@ -13,10 +13,10 @@ import Renderer from "../../renderer";
 import noopValidator from "../__shared__/noop-validator";
 
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
+    EmptyUserInput,
     PerseusExplanationRubric,
-    PerseusExplanationUserInput,
 } from "../../validation.types";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
@@ -42,7 +42,7 @@ function mediaQueryIsMatched(mediaQuery: string): boolean {
     return window.matchMedia(mediaQuery).matches;
 }
 
-class Explanation extends React.Component<Props, State> {
+class Explanation extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -83,7 +83,7 @@ class Explanation extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    getUserInput(): PerseusExplanationUserInput {
+    getUserInput(): EmptyUserInput {
         return {};
     }
 
