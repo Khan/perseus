@@ -101,7 +101,6 @@ describe("shouldDrawArcOutside", () => {
         const point2 = [2, 0] as vec.Vector2;
         const vertex = [0, 0] as vec.Vector2;
         const coords: [Coord, Coord, Coord] = [point1, vertex, point2];
-        const allowReflexAngles = false;
-        expect(getClockwiseAngle(coords, allowReflexAngles)).toBe(45);
+        expect(getClockwiseAngle(coords)).toBe(45);
     });
 });

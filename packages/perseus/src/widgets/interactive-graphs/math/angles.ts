@@ -43,7 +43,7 @@ export const getAngleFromVertex = (
 // current angle for the interactive graph.
 export const getClockwiseAngle = (
     coords: [Coord, Coord, Coord],
-    allowReflexAngles: boolean,
+    allowReflexAngles: boolean = false,
 ): number => {
     const coordsCopy = [...coords];
     // The coords are saved as [point1, vertex, point2] in the interactive graph

@@ -2353,7 +2353,7 @@ class InteractiveGraph extends React.Component<Props, State> implements Widget {
             throw makeInvalidTypeError("getAngleEquationString", "angle");
         }
         const coords = InteractiveGraph.getAngleCoords(props.graph, props);
-        const allowReflexAngles = props.graph.allowReflexAngles || false;
+        const allowReflexAngles = props.graph.allowReflexAngles;
         const angle = getClockwiseAngle(coords, allowReflexAngles);
         return (
             angle.toFixed(0) +

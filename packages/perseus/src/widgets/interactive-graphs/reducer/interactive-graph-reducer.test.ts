@@ -462,10 +462,7 @@ describe("movePoint on an angle graph", () => {
         invariant(updated.type === "angle");
 
         expect(
-            getClockwiseAngle(
-                updated.coords,
-                updated.allowReflexAngles || false,
-            ),
+            getClockwiseAngle(updated.coords, updated.allowReflexAngles),
         ).toBeCloseTo(50);
     });
 

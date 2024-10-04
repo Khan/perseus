@@ -257,7 +257,7 @@ function interactiveGraphValidator(
         ) {
             const guess = userInput.coords;
             const correct = rubric.correct.coords;
-            const allowReflexAngles = rubric.correct.allowReflexAngles || false;
+            const allowReflexAngles = rubric.correct.allowReflexAngles;
 
             let match;
             if (rubric.correct.match === "congruent") {
