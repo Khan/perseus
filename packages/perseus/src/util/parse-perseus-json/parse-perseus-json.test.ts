@@ -1,4 +1,4 @@
-import {parsePerseusItem} from "./parse-perseus-json";
+import {parsePerseusItem} from ".";
 
 describe("parsePerseusItem", () => {
     it("should parse JSON", () => {

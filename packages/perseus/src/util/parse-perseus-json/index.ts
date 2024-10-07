@@ -1,4 +1,4 @@
-import type {PerseusItem} from "../perseus-types";
+import type {PerseusItem} from "../../perseus-types";
 
 /**
  * Helper to parse PerseusItem JSON
