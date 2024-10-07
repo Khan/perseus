@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
  *       to be included as keys on the keypad. These are scraped from the answer
  *       forms.
  */
-const keypadConfigurationForProps = (
+export const keypadConfigurationForProps = (
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration => {
     // Always use the Expression keypad, regardless of the button sets that have
@@ -547,7 +547,12 @@ const keypadConfigurationForProps = (
         extraKeys = ["PI"];
     }
 
-    return {keypadType, extraKeys, times: widgetOptions.times};
+    return {
+        keypadType,
+        extraKeys,
+        times: widgetOptions.times,
+        // scientific: widgetOptions.buttonSets.includes("scientific"), // POC note: this line may or may not be needed ~ doesn't seem to impact output
+    };
 };
 
 const propUpgrades = {
