@@ -1,7 +1,7 @@
 import type {Coord} from "./interactive2/types";
 import type {
     PerseusDefinitionWidgetOptions,
-    PerseusDropdownWidgetOptions,
+    PerseusDropdownChoice,
     PerseusExplanationWidgetOptions,
     PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
@@ -59,7 +59,9 @@ export type PerseusCSProgramUserInput = {
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusDefinitionRubric = PerseusDefinitionWidgetOptions;
 
-export type PerseusDropdownRubric = PerseusDropdownWidgetOptions;
+export type PerseusDropdownRubric = {
+    choices: ReadonlyArray<PerseusDropdownChoice>;
+};
 
 export type PerseusDropdownUserInput = {
     value: number;
