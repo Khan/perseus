@@ -136,13 +136,7 @@ export const getWidget = (
 export const getWidgetValidator = (
     name: string,
 ): WidgetValidatorFunction | null => {
-    const widget = widgets[name];
-    const validator = widget?.validator;
-    if (!validator) {
-        return null;
-    }
-
-    return validator;
+    return widgets[name]?.validator ?? null;
 };
 
 export const getEditor = (name: string): Editor | null | undefined => {

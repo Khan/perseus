@@ -50,7 +50,6 @@ export function emptyWidgetsFunctional(
     });
 }
 
-// WARNING: recursive in order to handle Group widgets
 export function scoreWidgetsFunctional(
     widgets: PerseusWidgetsMap,
     // This is a port of old code, I'm not sure why

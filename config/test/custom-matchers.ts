@@ -173,7 +173,7 @@ expect.extend({
             };
         }
 
-        // Are we sure this is right? I wonder if it should be
+        // TODO: Are we sure this is right? I wonder if it should be
         // score.earned === score.total
         // (in multi-widget questions, you can get some right and some wrong)
         if (score.earned !== 0) {
