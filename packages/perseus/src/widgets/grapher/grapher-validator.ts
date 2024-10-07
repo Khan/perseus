@@ -7,10 +7,10 @@ import type {
 } from "../../validation.types";
 
 function grapherValidator(
-    state: PerseusGrapherUserInput,
+    userInput: PerseusGrapherUserInput,
     rubric: PerseusGrapherRubric,
 ): PerseusScore {
-    if (state.type !== rubric.correct.type) {
+    if (userInput.type !== rubric.correct.type) {
         return {
             type: "points",
             earned: 0,
@@ -20,7 +20,7 @@ function grapherValidator(
     }
 
     // We haven't moved the coords
-    if (state.coords == null) {
+    if (userInput.coords == null) {
         return {
             type: "invalid",
             message: null,
@@ -28,8 +28,11 @@ function grapherValidator(
     }
 
     // Get new function handler for grading
-    const grader = functionForType(state.type);
-    const guessCoeffs = grader.getCoefficients(state.coords, state.asymptote);
+    const grader = functionForType(userInput.type);
+    const guessCoeffs = grader.getCoefficients(
+        userInput.coords,
+        userInput.asymptote,
+    );
     const correctCoeffs = grader.getCoefficients(
         rubric.correct.coords,
         // @ts-expect-error - TS(2339) - Property 'asymptote' does not exist on type '{ type: "absolute_value"; coords: [Coord, Coord]; }'
