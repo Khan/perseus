@@ -19,18 +19,19 @@ type AngleCoords = [Coord, Coord, Coord];
 
 type Props = {
     startCoords: AngleCoords;
+    allowReflexAngles?: boolean;
     onChange: (startCoords: AngleCoords) => void;
 };
 
 const StartCoordsAngle = (props: Props) => {
-    const {startCoords, onChange} = props;
+    const {startCoords, allowReflexAngles, onChange} = props;
     return (
         <>
             {/* Current equation */}
             <View style={styles.equationSection}>
                 <LabelMedium>Starting equation:</LabelMedium>
                 <BodyMonospace style={styles.equationBody}>
-                    {getAngleEquation(startCoords)}
+                    {getAngleEquation(startCoords, allowReflexAngles)}
                 </BodyMonospace>
             </View>
 

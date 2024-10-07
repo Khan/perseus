@@ -95,7 +95,12 @@ export const StatefulMafsGraph = React.forwardRef<
     const numPoints = graph.type === "point" ? graph.numPoints : null;
     const numSides = graph.type === "polygon" ? graph.numSides : null;
     const snapTo = graph.type === "polygon" ? graph.snapTo : null;
-    const showAngles = graph.type === "polygon" ? graph.showAngles : null;
+    const showAngles =
+        graph.type === "polygon" || graph.type === "angle"
+            ? graph.showAngles
+            : null;
+    const allowReflexAngles =
+        graph.type === "angle" ? graph.allowReflexAngles : null;
     const showSides = graph.type === "polygon" ? graph.showSides : null;
     const startCoords = "startCoords" in graph ? graph.startCoords : undefined;
 
@@ -119,6 +124,7 @@ export const StatefulMafsGraph = React.forwardRef<
         showSides,
         latestPropsRef,
         startCoords,
+        allowReflexAngles,
     ]);
 
     // If the graph is static, it always displays the correct answer. This is

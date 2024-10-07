@@ -126,6 +126,9 @@ export {
     getQuadraticCoords,
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
+// This export is to support necessary functionality in the perseus-editor package.
+// It should be removed if widgets and editors become colocated.
+export {getClockwiseAngle} from "./widgets/interactive-graphs/math";
 
 export {makeSafeUrl} from "./widgets/phet-simulation";
 
