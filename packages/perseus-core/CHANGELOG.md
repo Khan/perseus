@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 1.5.2
+
+### Patch Changes
+
+-   [#1723](https://github.com/Khan/perseus/pull/1723) [`d4f4e2be1`](https://github.com/Khan/perseus/commit/d4f4e2be1408c4531a146bcd496344a629d90bd1) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating event data sent within interactive graph
+
+## 1.5.1
+
+### Patch Changes
+
+-   [#1719](https://github.com/Khan/perseus/pull/1719) [`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating interactive graph to log telementry when the widget is rendered.
+
 ## 1.5.0
 
 ### Minor Changes

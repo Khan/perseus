@@ -1,5 +1,57 @@
 # @khanacademy/perseus
 
+## 36.1.2
+
+### Patch Changes
+
+-   [#1666](https://github.com/Khan/perseus/pull/1666) [`c2b1d8d05`](https://github.com/Khan/perseus/commit/c2b1d8d05a71f1c58cefe02498074987fe6fdcd2) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixed bug related to Angle Equation and refactored Angle Equation logic.
+
+*   [#1726](https://github.com/Khan/perseus/pull/1726) [`65497a600`](https://github.com/Khan/perseus/commit/65497a6007fed7be0775c49538e0f09830109fa1) Thanks [@Myranae](https://github.com/Myranae)! - Refine CS-Program's Rubric type
+
+-   [#1725](https://github.com/Khan/perseus/pull/1725) [`08ad41b92`](https://github.com/Khan/perseus/commit/08ad41b9260db8b34e7a79e562f3fcd464104864) Thanks [@Myranae](https://github.com/Myranae)! - Refine Categorizer's Rubric and UserInput types
+
+*   [#1723](https://github.com/Khan/perseus/pull/1723) [`d4f4e2be1`](https://github.com/Khan/perseus/commit/d4f4e2be1408c4531a146bcd496344a629d90bd1) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating event data sent within interactive graph
+
+*   Updated dependencies [[`d4f4e2be1`](https://github.com/Khan/perseus/commit/d4f4e2be1408c4531a146bcd496344a629d90bd1)]:
+    -   @khanacademy/perseus-core@1.5.2
+    -   @khanacademy/kas@0.3.14
+    -   @khanacademy/keypad-context@1.0.3
+    -   @khanacademy/kmath@0.1.15
+    -   @khanacademy/math-input@21.0.4
+    -   @khanacademy/perseus-linter@1.2.2
+    -   @khanacademy/pure-markdown@0.3.10
+    -   @khanacademy/simple-markdown@0.13.3
+
+## 36.1.1
+
+### Patch Changes
+
+-   [#1692](https://github.com/Khan/perseus/pull/1692) [`cde39a896`](https://github.com/Khan/perseus/commit/cde39a8963f3e2d34d2de85c6b128ec005ea3f21) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix for Axis Tick Labels in Interactive Graph to handle floating point issues when working with decimals.
+
+*   [#1716](https://github.com/Khan/perseus/pull/1716) [`b22b053f6`](https://github.com/Khan/perseus/commit/b22b053f60c5ee8bc3f9150ae7f37c4e792e4caa) Thanks [@Myranae](https://github.com/Myranae)! - Refactor parsePerseusItem to make it more resilient
+
+## 36.1.0
+
+### Minor Changes
+
+-   [#1675](https://github.com/Khan/perseus/pull/1675) [`2ff9ae90e`](https://github.com/Khan/perseus/commit/2ff9ae90ed65bbe6c4ec8c023298f130d27591cc) Thanks [@MrNickBreen](https://github.com/MrNickBreen)! - Adds getImagesWithoutAltData
+
+*   [#1701](https://github.com/Khan/perseus/pull/1701) [`da44c4a3b`](https://github.com/Khan/perseus/commit/da44c4a3b7cd3413df6aee477f0391c583547936) Thanks [@nicolecomputer](https://github.com/nicolecomputer)! - In unlimited point graphs focus point after added
+
+### Patch Changes
+
+-   [#1719](https://github.com/Khan/perseus/pull/1719) [`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating interactive graph to log telementry when the widget is rendered.
+
+-   Updated dependencies [[`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a)]:
+    -   @khanacademy/perseus-core@1.5.1
+    -   @khanacademy/kas@0.3.13
+    -   @khanacademy/keypad-context@1.0.2
+    -   @khanacademy/kmath@0.1.14
+    -   @khanacademy/math-input@21.0.3
+    -   @khanacademy/perseus-linter@1.2.1
+    -   @khanacademy/pure-markdown@0.3.9
+    -   @khanacademy/simple-markdown@0.13.2
+
 ## 36.0.0
 
 ### Major Changes

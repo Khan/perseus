@@ -21,15 +21,11 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCSProgramRubric,
     PerseusCSProgramUserInput,
-    UserInputStatus,
 } from "../../validation.types";
 
 const {updateQueryString} = Util;
 
-type RenderProps = PerseusCSProgramWidgetOptions & {
-    status: UserInputStatus;
-    message: string | null;
-};
+type RenderProps = PerseusCSProgramWidgetOptions & PerseusCSProgramUserInput;
 
 type Props = WidgetProps<RenderProps, PerseusCSProgramRubric>;
 

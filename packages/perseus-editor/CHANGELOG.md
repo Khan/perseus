@@ -1,5 +1,38 @@
 # @khanacademy/perseus-editor
 
+## 14.6.5
+
+### Patch Changes
+
+-   [#1666](https://github.com/Khan/perseus/pull/1666) [`c2b1d8d05`](https://github.com/Khan/perseus/commit/c2b1d8d05a71f1c58cefe02498074987fe6fdcd2) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixed bug related to Angle Equation and refactored Angle Equation logic.
+
+-   Updated dependencies [[`c2b1d8d05`](https://github.com/Khan/perseus/commit/c2b1d8d05a71f1c58cefe02498074987fe6fdcd2), [`65497a600`](https://github.com/Khan/perseus/commit/65497a6007fed7be0775c49538e0f09830109fa1), [`08ad41b92`](https://github.com/Khan/perseus/commit/08ad41b9260db8b34e7a79e562f3fcd464104864), [`d4f4e2be1`](https://github.com/Khan/perseus/commit/d4f4e2be1408c4531a146bcd496344a629d90bd1)]:
+    -   @khanacademy/perseus@36.1.2
+    -   @khanacademy/perseus-core@1.5.2
+    -   @khanacademy/kas@0.3.14
+    -   @khanacademy/keypad-context@1.0.3
+    -   @khanacademy/kmath@0.1.15
+    -   @khanacademy/math-input@21.0.4
+
+## 14.6.4
+
+### Patch Changes
+
+-   Updated dependencies [[`cde39a896`](https://github.com/Khan/perseus/commit/cde39a8963f3e2d34d2de85c6b128ec005ea3f21), [`b22b053f6`](https://github.com/Khan/perseus/commit/b22b053f60c5ee8bc3f9150ae7f37c4e792e4caa)]:
+    -   @khanacademy/perseus@36.1.1
+
+## 14.6.3
+
+### Patch Changes
+
+-   Updated dependencies [[`eb733b3ec`](https://github.com/Khan/perseus/commit/eb733b3ec2e3354a0c4647e9993b6f08a1b77e4a), [`2ff9ae90e`](https://github.com/Khan/perseus/commit/2ff9ae90ed65bbe6c4ec8c023298f130d27591cc), [`da44c4a3b`](https://github.com/Khan/perseus/commit/da44c4a3b7cd3413df6aee477f0391c583547936)]:
+    -   @khanacademy/perseus@36.1.0
+    -   @khanacademy/perseus-core@1.5.1
+    -   @khanacademy/kas@0.3.13
+    -   @khanacademy/keypad-context@1.0.2
+    -   @khanacademy/kmath@0.1.14
+    -   @khanacademy/math-input@21.0.3
+
 ## 14.6.2
 
 ### Patch Changes
