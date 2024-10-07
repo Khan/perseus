@@ -1,6 +1,6 @@
-import {isRealJSONParse} from "./is-real-json-parse";
+import {isRealJSONParse} from "../is-real-json-parse";
 
-import type {PerseusItem} from "../perseus-types";
+import type {PerseusItem} from "../../perseus-types";
 
 /**
  * Helper to parse PerseusItem JSON
