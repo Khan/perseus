@@ -373,10 +373,10 @@ class Grapher extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
 
     static validate(
-        state: PerseusGrapherUserInput,
+        userInput: PerseusGrapherUserInput,
         rubric: PerseusGrapherRubric,
     ): PerseusScore {
-        return grapherValidator(state, rubric);
+        return grapherValidator(userInput, rubric);
     }
 
     static getUserInputFromProps(props: Props): PerseusGrapherUserInput {
