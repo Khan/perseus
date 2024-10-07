@@ -6,7 +6,6 @@ import type {
     PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
-    PerseusGrapherWidgetOptions,
     PerseusGraphType,
     PerseusIFrameWidgetOptions,
     PerseusImageWidgetOptions,
@@ -80,7 +79,20 @@ export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 
 export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
 
-export type PerseusGrapherRubric = PerseusGrapherWidgetOptions;
+export type PerseusGrapherRubric = {
+    correct:
+        | {type: "absolute_value"; coords: [Coord, Coord]}
+        | {
+              type: "exponential";
+              asymptote: [Coord, Coord];
+              coords: [Coord, Coord];
+          }
+        | {type: "linear"; coords: [Coord, Coord]}
+        | {type: "logarithm"; asymptote: [Coord, Coord]; coords: [Coord, Coord]}
+        | {type: "quadratic"; coords: [Coord, Coord]}
+        | {type: "sinusoid"; coords: [Coord, Coord]}
+        | {type: "tangent"; coords: [Coord, Coord]};
+};
 
 /**
  * TODO: this is kind of just a guess right now
