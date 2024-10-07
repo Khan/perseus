@@ -25,15 +25,11 @@ describe("grapherValidator", () => {
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["exponential", "logarithm"],
             correct: {
                 type: "logarithm",
                 asymptote,
                 coords,
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
@@ -64,15 +60,11 @@ describe("grapherValidator", () => {
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["exponential", "logarithm"],
             correct: {
                 type: "exponential",
                 asymptote,
                 coords,
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
@@ -103,14 +95,10 @@ describe("grapherValidator", () => {
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["linear"],
             correct: {
                 type: "linear",
                 coords,
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
@@ -138,14 +126,10 @@ describe("grapherValidator", () => {
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["linear"],
             correct: {
                 type: "linear",
                 coords,
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
@@ -174,7 +158,6 @@ describe("grapherValidator", () => {
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["linear"],
             correct: {
                 type: "linear",
                 coords: [
@@ -182,9 +165,6 @@ describe("grapherValidator", () => {
                     [10, 10],
                 ],
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
