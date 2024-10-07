@@ -10,11 +10,11 @@ import type {PerseusItem} from "../../perseus-types";
  * @param {string} json - the stringified PerseusItem JSON
  * @returns {PerseusItem} the parsed PerseusItem object
  */
-export function parsePerseusItem(json: string): PerseusItem {
+export function parsePerseusItem(json: string): {item: PerseusItem, errors: Error[]} {
     // Try to block a cheating vector which relies on monkey-patching
     // JSON.parse
     if (isRealJSONParse(JSON.parse)) {
-        return JSON.parse(json);
+        return {item: JSON.parse(json), errors: []};
     }
     throw new Error("Something went wrong.");
 }
