@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 1.5.2
+
+### Patch Changes
+
+-   [#1723](https://github.com/Khan/perseus/pull/1723) [`d4f4e2be1`](https://github.com/Khan/perseus/commit/d4f4e2be1408c4531a146bcd496344a629d90bd1) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating event data sent within interactive graph
+
 ## 1.5.1
 
 ### Patch Changes

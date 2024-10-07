@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 36.1.2
+
+### Patch Changes
+
+-   [#1666](https://github.com/Khan/perseus/pull/1666) [`c2b1d8d05`](https://github.com/Khan/perseus/commit/c2b1d8d05a71f1c58cefe02498074987fe6fdcd2) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixed bug related to Angle Equation and refactored Angle Equation logic.
+
+*   [#1726](https://github.com/Khan/perseus/pull/1726) [`65497a600`](https://github.com/Khan/perseus/commit/65497a6007fed7be0775c49538e0f09830109fa1) Thanks [@Myranae](https://github.com/Myranae)! - Refine CS-Program's Rubric type
+
+-   [#1725](https://github.com/Khan/perseus/pull/1725) [`08ad41b92`](https://github.com/Khan/perseus/commit/08ad41b9260db8b34e7a79e562f3fcd464104864) Thanks [@Myranae](https://github.com/Myranae)! - Refine Categorizer's Rubric and UserInput types
+
+*   [#1723](https://github.com/Khan/perseus/pull/1723) [`d4f4e2be1`](https://github.com/Khan/perseus/commit/d4f4e2be1408c4531a146bcd496344a629d90bd1) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating event data sent within interactive graph
+
+*   Updated dependencies [[`d4f4e2be1`](https://github.com/Khan/perseus/commit/d4f4e2be1408c4531a146bcd496344a629d90bd1)]:
+    -   @khanacademy/perseus-core@1.5.2
+    -   @khanacademy/kas@0.3.14
+    -   @khanacademy/keypad-context@1.0.3
+    -   @khanacademy/kmath@0.1.15
+    -   @khanacademy/math-input@21.0.4
+    -   @khanacademy/perseus-linter@1.2.2
+    -   @khanacademy/pure-markdown@0.3.10
+    -   @khanacademy/simple-markdown@0.13.3
+
 ## 36.1.1
 
 ### Patch Changes
