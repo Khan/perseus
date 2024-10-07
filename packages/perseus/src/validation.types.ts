@@ -98,11 +98,7 @@ export type PerseusGrapherRubric = {
  * TODO: this is kind of just a guess right now
  * based off of an old comment in grapher
  */
-export type PerseusGrapherUserInput = {
-    type: string;
-    asymptote: ReadonlyArray<Coord>;
-    coords: ReadonlyArray<Coord>;
-};
+export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
 
 export type PerseusIFrameRubric = PerseusIFrameWidgetOptions;
 
