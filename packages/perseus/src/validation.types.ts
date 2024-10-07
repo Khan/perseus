@@ -1,6 +1,5 @@
 import type {Coord} from "./interactive2/types";
 import type {
-    PerseusCategorizerWidgetOptions,
     PerseusDefinitionWidgetOptions,
     PerseusDropdownWidgetOptions,
     PerseusExplanationWidgetOptions,
@@ -38,12 +37,15 @@ export type EmptyUserInput = Empty;
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type NullUserInput = null;
 
-export type PerseusCategorizerRubric = PerseusCategorizerWidgetOptions;
-
-export type PerseusCategorizerUserInput = {
+export type PerseusCategorizerRubric = {
+    // The correct answers where index relates to the items and value relates
+    // to the category.  e.g. [0, 1, 0, 1, 2]
     values: ReadonlyArray<number>;
 };
 
+export type PerseusCategorizerUserInput = {
+    values: PerseusCategorizerRubric["values"];
+};
 // TODO(LEMS-2440): Can possibly be removed during 2440?
 // This is not used for grading at all. The only place it is used is to define
 // Props type in cs-program.tsx, but RenderProps already contains WidgetOptions

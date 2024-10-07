@@ -7,17 +7,7 @@ import type {PerseusCategorizerRubric} from "../../validation.types";
 describe("categorizerValidator", () => {
     it("gives points when the answer is correct", () => {
         const rubric: PerseusCategorizerRubric = {
-            items: ["Graph $1$", "Graph $2$"],
             values: [1, 3],
-            randomizeItems: false,
-            categories: [
-                "No relationship",
-                "Positive linear relationship",
-                "Negative linear relationship",
-                "Nonlinear relationship",
-            ],
-            highlightLint: false,
-            static: false,
         };
 
         const userInput = {
@@ -30,17 +20,7 @@ describe("categorizerValidator", () => {
 
     it("does not give points when incorrectly answered", () => {
         const rubric: PerseusCategorizerRubric = {
-            items: ["Graph $1$", "Graph $2$"],
             values: [1, 3],
-            randomizeItems: false,
-            categories: [
-                "No relationship",
-                "Positive linear relationship",
-                "Negative linear relationship",
-                "Nonlinear relationship",
-            ],
-            highlightLint: false,
-            static: false,
         };
 
         const userInput = {
@@ -53,17 +33,7 @@ describe("categorizerValidator", () => {
 
     it("tells the learner its not complete if not selected", () => {
         const rubric: PerseusCategorizerRubric = {
-            items: ["Graph $1$", "Graph $2$"],
             values: [1, 3],
-            randomizeItems: false,
-            categories: [
-                "No relationship",
-                "Positive linear relationship",
-                "Negative linear relationship",
-                "Nonlinear relationship",
-            ],
-            highlightLint: false,
-            static: false,
         };
 
         const userInput = {
