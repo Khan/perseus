@@ -74,6 +74,9 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("sequence", "deprecated-standin");
     replaceWidget("simulator", "deprecated-standin");
     replaceWidget("unit-input", "deprecated-standin");
+
+    // Input-Number is a special case as it is being replaced by Numeric-Input
+    replaceWidget("input-number", "numeric-input");
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {

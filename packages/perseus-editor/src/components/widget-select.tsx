@@ -25,9 +25,11 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
 
     render(): React.ReactNode {
         const widgets = Widgets.getPublicWidgets();
+
         const orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
             return widgets[name].displayName;
         });
+        console.log("orderedWidgetNames", orderedWidgetNames);
         const addWidgetString = "Add a widget\u2026";
         return (
             <select value="" onChange={this.handleChange}>

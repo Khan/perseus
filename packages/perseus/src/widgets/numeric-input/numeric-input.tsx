@@ -249,7 +249,7 @@ export class NumericInput
         });
 
         return (
-            <div>
+            <div className="Im-just-a-sweet-lil-numeric-input">
                 <InputWithExamples
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
@@ -342,13 +342,61 @@ const propsTransform = function (
     return rendererProps;
 };
 
+// This function is being used to replace the input-number widget
+// with the numeric-input widget
+const propUpgrades = {
+    /* c8 ignore next */
+    "1": (initialProps: any): PerseusNumericInputWidgetOptions => {
+        // If the initialProps has a value, it means we're upgrading from
+        // input-number to numeric-input. In this case, we need to upgrade
+        // the widget options accordingly.
+        if (initialProps.value) {
+            let provideAnswerForm = true;
+            if (
+                initialProps.value !== "number" &&
+                initialProps.value !== "rational"
+            ) {
+                provideAnswerForm = false;
+            }
+
+            const answers = [
+                {
+                    value: initialProps.value,
+                    simplify: initialProps.simplify,
+                    answerForms: provideAnswerForm
+                        ? [initialProps.answerType]
+                        : undefined,
+                    strict: initialProps.inexact,
+                    maxError: initialProps.maxError,
+                    status: "correct", // Input-number only allows correct answers
+                    message: "",
+                },
+            ];
+
+            return {
+                answers,
+                size: initialProps.size,
+                coefficient: false, // input-number doesn't have a coefficient prop
+                labelText: "", // input-number doesn't have a labelText prop
+                static: false, // static is always false for numeric-input
+            };
+        } else {
+            // Otherwise simply return the initialProps as there's no differences
+            // between v0 and v1 for numeric-input
+            return initialProps;
+        }
+    },
+} as const;
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
+    version: {major: 1, minor: 0},
     transform: propsTransform,
+    propUpgrades: propUpgrades,
     isLintable: true,
     scorer: scoreNumericInput,
 

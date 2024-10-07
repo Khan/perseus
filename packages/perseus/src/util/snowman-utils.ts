@@ -1,7 +1,6 @@
 // These are all the current widgets that require user-input and are supported for automatic scoring
 export const QUESTION_WIDGETS: ReadonlyArray<string> = [
     "numeric-input",
-    "input-number",
     "radio",
     "interactive-graph",
     "interactive-number-line",

@@ -11,7 +11,6 @@ import GrapherEditor from "./widgets/grapher-editor";
 import GroupEditor from "./widgets/group-editor";
 import IframeEditor from "./widgets/iframe-editor";
 import ImageEditor from "./widgets/image-editor";
-import InputNumberEditor from "./widgets/input-number-editor";
 import InteractionEditor from "./widgets/interaction-editor";
 import InteractiveGraphEditor from "./widgets/interactive-graph-editor/interactive-graph-editor";
 import LabelImageEditor from "./widgets/label-image-editor";
@@ -46,7 +45,6 @@ export default [
     GroupEditor,
     IframeEditor,
     ImageEditor,
-    InputNumberEditor,
     InteractionEditor,
     InteractiveGraphEditor,
     LabelImageEditor,
