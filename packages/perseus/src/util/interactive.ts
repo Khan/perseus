@@ -103,8 +103,8 @@ _.extend(GraphUtils.Graphie.prototype, {
             p3 = options.point1;
         }
 
-        const startAngle = GraphUtils.findAngle(p1, vertex);
-        const endAngle = GraphUtils.findAngle(p3, vertex);
+        const startAngle = GraphUtils.findAngleDeprecated(p1, vertex);
+        const endAngle = GraphUtils.findAngleDeprecated(p3, vertex);
         const angle = (endAngle + 360 - startAngle) % 360;
         const halfAngle = (startAngle + angle / 2) % 360;
         const sPadding = 5 * options.pushOut;
@@ -329,15 +329,15 @@ _.extend(GraphUtils.Graphie.prototype, {
         let angle = 135;
         let halfAngle;
         if (p1 && p3) {
-            const startAngle = GraphUtils.findAngle(p1, vertex);
-            const endAngle = GraphUtils.findAngle(p3, vertex);
+            const startAngle = GraphUtils.findAngleDeprecated(p1, vertex);
+            const endAngle = GraphUtils.findAngleDeprecated(p3, vertex);
             angle = (endAngle + 360 - startAngle) % 360;
             halfAngle = (startAngle + angle / 2 + 180) % 360;
         } else if (p1) {
-            const parallelAngle = GraphUtils.findAngle(vertex, p1);
+            const parallelAngle = GraphUtils.findAngleDeprecated(vertex, p1);
             halfAngle = parallelAngle + 90;
         } else if (p3) {
-            const parallelAngle = GraphUtils.findAngle(p3, vertex);
+            const parallelAngle = GraphUtils.findAngleDeprecated(p3, vertex);
             halfAngle = parallelAngle + 90;
         } else {
             // Standalone point
@@ -602,7 +602,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
                 const constrainedAngle =
                     ((constraints.fixedAngle.angle +
-                        GraphUtils.findAngle(ref, vertex)) *
+                        GraphUtils.findAngleDeprecated(ref, vertex)) *
                         Math.PI) /
                     180;
                 const length = constraints.fixedDistance.dist;
@@ -622,11 +622,12 @@ _.extend(GraphUtils.Graphie.prototype, {
 
                 const constrainedAngle =
                     ((constraints.fixedAngle.angle +
-                        GraphUtils.findAngle(ref, vertex)) *
+                        GraphUtils.findAngleDeprecated(ref, vertex)) *
                         Math.PI) /
                     180;
                 const angle =
-                    (GraphUtils.findAngle(coord, vertex) * Math.PI) / 180;
+                    (GraphUtils.findAngleDeprecated(coord, vertex) * Math.PI) /
+                    180;
                 const distance = GraphUtils.getDistance(coord, vertex);
                 let length = distance * Math.cos(constrainedAngle - angle);
                 length = length < 1.0 ? 1.0 : length;
@@ -639,7 +640,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     constraints.fixedDistance.point.coord ||
                     constraints.fixedDistance.point;
 
-                let angle = GraphUtils.findAngle(coord, distPoint);
+                let angle = GraphUtils.findAngleDeprecated(coord, distPoint);
                 const length = constraints.fixedDistance.dist;
                 angle = (angle * Math.PI) / 180;
                 newCoord[0] = length * Math.cos(angle) + distPoint[0];
@@ -3718,7 +3719,7 @@ _.extend(MovableAngle.prototype, {
                 const oldPoint = points[i].coord;
                 let newPoint = kvector.add(oldPoint, delta);
 
-                let angle = GraphUtils.findAngle(newVertex, newPoint);
+                let angle = GraphUtils.findAngleDeprecated(newVertex, newPoint);
                 angle *= Math.PI / 180;
                 newPoint = graphie.constrainToBoundsOnAngle(
                     newPoint,
@@ -3756,7 +3757,10 @@ _.extend(MovableAngle.prototype, {
                     return false;
                 }
                 if (snap) {
-                    let angle = GraphUtils.findAngle(newPoint, vertex);
+                    let angle = GraphUtils.findAngleDeprecated(
+                        newPoint,
+                        vertex,
+                    );
                     angle =
                         Math.round((angle - snapOffset) / snap) * snap +
                         snapOffset;
@@ -3861,7 +3865,7 @@ _.extend(MovableAngle.prototype, {
      * coords when interpreted in a clockwise direction.
      */
     _getClockwiseAngle: function (coords) {
-        const rawAngle = GraphUtils.findAngle(
+        const rawAngle = GraphUtils.findAngleDeprecated(
             // The order of these is "weird" to match what a clockwise
             // order is in graphie.labelAngle
             coords[2], // from the second point

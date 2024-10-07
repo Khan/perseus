@@ -8,6 +8,7 @@ export {segmentsIntersect} from "./geometry";
 export {
     calculateAngleInDegrees,
     convertDegreesToRadians,
-    findAngle,
+    getClockwiseAngle,
+    getAngleFromVertex,
     polar,
 } from "./angles";
