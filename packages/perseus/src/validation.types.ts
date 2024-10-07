@@ -2,7 +2,6 @@ import type {Coord} from "./interactive2/types";
 import type {
     PerseusDefinitionWidgetOptions,
     PerseusDropdownChoice,
-    PerseusDropdownWidgetOptions,
     PerseusExplanationWidgetOptions,
     PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
