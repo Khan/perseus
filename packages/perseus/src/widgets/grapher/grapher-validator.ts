@@ -29,15 +29,27 @@ function grapherValidator(
 
     // Get new function handler for grading
     const grader = functionForType(userInput.type);
-    const guessCoeffs = grader.getCoefficients(
-        userInput.coords,
-        userInput.asymptote,
-    );
-    const correctCoeffs = grader.getCoefficients(
-        rubric.correct.coords,
-        // @ts-expect-error - TS(2339) - Property 'asymptote' does not exist on type '{ type: "absolute_value"; coords: [Coord, Coord]; }'
-        rubric.correct.asymptote,
-    );
+    let guessCoeffs: number[];
+    if (userInput.type === "logarithm" || userInput.type === "exponential") {
+        guessCoeffs = grader.getCoefficients(
+            userInput.coords,
+            userInput.asymptote,
+        );
+    } else {
+        guessCoeffs = grader.getCoefficients(userInput.coords);
+    }
+    let correctCoeffs: number[];
+    if (
+        rubric.correct.type === "logarithm" ||
+        rubric.correct.type === "exponential"
+    ) {
+        correctCoeffs = grader.getCoefficients(
+            rubric.correct.coords,
+            rubric.correct.asymptote,
+        );
+    } else {
+        correctCoeffs = grader.getCoefficients(rubric.correct.coords);
+    }
 
     if (guessCoeffs == null || correctCoeffs == null) {
         return {
