@@ -1,4 +1,4 @@
-import {failure, success} from "../result";
+import {all, failure, success} from "../result";
 
 import type {ParseContext, Parser} from "../parser-types";
 import type {Result} from "../result";
@@ -14,14 +14,3 @@ export function array<T>(elementParser: Parser<T>): Parser<T[]> {
     };
 }
 
-function all<S, F>(results: Array<Result<S, F>>): Result<S[], F> {
-    const successes: S[] = [];
-    for (const result of results) {
-        if (result.type === "success") {
-            successes.push(result.value);
-        } else {
-            return failure(result.detail);
-        }
-    }
-    return success(successes);
-}
