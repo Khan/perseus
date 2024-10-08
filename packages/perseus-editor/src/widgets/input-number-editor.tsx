@@ -154,6 +154,7 @@ class InputNumberEditor extends React.Component<Props> {
                             value={this.props.simplify}
                             onChange={(e) => {
                                 this.props.onChange({
+                                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"optional" | "required" | "enforced" | undefined'.
                                     simplify: e.target.value,
                                 });
                             }}
@@ -230,6 +231,7 @@ class InputNumberEditor extends React.Component<Props> {
                     <select
                         value={this.props.answerType}
                         onChange={(e) => {
+                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
                             this.props.onChange({answerType: e.target.value});
                         }}
                         aria-label="Answer type"
@@ -247,10 +249,11 @@ class InputNumberEditor extends React.Component<Props> {
 
                 <div>
                     <label>
-                        Width
+                        Width{" "}
                         <select
                             value={this.props.size}
                             onChange={(e) => {
+                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"small" | "normal" | undefined'.
                                 this.props.onChange({size: e.target.value});
                             }}
                         >
