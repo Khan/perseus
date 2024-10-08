@@ -397,7 +397,6 @@ export type LegacyButtonSets = ReadonlyArray<
     | "basic"
     | "basic+div"
     | "trig"
-    | "scientific"
     | "prealgebra"
     | "logarithms"
     | "basic relations"
