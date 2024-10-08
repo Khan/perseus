@@ -1,6 +1,6 @@
 import type {Success, Failure, Result} from "./result";
 
-export type Parser<T> = (x: unknown, ctx: ParseContext) => ParseResult<T>;
+export type Parser<T> = (rawVal: unknown, ctx: ParseContext) => ParseResult<T>;
 
 export type ParseResult<T> = Result<T, ParseFailureDetail>;
 
