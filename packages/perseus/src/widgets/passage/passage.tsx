@@ -121,6 +121,10 @@ export class Passage
         linterContext: linterContextDefault,
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: PassageState = {
         nLines: null,
         startLineNumbersAfter: 0,
@@ -186,10 +190,6 @@ export class Passage
         window.removeEventListener("resize", this._onResize);
         // eslint-disable-next-line no-restricted-syntax
         clearTimeout(this._stylesAppiedTimer);
-    }
-
-    getType(): string {
-        return "passage";
     }
 
     _handleSerializedHighlightsUpdate: (

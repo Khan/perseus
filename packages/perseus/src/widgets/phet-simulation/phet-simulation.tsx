@@ -44,6 +44,10 @@ export class PhetSimulation
         React.createRef<HTMLIFrameElement>();
     private readonly locale: string;
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: State = {
         url: null,
         banner: null,
@@ -63,10 +67,6 @@ export class PhetSimulation
         if (prevProps.url !== this.props.url) {
             await this.updateSimState(this.props.url);
         }
-    }
-
-    getType(): string {
-        return "phet-simulation";
     }
 
     // kaLocales and PhET locales use different formats and abbreviations.

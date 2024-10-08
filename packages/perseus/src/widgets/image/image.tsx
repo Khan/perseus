@@ -70,9 +70,9 @@ class ImageWidget extends React.Component<Props> implements Widget {
         linterContext: linterContextDefault,
     };
 
-    getType(): string {
-        return "image";
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);

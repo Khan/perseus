@@ -140,9 +140,9 @@ class MoleculeWidget extends React.Component<Props> implements Widget {
         rotationAngle: 0,
     };
 
-    getType(): string {
-        return "molecule";
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     render(): React.ReactNode {
         return (

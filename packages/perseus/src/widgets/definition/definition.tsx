@@ -35,9 +35,9 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
         definition: "definition goes here",
     };
 
-    getType(): string {
-        return "definition";
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     render(): React.ReactNode {
         return (

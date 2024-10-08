@@ -32,9 +32,9 @@ class PassageRefTarget extends React.Component<Props> implements Widget {
         linterContext: linterContextDefault,
     };
 
-    getType(): string {
-        return "passage-ref-target";
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     // TODO passage-ref-target isn't interactive; remove
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {

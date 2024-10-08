@@ -62,6 +62,10 @@ class Measurer extends React.Component<Props> implements Widget {
         rulerLength: 10,
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state = {};
     ruler;
     protractor;
@@ -90,10 +94,6 @@ class Measurer extends React.Component<Props> implements Widget {
         if (shouldSetupGraphie) {
             this.setupGraphie();
         }
-    }
-
-    getType(): string {
-        return "measurer";
     }
 
     setupGraphie() {

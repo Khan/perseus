@@ -48,6 +48,10 @@ class PassageRef extends React.Component<Props, State> implements Widget {
         summaryText: "",
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: State = {
         lineRange: null,
         content: null,
@@ -79,10 +83,6 @@ class PassageRef extends React.Component<Props, State> implements Widget {
         window.removeEventListener("resize", this._throttledUpdateRange);
 
         this._isMounted = false;
-    }
-
-    getType(): string {
-        return "passage-ref";
     }
 
     change: ChangeFn = (...args) => {

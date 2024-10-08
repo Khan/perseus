@@ -125,6 +125,10 @@ class Interaction extends React.Component<Props, State> implements Widget {
         elements: [],
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: State = {
         variables: _getInitialVariables(this.props.elements),
         functions: _getInitialFunctions(this.props.elements),
@@ -147,10 +151,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                 functions: _getInitialFunctions(nextProps.elements),
             });
         }
-    }
-
-    getType(): string {
-        return "interaction";
     }
 
     _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {

@@ -14,9 +14,9 @@ class DeprecatedStandin extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    getType(): string {
-        return "deprecated-standin";
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     render() {
         return (

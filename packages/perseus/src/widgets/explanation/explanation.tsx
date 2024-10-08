@@ -43,11 +43,6 @@ class Explanation extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    state: State = {
-        expanded: false,
-    };
-    _mounted: boolean = false;
-
     static defaultProps: DefaultProps = {
         showPrompt: "Explain",
         hidePrompt: "Hide explanation",
@@ -56,16 +51,21 @@ class Explanation extends React.Component<Props, State> implements Widget {
         linterContext: linterContextDefault,
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
+    state: State = {
+        expanded: false,
+    };
+    _mounted: boolean = false;
+
     componentDidMount() {
         this._mounted = true;
     }
 
     componentWillUnmount() {
         this._mounted = false;
-    }
-
-    getType(): string {
-        return "explanation";
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
