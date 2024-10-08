@@ -551,7 +551,6 @@ export const keypadConfigurationForProps = (
         keypadType,
         extraKeys,
         times: widgetOptions.times,
-        // scientific: widgetOptions.buttonSets.includes("scientific"), // POC note: this line may or may not be needed ~ doesn't seem to impact output
     };
 };
 
