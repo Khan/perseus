@@ -112,7 +112,7 @@ Perseus is a monorepo - a single repository that ships multiple npm packages. Ge
 
 ## Random notes
 
-- We use `v8` to track Jest coverage. There's some old legacy code that we don't want coverage for, so we ignore that with `c8 ignore`. It might look like `c8` isn't be used, but it's used by `v8`.
+- We use `v8` to track Jest coverage. There's some old legacy code that we don't want coverage for, so we ignore that with `c8 ignore`. It might look like `c8` isn't be used, but it's used by the `v8` `coverageProvider` (defined in config/test/test.config.js).
 
 ## License
 
