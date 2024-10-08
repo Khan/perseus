@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import {failure, success} from "../result";
+import {success} from "../result";
 
 import {number} from "./number";
 import {anyFailure, ctx} from "./test-helpers";
