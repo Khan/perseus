@@ -1,4 +1,5 @@
 import {failure, success} from "../result";
+
 import {array} from "./array";
 import {string} from "./string";
 import {anyFailure, ctx} from "./test-helpers";
