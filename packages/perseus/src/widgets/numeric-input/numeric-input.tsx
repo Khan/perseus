@@ -281,6 +281,8 @@ export class NumericInput
             },
         });
 
+        console.log("Im-just-a-sweet-lil-numeric-input");
+
         return (
             <div className="Im-just-a-sweet-lil-numeric-input">
                 <InputWithExamples
