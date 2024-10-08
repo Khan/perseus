@@ -93,8 +93,9 @@ function buildRandomPhrase() {
     }
     const modifierStart = ["**", "$"];
     const modifierEnd = ["**", "$"];
-    const modifierIndex =
-        Math.floor(Math.random() * (modifierStart.length - 1)) + 0;
+    const modifierIndex = Math.floor(
+        Math.random() * (modifierStart.length - 1),
+    );
     return `${modifierStart[modifierIndex]}${phrases.join(" ")}${modifierEnd[modifierIndex]}`;
 }
 
