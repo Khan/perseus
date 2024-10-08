@@ -19,6 +19,7 @@ type WidgetName =
     | "group"
     | "iframe"
     | "image"
+    | "input-number"
     | "interaction"
     | "interactive-graph"
     | "label-image"
@@ -99,6 +100,7 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
     group: "GROUP",
     iframe: "IFRAME",
     image: "IMAGE",
+    "input-number": "INPUT_NUMBER",
     interaction: "INTERACTIVE",
     "interactive-graph": "INTERACTIVE_GRAPH",
     "label-image": "LABEL_IMAGE",
