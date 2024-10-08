@@ -38,6 +38,7 @@ function grapherValidator(
     } else {
         guessCoeffs = grader.getCoefficients(userInput.coords);
     }
+
     let correctCoeffs: number[];
     if (
         rubric.correct.type === "logarithm" ||
