@@ -475,6 +475,56 @@ export type GraphRange = [
     y: [min: number, max: number],
 ];
 
+export type GrapherAnswerTypes =
+    | {
+          type: "absolute_value";
+          coords: [
+              // The vertex
+              Coord, // A point along one line of the absolute value "V" lines
+              Coord,
+          ];
+      }
+    | {
+          type: "exponential";
+          // Two points along the asymptote line. Usually (always?) a
+          // horizontal or vertical line.
+          asymptote: [Coord, Coord];
+          // Two points along the exponential curve. One end of the curve
+          // trends towards the asymptote.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "linear";
+          // Two points along the straight line
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "logarithm";
+          // Two points along the asymptote line.
+          asymptote: [Coord, Coord];
+          // Two points along the logarithmic curve. One end of the curve
+          // trends towards the asymptote.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "quadratic";
+          coords: [
+              // The vertex of the parabola
+              Coord, // A point along the parabola
+              Coord,
+          ];
+      }
+    | {
+          type: "sinusoid";
+          // Two points on the same slope in the sinusoid wave line.
+          coords: [Coord, Coord];
+      }
+    | {
+          type: "tangent";
+          // Two points on the same slope in the tangent wave line.
+          coords: [Coord, Coord];
+      };
+
 export type PerseusGrapherWidgetOptions = {
     availableTypes: ReadonlyArray<
         | "absolute_value"
@@ -485,55 +535,7 @@ export type PerseusGrapherWidgetOptions = {
         | "sinusoid"
         | "tangent"
     >;
-    correct:
-        | {
-              type: "absolute_value";
-              coords: [
-                  // The vertex
-                  Coord, // A point along one line of the absolute value "V" lines
-                  Coord,
-              ];
-          }
-        | {
-              type: "exponential";
-              // Two points along the asymptote line. Usually (always?) a
-              // horizontal or vertical line.
-              asymptote: [Coord, Coord];
-              // Two points along the exponential curve. One end of the curve
-              // trends towards the asymptote.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "linear";
-              // Two points along the straight line
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "logarithm";
-              // Two points along the asymptote line.
-              asymptote: [Coord, Coord];
-              // Two points along the logarithmic curve. One end of the curve
-              // trends towards the asymptote.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "quadratic";
-              coords: [
-                  // The vertex of the parabola
-                  Coord, // A point along the parabola
-                  Coord,
-              ];
-          }
-        | {
-              type: "sinusoid";
-              // Two points on the same slope in the sinusoid wave line.
-              coords: [Coord, Coord];
-          }
-        | {
-              type: "tangent";
-              // Two points on the same slope in the tangent wave line.
-              coords: [Coord, Coord];
-          };
+    correct: GrapherAnswerTypes;
     graph: {
         backgroundImage: {
             bottom?: number;
