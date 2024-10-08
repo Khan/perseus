@@ -4,10 +4,10 @@ describe("ErrorTrackingParseContext", () => {
     it("adds its `path` to reported failures", () => {
         const ctx = new ErrorTrackingParseContext(["foo", 1, "bar"]);
 
-        expect(ctx.failure("oops", 4)).toEqual({
+        expect(ctx.failure("a million bucks", 4)).toEqual({
             type: "failure",
             detail: {
-                message: "oops",
+                message: "expected a million bucks, but got 4",
                 badValue: 4,
                 path: ["foo", 1, "bar"],
             },
