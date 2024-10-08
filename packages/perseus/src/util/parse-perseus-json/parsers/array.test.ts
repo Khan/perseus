@@ -1,16 +1,9 @@
-import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
 import {failure, success} from "../result";
-
 import {array} from "./array";
 import {string} from "./string";
+import {anyFailure, ctx} from "./test-helpers";
 
 describe("array", () => {
-    function ctx() {
-        return new ErrorTrackingParseContext([]);
-    }
-
-    const anyFailure = failure(expect.anything());
-
     const arrayOfStrings = array(string);
 
     it("accepts an empty array", () => {
