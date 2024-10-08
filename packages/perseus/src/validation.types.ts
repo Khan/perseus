@@ -1,5 +1,5 @@
-import type {Coord} from "./interactive2/types";
 import type {
+    GrapherAnswerTypes,
     PerseusDefinitionWidgetOptions,
     PerseusDropdownChoice,
     PerseusExplanationWidgetOptions,
@@ -82,24 +82,9 @@ export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
 
 export type PerseusGrapherRubric = {
-    correct:
-        | {type: "absolute_value"; coords: [Coord, Coord]}
-        | {
-              type: "exponential";
-              asymptote: [Coord, Coord];
-              coords: [Coord, Coord];
-          }
-        | {type: "linear"; coords: [Coord, Coord]}
-        | {type: "logarithm"; asymptote: [Coord, Coord]; coords: [Coord, Coord]}
-        | {type: "quadratic"; coords: [Coord, Coord]}
-        | {type: "sinusoid"; coords: [Coord, Coord]}
-        | {type: "tangent"; coords: [Coord, Coord]};
+    correct: GrapherAnswerTypes;
 };
 
-/**
- * TODO: this is kind of just a guess right now
- * based off of an old comment in grapher
- */
 export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
 
 export type PerseusIFrameRubric = PerseusIFrameWidgetOptions;
