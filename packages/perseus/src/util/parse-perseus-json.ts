@@ -90,7 +90,10 @@ function buildRandomPhrase() {
     for (let i = 0; i < randomLength; i++) {
         phrases.push(buildRandomString());
     }
-    return phrases.join(" ");
+    const modifierStart = ["##", "**"];
+    const modifierEnd = ["", "**"];
+    const modifierIndex = Math.floor(Math.random() * (modifierStart.length - 1)) + 0;
+    return `${modifierStart[modifierIndex]}${phrases.join(" ")}${modifierEnd[modifierIndex]}`;
 }
 
 function buildTestData(testObject: string) {
