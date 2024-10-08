@@ -213,6 +213,7 @@ describe("a mafs graph", () => {
         quadratic: quadraticQuestion,
         sinusoid: sinusoidQuestion,
         "unlimited-point": pointQuestion,
+        "unlimited-polygon": polygonQuestion,
     };
 
     const graphQuestionRenderersCorrect: {
@@ -229,6 +230,7 @@ describe("a mafs graph", () => {
         quadratic: quadraticQuestionWithDefaultCorrect,
         sinusoid: sinusoidQuestionWithDefaultCorrect,
         "unlimited-point": pointQuestionWithDefaultCorrect,
+        "unlimited-polygon": polygonQuestionDefaultCorrect,
     };
 
     describe.each(Object.entries(graphQuestionRenderers))(
