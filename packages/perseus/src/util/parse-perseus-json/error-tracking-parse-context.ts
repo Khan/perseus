@@ -10,9 +10,9 @@ import type {Failure, Success} from "./result";
 export class ErrorTrackingParseContext implements ParseContext {
     constructor(private readonly path: PathSegment[]) {}
 
-    failure(message: string, badValue: unknown): Failure<ParseFailureDetail> {
+    failure(expected: string, badValue: unknown): Failure<ParseFailureDetail> {
         return failure({
-            message,
+            message: `expected ${expected}, but got ${JSON.stringify(badValue)}`,
             badValue,
             path: this.path,
         });

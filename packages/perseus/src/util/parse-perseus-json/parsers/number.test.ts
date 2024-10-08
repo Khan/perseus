@@ -30,6 +30,6 @@ describe("number", () => {
         const result = number("foobar", ctx());
 
         invariant(result.type === "failure")
-        expect(result.detail.message).toBe(`expected a number, but got "foobar"`)
+        expect(result.detail.message).toBe(`expected number, but got "foobar"`)
     })
 })

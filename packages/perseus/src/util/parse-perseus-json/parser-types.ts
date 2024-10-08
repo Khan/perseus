@@ -16,6 +16,6 @@ export type PathSegment = keyof any;
 
 export interface ParseContext {
     success<T>(value: T): Success<T>;
-    failure(message: string, badValue: unknown): Failure<ParseFailureDetail>;
+    failure(expected: string, badValue: unknown): Failure<ParseFailureDetail>;
     forSubtree(key: PathSegment): ParseContext;
 }
