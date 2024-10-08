@@ -19,3 +19,9 @@ export interface ParseContext {
     failure(expected: string, badValue: unknown): Failure<ParseFailureDetail>;
     forSubtree(key: PathSegment): ParseContext;
 }
+
+// Utility to get the type of a successfully-parsed value from a Parser<T> type.
+export type ParsedValue<P extends Parser<any>> = Extract<
+    ReturnType<P>,
+    {type: "success"}
+>["value"];

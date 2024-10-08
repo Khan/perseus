@@ -1,0 +1,12 @@
+import type {ParsedValue} from "./parser-types";
+import type {string} from "./parsers/string";
+
+// summons a value of type T out of thin air!
+function summon<T>(): T {
+    return null as any as T;
+}
+
+summon<ParsedValue<typeof string>>() satisfies string;
+
+// @ts-expect-error - string parser returns a number
+summon<ParsedValue<typeof string>>() satisfies number;
