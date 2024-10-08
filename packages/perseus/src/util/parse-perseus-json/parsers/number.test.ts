@@ -1,17 +1,11 @@
 import invariant from "tiny-invariant";
 
-import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
 import {failure, success} from "../result";
 
 import {number} from "./number";
+import {anyFailure, ctx} from "./test-helpers";
 
 describe("number", () => {
-    function ctx() {
-        return new ErrorTrackingParseContext([]);
-    }
-
-    const anyFailure = failure(expect.anything());
-
     it("accepts a real number", () => {
         expect(number(3.5, ctx())).toEqual(success(3.5));
     });

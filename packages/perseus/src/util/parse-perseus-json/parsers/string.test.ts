@@ -1,15 +1,9 @@
-import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
-import {failure, success} from "../result";
+import {success} from "../result";
 
 import {string} from "./string";
+import {anyFailure, ctx} from "./test-helpers";
 
 describe("string", () => {
-    function ctx() {
-        return new ErrorTrackingParseContext([]);
-    }
-
-    const anyFailure = failure(expect.anything());
-
     it("accepts a string", () => {
         expect(string("hello", ctx())).toEqual(success("hello"));
     });
