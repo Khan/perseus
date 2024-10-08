@@ -32,13 +32,14 @@ import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
-type KeypadButtonSets = {
+export type KeypadButtonSets = {
     advancedRelations?: boolean;
     basicRelations?: boolean;
     divisionKey?: boolean;
     logarithms?: boolean;
     preAlgebra?: boolean;
     trigonometry?: boolean;
+    scientific?: boolean;
 };
 
 type Props = {
@@ -494,6 +495,9 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
                 break;
             case "trig":
                 keypadButtonSets.trigonometry = true;
+                break;
+            case "scientific":
+                keypadButtonSets.scientific = true;
                 break;
             case "basic":
             default:
