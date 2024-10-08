@@ -406,7 +406,6 @@ export type LegacyButtonSets = ReadonlyArray<
 export type PerseusExpressionWidgetOptions = {
     // The expression forms the answer may come in
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
-    // Different buttons sets that can show in the expression. Options are "basic", "basic+div", "trig", "prealgebra", "logarithms", "basic relations", "advanced relations"
     buttonSets: LegacyButtonSets;
     // Variables that can be used as functions.  Default: ["f", "g", "h"]
     functions: ReadonlyArray<string>;

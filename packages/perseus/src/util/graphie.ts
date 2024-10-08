@@ -1784,7 +1784,14 @@ const GraphUtils = {
     },
 
     // Find the angle in degrees between two or three points
-    findAngle: function (point1: Coord, point2: Coord, vertex?: Coord) {
+    // This function is deprecated as it has several issues calculating
+    // correctly when dealing with reflex angles or the position of point2
+    // (LEMS-2202) Remove this function while removing the Legacy Interactive Graph.
+    findAngleDeprecated: function (
+        point1: Coord,
+        point2: Coord,
+        vertex?: Coord,
+    ) {
         if (vertex === undefined) {
             const x = point1[0] - point2[0];
             const y = point1[1] - point2[1];
@@ -1794,8 +1801,8 @@ const GraphUtils = {
             return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
         }
         return (
-            GraphUtils.findAngle(point1, vertex) -
-            GraphUtils.findAngle(point2, vertex)
+            GraphUtils.findAngleDeprecated(point1, vertex) -
+            GraphUtils.findAngleDeprecated(point2, vertex)
         );
     },
 

@@ -31,6 +31,7 @@ import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {StatefulMafsGraph} from "./interactive-graphs";
 import interactiveGraphValidator from "./interactive-graphs/interactive-graph-validator";
+import {getClockwiseAngle} from "./interactive-graphs/math";
 
 import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
 import type {QuadraticGraphState} from "./interactive-graphs/types";
@@ -46,7 +47,6 @@ import type {
 import type {
     ChangeHandler,
     PerseusScore,
-    Widget,
     WidgetExports,
     WidgetProps,
 } from "../types";
@@ -1212,7 +1212,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                 });
 
                 const getAngle = function (a: number, vertex, b: number) {
-                    const angle = GraphUtils.findAngle(
+                    const angle = GraphUtils.findAngleDeprecated(
                         coords[rel(a)],
                         coords[rel(b)],
                         coords[rel(vertex)],
@@ -1249,7 +1249,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                         Math.sin((innerAngles[2] * Math.PI) / 180)) *
                     knownSide;
 
-                const outerAngle = GraphUtils.findAngle(
+                const outerAngle = GraphUtils.findAngleDeprecated(
                     coords[rel(1)],
                     coords[rel(-1)],
                 );
@@ -1293,7 +1293,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
                 // Solve for angle by using the law of cosines
                 const innerAngle = lawOfCosines(sides[0], sides[2], sides[1]);
 
-                const outerAngle = GraphUtils.findAngle(
+                const outerAngle = GraphUtils.findAngleDeprecated(
                     coords[rel(1)],
                     coords[rel(-1)],
                 );
@@ -1806,7 +1806,7 @@ class LegacyInteractiveGraph extends React.Component<Props, State> {
     }
 }
 
-class InteractiveGraph extends React.Component<Props, State> implements Widget {
+class InteractiveGraph extends React.Component<Props, State> {
     legacyGraphRef = React.createRef<LegacyInteractiveGraph>();
     mafsRef = React.createRef<StatefulMafsGraphType>();
 
@@ -2352,7 +2352,8 @@ class InteractiveGraph extends React.Component<Props, State> implements Widget {
             throw makeInvalidTypeError("getAngleEquationString", "angle");
         }
         const coords = InteractiveGraph.getAngleCoords(props.graph, props);
-        const angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
+        const allowReflexAngles = props.graph.allowReflexAngles;
+        const angle = getClockwiseAngle(coords, allowReflexAngles);
         return (
             angle.toFixed(0) +
             "\u00B0 angle" +
