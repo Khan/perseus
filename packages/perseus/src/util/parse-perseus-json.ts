@@ -79,7 +79,8 @@ function buildRandomString(capitalize: boolean = false) {
         const randomLetter = String.fromCharCode(
             97 + Math.floor(Math.random() * 26),
         );
-        randomString += (capitalize && i === 0) ? randomLetter.toUpperCase() : randomLetter;
+        randomString +=
+            capitalize && i === 0 ? randomLetter.toUpperCase() : randomLetter;
     }
     return randomString;
 }
