@@ -13,11 +13,11 @@ export function failure<T>(detail: T): Failure<T> {
 
 export function all<S, F>(results: Array<Result<S, F>>): Result<S[], F> {
     const successes: S[] = [];
-    for (const r of results) {
-        if (r.type === "success") {
-            successes.push(r.value);
+    for (const result of results) {
+        if (result.type === "success") {
+            successes.push(result.value);
         } else {
-            return failure(r.detail);
+            return failure(result.detail);
         }
     }
     return success(successes);
