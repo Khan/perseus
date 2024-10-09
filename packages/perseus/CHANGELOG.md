@@ -1,5 +1,28 @@
 # @khanacademy/perseus
 
+## 37.0.0
+
+### Major Changes
+
+-   [#1715](https://github.com/Khan/perseus/pull/1715) [`5ecfd4455`](https://github.com/Khan/perseus/commit/5ecfd44552e8021389aede22ee189f0262327497) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove validation logic from widgets' React component
+
+### Minor Changes
+
+-   [#1618](https://github.com/Khan/perseus/pull/1618) [`147f9a17d`](https://github.com/Khan/perseus/commit/147f9a17dc953a7bf24e6cc60a46589471a1e82c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - add scientific notation button / toggle to basic keypad
+
+*   [#1733](https://github.com/Khan/perseus/pull/1733) [`74ba298fa`](https://github.com/Khan/perseus/commit/74ba298faaeb8adb1b403c837e8daaafc2eb5c94) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - reverts scientific option addition to keypad
+
+### Patch Changes
+
+-   [#1728](https://github.com/Khan/perseus/pull/1728) [`22ee7bc0d`](https://github.com/Khan/perseus/commit/22ee7bc0def5a15cb5390f0c932b84fe93cbe6f5) Thanks [@Myranae](https://github.com/Myranae)! - Refine Dropdown's Rubric type and update associated test
+
+*   [#1734](https://github.com/Khan/perseus/pull/1734) [`92c4e6215`](https://github.com/Khan/perseus/commit/92c4e62153cc83eab1116fccf2d353496c0f220a) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Fix to account for recent cheat attempts
+
+-   [#1695](https://github.com/Khan/perseus/pull/1695) [`387273b07`](https://github.com/Khan/perseus/commit/387273b07f80f364cabd0de65a1831fc48a8fac5) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - BUGFIX: Left-most digit in Number Line widget is misaligned
+
+-   Updated dependencies [[`147f9a17d`](https://github.com/Khan/perseus/commit/147f9a17dc953a7bf24e6cc60a46589471a1e82c), [`74ba298fa`](https://github.com/Khan/perseus/commit/74ba298faaeb8adb1b403c837e8daaafc2eb5c94)]:
+    -   @khanacademy/math-input@21.1.0
+
 ## 36.1.2
 
 ### Patch Changes
