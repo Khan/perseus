@@ -32,8 +32,6 @@ function grapherValidator(
     }
 
     // Get new function handler for grading
-    const grader = functionForType(userInput.type);
-    const {asymptote} = "asymptote" in grader ? grader : {asymptote: null};
     const guessCoeffs = grader.getCoefficients(
         userInput.coords,
         userInput.asymptote,
@@ -44,27 +42,52 @@ function grapherValidator(
     );
     // const grader = functionForType(userInput.type);
     // let guessCoeffs: number[];
-    // if (userInput.type === "logarithm" || userInput.type === "exponential") {
-    //     guessCoeffs = grader.getCoefficients(
-    //         userInput.coords,
-    //         userInput.asymptote,
-    //     );
-    // } else {
-    //     guessCoeffs = grader.getCoefficients(userInput.coords);
-    // }
-    //
-    // let correctCoeffs: number[];
-    // if (
-    //     rubric.correct.type === "logarithm" ||
-    //     rubric.correct.type === "exponential"
-    // ) {
-    //     correctCoeffs = grader.getCoefficients(
-    //         rubric.correct.coords,
-    //         rubric.correct.asymptote,
-    //     );
-    // } else {
-    //     correctCoeffs = grader.getCoefficients(rubric.correct.coords);
-    // }
+    if (
+        (userInput.type === "logarithm" || userInput.type === "exponential") &&
+        (rubric.correct.type === "logarithm" ||
+            rubric.correct.type === "exponential")
+    ) {
+        const grader = functionForType(userInput.type);
+        const guessCoeffs = grader.getCoefficients(
+            userInput.coords,
+            userInput.asymptote,
+        );
+        const correctCoeffs = grader.getCoefficients(
+            rubric.correct.coords,
+            rubric.correct.asymptote,
+        );
+
+        if (guessCoeffs == null || correctCoeffs == null) {
+            return {
+                type: "invalid",
+                message: null,
+            };
+        }
+    } else if (
+        (userInput.type === "linear" ||
+            userInput.type === "quadratic" ||
+            userInput.type === "tangent" ||
+            userInput.type === "sinusoid" ||
+            userInput.type === "absolute_value") &&
+        (rubric.correct.type === "linear" ||
+            rubric.correct.type === "quadratic" ||
+            rubric.correct.type === "tangent" ||
+            rubric.correct.type === "sinusoid" ||
+            rubric.correct.type === "absolute_value")
+    ) {
+        const grader = functionForType(userInput.type);
+        const guessCoeffs = grader.getCoefficients(userInput.coords);
+        const correctCoeffs = grader.getCoefficients(rubric.correct.coords);
+        if (guessCoeffs == null || correctCoeffs == null) {
+            return {
+                type: "invalid",
+                message: null,
+            };
+        }
+    } else {
+        // report an erro because there's a mismatch between userInput
+        // rubric type
+    }
 
     if (guessCoeffs == null || correctCoeffs == null) {
         return {
