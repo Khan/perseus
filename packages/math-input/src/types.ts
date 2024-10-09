@@ -20,6 +20,7 @@ export type KeypadConfiguration = {
     keypadType: KeypadType;
     extraKeys?: ReadonlyArray<Key>;
     times?: boolean;
+    scientific?: boolean;
 };
 
 export type KeyHandler = (key: Key) => Cursor;
