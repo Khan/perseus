@@ -190,12 +190,12 @@ export class NumericInput
         this.inputRef?.blur();
     };
 
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        // The widget itself is an input, so we return a single empty list to
-        // indicate this.
-        /* c8 ignore next */
-        return [[]];
-    };
+    // getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+    //     // The widget itself is an input, so we return a single empty list to
+    //     // indicate this.
+    //     /* c8 ignore next */
+    //     return [[]];
+    // };
 
     getGrammarTypeForPath: (arg1: FocusPath) => string = (inputPath) => {
         /* c8 ignore next */
