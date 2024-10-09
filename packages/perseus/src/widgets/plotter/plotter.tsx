@@ -15,12 +15,7 @@ import KhanMath from "../../util/math";
 import plotterValidator from "./plotter-validator";
 
 import type {PerseusPlotterWidgetOptions} from "../../perseus-types";
-import type {
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
@@ -88,13 +83,6 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         // bottom label.
         categoryHeights: {},
     };
-
-    static validate(
-        userInput: PerseusPlotterUserInput,
-        rubric: PerseusPlotterRubric,
-    ): PerseusScore {
-        return plotterValidator(userInput, rubric);
-    }
 
     componentDidMount() {
         this._isMounted = true;
@@ -1153,10 +1141,6 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         return this.state.values;
     }
 
-    simpleValidate(rubric: PerseusPlotterRubric): PerseusScore {
-        return plotterValidator(this.getUserInput(), rubric);
-    }
-
     render(): React.ReactNode {
         // TODO(kevinb) actually compute the size of the graphie correctly and
         // make it that size so we don't have to add extra padding.  The value
@@ -1189,4 +1173,5 @@ export default {
     hidden: true,
     widget: Plotter,
     staticTransform: staticTransform,
+    validator: plotterValidator,
 } as WidgetExports<typeof Plotter>;

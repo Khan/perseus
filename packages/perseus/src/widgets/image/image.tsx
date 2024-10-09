@@ -12,7 +12,7 @@ import noopValidator from "../__shared__/noop-validator";
 
 import type {Range, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
-import type {NullUserInput, PerseusImageRubric} from "../../validation.types";
+import type {PerseusImageRubric} from "../../validation.types";
 
 const defaultBoxSize = 400;
 const defaultRange: Range = [0, 10];
@@ -70,23 +70,13 @@ class ImageWidget extends React.Component<Props> implements Widget {
         linterContext: linterContextDefault,
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
-
-    getUserInput(): NullUserInput {
-        return null;
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         let image;
@@ -268,4 +258,6 @@ export default {
     displayName: "Image",
     widget: ImageWidget,
     isLintable: true,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: () => noopValidator(),
 } as WidgetExports<typeof ImageWidget>;

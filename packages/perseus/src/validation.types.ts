@@ -8,6 +8,7 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusGrapherWidgetOptions,
     PerseusGraphType,
+    PerseusGroupWidgetOptions,
     PerseusIFrameWidgetOptions,
     PerseusImageWidgetOptions,
     PerseusInputNumberWidgetOptions,
@@ -30,12 +31,6 @@ import type {InteractiveMarkerType} from "./widgets/label-image/types";
 import type {Relationship} from "./widgets/number-line/number-line";
 
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type EmptyUserInput = Empty;
-
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type NullUserInput = null;
 
 export type PerseusCategorizerRubric = {
     // The correct answers where index relates to the items and value relates
@@ -77,6 +72,8 @@ export type PerseusExpressionRubric = {
 };
 
 export type PerseusExpressionUserInput = string;
+
+export type PerseusGroupRubric = PerseusGroupWidgetOptions;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 
@@ -140,9 +137,6 @@ export type PerseusMatrixUserInput = {
     answers: ReadonlyArray<ReadonlyArray<number>>;
 };
 
-// TODO (LEMS-2396): remove validation logic from widgets that don't validate
-export type PerseusMoleculeUserInput = ReadonlyArray<ReadonlyArray<string>>;
-
 export type PerseusNumberLineRubric = PerseusNumberLineWidgetOptions & {
     isInequality: boolean;
 };
@@ -201,6 +195,36 @@ export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusVideoRubric = PerseusVideoWidgetOptions;
 
+export type Rubric =
+    | PerseusCategorizerRubric
+    | PerseusCSProgramRubric
+    | PerseusDefinitionRubric
+    | PerseusDropdownRubric
+    | PerseusExplanationRubric
+    | PerseusExpressionRubric
+    | PerseusGroupRubric
+    | PerseusGradedGroupRubric
+    | PerseusGradedGroupSetRubric
+    | PerseusGrapherRubric
+    | PerseusIFrameRubric
+    | PerseusImageRubric
+    | PerseusInputNumberRubric
+    | PerseusInteractionRubric
+    | PerseusInteractiveGraphRubric
+    | PerseusLabelImageRubric
+    | PerseusMatcherRubric
+    | PerseusMatrixRubric
+    | PerseusNumberLineRubric
+    | PerseusNumericInputRubric
+    | PerseusOrdererRubric
+    | PerseusPassageRubric
+    | PerseusPassageRefRubric
+    | PerseusPlotterRubric
+    | PerseusRadioRubric
+    | PerseusSorterRubric
+    | PerseusTableRubric
+    | PerseusVideoRubric;
+
 export type UserInput =
     | PerseusCategorizerUserInput
     | PerseusCSProgramUserInput
@@ -213,12 +237,19 @@ export type UserInput =
     | PerseusLabelImageUserInput
     | PerseusMatcherUserInput
     | PerseusMatrixUserInput
-    | PerseusMoleculeUserInput
     | PerseusNumberLineUserInput
     | PerseusNumericInputUserInput
     | PerseusOrdererUserInput
     | PerseusPlotterUserInput
     | PerseusRadioUserInput
     | PerseusSorterUserInput
-    | PerseusTableUserInput
-    | EmptyUserInput;
+    | PerseusTableUserInput;
+
+export type UserInputMap = {[widgetId: string]: UserInput | UserInputMap};
+
+/**
+ * deprecated prefer using UserInputMap
+ */
+export type UserInputArray = ReadonlyArray<
+    UserInputArray | UserInput | null | undefined
+>;

@@ -19,6 +19,7 @@ import {
 import * as Dependencies from "../dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
@@ -1435,7 +1436,7 @@ describe("renderer", () => {
             expect(input).toStrictEqual([
                 {currentValue: "0"},
                 {currentValue: "1"},
-                null, // image widget doesn't implement getUserinput
+                undefined, // image widget doesn't implement getUserinput
             ]);
         });
 
@@ -1627,6 +1628,46 @@ describe("renderer", () => {
             // Assert
             expect(emptyWidgets).toStrictEqual(["input-number 1"]);
         });
+
+        it("should return widget ID for group with empty widget", () => {
+            // Arrange
+            const {renderer} = renderQuestion(simpleGroupQuestion);
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual(["group 1"]);
+        });
+
+        it("should not return ID for group with empty static widget", () => {
+            // Arrange
+            const simpleGroupQuestionCopy = JSON.parse(
+                JSON.stringify(simpleGroupQuestion),
+            );
+            simpleGroupQuestionCopy.widgets["group 1"].options.widgets[
+                "numeric-input 1"
+            ].static = true;
+            const {renderer} = renderQuestion(simpleGroupQuestionCopy);
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual([]);
+        });
+
+        it("should not return ID for group with non-empty widget", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(simpleGroupQuestion);
+            await userEvent.type(screen.getByRole("textbox"), "99");
+
+            // Act
+            const emptyWidgets = renderer.emptyWidgets();
+
+            // Assert
+            expect(emptyWidgets).toStrictEqual([]);
+        });
     });
 
     describe("setInputValue", () => {
@@ -1681,7 +1722,7 @@ describe("renderer", () => {
         });
     });
 
-    describe("getUserInputForWidgets", () => {
+    describe("getUserInputMap", () => {
         it("should return user input for all rendered widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
@@ -1709,7 +1750,7 @@ describe("renderer", () => {
             act(() => jest.runOnlyPendingTimers());
 
             // Act
-            const userInput = renderer.getUserInputForWidgets();
+            const userInput = renderer.getUserInputMap();
 
             // Assert
             expect(userInput).toMatchInlineSnapshot(`
@@ -1717,7 +1758,6 @@ describe("renderer", () => {
                   "dropdown 1": {
                     "value": 1,
                   },
-                  "image 1": null,
                   "input-number 1": {
                     "currentValue": "100",
                   },

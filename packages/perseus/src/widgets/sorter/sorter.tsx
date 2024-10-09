@@ -8,12 +8,7 @@ import sorterValidator from "./sorter-validator";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusSorterWidgetOptions} from "../../perseus-types";
-import type {
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
@@ -49,13 +44,6 @@ class Sorter extends React.Component<Props, State> implements Widget {
         onChange: function () {},
         linterContext: linterContextDefault,
     };
-
-    static validate(
-        userInput: PerseusSorterUserInput,
-        rubric: PerseusSorterRubric,
-    ): PerseusScore {
-        return sorterValidator(userInput, rubric);
-    }
 
     state: State = {
         changed: false,
@@ -107,10 +95,6 @@ class Sorter extends React.Component<Props, State> implements Widget {
         this.refs.sortable.moveOptionToIndex(option, index);
     };
 
-    simpleValidate(rubric: PerseusSorterRubric): PerseusScore {
-        return sorterValidator(this.getUserInput(), rubric);
-    }
-
     render(): React.ReactNode {
         const options = shuffle(
             this.props.correct,
@@ -143,4 +127,5 @@ export default {
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
+    validator: sorterValidator,
 } as WidgetExports<typeof Sorter>;

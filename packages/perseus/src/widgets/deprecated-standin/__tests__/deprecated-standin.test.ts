@@ -50,15 +50,4 @@ describe("Deprecated Standin widget", () => {
         // Assert
         expect(result["widget 1"]).toHaveBeenAnsweredCorrectly();
     });
-
-    it("should return an empty object for getUserInput()", () => {
-        // Arrange
-        const {renderer} = renderQuestion(question);
-
-        // Act
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        expect(userInput).toEqual([{}]);
-    });
 });

@@ -18,12 +18,7 @@ import Util from "../../util";
 import {iframeValidator} from "./iframe-validator";
 
 import type {PerseusIFrameWidgetOptions} from "../../perseus-types";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-    Widget,
-} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusIFrameRubric,
     PerseusIFrameUserInput,
@@ -57,10 +52,6 @@ class Iframe extends React.Component<Props> implements Widget {
         allowFullScreen: false,
         allowTopNavigation: false,
     };
-
-    static validate(state: PerseusIFrameUserInput): PerseusScore {
-        return iframeValidator(state);
-    }
 
     componentDidMount() {
         $(window).on("message", this.handleMessageEvent);
@@ -100,10 +91,6 @@ class Iframe extends React.Component<Props> implements Widget {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
-
-    simpleValidate(): PerseusScore {
-        return iframeValidator(this.getUserInput());
-    }
 
     render(): React.ReactNode {
         const style = {
@@ -179,4 +166,5 @@ export default {
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
+    validator: iframeValidator,
 } as WidgetExports<typeof Iframe>;

@@ -8,42 +8,6 @@ describe("Widget API support", () => {
         registerAllWidgetsForTesting();
     });
 
-    // This verifies a known list of widgets to ensure they provide the static
-    // validate function. Not all widgets support this function so even though
-    // this list looks exhaustive, it's not!
-    it.each([
-        "deprecated-standin",
-        "radio",
-        "input-number",
-        "numeric-input",
-        "expression",
-        "categorizer",
-        "cs-program",
-        "dropdown",
-        "explanation",
-        "definition",
-        "grapher",
-        "iframe",
-        "image",
-        "interaction",
-        "interactive-graph",
-        "label-image",
-        "matrix",
-        "matcher",
-        "measurer",
-        "number-line",
-        "orderer",
-        "passage",
-        "passage-ref",
-        "passage-ref-target",
-        "plotter",
-        "sorter",
-        "table",
-        "video",
-    ])("%s widget should provide static validate function", (widgetType) => {
-        expect(Widgets.getWidget(widgetType)).toHaveProperty("validate");
-    });
-
     // This list is mirrored in Khan Academy's webapp for the coach reports.
     // If you change this, be sure to double-check that consuming applications
     // agree on this list of supported widgets.

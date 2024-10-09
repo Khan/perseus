@@ -181,7 +181,9 @@ describe("interactive-graph widget", function () {
                 .build();
             const {renderer} = renderQuestion(question, blankOptions);
 
-            expect(renderer).toHaveBeenAnsweredCorrectly();
+            expect(renderer).toHaveBeenAnsweredCorrectly({
+                shouldHavePoints: false,
+            });
         });
     });
 });

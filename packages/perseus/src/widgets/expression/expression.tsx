@@ -22,15 +22,7 @@ import getDecimalSeparator from "./get-decimal-separator";
 
 import type {DependenciesContext} from "../../dependencies";
 import type {PerseusExpressionWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {
-    APIOptions,
-    FocusPath,
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
@@ -63,16 +55,6 @@ const anglicizeOperators = (tex: string): string => {
 
 const normalizeTex = (tex: string): string => {
     return anglicizeOperators(tex);
-};
-
-const deriveKeypadVersion = (apiOptions: APIOptions) => {
-    // We can derive which version of the keypad is in use. This is
-    // a bit tricky, but this code will be relatively short-lived
-    // as we coalesce onto the new, v2 Keypad, at which point we
-    // can remove this `virtualKeypadVersion` field entirely.
-    return apiOptions.nativeKeypadProxy != null
-        ? "REACT_NATIVE_KEYPAD"
-        : "MATH_INPUT_KEYPAD_V2";
 };
 
 type RenderProps = {
@@ -128,16 +110,6 @@ export class Expression
 
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
-
-    // TODO remove this in favor of just using expressionValidator
-    static validate(
-        userInput: PerseusExpressionUserInput,
-        rubric: PerseusExpressionRubric,
-        strings: PerseusStrings,
-        locale: string,
-    ): PerseusScore {
-        return expressionValidator(userInput, rubric, strings, locale);
-    }
 
     static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
         return normalizeTex(props.value);
@@ -226,34 +198,6 @@ export class Expression
                 showErrorTooltip: false,
             });
         }
-    };
-
-    simpleValidate: (
-        rubric: PerseusExpressionRubric & {scoring?: boolean},
-    ) => PerseusScore = ({scoring, ...rubric}) => {
-        const score = expressionValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-            this.context.locale,
-        );
-
-        // "scoring" is a flag that indicates when we are checking answers.
-        // otherwise, we may just be checking validity after changes.
-        if (scoring && score.type !== "invalid") {
-            this.props.analytics?.onAnalyticsEvent({
-                type: "perseus:expression-evaluated",
-                payload: {
-                    result:
-                        score.earned === score.total ? "correct" : "incorrect",
-                    virtualKeypadVersion: deriveKeypadVersion(
-                        this.props.apiOptions,
-                    ),
-                },
-            });
-        }
-
-        return score;
     };
 
     getUserInput(): PerseusExpressionUserInput {
@@ -626,4 +570,5 @@ export default {
 
     // For use by the editor
     isLintable: true,
+    validator: expressionValidator,
 } as WidgetExports<typeof ExpressionWithDependencies>;

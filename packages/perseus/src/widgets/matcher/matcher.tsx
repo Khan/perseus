@@ -14,12 +14,7 @@ import matcherValidator from "./matcher-validator";
 
 import type {SortableOption} from "../../components/sortable";
 import type {PerseusMatcherWidgetOptions} from "../../perseus-types";
-import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-    Widget,
-} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
@@ -69,13 +64,6 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         rightHeight: 0,
         texRendererLoaded: false,
     };
-
-    static validate(
-        state: PerseusMatcherUserInput,
-        rubric: PerseusMatcherRubric,
-    ): PerseusScore {
-        return matcherValidator(state, rubric);
-    }
 
     changeAndTrack: (arg1: any) => void = (e) => {
         this.props.onChange(e);
@@ -134,10 +122,6 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
         this.refs.right.moveOptionToIndex(option, index);
     };
-
-    simpleValidate(rubric: PerseusMatcherRubric) {
-        return matcherValidator(this.getUserInput(), rubric);
-    }
 
     render(): React.ReactElement {
         // To minimize layout shift, we display a spinner until our math
@@ -298,4 +282,5 @@ export default {
     displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
+    validator: matcherValidator,
 } as WidgetExports<typeof Matcher>;

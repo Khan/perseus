@@ -263,6 +263,12 @@ function combineScores(
     );
 }
 
+function flattenScores(widgetScoreMap: {
+    [widgetId: string]: PerseusScore;
+}): PerseusScore {
+    return Object.values(widgetScoreMap).reduce(combineScores, noScore);
+}
+
 export function isCorrect(score: PerseusScore): boolean {
     return score.type === "points" && score.earned >= score.total;
 }
@@ -880,6 +886,7 @@ const Util = {
     shuffle,
     split,
     combineScores,
+    flattenScores,
     keScoreFromPerseusScore,
     firstNumericalParse,
     stringArrayOfSize,

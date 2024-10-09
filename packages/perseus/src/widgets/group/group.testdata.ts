@@ -151,3 +151,45 @@ export const question1: PerseusRenderer = {
         },
     },
 };
+
+export const simpleGroupQuestion: PerseusRenderer = {
+    content: "[[☃ group 1]]",
+    images: {},
+    widgets: {
+        "group 1": {
+            graded: true,
+            options: {
+                content: "[[☃ numeric-input 1]]",
+                images: {},
+                widgets: {
+                    "numeric-input 1": {
+                        alignment: "default",
+                        graded: true,
+                        options: {
+                            answers: [
+                                {
+                                    maxError: null,
+                                    message: "",
+                                    simplify: "required",
+                                    status: "correct",
+                                    strict: false,
+                                    value: 230,
+                                },
+                            ],
+                            coefficient: false,
+                            labelText: "value rounded to the nearest ten",
+                            rightAlign: false,
+                            size: "normal",
+                            static: false,
+                        },
+                        static: false,
+                        type: "numeric-input",
+                        version: {major: 0, minor: 0},
+                    },
+                },
+            },
+            type: "group",
+            version: {major: 0, minor: 0},
+        },
+    },
+};

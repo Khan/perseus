@@ -18,13 +18,7 @@ import Util from "../../util";
 import categorizerValidator from "./categorizer-validator";
 
 import type {PerseusCategorizerWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
@@ -63,14 +57,6 @@ export class Categorizer
         uniqueId: _.uniqueId("perseus_radio_"),
     };
 
-    static validate(
-        userInput: PerseusCategorizerUserInput,
-        rubric: PerseusCategorizerRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return categorizerValidator(userInput, rubric, strings);
-    }
-
     static getUserInputFromProps(props: Props): PerseusCategorizerUserInput {
         return {values: props.values};
     }
@@ -90,14 +76,6 @@ export class Categorizer
         values[itemNum] = catNum;
         this.change("values", values);
         this.props.trackInteraction();
-    }
-
-    simpleValidate(rubric: PerseusCategorizerRubric): PerseusScore {
-        return categorizerValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
     }
 
     render(): React.ReactNode {
@@ -341,4 +319,5 @@ export default {
         );
     },
     isLintable: true,
+    validator: categorizerValidator,
 } as WidgetExports<typeof Categorizer>;

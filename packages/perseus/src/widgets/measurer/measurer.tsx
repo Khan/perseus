@@ -49,8 +49,6 @@ type DefaultProps = {
 };
 
 class Measurer extends React.Component<Props> implements Widget {
-    static validate = noopValidator;
-
     static defaultProps: DefaultProps = {
         box: [480, 480],
         image: {},
@@ -63,6 +61,10 @@ class Measurer extends React.Component<Props> implements Widget {
         rulerPixels: 40,
         rulerLength: 10,
     };
+
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     state = {};
     ruler;
@@ -148,14 +150,6 @@ class Measurer extends React.Component<Props> implements Widget {
         }
     }
 
-    getUserInput() {
-        return {};
-    }
-
-    simpleValidate() {
-        return noopValidator(1);
-    }
-
     render() {
         const image = _.extend({}, defaultImage, this.props.image);
 
@@ -212,4 +206,6 @@ export default {
     widget: Measurer,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: () => noopValidator(1),
 } as WidgetExports<typeof Measurer>;
