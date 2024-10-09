@@ -190,12 +190,12 @@ export class NumericInput
         this.inputRef?.blur();
     };
 
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        // The widget itself is an input, so we return a single empty list to
-        // indicate this.
-        /* c8 ignore next */
-        return [[]];
-    };
+    // getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+    //     // The widget itself is an input, so we return a single empty list to
+    //     // indicate this.
+    //     /* c8 ignore next */
+    //     return [[]];
+    // };
 
     getGrammarTypeForPath: (arg1: FocusPath) => string = (inputPath) => {
         /* c8 ignore next */
@@ -242,32 +242,35 @@ export class NumericInput
             labelText = this.context.strings.yourAnswerLabel;
         }
 
-        // To right align a custom keypad we need to wrap it.
-        const maybeRightAlignKeypadInput = (
-            keypadInput: React.ReactElement<
-                React.ComponentProps<typeof SimpleKeypadInput>
-            >,
-        ) => {
-            return this.props.rightAlign ? (
-                <div className="perseus-input-right-align">{keypadInput}</div>
-            ) : (
-                keypadInput
-            );
-        };
+        console.log("The mobile keypad should NOT be showing!");
 
-        if (this.props.apiOptions.customKeypad) {
-            // TODO(charlie): Support "Review Mode".
-            return maybeRightAlignKeypadInput(
-                <SimpleKeypadInput
-                    ref={(ref) => (this.inputRef = ref)}
-                    value={this.props.currentValue}
-                    keypadElement={this.props.keypadElement}
-                    onChange={this.handleChange}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                />,
-            );
-        }
+        // *** REMOVING - REMOVING - REMOVING ***
+        // To right align a custom keypad we need to wrap it.
+        // const maybeRightAlignKeypadInput = (
+        //     keypadInput: React.ReactElement<
+        //         React.ComponentProps<typeof SimpleKeypadInput>
+        //     >,
+        // ) => {
+        //     return this.props.rightAlign ? (
+        //         <div className="perseus-input-right-align">{keypadInput}</div>
+        //     ) : (
+        //         keypadInput
+        //     );
+        // };
+        //
+        // if (this.props.apiOptions.customKeypad) {
+        //     // TODO(charlie): Support "Review Mode".
+        //     return maybeRightAlignKeypadInput(
+        //         <SimpleKeypadInput
+        //             ref={(ref) => (this.inputRef = ref)}
+        //             value={this.props.currentValue}
+        //             keypadElement={this.props.keypadElement}
+        //             onChange={this.handleChange}
+        //             onFocus={this._handleFocus}
+        //             onBlur={this._handleBlur}
+        //         />,
+        //     );
+        // }
 
         // Note: This is _very_ similar to what `input-number.jsx` does. If
         // you modify this, double-check if you also need to modify that
