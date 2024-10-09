@@ -163,7 +163,6 @@ export type {
     Version,
     VideoData,
     VideoKind,
-    WidgetDict,
     WidgetExports,
     SharedRendererProps,
 } from "./types";
