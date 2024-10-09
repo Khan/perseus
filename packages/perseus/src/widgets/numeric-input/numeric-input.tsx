@@ -242,6 +242,8 @@ export class NumericInput
             labelText = this.context.strings.yourAnswerLabel;
         }
 
+        console.log("The mobile keypad should NOT be showing!");
+
         // *** REMOVING - REMOVING - REMOVING ***
         // To right align a custom keypad we need to wrap it.
         // const maybeRightAlignKeypadInput = (
