@@ -220,6 +220,9 @@ class MobileKeypadInternals
                                 containerWidth > expandedViewThreshold
                             }
                             showDismiss
+                            scientific={
+                                isExpression && keypadConfig?.scientific
+                            }
                         />
                     ) : null}
                 </AphroditeCssTransitionGroup>
