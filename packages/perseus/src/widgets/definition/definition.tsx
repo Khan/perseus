@@ -13,10 +13,7 @@ import type {
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    EmptyUserInput,
-    PerseusDefinitionRubric,
-} from "../../validation.types";
+import type {PerseusDefinitionRubric} from "../../validation.types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
@@ -38,19 +35,9 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
         definition: "definition goes here",
     };
 
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
-
-    getUserInput(): EmptyUserInput {
-        return {};
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     render(): React.ReactNode {
         return (
@@ -118,4 +105,6 @@ export default {
     defaultAlignment: "inline",
     widget: Definition,
     transform: (x: any) => x,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: () => noopValidator(),
 } as WidgetExports<typeof Definition>;

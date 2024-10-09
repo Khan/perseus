@@ -14,13 +14,7 @@ import tableValidator from "./table-validator";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusTableWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {
-    PerseusScore,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusTableRubric,
     PerseusTableUserInput,
@@ -95,14 +89,6 @@ class Table extends React.Component<Props> implements Widget {
         };
     })();
 
-    static validate(
-        state: PerseusTableUserInput,
-        rubric: PerseusTableRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return tableValidator(state, rubric, strings);
-    }
-
     _getRows: () => number = () => {
         return this.props.answers.length;
     };
@@ -142,14 +128,6 @@ class Table extends React.Component<Props> implements Widget {
             headers: headers,
         });
     };
-
-    simpleValidate(rubric: PerseusTableWidgetOptions): PerseusScore {
-        return tableValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
-    }
 
     _handleFocus: (arg1: any) => void = (inputPath) => {
         this.props.onFocus(inputPath);
@@ -350,4 +328,5 @@ export default {
     transform: propTransform,
     hidden: true,
     isLintable: true,
+    validator: tableValidator,
 } as WidgetExports<typeof Table>;

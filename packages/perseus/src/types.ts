@@ -9,7 +9,12 @@ import type {
 } from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
-import type {UserInput} from "./validation.types";
+import type {
+    Rubric,
+    UserInput,
+    UserInputArray,
+    UserInputMap,
+} from "./validation.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -44,6 +49,12 @@ export type SerializedState = Record<string, any>;
  * scoring, state serialization/deserialization, and focus management.
  */
 export interface Widget {
+    /**
+     * don't use isWidget; it's just a dummy property to help TypeScript's weak
+     * typing to recognize non-interactive widgets as Widgets
+     * @deprecated
+     */
+    isWidget?: true;
     focus?: () =>
         | {
               id: string;
@@ -74,16 +85,9 @@ export interface Widget {
         // TODO(jeremy): I think this is actually a callback
         focus?: () => unknown,
     ) => void;
-    getUserInput?: () => UserInput | null | undefined;
+    getUserInputMap?: () => UserInputMap | undefined;
+    getUserInput?: () => UserInputArray | UserInput | undefined;
 
-    simpleValidate?: (
-        options?: any,
-        onOutputError?: (
-            widgetId: any,
-            value: string,
-            message?: string | null | undefined,
-        ) => unknown | null | undefined,
-    ) => PerseusScore;
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
 }
@@ -195,6 +199,8 @@ export const MafsGraphTypeFlags = [
     "ray",
     /** Enables the `polygon` interactive-graph type a fixed number of sides. */
     "polygon",
+    /** Enable the `unlimited-polygon` interactive graph type for an unlimited number of sides */
+    "unlimited-polygon",
     /** Enables the `circle` interactive-graph type.  */
     "circle",
     /** Enables the `quadratic` interactive-graph type.  */
@@ -574,6 +580,18 @@ export type WidgetTransform = (
     problemNumber?: number,
 ) => any;
 
+export type WidgetValidatorFunction = (
+    // The user data needed to score
+    userInput: UserInput,
+    // The scoring criteria to score against
+    rubric: Rubric,
+    // Strings, for error messages in invalid widgets
+    string?: PerseusStrings,
+    // Locale, for math evaluation
+    // (1,000.00 === 1.000,00 in some countries)
+    locale?: string,
+) => PerseusScore;
+
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
 > = Readonly<{
@@ -610,6 +628,8 @@ export type WidgetExports<
     /** transforms the widget options to the props used to render the widget for
     static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
+
+    validator?: WidgetValidatorFunction;
 
     /**
     A map of major version numbers (as a string, eg "1") to a function that

@@ -22,7 +22,7 @@ import type {
     PerseusWidget,
 } from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {NullUserInput, PerseusPassageRubric} from "../../validation.types";
+import type {PerseusPassageRubric} from "../../validation.types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -121,16 +121,15 @@ export class Passage
         linterContext: linterContextDefault,
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: PassageState = {
         nLines: null,
         startLineNumbersAfter: 0,
         stylesAreApplied: false,
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
 
     componentDidMount() {
         this._updateState();
@@ -372,21 +371,6 @@ export class Passage
     }
 
     /**
-     * Misc functions
-     *
-     * These are misc widget functions used for the widget API
-     */
-
-    getUserInput(): NullUserInput {
-        return null;
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
-
-    /**
      * Rendering
      *
      * Functions to render the passage widget.
@@ -575,4 +559,5 @@ export default {
         );
     },
     isLintable: true,
+    validator: () => noopValidator(),
 } as WidgetExports<typeof Passage>;

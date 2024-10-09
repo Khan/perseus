@@ -9,10 +9,7 @@ import {isPassageWidget} from "../passage/utils";
 
 import type {PerseusPassageRefWidgetOptions} from "../../perseus-types";
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {
-    NullUserInput,
-    PerseusPassageRefRubric,
-} from "../../validation.types";
+import type {PerseusPassageRefRubric} from "../../validation.types";
 
 const EN_DASH = "\u2013";
 
@@ -51,15 +48,14 @@ class PassageRef extends React.Component<Props, State> implements Widget {
         summaryText: "",
     };
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: State = {
         lineRange: null,
         content: null,
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
 
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
@@ -87,11 +83,6 @@ class PassageRef extends React.Component<Props, State> implements Widget {
         window.removeEventListener("resize", this._throttledUpdateRange);
 
         this._isMounted = false;
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): NullUserInput {
-        return null;
     }
 
     change: ChangeFn = (...args) => {
@@ -123,11 +114,6 @@ class PassageRef extends React.Component<Props, State> implements Widget {
             }
         }
     };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
 
     render(): React.ReactNode {
         const {strings} = this.context;
@@ -192,4 +178,6 @@ export default {
         summaryText: widgetOptions.summaryText,
     }),
     version: {major: 0, minor: 1},
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: () => noopValidator(),
 } as WidgetExports<typeof PassageRef>;

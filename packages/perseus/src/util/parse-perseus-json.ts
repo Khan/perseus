@@ -72,14 +72,15 @@ export function parsePerseusItem(json: string): PerseusItem {
     throw new Error("Something went wrong.");
 }
 
-function buildRandomString() {
+function buildRandomString(capitalize: boolean = false) {
     let randomString: string = "";
     const randomLength = Math.floor(Math.random() * 8) + 3;
     for (let i = 0; i < randomLength; i++) {
         const randomLetter = String.fromCharCode(
             97 + Math.floor(Math.random() * 26),
         );
-        randomString += randomLetter;
+        randomString +=
+            capitalize && i === 0 ? randomLetter.toUpperCase() : randomLetter;
     }
     return randomString;
 }
@@ -88,9 +89,12 @@ function buildRandomPhrase() {
     const phrases: string[] = [];
     const randomLength = Math.floor(Math.random() * 10) + 5;
     for (let i = 0; i < randomLength; i++) {
-        phrases.push(buildRandomString());
+        phrases.push(buildRandomString(i === 0));
     }
-    return phrases.join(" ");
+    const modifierStart = ["**", "$"];
+    const modifierEnd = ["**", "$"];
+    const modifierIndex = Math.floor(Math.random() * modifierStart.length);
+    return `${modifierStart[modifierIndex]}${phrases.join(" ")}${modifierEnd[modifierIndex]}`;
 }
 
 function buildTestData(testObject: string) {

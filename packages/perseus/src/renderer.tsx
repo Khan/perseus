@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {PerseusI18nContext} from "./components/i18n-context";
 import SvgImage from "./components/svg-image";
 import TeX from "./components/tex";
 import Zoomable from "./components/zoomable";
@@ -24,6 +25,7 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
+import {emptyWidgetsFunctional, scoreWidgetsFunctional} from "./renderer-util";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
@@ -49,13 +51,13 @@ import type {
     Widget,
     WidgetProps,
 } from "./types";
-import type {UserInput} from "./validation.types";
+import type {UserInputArray, UserInputMap} from "./validation.types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
 
-const {mapObject, mapObjectFromArray} = Objective;
+const {mapObject} = Objective;
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -149,9 +151,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 
 type State = {
     translationLintErrors: ReadonlyArray<string>;
-    widgetInfo: Readonly<{
-        [id: string]: PerseusWidget | null | undefined;
-    }>;
+    widgetInfo: Readonly<PerseusWidgetsMap>;
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
     }>;
@@ -159,7 +159,7 @@ type State = {
     lastUsedWidgetId: string | null | undefined;
 };
 
-type Context = LinterContextProps & {
+type FullLinterContext = LinterContextProps & {
     content: string;
     widgets: {
         [id: string]: any;
@@ -188,6 +188,9 @@ type DefaultProps = Required<
 >;
 
 class Renderer extends React.Component<Props, State> {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     _currentFocus: FocusPath | null | undefined;
     // @ts-expect-error - TS2564 - Property '_foundTextNodes' has no initializer and is not definitely assigned in the constructor.
     _foundTextNodes: boolean;
@@ -585,10 +588,8 @@ class Renderer extends React.Component<Props, State> {
             interactionTracker = this._interactionTrackers[id] =
                 new InteractionTracker(
                     apiOptions.trackInteraction,
-                    // @ts-expect-error - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     widgetInfo && widgetInfo.type,
                     id,
-                    // @ts-expect-error - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
         }
@@ -1599,25 +1600,15 @@ class Renderer extends React.Component<Props, State> {
         return state;
     };
 
-    emptyWidgets: () => any = () => {
-        // @ts-expect-error - TS2345 - Argument of type '(id: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
-        return _.filter(this.widgetIds, (id) => {
-            const widgetInfo = this._getWidgetInfo(id);
-            if (widgetInfo.static) {
-                // Static widgets shouldn't count as empty
-                return false;
-            }
-            const widget = this.getWidgetInstance(id);
-            if (widget && widget.simpleValidate) {
-                const score: PerseusScore = widget.simpleValidate(
-                    widgetInfo.options,
-                    // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '((widgetId: any, value: string, message?: string | null | undefined) => unknown) | undefined'.
-                    null,
-                );
-                return Util.scoreIsEmpty(score);
-            }
-        });
-    };
+    emptyWidgets(): ReadonlyArray<string> {
+        return emptyWidgetsFunctional(
+            this.state.widgetInfo,
+            this.widgetIds,
+            this.getUserInputMap(),
+            this.props.strings,
+            this.context.locale,
+        );
+    }
 
     _setWidgetProps: SetWidgetPropsFn = (id, newProps, cb, silent) => {
         this.setState(
@@ -1696,8 +1687,11 @@ class Renderer extends React.Component<Props, State> {
 
     /**
      * Returns an array of the widget `.getUserInput()` results
+     *
+     * TODO: can we remove this?
+     * @deprecated use getUserInputMap
      */
-    getUserInput: () => ReadonlyArray<UserInput | null | undefined> = () => {
+    getUserInput(): UserInputArray {
         return this.widgetIds.map((id: string) => {
             const widget = this.getWidgetInstance(id);
             if (widget && widget.getUserInput) {
@@ -1706,7 +1700,24 @@ class Renderer extends React.Component<Props, State> {
                 return widget.getUserInput();
             }
         });
-    };
+    }
+
+    /**
+     * Returns an object of the widget `.getUserInput()` results
+     */
+    getUserInputMap(): UserInputMap {
+        const userInputMap = {};
+        this.widgetIds.forEach((id: string) => {
+            const widget = this.getWidgetInstance(id);
+            // Handle Groups, which have their own sets of widgets
+            if (widget?.getUserInputMap) {
+                userInputMap[id] = widget.getUserInputMap();
+            } else if (widget?.getUserInput) {
+                userInputMap[id] = widget.getUserInput();
+            }
+        });
+        return userInputMap;
+    }
 
     /**
      * Returns an array of all widget IDs in the order they occur in
@@ -1717,66 +1728,28 @@ class Renderer extends React.Component<Props, State> {
     };
 
     /**
-     * Returns the result of `.getUserInput()` for each widget, in
-     * a map from widgetId to userInput.
-     * NOTE(jeremy): This function is hauntingly similar to `getUserInput` with
-     * the major difference being that this function returns a map of
-     * `widgetID` => UserInput and `getUserInput` simply returns an array. It
-     * would be trivial to map between the results of each of these functions,
-     * so we should aim to remove one of these functions.
-     */
-    getUserInputForWidgets: () => {
-        [widgetId: string]: UserInput | null | undefined;
-    } = () => {
-        return mapObjectFromArray(this.widgetIds, (id) => {
-            const widget = this.getWidgetInstance(id);
-            if (widget && widget.getUserInput) {
-                return widget.getUserInput();
-            }
-        });
-    };
-
-    /**
      * Returns an object mapping from widget ID to perseus-style score.
      * The keys of this object are the values of the array returned
      * from `getWidgetIds`.
      */
-    scoreWidgets: () => {
-        [widgetId: string]: PerseusScore;
-    } = () => {
-        const widgetProps = this.state.widgetInfo;
-
-        const gradedWidgetIds = _.filter(this.widgetIds, (id) => {
-            const props = widgetProps[id];
-            const widgetIsGraded: boolean =
-                props?.graded == null || props.graded;
-            const widgetIsStatic = !!props?.static;
-            // Ungraded widgets or widgets set to static shouldn't be graded.
-            return widgetIsGraded && !widgetIsStatic;
-        });
-
-        const widgetScores: Record<string, PerseusScore> = {};
-        _.each(gradedWidgetIds, (id) => {
-            const props = widgetProps[id];
-            const widget = this.getWidgetInstance(id);
-            // widget can be undefined if it hasn't yet been rendered
-            if (widget && widget.simpleValidate) {
-                widgetScores[id] = widget.simpleValidate({
-                    ...props?.options,
-                    scoring: true,
-                });
-            }
-        });
-
-        return widgetScores;
-    };
+    scoreWidgets(): {[widgetId: string]: PerseusScore} {
+        return scoreWidgetsFunctional(
+            this.state.widgetInfo,
+            this.widgetIds,
+            this.getUserInputMap(),
+            this.props.strings,
+            this.context.locale,
+        );
+    }
 
     /**
      * Grades the content.
      */
-    score: () => PerseusScore = () => {
-        return _.reduce(this.scoreWidgets(), Util.combineScores, Util.noScore);
-    };
+    score(): PerseusScore {
+        const scores = this.scoreWidgets();
+        const combinedScore = Util.flattenScores(scores);
+        return combinedScore;
+    }
 
     guessAndScore: () => [any, PerseusScore] = () => {
         const totalGuess = this.getUserInput();
@@ -1915,13 +1888,13 @@ class Renderer extends React.Component<Props, State> {
             // If highlightLint is true and lint is detected, this call
             // will modify the parse tree by adding lint nodes that will
             // serve to highlight the lint when rendered
-            const context: Context = {
+            const fullLinterContext: FullLinterContext = {
                 content: this.props.content,
                 widgets: this.props.widgets,
                 ...this.props.linterContext,
             };
 
-            PerseusLinter.runLinter(parsedMarkdown, context, true);
+            PerseusLinter.runLinter(parsedMarkdown, fullLinterContext, true);
 
             // Apply the lint errors from the last TranslationLinter run.
             // TODO(joshuan): Support overlapping dots.

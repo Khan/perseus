@@ -1,5 +1,13 @@
 # @khanacademy/math-input
 
+## 21.1.0
+
+### Minor Changes
+
+-   [#1618](https://github.com/Khan/perseus/pull/1618) [`147f9a17d`](https://github.com/Khan/perseus/commit/147f9a17dc953a7bf24e6cc60a46589471a1e82c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - add scientific notation button / toggle to basic keypad
+
+*   [#1733](https://github.com/Khan/perseus/pull/1733) [`74ba298fa`](https://github.com/Khan/perseus/commit/74ba298faaeb8adb1b403c837e8daaafc2eb5c94) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - reverts scientific option addition to keypad
+
 ## 21.0.4
 
 ### Patch Changes

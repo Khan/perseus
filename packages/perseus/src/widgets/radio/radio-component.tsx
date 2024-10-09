@@ -15,8 +15,7 @@ import type {
     PerseusRadioWidgetOptions,
     ShowSolutions,
 } from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {PerseusScore, WidgetProps, ChoiceState, Widget} from "../../types";
+import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
@@ -72,14 +71,6 @@ class Radio extends React.Component<Props> implements Widget {
         linterContext: linterContextDefault,
         showSolutions: "none",
     };
-
-    static validate(
-        userInput: PerseusRadioUserInput,
-        rubric: PerseusRadioRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return radioValidator(userInput, rubric, strings);
-    }
 
     static getUserInputFromProps(props: Props): PerseusRadioUserInput {
         // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
@@ -294,14 +285,6 @@ class Radio extends React.Component<Props> implements Widget {
         return Radio.getUserInputFromProps(this.props);
     }
 
-    simpleValidate(rubric: PerseusRadioRubric): PerseusScore {
-        return radioValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
-    }
-
     /**
      * Turn on rationale display for the currently selected choices. Note that
      * this leaves rationales on for choices that are already showing
@@ -313,7 +296,11 @@ class Radio extends React.Component<Props> implements Widget {
     ) => void = (rubric) => {
         const {choiceStates} = this.props;
         if (choiceStates) {
-            const score = this.simpleValidate(rubric);
+            const score = radioValidator(
+                this.getUserInput(),
+                rubric,
+                this.context.strings,
+            );
             const widgetCorrect =
                 score.type === "points" && score.total === score.earned;
 

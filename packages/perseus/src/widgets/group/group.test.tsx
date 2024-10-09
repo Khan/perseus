@@ -193,7 +193,7 @@ describe("group widget", () => {
                 {
                   "currentValue": "",
                 },
-                null,
+                undefined,
               ],
             ]
         `);
@@ -416,6 +416,7 @@ describe("group widget", () => {
         const guessAndScore = renderer.guessAndScore();
 
         // Assert
+        expect(guessAndScore[1]).toHaveBeenAnsweredCorrectly();
         expect(guessAndScore).toMatchInlineSnapshot(`
             [
               [
@@ -441,7 +442,7 @@ describe("group widget", () => {
                   {
                     "currentValue": "200",
                   },
-                  null,
+                  undefined,
                 ],
               ],
               {

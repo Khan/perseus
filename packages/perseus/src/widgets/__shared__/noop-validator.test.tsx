@@ -3,7 +3,7 @@ import noopValidator from "./noop-validator";
 describe("noop-validator", () => {
     it("returns a pointless object", () => {
         const result = noopValidator();
-        expect(result).toHaveBeenAnsweredCorrectly();
+        expect(result).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
 
         // This is is just to narrow the type
         // the expect above checks correctness

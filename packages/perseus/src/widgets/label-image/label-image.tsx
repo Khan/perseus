@@ -29,16 +29,8 @@ import Marker from "./marker";
 import type {InteractiveMarkerType} from "./types";
 import type {DependencyProps} from "../../dependencies";
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {
-    APIOptions,
-    PerseusScore,
-    Widget,
-    WidgetExports,
-} from "../../types";
-import type {
-    PerseusLabelImageRubric,
-    PerseusLabelImageUserInput,
-} from "../../validation.types";
+import type {APIOptions, Widget, WidgetExports} from "../../types";
+import type {PerseusLabelImageUserInput} from "../../validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -114,13 +106,6 @@ export class LabelImage
     // The rendered markers on the question image for labeling.
     _markers: Array<Marker | null | undefined>;
     _mounted: boolean = false;
-
-    static validate(
-        state: PerseusLabelImageUserInput,
-        rubric?: PerseusLabelImageRubric,
-    ): PerseusScore {
-        return labelImageValidator(state, rubric);
-    }
 
     /**
      * Test whether point is contained within triangle.
@@ -325,10 +310,6 @@ export class LabelImage
 
     componentWillUnmount() {
         this._mounted = false;
-    }
-
-    simpleValidate(rubric: PerseusLabelImageRubric): PerseusScore {
-        return labelImageValidator(this.getUserInput(), rubric);
     }
 
     getUserInput(): PerseusLabelImageUserInput {
@@ -754,17 +735,11 @@ const LabelImageWithDependencies = React.forwardRef<
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
 
-// HACK: Propogate "static" methods onto our wrapper component.
-// In the future we should adjust client apps to not depend on these static
-// methods and instead adjust Peresus to provide these facilities through
-// instance methods on our Renderers.
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-LabelImageWithDependencies.validate = labelImageValidator;
-
 export default {
     name: "label-image",
     displayName: "Label Image",
     widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
+    validator: labelImageValidator,
 } as WidgetExports<typeof LabelImageWithDependencies>;

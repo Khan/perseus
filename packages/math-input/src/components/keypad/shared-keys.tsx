@@ -56,7 +56,6 @@ export default function SharedKeys(props: Props) {
                 coord={[5, 0]}
                 secondary
             />
-
             {/* Row 2 */}
             <KeypadButton
                 keyConfig={

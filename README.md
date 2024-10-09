@@ -110,6 +110,10 @@ Perseus is a monorepo - a single repository that ships multiple npm packages. Ge
 3. ☢️ If the CI/CD checks aren’t running, you might need to close and reopen the PR
 4. After the release script runs, you should see the new releases on the [release page](https://github.com/Khan/perseus/releases)
 
+## Random notes
+
+- We use `v8` to track Jest coverage. There's some old legacy code that we don't want coverage for, so we ignore that with `c8 ignore`. It might look like `c8` isn't be used, but it's used by the `v8` `coverageProvider` (defined in config/test/test.config.js).
+
 ## License
 
 [MIT License](http://opensource.org/licenses/MIT)

@@ -18,7 +18,6 @@ import {
 } from "./expression.testdata";
 
 import type {PerseusItem} from "../../perseus-types";
-import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -47,14 +46,6 @@ const assertCorrect = async (
         true,
     );
     expect(renderer).toHaveBeenAnsweredCorrectly();
-
-    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
-        type: "perseus:expression-evaluated",
-        payload: {
-            result: "correct",
-            virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2",
-        },
-    });
 };
 
 const assertIncorrect = async (
@@ -69,14 +60,6 @@ const assertIncorrect = async (
         false,
     );
     expect(renderer).toHaveBeenAnsweredIncorrectly();
-
-    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
-        type: "perseus:expression-evaluated",
-        payload: {
-            result: "incorrect",
-            virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2",
-        },
-    });
 };
 
 // TODO: actually Assert that message is being set on the score object.
@@ -219,54 +202,6 @@ describe("Expression Widget", function () {
         it("allows portugese tg", async () => {
             const item = expressionItemWithAnswer("tan(42)");
             await assertCorrect(userEvent, item, "tg(42)");
-        });
-    });
-
-    describe("analytics", () => {
-        const assertKeypadVersion = (
-            apiOptions: APIOptions,
-            virtualKeypadVersion: string,
-        ) => {
-            const {renderer} = renderQuestion(
-                expressionItem2.question,
-                apiOptions,
-            );
-
-            renderer.guessAndScore();
-
-            expect(
-                testDependenciesV2.analytics.onAnalyticsEvent,
-            ).toHaveBeenCalledWith({
-                type: "perseus:expression-evaluated",
-                payload: {
-                    // We're not interested in validating that the expression
-                    // widget did anything useful or that the keypad worked. We
-                    // just want to make sure the code that derives which
-                    // keypad version it detected is correct.
-                    result: "correct",
-                    virtualKeypadVersion,
-                },
-            });
-        };
-
-        beforeEach(() => {
-            const actual = jest.requireActual("./expression-validator");
-            jest.spyOn(actual, "default").mockReturnValue({
-                type: "points",
-                earned: 1,
-                total: 1,
-            });
-        });
-
-        it("should set the virtual keypad version to REACT_NATIVE_KEYPAD when nativeKeypadProxy is provided", () => {
-            assertKeypadVersion(
-                {nativeKeypadProxy: jest.fn()},
-                "REACT_NATIVE_KEYPAD",
-            );
-        });
-
-        it("should default the virtual keypad version to MATH_INPUT_KEYPAD_V2", () => {
-            assertKeypadVersion(Object.freeze({}), "MATH_INPUT_KEYPAD_V2");
         });
     });
 

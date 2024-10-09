@@ -21,7 +21,6 @@ import {
 
 import type {PerseusPhetSimulationWidgetOptions} from "../../perseus-types";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
-import type {NullUserInput} from "../../validation.types";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
 type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
@@ -45,6 +44,10 @@ export class PhetSimulation
         React.createRef<HTMLIFrameElement>();
     private readonly locale: string;
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     state: State = {
         url: null,
         banner: null,
@@ -64,11 +67,6 @@ export class PhetSimulation
         if (prevProps.url !== this.props.url) {
             await this.updateSimState(this.props.url);
         }
-    }
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    getUserInput(): NullUserInput {
-        return null;
     }
 
     // kaLocales and PhET locales use different formats and abbreviations.

@@ -360,13 +360,6 @@ class Orderer
         grabPos: null,
     };
 
-    static validate(
-        userInput: PerseusOrdererUserInput,
-        rubric: PerseusOrdererRubric,
-    ): PerseusScore {
-        return ordererValidator(userInput, rubric);
-    }
-
     UNSAFE_componentWillReceiveProps(nextProps: OrdererProps) {
         if (!_.isEqual(this.props.current, nextProps.current)) {
             this.setState({current: nextProps.current});
@@ -647,10 +640,6 @@ class Orderer
         };
     }
 
-    simpleValidate(rubric: PerseusOrdererRubric) {
-        return ordererValidator(this.getUserInput(), rubric);
-    }
-
     render(): React.ReactNode {
         // This is the card we are currently dragging
         const dragging = this.state.dragging && (
@@ -800,4 +789,5 @@ export default {
     hidden: true,
     widget: Orderer,
     isLintable: true,
+    validator: ordererValidator,
 } as WidgetExports<typeof Orderer>;

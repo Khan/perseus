@@ -17,14 +17,7 @@ import Util from "../../util";
 import matrixValidator from "./matrix-validator";
 
 import type {PerseusMatrixWidgetOptions} from "../../perseus-types";
-import type {PerseusStrings} from "../../strings";
-import type {
-    WidgetExports,
-    WidgetProps,
-    PerseusScore,
-    Widget,
-    FocusPath,
-} from "../../types";
+import type {WidgetExports, WidgetProps, Widget, FocusPath} from "../../types";
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
@@ -149,14 +142,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
     };
-
-    static validate(
-        state: PerseusMatrixUserInput,
-        rubric: PerseusMatrixRubric,
-        strings: PerseusStrings,
-    ): PerseusScore {
-        return matrixValidator(state, rubric, strings);
-    }
 
     state: State = {
         enterTheMatrix: 0,
@@ -334,14 +319,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         return {
             answers: this.props.answers,
         };
-    }
-
-    simpleValidate(rubric: PerseusMatrixRubric) {
-        return matrixValidator(
-            this.getUserInput(),
-            rubric,
-            this.context.strings,
-        );
     }
 
     render(): React.ReactNode {
@@ -590,4 +567,5 @@ export default {
     transform: propTransform,
     staticTransform: staticTransform,
     isLintable: true,
+    validator: matrixValidator,
 } as WidgetExports<typeof Matrix>;

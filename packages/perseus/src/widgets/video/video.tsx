@@ -40,24 +40,9 @@ class Video extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    /**
-     * This is the widget's grading function.
-     * Points for videos are tallied by the embedded video itself, in the case
-     * of Khan Academy videos.
-     */
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    static validate() {
-        return noopValidator();
-    }
-
-    getUserInput: () => undefined | null | undefined = () => {
-        return null;
-    };
-
-    // TODO (LEMS-2396): remove validation logic from widgets that don't validate
-    simpleValidate() {
-        return noopValidator();
-    }
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
@@ -132,4 +117,6 @@ export default {
     defaultAlignment: "block",
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     widget: Video,
+    // TODO: things that aren't interactive shouldn't need validators
+    validator: () => noopValidator(),
 } as WidgetExports<typeof Video>;
