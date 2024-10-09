@@ -173,7 +173,10 @@ class WidgetEditor extends React.Component<
                         href="#"
                         onClick={this._toggleWidget}
                     >
-                        {this.props.id}
+                        {this.props.id}{" "}
+                        {this.props.id.split(" ")[0] === "input-number"
+                            ? " (deprecated)"
+                            : ""}
                         {this.state.showWidget ? (
                             <InlineIcon {...iconChevronDown} />
                         ) : (

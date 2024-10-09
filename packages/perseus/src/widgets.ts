@@ -118,6 +118,8 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("sequence", "deprecated-standin");
     replaceEditor("simulator", "deprecated-standin");
     replaceEditor("unit-input", "deprecated-standin");
+
+    replaceEditor("input-number", "numeric-input");
 };
 
 export const getWidget = (
