@@ -2377,7 +2377,7 @@ export function shouldUseMafs(
                 // TODO(benchristel): add a feature flag for the "unlimited"
                 // case once we've implemented polygon graphs with unlimited
                 // sides
-                return false;
+                return Boolean(mafsFlags["unlimited-polygon"]);
             }
             return Boolean(mafsFlags["polygon"]);
         default:

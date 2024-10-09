@@ -10,6 +10,7 @@ export const mafsSupportedGraphTypes = [
     "quadratic",
     "sinusoid",
     "unlimited-point",
+    "unlimited-polygon",
 ] as const;
 
 export type MafsSupportedGraphType = (typeof mafsSupportedGraphTypes)[number];
