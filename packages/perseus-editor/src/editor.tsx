@@ -30,7 +30,7 @@ import type {
     PerseusWidget,
 } from "@khanacademy/perseus";
 
-// like [[snowman input-number 1]]
+// like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
 const widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 const rWidgetSplit = new RegExp(
