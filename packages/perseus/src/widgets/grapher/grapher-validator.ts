@@ -1,9 +1,5 @@
 import {functionForType} from "./util";
 
-import type {
-    FunctionTypeMappingTypes,
-    FunctionTypes,
-} from "./grapher-validator-types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusGrapherRubric,
@@ -32,16 +28,6 @@ function grapherValidator(
     }
 
     // Get new function handler for grading
-    const guessCoeffs = grader.getCoefficients(
-        userInput.coords,
-        userInput.asymptote,
-    );
-    const correctCoeffs = grader.getCoefficients(
-        rubric.correct.coords,
-        rubric.correct.asymptote,
-    );
-    // const grader = functionForType(userInput.type);
-    // let guessCoeffs: number[];
     if (
         (userInput.type === "logarithm" || userInput.type === "exponential") &&
         (rubric.correct.type === "logarithm" ||
@@ -84,25 +70,19 @@ function grapherValidator(
                 message: null,
             };
         }
+        if (grader.areEqual(guessCoeffs, correctCoeffs)) {
+            return {
+                type: "points",
+                earned: 1,
+                total: 1,
+                message: null,
+            };
+        }
     } else {
-        // report an erro because there's a mismatch between userInput
+        // report an error because there's a mismatch between userInput
         // rubric type
     }
 
-    if (guessCoeffs == null || correctCoeffs == null) {
-        return {
-            type: "invalid",
-            message: null,
-        };
-    }
-    if (grader.areEqual(guessCoeffs, correctCoeffs)) {
-        return {
-            type: "points",
-            earned: 1,
-            total: 1,
-            message: null,
-        };
-    }
     return {
         type: "points",
         earned: 0,

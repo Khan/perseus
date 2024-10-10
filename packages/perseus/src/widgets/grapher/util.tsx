@@ -12,6 +12,7 @@ import type {
     ExponentialType,
     LinearType,
     LogarithmType,
+    PlotDefaultTypes,
     QuadraticType,
     SinusoidType,
     TangentType,
@@ -97,7 +98,7 @@ function canonicalTangentCoefficients(coeffs: any) {
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
-const PlotDefaults = {
+const PlotDefaults: PlotDefaultTypes = {
     areEqual: function (coeffs1, coeffs2) {
         return Util.deepEq(coeffs1, coeffs2);
     },
