@@ -25,15 +25,11 @@ describe("grapherValidator", () => {
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["exponential", "logarithm"],
             correct: {
                 type: "logarithm",
                 asymptote,
                 coords,
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
@@ -64,15 +60,11 @@ describe("grapherValidator", () => {
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["exponential", "logarithm"],
             correct: {
                 type: "exponential",
                 asymptote,
                 coords,
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
@@ -86,10 +78,6 @@ describe("grapherValidator", () => {
         // I honestly don't understand what a coefficient is
         // but this seems to get triggered when the type is "linear"
         // and the points are in the same spot
-        const asymptote: [Coord, Coord] = [
-            [-10, -10],
-            [-10, -10],
-        ];
         const coords: [Coord, Coord] = [
             [-10, -10],
             [-10, -10],
@@ -98,19 +86,14 @@ describe("grapherValidator", () => {
         // Arrange
         const userInput: PerseusGrapherUserInput = {
             type: "linear",
-            asymptote,
             coords,
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["linear"],
             correct: {
                 type: "linear",
                 coords,
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
@@ -121,10 +104,6 @@ describe("grapherValidator", () => {
     });
 
     it("can be answered correctly", () => {
-        const asymptote: [Coord, Coord] = [
-            [-10, -10],
-            [10, 10],
-        ];
         const coords: [Coord, Coord] = [
             [-10, -10],
             [10, 10],
@@ -133,19 +112,14 @@ describe("grapherValidator", () => {
         // Arrange
         const userInput: PerseusGrapherUserInput = {
             type: "linear",
-            asymptote,
             coords,
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["linear"],
             correct: {
                 type: "linear",
                 coords,
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
@@ -156,17 +130,9 @@ describe("grapherValidator", () => {
     });
 
     it("can be answered incorrectly when user input and rubric coords don't match", () => {
-        // TODO: user input type is probably wrong,
-        // I don't think asymptote is needed for all types
-        const asymptote: [Coord, Coord] = [
-            [10, 10],
-            [-10, -10],
-        ];
-
         // Arrange
         const userInput: PerseusGrapherUserInput = {
             type: "linear",
-            asymptote,
             coords: [
                 [2, 3],
                 [-4, -5],
@@ -174,7 +140,6 @@ describe("grapherValidator", () => {
         };
 
         const rubric: PerseusGrapherRubric = {
-            availableTypes: ["linear"],
             correct: {
                 type: "linear",
                 coords: [
@@ -182,9 +147,6 @@ describe("grapherValidator", () => {
                     [10, 10],
                 ],
             },
-            // The rubric type is probably wrong,
-            // the validator doesn't use graph
-            graph: {} as any,
         };
 
         // Act
