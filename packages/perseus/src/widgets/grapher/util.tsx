@@ -10,9 +10,9 @@ import Util from "../../util";
 import type {
     AbsoluteValueType,
     ExponentialType,
-    FunctionTypes,
     LinearType,
     LogarithmType,
+    PlotDefaultTypes,
     QuadraticType,
     SinusoidType,
     TangentType,
@@ -98,7 +98,7 @@ function canonicalTangentCoefficients(coeffs: any) {
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
-const PlotDefaults = {
+const PlotDefaults: PlotDefaultTypes = {
     areEqual: function (coeffs1, coeffs2) {
         return Util.deepEq(coeffs1, coeffs2);
     },
@@ -629,7 +629,23 @@ export const allTypes: any = _.keys(functionTypeMapping);
 
 type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
 
-export function functionForType(type: FunctionTypeMappingKeys): FunctionTypes {
+type ConditionalGraderType<T extends FunctionTypeMappingKeys> =
+/* eslint-disable prettier/prettier */
+      T extends "linear" ? LinearType
+    : T extends "quadratic" ? QuadraticType
+    : T extends "sinusoid" ? SinusoidType
+    : T extends "tangent" ? TangentType
+    : T extends "exponential" ? ExponentialType
+    : T extends "logarithm" ? LogarithmType
+    : T extends "absolute_value" ? AbsoluteValueType
+    : never
+/* eslint-enable prettier/prettier */
+
+export function functionForType<T extends FunctionTypeMappingKeys>(
+    type: T,
+): ConditionalGraderType<T> {
+    // @ts-expect-error: TypeScript doesn't know how to use deal with generics
+    // and conditional types in this way.
     return functionTypeMapping[type];
 }
 
