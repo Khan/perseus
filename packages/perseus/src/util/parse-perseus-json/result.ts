@@ -11,6 +11,14 @@ export function failure<T>(detail: T): Failure<T> {
     return {type: "failure", detail};
 }
 
+export function isFailure<S, F>(result: Result<S, F>): result is Failure<F> {
+    return result.type === "failure";
+}
+
+export function isSuccess<S, F>(result: Result<S, F>): result is Success<S> {
+    return result.type === "success";
+}
+
 // Result's `all` function is similar to Promise.all: given an array of
 // results, it returns success if all succeeded, and failure if any failed.
 export function all<S, F>(results: Array<Result<S, F>>): Result<S[], F> {
