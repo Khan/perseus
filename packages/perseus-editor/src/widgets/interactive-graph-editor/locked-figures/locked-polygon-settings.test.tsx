@@ -634,7 +634,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1), with label A",
+                    "Polygon A with 3 sides, vertices at (0, 0), (0, 1), (1, 1)",
             });
         });
 
@@ -674,7 +674,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1), with labels A, B",
+                    "Polygon A B with 3 sides, vertices at (0, 0), (0, 1), (1, 1)",
             });
         });
     });

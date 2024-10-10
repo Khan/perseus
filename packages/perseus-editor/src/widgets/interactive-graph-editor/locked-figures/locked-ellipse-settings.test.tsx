@@ -495,8 +495,7 @@ describe("LockedEllipseSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Circle with radius 2, centered at (0, 0), with label A",
+                ariaLabel: "Circle A with radius 2, centered at (0, 0)",
             });
         });
 
@@ -531,8 +530,7 @@ describe("LockedEllipseSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Circle with radius 2, centered at (0, 0), with labels A, B",
+                ariaLabel: "Circle A B with radius 2, centered at (0, 0)",
             });
         });
     });
