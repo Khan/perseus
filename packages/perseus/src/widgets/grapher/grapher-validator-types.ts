@@ -1,141 +1,148 @@
 import type {Coord} from "@khanacademy/perseus";
 
-export type LinearType = {
+export type PlotDefaultTypes = {
+    areEqual: (
+        coeffs1: ReadonlyArray<number>,
+        coeffs2: ReadonlyArray<number>,
+    ) => boolean;
+    Movable: any;
+    getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
+};
+
+export type LinearType = PlotDefaultTypes & {
     url: string;
-    defaultCoords: ReadonlyArray<Coord>;
-    getCoefficients: (coords: ReadonlyArray<Coord>) => number[] | undefined;
+    defaultCoords: [Coord, Coord];
+    getCoefficients: (coords: [Coord, Coord]) => number[];
     getFunctionForCoeffs: (coeffs: any, x: number) => number;
-    getEquationString: (coords: ReadonlyArray<Coord>) => string;
+    getEquationString: (coords: [Coord, Coord]) => string;
 };
 
-export type QuadraticType = {
+export type QuadraticType = PlotDefaultTypes & {
     url: string;
-    defaultCoords: ReadonlyArray<Coord>;
+    defaultCoords: [Coord, Coord];
     Movable: any;
-    getCoefficients: (coords: ReadonlyArray<Coord>) => number[];
+    getCoefficients: (coords: [Coord, Coord]) => number[];
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {
         a: number;
         b: number;
         c: number;
     };
-    getEquationString: (coords: ReadonlyArray<Coord>) => string;
+    getEquationString: (coords: [Coord, Coord]) => string;
 };
 
-export type SinusoidType = {
+export type SinusoidType = PlotDefaultTypes & {
     url: string;
-    defaultCoords: ReadonlyArray<Coord>;
+    defaultCoords: [Coord, Coord];
     Movable: any;
-    getCoefficients: (coords: ReadonlyArray<Coord>) => number[];
+    getCoefficients: (coords: [Coord, Coord]) => number[];
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {
         a: number;
         b: number;
         c: number;
     };
-    getEquationString: (coords: ReadonlyArray<Coord>) => string;
+    getEquationString: (coords: [Coord, Coord]) => string;
     areEqual: (
         coeffs1: ReadonlyArray<number>,
         coeffs2: ReadonlyArray<number>,
     ) => boolean;
 };
 
-export type TangentType = {
+export type TangentType = PlotDefaultTypes & {
     url: string;
-    defaultCoords: ReadonlyArray<Coord>;
-    getCoefficients: (coords: ReadonlyArray<Coord>) => number[];
+    defaultCoords: [Coord, Coord];
+    getCoefficients: (coords: [Coord, Coord]) => number[];
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
-    getEquationString: (coords: ReadonlyArray<Coord>) => string;
+    getEquationString: (coords: [Coord, Coord]) => string;
     areEqual: (
         coeffs1: ReadonlyArray<number>,
         coeffs2: ReadonlyArray<number>,
     ) => boolean;
 };
 
-export type ExponentialType = {
+export type ExponentialType = PlotDefaultTypes & {
     url: string;
-    defaultCoords: ReadonlyArray<Coord>;
-    defaultAsymptote: ReadonlyArray<Coord>;
+    defaultCoords: [Coord, Coord];
+    defaultAsymptote: [Coord, Coord];
     extraCoordConstraint: (
         newCoord: Coord,
         oldCoord: Coord,
-        coords: ReadonlyArray<Coord>,
-        asymptote: ReadonlyArray<Coord>,
+        coords: [Coord, Coord],
+        asymptote: [Coord, Coord],
         graph: any,
     ) => boolean | Coord;
     extraAsymptoteConstraint: (
         newCoord: Coord,
         oldCoord: Coord,
-        coords: ReadonlyArray<Coord>,
-        asymptote: ReadonlyArray<Coord>,
+        coords: [Coord, Coord],
+        asymptote: [Coord, Coord],
         graph: any,
     ) => Coord;
     allowReflectOverAsymptote: boolean;
     getCoefficients: (
-        coords: ReadonlyArray<Coord>,
-        asymptote: ReadonlyArray<Coord>,
+        coords: [Coord, Coord],
+        asymptote: [Coord, Coord],
     ) => ReadonlyArray<number>;
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
     getEquationString: (
-        coords: ReadonlyArray<Coord>,
-        asymptote: ReadonlyArray<Coord>,
+        coords: [Coord, Coord],
+        asymptote: [Coord, Coord],
     ) => string | null;
 };
 
-export type LogarithmType = {
+export type LogarithmType = PlotDefaultTypes & {
     url: string;
-    defaultCoords: ReadonlyArray<Coord>;
-    defaultAsymptote: ReadonlyArray<Coord>;
+    defaultCoords: [Coord, Coord];
+    defaultAsymptote: [Coord, Coord];
     extraCoordConstraint: (
         newCoord: Coord,
         oldCoord: Coord,
-        coords: ReadonlyArray<Coord>,
-        asymptote: ReadonlyArray<Coord>,
+        coords: [Coord, Coord],
+        asymptote: [Coord, Coord],
         graph: any,
     ) => boolean;
     extraAsymptoteConstraint: (
         newCoord: Coord,
         oldCoord: Coord,
-        coords: ReadonlyArray<Coord>,
-        asymptote: ReadonlyArray<Coord>,
+        coords: [Coord, Coord],
+        asymptote: [Coord, Coord],
         graph: any,
     ) => Coord;
     allowReflectOverAsymptote: boolean;
     getCoefficients: (
-        coords: ReadonlyArray<Coord>,
-        asymptote: ReadonlyArray<Coord>,
+        coords: [Coord, Coord],
+        asymptote: [Coord, Coord],
     ) => ReadonlyArray<number>;
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
     getEquationString: (
-        coords: ReadonlyArray<Coord>,
-        asymptote: ReadonlyArray<Coord>,
+        coords: [Coord, Coord],
+        asymptote: [Coord, Coord],
     ) => string | null;
 };
-export type AbsoluteValueType = {
+export type AbsoluteValueType = PlotDefaultTypes & {
     url: string;
-    defaultCoords: ReadonlyArray<Coord>;
-    getCoefficients: (
-        coords: ReadonlyArray<Coord>,
-    ) => ReadonlyArray<number> | undefined;
+    defaultCoords: [Coord, Coord];
+    getCoefficients: (coords: [Coord, Coord]) => ReadonlyArray<number>;
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
-    getEquationString: (coords: ReadonlyArray<Coord>) => string;
+    getEquationString: (coords: [Coord, Coord]) => string;
 };
 
-export type FunctionTypeMappingTypes = {
-    readonly linear: LinearType;
-    readonly quadratic: QuadraticType;
-    readonly sinusoid: SinusoidType;
-    readonly tangent: TangentType;
-    readonly exponential: ExponentialType;
-    readonly logarithm: LogarithmType;
-    readonly absolute_value: any;
-};
-
-export type FunctionTypes =
-    | LinearType
-    | QuadraticType
-    | SinusoidType
-    | TangentType
-    | ExponentialType
-    | LogarithmType
-    | AbsoluteValueType;
+// export type FunctionTypeMappingTypes = {
+//     readonly linear: LinearType;
+//     readonly quadratic: QuadraticType;
+//     readonly sinusoid: SinusoidType;
+//     readonly tangent: TangentType;
+//     readonly exponential: ExponentialType;
+//     readonly logarithm: LogarithmType;
+//     readonly absolute_value: any;
+// };
+//
+// export type FunctionTypes =
+//     | LinearType
+//     | QuadraticType
+//     | SinusoidType
+//     | TangentType
+//     | ExponentialType
+//     | LogarithmType
+//     | AbsoluteValueType;
