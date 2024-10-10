@@ -128,21 +128,11 @@ export type AbsoluteValueType = PlotDefaultTypes & {
     getEquationString: (coords: [Coord, Coord]) => string;
 };
 
-// export type FunctionTypeMappingTypes = {
-//     readonly linear: LinearType;
-//     readonly quadratic: QuadraticType;
-//     readonly sinusoid: SinusoidType;
-//     readonly tangent: TangentType;
-//     readonly exponential: ExponentialType;
-//     readonly logarithm: LogarithmType;
-//     readonly absolute_value: any;
-// };
-//
-// export type FunctionTypes =
-//     | LinearType
-//     | QuadraticType
-//     | SinusoidType
-//     | TangentType
-//     | ExponentialType
-//     | LogarithmType
-//     | AbsoluteValueType;
+export type FunctionTypes =
+    | LinearType
+    | QuadraticType
+    | SinusoidType
+    | TangentType
+    | ExponentialType
+    | LogarithmType
+    | AbsoluteValueType;
