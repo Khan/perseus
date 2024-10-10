@@ -634,9 +634,8 @@ const functionTypeMapping = {
 export const allTypes: any = _.keys(functionTypeMapping);
 
 type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
-
+// prettier-ignore
 type ConditionalGraderType<T extends FunctionTypeMappingKeys> =
-/* eslint-disable prettier/prettier */
       T extends "linear" ? LinearType
     : T extends "quadratic" ? QuadraticType
     : T extends "sinusoid" ? SinusoidType
@@ -645,7 +644,6 @@ type ConditionalGraderType<T extends FunctionTypeMappingKeys> =
     : T extends "logarithm" ? LogarithmType
     : T extends "absolute_value" ? AbsoluteValueType
     : never
-/* eslint-enable prettier/prettier */
 
 export function functionForType<T extends FunctionTypeMappingKeys>(
     type: T,
