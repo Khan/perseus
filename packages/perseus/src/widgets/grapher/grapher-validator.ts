@@ -49,6 +49,14 @@ function grapherValidator(
                 message: null,
             };
         }
+        if (grader.areEqual(guessCoeffs, correctCoeffs)) {
+            return {
+                type: "points",
+                earned: 1,
+                total: 1,
+                message: null,
+            };
+        }
     } else if (
         (userInput.type === "linear" ||
             userInput.type === "quadratic" ||
