@@ -460,7 +460,7 @@ describe("Locked Vector Settings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Vector from (0, 0) to (2, 2) with label A",
+                ariaLabel: "Vector A from (0, 0) to (2, 2)",
             });
         });
 
@@ -494,7 +494,7 @@ describe("Locked Vector Settings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Vector from (0, 0) to (2, 2) with labels A, B",
+                ariaLabel: "Vector A B from (0, 0) to (2, 2)",
             });
         });
     });

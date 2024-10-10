@@ -111,19 +111,12 @@ const LockedPointSettings = (props: Props) => {
      * "Point at (x, y) with label1, label2, label3".
      */
     function getPrepopulatedAriaLabel() {
-        let str = `Point at (${coord[0]}, ${coord[1]})`;
-
+        let visiblelabel = "";
         if (labels && labels.length > 0) {
-            str += " with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(" ")}`;
         }
+
+        const str = `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`;
 
         return str;
     }

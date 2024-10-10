@@ -62,22 +62,15 @@ const LockedPolygonSettings = (props: Props) => {
     } = props;
 
     function getPrepopulatedAriaLabel() {
-        let str = `Polygon with ${points.length} sides, vertices at `;
+        let visiblelabel = "";
+        if (labels && labels.length > 0) {
+            visiblelabel += ` ${labels.map((l) => l.text).join(" ")}`;
+        }
+
+        let str = `Polygon${visiblelabel} with ${points.length} sides, vertices at `;
 
         // Add the coordinates of each point to the aria label
         str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
-
-        if (labels && labels.length > 0) {
-            str += ", with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
 
         return str;
     }
