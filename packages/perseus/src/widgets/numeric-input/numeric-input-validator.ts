@@ -187,11 +187,8 @@ function numericInputValidator(
         // .find((answer) => answer.score.correct); // ".correct" indicates a match, regardless of the "correctness" of the answer
 
     const result: Score = {
-        // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
         empty: matchedAnswer ? matchedAnswer.status === "ungraded" : false,
-        // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
         correct: matchedAnswer ? matchedAnswer.status === "correct" : false,
-        // @ts-expect-error - TS2339 - Property 'message' does not exist on type 'never'.
         message: matchedAnswer ? matchedAnswer.message : null,
         guess: localValue,
     };
