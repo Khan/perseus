@@ -1,3 +1,5 @@
+import {Errors, PerseusError} from "@khanacademy/perseus-core";
+
 import {functionForType} from "./util";
 
 import type {GrapherAnswerTypes} from "../../perseus-types";
@@ -44,6 +46,8 @@ function grapherValidator(
         ) {
             const grader = functionForType(data.type);
             return grader.getCoefficients(data.coords);
+        } else {
+            throw new PerseusError("Invalid grapher type", Errors.InvalidInput);
         }
     }
 
