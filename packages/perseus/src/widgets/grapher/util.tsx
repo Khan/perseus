@@ -164,7 +164,7 @@ const Quadratic: QuadraticType = _.extend({}, PlotDefaults, {
     // @ts-expect-error - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Parabola,
 
-    getCoefficients: function (coords: Coords) {
+    getCoefficients: function (coords: Coords): ReadonlyArray<number> {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -514,7 +514,7 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
     getCoefficients: function (
         coords: Coords,
         asymptote: Coords,
-    ): [number, number, number] {
+    ): ReadonlyArray<number> | undefined {
         // It's easiest to calculate the logarithm's coefficients by thinking
         // about it as the inverse of the exponential, so we flip x and y and
         // perform some algebra on the coefficients. This also unifies the
@@ -524,10 +524,12 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
             _.map(coords, flip) as Coords,
             _.map(asymptote, flip) as Coords,
         );
-        const c = -inverseCoeffs[2] / inverseCoeffs[0];
-        const b = 1 / inverseCoeffs[0];
-        const a = 1 / inverseCoeffs[1];
-        return [a, b, c];
+        if (inverseCoeffs) {
+            const c = -inverseCoeffs[2] / inverseCoeffs[0];
+            const b = 1 / inverseCoeffs[0];
+            const a = 1 / inverseCoeffs[1];
+            return [a, b, c];
+        }
     },
 
     getFunctionForCoeffs: function (
