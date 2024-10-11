@@ -77,12 +77,3 @@ export type AbsoluteValueType = SharedGrapherType & {
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
     getCoefficients: (coords: Coords) => ReadonlyArray<number> | undefined;
 };
-
-export type FunctionTypes =
-    | LinearType
-    | QuadraticType
-    | SinusoidType
-    | TangentType
-    | ExponentialType
-    | LogarithmType
-    | AbsoluteValueType;
