@@ -1,5 +1,5 @@
 import TexWrangler from "../../tex-wrangler";
-import KhanAnswerTypes from "../../util/answer-types";
+import KhanAnswerTypes, {Score} from "../../util/answer-types";
 
 import type {MathFormat, PerseusNumericInputAnswer} from "../../perseus-types";
 import type {PerseusStrings} from "../../strings";
@@ -111,9 +111,12 @@ function numericInputValidator(
         (answer) => answer.status === "correct",
     );
 
-    const normalizedAnswerExpected = correctAnswers.every(
-        (answer) => Math.abs(answer.value) <= 1,
-    );
+    // const normalizedAnswerExpected = correctAnswers.every(
+    //     (answer) => Math.abs(answer.value) <= 1,
+    // );
+    const normalizedAnswerExpected = rubric.answers
+        .filter((answer) => answer.status === "correct")
+        .every((answer) => Math.abs(answer.value) <= 1);
 
     // Look through all correct answers for one that matches either
     // precisely or approximately and return the appropriate message:
@@ -163,6 +166,32 @@ function numericInputValidator(
             guess: currentValue,
         };
     }
+
+    // The coefficient is an attribute of the widget
+    let localValue: string | number = currentValue;
+    if (rubric.coefficient) {
+        if (!localValue) {
+            localValue = 1;
+        } else if (localValue === "-") {
+            localValue = -1;
+        }
+    }
+    const matchedAnswer: Score | undefined = rubric.answers
+        .map((answer) => {
+            const validate = createValidator(answer);
+            return validate(
+                maybeParsePercentInput(localValue, normalizedAnswerExpected),
+            );
+        })
+        .find((score) => score.correct); // ".correct" indicates a match, regardless of the "correctness" of the answer
+
+    // TODO: Test the output (locally?) to inspect the output of "matchedAnswer"
+    //       Ensure that output matches lines 159 - 167 for "wrong" answer match
+
+    // eslint-disable-next-line
+    console.log("Result (current method): ", result);
+    // eslint-disable-next-line
+    console.log("Matched Answer: ", matchedAnswer);
 
     // TODO(eater): Seems silly to translate result to this
     // invalid/points thing and immediately translate it
