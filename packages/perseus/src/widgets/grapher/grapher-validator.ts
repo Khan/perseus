@@ -9,6 +9,26 @@ import type {
     PerseusGrapherUserInput,
 } from "../../validation.types";
 
+function getCoefficientsbyType(
+    data: GrapherAnswerTypes,
+): ReadonlyArray<number> | undefined {
+    if (data.type === "exponential" || data.type === "logarithm") {
+        const grader = functionForType(data.type);
+        return grader.getCoefficients(data.coords, data.asymptote);
+    } else if (
+        data.type === "linear" ||
+        data.type === "quadratic" ||
+        data.type === "absolute_value" ||
+        data.type === "sinusoid" ||
+        data.type === "tangent"
+    ) {
+        const grader = functionForType(data.type);
+        return grader.getCoefficients(data.coords);
+    } else {
+        throw new PerseusError("Invalid grapher type", Errors.InvalidInput);
+    }
+}
+
 function grapherValidator(
     userInput: PerseusGrapherUserInput,
     rubric: PerseusGrapherRubric,
@@ -31,29 +51,9 @@ function grapherValidator(
     }
 
     // Get new function handler for grading
-    function getCoefficientsFunc(
-        data: GrapherAnswerTypes,
-    ): ReadonlyArray<number> | undefined {
-        if (data.type === "exponential" || data.type === "logarithm") {
-            const grader = functionForType(data.type);
-            return grader.getCoefficients(data.coords, data.asymptote);
-        } else if (
-            data.type === "linear" ||
-            data.type === "quadratic" ||
-            data.type === "absolute_value" ||
-            data.type === "sinusoid" ||
-            data.type === "tangent"
-        ) {
-            const grader = functionForType(data.type);
-            return grader.getCoefficients(data.coords);
-        } else {
-            throw new PerseusError("Invalid grapher type", Errors.InvalidInput);
-        }
-    }
-
     const grader = functionForType(userInput.type);
-    const guessCoeffs = getCoefficientsFunc(userInput);
-    const correctCoeffs = getCoefficientsFunc(rubric.correct);
+    const guessCoeffs = getCoefficientsbyType(userInput);
+    const correctCoeffs = getCoefficientsbyType(rubric.correct);
 
     if (guessCoeffs == null || correctCoeffs == null) {
         return {
