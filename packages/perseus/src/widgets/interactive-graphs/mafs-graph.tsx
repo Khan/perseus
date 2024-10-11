@@ -49,6 +49,7 @@ import type {
     InteractiveGraphState,
     InteractiveGraphProps,
     PointGraphState,
+    PolygonGraphState,
 } from "./types";
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
@@ -380,6 +381,72 @@ const renderPointGraphControls = (props: {
     );
 };
 
+// Might want to consoludate with the point graph controls as they are similar.
+const renderPolygonGraphControls = (props: {
+    state: PolygonGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+    width: number;
+    strings: PerseusStrings;
+}) => {
+    const {interactionMode, showRemovePointButton, focusedPointIndex} =
+        props.state;
+    const {strings} = props;
+
+    const shouldShowRemoveButton =
+        showRemovePointButton && focusedPointIndex !== null;
+
+    return (
+        <View
+            style={{
+                flexDirection: "row",
+                width: props.width,
+            }}
+        >
+            {interactionMode === "keyboard" && (
+                <Button
+                    kind="secondary"
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                    }}
+                    tabIndex={0}
+                    onClick={() => {
+                        props.dispatch(actions.pointGraph.addPoint([0, 0]));
+                    }}
+                >
+                    {strings.addPoint}
+                </Button>
+            )}
+            {interactionMode === "mouse" && (
+                <Button
+                    id={REMOVE_BUTTON_ID}
+                    kind="secondary"
+                    color="destructive"
+                    // This button is meant to be interacted with by the mouse only
+                    // Never allow learners to tab to this button
+                    tabIndex={-1}
+                    style={{
+                        width: "100%",
+                        marginLeft: "20px",
+                        visibility: shouldShowRemoveButton
+                            ? "visible"
+                            : "hidden",
+                    }}
+                    onClick={(event) => {
+                        props.dispatch(
+                            actions.pointGraph.removePoint(
+                                props.state.focusedPointIndex!,
+                            ),
+                        );
+                    }}
+                >
+                    {strings.removePoint}
+                </Button>
+            )}
+        </View>
+    );
+};
+
 const renderGraphControls = (props: {
     state: InteractiveGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
@@ -399,6 +466,17 @@ const renderGraphControls = (props: {
                 });
             }
             return null;
+        case "polygon":
+            // Need to update on the identifier for unlimited.
+            if (state.numSides === "unlimited") {
+                return renderPolygonGraphControls({
+                    state,
+                    dispatch,
+                    width,
+                    strings,
+                });
+            }
+            return null;
         default:
             return null;
     }
@@ -409,6 +487,7 @@ function handleFocusEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
+    // Might need to add the logic for focus of the polygon-unlimited here.
     if (state.type === "point" && state.numPoints === "unlimited") {
         if (
             event.target.classList.contains("mafs-graph") &&

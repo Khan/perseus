@@ -13,10 +13,16 @@ import {useDraggable} from "./use-draggable";
 
 import type {CollinearTuple} from "../../../perseus-types";
 import type {MafsGraphProps, PolygonGraphState} from "../types";
+import {
+    pixelsToVectors,
+    useTransformDimensionsToPixels,
+    useTransformVectorsToPixels,
+} from "./use-transform";
+import {REMOVE_BUTTON_ID} from "../mafs-graph";
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
-export const PolygonGraph = (props: Props) => {
+export const LimitedPolygonGraph = (props: Props) => {
     const [hovered, setHovered] = React.useState(false);
     // This is more so required for the re-rendering that occurs when state
     // updates; specifically with regard to line weighting and polygon focus.
@@ -153,6 +159,213 @@ export const PolygonGraph = (props: Props) => {
     );
 };
 
+export const UnlimitedPolygonGraph = (props: Props) => {
+    const [hovered, setHovered] = React.useState(false);
+    // This is more so required for the re-rendering that occurs when state
+    // updates; specifically with regard to line weighting and polygon focus.
+    const [focusVisible, setFocusVisible] = React.useState(false);
+
+    const {dispatch} = props;
+    const {
+        coords,
+        showAngles,
+        showSides,
+        range,
+        snapStep,
+        snapTo = "grid",
+    } = props.graphState;
+
+    const graphState = useGraphConfig();
+
+    // Section of code is very 1:1 with point.tsx, note to abstract this logic.
+    const {
+        range: [[minX, maxX], [minY, maxY]],
+        disableKeyboardInteraction,
+    } = graphState;
+
+    const width = maxX - minX;
+    const height = maxY - minY;
+    const [[widthPx, heightPx]] = useTransformDimensionsToPixels([
+        width,
+        height,
+    ]);
+    const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
+    const itemsRef = React.useRef<Array<SVGElement | null>>([]);
+
+    // TODO(benchristel): can the default set of points be removed here? I don't
+    // think coords can be null.
+    const points = coords ?? [[0, 0]];
+
+    const ref = React.useRef<SVGPolygonElement>(null);
+    const dragReferencePoint = points[0];
+    const constrain = ["angles", "sides"].includes(snapTo)
+        ? (p) => p
+        : (p) => snap(snapStep, p);
+    const {dragging} = useDraggable({
+        gestureTarget: ref,
+        point: dragReferencePoint,
+        onMove: (newPoint) => {
+            const delta = vec.sub(newPoint, dragReferencePoint);
+            dispatch(actions.polygon.moveAll(delta));
+        },
+        constrainKeyboardMovement: constrain,
+    });
+
+    const lastMoveTime = React.useRef<number>(0);
+
+    const lines = getLines(points);
+
+    return (
+        <>
+            {/* This rect is here to grab clicks so that new points can be added */}
+            {/* It's important because it stops mouse events from propogating
+                when dragging a points around */}
+            <rect
+                style={{
+                    fill: "rgba(0,0,0,0)",
+                    cursor: "crosshair",
+                }}
+                width={widthPx}
+                height={heightPx}
+                x={left}
+                y={top}
+                onClick={(event) => {
+                    const elementRect =
+                        event.currentTarget.getBoundingClientRect();
+
+                    const x = event.clientX - elementRect.x;
+                    const y = event.clientY - elementRect.y;
+
+                    const graphCoordinates = pixelsToVectors(
+                        [[x, y]],
+                        graphState,
+                    );
+                    dispatch(actions.pointGraph.addPoint(graphCoordinates[0]));
+                }}
+            />
+            {/**
+             * Will likely want to conditionally render then once a full polygon is created
+             * And handle when someone wants to remove the polygon connection?
+             */}
+            <Polygon
+                points={[...points]}
+                color="var(--movable-line-stroke-color)"
+                svgPolygonProps={{
+                    strokeWidth: focusVisible
+                        ? "var(--movable-line-stroke-weight-active)"
+                        : "var(--movable-line-stroke-weight)",
+                    style: {fill: "transparent"},
+                }}
+            />
+            {points.map((point, i) => {
+                const pt1 = points.at(i - 1);
+                const pt2 = points[(i + 1) % points.length];
+                if (!pt1 || !pt2) {
+                    return null;
+                }
+                return (
+                    <PolygonAngle
+                        key={"angle-" + i}
+                        centerPoint={point}
+                        endPoints={[pt1, pt2]}
+                        range={range}
+                        polygonLines={lines}
+                        showAngles={!!showAngles}
+                        snapTo={snapTo}
+                    />
+                );
+            })}
+            {showSides &&
+                lines.map(([start, end], i) => {
+                    const [x, y] = vec.midpoint(start, end);
+                    const length = parseFloat(
+                        vec
+                            .dist(start, end)
+                            .toFixed(snapTo === "sides" ? 0 : 1),
+                    );
+                    return (
+                        <TextLabel key={"side-" + i} x={x} y={y}>
+                            {!Number.isInteger(length) && "≈ "}
+                            {length}
+                        </TextLabel>
+                    );
+                })}
+            {/**
+             * This transparent svg creates a nice big click/touch target,
+             * since the polygon itself can be made smaller than the spec.
+             */}
+            {/**
+             * Will likely want to conditionally render then once a full polygon is created
+             * And handle when someone wants to remove the polygon connection?
+             */}
+            <Polygon
+                points={[...points]}
+                color="transparent"
+                svgPolygonProps={{
+                    ref,
+                    tabIndex: disableKeyboardInteraction ? -1 : 0,
+                    strokeWidth: TARGET_SIZE,
+                    style: {
+                        cursor: dragging ? "grabbing" : "grab",
+                        fill: hovered ? "var(--mafs-blue)" : "transparent",
+                    },
+                    onMouseEnter: () => setHovered(true),
+                    onMouseLeave: () => setHovered(false),
+                    // Required to remove line weighting when user clicks away
+                    // from the focused polygon
+                    onKeyDownCapture: () => {
+                        setFocusVisible(hasFocusVisible(ref.current));
+                    },
+                    // Required for lines to darken on focus
+                    onFocus: () =>
+                        setFocusVisible(hasFocusVisible(ref.current)),
+                    // Required for line weighting to update on blur. Without this,
+                    // the user has to hover over the shape for it to update
+                    onBlur: () => setFocusVisible(hasFocusVisible(ref.current)),
+                    className: "movable-polygon",
+                }}
+            />
+            {props.graphState.coords.map((point, i) => (
+                <MovablePoint
+                    key={i}
+                    point={point}
+                    onMove={(destination) =>
+                        dispatch(actions.pointGraph.movePoint(i, destination))
+                    }
+                    ref={(ref) => {
+                        itemsRef.current[i] = ref;
+                    }}
+                    onFocusChange={(event, isFocused) => {
+                        if (isFocused) {
+                            dispatch(actions.pointGraph.focusPoint(i));
+                        } else {
+                            if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
+                                return;
+                                // This is an optimization: If the next target
+                                // is a point then don't blur because it casues
+                                // the remove button to get taken off the page
+                                // and then put back on The new point will
+                                // receive focus and set the correct state in
+                                // the reducer
+                            } else if (
+                                event.relatedTarget?.classList.contains(
+                                    "movable-point",
+                                )
+                            ) {
+                                return;
+                            }
+                            dispatch(actions.pointGraph.blurPoint());
+                        }
+                    }}
+                    onClick={() => {
+                        dispatch(actions.pointGraph.clickPoint(i));
+                    }}
+                />
+            ))}
+        </>
+    );
+};
+
 function getLines(points: readonly vec.Vector2[]): CollinearTuple[] {
     return points.map((point, i) => {
         const next = points[(i + 1) % points.length];
@@ -172,4 +385,13 @@ export const hasFocusVisible = (
         // so the call to matches(":focus-visible") will fail in tests.
         return matches(":focus");
     }
+};
+
+export const PolygonGraph = (props: Props) => {
+    const numPoints = props.graphState.numSides;
+    if (numPoints === "unlimited") {
+        return UnlimitedPolygonGraph(props);
+    }
+
+    return LimitedPolygonGraph(props);
 };
