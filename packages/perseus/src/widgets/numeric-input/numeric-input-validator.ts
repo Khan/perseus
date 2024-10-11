@@ -122,25 +122,34 @@ function numericInputValidator(
             localValue = -1;
         }
     }
-    const matchedAnswer: PerseusNumericInputAnswer | undefined =
-        rubric.answers.find((answer) => {
+    const matchedAnswer:
+        | (PerseusNumericInputAnswer & {score: Score})
+        | undefined = rubric.answers
+        .map((answer) => {
             const validateFn = createValidator(answer);
             const score = validateFn(
                 maybeParsePercentInput(localValue, normalizedAnswerExpected),
             );
-            // NOTE: "score.correct" indicates a match via the validate function.
+            return {...answer, score};
+        })
+        .find((answer) => {
+            // NOTE: "answer.score.correct" indicates a match via the validate function.
             //       It does NOT indicate that the answer itself is correct.
             return (
-                score.correct || (answer.status === "correct" && score.empty)
+                answer.score.correct ||
+                (answer.status === "correct" && answer.score.empty)
             );
         });
 
-    const result: Score = {
-        empty: matchedAnswer ? matchedAnswer.status === "ungraded" : false,
-        correct: matchedAnswer ? matchedAnswer.status === "correct" : false,
-        message: matchedAnswer ? matchedAnswer.message : null,
-        guess: localValue,
-    };
+    const result: Score =
+        matchedAnswer?.status === "correct"
+            ? matchedAnswer.score
+            : {
+                  empty: matchedAnswer?.status === "ungraded" ?? false,
+                  correct: matchedAnswer?.status === "correct" ?? false,
+                  message: matchedAnswer?.message ?? null,
+                  guess: localValue,
+              };
 
     // TODO(eater): Seems silly to translate result to this
     // invalid/points thing and immediately translate it
