@@ -678,7 +678,7 @@ describe("Locked Function Settings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Function with equation y=x^2",
+                    ariaLabel: "Function with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -704,7 +704,7 @@ describe("Locked Function Settings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Function with equation x=y^2",
+                    ariaLabel: "Function with equation x=y^2. Appearance solid gray.",
                 });
             });
 
@@ -730,7 +730,7 @@ describe("Locked Function Settings", () => {
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
-                        "Function with equation y=x^2, domain from 1 to 2",
+                        "Function with equation y=x^2, domain from 1 to 2. Appearance solid gray.",
                 });
             });
 
@@ -755,7 +755,7 @@ describe("Locked Function Settings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Function with equation y=x^2",
+                    ariaLabel: "Function with equation y=x^2. Appearance solid gray.",
                 });
             });
 
@@ -785,7 +785,7 @@ describe("Locked Function Settings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Function with equation y=x^2, with label A",
+                    ariaLabel: "Function with equation y=x^2, with label A. Appearance solid gray.",
                 });
             });
 
@@ -819,7 +819,7 @@ describe("Locked Function Settings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Function with equation y=x^2, with labels A, B",
+                    ariaLabel: "Function with equation y=x^2, with labels A, B. Appearance solid gray.",
                 });
             });
         });

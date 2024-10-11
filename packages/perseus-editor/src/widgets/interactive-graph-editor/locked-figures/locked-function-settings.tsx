@@ -28,7 +28,7 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import examples from "./locked-function-examples";
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
+import {convertColors, getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -101,7 +101,8 @@ const LockedFunctionSettings = (props: Props) => {
             // Separate additional labels with commas.
             str += ` ${labels.map((l) => l.text).join(", ")}`;
         }
-
+        let convertedColor = convertColors(lineColor);
+        str += `. Appearance ${strokeStyle} ${convertedColor}.`;
         return str;
     }
 

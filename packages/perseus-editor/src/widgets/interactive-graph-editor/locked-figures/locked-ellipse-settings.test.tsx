@@ -382,7 +382,7 @@ describe("LockedEllipseSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Circle with radius 2, centered at (0, 0)",
+                ariaLabel: "Circle with radius 2, centered at (0, 0). Appearance solid gray, with no fill.",
             });
         });
 
@@ -409,7 +409,7 @@ describe("LockedEllipseSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Circle with radius 2, centered at (0, 0)",
+                ariaLabel: "Circle with radius 2, centered at (0, 0). Appearance solid gray, with no fill.",
             });
         });
 
@@ -436,7 +436,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0)",
+                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0). Appearance solid gray, with no fill.",
             });
         });
 
@@ -464,7 +464,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0), rotated by 90 degrees",
+                    "Ellipse with x radius 2 and y radius 3, centered at (0, 0), rotated by 90 degrees. Appearance solid gray, with no fill.",
             });
         });
 
@@ -496,7 +496,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at (0, 0), with label A",
+                    "Circle with radius 2, centered at (0, 0), with label A. Appearance solid gray, with no fill.",
             });
         });
 
@@ -532,7 +532,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at (0, 0), with labels A, B",
+                    "Circle with radius 2, centered at (0, 0), with labels A, B. Appearance solid gray, with no fill.",
             });
         });
     });

@@ -3,6 +3,8 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import type {
     LockedEllipseType,
     LockedFigure,
+    LockedFigureColor,
+    LockedFigureFillType,
     LockedFigureType,
     LockedFunctionType,
     LockedLabelType,
@@ -97,5 +99,37 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
             };
         default:
             throw new UnreachableCaseError(type);
+    }
+}
+
+export function convertColors(color: LockedFigureColor): string {
+    switch (color) {
+        case "red":
+            return "red";
+        case "orange":
+            return "orange";
+        case "green":
+            return "green";
+        case "blue":
+            return "blue";
+        case "purple":
+            return "purple";
+        case "pink":
+            return "pink";
+        default:
+            return "gray";
+    }
+}
+
+export function convertFill(fill: LockedFigureFillType){
+    switch (fill) {
+        case "translucent":
+            return "a translucent";
+        case "solid":
+            return "a solid";
+        case "white":
+            return "a white";
+        default:
+            return "no";
     }
 }

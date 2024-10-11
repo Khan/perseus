@@ -22,7 +22,7 @@ import LabeledSwitch from "./labeled-switch";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
-import {getDefaultFigureForType} from "./util";
+import {convertColors, getDefaultFigureForType} from "./util";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {
@@ -30,6 +30,7 @@ import type {
     LockedLabelType,
     LockedPointType,
 } from "@khanacademy/perseus";
+import { point } from "@khanacademy/kmath";
 
 export type Props = LockedPointType & {
     /**
@@ -124,7 +125,8 @@ const LockedPointSettings = (props: Props) => {
             // Separate additional labels with commas.
             str += ` ${labels.map((l) => l.text).join(", ")}`;
         }
-
+        let convertedPointColor = convertColors(pointColor);
+        str += `. Appearance solid ${convertedPointColor}.`;
         return str;
     }
 
