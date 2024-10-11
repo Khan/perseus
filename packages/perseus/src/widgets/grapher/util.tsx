@@ -377,10 +377,10 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
         newCoord: Coord,
         oldCoord: Coord,
         coords: Coords,
-        asymptote,
+        asymptote: Coords,
         graph,
     ) {
-        const y: number = _.head(asymptote)[1];
+        const y: number = asymptote[0][1];
         return _.all(coords, (coord) => coord[1] !== y);
     },
 
@@ -472,10 +472,10 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
         newCoord: Coord,
         oldCoord: Coord,
         coords: Coord,
-        asymptote,
+        asymptote: Coords,
         graph,
     ) {
-        const x = _.head(asymptote)[0];
+        const x = asymptote[0][0];
         return (
             _.all(coords, (coord) => coord[0] !== x) &&
             coords[0][1] !== coords[1][1]
@@ -486,7 +486,7 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
         newCoord: Coord,
         oldCoord: Coord,
         coords: Coords,
-        asymptote,
+        asymptote: Coords,
         graph,
     ): ReadonlyArray<number> {
         const x = newCoord[0];
