@@ -6,10 +6,6 @@ export type Coords = [Coord, Coord];
 type BaseType = {
     url: string;
     defaultCoords: Coords;
-    getCoefficients: (
-        coords: Coords,
-        asymptote?: Coords,
-    ) => ReadonlyArray<number>; // linear also can return undefined
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
     getEquationString: (coords: Coords, asymptote?: Coords) => string;
     areEqual: (
@@ -21,6 +17,7 @@ type BaseType = {
 
 export type LinearType = BaseType & {
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
+    getCoefficients: (coords: Coords) => ReadonlyArray<number> | undefined;
 };
 
 export type QuadraticType = BaseType & {
@@ -29,6 +26,7 @@ export type QuadraticType = BaseType & {
         b: number;
         c: number;
     };
+    getCoefficients: (coords: Coords) => ReadonlyArray<number>;
 };
 
 export type SinusoidType = BaseType & {
@@ -38,10 +36,12 @@ export type SinusoidType = BaseType & {
         c: number;
         d: number;
     };
+    getCoefficients: (coords: Coords) => ReadonlyArray<number>;
 };
 
 export type TangentType = BaseType & {
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
+    getCoefficients: (coords: Coords) => ReadonlyArray<number>;
 };
 
 export type ExponentialType = BaseType & {
@@ -62,6 +62,10 @@ export type ExponentialType = BaseType & {
     ) => Coord;
     allowReflectOverAsymptote: boolean;
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
+    getCoefficients: (
+        coords: Coords,
+        asymptote: Coords,
+    ) => ReadonlyArray<number>;
 };
 
 export type LogarithmType = BaseType & {
@@ -82,10 +86,15 @@ export type LogarithmType = BaseType & {
     ) => Coord;
     allowReflectOverAsymptote: boolean;
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
+    getCoefficients: (
+        coords: Coords,
+        asymptote: Coords,
+    ) => ReadonlyArray<number>;
 };
 
 export type AbsoluteValueType = BaseType & {
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
+    getCoefficients: (coords: Coords) => ReadonlyArray<number> | undefined;
 };
 
 export type FunctionTypes =
