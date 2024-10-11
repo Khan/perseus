@@ -212,7 +212,6 @@ export const UnlimitedPolygonGraph = (props: Props) => {
     });
 
     const lines = getLines(points);
-    console.log(props.graphState.coords);
 
     return (
         <>
@@ -388,7 +387,6 @@ export const hasFocusVisible = (
 
 export const PolygonGraph = (props: Props) => {
     const numSides = props.graphState.numSides;
-    console.log(numSides);
     if (numSides === "unlimited") {
         return UnlimitedPolygonGraph(props);
     }

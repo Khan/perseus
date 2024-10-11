@@ -126,7 +126,6 @@ export function UnlimitedPointGraph(props: PointGraphProps) {
 
 export function PointGraph(props: PointGraphProps) {
     const numPoints = props.graphState.numPoints;
-    console.log(numPoints);
     if (numPoints === "unlimited") {
         return UnlimitedPointGraph(props);
     }
