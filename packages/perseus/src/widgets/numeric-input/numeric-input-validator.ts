@@ -145,8 +145,8 @@ function numericInputValidator(
         matchedAnswer?.status === "correct"
             ? matchedAnswer.score
             : {
-                  empty: matchedAnswer?.status === "ungraded" ?? false,
-                  correct: matchedAnswer?.status === "correct" ?? false,
+                  empty: matchedAnswer?.status === "ungraded",
+                  correct: matchedAnswer?.status === "correct",
                   message: matchedAnswer?.message ?? null,
                   guess: localValue,
               };
