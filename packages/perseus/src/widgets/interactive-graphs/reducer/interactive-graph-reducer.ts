@@ -662,7 +662,7 @@ function doAddPoint(
     state: InteractiveGraphState,
     action: AddPoint,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
+    if (state.type !== "point" && state.type !== "polygon") {
         return state;
     }
     const {snapStep} = state;

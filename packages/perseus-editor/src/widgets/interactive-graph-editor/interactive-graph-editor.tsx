@@ -504,6 +504,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         // reset the snap for UNLIMITED, which
                                         // only supports "grid"
                                         // From: D6578
+                                        // Not sure what this note means...
                                         snapTo: "grid",
                                     } as const;
 

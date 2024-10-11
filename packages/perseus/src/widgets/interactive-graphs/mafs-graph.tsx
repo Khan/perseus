@@ -506,6 +506,10 @@ function handleBlurEvent(
     if (state.type === "point" && state.numPoints === "unlimited") {
         dispatch(actions.global.changeKeyboardInvitationVisibility(false));
     }
+    // Clean-up later
+    if (state.type === "polygon" && state.numSides === "unlimited") {
+        dispatch(actions.global.changeKeyboardInvitationVisibility(false));
+    }
 }
 
 function handleKeyboardEvent(
