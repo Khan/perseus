@@ -1,6 +1,5 @@
 import {functionForType} from "./util";
 
-import type {Coords} from "./grapher-types";
 import type {GrapherAnswerTypes} from "../../perseus-types";
 import type {PerseusScore} from "../../types";
 import type {
@@ -30,18 +29,25 @@ function grapherValidator(
     }
 
     // Get new function handler for grading
-    const grader = functionForType(userInput.type);
-
     function getCoefficientsFunc(
         data: GrapherAnswerTypes,
-    ): ReadonlyArray<number> {
-        let asymptote: Coords | undefined;
-        if ("asymptote" in data) {
-            asymptote = data.asymptote;
+    ): ReadonlyArray<number> | undefined {
+        if (data.type === "exponential" || data.type === "logarithm") {
+            const grader = functionForType(data.type);
+            return grader.getCoefficients(data.coords, data.asymptote);
+        } else if (
+            data.type === "linear" ||
+            data.type === "quadratic" ||
+            data.type === "absolute_value" ||
+            data.type === "sinusoid" ||
+            data.type === "tangent"
+        ) {
+            const grader = functionForType(data.type);
+            return grader.getCoefficients(data.coords);
         }
-        return grader.getCoefficients(data.coords, asymptote);
     }
 
+    const grader = functionForType(userInput.type);
     const guessCoeffs = getCoefficientsFunc(userInput);
     const correctCoeffs = getCoefficientsFunc(rubric.correct);
 
