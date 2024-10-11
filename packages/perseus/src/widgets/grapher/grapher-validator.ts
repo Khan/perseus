@@ -1,5 +1,6 @@
 import {functionForType} from "./util";
 
+import type {FunctionTypes} from "./grapher-types";
 import type {PerseusScore} from "../../types";
 import type {
     PerseusGrapherRubric,
@@ -19,6 +20,9 @@ function grapherValidator(
         };
     }
 
+    const userInputType = userInput.type;
+    const rubricType = rubric.correct.type;
+
     // We haven't moved the coords
     if (userInput.coords == null) {
         return {
@@ -28,67 +32,52 @@ function grapherValidator(
     }
 
     // Get new function handler for grading
+    let guessCoeffs: ReadonlyArray<number> | null = null;
+    let correctCoeffs: ReadonlyArray<number> | null = null;
+    let grader: FunctionTypes | null = null;
+
     if (
-        (userInput.type === "logarithm" || userInput.type === "exponential") &&
-        (rubric.correct.type === "logarithm" ||
-            rubric.correct.type === "exponential")
+        (userInputType === "logarithm" || userInputType === "exponential") &&
+        rubricType === userInputType
     ) {
-        const grader = functionForType(userInput.type);
-        const guessCoeffs = grader.getCoefficients(
+        grader = functionForType(userInput.type);
+        guessCoeffs = grader.getCoefficients(
             userInput.coords,
             userInput.asymptote,
         );
-        const correctCoeffs = grader.getCoefficients(
+        correctCoeffs = grader.getCoefficients(
             rubric.correct.coords,
             rubric.correct.asymptote,
         );
-
-        if (guessCoeffs == null || correctCoeffs == null) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-        if (grader.areEqual(guessCoeffs, correctCoeffs)) {
-            return {
-                type: "points",
-                earned: 1,
-                total: 1,
-                message: null,
-            };
-        }
     } else if (
-        (userInput.type === "linear" ||
-            userInput.type === "quadratic" ||
-            userInput.type === "tangent" ||
-            userInput.type === "sinusoid" ||
-            userInput.type === "absolute_value") &&
-        (rubric.correct.type === "linear" ||
-            rubric.correct.type === "quadratic" ||
-            rubric.correct.type === "tangent" ||
-            rubric.correct.type === "sinusoid" ||
-            rubric.correct.type === "absolute_value")
+        (userInputType === "linear" ||
+            userInputType === "quadratic" ||
+            userInputType === "tangent" ||
+            userInputType === "sinusoid" ||
+            userInputType === "absolute_value") &&
+        rubricType === userInputType
     ) {
-        const grader = functionForType(userInput.type);
-        const guessCoeffs = grader.getCoefficients(userInput.coords);
-        const correctCoeffs = grader.getCoefficients(rubric.correct.coords);
-        if (guessCoeffs == null || correctCoeffs == null) {
-            return {
-                type: "invalid",
-                message: null,
-            };
-        }
-        if (grader.areEqual(guessCoeffs, correctCoeffs)) {
-            return {
-                type: "points",
-                earned: 1,
-                total: 1,
-                message: null,
-            };
-        }
+        grader = functionForType(userInputType);
+        guessCoeffs = grader.getCoefficients(userInput.coords);
+        correctCoeffs = grader.getCoefficients(rubric.correct.coords);
     } else {
-        // report an error because there's a mismatch between userInput
-        // rubric type
+        throw new Error("Type not yet supported.");
+    }
+
+    if (guessCoeffs == null || correctCoeffs == null) {
+        return {
+            type: "invalid",
+            message: null,
+        };
+    }
+
+    if (grader?.areEqual(guessCoeffs, correctCoeffs)) {
+        return {
+            type: "points",
+            earned: 1,
+            total: 1,
+            message: null,
+        };
     }
 
     return {
