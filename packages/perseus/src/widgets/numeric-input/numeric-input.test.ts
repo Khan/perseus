@@ -5,7 +5,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {NumericInput, unionAnswerForms} from "./numeric-input";
+import NumericInputWidgetExport, {unionAnswerForms} from "./numeric-input";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -90,13 +90,14 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const answers: ReadonlyArray<any> =
             (widgetOptions && widgetOptions.answers) || [];
 
-        const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric({
-            answers,
-            labelText: "",
-            size: "medium",
-            static: false,
-            coefficient: false,
-        });
+        const singleAnswer =
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+                answers,
+                labelText: "",
+                size: "medium",
+                static: false,
+                coefficient: false,
+            });
         expect(singleAnswer).toBe("12.2");
     });
 
@@ -105,25 +106,27 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const widgetOptions = widget && widget.options;
         const answers: ReadonlyArray<any> =
             (widgetOptions && widgetOptions.answers) || [];
-        const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric({
-            answers,
-            labelText: "",
-            size: "medium",
-            static: false,
-            coefficient: false,
-        });
+        const singleAnswer =
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+                answers,
+                labelText: "",
+                size: "medium",
+                static: false,
+                coefficient: false,
+            });
         expect(singleAnswer).toBe("1252");
     });
 
     it("can not get a correct answer from a rubric with no answer", () => {
         const answers: Array<never> = [];
-        const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric({
-            answers,
-            labelText: "",
-            size: "medium",
-            static: false,
-            coefficient: false,
-        });
+        const singleAnswer =
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
+                answers,
+                labelText: "",
+                size: "medium",
+                static: false,
+                coefficient: false,
+            });
         expect(singleAnswer).toBeUndefined();
     });
 
@@ -145,7 +148,8 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             static: false,
             coefficient: true,
         };
-        const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric(rubric);
+        const singleAnswer =
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
         expect(singleAnswer).toBe("1 ± 0.2");
     });
 });
