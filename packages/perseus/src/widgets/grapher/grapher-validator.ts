@@ -1,6 +1,6 @@
 import {functionForType} from "./util";
 
-import type {FunctionTypes, Coords} from "./grapher-types";
+import type {Coords} from "./grapher-types";
 import type {GrapherAnswerTypes} from "../../perseus-types";
 import type {PerseusScore} from "../../types";
 import type {
