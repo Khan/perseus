@@ -74,8 +74,6 @@ export interface Widget {
     getSerializedState?: () => SerializedState; // SUSPECT,
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
-    getGrammarTypeForPath?: (path: FocusPath) => string | undefined;
-
     blurInputPath?: (path: FocusPath) => void;
     focusInputPath?: (path: FocusPath) => void;
     getInputPaths?: () => ReadonlyArray<FocusPath>;

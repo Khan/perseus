@@ -287,12 +287,6 @@ export class Expression
         return [[]];
     };
 
-    // TODO(Nicole): I believe this is going away and won't be needed anymore
-    getGrammarTypeForPath(inputPath: FocusPath): string {
-        /* c8 ignore next */
-        return "expression";
-    }
-
     setInputValue(path: FocusPath, newValue: string, cb: () => void) {
         this.props.onChange(
             {

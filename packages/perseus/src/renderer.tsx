@@ -1502,18 +1502,6 @@ class Renderer extends React.Component<Props, State> {
             }
         };
 
-    getGrammarTypeForPath: (path: FocusPath) => string | undefined = (
-        path: FocusPath,
-    ) => {
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const widgetId = _.first(path);
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const interWidgetPath = _.rest(path);
-
-        const widget = this.getWidgetInstance(widgetId);
-        return widget?.getGrammarTypeForPath?.(interWidgetPath);
-    };
-
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
         _.each(this.widgetIds, (widgetId: string) => {

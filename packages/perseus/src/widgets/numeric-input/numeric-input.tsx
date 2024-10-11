@@ -197,11 +197,6 @@ export class NumericInput
         return [[]];
     };
 
-    getGrammarTypeForPath: (arg1: FocusPath) => string = (inputPath) => {
-        /* c8 ignore next */
-        return "number";
-    };
-
     setInputValue: (
         arg1: FocusPath,
         arg2: string,

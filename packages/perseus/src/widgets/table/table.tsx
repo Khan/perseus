@@ -187,10 +187,6 @@ class Table extends React.Component<Props> implements Widget {
         return inputPaths;
     };
 
-    getGrammarTypeForPath: (arg1: any) => string = (inputPath) => {
-        return "number";
-    };
-
     setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
         path,
         newValue,
