@@ -16,7 +16,6 @@ import type {
     ExponentialType,
     LogarithmType,
     AbsoluteValueType,
-    FunctionTypes,
 } from "./grapher-types";
 import type {Coord} from "../../interactive2/types";
 
@@ -123,7 +122,9 @@ const Linear: LinearType = _.extend({}, PlotDefaults, {
         [0.75, 0.75],
     ],
 
-    getCoefficients: function (coords: Coords) {
+    getCoefficients: function (
+        coords: Coords,
+    ): ReadonlyArray<number> | undefined {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -625,7 +626,22 @@ export const allTypes: any = _.keys(functionTypeMapping);
 
 type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
 
-export function functionForType(type: FunctionTypeMappingKeys): FunctionTypes {
+type ConditionalGraderType<T extends FunctionTypeMappingKeys> =
+    // prettier-ignore
+    T extends "linear" ? LinearType
+    : T extends "quadratic" ? QuadraticType
+    : T extends "sinusoid" ? SinusoidType
+    : T extends "tangent" ? TangentType
+    : T extends "exponential" ? ExponentialType
+    : T extends "logarithm" ? LogarithmType
+    : T extends "absolute_value" ? AbsoluteValueType
+    : never;
+
+export function functionForType<T extends FunctionTypeMappingKeys>(
+    type: T,
+): ConditionalGraderType<T> {
+    // @ts-expect-error: TypeScript doesn't know how to use deal with generics
+    // and conditional types in this way.
     return functionTypeMapping[type];
 }
 
