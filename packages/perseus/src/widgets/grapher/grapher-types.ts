@@ -7,12 +7,16 @@ type SharedGrapherType = {
     url: string;
     defaultCoords: Coords;
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
-    getEquationString: (coords: Coords, asymptote?: Coords) => string;
+    getEquationString: (coords: Coords, asymptote?: Coords) => string | null;
     areEqual: (
         coeffs1: ReadonlyArray<number>,
         coeffs2: ReadonlyArray<number>,
     ) => boolean;
     Movable: any;
+    getCoefficients: (
+        coords: Coords,
+        asymptote?: Coords,
+    ) => ReadonlyArray<number> | undefined;
 };
 
 type AsymptoticGraphsType = {
@@ -36,7 +40,6 @@ type AsymptoticGraphsType = {
 
 export type LinearType = SharedGrapherType & {
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
-    getCoefficients: (coords: Coords) => ReadonlyArray<number> | undefined;
 };
 
 export type QuadraticType = SharedGrapherType & {
@@ -45,7 +48,6 @@ export type QuadraticType = SharedGrapherType & {
         b: number;
         c: number;
     };
-    getCoefficients: (coords: Coords) => ReadonlyArray<number>;
 };
 
 export type SinusoidType = SharedGrapherType & {
@@ -55,12 +57,10 @@ export type SinusoidType = SharedGrapherType & {
         c: number;
         d: number;
     };
-    getCoefficients: (coords: Coords) => ReadonlyArray<number>;
 };
 
 export type TangentType = SharedGrapherType & {
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
-    getCoefficients: (coords: Coords) => ReadonlyArray<number>;
 };
 
 export type ExponentialType = SharedGrapherType &
@@ -75,5 +75,4 @@ export type LogarithmType = SharedGrapherType &
 
 export type AbsoluteValueType = SharedGrapherType & {
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};
-    getCoefficients: (coords: Coords) => ReadonlyArray<number> | undefined;
 };
