@@ -211,9 +211,8 @@ export const UnlimitedPolygonGraph = (props: Props) => {
         constrainKeyboardMovement: constrain,
     });
 
-    const lastMoveTime = React.useRef<number>(0);
-
     const lines = getLines(points);
+    console.log(props.graphState.coords);
 
     return (
         <>
@@ -240,7 +239,7 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                         [[x, y]],
                         graphState,
                     );
-                    dispatch(actions.pointGraph.addPoint(graphCoordinates[0]));
+                    dispatch(actions.polygon.addPoint(graphCoordinates[0]));
                 }}
             />
             {/**
@@ -257,7 +256,7 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                     style: {fill: "transparent"},
                 }}
             />
-            {points.map((point, i) => {
+            {props.graphState.coords.map((point, i) => {
                 const pt1 = points.at(i - 1);
                 const pt2 = points[(i + 1) % points.length];
                 if (!pt1 || !pt2) {
@@ -330,14 +329,14 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                     key={i}
                     point={point}
                     onMove={(destination) =>
-                        dispatch(actions.pointGraph.movePoint(i, destination))
+                        dispatch(actions.polygon.movePoint(i, destination))
                     }
                     ref={(ref) => {
                         itemsRef.current[i] = ref;
                     }}
                     onFocusChange={(event, isFocused) => {
                         if (isFocused) {
-                            dispatch(actions.pointGraph.focusPoint(i));
+                            dispatch(actions.polygon.focusPoint(i));
                         } else {
                             if (event.relatedTarget?.id === REMOVE_BUTTON_ID) {
                                 return;
@@ -354,11 +353,11 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                             ) {
                                 return;
                             }
-                            dispatch(actions.pointGraph.blurPoint());
+                            dispatch(actions.polygon.blurPoint());
                         }
                     }}
                     onClick={() => {
-                        dispatch(actions.pointGraph.clickPoint(i));
+                        dispatch(actions.polygon.clickPoint(i));
                     }}
                 />
             ))}
@@ -388,8 +387,9 @@ export const hasFocusVisible = (
 };
 
 export const PolygonGraph = (props: Props) => {
-    const numPoints = props.graphState.numSides;
-    if (numPoints === "unlimited") {
+    const numSides = props.graphState.numSides;
+    console.log(numSides);
+    if (numSides === "unlimited") {
         return UnlimitedPolygonGraph(props);
     }
 
