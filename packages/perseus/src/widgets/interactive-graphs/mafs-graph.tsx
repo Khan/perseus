@@ -411,7 +411,7 @@ const renderPolygonGraphControls = (props: {
                     }}
                     tabIndex={0}
                     onClick={() => {
-                        props.dispatch(actions.pointGraph.addPoint([0, 0]));
+                        props.dispatch(actions.polygon.addPoint([0, 0]));
                     }}
                 >
                     {strings.addPoint}
@@ -434,7 +434,7 @@ const renderPolygonGraphControls = (props: {
                     }}
                     onClick={(event) => {
                         props.dispatch(
-                            actions.pointGraph.removePoint(
+                            actions.polygon.removePoint(
                                 props.state.focusedPointIndex!,
                             ),
                         );

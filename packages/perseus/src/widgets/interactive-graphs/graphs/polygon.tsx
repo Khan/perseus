@@ -190,19 +190,19 @@ export const UnlimitedPolygonGraph = (props: Props) => {
         height,
     ]);
     const [[left, top]] = useTransformVectorsToPixels([minX, maxY]);
-    const itemsRef = React.useRef<Array<SVGElement | null>>([]);
+    const pointRef = React.useRef<Array<SVGElement | null>>([]);
 
     // TODO(benchristel): can the default set of points be removed here? I don't
     // think coords can be null.
     const points = coords ?? [[0, 0]];
 
-    const ref = React.useRef<SVGPolygonElement>(null);
+    const polygonRef = React.useRef<SVGPolygonElement>(null);
     const dragReferencePoint = points[0];
     const constrain = ["angles", "sides"].includes(snapTo)
         ? (p) => p
         : (p) => snap(snapStep, p);
     const {dragging} = useDraggable({
-        gestureTarget: ref,
+        gestureTarget: polygonRef,
         point: dragReferencePoint,
         onMove: (newPoint) => {
             const delta = vec.sub(newPoint, dragReferencePoint);
@@ -212,6 +212,12 @@ export const UnlimitedPolygonGraph = (props: Props) => {
     });
 
     const lines = getLines(points);
+    React.useEffect(() => {
+        const focusedIndex = props.graphState.focusedPointIndex;
+        if (focusedIndex != null) {
+            pointRef.current[focusedIndex]?.focus();
+        }
+    }, [props.graphState.focusedPointIndex, pointRef]);
 
     return (
         <>
@@ -300,7 +306,7 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                 points={[...points]}
                 color="transparent"
                 svgPolygonProps={{
-                    ref,
+                    ref: polygonRef,
                     tabIndex: disableKeyboardInteraction ? -1 : 0,
                     strokeWidth: TARGET_SIZE,
                     style: {
@@ -312,14 +318,15 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                     // Required to remove line weighting when user clicks away
                     // from the focused polygon
                     onKeyDownCapture: () => {
-                        setFocusVisible(hasFocusVisible(ref.current));
+                        setFocusVisible(hasFocusVisible(polygonRef.current));
                     },
                     // Required for lines to darken on focus
                     onFocus: () =>
-                        setFocusVisible(hasFocusVisible(ref.current)),
+                        setFocusVisible(hasFocusVisible(polygonRef.current)),
                     // Required for line weighting to update on blur. Without this,
                     // the user has to hover over the shape for it to update
-                    onBlur: () => setFocusVisible(hasFocusVisible(ref.current)),
+                    onBlur: () =>
+                        setFocusVisible(hasFocusVisible(polygonRef.current)),
                     className: "movable-polygon",
                 }}
             />
@@ -331,7 +338,7 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                         dispatch(actions.polygon.movePoint(i, destination))
                     }
                     ref={(ref) => {
-                        itemsRef.current[i] = ref;
+                        pointRef.current[i] = ref;
                     }}
                     onFocusChange={(event, isFocused) => {
                         if (isFocused) {
