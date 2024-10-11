@@ -9,7 +9,7 @@ import type {
     PerseusGrapherUserInput,
 } from "../../validation.types";
 
-function getCoefficientsbyType(
+function getCoefficientsByType(
     data: GrapherAnswerTypes,
 ): ReadonlyArray<number> | undefined {
     if (data.type === "exponential" || data.type === "logarithm") {
@@ -52,8 +52,8 @@ function grapherValidator(
 
     // Get new function handler for grading
     const grader = functionForType(userInput.type);
-    const guessCoeffs = getCoefficientsbyType(userInput);
-    const correctCoeffs = getCoefficientsbyType(rubric.correct);
+    const guessCoeffs = getCoefficientsByType(userInput);
+    const correctCoeffs = getCoefficientsByType(rubric.correct);
 
     if (guessCoeffs == null || correctCoeffs == null) {
         return {
