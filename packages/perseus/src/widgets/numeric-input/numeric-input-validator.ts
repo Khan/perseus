@@ -176,14 +176,17 @@ function numericInputValidator(
             localValue = -1;
         }
     }
-    const matchedAnswer: Score | undefined = rubric.answers
+    const matchedAnswer:
+        | (PerseusNumericInputAnswer & {score: Score})
+        | undefined = rubric.answers
         .map((answer) => {
             const validate = createValidator(answer);
-            return validate(
+            const score = validate(
                 maybeParsePercentInput(localValue, normalizedAnswerExpected),
             );
+            return {...answer, score};
         })
-        .find((score) => score.correct); // ".correct" indicates a match, regardless of the "correctness" of the answer
+        .find((answer) => answer.score.correct); // ".correct" indicates a match, regardless of the "correctness" of the answer
 
     // TODO: Test the output (locally?) to inspect the output of "matchedAnswer"
     //       Ensure that output matches lines 159 - 167 for "wrong" answer match
