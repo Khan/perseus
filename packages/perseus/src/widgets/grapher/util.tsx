@@ -437,6 +437,9 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
     },
 
     getEquationString: function (coords: Coords, asymptote: Coords) {
+        if (!asymptote) {
+            return null;
+        }
         const coeffs = this.getCoefficients(coords, asymptote);
         const a = coeffs[0],
             b = coeffs[1],
@@ -539,6 +542,9 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
     },
 
     getEquationString: function (coords: Coords, asymptote: Coords) {
+        if (!asymptote) {
+            return null;
+        }
         const coeffs: ReadonlyArray<number> = this.getCoefficients(
             coords,
             asymptote,
