@@ -77,6 +77,7 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
                 trackInteraction={() => {}}
                 widgetId="expression"
                 keypadConfiguration={keypadConfiguration}
+                reviewMode={false}
             />
         </div>
     );

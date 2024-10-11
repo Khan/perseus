@@ -608,6 +608,7 @@ class Renderer extends React.Component<Props, State> {
             onBlur: _.partial(this._onWidgetBlur, id),
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
+            reviewMode: this.props.reviewMode,
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(id, newProps, cb, silent);
             },

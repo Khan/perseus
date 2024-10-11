@@ -48,6 +48,7 @@ function renderPassage(
         static: true,
         trackInteraction: () => {},
         widgetId: "passage",
+        reviewMode: false,
     } as const;
 
     const extended = {...base, ...overwrite} as const;

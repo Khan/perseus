@@ -26,6 +26,7 @@ export default {
 
 const defaultProps = {
     apiOptions: {},
+    reviewMode: false,
     choices: [
         generateChoice({
             content: "Content 1",

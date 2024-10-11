@@ -57,6 +57,7 @@ type Props = {
     // the logic checks whether this exists,
     // so it must be optional
     reviewModeRubric?: PerseusRadioWidgetOptions | null | undefined;
+    reviewMode: boolean;
     // A callback indicating that this choice has changed. Its argument is
     // an object with two keys: `checked` and `crossedOut`. Each contains
     // an array of boolean values, specifying the new checked and
@@ -93,6 +94,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
     const {
         apiOptions,
         reviewModeRubric,
+        reviewMode,
         choices,
         editMode,
         multipleSelect,
@@ -217,7 +219,6 @@ const BaseRadio = function (props: Props): React.ReactElement {
     });
 
     // some commonly used shorthands
-    const reviewMode = !!reviewModeRubric;
     const isMobile = apiOptions.isMobile;
 
     const firstChoiceHighlighted = choices[0].highlighted;
