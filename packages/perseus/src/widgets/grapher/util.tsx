@@ -8,15 +8,16 @@ import {getDependencies} from "../../dependencies";
 import Util from "../../util";
 
 import type {
-    AbsoluteValueType,
-    ExponentialType,
+    Coords,
     LinearType,
-    LogarithmType,
-    PlotDefaultTypes,
     QuadraticType,
     SinusoidType,
     TangentType,
-} from "./grapher-validator-types";
+    ExponentialType,
+    LogarithmType,
+    AbsoluteValueType,
+    FunctionTypes,
+} from "./grapher-types";
 import type {Coord} from "../../interactive2/types";
 
 // @ts-expect-error - TS2339 - Property 'Plot' does not exist on type 'typeof Graphie'.
@@ -98,14 +99,15 @@ function canonicalTangentCoefficients(coeffs: any) {
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
-const PlotDefaults: PlotDefaultTypes = {
-    areEqual: function (coeffs1, coeffs2) {
+const PlotDefaults = {
+    areEqual: function (
+        coeffs1: ReadonlyArray<number>,
+        coeffs2: ReadonlyArray<number>,
+    ): boolean {
         return Util.deepEq(coeffs1, coeffs2);
     },
-
     Movable: Plot,
-
-    getPropsForCoeffs: function (coeffs) {
+    getPropsForCoeffs: function (coeffs: ReadonlyArray<number>): {fn: any} {
         return {
             // @ts-expect-error - TS2339 - Property 'getFunctionForCoeffs' does not exist on type '{ readonly areEqual: (coeffs1: any, coeffs2: any) => boolean; readonly Movable: any; readonly getPropsForCoeffs: (coeffs: any) => any; }'.
             fn: _.partial(this.getFunctionForCoeffs, coeffs),
@@ -121,7 +123,7 @@ const Linear: LinearType = _.extend({}, PlotDefaults, {
         [0.75, 0.75],
     ],
 
-    getCoefficients: function (coords: [Coord, Coord]) {
+    getCoefficients: function (coords: Coords) {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -143,10 +145,10 @@ const Linear: LinearType = _.extend({}, PlotDefaults, {
         return m * x + b;
     },
 
-    getEquationString: function (coords: [Coord, Coord]) {
-        const coeffs = this.getCoefficients(coords);
-        const m = coeffs[0],
-            b = coeffs[1];
+    getEquationString: function (coords: Coords) {
+        const coeffs: ReadonlyArray<number> = this.getCoefficients(coords);
+        const m: number = coeffs[0],
+            b: number = coeffs[1];
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
     },
 });
@@ -161,7 +163,7 @@ const Quadratic: QuadraticType = _.extend({}, PlotDefaults, {
     // @ts-expect-error - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Parabola,
 
-    getCoefficients: function (coords: [Coord, Coord]) {
+    getCoefficients: function (coords: Coords) {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -199,7 +201,7 @@ const Quadratic: QuadraticType = _.extend({}, PlotDefaults, {
         };
     },
 
-    getEquationString: function (coords: [Coord, Coord]) {
+    getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
         const a = coeffs[0],
             b = coeffs[1],
@@ -225,7 +227,7 @@ const Sinusoid: SinusoidType = _.extend({}, PlotDefaults, {
     // @ts-expect-error - TS2339 - Property 'Sinusoid' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Sinusoid,
 
-    getCoefficients: function (coords: [Coord, Coord]) {
+    getCoefficients: function (coords: Coords) {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -254,7 +256,7 @@ const Sinusoid: SinusoidType = _.extend({}, PlotDefaults, {
         };
     },
 
-    getEquationString: function (coords: [Coord, Coord]) {
+    getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
         const a = coeffs[0],
             b = coeffs[1],
@@ -291,7 +293,7 @@ const Tangent: TangentType = _.extend({}, PlotDefaults, {
         [0.75, 0.75],
     ],
 
-    getCoefficients: function (coords: [Coord, Coord]) {
+    getCoefficients: function (coords: Coords) {
         const p1 = coords[0];
         const p2 = coords[1];
 
@@ -311,7 +313,7 @@ const Tangent: TangentType = _.extend({}, PlotDefaults, {
         return a * Math.tan(b * x - c) + d;
     },
 
-    getEquationString: function (coords: [Coord, Coord]) {
+    getEquationString: function (coords: Coords) {
         const coeffs = this.getCoefficients(coords);
         const a = coeffs[0],
             b = coeffs[1],
@@ -373,7 +375,7 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
     extraCoordConstraint: function (
         newCoord: Coord,
         oldCoord: Coord,
-        coords: [Coord, Coord],
+        coords: Coords,
         asymptote,
         graph,
     ) {
@@ -384,8 +386,8 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
     extraAsymptoteConstraint: function (
         newCoord: Coord,
         oldCoord: Coord,
-        coords: [Coord, Coord],
-        asymptote: [Coord, Coord],
+        coords: Coords,
+        asymptote: Coords,
         graph,
     ): Coord {
         const y = newCoord[1];
@@ -411,13 +413,13 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
     allowReflectOverAsymptote: true,
 
     getCoefficients: function (
-        coords: [Coord, Coord],
-        asymptote,
-    ): ReadonlyArray<number> {
+        coords: Coords,
+        asymptote: Coords,
+    ): [number, number, number] {
         const p1 = coords[0];
         const p2 = coords[1];
 
-        const c = _.head(asymptote)[1];
+        const c = asymptote[0][1];
         const b = Math.log((p1[1] - c) / (p2[1] - c)) / (p1[0] - p2[0]);
         const a = (p1[1] - c) / Math.exp(b * p1[0]);
         return [a, b, c];
@@ -433,13 +435,7 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
         return a * Math.exp(b * x) + c;
     },
 
-    getEquationString: function (
-        coords: [Coord, Coord],
-        asymptote: [Coord, Coord],
-    ) {
-        if (!asymptote) {
-            return null;
-        }
+    getEquationString: function (coords: Coords, asymptote: Coords) {
         const coeffs = this.getCoefficients(coords, asymptote);
         const a = coeffs[0],
             b = coeffs[1],
@@ -485,7 +481,7 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
     extraAsymptoteConstraint: function (
         newCoord: Coord,
         oldCoord: Coord,
-        coords: [Coord, Coord],
+        coords: Coords,
         asymptote,
         graph,
     ): ReadonlyArray<number> {
@@ -512,17 +508,17 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
     allowReflectOverAsymptote: true,
 
     getCoefficients: function (
-        coords: [Coord, Coord],
-        asymptote: [Coord, Coord],
-    ): ReadonlyArray<number> {
+        coords: Coords,
+        asymptote: Coords,
+    ): [number, number, number] {
         // It's easiest to calculate the logarithm's coefficients by thinking
         // about it as the inverse of the exponential, so we flip x and y and
         // perform some algebra on the coefficients. This also unifies the
         // logic between the two 'models'.
         const flip = (coord: Coord): Coord => [coord[1], coord[0]];
         const inverseCoeffs = Exponential.getCoefficients(
-            _.map(coords, flip) as [Coord, Coord],
-            _.map(asymptote, flip) as [Coord, Coord],
+            _.map(coords, flip) as Coords,
+            _.map(asymptote, flip) as Coords,
         );
         const c = -inverseCoeffs[2] / inverseCoeffs[0];
         const b = 1 / inverseCoeffs[0];
@@ -533,7 +529,7 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
     getFunctionForCoeffs: function (
         coeffs: ReadonlyArray<number>,
         x: number,
-        asymptote: [Coord, Coord],
+        asymptote: Coords,
     ) {
         const a = coeffs[0],
             b = coeffs[1],
@@ -541,13 +537,7 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
         return a * Math.log(b * x + c);
     },
 
-    getEquationString: function (
-        coords: [Coord, Coord],
-        asymptote: [Coord, Coord],
-    ) {
-        if (!asymptote) {
-            return null;
-        }
+    getEquationString: function (coords: Coords, asymptote: Coords) {
         const coeffs: ReadonlyArray<number> = this.getCoefficients(
             coords,
             asymptote,
@@ -575,7 +565,7 @@ const AbsoluteValue: AbsoluteValueType = _.extend({}, PlotDefaults, {
     ],
 
     getCoefficients: function (
-        coords: [Coord, Coord],
+        coords: Coords,
     ): ReadonlyArray<number> | undefined {
         const p1 = coords[0];
         const p2 = coords[1];
@@ -604,7 +594,7 @@ const AbsoluteValue: AbsoluteValueType = _.extend({}, PlotDefaults, {
         return m * Math.abs(x - horizontalOffset) + verticalOffset;
     },
 
-    getEquationString: function (coords: [Coord, Coord]) {
+    getEquationString: function (coords: Coords) {
         const coeffs: ReadonlyArray<number> = this.getCoefficients(coords);
         const m = coeffs[0],
             horizontalOffset = coeffs[1],
@@ -634,22 +624,8 @@ const functionTypeMapping = {
 export const allTypes: any = _.keys(functionTypeMapping);
 
 type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
-// prettier-ignore
-type ConditionalGraderType<T extends FunctionTypeMappingKeys> =
-      T extends "linear" ? LinearType
-    : T extends "quadratic" ? QuadraticType
-    : T extends "sinusoid" ? SinusoidType
-    : T extends "tangent" ? TangentType
-    : T extends "exponential" ? ExponentialType
-    : T extends "logarithm" ? LogarithmType
-    : T extends "absolute_value" ? AbsoluteValueType
-    : never
 
-export function functionForType<T extends FunctionTypeMappingKeys>(
-    type: T,
-): ConditionalGraderType<T> {
-    // @ts-expect-error: TypeScript doesn't know how to use deal with generics
-    // and conditional types in this way.
+export function functionForType(type: FunctionTypeMappingKeys): FunctionTypes {
     return functionTypeMapping[type];
 }
 
