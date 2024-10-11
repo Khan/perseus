@@ -45,9 +45,6 @@ function renderPassage(
         onChange: () => {},
         onFocus: () => {},
         problemNum: 1,
-        reviewModeRubric: {
-            ...widgetPropsBase,
-        },
         static: true,
         trackInteraction: () => {},
         widgetId: "passage",
