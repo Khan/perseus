@@ -107,9 +107,9 @@ function numericInputValidator(
     // We may have received TeX; try to parse it before grading.
     // If `currentValue` is not TeX, this should be a no-op.
     const currentValue = ParseTex(userInput.currentValue);
-    const correctAnswers = rubric.answers.filter(
-        (answer) => answer.status === "correct",
-    );
+    // const correctAnswers = rubric.answers.filter(
+    //     (answer) => answer.status === "correct",
+    // );
 
     // const normalizedAnswerExpected = correctAnswers.every(
     //     (answer) => Math.abs(answer.value) <= 1,
@@ -122,50 +122,50 @@ function numericInputValidator(
     // precisely or approximately and return the appropriate message:
     // - if precise, return the message that the answer came with
     // - if it needs to be simplified, etc., show that message
-    let result = correctAnswers
-        .map((answer) => {
-            // The coefficient is an attribute of the widget
-            let localValue: string | number = currentValue;
-            if (rubric.coefficient) {
-                if (!localValue) {
-                    localValue = 1;
-                } else if (localValue === "-") {
-                    localValue = -1;
-                }
-            }
-            const validate = createValidator(answer);
-            return validate(
-                maybeParsePercentInput(localValue, normalizedAnswerExpected),
-            );
-        })
-        .find((match) => match.correct || match.empty);
-
-    if (!result) {
-        // Otherwise, if the guess is not correct
-        const otherAnswers = [].concat(
-            // @ts-expect-error - TS2769 - No overload matches this call.
-            rubric.answers.filter((answer) => answer.status === "ungraded"),
-            rubric.answers.filter((answer) => answer.status === "wrong"),
-        );
-
-        // Look through all other answers and if one matches either
-        // precisely or approximately return the answer's message
-        const match = otherAnswers.find((answer) => {
-            const validate = createValidator(answer);
-            return validate(
-                maybeParsePercentInput(currentValue, normalizedAnswerExpected),
-            ).correct;
-        });
-        result = {
-            // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
-            empty: match ? match.status === "ungraded" : false,
-            // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
-            correct: match ? match.status === "correct" : false,
-            // @ts-expect-error - TS2339 - Property 'message' does not exist on type 'never'.
-            message: match ? match.message : null,
-            guess: currentValue,
-        };
-    }
+    // let result = correctAnswers
+    //     .map((answer) => {
+    //         // The coefficient is an attribute of the widget
+    //         let localValue: string | number = currentValue;
+    //         if (rubric.coefficient) {
+    //             if (!localValue) {
+    //                 localValue = 1;
+    //             } else if (localValue === "-") {
+    //                 localValue = -1;
+    //             }
+    //         }
+    //         const validate = createValidator(answer);
+    //         return validate(
+    //             maybeParsePercentInput(localValue, normalizedAnswerExpected),
+    //         );
+    //     })
+    //     .find((match) => match.correct || match.empty);
+    //
+    // if (!result) {
+    //     // Otherwise, if the guess is not correct
+    //     const otherAnswers = [].concat(
+    //         // @ts-expect-error - TS2769 - No overload matches this call.
+    //         rubric.answers.filter((answer) => answer.status === "ungraded"),
+    //         rubric.answers.filter((answer) => answer.status === "wrong"),
+    //     );
+    //
+    //     // Look through all other answers and if one matches either
+    //     // precisely or approximately return the answer's message
+    //     const match = otherAnswers.find((answer) => {
+    //         const validate = createValidator(answer);
+    //         return validate(
+    //             maybeParsePercentInput(currentValue, normalizedAnswerExpected),
+    //         ).correct;
+    //     });
+    //     result = {
+    //         // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
+    //         empty: match ? match.status === "ungraded" : false,
+    //         // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
+    //         correct: match ? match.status === "correct" : false,
+    //         // @ts-expect-error - TS2339 - Property 'message' does not exist on type 'never'.
+    //         message: match ? match.message : null,
+    //         guess: currentValue,
+    //     };
+    // }
 
     // The coefficient is an attribute of the widget
     let localValue: string | number = currentValue;
@@ -176,23 +176,28 @@ function numericInputValidator(
             localValue = -1;
         }
     }
-    const matchedAnswer:
-        | (PerseusNumericInputAnswer & {score: Score})
-        | undefined = rubric.answers
-        .map((answer) => {
+    const matchedAnswer: PerseusNumericInputAnswer | undefined = rubric.answers
+        .find((answer) => {
             const validate = createValidator(answer);
             const score = validate(
                 maybeParsePercentInput(localValue, normalizedAnswerExpected),
             );
-            return {...answer, score};
-        })
-        .find((answer) => answer.score.correct); // ".correct" indicates a match, regardless of the "correctness" of the answer
+            return score.correct;
+        });
+        // .find((answer) => answer.score.correct); // ".correct" indicates a match, regardless of the "correctness" of the answer
 
-    // TODO: Test the output (locally?) to inspect the output of "matchedAnswer"
-    //       Ensure that output matches lines 159 - 167 for "wrong" answer match
+    const result: Score = {
+        // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
+        empty: matchedAnswer ? matchedAnswer.status === "ungraded" : false,
+        // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
+        correct: matchedAnswer ? matchedAnswer.status === "correct" : false,
+        // @ts-expect-error - TS2339 - Property 'message' does not exist on type 'never'.
+        message: matchedAnswer ? matchedAnswer.message : null,
+        guess: localValue,
+    };
 
     // eslint-disable-next-line
-    console.log("Result (current method): ", result);
+    console.log("Result (new method): ", result);
     // eslint-disable-next-line
     console.log("Matched Answer: ", matchedAnswer);
 
