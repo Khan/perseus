@@ -154,9 +154,9 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   <path
                     d="M29.999999999999993,48L29.999999999999993,32"
                     fill="none"
-                    stroke="#000000"
-                    stroke-width="2"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 2;"
+                    stroke="#1865f2"
+                    stroke-width="3.5"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 3.5;"
                   />
                   <path
                     d="M58.49999999999999,48L58.49999999999999,32"
@@ -206,20 +206,6 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                     stroke="#000000"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 2;"
-                  />
-                  <path
-                    d="M258,48L258,32"
-                    fill="none"
-                    stroke="#000000"
-                    stroke-width="2"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 2;"
-                  />
-                  <path
-                    d="M29.999999999999993,48L29.999999999999993,32"
-                    fill="none"
-                    stroke="#1865f2"
-                    stroke-width="3.5"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 3.5;"
                   />
                   <path
                     d="M258,48L258,32"
@@ -540,9 +526,9 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   <path
                     d="M29.999999999999982,48L29.999999999999982,32"
                     fill="none"
-                    stroke="#000000"
-                    stroke-width="2"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
+                    stroke="#1865f2"
+                    stroke-width="3.5"
+                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
                   <path
                     d="M79.99999999999999,48L79.99999999999999,32"
@@ -592,20 +578,6 @@ exports[`number-line widget should snapshot: first render 1`] = `
                     stroke="#000000"
                     stroke-width="2"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
-                  />
-                  <path
-                    d="M430,48L430,32"
-                    fill="none"
-                    stroke="#000000"
-                    stroke-width="2"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2;"
-                  />
-                  <path
-                    d="M29.999999999999982,48L29.999999999999982,32"
-                    fill="none"
-                    stroke="#1865f2"
-                    stroke-width="3.5"
-                    style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
                   <path
                     d="M430,48L430,32"
