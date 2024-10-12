@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lexer should lex LaTeX tokens 1`] = `
+[
+  {
+    "kind": "(",
+  },
+  {
+    "kind": "FRAC",
+  },
+  {
+    "kind": "{",
+  },
+  {
+    "kind": "INT",
+    "value": "1",
+  },
+  {
+    "kind": "}",
+  },
+  {
+    "kind": "{",
+  },
+  {
+    "kind": "VAR",
+    "value": "x",
+  },
+  {
+    "kind": "}",
+  },
+  {
+    "kind": "-",
+  },
+  {
+    "kind": "INT",
+    "value": "1",
+  },
+  {
+    "kind": ")",
+  },
+]
+`;
+
+exports[`lexer should lex different numbers 1`] = `
+[
+  {
+    "kind": "INT",
+    "value": "1",
+  },
+  {
+    "kind": "+",
+  },
+  {
+    "kind": "-",
+  },
+  {
+    "kind": "INT",
+    "value": "2",
+  },
+  {
+    "kind": "+",
+  },
+  {
+    "kind": "FLOAT",
+    "value": "3.14",
+  },
+]
+`;
+
+exports[`lexer should lex simple tokens 1`] = `
+[
+  {
+    "kind": "INT",
+    "value": "1",
+  },
+  {
+    "kind": "+",
+  },
+  {
+    "kind": "INT",
+    "value": "2",
+  },
+  {
+    "kind": "VAR",
+    "value": "x",
+  },
+  {
+    "kind": "VAR",
+    "value": "y",
+  },
+]
+`;
+
+exports[`lexer should lex with options 1`] = `
+[
+  {
+    "kind": "FUNC",
+    "value": "f",
+  },
+  {
+    "kind": "(",
+  },
+  {
+    "kind": "VAR",
+    "value": "x",
+  },
+  {
+    "kind": ")",
+  },
+  {
+    "kind": "SIGN",
+    "value": "=",
+  },
+  {
+    "kind": "CONST",
+    "value": "e",
+  },
+  {
+    "kind": "^",
+  },
+  {
+    "kind": "VAR",
+    "value": "x",
+  },
+]
+`;
