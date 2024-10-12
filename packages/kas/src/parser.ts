@@ -97,6 +97,7 @@ export class Parser {
         while (this.index < this.tokens.length) {
             const index = this.index; // save state
             try {
+                // the second term in an implicit multiplication cannot be negative
                 const right = this.triglog();
                 left = Mul.fold(Mul.createOrAppend(left, right)); // left associative
             } catch (e) {
@@ -142,14 +143,8 @@ export class Parser {
     }
 
     trigfunc(): [string] | [string, Expr] {
-        const next = this.peek();
-        // NOTE(kevin): We're able to reorder the rules for `trigfunc()`
-        // so that "TRIGINV" is first only because there's no overlap
-        // with what `trig()` matches.
-        if (next.kind === "TRIGINV") {
-            this.consume(); // triginv
-            return [next.value];
-        } else {
+        const index = this.index; // save state
+        try {
             const left = this.trig();
             const op = this.peek();
             if (op.kind === "^") {
@@ -158,6 +153,15 @@ export class Parser {
                 return [left[0], right];
             } else {
                 return left;
+            }
+        } catch (e) {
+            this.index = index; // restore state
+            const next = this.peek();
+            if (next.kind === "TRIGINV") {
+                this.consume(); // triginv
+                return [next.value];
+            } else {
+                throw new Error(`Expected TRIGINV but got ${next.kind}`);
             }
         }
     }
