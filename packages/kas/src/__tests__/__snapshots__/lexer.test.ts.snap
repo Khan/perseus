@@ -38,6 +38,9 @@ exports[`lexer should lex LaTeX tokens 1`] = `
   {
     "kind": ")",
   },
+  {
+    "kind": "EOF",
+  },
 ]
 `;
 
@@ -64,6 +67,9 @@ exports[`lexer should lex different numbers 1`] = `
     "kind": "FLOAT",
     "value": "3.14",
   },
+  {
+    "kind": "EOF",
+  },
 ]
 `;
 
@@ -87,6 +93,9 @@ exports[`lexer should lex simple tokens 1`] = `
   {
     "kind": "VAR",
     "value": "y",
+  },
+  {
+    "kind": "EOF",
   },
 ]
 `;
@@ -121,6 +130,9 @@ exports[`lexer should lex with options 1`] = `
   {
     "kind": "VAR",
     "value": "x",
+  },
+  {
+    "kind": "EOF",
   },
 ]
 `;
