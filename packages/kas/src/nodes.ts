@@ -118,7 +118,7 @@ abstract class Expr {
     }
 
     // this node's immediate constructor
-    abstract func: { new(...args: any[]): any; name: string };
+    abstract func: {new (...args: any[]): any; name: string};
 
     // an array of the arguments to this node's immediate constructor
     abstract args(): (number | string | Expr)[];
