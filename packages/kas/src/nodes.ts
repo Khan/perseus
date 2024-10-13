@@ -2198,6 +2198,13 @@ export class Log extends Expr {
     }
 }
 
+type TrigFunc = {
+    eval: (arg: number) => number;
+    codegen: string | ((argStr: string) => string);
+    tex: string;
+    expand?: () => Expr;
+};
+
 /* trigonometric functions */
 export class Trig extends Expr {
     type: string; // TODO(kevinb): Use an enum for this
@@ -2220,7 +2227,8 @@ export class Trig extends Expr {
         return [this.type, this.arg];
     }
 
-    functions = {
+    // TODO(kevinb): Use an enum for the function names.
+    functions: Record<string, TrigFunc> = {
         sin: {
             eval: Math.sin,
             codegen: "Math.sin((",
@@ -2497,7 +2505,8 @@ export class Trig extends Expr {
         var trig = this.recurse("expand");
         if (!trig.isInverse()) {
             // e.g. tan(x) -> sin(x)/cos(x)
-            var expand = trig.functions[trig.type].expand;
+            // NOTE(kevinb): All non-inverse trig functions have an expand property.
+            var expand = trig.functions[trig.type].expand!;
             return _.bind(expand, trig)();
         } else {
             return trig;
