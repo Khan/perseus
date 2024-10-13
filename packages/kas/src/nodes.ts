@@ -1881,11 +1881,11 @@ export class Pow extends Expr {
                 const exp = pow.exp.asRational();
                 const decimalsInBase = pow.base.getDecimalPlaces();
                 const root = new Pow(pow.base, new Rational(1, exp.d));
-                // @ts-expect-error: we assume that `root.collect()` returns
-                // a Num here but tbh I'm not sure how this code isn't causing
-                // an infinite loop.
                 const decimalsInRoot: number = root
                     .collect()
+                    // @ts-expect-error: we assume that `root.collect()` returns
+                    // a Num here but tbh I'm not sure how this code isn't causing
+                    // an infinite loop.
                     .getDecimalPlaces();
 
                 if (decimalsInRoot > decimalsInBase) {
