@@ -118,14 +118,7 @@ abstract class Expr {
     }
 
     // this node's immediate constructor
-    // TODO(kevinb): Write a proper type for this
-    func: any = (...args: any[]) => {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    };
+    abstract func: { new(...args: any[]): any; name: string };
 
     // an array of the arguments to this node's immediate constructor
     abstract args(): (number | string | Expr)[];
@@ -220,11 +213,7 @@ abstract class Expr {
     // returns the name of this expression's constructor as a string
     // only used for testing and debugging (the ugly regex is for IE8)
     name(): string {
-        if (this.func.name) {
-            return this.func.name;
-        } else {
-            return this.func.toString().match(/^function\s*([^\s(]+)/)[1];
-        }
+        return this.func.name;
     }
 
     // returns a string representing current node structure
