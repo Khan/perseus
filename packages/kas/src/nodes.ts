@@ -57,7 +57,7 @@ var TOLERANCE = 9; // decimal places
 function partition<T, V extends _.Collection<T>>(
     list: V,
     iteratee: _.CollectionIterator<T, boolean>,
-    context?: any
+    context?: any,
 ): [_.TypeOfCollection<V>[], _.TypeOfCollection<V>[]] {
     const a: _.TypeOfCollection<V>[] = [];
     const b: _.TypeOfCollection<V>[] = [];
@@ -88,20 +88,20 @@ function getFactors(expr: Expr): Expr[] {
 }
 
 type Hints = {
-    parens?: boolean,
-    divide?: boolean,
-    root?: boolean,
-    subtract?: boolean,
-    fraction?: boolean,
-    entered?: boolean,
-    negate?: boolean,
-    open?: boolean,
-}
+    parens?: boolean;
+    divide?: boolean;
+    root?: boolean;
+    subtract?: boolean;
+    fraction?: boolean;
+    entered?: boolean;
+    negate?: boolean;
+    open?: boolean;
+};
 
 type CollectOptions = {
     preciseFloats?: boolean;
     once?: boolean;
-}
+};
 
 /* abstract base expression node */
 class Expr {
@@ -144,7 +144,7 @@ class Expr {
 
     // an abstraction for chainable, bottom-up recursion
     // TODO(kevinb): Use an overloaded signature to provide more accurate types.
-    recurse (method: string, ...passed): this {
+    recurse(method: string, ...passed): this {
         var args = _.map(this.args(), function (arg) {
             return _.isString(arg) ? arg : arg[method].apply(arg, passed);
         });
@@ -684,9 +684,8 @@ class Seq extends Expr {
     // (or array of terms). given term can be passed directly, or by index
     // if no new term is provided, the old one is simply removed
     replace(oldTerm: Expr | number, newTerm?: Expr | Expr[]) {
-        const index = oldTerm instanceof Expr
-            ? _.indexOf(this.terms, oldTerm)
-            : oldTerm;
+        const index =
+            oldTerm instanceof Expr ? _.indexOf(this.terms, oldTerm) : oldTerm;
 
         var newTerms: Expr[] = [];
         if (_.isArray(newTerm)) {
@@ -823,7 +822,7 @@ export class Add extends Seq {
         const left = new Mul(factors).flatten().collect();
 
         const remainder = terms.map((term) =>
-            Mul.handleDivide(term, left).simplify()
+            Mul.handleDivide(term, left).simplify(),
         );
         const right = new Add(remainder).flatten();
 
@@ -925,7 +924,7 @@ export class Mul extends Seq {
         });
 
         var inverses = terms.inverse || [];
-        var numbers: Num[] = terms.number as Num[] || [];
+        var numbers: Num[] = (terms.number as Num[]) || [];
         var others = terms.other || [];
 
         var negatives = "";
@@ -949,7 +948,11 @@ export class Mul extends Seq {
             _.map(numbers, function (term) {
                 var shouldPushDown =
                     !term.hints.fraction || inverses.length > 0;
-                if (term instanceof Rational && !(term instanceof Int) && shouldPushDown) {
+                if (
+                    term instanceof Rational &&
+                    !(term instanceof Int) &&
+                    shouldPushDown
+                ) {
                     // e.g. 3x/4 -> 3/4*x (internally) -> 3x/4 (rendered)
                     inverses.push(new Pow(new Int(term.d), NumDiv));
                     var number = new Int(term.n);
@@ -1057,7 +1060,7 @@ export class Mul extends Seq {
                         function (temp, array) {
                             // loop over each additive sequence's terms
                             return temp.concat(
-                                _.map(add.terms, (term)=> array.concat(term)),
+                                _.map(add.terms, (term) => array.concat(term)),
                             );
                         },
                         [] as Expr[][],
@@ -1106,9 +1109,10 @@ export class Mul extends Seq {
             {n: 1, d: 1},
         );
 
-        const rational = ratObj.d === 1
-            ? new Int(ratObj.n)
-            : new Rational(ratObj.n, ratObj.d);
+        const rational =
+            ratObj.d === 1
+                ? new Int(ratObj.n)
+                : new Rational(ratObj.n, ratObj.d);
 
         return new Mul((grouped.false || []).concat(rational)).flatten();
     }
@@ -1171,8 +1175,8 @@ export class Mul extends Seq {
                 return "expr";
             }
         });
-        let trigs = groupedPairs.trig as [Trig, Expr][] || [];
-        let logs = groupedPairs.log as [Log, Expr][] || [];
+        let trigs = (groupedPairs.trig as [Trig, Expr][]) || [];
+        let logs = (groupedPairs.log as [Log, Expr][]) || [];
         const exprs = groupedPairs.expr || [];
 
         if (trigs.length > 1) {
@@ -1339,13 +1343,17 @@ export class Mul extends Seq {
         if (this.isPositive()) {
             return this;
         } else {
-            const terms = getFactors(this.collect()).map((factor) => factor.asPositiveFactor());
+            const terms = getFactors(this.collect()).map((factor) =>
+                factor.asPositiveFactor(),
+            );
             return new Mul(terms).flatten();
         }
     }
 
     isNegative() {
-        const terms = getFactors(this.collect()).map((factor) => factor.isNegative());
+        const terms = getFactors(this.collect()).map((factor) =>
+            factor.isNegative(),
+        );
         return _.any(terms);
     }
 
@@ -1533,15 +1541,19 @@ export class Mul extends Seq {
                 ) {
                     trigLog.hints.open = false;
                 } else {
-                    const newTrigLog = trigLog instanceof Trig
-                        ? Trig.create(
-                            [trigLog.type, trigLog.exp],
-                            Mul.createOrAppend(trigLog.arg, last).fold(),
-                        )
-                        : Log.create(
-                            trigLog.base,
-                            Mul.createOrAppend(trigLog.power, last).fold(),
-                        );
+                    const newTrigLog =
+                        trigLog instanceof Trig
+                            ? Trig.create(
+                                  [trigLog.type, trigLog.exp],
+                                  Mul.createOrAppend(trigLog.arg, last).fold(),
+                              )
+                            : Log.create(
+                                  trigLog.base,
+                                  Mul.createOrAppend(
+                                      trigLog.power,
+                                      last,
+                                  ).fold(),
+                              );
 
                     const index = _.indexOf(expr.terms, trigLog);
                     if (index === 0) {
@@ -1655,15 +1667,13 @@ export class Pow extends Expr {
     }
 
     getUnits() {
-        return this.base.getUnits().map(
-            (unit) => {
-                return {
-                    unit: unit.unit,
-                    // Exponents in units should always be integers
-                    pow: unit.pow * (this.exp as Int).n,
-                };
-            },
-        );
+        return this.base.getUnits().map((unit) => {
+            return {
+                unit: unit.unit,
+                // Exponents in units should always be integers
+                pow: unit.pow * (this.exp as Int).n,
+            };
+        });
     }
 
     codegen(): string {
@@ -1874,7 +1884,9 @@ export class Pow extends Expr {
                 // @ts-expect-error: we assume that `root.collect()` returns
                 // a Num here but tbh I'm not sure how this code isn't causing
                 // an infinite loop.
-                const decimalsInRoot: number = root.collect().getDecimalPlaces();
+                const decimalsInRoot: number = root
+                    .collect()
+                    .getDecimalPlaces();
 
                 if (decimalsInRoot > decimalsInBase) {
                     // Collecting over this denominator would result in an
@@ -1916,7 +1928,9 @@ export class Pow extends Expr {
         } else if (this.exp instanceof Mul) {
             return new Pow(this.base, this.exp.factorOut());
         } else {
-            throw new Error("called asDivide() on an Expr that wasn't a Num or Mul");
+            throw new Error(
+                "called asDivide() on an Expr that wasn't a Num or Mul",
+            );
         }
     }
 
@@ -1958,9 +1972,10 @@ export class Pow extends Expr {
     }
 
     findGCD(factor: Readonly<Expr>): Expr {
-        const [base, exp] = factor instanceof Pow
-            ? [factor.base, factor.exp]
-            : [factor, NumOne];
+        const [base, exp] =
+            factor instanceof Pow
+                ? [factor.base, factor.exp]
+                : [factor, NumOne];
 
         // GCD is only relevant if same base
         if (this.base.equals(base)) {
@@ -2147,7 +2162,11 @@ export class Log extends Expr {
     isPositive() {
         var log = this.collect();
 
-        if (log instanceof Log && log.base instanceof Num && log.power instanceof Num) {
+        if (
+            log instanceof Log &&
+            log.base instanceof Num &&
+            log.power instanceof Num
+        ) {
             return this.eval() > 0;
         } else {
             return false;
@@ -2218,7 +2237,8 @@ export class Trig extends Expr {
             eval: Math.tan,
             codegen: "Math.tan((",
             tex: "\\tan",
-            expand: () => Mul.handleDivide(Trig.sin(this.arg), Trig.cos(this.arg)),
+            expand: () =>
+                Mul.handleDivide(Trig.sin(this.arg), Trig.cos(this.arg)),
         },
         csc: {
             eval: function (arg: number) {
@@ -2242,7 +2262,8 @@ export class Trig extends Expr {
             },
             codegen: "(1/Math.tan(",
             tex: "\\cot",
-            expand: () => Mul.handleDivide(Trig.cos(this.arg), Trig.sin(this.arg)),
+            expand: () =>
+                Mul.handleDivide(Trig.cos(this.arg), Trig.sin(this.arg)),
         },
         arcsin: {
             eval: Math.asin,
@@ -2337,7 +2358,8 @@ export class Trig extends Expr {
                 );
             },
             tex: "\\tanh",
-            expand: () => Mul.handleDivide(Trig.sinh(this.arg), Trig.cosh(this.arg)),
+            expand: () =>
+                Mul.handleDivide(Trig.sinh(this.arg), Trig.cosh(this.arg)),
         },
         csch: {
             eval: function (arg: number) {
@@ -2396,7 +2418,8 @@ export class Trig extends Expr {
                 );
             },
             tex: "\\coth",
-            expand: () => Mul.handleDivide(Trig.cosh(this.arg), Trig.sinh(this.arg)),
+            expand: () =>
+                Mul.handleDivide(Trig.cosh(this.arg), Trig.sinh(this.arg)),
         },
     };
 
@@ -2484,9 +2507,10 @@ export class Trig extends Expr {
     collect(options?: CollectOptions): Expr {
         var trig = this.recurse("collect", options);
         if (!trig.isInverse() && trig.arg.isNegative()) {
-            const arg = trig.arg instanceof Num
-                ? trig.arg.abs()
-                : Mul.handleDivide(trig.arg, NumNeg).collect(options);
+            const arg =
+                trig.arg instanceof Num
+                    ? trig.arg.abs()
+                    : Mul.handleDivide(trig.arg, NumNeg).collect(options);
 
             if (trig.isEven()) {
                 // e.g. cos(-x) -> cos(x)
@@ -2878,8 +2902,14 @@ export class Eq extends Expr {
         };
 
         const [a, b] = hasVar(expr.terms[0])
-            ? [Mul.handleNegative(expr.terms[1]), Mul.handleDivide(expr.terms[0], variable)]
-            : [Mul.handleNegative(expr.terms[0]), Mul.handleDivide(expr.terms[1], variable)];
+            ? [
+                  Mul.handleNegative(expr.terms[1]),
+                  Mul.handleDivide(expr.terms[0], variable),
+              ]
+            : [
+                  Mul.handleNegative(expr.terms[0]),
+                  Mul.handleDivide(expr.terms[1], variable),
+              ];
 
         return Mul.handleDivide(a, b).simplify();
     }
@@ -3627,14 +3657,11 @@ parser.yy = {
 };
 
 type ParseOptions = {
-    functions?: string[],
-    decimal_separator?: string,
+    functions?: string[];
+    decimal_separator?: string;
 };
 
-export const parse = function (
-    input: string,
-    options?: ParseOptions,
-) {
+export const parse = function (input: string, options?: ParseOptions) {
     try {
         if (options && options.functions) {
             // reserve the symbol "i" for complex numbers
