@@ -108,7 +108,7 @@ type Options = {
 };
 
 /* abstract base expression node */
-class Expr {
+abstract class Expr {
     hints: Hints;
 
     constructor() {
@@ -128,13 +128,7 @@ class Expr {
     };
 
     // an array of the arguments to this node's immediate constructor
-    args(): (number | string | Expr)[] {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract args(): (number | string | Expr)[];
 
     // make a new node with the given arguments
     construct(args: any[]) {
@@ -157,6 +151,9 @@ class Expr {
     }
 
     // evaluate numerically with given variable mapping
+    // NOTE(kevin): This could made into an abstract method but
+    // Eq doesn't implement it.  This indicates that we probably
+    // need to introduce another class in our hierarchy.
     eval(vars: Vars = {}, options?: ParseOptions): number {
         throw new Error(
             "Abstract method - must override for expr: " +
@@ -165,6 +162,9 @@ class Expr {
         );
     }
 
+    // NOTE(kevin): This could made into an abstract method but
+    // Eq doesn't implement it.  This indicates that we probably
+    // need to introduce another class in our hierarchy.
     codegen(): string {
         throw new Error(
             "Abstract method - must override for expr: " +
@@ -187,22 +187,10 @@ class Expr {
     // returns a string unambiguously representing the expression
     // should be valid as input
     // e.g. this.equals(parse(this.print())) === true
-    print(): string {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract print(): string;
 
     // returns a TeX string representing the expression
-    tex(): string {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract tex(): string;
 
     // returns a TeX string, modified by the given options
     asTex(options) {
@@ -375,7 +363,7 @@ class Expr {
     }
 
     // check that the variables in both expressions are the same
-    sameVars(other) {
+    sameVars(other: Expr) {
         var vars1 = this.getVars();
         var vars2 = other.getVars();
 
@@ -398,7 +386,7 @@ class Expr {
     // semantic equality check, call after sameVars() to avoid potential false positives
     // plug in random numbers for the variables in both expressions
     // if they both consistently evaluate the same, then they're the same
-    compare(other) {
+    compare(other: Expr) {
         // equation comparisons are handled by Eq.compare()
         if (other instanceof Eq) {
             return false;
@@ -412,7 +400,7 @@ class Expr {
         // If the numbers are large we would like to do a relative comparison
         // rather than an absolute one, but if they're small enough then an
         // absolute comparison makes more sense
-        var getDelta = function (num1, num2) {
+        var getDelta = function (num1: number, num2: number) {
             if (Math.abs(num1) < 1 || Math.abs(num2) < 1) {
                 return Math.abs(num1 - num2);
             } else {
@@ -420,7 +408,7 @@ class Expr {
             }
         };
 
-        var equalNumbers = function (num1, num2) {
+        var equalNumbers = function (num1: number, num2: number) {
             var delta = getDelta(num1, num2);
             return (
                 num1 === num2 /* needed if either is +/- Infinity */ ||
@@ -511,7 +499,7 @@ class Expr {
     }
 
     // evaluate as much of the expression as possible
-    partialEval(vars): Expr {
+    partialEval(vars: Vars): Expr {
         if (this instanceof Unit) {
             return this;
         } else if (!this.has(Func)) {
@@ -527,7 +515,7 @@ class Expr {
     // all negative signs are stripped and the expressions are converted to
     // a canonical commutative form
     // should only be done after compare() returns true to avoid false positives
-    sameForm(other) {
+    sameForm(other: Expr) {
         return this.strip().equals(other.strip());
     }
 
@@ -598,12 +586,13 @@ class Expr {
 }
 
 /* abstract sequence node */
-class Seq extends Expr {
+abstract class Seq extends Expr {
     // This should always have at least two terms.
     // TODO(kevinb): Try enforcing this at the type-level using [T, T, T[]]
     terms: Expr[];
 
-    constructor(...args) {
+    // TODO(kevinb): Update this use `...args: Expr[]`
+    constructor(...args: any[]) {
         super();
         if (args.length === 1) {
             this.terms = args[0];
@@ -617,12 +606,9 @@ class Seq extends Expr {
     }
 
     normalize() {
-        var terms = _.sortBy(
-            _.invoke(this.terms, "normalize"),
-            function (term) {
-                return term.print();
-            },
-        );
+        var terms = _.sortBy(_.invoke(this.terms, "normalize"), (term) => {
+            return term.print();
+        });
 
         return new this.func(terms);
     }
@@ -634,7 +620,7 @@ class Seq extends Expr {
     // partition the sequence into its numeric and non-numeric parts
     // makes no guarantees about the validity of either part!
     partition(): [Seq, Seq] {
-        var [numbers, others] = partition(this.terms, function (term) {
+        var [numbers, others] = partition(this.terms, (term) => {
             return term instanceof Num;
         });
 
@@ -645,7 +631,7 @@ class Seq extends Expr {
     // this is a shallow flattening and will return a non-Seq if terms.length <= 1
     flatten(): Expr {
         var type = this;
-        var terms = _.reject(this.terms, function (term) {
+        var terms = _.reject(this.terms, (term) => {
             // @ts-expect-error: `identity` is defined on Add and Mul but doesn't
             // exist on Seq itself.
             return term.equals(type.identity);
@@ -661,7 +647,7 @@ class Seq extends Expr {
         }
 
         // same contains the children which are Seqs of the same type as this Seq
-        const [same, others] = partition(terms, function (term) {
+        const [same, others] = partition(terms, (term) => {
             return term instanceof type.func;
         });
 
@@ -672,13 +658,7 @@ class Seq extends Expr {
     }
 
     // reduce a numeric sequence to a Num
-    reduce(options?: Options): Expr {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract reduce(options?: Options): Expr;
 
     isPositive() {
         var terms = _.invoke(this.terms, "collect");
@@ -693,7 +673,7 @@ class Seq extends Expr {
             oldTerm instanceof Expr ? _.indexOf(this.terms, oldTerm) : oldTerm;
 
         var newTerms: Expr[] = [];
-        if (_.isArray(newTerm)) {
+        if (Array.isArray(newTerm)) {
             newTerms = newTerm;
         } else if (newTerm) {
             newTerms = [newTerm];
@@ -708,7 +688,7 @@ class Seq extends Expr {
     }
 
     // syntactic sugar for replace()
-    remove(term) {
+    remove(term: number | Expr) {
         return this.replace(term);
     }
 
@@ -727,7 +707,7 @@ export class Add extends Seq {
     eval(vars: Vars = {}, options?: ParseOptions) {
         return _.reduce(
             this.terms,
-            function (memo, term) {
+            (memo, term) => {
                 return memo + term.eval(vars, options);
             },
             0,
@@ -736,7 +716,7 @@ export class Add extends Seq {
 
     codegen(): string {
         return (
-            _.map(this.terms, function (term) {
+            _.map(this.terms, (term) => {
                 return "(" + term.codegen() + ")";
             }).join(" + ") || "0"
         );
@@ -747,9 +727,9 @@ export class Add extends Seq {
     }
 
     tex(): string {
-        var tex = "";
+        let tex = "";
 
-        _.each(this.terms, function (term) {
+        _.each(this.terms, (term) => {
             if (!tex || term.isSubtract()) {
                 tex += term.tex();
             } else {
@@ -760,11 +740,11 @@ export class Add extends Seq {
         return tex;
     }
 
-    collect(options) {
+    collect(options?: Options) {
         var terms = _.invoke(this.terms, "collect", options);
         var pairs: [expr: Expr, coefficient: Expr][] = [];
 
-        _.each(terms, function (term) {
+        _.each(terms, (term) => {
             if (term instanceof Mul) {
                 var muls = term.partition();
                 pairs.push([muls[1].flatten(), muls[0].reduce(options)]);
@@ -776,12 +756,12 @@ export class Add extends Seq {
         });
 
         // { (Expr expr).print(): [[Expr expr, Num coefficient]] }
-        var grouped = _.groupBy(pairs, function (pair) {
+        var grouped = _.groupBy(pairs, (pair) => {
             return pair[0].normalize().print();
         });
 
         var collected = _.compact(
-            _.map(grouped, function (pairs) {
+            _.map(grouped, (pairs) => {
                 var expr = pairs[0][0];
                 var sum = new Add(_.zip.apply(_, pairs)[1]);
                 var coefficient = sum.reduce(options);
@@ -797,14 +777,7 @@ export class Add extends Seq {
 
     // naively factor out anything that is common to all terms
     // if options.keepNegative is specified, won't factor out a common -1
-    factor(options) {
-        options = _.extend(
-            {
-                keepNegative: false,
-            },
-            options,
-        );
-
+    factor(options: {keepNegative: boolean} = {keepNegative: false}) {
         const terms = this.terms.map((term) => term.collect());
         let factors: Expr[];
 
@@ -814,8 +787,8 @@ export class Add extends Seq {
             factors = [terms[0]];
         }
 
-        _.each(_.rest(this.terms), function (term) {
-            factors = _.map(factors, function (factor) {
+        _.each(_.rest(this.terms), (term) => {
+            factors = _.map(factors, (factor: Expr) => {
                 return term.findGCD(factor);
             });
         });
@@ -834,10 +807,10 @@ export class Add extends Seq {
         return Mul.createOrAppend(left, right).flatten();
     }
 
-    reduce(options?: {preciseFloats: boolean}): Expr {
+    reduce(options?: Options): Expr {
         return _.reduce(
             this.terms,
-            function (memo, term) {
+            (memo, term) => {
                 return memo.add(term, options);
             },
             this.identity,
@@ -858,7 +831,7 @@ export class Add extends Seq {
     }
 
     // create a new sequence unless left is already one (returns a copy)
-    static createOrAppend(left, right) {
+    static createOrAppend(left: Expr, right: Expr) {
         if (left instanceof Add) {
             return new Add(left.terms.concat(right));
         } else {
@@ -876,7 +849,7 @@ export class Mul extends Seq {
     eval(vars: Vars = {}, options?: ParseOptions) {
         return _.reduce(
             this.terms,
-            function (memo, term) {
+            (memo, term) => {
                 return memo * term.eval(vars, options);
             },
             1,
@@ -885,14 +858,14 @@ export class Mul extends Seq {
 
     codegen(): string {
         return (
-            _.map(this.terms, function (term) {
+            _.map(this.terms, (term) => {
                 return "(" + term.codegen() + ")";
             }).join(" * ") || "0"
         );
     }
 
     print(): string {
-        return _.map(this.terms, function (term) {
+        return _.map(this.terms, (term) => {
             return term instanceof Add
                 ? "(" + term.print() + ")"
                 : term.print();
@@ -902,7 +875,7 @@ export class Mul extends Seq {
     getUnits() {
         var tmUnits = _(this.terms)
             .chain()
-            .map(function (term) {
+            .map((term) => {
                 return term.getUnits();
             })
             .flatten()
@@ -918,7 +891,7 @@ export class Mul extends Seq {
     tex(): string {
         var cdot = " \\cdot ";
 
-        var terms = _.groupBy(this.terms, function (term) {
+        var terms = _.groupBy(this.terms, (term) => {
             if (term.isDivide()) {
                 return "inverse";
             } else if (term instanceof Num) {
@@ -950,7 +923,7 @@ export class Mul extends Seq {
         }
 
         numbers = _.compact(
-            _.map(numbers, function (term) {
+            _.map(numbers, (term) => {
                 var shouldPushDown =
                     !term.hints.fraction || inverses.length > 0;
                 if (
@@ -975,7 +948,7 @@ export class Mul extends Seq {
         } else {
             var tex = "";
 
-            _.each(numbers, function (term) {
+            _.each(numbers, (term) => {
                 if (term.hints.subtract && term.hints.entered) {
                     negatives += "-";
                     tex += (tex ? cdot : "") + term.abs().tex();
@@ -993,7 +966,7 @@ export class Mul extends Seq {
                 }
             });
 
-            _.each(others, function (term) {
+            _.each(others, (term) => {
                 if (term.needsExplicitMul()) {
                     // e.g. 2*2^3 -> 2(dot)2^3
                     tex += (tex ? cdot : "") + term.tex();
@@ -1020,7 +993,7 @@ export class Mul extends Seq {
     }
 
     strip(): Expr {
-        var terms = _.map(this.terms, function (term) {
+        var terms = _.map(this.terms, (term) => {
             return term instanceof Num ? term.abs() : term.strip();
         });
         return new Mul(terms).flatten();
@@ -1108,7 +1081,7 @@ export class Mul extends Seq {
         // TODO(alex): Decide whether this is a good use of options or not
         const ratObj = _.reduce(
             grouped.true as Rational[],
-            function (memo, term) {
+            (memo, term) => {
                 return {n: memo.n * term.n, d: memo.d * term.d};
             },
             {n: 1, d: 1},
@@ -1143,7 +1116,7 @@ export class Mul extends Seq {
 
         var pairs: [base: Expr, exp: Expr][] = [];
 
-        _.each(others, function (term) {
+        _.each(others, (term) => {
             if (term instanceof Pow) {
                 pairs.push([term.base, term.exp]);
             } else {
@@ -1152,12 +1125,12 @@ export class Mul extends Seq {
         });
 
         // {(Expr base).print(): [[Expr base, Expr exp]]}
-        var grouped = _.groupBy(pairs, function (pair) {
+        var grouped = _.groupBy(pairs, (pair) => {
             return pair[0].normalize().print();
         });
 
         var summed: [base: Expr, exp: Expr][] = _.compact(
-            _.map(grouped, function (pairs): [Expr, Expr] | null {
+            _.map(grouped, (pairs): [Expr, Expr] | null => {
                 var base = pairs[0][0];
                 var sum = new Add(_.zip.apply(_, pairs)[1]);
                 var exp = sum.collect(options);
@@ -1171,7 +1144,7 @@ export class Mul extends Seq {
         );
 
         // XXX `pairs` is shadowed four or five times in this function
-        const groupedPairs = _.groupBy(summed, function (pair) {
+        const groupedPairs = _.groupBy(summed, (pair) => {
             if (pair[0] instanceof Trig && pair[0].isBasic()) {
                 return "trig";
             } else if (pair[0] instanceof Log) {
@@ -1188,17 +1161,17 @@ export class Mul extends Seq {
             // combine sines and cosines into other trig functions
 
             // {Trig.arg.print(): [[Trig base, Expr exp]]}
-            var byArg = _.groupBy(trigs, function (pair) {
+            var byArg = _.groupBy(trigs, (pair) => {
                 return pair[0].arg.normalize().print();
             });
 
             trigs = [];
-            _.each(byArg, function (pairs) {
+            _.each(byArg, (pairs) => {
                 const arg = pairs[0][0].arg;
 
                 // {Trig.type: Expr exp}
                 let funcs: Record<string, Expr> = {sin: NumZero, cos: NumZero};
-                _.each(pairs, function (pair) {
+                _.each(pairs, (pair) => {
                     funcs[pair[0].type] = pair[1];
                 });
 
@@ -1218,7 +1191,7 @@ export class Mul extends Seq {
                 // TODO(alex): combine even if exponents not a perfect match
                 // TODO(alex): transform 1/sin and 1/cos into csc and sec
 
-                _.each(funcs, function (exp, type) {
+                _.each(funcs, (exp, type) => {
                     trigs.push([new Trig(type, arg), exp]);
                 });
             });
@@ -1228,13 +1201,13 @@ export class Mul extends Seq {
             // combine logs with the same base
 
             // {Log.base.print(): [[Log base, Expr exp]]}
-            var byBase = _.groupBy(logs, function (pair) {
+            var byBase = _.groupBy(logs, (pair) => {
                 return pair[0].base.normalize().print();
             });
 
             logs = [];
 
-            _.each(byBase, function (pairs) {
+            _.each(byBase, (pairs) => {
                 // only combine two logs of the same base, otherwise commutative
                 // differences result in different equally valid output
                 // e.g. ln(x)/ln(z)*ln(y) -> log_z(x)*ln(y)
@@ -1265,7 +1238,7 @@ export class Mul extends Seq {
             // TODO(alex): combine if all inverses are the same e.g. ln(y)*ln(z)/ln(x)/ln(x)
         }
 
-        var collected = _.map([...trigs, ...logs, ...exprs], function (pair) {
+        var collected = _.map([...trigs, ...logs, ...exprs], (pair) => {
             return new Pow(pair[0], pair[1]).collect(options);
         });
 
@@ -1273,7 +1246,7 @@ export class Mul extends Seq {
     }
 
     isSubtract() {
-        return _.any(this.terms, function (term) {
+        return _.any(this.terms, (term) => {
             return term instanceof Num && Boolean(term.hints.subtract);
         });
     }
@@ -1287,7 +1260,7 @@ export class Mul extends Seq {
         var numbers = partitioned[0].terms as Num[];
         var fold =
             numbers.length &&
-            _.all(numbers, function (num) {
+            _.all(numbers, (num) => {
                 // TODO(kevinb): this is unsafe
                 return num.n > 0;
             });
@@ -1309,7 +1282,7 @@ export class Mul extends Seq {
     factorOut() {
         var factored = false;
         var terms = _.compact(
-            _.map(this.terms, function (term, i, list) {
+            _.map(this.terms, (term) => {
                 if (!factored && term instanceof Num && term.hints.divide) {
                     factored = true;
                     return term.n !== -1 ? term.negate() : null;
@@ -1329,7 +1302,7 @@ export class Mul extends Seq {
     reduce(options?: {preciseFloats: boolean}) {
         return _.reduce(
             this.terms,
-            function (memo, term) {
+            (memo, term) => {
                 return memo.mul(term, options);
             },
             this.identity,
@@ -1367,7 +1340,7 @@ export class Mul extends Seq {
     }
 
     negate() {
-        var isNum = function (expr) {
+        var isNum = (expr: Expr) => {
             return expr instanceof Num;
         };
         const num = _.find(this.terms, isNum);
@@ -1409,10 +1382,10 @@ export class Mul extends Seq {
             return Mul.handleDivide(first, rest);
         }
 
-        var isInt = function (expr: Expr | undefined): expr is Int {
+        var isInt = (expr: Expr | undefined): expr is Int => {
             return expr instanceof Int;
         };
-        var isRational = function (expr: Expr | undefined): expr is Rational {
+        var isRational = (expr: Expr | undefined): expr is Rational => {
             return expr instanceof Rational;
         };
 
@@ -1449,7 +1422,7 @@ export class Mul extends Seq {
             }
         }
 
-        var divide = function (a, b) {
+        var divide = (a: Expr, b: Expr) => {
             if (b instanceof Int) {
                 if (a instanceof Int) {
                     if (a.n < 0 && b.n < 0) {
@@ -1505,7 +1478,9 @@ export class Mul extends Seq {
         };
 
         if (left instanceof Mul) {
-            var divided = divide(_.last(left.terms), right);
+            // NOTE(kevinb): `terms` should always have at least two
+            // elements so getting the last element is safe to do.
+            var divided = divide(_.last(left.terms)!, right);
             return new Mul(_.initial(left.terms).concat(divided));
         } else {
             var divided = divide(left, right);
@@ -1528,7 +1503,7 @@ export class Mul extends Seq {
     static fold(expr: Expr): Expr {
         if (expr instanceof Mul) {
             // assuming that this will be second to last
-            var trigLog = _.find(_.initial(expr.terms), function (term) {
+            var trigLog = _.find(_.initial(expr.terms), (term) => {
                 return (
                     (term instanceof Trig || term instanceof Log) &&
                     Boolean(term.hints.open)
@@ -1574,10 +1549,10 @@ export class Mul extends Seq {
             var partitioned = expr.partition();
             var numbers = partitioned[0].terms;
 
-            var pos = function (num: Num): boolean {
+            var pos = (num: Num): boolean => {
                 return num.n > 0;
             };
-            var neg = function (num: Num): boolean {
+            var neg = (num: Num): boolean => {
                 return num.n === -1 && Boolean(num.hints.negate);
             };
             var posOrNeg = function (num: Num): boolean {
@@ -1752,7 +1727,7 @@ export class Pow extends Expr {
         if (pow.base instanceof Mul) {
             // e.g. (ab)^c -> a^c*b^c
 
-            var terms = _.map(pow.base.terms, function (term) {
+            var terms = _.map(pow.base.terms, (term) => {
                 return new Pow(term, pow.exp);
             });
 
@@ -1806,7 +1781,7 @@ export class Pow extends Expr {
             // DEFINITELY want behind super-simplify() flag
             // e.g. x^(a+b) -> x^a*x^b
 
-            const terms = _.map(pow.exp.terms, function (term) {
+            const terms = _.map(pow.exp.terms, (term) => {
                 return new Pow(pow.base, term).expand();
             });
 
@@ -1819,7 +1794,7 @@ export class Pow extends Expr {
     factor() {
         var pow = this.recurse("factor");
         if (pow.base instanceof Mul) {
-            var terms = _.map(pow.base.terms, function (term) {
+            var terms = _.map(pow.base.terms, (term) => {
                 if (term instanceof Int && pow.exp.equals(NumDiv)) {
                     // Anything that can be a Rational should be a Rational
                     // e.g. 2^(-1) -> 1/2
@@ -2041,13 +2016,15 @@ export class Pow extends Expr {
         }
     }
 
-    static sqrt(arg) {
+    static sqrt(arg: Expr) {
         return new Pow(arg, NumSqrt);
     }
 
     // NOTE(kevinb): nthroot is used as a constructor so we need to
     // define it as a static property instead of a static method.
-    static nthroot = function (radicand, degree) {
+    // TODO(kevinb): update parser-generator.ts to call nthrooth
+    // without using `new`.
+    static nthroot = function (radicand: Expr, degree: Expr) {
         var exp = Mul.fold(Mul.handleDivide(new Int(1), degree));
 
         // FIXME(johnsullivan): If oneOverDegree ends up being a pow object,
@@ -2139,7 +2116,7 @@ export class Log extends Expr {
             // might want behind super-simplify() flag
             // e.g. ln(xy) -> ln(x) + ln(y)
 
-            var terms = _.map(log.power.terms, function (term) {
+            var terms = _.map(log.power.terms, (term) => {
                 // need to expand again in case new log powers are Pows
                 return new Log(log.base, term).expand();
             });
@@ -2254,7 +2231,7 @@ export class Trig extends Expr {
                 Mul.handleDivide(Trig.sin(this.arg), Trig.cos(this.arg)),
         },
         csc: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return 1 / Math.sin(arg);
             },
             codegen: "(1/Math.sin(",
@@ -2262,7 +2239,7 @@ export class Trig extends Expr {
             expand: () => Mul.handleDivide(NumOne, Trig.sin(this.arg)),
         },
         sec: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return 1 / Math.cos(arg);
             },
             codegen: "(1/Math.cos(",
@@ -2270,7 +2247,7 @@ export class Trig extends Expr {
             expand: () => Mul.handleDivide(NumOne, Trig.cos(this.arg)),
         },
         cot: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return 1 / Math.tan(arg);
             },
             codegen: "(1/Math.tan(",
@@ -2294,31 +2271,31 @@ export class Trig extends Expr {
             tex: "\\arctan",
         },
         arccsc: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return Math.asin(1 / arg);
             },
             codegen: "Math.asin(1/(",
             tex: "\\operatorname{arccsc}",
         },
         arcsec: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return Math.acos(1 / arg);
             },
             codegen: "Math.acos(1/(",
             tex: "\\operatorname{arcsec}",
         },
         arccot: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return Math.atan(1 / arg);
             },
             codegen: "Math.atan(1/(",
             tex: "\\operatorname{arccot}",
         },
         sinh: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return (Math.exp(arg) - Math.exp(-arg)) / 2;
             },
-            codegen: function (argStr: string) {
+            codegen: (argStr: string) => {
                 return (
                     "((Math.exp(" +
                     argStr +
@@ -2331,10 +2308,10 @@ export class Trig extends Expr {
             expand: () => this,
         },
         cosh: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return (Math.exp(arg) + Math.exp(-arg)) / 2;
             },
-            codegen: function (argStr: string) {
+            codegen: (argStr: string) => {
                 return (
                     "((Math.exp(" +
                     argStr +
@@ -2347,13 +2324,13 @@ export class Trig extends Expr {
             expand: () => this,
         },
         tanh: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return (
                     (Math.exp(arg) - Math.exp(-arg)) /
                     (Math.exp(arg) + Math.exp(-arg))
                 );
             },
-            codegen: function (argStr: string) {
+            codegen: (argStr: string) => {
                 return (
                     "(" +
                     "(Math.exp(" +
@@ -2375,10 +2352,10 @@ export class Trig extends Expr {
                 Mul.handleDivide(Trig.sinh(this.arg), Trig.cosh(this.arg)),
         },
         csch: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return 2 / (Math.exp(arg) - Math.exp(-arg));
             },
-            codegen: function (argStr: string) {
+            codegen: (argStr: string) => {
                 return (
                     "(2 / (Math.exp(" +
                     argStr +
@@ -2391,10 +2368,10 @@ export class Trig extends Expr {
             expand: () => Mul.handleDivide(NumOne, Trig.sinh(this.arg)),
         },
         sech: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return 2 / (Math.exp(arg) + Math.exp(-arg));
             },
-            codegen: function (argStr: string) {
+            codegen: (argStr: string) => {
                 return (
                     "(2 / (Math.exp(" +
                     argStr +
@@ -2407,13 +2384,13 @@ export class Trig extends Expr {
             expand: () => Mul.handleDivide(NumOne, Trig.cosh(this.arg)),
         },
         coth: {
-            eval: function (arg: number) {
+            eval: (arg: number) => {
                 return (
                     (Math.exp(arg) + Math.exp(-arg)) /
                     (Math.exp(arg) - Math.exp(-arg))
                 );
             },
-            codegen: function (argStr: string) {
+            codegen: (argStr: string) => {
                 return (
                     "(" +
                     "(Math.exp(" +
@@ -2618,7 +2595,7 @@ export class Abs extends Expr {
             return abs.arg.abs();
         } else if (abs.arg instanceof Mul) {
             // e.g. |-2*pi*x| -> 2*pi*|x|
-            var terms = _.groupBy(abs.arg.terms, function (term) {
+            var terms = _.groupBy(abs.arg.terms, (term) => {
                 if (term.isPositive()) {
                     return "positive";
                 } else if (term instanceof Num) {
@@ -2648,7 +2625,7 @@ export class Abs extends Expr {
 
         if (abs.arg instanceof Mul) {
             // e.g. |xyz| -> |x|*|y|*|z|
-            var terms = _.map(abs.arg.terms, function (term) {
+            var terms = _.map(abs.arg.terms, (term) => {
                 return new Abs(term);
             });
             return new Mul(terms);
@@ -2718,7 +2695,7 @@ export class Eq extends Expr {
     // e.g. y/2=x/4 -> y/2-x/4(=0) -> 2y-x(=0)
     // unless unfactored is specified, will then divide through
     asExpr(unfactored: boolean = false): Expr {
-        var isZero = function (expr) {
+        var isZero = (expr: Expr) => {
             return expr instanceof Num && expr.isSimple() && expr.eval() === 0;
         };
 
@@ -2756,7 +2733,7 @@ export class Eq extends Expr {
             }
 
             if (!denominator.equals(NumOne)) {
-                terms = _.map(terms, function (term) {
+                terms = _.map(terms, (term) => {
                     return Mul.createOrAppend(term, denominator).simplify({
                         once: true,
                         preciseFloats: true,
@@ -2785,15 +2762,9 @@ export class Eq extends Expr {
 
         var terms = factored.terms;
 
-        var isAdd = function (term: Expr): term is Add {
-            return term instanceof Add;
-        };
-        var hasVar = function (term: Expr) {
-            return !!term.getVars().length;
-        };
-        var isOne = function (term: Expr) {
-            return term.equals(NumOne);
-        };
+        var isAdd = (term: Expr): term is Add => term instanceof Add;
+        var hasVar = (term: Expr) => !!term.getVars().length;
+        var isOne = (term: Expr) => term.equals(NumOne);
 
         const [adds, others] = partition(terms, isAdd);
 
@@ -2820,7 +2791,7 @@ export class Eq extends Expr {
         // don't need to divide by one
         denominator = _.reject(denominator, isOne);
 
-        denominator = _.map(denominator, function (term) {
+        denominator = _.map(denominator, (term) => {
             return new Pow(term, NumDiv);
         });
 
@@ -2839,7 +2810,7 @@ export class Eq extends Expr {
         return _.contains(["=", "<>"], this.type);
     }
 
-    compare(other) {
+    compare(other: Eq) {
         // expression comparisons are handled by Expr.compare()
         if (!(other instanceof Eq)) {
             return false;
@@ -2911,7 +2882,7 @@ export class Eq extends Expr {
             );
         }
 
-        var hasVar = function (term: Expr) {
+        var hasVar = (term: Expr) => {
             return term.has(Var) && _.contains(term.getVars(), variable.symbol);
         };
 
@@ -2930,7 +2901,7 @@ export class Eq extends Expr {
 }
 
 /* abstract symbol node */
-class Sym extends Expr {
+abstract class Sym extends Expr {
     needsExplicitMul() {
         return false;
     }
@@ -3159,7 +3130,7 @@ export class Const extends Sym {
 }
 
 /* abstract number node */
-class Num extends Expr {
+abstract class Num extends Expr {
     n: number;
 
     constructor() {
@@ -3194,55 +3165,25 @@ class Num extends Expr {
     }
 
     // takes another Num and returns a new Num
-    add(other: Expr, options?: {preciseFloats: boolean}): Expr {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract add(other: Expr, options?: Options): Expr;
 
-    mul(other: Expr, options?: {preciseFloats: boolean}): Expr {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract mul(other: Expr, options?: Options): Expr;
 
     // returns this Num's additive inverse
-    negate(): Expr {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract negate(): Expr;
 
     isSubtract(): boolean {
         return Boolean(this.hints.subtract);
     }
 
     // return the absolute value of the number
-    abs(): Num {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract abs(): Num;
 
     needsExplicitMul(): boolean {
         return true;
     }
 
-    findGCD(factor: Readonly<Expr>): Expr {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract findGCD(factor: Readonly<Expr>): Expr;
 
     isPositive(): boolean {
         return this.eval() > 0;
@@ -3258,13 +3199,7 @@ class Num extends Expr {
 
     // whether a number is considered simple (one term)
     // e.g. for reals, ints and floats are simple
-    isSimple(): boolean {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract isSimple(): boolean;
 
     // Based on http://stackoverflow.com/a/10454560/2571482
     getDecimalPlaces() {
@@ -3282,13 +3217,7 @@ class Num extends Expr {
         }
     }
 
-    asRational(): Rational {
-        throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
-                this.print(),
-        );
-    }
+    abstract asRational(): Rational;
 
     static negativeOne(hint) {
         if (hint === "subtract") {
@@ -3324,15 +3253,11 @@ class Num extends Expr {
     }
 
     static min(...args: Expr[]) {
-        return _.min(args, function (num) {
-            return num.eval();
-        });
+        return _.min(args, (num) => num.eval());
     }
 
     static max(...args: Expr[]) {
-        return _.max(args, function (num) {
-            return num.eval();
-        });
+        return _.max(args, (num) => num.eval());
     }
 }
 
@@ -3640,7 +3565,7 @@ const NumZero = new Int(0);
 const NumOne = new Int(1);
 const NumTen = new Int(10);
 
-var parseError = function (str, hash) {
+var parseError = function (str: string, hash) {
     // return int location of parsing error
     throw new Error(hash.loc.first_column);
 };
@@ -3771,7 +3696,7 @@ var unprefixify = function (symbol: string) {
     }
 
     // check for prefix
-    var prefix = _(_(siPrefixes).keys()).find(function (testPrefix) {
+    var prefix = _(_(siPrefixes).keys()).find((testPrefix) => {
         return new RegExp("^" + testPrefix).test(symbol);
     });
 
@@ -3818,13 +3743,13 @@ export const unitParse = function (input: string) {
 
         const unitArray: Pow[] = [];
 
-        _(parseResult.unit.num).each(function (unitSpec) {
+        _(parseResult.unit.num).each((unitSpec) => {
             unitArray.push(
                 new Pow(unprefixify(unitSpec.name), new Int(unitSpec.pow)),
             );
         });
 
-        _(parseResult.unit.denom).each(function (unitSpec) {
+        _(parseResult.unit.denom).each((unitSpec) => {
             unitArray.push(
                 new Pow(unprefixify(unitSpec.name), new Int(-1 * unitSpec.pow)),
             );
@@ -3914,23 +3839,15 @@ const makeAlias = function (str: string, prefixes: Prefixes) {
     if (numdenomStr[0]) {
         numdenomStr[0]
             .split(" ")
-            .filter(function (x) {
-                return x !== "";
-            })
-            .map(function (x) {
-                numdenom.push(new Unit(x));
-            });
+            .filter((x) => x !== "")
+            .map((x) => numdenom.push(new Unit(x)));
     }
 
     if (numdenomStr[1]) {
         numdenomStr[1]
             .split(" ")
-            .filter(function (x) {
-                return x !== "";
-            })
-            .map(function (x) {
-                numdenom.push(new Pow(new Unit(x), NumDiv));
-            });
+            .filter((x) => x !== "")
+            .map((x) => numdenom.push(new Pow(new Unit(x), NumDiv)));
     }
 
     return {
