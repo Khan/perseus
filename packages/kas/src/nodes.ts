@@ -54,10 +54,12 @@ const randomFloat = function (min: number, max: number) {
 var ITERATIONS = 12;
 var TOLERANCE = 9; // decimal places
 
+// NOTE(kevinb): _.partition exists in a more recent version of underscore.
+// To avoid having to update underscore I've added a hacky version of this
+// method here.
 function partition<T, V extends _.Collection<T>>(
     list: V,
     iteratee: _.CollectionIterator<T, boolean>,
-    context?: any,
 ): [_.TypeOfCollection<V>[], _.TypeOfCollection<V>[]] {
     const a: _.TypeOfCollection<V>[] = [];
     const b: _.TypeOfCollection<V>[] = [];
@@ -98,7 +100,9 @@ type Hints = {
     open?: boolean;
 };
 
-type CollectOptions = {
+type Vars = Record<string, string>;
+
+type Options = {
     preciseFloats?: boolean;
     once?: boolean;
 };
@@ -133,7 +137,7 @@ class Expr {
     }
 
     // make a new node with the given arguments
-    construct(args) {
+    construct(args: any[]) {
         const func = this.func;
         const instance = new func(...args);
         if (typeof instance === "undefined") {
@@ -143,16 +147,17 @@ class Expr {
     }
 
     // an abstraction for chainable, bottom-up recursion
-    // TODO(kevinb): Use an overloaded signature to provide more accurate types.
-    recurse(method: string, ...passed): this {
+    recurse(method: string, ...passed: any[]): this {
         var args = _.map(this.args(), function (arg) {
-            return _.isString(arg) ? arg : arg[method].apply(arg, passed);
+            return _.isString(arg) || _.isNumber(arg)
+                ? arg
+                : arg[method].apply(arg, passed);
         });
         return this.construct(args);
     }
 
     // evaluate numerically with given variable mapping
-    eval(vars?, options?): number {
+    eval(vars: Vars = {}, options?: ParseOptions): number {
         throw new Error(
             "Abstract method - must override for expr: " +
                 // eslint-disable-next-line @babel/no-invalid-this
@@ -267,7 +272,7 @@ class Expr {
     }
 
     // collect all like terms
-    collect(options?: CollectOptions): Expr {
+    collect(options?: Options): Expr {
         return this.recurse("collect", options);
     }
 
@@ -277,7 +282,7 @@ class Expr {
     }
 
     // expand and collect until the expression no longer changes
-    simplify(options: CollectOptions = {once: false}) {
+    simplify(options: Options = {once: false}) {
         // Attempt to factor and collect
         var step1 = this.factor(options);
         var step2 = step1.collect(options);
@@ -348,7 +353,7 @@ class Expr {
 
     // raise this expression to a given exponent
     // most useful for eventually implementing i^3 = -i, etc.
-    raiseToThe(exp: Expr, options?): Expr {
+    raiseToThe(exp: Expr, options?: {preciseFloats?: boolean}): Expr {
         return new Pow(this, exp);
     }
 
@@ -667,7 +672,7 @@ class Seq extends Expr {
     }
 
     // reduce a numeric sequence to a Num
-    reduce(options?: CollectOptions): Expr {
+    reduce(options?: Options): Expr {
         throw new Error(
             "Abstract method - must override for expr: " +
                 // eslint-disable-next-line @babel/no-invalid-this
@@ -719,7 +724,7 @@ export class Add extends Seq {
 
     func = Add;
 
-    eval(vars?, options?) {
+    eval(vars: Vars = {}, options?: ParseOptions) {
         return _.reduce(
             this.terms,
             function (memo, term) {
@@ -868,7 +873,7 @@ export class Mul extends Seq {
 
     func = Mul;
 
-    eval(vars, options) {
+    eval(vars: Vars = {}, options?: ParseOptions) {
         return _.reduce(
             this.terms,
             function (memo, term) {
@@ -1117,7 +1122,7 @@ export class Mul extends Seq {
         return new Mul((grouped.false || []).concat(rational)).flatten();
     }
 
-    collect(options?: CollectOptions): Expr {
+    collect(options?: Options): Expr {
         var partitioned = this.recurse("collect", options).partition();
         var number = partitioned[0].reduce(options);
 
@@ -1630,7 +1635,7 @@ export class Pow extends Expr {
         return [this.base, this.exp];
     }
 
-    eval(vars?, options?) {
+    eval(vars: Vars = {}, options?: ParseOptions) {
         var evaledBase = this.base.eval(vars, options);
         var evaledExp = this.exp.eval(vars, options);
 
@@ -1829,7 +1834,7 @@ export class Pow extends Expr {
         }
     }
 
-    collect(options?: CollectOptions): Expr {
+    collect(options?: Options): Expr {
         if (this.base instanceof Pow) {
             // collect this first to avoid having to deal with float precision
             // e.g. sqrt(2)^2 -> 2, not 2.0000000000000004
@@ -2072,7 +2077,7 @@ export class Log extends Expr {
         return [this.base, this.power];
     }
 
-    eval(vars?, options?) {
+    eval(vars: Vars = {}, options?: ParseOptions) {
         return (
             Math.log(this.power.eval(vars, options)) /
             Math.log(this.base.eval(vars, options))
@@ -2107,7 +2112,7 @@ export class Log extends Expr {
         }
     }
 
-    collect(options?: CollectOptions): Expr {
+    collect(options?: Options): Expr {
         var log = this.recurse("collect", options);
 
         if (log.power instanceof Num && log.power.eval() === 1) {
@@ -2443,7 +2448,7 @@ export class Trig extends Expr {
         return _.contains(["sin", "cos"], this.type);
     }
 
-    eval(vars?, options?) {
+    eval(vars: Vars = {}, options?: ParseOptions) {
         var func = this.functions[this.type].eval;
         var arg = this.arg.eval(vars, options);
         return func(arg);
@@ -2513,7 +2518,7 @@ export class Trig extends Expr {
         }
     }
 
-    collect(options?: CollectOptions): Expr {
+    collect(options?: Options): Expr {
         var trig = this.recurse("collect", options);
         if (!trig.isInverse() && trig.arg.isNegative()) {
             const arg =
@@ -2586,7 +2591,7 @@ export class Abs extends Expr {
         return [this.arg];
     }
 
-    eval(vars, options) {
+    eval(vars: Vars = {}, options?: ParseOptions) {
         return Math.abs(this.arg.eval(vars, options));
     }
 
@@ -2964,7 +2969,7 @@ export class Func extends Sym {
         return this.symbol + "(" + this.arg.tex() + ")";
     }
 
-    eval(vars, options) {
+    eval(vars: Vars = {}, options?: ParseOptions) {
         var arg = this.arg;
         var func = vars[this.symbol];
         var newVars = _.extend(_.clone(vars), {
@@ -2986,7 +2991,7 @@ export class Func extends Sym {
         return this.arg.getUnits();
     }
 
-    getVars(excludeFunc) {
+    getVars(excludeFunc: boolean) {
         if (excludeFunc) {
             return this.arg.getVars();
         } else {
@@ -3056,7 +3061,11 @@ export class Var extends Sym {
         return "Var(" + this.print() + ")";
     }
 
-    eval(vars, options) {
+    eval(vars: Vars = {}, options?: ParseOptions): number {
+        // @ts-expect-error: values is Vars are strings, but here
+        // we expect them to be numbers.  We should probably store
+        // Var and Func entries separately in the Vars type so that
+        // they can be typed correctly.
         return vars[this.prettyPrint()];
     }
 
@@ -3092,7 +3101,7 @@ export class Const extends Sym {
         return this;
     }
 
-    eval(vars?, options?): number {
+    eval(vars: Vars = {}, options?: ParseOptions): number {
         if (this.symbol === "pi") {
             return Math.PI;
         } else if (this.symbol === "e") {
@@ -3314,13 +3323,13 @@ class Num extends Expr {
         return a;
     }
 
-    static min(...args) {
+    static min(...args: Expr[]) {
         return _.min(args, function (num) {
             return num.eval();
         });
     }
 
-    static max(...args) {
+    static max(...args: Expr[]) {
         return _.max(args, function (num) {
             return num.eval();
         });
@@ -3368,7 +3377,7 @@ export class Rational extends Num {
         return this.n < 0 ? "-" + tex : tex;
     }
 
-    add(num, options) {
+    add(num: Num, options?: {preciseFloats: boolean}) {
         if (num instanceof Rational) {
             return new Rational(
                 this.n * num.d + this.d * num.n,
@@ -3379,7 +3388,7 @@ export class Rational extends Num {
         }
     }
 
-    mul(num, options) {
+    mul(num: Num, options?: {preciseFloats: boolean}) {
         if (num instanceof Rational) {
             return new Rational(this.n * num.n, this.d * num.d).collect();
         } else {
@@ -3551,7 +3560,7 @@ export class Float extends Num {
         }
     }
 
-    collect(options?: CollectOptions): Float {
+    collect(options?: Options): Float {
         // We used to simplify Floats to Ints here whenever possible, but no
         // longer do so in order to preserve significant figures.
         return this;
@@ -3713,7 +3722,7 @@ export class Unit extends Sym {
         return this;
     }
 
-    eval(vars, options) {
+    eval(vars: Vars = {}, options?: ParseOptions) {
         // This is called when comparing units. A unit doesn't affect the
         // numerical value of its coefficient, so this needs to be 1.
         //
@@ -3741,7 +3750,7 @@ export class Unit extends Sym {
     }
 
     // Simplify units by replacing prefixes with multiplication
-    collect(options) {
+    collect(options?: Options) {
         if (_(baseUnits).has(this.symbol)) {
             return this;
         } else if (_(derivedUnits).has(this.symbol)) {
@@ -3756,7 +3765,7 @@ export class Unit extends Sym {
 //
 // "g" -> Unit("g")
 // "kg" -> 1000 * Unit("g")
-var unprefixify = function (symbol) {
+var unprefixify = function (symbol: string) {
     if (_(baseUnits).has(symbol) || _(derivedUnits).has(symbol)) {
         return new Unit(symbol);
     }
@@ -3788,7 +3797,7 @@ var unprefixify = function (symbol) {
     }
 };
 
-export const unitParse = function (input) {
+export const unitParse = function (input: string) {
     try {
         var parseResult = unitParser.parse(input);
 
