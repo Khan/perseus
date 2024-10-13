@@ -254,7 +254,7 @@ abstract class Expr {
     }
 
     // strict syntactic equality check
-    equals(other: Readonly<Expr>): boolean {
+    equals(other: Expr): boolean {
         return this.normalize().print() === other.normalize().print();
     }
 
@@ -509,7 +509,7 @@ abstract class Expr {
     }
 
     // returns the GCD of this expression and the given factor
-    findGCD(factor: Readonly<Expr>): Expr {
+    findGCD(factor: Expr): Expr {
         return this.equals(factor) ? factor : NumOne;
     }
 
@@ -1298,7 +1298,7 @@ export class Mul extends Seq {
         );
     }
 
-    findGCD(factor: Readonly<Expr>): Expr {
+    findGCD(factor: Expr): Expr {
         return new Mul(_.invoke(this.terms, "findGCD", factor)).flatten();
     }
 
@@ -1940,7 +1940,7 @@ export class Pow extends Expr {
         }
     }
 
-    findGCD(factor: Readonly<Expr>): Expr {
+    findGCD(factor: Expr): Expr {
         const [base, exp] =
             factor instanceof Pow
                 ? [factor.base, factor.exp]
@@ -2895,7 +2895,7 @@ abstract class Sym extends Expr {
         return false;
     }
 
-    findGCD(factor: Readonly<Expr>): Expr {
+    findGCD(factor: Expr): Expr {
         if (factor instanceof Sym || factor instanceof Num) {
             return this.equals(factor) ? this : NumOne;
         } else {
@@ -3172,7 +3172,7 @@ abstract class Num extends Expr {
         return true;
     }
 
-    abstract findGCD(factor: Readonly<Expr>): Expr;
+    abstract findGCD(factor: Expr): Expr;
 
     isPositive(): boolean {
         return this.eval() > 0;
@@ -3331,7 +3331,7 @@ export class Rational extends Num {
         return new Rational(Math.abs(this.n), this.d);
     }
 
-    findGCD(factor: Readonly<Expr>): Expr {
+    findGCD(factor: Expr): Expr {
         // Attempt to factor out common numerators and denominators to return
         // a Rational instead of a Float
         if (factor instanceof Rational) {
@@ -3410,7 +3410,7 @@ export class Int extends Rational {
         return true;
     }
 
-    findGCD(factor: Readonly<Expr>): Expr {
+    findGCD(factor: Expr): Expr {
         if (factor instanceof Int) {
             return new Int(Num.findGCD(this.n, factor.n));
         } else {
@@ -3488,7 +3488,7 @@ export class Float extends Num {
         return new Float(Math.abs(this.n));
     }
 
-    findGCD(factor: Readonly<Expr>): Expr {
+    findGCD(factor: Expr): Expr {
         if (factor instanceof Num) {
             return new Float(Num.findGCD(this.eval(), factor.eval())).collect();
         } else {
