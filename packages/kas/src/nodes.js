@@ -98,7 +98,7 @@ class Expr {
     }
 
     // an abstraction for chainable, bottom-up recursion
-    recurse (method, ...passed) {
+    recurse(method, ...passed) {
         var args = _.map(this.args(), function (arg) {
             return _.isString(arg) ? arg : arg[method].apply(arg, passed);
         });
@@ -114,7 +114,7 @@ class Expr {
         return abstract();
     }
 
-    compile () {
+    compile() {
         var code = this.codegen();
         try {
             return new Function("vars", "return " + code + ";");
@@ -2109,7 +2109,7 @@ export class Log extends Expr {
             log = log.addHint("open");
         }
         return log;
-    };
+    }
 }
 
 /* trigonometric functions */
@@ -3368,7 +3368,7 @@ export class Int extends Rational {
 
 /* float (n: number) */
 export class Float extends Num {
-    constructor (number) {
+    constructor(number) {
         super();
         this.n = number;
     }
