@@ -160,7 +160,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     // Using `Set()` prevents duplication of tick numbers (and is quite performant)
     const allTicks: number[] = [
         ...new Set([...initialTicks, leftLabel, rightLabel, ...range]),
-    ];
+    ].sort((current, next) => current - next);
 
     // Cycle through each tick number and add a tick line, and a label (if needed)
     allTicks.forEach((tick) => {
