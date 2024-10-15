@@ -1,6 +1,7 @@
 import {Polygon, vec} from "mafs";
 import * as React from "react";
 
+import {REMOVE_BUTTON_ID} from "../mafs-graph";
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -10,15 +11,14 @@ import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
 import {TextLabel} from "./components/text-label";
 import {useDraggable} from "./use-draggable";
-
-import type {CollinearTuple} from "../../../perseus-types";
-import type {MafsGraphProps, PolygonGraphState} from "../types";
 import {
     pixelsToVectors,
     useTransformDimensionsToPixels,
     useTransformVectorsToPixels,
 } from "./use-transform";
-import {REMOVE_BUTTON_ID} from "../mafs-graph";
+
+import type {CollinearTuple} from "../../../perseus-types";
+import type {MafsGraphProps, PolygonGraphState} from "../types";
 
 type Props = MafsGraphProps<PolygonGraphState>;
 
