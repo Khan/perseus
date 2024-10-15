@@ -94,7 +94,21 @@ export type PerseusIFrameUserInput = {
 // TODO (LEMS-2396): remove validation logic from widgets that don't validate
 export type PerseusImageRubric = PerseusImageWidgetOptions;
 
-export type PerseusInputNumberRubric = PerseusInputNumberWidgetOptions;
+export type PerseusInputNumberRubric = {
+    answerType?:
+        | "number"
+        | "decimal"
+        | "integer"
+        | "rational"
+        | "improper"
+        | "mixed"
+        | "percent"
+        | "pi";
+    inexact?: boolean;
+    maxError?: number | string;
+    simplify: "required" | "optional" | "enforced";
+    value: string | number;
+};
 
 export type PerseusInputNumberUserInput = {
     currentValue: string;
