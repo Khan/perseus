@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 37.0.1
+
+### Patch Changes
+
+-   [#1742](https://github.com/Khan/perseus/pull/1742) [`f383d4399`](https://github.com/Khan/perseus/commit/f383d4399d16ee31ad8e24867b0d171c160a1f1b) Thanks [@handeyeco](https://github.com/handeyeco)! - Move getOneCorrectAnswerFromRubric from React components to WidgetExports
+
+*   [#1732](https://github.com/Khan/perseus/pull/1732) [`c57e114f2`](https://github.com/Khan/perseus/commit/c57e114f25cfa7d95508d4244c28e00b10e9d130) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding Unlimited Polygon feature flag.
+
+-   [#1736](https://github.com/Khan/perseus/pull/1736) [`5e30fcde8`](https://github.com/Khan/perseus/commit/5e30fcde8a0692b259955a95a9a22d9b7c7e75f9) Thanks [@handeyeco](https://github.com/handeyeco)! - Make validator files be ts instead of tsx
+
 ## 37.0.0
 
 ### Major Changes
