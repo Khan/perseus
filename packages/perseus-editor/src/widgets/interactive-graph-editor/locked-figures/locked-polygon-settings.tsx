@@ -75,6 +75,8 @@ const LockedPolygonSettings = (props: Props) => {
         // Add the coordinates of each point to the aria label
         str += points.map(([x, y]) => `(${x}, ${y})`).join(", ");
 
+        const polygonAppearance = generateLockedFigureAppearanceDescription(color, strokeStyle, fillStyle);
+        str += `${polygonAppearance}`;
         return str;
     }
 

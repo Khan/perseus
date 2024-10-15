@@ -65,7 +65,7 @@ const LockedEllipseSettings = (props: Props) => {
     function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
         if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(" ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
         const isCircle = radius[0] === radius[1];
@@ -83,6 +83,12 @@ const LockedEllipseSettings = (props: Props) => {
             str += `, rotated by ${radianToDegree(angle)} degrees`;
         }
 
+        const ellipseAppearance = generateLockedFigureAppearanceDescription(
+            color,
+            strokeStyle,
+            fillStyle,
+        );
+        str += `${ellipseAppearance}`;
         return str;
     }
 
