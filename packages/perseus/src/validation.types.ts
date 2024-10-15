@@ -1,12 +1,11 @@
-import type {Coord} from "./interactive2/types";
 import type {
+    GrapherAnswerTypes,
     PerseusDefinitionWidgetOptions,
     PerseusDropdownChoice,
     PerseusExplanationWidgetOptions,
     PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
-    PerseusGrapherWidgetOptions,
     PerseusGraphType,
     PerseusGroupWidgetOptions,
     PerseusIFrameWidgetOptions,
@@ -79,17 +78,11 @@ export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
 
 export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
 
-export type PerseusGrapherRubric = PerseusGrapherWidgetOptions;
-
-/**
- * TODO: this is kind of just a guess right now
- * based off of an old comment in grapher
- */
-export type PerseusGrapherUserInput = {
-    type: string;
-    asymptote: ReadonlyArray<Coord>;
-    coords: ReadonlyArray<Coord>;
+export type PerseusGrapherRubric = {
+    correct: GrapherAnswerTypes;
 };
+
+export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
 
 export type PerseusIFrameRubric = PerseusIFrameWidgetOptions;
 

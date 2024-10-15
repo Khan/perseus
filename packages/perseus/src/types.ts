@@ -630,6 +630,9 @@ export type WidgetExports<
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     validator?: WidgetValidatorFunction;
+    getOneCorrectAnswerFromRubric?: (
+        rubric: Rubric,
+    ) => string | null | undefined;
 
     /**
     A map of major version numbers (as a string, eg "1") to a function that

@@ -85,7 +85,12 @@ const LockedFunctionSettings = (props: Props) => {
     }, [domain]);
 
     function getPrepopulatedAriaLabel() {
-        let str = `Function with equation ${equationPrefix}${equation}`;
+        let visiblelabel = "";
+        if (labels && labels.length > 0) {
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
+        }
+
+        let str = `Function${visiblelabel} with equation ${equationPrefix}${equation}`;
 
         // Add the domain/range constraints to the aria label
         // if they are not the default values.
@@ -93,23 +98,12 @@ const LockedFunctionSettings = (props: Props) => {
             str += `, domain from ${domain[0]} to ${domain[1]}`;
         }
 
-        if (labels && labels.length > 0) {
-            str += ", with label";
-            // Make it "with labels" instead of "with label" if there are
-            // multiple labels.
-            if (labels.length > 1) {
-                str += "s";
-            }
-
-            // Separate additional labels with commas.
-            str += ` ${labels.map((l) => l.text).join(", ")}`;
-        }
-
         const functionAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
             strokeStyle,
         );
         str += `${functionAppearance}`;
+
         return str;
     }
 

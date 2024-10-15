@@ -498,7 +498,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at (0, 0), with label A. Appearance solid gray border, with no fill.",
+                    "Circle A with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -534,7 +534,7 @@ describe("LockedEllipseSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Circle with radius 2, centered at (0, 0), with labels A, B. Appearance solid gray border, with no fill.",
+                    "Circle A, B with radius 2, centered at (0, 0). Appearance solid gray border, with no fill.",
             });
         });
     });
