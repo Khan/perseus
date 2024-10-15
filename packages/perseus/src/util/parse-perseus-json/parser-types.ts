@@ -2,6 +2,13 @@ import type {Success, Failure, Result} from "./result";
 
 export type Parser<T> = (rawVal: unknown, ctx: ParseContext) => ParseResult<T>;
 
+// A PartialParser has a restricted input type, as opposed to a regular Parser
+// which accepts `unknown` as input.
+export type PartialParser<Input, Output> = (
+    rawVal: Input,
+    ctx: ParseContext,
+) => ParseResult<Output>;
+
 export type ParseResult<T> = Result<T, ParseFailureDetail>;
 
 export type ParseFailureDetail = {

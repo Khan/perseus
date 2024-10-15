@@ -14,12 +14,10 @@ export function pair<A, B>(
             return ctx.failure("array of length 2", rawValue);
         }
         const [rawA, rawB] = rawValue;
-
         const resultA = parseA(rawA, ctx.forSubtree(0));
         if (isFailure(resultA)) {
             return resultA;
         }
-
         const resultB = parseB(rawB, ctx.forSubtree(1));
         if (isFailure(resultB)) {
             return resultB;
