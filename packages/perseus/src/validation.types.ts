@@ -10,7 +10,6 @@ import type {
     PerseusGroupWidgetOptions,
     PerseusIFrameWidgetOptions,
     PerseusImageWidgetOptions,
-    PerseusInputNumberWidgetOptions,
     PerseusInteractionWidgetOptions,
     PerseusLabelImageWidgetOptions,
     PerseusMatcherWidgetOptions,
