@@ -113,7 +113,7 @@ const LockedPointSettings = (props: Props) => {
     function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
         if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(" ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
         const str = `Point${visiblelabel} at (${coord[0]}, ${coord[1]})`;

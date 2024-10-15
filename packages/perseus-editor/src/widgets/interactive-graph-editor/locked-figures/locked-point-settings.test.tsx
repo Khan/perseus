@@ -474,7 +474,7 @@ describe("LockedPointSettings", () => {
 
         // Assert
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point A B at (0, 0)",
+            ariaLabel: "Point A, B at (0, 0)",
         });
     });
 });

@@ -84,7 +84,7 @@ const LockedFunctionSettings = (props: Props) => {
     function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
         if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(" ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
         let str = `Function${visiblelabel} with equation ${equationPrefix}${equation}`;

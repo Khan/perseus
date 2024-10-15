@@ -64,7 +64,7 @@ const LockedVectorSettings = (props: Props) => {
     function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
         if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(" ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
         const str = `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;

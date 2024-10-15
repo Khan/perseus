@@ -74,7 +74,7 @@ const LockedLineSettings = (props: Props) => {
     function getPrepopulatedAriaLabel() {
         let visiblelabel = "";
         if (labels && labels.length > 0) {
-            visiblelabel += ` ${labels.map((l) => l.text).join(" ")}`;
+            visiblelabel += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
         const str = `${capitalizeKind}${visiblelabel} from (${point1.coord[0]}, ${point1.coord[1]}) to (${point2.coord[0]}, ${point2.coord[1]})`;

@@ -819,7 +819,7 @@ describe("Locked Function Settings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Function A B with equation y=x^2",
+                    ariaLabel: "Function A, B with equation y=x^2",
                 });
             });
         });
