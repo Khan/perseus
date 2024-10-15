@@ -598,7 +598,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance: solid gray, with no fill.",
+                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
             });
         });
 
@@ -634,7 +634,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1), with label A. Appearance: solid gray, with no fill.",
+                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1), with label A. Appearance solid gray border, with no fill.",
             });
         });
 
@@ -674,7 +674,7 @@ describe("LockedPolygonSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1), with labels A, B. Appearance: solid gray, with no fill.",
+                    "Polygon with 3 sides, vertices at (0, 0), (0, 1), (1, 1), with labels A, B. Appearance solid gray border, with no fill.",
             });
         });
     });

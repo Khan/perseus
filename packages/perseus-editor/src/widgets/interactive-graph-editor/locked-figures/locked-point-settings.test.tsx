@@ -474,7 +474,8 @@ describe("LockedPointSettings", () => {
 
         // Assert
         expect(onChangeProps).toHaveBeenCalledWith({
-            ariaLabel: "Point at (0, 0) with labels A, B. Appearance solid gray.",
+            ariaLabel:
+                "Point at (0, 0) with labels A, B. Appearance solid gray.",
         });
     });
 });

@@ -23,7 +23,10 @@ import LineSwatch from "./line-swatch";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
-import {convertColors, getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -76,8 +79,9 @@ const LockedVectorSettings = (props: Props) => {
             str += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
-        let vectorColor = convertColors(lineColor);
-        str+= `. Appearance: solid ${vectorColor}.`;
+        const vectorAppearance =
+            generateLockedFigureAppearanceDescription(lineColor);
+        str += `${vectorAppearance}`;
 
         return str;
     }

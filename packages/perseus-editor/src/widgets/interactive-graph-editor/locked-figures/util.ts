@@ -12,6 +12,7 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
+    LockedLineStyle,
 } from "@khanacademy/perseus";
 
 const DEFAULT_COLOR = "grayH";
@@ -102,34 +103,24 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
     }
 }
 
-export function convertColors(color: LockedFigureColor): string {
-    switch (color) {
-        case "red":
-            return "red";
-        case "orange":
-            return "orange";
-        case "green":
-            return "green";
-        case "blue":
-            return "blue";
-        case "purple":
-            return "purple";
-        case "pink":
-            return "pink";
-        default:
-            return "gray";
-    }
-}
+export function generateLockedFigureAppearanceDescription(
+    color: LockedFigureColor,
+    strokeStyle?: LockedLineStyle,
+    fill?: LockedFigureFillType,
+) {
+    const convertedColor = color === "grayH" ? "gray" : color;
+    const convertedFill = fill === "none" ? "no" : `${fill}`;
+    const convertedStrokeStyle = strokeStyle ? `${strokeStyle}` : "solid";
 
-export function convertFill(fill: LockedFigureFillType){
     switch (fill) {
-        case "translucent":
-            return "a translucent";
-        case "solid":
-            return "a solid";
+        case "none":
+            return `. Appearance ${convertedStrokeStyle} ${convertedColor} border, with ${convertedFill} fill.`;
         case "white":
-            return "a white";
+            return `. Appearance ${convertedStrokeStyle} ${convertedColor} border, with a ${convertedFill} fill.`;
+        case "solid":
+        case "translucent":
+            return `. Appearance ${convertedStrokeStyle} ${convertedColor} border, with a ${convertedFill} ${convertedColor} fill.`;
         default:
-            return "no";
+            return `. Appearance ${convertedStrokeStyle} ${convertedColor}.`;
     }
 }

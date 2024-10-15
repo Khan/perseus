@@ -20,7 +20,10 @@ import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
-import {convertColors, convertFill, getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import type {
@@ -86,9 +89,13 @@ const LockedEllipseSettings = (props: Props) => {
             // Separate additional labels with commas.
             str += ` ${labels.map((l) => l.text).join(", ")}`;
         }
-        let convertedColor = convertColors(color);
-        let convertedFill = convertFill(fillStyle);
-        str += `. Appearance ${strokeStyle} ${convertedColor}, with ${convertedFill} fill.`;
+
+        const ellipseAppearance = generateLockedFigureAppearanceDescription(
+            color,
+            strokeStyle,
+            fillStyle,
+        );
+        str += `${ellipseAppearance}`;
         return str;
     }
 

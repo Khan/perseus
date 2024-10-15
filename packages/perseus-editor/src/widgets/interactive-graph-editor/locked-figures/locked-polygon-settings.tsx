@@ -32,7 +32,10 @@ import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import PolygonSwatch from "./polygon-swatch";
-import {convertColors, convertFill, getDefaultFigureForType} from "./util";
+import {
+    generateLockedFigureAppearanceDescription,
+    getDefaultFigureForType,
+} from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 
@@ -79,9 +82,12 @@ const LockedPolygonSettings = (props: Props) => {
             str += ` ${labels.map((l) => l.text).join(", ")}`;
         }
 
-        let polygonColor = convertColors(color);
-        let polygonFill = convertFill(fillStyle);
-        str+= `. Appearance: ${strokeStyle} ${polygonColor}, with ${polygonFill} fill.`;
+        const polygonAppearance = generateLockedFigureAppearanceDescription(
+            color,
+            strokeStyle,
+            fillStyle,
+        );
+        str += `${polygonAppearance}`;
         return str;
     }
 
