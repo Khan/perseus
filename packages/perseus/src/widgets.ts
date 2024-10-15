@@ -133,6 +133,10 @@ export const getWidget = (
     return widgets[name].widget;
 };
 
+export const getWidgetExport = (name: string): WidgetExports | null => {
+    return widgets[name] ?? null;
+};
+
 export const getWidgetValidator = (
     name: string,
 ): WidgetValidatorFunction | null => {
