@@ -416,7 +416,7 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
     getCoefficients: function (
         coords: Coords,
         asymptote: Coords,
-    ): [number, number, number] {
+    ): ReadonlyArray<number> {
         const p1 = coords[0];
         const p2 = coords[1];
 
