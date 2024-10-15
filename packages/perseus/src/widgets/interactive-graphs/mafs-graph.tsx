@@ -117,6 +117,10 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     const {strings} = usePerseusI18n();
 
+    const interactionPrompt =
+        (state.type === "point" || state.type === "polygon") &&
+        state.showKeyboardInteractionInvitation;
+
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
             type: "perseus:interactive-graph-widget:rendered",
@@ -287,28 +291,27 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             </Mafs>
                         </View>
                     </View>
-                    {state.type === "point" &&
-                        state.showKeyboardInteractionInvitation && (
-                            <View
-                                style={{
-                                    textAlign: "center",
-                                    backgroundColor: "white",
-                                    border: "1px solid #21242C52",
-                                    padding: "16px 0",
-                                    boxShadow: "0px 8px 8px 0px #21242C14",
+                    {interactionPrompt && (
+                        <View
+                            style={{
+                                textAlign: "center",
+                                backgroundColor: "white",
+                                border: "1px solid #21242C52",
+                                padding: "16px 0",
+                                boxShadow: "0px 8px 8px 0px #21242C14",
 
-                                    // This translates the box to the center of the
-                                    // graph Then backs it off by half of its
-                                    // overall height so it's perfectly centered
-                                    top: "50%",
-                                    transform: "translateY(-50%)",
-                                }}
-                            >
-                                <LabelMedium>
-                                    {strings.graphKeyboardPrompt}
-                                </LabelMedium>
-                            </View>
-                        )}
+                                // This translates the box to the center of the
+                                // graph Then backs it off by half of its
+                                // overall height so it's perfectly centered
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                            }}
+                        >
+                            <LabelMedium>
+                                {strings.graphKeyboardPrompt}
+                            </LabelMedium>
+                        </View>
+                    )}
                 </View>
                 {renderGraphControls({state, dispatch, width, strings})}
             </View>
@@ -487,8 +490,11 @@ function handleFocusEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
+    const unlimitedGraph =
+        (state.type === "point" && state.numPoints === "unlimited") ||
+        (state.type === "polygon" && state.numSides === "unlimited");
     // Might need to add the logic for focus of the polygon-unlimited here.
-    if (state.type === "point" && state.numPoints === "unlimited") {
+    if (unlimitedGraph) {
         if (
             event.target.classList.contains("mafs-graph") &&
             state.interactionMode === "mouse"
@@ -503,11 +509,10 @@ function handleBlurEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    if (state.type === "point" && state.numPoints === "unlimited") {
-        dispatch(actions.global.changeKeyboardInvitationVisibility(false));
-    }
-    // Clean-up later
-    if (state.type === "polygon" && state.numSides === "unlimited") {
+    const unlimitedGraph =
+        (state.type === "point" && state.numPoints === "unlimited") ||
+        (state.type === "polygon" && state.numSides === "unlimited");
+    if (unlimitedGraph) {
         dispatch(actions.global.changeKeyboardInvitationVisibility(false));
     }
 }
@@ -517,7 +522,10 @@ function handleKeyboardEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    if (state.type === "point" && state.numPoints === "unlimited") {
+    const unlimitedGraph =
+        (state.type === "point" && state.numPoints === "unlimited") ||
+        (state.type === "polygon" && state.numSides === "unlimited");
+    if (unlimitedGraph) {
         if (event.key === "Backspace") {
             dispatch(actions.global.deleteIntent());
 

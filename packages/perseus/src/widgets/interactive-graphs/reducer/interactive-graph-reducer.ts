@@ -693,7 +693,7 @@ function doRemovePoint(
     state: InteractiveGraphState,
     action: RemovePoint,
 ): InteractiveGraphState {
-    if (state.type !== "point") {
+    if (state.type !== "point" && state.type !== "polygon") {
         return state;
     }
 
