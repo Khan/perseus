@@ -101,40 +101,6 @@ export class NumericInput
         };
     }
 
-    static getOneCorrectAnswerFromRubric(
-        rubric: PerseusNumericInputRubric,
-    ): string | null | undefined {
-        const correctAnswers = rubric.answers.filter(
-            (answer) => answer.status === "correct",
-        );
-        const answerStrings = correctAnswers.map((answer) => {
-            // Figure out how this answer is supposed to be
-            // displayed
-            let format = "decimal";
-            if (answer.answerForms && answer.answerForms[0]) {
-                // NOTE(johnsullivan): This isn't exactly ideal, but
-                // it does behave well for all the currently known
-                // problems. See D14742 for some discussion on
-                // alternate strategies.
-                format = answer.answerForms[0];
-            }
-
-            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
-            let answerString = KhanMath.toNumericString(answer.value, format);
-            if (answer.maxError) {
-                answerString +=
-                    " \u00B1 " +
-                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
-                    KhanMath.toNumericString(answer.maxError, format);
-            }
-            return answerString;
-        });
-        if (answerStrings.length === 0) {
-            return;
-        }
-        return answerStrings[0];
-    }
-
     state: State = {
         // keeps track of the other set of values when switching
         // between 0 and finite solutions
@@ -384,4 +350,38 @@ export default {
     transform: propsTransform,
     isLintable: true,
     validator: numericInputValidator,
+
+    getOneCorrectAnswerFromRubric(
+        rubric: PerseusNumericInputRubric,
+    ): string | null | undefined {
+        const correctAnswers = rubric.answers.filter(
+            (answer) => answer.status === "correct",
+        );
+        const answerStrings = correctAnswers.map((answer) => {
+            // Figure out how this answer is supposed to be
+            // displayed
+            let format = "decimal";
+            if (answer.answerForms && answer.answerForms[0]) {
+                // NOTE(johnsullivan): This isn't exactly ideal, but
+                // it does behave well for all the currently known
+                // problems. See D14742 for some discussion on
+                // alternate strategies.
+                format = answer.answerForms[0];
+            }
+
+            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
+            let answerString = KhanMath.toNumericString(answer.value, format);
+            if (answer.maxError) {
+                answerString +=
+                    " \u00B1 " +
+                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
+                    KhanMath.toNumericString(answer.maxError, format);
+            }
+            return answerString;
+        });
+        if (answerStrings.length === 0) {
+            return;
+        }
+        return answerStrings[0];
+    },
 } as WidgetExports<typeof NumericInput>;

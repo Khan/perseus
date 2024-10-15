@@ -115,19 +115,6 @@ export class Expression
         return normalizeTex(props.value);
     }
 
-    static getOneCorrectAnswerFromRubric(
-        rubric: PerseusExpressionRubric,
-    ): string | null | undefined {
-        const correctAnswers = (rubric.answerForms || []).filter(
-            (answerForm) => answerForm.considered === "correct",
-        );
-        if (correctAnswers.length === 0) {
-            return;
-        }
-        return correctAnswers[0].value;
-    }
-    //#endregion
-
     static defaultProps: DefaultProps = {
         value: "",
         times: false,
@@ -532,13 +519,8 @@ const ExpressionWithDependencies = React.forwardRef<
 // methods and instead adjust Perseus to provide these facilities through
 // instance methods on our Renderers.
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.validate = expressionValidator;
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
 ExpressionWithDependencies.getUserInputFromProps =
     Expression.getUserInputFromProps;
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.getOneCorrectAnswerFromRubric =
-    Expression.getOneCorrectAnswerFromRubric;
 
 export default {
     name: "expression",
@@ -571,4 +553,16 @@ export default {
     // For use by the editor
     isLintable: true,
     validator: expressionValidator,
+
+    getOneCorrectAnswerFromRubric(
+        rubric: PerseusExpressionRubric,
+    ): string | null | undefined {
+        const correctAnswers = (rubric.answerForms || []).filter(
+            (answerForm) => answerForm.considered === "correct",
+        );
+        if (correctAnswers.length === 0) {
+            return;
+        }
+        return correctAnswers[0].value;
+    },
 } as WidgetExports<typeof ExpressionWithDependencies>;

@@ -26,14 +26,6 @@ describe("Widget API support", () => {
             expect(Widget).toHaveProperty("getUserInputFromProps");
         },
     );
-
-    it.each(["expression", "input-number", "numeric-input"])(
-        "%s widget should provide static getOneCorrectAnswerFromRubric function",
-        (widgetType) => {
-            const Widget = Widgets.getWidget(widgetType);
-            expect(Widget).toHaveProperty("getOneCorrectAnswerFromRubric");
-        },
-    );
 });
 
 describe("replaceWidget", () => {
