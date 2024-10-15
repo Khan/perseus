@@ -74,11 +74,6 @@ const StatefulEditorPage = createReactClass({
         }
     },
 
-    scorePreview: function () {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.editor.scorePreview();
-    },
-
     render: function () {
         const Component = this.props.componentClass;
         return <Component {...this.state} />;

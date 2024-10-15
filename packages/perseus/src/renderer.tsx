@@ -1751,12 +1751,12 @@ class Renderer extends React.Component<Props, State> {
         return combinedScore;
     }
 
-    guessAndScore: () => [any, PerseusScore] = () => {
+    guessAndScore(): [UserInputArray, PerseusScore] {
         const totalGuess = this.getUserInput();
         const totalScore = this.score();
 
         return [totalGuess, totalScore];
-    };
+    }
 
     examples: () => ReadonlyArray<string> | null | undefined = () => {
         const widgetIds = this.widgetIds;

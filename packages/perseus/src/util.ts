@@ -8,6 +8,7 @@ import * as GraphieUtil from "./util.graphie";
 import type {Range} from "./perseus-types";
 import type {PerseusStrings} from "./strings";
 import type {PerseusScore} from "./types";
+import type {UserInputArray} from "./validation.types";
 import type {KEScore} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
@@ -275,7 +276,8 @@ export function isCorrect(score: PerseusScore): boolean {
 
 function keScoreFromPerseusScore(
     score: PerseusScore,
-    guess: any,
+    // It's weird, but this is what we're passing it
+    guess: UserInputArray | [UserInputArray, []],
     state: any,
 ): KEScore {
     if (score.type === "points") {
