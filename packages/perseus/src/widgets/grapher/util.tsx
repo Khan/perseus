@@ -730,8 +730,8 @@ export const defaultPlotProps = (
     // widget before even reading the question; you can't lose, but you
     // might get a free win.
     const model = functionForType(type);
-    const {defaultAsymptote} =
-        "defaultAsymptote" in model ? model : {defaultAsymptote: null};
+    const defaultAsymptote =
+        "defaultAsymptote" in model ? model.defaultAsymptote : null;
     const gridStep = [1, 1];
     // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type '[number, number]'.
     const snapStep = Util.snapStepFromGridStep(gridStep);
