@@ -20,7 +20,7 @@ import type {
     PerseusPassageRefWidgetOptions,
     PerseusPassageWidgetOptions,
     PerseusPlotterWidgetOptions,
-    PerseusRadioWidgetOptions,
+    PerseusRadioChoice,
     PerseusSorterWidgetOptions,
     PerseusTableWidgetOptions,
     PerseusVideoWidgetOptions,
@@ -177,9 +177,14 @@ export type PerseusPlotterRubric = PerseusPlotterWidgetOptions;
 
 export type PerseusPlotterUserInput = ReadonlyArray<number>;
 
-export type PerseusRadioRubric = PerseusRadioWidgetOptions;
+export type PerseusRadioRubric = {
+    // The choices provided to the user.
+    choices: ReadonlyArray<PerseusRadioChoice>;
+};
 
 export type PerseusRadioUserInput = {
+    /*TODO(LEMS-2541): countChoices seems to be necessary for rendering the
+       question, not scoring. Maybe move to renderProps?*/
     countChoices?: boolean;
     choicesSelected: ReadonlyArray<boolean>;
     numCorrect?: number;
