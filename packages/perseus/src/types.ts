@@ -7,6 +7,7 @@ import type {
     PerseusWidget,
     PerseusWidgetsMap,
 } from "./perseus-types";
+import type {WidgetPromptJSON} from "./prompt-types";
 import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {
@@ -88,6 +89,7 @@ export interface Widget {
 
     showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     examples?: () => ReadonlyArray<string>;
+    getPromptJSON?: () => WidgetPromptJSON;
 }
 
 export type ImageDict = {
