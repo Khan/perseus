@@ -124,7 +124,7 @@ export type PerseusInteractiveGraphRubric = {
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
 /* TODO(LEMS-2440): Should be removed or refactored. Grading info may need
-    to be moved to the rubric from userInput (mark. */
+    to be moved to the rubric from userInput. */
 export type PerseusLabelImageRubric = Empty;
 
 export type PerseusLabelImageUserInput = {
