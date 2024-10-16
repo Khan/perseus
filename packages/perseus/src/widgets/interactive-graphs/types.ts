@@ -75,12 +75,12 @@ export interface RayGraphState extends InteractiveGraphStateCommon {
 
 export interface PolygonGraphState extends InteractiveGraphStateCommon {
     type: "polygon";
-    numSides?: number | "unlimited";
-    focusedPointIndex: number | null;
     showAngles: boolean;
     showSides: boolean;
     snapTo: "grid" | "angles" | "sides";
     coords: Coord[];
+    numSides?: number | "unlimited";
+    focusedPointIndex: number | null;
     showRemovePointButton: boolean;
     interactionMode: InteractionMode;
     showKeyboardInteractionInvitation: boolean;
