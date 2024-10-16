@@ -57,7 +57,7 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {unlimitedGraph} from "./utils";
+import {isUnlimitedGraphState} from "./utils";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -494,7 +494,7 @@ function handleFocusEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    if (unlimitedGraph(state)) {
+    if (isUnlimitedGraphState(state)) {
         if (
             event.target.classList.contains("mafs-graph") &&
             state.interactionMode === "mouse"
@@ -509,7 +509,7 @@ function handleBlurEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    if (unlimitedGraph(state)) {
+    if (isUnlimitedGraphState(state)) {
         dispatch(actions.global.changeKeyboardInvitationVisibility(false));
     }
 }
@@ -519,7 +519,7 @@ function handleKeyboardEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    if (unlimitedGraph(state)) {
+    if (isUnlimitedGraphState(state)) {
         if (event.key === "Backspace") {
             dispatch(actions.global.deleteIntent());
 

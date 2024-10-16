@@ -66,7 +66,7 @@ export function bound({
 
 type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
-export function unlimitedGraph(
+export function isUnlimitedGraphState(
     state: InteractiveGraphState,
 ): state is UnlimitedGraphState {
     return (

@@ -26,7 +26,7 @@ import {
     X,
     Y,
 } from "../math";
-import {bound, unlimitedGraph} from "../utils";
+import {bound, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -127,7 +127,7 @@ function doDeleteIntent(
     action: DeleteIntent,
 ): InteractiveGraphState {
     // For unlimited point graphs
-    if (unlimitedGraph(state)) {
+    if (isUnlimitedGraphState(state)) {
         // if there's a focused point
         if (state.focusedPointIndex !== null) {
             // Remove the focused focus
@@ -180,7 +180,7 @@ function doClickPoint(
     state: InteractiveGraphState,
     action: ClickPoint,
 ): InteractiveGraphState {
-    if (unlimitedGraph(state)) {
+    if (isUnlimitedGraphState(state)) {
         return {
             ...state,
             focusedPointIndex: action.index,
@@ -195,7 +195,7 @@ function doChangeInteractionMode(
     state: InteractiveGraphState,
     action: ChangeInteractionMode,
 ): InteractiveGraphState {
-    if (unlimitedGraph(state)) {
+    if (isUnlimitedGraphState(state)) {
         const nextKeyboardInvitation =
             action.mode === "keyboard"
                 ? false
@@ -214,7 +214,7 @@ function doChangeKeyboardInvitationVisibility(
     state: InteractiveGraphState,
     action: ChangeKeyboardInvitationVisibility,
 ): InteractiveGraphState {
-    if (unlimitedGraph(state)) {
+    if (isUnlimitedGraphState(state)) {
         return {
             ...state,
             showKeyboardInteractionInvitation: action.shouldShow,
@@ -650,7 +650,7 @@ function doAddPoint(
     state: InteractiveGraphState,
     action: AddPoint,
 ): InteractiveGraphState {
-    if (state.type !== "point" && state.type !== "polygon") {
+    if (!isUnlimitedGraphState(state)) {
         return state;
     }
     const {snapStep} = state;
@@ -677,7 +677,7 @@ function doRemovePoint(
     state: InteractiveGraphState,
     action: RemovePoint,
 ): InteractiveGraphState {
-    if (state.type !== "point" && state.type !== "polygon") {
+    if (!isUnlimitedGraphState(state)) {
         return state;
     }
 
