@@ -13,11 +13,10 @@ import type {
     PerseusDefinitionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusDefinitionRubric} from "../../validation.types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
-type DefinitionProps = WidgetProps<RenderProps, PerseusDefinitionRubric> & {
+type DefinitionProps = WidgetProps<RenderProps> & {
     widgets: PerseusRenderer["widgets"];
 };
 

@@ -16,7 +16,6 @@ import type {
     PerseusInteractionWidgetOptions,
 } from "../../perseus-types";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusInteractionRubric} from "../../validation.types";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
@@ -97,7 +96,7 @@ const KAScompile = (
 };
 
 type RenderProps = PerseusInteractionWidgetOptions; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractionRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     graph: Props["graph"];
