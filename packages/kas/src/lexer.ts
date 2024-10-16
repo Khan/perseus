@@ -129,11 +129,6 @@ const preparedRules: PreparedRule[] = rules.map((rule) => {
     return [regex, rule[1]];
 });
 
-// TODO:
-// - try each of the rules in order
-// - pick the longest one and return token
-// - update the input string so that we match the next token
-
 const next = (
     input: string,
     preparedRules: PreparedRule[],
