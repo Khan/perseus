@@ -265,12 +265,12 @@ export class Parser {
         const next = this.peek();
         switch (next.kind) {
             case "LN":
-                this.consume(); // ln
+                this.consume(); // LN
                 return Log.natural();
             case "LOG":
-                this.consume(); // log
+                this.consume(); // LOG
                 if (this.peek().kind === "_") {
-                    this.consume();
+                    this.consume(); // _
                     return this.subscriptable();
                 } else {
                     return Log.common();
@@ -329,13 +329,13 @@ export class Parser {
             const next = this.peek();
             switch (next.kind) {
                 case "CONST":
-                    this.consume();
+                    this.consume(); // CONST
                     return new Const(next.value.toLocaleLowerCase());
                 case "INT":
-                    this.consume();
+                    this.consume(); // INT
                     return Int.create(parseInt(next.value, 10));
                 case "FLOAT":
-                    this.consume();
+                    this.consume(); // FLOAT
                     return Float.create(parseFloat(next.value));
                 case "{": {
                     const node = this.additiveBetween("{", "}");
@@ -358,7 +358,7 @@ export class Parser {
         const next = this.peek();
         switch (next.kind) {
             case "SQRT": {
-                this.consume();
+                this.consume(); // SQRT
                 const next = this.peek();
                 switch (next.kind) {
                     case "(": {
@@ -381,7 +381,7 @@ export class Parser {
                 }
             }
             case "ABS": {
-                this.consume(); // abs
+                this.consume(); // ABS
                 const arg = this.additiveBetween("(", ")");
                 return new Abs(arg);
             }
