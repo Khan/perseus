@@ -689,7 +689,7 @@ class Editor extends React.Component<Props, State> {
         const newWidgets = {...this.props.widgets};
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
-            type: widgetType as PerseusWidget["type"],
+            type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.
