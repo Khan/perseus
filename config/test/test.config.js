@@ -45,8 +45,20 @@ module.exports = {
     transform: {
         "^.+\\.(j|t)sx?$": [
             "@swc/jest",
+            // We configure @swc here, but we could move this to a `.swcrc`
+            // file if we want.
             // https://swc.rs/docs/configuration/compilation#jscexperimental
-            {jsc: {experimental: {plugins: [["swc_mut_cjs_exports", {}]]}}},
+            {
+                jsc: {
+                    experimental: {
+                        plugins: [
+                            // Makes CJS exports mutable (used alot by tests to
+                            // mock things)
+                            ["swc_mut_cjs_exports", {}],
+                        ],
+                    },
+                },
+            },
         ],
         // Compile .svg files using a custom transformer that returns the
         // basename of the file being transformed.
