@@ -40,6 +40,7 @@ import type {
     PerseusWidgetsMap,
     ShowSolutions,
 } from "./perseus-types";
+import type {GetPromptJSONInterface, RendererPromptJSON} from "./prompt-types";
 import type {PerseusStrings} from "./strings";
 import type {
     APIOptions,
@@ -187,7 +188,10 @@ type DefaultProps = Required<
     >
 >;
 
-class Renderer extends React.Component<Props, State> {
+class Renderer
+    extends React.Component<Props, State>
+    implements GetPromptJSONInterface
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -1715,6 +1719,26 @@ class Renderer extends React.Component<Props, State> {
     getWidgetIds: () => ReadonlyArray<string> = () => {
         return this.widgetIds;
     };
+
+    /**
+     * Returns a JSON representation of the content and widgets
+     * that can be passed to an LLM for prompt context.
+     */
+    getPromptJSON(): RendererPromptJSON {
+        const {content, widgets} = this.props;
+        const widgetJSON = {};
+
+        Object.keys(widgets).forEach((key) => {
+            const widget = this.getWidgetInstance(key);
+
+            widgetJSON[key] = widget?.getPromptJSON?.() || {};
+        });
+
+        return {
+            content,
+            widgets: widgetJSON,
+        };
+    }
 
     /**
      * Returns an object mapping from widget ID to perseus-style score.
