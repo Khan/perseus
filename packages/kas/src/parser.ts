@@ -59,10 +59,8 @@ type Expr = any;
 //      power
 // power:
 //      primative ("^" negative)
-// variable:
-//      VAR
 // subscriptable:
-//      variable ("_" subscriptable)?
+//      VAR ("_" subscriptable)?
 //      CONST
 //      INT
 //      FLOAT
