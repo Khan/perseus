@@ -145,6 +145,7 @@ function doFocusPoint(
     action: FocusPoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "polygon":
         case "point":
             return {
                 ...state,
@@ -160,6 +161,7 @@ function doBlurPoint(
     action: BlurPoint,
 ): InteractiveGraphState {
     switch (state.type) {
+        case "polygon":
         case "point":
             const nextState = {
                 ...state,
