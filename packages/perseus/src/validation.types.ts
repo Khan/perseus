@@ -12,7 +12,6 @@ import type {
     PerseusImageWidgetOptions,
     PerseusInputNumberWidgetOptions,
     PerseusInteractionWidgetOptions,
-    PerseusLabelImageWidgetOptions,
     PerseusMatcherWidgetOptions,
     PerseusMatrixWidgetOptions,
     PerseusNumberLineWidgetOptions,
@@ -111,7 +110,9 @@ export type PerseusInteractiveGraphRubric = {
 
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
-export type PerseusLabelImageRubric = PerseusLabelImageWidgetOptions;
+/* TODO(LEMS-2440): Should be removed or refactored. Grading info may need
+    to be moved to the rubric from userInput (mark. */
+export type PerseusLabelImageRubric = Empty;
 
 export type PerseusLabelImageUserInput = {
     markers: ReadonlyArray<InteractiveMarkerType>;
