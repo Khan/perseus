@@ -22,13 +22,6 @@ function generateProps(overwrite) {
         coefficient: false,
         currentValue: "",
         problemNum: 0,
-        reviewModeRubric: {
-            answers: [],
-            labelText: "",
-            size: "medium",
-            coefficient: false,
-            static: false,
-        },
         rightAlign: false,
         size: "normal",
         static: false,
