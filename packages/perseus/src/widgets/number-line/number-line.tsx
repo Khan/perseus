@@ -124,7 +124,8 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     const results: Array<any> = [];
 
     // For convenience, extract some props into separate variables
-    const {range, labelRange, labelStyle, labelTicks, tickStep} = props;
+    const {range, labelRange, labelStyle, labelTicks, tickStep, numDivisions} =
+        props;
     const leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
     const rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
 
@@ -132,7 +133,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     let base;
     if (labelStyle === "non-reduced") {
         const fractions = [leftLabel, rightLabel];
-        for (let i = 0; i <= props.numDivisions; i++) {
+        for (let i = 0; i <= numDivisions; i++) {
             const x = range[0] + i * tickStep;
             fractions.push(x);
         }
@@ -143,34 +144,38 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         base = undefined;
     }
 
-    const endpointLineStyle = {
+    const highlightedLineStyle = {
         stroke: KhanColors.BLUE,
         strokeWidth: 3.5,
     };
-    const endpointTextStyle = {color: KhanColors.BLUE};
+    const highlightedTextStyle = {color: KhanColors.BLUE};
 
     // Generate an array of tick numbers:
     //    `Array(props.numDivisions)` makes an array of null values - one for every division marker
     //    `.keys()` gets the index values for each marker placeholder
     //    `.map()` converts the index values into actual tick numbers
-    const initialTicks: number[] = [...Array(props.numDivisions).keys()].map(
+    const initialTicks: number[] = [...Array(numDivisions).keys()].map(
         (index) => range[0] + index * tickStep,
     );
+
+    // .sort() comparator
+    const byNumericAscending = (a: number, b: number) => a - b;
+
     // Ensure that any label markers and range endpoints are included in the array
     // Using `Set()` prevents duplication of tick numbers (and is quite performant)
     const allTicks: number[] = [
         ...new Set([...initialTicks, leftLabel, rightLabel, ...range]),
-    ].sort((current, next) => current - next);
+    ].sort(byNumericAscending);
 
     // Cycle through each tick number and add a tick line, and a label (if needed)
     allTicks.forEach((tick) => {
-        const tickHasLabel = tick === leftLabel || tick === rightLabel;
-        const lineStyle = tickHasLabel ? endpointLineStyle : null;
-        const textStyle = tickHasLabel ? endpointTextStyle : null;
+        const tickIsHighlighted = tick === leftLabel || tick === rightLabel;
+        const lineStyle = tickIsHighlighted ? highlightedLineStyle : null;
+        const textStyle = tickIsHighlighted ? highlightedTextStyle : null;
         graphie.style(lineStyle, () => {
             results.push(graphie.line([tick, -0.2], [tick, 0.2]));
         });
-        if (labelTicks || tickHasLabel || labelStyle === "decimal ticks") {
+        if (labelTicks || tickIsHighlighted || labelStyle === "decimal ticks") {
             graphie.style(textStyle, () => {
                 results.push(_label(graphie, labelStyle, tick, tick, base));
             });

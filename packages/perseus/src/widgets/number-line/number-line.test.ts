@@ -4,7 +4,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1, snapshots} from "./number-line.testdata";
+import {question1} from "./number-line.testdata";
 
 import type {APIOptions} from "../../types";
 
@@ -21,18 +21,28 @@ describe("number-line widget", () => {
     });
 
     describe("snapshots", () => {
-        let originalOptions;
         let apiOptions: APIOptions;
+        const createNumberLineQuestionWithOptions = (widgetOptions) => {
+            return {
+                ...question1,
+                widgets: {
+                    ...question1.widgets,
+                    "number-line 1": {
+                        ...question1.widgets["number-line 1"],
+                        options: {
+                            ...question1.widgets["number-line 1"].options,
+                            range: [-10, 10],
+                            ...widgetOptions,
+                        },
+                    },
+                },
+            };
+        };
 
         beforeAll(() => {
-            originalOptions = snapshots.widgets["number-line 1"].options;
             apiOptions = {
                 isMobile: false,
             };
-        });
-
-        afterAll(() => {
-            snapshots.widgets["number-line 1"].options = originalOptions;
         });
 
         it("default", () => {
@@ -60,11 +70,12 @@ describe("number-line widget", () => {
 
         it(`only endpoints/labels show when "Show label ticks" is off`, () => {
             // Arrange - endpoints
-            let widgetOptions = {...originalOptions, labelTicks: false};
-            snapshots.widgets["number-line 1"].options = widgetOptions;
+            let question = createNumberLineQuestionWithOptions({
+                labelTicks: false,
+            });
 
             // Act
-            let {container} = renderQuestion(snapshots, apiOptions);
+            let {container} = renderQuestion(question, apiOptions);
 
             // Assert
             expect(container).toMatchSnapshot(
@@ -72,11 +83,13 @@ describe("number-line widget", () => {
             );
 
             // Arrange - labels
-            widgetOptions = {...widgetOptions, labelRange: [-4, 4]};
-            snapshots.widgets["number-line 1"].options = widgetOptions;
+            question = createNumberLineQuestionWithOptions({
+                labelTicks: false,
+                labelRange: [-4, 4],
+            });
 
             // Act
-            container = renderQuestion(snapshots, apiOptions).container;
+            container = renderQuestion(question, apiOptions).container;
 
             // Assert
             expect(container).toMatchSnapshot("show label ticks off (labels)");
@@ -84,15 +97,13 @@ describe("number-line widget", () => {
 
         it(`labels are highlighted when part of the tick step`, () => {
             // Arrange
-            const widgetOptions = {
-                ...originalOptions,
+            const question = createNumberLineQuestionWithOptions({
                 tickStep: 2,
                 labelRange: [-6, 6],
-            };
-            snapshots.widgets["number-line 1"].options = widgetOptions;
+            });
 
             // Act
-            const {container} = renderQuestion(snapshots, apiOptions);
+            const {container} = renderQuestion(question, apiOptions);
 
             // Assert
             expect(container).toMatchSnapshot("show highlighted labels");
@@ -100,15 +111,13 @@ describe("number-line widget", () => {
 
         it(`labels are inserted when NOT part of the tick step`, () => {
             // Arrange
-            const widgetOptions = {
-                ...originalOptions,
+            const question = createNumberLineQuestionWithOptions({
                 tickStep: 2,
                 labelRange: [-5, 5],
-            };
-            snapshots.widgets["number-line 1"].options = widgetOptions;
+            });
 
             // Act
-            const {container} = renderQuestion(snapshots, apiOptions);
+            const {container} = renderQuestion(question, apiOptions);
 
             // Assert
             expect(container).toMatchSnapshot("show inserted labels");
@@ -116,21 +125,23 @@ describe("number-line widget", () => {
 
         it(`endpoints are highlighted when labels are NOT indicated`, () => {
             // Arrange - right endpoint should highlight
-            let widgetOptions = {...originalOptions, labelRange: [-5, null]};
-            snapshots.widgets["number-line 1"].options = widgetOptions;
+            let question = createNumberLineQuestionWithOptions({
+                labelRange: [-5, null],
+            });
 
             // Act
-            let {container} = renderQuestion(snapshots, apiOptions);
+            let {container} = renderQuestion(question, apiOptions);
 
             // Assert
             expect(container).toMatchSnapshot("right endpoint highlighted");
 
             // Arrange - left endpoint should highlight
-            widgetOptions = {...originalOptions, labelRange: [null, 5]};
-            snapshots.widgets["number-line 1"].options = widgetOptions;
+            question = createNumberLineQuestionWithOptions({
+                labelRange: [null, 5],
+            });
 
             // Act
-            container = renderQuestion(snapshots, apiOptions).container;
+            container = renderQuestion(question, apiOptions).container;
 
             // Assert
             expect(container).toMatchSnapshot("left endpoint highlighted");
@@ -138,15 +149,13 @@ describe("number-line widget", () => {
 
         it(`all tick labels show when "Style" is "decimal ticks" (deprecated option)`, () => {
             // Arrange
-            const widgetOptions = {
-                ...originalOptions,
+            const question = createNumberLineQuestionWithOptions({
                 labelTicks: false,
                 labelStyle: "decimal ticks",
-            };
-            snapshots.widgets["number-line 1"].options = widgetOptions;
+            });
 
             // Act
-            const {container} = renderQuestion(snapshots, apiOptions);
+            const {container} = renderQuestion(question, apiOptions);
 
             // Assert
             expect(container).toMatchSnapshot("show decimal ticks");
