@@ -3,11 +3,7 @@ import {clampToBox, inset, MIN, size} from "./math";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {Interval, vec} from "mafs";
-import {
-    InteractiveGraphState,
-    PointGraphState,
-    PolygonGraphState,
-} from "./types";
+import {InteractiveGraphState, UnlimitedGraphState} from "./types";
 
 /**
  * 44 is touch best practice and AAA compliant for WCAG
@@ -63,8 +59,6 @@ export function bound({
     const boundingBox = inset(snapStep, range);
     return clampToBox(boundingBox, point);
 }
-
-type UnlimitedGraphState = PointGraphState | PolygonGraphState;
 
 export function isUnlimitedGraphState(
     state: InteractiveGraphState,

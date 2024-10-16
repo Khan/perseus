@@ -27,6 +27,8 @@ export type InteractiveGraphState =
     | QuadraticGraphState
     | SinusoidGraphState;
 
+export type UnlimitedGraphState = PointGraphState | PolygonGraphState;
+
 export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
