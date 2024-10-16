@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 38.0.0
+
+### Major Changes
+
+-   [#1717](https://github.com/Khan/perseus/pull/1717) [`8a40e99e6`](https://github.com/Khan/perseus/commit/8a40e99e6cd6dd2424d84ec4d03744984aa68275) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove duplicate WidgetDict type and bespoke typings of `widgets` in favour of `PerseusWidgetsMap` type.
+
+### Patch Changes
+
+-   [#1752](https://github.com/Khan/perseus/pull/1752) [`c4d96ccaf`](https://github.com/Khan/perseus/commit/c4d96ccaf941638d6a24b29d8d91111581cca1be) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - BUGFIX - [Number Line] - Tick labels not showing in some exercises
+
+*   [#1730](https://github.com/Khan/perseus/pull/1730) [`2cc20b32e`](https://github.com/Khan/perseus/commit/2cc20b32efc0e03f3e87f465d02bcfc29b3882f9) Thanks [@Myranae](https://github.com/Myranae)! - Refine Grapher types and clean up relevant code
+
 ## 37.0.1
 
 ### Patch Changes
