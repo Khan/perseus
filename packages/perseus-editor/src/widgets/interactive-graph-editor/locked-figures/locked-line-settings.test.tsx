@@ -669,7 +669,7 @@ describe("LockedLineSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Line from (0, 0) to (2, 2) with label A",
+                ariaLabel: "Line A from (0, 0) to (2, 2)",
             });
         });
 
@@ -703,7 +703,7 @@ describe("LockedLineSettings", () => {
 
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel: "Line from (0, 0) to (2, 2) with labels A, B",
+                ariaLabel: "Line A, B from (0, 0) to (2, 2)",
             });
         });
     });
