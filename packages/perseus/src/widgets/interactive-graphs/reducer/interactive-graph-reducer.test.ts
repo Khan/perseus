@@ -1006,72 +1006,6 @@ describe("doMoveRadiusPoint", () => {
     });
 });
 
-xdescribe("doChangeInteractionMode", () => {
-    // TODO [catjohnson]: Add tests for doChangeInteractionMode function.
-});
-
-xdescribe("doChangeKeyboardInvitationVisibility", () => {
-    // TODO [catjohnson]: Add tests for doChangeKeyboardInvitationVisibility function.
-});
-
-xdescribe("doClickPoint", () => {
-    // TODO [catjohnson]: Add tests for doClickPoint function.
-});
-
-xdescribe("doBlurPoint", () => {
-    // TODO [catjohnson]: Add tests for doBlurPoint function.
-});
-
-xdescribe("doFocusPoint", () => {
-    // TODO [catjohnson]: Add tests for doFocusPoint function.
-});
-
-describe("unlimited points", () => {
-    it("adds points", () => {
-        const state: PointGraphState = {
-            ...baseUnlimitedPointGraphState,
-        };
-
-        const stateAfterAddingPoint = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([8, 10]),
-        ) as PointGraphState;
-
-        expect(stateAfterAddingPoint.coords).toMatchObject([[8, 10]]);
-    });
-
-    it("removes points", () => {
-        let state: PointGraphState = {
-            ...baseUnlimitedPointGraphState,
-        };
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([1, 1]),
-        ) as PointGraphState;
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([2, 2]),
-        ) as PointGraphState;
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.addPoint([3, 3]),
-        ) as PointGraphState;
-
-        state = interactiveGraphReducer(
-            state,
-            actions.pointGraph.removePoint(1),
-        ) as PointGraphState;
-
-        expect(state.coords).toMatchObject([
-            [1, 1],
-            [3, 3],
-        ]);
-    });
-});
-
 describe("doDeleteIntent", () => {
     it("does nothing when no points are selected for unlimited points", () => {
         let state: PointGraphState = {
@@ -1211,6 +1145,80 @@ describe("doDeleteIntent", () => {
 
         expect(state.coords).toMatchObject([
             [2, 2],
+            [3, 3],
+        ]);
+    });
+});
+
+xdescribe("doChangeInteractionMode", () => {
+    // TODO [catjohnson]: Add tests for doChangeInteractionMode function.
+});
+
+xdescribe("doChangeKeyboardInvitationVisibility", () => {
+    // TODO [catjohnson]: Add tests for doChangeKeyboardInvitationVisibility function.
+});
+
+xdescribe("doClickPoint", () => {
+    // TODO [catjohnson]: Add tests for doClickPoint function.
+});
+
+xdescribe("doBlurPoint", () => {
+    // TODO [catjohnson]: Add tests for doBlurPoint function.
+});
+
+xdescribe("doFocusPoint", () => {
+    // TODO [catjohnson]: Add tests for doFocusPoint function.
+});
+
+xdescribe("doAddPoint", () => {
+    // TODO [catjohnson]: Add tests for doAddPoint function.
+});
+
+xdescribe("doRemovePoint", () => {
+    // TODO [catjohnson]: Add tests for doRemovePoint function.
+});
+
+describe("unlimited points", () => {
+    it("adds points", () => {
+        const state: PointGraphState = {
+            ...baseUnlimitedPointGraphState,
+        };
+
+        const stateAfterAddingPoint = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([8, 10]),
+        ) as PointGraphState;
+
+        expect(stateAfterAddingPoint.coords).toMatchObject([[8, 10]]);
+    });
+
+    it("removes points", () => {
+        let state: PointGraphState = {
+            ...baseUnlimitedPointGraphState,
+        };
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([1, 1]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([2, 2]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.addPoint([3, 3]),
+        ) as PointGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.pointGraph.removePoint(1),
+        ) as PointGraphState;
+
+        expect(state.coords).toMatchObject([
+            [1, 1],
             [3, 3],
         ]);
     });
