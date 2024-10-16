@@ -1006,6 +1006,26 @@ describe("doMoveRadiusPoint", () => {
     });
 });
 
+xdescribe("doChangeInteractionMode", () => {
+    // TODO [catjohnson]: Add tests for doChangeInteractionMode function.
+});
+
+xdescribe("doChangeKeyboardInvitationVisibility", () => {
+    // TODO [catjohnson]: Add tests for doChangeKeyboardInvitationVisibility function.
+});
+
+xdescribe("doClickPoint", () => {
+    // TODO [catjohnson]: Add tests for doClickPoint function.
+});
+
+xdescribe("doBlurPoint", () => {
+    // TODO [catjohnson]: Add tests for doBlurPoint function.
+});
+
+xdescribe("doFocusPoint", () => {
+    // TODO [catjohnson]: Add tests for doFocusPoint function.
+});
+
 describe("unlimited points", () => {
     it("adds points", () => {
         const state: PointGraphState = {
@@ -1052,7 +1072,7 @@ describe("unlimited points", () => {
     });
 });
 
-describe("delete intent", () => {
+describe("doDeleteIntent", () => {
     it("does nothing when no points are selected for unlimited points", () => {
         let state: PointGraphState = {
             ...baseUnlimitedPointGraphState,
