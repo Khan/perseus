@@ -134,6 +134,8 @@ abstract class Expr {
     }
 
     // an abstraction for chainable, bottom-up recursion
+    // NOTE(kevinb): This method is highly dynamic.  It's possible that it
+    // could be made more type-safe using overload signatures.
     recurse(method: string, ...passed: any[]): this {
         var args = _.map(this.args(), function (arg) {
             return _.isString(arg) || _.isNumber(arg)
@@ -239,7 +241,7 @@ abstract class Expr {
     }
 
     // expands the expression
-    expand(options?): Expr {
+    expand(): Expr {
         return this.recurse("expand");
     }
 
@@ -259,7 +261,12 @@ abstract class Expr {
     }
 
     // expand and collect until the expression no longer changes
-    simplify(options: Options = {once: false}) {
+    simplify(options?: Options) {
+        options = {
+            once: false,
+            ...options,
+        };
+
         // Attempt to factor and collect
         var step1 = this.factor(options);
         var step2 = step1.collect(options);
@@ -270,7 +277,7 @@ abstract class Expr {
         }
 
         // Attempt to expand and collect
-        var step3 = step2.expand(options);
+        var step3 = step2.expand();
         var step4 = step3.collect(options);
 
         // Rollback if collect didn't do anything
@@ -1061,15 +1068,15 @@ export class Mul extends Seq {
         }
 
         // Combine any factored out Rationals into one, but don't collect
-        var grouped = _.groupBy(factored.terms, (term) => {
-            return term instanceof Rational ? "true" : "false";
+        var [rationals, others] = partition(factored.terms, (term) => {
+            return term instanceof Rational;
         });
 
         // Could also accomplish this by passing a new option
         // e.g. return  memo.mul(term, {autocollect: false});
         // TODO(alex): Decide whether this is a good use of options or not
         const ratObj = _.reduce(
-            grouped.true as Rational[],
+            rationals as Rational[],
             (memo, term) => {
                 return {n: memo.n * term.n, d: memo.d * term.d};
             },
@@ -1081,7 +1088,7 @@ export class Mul extends Seq {
                 ? new Int(ratObj.n)
                 : new Rational(ratObj.n, ratObj.d);
 
-        return new Mul((grouped.false || []).concat(rational)).flatten();
+        return new Mul(others.concat(rational)).flatten();
     }
 
     collect(options?: Options): Expr {
@@ -1247,12 +1254,7 @@ export class Mul extends Seq {
         // `partition` splits the terms into two Seqs - one containing
         // only Nums and the all non-Num nodes.
         var numbers = partitioned[0].terms as Num[];
-        var fold =
-            numbers.length &&
-            _.all(numbers, (num) => {
-                // TODO(kevinb): this is unsafe
-                return num.n > 0;
-            });
+        var fold = numbers.length && _.all(numbers, (num) => num.n > 0);
 
         if (fold) {
             // e.g. - x*2*3 -> x*-2*3
