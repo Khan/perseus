@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus": patch
+"@khanacademy/perseus": major
 "@khanacademy/perseus-editor": patch
 ---
 
