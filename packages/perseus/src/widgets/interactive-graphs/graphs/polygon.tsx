@@ -195,7 +195,6 @@ export const UnlimitedPolygonGraph = (props: Props) => {
     // TODO(benchristel): can the default set of points be removed here? I don't
     // think coords can be null.
     const points = coords ?? [[0, 0]];
-
     const polygonRef = React.useRef<SVGPolygonElement>(null);
     const dragReferencePoint = points[0];
     const constrain = ["angles", "sides"].includes(snapTo)

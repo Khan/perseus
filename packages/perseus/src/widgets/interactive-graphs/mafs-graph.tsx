@@ -57,6 +57,7 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+import {unlimitedGraph} from "./utils";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -369,7 +370,7 @@ const renderPointGraphControls = (props: {
                             ? "visible"
                             : "hidden",
                     }}
-                    onClick={(event) => {
+                    onClick={(_event) => {
                         props.dispatch(
                             actions.pointGraph.removePoint(
                                 props.state.focusedPointIndex!,
@@ -384,7 +385,11 @@ const renderPointGraphControls = (props: {
     );
 };
 
-// Might want to consoludate with the point graph controls as they are similar.
+/**
+ * TODO [catjohnson]: The polygon controls will be vastly different from the point controls.
+ * Will be keeping this function as is for the time being, even if it's a copy of the point graph
+ * controls.
+ */
 const renderPolygonGraphControls = (props: {
     state: PolygonGraphState;
     dispatch: (action: InteractiveGraphAction) => unknown;
@@ -435,7 +440,7 @@ const renderPolygonGraphControls = (props: {
                             ? "visible"
                             : "hidden",
                     }}
-                    onClick={(event) => {
+                    onClick={(_event) => {
                         props.dispatch(
                             actions.polygon.removePoint(
                                 props.state.focusedPointIndex!,
@@ -470,7 +475,6 @@ const renderGraphControls = (props: {
             }
             return null;
         case "polygon":
-            // Need to update on the identifier for unlimited.
             if (state.numSides === "unlimited") {
                 return renderPolygonGraphControls({
                     state,
@@ -490,11 +494,7 @@ function handleFocusEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    const unlimitedGraph =
-        (state.type === "point" && state.numPoints === "unlimited") ||
-        (state.type === "polygon" && state.numSides === "unlimited");
-    // Might need to add the logic for focus of the polygon-unlimited here.
-    if (unlimitedGraph) {
+    if (unlimitedGraph(state)) {
         if (
             event.target.classList.contains("mafs-graph") &&
             state.interactionMode === "mouse"
@@ -505,14 +505,11 @@ function handleFocusEvent(
 }
 
 function handleBlurEvent(
-    event: React.FocusEvent,
+    _event: React.FocusEvent,
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    const unlimitedGraph =
-        (state.type === "point" && state.numPoints === "unlimited") ||
-        (state.type === "polygon" && state.numSides === "unlimited");
-    if (unlimitedGraph) {
+    if (unlimitedGraph(state)) {
         dispatch(actions.global.changeKeyboardInvitationVisibility(false));
     }
 }
@@ -522,10 +519,7 @@ function handleKeyboardEvent(
     state: InteractiveGraphState,
     dispatch: (action: InteractiveGraphAction) => unknown,
 ) {
-    const unlimitedGraph =
-        (state.type === "point" && state.numPoints === "unlimited") ||
-        (state.type === "polygon" && state.numSides === "unlimited");
-    if (unlimitedGraph) {
+    if (unlimitedGraph(state)) {
         if (event.key === "Backspace") {
             dispatch(actions.global.deleteIntent());
 

@@ -26,7 +26,7 @@ import {
     X,
     Y,
 } from "../math";
-import {bound} from "../utils";
+import {bound, unlimitedGraph} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -126,12 +126,8 @@ function doDeleteIntent(
     state: InteractiveGraphState,
     action: DeleteIntent,
 ): InteractiveGraphState {
-    const unlimitedGraph =
-        (state.type === "point" && state.numPoints === "unlimited") ||
-        (state.type === "polygon" && state.numSides === "unlimited");
-
     // For unlimited point graphs
-    if (unlimitedGraph) {
+    if (unlimitedGraph(state)) {
         // if there's a focused point
         if (state.focusedPointIndex !== null) {
             // Remove the focused focus
@@ -184,11 +180,7 @@ function doClickPoint(
     state: InteractiveGraphState,
     action: ClickPoint,
 ): InteractiveGraphState {
-    const unlimitedGraph =
-        (state.type === "point" && state.numPoints === "unlimited") ||
-        (state.type === "polygon" && state.numSides === "unlimited");
-
-    if (unlimitedGraph) {
+    if (unlimitedGraph(state)) {
         return {
             ...state,
             focusedPointIndex: action.index,
@@ -203,11 +195,7 @@ function doChangeInteractionMode(
     state: InteractiveGraphState,
     action: ChangeInteractionMode,
 ): InteractiveGraphState {
-    const unlimitedGraph =
-        (state.type === "point" && state.numPoints === "unlimited") ||
-        (state.type === "polygon" && state.numSides === "unlimited");
-
-    if (unlimitedGraph) {
+    if (unlimitedGraph(state)) {
         const nextKeyboardInvitation =
             action.mode === "keyboard"
                 ? false
@@ -226,11 +214,7 @@ function doChangeKeyboardInvitationVisibility(
     state: InteractiveGraphState,
     action: ChangeKeyboardInvitationVisibility,
 ): InteractiveGraphState {
-    const unlimitedGraph =
-        (state.type === "point" && state.numPoints === "unlimited") ||
-        (state.type === "polygon" && state.numSides === "unlimited");
-
-    if (unlimitedGraph) {
+    if (unlimitedGraph(state)) {
         return {
             ...state,
             showKeyboardInteractionInvitation: action.shouldShow,
