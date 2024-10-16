@@ -635,7 +635,6 @@ describe("LockedPolygonSettings", () => {
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
                     "Polygon A with 3 sides, vertices at (0, 0), (0, 1), (1, 1). Appearance solid gray border, with no fill.",
-
             });
         });
 

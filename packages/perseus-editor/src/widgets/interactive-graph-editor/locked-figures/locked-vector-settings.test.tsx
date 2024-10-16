@@ -498,7 +498,6 @@ describe("Locked Vector Settings", () => {
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
                     "Vector A, B from (0, 0) to (2, 2). Appearance solid gray.",
-
             });
         });
     });

@@ -441,7 +441,6 @@ describe("LockedPointSettings", () => {
         // Assert
         expect(onChangeProps).toHaveBeenCalledWith({
             ariaLabel: "Point A at (0, 0). Appearance solid gray.",
-
         });
     });
 

@@ -790,7 +790,6 @@ describe("Locked Function Settings", () => {
                 expect(onChangeProps).toHaveBeenCalledWith({
                     ariaLabel:
                         "Function A with equation y=x^2. Appearance solid gray.",
-
                 });
             });
 
@@ -824,8 +823,8 @@ describe("Locked Function Settings", () => {
 
                 // Assert
                 expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel: "Function A, B with equation y=x^2. Appearance solid gray.",
-
+                    ariaLabel:
+                        "Function A, B with equation y=x^2. Appearance solid gray.",
                 });
             });
         });

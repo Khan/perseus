@@ -71,7 +71,7 @@ const LockedVectorSettings = (props: Props) => {
         }
 
         let str = `Vector${visiblelabel} from (${tail[0]}, ${tail[1]}) to (${tip[0]}, ${tip[1]})`;
-        
+
         const vectorAppearance =
             generateLockedFigureAppearanceDescription(lineColor);
         str += `${vectorAppearance}`;
