@@ -20,10 +20,10 @@ export type Token =
     | {kind: "RIGHT|"}
     | {kind: "SIGN"; value: string} // (in)equality
     | {kind: "FRAC"}
-    | {kind: "sqrt"}
-    | {kind: "abs"}
-    | {kind: "ln"}
-    | {kind: "log"}
+    | {kind: "SQRT"}
+    | {kind: "ABS"}
+    | {kind: "LN"}
+    | {kind: "LOG"}
     | {kind: "TRIG"; value: string}
     | {kind: "TRIGINV"; value: string}
     | {kind: "CONST"; value: string}
@@ -81,10 +81,10 @@ const rules: Rule[] = [
     ["\u2265", {kind: "SIGN", value: ">="}], // ge
     ["\\\\frac", {kind: "FRAC"}],
     ["\\\\dfrac", {kind: "FRAC"}],
-    ["sqrt|\\\\sqrt", {kind: "sqrt"}],
-    ["abs|\\\\abs", {kind: "abs"}],
-    ["ln|\\\\ln", {kind: "ln"}],
-    ["log|\\\\log", {kind: "log"}],
+    ["sqrt|\\\\sqrt", {kind: "SQRT"}],
+    ["abs|\\\\abs", {kind: "ABS"}],
+    ["ln|\\\\ln", {kind: "LN"}],
+    ["log|\\\\log", {kind: "LOG"}],
     ["sin|cos|tan", (value) => ({kind: "TRIG", value})],
     ["csc|sec|cot", (value) => ({kind: "TRIG", value})],
     ["sinh|cosh|tanh", (value) => ({kind: "TRIG", value})],

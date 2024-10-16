@@ -14,7 +14,92 @@ import {
     Var,
 } from "./nodes";
 
+// TODO(kevinb): Replace with a real type once #1748 is landed.
 type Expr = any;
+
+// Parser implements a recursive descent parser that can parse a simple
+// subset of LaTeX.  See lexer.ts for a list of the commands it supports.
+//
+// WARNING: This class should not be used directly, instead use the `parse`.
+//
+// The parser is split into two parts:
+// - `lex` (defined in lexer.ts) splits a string into multiple tokens
+//   which are then consumed by the Parser class.
+// - `Parser` is a class that consumes an array of tokens and produces
+//   an AST representing the mathmatical expression using nodes from
+//   nodes.js.
+//
+// The grammar for this parser is shown below.  Each rule is in lowercase
+// and can have multiple options.  The parser attempts each option in the
+// order they appear except for when we know the options are mutually
+// exclusive.  Tokens appear either as uppercase words or quoted strings.
+// Parens (when they appear outside quotes) are used for grouping.
+// '*' and '?' have the same meaning they do in regexes.
+//
+// equation:
+//      expression SIGN expression EOF
+//      expression EOF
+//      EOF
+// expression:
+//      additive
+// additive:
+//      multiplicative (("+" | "-") multiplicative)*
+// multiplicative:
+//      negative (trilog | (("*" | "/") negative))*
+// negative:
+//      "-"* triglog
+// trigfunc:
+//      TRIG ("^" negative)?
+//      TRIGINV
+// logbase:
+//      LN
+//      LOG ("_" subscriptable)?
+// triglog:
+//      (trigfunc | logbase) negative
+//      power
+// power:
+//      primative ("^" negative)
+// variable:
+//      VAR
+// subscriptable:
+//      variable ("_" subscriptable)?
+//      CONST
+//      INT
+//      FLOAT
+//      "{" additive "}"
+//      "(" additive ")"
+// invocation:
+//      SQRT "(" additive ")"
+//      SQRT "{" additive "}"
+//      SQRT "[" additive "]" "{" additive "}"
+//      ABS "(" additive ")"
+//      "|" additive "|"
+//      "LEFT|" additive "RIGHT|"
+//      FUNC "(" additive ")"
+// primitive:
+//      subscriptable
+//      invocation
+//      FRAC "{" additive "}" "{" additive "}"
+//
+// `Parser` has a method for each of the grammar rules.  Its `parse` method
+// begins parsing by calling the `equation` method.  From the rules above,
+// `equation` can parse either an equation or an `additive` (expression).
+// Calling`additive` tries to parse one or more `multiplicative`s and so on.
+//
+// Parsing the number `5` results in the following methods would be called
+// in order:
+// - parse
+// - equation
+// - additive
+// - multiplicative
+// - negative
+// - triglog
+// - power
+// - primitive
+// - subscriptable
+//
+// `subscriptable` would return a `Num` node (defined in nodes.js) which
+// would then be bubbled up the call stack and be returned by `parse`.
 
 export class Parser {
     tokens: Token[];
@@ -25,21 +110,40 @@ export class Parser {
         this.index = 0;
     }
 
+    // Returns the next token without consuming it.
     peek() {
         const next = this.tokens[this.index];
         return next;
     }
 
+    // Consumes the next token.
     consume() {
         this.index++;
     }
 
-    expect(tokenKind: string) {
+    // Checks if the next token's kind is the specified `tokenKind` and
+    // consumes the token.  Otherwise, it throws an error.
+    expect<Kind extends Token["kind"]>(tokenKind: Kind) {
         const next = this.peek();
         if (next.kind !== tokenKind) {
             throw new Error(`Expected ${tokenKind} but got ${next.kind}`);
         }
         this.consume();
+    }
+
+    // Checks if the next token's kind is the specified `tokenKind` and
+    // consumes the token and return the token's value.  Otherwise, it
+    // throws an error.
+    //
+    // This method can only be called with `tokenKind`s for tokens that
+    // have a `value` property.  See lexer.ts.
+    expectValue<Kind extends "FUNC" | "VAR" | "TRIG">(tokenKind: Kind): string {
+        const next = this.peek();
+        if (next.kind !== tokenKind) {
+            throw new Error(`Expected ${tokenKind} but got ${next.kind}`);
+        }
+        this.consume();
+        return next.value;
     }
 
     parse() {
@@ -50,21 +154,17 @@ export class Parser {
         if (this.peek().kind === "EOF") {
             return new Add([]);
         }
-        const left = this.expression();
+        const left = this.additive();
         const next = this.peek();
         if (next.kind === "EOF") {
             return left;
         }
         if (next.kind === "SIGN") {
             this.consume(); // equality operator
-            const right = this.expression();
+            const right = this.additive();
             return new Eq(left, next.value, right);
         }
         throw new Error(`Expected SIGN token but got ${next.kind}`);
-    }
-
-    expression(): Add | Mul {
-        return this.additive();
     }
 
     additive(): Add | Mul {
@@ -89,6 +189,13 @@ export class Parser {
         }
 
         return left;
+    }
+
+    additiveBetween<Kind extends Token["kind"]>(start: Kind, end: Kind): Expr {
+        this.expect(start);
+        const node = this.additive();
+        this.expect(end);
+        return node;
     }
 
     multiplicative(): Mul {
@@ -132,20 +239,10 @@ export class Parser {
         }
     }
 
-    trig(): [string] {
-        const next = this.peek();
-        if (next.kind === "TRIG") {
-            this.consume(); // trig
-            return [next.value];
-        } else {
-            throw new Error(`Expected TRIG token but tog ${next.kind}`);
-        }
-    }
-
     trigfunc(): [string] | [string, Expr] {
         const index = this.index; // save state
         try {
-            const left = this.trig();
+            const left: [string] = [this.expectValue("TRIG")];
             const op = this.peek();
             if (op.kind === "^") {
                 this.consume(); // ^
@@ -168,11 +265,12 @@ export class Parser {
 
     logbase() {
         const next = this.peek();
-        this.consume();
         switch (next.kind) {
-            case "ln":
+            case "LN":
+                this.consume(); // ln
                 return Log.natural();
-            case "log":
+            case "LOG":
+                this.consume(); // log
                 if (this.peek().kind === "_") {
                     this.consume();
                     return this.subscriptable();
@@ -189,15 +287,15 @@ export class Parser {
     triglog() {
         const index = this.index; // save state
         try {
-            const left = this.trigfunc();
-            const right = this.negative();
-            return Trig.create(left, right);
+            const func = this.trigfunc();
+            const arg = this.negative();
+            return Trig.create(func, arg);
         } catch {
             this.index = index; // restore state
             try {
-                const left = this.logbase();
-                const right = this.negative();
-                return Log.create(left, right);
+                const func = this.logbase();
+                const arg = this.negative();
+                return Log.create(func, arg);
             } catch {
                 this.index = index; // restore state
                 return this.power();
@@ -206,33 +304,23 @@ export class Parser {
     }
 
     power() {
-        const left = this.primitive();
+        const base = this.primitive();
         const op = this.peek();
         if (op.kind === "^") {
             this.consume(); // ^
-            const right = this.negative();
-            return new Pow(left, right);
+            const exp = this.negative();
+            return new Pow(base, exp);
         } else {
-            return left;
-        }
-    }
-
-    variable(): string {
-        const next = this.peek();
-        if (next.kind === "VAR") {
-            this.consume();
-            return next.value;
-        } else {
-            throw new Error(`Expected VAR token but got ${next.kind}`);
+            return base;
         }
     }
 
     subscriptable() {
         const index = this.index; // save state
         try {
-            const left = this.variable();
+            const left = this.expectValue("VAR");
             if (this.peek().kind === "_") {
-                this.consume();
+                this.consume(); // _
                 const right = this.subscriptable();
                 return new Var(left, right);
             } else {
@@ -241,27 +329,24 @@ export class Parser {
         } catch (e) {
             this.index = index; // restore state
             const next = this.peek();
-            this.consume();
             switch (next.kind) {
                 case "CONST":
+                    this.consume();
                     return new Const(next.value.toLocaleLowerCase());
                 case "INT":
-                    // Why are we using the `Number` constructor instead of `parseInt`?
-                    return Int.create(Number(next.value));
+                    this.consume();
+                    return Int.create(parseInt(next.value, 10));
                 case "FLOAT":
-                    // Why are we using the `Number` constructor instead of `parseFlat`?
-                    return Float.create(Number(next.value));
+                    this.consume();
+                    return Float.create(parseFloat(next.value));
                 case "{": {
-                    const node = this.additive().completeParse(); // post-process Trig ndoes with exponents
-                    this.expect("}");
-                    return node;
+                    const node = this.additiveBetween("{", "}");
+                    return node.completeParse(); // post-process Trig ndoes with exponents
                 }
                 case "(": {
-                    const node = this.additive()
-                        .completeParse() // post-process Trig ndoes with exponents
-                        .addHint("parens"); // this probably shouldn't be a hint...
-                    this.expect(")");
-                    return node;
+                    const node = this.additiveBetween("(", ")");
+                    // post-process Trig ndoes with exponents
+                    return node.completeParse().addHint("parens"); // this probably shouldn't be a hint...
                 }
                 default:
                     throw new Error(
@@ -271,40 +356,24 @@ export class Parser {
         }
     }
 
-    function() {
-        const next = this.peek();
-        if (next.kind === "FUNC") {
-            this.consume();
-            return next.value;
-        } else {
-            throw new Error(`Expected FUNC token but got ${next.kind}`);
-        }
-    }
-
     invocation() {
         const next = this.peek();
-        this.consume();
         switch (next.kind) {
-            case "sqrt": {
-                const next = this.peek();
+            case "SQRT": {
                 this.consume();
+                const next = this.peek();
                 switch (next.kind) {
                     case "(": {
-                        const arg = this.additive();
-                        this.expect(")");
+                        const arg = this.additiveBetween("(", ")");
                         return Pow.sqrt(arg);
                     }
                     case "{": {
-                        const arg = this.additive();
-                        this.expect("}");
+                        const arg = this.additiveBetween("{", "}");
                         return Pow.sqrt(arg);
                     }
                     case "[": {
-                        const index = this.additive();
-                        this.expect("]");
-                        this.expect("{");
-                        const arg = this.additive();
-                        this.expect("}");
+                        const index = this.additiveBetween("[", "]");
+                        const arg = this.additiveBetween("{", "}");
                         return Pow.nthroot(arg, index);
                     }
                     default:
@@ -313,26 +382,22 @@ export class Parser {
                         );
                 }
             }
-            case "abs": {
-                this.expect("(");
-                const arg = this.additive();
-                this.expect(")");
+            case "ABS": {
+                this.consume(); // abs
+                const arg = this.additiveBetween("(", ")");
                 return new Abs(arg);
             }
             case "|": {
-                const arg = this.additive();
-                this.expect("|");
+                const arg = this.additiveBetween("|", "|");
                 return new Abs(arg);
             }
             case "LEFT|": {
-                const arg = this.additive();
-                this.expect("RIGHT|");
+                const arg = this.additiveBetween("LEFT|", "RIGHT|");
                 return new Abs(arg);
             }
             case "FUNC": {
-                this.expect("(");
-                const arg = this.additive();
-                this.expect(")");
+                this.consume(); // FUNC
+                const arg = this.additiveBetween("(", ")");
                 return new Func(next.value, arg);
             }
             default:
@@ -353,13 +418,9 @@ export class Parser {
             } catch (e) {
                 this.index = index; // restore state
                 this.expect("FRAC");
-                this.expect("{");
-                const left = this.additive();
-                this.expect("}");
-                this.expect("{");
-                const right = this.additive();
-                this.expect("}");
-                return Mul.handleDivide(left, right);
+                const n = this.additiveBetween("{", "}");
+                const d = this.additiveBetween("{", "}");
+                return Mul.handleDivide(n, d);
             }
         }
     }
