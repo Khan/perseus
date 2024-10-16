@@ -164,13 +164,13 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 
     // Cycle through each tick number and add a tick line, and a label (if needed)
     allTicks.forEach((tick) => {
-        const tickIsEndpoint = tick === leftLabel || tick === rightLabel;
-        const lineStyle = tickIsEndpoint ? endpointLineStyle : null;
-        const textStyle = tickIsEndpoint ? endpointTextStyle : null;
+        const tickHasLabel = tick === leftLabel || tick === rightLabel;
+        const lineStyle = tickHasLabel ? endpointLineStyle : null;
+        const textStyle = tickHasLabel ? endpointTextStyle : null;
         graphie.style(lineStyle, () => {
             results.push(graphie.line([tick, -0.2], [tick, 0.2]));
         });
-        if (labelTicks || tickIsEndpoint || labelStyle === "decimal ticks") {
+        if (labelTicks || tickHasLabel || labelStyle === "decimal ticks") {
             graphie.style(textStyle, () => {
                 results.push(_label(graphie, labelStyle, tick, tick, base));
             });
