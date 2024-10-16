@@ -11,6 +11,8 @@ import {InteractiveGraphState, UnlimitedGraphState} from "./types";
  */
 export const TARGET_SIZE = 44;
 
+export const REMOVE_BUTTON_ID = "perseus_mafs_remove_button";
+
 // same as pointsFromNormalized in interactive-graph.tsx
 export const normalizePoints = <A extends Coord[]>(
     range: PerseusInteractiveGraphWidgetOptions["range"],

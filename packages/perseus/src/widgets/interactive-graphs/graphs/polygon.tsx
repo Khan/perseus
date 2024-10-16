@@ -1,11 +1,10 @@
 import {Polygon, vec} from "mafs";
 import * as React from "react";
 
-import {REMOVE_BUTTON_ID} from "../mafs-graph";
 import {snap} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-import {TARGET_SIZE} from "../utils";
+import {REMOVE_BUTTON_ID, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
@@ -247,8 +246,8 @@ export const UnlimitedPolygonGraph = (props: Props) => {
                 }}
             />
             {/**
-             * Will likely want to conditionally render then once a full polygon is created
-             * And handle when someone wants to remove the polygon connection?
+             * TODO [catjohnson]: Will need to conditionally render then once a full polygon is created
+             * And handle when someone wants to remove the polygon connection.
              */}
             <Polygon
                 points={[...points]}

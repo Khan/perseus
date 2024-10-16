@@ -57,7 +57,7 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-import {isUnlimitedGraphState} from "./utils";
+import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 export type MafsGraphProps = {
     flags?: APIOptions["flags"];
@@ -78,8 +78,6 @@ export type MafsGraphProps = {
     readOnly: boolean;
     static: boolean | null | undefined;
 };
-
-export const REMOVE_BUTTON_ID = "perseus_mafs_remove_button";
 
 export const MafsGraph = (props: MafsGraphProps) => {
     const {
