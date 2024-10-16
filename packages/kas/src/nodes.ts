@@ -2180,7 +2180,7 @@ type TrigFunc = {
 
 /* trigonometric functions */
 export class Trig extends Expr {
-    type: string; // TODO(kevinb): Use an enum for this
+    type: string; // TODO(kevinb): Use a union type for this
     arg: Expr;
     exp?: Expr;
 
@@ -2200,7 +2200,7 @@ export class Trig extends Expr {
         return [this.type, this.arg];
     }
 
-    // TODO(kevinb): Use an enum for the function names.
+    // TODO(kevinb): Use union type for the function names.
     functions: Record<string, TrigFunc> = {
         sin: {
             eval: Math.sin,
@@ -2877,15 +2877,13 @@ export class Eq extends Expr {
             return term.has(Var) && _.contains(term.getVars(), variable.symbol);
         };
 
-        const [a, b] = hasVar(expr.terms[0])
-            ? [
-                  Mul.handleNegative(expr.terms[1]),
-                  Mul.handleDivide(expr.terms[0], variable),
-              ]
-            : [
-                  Mul.handleNegative(expr.terms[0]),
-                  Mul.handleDivide(expr.terms[1], variable),
-              ];
+        const termHasVar = hasVar(expr.terms[0]);
+        const a = termHasVar
+            ? Mul.handleNegative(expr.terms[1])
+            : Mul.handleNegative(expr.terms[0]);
+        const b = termHasVar
+            ? Mul.handleDivide(expr.terms[0], variable)
+            : Mul.handleDivide(expr.terms[1], variable);
 
         return Mul.handleDivide(a, b).simplify();
     }
@@ -3122,11 +3120,10 @@ export class Const extends Sym {
 
 /* abstract number node */
 abstract class Num extends Expr {
-    n: number;
+    n: number = 0;
 
     constructor() {
         super();
-        this.n = 0;
         // hints for interpreting and rendering user input
         this.hints = {
             ...this.hints,
@@ -3809,8 +3806,8 @@ var siPrefixes = {
 };
 
 // Use these two values to mark a unit as either SI-prefixable or not.
-const hasPrefixes = Symbol();
-const hasntPrefixes = Symbol();
+const hasPrefixes = "hasPrefixes";
+const hasntPrefixes = "hasntPrefixes";
 
 type Prefixes = typeof hasPrefixes | typeof hasntPrefixes;
 
@@ -3831,14 +3828,14 @@ const makeAlias = function (str: string, prefixes: Prefixes) {
         numdenomStr[0]
             .split(" ")
             .filter((x) => x !== "")
-            .map((x) => numdenom.push(new Unit(x)));
+            .forEach((x) => numdenom.push(new Unit(x)));
     }
 
     if (numdenomStr[1]) {
         numdenomStr[1]
             .split(" ")
             .filter((x) => x !== "")
-            .map((x) => numdenom.push(new Pow(new Unit(x), NumDiv)));
+            .forEach((x) => numdenom.push(new Pow(new Unit(x), NumDiv)));
     }
 
     return {
