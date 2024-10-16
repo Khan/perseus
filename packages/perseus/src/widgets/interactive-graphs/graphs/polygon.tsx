@@ -176,7 +176,8 @@ export const UnlimitedPolygonGraph = (props: Props) => {
 
     const graphState = useGraphConfig();
 
-    // Section of code is very 1:1 with point.tsx, note to abstract this logic.
+    // TODO [catjohnson]: Explore abstracting this code as it is similar to point.tsx
+    // and hopefully we can cut down ont the unlimited graph redundancy.
     const {
         range: [[minX, maxX], [minY, maxY]],
         disableKeyboardInteraction,
