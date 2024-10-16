@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 14.8.0
+
+### Minor Changes
+
+-   [#1739](https://github.com/Khan/perseus/pull/1739) [`ab0a10eec`](https://github.com/Khan/perseus/commit/ab0a10eec0daeefe56b2b4a0ba1df0f7d8cfa66e) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - updates position of visible label within aria label
+
+### Patch Changes
+
+-   [#1717](https://github.com/Khan/perseus/pull/1717) [`8a40e99e6`](https://github.com/Khan/perseus/commit/8a40e99e6cd6dd2424d84ec4d03744984aa68275) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove duplicate WidgetDict type and bespoke typings of `widgets` in favour of `PerseusWidgetsMap` type.
+
+-   Updated dependencies [[`8a40e99e6`](https://github.com/Khan/perseus/commit/8a40e99e6cd6dd2424d84ec4d03744984aa68275), [`c4d96ccaf`](https://github.com/Khan/perseus/commit/c4d96ccaf941638d6a24b29d8d91111581cca1be), [`2cc20b32e`](https://github.com/Khan/perseus/commit/2cc20b32efc0e03f3e87f465d02bcfc29b3882f9)]:
+    -   @khanacademy/perseus@38.0.0
+
 ## 14.7.1
 
 ### Patch Changes
