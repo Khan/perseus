@@ -10,6 +10,7 @@ import type {
     CircleGraphState,
     PointGraphState,
     InteractiveGraphState,
+    PolygonGraphState,
 } from "../types";
 
 const baseSegmentGraphState: InteractiveGraphState = {
@@ -111,6 +112,10 @@ const baseQuadraticGraphState: InteractiveGraphState = {
 };
 
 const basePolygonGraphState: InteractiveGraphState = {
+    showRemovePointButton: false,
+    interactionMode: "mouse",
+    showKeyboardInteractionInvitation: false,
+    focusedPointIndex: null,
     hasBeenInteractedWith: false,
     type: "polygon",
     showAngles: false,
@@ -127,6 +132,26 @@ const basePolygonGraphState: InteractiveGraphState = {
         [1, 0],
     ],
 };
+
+const baseUnlimitedPolygonGraphState: PolygonGraphState = {
+    showRemovePointButton: false,
+    interactionMode: "mouse",
+    showKeyboardInteractionInvitation: false,
+    focusedPointIndex: null,
+    hasBeenInteractedWith: false,
+    type: "polygon",
+    showAngles: false,
+    showSides: false,
+    snapTo: "grid",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    coords: [],
+    numSides: "unlimited",
+};
+
 describe("movePointInFigure", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
@@ -1028,7 +1053,7 @@ describe("unlimited points", () => {
 });
 
 describe("delete intent", () => {
-    it("does nothing when no points are selected", () => {
+    it("does nothing when no points are selected for unlimited points", () => {
         let state: PointGraphState = {
             ...baseUnlimitedPointGraphState,
             interactionMode: "mouse",
@@ -1060,7 +1085,39 @@ describe("delete intent", () => {
         ]);
     });
 
-    it("removes points when a point is focused and a delete intent is received", () => {
+    it("does nothing when no points are selected for unlimited polygon", () => {
+        let state: PolygonGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+            interactionMode: "mouse",
+        };
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([1, 1]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([2, 2]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.blurPoint(),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.global.deleteIntent(),
+        ) as PolygonGraphState;
+
+        expect(state.coords).toMatchObject([
+            [1, 1],
+            [2, 2],
+        ]);
+    });
+
+    it("removes points when a point is focused and a delete intent is received for unlimited point", () => {
         let state: PointGraphState = {
             ...baseUnlimitedPointGraphState,
         };
@@ -1098,50 +1155,99 @@ describe("delete intent", () => {
             [3, 3],
         ]);
     });
+
+    it("removes points when a point is focused and a delete intent is received for unlimited polygon", () => {
+        let state: PolygonGraphState = {
+            ...baseUnlimitedPolygonGraphState,
+        };
+
+        // Add some points
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([1, 1]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([2, 2]),
+        ) as PolygonGraphState;
+
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.addPoint([3, 3]),
+        ) as PolygonGraphState;
+
+        // Focus a point
+        state = interactiveGraphReducer(
+            state,
+            actions.polygon.focusPoint(0),
+        ) as PolygonGraphState;
+
+        // Fire a delete intent
+        state = interactiveGraphReducer(
+            state,
+            actions.global.deleteIntent(),
+        ) as PolygonGraphState;
+
+        expect(state.coords).toMatchObject([
+            [2, 2],
+            [3, 3],
+        ]);
+    });
 });
 
-describe("unlimited points", () => {
-    it("adds points", () => {
-        const state: PointGraphState = {
-            ...baseUnlimitedPointGraphState,
+describe("unlimited polygon", () => {
+    it("adds point to polygon", () => {
+        const state: PolygonGraphState = {
+            ...baseUnlimitedPolygonGraphState,
         };
 
         const stateAfterAddingPoint = interactiveGraphReducer(
             state,
-            actions.pointGraph.addPoint([8, 10]),
-        ) as PointGraphState;
+            actions.polygon.addPoint([8, 10]),
+        ) as PolygonGraphState;
 
         expect(stateAfterAddingPoint.coords).toMatchObject([[8, 10]]);
     });
 
-    it("removes points", () => {
-        let state: PointGraphState = {
-            ...baseUnlimitedPointGraphState,
+    xit("does not adds point to polygon when polygon is closed", () => {
+        // TODO [catjohnson]: ensure unlimited polygon does not add points
+        // when the polygon is closed.
+    });
+
+    it("removes point to polygon", () => {
+        let state: PolygonGraphState = {
+            ...baseUnlimitedPolygonGraphState,
         };
 
         state = interactiveGraphReducer(
             state,
-            actions.pointGraph.addPoint([1, 1]),
-        ) as PointGraphState;
+            actions.polygon.addPoint([1, 1]),
+        ) as PolygonGraphState;
 
         state = interactiveGraphReducer(
             state,
-            actions.pointGraph.addPoint([2, 2]),
-        ) as PointGraphState;
+            actions.polygon.addPoint([2, 2]),
+        ) as PolygonGraphState;
 
         state = interactiveGraphReducer(
             state,
-            actions.pointGraph.addPoint([3, 3]),
-        ) as PointGraphState;
+            actions.polygon.addPoint([3, 3]),
+        ) as PolygonGraphState;
 
         state = interactiveGraphReducer(
             state,
-            actions.pointGraph.removePoint(1),
-        ) as PointGraphState;
+            actions.polygon.removePoint(1),
+        ) as PolygonGraphState;
 
         expect(state.coords).toMatchObject([
             [1, 1],
             [3, 3],
         ]);
+    });
+
+    xit("does not remove point to polygon when closed", () => {
+        // TODO [catjohnson]: ensure unlimited polygon does not add points
+        // when the polygon is closed.
     });
 });
